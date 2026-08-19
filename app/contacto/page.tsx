@@ -1,0 +1,1 @@
+export default function Page(){return <main className="section"><div className="eyebrow">Contacto</div><h1>Construyamos algo útil.</h1><p className="lead">Este MVP todavía no publica datos personales de contacto. La siguiente iteración incorporará un formulario para negocios, alianzas y proyectos de Nexo, con protección anti-spam y almacenamiento seguro.</p></main>}
