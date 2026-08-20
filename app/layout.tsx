@@ -12,9 +12,6 @@ export const metadata: Metadata = {
   },
   description:
     "NEXO investiga, valida y construye negocios, productos digitales y sistemas con inteligencia artificial.",
-  alternates: {
-    canonical: "/",
-  },
   openGraph: {
     type: "website",
     locale: "es_ES",
@@ -36,6 +33,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="es">
       <body>
+        <a className="skip-link" href="#contenido-principal">
+          Saltar al contenido
+        </a>
         <div className="wrap">
           <nav aria-label="Navegación principal">
             <Link className="brand" href="/" aria-label="NEXO — Inicio">
@@ -48,7 +48,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <Link href="/contacto">Contacto</Link>
             </div>
           </nav>
-          {children}
+          <div id="contenido-principal">{children}</div>
           <footer>
             © {new Date().getFullYear()} NEXO · Idea → evidencia → negocio.
           </footer>
