@@ -2,13 +2,15 @@
 
 Target production hostname: `nexo.casavivadecuba.com`
 
-## Preconditions
+## Release gate
 
-- `main` is the production source of truth.
-- GitHub Actions build must pass before production deployment.
-- No secrets are committed to the repository.
-- `OPENAI_API_KEY` must be configured only in the hosting environment.
-- Optional `OPENAI_MODEL` can override the server-side default.
+A deployment is allowed only when all of the following are true:
+
+- `main` is the production source of truth and its latest CI build is green.
+- The release commit contains no secrets.
+- The hosting runtime supports a Next.js Node.js application (not static-only hosting).
+- `OPENAI_API_KEY` is stored only as a server-side environment secret.
+- A rollback target (the immediately previous known-good commit/deployment) is identified before publishing.
 
 ## Runtime
 
@@ -35,22 +37,53 @@ Optional:
 
 ```text
 OPENAI_MODEL=<supported model id>
+NEXO_ANALYZER_RATE_LIMIT_PER_HOUR=8
 ```
 
-Never place real values in `.env.example`, client-side code, GitHub issues, logs, or deployment documentation.
+Never place real values in `.env.example`, client-side code, GitHub issues, logs, PR comments, or deployment documentation.
 
-## Verification after deploy
+## Hostinger deployment sequence
 
-1. Open `/` and confirm the homepage renders.
-2. Open `/negocios`, `/herramientas`, `/sobre-mi`, and `/contacto`.
-3. Request `/api/health`; expect HTTP 200 and `ok: true`.
-4. Confirm `analyzerConfigured: true` only after the server secret is configured.
-5. Submit a short valid business idea in NEXO Business Analyzer and verify a structured result.
-6. Test a too-short idea and verify the UI handles HTTP 400 safely.
-7. Verify mobile navigation and layout on a narrow viewport.
-8. Confirm HTTPS is active on `nexo.casavivadecuba.com`.
-9. Confirm no secret is visible in page source, browser requests, repository files, or logs.
+1. Inspect the existing Hostinger hosting plan and `nexo.casavivadecuba.com` before changing anything.
+2. Confirm the target supports Node.js 20+ and a persistent Next.js server process.
+3. Keep Casa Viva's existing production site and document root untouched.
+4. Point the NEXO application only at the dedicated NEXO subdomain/application target.
+5. Configure server environment variables in Hostinger; never upload a real `.env` to GitHub.
+6. Install dependencies and run the production build.
+7. Start the application and attach `nexo.casavivadecuba.com` to that application.
+8. Enable/verify HTTPS before announcing the URL.
+9. Run the smoke tests below. If a critical smoke test fails, roll back instead of patching blindly in production.
+
+## Production smoke tests
+
+- `/` renders NEXO Home and primary navigation works.
+- `/negocios` renders the project portfolio.
+- `/herramientas` renders NEXO Business Analyzer.
+- `/sobre-mi` renders Ernesto's portfolio.
+- `/contacto` renders without runtime errors.
+- `/robots.txt` and `/sitemap.xml` respond successfully.
+- `/api/health` returns HTTP 200 and `ok: true`.
+- `analyzerConfigured: true` appears only after the server secret is configured.
+- A valid business idea produces a structured score/decision/result.
+- A too-short idea is rejected safely.
+- Repeated requests eventually receive the configured rate-limit response rather than consuming unlimited API calls.
+- Analyzer responses are not cached (`Cache-Control: no-store`).
+- Mobile navigation, Analyzer input, score and result sections fit a narrow viewport without horizontal scrolling.
+- Keyboard focus is visible and the skip link works.
+- HTTPS is active on `nexo.casavivadecuba.com`.
+- No secret is visible in page source, browser-delivered JavaScript, repository files or public logs.
 
 ## Rollback
 
-If production verification fails, restore the immediately previous known-good deployment/commit and keep the failing commit out of production until diagnosed. Do not modify Casa Viva production resources as part of a NEXO rollback.
+Before deployment, record the current production deployment/commit. If production verification fails, restore the immediately previous known-good deployment/commit and keep the failing release out of production until diagnosed. Do not modify Casa Viva production resources as part of a NEXO rollback.
+
+## Release record
+
+For each production release, record at minimum:
+
+- Git commit SHA deployed;
+- deployment date/time;
+- CI run used as evidence;
+- smoke-test result;
+- rollback commit/deployment;
+- any known limitation accepted for the release.
