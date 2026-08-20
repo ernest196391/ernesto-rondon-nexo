@@ -15,6 +15,13 @@ type AnalysisData = {
   next_steps: string[];
 };
 
+const decisionLabel: Record<AnalysisData["decision"], string> = {
+  GO: "Avanzar",
+  "TEST FIRST": "Validar primero",
+  PIVOT: "Replantear",
+  STOP: "Detener",
+};
+
 export default function Page() {
   const [idea, setIdea] = useState("");
   const [data, setData] = useState<AnalysisData | null>(null);
@@ -27,9 +34,14 @@ export default function Page() {
     setData(null);
     setError("");
 
+    const controller = new AbortController();
+    const timeout = window.setTimeout(() => controller.abort(), 35000);
+
     try {
       const response = await fetch("/api/analyze", {
         method: "POST",
+        signal: controller.signal,
+        cache: "no-store",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ idea }),
       });
@@ -39,73 +51,97 @@ export default function Page() {
         return;
       }
       setData(payload.data || null);
-    } catch {
-      setError("No se pudo conectar con el analizador.");
+    } catch (requestError) {
+      if (requestError instanceof Error && requestError.name === "AbortError") {
+        setError("El análisis tardó demasiado. Inténtalo de nuevo.");
+      } else {
+        setError("No se pudo conectar con el analizador.");
+      }
     } finally {
+      window.clearTimeout(timeout);
       setLoading(false);
     }
   }
 
   return (
-    <main className="section tool">
+    <main className="section tool analyzer-page" id="main-content">
       <div className="eyebrow">Herramienta gratuita · MVP</div>
       <h1>NEXO Business Analyzer</h1>
       <p className="lead">
         Describe una idea de negocio. El sistema la someterá a un primer filtro de problema,
-        cliente, monetización, riesgos y validación. La puntuación orienta la siguiente prueba;
-        no garantiza éxito.
+        cliente, monetización, diferenciación, riesgos y validación. La puntuación orienta la
+        siguiente prueba; no garantiza éxito.
       </p>
 
-      <textarea
-        value={idea}
-        maxLength={5000}
-        onChange={(event) => setIdea(event.target.value)}
-        placeholder="Ejemplo: Quiero conectar electricistas disponibles con personas que necesitan reparaciones en su casa..."
-        aria-label="Describe tu idea de negocio"
-      />
-      <div className="muted" style={{ marginTop: 8 }}>
-        {idea.length}/5000 caracteres
+      <div className="analyzer-input-card">
+        <label className="analyzer-label" htmlFor="business-idea">Describe la oportunidad</label>
+        <textarea
+          id="business-idea"
+          value={idea}
+          maxLength={5000}
+          onChange={(event) => setIdea(event.target.value)}
+          placeholder="Ejemplo: Quiero conectar electricistas disponibles con personas que necesitan reparaciones en su casa..."
+          aria-describedby="idea-help"
+        />
+        <div className="analyzer-input-meta" id="idea-help">
+          <span>Incluye quién tiene el problema, cómo lo resuelve hoy y por qué tu idea sería mejor.</span>
+          <span>{idea.length}/5000</span>
+        </div>
+        <button onClick={analyze} disabled={loading || idea.trim().length < 10}>
+          {loading ? "Analizando oportunidad..." : "Analizar mi idea"}
+        </button>
       </div>
-      <button onClick={analyze} disabled={loading || idea.trim().length < 10}>
-        {loading ? "Analizando..." : "Analizar mi idea"}
-      </button>
+
+      {loading && (
+        <div className="analyzer-status" role="status" aria-live="polite">
+          <span className="status-dot" aria-hidden="true" />
+          NEXO está evaluando la idea. Puede tardar unos segundos.
+        </div>
+      )}
 
       {error && (
-        <div className="result" role="alert">
+        <div className="result analyzer-error" role="alert">
           <strong>No pudimos completar el análisis.</strong>
-          <div style={{ marginTop: 8 }}>{error}</div>
+          <p>{error}</p>
         </div>
       )}
 
       {data && (
-        <section className="result" aria-live="polite">
-          <div className="eyebrow">Resultado NEXO</div>
-          <h2 style={{ marginTop: 10, marginBottom: 8 }}>{data.score}/100 · {data.decision}</h2>
-          <p className="muted">Úsalo como hipótesis de trabajo y valida con evidencia real antes de invertir más.</p>
+        <section className="result analyzer-result" aria-live="polite" aria-label="Resultado del análisis NEXO">
+          <header className="analyzer-summary">
+            <div>
+              <div className="eyebrow">Resultado NEXO</div>
+              <div className="score-line"><strong>{data.score}</strong><span>/100</span></div>
+            </div>
+            <div className="decision-block">
+              <span className="decision-code">{data.decision}</span>
+              <strong>{decisionLabel[data.decision]}</strong>
+            </div>
+          </header>
 
-          <h3>Problema</h3>
-          <p>{data.problem}</p>
+          <p className="analyzer-disclaimer">Úsalo como hipótesis de trabajo y valida con evidencia real antes de invertir más.</p>
 
-          <h3>Cliente</h3>
-          <p>{data.customer}</p>
+          <div className="analysis-grid">
+            <article><h3>Problema</h3><p>{data.problem}</p></article>
+            <article><h3>Cliente</h3><p>{data.customer}</p></article>
+            <article><h3>Monetización</h3><p>{data.monetization}</p></article>
+            <article><h3>Diferenciación</h3><p>{data.differentiation}</p></article>
+          </div>
 
-          <h3>Monetización</h3>
-          <p>{data.monetization}</p>
+          <div className="analysis-section">
+            <h3>Riesgos que hay que resolver</h3>
+            <ul>{data.risks.map((risk) => <li key={risk}>{risk}</li>)}</ul>
+          </div>
 
-          <h3>Diferenciación</h3>
-          <p>{data.differentiation}</p>
+          <div className="analysis-grid analysis-grid-wide">
+            <article><h3>MVP recomendado</h3><p>{data.mvp}</p></article>
+            <article><h3>Prueba de validación</h3><p>{data.validation_test}</p></article>
+          </div>
 
-          <h3>Riesgos</h3>
-          <ul>{data.risks.map((risk) => <li key={risk}>{risk}</li>)}</ul>
-
-          <h3>MVP recomendado</h3>
-          <p>{data.mvp}</p>
-
-          <h3>Prueba de validación</h3>
-          <p>{data.validation_test}</p>
-
-          <h3>Próximos pasos</h3>
-          <ol>{data.next_steps.map((step) => <li key={step}>{step}</li>)}</ol>
+          <div className="analysis-section next-steps">
+            <h3>Próximos pasos</h3>
+            <ol>{data.next_steps.map((step) => <li key={step}>{step}</li>)}</ol>
+          </div>
         </section>
       )}
     </main>

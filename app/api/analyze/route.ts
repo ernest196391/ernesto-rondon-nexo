@@ -23,6 +23,7 @@ type RateLimitEntry = {
 const rateLimitStore = new Map<string, RateLimitEntry>();
 const RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000;
 const DEFAULT_RATE_LIMIT_PER_HOUR = 8;
+const NO_STORE_HEADERS = { "Cache-Control": "no-store" };
 
 const schema = {
   type: "object",
@@ -128,6 +129,32 @@ function consumeRateLimit(key: string) {
 
 export async function POST(req: Request) {
   try {
+    let body: unknown;
+    try {
+      body = await req.json();
+    } catch {
+      return NextResponse.json(
+        { error: "La solicitud no contiene un JSON válido." },
+        { status: 400, headers: NO_STORE_HEADERS },
+      );
+    }
+
+    const idea = typeof (body as { idea?: unknown })?.idea === "string" ? (body as { idea: string }).idea.trim() : "";
+
+    if (idea.length < 10) {
+      return NextResponse.json(
+        { error: "Describe la idea con un poco más de detalle." },
+        { status: 400, headers: NO_STORE_HEADERS },
+      );
+    }
+
+    if (idea.length > 5000) {
+      return NextResponse.json(
+        { error: "La idea es demasiado larga para este análisis inicial." },
+        { status: 400, headers: NO_STORE_HEADERS },
+      );
+    }
+
     const rateLimit = consumeRateLimit(getClientKey(req));
     if (!rateLimit.allowed) {
       const retryAfterSeconds = Math.max(1, Math.ceil((rateLimit.resetAt - Date.now()) / 1000));
@@ -136,6 +163,7 @@ export async function POST(req: Request) {
         {
           status: 429,
           headers: {
+            ...NO_STORE_HEADERS,
             "Retry-After": retryAfterSeconds.toString(),
             "X-RateLimit-Remaining": "0",
           },
@@ -143,28 +171,11 @@ export async function POST(req: Request) {
       );
     }
 
-    const body = await req.json();
-    const idea = typeof body?.idea === "string" ? body.idea.trim() : "";
-
-    if (idea.length < 10) {
-      return NextResponse.json(
-        { error: "Describe la idea con un poco más de detalle." },
-        { status: 400 },
-      );
-    }
-
-    if (idea.length > 5000) {
-      return NextResponse.json(
-        { error: "La idea es demasiado larga para este análisis inicial." },
-        { status: 400 },
-      );
-    }
-
     const apiKey = process.env.OPENAI_API_KEY;
     if (!apiKey) {
       return NextResponse.json(
         { error: "El analizador con IA todavía no tiene configurada su clave del servidor." },
-        { status: 503 },
+        { status: 503, headers: NO_STORE_HEADERS },
       );
     }
 
@@ -200,7 +211,7 @@ export async function POST(req: Request) {
       if (error instanceof Error && error.name === "AbortError") {
         return NextResponse.json(
           { error: "El análisis tardó demasiado. Inténtalo de nuevo en unos segundos." },
-          { status: 504 },
+          { status: 504, headers: NO_STORE_HEADERS },
         );
       }
       throw error;
@@ -213,7 +224,7 @@ export async function POST(req: Request) {
       console.error("OpenAI API error", response.status, errorBody.slice(0, 500));
       return NextResponse.json(
         { error: "La IA no pudo completar el análisis. Inténtalo de nuevo." },
-        { status: 502 },
+        { status: 502, headers: NO_STORE_HEADERS },
       );
     }
 
@@ -222,7 +233,7 @@ export async function POST(req: Request) {
     if (!outputText) {
       return NextResponse.json(
         { error: "La IA respondió sin un análisis utilizable." },
-        { status: 502 },
+        { status: 502, headers: NO_STORE_HEADERS },
       );
     }
 
@@ -232,26 +243,31 @@ export async function POST(req: Request) {
     } catch {
       return NextResponse.json(
         { error: "La IA devolvió un formato de análisis inválido." },
-        { status: 502 },
+        { status: 502, headers: NO_STORE_HEADERS },
       );
     }
 
     if (!isAnalysisData(parsed)) {
       return NextResponse.json(
         { error: "La IA devolvió un análisis incompleto o inconsistente." },
-        { status: 502 },
+        { status: 502, headers: NO_STORE_HEADERS },
       );
     }
 
     return NextResponse.json(
       { analysis: formatAnalysis(parsed), data: parsed },
-      { headers: { "X-RateLimit-Remaining": Math.max(0, rateLimit.remaining).toString() } },
+      {
+        headers: {
+          ...NO_STORE_HEADERS,
+          "X-RateLimit-Remaining": Math.max(0, rateLimit.remaining).toString(),
+        },
+      },
     );
   } catch (error) {
     console.error("NEXO analyzer error", error);
     return NextResponse.json(
       { error: "No se pudo procesar el análisis." },
-      { status: 500 },
+      { status: 500, headers: NO_STORE_HEADERS },
     );
   }
 }
