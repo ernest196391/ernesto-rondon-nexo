@@ -75,28 +75,45 @@ export async function POST(req: Request) {
       );
     }
 
-    const response = await fetch("https://api.openai.com/v1/responses", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        model: process.env.OPENAI_MODEL || "gpt-5.6",
-        store: false,
-        instructions:
-          "Eres NEXO Business Analyzer. Evalúa ideas de negocio con criterio empresarial. No inventes evidencia, demanda, precios ni regulación. Separa lo que puede inferirse de lo que debe validarse. La puntuación mide la calidad de la oportunidad con la información disponible, no garantiza éxito. Responde en español.",
-        input: `Analiza esta idea de negocio:\n\n${idea}`,
-        text: {
-          format: {
-            type: "json_schema",
-            name: "nexo_business_analysis",
-            strict: true,
-            schema,
-          },
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 30000);
+
+    let response: Response;
+    try {
+      response = await fetch("https://api.openai.com/v1/responses", {
+        method: "POST",
+        signal: controller.signal,
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+          "Content-Type": "application/json",
         },
-      }),
-    });
+        body: JSON.stringify({
+          model: process.env.OPENAI_MODEL || "gpt-5.6",
+          store: false,
+          instructions:
+            "Eres NEXO Business Analyzer. Evalúa ideas de negocio con criterio empresarial. No inventes evidencia, demanda, precios ni regulación. Separa lo que puede inferirse de lo que debe validarse. La puntuación mide la calidad de la oportunidad con la información disponible, no garantiza éxito. Responde en español.",
+          input: `Analiza esta idea de negocio:\n\n${idea}`,
+          text: {
+            format: {
+              type: "json_schema",
+              name: "nexo_business_analysis",
+              strict: true,
+              schema,
+            },
+          },
+        }),
+      });
+    } catch (error) {
+      if (error instanceof Error && error.name === "AbortError") {
+        return NextResponse.json(
+          { error: "El análisis tardó demasiado. Inténtalo de nuevo en unos segundos." },
+          { status: 504 },
+        );
+      }
+      throw error;
+    } finally {
+      clearTimeout(timeout);
+    }
 
     if (!response.ok) {
       const errorBody = await response.text();
