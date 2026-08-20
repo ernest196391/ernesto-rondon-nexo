@@ -2,6 +2,19 @@ import { NextResponse } from "next/server";
 
 export const runtime = "nodejs";
 
+type AnalysisData = {
+  score: number;
+  decision: "GO" | "TEST FIRST" | "PIVOT" | "STOP";
+  problem: string;
+  customer: string;
+  monetization: string;
+  differentiation: string;
+  risks: string[];
+  mvp: string;
+  validation_test: string;
+  next_steps: string[];
+};
+
 const schema = {
   type: "object",
   additionalProperties: false,
@@ -44,8 +57,34 @@ function extractOutputText(payload: any): string | null {
   return null;
 }
 
-function formatAnalysis(data: any) {
-  return `PUNTUACIÓN NEXO: ${data.score}/100\nDECISIÓN: ${data.decision}\n\nPROBLEMA\n${data.problem}\n\nCLIENTE\n${data.customer}\n\nMONETIZACIÓN\n${data.monetization}\n\nDIFERENCIACIÓN\n${data.differentiation}\n\nRIESGOS\n${data.risks.map((x: string) => `• ${x}`).join("\n")}\n\nMVP\n${data.mvp}\n\nPRUEBA DE VALIDACIÓN\n${data.validation_test}\n\nPRÓXIMOS PASOS\n${data.next_steps.map((x: string, i: number) => `${i + 1}. ${x}`).join("\n")}`;
+function isStringArray(value: unknown, min: number, max: number): value is string[] {
+  return Array.isArray(value) && value.length >= min && value.length <= max && value.every((item) => typeof item === "string" && item.trim().length > 0);
+}
+
+function isAnalysisData(value: unknown): value is AnalysisData {
+  if (!value || typeof value !== "object") return false;
+  const data = value as Record<string, unknown>;
+  const validDecision = data.decision === "GO" || data.decision === "TEST FIRST" || data.decision === "PIVOT" || data.decision === "STOP";
+
+  return (
+    Number.isInteger(data.score) &&
+    typeof data.score === "number" &&
+    data.score >= 0 &&
+    data.score <= 100 &&
+    validDecision &&
+    typeof data.problem === "string" && data.problem.trim().length > 0 &&
+    typeof data.customer === "string" && data.customer.trim().length > 0 &&
+    typeof data.monetization === "string" && data.monetization.trim().length > 0 &&
+    typeof data.differentiation === "string" && data.differentiation.trim().length > 0 &&
+    isStringArray(data.risks, 1, 5) &&
+    typeof data.mvp === "string" && data.mvp.trim().length > 0 &&
+    typeof data.validation_test === "string" && data.validation_test.trim().length > 0 &&
+    isStringArray(data.next_steps, 2, 5)
+  );
+}
+
+function formatAnalysis(data: AnalysisData) {
+  return `PUNTUACIÓN NEXO: ${data.score}/100\nDECISIÓN: ${data.decision}\n\nPROBLEMA\n${data.problem}\n\nCLIENTE\n${data.customer}\n\nMONETIZACIÓN\n${data.monetization}\n\nDIFERENCIACIÓN\n${data.differentiation}\n\nRIESGOS\n${data.risks.map((x) => `• ${x}`).join("\n")}\n\nMVP\n${data.mvp}\n\nPRUEBA DE VALIDACIÓN\n${data.validation_test}\n\nPRÓXIMOS PASOS\n${data.next_steps.map((x, i) => `${i + 1}. ${x}`).join("\n")}`;
 }
 
 export async function POST(req: Request) {
@@ -133,8 +172,24 @@ export async function POST(req: Request) {
       );
     }
 
-    const data = JSON.parse(outputText);
-    return NextResponse.json({ analysis: formatAnalysis(data), data });
+    let parsed: unknown;
+    try {
+      parsed = JSON.parse(outputText);
+    } catch {
+      return NextResponse.json(
+        { error: "La IA devolvió un formato de análisis inválido." },
+        { status: 502 },
+      );
+    }
+
+    if (!isAnalysisData(parsed)) {
+      return NextResponse.json(
+        { error: "La IA devolvió un análisis incompleto o inconsistente." },
+        { status: 502 },
+      );
+    }
+
+    return NextResponse.json({ analysis: formatAnalysis(parsed), data: parsed });
   } catch (error) {
     console.error("NEXO analyzer error", error);
     return NextResponse.json(
