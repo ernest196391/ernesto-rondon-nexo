@@ -19,11 +19,13 @@ This application is a Next.js Node.js application. Deploy the source application
 Expected commands:
 
 ```text
-Install: npm install
+Install: npm ci
 Build: npm run build
 Start: npm run start
 Node: 20+
 ```
+
+Use `npm ci` for CI/deployment when `package-lock.json` is present so installs are reproducible.
 
 ## Environment
 
@@ -41,6 +43,24 @@ NEXO_ANALYZER_RATE_LIMIT_PER_HOUR=8
 ```
 
 Never place real values in `.env.example`, client-side code, GitHub issues, logs, PR comments, or deployment documentation.
+
+## Render deployment sequence
+
+Render is an approved platform-native deployment path when it provides the required Node.js runtime, server-side secrets, HTTPS and rollback capability.
+
+1. Create a **Web Service**, not a Static Site, from `ernest196391/ernesto-rondon-nexo`.
+2. Deploy branch `main` only after CI is green.
+3. Leave **Root Directory** empty unless the repository structure changes.
+4. Use Node.js 20+.
+5. Use `npm ci && npm run build` as the build command and `npm run start` as the start command.
+6. Do not define a fixed `PORT`; the application must use the `PORT` supplied by Render.
+7. Configure `OPENAI_API_KEY` only as a Render environment secret. Configure `NEXO_ANALYZER_RATE_LIMIT_PER_HOUR=8` unless release requirements specify another tested value.
+8. Validate the temporary `*.onrender.com` URL first, including `/api/health` and the Analyzer.
+9. Connect `nexo.casavivadecuba.com` only after the temporary deployment passes smoke tests.
+10. Verify HTTPS and rerun the production smoke tests after the custom domain is attached.
+11. If a critical test fails, roll back to the immediately previous known-good Render deployment instead of patching production blindly.
+
+Free-tier instances may sleep or have limited resources. Treat free service as suitable for validation/early launch only; reassess capacity before relying on it for latency-sensitive or sustained production traffic.
 
 ## Hostinger deployment sequence
 
