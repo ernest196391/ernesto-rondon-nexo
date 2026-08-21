@@ -20,10 +20,20 @@ type RateLimitEntry = {
   resetAt: number;
 };
 
+type UsageRecord = {
+  provider: "gemini" | "openai";
+  model: string;
+  inputTokens?: number;
+  outputTokens?: number;
+  totalTokens?: number;
+};
+
 const rateLimitStore = new Map<string, RateLimitEntry>();
 const RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000;
 const DEFAULT_RATE_LIMIT_PER_HOUR = 8;
 const NO_STORE_HEADERS = { "Cache-Control": "no-store" };
+const SYSTEM_INSTRUCTIONS =
+  "Eres NEXO Business Analyzer. Evalúa ideas de negocio con criterio empresarial. No inventes evidencia, demanda, precios ni regulación. Separa lo que puede inferirse de lo que debe validarse. La puntuación mide la calidad de la oportunidad con la información disponible, no garantiza éxito. Responde en español.";
 
 const schema = {
   type: "object",
@@ -54,7 +64,7 @@ const schema = {
   },
 };
 
-function extractOutputText(payload: any): string | null {
+function extractOpenAIOutputText(payload: any): string | null {
   if (!Array.isArray(payload?.output)) return null;
   for (const item of payload.output) {
     if (!Array.isArray(item?.content)) continue;
@@ -65,6 +75,16 @@ function extractOutputText(payload: any): string | null {
     }
   }
   return null;
+}
+
+function extractGeminiOutputText(payload: any): string | null {
+  const parts = payload?.candidates?.[0]?.content?.parts;
+  if (!Array.isArray(parts)) return null;
+  const text = parts
+    .map((part: any) => (typeof part?.text === "string" ? part.text : ""))
+    .join("")
+    .trim();
+  return text || null;
 }
 
 function isStringArray(value: unknown, min: number, max: number): value is string[] {
@@ -93,8 +113,147 @@ function isAnalysisData(value: unknown): value is AnalysisData {
   );
 }
 
+function parseAnalysis(text: string): AnalysisData | null {
+  try {
+    const parsed: unknown = JSON.parse(text);
+    return isAnalysisData(parsed) ? parsed : null;
+  } catch {
+    return null;
+  }
+}
+
 function formatAnalysis(data: AnalysisData) {
   return `PUNTUACIÓN NEXO: ${data.score}/100\nDECISIÓN: ${data.decision}\n\nPROBLEMA\n${data.problem}\n\nCLIENTE\n${data.customer}\n\nMONETIZACIÓN\n${data.monetization}\n\nDIFERENCIACIÓN\n${data.differentiation}\n\nRIESGOS\n${data.risks.map((x) => `• ${x}`).join("\n")}\n\nMVP\n${data.mvp}\n\nPRUEBA DE VALIDACIÓN\n${data.validation_test}\n\nPRÓXIMOS PASOS\n${data.next_steps.map((x, i) => `${i + 1}. ${x}`).join("\n")}`;
+}
+
+function logUsage(record: UsageRecord) {
+  console.info("NEXO_AI_USAGE", JSON.stringify(record));
+}
+
+async function callGemini(idea: string, apiKey: string): Promise<AnalysisData | null> {
+  const model = process.env.GEMINI_MODEL || "gemini-3.1-flash-lite";
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 30000);
+
+  try {
+    const response = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`,
+      {
+        method: "POST",
+        signal: controller.signal,
+        headers: {
+          "x-goog-api-key": apiKey,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          systemInstruction: {
+            parts: [{ text: SYSTEM_INSTRUCTIONS }],
+          },
+          contents: [
+            {
+              role: "user",
+              parts: [{ text: `Analiza esta idea de negocio:\n\n${idea}` }],
+            },
+          ],
+          generationConfig: {
+            responseFormat: {
+              text: {
+                mimeType: "application/json",
+                schema,
+              },
+            },
+          },
+        }),
+      },
+    );
+
+    if (!response.ok) {
+      const errorBody = await response.text();
+      console.warn("Gemini API error", response.status, errorBody.slice(0, 500));
+      return null;
+    }
+
+    const payload = await response.json();
+    const usage = payload?.usageMetadata;
+    logUsage({
+      provider: "gemini",
+      model,
+      inputTokens: usage?.promptTokenCount,
+      outputTokens: usage?.candidatesTokenCount,
+      totalTokens: usage?.totalTokenCount,
+    });
+
+    const outputText = extractGeminiOutputText(payload);
+    return outputText ? parseAnalysis(outputText) : null;
+  } catch (error) {
+    if (error instanceof Error && error.name === "AbortError") {
+      console.warn("Gemini API timeout");
+      return null;
+    }
+    console.warn("Gemini API request failed", error);
+    return null;
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
+async function callOpenAI(idea: string, apiKey: string): Promise<AnalysisData | null> {
+  const model = process.env.OPENAI_MODEL || "gpt-5.6";
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 30000);
+
+  try {
+    const response = await fetch("https://api.openai.com/v1/responses", {
+      method: "POST",
+      signal: controller.signal,
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        model,
+        store: false,
+        instructions: SYSTEM_INSTRUCTIONS,
+        input: `Analiza esta idea de negocio:\n\n${idea}`,
+        text: {
+          format: {
+            type: "json_schema",
+            name: "nexo_business_analysis",
+            strict: true,
+            schema,
+          },
+        },
+      }),
+    });
+
+    if (!response.ok) {
+      const errorBody = await response.text();
+      console.error("OpenAI API error", response.status, errorBody.slice(0, 500));
+      return null;
+    }
+
+    const payload = await response.json();
+    const usage = payload?.usage;
+    logUsage({
+      provider: "openai",
+      model: payload?.model || model,
+      inputTokens: usage?.input_tokens,
+      outputTokens: usage?.output_tokens,
+      totalTokens: usage?.total_tokens,
+    });
+
+    const outputText = extractOpenAIOutputText(payload);
+    return outputText ? parseAnalysis(outputText) : null;
+  } catch (error) {
+    if (error instanceof Error && error.name === "AbortError") {
+      console.warn("OpenAI API timeout");
+      return null;
+    }
+    console.error("OpenAI API request failed", error);
+    return null;
+  } finally {
+    clearTimeout(timeout);
+  }
 }
 
 function getClientKey(req: Request) {
@@ -171,91 +330,36 @@ export async function POST(req: Request) {
       );
     }
 
-    const apiKey = process.env.OPENAI_API_KEY;
-    if (!apiKey) {
+    const geminiApiKey = process.env.GEMINI_API_KEY;
+    const openaiApiKey = process.env.OPENAI_API_KEY;
+
+    if (!geminiApiKey && !openaiApiKey) {
       return NextResponse.json(
-        { error: "El analizador con IA todavía no tiene configurada su clave del servidor." },
+        { error: "El analizador con IA todavía no tiene configurado un proveedor." },
         { status: 503, headers: NO_STORE_HEADERS },
       );
     }
 
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 30000);
+    let analysis: AnalysisData | null = null;
 
-    let response: Response;
-    try {
-      response = await fetch("https://api.openai.com/v1/responses", {
-        method: "POST",
-        signal: controller.signal,
-        headers: {
-          Authorization: `Bearer ${apiKey}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          model: process.env.OPENAI_MODEL || "gpt-5.6",
-          store: false,
-          instructions:
-            "Eres NEXO Business Analyzer. Evalúa ideas de negocio con criterio empresarial. No inventes evidencia, demanda, precios ni regulación. Separa lo que puede inferirse de lo que debe validarse. La puntuación mide la calidad de la oportunidad con la información disponible, no garantiza éxito. Responde en español.",
-          input: `Analiza esta idea de negocio:\n\n${idea}`,
-          text: {
-            format: {
-              type: "json_schema",
-              name: "nexo_business_analysis",
-              strict: true,
-              schema,
-            },
-          },
-        }),
-      });
-    } catch (error) {
-      if (error instanceof Error && error.name === "AbortError") {
-        return NextResponse.json(
-          { error: "El análisis tardó demasiado. Inténtalo de nuevo en unos segundos." },
-          { status: 504, headers: NO_STORE_HEADERS },
-        );
-      }
-      throw error;
-    } finally {
-      clearTimeout(timeout);
+    if (geminiApiKey) {
+      analysis = await callGemini(idea, geminiApiKey);
     }
 
-    if (!response.ok) {
-      const errorBody = await response.text();
-      console.error("OpenAI API error", response.status, errorBody.slice(0, 500));
+    if (!analysis && openaiApiKey) {
+      console.info("NEXO_AI_ROUTER fallback=gemini_to_openai");
+      analysis = await callOpenAI(idea, openaiApiKey);
+    }
+
+    if (!analysis) {
       return NextResponse.json(
         { error: "La IA no pudo completar el análisis. Inténtalo de nuevo." },
         { status: 502, headers: NO_STORE_HEADERS },
       );
     }
 
-    const payload = await response.json();
-    const outputText = extractOutputText(payload);
-    if (!outputText) {
-      return NextResponse.json(
-        { error: "La IA respondió sin un análisis utilizable." },
-        { status: 502, headers: NO_STORE_HEADERS },
-      );
-    }
-
-    let parsed: unknown;
-    try {
-      parsed = JSON.parse(outputText);
-    } catch {
-      return NextResponse.json(
-        { error: "La IA devolvió un formato de análisis inválido." },
-        { status: 502, headers: NO_STORE_HEADERS },
-      );
-    }
-
-    if (!isAnalysisData(parsed)) {
-      return NextResponse.json(
-        { error: "La IA devolvió un análisis incompleto o inconsistente." },
-        { status: 502, headers: NO_STORE_HEADERS },
-      );
-    }
-
     return NextResponse.json(
-      { analysis: formatAnalysis(parsed), data: parsed },
+      { analysis: formatAnalysis(analysis), data: analysis },
       {
         headers: {
           ...NO_STORE_HEADERS,
