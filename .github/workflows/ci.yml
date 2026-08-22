@@ -21,10 +21,18 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 20.20.2
 
-      - name: Install dependencies
-        run: npm ci --no-audit --no-fund
+      - name: Install validation dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Save regenerated lockfile
+        uses: actions/upload-artifact@v4
+        with:
+          name: next16-package-lock
+          path: package-lock.json
+          if-no-files-found: error
+          retention-days: 1
 
       - name: Audit production dependencies
         run: npm audit --omit=dev --audit-level=high
