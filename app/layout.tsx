@@ -1,5 +1,6 @@
 import "./globals.css";
 import "./mobile-a11y.css";
+import "./voucher-review.css";
 import Link from "next/link";
 import type { Metadata } from "next";
 
