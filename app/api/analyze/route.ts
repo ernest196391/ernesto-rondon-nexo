@@ -59,7 +59,6 @@ function formatAnalysis(d: AnalysisData) { return `PUNTUACIÓN NEXO: ${d.score}/
 function logUsage(record: UsageRecord) { console.info("NEXO_AI_USAGE", JSON.stringify(record)); }
 
 async function callGemini(idea: string, apiKey: string): Promise<AnalysisData | null> {
-  // Use a stable, documented Flash-Lite model by default. Render can override this with GEMINI_MODEL.
   const model = process.env.GEMINI_MODEL || "gemini-2.5-flash-lite";
   const controller = new AbortController(); const timeout = setTimeout(() => controller.abort(), 30000);
   try {
@@ -69,7 +68,8 @@ async function callGemini(idea: string, apiKey: string): Promise<AnalysisData | 
       body: JSON.stringify({
         systemInstruction: { parts: [{ text: SYSTEM_INSTRUCTIONS }] },
         contents: [{ role: "user", parts: [{ text: `Analiza esta idea de negocio:\n\n${idea}` }] }],
-        generationConfig: { responseMimeType: "application/json", responseSchema: schema },
+        // Gemini expects responseMimeType as a string. Keep the schema separate.
+        generationConfig: { responseMimeType: "application/json", responseJsonSchema: schema },
       }),
     });
     if (!response.ok) { const errorBody = await response.text(); console.warn("Gemini API error", response.status, errorBody.slice(0, 500)); return null; }
