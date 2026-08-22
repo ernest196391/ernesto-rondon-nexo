@@ -3,6 +3,10 @@ import { NextResponse } from "next/server";
 export const runtime = "nodejs";
 
 const NO_STORE_HEADERS = { "Cache-Control": "no-store" };
+type RateLimitEntry = { count: number; resetAt: number };
+const voucherRateLimitStore = new Map<string, RateLimitEntry>();
+const RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000;
+const DEFAULT_VOUCHER_RATE_LIMIT_PER_HOUR = 12;
 
 const voucherSchema = {
   type: "object",
@@ -134,6 +138,29 @@ function openAIText(payload: any): string | null {
   return null;
 }
 
+function getClientKey(req: Request) {
+  return req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || req.headers.get("x-real-ip")?.trim() || "unknown";
+}
+
+function getVoucherRateLimitPerHour() {
+  const configured = Number.parseInt(process.env.NEXO_VOUCHER_RATE_LIMIT_PER_HOUR || "", 10);
+  return Number.isFinite(configured) && configured > 0 ? configured : DEFAULT_VOUCHER_RATE_LIMIT_PER_HOUR;
+}
+
+function consumeVoucherRateLimit(key: string) {
+  const now = Date.now();
+  const maxRequests = getVoucherRateLimitPerHour();
+  const existing = voucherRateLimitStore.get(key);
+  if (!existing || existing.resetAt <= now) {
+    const entry = { count: 1, resetAt: now + RATE_LIMIT_WINDOW_MS };
+    voucherRateLimitStore.set(key, entry);
+    return { allowed: true, remaining: maxRequests - 1, resetAt: entry.resetAt };
+  }
+  if (existing.count >= maxRequests) return { allowed: false, remaining: 0, resetAt: existing.resetAt };
+  existing.count += 1;
+  return { allowed: true, remaining: maxRequests - existing.count, resetAt: existing.resetAt };
+}
+
 const instructions = `Eres NEXO Voucher Parser para Casa Viva. Convierte un vale operativo de WhatsApp en JSON estructurado sin inventar datos.
 Reglas:
 - Conserva importes y monedas exactamente como aparecen. No conviertas monedas.
@@ -206,6 +233,15 @@ export async function POST(req: Request) {
     if (rawVoucher.length < 20) return NextResponse.json({ error: "El vale está vacío o es demasiado corto." }, { status: 400, headers: NO_STORE_HEADERS });
     if (rawVoucher.length > 12000) return NextResponse.json({ error: "El vale supera el tamaño permitido." }, { status: 400, headers: NO_STORE_HEADERS });
 
+    const rateLimit = consumeVoucherRateLimit(getClientKey(req));
+    if (!rateLimit.allowed) {
+      const retryAfterSeconds = Math.max(1, Math.ceil((rateLimit.resetAt - Date.now()) / 1000));
+      return NextResponse.json(
+        { error: "Has alcanzado el límite temporal de interpretación de vales. Inténtalo de nuevo más tarde." },
+        { status: 429, headers: { ...NO_STORE_HEADERS, "Retry-After": retryAfterSeconds.toString(), "X-RateLimit-Remaining": "0" } }
+      );
+    }
+
     const geminiKey = process.env.GEMINI_API_KEY;
     const openaiKey = process.env.OPENAI_API_KEY;
     if (!geminiKey && !openaiKey) return NextResponse.json({ error: "No hay proveedor de IA configurado." }, { status: 503, headers: NO_STORE_HEADERS });
@@ -231,7 +267,7 @@ export async function POST(req: Request) {
         persisted: false,
         createsOrder: false
       }
-    }, { headers: NO_STORE_HEADERS });
+    }, { headers: { ...NO_STORE_HEADERS, "X-RateLimit-Remaining": Math.max(0, rateLimit.remaining).toString() } });
   } catch (error) {
     console.error("NEXO parse-voucher error", error);
     return NextResponse.json({ error: "No se pudo procesar el vale." }, { status: 500, headers: NO_STORE_HEADERS });
