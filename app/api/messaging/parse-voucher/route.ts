@@ -9,7 +9,8 @@ const voucherSchema = {
   additionalProperties: false,
   required: [
     "orderCode", "store", "manager", "managerCode", "products", "productTotals",
-    "deliveryCharge", "customer", "phones", "address", "reference", "zone", "notes",
+    "deliveryCharge", "customer", "phones", "address", "betweenStreets", "reference", "zone", "notes",
+    "scheduledDate", "scheduledTime",
     "changeRequired", "sourceUrl", "missing", "warnings", "confidence"
   ],
   properties: {
@@ -57,9 +58,12 @@ const voucherSchema = {
     customer: { type: ["string", "null"] },
     phones: { type: "array", items: { type: "string" } },
     address: { type: ["string", "null"] },
+    betweenStreets: { type: ["string", "null"] },
     reference: { type: ["string", "null"] },
     zone: { type: ["string", "null"] },
     notes: { type: "array", items: { type: "string" } },
+    scheduledDate: { type: ["string", "null"] },
+    scheduledTime: { type: ["string", "null"] },
     changeRequired: {
       type: "array",
       items: {
@@ -90,9 +94,12 @@ type Voucher = {
   customer: string | null;
   phones: string[];
   address: string | null;
+  betweenStreets: string | null;
   reference: string | null;
   zone: string | null;
   notes: string[];
+  scheduledDate: string | null;
+  scheduledTime: string | null;
   changeRequired: Array<{ amount: number; currency: string }>;
   sourceUrl: string | null;
   missing: string[];
@@ -135,6 +142,8 @@ Reglas:
 - "Llevar 20 USD de vuelto" significa changeRequired=[{amount:20,currency:"USD"}], no un cobro.
 - Si una mensajería se descuenta de comisión, conserva el cobro al cliente y registra el ajuste en commissionAdjustment cuando el vale lo indique.
 - Para direcciones cubanas conserva entrecalles, reparto, municipio y referencias textuales; no inventes coordenadas.
+- Separa las entrecalles en betweenStreets y los puntos de referencia en reference cuando estén explícitos.
+- Conserva la fecha solicitada en scheduledDate y el horario o ventana de entrega en scheduledTime. No infieras fechas absolutas cuando el vale solo diga "mañana".
 - Si hay varios teléfonos, conserva todos.
 - Si un dato necesario no aparece, usa null/[] y añádelo a missing.
 - Añade warnings solo cuando exista ambigüedad real, contradicción o dato operativo que requiera confirmación.

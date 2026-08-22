@@ -1,5 +1,6 @@
 import "./globals.css";
 import "./mobile-a11y.css";
+import "./voucher-review.css";
 import Link from "next/link";
 import type { Metadata } from "next";
 
@@ -45,6 +46,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <div className="links">
               <Link href="/negocios">Proyectos</Link>
               <Link href="/herramientas">Herramientas</Link>
+              <Link href="/mensajeria/interpretar-vale">Vales</Link>
               <Link href="/sobre-mi">Ernesto</Link>
               <Link href="/contacto">Contacto</Link>
             </div>

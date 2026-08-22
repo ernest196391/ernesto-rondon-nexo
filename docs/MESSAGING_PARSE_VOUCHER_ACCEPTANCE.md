@@ -27,9 +27,12 @@ Response:
     "customer": "...",
     "phones": [],
     "address": "...",
+    "betweenStreets": "...",
     "reference": "...",
     "zone": "...",
     "notes": [],
+    "scheduledDate": null,
+    "scheduledTime": null,
     "changeRequired": [],
     "sourceUrl": null,
     "missing": [],
@@ -115,6 +118,12 @@ Expected: `sourceUrl=null`; if the absence is operationally relevant it can appe
 8. Every response requires human confirmation.
 9. The endpoint never persists and never creates an order.
 10. Gemini is attempted first; OpenAI is fallback only.
+
+## Human review UI
+
+Route: `/mensajeria/interpretar-vale`
+
+The mobile-first review surface sends the pasted text to this endpoint, displays missing fields, warnings and extraction confidence, and lets an operator correct the draft. Confirming only creates a client-side payload with contract `casa-viva.messaging.confirmed-voucher-draft.v1`. It does not persist data, create an order, assign a workflow state, or mutate Casa Viva.
 
 ## Next integration gate
 
