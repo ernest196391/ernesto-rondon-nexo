@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   build:
@@ -17,6 +17,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: security/next-15-5-23-validation
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -26,12 +28,17 @@ jobs:
       - name: Install dependencies
         run: npm install --no-audit --no-fund
 
-      - name: Capture generated lockfile
-        uses: actions/upload-artifact@v4
-        with:
-          name: next-15-lockfile
-          path: package-lock.json
-          retention-days: 1
+      - name: Commit regenerated lockfile
+        run: |
+          if git diff --quiet -- package-lock.json; then
+            echo "Lockfile already current"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- package-lock.json
+          git commit -m "Regenerate lockfile for Next 15.5.23 [skip ci]"
+          git push origin HEAD:security/next-15-5-23-validation
 
       - name: Typecheck
         run: npm run typecheck
