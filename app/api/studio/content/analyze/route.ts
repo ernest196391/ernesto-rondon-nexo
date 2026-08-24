@@ -37,8 +37,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "El worker no pudo analizar el vídeo." }, { status: 502 });
     }
     return NextResponse.json(data, { status: 200 });
-  } catch (error) {
-    const message = error instanceof Error ? error.message : "No se pudo conectar con el worker.";
-    return NextResponse.json({ error: message }, { status: 502 });
+  } catch {
+    return NextResponse.json({ error: "No se pudo conectar con el worker." }, { status: 502 });
   }
 }
