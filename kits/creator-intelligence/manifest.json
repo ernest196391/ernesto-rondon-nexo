@@ -1,0 +1,12 @@
+{
+  "id": "creator-intelligence",
+  "version": "0.1.0",
+  "name": "NEXO Creator Intelligence",
+  "description": "Análisis público inicial de señales de creador o contenido basado en URL.",
+  "inputs": ["url"],
+  "outputs": ["summary", "findings", "limitations"],
+  "capabilities": ["safe-http-fetch", "html-inspection"],
+  "permissions": ["network:public-http-readonly"],
+  "risk": "low",
+  "runtime": ">=0.1.0"
+}
