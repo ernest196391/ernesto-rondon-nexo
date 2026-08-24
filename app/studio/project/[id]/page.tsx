@@ -25,6 +25,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ id: st
 
   const specialist = specialists.find((item) => item.id === project.specialistId);
   const route = project.specialistId ? specialistRoutes[project.specialistId] : undefined;
+  const routeWithProject = route ? `${route}?projectId=${encodeURIComponent(project.id)}` : undefined;
   const artifacts = project.runs.flatMap((run) => run.artifacts ?? []);
 
   return (
@@ -36,7 +37,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ id: st
             <h1>{project.name}</h1>
             <p>{project.objective}</p>
             <div className="studio-actions">
-              {route ? <Link className="studio-button primary" href={route}>Abrir {specialist?.shortName ?? "especialista"} →</Link> : null}
+              {routeWithProject ? <Link className="studio-button primary" href={routeWithProject}>Abrir {specialist?.shortName ?? "especialista"} →</Link> : null}
               <Link className="studio-button secondary" href="/studio#proyectos">Volver a proyectos</Link>
             </div>
           </div>
@@ -66,7 +67,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ id: st
       <section className="studio-section">
         <div className="studio-section-heading"><div><div className="studio-kicker">HISTORIAL</div><h2>Runs y artefactos.</h2></div><p>Trazabilidad de ejecución.</p></div>
         <div className="studio-panel">
-          {project.runs.length === 0 ? <p className="studio-note">Todavía no hay runs. Crea el primero para iniciar la ejecución trazable.</p> : (
+          {project.runs.length === 0 ? <p className="studio-note">Todavía no hay runs. Abre el especialista desde este proyecto; las ejecuciones completadas se guardarán aquí.</p> : (
             <div className="studio-catalog">
               {project.runs.slice().reverse().map((run) => (
                 <article className="studio-specialist" key={run.id}>
