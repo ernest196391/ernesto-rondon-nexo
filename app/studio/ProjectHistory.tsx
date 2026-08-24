@@ -25,10 +25,13 @@ export default function ProjectHistory() {
   }
 
   useEffect(() => {
-    void loadProjects();
+    const frame = window.requestAnimationFrame(() => void loadProjects());
     const handler = () => void loadProjects();
     window.addEventListener("nexo-studio-projects-changed", handler);
-    return () => window.removeEventListener("nexo-studio-projects-changed", handler);
+    return () => {
+      window.cancelAnimationFrame(frame);
+      window.removeEventListener("nexo-studio-projects-changed", handler);
+    };
   }, []);
 
   return (
