@@ -1,0 +1,54 @@
+{
+  "negocio": "NEXO",
+  "claim": "De una idea a un negocio real.",
+  "logo": null,
+  "colores": {
+    "primario": "#1f4937",
+    "secundario": "#141414",
+    "fondo": "#f4f0e8",
+    "texto": "#141414",
+    "muted": "#6e6a63",
+    "card": "#fbf8f2"
+  },
+  "tipografias": {
+    "titulos": "Georgia, serif",
+    "texto": "Arial, Helvetica, sans-serif"
+  },
+  "contacto": {
+    "tel": "",
+    "whatsapp": "",
+    "direccion": "",
+    "horario": ""
+  },
+  "servicios": [
+    "Investigar oportunidades",
+    "Validar hipótesis",
+    "Construir productos, automatizaciones, webs y sistemas",
+    "Lanzar, medir y aprender",
+    "NEXO Studio: proyectos y especialistas de IA"
+  ],
+  "pruebas_sociales": [
+    "Casa Viva — operativo · evolución digital",
+    "Triciclub — en desarrollo",
+    "PREVENTE — experiencia empresarial"
+  ],
+  "historia": "NEXO se presenta como un sistema para investigar, validar, construir y hacer crecer negocios con inteligencia artificial. La nueva evolución NEXO Studio organiza proyectos, contexto, especialistas, ejecuciones y resultados dentro de una sola experiencia.",
+  "especialistas": [
+    "Web Studio",
+    "Conversations",
+    "Creator Intelligence",
+    "Content Studio",
+    "Brand Intelligence",
+    "Commerce Audit",
+    "Kit Builder",
+    "Business Audit"
+  ],
+  "fuentes": [
+    "app/page.tsx",
+    "app/layout.tsx",
+    "app/globals.css",
+    "app/studio/page.tsx",
+    "docs/NEXO_STUDIO_BLUEPRINT.md"
+  ],
+  "nota": "Dogfood interno del Kit 01. No se inventan datos de contacto, cifras, reseñas ni activos visuales que no existan en el repositorio."
+}
