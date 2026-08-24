@@ -38,6 +38,14 @@ export interface Run {
   artifacts: Artifact[];
 }
 
+export interface ProjectMemoryEntry {
+  id: string;
+  kind: "fact" | "decision" | "constraint" | "note";
+  text: string;
+  createdAt: string;
+  sourceRunId?: string;
+}
+
 export interface Project {
   id: string;
   name: string;
@@ -50,6 +58,7 @@ export interface Project {
   updatedAt: string;
   sources: ProjectSource[];
   runs: Run[];
+  memory?: ProjectMemoryEntry[];
 }
 
 export interface Specialist {

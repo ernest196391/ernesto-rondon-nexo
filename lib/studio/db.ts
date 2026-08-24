@@ -1,5 +1,5 @@
 import { Pool } from "pg";
-import type { Project } from "./types";
+import type { Artifact, Project, ProjectMemoryEntry, Run } from "./types";
 
 let pool: Pool | undefined;
 let schemaReady: Promise<void> | undefined;
@@ -53,6 +53,7 @@ export async function saveProject(project: Project): Promise<Project> {
     createdAt: project.createdAt || now,
     sources: project.sources ?? [],
     runs: project.runs ?? [],
+    memory: project.memory ?? [],
   };
   await getPool().query(
     `INSERT INTO nexo_studio_projects (id, payload, created_at, updated_at)
@@ -61,4 +62,29 @@ export async function saveProject(project: Project): Promise<Project> {
     [normalized.id, JSON.stringify(normalized), normalized.createdAt, normalized.updatedAt]
   );
   return normalized;
+}
+
+export async function appendRun(projectId: string, run: Run): Promise<Project | null> {
+  const project = await getProject(projectId);
+  if (!project) return null;
+  return saveProject({ ...project, status: "active", runs: [...(project.runs ?? []), run] });
+}
+
+export async function appendMemoryEntry(projectId: string, entry: ProjectMemoryEntry): Promise<Project | null> {
+  const project = await getProject(projectId);
+  if (!project) return null;
+  return saveProject({ ...project, memory: [...(project.memory ?? []), entry] });
+}
+
+export async function appendArtifact(projectId: string, artifact: Artifact): Promise<Project | null> {
+  const project = await getProject(projectId);
+  if (!project) return null;
+  let foundRun = false;
+  const runs = (project.runs ?? []).map((run) => {
+    if (run.id !== artifact.runId) return run;
+    foundRun = true;
+    return { ...run, updatedAt: new Date().toISOString(), artifacts: [...(run.artifacts ?? []), artifact] };
+  });
+  if (!foundRun) return null;
+  return saveProject({ ...project, runs });
 }

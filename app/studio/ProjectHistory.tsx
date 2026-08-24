@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { specialists } from "../../lib/studio/catalog";
 import type { Project } from "../../lib/studio/types";
@@ -50,7 +51,7 @@ export default function ProjectHistory() {
             const specialist = specialists.find((item) => item.id === project.specialistId);
             const source = project.sources.find((item) => item.type === "url");
             return (
-              <article className="studio-specialist" key={project.id}>
+              <Link className="studio-specialist" href={`/studio/project/${encodeURIComponent(project.id)}`} key={project.id} style={{ textDecoration: "none", color: "inherit" }}>
                 <div className="studio-specialist-top">
                   <span className="studio-index">{specialist?.accent ?? "NX"}</span>
                   <span className="studio-chip ready">{project.status}</span>
@@ -59,8 +60,9 @@ export default function ProjectHistory() {
                 <p>{project.objective}</p>
                 <div className="studio-input-hint">Especialista · {specialist?.shortName ?? project.specialistId ?? "Sin asignar"}</div>
                 {source ? <div className="studio-input-hint">Fuente · {source.value}</div> : null}
+                <div className="studio-input-hint">{project.runs.length} runs · {project.memory?.length ?? 0} notas</div>
                 <div className="studio-input-hint">Actualizado · {new Date(project.updatedAt).toLocaleString("es")}</div>
-              </article>
+              </Link>
             );
           })}
         </div>
