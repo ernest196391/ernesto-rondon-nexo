@@ -1,0 +1,12 @@
+{
+  "id": "kit-builder",
+  "version": "0.1.0",
+  "name": "NEXO Kit Builder",
+  "description": "Genera el contrato portable de un nuevo especialista a partir de una tarea repetitiva.",
+  "inputs": ["problem", "input-contract", "output-contract", "sources", "quality-criteria", "risks"],
+  "outputs": ["manifest.json", "SPEC.md", "workflow.md", "validation-checklist"],
+  "capabilities": ["deterministic-generation"],
+  "permissions": [],
+  "risk": "low",
+  "runtime": ">=0.1.0"
+}
