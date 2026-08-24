@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import { listProjects, saveProject } from "@/lib/studio/db";
-import type { Project } from "@/lib/studio/types";
+import { listProjects, saveProject } from "../../../../lib/studio/db";
+import type { Project } from "../../../../lib/studio/types";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
