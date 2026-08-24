@@ -44,6 +44,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               NEXO
             </Link>
             <div className="links">
+              <Link href="/studio">Studio</Link>
               <Link href="/negocios">Proyectos</Link>
               <Link href="/herramientas">Herramientas</Link>
               <Link href="/sobre-mi">Ernesto</Link>
