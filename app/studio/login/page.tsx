@@ -1,12 +1,11 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import "../studio.css";
 
 export default function StudioLoginPage() {
   const router = useRouter();
-  const search = useSearchParams();
   const [accessKey, setAccessKey] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
@@ -17,7 +16,7 @@ export default function StudioLoginPage() {
       const response = await fetch("/api/studio/auth/login", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ accessKey }) });
       const data = await response.json().catch(() => ({})) as { error?: string };
       if (!response.ok) throw new Error(data.error || "No se pudo iniciar sesión.");
-      const next = search.get("next");
+      const next = typeof window !== "undefined" ? new URLSearchParams(window.location.search).get("next") : null;
       router.replace(next && next.startsWith("/studio") ? next : "/studio");
       router.refresh();
     } catch (caught) { setError(caught instanceof Error ? caught.message : "No se pudo iniciar sesión."); }
