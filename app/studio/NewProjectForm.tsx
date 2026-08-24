@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useMemo, useState } from "react";
+import { FormEvent, useEffect, useMemo, useState } from "react";
 import { specialists } from "../../lib/studio/catalog";
 import type { Project } from "../../lib/studio/types";
 
@@ -22,20 +22,53 @@ const initialState: FormState = {
   specialistId: "web-studio",
 };
 
+async function persistProject(project: Project) {
+  const response = await fetch("/api/studio/projects", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify(project),
+  });
+  if (!response.ok) throw new Error("No se pudo guardar el proyecto.");
+  const data = (await response.json()) as { project: Project };
+  return data.project;
+}
+
 export default function NewProjectForm() {
   const [form, setForm] = useState<FormState>(initialState);
   const [created, setCreated] = useState<Project | null>(null);
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState("");
+  const [migrated, setMigrated] = useState(false);
 
   const selected = useMemo(
     () => specialists.find((item) => item.id === form.specialistId),
     [form.specialistId],
   );
 
-  function submit(event: FormEvent<HTMLFormElement>) {
+  useEffect(() => {
+    const raw = window.localStorage.getItem("nexo-studio-last-project");
+    if (!raw) return;
+    try {
+      const legacy = JSON.parse(raw) as Project;
+      persistProject(legacy)
+        .then(() => {
+          window.localStorage.removeItem("nexo-studio-last-project");
+          setMigrated(true);
+          window.dispatchEvent(new Event("nexo-studio-projects-changed"));
+        })
+        .catch(() => undefined);
+    } catch {
+      // Preserve an unreadable legacy draft rather than deleting user data.
+    }
+  }, []);
+
+  async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    setSaving(true);
+    setError("");
     const now = new Date().toISOString();
     const project: Project = {
-      id: `local-${Date.now()}`,
+      id: `project-${Date.now()}`,
       name: form.name.trim(),
       businessType: form.businessType.trim(),
       objective: form.objective.trim(),
@@ -50,28 +83,35 @@ export default function NewProjectForm() {
       runs: [],
     };
 
-    window.localStorage.setItem("nexo-studio-last-project", JSON.stringify(project));
-    setCreated(project);
+    try {
+      const saved = await persistProject(project);
+      setCreated(saved);
+      window.dispatchEvent(new Event("nexo-studio-projects-changed"));
+    } catch {
+      setError("No pudimos guardar el proyecto en NEXO. Intenta de nuevo en unos segundos.");
+    } finally {
+      setSaving(false);
+    }
   }
 
   if (created) {
     return (
       <section className="studio-panel studio-success" aria-live="polite">
-        <div className="studio-kicker">PROYECTO PREPARADO</div>
+        <div className="studio-kicker">PROYECTO GUARDADO</div>
         <h2>{created.name}</h2>
         <p>
-          NEXO ya tiene el contexto mínimo. El siguiente paso será ejecutar <strong>{selected?.name}</strong> con un run trazable.
+          NEXO ya conserva el contexto del proyecto. El siguiente paso será ejecutar <strong>{selected?.name}</strong> con un run trazable.
         </p>
         <div className="studio-summary-grid">
           <div><span>Objetivo</span><strong>{created.objective}</strong></div>
-          <div><span>Estado</span><strong>Borrador local</strong></div>
+          <div><span>Estado</span><strong>Guardado en NEXO</strong></div>
           <div><span>Especialista</span><strong>{selected?.shortName}</strong></div>
         </div>
         <div className="studio-actions">
-          <button className="studio-button" type="button" onClick={() => setCreated(null)}>Editar proyecto</button>
-          <a className="studio-button secondary" href="#especialistas">Ver especialistas</a>
+          <button className="studio-button" type="button" onClick={() => setCreated(null)}>Crear otro proyecto</button>
+          <a className="studio-button secondary" href="#proyectos">Ver proyectos</a>
         </div>
-        <p className="studio-note">En este bloque no se envía información a ningún proveedor externo. El borrador vive únicamente en este navegador.</p>
+        <p className="studio-note">El proyecto queda disponible en el servidor para continuar desde otro dispositivo.</p>
       </section>
     );
   }
@@ -81,6 +121,8 @@ export default function NewProjectForm() {
       <div className="studio-kicker">NUEVO PROYECTO</div>
       <h2>Cuéntale a NEXO qué quieres conseguir.</h2>
       <p className="studio-intro">Solo pedimos lo necesario para preparar el trabajo. Podrás ampliar el contexto después.</p>
+      {migrated ? <p className="studio-note" role="status">Tu último borrador local se migró a NEXO.</p> : null}
+      {error ? <p className="studio-note" role="alert">{error}</p> : null}
 
       <label>
         <span>Nombre del proyecto</span>
@@ -123,8 +165,8 @@ export default function NewProjectForm() {
         <p>{selected?.description}</p>
       </div>
 
-      <button className="studio-button primary" type="submit">Preparar proyecto →</button>
-      <p className="studio-note">Fundación MVP: guarda un borrador local. No ejecuta IA, mensajería ni despliegues todavía.</p>
+      <button className="studio-button primary" type="submit" disabled={saving}>{saving ? "Guardando…" : "Preparar proyecto →"}</button>
+      <p className="studio-note">El proyecto se guarda en NEXO. No se envía a proveedores de IA hasta que ejecutes un especialista.</p>
     </form>
   );
 }
