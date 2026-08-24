@@ -1,0 +1,13 @@
+{
+  "id": "web-studio",
+  "version": "0.1.0",
+  "name": "NEXO Web Studio",
+  "description": "Audita una web a partir de una URL y produce evidencia estructurada, diagnóstico y siguiente acción.",
+  "inputs": ["url"],
+  "outputs": ["siteSnapshot", "findings", "recommendations"],
+  "capabilities": ["http-fetch", "html-inspection"],
+  "permissions": ["network:public-http"],
+  "workflow": ["prepare", "acquire", "analyze", "review", "validate", "result"],
+  "risk": "medium",
+  "runtime": ">=0.1.0"
+}

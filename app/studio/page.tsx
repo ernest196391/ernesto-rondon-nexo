@@ -28,16 +28,16 @@ export default function StudioPage() {
               Una sola base para analizar, construir y mejorar negocios con especialistas de IA, herramientas y procesos verificables.
             </p>
             <div className="studio-actions">
-              <a className="studio-button primary" href="#nuevo-proyecto">Nuevo proyecto →</a>
-              <a className="studio-button secondary" href="#especialistas">Explorar especialistas</a>
+              <Link className="studio-button primary" href="/studio/web">Probar Web Studio →</Link>
+              <a className="studio-button secondary" href="#nuevo-proyecto">Nuevo proyecto</a>
             </div>
           </div>
           <aside className="studio-status-card" aria-label="Estado de NEXO Studio">
             <div className="studio-status-dot" />
             <div>
               <span>Estado actual</span>
-              <strong>Foundation activa</strong>
-              <p>Proyectos locales, catálogo y contratos base listos para conectar el primer motor real.</p>
+              <strong>Primer motor conectado</strong>
+              <p>Web Studio ya puede adquirir HTML público de forma segura y producir una auditoría trazable.</p>
             </div>
           </aside>
         </div>
@@ -73,27 +73,35 @@ export default function StudioPage() {
           <p>Los siete kits originales se convierten en especialistas portables de NEXO.</p>
         </div>
         <div className="studio-catalog">
-          {specialists.map((item) => (
-            <article className="studio-specialist" key={item.id}>
+          {specialists.map((item) => {
+            const content = <>
               <div className="studio-specialist-top">
                 <span className="studio-index">{item.accent}</span>
-                <span className={`studio-chip ${item.status}`}>{item.status === "ready" ? "Base lista" : "Planificado"}</span>
+                <span className={`studio-chip ${item.status}`}>{item.status === "ready" ? "Disponible" : "Planificado"}</span>
               </div>
               <h3>{item.shortName}</h3>
               <p>{item.description}</p>
               <div className="studio-input-hint">Entrada · {item.inputHint}</div>
-            </article>
-          ))}
+            </>;
+
+            return item.id === "web-studio" ? (
+              <Link className="studio-specialist" key={item.id} href="/studio/web" style={{ textDecoration: "none", color: "inherit" }}>
+                {content}
+              </Link>
+            ) : (
+              <article className="studio-specialist" key={item.id}>{content}</article>
+            );
+          })}
         </div>
       </section>
 
       <section className="studio-next">
         <div>
-          <div className="studio-kicker">SIGUIENTE BLOQUE</div>
-          <h2>Web Studio será el primer motor real.</h2>
-          <p>URL → adquisición segura → diagnóstico → brief detectado → propuesta de mejora → prototipo.</p>
+          <div className="studio-kicker">MOTOR ACTIVO</div>
+          <h2>Web Studio ya realiza reconocimiento real.</h2>
+          <p>URL → adquisición segura → señales estructurales → exactamente cinco hallazgos → acciones recomendadas.</p>
         </div>
-        <Link className="studio-button secondary" href="/herramientas">Ver herramientas actuales</Link>
+        <Link className="studio-button secondary" href="/studio/web">Abrir Web Studio</Link>
       </section>
     </main>
   );
