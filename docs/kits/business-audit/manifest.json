@@ -1,0 +1,5 @@
+{
+  "id":"business-audit","version":"0.1.0","name":"NEXO Business Audit","description":"Audita un negocio por fuera y por dentro sin inventar datos.",
+  "inputs":["public-presence","36-question-process-form"],"outputs":["digital-score-0-100","technology-maturity-1-5","customer-journey-before-after","action-plan"],
+  "capabilities":["public-web-audit","process-analysis","privacy-gate","evidence-traceability"],"permissions":["public-web-read"],"risk":"medium","runtime":">=0.1.0"
+}
