@@ -1,0 +1,12 @@
+{
+  "id": "conversations",
+  "version": "0.1.0",
+  "name": "NEXO Conversations",
+  "description": "Diseña y simula un agente conversacional con guardrails, lead scoring y handoff humano.",
+  "inputs": ["business-config", "customer-message"],
+  "outputs": ["assistant-response", "intent", "lead-score", "handoff", "guardrail-result"],
+  "capabilities": ["llm-optional", "deterministic-fallback", "guardrails", "lead-qualification"],
+  "permissions": [],
+  "risk": "medium",
+  "runtime": ">=0.1.0"
+}
