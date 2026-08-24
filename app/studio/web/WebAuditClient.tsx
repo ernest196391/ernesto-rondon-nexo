@@ -2,20 +2,24 @@
 
 import { FormEvent, useState } from "react";
 import type { WebAuditResult } from "../../../lib/web-studio/audit";
+import { buildWebPrototype } from "../../../lib/web-studio/prototype";
 
 type ApiResponse = { ok?: boolean; result?: WebAuditResult; error?: string };
+type ReviewState = "pending" | "approved" | "changes";
 
 export default function WebAuditClient() {
   const [url, setUrl] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [result, setResult] = useState<WebAuditResult | null>(null);
+  const [review, setReview] = useState<ReviewState>("pending");
 
   async function submit(event: FormEvent) {
     event.preventDefault();
     setLoading(true);
     setError("");
     setResult(null);
+    setReview("pending");
     try {
       const response = await fetch("/api/studio/web-audit", {
         method: "POST",
@@ -32,6 +36,8 @@ export default function WebAuditClient() {
     }
   }
 
+  const prototype = result ? buildWebPrototype(result) : null;
+
   return (
     <div className="web-audit-app">
       <form className="web-audit-form" onSubmit={submit}>
@@ -45,7 +51,7 @@ export default function WebAuditClient() {
 
       {error && <div className="web-audit-error" role="alert">{error}</div>}
 
-      {result && (
+      {result && prototype && (
         <section className="web-audit-result" aria-live="polite">
           <div className="web-audit-summary">
             <div>
@@ -91,9 +97,36 @@ export default function WebAuditClient() {
             </div>
           </div>
 
+          <div className="web-prototype-block">
+            <div className="web-prototype-heading">
+              <div>
+                <span className="web-audit-kicker">PROTOTIPO NAVEGABLE · V0.3</span>
+                <h3>Borrador estructural antes de publicar.</h3>
+              </div>
+              <span className={`web-review-state ${review}`}>{review === "approved" ? "Aprobado" : review === "changes" ? "Necesita cambios" : "Pendiente de revisión"}</span>
+            </div>
+
+            <div className="web-prototype-canvas">
+              <header className="web-prototype-hero">
+                <span>{prototype.eyebrow}</span>
+                <h2>{prototype.heroTitle}</h2>
+                <p>{prototype.heroCopy}</p>
+                <div className="web-prototype-actions"><button type="button">{prototype.primaryCta}</button><a href="#prototype-sections">{prototype.secondaryCta}</a></div>
+              </header>
+              <div id="prototype-sections" className="web-prototype-sections">
+                {prototype.sections.map((section, index) => <article key={section.title}><span>{String(index + 1).padStart(2, "0")}</span><h4>{section.title}</h4><p>{section.purpose}</p></article>)}
+              </div>
+            </div>
+
+            <div className="web-prototype-review" aria-label="Revisión humana del prototipo">
+              <div><strong>NEXO entendió esto.</strong><p>Este borrador no se publica automáticamente. Revísalo antes de avanzar.</p></div>
+              <div className="web-review-actions"><button type="button" onClick={() => setReview("approved")}>Aprobar prototipo</button><button type="button" className="secondary" onClick={() => setReview("changes")}>Necesita cambios</button></div>
+            </div>
+            <ul className="web-prototype-notes">{prototype.notes.map((item) => <li key={item}>{item}</li>)}</ul>
+          </div>
+
           <div className="web-prototype-rules">
             <span className="web-audit-kicker">CONTRATO DEL PROTOTIPO</span>
-            <p>Estas reglas se aplicarán cuando NEXO genere la reconstrucción automática.</p>
             <ul>{result.brief.prototypeRules.map((item) => <li key={item}>{item}</li>)}</ul>
           </div>
 
