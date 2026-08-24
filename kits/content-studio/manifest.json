@@ -1,0 +1,12 @@
+{
+  "id": "content-studio",
+  "version": "0.1.0",
+  "name": "NEXO Content Studio",
+  "description": "Procesa vídeo en un worker separado y devuelve una versión vertical revisable.",
+  "inputs": ["video/mp4", "video/quicktime", "video/webm", "video/x-m4v"],
+  "outputs": ["video/mp4"],
+  "capabilities": ["media-worker", "ffmpeg", "vertical-video"],
+  "permissions": ["temporary-file-processing"],
+  "risk": "medium",
+  "runtime": ">=0.1.0"
+}
