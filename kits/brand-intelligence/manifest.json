@@ -1,0 +1,12 @@
+{
+  "id": "brand-intelligence",
+  "version": "0.1.0",
+  "name": "NEXO Brand Intelligence",
+  "description": "Auditoría pública inicial de posicionamiento y señales de marca basada en URL.",
+  "inputs": ["url"],
+  "outputs": ["summary", "findings", "limitations"],
+  "capabilities": ["safe-http-fetch", "html-inspection"],
+  "permissions": ["network:public-http-readonly"],
+  "risk": "low",
+  "runtime": ">=0.1.0"
+}

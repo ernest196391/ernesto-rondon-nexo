@@ -16,92 +16,61 @@ const stages = [
   ["04", "Resultado", "Informe, propuesta, prototipo, contenido o sistema."],
 ];
 
+const specialistRoutes: Record<string, string> = {
+  "web-studio": "/studio/web",
+  "commerce-audit": "/studio/commerce",
+  "brand-intelligence": "/studio/brand",
+  "creator-intelligence": "/studio/creator",
+};
+
 export default function StudioPage() {
   return (
     <main className="studio-shell" id="main-content">
       <section className="studio-hero">
-        <div className="studio-kicker">NEXO STUDIO · FOUNDATION</div>
+        <div className="studio-kicker">NEXO STUDIO</div>
         <div className="studio-hero-grid">
           <div>
             <h1>Trae el proyecto. NEXO organiza el trabajo.</h1>
-            <p>
-              Una sola base para analizar, construir y mejorar negocios con especialistas de IA, herramientas y procesos verificables.
-            </p>
+            <p>Una sola base para analizar, construir y mejorar negocios con especialistas, herramientas y procesos verificables.</p>
             <div className="studio-actions">
               <Link className="studio-button primary" href="/studio/web">Probar Web Studio →</Link>
-              <a className="studio-button secondary" href="#nuevo-proyecto">Nuevo proyecto</a>
+              <a className="studio-button secondary" href="#especialistas">Ver especialistas</a>
             </div>
           </div>
           <aside className="studio-status-card" aria-label="Estado de NEXO Studio">
             <div className="studio-status-dot" />
             <div>
               <span>Estado actual</span>
-              <strong>Primer motor conectado</strong>
-              <p>Web Studio ya puede adquirir HTML público de forma segura y producir una auditoría trazable.</p>
+              <strong>Cuatro especialistas activos</strong>
+              <p>Web, Commerce, Brand y Creator ya tienen una primera ejecución real basada en evidencia pública.</p>
             </div>
           </aside>
         </div>
       </section>
 
       <section className="studio-flow" aria-label="Cómo funciona NEXO Studio">
-        {stages.map(([n, title, description]) => (
-          <article key={n}>
-            <span>{n}</span>
-            <h2>{title}</h2>
-            <p>{description}</p>
-          </article>
-        ))}
+        {stages.map(([n, title, description]) => <article key={n}><span>{n}</span><h2>{title}</h2><p>{description}</p></article>)}
       </section>
 
       <section className="studio-section" id="nuevo-proyecto">
-        <div className="studio-section-heading">
-          <div>
-            <div className="studio-kicker">EMPEZAR</div>
-            <h2>Primer proyecto</h2>
-          </div>
-          <p>Menos configuración. Más contexto útil.</p>
-        </div>
+        <div className="studio-section-heading"><div><div className="studio-kicker">EMPEZAR</div><h2>Primer proyecto</h2></div><p>Menos configuración. Más contexto útil.</p></div>
         <NewProjectForm />
       </section>
 
       <section className="studio-section" id="especialistas">
-        <div className="studio-section-heading">
-          <div>
-            <div className="studio-kicker">ESPECIALISTAS</div>
-            <h2>Un sistema, distintas capacidades.</h2>
-          </div>
-          <p>Los siete kits originales se convierten en especialistas portables de NEXO.</p>
-        </div>
+        <div className="studio-section-heading"><div><div className="studio-kicker">ESPECIALISTAS</div><h2>Un sistema, distintas capacidades.</h2></div><p>Los kits fuente se convierten en especialistas portables de NEXO.</p></div>
         <div className="studio-catalog">
           {specialists.map((item) => {
-            const content = <>
-              <div className="studio-specialist-top">
-                <span className="studio-index">{item.accent}</span>
-                <span className={`studio-chip ${item.status}`}>{item.status === "ready" ? "Disponible" : "Planificado"}</span>
-              </div>
-              <h3>{item.shortName}</h3>
-              <p>{item.description}</p>
-              <div className="studio-input-hint">Entrada · {item.inputHint}</div>
-            </>;
-
-            return item.id === "web-studio" ? (
-              <Link className="studio-specialist" key={item.id} href="/studio/web" style={{ textDecoration: "none", color: "inherit" }}>
-                {content}
-              </Link>
-            ) : (
-              <article className="studio-specialist" key={item.id}>{content}</article>
-            );
+            const content = <><div className="studio-specialist-top"><span className="studio-index">{item.accent}</span><span className={`studio-chip ${item.status}`}>{item.status === "ready" ? "Disponible" : "Planificado"}</span></div><h3>{item.shortName}</h3><p>{item.description}</p><div className="studio-input-hint">Entrada · {item.inputHint}</div></>;
+            const route = specialistRoutes[item.id];
+            return route ? <Link className="studio-specialist" key={item.id} href={route} style={{ textDecoration: "none", color: "inherit" }}>{content}</Link> : <article className="studio-specialist" key={item.id}>{content}</article>;
           })}
         </div>
       </section>
 
       <section className="studio-next">
-        <div>
-          <div className="studio-kicker">MOTOR ACTIVO</div>
-          <h2>Web Studio ya realiza reconocimiento real.</h2>
-          <p>URL → adquisición segura → señales estructurales → exactamente cinco hallazgos → acciones recomendadas.</p>
-        </div>
-        <Link className="studio-button secondary" href="/studio/web">Abrir Web Studio</Link>
+        <div><div className="studio-kicker">MOTORES ACTIVOS</div><h2>Auditorías trazables antes de automatizar.</h2><p>Web Studio lidera reconstrucción. Commerce, Brand y Creator comparten el principio evidencia → interpretación → acción.</p></div>
+        <Link className="studio-button secondary" href="/studio/commerce">Abrir Commerce Audit</Link>
       </section>
     </main>
   );
