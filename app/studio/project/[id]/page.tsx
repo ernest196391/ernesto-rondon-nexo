@@ -26,7 +26,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ id: st
   const specialist = specialists.find((item) => item.id === project.specialistId);
   const route = project.specialistId ? specialistRoutes[project.specialistId] : undefined;
   const routeWithProject = route ? `${route}?projectId=${encodeURIComponent(project.id)}` : undefined;
-  const artifacts = project.runs.flatMap((run) => run.artifacts ?? []);
+  const results = project.runs.flatMap((run) => run.artifacts ?? []);
 
   return (
     <main className="studio-shell" id="main-content">
@@ -37,27 +37,27 @@ export default async function ProjectPage({ params }: { params: Promise<{ id: st
             <h1>{project.name}</h1>
             <p>{project.objective}</p>
             <div className="studio-actions">
-              {routeWithProject ? <Link className="studio-button primary" href={routeWithProject}>Abrir {specialist?.shortName ?? "especialista"} →</Link> : null}
-              <Link className="studio-button secondary" href="/studio#proyectos">Volver a proyectos</Link>
+              {routeWithProject ? <Link className="studio-button primary" href={routeWithProject}>Continuar con {specialist?.shortName ?? "NEXO"} →</Link> : null}
+              <Link className="studio-button secondary" href="/studio#proyectos">Mis proyectos</Link>
             </div>
           </div>
           <aside className="studio-status-card">
             <div className="studio-status-dot" />
             <div>
-              <span>Memoria operativa</span>
-              <strong>{project.runs.length} runs · {project.memory?.length ?? 0} notas · {artifacts.length} artefactos</strong>
-              <p>Última actualización: {new Date(project.updatedAt).toLocaleString("es")}</p>
+              <span>Resumen</span>
+              <strong>{project.runs.length} trabajos · {project.memory?.length ?? 0} notas · {results.length} resultados</strong>
+              <p>Actualizado {new Date(project.updatedAt).toLocaleString("es")}</p>
             </div>
           </aside>
         </div>
       </section>
 
       <section className="studio-section">
-        <div className="studio-section-heading"><div><div className="studio-kicker">CONTEXTO</div><h2>Lo que NEXO conserva.</h2></div><p>{project.businessType}</p></div>
+        <div className="studio-section-heading"><div><div className="studio-kicker">CONTEXTO</div><h2>Lo importante del proyecto.</h2></div><p>{project.businessType}</p></div>
         <div className="studio-panel">
-          {project.context ? <p>{project.context}</p> : <p className="studio-note">Sin contexto adicional todavía.</p>}
+          {project.context ? <p>{project.context}</p> : <p className="studio-note">Aún no has añadido contexto adicional.</p>}
           <div className="studio-summary-grid">
-            <div><span>Especialista</span><strong>{specialist?.name ?? project.specialistId ?? "Sin asignar"}</strong></div>
+            <div><span>Especialista</span><strong>{specialist?.shortName ?? "Sin asignar"}</strong></div>
             <div><span>Fuentes</span><strong>{project.sources.length}</strong></div>
             <div><span>Estado</span><strong>{project.status}</strong></div>
           </div>
@@ -65,17 +65,17 @@ export default async function ProjectPage({ params }: { params: Promise<{ id: st
       </section>
 
       <section className="studio-section">
-        <div className="studio-section-heading"><div><div className="studio-kicker">HISTORIAL</div><h2>Runs y artefactos.</h2></div><p>Trazabilidad de ejecución.</p></div>
+        <div className="studio-section-heading"><div><div className="studio-kicker">HISTORIAL</div><h2>Trabajos y resultados.</h2></div><p>Todo lo que NEXO ha hecho en este proyecto.</p></div>
         <div className="studio-panel">
-          {project.runs.length === 0 ? <p className="studio-note">Todavía no hay runs. Abre el especialista desde este proyecto; las ejecuciones completadas se guardarán aquí.</p> : (
+          {project.runs.length === 0 ? <p className="studio-note">Todavía no hay trabajos guardados. Abre el especialista para empezar.</p> : (
             <div className="studio-catalog">
               {project.runs.slice().reverse().map((run) => (
                 <article className="studio-specialist" key={run.id}>
-                  <div className="studio-specialist-top"><span className="studio-index">RUN</span><span className="studio-chip ready">{run.status}</span></div>
+                  <div className="studio-specialist-top"><span className="studio-index">TRABAJO</span><span className="studio-chip ready">{run.status}</span></div>
                   <h3>{specialists.find((item) => item.id === run.specialistId)?.shortName ?? run.specialistId}</h3>
                   <p>{new Date(run.createdAt).toLocaleString("es")}</p>
-                  <div className="studio-input-hint">Artefactos · {run.artifacts.length}</div>
-                  {run.artifacts.map((artifact) => <div className="studio-input-hint" key={artifact.id}>{artifact.kind} · {artifact.title}</div>)}
+                  <div className="studio-input-hint">Resultados · {run.artifacts.length}</div>
+                  {run.artifacts.map((artifact) => <div className="studio-input-hint" key={artifact.id}>{artifact.title}</div>)}
                 </article>
               ))}
             </div>
@@ -84,13 +84,13 @@ export default async function ProjectPage({ params }: { params: Promise<{ id: st
       </section>
 
       <section className="studio-section">
-        <div className="studio-section-heading"><div><div className="studio-kicker">MEMORIA</div><h2>Decisiones que sobreviven al chat.</h2></div><p>Hechos, decisiones y restricciones.</p></div>
+        <div className="studio-section-heading"><div><div className="studio-kicker">MEMORIA</div><h2>Decisiones guardadas.</h2></div><p>Hechos y restricciones que NEXO debe recordar.</p></div>
         <div className="studio-panel">
-          {(project.memory?.length ?? 0) === 0 ? <p className="studio-note">Aún no hay memoria explícita para este proyecto.</p> : (
+          {(project.memory?.length ?? 0) === 0 ? <p className="studio-note">Aún no hay decisiones guardadas.</p> : (
             <div className="studio-catalog">
               {project.memory?.slice().reverse().map((entry) => (
                 <article className="studio-specialist" key={entry.id}>
-                  <div className="studio-specialist-top"><span className="studio-index">MEM</span><span className="studio-chip ready">{entry.kind}</span></div>
+                  <div className="studio-specialist-top"><span className="studio-index">NOTA</span><span className="studio-chip ready">{entry.kind}</span></div>
                   <p>{entry.text}</p>
                   <div className="studio-input-hint">{new Date(entry.createdAt).toLocaleString("es")}</div>
                 </article>

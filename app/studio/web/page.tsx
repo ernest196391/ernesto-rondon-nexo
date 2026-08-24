@@ -5,23 +5,18 @@ import "./web-audit.css";
 
 export const metadata: Metadata = {
   title: "Web Studio",
-  description: "Audita una web pública con NEXO Web Studio.",
+  description: "Detecta qué está frenando una web y convierte el diagnóstico en una propuesta de mejora.",
 };
 
 export default function WebStudioPage() {
   return (
     <main className="web-studio-page" id="main-content">
-      <div className="web-studio-topbar">
-        <Link href="/studio">← Studio</Link>
-        <span>Kit 01 · Cazador de webs → NEXO Web Studio</span>
-      </div>
-
+      <div className="web-studio-topbar"><Link href="/studio">← NEXO Studio</Link></div>
       <section className="web-studio-hero">
-        <div className="web-audit-kicker">WEB STUDIO · MVP 0.1</div>
-        <h1>Una URL deja de ser una opinión.</h1>
-        <p>Reconocimiento seguro, evidencia observable y cinco hallazgos concretos antes de proponer cambios.</p>
+        <div className="web-audit-kicker">MEJORAR UNA WEB</div>
+        <h1>Pega una URL. NEXO te dice qué corregir primero.</h1>
+        <p>Analiza la página en modo lectura, detecta cinco problemas concretos y prepara una propuesta estructural para revisarla.</p>
       </section>
-
       <WebAuditClient />
     </main>
   );

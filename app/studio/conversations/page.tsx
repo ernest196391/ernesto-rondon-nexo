@@ -5,9 +5,9 @@ export default function ConversationsPage() {
   return <main className="conversations-page" id="main-content">
     <a className="conversations-back" href="/studio">← NEXO Studio</a>
     <section className="conversations-hero">
-      <span>NEXO CONVERSATIONS · 02</span>
-      <h1>Diseña, prueba y blinda el agente antes de conectarlo a un canal real.</h1>
-      <p>Esta fase conserva del Kit 02 lo más valioso: configuración por negocio, guardrails, calificación de leads y handoff humano. El transporte queda desacoplado para priorizar WhatsApp Business Platform oficial en producción.</p>
+      <span>ASISTENTE DE VENTAS</span>
+      <h1>Prueba cómo debería responder antes de conectarlo a WhatsApp.</h1>
+      <p>Define qué puede decir, cuándo debe pedir ayuda humana y ensaya conversaciones reales sin enviar nada.</p>
     </section>
     <ConversationsClient />
   </main>;
