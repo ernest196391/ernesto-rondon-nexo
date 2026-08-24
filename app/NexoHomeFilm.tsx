@@ -33,7 +33,7 @@ export default function NexoHomeFilm() {
   const reduced = useMemo(() => typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches, []);
 
   useEffect(() => {
-    if (reduced) { setProgress(0); return; }
+    if (reduced) return;
     let raf = 0;
     const update = () => {
       raf = 0;
@@ -45,7 +45,7 @@ export default function NexoHomeFilm() {
       setProgress(p);
     };
     const onScroll = () => { if (!raf) raf = requestAnimationFrame(update); };
-    update();
+    raf = requestAnimationFrame(update);
     addEventListener("scroll", onScroll, { passive: true });
     addEventListener("resize", onScroll, { passive: true });
     return () => { removeEventListener("scroll", onScroll); removeEventListener("resize", onScroll); if (raf) cancelAnimationFrame(raf); };
