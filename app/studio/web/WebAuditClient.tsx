@@ -73,6 +73,30 @@ export default function WebAuditClient() {
             ))}
           </div>
 
+          <div className="web-audit-brief">
+            <div>
+              <span className="web-audit-kicker">BRIEF DETECTADO</span>
+              <h3>{result.brief.detectedPositioning}</h3>
+              <p><strong>Prioridad:</strong> {result.brief.primaryGoal}</p>
+            </div>
+            <div className="web-brief-grid">
+              <article>
+                <h4>Acciones primero</h4>
+                <ol>{result.brief.priorityActions.map((item) => <li key={item}>{item}</li>)}</ol>
+              </article>
+              <article>
+                <h4>Estructura recomendada</h4>
+                <ol>{result.brief.recommendedSections.map((item) => <li key={item}>{item}</li>)}</ol>
+              </article>
+            </div>
+          </div>
+
+          <div className="web-prototype-rules">
+            <span className="web-audit-kicker">CONTRATO DEL PROTOTIPO</span>
+            <p>Estas reglas se aplicarán cuando NEXO genere la reconstrucción automática.</p>
+            <ul>{result.brief.prototypeRules.map((item) => <li key={item}>{item}</li>)}</ul>
+          </div>
+
           <div className="web-audit-limitations">
             <span className="web-audit-kicker">LÍMITES DE ESTA FASE</span>
             <ul>{result.limitations.map((item) => <li key={item}>{item}</li>)}</ul>
