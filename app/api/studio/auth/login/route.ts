@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { createStudioSession, STUDIO_SESSION_COOKIE } from "../../../../../../lib/studio/session";
+import { createStudioSession, STUDIO_SESSION_COOKIE } from "../../../../../lib/studio/session";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
