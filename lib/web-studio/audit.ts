@@ -9,6 +9,14 @@ export type WebFinding = {
   recommendation: string;
 };
 
+export type WebBrief = {
+  detectedPositioning: string;
+  primaryGoal: string;
+  priorityActions: string[];
+  recommendedSections: string[];
+  prototypeRules: string[];
+};
+
 export type WebAuditResult = {
   requestedUrl: string;
   finalUrl: string;
@@ -26,6 +34,7 @@ export type WebAuditResult = {
     scriptCount: number;
   };
   findings: WebFinding[];
+  brief: WebBrief;
   limitations: string[];
 };
 
@@ -61,7 +70,7 @@ async function assertPublicHttpUrl(raw: string) {
   } catch {
     throw new Error("La URL no es válida.");
   }
-  if (!['http:', 'https:'].includes(url.protocol)) throw new Error("Solo se permiten URLs http/https.");
+  if (!["http:", "https:"].includes(url.protocol)) throw new Error("Solo se permiten URLs http/https.");
   if (url.username || url.password) throw new Error("No se permiten credenciales dentro de la URL.");
   const host = url.hostname.toLowerCase();
   if (host === "localhost" || host.endsWith(".localhost") || host.endsWith(".local")) throw new Error("Ese host no es público.");
@@ -89,7 +98,7 @@ function countMatches(html: string, re: RegExp) {
   return [...html.matchAll(re)].length;
 }
 
-function buildFindings(result: Omit<WebAuditResult, "findings" | "limitations">): WebFinding[] {
+function buildFindings(result: Omit<WebAuditResult, "findings" | "brief" | "limitations">): WebFinding[] {
   const candidates: WebFinding[] = [];
   const { signals } = result;
 
@@ -115,6 +124,37 @@ function buildFindings(result: Omit<WebAuditResult, "findings" | "limitations">)
   return candidates.slice(0, 5);
 }
 
+function buildBrief(result: Omit<WebAuditResult, "findings" | "brief" | "limitations">, findings: WebFinding[]): WebBrief {
+  const detectedPositioning = result.description || result.title || "La propuesta de valor no queda suficientemente explícita en los metadatos detectados.";
+  const highest = findings.find((item) => item.severity === "high") || findings[0];
+  const primaryGoal = highest
+    ? `Resolver primero: ${highest.recommendation}`
+    : "Hacer más clara la propuesta principal y la siguiente acción del visitante.";
+
+  const priorityActions = findings.slice(0, 3).map((item) => item.recommendation);
+  const recommendedSections = [
+    "Hero con propuesta de valor y una acción principal inequívoca",
+    "Prueba o evidencia que reduzca incertidumbre",
+    "Oferta o capacidades explicadas con resultados concretos",
+    "Proceso simple: qué entra, qué ocurre y qué recibe el cliente",
+    "Cierre con CTA principal y alternativas secundarias",
+  ];
+
+  return {
+    detectedPositioning,
+    primaryGoal,
+    priorityActions,
+    recommendedSections,
+    prototypeRules: [
+      "Conservar identidad y hechos observables; no inventar testimonios, cifras ni servicios.",
+      "Diseñar mobile-first y mantener una sola acción dominante por pantalla.",
+      "Usar motion y profundidad solo cuando mejoren comprensión o narrativa.",
+      "Separar claramente contenido extraído de recomendaciones de NEXO.",
+      "El prototipo debe seguir siendo usable con movimiento reducido y sin JavaScript ornamental.",
+    ],
+  };
+}
+
 export async function auditWebsite(rawUrl: string): Promise<WebAuditResult> {
   const requested = await assertPublicHttpUrl(rawUrl);
   const controller = new AbortController();
@@ -124,7 +164,7 @@ export async function auditWebsite(rawUrl: string): Promise<WebAuditResult> {
     const response = await fetch(requested, {
       redirect: "manual",
       signal: controller.signal,
-      headers: { "user-agent": "NEXO-Web-Studio/0.1 (+https://nexo.casavivadecuba.com)" },
+      headers: { "user-agent": "NEXO-Web-Studio/0.2 (+https://nexo.casavivadecuba.com)" },
     });
 
     let current = requested;
@@ -133,7 +173,7 @@ export async function auditWebsite(rawUrl: string): Promise<WebAuditResult> {
       const location = currentResponse.headers.get("location");
       if (!location) break;
       current = await assertPublicHttpUrl(new URL(location, current).toString());
-      currentResponse = await fetch(current, { redirect: "manual", signal: controller.signal, headers: { "user-agent": "NEXO-Web-Studio/0.1 (+https://nexo.casavivadecuba.com)" } });
+      currentResponse = await fetch(current, { redirect: "manual", signal: controller.signal, headers: { "user-agent": "NEXO-Web-Studio/0.2 (+https://nexo.casavivadecuba.com)" } });
     }
 
     const contentType = currentResponse.headers.get("content-type") || "";
@@ -162,12 +202,15 @@ export async function auditWebsite(rawUrl: string): Promise<WebAuditResult> {
       },
     };
 
+    const findings = buildFindings(base);
     return {
       ...base,
-      findings: buildFindings(base),
+      findings,
+      brief: buildBrief(base, findings),
       limitations: [
-        "Este MVP analiza el HTML inicial y no ejecuta JavaScript remoto.",
-        "Todavía no incluye captura visual, Lighthouse ni análisis semántico con un modelo de IA.",
+        "Esta fase analiza HTML inicial y no ejecuta JavaScript remoto.",
+        "El brief se genera de forma determinista con evidencia disponible; todavía no hay interpretación semántica profunda con IA.",
+        "Todavía no incluye captura visual, Lighthouse ni prototipo HTML generado automáticamente.",
       ],
     };
   } catch (error) {
