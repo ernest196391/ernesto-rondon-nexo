@@ -1,12 +1,9 @@
 {
   "id": "content-studio",
-  "version": "0.1.0",
+  "sourceKit": "05-kit-editor-video",
   "name": "NEXO Content Studio",
-  "description": "Procesa vídeo en un worker separado y devuelve una versión vertical revisable.",
-  "inputs": ["video/mp4", "video/quicktime", "video/webm", "video/x-m4v"],
-  "outputs": ["video/mp4"],
-  "capabilities": ["media-worker", "ffmpeg", "vertical-video"],
-  "permissions": ["temporary-file-processing"],
-  "risk": "medium",
-  "runtime": ">=0.1.0"
+  "version": "0.2.0",
+  "workflow": ["transcribe", "cut-plan", "framing", "vertical", "karaoke-subtitles", "titles-zooms", "compose", "loudness", "export"],
+  "truthPolicy": "Never invent transcript, timestamps, semantic cuts or media evidence.",
+  "gates": ["source-validated", "analysis-traceable", "human-review-before-semantic-edit", "export-reviewable"]
 }
