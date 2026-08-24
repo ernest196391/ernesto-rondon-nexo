@@ -1,0 +1,9 @@
+{
+  "id": "business-audit",
+  "name": "NEXO Business Audit",
+  "source": "03-kit-auditoria-negocio",
+  "version": "0.2.0",
+  "inputs": ["public_presence", "36_question_form"],
+  "outputs": ["digital_score", "technology_maturity", "cross_findings", "process_maps", "action_plan", "html_report"],
+  "humanReview": true
+}
