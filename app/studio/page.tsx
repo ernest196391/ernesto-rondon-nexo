@@ -21,6 +21,7 @@ const specialistRoutes: Record<string, string> = {
   "commerce-audit": "/studio/commerce",
   "brand-intelligence": "/studio/brand",
   "creator-intelligence": "/studio/creator",
+  "kit-builder": "/studio/kit-builder",
 };
 
 export default function StudioPage() {
@@ -39,11 +40,7 @@ export default function StudioPage() {
           </div>
           <aside className="studio-status-card" aria-label="Estado de NEXO Studio">
             <div className="studio-status-dot" />
-            <div>
-              <span>Estado actual</span>
-              <strong>Cuatro especialistas activos</strong>
-              <p>Web, Commerce, Brand y Creator ya tienen una primera ejecución real basada en evidencia pública.</p>
-            </div>
+            <div><span>Estado actual</span><strong>Cinco especialistas activos</strong><p>Web, Commerce, Brand, Creator y Kit Builder ya tienen una primera ejecución utilizable.</p></div>
           </aside>
         </div>
       </section>
@@ -69,8 +66,8 @@ export default function StudioPage() {
       </section>
 
       <section className="studio-next">
-        <div><div className="studio-kicker">MOTORES ACTIVOS</div><h2>Auditorías trazables antes de automatizar.</h2><p>Web Studio lidera reconstrucción. Commerce, Brand y Creator comparten el principio evidencia → interpretación → acción.</p></div>
-        <Link className="studio-button secondary" href="/studio/commerce">Abrir Commerce Audit</Link>
+        <div><div className="studio-kicker">FÁBRICA DE ESPECIALISTAS</div><h2>Kit Builder convierte procesos repetitivos en contratos portables.</h2><p>Define problema → fuentes → entradas/salidas → criterios → riesgos → manifest + SPEC + workflow.</p></div>
+        <Link className="studio-button secondary" href="/studio/kit-builder">Abrir Kit Builder</Link>
       </section>
     </main>
   );
