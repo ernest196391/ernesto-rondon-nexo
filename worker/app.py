@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hmac
 import json
 import os
 import re
@@ -13,6 +14,17 @@ from flask import Flask, jsonify, request, send_file
 app = Flask(__name__)
 MAX_BYTES = 25 * 1024 * 1024
 ALLOWED = {"video/mp4", "video/quicktime", "video/webm", "video/x-m4v"}
+
+
+@app.before_request
+def protect_worker():
+    if request.path == "/health":
+        return None
+    expected = os.environ.get("CONTENT_WORKER_SECRET", "")
+    supplied = request.headers.get("x-nexo-worker-key", "")
+    if not expected or not supplied or not hmac.compare_digest(expected, supplied):
+        return jsonify({"error": "Unauthorized worker request."}), 401
+    return None
 
 
 def _validate_upload():
@@ -114,7 +126,7 @@ def _write_ass(path: Path, words: list[dict], cuts: list[dict]):
 
 @app.get("/health")
 def health():
-    return jsonify({"ok": True, "service": "nexo-content-worker", "kit": "05", "pipeline": "approved-edit-plan"})
+    return jsonify({"ok": True, "service": "nexo-content-worker", "kit": "05", "pipeline": "approved-edit-plan", "protected": True})
 
 
 @app.post("/analyze")
@@ -155,23 +167,17 @@ def render_approved_plan():
         cuts, words = _normalize_plan(plan, probe["durationSeconds"])
         if not cuts: return jsonify({"error": "No hay segmentos válidos para renderizar."}), 400
         _write_ass(ass, words, cuts)
-        vf_parts = []
-        af_parts = []
+        vf_parts = []; af_parts = []
         for idx, cut in enumerate(cuts):
             vf_parts.append(f"[0:v]trim=start={cut['start']}:end={cut['end']},setpts=PTS-STARTPTS,scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920[v{idx}]")
-            if probe["hasAudio"]:
-                af_parts.append(f"[0:a]atrim=start={cut['start']}:end={cut['end']},asetpts=PTS-STARTPTS[a{idx}]")
+            if probe["hasAudio"]: af_parts.append(f"[0:a]atrim=start={cut['start']}:end={cut['end']},asetpts=PTS-STARTPTS[a{idx}]")
         if probe["hasAudio"]:
             inputs = "".join(f"[v{i}][a{i}]" for i in range(len(cuts)))
-            concat = f"{inputs}concat=n={len(cuts)}:v=1:a=1[vcat][acat]"
-            post = f"[vcat]subtitles='{ass.as_posix()}'[vout];[acat]loudnorm=I=-14:TP=-1.5:LRA=11[aout]"
-            filter_complex = ";".join(vf_parts + af_parts + [concat, post])
+            filter_complex = ";".join(vf_parts + af_parts + [f"{inputs}concat=n={len(cuts)}:v=1:a=1[vcat][acat]", f"[vcat]subtitles='{ass.as_posix()}'[vout];[acat]loudnorm=I=-14:TP=-1.5:LRA=11[aout]"])
             maps = ["-map", "[vout]", "-map", "[aout]"]
         else:
             inputs = "".join(f"[v{i}]" for i in range(len(cuts)))
-            concat = f"{inputs}concat=n={len(cuts)}:v=1:a=0[vcat]"
-            post = f"[vcat]subtitles='{ass.as_posix()}'[vout]"
-            filter_complex = ";".join(vf_parts + [concat, post])
+            filter_complex = ";".join(vf_parts + [f"{inputs}concat=n={len(cuts)}:v=1:a=0[vcat]", f"[vcat]subtitles='{ass.as_posix()}'[vout]"])
             maps = ["-map", "[vout]"]
         command = [ffmpeg, "-y", "-i", str(source), "-filter_complex", filter_complex, *maps, "-c:v", "libx264", "-preset", "veryfast", "-crf", "23"]
         if probe["hasAudio"]: command += ["-c:a", "aac", "-b:a", "160k"]

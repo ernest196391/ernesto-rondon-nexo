@@ -1,24 +1,47 @@
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 3px solid currentColor;
+  outline-offset: 3px;
+}
+
 @media (max-width: 760px) {
   .links a,
   .cta,
-  .tool button {
+  .tool button,
+  .studio-button,
+  .content-form button,
+  .business-form button,
+  .specialist-form button,
+  .conversation-simulator button {
     min-height: 44px;
   }
 
   .tool textarea,
-  .analyzer-input-card textarea {
+  .analyzer-input-card textarea,
+  .studio-form input,
+  .studio-form textarea,
+  .studio-form select,
+  .content-form input,
+  .business-form input,
+  .business-form textarea,
+  .specialist-form input,
+  .conversation-simulator textarea {
     font-size: 16px;
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
+@media (max-width: 480px) {
+  .studio-flow {
+    grid-template-columns: 1fr;
   }
+}
 
-  *,
-  *::before,
-  *::after {
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
