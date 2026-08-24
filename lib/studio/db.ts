@@ -1,5 +1,5 @@
 import { Pool } from "pg";
-import type { Project, ProjectMemoryEntry, Run } from "./types";
+import type { Artifact, Project, ProjectMemoryEntry, Run } from "./types";
 
 let pool: Pool | undefined;
 let schemaReady: Promise<void> | undefined;
@@ -74,4 +74,17 @@ export async function appendMemoryEntry(projectId: string, entry: ProjectMemoryE
   const project = await getProject(projectId);
   if (!project) return null;
   return saveProject({ ...project, memory: [...(project.memory ?? []), entry] });
+}
+
+export async function appendArtifact(projectId: string, artifact: Artifact): Promise<Project | null> {
+  const project = await getProject(projectId);
+  if (!project) return null;
+  let foundRun = false;
+  const runs = (project.runs ?? []).map((run) => {
+    if (run.id !== artifact.runId) return run;
+    foundRun = true;
+    return { ...run, updatedAt: new Date().toISOString(), artifacts: [...(run.artifacts ?? []), artifact] };
+  });
+  if (!foundRun) return null;
+  return saveProject({ ...project, runs });
 }
