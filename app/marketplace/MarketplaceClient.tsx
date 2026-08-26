@@ -1,14 +1,88 @@
 "use client";
-import Image from "next/image";import Link from "next/link";import { FormEvent, useEffect, useState } from "react";
-type WooProduct={id:number;name:string;slug:string;price:string;regular_price:string;sale_price:string;stock_status:string;images:Array<{src:string;alt:string}>;categories:Array<{id:number;name:string}>;meta_data?:Array<{key:string;value:unknown}>};
-function availability(p:WooProduct){return p.meta_data?.some(m=>m.key==="nexo_availability_confirmation"&&m.value==="required")?"Confirmamos disponibilidad":p.stock_status==="instock"?"Disponible":"Agotado";}
-export default function MarketplaceClient(){const [products,setProducts]=useState<WooProduct[]>([]);const [query,setQuery]=useState("");const [loading,setLoading]=useState(true);const [error,setError]=useState("");const [storeUrl,setStoreUrl]=useState("");
- async function load(search=""){setLoading(true);setError("");try{const r=await fetch(`/api/marketplace/products${search?`?search=${encodeURIComponent(search)}`:""}`);const d=await r.json();if(!r.ok)throw new Error(d.error||"No se pudo cargar el catálogo.");setProducts(d.products);setStoreUrl(d.storeUrl||"");}catch(e){setError(e instanceof Error?e.message:"No se pudo cargar el catálogo.");}finally{setLoading(false)}}useEffect(()=>{const timer=window.setTimeout(()=>void load(),0);return()=>window.clearTimeout(timer)},[]);
- function submit(e:FormEvent){e.preventDefault();void load(query)}
- return <main className="marketplace-shell"><header className="market-header"><Link href="/" aria-label="NEXO Marketplace"><Image src="/brand/nexo-logo.png" width={210} height={75} alt="NEXO" priority/></Link><div className="market-actions"><Link href="/studio">Studio</Link>{storeUrl&&<a className="market-cart" href={`${storeUrl}/cart/`}>Carrito</a>}</div></header>
- <section className="market-search"><form onSubmit={submit}><label className="sr-only" htmlFor="market-search">Buscar productos</label><input id="market-search" value={query} onChange={e=>setQuery(e.target.value)} placeholder="¿Qué estás buscando?"/><button>Buscar</button></form><nav aria-label="Categorías"><button onClick={()=>{setQuery("");void load()}}>Todo</button><button onClick={()=>{setQuery("hogar");void load("hogar")}}>Hogar</button><button onClick={()=>{setQuery("tecnología");void load("tecnología")}}>Tecnología</button><button onClick={()=>{setQuery("electrodoméstico");void load("electrodoméstico")}}>Electro</button><button onClick={()=>{setQuery("ventilador");void load("ventilador")}}>Energía</button></nav></section>
- <section className="market-hero"><div><span>NEXO Marketplace</span><h1>Lo que buscas,<br/><em>más cerca.</em></h1><p>Productos seleccionados, compra acompañada y entrega coordinada.</p><a href="#productos">Ver productos</a></div><div className="hero-orb" aria-hidden="true"/></section>
- <section id="productos" className="products-section"><header><div><span>Catálogo</span><h2>Productos para ti</h2></div>{!loading&&!error&&<p>{products.length} productos</p>}</header>{loading&&<div className="product-state">Cargando catálogo…</div>}{error&&<div className="product-state error"><strong>Catálogo pendiente de conexión</strong><p>{error}</p></div>}{!loading&&!error&&products.length===0&&<div className="product-state">No encontramos productos con esa búsqueda.</div>}
- <div className="product-grid">{products.map(p=><article className="product-card" key={p.id}><Link href={`/producto/${p.id}`}><div className="product-media">{p.images?.[0]?.src?<img src={p.images[0].src} alt={p.images[0].alt||p.name}/>:<div className="no-photo">NEXO</div>}<span>{availability(p)}</span></div><div className="product-info"><small>{p.categories?.[0]?.name||"NEXO"}</small><h3>{p.name}</h3><div className="price-row"><div>{p.sale_price&&<del>${p.regular_price}</del>}<strong>${p.price}</strong></div><span className="add-symbol">＋</span></div></div></Link></article>)}</div></section>
- <section className="market-benefits"><div><b>Compra segura</b><span>Pedido oficial en WooCommerce</span></div><div><b>Entrega coordinada</b><span>Mensajería calculada por separado</span></div><div><b>Acompañamiento</b><span>Soporte humano durante tu compra</span></div></section>
- <footer><Image src="/brand/nexo-logo.png" width={168} height={60} alt="NEXO"/><p>Lo que buscas, más cerca.</p><nav><Link href="/contacto">Contacto</Link><Link href="/studio">NEXO Studio</Link></nav></footer></main>}
+
+import Image from "next/image";
+import Link from "next/link";
+import { FormEvent, useEffect, useMemo, useState } from "react";
+
+type WooProduct = {
+  id: number; name: string; slug: string; price: string; regular_price: string;
+  sale_price: string; stock_status: string;
+  images: Array<{ src: string; alt: string }>;
+  categories: Array<{ id: number; name: string }>;
+  meta_data?: Array<{ key: string; value: unknown }>;
+};
+
+function availability(product: WooProduct) {
+  const needsConfirmation = product.meta_data?.some(
+    (item) => item.key === "nexo_availability_confirmation" && item.value === "required",
+  );
+  if (needsConfirmation) return "Confirmamos disponibilidad";
+  return product.stock_status === "instock" ? "Disponible" : "Agotado";
+}
+
+export default function MarketplaceClient() {
+  const [products, setProducts] = useState<WooProduct[]>([]);
+  const [query, setQuery] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const [storeUrl, setStoreUrl] = useState("");
+  const [refCode, setRefCode] = useState("");
+
+  async function load(search = "") {
+    setLoading(true); setError("");
+    try {
+      const response = await fetch(`/api/marketplace/products${search ? `?search=${encodeURIComponent(search)}` : ""}`);
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || "No se pudo cargar el catálogo.");
+      setProducts(data.products); setStoreUrl(data.storeUrl || "");
+    } catch (caught) {
+      setError(caught instanceof Error ? caught.message : "No se pudo cargar el catálogo.");
+    } finally { setLoading(false); }
+  }
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      const params = new URLSearchParams(window.location.search);
+      setRefCode(params.get("ref")?.trim() || "");
+      void load();
+    }, 0);
+    return () => window.clearTimeout(timer);
+  }, []);
+
+  const featured = useMemo(
+    () => products.find((product) => /ventilador|fan/i.test(product.name)) || products[0],
+    [products],
+  );
+
+  const productUrl = (id: number) => `/producto/${id}${refCode ? `?ref=${encodeURIComponent(refCode)}` : ""}`;
+  const storePath = (path: string) => {
+    if (!storeUrl) return "";
+    const separator = path.includes("?") ? "&" : "?";
+    return `${storeUrl}${path}${refCode ? `${separator}ref=${encodeURIComponent(refCode)}` : ""}`;
+  };
+  const submit = (event: FormEvent) => { event.preventDefault(); void load(query); };
+  const filter = (label: string) => { setQuery(label); void load(label); };
+
+  return <main className="marketplace-shell">
+    <div className="market-notice"><span>Compra acompañada</span><b>Confirmamos existencia y precio antes de completar tu pedido.</b></div>
+    <header className="market-header">
+      <Link href={refCode ? `/?ref=${encodeURIComponent(refCode)}` : "/"} aria-label="NEXO Marketplace"><Image src="/brand/nexo-logo.png" width={210} height={75} alt="NEXO" priority /></Link>
+      <div className="market-actions"><a href="#productos">Productos</a>{storeUrl && <a className="market-cart" href={storePath("/cart/")}>Carrito</a>}</div>
+    </header>
+    <section className="market-search" aria-label="Buscar en el catálogo">
+      <form onSubmit={submit}><label className="sr-only" htmlFor="market-search">Buscar productos</label><input id="market-search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="¿Qué estás buscando?"/><button>Buscar</button></form>
+      <nav aria-label="Categorías"><button onClick={() => { setQuery(""); void load(); }}>Todo</button><button onClick={() => filter("ventilador")}>Ventiladores</button><button onClick={() => filter("hogar")}>Hogar</button><button onClick={() => filter("electrodoméstico")}>Electrodomésticos</button><button onClick={() => filter("tecnología")}>Tecnología</button></nav>
+    </section>
+    <section className="market-hero">
+      <div className="market-hero-copy"><span>NEXO Marketplace</span><h1>Lo que buscas,<br/><em>más cerca.</em></h1><p>Productos seleccionados, compra acompañada y entrega coordinada.</p><a href="#productos">Comprar ahora</a></div>
+      {featured?.images?.[0]?.src ? <Link className="market-hero-product" href={productUrl(featured.id)} aria-label={`Ver ${featured.name}`}><img src={featured.images[0].src} alt={featured.images[0].alt || featured.name}/><span>{featured.name}</span></Link> : <div className="hero-orb" aria-hidden="true"/>}
+    </section>
+    <section id="productos" className="products-section">
+      <header><div><span>Catálogo real</span><h2>Listos para consultar</h2></div>{!loading && !error && <p>{products.length} productos</p>}</header>
+      {loading && <div className="product-state">Cargando catálogo…</div>}{error && <div className="product-state error"><strong>Catálogo pendiente de conexión</strong><p>{error}</p></div>}{!loading && !error && products.length === 0 && <div className="product-state">No encontramos productos con esa búsqueda.</div>}
+      <div className="product-grid">{products.map((product) => <article className="product-card" key={product.id}><Link href={productUrl(product.id)}><div className="product-media">{product.images?.[0]?.src ? <img src={product.images[0].src} alt={product.images[0].alt || product.name}/> : <div className="no-photo">NEXO</div>}<span>{availability(product)}</span></div><div className="product-info"><small>{product.categories?.[0]?.name || "NEXO"}</small><h3>{product.name}</h3><div className="price-row"><div>{product.sale_price && <del>${product.regular_price}</del>}<strong>${product.price}</strong></div><span className="add-symbol" aria-hidden="true">＋</span></div></div></Link></article>)}</div>
+    </section>
+    <section className="market-benefits"><div><b>Compra segura</b><span>Tu pedido queda registrado oficialmente.</span></div><div><b>Entrega coordinada</b><span>La mensajería se calcula por separado.</span></div><div><b>Acompañamiento</b><span>Confirmamos existencia y precio antes de completar.</span></div></section>
+    <footer><Image src="/brand/nexo-logo.png" width={168} height={60} alt="NEXO"/><p>Lo que buscas, más cerca.</p><nav><a href="#productos">Productos</a>{storeUrl && <a href={storePath("/my-account/")}>Mis pedidos</a>}</nav></footer>
+  </main>;
+}
