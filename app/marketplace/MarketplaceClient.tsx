@@ -41,9 +41,11 @@ export default function MarketplaceClient() {
   }
 
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    setRefCode(params.get("ref")?.trim() || "");
-    const timer = window.setTimeout(() => void load(), 0);
+    const timer = window.setTimeout(() => {
+      const params = new URLSearchParams(window.location.search);
+      setRefCode(params.get("ref")?.trim() || "");
+      void load();
+    }, 0);
     return () => window.clearTimeout(timer);
   }, []);
 
