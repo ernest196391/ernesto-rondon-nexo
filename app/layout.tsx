@@ -5,34 +5,35 @@ import "./nexo-home-film.css";
 import Link from "next/link";
 import type { Metadata } from "next";
 
-const siteUrl = "https://nexo.casavivadecuba.com";
+const siteUrl = "https://nexotienda.casavivadecuba.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "NEXO — De una idea a un negocio real",
+    default: "NEXO — Lo que buscas, más cerca",
     template: "%s | NEXO",
   },
   description:
-    "NEXO investiga, valida y construye negocios, productos digitales y sistemas con inteligencia artificial.",
+    "Compra productos seleccionados con acompañamiento, disponibilidad verificada y entrega coordinada.",
   openGraph: {
     type: "website",
     locale: "es_ES",
     url: siteUrl,
     siteName: "NEXO",
-    title: "NEXO — De una idea a un negocio real",
+    title: "NEXO — Lo que buscas, más cerca",
     description:
-      "Investiga, valida y construye negocios y productos digitales con inteligencia artificial.",
+      "Productos seleccionados, compra acompañada y entrega coordinada.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "NEXO — De una idea a un negocio real",
+    title: "NEXO — Lo que buscas, más cerca",
     description:
-      "Investiga, valida y construye negocios y productos digitales con inteligencia artificial.",
+      "Productos seleccionados, compra acompañada y entrega coordinada.",
   },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const platformPublic = process.env.NEXO_PLATFORM_PUBLIC === "true";
   return (
     <html lang="es">
       <body>
@@ -45,16 +46,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               NEXO
             </Link>
             <div className="links">
-              <Link href="/studio">Studio</Link>
-              <Link href="/negocios">Proyectos</Link>
-              <Link href="/herramientas">Herramientas</Link>
-              <Link href="/sobre-mi">Ernesto</Link>
+              <Link href="/#productos">Productos</Link>
               <Link href="/contacto">Contacto</Link>
+              {platformPublic && <Link href="/studio">Studio</Link>}
+              {platformPublic && <Link href="/negocios">Proyectos</Link>}
+              {platformPublic && <Link href="/herramientas">Herramientas</Link>}
             </div>
           </nav>
           <div id="contenido-principal">{children}</div>
           <footer>
-            © {new Date().getFullYear()} NEXO · Idea → evidencia → negocio.
+            © {new Date().getFullYear()} NEXO · Lo que buscas, más cerca.
           </footer>
         </div>
       </body>
