@@ -1,4 +1,6 @@
 import { NextResponse } from "next/server";
+import { wordpressConfigured } from "../../../lib/commerce/wordpress";
+import { wooConfigured } from "../../../lib/commerce/woocommerce";
 
 export const dynamic = "force-dynamic";
 
@@ -14,6 +16,11 @@ export async function GET() {
       analyzerProviders: {
         gemini: geminiConfigured,
         openai: openaiConfigured,
+      },
+      commerce: {
+        database: Boolean(process.env.DATABASE_URL),
+        woocommerce: wooConfigured(),
+        wordpressMedia: wordpressConfigured(),
       },
       timestamp: new Date().toISOString(),
     },
