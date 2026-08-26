@@ -44,7 +44,7 @@ export default function StudioPage() {
           <div className="studio-status-dot" />
           <div>
             <span>Studio</span>
-            <strong>8 especialistas disponibles</strong>
+            <strong>9 especialistas disponibles</strong>
             <p>Auditorías, web, contenido, conversaciones y creación de nuevos especialistas desde una sola base.</p>
           </div>
         </aside>
@@ -68,6 +68,10 @@ export default function StudioPage() {
     <section className="studio-section" id="especialistas">
       <div className="studio-section-heading"><div><div className="studio-kicker">HERRAMIENTAS</div><h2>¿Qué necesitas hacer?</h2></div><p>También puedes abrir un especialista directamente.</p></div>
       <div className="studio-catalog">
+        <Link className="studio-specialist" href="/studio/products" style={{ textDecoration: "none", color: "inherit" }}>
+          <div className="studio-specialist-top"><span className="studio-index">P01</span><span className="studio-chip ready">Operativo</span></div>
+          <h3>Product Studio</h3><p>Convierte fotografías reales en evidencia, investigación, precio y borrador de WooCommerce.</p><div className="studio-input-hint">Necesita · 1–8 fotografías del mismo producto</div>
+        </Link>
         {specialists.map((item) => {
           const content = <>
             <div className="studio-specialist-top"><span className="studio-index">{item.accent}</span><span className={`studio-chip ${item.status}`}>{item.status === "ready" ? "Disponible" : "En preparación"}</span></div>
