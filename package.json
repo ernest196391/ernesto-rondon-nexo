@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "node scripts/seed-pilot-products.mjs && next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit"
   },
