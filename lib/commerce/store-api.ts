@@ -9,7 +9,7 @@ function storeUrl(path: string) {
 
 export async function requestStoreCart(path: string, options: { method?: string; token?: string; body?: unknown } = {}) {
   const url = new URL(storeUrl(path));
-  if (!options.token && (options.method ?? "GET") === "GET") url.searchParams.set("nexo_session", randomUUID());
+  if ((options.method ?? "GET") === "GET") url.searchParams.set("nexo_session", randomUUID());
   const response = await fetch(url, {
     method: options.method ?? "GET",
     headers: { "Content-Type": "application/json", ...(options.token ? { "Cart-Token": options.token } : {}) },
