@@ -15,6 +15,8 @@ type CheckoutInput = {
   email: string;
   address: string;
   municipality: string;
+  province: string;
+  postcode: string;
   reference?: string;
   notes?: string;
   deliveryWindow?: string;
@@ -37,14 +39,16 @@ function validate(raw: unknown): CheckoutInput {
   const input: CheckoutInput = {
     idempotencyKey: clean(value.idempotencyKey, 80), firstName: clean(value.firstName, 80), lastName: clean(value.lastName, 80),
     phone: clean(value.phone, 24), alternatePhone: clean(value.alternatePhone, 24), email: clean(value.email, 120).toLowerCase(),
-    address: clean(value.address, 180), municipality: clean(value.municipality, 90), reference: clean(value.reference, 180),
+    address: clean(value.address, 180), municipality: clean(value.municipality, 90), province: clean(value.province, 90),
+    postcode: clean(value.postcode, 16), reference: clean(value.reference, 180),
     notes: clean(value.notes, 500), deliveryWindow: clean(value.deliveryWindow, 80), paymentMethod: clean(value.paymentMethod, 60),
   };
   if (!/^[a-zA-Z0-9-]{16,80}$/.test(input.idempotencyKey)) throw new StoreApiError("No se pudo identificar este intento. Recarga e inténtalo otra vez.", 400);
   if (input.firstName.length < 2 || input.lastName.length < 2) throw new StoreApiError("Escribe tu nombre y apellidos.", 400);
   if (!validPhone(input.phone) || (input.alternatePhone && !validPhone(input.alternatePhone))) throw new StoreApiError("Revisa el número de teléfono.", 400);
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.email)) throw new StoreApiError("Escribe un correo válido para recibir la confirmación.", 400);
-  if (input.address.length < 8 || input.municipality.length < 2) throw new StoreApiError("Completa la dirección y el municipio o zona.", 400);
+  if (input.address.length < 8 || input.municipality.length < 2 || input.province.length < 2) throw new StoreApiError("Completa la dirección, el municipio y la provincia.", 400);
+  if (!/^[a-zA-Z0-9 -]{3,12}$/.test(input.postcode)) throw new StoreApiError("Escribe un código postal válido.", 400);
   if (!input.paymentMethod) throw new StoreApiError("Selecciona cómo coordinarás el pago.", 400);
   return input;
 }
@@ -74,7 +78,7 @@ async function placeOrder(input: CheckoutInput, token: string, referral: string)
 
   const address = {
     first_name: input.firstName, last_name: input.lastName, company: "", address_1: input.address,
-    address_2: input.reference || "", city: input.municipality, state: "", postcode: "", country: "CU", phone: input.phone,
+    address_2: input.reference || "", city: input.municipality, state: input.province, postcode: input.postcode, country: "CU", phone: input.phone,
   };
   const result = await requestStoreCheckout({
     token, method: "POST", referral,
