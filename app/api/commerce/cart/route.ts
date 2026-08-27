@@ -13,7 +13,12 @@ function setSessionCookies(response: NextResponse, token?: string, referral?: st
 
 async function execute(action?: CartAction) {
   const jar = await cookies();
-  const token = jar.get(CART_COOKIE)?.value;
+  let token = jar.get(CART_COOKIE)?.value;
+  if (action && !token) {
+    const session = await requestStoreCart("/cart");
+    token = session.token;
+    if (!token) throw new StoreApiError("WooCommerce no pudo iniciar la sesión del carrito.", 502);
+  }
   let path = "/cart", method = "GET", body: unknown, referral = "";
   if (action?.action === "add") {
     if (!Number.isInteger(action.productId) || action.productId <= 0) throw new StoreApiError("Producto no válido.", 400);
