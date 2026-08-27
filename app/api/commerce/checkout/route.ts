@@ -23,6 +23,7 @@ type Input = {
   phone: string;
   alternatePhone: string;
   email: string;
+  postcode: string;
   mode: "delivery" | "pickup";
   municipality: string;
   locality: string;
@@ -61,7 +62,8 @@ function validate(raw: unknown): Input {
       fullName: clean(v.fullName, 120),
       phone: clean(v.phone, 24),
       alternatePhone: clean(v.alternatePhone, 24),
-      email: clean(v.email, 120).toLowerCase(),
+    email: clean(v.email, 120).toLowerCase(),
+    postcode: clean(v.postcode, 16),
       mode,
       municipality: clean(v.municipality, 90),
       locality: clean(v.locality, 120),
@@ -82,6 +84,8 @@ function validate(raw: unknown): Input {
     throw new StoreApiError("Revisa el número de teléfono.", 400);
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.email))
     throw new StoreApiError("Escribe un correo válido para registrar el pedido.", 400);
+  if (!/^[a-zA-Z0-9 -]{3,12}$/.test(input.postcode))
+    throw new StoreApiError("Escribe un código postal válido.", 400);
   if (!["delivery", "pickup"].includes(mode))
     throw new StoreApiError("Selecciona entrega o recogida.", 400);
   if (mode === "delivery") {
@@ -171,7 +175,7 @@ async function place(
     city:
       input.mode === "delivery" ? input.municipality : "Plaza de la Revolución",
     state: "LH",
-    postcode: "",
+    postcode: input.postcode,
     country: "CU",
     phone: input.phone,
   };

@@ -9,6 +9,7 @@ type Draft = {
   phone: string;
   alternatePhone: string;
   email: string;
+  postcode: string;
   mode: Mode;
   municipality: string;
   locality: string;
@@ -36,6 +37,7 @@ const empty: Draft = {
   phone: "",
   alternatePhone: "",
   email: "",
+  postcode: "",
   mode: "",
   municipality: "",
   locality: "",
@@ -311,6 +313,11 @@ export default function CheckoutClient({
               onChange={(e) => set("email", e.target.value)}
             />
             <small>WooCommerce lo necesita para registrar y recuperar el pedido.</small>
+          </label>
+          <label>
+            <span>Código postal</span>
+            <input required inputMode="numeric" autoComplete="postal-code" minLength={3} maxLength={12} value={draft.postcode} onChange={(e) => set("postcode", e.target.value)} />
+            <small>WooCommerce lo requiere para registrar la dirección del pedido.</small>
           </label>
         </fieldset>
         {draft.mode === "delivery" && (
