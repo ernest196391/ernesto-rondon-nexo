@@ -15,7 +15,8 @@ async function execute(action?: CartAction) {
   const jar = await cookies();
   let token = jar.get(CART_COOKIE)?.value;
   if (action && !token) {
-    const session = await requestStoreCart("/cart");
+    const requestedReferral = action.action === "add" ? safeReferral(action.referral) : "";
+    const session = await requestStoreCart("/cart", { referral: requestedReferral });
     token = session.token;
     if (!token) throw new StoreApiError("WooCommerce no pudo iniciar la sesión del carrito.", 502);
   }
@@ -32,7 +33,7 @@ async function execute(action?: CartAction) {
     if (!action.key) throw new StoreApiError("Producto no válido.", 400);
     path = "/cart/remove-item"; method = "POST"; body = { key: action.key };
   }
-  const result = await requestStoreCart(path, { method, token, body });
+  const result = await requestStoreCart(path, { method, token, body, referral });
   const response = NextResponse.json(
     { cart: result.cart, referral: referral || jar.get(REFERRAL_COOKIE)?.value || "" },
     { headers: { "Cache-Control": "private, no-store, max-age=0", Vary: "Cookie" } },

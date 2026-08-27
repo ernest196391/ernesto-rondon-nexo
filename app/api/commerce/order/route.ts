@@ -1,0 +1,21 @@
+import { cookies } from "next/headers";
+import { NextResponse } from "next/server";
+import { CONFIRMATION_COOKIE } from "../../../../lib/commerce/store-api";
+import { getWooOrder } from "../../../../lib/commerce/woocommerce";
+
+export const dynamic = "force-dynamic";
+export async function GET() {
+  const jar = await cookies(); const value = jar.get(CONFIRMATION_COOKIE)?.value || "";
+  const separator = value.indexOf(":"); const orderId = Number(value.slice(0, separator));
+  let orderKey = "";
+  try { orderKey = decodeURIComponent(value.slice(separator + 1)); } catch { orderKey = ""; }
+  if (!Number.isInteger(orderId) || orderId <= 0 || !orderKey) return NextResponse.json({ error: "Confirmación no disponible." }, { status: 404 });
+  try {
+    const order = await getWooOrder(orderId);
+    if (order.order_key !== orderKey) return NextResponse.json({ error: "Confirmación no disponible." }, { status: 404 });
+    return NextResponse.json({ order: {
+      id: order.id, number: order.number, status: order.status, currency: order.currency, total: order.total,
+      paymentMethod: order.payment_method, items: order.line_items?.map((item: Record<string, unknown>) => ({ id: item.product_id, name: item.name, quantity: item.quantity, total: item.total })),
+    } }, { headers: { "Cache-Control": "private, no-store", Vary: "Cookie" } });
+  } catch { return NextResponse.json({ error: "No pudimos recuperar la confirmación." }, { status: 502 }); }
+}
