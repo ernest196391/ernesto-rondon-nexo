@@ -3,9 +3,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { FormEvent, useEffect, useMemo, useState } from "react";
+import { catalogImageFor } from "../../lib/commerce/catalog-images";
 
 type WooProduct = {
-  id: number; name: string; slug: string; price: string; regular_price: string;
+  id: number; name: string; slug: string; sku?: string; price: string; regular_price: string;
   sale_price: string; stock_status: string;
   images: Array<{ src: string; alt: string }>;
   categories: Array<{ id: number; name: string }>;
@@ -57,6 +58,7 @@ export default function MarketplaceClient() {
   const nexoPath = (path: string) => `${path}${refCode ? `?ref=${encodeURIComponent(refCode)}` : ""}`;
   const submit = (event: FormEvent) => { event.preventDefault(); void load(query); };
   const filter = (label: string) => { setQuery(label); void load(label); };
+  const featuredImage = featured ? catalogImageFor(featured) : "";
 
   return <main className="marketplace-shell">
     <div className="market-notice"><span>Compra acompañada</span><b>Confirmamos existencia y precio antes de completar tu pedido.</b></div>
@@ -70,12 +72,12 @@ export default function MarketplaceClient() {
     </section>
     <section className="market-hero">
       <div className="market-hero-copy"><span>NEXO Marketplace</span><h1>Lo que buscas,<br/><em>más cerca.</em></h1><p>Productos seleccionados, compra acompañada y entrega coordinada.</p><a href="#productos">Comprar ahora</a></div>
-      {featured?.images?.[0]?.src ? <Link className="market-hero-product" href={productUrl(featured.id)} aria-label={`Ver ${featured.name}`}><img src={featured.images[0].src} alt={featured.images[0].alt || featured.name}/><span>{featured.name}</span></Link> : <div className="hero-orb" aria-hidden="true"/>}
+      {featuredImage ? <Link className="market-hero-product" href={productUrl(featured.id)} aria-label={`Ver ${featured.name}`}><img src={featuredImage} alt={featured.images?.[0]?.alt || featured.name}/><span>{featured.name}</span></Link> : <div className="hero-orb" aria-hidden="true"/>}
     </section>
     <section id="productos" className="products-section">
       <header><div><span>Catálogo real</span><h2>Listos para consultar</h2></div>{!loading && !error && <p>{products.length} productos</p>}</header>
       {loading && <div className="product-state">Cargando catálogo…</div>}{error && <div className="product-state error"><strong>Catálogo pendiente de conexión</strong><p>{error}</p></div>}{!loading && !error && products.length === 0 && <div className="product-state">No encontramos productos con esa búsqueda.</div>}
-      <div className="product-grid">{products.map((product) => <article className="product-card" key={product.id}><Link href={productUrl(product.id)}><div className="product-media">{product.images?.[0]?.src ? <img src={product.images[0].src} alt={product.images[0].alt || product.name}/> : <div className="no-photo">NEXO</div>}<span>{availability(product)}</span></div><div className="product-info"><small>{product.categories?.[0]?.name || "NEXO"}</small><h3>{product.name}</h3><div className="price-row"><div>{product.sale_price && <del>${product.regular_price}</del>}<strong>${product.price}</strong></div><span className="add-symbol" aria-hidden="true">＋</span></div></div></Link></article>)}</div>
+      <div className="product-grid">{products.map((product) => { const imageSrc = catalogImageFor(product); return <article className="product-card" key={product.id}><Link href={productUrl(product.id)}><div className="product-media">{imageSrc ? <img src={imageSrc} alt={product.images?.[0]?.alt || product.name}/> : <div className="no-photo">NEXO</div>}<span>{availability(product)}</span></div><div className="product-info"><small>{product.categories?.[0]?.name || "NEXO"}</small><h3>{product.name}</h3><div className="price-row"><div>{product.sale_price && <del>${product.regular_price}</del>}<strong>{product.price ? `$${product.price}` : "Precio por confirmar"}</strong></div><span className="add-symbol" aria-hidden="true">＋</span></div></div></Link></article>; })}</div>
     </section>
     <section className="market-benefits"><div><b>Compra segura</b><span>Tu pedido queda registrado oficialmente.</span></div><div><b>Entrega coordinada</b><span>La mensajería se calcula por separado.</span></div><div><b>Acompañamiento</b><span>Confirmamos existencia y precio antes de completar.</span></div></section>
     <footer><Image src="/brand/nexo-logo.png" width={168} height={60} alt="NEXO"/><p>Lo que buscas, más cerca.</p><nav><a href="#productos">Productos</a><Link href={nexoPath("/carrito")}>Carrito</Link></nav></footer>
