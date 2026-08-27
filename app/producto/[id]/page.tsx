@@ -26,7 +26,7 @@ export default async function ProductPage({ params, searchParams }: {
     <div className="product-layout"><section className="product-gallery">{imageSrc ? <img src={imageSrc} alt={product.images?.[0]?.alt || product.name} /> : <div>Sin fotografía</div>}</section>
       <section className="product-purchase"><small>{product.categories?.map((x: any) => x.name).join(" · ")}</small><h1>{product.name}</h1><strong className="product-price">{product.price ? `${product.price} USD` : "Precio por confirmar"}</strong><p className="stock">{purchasable ? "Disponible" : "No disponible para compra"}</p><div dangerouslySetInnerHTML={{ __html: product.short_description }} />
         {requiresConfirmation && <div className="confirmation"><b>Disponibilidad por confirmar</b><p>NEXO verifica existencia y precio antes de completar la compra.</p></div>}
-        <AddToCartButton productId={product.id} referral={ref} disabled={!purchasable} /><a className="whatsapp" href={`https://wa.me/5354056173?text=${encodeURIComponent(`Hola, quiero consultar ${product.name}`)}`}>Consultar por WhatsApp</a>
+        <AddToCartButton productId={product.id} referral={ref} disabled={!purchasable} />
         <details><summary>Descripción y beneficios</summary><div dangerouslySetInnerHTML={{ __html: product.description }} /></details><details><summary>Entrega y garantía</summary><p>La mensajería se calcula por separado según destino y volumen. La garantía mostrada corresponde a la ficha verificada del producto.</p></details>
       </section></div>
   </main>;
