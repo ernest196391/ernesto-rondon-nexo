@@ -17,7 +17,7 @@ function availability(product: WooProduct) {
   const needsConfirmation = product.meta_data?.some(
     (item) => item.key === "nexo_availability_confirmation" && item.value === "required",
   );
-  if (needsConfirmation) return "Confirmamos disponibilidad";
+  if (needsConfirmation) return "Disponibilidad por confirmar";
   return product.stock_status === "instock" ? "Disponible" : "Agotado";
 }
 
@@ -77,7 +77,11 @@ export default function MarketplaceClient() {
     <section id="productos" className="products-section">
       <header><div><span>Catálogo real</span><h2>Listos para consultar</h2></div>{!loading && !error && <p>{products.length} productos</p>}</header>
       {loading && <div className="product-state">Cargando catálogo…</div>}{error && <div className="product-state error"><strong>Catálogo pendiente de conexión</strong><p>{error}</p></div>}{!loading && !error && products.length === 0 && <div className="product-state">No encontramos productos con esa búsqueda.</div>}
-      <div className="product-grid">{products.map((product) => { const imageSrc = catalogImageFor(product); return <article className="product-card" key={product.id}><Link href={productUrl(product.id)}><div className="product-media">{imageSrc ? <img src={imageSrc} alt={product.images?.[0]?.alt || product.name}/> : <div className="no-photo">NEXO</div>}<span>{availability(product)}</span></div><div className="product-info"><small>{product.categories?.[0]?.name || "NEXO"}</small><h3>{product.name}</h3><div className="price-row"><div>{product.sale_price && <del>${product.regular_price}</del>}<strong>{product.price ? `$${product.price}` : "Precio por confirmar"}</strong></div><span className="add-symbol" aria-hidden="true">＋</span></div></div></Link></article>; })}</div>
+      <div className="product-grid">{products.map((product) => {
+        const purchasable = product.stock_status === "instock" && Boolean(product.price);
+        const imageSrc = catalogImageFor(product);
+        return <article className="product-card" key={product.id}><Link href={productUrl(product.id)}><div className="product-media">{imageSrc ? <img src={imageSrc} alt={product.images?.[0]?.alt || product.name}/> : <div className="no-photo">NEXO</div>}<span>{availability(product)}</span></div><div className="product-info"><small>{product.categories?.[0]?.name || "NEXO"}</small><h3>{product.name}</h3><div className="price-row"><div>{product.sale_price && <del>{product.regular_price} USD</del>}<strong>{product.price ? `${product.price} USD` : "Precio por confirmar"}</strong></div>{purchasable && <span className="add-symbol" aria-hidden="true">＋</span>}</div></div></Link></article>;
+      })}</div>
     </section>
     <section className="market-benefits"><div><b>Compra segura</b><span>Tu pedido queda registrado oficialmente.</span></div><div><b>Entrega coordinada</b><span>La mensajería se calcula por separado.</span></div><div><b>Acompañamiento</b><span>Confirmamos existencia y precio antes de completar.</span></div></section>
     <footer><Image src="/brand/nexo-logo.png" width={168} height={60} alt="NEXO"/><p>Lo que buscas, más cerca.</p><nav><a href="#productos">Productos</a><Link href={nexoPath("/carrito")}>Carrito</Link></nav></footer>
