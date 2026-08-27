@@ -25,7 +25,6 @@ export default function MarketplaceClient() {
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [storeUrl, setStoreUrl] = useState("");
   const [refCode, setRefCode] = useState("");
 
   async function load(search = "") {
@@ -34,7 +33,7 @@ export default function MarketplaceClient() {
       const response = await fetch(`/api/marketplace/products${search ? `?search=${encodeURIComponent(search)}` : ""}`);
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || "No se pudo cargar el catálogo.");
-      setProducts(data.products); setStoreUrl(data.storeUrl || "");
+      setProducts(data.products);
     } catch (caught) {
       setError(caught instanceof Error ? caught.message : "No se pudo cargar el catálogo.");
     } finally { setLoading(false); }
@@ -55,11 +54,7 @@ export default function MarketplaceClient() {
   );
 
   const productUrl = (id: number) => `/producto/${id}${refCode ? `?ref=${encodeURIComponent(refCode)}` : ""}`;
-  const storePath = (path: string) => {
-    if (!storeUrl) return "";
-    const separator = path.includes("?") ? "&" : "?";
-    return `${storeUrl}${path}${refCode ? `${separator}ref=${encodeURIComponent(refCode)}` : ""}`;
-  };
+  const nexoPath = (path: string) => `${path}${refCode ? `?ref=${encodeURIComponent(refCode)}` : ""}`;
   const submit = (event: FormEvent) => { event.preventDefault(); void load(query); };
   const filter = (label: string) => { setQuery(label); void load(label); };
 
@@ -67,7 +62,7 @@ export default function MarketplaceClient() {
     <div className="market-notice"><span>Compra acompañada</span><b>Confirmamos existencia y precio antes de completar tu pedido.</b></div>
     <header className="market-header">
       <Link href={refCode ? `/?ref=${encodeURIComponent(refCode)}` : "/"} aria-label="NEXO Marketplace"><Image src="/brand/nexo-logo.png" width={210} height={75} alt="NEXO" priority /></Link>
-      <div className="market-actions"><a href="#productos">Productos</a>{storeUrl && <a className="market-cart" href={storePath("/cart/")}>Carrito</a>}</div>
+      <div className="market-actions"><a href="#productos">Productos</a><Link className="market-cart" href={nexoPath("/carrito")}>Carrito</Link></div>
     </header>
     <section className="market-search" aria-label="Buscar en el catálogo">
       <form onSubmit={submit}><label className="sr-only" htmlFor="market-search">Buscar productos</label><input id="market-search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="¿Qué estás buscando?"/><button>Buscar</button></form>
@@ -83,6 +78,6 @@ export default function MarketplaceClient() {
       <div className="product-grid">{products.map((product) => <article className="product-card" key={product.id}><Link href={productUrl(product.id)}><div className="product-media">{product.images?.[0]?.src ? <img src={product.images[0].src} alt={product.images[0].alt || product.name}/> : <div className="no-photo">NEXO</div>}<span>{availability(product)}</span></div><div className="product-info"><small>{product.categories?.[0]?.name || "NEXO"}</small><h3>{product.name}</h3><div className="price-row"><div>{product.sale_price && <del>${product.regular_price}</del>}<strong>${product.price}</strong></div><span className="add-symbol" aria-hidden="true">＋</span></div></div></Link></article>)}</div>
     </section>
     <section className="market-benefits"><div><b>Compra segura</b><span>Tu pedido queda registrado oficialmente.</span></div><div><b>Entrega coordinada</b><span>La mensajería se calcula por separado.</span></div><div><b>Acompañamiento</b><span>Confirmamos existencia y precio antes de completar.</span></div></section>
-    <footer><Image src="/brand/nexo-logo.png" width={168} height={60} alt="NEXO"/><p>Lo que buscas, más cerca.</p><nav><a href="#productos">Productos</a>{storeUrl && <a href={storePath("/my-account/")}>Mis pedidos</a>}</nav></footer>
+    <footer><Image src="/brand/nexo-logo.png" width={168} height={60} alt="NEXO"/><p>Lo que buscas, más cerca.</p><nav><a href="#productos">Productos</a><Link href={nexoPath("/carrito")}>Carrito</Link></nav></footer>
   </main>;
 }
