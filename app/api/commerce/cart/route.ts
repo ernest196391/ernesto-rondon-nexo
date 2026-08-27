@@ -33,7 +33,10 @@ async function execute(action?: CartAction) {
     path = "/cart/remove-item"; method = "POST"; body = { key: action.key };
   }
   const result = await requestStoreCart(path, { method, token, body });
-  const response = NextResponse.json({ cart: result.cart, referral: referral || jar.get(REFERRAL_COOKIE)?.value || "" });
+  const response = NextResponse.json(
+    { cart: result.cart, referral: referral || jar.get(REFERRAL_COOKIE)?.value || "" },
+    { headers: { "Cache-Control": "private, no-store, max-age=0", Vary: "Cookie" } },
+  );
   setSessionCookies(response, result.token, referral);
   return response;
 }
