@@ -29,4 +29,29 @@ describe("NEXO product knowledge", () => {
     expect(mattresses.every((item) => item.model === null && item.confidence === "probable")).toBe(true);
     expect(mattresses.every((item) => item.gaps.length > 0)).toBe(true);
   });
+
+  it("incluye el segundo grupo de productos WooCommerce sin inventar SKU", () => {
+    const linkedIds = [1009, 1011, 1013, 1015, 1021, 1023];
+    const linked = initialKnowledgeSeeds.filter((item) => item.woocommerceProductId && linkedIds.includes(item.woocommerceProductId));
+    expect(linked.map((item) => item.woocommerceProductId).sort()).toEqual(linkedIds);
+    expect(linked.every((item) => item.sku === null)).toBe(true);
+  });
+
+  it("mantiene como desconocidos los datos críticos no verificados", () => {
+    const parker = initialKnowledgeSeeds.find((item) => item.id === "pk_parker_split");
+    const fridge = initialKnowledgeSeeds.find((item) => item.id === "pk_refrigerator_two_door");
+    expect(parker?.confidence).toBe("unknown");
+    expect(parker?.gaps.some((gap) => gap.question.includes("BTU"))).toBe(true);
+    expect(parker?.specs.some((spec) => spec.name.includes("BTU"))).toBe(false);
+    expect(fridge?.confidence).toBe("unknown");
+    expect(fridge?.gaps.length).toBeGreaterThan(0);
+    expect(fridge?.specs.some((spec) => /No Frost|inverter|capacidad/i.test(`${spec.name} ${spec.value}`))).toBe(false);
+  });
+
+  it("no presenta el manual BERA como evidencia confirmada de la unidad física", () => {
+    const bera = initialKnowledgeSeeds.find((item) => item.id === "pk_bera_br150");
+    expect(bera?.confidence).toBe("probable");
+    expect(bera?.specs.every((spec) => spec.confidence === "probable")).toBe(true);
+    expect(bera?.gaps.some((gap) => gap.question.includes("unidad física"))).toBe(true);
+  });
 });
