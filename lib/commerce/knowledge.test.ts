@@ -6,11 +6,13 @@ describe("NEXO product knowledge", () => {
     expect(normalizeKnowledgeIdentifier("  Colchón KONFORT 135 × 190  ")).toBe("colchon-konfort-135-190");
   });
 
-  it("mantiene el Boviet físico en 620 W y nunca 625 W", () => {
+  it("mantiene el Boviet físico en 620 W y nunca publica 625 W como potencia", () => {
     const boviet = initialKnowledgeSeeds.find((item) => item.id === "pk_boviet_620");
     expect(boviet).toBeTruthy();
     expect(boviet?.specs.find((spec) => spec.name === "Potencia máxima")?.value).toBe("620");
-    expect(JSON.stringify(boviet)).not.toContain("625 W");
+    expect(boviet?.specs.some((spec) => spec.unit === "W" && spec.value === "625")).toBe(false);
+    expect(boviet?.summary).toContain("620 W");
+    expect(boviet?.summary).not.toContain("625 W");
   });
 
   it("conserva como probable la discrepancia Royal RA123SL/RA12RSL", () => {
