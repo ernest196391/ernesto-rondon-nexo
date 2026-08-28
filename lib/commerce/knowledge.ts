@@ -230,6 +230,139 @@ export const initialKnowledgeSeeds: ProductKnowledgeSeed[] = [
     faq: [{ question: "¿Es Gran Habana?", answer: "Hay una coincidencia comercial fuerte con la línea Gran Habana, pero falta confirmar la etiqueta física. Debe presentarse como posible coincidencia, no como modelo confirmado.", audience: "gestora", confidence: "probable" }],
     sources: [{ sourceType: "research", title: "Coincidencia comercial investigada para KONFORT 120 × 190", supports: ["posible línea Gran Habana"], confidence: "probable" }],
     salesPlaybook: { ...blankPlaybook(), warnings: ["No afirmar composición interna ni línea Gran Habana sin etiqueta física."] }, gaps: [{ question: "¿Cuál es la línea/modelo y composición exacta?", requiredEvidence: "Foto legible de etiqueta del colchón con línea y composición", priority: "high" }]
+  },
+  {
+    id: "pk_philco_ph43hdce", woocommerceProductId: 1009, sku: null, brand: "Philco", model: "PH43HDCE",
+    aliases: ["Philco PH43HDCE", "PH43HDCE", "televisor Philco 43", "TV Philco 43"], productType: "Televisor LED",
+    summary: "Televisor Philco PH43HDCE de 43 pulgadas. NEXO tiene confirmados el modelo, tamaño y resolución Full HD; las funciones smart y conectividad exacta siguen pendientes de placa/manual.",
+    customerDescription: "Televisor Philco LED de 43 pulgadas y resolución Full HD. Las funciones adicionales deben confirmarse antes de prometerlas.", confidence: "probable",
+    specs: [
+      { name: "Pantalla", value: "43", unit: "pulgadas", confidence: "confirmed_nexo", evidence: "Producto registrado y fotografiado por NEXO" },
+      { name: "Tecnología", value: "LED", confidence: "confirmed_nexo", evidence: "Producto registrado por NEXO" },
+      { name: "Resolución", value: "Full HD", confidence: "confirmed_nexo", evidence: "Producto registrado por NEXO" }
+    ],
+    faq: [{ question: "¿Es Smart TV?", answer: "NEXO todavía no ha confirmado esa función para la unidad PH43HDCE. Hay que verificar etiqueta, manual o conectividad antes de afirmarlo.", audience: "gestora", confidence: "unknown" }],
+    sources: [{ sourceType: "physical_photo", title: "Producto Philco PH43HDCE registrado por NEXO", supports: ["marca", "modelo", "43 pulgadas", "Full HD"], confidence: "confirmed_nexo" }],
+    salesPlaybook: { ...blankPlaybook(), benefits: ["Pantalla de 43 pulgadas", "Resolución Full HD"], warnings: ["No prometer Smart TV, sistema operativo, Wi‑Fi ni cantidad de puertos sin verificar la unidad."] },
+    gaps: [{ question: "¿Qué conectividad y funciones smart tiene exactamente?", requiredEvidence: "Foto de etiqueta trasera, conectores y/o manual del PH43HDCE", priority: "high" }]
+  },
+  {
+    id: "pk_decoder_hd", woocommerceProductId: 1011, sku: null, brand: null, model: null,
+    aliases: ["Decodificador Digital HD", "decodificador HD", "cajita digital", "caja digital"], productType: "Decodificador de televisión digital",
+    summary: "Decodificador digital HD con HDMI y USB visibles. Marca, modelo, estándar de televisión y codecs todavía no están confirmados.",
+    customerDescription: "Decodificador digital con salidas/conectividad HDMI y USB visibles; compatibilidad exacta pendiente de identificación del modelo.", confidence: "probable",
+    specs: [
+      { name: "HDMI", value: "presente", confidence: "confirmed_nexo", evidence: "Fotografía del producto" },
+      { name: "USB", value: "presente", confidence: "confirmed_nexo", evidence: "Fotografía del producto" }
+    ],
+    faq: [{ question: "¿Sirve para la televisión digital de Cuba?", answer: "NEXO todavía no ha confirmado el estándar del equipo. No debe garantizarse compatibilidad hasta identificar marca/modelo y especificación de recepción.", audience: "gestora", confidence: "unknown" }],
+    sources: [{ sourceType: "physical_photo", title: "Fotografía del decodificador registrada por NEXO", supports: ["HDMI", "USB"], confidence: "confirmed_nexo" }],
+    salesPlaybook: { ...blankPlaybook(), warnings: ["No afirmar DVB, DTMB, codecs ni compatibilidad nacional sin etiqueta/modelo."] },
+    gaps: [{ question: "¿Cuál es la marca, modelo, estándar de recepción y codecs compatibles?", requiredEvidence: "Foto legible de etiqueta/modelo y especificaciones del equipo", priority: "high" }]
+  },
+  {
+    id: "pk_parker_split", woocommerceProductId: 1013, sku: null, brand: "Parker", model: null,
+    aliases: ["Split Parker", "aire Parker", "aire acondicionado Parker"], productType: "Aire acondicionado split",
+    summary: "Equipo de aire acondicionado split Parker con unidad interior y exterior. Capacidad, modelo, tecnología inverter, refrigerante y consumo todavía no están confirmados.",
+    customerDescription: "Aire acondicionado split Parker. La capacidad y especificaciones eléctricas se confirmarán antes de cerrar la venta.", confidence: "unknown",
+    specs: [{ name: "Configuración", value: "unidad interior + unidad exterior", confidence: "confirmed_nexo", evidence: "Fotografía del producto" }],
+    faq: [{ question: "¿Cuántos BTU tiene?", answer: "Ese dato todavía no está confirmado en NEXO. Hace falta la placa técnica de la unidad antes de recomendarlo por tamaño de habitación.", audience: "customer", confidence: "unknown" }],
+    sources: [{ sourceType: "physical_photo", title: "Equipo Parker fotografiado por NEXO", supports: ["marca", "configuración split"], confidence: "confirmed_nexo" }],
+    salesPlaybook: { ...blankPlaybook(), warnings: ["No recomendar por metros cuadrados ni afirmar BTU, inverter, refrigerante o consumo sin placa técnica."] },
+    gaps: [{ question: "¿Cuál es el modelo, capacidad BTU, voltaje, refrigerante, consumo y si es inverter?", requiredEvidence: "Foto legible de la placa técnica de unidad interior/exterior", priority: "high" }]
+  },
+  {
+    id: "pk_hamilton_beach_5_speed", woocommerceProductId: 1015, sku: null, brand: "Hamilton Beach", model: null,
+    aliases: ["Hamilton Beach blanca", "batidora Hamilton Beach", "Hamilton Beach 5 velocidades"], productType: "Batidora",
+    summary: "Batidora Hamilton Beach blanca de 5 velocidades. El modelo exacto y la potencia todavía no están confirmados.",
+    customerDescription: "Batidora Hamilton Beach con cinco velocidades. Potencia y accesorios exactos sujetos a confirmación del modelo.", confidence: "probable",
+    specs: [{ name: "Velocidades", value: "5", confidence: "confirmed_nexo", evidence: "Información visible en el producto fotografiado" }],
+    faq: [{ question: "¿Qué potencia tiene?", answer: "NEXO todavía no tiene confirmada la potencia porque falta identificar el número exacto de modelo.", audience: "customer", confidence: "unknown" }],
+    sources: [{ sourceType: "physical_photo", title: "Batidora Hamilton Beach fotografiada por NEXO", supports: ["marca", "5 velocidades"], confidence: "confirmed_nexo" }],
+    salesPlaybook: { ...blankPlaybook(), benefits: ["Cinco velocidades"], warnings: ["No atribuir potencia, accesorios o funciones de otros modelos Hamilton Beach."] },
+    gaps: [{ question: "¿Cuál es el modelo exacto, potencia y contenido de la caja?", requiredEvidence: "Foto de etiqueta inferior/trasera y caja", priority: "high" }]
+  },
+  {
+    id: "pk_bera_br150", woocommerceProductId: 1021, sku: null, brand: "BERA", model: "BR150",
+    aliases: ["BERA BR150", "moto BERA", "BR150 azul"], productType: "Motocicleta",
+    summary: "Motocicleta BERA BR150. Existe un manual investigado con datos técnicos, pero NEXO todavía debe confirmar que la unidad física corresponde exactamente a esa variante.",
+    customerDescription: "Motocicleta BERA BR150 pendiente de verificación final de placa y configuración antes de publicar especificaciones completas.", confidence: "probable",
+    specs: [
+      { name: "Motor investigado", value: "4 tiempos, 124 cc", confidence: "probable", evidence: "Manual investigado; unidad física pendiente de cotejo" },
+      { name: "Potencia investigada", value: "12", unit: "HP", confidence: "probable", evidence: "Manual investigado; unidad física pendiente de cotejo" },
+      { name: "Torque investigado", value: "9.5", unit: "Nm", confidence: "probable", evidence: "Manual investigado; unidad física pendiente de cotejo" },
+      { name: "Transmisión investigada", value: "5 velocidades", confidence: "probable", evidence: "Manual investigado; unidad física pendiente de cotejo" },
+      { name: "Arranque investigado", value: "eléctrico y pedal", confidence: "probable", evidence: "Manual investigado; unidad física pendiente de cotejo" },
+      { name: "Batería investigada", value: "12 V / 6.5 Ah", confidence: "probable", evidence: "Manual investigado; unidad física pendiente de cotejo" },
+      { name: "Tanque investigado", value: "12.5", unit: "L", confidence: "probable", evidence: "Manual investigado; unidad física pendiente de cotejo" },
+      { name: "Peso investigado", value: "98", unit: "kg", confidence: "probable", evidence: "Manual investigado; unidad física pendiente de cotejo" }
+    ],
+    faq: [{ question: "¿Es 150 cc?", answer: "El nombre comercial es BR150, pero el manual investigado indica 124 cc para la variante consultada. NEXO debe verificar la placa de la unidad antes de afirmar la cilindrada.", audience: "gestora", confidence: "probable" }],
+    sources: [{ sourceType: "manual", title: "Manual BERA BR150 investigado por NEXO", supports: ["motor", "potencia", "torque", "arranque", "batería", "transmisión", "tanque", "peso"], confidence: "probable" }],
+    salesPlaybook: { ...blankPlaybook(), warnings: ["No publicar las especificaciones del manual como confirmadas hasta cotejar placa/VIN/modelo exacto de la unidad."] },
+    gaps: [{ question: "¿La unidad física coincide exactamente con la variante del manual investigado?", requiredEvidence: "Foto legible de placa/VIN/modelo y especificaciones de la unidad", priority: "high" }]
+  },
+  {
+    id: "pk_refrigerator_two_door", woocommerceProductId: 1023, sku: null, brand: null, model: null,
+    aliases: ["Refrigerador 2 puertas", "nevera dos puertas", "refrigerador plateado", "nevera con dispensador"], productType: "Refrigerador",
+    summary: "Refrigerador plateado de dos puertas con dispensador de agua visible. Marca, modelo, capacidad, tecnología de frío y consumo todavía no están confirmados.",
+    customerDescription: "Refrigerador de dos puertas con dispensador de agua. Capacidad y especificaciones energéticas se confirmarán antes de la venta.", confidence: "unknown",
+    specs: [
+      { name: "Puertas", value: "2", confidence: "confirmed_nexo", evidence: "Fotografía del producto" },
+      { name: "Dispensador de agua", value: "visible", confidence: "confirmed_nexo", evidence: "Fotografía del producto" }
+    ],
+    faq: [{ question: "¿Es No Frost o inverter?", answer: "NEXO todavía no ha confirmado ninguna de esas dos características. Hace falta la placa/modelo exacto.", audience: "customer", confidence: "unknown" }],
+    sources: [{ sourceType: "physical_photo", title: "Refrigerador fotografiado por NEXO", supports: ["dos puertas", "dispensador visible"], confidence: "confirmed_nexo" }],
+    salesPlaybook: { ...blankPlaybook(), benefits: ["Formato de dos puertas", "Dispensador de agua visible"], warnings: ["No afirmar capacidad, No Frost, inverter, consumo o voltaje sin placa técnica."] },
+    gaps: [{ question: "¿Cuál es la marca, modelo, capacidad, sistema de frío, voltaje y consumo?", requiredEvidence: "Foto legible de placa técnica y etiqueta energética", priority: "high" }]
+  },
+  {
+    id: "pk_kpremium_xpb80_188s", woocommerceProductId: null, sku: null, brand: "KPREMIUM", model: "XPB80-188S",
+    aliases: ["KPREMIUM XPB80-188S", "XPB80-188S", "lavadora KPREMIUM 8kg"], productType: "Lavadora semiautomática",
+    summary: "Lavadora semiautomática KPREMIUM XPB80-188S de 8 kg y doble tina, con lavado y centrifugado.",
+    customerDescription: "Lavadora semiautomática de 8 kg con tina separada de centrifugado y controles mecánicos.", confidence: "confirmed_nexo",
+    specs: [
+      { name: "Capacidad", value: "8", unit: "kg", confidence: "confirmed_nexo", evidence: "Información de producto NEXO" },
+      { name: "Configuración", value: "doble tina", confidence: "confirmed_nexo", evidence: "Información/fotografía NEXO" },
+      { name: "Funciones", value: "lavado y centrifugado", confidence: "confirmed_nexo", evidence: "Información/fotografía NEXO" },
+      { name: "Controles", value: "mecánicos con temporizadores", confidence: "confirmed_nexo", evidence: "Información/fotografía NEXO" }
+    ],
+    faq: [], sources: [{ sourceType: "physical_photo", title: "KPREMIUM XPB80-188S registrada por NEXO", supports: ["modelo", "8 kg", "doble tina", "controles"], confidence: "confirmed_nexo" }],
+    salesPlaybook: { ...blankPlaybook(), benefits: ["8 kg de capacidad", "Lavado y centrifugado en tinas separadas", "Controles mecánicos sencillos"] }, gaps: []
+  },
+  {
+    id: "pk_tonka_top_load", woocommerceProductId: null, sku: null, brand: "TONKA", model: null,
+    aliases: ["TONKA automática", "lavadora TONKA", "TONKA carga superior"], productType: "Lavadora automática de carga superior",
+    summary: "Lavadora TONKA automática de carga superior con panel electrónico y programas visibles. Modelo, capacidad y potencia están pendientes.",
+    customerDescription: "Lavadora automática TONKA de carga superior con controles electrónicos. Capacidad y especificaciones exactas se confirmarán por modelo.", confidence: "probable",
+    specs: [
+      { name: "Carga", value: "superior", confidence: "confirmed_nexo", evidence: "Fotografía NEXO" },
+      { name: "Control", value: "panel electrónico", confidence: "confirmed_nexo", evidence: "Fotografía NEXO" }
+    ],
+    faq: [], sources: [{ sourceType: "physical_photo", title: "Lavadora TONKA fotografiada por NEXO", supports: ["carga superior", "panel electrónico"], confidence: "confirmed_nexo" }],
+    salesPlaybook: { ...blankPlaybook(), warnings: ["No afirmar capacidad, potencia ni programas específicos sin placa/modelo."] }, gaps: [{ question: "¿Cuál es el modelo, capacidad, potencia, voltaje y programas exactos?", requiredEvidence: "Foto legible de placa técnica y panel completo", priority: "high" }]
+  },
+  {
+    id: "pk_decakila_kmjb023b", woocommerceProductId: null, sku: null, brand: "Decakila", model: "KMJB023B",
+    aliases: ["Decakila KMJB023B", "KMJB023B", "batidora inalámbrica Decakila"], productType: "Batidora de mano inalámbrica",
+    summary: "Batidora de mano inalámbrica Decakila KMJB023B de 100 W, batería de litio de 2000 mAh y carga USB.",
+    customerDescription: "Batidora de mano inalámbrica recargable por USB, con componentes de acero inoxidable.", confidence: "confirmed_nexo",
+    specs: [
+      { name: "Potencia", value: "100", unit: "W", confidence: "confirmed_nexo", evidence: "Información de producto NEXO" },
+      { name: "Batería", value: "litio 2000 mAh", confidence: "confirmed_nexo", evidence: "Información de producto NEXO" },
+      { name: "Carga", value: "USB", confidence: "confirmed_nexo", evidence: "Información de producto NEXO" },
+      { name: "Componentes", value: "acero inoxidable", confidence: "confirmed_nexo", evidence: "Información de producto NEXO" }
+    ],
+    faq: [], sources: [{ sourceType: "physical_photo", title: "Decakila KMJB023B registrada por NEXO", supports: ["modelo", "100 W", "2000 mAh", "USB", "acero inoxidable"], confidence: "confirmed_nexo" }],
+    salesPlaybook: { ...blankPlaybook(), benefits: ["Uso inalámbrico", "Carga USB", "100 W", "Componentes de acero inoxidable"] }, gaps: []
+  },
+  {
+    id: "pk_decakila_kutt006w", woocommerceProductId: null, sku: null, brand: "Decakila", model: "KUTT006W",
+    aliases: ["Decakila KUTT006W", "KUTT006W", "cuchillo eléctrico Decakila"], productType: "Cuchillo eléctrico",
+    summary: "Cuchillo eléctrico Decakila KUTT006W de 100 W.", customerDescription: "Cuchillo eléctrico Decakila de 100 W para facilitar cortes de alimentos.", confidence: "confirmed_nexo",
+    specs: [{ name: "Potencia", value: "100", unit: "W", confidence: "confirmed_nexo", evidence: "Información de producto NEXO" }],
+    faq: [], sources: [{ sourceType: "physical_photo", title: "Decakila KUTT006W registrada por NEXO", supports: ["modelo", "100 W"], confidence: "confirmed_nexo" }],
+    salesPlaybook: { ...blankPlaybook(), benefits: ["Corte asistido eléctricamente", "100 W"] }, gaps: []
   }
 ];
 
