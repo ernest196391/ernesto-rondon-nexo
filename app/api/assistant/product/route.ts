@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { answerProductQuestion } from "@/lib/commerce/assistant";
+import { assistantClientKey, consumeAssistantRateLimit } from "@/lib/commerce/assistant-rate-limit";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -13,6 +14,12 @@ function noStore<T>(body: T, init?: ResponseInit) {
 
 export async function POST(request: Request) {
   try {
+    const limit = consumeAssistantRateLimit(assistantClientKey(request.headers));
+    if (!limit.allowed) {
+      const retryAfter = Math.max(1, Math.ceil((limit.resetAt - Date.now()) / 1000));
+      return noStore({ error: "Demasiadas consultas. Inténtalo nuevamente en unos minutos." }, { status: 429, headers: { "Retry-After": String(retryAfter) } });
+    }
+
     const body = await request.json() as { identifier?: unknown; question?: unknown };
     const identifier = typeof body.identifier === "string" ? body.identifier : "";
     const question = typeof body.question === "string" ? body.question : "";
