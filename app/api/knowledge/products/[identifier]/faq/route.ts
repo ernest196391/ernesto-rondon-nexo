@@ -1,16 +1,14 @@
 import { NextResponse } from "next/server";
 import { getProductFaq } from "../../../../../../lib/commerce/knowledge";
+import { publicKnowledgeAudience } from "../../../../../../lib/commerce/knowledge-public";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
-export async function GET(request: Request, { params }: { params: Promise<{ identifier: string }> }) {
+export async function GET(_request: Request, { params }: { params: Promise<{ identifier: string }> }) {
   try {
     const { identifier } = await params;
-    const url = new URL(request.url);
-    const audienceParam = url.searchParams.get("audience");
-    const audience = audienceParam === "gestora" || audienceParam === "admin" ? audienceParam : "customer";
-    const result = await getProductFaq(decodeURIComponent(identifier), audience);
+    const result = await getProductFaq(decodeURIComponent(identifier), publicKnowledgeAudience());
     if (!result) return NextResponse.json({ error: "Producto no encontrado en NEXO Knowledge." }, { status: 404 });
     if ("ambiguous" in result) return NextResponse.json(result, { status: 409 });
     return NextResponse.json(result, { headers: { "Cache-Control": "no-store, no-cache, must-revalidate" } });
