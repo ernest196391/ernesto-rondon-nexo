@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { listWooProducts, wooConfigured } from "../../../../lib/commerce/woocommerce";
 import { catalogImageFor } from "../../../../lib/commerce/catalog-images";
+import { storefrontProducts } from "../../../../lib/commerce/storefront";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -18,10 +19,10 @@ export async function GET(request: Request) {
     search: url.searchParams.get("search") || undefined,
     category: url.searchParams.get("category") || undefined,
     page: Number(url.searchParams.get("page") || 1),
-    perPage: Number(url.searchParams.get("perPage") || 24),
+    perPage: 50,
   });
 
-  const normalizedProducts = products.map((product: any) => {
+  const normalizedProducts = storefrontProducts(products).map((product: any) => {
     const imageSrc = catalogImageFor(product);
     if (!imageSrc) return product;
     const originalImage = product.images?.[0] || {};
@@ -39,7 +40,7 @@ export async function GET(request: Request) {
   });
 
   return NextResponse.json(
-    { products: normalizedProducts, configured: true },
+    { products: normalizedProducts, configured: true, total: normalizedProducts.length },
     { headers: { "Cache-Control": "no-store, no-cache, must-revalidate" } },
   );
 }

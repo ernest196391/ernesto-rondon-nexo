@@ -18,6 +18,9 @@ type Draft = {
   reference: string;
   notes: string;
   deliveryWindow: string;
+  latitude: string;
+  longitude: string;
+  locationAccuracy: string;
 };
 type Config = {
   province: { code: string; name: string };
@@ -46,6 +49,9 @@ const empty: Draft = {
   reference: "",
   notes: "",
   deliveryWindow: "",
+  latitude: "",
+  longitude: "",
+  locationAccuracy: "",
 };
 const msg = (e: unknown) =>
   e instanceof Error
@@ -65,6 +71,8 @@ export default function CheckoutClient({
     [quoteBusy, setQuoteBusy] = useState(false),
     [error, setError] = useState(""),
     [key, setKey] = useState("");
+  const [locating, setLocating] = useState(false),
+    [locationMessage, setLocationMessage] = useState("");
   const restore = useCallback(async () => {
     setPhase("validating");
     setError("");
@@ -196,6 +204,30 @@ export default function CheckoutClient({
       setPhase("error");
     }
   }
+  function locate() {
+    if (!navigator.geolocation) {
+      setLocationMessage("Tu navegador no permite compartir ubicación.");
+      return;
+    }
+    setLocating(true);
+    setLocationMessage("");
+    navigator.geolocation.getCurrentPosition(
+      (p) => {
+        set("latitude", String(p.coords.latitude));
+        set("longitude", String(p.coords.longitude));
+        set("locationAccuracy", String(Math.round(p.coords.accuracy)));
+        setLocationMessage("Ubicación añadida al pedido.");
+        setLocating(false);
+      },
+      () => {
+        setLocationMessage(
+          "No pudimos obtenerla. Puedes continuar escribiendo la dirección.",
+        );
+        setLocating(false);
+      },
+      { enableHighAccuracy: true, timeout: 12000, maximumAge: 60000 },
+    );
+  }
   if (phase === "restoring" || phase === "validating")
     return (
       <section className="checkout-state" aria-live="polite">
@@ -312,12 +344,22 @@ export default function CheckoutClient({
               value={draft.email}
               onChange={(e) => set("email", e.target.value)}
             />
-            <small>WooCommerce lo necesita para registrar y recuperar el pedido.</small>
+            <small>
+              Lo usaremos para ayudarte a recuperar la información del pedido.
+            </small>
           </label>
           <label>
             <span>Código postal</span>
-            <input required inputMode="numeric" autoComplete="postal-code" minLength={3} maxLength={12} value={draft.postcode} onChange={(e) => set("postcode", e.target.value)} />
-            <small>WooCommerce lo requiere para registrar la dirección del pedido.</small>
+            <input
+              required
+              inputMode="numeric"
+              autoComplete="postal-code"
+              minLength={3}
+              maxLength={12}
+              value={draft.postcode}
+              onChange={(e) => set("postcode", e.target.value)}
+            />
+            <small>Ayuda a identificar correctamente la zona de entrega.</small>
           </label>
         </fieldset>
         {draft.mode === "delivery" && (
@@ -392,6 +434,26 @@ export default function CheckoutClient({
                 onChange={(e) => set("address", e.target.value)}
               />
             </label>
+            <div className="location-box">
+              <button type="button" onClick={locate} disabled={locating}>
+                {locating
+                  ? "Obteniendo ubicación…"
+                  : "Usar mi ubicación actual"}
+              </button>
+              <p aria-live="polite">
+                {locationMessage ||
+                  "Opcional. Solo se solicita cuando tú pulsas el botón."}
+              </p>
+              {draft.latitude && draft.longitude && (
+                <a
+                  href={`https://www.google.com/maps?q=${encodeURIComponent(`${draft.latitude},${draft.longitude}`)}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Comprobar ubicación en el mapa
+                </a>
+              )}
+            </div>
             <label>
               <span>
                 Referencia para llegar <small>Opcional</small>
