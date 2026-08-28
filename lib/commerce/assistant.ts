@@ -1,6 +1,6 @@
 import type { KnowledgeAudience } from "./knowledge";
 import { buildProductKnowledgeContext } from "./knowledge";
-import { projectKnowledgeForAudience } from "./knowledge-audience";
+import { projectKnowledgeForAudience, type KnowledgeContextProjection } from "./knowledge-audience";
 
 export type AssistantConfidence = "confirmed" | "probable" | "unknown";
 
@@ -98,7 +98,7 @@ export async function answerProductQuestion(identifier: string, question: string
   if (!base) return { status: "not_found" as const };
   if ("ambiguous" in base) return { status: "ambiguous" as const, matches: base.matches };
 
-  const projected = projectKnowledgeForAudience(base, audience);
+  const projected = projectKnowledgeForAudience(base as unknown as KnowledgeContextProjection, audience);
   const answer = await callAssistantModel(projected, cleanQuestion, audience);
   return { status: "ok" as const, audience, answer, context: projected };
 }
