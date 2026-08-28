@@ -6,10 +6,9 @@ export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 function noStore<T>(body: T, init?: ResponseInit) {
-  return NextResponse.json(body, {
-    ...init,
-    headers: { "Cache-Control": "no-store, no-cache, must-revalidate", ...(init?.headers ?? {}) },
-  });
+  const headers = new Headers(init?.headers);
+  headers.set("Cache-Control", "no-store, no-cache, must-revalidate");
+  return NextResponse.json(body, { ...init, headers });
 }
 
 export async function POST(request: Request) {
