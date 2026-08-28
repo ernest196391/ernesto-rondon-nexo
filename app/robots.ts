@@ -7,7 +7,7 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: ["/api/"],
     },
-    sitemap: "https://nexo.casavivadecuba.com/sitemap.xml",
-    host: "https://nexo.casavivadecuba.com",
+    sitemap: "https://nexotienda.casavivadecuba.com/sitemap.xml",
+    host: "https://nexotienda.casavivadecuba.com",
   };
 }

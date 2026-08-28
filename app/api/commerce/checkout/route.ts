@@ -32,6 +32,9 @@ type Input = {
   reference: string;
   notes: string;
   deliveryWindow: string;
+  latitude: string;
+  longitude: string;
+  locationAccuracy: string;
 };
 type Done = {
   orderId: number;
@@ -62,8 +65,8 @@ function validate(raw: unknown): Input {
       fullName: clean(v.fullName, 120),
       phone: clean(v.phone, 24),
       alternatePhone: clean(v.alternatePhone, 24),
-    email: clean(v.email, 120).toLowerCase(),
-    postcode: clean(v.postcode, 16),
+      email: clean(v.email, 120).toLowerCase(),
+      postcode: clean(v.postcode, 16),
       mode,
       municipality: clean(v.municipality, 90),
       locality: clean(v.locality, 120),
@@ -72,6 +75,9 @@ function validate(raw: unknown): Input {
       reference: clean(v.reference, 180),
       notes: clean(v.notes, 500),
       deliveryWindow: clean(v.deliveryWindow, 30),
+      latitude: clean(v.latitude, 24),
+      longitude: clean(v.longitude, 24),
+      locationAccuracy: clean(v.locationAccuracy, 16),
     };
   if (!/^[\w-]{16,80}$/.test(input.idempotencyKey))
     throw new StoreApiError("Recarga el checkout e inténtalo nuevamente.", 400);
@@ -83,7 +89,10 @@ function validate(raw: unknown): Input {
   )
     throw new StoreApiError("Revisa el número de teléfono.", 400);
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.email))
-    throw new StoreApiError("Escribe un correo válido para registrar el pedido.", 400);
+    throw new StoreApiError(
+      "Escribe un correo válido para registrar el pedido.",
+      400,
+    );
   if (!/^[a-zA-Z0-9 -]{3,12}$/.test(input.postcode))
     throw new StoreApiError("Escribe un código postal válido.", 400);
   if (!["delivery", "pickup"].includes(mode))
@@ -102,6 +111,12 @@ function validate(raw: unknown): Input {
       );
     if (input.address.length < 8)
       throw new StoreApiError("Completa la dirección de entrega.", 400);
+    if (
+      (input.latitude || input.longitude) &&
+      (!Number.isFinite(Number(input.latitude)) ||
+        !Number.isFinite(Number(input.longitude)))
+    )
+      throw new StoreApiError("La ubicación compartida no es válida.", 400);
   }
   return input;
 }
@@ -218,6 +233,18 @@ async function place(
     { key: "_cvd_reference", value: input.reference },
     { key: "_cvd_alternate_phone", value: input.alternatePhone },
     { key: "_cvd_delivery_window", value: input.deliveryWindow.toLowerCase() },
+    {
+      key: "_nexo_delivery_latitude",
+      value: input.mode === "delivery" ? input.latitude : "",
+    },
+    {
+      key: "_nexo_delivery_longitude",
+      value: input.mode === "delivery" ? input.longitude : "",
+    },
+    {
+      key: "_nexo_delivery_location_accuracy_m",
+      value: input.mode === "delivery" ? input.locationAccuracy : "",
+    },
     { key: "_cvd_shipping_fee_cup", value: quote.feeCup },
     { key: "_cvd_shipping_rate_status", value: quote.status },
     { key: "_cvd_shipping_rate_label", value: quote.label },
@@ -252,6 +279,9 @@ async function place(
             `Municipio: ${input.municipality}`,
             `Localidad: ${input.locality}`,
             `Dirección: ${input.address}`,
+            input.latitude && input.longitude
+              ? `Mapa: https://www.google.com/maps?q=${input.latitude},${input.longitude}`
+              : "",
           ]
         : [`Punto de recogida: ${pickup.name} — ${pickup.address}`],
     text = [

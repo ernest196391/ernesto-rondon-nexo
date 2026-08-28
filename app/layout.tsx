@@ -14,7 +14,9 @@ export const metadata: Metadata = {
     template: "%s | NEXO",
   },
   description:
-    "Compra productos seleccionados con acompañamiento, disponibilidad verificada y entrega coordinada.",
+    "Compra productos seleccionados en NEXO con entrega a domicilio o recogida coordinada.",
+  manifest: "/manifest.webmanifest",
+  icons: { icon: "/brand/nexo-symbol.png", apple: "/brand/nexo-symbol.png" },
   openGraph: {
     type: "website",
     locale: "es_ES",
@@ -32,14 +34,22 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="es">
       <body>
         <a className="skip-link" href="#contenido-principal">
           Saltar al contenido
         </a>
-        <CommerceSiteShell marketplaceEnabled={process.env.NEXO_MARKETPLACE_ENABLED === "true"}>{children}</CommerceSiteShell>
+        <CommerceSiteShell
+          marketplaceEnabled={process.env.NEXO_MARKETPLACE_ENABLED === "true"}
+        >
+          {children}
+        </CommerceSiteShell>
       </body>
     </html>
   );
