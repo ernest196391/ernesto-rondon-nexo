@@ -306,8 +306,8 @@ export default function CartClient({
             <strong>{formatMoney(cart.totals.total_price, cart.totals)}</strong>
           </div>
           <p className="delivery-note">
-            Confirmaremos disponibilidad, mensajería y total antes de finalizar
-            el pedido.
+            El costo de entrega se mostrará al indicar cómo quieres recibir tu
+            pedido.
           </p>
           <button
             type="button"
