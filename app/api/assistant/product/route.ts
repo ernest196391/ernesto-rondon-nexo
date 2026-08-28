@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { answerProductQuestion } from "../../../../lib/commerce/assistant";
 import { assistantClientKey, consumeAssistantRateLimit } from "../../../../lib/commerce/assistant-rate-limit";
+import { recordAssistantKnowledgeBacklog } from "../../../../lib/commerce/assistant-learning";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -33,6 +34,16 @@ export async function POST(request: Request) {
 
     const identity = result.context.identity as { id?: unknown } | undefined;
     const productId = typeof identity?.id === "string" ? identity.id : null;
+
+    if (productId && (result.answer.confidence === "unknown" || result.answer.needsHumanConfirmation)) {
+      void recordAssistantKnowledgeBacklog({
+        productId,
+        question,
+        confidence: result.answer.confidence,
+        needsHumanConfirmation: result.answer.needsHumanConfirmation,
+      }).catch(() => undefined);
+    }
+
     return noStore({ status: "ok", audience: "customer", answer: { ...result.answer, productId } });
   } catch (error) {
     const message = error instanceof Error ? error.message : "No se pudo responder la consulta";
