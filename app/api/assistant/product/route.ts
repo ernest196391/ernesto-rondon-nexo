@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import { answerProductQuestion } from "@/lib/commerce/assistant";
-import { assistantClientKey, consumeAssistantRateLimit } from "@/lib/commerce/assistant-rate-limit";
+import { answerProductQuestion } from "../../../../lib/commerce/assistant";
+import { assistantClientKey, consumeAssistantRateLimit } from "../../../../lib/commerce/assistant-rate-limit";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
