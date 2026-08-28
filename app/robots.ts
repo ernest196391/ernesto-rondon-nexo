@@ -5,7 +5,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: ["/api/"],
+      disallow: ["/api/", "/carrito", "/checkout", "/pedido/", "/studio/"],
     },
     sitemap: "https://nexotienda.casavivadecuba.com/sitemap.xml",
     host: "https://nexotienda.casavivadecuba.com",

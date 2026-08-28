@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { KeyboardEvent, useEffect, useMemo, useRef, useState } from "react";
 import { catalogImageFor } from "../../lib/commerce/catalog-images";
 type WooProduct = {
   id: number;
@@ -15,6 +15,7 @@ type WooProduct = {
 export default function MarketplaceClient() {
   const [products, setProducts] = useState<WooProduct[]>([]),
     [query, setQuery] = useState(""),
+    [activeSuggestion, setActiveSuggestion] = useState(-1),
     [category, setCategory] = useState("Todos"),
     [loading, setLoading] = useState(true),
     [error, setError] = useState(""),
@@ -22,7 +23,8 @@ export default function MarketplaceClient() {
       typeof window === "undefined"
         ? ""
         : new URLSearchParams(window.location.search).get("ref")?.trim() || "",
-    );
+    ),
+    searchRef = useRef<HTMLInputElement>(null);
   useEffect(() => {
     void fetch("/api/marketplace/products", { cache: "no-store" })
       .then(async (r) => {
@@ -47,7 +49,11 @@ export default function MarketplaceClient() {
       ],
       [products],
     ),
-    clean = query.trim().toLocaleLowerCase("es");
+    clean = query
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .trim()
+      .toLocaleLowerCase("es");
   const visible = useMemo(
       () =>
         products.filter(
@@ -56,12 +62,14 @@ export default function MarketplaceClient() {
               p.categories.some((c) => c.name === category)) &&
             (!clean ||
               `${p.name} ${p.sku || ""} ${p.categories.map((c) => c.name).join(" ")}`
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "")
                 .toLocaleLowerCase("es")
                 .includes(clean)),
         ),
       [products, category, clean],
     ),
-    suggestions = clean ? visible.slice(0, 5) : [],
+    suggestions = clean.length >= 2 ? visible.slice(0, 6) : [],
     withRef = (path: string) =>
       `${path}${refCode ? `?ref=${encodeURIComponent(refCode)}` : ""}`;
   return (
@@ -69,10 +77,20 @@ export default function MarketplaceClient() {
       <header className="market-header">
         <Link href={withRef("/")} aria-label="NEXO — Inicio">
           <Image
+            className="market-logo"
             src="/brand/nexo-logo.png"
-            width={210}
-            height={75}
+            width={380}
+            height={140}
             alt="NEXO"
+            priority
+          />
+          <Image
+            className="market-symbol"
+            src="/brand/nexo-symbol.png"
+            width={512}
+            height={512}
+            alt=""
+            aria-hidden="true"
             priority
           />
         </Link>
@@ -83,23 +101,35 @@ export default function MarketplaceClient() {
           </Link>
         </nav>
       </header>
+      <div className="store-notice">Compra fácil y segura · Productos disponibles en NEXO</div>
       <section className="store-intro">
-        <p>TIENDA NEXO</p>
-        <h1>Productos para tu día a día</h1>
-        <span>
-          Compra desde NEXO y coordina la entrega al confirmar tu pedido.
-        </span>
+        <p>CATÁLOGO</p>
+        <h1>Encuentra lo que necesitas</h1>
+        <span>Productos disponibles en NEXO.</span>
       </section>
       <section className="market-search" aria-label="Buscar productos">
-        <label htmlFor="market-search">¿Qué estás buscando?</label>
+        <label htmlFor="market-search">Buscar productos</label>
         <div className="search-box">
           <span aria-hidden="true">⌕</span>
           <input
             id="market-search"
             type="search"
+            role="combobox"
+            aria-autocomplete="list"
+            aria-expanded={suggestions.length > 0}
+            aria-controls="market-search-suggestions"
+            aria-activedescendant={activeSuggestion >= 0 ? `market-suggestion-${suggestions[activeSuggestion]?.id}` : undefined}
+            ref={searchRef}
             value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Busca por nombre, marca o categoría"
+            onChange={(e) => { setQuery(e.target.value); setActiveSuggestion(-1); }}
+            onKeyDown={(e: KeyboardEvent<HTMLInputElement>) => {
+              if (!suggestions.length) return;
+              if (e.key === "ArrowDown") { e.preventDefault(); setActiveSuggestion((x) => Math.min(x + 1, suggestions.length - 1)); }
+              if (e.key === "ArrowUp") { e.preventDefault(); setActiveSuggestion((x) => Math.max(x - 1, 0)); }
+              if (e.key === "Escape") { setQuery(""); setActiveSuggestion(-1); }
+              if (e.key === "Enter" && activeSuggestion >= 0) { e.preventDefault(); window.location.assign(withRef(`/producto/${suggestions[activeSuggestion].id}`)); }
+            }}
+            placeholder="Buscar productos"
             autoComplete="off"
           />
           <button
@@ -113,13 +143,16 @@ export default function MarketplaceClient() {
         </div>
         {suggestions.length > 0 && (
           <ul
+            id="market-search-suggestions"
+            role="listbox"
             className="search-suggestions"
             aria-label="Sugerencias de productos"
           >
             {suggestions.map((p) => (
-              <li key={p.id}>
+              <li id={`market-suggestion-${p.id}`} role="option" aria-selected={activeSuggestion === suggestions.indexOf(p)} key={p.id}>
                 <Link href={withRef(`/producto/${p.id}`)}>
-                  {p.name}
+                  <img src={catalogImageFor(p) || "/brand/nexo-symbol.png"} alt="" />
+                  <span><b>{p.name}</b><small>{p.categories[0]?.name || "NEXO"}</small></span>
                   <strong>{p.price} USD</strong>
                 </Link>
               </li>
@@ -164,8 +197,9 @@ export default function MarketplaceClient() {
         )}
         {!loading && !error && !visible.length && (
           <div className="product-state">
-            <strong>No encontramos coincidencias</strong>
-            <p>Prueba con otra palabra o categoría.</p>
+            <strong>No encontramos productos con ese nombre.</strong>
+            <p>Prueba con otra palabra o revisa todo el catálogo.</p>
+            <button type="button" onClick={() => { setQuery(""); setCategory("Todos"); searchRef.current?.focus(); }}>Ver todo el catálogo</button>
           </div>
         )}
         <div className="product-grid">

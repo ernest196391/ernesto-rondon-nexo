@@ -3,7 +3,7 @@ import type { MetadataRoute } from "next";
 const baseUrl = "https://nexotienda.casavivadecuba.com";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const routes = ["", "/marketplace", "/carrito", "/contacto"];
+  const routes = ["", "/marketplace", "/contacto"];
 
   return routes.map((route) => ({
     url: `${baseUrl}${route}`,

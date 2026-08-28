@@ -299,15 +299,15 @@ export default function CartClient({
           </div>
           <div className="summary-row">
             <p>Mensajería</p>
-            <span>Se calcula al indicar la dirección</span>
+            <span>Se calcula en el checkout</span>
           </div>
           <div className="cart-total">
-            <p>Total provisional</p>
-            <strong>{formatMoney(cart.totals.total_price, cart.totals)}</strong>
+            <p>Total de productos</p>
+            <strong>{formatMoney(cart.totals.total_items, cart.totals)}</strong>
           </div>
           <p className="delivery-note">
-            El costo de entrega se mostrará al indicar cómo quieres recibir tu
-            pedido.
+            En el checkout podrás elegir entrega o recogida y conocer la
+            mensajería correspondiente.
           </p>
           <button
             type="button"
