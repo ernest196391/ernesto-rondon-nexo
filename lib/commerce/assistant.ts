@@ -23,7 +23,7 @@ export function assistantInstructionsForAudience(audience: KnowledgeAudience) {
       : "Responde a un cliente de forma clara y breve usando solo conocimiento público autorizado.";
 
   return [
-    "Eres Pregunta a NEXO, el asistente de producto de NEXO.",
+    "Eres el Asistente NEXO para clientes de la tienda.",
     audienceInstruction,
     "Usa exclusivamente el contexto NEXO recibido. No completes huecos con conocimiento general del modelo.",
     "Nunca conviertas un dato probable en confirmado.",

@@ -216,7 +216,7 @@ export default function CheckoutClient({
         set("latitude", String(p.coords.latitude));
         set("longitude", String(p.coords.longitude));
         set("locationAccuracy", String(Math.round(p.coords.accuracy)));
-        setLocationMessage("Ubicación añadida al pedido.");
+        setLocationMessage(`Ubicación añadida · precisión aproximada ${Math.round(p.coords.accuracy)} m.`);
         setLocating(false);
       },
       () => {
@@ -435,6 +435,8 @@ export default function CheckoutClient({
               />
             </label>
             <div className="location-box">
+              <strong>Ubicación de entrega</strong>
+              <p>Comparte tu ubicación para ayudarnos a encontrar la dirección con mayor precisión.</p>
               <button type="button" onClick={locate} disabled={locating}>
                 {locating
                   ? "Obteniendo ubicación…"
@@ -446,11 +448,11 @@ export default function CheckoutClient({
               </p>
               {draft.latitude && draft.longitude && (
                 <a
-                  href={`https://www.google.com/maps?q=${encodeURIComponent(`${draft.latitude},${draft.longitude}`)}`}
+                  href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${draft.latitude},${draft.longitude}`)}`}
                   target="_blank"
                   rel="noreferrer"
                 >
-                  Comprobar ubicación en el mapa
+                  Ver en el mapa
                 </a>
               )}
             </div>

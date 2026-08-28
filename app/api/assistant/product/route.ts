@@ -12,6 +12,17 @@ function noStore<T>(body: T, init?: ResponseInit) {
   return NextResponse.json(body, { ...init, headers });
 }
 
+function generalAnswer(question: string) {
+  const clean = question.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+  if (/entrega|mensajeria|domicilio|zona/.test(clean))
+    return "Puedes elegir entrega a domicilio en el checkout. La mensajería se calcula al seleccionar municipio y localidad.";
+  if (/recog|tienda/.test(clean))
+    return "Puedes elegir recogida en tienda durante el checkout. Verás el punto y las instrucciones antes de confirmar.";
+  if (/compr|pedido|carrito|pagar/.test(clean))
+    return "Añade los productos al carrito, revisa las cantidades y completa el checkout. El pedido se registra antes de continuar por WhatsApp.";
+  return "Puedo ayudarte con productos, entrega, recogida o cómo realizar un pedido. Si buscas un producto concreto, selecciónalo en la lista.";
+}
+
 export async function POST(request: Request) {
   try {
     const limit = consumeAssistantRateLimit(assistantClientKey(request.headers));
@@ -23,8 +34,11 @@ export async function POST(request: Request) {
     const body = await request.json() as { identifier?: unknown; question?: unknown };
     const identifier = typeof body.identifier === "string" ? body.identifier : "";
     const question = typeof body.question === "string" ? body.question : "";
-    if (!identifier.trim() || !question.trim()) {
-      return noStore({ error: "identifier y question son obligatorios" }, { status: 400 });
+    if (!question.trim()) {
+      return noStore({ error: "Escribe una pregunta." }, { status: 400 });
+    }
+    if (!identifier.trim()) {
+      return noStore({ status: "ok", audience: "customer", answer: { answer: generalAnswer(question), confidence: "confirmed", needsHumanConfirmation: false, productId: null } });
     }
 
     // Esta frontera es siempre pública/customer. Nunca aceptar audience desde el navegador.

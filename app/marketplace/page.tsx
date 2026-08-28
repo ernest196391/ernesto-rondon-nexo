@@ -5,7 +5,7 @@ import "./marketplace.css";
 export const metadata: Metadata = {
   title: "NEXO Marketplace — Lo que buscas, más cerca.",
   description:
-    "Compra productos seleccionados por NEXO con acompañamiento y disponibilidad verificada.",
+    "Explora productos disponibles en NEXO y prepara tu pedido con entrega o recogida.",
 };
 
 export default function MarketplacePage() {

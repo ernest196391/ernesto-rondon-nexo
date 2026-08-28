@@ -4,6 +4,7 @@ import "./voucher-review.css";
 import "./nexo-home-film.css";
 import type { Metadata } from "next";
 import CommerceSiteShell from "./CommerceSiteShell";
+import PwaRegistration from "./PwaRegistration";
 
 const siteUrl = "https://nexotienda.casavivadecuba.com";
 
@@ -16,7 +17,14 @@ export const metadata: Metadata = {
   description:
     "Compra productos seleccionados en NEXO con entrega a domicilio o recogida coordinada.",
   manifest: "/manifest.webmanifest",
-  icons: { icon: "/brand/nexo-symbol.png", apple: "/brand/nexo-symbol.png" },
+  icons: {
+    icon: [
+      { url: "/brand/nexo-favicon.ico", type: "image/x-icon" },
+      { url: "/brand/nexo-favicon-32.png", sizes: "32x32", type: "image/png" },
+      { url: "/brand/nexo-icon-192.png", sizes: "192x192", type: "image/png" },
+    ],
+    apple: [{ url: "/brand/nexo-apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+  },
   openGraph: {
     type: "website",
     locale: "es_ES",
@@ -34,6 +42,8 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport = { themeColor: "#061A44" };
+
 export default function RootLayout({
   children,
 }: {
@@ -42,6 +52,7 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body>
+        <PwaRegistration />
         <a className="skip-link" href="#contenido-principal">
           Saltar al contenido
         </a>

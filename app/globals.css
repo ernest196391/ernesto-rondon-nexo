@@ -643,6 +643,7 @@ footer {
   z-index: 80;
   font-family: Inter, system-ui, sans-serif;
 }
+.global-whatsapp-trigger{position:absolute;right:0;bottom:0;transform:translateY(64px);display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 18px;border-radius:999px;background:#0b7a3b;color:#fff!important;text-decoration:none;font-weight:800;box-shadow:0 10px 34px #11271b42}
 .global-assistant-trigger {
   border: 0;
   border-radius: 999px;
@@ -656,7 +657,7 @@ footer {
 .global-assistant-panel {
   position: absolute;
   right: 0;
-  bottom: 64px;
+  bottom: 128px;
   width: min(360px, calc(100vw - 28px));
   background: #fff;
   border: 1px solid #dbe2dd;
@@ -720,6 +721,6 @@ footer {
   }
   .global-assistant {
     right: 12px;
-    bottom: 12px;
+    bottom: calc(76px + env(safe-area-inset-bottom));
   }
 }

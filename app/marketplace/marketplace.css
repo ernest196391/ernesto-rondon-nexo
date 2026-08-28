@@ -12,6 +12,7 @@
   color: var(--ink);
   font-family: Inter, system-ui, sans-serif;
 }
+.store-notice{padding:8px 16px;background:#061a44;color:#fff;text-align:center;font-size:12px;font-weight:700;line-height:1.35}
 .market-header {
   height: 68px;
   padding: 0 clamp(16px, 5vw, 72px);
@@ -24,10 +25,16 @@
   top: 0;
   z-index: 30;
 }
-.market-header img {
+.market-header .market-logo {
   width: 116px;
   height: auto;
   display: block;
+}
+.market-header .market-symbol {
+  display: none;
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
 }
 .market-header nav {
   display: flex;
@@ -124,6 +131,7 @@
   padding: 6px;
   margin: 0;
 }
+.search-suggestions a{display:grid!important;grid-template-columns:48px minmax(0,1fr) auto;align-items:center;gap:10px}.search-suggestions img{width:48px;height:48px;object-fit:contain;border-radius:8px;background:#f5f8fc}.search-suggestions span{display:grid;gap:3px;min-width:0}.search-suggestions b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.search-suggestions small{color:var(--muted);font-weight:500}.search-suggestions [aria-selected="true"]{background:#eef4ff}
 .search-suggestions a {
   display: flex;
   justify-content: space-between;
@@ -289,8 +297,11 @@
   .market-header {
     height: 60px;
   }
-  .market-header img {
-    width: 98px;
+  .market-header .market-logo {
+    display: none;
+  }
+  .market-header .market-symbol {
+    display: block;
   }
   .market-header nav > a:first-child {
     display: none;

@@ -18,7 +18,7 @@ export default function GlobalCommerceAssistant() {
   }, [open, products.length]);
   async function submit(e: FormEvent) {
     e.preventDefault();
-    if (!product || !question.trim()) return;
+    if (!question.trim()) return;
     setBusy(true);
     setError("");
     setAnswer("");
@@ -38,18 +38,19 @@ export default function GlobalCommerceAssistant() {
     }
   }
   return (
-    <aside className="global-assistant">
+    <aside className="global-assistant" aria-label="Ayuda NEXO">
+      <a className="global-whatsapp-trigger" href="https://wa.me/5354056173" aria-label="Abrir soporte de NEXO por WhatsApp">WhatsApp</a>
       <button
         className="global-assistant-trigger"
         aria-expanded={open}
         onClick={() => setOpen((v) => !v)}
       >
-        <span aria-hidden="true">✦</span> Pregunta a NEXO
+        <span aria-hidden="true">✦</span> Asistente IA
       </button>
       {open && (
         <div className="global-assistant-panel">
           <header>
-            <strong>Pregunta a NEXO</strong>
+            <strong>Asistente NEXO</strong>
             <button
               aria-label="Cerrar asistente"
               onClick={() => setOpen(false)}
@@ -57,16 +58,15 @@ export default function GlobalCommerceAssistant() {
               ×
             </button>
           </header>
-          <p>Elige un producto y consulta su información verificada.</p>
+          <p>Pregúntame por productos, entrega o cómo realizar tu pedido.</p>
           <form onSubmit={submit}>
             <label>
               Producto
               <select
-                required
                 value={product}
                 onChange={(e) => setProduct(e.target.value)}
               >
-                <option value="">Selecciona un producto</option>
+                <option value="">Consulta general</option>
                 {products.map((p) => (
                   <option key={p.id} value={p.id}>
                     {p.name}

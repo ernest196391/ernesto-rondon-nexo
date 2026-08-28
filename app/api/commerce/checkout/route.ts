@@ -16,6 +16,7 @@ import {
   validMunicipality,
 } from "../../../../lib/commerce/delivery";
 import { updateWooOrder } from "../../../../lib/commerce/woocommerce";
+import { buildOrderWhatsappMessage } from "../../../../lib/commerce/order-whatsapp";
 export const dynamic = "force-dynamic";
 type Input = {
   idempotencyKey: string;
@@ -263,38 +264,38 @@ async function place(
   } catch {
     /* Pedido válido; metadatos quedan conciliables sin duplicar. */
   }
-  const lines = (cart.items || []).map(
-      (x: any) =>
-        `${x.quantity} × ${x.name} — ${Number(x.totals.line_total) / 10 ** Number(x.totals.currency_minor_unit || 2)} ${x.totals.currency_code}`,
-    ),
+  const money = (amount: string | number, totals: any) =>
+      `${Number(amount) / 10 ** Number(totals.currency_minor_unit || 2)} ${totals.currency_code}`,
+    lines = (cart.items || []).map((x: any) => ({
+      quantity: x.quantity,
+      name: x.name,
+      subtotal: money(x.totals.line_total, x.totals),
+    })),
     shipping =
       input.mode === "pickup"
         ? "Recogida en tienda: sin costo"
         : quote.status === "zone"
-          ? `Mensajería: ${quote.feeCup.toLocaleString("es-ES")} CUP`
-          : "Mensajería: pendiente de confirmación",
-    details =
-      input.mode === "delivery"
-        ? [
-            `Municipio: ${input.municipality}`,
-            `Localidad: ${input.locality}`,
-            `Dirección: ${input.address}`,
-            input.latitude && input.longitude
-              ? `Mapa: https://www.google.com/maps?q=${input.latitude},${input.longitude}`
-              : "",
-          ]
-        : [`Punto de recogida: ${pickup.name} — ${pickup.address}`],
-    text = [
-      `Hola, acabo de registrar el pedido NEXO #${checkout.order_number || orderId}.`,
-      "Productos:",
-      ...lines,
-      `Entrega: ${input.mode === "pickup" ? "Recogida en tienda" : "Entrega a domicilio"}`,
-      ...details,
+          ? `${quote.feeCup.toLocaleString("es-ES")} CUP`
+          : "Por confirmar",
+    text = buildOrderWhatsappMessage({
+      orderNumber: String(checkout.order_number || orderId),
+      lines,
+      productsTotal: money(cart.totals.total_items, cart.totals),
+      mode: input.mode,
+      municipality: input.municipality,
+      locality: input.locality,
+      address: input.address,
+      reference: input.reference,
+      deliveryWindow: input.deliveryWindow,
+      latitude: input.latitude,
+      longitude: input.longitude,
       shipping,
-      `Nombre: ${input.fullName}`,
-      `Teléfono: ${input.phone}`,
-      "Quedo pendiente de la confirmación de disponibilidad y los próximos pasos.",
-    ].join("\n");
+      fullName: input.fullName,
+      phone: input.phone,
+      alternatePhone: input.alternatePhone,
+      notes: input.notes,
+      pickup,
+    });
   return {
     orderId,
     orderNumber: String(checkout.order_number || orderId),
