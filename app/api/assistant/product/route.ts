@@ -32,7 +32,9 @@ export async function POST(request: Request) {
     if (result.status === "not_found") return noStore({ error: "Producto no encontrado" }, { status: 404 });
     if (result.status === "ambiguous") return noStore({ error: "Producto ambiguo", matches: result.matches }, { status: 409 });
 
-    return noStore({ status: "ok", audience: "customer", answer: result.answer });
+    const identity = result.context.identity as { id?: unknown } | undefined;
+    const productId = typeof identity?.id === "string" ? identity.id : null;
+    return noStore({ status: "ok", audience: "customer", answer: { ...result.answer, productId } });
   } catch (error) {
     const message = error instanceof Error ? error.message : "No se pudo responder la consulta";
     return noStore({ error: message }, { status: message.includes("vacía") || message.includes("identificado") ? 400 : 503 });
