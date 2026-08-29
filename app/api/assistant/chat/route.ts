@@ -3,6 +3,7 @@ import { assistantClientKey, consumeAssistantRateLimit } from "../../../../lib/c
 import { listWooProducts, wooConfigured } from "../../../../lib/commerce/woocommerce";
 import { storefrontProducts } from "../../../../lib/commerce/storefront";
 import { familyForProduct } from "../../../../lib/commerce/storefront-categories";
+import sharp from "sharp";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -14,6 +15,7 @@ function magic(bytes: Uint8Array) {
   if (bytes.slice(0, 8).toString() === "137,80,78,71,13,10,26,10") return "image/png";
   if (new TextDecoder().decode(bytes.slice(0, 4)) === "RIFF" && new TextDecoder().decode(bytes.slice(8, 12)) === "WEBP") return "image/webp";
   if (new TextDecoder().decode(bytes.slice(0, 4)) === "%PDF") return "application/pdf";
+  if (/^ftyp(heic|heix|hevc|hevx|mif1|msf1)/.test(new TextDecoder().decode(bytes.slice(4, 12)))) return "image/heic";
   return "";
 }
 function outputText(payload: any) { for (const item of payload.output || []) for (const part of item.content || []) if (part.type === "output_text") return part.text; return ""; }
@@ -33,9 +35,9 @@ export async function POST(request: Request) {
       const bytes = new Uint8Array(await file.arrayBuffer()), detected = magic(bytes), declared = file.type.toLowerCase();
       const isText = declared === "text/plain" && bytes.slice(0, 2048).every((byte) => byte === 9 || byte === 10 || byte === 13 || byte >= 32);
       if (isText) { content.push({ type: "input_text", text: `Archivo ${file.name}:\n${new TextDecoder().decode(bytes).slice(0, 20000)}` }); continue; }
-      if (!detected || !["image/jpeg", "image/png", "image/webp", "application/pdf"].includes(detected)) return json({ error: `“${file.name}” no es un PDF, JPG, PNG, WebP o TXT válido.` }, 415);
-      const data = Buffer.from(bytes).toString("base64");
-      if (detected.startsWith("image/")) content.push({ type: "input_image", image_url: `data:${detected};base64,${data}`, detail: "auto" });
+      if (!detected || !["image/jpeg", "image/png", "image/webp", "image/heic", "application/pdf"].includes(detected)) return json({ error: `“${file.name}” no es un PDF, JPG, PNG, WebP, HEIC o TXT válido.` }, 415);
+      const normalized = detected === "image/heic" ? await sharp(Buffer.from(bytes)).rotate().jpeg({ quality: 88 }).toBuffer() : Buffer.from(bytes), normalizedType = detected === "image/heic" ? "image/jpeg" : detected, data = normalized.toString("base64");
+      if (normalizedType.startsWith("image/")) content.push({ type: "input_image", image_url: `data:${normalizedType};base64,${data}`, detail: "auto" });
       else content.push({ type: "input_file", filename: file.name.replace(/[^a-zA-Z0-9._-]/g, "_").slice(0, 80), file_data: `data:${detected};base64,${data}` });
     }
     if (!process.env.OPENAI_API_KEY) return json({ error: "El asistente inteligente está temporalmente sin conexión." }, 503);

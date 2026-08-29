@@ -1,7 +1,7 @@
 "use client";
 import { FormEvent, KeyboardEvent, useEffect, useRef, useState } from "react";
 type Message = { role: "assistant" | "user"; text: string };
-const accepted = ".jpg,.jpeg,.png,.webp,.pdf,.txt";
+const accepted = ".jpg,.jpeg,.png,.webp,.heic,.heif,.pdf,.txt";
 export default function GlobalCommerceAssistant() {
   const [open, setOpen] = useState(false), [question, setQuestion] = useState(""), [files, setFiles] = useState<File[]>([]), [messages, setMessages] = useState<Message[]>([{ role: "assistant", text: "¡Hola! Soy NEXO IA. Puedo ayudarte a encontrar una opción, explicar la entrega o acompañarte con tu pedido. ¿Qué necesitas hoy?" }]), [busy, setBusy] = useState(false), [error, setError] = useState(""), [recording, setRecording] = useState(false), [seconds, setSeconds] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null), cameraRef = useRef<HTMLInputElement>(null), textareaRef = useRef<HTMLTextAreaElement>(null), closeRef = useRef<HTMLButtonElement>(null), recorderRef = useRef<MediaRecorder | null>(null), streamRef = useRef<MediaStream | null>(null), chunksRef = useRef<Blob[]>([]);
