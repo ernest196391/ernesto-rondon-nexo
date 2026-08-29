@@ -12,6 +12,7 @@ type WooProduct = {
   stock_status: string;
   images: Array<{ src: string; alt: string }>;
   categories: Array<{ id: number; name: string }>;
+  search_text?: string;
 };
 export default function MarketplaceClient() {
   const [products, setProducts] = useState<WooProduct[]>([]),
@@ -60,7 +61,7 @@ export default function MarketplaceClient() {
           (p) =>
             (!category || familyForProduct(p).slug === category) &&
             (!clean ||
-              `${p.name} ${p.sku || ""} ${p.categories.map((c) => c.name).join(" ")}`
+              `${p.search_text || p.name} ${p.sku || ""} ${p.categories.map((c) => c.name).join(" ")}`
                 .normalize("NFD")
                 .replace(/[\u0300-\u036f]/g, "")
                 .toLocaleLowerCase("es")
@@ -106,7 +107,7 @@ export default function MarketplaceClient() {
           </Link>
         </nav>
       </header>
-      <div className="store-notice">Compra fácil, entrega coordinada y atención cercana</div>
+      <div className="store-notice">Compra fácil · Entrega coordinada</div>
       <section className="store-intro">
         <h1>Más cerca de ti</h1>
         <span>Encuentra lo que necesitas para tu hogar.</span>
@@ -185,7 +186,7 @@ export default function MarketplaceClient() {
           </div>
           {!loading && !error && (
             <span>
-              {visible.length} {visible.length === 1 ? "producto" : "productos"}
+              {visible.length} {clean ? (visible.length === 1 ? "resultado" : "resultados") : (visible.length === 1 ? "producto" : "productos")}
             </span>
           )}
         </header>
@@ -202,9 +203,8 @@ export default function MarketplaceClient() {
         )}
         {!loading && !error && !visible.length && (
           <div className="product-state">
-            <strong>No encontramos productos con esa búsqueda.</strong>
-            <p>Prueba con otra palabra o consulta todas las opciones.</p>
-            <button type="button" onClick={() => { setQuery(""); selectCategory(""); searchRef.current?.focus(); }}>Ver todo</button>
+            <strong>No encontramos coincidencias.</strong>
+            <button type="button" onClick={() => { setQuery(""); selectCategory(""); searchRef.current?.focus(); }}>Ver productos</button>
           </div>
         )}
         <div className="product-grid">
