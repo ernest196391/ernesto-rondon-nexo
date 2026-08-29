@@ -68,9 +68,10 @@ export function buildOrderWhatsappMessage(input: OrderWhatsappInput) {
     ]),
     ...(input.notes ? ["", ...section("Notas", [input.notes])] : []),
     "",
+    "✅ Pedido registrado en NEXO.",
     input.mode === "delivery"
-      ? "Pedido registrado en NEXO. Puedes escribirnos si necesitas ayuda con la entrega."
-      : "Pedido registrado en NEXO. Puedes escribirnos si necesitas ayuda.",
+      ? "🚚 Escríbenos si necesitas ayuda con la entrega."
+      : "💬 Escríbenos si necesitas ayuda.",
   ]
     .join("\n")
     .replace(/\n{3,}/g, "\n\n");

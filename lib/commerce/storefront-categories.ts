@@ -2,7 +2,7 @@ export type StorefrontCategory = {
   id: string;
   label: string;
   slug: string;
-  icon: "appliances" | "cooking" | "bedroom" | "energy" | "other";
+  icon: "appliances" | "cooking" | "bedroom" | "energy" | "technology" | "other";
   order: number;
   enabled: boolean;
   sourceCategoryIds: number[];
@@ -14,7 +14,8 @@ export const STOREFRONT_CATEGORIES: StorefrontCategory[] = [
   { id: "cocina", label: "Cocina", slug: "cocina", icon: "cooking", order: 20, enabled: true, sourceCategoryIds: [], sourceSlugs: ["cocinas y hornos", "arroceras", "ollas", "cocina"] },
   { id: "habitacion", label: "Habitación", slug: "habitacion", icon: "bedroom", order: 30, enabled: true, sourceCategoryIds: [], sourceSlugs: ["colchones", "habitacion", "dormitorio"] },
   { id: "energia", label: "Energía", slug: "energia", icon: "energy", order: 40, enabled: true, sourceCategoryIds: [], sourceSlugs: ["energia solar", "paneles solares", "energia"] },
-  { id: "otros", label: "Otros", slug: "otros", icon: "other", order: 50, enabled: true, sourceCategoryIds: [], sourceSlugs: ["television digital", "televisores", "motos", "otros"] },
+  { id: "tecnologia", label: "Tecnología", slug: "tecnologia", icon: "technology", order: 50, enabled: true, sourceCategoryIds: [], sourceSlugs: ["television digital", "televisores", "decodificadores", "celulares", "tabletas", "computadoras", "audio", "accesorios electronicos", "dispositivos inteligentes", "tecnologia"] },
+  { id: "otros", label: "Otros", slug: "otros", icon: "other", order: 60, enabled: true, sourceCategoryIds: [], sourceSlugs: ["motos", "otros"] },
 ];
 
 export function normalizedCategory(value: string) {

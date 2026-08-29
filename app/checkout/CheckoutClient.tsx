@@ -232,10 +232,13 @@ export default function CheckoutClient({
         setLocationMessage(`Ubicación añadida · precisión aproximada ${Math.round(p.coords.accuracy)} m.`);
         setLocating(false);
       },
-      () => {
-        setLocationMessage(
-          "No pudimos obtenerla. Puedes continuar escribiendo la dirección.",
-        );
+      (error) => {
+        const reason = error.code === error.PERMISSION_DENIED
+          ? "Permiso de ubicación rechazado. Actívalo en los permisos del navegador y vuelve a intentarlo."
+          : error.code === error.TIMEOUT
+            ? "La ubicación tardó demasiado. Reintenta al aire libre o continúa escribiendo la dirección."
+            : "No pudimos determinar tu ubicación. Puedes continuar escribiendo la dirección.";
+        setLocationMessage(reason);
         setLocating(false);
       },
       { enableHighAccuracy: true, timeout: 12000, maximumAge: 60000 },
