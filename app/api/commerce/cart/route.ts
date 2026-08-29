@@ -1,6 +1,7 @@
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import { CART_COOKIE, REFERRAL_COOKIE, requestStoreCart, StoreApiError } from "../../../../lib/commerce/store-api";
+import { applyEditorial } from "../../../../lib/commerce/product-editorial";
 
 export const dynamic = "force-dynamic";
 type CartAction = { action: "add"; productId: number; quantity?: number; referral?: string } | { action: "update"; key: string; quantity: number } | { action: "remove"; key: string };
@@ -34,8 +35,9 @@ async function execute(action?: CartAction) {
     path = "/cart/remove-item"; method = "POST"; body = { key: action.key };
   }
   const result = await requestStoreCart(path, { method, token, body, referral });
+  const cart = { ...result.cart, items: result.cart.items?.map((item: any) => applyEditorial(item)) || [] };
   const response = NextResponse.json(
-    { cart: result.cart, referral: referral || jar.get(REFERRAL_COOKIE)?.value || "" },
+    { cart, referral: referral || jar.get(REFERRAL_COOKIE)?.value || "" },
     { headers: { "Cache-Control": "private, no-store, max-age=0", Vary: "Cookie" } },
   );
   setSessionCookies(response, result.token, referral);
