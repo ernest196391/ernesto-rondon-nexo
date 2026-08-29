@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { listWooProducts, wooConfigured } from "../../../../lib/commerce/woocommerce";
 import { catalogImageFor } from "../../../../lib/commerce/catalog-images";
 import { storefrontProducts } from "../../../../lib/commerce/storefront";
+import { applyEditorial } from "../../../../lib/commerce/product-editorial";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -22,7 +23,8 @@ export async function GET(request: Request) {
     perPage: 50,
   });
 
-  const normalizedProducts = storefrontProducts(products).map((product: any) => {
+  const normalizedProducts = storefrontProducts(products).map((raw: any) => {
+    const product = applyEditorial(raw);
     const imageSrc = catalogImageFor(product);
     if (!imageSrc) return product;
     const originalImage = product.images?.[0] || {};
