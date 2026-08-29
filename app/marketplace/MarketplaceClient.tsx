@@ -46,8 +46,8 @@ export default function MarketplaceClient() {
       .finally(() => setLoading(false));
   }, []);
   const families = useMemo(() => STOREFRONT_CATEGORIES
-      .filter((family) => family.enabled && products.some((product) => familyForProduct(product).id === family.id))
-      .sort((a, b) => a.order - b.order), [products]),
+      .filter((family) => family.enabled)
+      .sort((a, b) => a.order - b.order), []),
     activeFamily = families.find((family) => family.slug === category),
     clean = query
       .normalize("NFD")
