@@ -13,6 +13,8 @@ type Draft = {
   mode: Mode;
   municipality: string;
   locality: string;
+  localityId: string;
+  manualLocalityText: string;
   manualLocality: boolean;
   address: string;
   reference: string;
@@ -26,6 +28,7 @@ type Config = {
   province: { code: string; name: string };
   municipalities: string[];
   localities: Record<string, string[]>;
+  localityOptions: Record<string, Array<{ id: string; label: string }>>;
   rateVersion: string;
   pickup: { name: string; address: string; instructions: string };
 };
@@ -34,6 +37,10 @@ type Quote = {
   feeCup: number;
   label: string;
   version: string;
+  ruleId: string;
+  amount: number;
+  currency: "CUP";
+  source: string;
 };
 const empty: Draft = {
   fullName: "",
@@ -44,6 +51,8 @@ const empty: Draft = {
   mode: "",
   municipality: "",
   locality: "",
+  localityId: "",
+  manualLocalityText: "",
   manualLocality: false,
   address: "",
   reference: "",
@@ -132,6 +141,10 @@ export default function CheckoutClient({
                     feeCup: 0,
                     label: "Recogida en tienda",
                     version: config?.rateVersion || "",
+                    ruleId: "pickup",
+                    amount: 0,
+                    currency: "CUP",
+                    source: "pickup",
                   }
                 : null,
             );
@@ -253,7 +266,7 @@ export default function CheckoutClient({
   const busy = phase === "submitting",
     count = itemCount(cart),
     products = formatMoney(cart.totals.total_items, cart.totals),
-    localities = config.localities[draft.municipality] || [];
+    localities = config.localityOptions?.[draft.municipality] || (config.localities[draft.municipality] || []).map((label) => ({ id: label, label }));
   return (
     <div className="checkout-shell">
       <form className="checkout-form" onSubmit={submit}>
@@ -287,6 +300,8 @@ export default function CheckoutClient({
                     set("mode", v);
                     set("municipality", "");
                     set("locality", "");
+                    set("localityId", "");
+                    set("manualLocalityText", "");
                   }}
                 />
                 <span>
@@ -377,6 +392,8 @@ export default function CheckoutClient({
                 onChange={(e) => {
                   set("municipality", e.target.value);
                   set("locality", "");
+                  set("localityId", "");
+                  set("manualLocalityText", "");
                   set("manualLocality", false);
                 }}
               >
@@ -388,41 +405,34 @@ export default function CheckoutClient({
             </label>
             <label>
               <span>Localidad o zona</span>
-              <input
+              <select
                 required
                 disabled={!draft.municipality}
-                placeholder={
-                  draft.municipality
-                    ? "Escribe o selecciona tu localidad"
-                    : "Selecciona primero el municipio"
-                }
-                list="nexo-localities"
-                value={draft.locality}
+                value={draft.localityId}
                 onChange={(e) => {
-                  set("locality", e.target.value);
+                  const option = localities.find((item) => item.id === e.target.value);
+                  set("localityId", e.target.value);
+                  set("locality", option?.label || "");
                   set("manualLocality", false);
                 }}
-              />
-              <datalist id="nexo-localities">
+              >
+                <option value="">{draft.municipality ? "Selecciona tu localidad" : "Selecciona primero el municipio"}</option>
                 {localities.map((x) => (
-                  <option key={x} value={x} />
+                  <option key={x.id} value={x.id}>{x.label}</option>
                 ))}
-              </datalist>
+              </select>
               {draft.municipality && (
                 <button
                   type="button"
                   className="manual-locality"
-                  onClick={() => set("manualLocality", true)}
+                  onClick={() => { set("manualLocality", true); set("localityId", "manual"); set("locality", draft.manualLocalityText); }}
                 >
                   No encuentro mi localidad
                 </button>
               )}
             </label>
             {draft.manualLocality && (
-              <p className="field-help">
-                Escríbela manualmente. La mensajería quedará pendiente de
-                confirmación.
-              </p>
+              <label className="field-help"><span>Escribe tu localidad</span><input required value={draft.manualLocalityText} onChange={(e) => { set("manualLocalityText", e.target.value); set("locality", e.target.value); }} /><small>La mensajería quedará pendiente de confirmación.</small></label>
             )}
             <label>
               <span>Dirección</span>

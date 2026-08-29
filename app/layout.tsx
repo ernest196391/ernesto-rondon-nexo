@@ -19,11 +19,11 @@ export const metadata: Metadata = {
   manifest: "/manifest.webmanifest",
   icons: {
     icon: [
-      { url: "/brand/nexo-favicon.ico", type: "image/x-icon" },
-      { url: "/brand/nexo-favicon-32.png", sizes: "32x32", type: "image/png" },
-      { url: "/brand/nexo-icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/brand/nexo-favicon.ico?v=001g", type: "image/x-icon" },
+      { url: "/brand/nexo-favicon-32.png?v=001g", sizes: "32x32", type: "image/png" },
+      { url: "/brand/nexo-icon-192.png?v=001g", sizes: "192x192", type: "image/png" },
     ],
-    apple: [{ url: "/brand/nexo-apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+    apple: [{ url: "/brand/nexo-apple-touch-icon.png?v=001g", sizes: "180x180", type: "image/png" }],
   },
   openGraph: {
     type: "website",
@@ -33,6 +33,7 @@ export const metadata: Metadata = {
     title: "NEXO — Lo que buscas, más cerca",
     description:
       "Productos seleccionados, compra acompañada y entrega coordinada.",
+    images: [{ url: "/brand/nexo-logo-001g.png", width: 760, height: 280, alt: "NEXO" }],
   },
   twitter: {
     card: "summary_large_image",

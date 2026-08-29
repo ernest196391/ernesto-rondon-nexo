@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { KeyboardEvent, useEffect, useMemo, useRef, useState } from "react";
 import { catalogImageFor } from "../../lib/commerce/catalog-images";
+import { familyForProduct, STOREFRONT_CATEGORIES, type StorefrontCategory } from "../../lib/commerce/storefront-categories";
 type WooProduct = {
   id: number;
   name: string;
@@ -16,7 +17,11 @@ export default function MarketplaceClient() {
   const [products, setProducts] = useState<WooProduct[]>([]),
     [query, setQuery] = useState(""),
     [activeSuggestion, setActiveSuggestion] = useState(-1),
-    [category, setCategory] = useState("Todos"),
+    [category, setCategory] = useState(() => {
+      if (typeof window === "undefined") return "";
+      const requested = new URLSearchParams(window.location.search).get("familia") || "";
+      return STOREFRONT_CATEGORIES.some((family) => family.slug === requested) ? requested : "";
+    }),
     [loading, setLoading] = useState(true),
     [error, setError] = useState(""),
     [refCode] = useState(() =>
@@ -40,15 +45,10 @@ export default function MarketplaceClient() {
       )
       .finally(() => setLoading(false));
   }, []);
-  const categories = useMemo(
-      () => [
-        "Todos",
-        ...Array.from(
-          new Set(products.flatMap((p) => p.categories.map((c) => c.name))),
-        ).sort((a, b) => a.localeCompare(b, "es")),
-      ],
-      [products],
-    ),
+  const families = useMemo(() => STOREFRONT_CATEGORIES
+      .filter((family) => family.enabled && products.some((product) => familyForProduct(product).id === family.id))
+      .sort((a, b) => a.order - b.order), [products]),
+    activeFamily = families.find((family) => family.slug === category),
     clean = query
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
@@ -58,8 +58,7 @@ export default function MarketplaceClient() {
       () =>
         products.filter(
           (p) =>
-            (category === "Todos" ||
-              p.categories.some((c) => c.name === category)) &&
+            (!category || familyForProduct(p).slug === category) &&
             (!clean ||
               `${p.name} ${p.sku || ""} ${p.categories.map((c) => c.name).join(" ")}`
                 .normalize("NFD")
@@ -71,14 +70,20 @@ export default function MarketplaceClient() {
     ),
     suggestions = clean.length >= 2 ? visible.slice(0, 6) : [],
     withRef = (path: string) =>
-      `${path}${refCode ? `?ref=${encodeURIComponent(refCode)}` : ""}`;
+      `${path}${refCode ? `?ref=${encodeURIComponent(refCode)}` : ""}`,
+    selectCategory = (slug: string) => {
+      setCategory(slug);
+      const url = new URL(window.location.href);
+      if (slug) url.searchParams.set("familia", slug); else url.searchParams.delete("familia");
+      window.history.replaceState({}, "", `${url.pathname}${url.search}${url.hash}`);
+    };
   return (
     <main className="marketplace-shell">
       <header className="market-header">
         <Link href={withRef("/")} aria-label="NEXO — Inicio">
           <Image
             className="market-logo"
-            src="/brand/nexo-logo.png"
+            src="/brand/nexo-logo-001g.png"
             width={380}
             height={140}
             alt="NEXO"
@@ -101,11 +106,10 @@ export default function MarketplaceClient() {
           </Link>
         </nav>
       </header>
-      <div className="store-notice">Compra fácil y segura · Productos disponibles en NEXO</div>
+      <div className="store-notice">Compra fácil, entrega coordinada y atención cercana</div>
       <section className="store-intro">
-        <p>CATÁLOGO</p>
-        <h1>Encuentra lo que necesitas</h1>
-        <span>Productos disponibles en NEXO.</span>
+        <h1>Más cerca de ti</h1>
+        <span>Encuentra lo que necesitas para tu hogar.</span>
       </section>
       <section className="market-search" aria-label="Buscar productos">
         <label htmlFor="market-search">Buscar productos</label>
@@ -152,7 +156,7 @@ export default function MarketplaceClient() {
               <li id={`market-suggestion-${p.id}`} role="option" aria-selected={activeSuggestion === suggestions.indexOf(p)} key={p.id}>
                 <Link href={withRef(`/producto/${p.id}`)}>
                   <img src={catalogImageFor(p) || "/brand/nexo-symbol.png"} alt="" />
-                  <span><b>{p.name}</b><small>{p.categories[0]?.name || "NEXO"}</small></span>
+                  <span><b>{p.name}</b><small>{familyForProduct(p).label}</small></span>
                   <strong>{p.price} USD</strong>
                 </Link>
               </li>
@@ -161,22 +165,23 @@ export default function MarketplaceClient() {
         )}
       </section>
       <nav className="category-strip" aria-label="Categorías">
-        {categories.map((c) => (
+        {families.map((family) => (
           <button
-            key={c}
-            className={category === c ? "active" : ""}
-            aria-pressed={category === c}
-            onClick={() => setCategory(c)}
+            key={family.id}
+            className={category === family.slug ? "active" : ""}
+            aria-pressed={category === family.slug}
+            onClick={() => selectCategory(category === family.slug ? "" : family.slug)}
           >
-            {c}
+            <CategoryIcon family={family} />
+            <span>{family.label}</span>
           </button>
         ))}
       </nav>
       <section id="productos" className="products-section">
         <header>
           <div>
-            <p>CATÁLOGO</p>
-            <h2>{category === "Todos" ? "Todos los productos" : category}</h2>
+            <h2>{clean ? `Resultados para “${query.trim()}”` : activeFamily?.label || "Productos"}</h2>
+            {activeFamily && <button className="clear-family" type="button" onClick={() => selectCategory("")}>Ver todo</button>}
           </div>
           {!loading && !error && (
             <span>
@@ -197,9 +202,9 @@ export default function MarketplaceClient() {
         )}
         {!loading && !error && !visible.length && (
           <div className="product-state">
-            <strong>No encontramos productos con ese nombre.</strong>
-            <p>Prueba con otra palabra o revisa todo el catálogo.</p>
-            <button type="button" onClick={() => { setQuery(""); setCategory("Todos"); searchRef.current?.focus(); }}>Ver todo el catálogo</button>
+            <strong>No encontramos productos con esa búsqueda.</strong>
+            <p>Prueba con otra palabra o consulta todas las opciones.</p>
+            <button type="button" onClick={() => { setQuery(""); selectCategory(""); searchRef.current?.focus(); }}>Ver todo</button>
           </div>
         )}
         <div className="product-grid">
@@ -218,7 +223,7 @@ export default function MarketplaceClient() {
                     )}
                   </div>
                   <div className="product-info">
-                    <small>{p.categories[0]?.name || "NEXO"}</small>
+                    <small>{familyForProduct(p).label}</small>
                     <h3>{p.name}</h3>
                     <strong>{p.price} USD</strong>
                     <span>Ver producto →</span>
@@ -229,20 +234,15 @@ export default function MarketplaceClient() {
           })}
         </div>
       </section>
-      <section className="store-trust">
-        <div>
-          <b>Pedido registrado</b>
-          <span>Tu compra queda guardada antes de continuar.</span>
-        </div>
-        <div>
-          <b>Entrega coordinada</b>
-          <span>Selecciona domicilio o recogida al finalizar.</span>
-        </div>
-        <div>
-          <b>Atención NEXO</b>
-          <span>Te acompañamos hasta completar el pedido.</span>
-        </div>
-      </section>
     </main>
   );
+}
+
+function CategoryIcon({ family }: { family: StorefrontCategory }) {
+  const common = { width: 28, height: 28, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 1.8, "aria-hidden": true } as const;
+  if (family.icon === "cooking") return <svg {...common}><path d="M5 10h14v8a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-8Z"/><path d="M3 10h18M9 6c0-1 1-1.5 1-2.5M14 6c0-1 1-1.5 1-2.5"/></svg>;
+  if (family.icon === "bedroom") return <svg {...common}><path d="M3 19v-9h18v9M3 15h18M6 10V7h5a3 3 0 0 1 3 3"/></svg>;
+  if (family.icon === "energy") return <svg {...common}><path d="M13 2 5 14h6l-1 8 8-12h-6l1-8Z"/></svg>;
+  if (family.icon === "other") return <svg {...common}><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><rect x="14" y="14" width="6" height="6" rx="1"/></svg>;
+  return <svg {...common}><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M5 9h14M9 6h6M9 14h6M9 17h6"/></svg>;
 }
