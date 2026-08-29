@@ -1,99 +1,28 @@
 "use client";
-import { FormEvent, useEffect, useState } from "react";
-type Product = { id: number; name: string };
+import { FormEvent, KeyboardEvent, useEffect, useRef, useState } from "react";
+type Message = { role: "assistant" | "user"; text: string };
+const accepted = ".jpg,.jpeg,.png,.webp,.pdf,.txt";
 export default function GlobalCommerceAssistant() {
-  const [open, setOpen] = useState(false),
-    [products, setProducts] = useState<Product[]>([]),
-    [product, setProduct] = useState(""),
-    [question, setQuestion] = useState(""),
-    [answer, setAnswer] = useState(""),
-    [error, setError] = useState(""),
-    [busy, setBusy] = useState(false);
-  useEffect(() => {
-    if (!open || products.length) return;
-    void fetch("/api/marketplace/products")
-      .then((r) => r.json())
-      .then((d) => setProducts(d.products || []))
-      .catch(() => setError("No pudimos cargar los productos."));
-  }, [open, products.length]);
-  async function submit(e: FormEvent) {
-    e.preventDefault();
-    if (!question.trim()) return;
-    setBusy(true);
-    setError("");
-    setAnswer("");
-    try {
-      const r = await fetch("/api/assistant/product", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ identifier: product, question }),
-        }),
-        d = await r.json();
-      if (!r.ok) throw new Error(d.error || "No pudimos responder ahora.");
-      setAnswer(d.answer?.answer || "");
-    } catch (e) {
-      setError(e instanceof Error ? e.message : "No pudimos responder ahora.");
-    } finally {
-      setBusy(false);
-    }
-  }
-  return (
-    <aside className="global-assistant" aria-label="Ayuda NEXO">
-      <a className="global-whatsapp-trigger" href="https://wa.me/5354056173" aria-label="Abrir soporte de NEXO por WhatsApp">WhatsApp</a>
-      <button
-        className="global-assistant-trigger"
-        aria-expanded={open}
-        onClick={() => setOpen((v) => !v)}
-      >
-        <span aria-hidden="true">✦</span> Asistente IA
-      </button>
-      {open && (
-        <div className="global-assistant-panel">
-          <header>
-            <strong>Asistente NEXO</strong>
-            <button
-              aria-label="Cerrar asistente"
-              onClick={() => setOpen(false)}
-            >
-              ×
-            </button>
-          </header>
-          <p>Pregúntame por productos, entrega o cómo realizar tu pedido.</p>
-          <form onSubmit={submit}>
-            <label>
-              Producto
-              <select
-                value={product}
-                onChange={(e) => setProduct(e.target.value)}
-              >
-                <option value="">Consulta general</option>
-                {products.map((p) => (
-                  <option key={p.id} value={p.id}>
-                    {p.name}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <label>
-              Tu pregunta
-              <input
-                required
-                maxLength={500}
-                value={question}
-                onChange={(e) => setQuestion(e.target.value)}
-                placeholder="Ej. ¿Qué incluye?"
-              />
-            </label>
-            <button disabled={busy}>
-              {busy ? "Consultando…" : "Preguntar"}
-            </button>
-          </form>
-          <div aria-live="polite">
-            {error && <p className="assistant-global-error">{error}</p>}
-            {answer && <p className="assistant-global-answer">{answer}</p>}
-          </div>
-        </div>
-      )}
-    </aside>
-  );
+  const [open, setOpen] = useState(false), [question, setQuestion] = useState(""), [files, setFiles] = useState<File[]>([]), [messages, setMessages] = useState<Message[]>([{ role: "assistant", text: "¡Hola! Soy NEXO IA. Puedo ayudarte a encontrar una opción, explicar la entrega o acompañarte con tu pedido. ¿Qué necesitas hoy?" }]), [busy, setBusy] = useState(false), [error, setError] = useState(""), [recording, setRecording] = useState(false), [seconds, setSeconds] = useState(0);
+  const inputRef = useRef<HTMLInputElement>(null), cameraRef = useRef<HTMLInputElement>(null), textareaRef = useRef<HTMLTextAreaElement>(null), closeRef = useRef<HTMLButtonElement>(null), recorderRef = useRef<MediaRecorder | null>(null), streamRef = useRef<MediaStream | null>(null), chunksRef = useRef<Blob[]>([]);
+  useEffect(() => { if (open) setTimeout(() => closeRef.current?.focus(), 0); }, [open]);
+  useEffect(() => { if (!recording) return; const timer = setInterval(() => setSeconds((value) => { if (value >= 59) { recorderRef.current?.stop(); return 60; } return value + 1; }), 1000); return () => clearInterval(timer); }, [recording]);
+  useEffect(() => () => streamRef.current?.getTracks().forEach((track) => track.stop()), []);
+  function addFiles(next: FileList | null) { if (!next) return; setError(""); const selected = [...next]; const total = [...files, ...selected].reduce((sum, file) => sum + file.size, 0); if (files.length + selected.length > 3 || total > 20 * 1024 * 1024 || selected.some((file) => file.size > 10 * 1024 * 1024)) { setError("Máximo 3 archivos, 10 MB cada uno y 20 MB en total."); return; } setFiles((current) => [...current, ...selected].slice(0, 3)); }
+  async function submit(event?: FormEvent) { event?.preventDefault(); if ((!question.trim() && !files.length) || busy) return; const sent = question.trim() || `Adjunto: ${files.map((file) => file.name).join(", ")}`; setMessages((current) => [...current, { role: "user", text: sent }]); setBusy(true); setError(""); const body = new FormData(); body.set("question", question); files.forEach((file) => body.append("attachments", file)); setQuestion(""); setFiles([]); try { const response = await fetch("/api/assistant/chat", { method: "POST", body, signal: AbortSignal.timeout(55_000) }), data = await response.json(); if (!response.ok) throw new Error(data.error || "No pudimos responder ahora."); setMessages((current) => [...current, { role: "assistant", text: data.answer }]); } catch (cause) { const text = cause instanceof Error && cause.name === "TimeoutError" ? "La consulta tardó demasiado. Reintenta." : cause instanceof Error ? cause.message : "No pudimos responder ahora."; setError(text); setMessages((current) => [...current, { role: "assistant", text: "No pude completar esa consulta. Puedes reintentar o escribirnos por WhatsApp." }]); } finally { setBusy(false); textareaRef.current?.focus(); } }
+  async function record() { if (recording) { recorderRef.current?.stop(); return; } setError(""); try { const stream = await navigator.mediaDevices.getUserMedia({ audio: true }); streamRef.current = stream; const recorder = new MediaRecorder(stream); recorderRef.current = recorder; chunksRef.current = []; recorder.ondataavailable = (event) => { if (event.data.size) chunksRef.current.push(event.data); }; recorder.onstop = async () => { setRecording(false); stream.getTracks().forEach((track) => track.stop()); streamRef.current = null; const blob = new Blob(chunksRef.current, { type: recorder.mimeType || "audio/webm" }); const body = new FormData(); body.set("audio", blob, "consulta.webm"); setBusy(true); try { const response = await fetch("/api/assistant/transcribe", { method: "POST", body }), data = await response.json(); if (!response.ok) throw new Error(data.error); setQuestion(data.text || ""); setTimeout(() => textareaRef.current?.focus(), 0); } catch (cause) { setError(cause instanceof Error ? cause.message : "No pudimos transcribir el audio."); } finally { setBusy(false); } }; recorder.start(); setSeconds(0); setRecording(true); } catch { setError("No pudimos acceder al micrófono. Revisa el permiso del navegador."); } }
+  function onPanelKey(event: KeyboardEvent) { if (event.key === "Escape") setOpen(false); }
+  return <aside className="global-assistant" aria-label="Ayuda NEXO">
+    <a className="global-whatsapp-trigger" href="https://wa.me/5354056173" aria-label="Abrir WhatsApp"><span aria-hidden="true">WA</span></a>
+    <button className="global-assistant-trigger" aria-expanded={open} aria-controls="nexo-assistant" onClick={() => setOpen((value) => !value)}><span aria-hidden="true">✦</span><b>NEXO IA</b></button>
+    {open && <section id="nexo-assistant" className="global-assistant-panel" role="dialog" aria-modal="true" aria-label="NEXO IA" onKeyDown={onPanelKey}>
+      <header><span className="assistant-avatar" aria-hidden="true">N</span><div><strong>NEXO IA</strong><small><i /> Asistente de compras</small></div><button ref={closeRef} type="button" aria-label="Cerrar asistente" onClick={() => setOpen(false)}>×</button></header>
+      <div className="assistant-messages" aria-live="polite">{messages.map((message, index) => <p key={index} className={message.role}>{message.text}</p>)}{busy && <p className="assistant">Pensando…</p>}</div>
+      <div className="assistant-quick"><button type="button" onClick={() => setQuestion("Ayúdame a buscar un producto")}>Buscar</button><button type="button" onClick={() => setQuestion("¿Cómo funciona la entrega?")}>Entrega</button><button type="button" onClick={() => setQuestion("Necesito ayuda con mi pedido")}>Mi pedido</button></div>
+      {files.length > 0 && <ul className="assistant-files">{files.map((file, index) => <li key={`${file.name}-${index}`}><span>{file.name}</span><button type="button" aria-label={`Quitar ${file.name}`} onClick={() => setFiles((current) => current.filter((_, item) => item !== index))}>×</button></li>)}</ul>}
+      {error && <p className="assistant-global-error" role="alert">{error} <button type="button" onClick={() => setError("")}>Cerrar</button></p>}
+      <form onSubmit={submit} className="assistant-composer"><input ref={inputRef} hidden type="file" accept={accepted} multiple onChange={(event) => { addFiles(event.target.files); event.target.value = ""; }} /><input ref={cameraRef} hidden type="file" accept="image/jpeg,image/png,image/webp" capture="environment" onChange={(event) => { addFiles(event.target.files); event.target.value = ""; }} /><button type="button" aria-label="Adjuntar archivo" onClick={() => inputRef.current?.click()}>＋</button><button type="button" aria-label="Abrir cámara" onClick={() => cameraRef.current?.click()}>▣</button><textarea ref={textareaRef} rows={1} maxLength={1000} value={question} onChange={(event) => setQuestion(event.target.value)} placeholder="Escribe tu mensaje…" aria-label="Mensaje" />{question.trim() || files.length ? <button className="send" type="submit" disabled={busy} aria-label="Enviar">➤</button> : <button className={recording ? "recording" : ""} type="button" disabled={busy} aria-label={recording ? "Detener grabación" : "Grabar mensaje"} onClick={() => void record()}>{recording ? `${seconds}s` : "●"}</button>}</form>
+      <small className="assistant-privacy">Los adjuntos se procesan para responder y no se conservan después de la consulta.</small>
+    </section>}
+  </aside>;
 }

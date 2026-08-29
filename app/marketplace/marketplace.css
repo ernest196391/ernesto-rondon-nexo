@@ -52,17 +52,9 @@
   padding: 10px 15px;
 }
 .store-intro {
-  padding: clamp(30px, 6vw, 70px) clamp(16px, 5vw, 72px) 24px;
+  padding: clamp(24px, 5vw, 54px) clamp(16px, 5vw, 72px) 16px;
   max-width: 1280px;
   margin: auto;
-}
-.store-intro p,
-.products-section header p {
-  font-size: 12px;
-  letter-spacing: 0.15em;
-  color: var(--warm);
-  font-weight: 800;
-  margin: 0 0 8px;
 }
 .store-intro h1 {
   font:
@@ -83,9 +75,11 @@
   padding: 12px 16px;
 }
 .market-search > label {
-  display: block;
-  font-weight: 800;
-  margin-bottom: 8px;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
 }
 .search-box {
   height: 54px;
@@ -154,22 +148,32 @@
   overflow: auto;
   max-width: 1120px;
   margin: 8px auto 0;
-  padding: 8px 16px 16px;
+  padding: 10px 16px 18px;
   scrollbar-width: none;
+  scroll-snap-type: x proximity;
+  overscroll-behavior-inline: contain;
 }
+.category-strip::-webkit-scrollbar { display: none; }
 .category-strip button {
   flex: none;
-  min-height: 44px;
-  border: 1px solid var(--line);
-  border-radius: 999px;
+  width: 84px;
+  min-height: 78px;
+  scroll-snap-align: start;
+  border: 1px solid transparent;
+  border-radius: 16px;
   background: #fff;
   color: var(--nexo);
   font-weight: 700;
-  padding: 9px 16px;
+  padding: 8px 5px;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 6px;
 }
+.category-strip button span { font-size: 11px; line-height: 1.15; }
 .category-strip button.active {
-  background: var(--nexo);
-  color: #fff;
+  background: #edf5f1;
+  color: var(--nexo);
   border-color: var(--nexo);
 }
 .products-section {
@@ -191,6 +195,8 @@
     serif;
   margin: 0;
 }
+.products-section header > div { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.clear-family { border: 0; background: transparent; color: var(--nexo); font-weight: 800; text-decoration: underline; min-height: 44px; padding: 0 4px; }
 .products-section > header > span {
   color: var(--muted);
 }
@@ -265,22 +271,6 @@
 .product-state p {
   color: var(--muted);
 }
-.store-trust {
-  background: var(--nexo);
-  color: #fff;
-  padding: 26px clamp(16px, 5vw, 72px);
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 22px;
-}
-.store-trust div {
-  display: grid;
-  gap: 5px;
-}
-.store-trust span {
-  font-size: 13px;
-  color: #d5e1da;
-}
 .search-box:focus-within,
 .category-strip button:focus-visible,
 .market-header a:focus-visible,
@@ -297,18 +287,19 @@
   .market-header {
     height: 60px;
   }
-  .market-header .market-logo {
-    display: none;
-  }
-  .market-header .market-symbol {
-    display: block;
-  }
+  .market-header .market-logo { display: block; width: 108px; }
+  .market-header .market-symbol { display: none; }
   .market-header nav > a:first-child {
     display: none;
   }
   .store-intro {
-    padding-top: 28px;
+    padding-top: 24px;
+    padding-bottom: 10px;
   }
+  .store-intro h1 { font-size: 38px; }
+  .market-search { padding-top: 8px; }
+  .category-strip { margin-top: 2px; padding-bottom: 10px; }
+  .products-section { padding-top: 20px; }
   .product-grid {
     gap: 10px;
   }

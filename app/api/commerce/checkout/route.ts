@@ -174,6 +174,10 @@ async function place(
             feeCup: 0,
             label: "Recogida en tienda",
             version: deliveryCatalog().rateVersion,
+            ruleId: "pickup",
+            amount: 0,
+            currency: "CUP" as const,
+            source: "pickup" as const,
           }
         : quoteShipping(
             input.municipality,
@@ -250,6 +254,10 @@ async function place(
     { key: "_cvd_shipping_rate_status", value: quote.status },
     { key: "_cvd_shipping_rate_label", value: quote.label },
     { key: "_cvd_shipping_rate_version", value: quote.version },
+    { key: "_cvd_shipping_rule_id", value: quote.ruleId },
+    { key: "_cvd_shipping_currency", value: quote.currency },
+    { key: "_cvd_shipping_rate_source", value: quote.source },
+    { key: "_nexo_shipping_quote_snapshot", value: JSON.stringify(quote) },
     {
       key: "_nexo_shipping_pending_confirmation",
       value: quote.status === "pending" ? "yes" : "no",
