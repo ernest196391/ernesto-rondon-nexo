@@ -27,6 +27,8 @@ describe("vale WhatsApp NEXO", () => {
     expect(message).toContain("https://www.google.com/maps/search/?api=1&query=23.01,-82.40");
     expect(message).not.toContain("Alternativo:");
     expect(message).not.toContain("disponibilidad");
+    expect(message).toContain("✅ Pedido registrado en NEXO.");
+    expect(message).toContain("🚚 Escríbenos");
   });
 
   it("genera recogida sin dirección del cliente ni mensajería", () => {

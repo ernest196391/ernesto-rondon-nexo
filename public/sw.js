@@ -1,6 +1,6 @@
-const CACHE = "nexo-brand-v2";
+const CACHE = "nexo-brand-v3-001i";
 const BRAND = [
-  "/brand/nexo-logo.png",
+  "/brand/nexo-logo-001g.png",
   "/brand/nexo-symbol.png",
   "/brand/nexo-icon-192.png",
   "/brand/nexo-icon-512.png",

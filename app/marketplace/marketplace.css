@@ -143,43 +143,53 @@
   white-space: nowrap;
 }
 .category-strip {
-  display: flex;
-  gap: 9px;
-  overflow: auto;
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  gap: 12px;
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
   max-width: 1120px;
   margin: 8px auto 0;
-  padding: 10px 16px 18px;
+  padding: 8px 16px 6px;
   scrollbar-width: none;
   scroll-snap-type: x proximity;
   overscroll-behavior-inline: contain;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x pan-y;
 }
 .category-strip::-webkit-scrollbar { display: none; }
 .category-strip button {
-  flex: none;
-  width: 84px;
-  min-height: 78px;
+  flex: 0 0 82px !important;
+  width: 82px !important;
+  min-width: 82px !important;
+  max-width: 82px !important;
+  height: 84px;
   scroll-snap-align: start;
-  border: 1px solid transparent;
-  border-radius: 16px;
+  border: 1px solid #dce5ee;
+  border-radius: 14px;
   background: #fff;
   color: var(--nexo);
   font-weight: 700;
-  padding: 8px 5px;
+  padding: 7px 4px;
   display: grid;
   place-items: center;
   align-content: center;
   gap: 6px;
 }
-.category-strip button span { font-size: 11px; line-height: 1.15; }
+.category-strip button svg { width:44px; height:44px; padding:10px; border-radius:13px; background:#f0f5fb; box-shadow:0 4px 12px rgba(8,31,58,.08); }
+.category-strip button span { font-size: 11px; line-height: 14px; max-width:78px; }
 .category-strip button.active {
-  background: #edf5f1;
+  background: #fff;
   color: var(--nexo);
   border-color: var(--nexo);
 }
+.category-strip button.active svg { background:#0a4f9f; color:#fff; }
 .products-section {
   max-width: 1280px;
   margin: auto;
-  padding: 34px clamp(16px, 5vw, 72px) 72px;
+  padding: 22px clamp(16px, 5vw, 72px) 72px;
   scroll-margin-top: 76px;
 }
 .products-section > header {
@@ -298,7 +308,7 @@
   }
   .store-intro h1 { font-size: 38px; }
   .market-search { padding-top: 8px; }
-  .category-strip { margin-top: 2px; padding-bottom: 10px; }
+  .marketplace-shell .category-strip { margin-top: 2px; padding-bottom: 6px; }
   .products-section { padding-top: 20px; }
   .product-grid {
     gap: 10px;
