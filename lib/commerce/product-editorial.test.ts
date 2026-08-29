@@ -10,6 +10,9 @@ describe("capa editorial pública", () => {
     expect(editorial!.displayName.length).toBeLessThanOrEqual(60);
     expect(editorial!.metaDescription.length).toBeGreaterThanOrEqual(120);
     expect(editorial!.metaDescription.length).toBeLessThanOrEqual(180);
+    expect(editorial!.longDescription).not.toBe(editorial!.shortDescription);
+    expect(editorial!.keyBenefits.length).toBeGreaterThanOrEqual(3);
+    expect(editorial!.faq.length).toBeGreaterThanOrEqual(2);
     expect(containsProhibitedCopy(editorial)).toBe(false);
   });
   it("conserva el nombre canónico y los alias en búsqueda", () => {

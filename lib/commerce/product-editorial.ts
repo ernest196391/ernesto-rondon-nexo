@@ -2,6 +2,8 @@ export type EditorialProduct = {
   displayName: string;
   shortDescription: string;
   longDescription: string;
+  keyBenefits: Array<{ title: string; detail: string }>;
+  faq: Array<{ question: string; answer: string }>;
   specifications: Array<{ label: string; value: string }>;
   searchAliases: string[];
   seoTitle: string;
@@ -38,7 +40,23 @@ const catalog: Record<string, EditorialProduct> = {
 };
 
 function product(displayName: string, shortDescription: string, specifications: string[][], searchAliases: string[], seoTitle: string, metaDescription: string): EditorialProduct {
-  return { displayName, shortDescription, longDescription: shortDescription, specifications: specifications.map(([label, value]) => ({ label, value })), searchAliases, seoTitle, metaDescription, imageAlt: displayName };
+  const normalized = specifications.map(([label, value]) => ({ label, value }));
+  const features = normalized.map(({ label, value }) => `${label.toLowerCase()}: ${value}`).join("; ");
+  return {
+    displayName,
+    shortDescription,
+    longDescription: `${shortDescription} Esta ficha reúne las características confirmadas del producto para que puedas compararlo antes de añadirlo al carrito: ${features}. Al completar el pedido podrás elegir entrega a domicilio o recogida, según la disponibilidad operativa mostrada en el checkout.`,
+    keyBenefits: normalized.slice(0, 4).map(({ label, value }) => ({ title: label, detail: value })),
+    faq: [
+      { question: "¿Qué características están confirmadas?", answer: normalized.map(({ label, value }) => `${label}: ${value}`).join(". ") + "." },
+      { question: "¿Cómo puedo recibirlo?", answer: "En el checkout puedes elegir entrega a domicilio o recogida, según las opciones operativas disponibles." },
+    ],
+    specifications: normalized,
+    searchAliases,
+    seoTitle,
+    metaDescription,
+    imageAlt: displayName,
+  };
 }
 
 export function editorialFor(product: { sku?: string; name?: string }) {
