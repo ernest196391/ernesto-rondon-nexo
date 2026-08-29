@@ -6,6 +6,7 @@ import { familyForProduct } from "../../../../lib/commerce/storefront-categories
 import { AIProviderRouter } from "../../../../lib/commerce/ai-providers";
 import { publicProduct, searchProducts } from "../../../../lib/commerce/assistant-tools";
 import sharp from "sharp";
+import { applyEditorial, containsProhibitedCopy } from "../../../../lib/commerce/product-editorial";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -55,7 +56,7 @@ export async function POST(request: Request) {
       if (normalizedType.startsWith("image/")) content.push({ type: "input_image", image_url: `data:${normalizedType};base64,${data}`, detail: "auto" });
       else content.push({ type: "input_file", filename: file.name.replace(/[^a-zA-Z0-9._-]/g, "_").slice(0, 80), file_data: `data:${detected};base64,${data}` });
     }
-    const raw = wooConfigured() ? storefrontProducts(await listWooProducts({ perPage: 50 })) : [];
+    const raw = wooConfigured() ? storefrontProducts(await listWooProducts({ perPage: 50 })).map((product: any) => applyEditorial(product)) : [];
     const origin = publicOrigin(request);
     const compact = raw.map((product: any) => ({ id: product.id, name: product.name, sku: product.sku, price: product.price, stock: product.stock_status, family: familyForProduct(product).label }));
     const router = new AIProviderRouter();
@@ -65,6 +66,7 @@ export async function POST(request: Request) {
     const recommendations = (selected.length ? selected.map((product: any) => publicProduct(product, origin, ref)) : searchProducts(raw, question, origin, ref));
     const wantsHuman = /persona|humano|whatsapp|llamar|tel[eé]fono/i.test(question);
     const supportText = `Hola, necesito atención de NEXO. Mi consulta es: ${question || "Necesito ayuda con una compra."}${recommendations[0] ? ` Producto: ${recommendations[0].productUrl}` : ""}`;
-    return json({ answer: parsed.answer, products: recommendations, provider: result.provider, humanSupport: wantsHuman ? { whatsappUrl: `https://wa.me/5354056173?text=${encodeURIComponent(supportText)}`, phoneUrl: "tel:+5354056173" } : null });
+    const safeAnswer = containsProhibitedCopy(parsed.answer) ? "Puedo ayudarte con los productos, la entrega o tu pedido. ¿Qué necesitas saber?" : parsed.answer;
+    return json({ answer: safeAnswer, products: recommendations, provider: result.provider, humanSupport: wantsHuman ? { whatsappUrl: `https://wa.me/5354056173?text=${encodeURIComponent(supportText)}`, phoneUrl: "tel:+5354056173" } : null });
   } catch (error) { return json({ error: error instanceof Error ? error.message : "No pudimos responder ahora." }, 503); }
 }
