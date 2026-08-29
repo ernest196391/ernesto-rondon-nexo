@@ -81,7 +81,8 @@ export default function CheckoutClient({
     [error, setError] = useState(""),
     [key, setKey] = useState("");
   const [locating, setLocating] = useState(false),
-    [locationMessage, setLocationMessage] = useState("");
+    [locationMessage, setLocationMessage] = useState(""),
+    [locationHelp, setLocationHelp] = useState(false);
   const restore = useCallback(async () => {
     setPhase("validating");
     setError("");
@@ -217,13 +218,20 @@ export default function CheckoutClient({
       setPhase("error");
     }
   }
-  function locate() {
+  async function locate() {
     if (!navigator.geolocation) {
-      setLocationMessage("Tu navegador no permite compartir ubicación.");
+      setLocationMessage("Este navegador no permite compartir ubicación. Puedes continuar con la dirección escrita.");
       return;
     }
     setLocating(true);
     setLocationMessage("");
+    setLocationHelp(false);
+    const permission = await navigator.permissions?.query?.({ name: "geolocation" }).catch(() => null);
+    if (permission?.state === "denied") {
+      setLocationMessage("La ubicación está bloqueada para este sitio. Puedes activarla en los permisos de Chrome o continuar con la dirección escrita.");
+      setLocating(false);
+      return;
+    }
     navigator.geolocation.getCurrentPosition(
       (p) => {
         set("latitude", String(p.coords.latitude));
@@ -234,10 +242,10 @@ export default function CheckoutClient({
       },
       (error) => {
         const reason = error.code === error.PERMISSION_DENIED
-          ? "Permiso de ubicación rechazado. Actívalo en los permisos del navegador y vuelve a intentarlo."
+          ? "La ubicación está bloqueada para este sitio. Puedes activarla en los permisos de Chrome o continuar con la dirección escrita."
           : error.code === error.TIMEOUT
-            ? "La ubicación tardó demasiado. Reintenta al aire libre o continúa escribiendo la dirección."
-            : "No pudimos determinar tu ubicación. Puedes continuar escribiendo la dirección.";
+            ? "La ubicación tardó demasiado. Reintenta o continúa con la dirección escrita."
+            : "No pudimos obtener tu ubicación. Comprueba que la ubicación del teléfono esté activada o continúa con la dirección escrita.";
         setLocationMessage(reason);
         setLocating(false);
       },
@@ -453,6 +461,14 @@ export default function CheckoutClient({
               <p aria-live="polite">
                 {locationMessage}
               </p>
+              {locationMessage.includes("bloqueada") && (
+                <div className="location-actions">
+                  <button type="button" onClick={() => setLocationHelp(true)}>Cómo activarla</button>
+                  <button type="button" onClick={() => void locate()}>Reintentar</button>
+                  <button type="button" onClick={() => { setLocationMessage(""); setLocationHelp(false); }}>Continuar sin ubicación</button>
+                </div>
+              )}
+              {locationHelp && <p className="permission-instructions">Abre la información de este sitio, entra en Permisos, permite Ubicación y vuelve a NEXO.</p>}
               {draft.latitude && draft.longitude && (
                 <a
                   href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${draft.latitude},${draft.longitude}`)}`}

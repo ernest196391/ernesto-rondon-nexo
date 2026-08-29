@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   const image = catalogImageFor(product);
   const url = `https://nexotienda.casavivadecuba.com/producto/${id}`;
   return {
-    title: seo?.seoTitle || product.name,
+    title: { absolute: seo?.seoTitle || `${product.name} | NEXO` },
     description: seo?.metaDescription || product.short_description?.replace(/<[^>]+>/g, ""),
     alternates: { canonical: url },
     openGraph: { title: seo?.seoTitle || product.name, description: seo?.metaDescription, url, type: "website", images: image ? [{ url: image, alt: product.images?.[0]?.alt || product.name }] : [] },
@@ -55,7 +55,8 @@ export default async function ProductPage({ params, searchParams }: {
     <div className="product-layout"><section className="product-gallery">{imageSrc ? <img src={imageSrc} alt={product.images?.[0]?.alt || product.name} /> : <div>Sin fotografía</div>}</section>
       <section className="product-purchase"><small>{product.categories?.map((x: any) => x.name).join(" · ")}</small><h1>{product.name}</h1><strong className="product-price">{product.price} USD</strong><div dangerouslySetInnerHTML={{ __html: product.short_description }} />
         <AddToCartButton productId={product.id} referral={ref} disabled={!purchasable} />
-        <details><summary>Descripción</summary><p>{editorial?.longDescription}</p></details><details><summary>Especificaciones</summary><dl>{editorial?.specifications.map((spec) => <div key={spec.label}><dt>{spec.label}</dt><dd>{spec.value}</dd></div>)}</dl></details><details><summary>Entrega</summary><p>Elige entrega a domicilio o recogida al completar tu pedido.</p></details>
+        <section className="product-benefits" aria-labelledby="benefits-title"><h2 id="benefits-title">Lo más importante</h2><ul>{editorial?.keyBenefits.map((benefit) => <li key={benefit.title}><strong>{benefit.title}</strong><span>{benefit.detail}</span></li>)}</ul></section>
+        <details open><summary>Descripción</summary><p>{editorial?.longDescription}</p></details><details><summary>Especificaciones</summary><dl>{editorial?.specifications.map((spec) => <div key={spec.label}><dt>{spec.label}</dt><dd>{spec.value}</dd></div>)}</dl></details><details><summary>Preguntas frecuentes</summary>{editorial?.faq.map((item) => <div className="product-faq" key={item.question}><h3>{item.question}</h3><p>{item.answer}</p></div>)}</details><details><summary>Entrega</summary><p>Elige entrega a domicilio o recogida al completar tu pedido.</p></details>
       </section></div>
   </main>;
 }
