@@ -274,7 +274,6 @@ export default function CheckoutClient({
     <div className="checkout-shell">
       <form className="checkout-form" onSubmit={submit}>
         <header>
-          <span>PREPARAR PEDIDO</span>
           <h1>Completa tu pedido</h1>
           <p>
             {count} {count === 1 ? "producto" : "productos"} · {products}
@@ -344,7 +343,7 @@ export default function CheckoutClient({
             </label>
             <label>
               <span>
-                Teléfono alternativo <small>Opcional</small>
+                Teléfono alternativo (opcional)
               </span>
               <input
                 type="tel"
@@ -362,9 +361,6 @@ export default function CheckoutClient({
               value={draft.email}
               onChange={(e) => set("email", e.target.value)}
             />
-            <small>
-              Lo usaremos para ayudarte a recuperar la información del pedido.
-            </small>
           </label>
           <label>
             <span>Código postal</span>
@@ -377,7 +373,6 @@ export default function CheckoutClient({
               value={draft.postcode}
               onChange={(e) => set("postcode", e.target.value)}
             />
-            <small>Ayuda a identificar correctamente la zona de entrega.</small>
           </label>
         </fieldset>
         {draft.mode === "delivery" && (
@@ -456,8 +451,7 @@ export default function CheckoutClient({
                   : "Usar mi ubicación actual"}
               </button>
               <p aria-live="polite">
-                {locationMessage ||
-                  "Opcional. Solo se solicita cuando tú pulsas el botón."}
+                {locationMessage}
               </p>
               {draft.latitude && draft.longitude && (
                 <a
@@ -471,7 +465,7 @@ export default function CheckoutClient({
             </div>
             <label>
               <span>
-                Referencia para llegar <small>Opcional</small>
+                Referencia para llegar (opcional)
               </span>
               <input
                 value={draft.reference}
@@ -480,7 +474,7 @@ export default function CheckoutClient({
             </label>
             <label>
               <span>
-                Horario preferido <small>Opcional</small>
+                Horario preferido (opcional)
               </span>
               <select
                 value={draft.deliveryWindow}
@@ -502,7 +496,7 @@ export default function CheckoutClient({
         )}
         <fieldset disabled={busy}>
           <legend>
-            Notas <small>Opcional</small>
+            Notas (opcional)
           </legend>
           <textarea
             rows={2}
