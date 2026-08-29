@@ -193,7 +193,6 @@ export default function CartClient({
         <section className="cart-list">
           <header>
             <div>
-              <span>TU SELECCIÓN</span>
               <h1>Carrito</h1>
             </div>
             <p>{productCountLabel(count)}</p>
@@ -305,10 +304,6 @@ export default function CartClient({
             <p>Total de productos</p>
             <strong>{formatMoney(cart.totals.total_items, cart.totals)}</strong>
           </div>
-          <p className="delivery-note">
-            En el checkout podrás elegir entrega o recogida y conocer la
-            mensajería correspondiente.
-          </p>
           <button
             type="button"
             disabled={phase === "updating" || Boolean(updating)}
