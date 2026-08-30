@@ -16,7 +16,7 @@ function outputText(payload: any) {
 
 class OpenAIProvider implements AIProvider {
   name = "openai" as const;
-  private model = process.env.OPENAI_MODEL || process.env.NEXO_ASSISTANT_MODEL || "gpt-5.4-mini";
+  private model = process.env.OPENAI_MODEL || process.env.NEXO_ASSISTANT_MODEL || "gpt-5.6-terra";
   supports(capability: AICapability) { return capability !== "image_generation" || Boolean(process.env.OPENAI_IMAGE_MODEL); }
   async health() { return { provider: this.name, configured: Boolean(process.env.OPENAI_API_KEY), model: this.model }; }
   async generate(request: ProviderRequest) {
@@ -62,7 +62,8 @@ export class AIProviderRouter {
   private providers = { openai: new OpenAIProvider(), gemini: new GeminiProvider() };
   async health() { return Promise.all(Object.values(this.providers).map((provider) => provider.health())); }
   async generate(request: ProviderRequest) {
-    const preferred = (process.env.AI_PRIMARY_PROVIDER === "gemini" && request.capability === "fast_chat") ? "gemini" : "openai";
+    const fastProvider = process.env.AI_FAST_PROVIDER === "openai" ? "openai" : "gemini";
+    const preferred = request.capability === "fast_chat" ? fastProvider : "openai";
     const primary = this.providers[preferred], fallback = this.providers[preferred === "openai" ? "gemini" : "openai"];
     try { return await primary.generate(request); }
     catch (error) {
@@ -73,4 +74,3 @@ export class AIProviderRouter {
     }
   }
 }
-
