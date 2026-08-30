@@ -349,9 +349,10 @@ export async function GET() {
         409,
       );
     const referral = safeRef(jar.get(REFERRAL_COOKIE)?.value || ""),
-      result = await requestStoreCart("/cart", { token, referral });
+      result = await requestStoreCart("/cart", { token, referral }),
+      projection = await projectCommercialCart(result.cart, referral);
     return NextResponse.json(
-      { cart: result.cart, referral },
+      { cart: projection.cart, referral },
       { headers: { "Cache-Control": "private, no-store", Vary: "Cookie" } },
     );
   } catch (e) {
