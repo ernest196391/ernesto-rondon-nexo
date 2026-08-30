@@ -36,6 +36,7 @@ type Input = {
   latitude: string;
   longitude: string;
   locationAccuracy: string;
+  locationTimestamp: string;
 };
 type Done = {
   orderId: number;
@@ -79,6 +80,7 @@ function validate(raw: unknown): Input {
       latitude: clean(v.latitude, 24),
       longitude: clean(v.longitude, 24),
       locationAccuracy: clean(v.locationAccuracy, 16),
+      locationTimestamp: clean(v.locationTimestamp, 40),
     };
   if (!/^[\w-]{16,80}$/.test(input.idempotencyKey))
     throw new StoreApiError("Recarga el checkout e inténtalo nuevamente.", 400);
@@ -249,6 +251,17 @@ async function place(
     {
       key: "_nexo_delivery_location_accuracy_m",
       value: input.mode === "delivery" ? input.locationAccuracy : "",
+    },
+    {
+      key: "_nexo_delivery_location_timestamp",
+      value: input.mode === "delivery" ? input.locationTimestamp : "",
+    },
+    {
+      key: "_nexo_delivery_maps_url",
+      value:
+        input.mode === "delivery" && input.latitude && input.longitude
+          ? `https://www.google.com/maps/search/?api=1&query=${input.latitude},${input.longitude}`
+          : "",
     },
     { key: "_cvd_shipping_fee_cup", value: quote.feeCup },
     { key: "_cvd_shipping_rate_status", value: quote.status },

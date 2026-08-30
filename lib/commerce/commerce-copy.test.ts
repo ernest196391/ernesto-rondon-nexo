@@ -18,6 +18,6 @@ describe("contrato de textos comerciales", () => {
     const assistant = readFileSync("app/GlobalCommerceAssistant.tsx", "utf8");
     const checkout = readFileSync("app/checkout/CheckoutClient.tsx", "utf8");
     expect(`${assistant}\n${checkout}`).not.toMatch(/Cómo activarlo|En Chrome|Configuración del sitio/);
-    expect(assistant).toContain("Puedes escribir o adjuntar un audio");
+    expect(assistant).toContain("intentarlo nuevamente o adjuntar un audio");
   });
 });
