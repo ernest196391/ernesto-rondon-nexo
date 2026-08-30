@@ -1,0 +1,3 @@
+import { describe, expect, it } from "vitest";
+import { resolveCommercialPrice } from "./pricing";
+describe("public commercial contract",()=>{it("does not expose internal earnings in the resolved public price",()=>{const result=resolveCommercialPrice({base:90,currency:"USD",rule:{id:"r",gestoraId:"secret-owner",scope:"global",productId:null,mode:"fixed",value:5,currency:"USD",minFinal:null,maxFinal:null,rounding:.01,version:3,status:"active"}});expect(result.final).toBe(95);expect(result).not.toHaveProperty("gestoraId");expect(result).not.toHaveProperty("commission");expect(result).not.toHaveProperty("supplier");});});

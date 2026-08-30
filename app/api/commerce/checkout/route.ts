@@ -15,8 +15,10 @@ import {
   validLocality,
   validMunicipality,
 } from "../../../../lib/commerce/delivery";
-import { updateWooOrder } from "../../../../lib/commerce/woocommerce";
+import { getWooOrder, updateWooOrder } from "../../../../lib/commerce/woocommerce";
 import { buildOrderWhatsappMessage } from "../../../../lib/commerce/order-whatsapp";
+import { projectCommercialCart } from "../../../../lib/commercial/storefront";
+import { createOrderSnapshot, existingOrderForIdempotency, recordReconciliationFailure, resolveAttribution } from "../../../../lib/commercial/db";
 export const dynamic = "force-dynamic";
 type Input = {
   idempotencyKey: string;
@@ -152,8 +154,12 @@ async function place(
   token: string,
   referral: string,
 ): Promise<Done> {
-  const current = await requestStoreCart("/cart", { token, referral }),
-    cart = current.cart as any;
+  const existingOrderId=await existingOrderForIdempotency(input.idempotencyKey);
+  if(existingOrderId){const existing=await getWooOrder(existingOrderId);return{orderId:existingOrderId,orderNumber:String(existing.number||existingOrderId),orderKey:clean(existing.order_key,120),status:clean(existing.status,40),whatsappUrl:"https://wa.me/5354056173"};}
+  const attribution = await resolveAttribution({requestedRef:referral,identity:`${input.email}|${input.phone.replace(/\D/g,"")}`,sessionRef:referral,idempotencyKey:`checkout:${input.idempotencyKey}:attribution`}),
+    current = await requestStoreCart("/cart", { token, referral: attribution.effectiveRef || referral }),
+    projection = await projectCommercialCart(current.cart, attribution.effectiveRef),
+    cart = projection.cart as any;
   if (!cart.items?.length)
     throw new StoreApiError("Tu carrito está vacío.", 409);
   if (cart.errors?.length)
@@ -213,7 +219,7 @@ async function place(
   const result = await requestStoreCheckout({
       token,
       method: "POST",
-      referral,
+      referral: attribution.effectiveRef || referral,
       body: {
         billing_address: { ...address, email: input.email },
         shipping_address: address,
@@ -234,6 +240,10 @@ async function place(
     { key: "_nexo_marketplace_order", value: "yes" },
     { key: "_nexo_checkout_idempotency_key", value: input.idempotencyKey },
     { key: "_nexo_referral_requested", value: referral || "organic" },
+    { key: "_nexo_referral_effective", value: attribution.effectiveRef || "organic" },
+    { key: "_nexo_effective_gestora_id", value: attribution.effectiveGestoraId || "" },
+    { key: "_nexo_attribution_source", value: attribution.source },
+    { key: "_nexo_ledger_owner", value: "nexo" },
     { key: "_cvd_fulfillment_type", value: input.mode },
     { key: "_cvd_province_name", value: "La Habana" },
     { key: "_cvd_locality", value: input.locality },
@@ -281,9 +291,13 @@ async function place(
     },
   ];
   try {
-    await updateWooOrder(orderId, { meta_data: metadata });
-  } catch {
-    /* Pedido válido; metadatos quedan conciliables sin duplicar. */
+    const official = await getWooOrder(orderId), byProduct = new Map<number, any[]>();
+    for (const item of official.line_items || []) { const list=byProduct.get(Number(item.product_id))||[];list.push(item);byProduct.set(Number(item.product_id),list); }
+    const line_items = projection.lines.map((line) => { const officialLine=byProduct.get(line.productId)?.shift();return officialLine?{id:officialLine.id,total:(line.finalUnit*line.quantity).toFixed(2),subtotal:(line.finalUnit*line.quantity).toFixed(2)}:null; }).filter(Boolean);
+    await updateWooOrder(orderId, { line_items, meta_data: metadata });
+    await createOrderSnapshot({orderId,gestoraId:attribution.effectiveGestoraId,requestedRef:referral,effectiveRef:attribution.effectiveRef,currency:cart.totals?.currency_code||"USD",lines:projection.lines,baseCommission:0,shipping:quote.feeCup,idempotencyKey:input.idempotencyKey});
+  } catch (error) {
+    await recordReconciliationFailure(orderId,input.idempotencyKey,error).catch(()=>undefined);
   }
   const money = (amount: string | number, totals: any) =>
       `${Number(amount) / 10 ** Number(totals.currency_minor_unit || 2)} ${totals.currency_code}`,
