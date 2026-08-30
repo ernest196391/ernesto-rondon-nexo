@@ -1,0 +1,13 @@
+.impulsa-link{margin-top:14px;padding:12px 14px;background:#edf2ee;border-radius:12px;overflow-wrap:anywhere}
+.impulsa-products{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;width:100%}
+.impulsa-products label{display:flex;align-items:center;gap:12px;border:1px solid #dbe2dd;border-radius:15px;padding:10px;cursor:pointer}
+.impulsa-products label.selected{border-color:#173d2e;background:#f0f6f2}
+.impulsa-products input{width:20px;min-height:20px;flex:0 0 auto}
+.impulsa-products img{width:64px;height:64px;object-fit:contain;background:#f7f7f5;border-radius:10px}
+.impulsa-products span{display:grid;gap:5px}.impulsa-products small{color:#66736c}
+.catalog-form{display:grid!important;gap:14px!important}.catalog-form>button{justify-self:start}
+.price-form select{min-height:48px;border:1px solid #bfc9c2;border-radius:12px;padding:0 13px;font:inherit;background:#fff}
+.impulsa-message{padding:12px;border-radius:10px;background:#edf5ef}
+.auth-switch{display:flex;flex-wrap:wrap;gap:8px}.auth-switch button{min-height:auto!important;background:transparent!important;color:#173d2e!important;padding:5px!important;text-decoration:underline}
+.impulsa-login [role=alert]{padding:10px;border-radius:10px;background:#fff1ee;color:#8a2d1f}
+@media(max-width:620px){.impulsa-products{grid-template-columns:1fr}.impulsa-shell>header{align-items:flex-start}.impulsa-shell>header a{font-size:13px}.impulsa-products label{display:flex}.catalog-form>button{justify-self:stretch}}
