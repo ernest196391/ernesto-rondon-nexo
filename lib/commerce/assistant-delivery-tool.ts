@@ -1,7 +1,7 @@
 import { deliveryCatalog, normalizeText, quoteShipping } from "./delivery";
 
 export function getDeliveryQuoteAnswer(question: string) {
-  if (!/(mensajer[ií]a|entrega|env[ií]o|cu[aá]nto cuesta)/i.test(question)) return null;
+  if (!/(mensajer[ií]a|entrega|env[ií]o)/i.test(question)) return null;
   const normalized = normalizeText(question);
   const catalog = deliveryCatalog();
   const municipality = catalog.municipalities.find((name) => normalized.includes(normalizeText(name)));
