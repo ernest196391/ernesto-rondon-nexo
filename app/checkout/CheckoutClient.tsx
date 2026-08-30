@@ -23,6 +23,7 @@ type Draft = {
   latitude: string;
   longitude: string;
   locationAccuracy: string;
+  locationTimestamp: string;
 };
 type Config = {
   province: { code: string; name: string };
@@ -61,6 +62,7 @@ const empty: Draft = {
   latitude: "",
   longitude: "",
   locationAccuracy: "",
+  locationTimestamp: "",
 };
 const msg = (e: unknown) =>
   e instanceof Error
@@ -218,8 +220,16 @@ export default function CheckoutClient({
     }
   }
   async function locate() {
+    if (!window.isSecureContext) {
+      setLocationMessage(
+        "La ubicación necesita una conexión segura. Puedes continuar con la dirección escrita.",
+      );
+      return;
+    }
     if (!navigator.geolocation) {
-      setLocationMessage("Este navegador no permite compartir ubicación. Puedes continuar con la dirección escrita.");
+      setLocationMessage(
+        "Este dispositivo no permite compartir la ubicación desde el navegador.",
+      );
       return;
     }
     setLocating(true);
@@ -229,19 +239,21 @@ export default function CheckoutClient({
         set("latitude", String(p.coords.latitude));
         set("longitude", String(p.coords.longitude));
         set("locationAccuracy", String(Math.round(p.coords.accuracy)));
+        set("locationTimestamp", new Date(p.timestamp).toISOString());
         setLocationMessage("Ubicación añadida");
         setLocating(false);
       },
       (error) => {
-        const reason = error.code === error.PERMISSION_DENIED
-          ? "No pudimos obtener tu ubicación. Puedes continuar con la dirección escrita."
-          : error.code === error.TIMEOUT
-            ? "La ubicación tardó demasiado. Puedes intentarlo de nuevo."
-            : "No pudimos obtener tu ubicación. Puedes continuar con la dirección escrita.";
+        const reason =
+          error.code === error.PERMISSION_DENIED
+            ? "No pudimos acceder a tu ubicación. Puedes continuar con la dirección escrita."
+            : error.code === error.TIMEOUT
+              ? "La ubicación tardó demasiado. Inténtalo nuevamente o continúa con la dirección escrita."
+              : "No pudimos determinar tu ubicación. Puedes continuar con la dirección escrita.";
         setLocationMessage(reason);
         setLocating(false);
       },
-      { enableHighAccuracy: true, timeout: 12000, maximumAge: 60000 },
+      { enableHighAccuracy: true, timeout: 15000, maximumAge: 60000 },
     );
   }
   if (phase === "restoring" || phase === "validating")
@@ -269,7 +281,12 @@ export default function CheckoutClient({
   const busy = phase === "submitting",
     count = itemCount(cart),
     products = formatMoney(cart.totals.total_items, cart.totals),
-    localities = config.localityOptions?.[draft.municipality] || (config.localities[draft.municipality] || []).map((label) => ({ id: label, label }));
+    localities =
+      config.localityOptions?.[draft.municipality] ||
+      (config.localities[draft.municipality] || []).map((label) => ({
+        id: label,
+        label,
+      }));
   return (
     <div className="checkout-shell">
       <form className="checkout-form" onSubmit={submit}>
@@ -342,9 +359,7 @@ export default function CheckoutClient({
               />
             </label>
             <label>
-              <span>
-                Teléfono alternativo (opcional)
-              </span>
+              <span>Teléfono alternativo (opcional)</span>
               <input
                 type="tel"
                 value={draft.alternatePhone}
@@ -408,29 +423,52 @@ export default function CheckoutClient({
                 disabled={!draft.municipality}
                 value={draft.localityId}
                 onChange={(e) => {
-                  const option = localities.find((item) => item.id === e.target.value);
+                  const option = localities.find(
+                    (item) => item.id === e.target.value,
+                  );
                   set("localityId", e.target.value);
                   set("locality", option?.label || "");
                   set("manualLocality", false);
                 }}
               >
-                <option value="">{draft.municipality ? "Selecciona tu localidad" : "Selecciona primero el municipio"}</option>
+                <option value="">
+                  {draft.municipality
+                    ? "Selecciona tu localidad"
+                    : "Selecciona primero el municipio"}
+                </option>
                 {localities.map((x) => (
-                  <option key={x.id} value={x.id}>{x.label}</option>
+                  <option key={x.id} value={x.id}>
+                    {x.label}
+                  </option>
                 ))}
               </select>
               {draft.municipality && (
                 <button
                   type="button"
                   className="manual-locality"
-                  onClick={() => { set("manualLocality", true); set("localityId", "manual"); set("locality", draft.manualLocalityText); }}
+                  onClick={() => {
+                    set("manualLocality", true);
+                    set("localityId", "manual");
+                    set("locality", draft.manualLocalityText);
+                  }}
                 >
                   No encuentro mi localidad
                 </button>
               )}
             </label>
             {draft.manualLocality && (
-              <label className="field-help"><span>Escribe tu localidad</span><input required value={draft.manualLocalityText} onChange={(e) => { set("manualLocalityText", e.target.value); set("locality", e.target.value); }} /><small>La mensajería quedará pendiente de confirmación.</small></label>
+              <label className="field-help">
+                <span>Escribe tu localidad</span>
+                <input
+                  required
+                  value={draft.manualLocalityText}
+                  onChange={(e) => {
+                    set("manualLocalityText", e.target.value);
+                    set("locality", e.target.value);
+                  }}
+                />
+                <small>La mensajería quedará pendiente de confirmación.</small>
+              </label>
             )}
             <label>
               <span>Dirección</span>
@@ -450,33 +488,47 @@ export default function CheckoutClient({
                   ? "Obteniendo ubicación…"
                   : "Usar mi ubicación actual"}
               </button>
-              <p aria-live="polite">
-                {locationMessage}
-              </p>
-              {locationMessage && !draft.latitude && <button className="location-retry" type="button" onClick={() => void locate()}>Intentar de nuevo</button>}
-              {draft.latitude && draft.longitude && (
-                <a
-                  href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${draft.latitude},${draft.longitude}`)}`}
-                  target="_blank"
-                  rel="noreferrer"
+              <p aria-live="polite">{locationMessage}</p>
+              {locationMessage && !draft.latitude && (
+                <button
+                  className="location-retry"
+                  type="button"
+                  onClick={() => void locate()}
                 >
-                  Ver en el mapa
-                </a>
+                  Intentar de nuevo
+                </button>
+              )}
+              {draft.latitude && draft.longitude && (
+                <div className="location-success">
+                  <small>
+                    Precisión aproximada: {draft.locationAccuracy || "—"} m
+                  </small>
+                  <a
+                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${draft.latitude},${draft.longitude}`)}`}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Ver en el mapa
+                  </a>
+                  <button
+                    type="button"
+                    onClick={() => void locate()}
+                    disabled={locating}
+                  >
+                    Actualizar ubicación
+                  </button>
+                </div>
               )}
             </div>
             <label>
-              <span>
-                Referencia para llegar (opcional)
-              </span>
+              <span>Referencia para llegar (opcional)</span>
               <input
                 value={draft.reference}
                 onChange={(e) => set("reference", e.target.value)}
               />
             </label>
             <label>
-              <span>
-                Horario preferido (opcional)
-              </span>
+              <span>Horario preferido (opcional)</span>
               <select
                 value={draft.deliveryWindow}
                 onChange={(e) => set("deliveryWindow", e.target.value)}
@@ -496,9 +548,7 @@ export default function CheckoutClient({
           </section>
         )}
         <fieldset disabled={busy}>
-          <legend>
-            Notas (opcional)
-          </legend>
+          <legend>Notas (opcional)</legend>
           <textarea
             rows={2}
             maxLength={500}

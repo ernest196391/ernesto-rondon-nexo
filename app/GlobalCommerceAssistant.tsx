@@ -1,41 +1,608 @@
 "use client";
 import Image from "next/image";
 import { FormEvent, KeyboardEvent, useEffect, useRef, useState } from "react";
-type Product = { id:number; name:string; price:string; currency:string; imageUrl:string; productUrl:string; family:string; purchasable:boolean };
-type Support = { whatsappUrl:string; phoneUrl:string };
-type Message = { role:"assistant"|"user"; text:string; products?:Product[]; support?:Support };
+type Product = {
+  id: number;
+  name: string;
+  price: string;
+  currency: string;
+  imageUrl: string;
+  productUrl: string;
+  family: string;
+  purchasable: boolean;
+};
+type Support = { whatsappUrl: string; phoneUrl: string };
+type Message = {
+  role: "assistant" | "user";
+  text: string;
+  products?: Product[];
+  support?: Support;
+};
 const accepted = ".jpg,.jpeg,.png,.webp,.heic,.heif,.pdf,.txt";
 
-function Icon({name}:{name:"attach"|"camera"|"mic"|"send"|"close"|"spark"}) {
-  const c={width:22,height:22,viewBox:"0 0 24 24",fill:"none",stroke:"currentColor",strokeWidth:1.9,strokeLinecap:"round" as const,strokeLinejoin:"round" as const,"aria-hidden":true};
-  if(name==="attach")return <svg {...c}><path d="m21.4 11.6-8.9 8.9a6 6 0 0 1-8.5-8.5l9.6-9.6a4 4 0 0 1 5.7 5.7l-9.6 9.6a2 2 0 0 1-2.8-2.8l8.9-8.9"/></svg>;
-  if(name==="camera")return <svg {...c}><path d="M14.5 4 16 7h3a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h3l1.5-3h5Z"/><circle cx="12" cy="13" r="3"/></svg>;
-  if(name==="mic")return <svg {...c}><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0M12 17v5"/></svg>;
-  if(name==="send")return <svg {...c}><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>;
-  if(name==="close")return <svg {...c}><path d="m6 6 12 12M18 6 6 18"/></svg>;
-  return <svg {...c}><path d="m12 3 1.4 4.6L18 9l-4.6 1.4L12 15l-1.4-4.6L6 9l4.6-1.4L12 3ZM19 16l.7 2.3L22 19l-2.3.7L19 22l-.7-2.3L16 19l2.3-.7L19 16Z"/></svg>;
+function Icon({
+  name,
+}: {
+  name: "attach" | "camera" | "mic" | "send" | "close" | "spark";
+}) {
+  const c = {
+    width: 22,
+    height: 22,
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: 1.9,
+    strokeLinecap: "round" as const,
+    strokeLinejoin: "round" as const,
+    "aria-hidden": true,
+  };
+  if (name === "attach")
+    return (
+      <svg {...c}>
+        <path d="m21.4 11.6-8.9 8.9a6 6 0 0 1-8.5-8.5l9.6-9.6a4 4 0 0 1 5.7 5.7l-9.6 9.6a2 2 0 0 1-2.8-2.8l8.9-8.9" />
+      </svg>
+    );
+  if (name === "camera")
+    return (
+      <svg {...c}>
+        <path d="M14.5 4 16 7h3a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h3l1.5-3h5Z" />
+        <circle cx="12" cy="13" r="3" />
+      </svg>
+    );
+  if (name === "mic")
+    return (
+      <svg {...c}>
+        <rect x="9" y="2" width="6" height="12" rx="3" />
+        <path d="M5 10a7 7 0 0 0 14 0M12 17v5" />
+      </svg>
+    );
+  if (name === "send")
+    return (
+      <svg {...c}>
+        <path d="m22 2-7 20-4-9-9-4Z" />
+        <path d="M22 2 11 13" />
+      </svg>
+    );
+  if (name === "close")
+    return (
+      <svg {...c}>
+        <path d="m6 6 12 12M18 6 6 18" />
+      </svg>
+    );
+  return (
+    <svg {...c}>
+      <path d="m12 3 1.4 4.6L18 9l-4.6 1.4L12 15l-1.4-4.6L6 9l4.6-1.4L12 3ZM19 16l.7 2.3L22 19l-2.3.7L19 22l-.7-2.3L16 19l2.3-.7L19 16Z" />
+    </svg>
+  );
 }
 
-export default function GlobalCommerceAssistant(){
- const[open,setOpen]=useState(false),[question,setQuestion]=useState(""),[files,setFiles]=useState<File[]>([]),[messages,setMessages]=useState<Message[]>([{role:"assistant",text:"Hola. Puedo ayudarte a buscar productos, comparar opciones y resolver dudas sobre tu pedido. ¿Qué necesitas?"}]),[busy,setBusy]=useState(false),[error,setError]=useState(""),[recording,setRecording]=useState(false),[seconds,setSeconds]=useState(0);
- const inputRef=useRef<HTMLInputElement>(null),audioRef=useRef<HTMLInputElement>(null),cameraRef=useRef<HTMLInputElement>(null),textareaRef=useRef<HTMLTextAreaElement>(null),closeRef=useRef<HTMLButtonElement>(null),launcherRef=useRef<HTMLButtonElement>(null),recorderRef=useRef<MediaRecorder|null>(null),streamRef=useRef<MediaStream|null>(null),chunksRef=useRef<Blob[]>([]),messagesRef=useRef<HTMLDivElement>(null);
- useEffect(()=>{if(open)setTimeout(()=>closeRef.current?.focus(),0)},[open]);
- useEffect(()=>{messagesRef.current?.scrollTo({top:messagesRef.current.scrollHeight,behavior:"smooth"})},[messages,busy]);
- useEffect(()=>{if(!recording)return;const timer=setInterval(()=>setSeconds(v=>{if(v>=59){recorderRef.current?.stop();return 60}return v+1}),1000);return()=>clearInterval(timer)},[recording]);
- useEffect(()=>()=>streamRef.current?.getTracks().forEach(track=>track.stop()),[]);
- function addFiles(next:FileList|null){if(!next)return;setError("");const selected=[...next],total=[...files,...selected].reduce((sum,file)=>sum+file.size,0);if(files.length+selected.length>3||total>20*1024*1024||selected.some(file=>file.size>10*1024*1024))return setError("Puedes enviar hasta 3 archivos, con un máximo de 10 MB cada uno.");setFiles(current=>[...current,...selected].slice(0,3))}
- async function submit(event?:FormEvent){event?.preventDefault();if((!question.trim()&&!files.length)||busy)return;const sent=question.trim()||`Adjunto: ${files.map(file=>file.name).join(", ")}`;setMessages(current=>[...current,{role:"user",text:sent}]);setBusy(true);setError("");const body=new FormData();body.set("question",question);body.set("ref",new URLSearchParams(window.location.search).get("ref")||"");files.forEach(file=>body.append("attachments",file));setQuestion("");setFiles([]);try{const response=await fetch("/api/assistant/chat",{method:"POST",body,signal:AbortSignal.timeout(55000)}),data=await response.json();if(!response.ok)throw new Error(data.error||"No pudimos responder ahora.");setMessages(current=>[...current,{role:"assistant",text:data.answer,products:data.products,support:data.humanSupport}])}catch(cause){setError(cause instanceof Error&&cause.name==="TimeoutError"?"La consulta tardó demasiado. Inténtalo otra vez.":cause instanceof Error?cause.message:"No pudimos responder ahora.")}finally{setBusy(false);textareaRef.current?.focus()}}
- async function transcribe(audio:Blob,name="consulta.webm"){const body=new FormData();body.set("audio",audio,name);setBusy(true);setError("");try{const response=await fetch("/api/assistant/transcribe",{method:"POST",body}),data=await response.json();if(!response.ok)throw new Error(data.error);setQuestion(data.text||"")}catch{setError("No pudimos transcribir el audio. Puedes intentarlo de nuevo o escribir el mensaje.")}finally{setBusy(false);textareaRef.current?.focus()}}
- async function record(){if(recording)return recorderRef.current?.stop();setError("");if(!window.isSecureContext||!navigator.mediaDevices?.getUserMedia||!window.MediaRecorder)return setError("Este navegador no permite grabar audio. Puedes escribir o adjuntar un archivo.");try{const permission=await navigator.permissions?.query?.({name:"microphone" as PermissionName}).catch(()=>null);if(permission?.state==="denied")return setError("No pudimos usar el micrófono. Puedes escribir o adjuntar un audio.");const stream=await navigator.mediaDevices.getUserMedia({audio:true});streamRef.current=stream;const preferred=["audio/webm;codecs=opus","audio/webm","audio/mp4"].find(type=>MediaRecorder.isTypeSupported(type));const recorder=new MediaRecorder(stream,preferred?{mimeType:preferred}:undefined);recorderRef.current=recorder;chunksRef.current=[];recorder.ondataavailable=event=>{if(event.data.size)chunksRef.current.push(event.data)};recorder.onerror=()=>setError("La grabación se interrumpió. Inténtalo de nuevo.");recorder.onstop=()=>{setRecording(false);stream.getTracks().forEach(track=>track.stop());streamRef.current=null;const blob=new Blob(chunksRef.current,{type:recorder.mimeType||"audio/webm"});if(blob.size)void transcribe(blob)};recorder.start();setSeconds(0);setRecording(true)}catch{setError("No pudimos usar el micrófono. Puedes escribir o adjuntar un audio.")}}
- function close(){setOpen(false);setTimeout(()=>launcherRef.current?.focus(),0)}
- function onPanelKey(event:KeyboardEvent){if(event.key==="Escape")close()}
- const quick=[["Buscar productos","Ayúdame a buscar un producto"],["Comparar opciones","Quiero comparar opciones"],["Calcular mensajería","¿Cuánto cuesta la entrega?"],["Ayuda con mi pedido","Necesito ayuda con mi pedido"],["Hablar con una persona","Quiero hablar con una persona por WhatsApp"]];
- return <aside className={`global-assistant${open?" assistant-open":""}`} aria-label="Ayuda NEXO"><a className="global-whatsapp-trigger" href="https://wa.me/5354056173" aria-label="Abrir WhatsApp de NEXO" title="WhatsApp de NEXO"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a9.7 9.7 0 0 0-8.4 14.6L2.3 22l5.5-1.3A9.8 9.8 0 1 0 12 2Zm0 17.7a7.7 7.7 0 0 1-3.9-1.1l-.3-.2-3.2.8.9-3.1-.2-.3A7.8 7.8 0 1 1 12 19.7Zm4.3-5.8c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.6.1l-.7.9c-.1.2-.3.2-.5.1-1.4-.7-2.3-1.3-3.2-2.9-.2-.3.2-.3.6-1.1.1-.2 0-.4 0-.5l-.7-1.6c-.2-.4-.4-.3-.6-.3h-.5c-.2 0-.5.1-.7.3-.2.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 4.9 4.3 1.8.8 2.5.8 3.4.7 1-.1 2.8-1.1 3.2-2.2.4-1.1.4-2 .3-2.2-.1-.1-.3-.2-.5-.3Z"/></svg></a><button ref={launcherRef} className="global-assistant-trigger" aria-label="Abrir Asistente NEXO" title="Asistente NEXO" aria-expanded={open} aria-controls="nexo-assistant" onClick={()=>setOpen(v=>!v)}><Icon name="spark"/><b>Asistente NEXO</b></button>{open&&<section id="nexo-assistant" className="global-assistant-panel" role="dialog" aria-modal="true" aria-label="Asistente NEXO" onKeyDown={onPanelKey}>
-  <header><Image className="assistant-avatar" src="/brand/nexo-symbol.png" alt="" width={44} height={44}/><div><strong>Asistente NEXO</strong><small><i/> Ayuda con productos y pedidos</small></div><button ref={closeRef} type="button" aria-label="Cerrar asistente" onClick={close}><Icon name="close"/></button></header>
-  <div ref={messagesRef} className="assistant-messages" aria-live="polite">{messages.map((message,index)=><article key={index} className={`assistant-message ${message.role}`}><p>{message.text}</p>{message.products?.map(product=><div className="assistant-product" key={product.id}><img src={product.imageUrl} alt=""/><div><small>{product.family}</small><strong>{product.name}</strong><b>{product.price} {product.currency}</b><a href={product.productUrl}>Ver producto</a></div></div>)}{message.support&&<div className="assistant-support"><a href={message.support.whatsappUrl}>Continuar por WhatsApp</a><a href={message.support.phoneUrl}>Llamar a NEXO</a></div>}</article>)}{busy&&<p className="assistant-typing" role="status">NEXO está escribiendo…</p>}</div>
-  <div className="assistant-quick">{quick.map(([label,value])=><button key={label} type="button" onClick={()=>setQuestion(value)}>{label}</button>)}</div>
-  {files.length>0&&<ul className="assistant-files">{files.map((file,index)=><li key={`${file.name}-${index}`}><span>{file.name}</span><button type="button" aria-label={`Quitar ${file.name}`} onClick={()=>setFiles(current=>current.filter((_,item)=>item!==index))}>×</button></li>)}</ul>}
-  {error&&<div className="assistant-global-error" role="alert"><p>{error}</p>{error.includes("micrófono")&&<div className="assistant-permission-actions"><button type="button" onClick={()=>void record()}>Intentar de nuevo</button><button type="button" onClick={()=>audioRef.current?.click()}>Adjuntar audio</button></div>}</div>}
-  <form onSubmit={submit} className="assistant-composer"><input ref={inputRef} hidden type="file" accept={accepted} multiple onChange={event=>{addFiles(event.target.files);event.target.value=""}}/><input ref={audioRef} hidden type="file" accept="audio/*" onChange={event=>{const file=event.target.files?.[0];if(file)void transcribe(file,file.name);event.target.value=""}}/><input ref={cameraRef} hidden type="file" accept="image/jpeg,image/png,image/webp" capture="environment" onChange={event=>{addFiles(event.target.files);event.target.value=""}}/><button type="button" aria-label="Adjuntar archivo" onClick={()=>inputRef.current?.click()}><Icon name="attach"/></button><button type="button" aria-label="Abrir cámara" onClick={()=>cameraRef.current?.click()}><Icon name="camera"/></button><textarea ref={textareaRef} rows={1} maxLength={1000} value={question} onChange={event=>setQuestion(event.target.value)} onKeyDown={event=>{if(event.key==="Enter"&&!event.shiftKey&&!event.nativeEvent.isComposing){event.preventDefault();void submit()}}} placeholder="Escribe tu mensaje…" aria-label="Mensaje"/>{question.trim()||files.length?<button className="send" type="submit" disabled={busy} aria-label="Enviar"><Icon name="send"/></button>:<button className={recording?"recording":""} type="button" disabled={busy} aria-label={recording?"Detener grabación":"Grabar mensaje"} onClick={()=>void record()}>{recording?`${Math.floor(seconds/60)}:${String(seconds%60).padStart(2,"0")}`:<Icon name="mic"/>}</button>}</form>
-  <small className="assistant-privacy">Tus adjuntos se procesan para responder y no se conservan después de la consulta.</small>
- </section>}</aside>}
+export default function GlobalCommerceAssistant() {
+  const [open, setOpen] = useState(false),
+    [question, setQuestion] = useState(""),
+    [files, setFiles] = useState<File[]>([]),
+    [messages, setMessages] = useState<Message[]>([
+      {
+        role: "assistant",
+        text: "Hola. Puedo ayudarte a buscar productos, comparar opciones y resolver dudas sobre tu pedido. ¿Qué necesitas?",
+      },
+    ]),
+    [busy, setBusy] = useState(false),
+    [error, setError] = useState(""),
+    [audioStatus, setAudioStatus] = useState<
+      "idle" | "requesting" | "recording" | "transcribing" | "ready"
+    >("idle"),
+    [recording, setRecording] = useState(false),
+    [seconds, setSeconds] = useState(0);
+  const inputRef = useRef<HTMLInputElement>(null),
+    audioRef = useRef<HTMLInputElement>(null),
+    cameraRef = useRef<HTMLInputElement>(null),
+    textareaRef = useRef<HTMLTextAreaElement>(null),
+    closeRef = useRef<HTMLButtonElement>(null),
+    launcherRef = useRef<HTMLButtonElement>(null),
+    recorderRef = useRef<MediaRecorder | null>(null),
+    streamRef = useRef<MediaStream | null>(null),
+    cancelledRef = useRef(false),
+    chunksRef = useRef<Blob[]>([]),
+    messagesRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (open) setTimeout(() => closeRef.current?.focus(), 0);
+  }, [open]);
+  useEffect(() => {
+    messagesRef.current?.scrollTo({
+      top: messagesRef.current.scrollHeight,
+      behavior: "smooth",
+    });
+  }, [messages, busy]);
+  useEffect(() => {
+    if (!recording) return;
+    const timer = setInterval(
+      () =>
+        setSeconds((v) => {
+          if (v >= 59) {
+            recorderRef.current?.stop();
+            return 60;
+          }
+          return v + 1;
+        }),
+      1000,
+    );
+    return () => clearInterval(timer);
+  }, [recording]);
+  useEffect(
+    () => () => streamRef.current?.getTracks().forEach((track) => track.stop()),
+    [],
+  );
+  function addFiles(next: FileList | null) {
+    if (!next) return;
+    setError("");
+    const selected = [...next],
+      total = [...files, ...selected].reduce((sum, file) => sum + file.size, 0);
+    if (
+      files.length + selected.length > 3 ||
+      total > 20 * 1024 * 1024 ||
+      selected.some((file) => file.size > 10 * 1024 * 1024)
+    )
+      return setError(
+        "Puedes enviar hasta 3 archivos, con un máximo de 10 MB cada uno.",
+      );
+    setFiles((current) => [...current, ...selected].slice(0, 3));
+  }
+  async function submit(event?: FormEvent) {
+    event?.preventDefault();
+    if ((!question.trim() && !files.length) || busy) return;
+    const sent =
+      question.trim() ||
+      `Adjunto: ${files.map((file) => file.name).join(", ")}`;
+    setMessages((current) => [...current, { role: "user", text: sent }]);
+    setBusy(true);
+    setError("");
+    const body = new FormData();
+    body.set("question", question);
+    body.set(
+      "ref",
+      new URLSearchParams(window.location.search).get("ref") || "",
+    );
+    files.forEach((file) => body.append("attachments", file));
+    setQuestion("");
+    setFiles([]);
+    try {
+      const response = await fetch("/api/assistant/chat", {
+          method: "POST",
+          body,
+          signal: AbortSignal.timeout(55000),
+        }),
+        data = await response.json();
+      if (!response.ok)
+        throw new Error(data.error || "No pudimos responder ahora.");
+      setMessages((current) => [
+        ...current,
+        {
+          role: "assistant",
+          text: data.answer,
+          products: data.products,
+          support: data.humanSupport,
+        },
+      ]);
+    } catch (cause) {
+      setError(
+        cause instanceof Error && cause.name === "TimeoutError"
+          ? "La consulta tardó demasiado. Inténtalo otra vez."
+          : cause instanceof Error
+            ? cause.message
+            : "No pudimos responder ahora.",
+      );
+    } finally {
+      setBusy(false);
+      textareaRef.current?.focus();
+    }
+  }
+  async function transcribe(audio: Blob, name = "consulta.webm") {
+    const body = new FormData();
+    body.set("audio", audio, name);
+    setBusy(true);
+    setAudioStatus("transcribing");
+    setError("");
+    try {
+      const response = await fetch("/api/assistant/transcribe", {
+          method: "POST",
+          body,
+        }),
+        data = await response.json();
+      if (!response.ok || !data.ok) throw new Error(data.message);
+      setQuestion(data.transcript || data.text || "");
+      setAudioStatus("ready");
+    } catch {
+      setError(
+        "No pudimos transcribir el audio. Puedes intentarlo de nuevo o escribir el mensaje.",
+      );
+    } finally {
+      setBusy(false);
+      setAudioStatus((current) => (current === "ready" ? current : "idle"));
+      textareaRef.current?.focus();
+    }
+  }
+  async function record() {
+    if (recording) return recorderRef.current?.stop();
+    setError("");
+    if (
+      !window.isSecureContext ||
+      !navigator.mediaDevices?.getUserMedia ||
+      !window.MediaRecorder
+    )
+      return setError(
+        "Este navegador no permite grabar audio. Puedes escribir o adjuntar un archivo.",
+      );
+    try {
+      setAudioStatus("requesting");
+      const permission = await navigator.permissions
+        ?.query?.({ name: "microphone" as PermissionName })
+        .catch(() => null);
+      if (permission?.state === "denied")
+        throw new DOMException("Permiso denegado", "NotAllowedError");
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      streamRef.current = stream;
+      const preferred = [
+        "audio/webm;codecs=opus",
+        "audio/webm",
+        "audio/mp4",
+      ].find((type) => MediaRecorder.isTypeSupported(type));
+      const recorder = new MediaRecorder(
+        stream,
+        preferred ? { mimeType: preferred } : undefined,
+      );
+      recorderRef.current = recorder;
+      cancelledRef.current = false;
+      chunksRef.current = [];
+      recorder.ondataavailable = (event) => {
+        if (event.data.size) chunksRef.current.push(event.data);
+      };
+      recorder.onerror = () =>
+        setError("La grabación se interrumpió. Inténtalo de nuevo.");
+      recorder.onstop = () => {
+        setRecording(false);
+        stream.getTracks().forEach((track) => track.stop());
+        streamRef.current = null;
+        if (cancelledRef.current) {
+          chunksRef.current = [];
+          setAudioStatus("idle");
+          return;
+        }
+        const blob = new Blob(chunksRef.current, {
+          type: recorder.mimeType || "audio/webm",
+        });
+        if (blob.size) void transcribe(blob);
+      };
+      recorder.start();
+      setSeconds(0);
+      setRecording(true);
+      setAudioStatus("recording");
+    } catch (cause) {
+      streamRef.current?.getTracks().forEach((track) => track.stop());
+      streamRef.current = null;
+      setAudioStatus("idle");
+      setError(
+        cause instanceof DOMException && cause.name === "NotFoundError"
+          ? "No encontramos un micrófono disponible. Puedes adjuntar un audio."
+          : cause instanceof DOMException && cause.name === "NotReadableError"
+            ? "El micrófono está siendo usado por otra aplicación. Inténtalo nuevamente."
+            : "No pudimos usar el micrófono. Puedes intentarlo nuevamente o adjuntar un audio.",
+      );
+    }
+  }
+  function cancelRecording() {
+    cancelledRef.current = true;
+    if (recorderRef.current?.state !== "inactive") recorderRef.current?.stop();
+    streamRef.current?.getTracks().forEach((track) => track.stop());
+    streamRef.current = null;
+    setRecording(false);
+    setAudioStatus("idle");
+  }
+  function close() {
+    setOpen(false);
+    setTimeout(() => launcherRef.current?.focus(), 0);
+  }
+  function onPanelKey(event: KeyboardEvent) {
+    if (event.key === "Escape") close();
+  }
+  const quick = [
+    ["Buscar productos", "Ayúdame a buscar un producto"],
+    ["Comparar opciones", "Quiero comparar opciones"],
+    ["Calcular mensajería", "¿Cuánto cuesta la entrega?"],
+    ["Ayuda con mi pedido", "Necesito ayuda con mi pedido"],
+    ["Hablar con una persona", "Quiero hablar con una persona por WhatsApp"],
+  ];
+  return (
+    <aside
+      className={`global-assistant${open ? " assistant-open" : ""}`}
+      aria-label="Ayuda NEXO"
+    >
+      <a
+        className="global-whatsapp-trigger"
+        href="https://wa.me/5354056173"
+        aria-label="Abrir WhatsApp de NEXO"
+        title="WhatsApp de NEXO"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            fill="currentColor"
+            d="M12 2a9.7 9.7 0 0 0-8.4 14.6L2.3 22l5.5-1.3A9.8 9.8 0 1 0 12 2Zm0 17.7a7.7 7.7 0 0 1-3.9-1.1l-.3-.2-3.2.8.9-3.1-.2-.3A7.8 7.8 0 1 1 12 19.7Zm4.3-5.8c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.6.1l-.7.9c-.1.2-.3.2-.5.1-1.4-.7-2.3-1.3-3.2-2.9-.2-.3.2-.3.6-1.1.1-.2 0-.4 0-.5l-.7-1.6c-.2-.4-.4-.3-.6-.3h-.5c-.2 0-.5.1-.7.3-.2.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 4.9 4.3 1.8.8 2.5.8 3.4.7 1-.1 2.8-1.1 3.2-2.2.4-1.1.4-2 .3-2.2-.1-.1-.3-.2-.5-.3Z"
+          />
+        </svg>
+      </a>
+      <button
+        ref={launcherRef}
+        className="global-assistant-trigger"
+        aria-label="Abrir Asistente NEXO"
+        title="Asistente NEXO"
+        aria-expanded={open}
+        aria-controls="nexo-assistant"
+        onClick={() => setOpen((v) => !v)}
+      >
+        <Icon name="spark" />
+        <b>Asistente NEXO</b>
+      </button>
+      {open && (
+        <section
+          id="nexo-assistant"
+          className="global-assistant-panel"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Asistente NEXO"
+          onKeyDown={onPanelKey}
+        >
+          <header>
+            <Image
+              className="assistant-avatar"
+              src="/brand/nexo-symbol.png"
+              alt=""
+              width={44}
+              height={44}
+            />
+            <div>
+              <strong>Asistente NEXO</strong>
+              <small>
+                <i /> Ayuda con productos y pedidos
+              </small>
+            </div>
+            <button
+              ref={closeRef}
+              type="button"
+              aria-label="Cerrar asistente"
+              onClick={close}
+            >
+              <Icon name="close" />
+            </button>
+          </header>
+          <div
+            ref={messagesRef}
+            className="assistant-messages"
+            aria-live="polite"
+          >
+            {messages.map((message, index) => (
+              <article
+                key={index}
+                className={`assistant-message ${message.role}`}
+              >
+                <p>{message.text}</p>
+                {message.products?.map((product) => (
+                  <div className="assistant-product" key={product.id}>
+                    <img src={product.imageUrl} alt="" />
+                    <div>
+                      <small>{product.family}</small>
+                      <strong>{product.name}</strong>
+                      <b>
+                        {product.price} {product.currency}
+                      </b>
+                      <a href={product.productUrl}>Ver producto</a>
+                    </div>
+                  </div>
+                ))}
+                {message.support && (
+                  <div className="assistant-support">
+                    <a href={message.support.whatsappUrl}>
+                      Continuar por WhatsApp
+                    </a>
+                    <a href={message.support.phoneUrl}>Llamar a NEXO</a>
+                  </div>
+                )}
+              </article>
+            ))}
+            {busy && (
+              <p className="assistant-typing" role="status">
+                NEXO está escribiendo…
+              </p>
+            )}
+          </div>
+          <div className="assistant-quick">
+            {quick.map(([label, value]) => (
+              <button
+                key={label}
+                type="button"
+                onClick={() => setQuestion(value)}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+          {files.length > 0 && (
+            <ul className="assistant-files">
+              {files.map((file, index) => (
+                <li key={`${file.name}-${index}`}>
+                  <span>{file.name}</span>
+                  <button
+                    type="button"
+                    aria-label={`Quitar ${file.name}`}
+                    onClick={() =>
+                      setFiles((current) =>
+                        current.filter((_, item) => item !== index),
+                      )
+                    }
+                  >
+                    ×
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
+          {error && (
+            <div className="assistant-global-error" role="alert">
+              <p>{error}</p>
+              {error.includes("micrófono") && (
+                <div className="assistant-permission-actions">
+                  <button type="button" onClick={() => void record()}>
+                    Intentar de nuevo
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => audioRef.current?.click()}
+                  >
+                    Adjuntar audio
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
+          {audioStatus !== "idle" && (
+            <div className="assistant-audio-status" role="status">
+              {audioStatus === "requesting" && (
+                <span>Activando micrófono…</span>
+              )}
+              {audioStatus === "recording" && (
+                <span>
+                  Grabando… {Math.floor(seconds / 60)}:
+                  {String(seconds % 60).padStart(2, "0")}
+                </span>
+              )}
+              {audioStatus === "transcribing" && <span>Transcribiendo…</span>}
+              {audioStatus === "ready" && (
+                <>
+                  <span>Audio transcrito. Puedes revisar el texto.</span>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setQuestion("");
+                      setAudioStatus("idle");
+                    }}
+                  >
+                    Descartar
+                  </button>
+                </>
+              )}
+              {audioStatus === "recording" && (
+                <>
+                  <button
+                    type="button"
+                    onClick={() => recorderRef.current?.stop()}
+                  >
+                    Detener
+                  </button>
+                  <button type="button" onClick={cancelRecording}>
+                    Cancelar
+                  </button>
+                </>
+              )}
+            </div>
+          )}
+          <form onSubmit={submit} className="assistant-composer">
+            <input
+              ref={inputRef}
+              hidden
+              type="file"
+              accept={accepted}
+              multiple
+              onChange={(event) => {
+                addFiles(event.target.files);
+                event.target.value = "";
+              }}
+            />
+            <input
+              ref={audioRef}
+              hidden
+              type="file"
+              accept="audio/*"
+              onChange={(event) => {
+                const file = event.target.files?.[0];
+                if (file) void transcribe(file, file.name);
+                event.target.value = "";
+              }}
+            />
+            <input
+              ref={cameraRef}
+              hidden
+              type="file"
+              accept="image/jpeg,image/png,image/webp"
+              capture="environment"
+              onChange={(event) => {
+                addFiles(event.target.files);
+                event.target.value = "";
+              }}
+            />
+            <button
+              type="button"
+              aria-label="Adjuntar archivo"
+              onClick={() => inputRef.current?.click()}
+            >
+              <Icon name="attach" />
+            </button>
+            <button
+              type="button"
+              aria-label="Abrir cámara"
+              onClick={() => cameraRef.current?.click()}
+            >
+              <Icon name="camera" />
+            </button>
+            <textarea
+              ref={textareaRef}
+              rows={1}
+              maxLength={1000}
+              value={question}
+              onChange={(event) => setQuestion(event.target.value)}
+              onKeyDown={(event) => {
+                if (
+                  event.key === "Enter" &&
+                  !event.shiftKey &&
+                  !event.nativeEvent.isComposing
+                ) {
+                  event.preventDefault();
+                  void submit();
+                }
+              }}
+              placeholder="Escribe tu mensaje…"
+              aria-label="Mensaje"
+            />
+            {question.trim() || files.length ? (
+              <button
+                className="send"
+                type="submit"
+                disabled={busy}
+                aria-label="Enviar"
+              >
+                <Icon name="send" />
+              </button>
+            ) : (
+              <button
+                className={recording ? "recording" : ""}
+                type="button"
+                disabled={busy}
+                aria-label={
+                  recording ? "Detener grabación" : "Grabar mensaje de voz"
+                }
+                onClick={() => void record()}
+              >
+                {recording ? (
+                  `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, "0")}`
+                ) : (
+                  <Icon name="mic" />
+                )}
+              </button>
+            )}
+          </form>
+          <small className="assistant-privacy">
+            Tus adjuntos se procesan para responder y no se conservan después de
+            la consulta.
+          </small>
+        </section>
+      )}
+    </aside>
+  );
+}
