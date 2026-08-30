@@ -18,7 +18,9 @@ describe("capacidades del navegador y servidor", () => {
     expect(component).toContain("cancelRecording");
     expect(component).toContain("Transcribiendo…");
     expect(component).toContain("setQuestion(data.transcript");
-    expect(component).toMatch(/recording\s*\?\s*"Detener grabación"\s*:\s*"Grabar mensaje de voz"/);
+    expect(component).toMatch(
+      /recording\s*\?\s*"Detener grabación"\s*:\s*"Grabar mensaje de voz"/,
+    );
   });
 
   it("persiste precisión, fecha y URL de Maps en el pedido", () => {
@@ -36,5 +38,7 @@ describe("capacidades del navegador y servidor", () => {
     expect(route).toContain("NEXO_ASSISTANT_COMPLETED");
     expect(route).toContain("No pude responder en este momento");
     expect(route).not.toContain("error instanceof Error ? error.message :");
+    expect(route).toContain("No encontré ese producto en NEXO");
+    expect(route).toContain("missingProduct");
   });
 });

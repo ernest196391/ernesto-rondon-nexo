@@ -226,6 +226,7 @@ export async function POST(request: Request) {
       name: product.name,
       sku: product.sku,
       price: product.price,
+      currency: "USD",
       stock: product.stock_status,
       family: familyForProduct(product).label,
     }));
@@ -248,16 +249,24 @@ export async function POST(request: Request) {
       .filter(Boolean)
       .filter((product: any) => product.stock_status !== "outofstock")
       .slice(0, 3);
+    const missingProduct =
+      /no (?:tenemos|encontr[eé]|est[aá] disponible)|no est[aá] en (?:el|nuestro) cat[aá]logo/i.test(
+        parsed.answer,
+      );
     const recommendations = selected.length
       ? selected.map((product: any) => publicProduct(product, origin, ref))
-      : searchProducts(raw, question, origin, ref);
+      : missingProduct
+        ? []
+        : searchProducts(raw, question, origin, ref);
     const wantsHuman = /persona|humano|whatsapp|llamar|tel[eé]fono/i.test(
       question,
     );
     const supportText = `Hola, necesito atención de NEXO. Mi consulta es: ${question || "Necesito ayuda con una compra."}${recommendations[0] ? ` Producto: ${recommendations[0].productUrl}` : ""}`;
-    const safeAnswer = containsProhibitedCopy(parsed.answer)
-      ? "Puedo ayudarte con los productos, la entrega o tu pedido. ¿Qué necesitas saber?"
-      : parsed.answer;
+    const safeAnswer = missingProduct
+      ? "No encontré ese producto en NEXO. Puedes buscar otra opción disponible en el catálogo."
+      : containsProhibitedCopy(parsed.answer)
+        ? "Puedo ayudarte con los productos, la entrega o tu pedido. ¿Qué necesitas saber?"
+        : parsed.answer;
     console.info("NEXO_ASSISTANT_COMPLETED", {
       requestId,
       provider: result.provider,
