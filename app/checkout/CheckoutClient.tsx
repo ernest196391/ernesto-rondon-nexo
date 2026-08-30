@@ -81,8 +81,7 @@ export default function CheckoutClient({
     [error, setError] = useState(""),
     [key, setKey] = useState("");
   const [locating, setLocating] = useState(false),
-    [locationMessage, setLocationMessage] = useState(""),
-    [locationHelp, setLocationHelp] = useState(false);
+    [locationMessage, setLocationMessage] = useState("");
   const restore = useCallback(async () => {
     setPhase("validating");
     setError("");
@@ -225,27 +224,20 @@ export default function CheckoutClient({
     }
     setLocating(true);
     setLocationMessage("");
-    setLocationHelp(false);
-    const permission = await navigator.permissions?.query?.({ name: "geolocation" }).catch(() => null);
-    if (permission?.state === "denied") {
-      setLocationMessage("La ubicación está bloqueada para este sitio. Puedes activarla en los permisos de Chrome o continuar con la dirección escrita.");
-      setLocating(false);
-      return;
-    }
     navigator.geolocation.getCurrentPosition(
       (p) => {
         set("latitude", String(p.coords.latitude));
         set("longitude", String(p.coords.longitude));
         set("locationAccuracy", String(Math.round(p.coords.accuracy)));
-        setLocationMessage(`Ubicación añadida · precisión aproximada ${Math.round(p.coords.accuracy)} m.`);
+        setLocationMessage("Ubicación añadida");
         setLocating(false);
       },
       (error) => {
         const reason = error.code === error.PERMISSION_DENIED
-          ? "La ubicación está bloqueada para este sitio. Puedes activarla en los permisos de Chrome o continuar con la dirección escrita."
+          ? "No pudimos obtener tu ubicación. Puedes continuar con la dirección escrita."
           : error.code === error.TIMEOUT
-            ? "La ubicación tardó demasiado. Reintenta o continúa con la dirección escrita."
-            : "No pudimos obtener tu ubicación. Comprueba que la ubicación del teléfono esté activada o continúa con la dirección escrita.";
+            ? "La ubicación tardó demasiado. Puedes intentarlo de nuevo."
+            : "No pudimos obtener tu ubicación. Puedes continuar con la dirección escrita.";
         setLocationMessage(reason);
         setLocating(false);
       },
@@ -452,7 +444,7 @@ export default function CheckoutClient({
             </label>
             <div className="location-box">
               <strong>Ubicación de entrega</strong>
-              <p>Comparte tu ubicación para ayudarnos a encontrar la dirección con mayor precisión.</p>
+              <p>Añade tu ubicación para precisar la entrega.</p>
               <button type="button" onClick={locate} disabled={locating}>
                 {locating
                   ? "Obteniendo ubicación…"
@@ -461,14 +453,7 @@ export default function CheckoutClient({
               <p aria-live="polite">
                 {locationMessage}
               </p>
-              {locationMessage.includes("bloqueada") && (
-                <div className="location-actions">
-                  <button type="button" onClick={() => setLocationHelp(true)}>Cómo activarla</button>
-                  <button type="button" onClick={() => void locate()}>Reintentar</button>
-                  <button type="button" onClick={() => { setLocationMessage(""); setLocationHelp(false); }}>Continuar sin ubicación</button>
-                </div>
-              )}
-              {locationHelp && <p className="permission-instructions">Abre la información de este sitio, entra en Permisos, permite Ubicación y vuelve a NEXO.</p>}
+              {locationMessage && !draft.latitude && <button className="location-retry" type="button" onClick={() => void locate()}>Intentar de nuevo</button>}
               {draft.latitude && draft.longitude && (
                 <a
                   href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${draft.latitude},${draft.longitude}`)}`}

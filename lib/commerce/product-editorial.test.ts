@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { applyEditorial, containsProhibitedCopy, editorialFor, PROHIBITED_PUBLIC_COPY } from "./product-editorial";
+import { applyEditorial, containsProhibitedCopy, editorialFor, PROHIBITED_PUBLIC_COPY, validateEditorial } from "./product-editorial";
 
 const skus = ["NEXO-KONFORT-120X190", "NEXO-KONFORT-135X190", "NEXO-ROYAL-REG202V", "NEXO-BOVIET-BVM8611M-620", "NEXO-FRIDGE-WD", "NEXO-RA123SL", "NEXO-GF-8816", "NEXO-HB-BLENDER-WHITE", "NEXO-PARKER-SPLIT", "NEXO-DIGITAL-HD", "NEXO-PH43HDCE"];
 
@@ -14,6 +14,9 @@ describe("capa editorial pública", () => {
     expect(editorial!.keyBenefits.length).toBeGreaterThanOrEqual(3);
     expect(editorial!.faq.length).toBeGreaterThanOrEqual(2);
     expect(containsProhibitedCopy(editorial)).toBe(false);
+    expect(validateEditorial(editorial!)).toEqual([]);
+    expect(editorial!.keyBenefits.map((item) => item.title.toLowerCase())).not.toContain("marca");
+    expect(editorial!.keyBenefits.map((item) => item.title.toLowerCase())).not.toContain("modelo");
   });
   it("conserva el nombre canónico y los alias en búsqueda", () => {
     const product = applyEditorial({ sku: "NEXO-RA123SL", name: "Ventilador solar recargable Royal RA123SL de 12 pulgadas con bombillos LED" });
