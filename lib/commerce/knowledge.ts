@@ -363,6 +363,124 @@ export const initialKnowledgeSeeds: ProductKnowledgeSeed[] = [
     specs: [{ name: "Potencia", value: "100", unit: "W", confidence: "confirmed_nexo", evidence: "Información de producto NEXO" }],
     faq: [], sources: [{ sourceType: "physical_photo", title: "Decakila KUTT006W registrada por NEXO", supports: ["modelo", "100 W"], confidence: "confirmed_nexo" }],
     salesPlaybook: { ...blankPlaybook(), benefits: ["Corte asistido eléctricamente", "100 W"] }, gaps: []
+  },
+  {
+    id: "pk_sumry_4000w_24v", woocommerceProductId: 1058, sku: "NEXO-SUMRY-4000W-24V", brand: "SUMRY", model: null,
+    aliases: ["SUMRY 4000W", "inversor SUMRY", "inversor 24V 120V", "inversor solar híbrido SUMRY"], productType: "Inversor solar híbrido",
+    summary: "Inversor híbrido SUMRY de 4000 W para banco de baterías de 24 V, salida de 120 V, onda sinusoidal pura y controlador MPPT integrado.",
+    customerDescription: "Inversor híbrido de onda pura para integrar paneles, batería y red en un sistema de respaldo correctamente dimensionado.", confidence: "probable",
+    specs: [
+      { name: "Potencia nominal", value: "4000", unit: "W", confidence: "confirmed_nexo", evidence: "Texto visible en el frontal del producto" },
+      { name: "Tensión del banco de baterías", value: "24", unit: "V DC", confidence: "confirmed_nexo", evidence: "Texto visible en el frontal del producto" },
+      { name: "Salida AC", value: "120", unit: "V AC", confidence: "confirmed_nexo", evidence: "Texto visible en el frontal del producto" },
+      { name: "Forma de onda", value: "sinusoidal pura", confidence: "confirmed_external", evidence: "Ficha oficial de la familia SUMRY HGX y publicación del proveedor" },
+      { name: "Controlador", value: "MPPT integrado", confidence: "confirmed_external", evidence: "Ficha oficial de la familia SUMRY HGX y publicación del proveedor" },
+      { name: "Corriente MPPT anunciada", value: "140", unit: "A", confidence: "probable", evidence: "Publicación del proveedor; el modelo exacto no se observa en la fotografía" }
+    ],
+    faq: [
+      { question: "¿Sirve durante los apagones?", answer: "Sí, como parte de un sistema con baterías, cableado y protecciones correctamente dimensionados.", audience: "customer", confidence: "confirmed_external" },
+      { question: "¿Cuántas horas mantiene una casa?", answer: "La duración depende de la capacidad útil de las baterías, el consumo conectado y el aporte solar. No puede calcularse solo con los 4000 W del inversor.", audience: "customer", confidence: "confirmed_external" },
+      { question: "¿Está confirmado el MPPT de 140 A?", answer: "No. El proveedor lo anuncia, pero NEXO necesita una foto de la etiqueta técnica para confirmar la variante exacta.", audience: "gestora", confidence: "probable" }
+    ],
+    sources: [
+      { sourceType: "physical_photo", title: "Fotografía frontal SUMRY 4000W 24V 120V", supports: ["marca", "4000 W", "24 V DC", "120 V AC", "pantalla LCD"], confidence: "confirmed_nexo" },
+      { sourceType: "manufacturer", title: "SUMRY HGX Series Off Grid Inverter", url: "https://www.sumryenergy.com/HGX-Series-Off-Grid-Inverter-pd49940380.html", supports: ["onda sinusoidal pura", "controlador MPPT", "gestión híbrida"], confidence: "confirmed_external" }
+    ],
+    salesPlaybook: { benefits: ["Respaldo de 120 V durante apagones", "Integración de paneles, batería y red", "Onda sinusoidal pura"], idealCustomer: ["Hogares y pequeños negocios que instalarán un sistema solar de 24 V", "Clientes que necesitan respaldo fijo de mayor potencia"], sellingPoints: ["Integra inversor y carga solar MPPT en un solo equipo"], objections: [{ objection: "¿Mantiene toda la casa?", answer: "Solo después de calcular las cargas, el pico de arranque y el banco de baterías.", confidence: "confirmed_external" }], warnings: ["No prometer autonomía sin cálculo de baterías y consumo.", "No afirmar 140 A ni potencia FV máxima hasta confirmar la etiqueta técnica."] },
+    gaps: [{ question: "¿Cuál es el modelo y la corriente MPPT exactos de esta unidad?", requiredEvidence: "Foto legible de la etiqueta lateral o trasera", priority: "high" }]
+  },
+  {
+    id: "pk_bluetti_elite100_v2", woocommerceProductId: 1060, sku: "NEXO-BLUETTI-ELITE100-V2", brand: "BLUETTI", model: "Elite 100 V2",
+    aliases: ["BLUETTI Elite 100 V2", "Elite 100", "estación BLUETTI 1024Wh", "power station BLUETTI"], productType: "Estación de energía portátil",
+    summary: "Estación portátil BLUETTI Elite 100 V2 con 1024 Wh, salida de 1800 W, pico de 3600 W y batería LiFePO₄.", customerDescription: "Respaldo portátil integrado para alimentar dispositivos y equipos compatibles durante apagones, viajes o trabajo móvil.", confidence: "confirmed_external",
+    specs: [
+      { name: "Capacidad", value: "1024", unit: "Wh", confidence: "confirmed_external", evidence: "BLUETTI oficial y frontal del producto" },
+      { name: "Potencia nominal", value: "1800", unit: "W", confidence: "confirmed_external", evidence: "BLUETTI oficial y frontal del producto" },
+      { name: "Potencia pico", value: "3600", unit: "W", confidence: "confirmed_external", evidence: "BLUETTI oficial" },
+      { name: "Química de batería", value: "LiFePO₄", confidence: "confirmed_external", evidence: "BLUETTI oficial" },
+      { name: "Carga a 80 % publicada", value: "45", unit: "min", confidence: "confirmed_external", evidence: "BLUETTI oficial; condiciones de laboratorio" },
+      { name: "Salidas AC visibles", value: "4 × 120 V", confidence: "confirmed_nexo", evidence: "Fotografía frontal" }
+    ],
+    faq: [
+      { question: "¿Puede alimentar un refrigerador?", answer: "Sí, si su consumo y pico de arranque están dentro de los límites del equipo.", audience: "customer", confidence: "confirmed_external" },
+      { question: "¿Cuánto dura la batería?", answer: "Depende del consumo. La capacidad es 1024 Wh, pero la energía útil real varía por las pérdidas de conversión y las condiciones de uso.", audience: "customer", confidence: "confirmed_external" },
+      { question: "¿Incluye panel solar?", answer: "No se anuncia panel incluido en esta oferta; admite paneles compatibles vendidos por separado.", audience: "customer", confidence: "confirmed_nexo" }
+    ],
+    sources: [
+      { sourceType: "physical_photo", title: "Fotografía BLUETTI Elite 100 V2", supports: ["marca", "modelo visible", "1024 Wh", "1800 W", "cuatro salidas AC"], confidence: "confirmed_nexo" },
+      { sourceType: "manufacturer", title: "BLUETTI Elite 100 V2", url: "https://www.bluettipower.com/", supports: ["1024 Wh", "1800 W", "LiFePO₄", "carga solar"], confidence: "confirmed_external" },
+      { sourceType: "manufacturer", title: "BLUETTI Elite 100 V2 Product Page", url: "https://shop-us.bluettipower.com/", supports: ["carga a 80 %", "capacidad", "potencia"], confidence: "confirmed_external" }
+    ],
+    salesPlaybook: { benefits: ["Respaldo portátil en una sola unidad", "Batería LFP", "Carga rápida", "Compatibilidad solar"], idealCustomer: ["Hogares que necesitan respaldo para equipos esenciales", "Trabajo móvil y actividades fuera de red"], sellingPoints: ["Más simple de instalar y transportar que un sistema separado de inversor y batería"], objections: [{ objection: "¿Dura toda la noche?", answer: "Depende del consumo de los equipos conectados; debe calcularse por watts y tiempo de uso.", confidence: "confirmed_external" }], warnings: ["No prometer horas de autonomía sin conocer la carga."] }, gaps: []
+  },
+  {
+    id: "pk_ecoflow_delta3_ultra", woocommerceProductId: 1062, sku: "NEXO-ECOFLOW-DELTA3-ULTRA", brand: "EcoFlow", model: "DELTA 3 Ultra",
+    aliases: ["EcoFlow DELTA 3 Ultra", "DELTA 3 Ultra 3072Wh", "EcoFlow 3600W", "estación EcoFlow"], productType: "Estación de energía portátil",
+    summary: "Estación EcoFlow DELTA 3 Ultra estándar con 3072 Wh, salida de 3600 W, sobretensión de 7200 W, batería LFP y UPS inferior a 10 ms.", customerDescription: "Estación de alta capacidad para respaldo doméstico, trabajo y cargas compatibles de mayor demanda.", confidence: "confirmed_external",
+    specs: [
+      { name: "Capacidad", value: "3072", unit: "Wh", confidence: "confirmed_external", evidence: "EcoFlow oficial" },
+      { name: "Potencia nominal", value: "3600", unit: "W", confidence: "confirmed_external", evidence: "EcoFlow oficial" },
+      { name: "Sobretensión", value: "7200", unit: "W", confidence: "confirmed_external", evidence: "EcoFlow oficial" },
+      { name: "X-Boost", value: "hasta 4600 W en cargas compatibles", confidence: "confirmed_external", evidence: "EcoFlow oficial" },
+      { name: "Batería", value: "LFP 51.2 V / 60 Ah", confidence: "confirmed_external", evidence: "EcoFlow oficial" },
+      { name: "Entrada solar máxima", value: "800", unit: "W", confidence: "confirmed_external", evidence: "EcoFlow oficial" },
+      { name: "Transferencia UPS", value: "menos de 10 ms", confidence: "confirmed_external", evidence: "EcoFlow oficial" },
+      { name: "Conectividad", value: "Wi‑Fi y Bluetooth", confidence: "confirmed_external", evidence: "EcoFlow oficial" },
+      { name: "Expansión de batería", value: "no compatible en la variante estándar", confidence: "confirmed_external", evidence: "Comparación oficial DELTA 3 Ultra vs Plus" }
+    ],
+    faq: [
+      { question: "¿Se puede ampliar con baterías adicionales?", answer: "No en la DELTA 3 Ultra estándar. Esa función corresponde a DELTA 3 Ultra Plus.", audience: "customer", confidence: "confirmed_external" },
+      { question: "¿Puede funcionar como UPS?", answer: "Sí. EcoFlow indica una transferencia inferior a 10 ms para equipos compatibles.", audience: "customer", confidence: "confirmed_external" },
+      { question: "¿Cuánto tarda en cargar?", answer: "EcoFlow publica 0–80 % en aproximadamente 89 minutos mediante entrada AC bajo condiciones de laboratorio.", audience: "customer", confidence: "confirmed_external" }
+    ],
+    sources: [
+      { sourceType: "physical_photo", title: "Fotografía EcoFlow DELTA 3 Ultra", supports: ["marca", "diseño", "salida indicada"], confidence: "confirmed_nexo" },
+      { sourceType: "manufacturer", title: "EcoFlow DELTA 3 Ultra Portable Power Station", url: "https://us.ecoflow.com/products/ecoflow-delta-3-ultra-portable-power-station-3072wh", supports: ["3072 Wh", "3600 W", "LFP", "UPS", "carga", "entrada solar"], confidence: "confirmed_external" },
+      { sourceType: "manufacturer", title: "EcoFlow DELTA 3 Ultra Series", url: "https://us.ecoflow.com/products/delta-3-ultra-series-portable-power-station", supports: ["diferencias entre Ultra y Ultra Plus", "expansión"], confidence: "confirmed_external" }
+    ],
+    salesPlaybook: { benefits: ["Gran capacidad para apagones prolongados", "Salida de 3600 W", "UPS rápida", "Control por aplicación"], idealCustomer: ["Hogares que necesitan respaldar varios equipos", "Pequeños negocios y trabajo profesional"], sellingPoints: ["Más capacidad y potencia que una estación portátil de 1 kWh"], objections: [{ objection: "¿Mantiene toda la casa?", answer: "La duración depende de las cargas conectadas; se recomienda calcular consumo y autonomía antes de comprar.", confidence: "confirmed_external" }], warnings: ["No anunciar expansión de baterías: la unidad es DELTA 3 Ultra estándar, no Plus.", "La garantía local ofrecida por el proveedor es distinta de la garantía del fabricante y debe comunicarse por separado."] }, gaps: []
+  },
+  {
+    id: "pk_lamp_led_usb_30w", woocommerceProductId: 1064, sku: "NEXO-LAMPARA-LED-30W", brand: null, model: null,
+    aliases: ["lámpara LED 30W", "bombillo recargable", "lámpara USB", "luz de emergencia con gancho"], productType: "Lámpara LED recargable",
+    summary: "Lámpara LED genérica recargable por USB con gancho y tres modos. La potencia de 30 W procede del proveedor; batería, lúmenes, autonomía y grado IP son desconocidos.", customerDescription: "Iluminación portátil recargable para apagones, patios y actividades al aire libre, con gancho y tres modos de luz.", confidence: "probable",
+    specs: [
+      { name: "Carga", value: "USB", confidence: "confirmed_nexo", evidence: "Material gráfico y descripción del proveedor" },
+      { name: "Modos de iluminación", value: "3", confidence: "confirmed_nexo", evidence: "Texto visible en la imagen" },
+      { name: "Gancho", value: "integrado", confidence: "confirmed_nexo", evidence: "Fotografía del producto" },
+      { name: "Potencia anunciada", value: "30", unit: "W", confidence: "probable", evidence: "Descripción del proveedor; sin etiqueta técnica" }
+    ],
+    faq: [
+      { question: "¿Cuánto dura encendida?", answer: "La autonomía no está especificada y depende del modo seleccionado y del estado de la batería.", audience: "customer", confidence: "unknown" },
+      { question: "¿Es resistente al agua?", answer: "No existe un grado IP verificable, por lo que no debe exponerse a lluvia o inmersión.", audience: "customer", confidence: "unknown" },
+      { question: "¿Son 30 W reales?", answer: "Es la potencia anunciada por el proveedor; falta una etiqueta técnica para confirmarla.", audience: "gestora", confidence: "probable" }
+    ],
+    sources: [{ sourceType: "physical_photo", title: "Material gráfico de la lámpara LED recargable", supports: ["forma", "gancho", "carga USB", "tres modos"], confidence: "confirmed_nexo" }],
+    salesPlaybook: { benefits: ["Iluminación durante apagones", "Carga USB", "Gancho para colgar", "Tres modos"], idealCustomer: ["Hogares que buscan iluminación auxiliar económica", "Camping, patios y trabajo móvil"], sellingPoints: ["Formato sencillo, ligero y recargable"], objections: [{ objection: "¿Cuántas horas dura?", answer: "El proveedor no especifica la batería ni la autonomía; no debe prometerse una duración concreta.", confidence: "unknown" }], warnings: ["No afirmar lúmenes, autonomía, capacidad de batería, resistencia al agua o golpes."] },
+    gaps: [{ question: "¿Cuál es la capacidad de batería, autonomía, lúmenes, tiempo de carga y grado IP?", requiredEvidence: "Foto de la etiqueta técnica, caja o manual", priority: "high" }]
+  },
+  {
+    id: "pk_ocedar_easywring", woocommerceProductId: 1066, sku: "NEXO-OCEDAR-EASYWRING", brand: "O-Cedar", model: "EasyWring",
+    aliases: ["O-Cedar EasyWring", "fregona O-Cedar", "trapeador giratorio", "spin mop", "cubeta con pedal"], productType: "Sistema de fregona giratoria",
+    summary: "Sistema O-Cedar EasyWring con cubeta, pedal de escurrido, mango telescópico de hasta 51 pulgadas y cabezal de microfibra reutilizable.", customerDescription: "Fregona giratoria con pedal para controlar la humedad sin escurrir la mopa con las manos.", confidence: "confirmed_external",
+    specs: [
+      { name: "Sistema", value: "cubeta con escurrido giratorio por pedal", confidence: "confirmed_external", evidence: "O-Cedar oficial" },
+      { name: "Mango", value: "telescópico hasta 51 pulgadas", confidence: "confirmed_external", evidence: "O-Cedar oficial" },
+      { name: "Cabezal", value: "microfibra reutilizable y lavable", confidence: "confirmed_external", evidence: "O-Cedar oficial" },
+      { name: "Forma del cabezal", value: "triangular, giro de 360°", confidence: "confirmed_external", evidence: "O-Cedar oficial" },
+      { name: "Pisos compatibles", value: "superficies duras selladas, incluida madera sellada, cerámica, laminado y vinilo", confidence: "confirmed_external", evidence: "O-Cedar oficial" }
+    ],
+    faq: [
+      { question: "¿Sirve para madera?", answer: "Sí, para madera sellada compatible con limpieza húmeda. Debe escurrirse bien y seguir las instrucciones del piso.", audience: "customer", confidence: "confirmed_external" },
+      { question: "¿La mopa se puede lavar?", answer: "Sí. O-Cedar indica lavado a mano o máquina, sin suavizante ni lejía, y secado en plano.", audience: "customer", confidence: "confirmed_external" },
+      { question: "¿Mata el 99 % de las bacterias?", answer: "No debe afirmarse que las mata. O-Cedar declara que la microfibra retira más del 99 % de E. coli y Staph. aureus con agua bajo condiciones de laboratorio.", audience: "gestora", confidence: "confirmed_external" }
+    ],
+    sources: [
+      { sourceType: "physical_photo", title: "Fotografías O-Cedar EasyWring", supports: ["marca", "línea", "cubeta", "pedal", "cabezal"], confidence: "confirmed_nexo" },
+      { sourceType: "manufacturer", title: "O-Cedar EasyWring Spin Mop & Bucket System", url: "https://www.ocedar.com/p/mops/spin-mops/easywring-spin-mop-bucket-system/", supports: ["contenido", "mango de 51 pulgadas", "pisos compatibles", "pedal"], confidence: "confirmed_external" },
+      { sourceType: "manufacturer", title: "O-Cedar EasyWring Mop Head Replacement", url: "https://www.ocedar.com/p/refills/mop-refills/easywring-spin-mop-refill/", supports: ["microfibra", "lavado", "retirada de bacterias"], confidence: "confirmed_external" }
+    ],
+    salesPlaybook: { benefits: ["Escurrido sin usar las manos", "Control de humedad", "Microfibra lavable", "Acceso a esquinas"], idealCustomer: ["Hogares con distintos tipos de pisos sellados", "Personas que buscan reducir el contacto con el agua sucia"], sellingPoints: ["El pedal permite decidir qué tan húmeda queda la mopa"], objections: [{ objection: "¿Sirve para madera?", answer: "Sí, sobre madera sellada y usando la mopa bien escurrida.", confidence: "confirmed_external" }], warnings: ["No decir que mata bacterias; el fabricante habla de retirar bacterias bajo condiciones de prueba."] }, gaps: []
   }
 ];
 

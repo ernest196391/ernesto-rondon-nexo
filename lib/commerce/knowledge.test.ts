@@ -54,4 +54,27 @@ describe("NEXO product knowledge", () => {
     expect(bera?.specs.every((spec) => spec.confidence === "probable")).toBe(true);
     expect(bera?.gaps.some((gap) => gap.question.includes("unidad física"))).toBe(true);
   });
+
+  it("vincula los cinco productos de la primera prueba con fuentes y material para gestoras", () => {
+    const ids = [1058, 1060, 1062, 1064, 1066];
+    const batch = initialKnowledgeSeeds.filter((item) => item.woocommerceProductId && ids.includes(item.woocommerceProductId));
+    expect(batch.map((item) => item.woocommerceProductId).sort()).toEqual(ids);
+    expect(batch.every((item) => item.sku?.startsWith("NEXO-") && item.sources.length > 0)).toBe(true);
+    expect(batch.every((item) => item.faq.length >= 3 && item.salesPlaybook.benefits.length > 0)).toBe(true);
+  });
+
+  it("conserva como no verificadas las especificaciones críticas de la lámpara genérica", () => {
+    const lamp = initialKnowledgeSeeds.find((item) => item.id === "pk_lamp_led_usb_30w");
+    expect(lamp?.confidence).toBe("probable");
+    expect(lamp?.specs.find((spec) => spec.name === "Potencia anunciada")?.confidence).toBe("probable");
+    expect(lamp?.specs.some((spec) => /autonomía|lúmenes|grado IP|batería/i.test(spec.name))).toBe(false);
+    expect(lamp?.gaps.length).toBeGreaterThan(0);
+  });
+
+  it("no confunde DELTA 3 Ultra estándar con la variante Plus", () => {
+    const ecoflow = initialKnowledgeSeeds.find((item) => item.id === "pk_ecoflow_delta3_ultra");
+    expect(ecoflow?.model).toBe("DELTA 3 Ultra");
+    expect(ecoflow?.specs.find((spec) => spec.name === "Expansión de batería")?.value).toContain("no compatible");
+    expect(ecoflow?.salesPlaybook.warnings.join(" ")).toContain("no Plus");
+  });
 });

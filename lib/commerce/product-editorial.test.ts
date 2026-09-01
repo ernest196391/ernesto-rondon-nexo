@@ -27,4 +27,20 @@ describe("capa editorial pública", () => {
   it.each(PROHIBITED_PUBLIC_COPY)("detecta la frase prohibida: %s", (phrase) => {
     expect(containsProhibitedCopy({ answer: phrase })).toBe(true);
   });
+  it.each([
+    "NEXO-SUMRY-4000W-24V",
+    "NEXO-BLUETTI-ELITE100-V2",
+    "NEXO-ECOFLOW-DELTA3-ULTRA",
+    "NEXO-LAMPARA-LED-30W",
+    "NEXO-OCEDAR-EASYWRING",
+  ])("completa beneficios, especificaciones, FAQ y SEO para %s", (sku) => {
+    const editorial = editorialFor({ sku });
+    expect(editorial).toBeDefined();
+    expect(editorial!.keyBenefits.length).toBeGreaterThanOrEqual(4);
+    expect(editorial!.specifications.length).toBeGreaterThanOrEqual(5);
+    expect(editorial!.faq.length).toBeGreaterThanOrEqual(3);
+    expect(editorial!.searchAliases.length).toBeGreaterThanOrEqual(5);
+    expect(editorial!.metaDescription.length).toBeGreaterThanOrEqual(100);
+    expect(validateEditorial(editorial!)).toEqual([]);
+  });
 });
