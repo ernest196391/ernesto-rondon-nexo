@@ -3,4 +3,4 @@
 @media(max-width:440px){.market-topbar{grid-template-columns:42px minmax(80px,1fr) auto;padding:0 8px}.market-brand{width:92px}.cart-button b{display:none}.campaign{height:360px}.campaign h1{font-size:35px}.campaign p{max-width:210px}.campaign img{transform:scale(1.1)}}
 @media(prefers-reduced-motion:reduce){.campaign-track{transition:none}.marketplace-shell *{scroll-behavior:auto!important}}
 
-.category-strip{display:flex!important;flex-direction:row!important;flex-wrap:nowrap!important;overflow-x:auto;overflow-y:hidden;width:100%;scrollbar-width:none}.category-strip::-webkit-scrollbar{display:none}.category-strip>*{flex:0 0 auto}
+.category-strip{display:flex!important;flex-direction:row!important;flex-wrap:nowrap!important;overflow-x:auto;overflow-y:hidden;width:100%;scrollbar-width:none}.category-strip::-webkit-scrollbar{display:none}.category-strip>*{flex:0 0 82px!important;width:82px!important;min-width:82px!important}
