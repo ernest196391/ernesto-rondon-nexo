@@ -2,6 +2,7 @@ import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import { CART_COOKIE, REFERRAL_COOKIE, requestStoreCart, StoreApiError } from "../../../../lib/commerce/store-api";
 import { applyEditorial } from "../../../../lib/commerce/product-editorial";
+import { catalogImageFor } from "../../../../lib/commerce/catalog-images";
 import { projectCommercialCart } from "../../../../lib/commercial/storefront";
 
 export const dynamic = "force-dynamic";
@@ -38,7 +39,20 @@ async function execute(action?: CartAction) {
   const result = await requestStoreCart(path, { method, token, body, referral });
   const effectiveReferral = referral || jar.get(REFERRAL_COOKIE)?.value || "";
   const projected = await projectCommercialCart(result.cart, effectiveReferral);
-  const cart = { ...projected.cart, items: projected.cart.items?.map((item: any) => applyEditorial(item)) || [] };
+  const cart = {
+    ...projected.cart,
+    items:
+      projected.cart.items?.map((item: any) => {
+        const image = catalogImageFor(item);
+        return applyEditorial({
+          ...item,
+          images:
+            item.images?.length || !image
+              ? item.images || []
+              : [{ src: image, alt: item.name || "Producto NEXO" }],
+        });
+      }) || [],
+  };
   const response = NextResponse.json(
     { cart, referral: effectiveReferral },
     { headers: { "Cache-Control": "private, no-store, max-age=0", Vary: "Cookie" } },

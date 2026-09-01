@@ -64,10 +64,15 @@ const empty: Draft = {
   locationAccuracy: "",
   locationTimestamp: "",
 };
-const msg = (e: unknown) =>
-  e instanceof Error
+const msg = (e: unknown) => {
+  if (e instanceof Error && e.name === "TimeoutError")
+    return "La conexión tardó demasiado. Tus datos siguen guardados; inténtalo nuevamente.";
+  if (e instanceof TypeError || (e instanceof Error && /failed to fetch|networkerror/i.test(e.message)))
+    return "No pudimos conectar con NEXO. Revisa tu conexión e inténtalo nuevamente.";
+  return e instanceof Error && e.message
     ? e.message
-    : "No pudimos continuar. Revisa tu conexión e inténtalo de nuevo.";
+    : "No pudimos continuar. Revisa tu conexión e inténtalo nuevamente.";
+};
 export default function CheckoutClient({
   initialReferral,
 }: {
@@ -206,7 +211,7 @@ export default function CheckoutClient({
             idempotencyKey: key,
             shippingQuote: quote,
           }),
-          signal: AbortSignal.timeout(55000),
+          signal: AbortSignal.timeout(90000),
         }),
         data = await r.json();
       if (!r.ok)
@@ -216,7 +221,9 @@ export default function CheckoutClient({
       window.location.assign(data.whatsappUrl || data.confirmationUrl);
     } catch (e) {
       setError(msg(e));
-      setPhase("error");
+      // Keep the completed form actionable so the customer can retry with the
+      // same idempotency key without re-entering any information.
+      setPhase("ready");
     }
   }
   async function locate() {

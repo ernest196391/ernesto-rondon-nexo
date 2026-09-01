@@ -420,9 +420,9 @@ function fail(e: unknown) {
   return NextResponse.json(
     {
       error:
-        e instanceof Error
+        status < 500 && e instanceof Error
           ? e.message
-          : "No pudimos crear el pedido. Inténtalo otra vez.",
+          : "No pudimos conectar con el sistema de pedidos. Tus datos siguen guardados; inténtalo nuevamente.",
     },
     { status, headers: { "Cache-Control": "no-store" } },
   );

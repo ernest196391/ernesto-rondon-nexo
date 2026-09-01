@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { FormEvent, KeyboardEvent, useEffect, useRef, useState } from "react";
 type Product = {
   id: number;
@@ -77,6 +78,7 @@ function Icon({
 }
 
 export default function GlobalCommerceAssistant() {
+  const pathname = usePathname();
   const [open, setOpen] = useState(false),
     [question, setQuestion] = useState(""),
     [files, setFiles] = useState<File[]>([]),
@@ -311,6 +313,10 @@ export default function GlobalCommerceAssistant() {
     ["Ayuda con mi pedido", "Necesito ayuda con mi pedido"],
     ["Hablar con una persona", "Quiero hablar con una persona por WhatsApp"],
   ];
+  // Transactional screens need an unobstructed primary action on small screens.
+  // Help remains available before and after these two focused steps.
+  if (pathname.startsWith("/carrito") || pathname.startsWith("/checkout"))
+    return null;
   return (
     <aside
       className={`global-assistant${open ? " assistant-open" : ""}`}
