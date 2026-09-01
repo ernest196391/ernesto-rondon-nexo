@@ -33,6 +33,9 @@ describe("capa editorial pública", () => {
     "NEXO-ECOFLOW-DELTA3-ULTRA",
     "NEXO-LAMPARA-LED-30W",
     "NEXO-OCEDAR-EASYWRING",
+    "NEXO-LOLARAN-AL1000",
+    "NEXO-ASPIRADORA-MANO-USB",
+    "NEXO-LUMIVAULT-X3PRO",
   ])("completa beneficios, especificaciones, FAQ y SEO para %s", (sku) => {
     const editorial = editorialFor({ sku });
     expect(editorial).toBeDefined();
