@@ -6,13 +6,47 @@ import { choosePriceRule, resolveCommercialPrice } from "./pricing";
 import { getGestoraByRef, getGestoraBySlug, listRules, listSelectedProductIds } from "./db";
 import type { CommercialLineSnapshot } from "./types";
 
-export async function commercialStorefront(slug:string){
-  const gestora=await getGestoraBySlug(slug);if(!gestora||gestora.status!=="active")return null;
-  const [ids,rules,raw]=await Promise.all([listSelectedProductIds(gestora.id),listRules(gestora.id),listWooProducts({perPage:50})]);
-  const selected=new Set(ids);const products=storefrontProducts(raw).filter((p:any)=>!selected.size||selected.has(Number(p.id))).map((rawProduct:any)=>{
-    const p=applyEditorial(rawProduct),resolved=resolveCommercialPrice({base:Number(p.price),currency:gestora.defaultCurrency,rule:choosePriceRule(rules,Number(p.id))});
-    const src=catalogImageFor(p);return{id:Number(p.id),name:p.name,slug:p.slug,price:resolved.final.toFixed(2),currency:resolved.currency,stock_status:p.stock_status,images:src?[{src,alt:p.images?.[0]?.alt||p.name}]:(p.images||[]),categories:p.categories||[]};
-  });return{gestora:{publicName:gestora.publicName,slug:gestora.slug,referralCode:gestora.referralCode,whatsapp:gestora.whatsapp},products};
+export function filterSelectedProducts<T extends { id: number | string }>(products: T[], ids: number[]) {
+  const selected = new Set(ids.map(Number));
+  return products.filter((product) => selected.has(Number(product.id)));
+}
+
+export async function commercialStorefront(slug: string) {
+  const gestora = await getGestoraBySlug(slug);
+  if (!gestora || gestora.status !== "active") return null;
+  const [ids, rules, raw] = await Promise.all([
+    listSelectedProductIds(gestora.id),
+    listRules(gestora.id),
+    listWooProducts({ perPage: 50 }),
+  ]);
+  const products = filterSelectedProducts(storefrontProducts(raw), ids).map((rawProduct: any) => {
+    const product = applyEditorial(rawProduct);
+    const resolved = resolveCommercialPrice({
+      base: Number(product.price),
+      currency: gestora.defaultCurrency,
+      rule: choosePriceRule(rules, Number(product.id)),
+    });
+    const src = catalogImageFor(product);
+    return {
+      id: Number(product.id),
+      name: product.name,
+      slug: product.slug,
+      price: resolved.final.toFixed(2),
+      currency: resolved.currency,
+      stock_status: product.stock_status,
+      images: src ? [{ src, alt: product.images?.[0]?.alt || product.name }] : product.images || [],
+      categories: product.categories || [],
+    };
+  });
+  return {
+    gestora: {
+      publicName: gestora.publicName,
+      slug: gestora.slug,
+      referralCode: gestora.referralCode,
+      whatsapp: gestora.whatsapp,
+    },
+    products,
+  };
 }
 
 export async function resolvedProductPrice(ref:string,productId:number){const gestora=await getGestoraByRef(ref);if(!gestora||gestora.status!=="active")return null;const [product,rules]=await Promise.all([getWooProduct(productId),listRules(gestora.id)]);return{gestora,product,resolved:resolveCommercialPrice({base:Number(product.price),currency:gestora.defaultCurrency,rule:choosePriceRule(rules,productId)})};}
