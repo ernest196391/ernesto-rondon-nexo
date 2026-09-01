@@ -6,9 +6,9 @@ import { choosePriceRule, resolveCommercialPrice } from "./pricing";
 import { getGestoraByRef, getGestoraBySlug, listRules, listSelectedProductIds } from "./db";
 import type { CommercialLineSnapshot } from "./types";
 
-export function filterSelectedProducts<T extends { id: number | string }>(products: T[], ids: number[]) {
+export function filterSelectedProducts<T>(products: T[], ids: number[]) {
   const selected = new Set(ids.map(Number));
-  return products.filter((product) => selected.has(Number(product.id)));
+  return products.filter((product) => selected.has(Number((product as { id?: number | string }).id)));
 }
 
 export async function commercialStorefront(slug: string) {
