@@ -11,3 +11,4 @@
 .auth-switch{display:flex;flex-wrap:wrap;gap:8px}.auth-switch button{min-height:auto!important;background:transparent!important;color:#173d2e!important;padding:5px!important;text-decoration:underline}
 .impulsa-login [role=alert]{padding:10px;border-radius:10px;background:#fff1ee;color:#8a2d1f}
 @media(max-width:620px){.impulsa-products{grid-template-columns:1fr}.impulsa-shell>header{align-items:flex-start}.impulsa-shell>header a{font-size:13px}.impulsa-products label{display:flex}.catalog-form>button{justify-self:stretch}}
+.impulsa-tools{max-width:1080px;margin:0 auto 18px;padding:0 18px}.impulsa-tool-card{display:block;background:#173d2e;color:#fff;text-decoration:none;border-radius:22px;padding:24px}.impulsa-tool-card span{font-size:10px;letter-spacing:.16em;color:#d4ab8d;font-weight:900}.impulsa-tool-card h2{font:700 30px/1.1 Georgia,serif;margin:8px 0}.impulsa-tool-card p{color:#dce8e1}.impulsa-tool-card b{display:inline-block;margin-top:8px}
