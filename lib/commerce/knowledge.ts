@@ -127,6 +127,96 @@ const blankPlaybook = (): SalesPlaybook => ({ benefits: [], idealCustomer: [], s
 
 export const initialKnowledgeSeeds: ProductKnowledgeSeed[] = [
   {
+    id: "pk_logic_ml8", woocommerceProductId: 1081, sku: "NEXO-LOGIC-ML8", brand: "Logic", model: "ML8",
+    aliases: ["Logic ML8", "ML8 MiFi 4G", "módem portátil", "router SIM", "hotspot 4G"], productType: "Módem portátil 4G",
+    summary: "Punto de acceso móvil Logic ML8 con 4G LTE, Wi‑Fi 802.11 b/g/n, batería de 2500 mAh y conexión para hasta 10 usuarios.",
+    customerDescription: "Comparte una tarjeta SIM y la cobertura móvil disponible con teléfonos, tabletas y computadoras mediante una red Wi‑Fi portátil.", confidence: "confirmed_external",
+    specs: [
+      { name: "Wi‑Fi", value: "802.11 b/g/n", confidence: "confirmed_external", evidence: "Ficha oficial Logic ML8" },
+      { name: "Usuarios Wi‑Fi", value: "hasta 10", confidence: "confirmed_external", evidence: "Ficha oficial Logic ML8; corrige el anuncio del proveedor que indicaba 5" },
+      { name: "Batería", value: "2500", unit: "mAh", confidence: "confirmed_external", evidence: "Ficha oficial y manual Logic ML8" },
+      { name: "Autonomía publicada", value: "4 a 6 horas", confidence: "confirmed_external", evidence: "Logic; depende de red y usuarios" },
+      { name: "Bandas 4G", value: "B1/2/3/4/5/7/8/12/17/28AB", confidence: "confirmed_external", evidence: "Ficha oficial Logic ML8" },
+      { name: "Bandas 3G", value: "B1/2/5/8", confidence: "confirmed_external", evidence: "Ficha oficial Logic ML8" },
+      { name: "Memoria", value: "ROM 128 Mb / RAM 64 Mb", confidence: "confirmed_external", evidence: "Ficha oficial Logic ML8" },
+      { name: "Procesador", value: "UNISOC UIS8310", confidence: "confirmed_external", evidence: "Ficha oficial Logic ML8" }
+    ],
+    faq: [
+      { question: "¿Incluye un plan de Internet?", answer: "No. Requiere una tarjeta SIM compatible y servicio de datos activo.", audience: "customer", confidence: "confirmed_external" },
+      { question: "¿Cuántos equipos admite?", answer: "Logic especifica hasta 10 usuarios Wi‑Fi simultáneos.", audience: "customer", confidence: "confirmed_external" },
+      { question: "¿Funciona con cualquier operador?", answer: "Depende de las bandas, cobertura y configuración de la tarjeta SIM del operador.", audience: "customer", confidence: "confirmed_external" }
+    ],
+    sources: [
+      { sourceType: "physical_photo", title: "Fotografía del Logic ML8", supports: ["diseño", "indicadores", "botón de encendido"], confidence: "confirmed_nexo" },
+      { sourceType: "manufacturer", title: "Logic ML8 MiFi 4G", url: "https://www.logicmobility.com/mifi/ml8/", supports: ["batería", "autonomía", "bandas", "Wi‑Fi", "usuarios", "memoria", "procesador"], confidence: "confirmed_external" },
+      { sourceType: "manual", title: "Logic ML8 4G MiFi Router User Manual", url: "https://device.report/manual/7796412", supports: ["dimensiones", "peso", "batería", "bandas"], confidence: "confirmed_external" }
+    ],
+    salesPlaybook: { benefits: ["Internet compartido sin consumir la batería del teléfono", "Hasta 10 equipos", "Formato portátil", "Amplia compatibilidad LTE"], idealCustomer: ["Hogares con cobertura móvil", "Personas que trabajan o estudian con varios dispositivos"], sellingPoints: ["Inserta una SIM y crea una red Wi‑Fi portátil"], objections: [{ objection: "¿Me da Internet sin recarga?", answer: "No; necesita una SIM con datos activos y cobertura compatible.", confidence: "confirmed_external" }], warnings: ["No prometer mejor señal, velocidad fija ni compatibilidad universal con operadores."] }, gaps: []
+  },
+  {
+    id: "pk_bambu_a1_combo", woocommerceProductId: 1082, sku: "NEXO-BAMBU-A1-COMBO", brand: "Bambu Lab", model: "A1 Combo",
+    aliases: ["Bambu Lab A1", "A1 Combo", "AMS Lite", "impresora 3D multicolor"], productType: "Impresora 3D FDM",
+    summary: "Impresora 3D Bambu Lab A1 Combo con AMS Lite, calibración automática, volumen de 256 × 256 × 256 mm y aceleración máxima de 10.000 mm/s².", customerDescription: "Sistema de escritorio para prototipos, piezas y proyectos creativos con impresión multicolor compatible.", confidence: "confirmed_external",
+    specs: [
+      { name: "Volumen de construcción", value: "256 × 256 × 256", unit: "mm", confidence: "confirmed_external", evidence: "Bambu Lab oficial" },
+      { name: "Sistema multicolor", value: "AMS Lite incluido", confidence: "confirmed_external", evidence: "Bambu Lab A1 Combo oficial" },
+      { name: "Aceleración máxima", value: "10000", unit: "mm/s²", confidence: "confirmed_external", evidence: "Bambu Lab oficial" },
+      { name: "Calibración", value: "automática", confidence: "confirmed_external", evidence: "Bambu Lab oficial" },
+      { name: "Ruido en modo silencioso", value: "menos de 48 dB", confidence: "confirmed_external", evidence: "Bambu Lab oficial" },
+      { name: "Extra de esta oferta", value: "kit de lámpara LED", confidence: "confirmed_nexo", evidence: "Publicación del proveedor" }
+    ],
+    faq: [
+      { question: "¿Incluye AMS Lite?", answer: "Sí. La oferta corresponde al paquete A1 Combo.", audience: "customer", confidence: "confirmed_external" },
+      { question: "¿Incluye filamento?", answer: "Las bobinas de la imagen son ilustrativas; la oferta no confirma una cantidad de filamento incluida.", audience: "customer", confidence: "unknown" },
+      { question: "¿Qué tamaño máximo imprime?", answer: "El volumen oficial es de 256 × 256 × 256 mm.", audience: "customer", confidence: "confirmed_external" }
+    ],
+    sources: [
+      { sourceType: "physical_photo", title: "Fotografía Bambu Lab A1 Combo y AMS Lite", supports: ["identidad", "AMS Lite", "presentación"], confidence: "confirmed_nexo" },
+      { sourceType: "manufacturer", title: "Bambu Lab A1", url: "https://au.store.bambulab.com/products/a1", supports: ["AMS Lite", "volumen", "aceleración", "calibración", "ruido"], confidence: "confirmed_external" }
+    ],
+    salesPlaybook: { benefits: ["Impresión multicolor", "Calibración automática", "Volumen de 256 mm", "Modo silencioso"], idealCustomer: ["Emprendedores", "Diseñadores", "Talleres y educación"], sellingPoints: ["A1 Combo integra impresora y AMS Lite en un solo paquete"], objections: [{ objection: "¿Trae todas las bobinas de la foto?", answer: "No están confirmadas como contenido del paquete; deben tratarse como ilustrativas.", confidence: "unknown" }], warnings: ["No prometer filamento incluido sin lista de contenido del proveedor."] }, gaps: [{ question: "¿Qué filamento, accesorios y consumibles incluye exactamente esta unidad?", requiredEvidence: "Foto del contenido de la caja o lista del proveedor", priority: "medium" }]
+  },
+  {
+    id: "pk_generic_compact_backpack", woocommerceProductId: 1083, sku: "NEXO-MOCHILA-COMPACTA", brand: null, model: null,
+    aliases: ["mochila compacta", "mochila pequeña", "mochila escolar", "mochila de viaje"], productType: "Mochila compacta",
+    summary: "Mochila genérica compacta de poliéster con cremallera, bolsillo frontal, asa y correas para los hombros.", customerDescription: "Bolso sencillo para transportar objetos personales en escuela, gimnasio, paseos y viajes cortos.", confidence: "probable",
+    specs: [
+      { name: "Material anunciado", value: "poliéster", confidence: "probable", evidence: "Publicación del proveedor" },
+      { name: "Cierre", value: "cremallera", confidence: "confirmed_nexo", evidence: "Fotografía" },
+      { name: "Bolsillo", value: "frontal", confidence: "confirmed_nexo", evidence: "Fotografía" },
+      { name: "Colores anunciados", value: "amarillo, azul y rosado", confidence: "probable", evidence: "Publicación del proveedor" },
+      { name: "Resistencia al agua", value: "no clasificada", confidence: "unknown", evidence: "Sin grado IP ni prueba verificable" }
+    ],
+    faq: [
+      { question: "¿Es completamente impermeable?", answer: "No existe una clasificación verificable; no debe sumergirse ni exponerse a lluvia intensa.", audience: "customer", confidence: "unknown" },
+      { question: "¿Qué capacidad tiene?", answer: "La capacidad y las dimensiones exactas no están especificadas.", audience: "customer", confidence: "unknown" },
+      { question: "¿Qué color recibiré?", answer: "El proveedor anuncia amarillo, azul y rosado; la elección depende de disponibilidad.", audience: "customer", confidence: "probable" }
+    ],
+    sources: [{ sourceType: "physical_photo", title: "Fotografía de la mochila compacta", supports: ["forma", "cremallera", "bolsillo", "correas", "color azul"], confidence: "confirmed_nexo" }],
+    salesPlaybook: { benefits: ["Formato ligero", "Bolsillo frontal", "Uso diario", "Fácil de transportar"], idealCustomer: ["Estudiantes", "Viajes cortos", "Gimnasio"], sellingPoints: ["Diseño compacto y sencillo"], objections: [{ objection: "¿Es impermeable?", answer: "No se ha verificado impermeabilidad total; se recomienda evitar lluvia intensa.", confidence: "unknown" }], warnings: ["No usar la palabra impermeable como garantía técnica."] }, gaps: [{ question: "¿Cuáles son las dimensiones, capacidad, carga máxima y resistencia al agua?", requiredEvidence: "Etiqueta o ficha técnica del fabricante", priority: "high" }]
+  },
+  {
+    id: "pk_generic_heating_belt", woocommerceProductId: 1084, sku: "NEXO-CINTURON-TERMICO", brand: null, model: null,
+    aliases: ["cinturón térmico", "almohadilla térmica", "calor abdominal", "calor lumbar"], productType: "Cinturón térmico portátil",
+    summary: "Cinturón térmico genérico con pantalla, tres temperaturas anunciadas de 45/55/65 °C, vibración, correa ajustable y puerto USB‑C.", customerDescription: "Dispositivo portátil de calor localizado para aportar comodidad temporal en abdomen o zona lumbar.", confidence: "probable",
+    specs: [
+      { name: "Temperaturas anunciadas", value: "45 / 55 / 65", unit: "°C", confidence: "probable", evidence: "Material gráfico de la unidad; contradice el texto del proveedor 50/55/60" },
+      { name: "Vibración", value: "ajustable", confidence: "confirmed_nexo", evidence: "Controles visibles y material gráfico" },
+      { name: "Carga", value: "USB‑C", confidence: "confirmed_nexo", evidence: "Puerto y texto visibles" },
+      { name: "Longitud del módulo", value: "18.5", unit: "cm aprox.", confidence: "probable", evidence: "Medida impresa en fotografía" }
+    ],
+    faq: [
+      { question: "¿Se usa directamente sobre la piel?", answer: "No. Debe colocarse sobre la ropa y comenzar con el nivel más bajo.", audience: "customer", confidence: "confirmed_nexo" },
+      { question: "¿Qué temperaturas ofrece?", answer: "La imagen de esta unidad muestra 45, 55 y 65 °C.", audience: "customer", confidence: "probable" },
+      { question: "¿Cura dolores?", answer: "No es un tratamiento médico. El calor puede aportar comodidad temporal; el dolor intenso o persistente requiere valoración profesional.", audience: "customer", confidence: "confirmed_external" }
+    ],
+    sources: [
+      { sourceType: "physical_photo", title: "Fotografías del cinturón térmico", supports: ["forma", "pantalla", "USB-C", "correa", "temperaturas impresas"], confidence: "confirmed_nexo" },
+      { sourceType: "research", title: "Productos comerciales coincidentes 45/55/65 °C", url: "https://www.u-buy.co.uk/productjp/TZFK5Q1UO-electric-heated-waist-belt-usb-powered-3-temperature-adjustment-levels-of-149-f-65-c-121-f-55-c-103-f-45-c-stomach-warmer-electric-heated", supports: ["niveles de temperatura como referencia de diseño"], confidence: "probable" }
+    ],
+    salesPlaybook: { benefits: ["Calor localizado", "Tres niveles", "Vibración", "Carga USB‑C"], idealCustomer: ["Personas que buscan comodidad térmica temporal"], sellingPoints: ["Formato portátil con correa regulable"], objections: [{ objection: "¿Es un tratamiento médico?", answer: "No. Es un dispositivo de bienestar y no sustituye diagnóstico ni atención profesional.", confidence: "confirmed_external" }], warnings: ["Usar sobre la ropa", "No dormir con el equipo encendido", "No usar sobre piel lesionada o con sensibilidad reducida", "No prometer alivio, cura ni tratamiento de enfermedades."] }, gaps: [{ question: "¿Cuál es la capacidad de batería, autonomía, tiempo de carga y apagado automático?", requiredEvidence: "Manual o etiqueta técnica", priority: "high" }]
+  },
+  {
     id: "pk_lolaran_al1000", woocommerceProductId: 1078, sku: "NEXO-LOLARAN-AL1000", brand: "LOLARAN", model: "AL1000",
     aliases: ["LOLARAN AL1000", "contadora de billetes", "máquina de contar dinero", "detector de billetes falsos"], productType: "Contadora de billetes",
     summary: "Contadora LOLARAN AL1000 de hasta 1.000 billetes por minuto, con cálculo de valor por denominación, detección UV/MG/MT/IR/DD y display externo.",
