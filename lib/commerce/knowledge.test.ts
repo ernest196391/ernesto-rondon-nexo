@@ -77,4 +77,15 @@ describe("NEXO product knowledge", () => {
     expect(ecoflow?.specs.find((spec) => spec.name === "Expansión de batería")?.value).toContain("no compatible");
     expect(ecoflow?.salesPlaybook.warnings.join(" ")).toContain("no Plus");
   });
+
+  it("registra el segundo lote comercial sin inventar datos críticos", () => {
+    const lolaran = initialKnowledgeSeeds.find((item) => item.id === "pk_lolaran_al1000");
+    const vacuum = initialKnowledgeSeeds.find((item) => item.id === "pk_generic_handheld_usb_vacuum");
+    const doorbell = initialKnowledgeSeeds.find((item) => item.id === "pk_lumivault_x3pro");
+    expect(lolaran?.woocommerceProductId).toBe(1078);
+    expect(lolaran?.specs.some((spec) => spec.name === "Conteo de valor" && spec.value.includes("seleccionada"))).toBe(true);
+    expect(vacuum?.gaps.some((gap) => gap.question.includes("potencia"))).toBe(true);
+    expect(vacuum?.specs.some((spec) => /potencia|autonomía/i.test(spec.name))).toBe(false);
+    expect(doorbell?.gaps.some((gap) => gap.question.includes("grado IP"))).toBe(true);
+  });
 });
