@@ -8,6 +8,9 @@ const localCatalogImages: Record<string, string> = {
   "NEXO-ECOFLOW-DELTA3-ULTRA": "https://casavivadecuba.com/wp-content/uploads/2026/09/ecoflow-delta-3-ultra-1.webp",
   "NEXO-LAMPARA-LED-30W": "https://casavivadecuba.com/wp-content/uploads/2026/09/lampara-led-recargable-30w-1.webp",
   "NEXO-OCEDAR-EASYWRING": "https://casavivadecuba.com/wp-content/uploads/2026/09/o-cedar-easywring-1.webp",
+  "NEXO-LOLARAN-AL1000": "/catalog/owner/lolaran-al1000.webp?v=20260901",
+  "NEXO-ASPIRADORA-MANO-USB": "/catalog/owner/aspiradora-portatil-usb.webp?v=20260901",
+  "NEXO-LUMIVAULT-X3PRO": "/catalog/owner/lumivault-x3pro.webp?v=20260901",
 };
 export function catalogImageFor(product: { sku?: string; images?: Array<{ src?: string }> }) {
   const sku = product.sku?.trim();
