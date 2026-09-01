@@ -52,11 +52,13 @@ async function seed() {
     try {
       if (!valid(product)) throw new Error("Ficha rechazada por control editorial");
       const found = await woo(`/products?sku=${encodeURIComponent(product.sku)}&status=any`);
+      const existing = found[0] || null;
+      const includeImage = !existing || !Array.isArray(existing.images) || existing.images.length === 0;
       const payload = {
         name:product.name, slug:product.slug, type:"simple", status:"publish", sku:product.sku,
         regular_price:product.price, short_description:product.short, description:product.description + warning,
         manage_stock:false, stock_status:"instock", categories:[{id:category}],
-        images:[{src:product.image, alt:product.name}],
+        ...(includeImage ? {images:[{src:product.image, alt:product.name}]} : {}),
         attributes:[
           {name:"Entrega", visible:true, variation:false, options:["Tarifa de Mensajería #2"]},
           {name:"Recogida", visible:true, variation:false, options:["Disponible en tienda"]}
@@ -70,8 +72,8 @@ async function seed() {
           {key:"nexo_verified_at",value:new Date().toISOString()}
         ]
       };
-      const saved = found[0]
-        ? await woo(`/products/${found[0].id}`, {method:"PUT", body:JSON.stringify(payload)})
+      const saved = existing
+        ? await woo(`/products/${existing.id}`, {method:"PUT", body:JSON.stringify(payload)})
         : await woo("/products", {method:"POST", body:JSON.stringify(payload)});
       console.log(`[nexo-furniture-seed] OK ${product.sku} -> ${saved.id} ${saved.permalink}`);
     } catch (error) {
