@@ -11,6 +11,10 @@ const localCatalogImages: Record<string, string> = {
   "NEXO-LOLARAN-AL1000": "/catalog/owner/lolaran-al1000.webp?v=20260901",
   "NEXO-ASPIRADORA-MANO-USB": "/catalog/owner/aspiradora-portatil-usb.webp?v=20260901",
   "NEXO-LUMIVAULT-X3PRO": "/catalog/owner/lumivault-x3pro.webp?v=20260901",
+  "NEXO-LOGIC-ML8": "/catalog/owner/logic-ml8.webp?v=20260901",
+  "NEXO-BAMBU-A1-COMBO": "/catalog/owner/bambu-lab-a1-combo.webp?v=20260901",
+  "NEXO-MOCHILA-COMPACTA": "/catalog/owner/mochila-compacta.webp?v=20260901",
+  "NEXO-CINTURON-TERMICO": "/catalog/owner/cinturon-termico.webp?v=20260901",
 };
 export function catalogImageFor(product: { sku?: string; images?: Array<{ src?: string }> }) {
   const sku = product.sku?.trim();

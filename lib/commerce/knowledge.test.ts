@@ -88,4 +88,16 @@ describe("NEXO product knowledge", () => {
     expect(vacuum?.specs.some((spec) => /potencia|autonomía/i.test(spec.name))).toBe(false);
     expect(doorbell?.gaps.some((gap) => gap.question.includes("grado IP"))).toBe(true);
   });
+
+  it("registra cuatro productos nuevos y conserva sus contradicciones", () => {
+    const ml8 = initialKnowledgeSeeds.find((item) => item.id === "pk_logic_ml8");
+    const bambu = initialKnowledgeSeeds.find((item) => item.id === "pk_bambu_a1_combo");
+    const backpack = initialKnowledgeSeeds.find((item) => item.id === "pk_generic_compact_backpack");
+    const belt = initialKnowledgeSeeds.find((item) => item.id === "pk_generic_heating_belt");
+    expect([ml8, bambu, backpack, belt].every(Boolean)).toBe(true);
+    expect(ml8?.specs.find((spec) => spec.name === "Usuarios Wi‑Fi")?.value).toBe("hasta 10");
+    expect(bambu?.woocommerceProductId).toBe(1082);
+    expect(backpack?.specs.find((spec) => spec.name === "Resistencia al agua")?.confidence).toBe("unknown");
+    expect(belt?.specs.find((spec) => spec.name === "Temperaturas anunciadas")?.value).toContain("45 / 55 / 65");
+  });
 });

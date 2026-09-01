@@ -36,6 +36,10 @@ describe("capa editorial pública", () => {
     "NEXO-LOLARAN-AL1000",
     "NEXO-ASPIRADORA-MANO-USB",
     "NEXO-LUMIVAULT-X3PRO",
+    "NEXO-LOGIC-ML8",
+    "NEXO-BAMBU-A1-COMBO",
+    "NEXO-MOCHILA-COMPACTA",
+    "NEXO-CINTURON-TERMICO",
   ])("completa beneficios, especificaciones, FAQ y SEO para %s", (sku) => {
     const editorial = editorialFor({ sku });
     expect(editorial).toBeDefined();

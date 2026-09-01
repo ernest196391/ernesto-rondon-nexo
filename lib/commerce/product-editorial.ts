@@ -536,6 +536,65 @@ const customerContent: Record<string, CustomerContent> = {
       { question: "¿Puede instalarse a la intemperie?", answer: "No se ha confirmado un grado IP; debe protegerse de lluvia directa hasta verificarlo." },
     ],
   },
+  "Módem Portátil Logic ML8 4G LTE Wi‑Fi": {
+    longDescription: "El Logic ML8 convierte una tarjeta SIM compatible en una red Wi‑Fi portátil para teléfonos, tabletas y computadoras. Su batería de 2500 mAh ofrece entre 4 y 6 horas de navegación según Logic, dependiendo de la red y del número de equipos conectados. Admite hasta 10 usuarios Wi‑Fi y redes 4G LTE y 3G en las bandas indicadas por el fabricante. Antes de comprar, comprueba que las bandas del operador y la tarjeta SIM sean compatibles; el equipo comparte la conexión disponible, pero no crea saldo ni mejora una señal débil.",
+    keyBenefits: [
+      { title: "Internet compartido", detail: "Crea una red Wi‑Fi desde una tarjeta SIM y señal móvil compatibles." },
+      { title: "Hasta 10 equipos", detail: "Permite conectar simultáneamente teléfonos, tabletas y computadoras." },
+      { title: "Batería portátil", detail: "Logic publica de 4 a 6 horas de navegación según las condiciones de uso." },
+      { title: "Amplia compatibilidad LTE", detail: "Admite las bandas 4G y 3G especificadas por el fabricante." },
+    ],
+    faq: [
+      { question: "¿Incluye un plan de Internet?", answer: "No. Necesita una tarjeta SIM compatible con servicio de datos activo." },
+      { question: "¿Cuántos equipos se pueden conectar?", answer: "Logic indica hasta 10 usuarios Wi‑Fi simultáneos." },
+      { question: "¿Cuánto dura la batería?", answer: "El fabricante publica entre 4 y 6 horas; la duración real depende de la señal, la red y la cantidad de usuarios." },
+      { question: "¿Funciona con cualquier compañía?", answer: "Depende de las bandas, la cobertura y la configuración de la tarjeta SIM del operador." },
+    ],
+  },
+  "Impresora 3D Bambu Lab A1 Combo con AMS Lite": {
+    longDescription: "La Bambu Lab A1 Combo es una impresora 3D de escritorio con calibración automática y AMS Lite incluido para trabajar con hasta cuatro colores o materiales compatibles. Su volumen de construcción de 256 × 256 × 256 mm permite producir prototipos, piezas funcionales y proyectos creativos. El fabricante declara una aceleración máxima de 10.000 mm/s², nivelación automática de la cama y funcionamiento por debajo de 48 dB en modo silencioso. El paquete fotografiado incluye la impresora, AMS Lite y kit de lámpara LED; las bobinas mostradas son ilustrativas.",
+    keyBenefits: [
+      { title: "Impresión multicolor", detail: "El AMS Lite admite hasta cuatro bobinas compatibles en un mismo proyecto." },
+      { title: "Calibración automática", detail: "Automatiza tareas de ajuste y nivelación antes de imprimir." },
+      { title: "Volumen de 256 mm", detail: "Área de construcción de 256 × 256 × 256 mm para proyectos variados." },
+      { title: "Modo silencioso", detail: "Bambu Lab publica menos de 48 dB en el modo correspondiente." },
+    ],
+    faq: [
+      { question: "¿Incluye el AMS Lite?", answer: "Sí. La oferta corresponde al conjunto A1 Combo con AMS Lite." },
+      { question: "¿Incluye filamento?", answer: "Las bobinas de la fotografía son ilustrativas; el contenido exacto de filamento debe verificarse al recibir la unidad." },
+      { question: "¿Qué tamaño puede imprimir?", answer: "El volumen de construcción oficial es de 256 × 256 × 256 mm." },
+      { question: "¿Necesita montaje?", answer: "Requiere instalación inicial y seguir la guía oficial antes de la primera impresión." },
+    ],
+  },
+  "Mochila Compacta de Poliéster para Viajes y Uso Diario": {
+    longDescription: "Mochila compacta de diseño liso para transportar objetos personales en la escuela, el gimnasio, paseos y desplazamientos diarios. Cuenta con cierre de cremallera, asa superior, correas para los hombros y bolsillo frontal. El proveedor la describe como impermeable, pero la evidencia disponible no incluye una clasificación IP ni una prueba de inmersión; por seguridad se presenta como resistente a salpicaduras ligeras. La capacidad, dimensiones exactas y carga máxima no están especificadas.",
+    keyBenefits: [
+      { title: "Formato compacto", detail: "Fácil de llevar para actividades cotidianas y viajes cortos." },
+      { title: "Bolsillo frontal", detail: "Permite separar objetos pequeños del compartimento principal." },
+      { title: "Cierre con cremallera", detail: "Ayuda a mantener el contenido organizado durante el traslado." },
+      { title: "Diseño sencillo", detail: "Acabado liso adecuado para escuela, gimnasio o uso diario." },
+    ],
+    faq: [
+      { question: "¿Es completamente impermeable?", answer: "No se dispone de una clasificación IP; se recomienda protegerla de lluvia intensa y no sumergirla." },
+      { question: "¿Qué capacidad tiene?", answer: "La capacidad en litros y las dimensiones exactas no están especificadas." },
+      { question: "¿Qué colores hay disponibles?", answer: "El proveedor anuncia amarillo, azul y rosado; la disponibilidad debe elegirse al coordinar el pedido." },
+    ],
+  },
+  "Cinturón Térmico Portátil con Calor y Vibración": {
+    longDescription: "Cinturón térmico recargable para aplicar calor localizado en el abdomen o la zona lumbar. La unidad fotografiada incorpora pantalla, tres niveles anunciados de 45, 55 y 65 °C, ajuste de vibración, correa elástica y puerto USB‑C. Está pensado para aportar calor y comodidad temporal, no para diagnosticar ni tratar enfermedades. Debe utilizarse sobre la ropa, comenzar con el nivel más bajo y suspender el uso si provoca irritación, dolor o mareo. No debe usarse mientras se duerme ni sobre piel lesionada o con sensibilidad reducida.",
+    keyBenefits: [
+      { title: "Tres niveles de calor", detail: "Permite elegir entre 45, 55 y 65 °C según el material gráfico." },
+      { title: "Vibración ajustable", detail: "Añade estimulación por vibración durante el uso." },
+      { title: "Carga USB‑C", detail: "Puerto visible para recargar el dispositivo con una fuente compatible." },
+      { title: "Correa regulable", detail: "Facilita colocarlo sobre el abdomen o la zona lumbar." },
+    ],
+    faq: [
+      { question: "¿Se coloca directamente sobre la piel?", answer: "No. Debe utilizarse sobre la ropa y comenzar con la temperatura más baja." },
+      { question: "¿Qué temperaturas ofrece?", answer: "El material gráfico de esta unidad muestra 45, 55 y 65 °C." },
+      { question: "¿Cuánto dura la batería?", answer: "La capacidad y la autonomía no están especificadas." },
+      { question: "¿Cura el dolor menstrual o de espalda?", answer: "No es un tratamiento médico. El calor puede aportar comodidad temporal, pero un dolor intenso o persistente requiere valoración profesional." },
+    ],
+  },
 };
 
 const catalog: Record<string, EditorialProduct> = {
@@ -807,6 +866,38 @@ const catalog: Record<string, EditorialProduct> = {
     ["timbre inteligente", "videoportero WiFi", "LUMIVAULT X3PRO", "timbre con camara", "doorbell", "seguridad hogar"],
     "Timbre Inteligente LUMIVAULT X3PRO | NEXO",
     "Timbre LUMIVAULT X3PRO con cámara HD, visión nocturna, audio bidireccional, alertas por app y receptor interior incluido.",
+  ),
+  "NEXO-LOGIC-ML8": product(
+    "Módem Portátil Logic ML8 4G LTE Wi‑Fi",
+    "Punto de acceso móvil 4G LTE con batería de 2500 mAh para compartir una tarjeta SIM con hasta 10 equipos.",
+    [["Marca", "Logic"], ["Modelo", "ML8"], ["Red móvil", "4G LTE / 3G"], ["Wi‑Fi", "802.11 b/g/n"], ["Usuarios", "Hasta 10"], ["Batería", "2500 mAh Li‑ion"], ["Autonomía publicada", "4 a 6 horas"], ["Carga", "Micro USB"]],
+    ["modem portatil", "Logic ML8", "MiFi 4G", "router SIM", "wifi portatil", "hotspot LTE", "internet movil"],
+    "Módem Portátil Logic ML8 4G LTE Wi‑Fi | NEXO",
+    "Módem portátil Logic ML8 4G LTE con batería de 2500 mAh, Wi‑Fi para hasta 10 equipos y amplia compatibilidad de bandas móviles.",
+  ),
+  "NEXO-BAMBU-A1-COMBO": product(
+    "Impresora 3D Bambu Lab A1 Combo con AMS Lite",
+    "Impresora 3D multicolor con AMS Lite, calibración automática y volumen de construcción de 256 × 256 × 256 mm.",
+    [["Marca", "Bambu Lab"], ["Modelo", "A1 Combo"], ["Sistema multicolor", "AMS Lite incluido"], ["Volumen de construcción", "256 × 256 × 256 mm"], ["Aceleración máxima", "10.000 mm/s²"], ["Nivelación", "Automática"], ["Ruido en modo silencioso", "Menos de 48 dB"], ["Extra anunciado", "Kit de lámpara LED"]],
+    ["impresora 3D", "Bambu Lab A1", "A1 Combo", "AMS Lite", "impresion multicolor", "fabricacion digital", "prototipado"],
+    "Impresora 3D Bambu Lab A1 Combo con AMS Lite | NEXO",
+    "Bambu Lab A1 Combo con AMS Lite, impresión multicolor, calibración automática y volumen de 256 × 256 × 256 mm para proyectos 3D.",
+  ),
+  "NEXO-MOCHILA-COMPACTA": product(
+    "Mochila Compacta de Poliéster para Viajes y Uso Diario",
+    "Mochila ligera con cremallera, bolsillo frontal y correas para escuela, gimnasio, paseos y uso cotidiano.",
+    [["Tipo", "Mochila compacta"], ["Material anunciado", "Poliéster"], ["Cierre", "Cremallera"], ["Diseño", "Color liso"], ["Bolsillo", "Frontal"], ["Colores anunciados", "Amarillo, azul y rosado"]],
+    ["mochila pequena", "mochila compacta", "mochila escolar", "mochila viaje", "bolso gimnasio", "mochila poliester"],
+    "Mochila Compacta de Poliéster para Viajes | NEXO",
+    "Mochila compacta de poliéster con cremallera, bolsillo frontal y correas para escuela, gimnasio, viajes cortos y uso diario.",
+  ),
+  "NEXO-CINTURON-TERMICO": product(
+    "Cinturón Térmico Portátil con Calor y Vibración",
+    "Cinturón recargable con tres niveles de calor, vibración, pantalla y USB‑C para abdomen y zona lumbar.",
+    [["Tipo", "Cinturón térmico portátil"], ["Temperaturas anunciadas", "45 / 55 / 65 °C"], ["Vibración", "Ajustable"], ["Carga", "USB‑C"], ["Control", "Botones y pantalla"], ["Longitud del módulo", "18,5 cm aprox."]],
+    ["cinturon termico", "almohadilla termica", "calor abdominal", "calor lumbar", "masaje vibracion", "USB-C", "compresa caliente"],
+    "Cinturón Térmico Portátil con Vibración | NEXO",
+    "Cinturón térmico portátil con tres temperaturas, vibración ajustable, pantalla, correa elástica y carga USB‑C para uso sobre la ropa.",
   ),
 };
 
