@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import CommerceFooter from "./CommerceFooter";
 import GlobalCommerceAssistant from "./GlobalCommerceAssistant";
 
-const commercePrefixes = ["/marketplace", "/producto/", "/carrito", "/checkout", "/pedido/"];
+const commercePrefixes = ["/marketplace", "/producto/", "/carrito", "/checkout", "/pedido/", "/g/"];
 
 export default function CommerceSiteShell({ children, marketplaceEnabled }: { children: React.ReactNode; marketplaceEnabled: boolean }) {
   const pathname = usePathname();
