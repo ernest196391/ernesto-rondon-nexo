@@ -494,6 +494,48 @@ const customerContent: Record<string, CustomerContent> = {
       { question: "¿Qué incluye el sistema?", answer: "Incluye cubeta EasyWring, mango telescópico y cabezal de microfibra." },
     ],
   },
+  "Contadora de Billetes LOLARAN AL1000 con Detector de Falsos": {
+    longDescription: "La LOLARAN AL1000 está diseñada para agilizar el conteo diario de efectivo en tiendas, oficinas y otros negocios. Procesa hasta 1.000 billetes por minuto, permite calcular el valor de una denominación seleccionada y ofrece modos por lotes y acumulación. Sus sensores UV, MG, MT, IR y DD ayudan a detectar billetes sospechosos. La pantalla LCD y el visor externo permiten que operador y cliente consulten el resultado. No clasifica automáticamente un fajo con denominaciones mezcladas y la detección no sustituye una revisión profesional.",
+    keyBenefits: [
+      { title: "Conteo rápido", detail: "Procesa hasta 1.000 billetes por minuto." },
+      { title: "Control de billetes", detail: "Integra detección UV, MG, MT, IR y DD." },
+      { title: "Trabajo por lotes", detail: "Funciones Batch y Add para organizar y acumular conteos." },
+      { title: "Resultado visible", detail: "Pantalla LCD y display externo para atención al cliente." },
+    ],
+    faq: [
+      { question: "¿Cuenta dólares y euros?", answer: "Sí, la documentación del modelo indica compatibilidad con USD y EUR." },
+      { question: "¿Reconoce denominaciones mezcladas?", answer: "No. El cálculo de valor se realiza seleccionando previamente una denominación; los billetes mezclados deben separarse." },
+      { question: "¿Garantiza que un billete sea auténtico?", answer: "Sus sensores ayudan a señalar billetes sospechosos, pero no reemplazan una comprobación profesional." },
+    ],
+  },
+  "Aspiradora de Mano Inalámbrica USB con Accesorios": {
+    longDescription: "Aspiradora compacta para retirar polvo, migas y residuos ligeros en el automóvil, el hogar o la oficina. Su formato inalámbrico facilita el acceso a asientos, teclados, esquinas y otros espacios estrechos. Se recarga mediante USB e incluye las boquillas, el cepillo y la manguera flexible visibles en el conjunto. El depósito transparente permite observar la suciedad recogida y el filtro desmontable facilita el mantenimiento. La marca, potencia, batería, autonomía y fuerza de succión no están identificadas en la evidencia disponible.",
+    keyBenefits: [
+      { title: "Uso inalámbrico", detail: "Limpieza rápida sin depender de un cable durante el uso." },
+      { title: "Carga por USB", detail: "Recarga práctica mediante una fuente USB compatible." },
+      { title: "Acceso a rincones", detail: "Incluye boquillas, cepillo y manguera para zonas estrechas." },
+      { title: "Formato portátil", detail: "Ligera y fácil de guardar en casa o en el automóvil." },
+    ],
+    faq: [
+      { question: "¿Sirve para líquidos?", answer: "No hay evidencia suficiente para recomendarla como aspiradora de líquidos." },
+      { question: "¿Cuánto dura la batería?", answer: "La capacidad y autonomía no aparecen especificadas." },
+      { question: "¿Incluye accesorios?", answer: "Sí. Las imágenes muestran boquillas, cepillo, manguera y cable de carga." },
+    ],
+  },
+  "Timbre Inteligente LUMIVAULT X3PRO con Cámara HD": {
+    longDescription: "El LUMIVAULT X3PRO permite observar y hablar con visitantes desde un teléfono compatible. Integra cámara HD, visión nocturna, audio bidireccional y avisos mediante aplicación, además de un receptor interior incluido. Su alimentación recargable o mediante USB facilita una instalación sin cableado permanente. Para recibir alertas remotas necesita una red Wi‑Fi y conexión a Internet estables. La resolución exacta, capacidad de batería, autonomía, aplicación requerida, alcance real y grado de protección no están confirmados.",
+    keyBenefits: [
+      { title: "Atención desde el móvil", detail: "Permite ver y conversar con visitantes mediante una aplicación compatible." },
+      { title: "Visión nocturna", detail: "Ayuda a observar la entrada cuando hay poca iluminación." },
+      { title: "Audio bidireccional", detail: "Comunicación de voz entre el usuario y la persona en la puerta." },
+      { title: "Instalación sencilla", detail: "Formato inalámbrico con receptor interior incluido." },
+    ],
+    faq: [
+      { question: "¿Necesita Internet?", answer: "Sí para alertas y visualización remota desde la aplicación." },
+      { question: "¿Incluye receptor interior?", answer: "Sí, el conjunto fotografiado incluye un receptor de sonido interior." },
+      { question: "¿Puede instalarse a la intemperie?", answer: "No se ha confirmado un grado IP; debe protegerse de lluvia directa hasta verificarlo." },
+    ],
+  },
 };
 
 const catalog: Record<string, EditorialProduct> = {
@@ -741,6 +783,30 @@ const catalog: Record<string, EditorialProduct> = {
     ["fregona", "trapeador", "spin mop", "O-Cedar", "EasyWring", "cubeta con pedal", "mopa giratoria", "limpieza de pisos"],
     "Fregona O-Cedar EasyWring con Cubeta | NEXO",
     "Compra la fregona giratoria O-Cedar EasyWring con cubeta, pedal de escurrido y mopa de microfibra reutilizable.",
+  ),
+  "NEXO-LOLARAN-AL1000": product(
+    "Contadora de Billetes LOLARAN AL1000 con Detector de Falsos",
+    "Contadora de hasta 1.000 billetes por minuto con cálculo de valor, sensores antifalsificación y display externo.",
+    [["Marca", "LOLARAN"], ["Modelo", "AL1000"], ["Velocidad", "Hasta 1.000 billetes/min"], ["Detección", "UV, MG, MT, IR y DD"], ["Monedas admitidas", "USD y EUR"], ["Modos", "Count, Add y Batch"], ["Pantallas", "LCD principal y display externo"]],
+    ["contadora de billetes", "maquina contar dinero", "LOLARAN AL1000", "detector billetes falsos", "cash counter", "USD", "EUR"],
+    "Contadora de Billetes LOLARAN AL1000 | NEXO",
+    "Contadora LOLARAN AL1000 de hasta 1.000 billetes por minuto, con detección UV/MG/MT/IR/DD, cálculo de valor y display externo.",
+  ),
+  "NEXO-ASPIRADORA-MANO-USB": product(
+    "Aspiradora de Mano Inalámbrica USB con Accesorios",
+    "Aspiradora portátil recargable por USB con accesorios para automóvil, hogar, oficina y espacios estrechos.",
+    [["Tipo", "Aspiradora de mano inalámbrica"], ["Carga", "USB"], ["Filtro", "Desmontable"], ["Depósito", "Transparente"], ["Accesorios visibles", "Boquillas, cepillo y manguera"]],
+    ["aspiradora portátil", "aspiradora para carro", "aspiradora USB", "aspiradora de mano", "limpieza automóvil"],
+    "Aspiradora de Mano Inalámbrica USB | NEXO",
+    "Aspiradora portátil recargable por USB con filtro desmontable y accesorios para limpiar automóvil, hogar, oficina y rincones difíciles.",
+  ),
+  "NEXO-LUMIVAULT-X3PRO": product(
+    "Timbre Inteligente LUMIVAULT X3PRO con Cámara HD",
+    "Timbre inalámbrico con cámara HD, visión nocturna, audio bidireccional, alertas por aplicación y receptor interior.",
+    [["Marca", "LUMIVAULT"], ["Modelo", "X3PRO"], ["Vídeo", "HD"], ["Visión nocturna", "Sí"], ["Audio", "Bidireccional"], ["Conectividad", "Wi‑Fi"], ["Alimentación", "Batería recargable o USB"], ["Receptor interior", "Incluido"]],
+    ["timbre inteligente", "videoportero WiFi", "LUMIVAULT X3PRO", "timbre con camara", "doorbell", "seguridad hogar"],
+    "Timbre Inteligente LUMIVAULT X3PRO | NEXO",
+    "Timbre LUMIVAULT X3PRO con cámara HD, visión nocturna, audio bidireccional, alertas por app y receptor interior incluido.",
   ),
 };
 
