@@ -1,0 +1,5 @@
+import { NextResponse } from "next/server";
+import { resetGestoraPassword } from "../../../../../lib/commercial/db";
+import { hashPassword } from "../../../../../lib/commercial/password";
+import { EMAIL_VERIFIED_COOKIE, verifiedEmail } from "../../../../../lib/commercial/email-verification";
+export async function POST(request:Request){const body=await request.json().catch(()=>({})),password=String(body.password||""),email=verifiedEmail(request.headers.get("cookie")?.split(";").map(x=>x.trim()).find(x=>x.startsWith(EMAIL_VERIFIED_COOKIE+"="))?.slice(EMAIL_VERIFIED_COOKIE.length+1));if(!email)return NextResponse.json({error:"La verificación venció. Solicita otro código."},{status:401});if(password.length<10||password.length>128)return NextResponse.json({error:"La contraseña debe tener al menos 10 caracteres."},{status:422});await resetGestoraPassword(email,await hashPassword(password));const response=NextResponse.json({ok:true});response.cookies.set(EMAIL_VERIFIED_COOKIE,"",{path:"/",maxAge:0});return response}
