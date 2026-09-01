@@ -2,7 +2,7 @@ export type StorefrontCategory = {
   id: string;
   label: string;
   slug: string;
-  icon: "appliances" | "cooking" | "bedroom" | "energy" | "technology" | "other";
+  icon: "appliances" | "cooking" | "bedroom" | "energy" | "technology" | "furniture" | "other";
   order: number;
   enabled: boolean;
   sourceCategoryIds: number[];
@@ -15,7 +15,8 @@ export const STOREFRONT_CATEGORIES: StorefrontCategory[] = [
   { id: "habitacion", label: "Habitación", slug: "habitacion", icon: "bedroom", order: 30, enabled: true, sourceCategoryIds: [], sourceSlugs: ["colchones", "habitacion", "dormitorio"] },
   { id: "energia", label: "Energía", slug: "energia", icon: "energy", order: 40, enabled: true, sourceCategoryIds: [], sourceSlugs: ["energia solar", "paneles solares", "energia"] },
   { id: "tecnologia", label: "Tecnología", slug: "tecnologia", icon: "technology", order: 50, enabled: true, sourceCategoryIds: [], sourceSlugs: ["television digital", "televisores", "decodificadores", "celulares", "tabletas", "computadoras", "audio", "accesorios electronicos", "dispositivos inteligentes", "tecnologia"] },
-  { id: "otros", label: "Otros", slug: "otros", icon: "other", order: 60, enabled: true, sourceCategoryIds: [], sourceSlugs: ["motos", "otros"] },
+  { id: "muebles", label: "Muebles", slug: "muebles", icon: "furniture", order: 60, enabled: true, sourceCategoryIds: [], sourceSlugs: ["muebles", "sofas", "sillones", "butacas"] },
+  { id: "otros", label: "Otros", slug: "otros", icon: "other", order: 70, enabled: true, sourceCategoryIds: [], sourceSlugs: ["motos", "otros"] },
 ];
 
 export function normalizedCategory(value: string) {
