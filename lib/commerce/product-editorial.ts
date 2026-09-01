@@ -419,6 +419,81 @@ const customerContent: Record<string, CustomerContent> = {
       },
     ],
   },
+  "Inversor Solar Híbrido SUMRY 4000W 24V 120V con MPPT": {
+    longDescription: "Inversor solar híbrido para sistemas de respaldo de 24 V que convierte la energía del banco de baterías en corriente alterna de 120 V. Su salida de onda sinusoidal pura permite alimentar equipos compatibles, mientras el controlador MPPT integrado gestiona el aporte de paneles solares. Puede combinar energía solar, batería y red según la configuración de la instalación. La autonomía no depende solo del inversor: debe calcularse con la capacidad de las baterías, el consumo simultáneo y la producción solar disponible.",
+    keyBenefits: [
+      { title: "Respaldo de alta potencia", detail: "Potencia nominal de 4000 W para cargas compatibles dentro de un sistema correctamente dimensionado." },
+      { title: "Onda sinusoidal pura", detail: "Entrega una forma de onda adecuada para electrodomésticos y equipos electrónicos compatibles." },
+      { title: "Gestión híbrida", detail: "Permite integrar paneles solares, baterías y alimentación de red." },
+      { title: "Controlador MPPT", detail: "Aprovecha la entrada fotovoltaica y gestiona la carga solar del banco de baterías." },
+    ],
+    faq: [
+      { question: "¿Sirve cuando se va la corriente?", answer: "Sí, cuando se instala con un banco de baterías, protecciones y cableado correctamente dimensionados." },
+      { question: "¿Incluye baterías o paneles solares?", answer: "No. Esta ficha corresponde al inversor; las baterías, paneles y demás componentes se seleccionan por separado." },
+      { question: "¿Cuántas horas mantiene una casa?", answer: "No existe una duración fija. Depende de la capacidad útil de las baterías, la potencia consumida y el aporte solar." },
+      { question: "¿Puede alimentar un refrigerador?", answer: "Puede alimentar refrigeradores compatibles, pero deben verificarse el consumo nominal y la potencia de arranque antes de dimensionar el sistema." },
+    ],
+  },
+  "BLUETTI Elite 100 V2 — Estación de Energía 1024Wh 1800W": {
+    longDescription: "Estación de energía portátil con batería LiFePO₄ de 1024 Wh y salida de 1800 W para mantener dispositivos y equipos compatibles durante apagones, viajes o trabajo fuera de la red. Reúne batería, inversor y sistema de carga en una sola unidad, con salidas AC, USB y DC. Admite recarga mediante corriente y paneles solares compatibles. La autonomía real varía según la carga conectada y las pérdidas de conversión.",
+    keyBenefits: [
+      { title: "1024 Wh de capacidad", detail: "Reserva energética útil para iluminación, comunicaciones y equipos compatibles." },
+      { title: "Salida de 1800 W", detail: "Permite conectar cargas de mayor demanda dentro de los límites del equipo." },
+      { title: "Batería LiFePO₄", detail: "Química LFP orientada a seguridad y larga vida útil." },
+      { title: "Carga rápida y solar", detail: "Puede recargarse por corriente y mediante paneles solares compatibles." },
+    ],
+    faq: [
+      { question: "¿Puede alimentar un refrigerador?", answer: "Puede hacerlo si el consumo continuo y el pico de arranque del refrigerador están dentro de la capacidad del equipo." },
+      { question: "¿Cuánto dura una carga?", answer: "Depende de los watts consumidos. Una carga de 100 W dura mucho más que una de 1000 W; también existen pérdidas de conversión." },
+      { question: "¿Incluye panel solar?", answer: "No se anuncia un panel incluido en esta oferta. La estación es compatible con paneles adecuados, vendidos por separado." },
+      { question: "¿Tiene tomacorrientes de 120 V?", answer: "Sí. La variante mostrada incorpora cuatro salidas AC de 120 V." },
+    ],
+  },
+  "EcoFlow DELTA 3 Ultra — Estación de Energía 3072Wh 3600W": {
+    longDescription: "Estación de energía portátil de gran capacidad para respaldo doméstico y trabajo exigente. Integra una batería LFP de 3072 Wh, salida nominal de 3600 W y transferencia UPS inferior a 10 ms. Admite carga por corriente, energía solar, generador compatible y vehículo, y permite supervisión mediante la aplicación EcoFlow. Esta ficha corresponde a DELTA 3 Ultra estándar; no debe confundirse con DELTA 3 Ultra Plus.",
+    keyBenefits: [
+      { title: "3072 Wh de capacidad", detail: "Mayor reserva energética para apagones prolongados y varias cargas compatibles." },
+      { title: "Salida nominal de 3600 W", detail: "Gestiona electrodomésticos y herramientas dentro de los límites indicados por EcoFlow." },
+      { title: "Transferencia UPS rápida", detail: "Cambio automático inferior a 10 ms para equipos compatibles." },
+      { title: "Control inteligente", detail: "Monitoreo y ajustes mediante Wi‑Fi, Bluetooth y la aplicación EcoFlow." },
+    ],
+    faq: [
+      { question: "¿Se puede ampliar con baterías adicionales?", answer: "La DELTA 3 Ultra estándar no se anuncia como ampliable. La expansión corresponde a variantes Plus; verifica siempre el nombre exacto." },
+      { question: "¿Cuánto tarda en cargar?", answer: "EcoFlow publica aproximadamente 89 minutos para alcanzar 80 % mediante entrada AC en condiciones de laboratorio. El tiempo real puede variar." },
+      { question: "¿Puede funcionar como UPS?", answer: "Sí. EcoFlow indica transferencia automática inferior a 10 ms para cargas compatibles." },
+      { question: "¿Incluye panel solar?", answer: "No se anuncia panel incluido en esta oferta. Admite hasta 800 W de entrada solar con una configuración compatible." },
+    ],
+  },
+  "Lámpara LED Recargable USB 30W con Gancho — 3 Modos": {
+    longDescription: "Lámpara LED portátil con batería recargable por USB, gancho superior y tres modos de iluminación. Su formato permite colgarla durante apagones, en patios, campamentos o zonas de trabajo. El proveedor anuncia 30 W; no se especifican la capacidad de batería, los lúmenes, el tiempo de carga, la autonomía ni un grado IP, por lo que esas prestaciones no se presentan como garantizadas.",
+    keyBenefits: [
+      { title: "Recargable por USB", detail: "Puede volver a cargarse sin utilizar pilas desechables." },
+      { title: "Tres modos de luz", detail: "Permite seleccionar entre las intensidades disponibles." },
+      { title: "Gancho integrado", detail: "Facilita colgarla para iluminar una zona desde arriba." },
+      { title: "Formato portátil", detail: "Útil como iluminación auxiliar durante apagones y actividades al aire libre." },
+    ],
+    faq: [
+      { question: "¿Cuánto dura encendida?", answer: "La autonomía no está especificada y varía según el modo de iluminación y el estado de la batería." },
+      { question: "¿Es resistente al agua?", answer: "No se informa un grado IP verificable, por lo que no debe exponerse a lluvia o inmersión." },
+      { question: "¿Incluye cable de carga?", answer: "La imagen del proveedor muestra carga USB, pero el contenido exacto del paquete debe comprobarse al recibir la unidad." },
+      { question: "¿Los 30 W están verificados?", answer: "Los 30 W son la potencia anunciada por el proveedor; no se dispone de una etiqueta técnica legible para validarla." },
+    ],
+  },
+  "Fregona Giratoria O-Cedar EasyWring con Cubeta y Pedal": {
+    longDescription: "Sistema de limpieza O-Cedar EasyWring con fregona de microfibra, cubeta y pedal de escurrido. El giro accionado con el pie permite controlar la humedad sin tocar la mopa con las manos. El cabezal triangular ayuda a alcanzar esquinas y el mango telescópico se ajusta hasta aproximadamente 51 pulgadas. Está diseñado para pisos duros sellados como cerámica, madera sellada, laminado y vinilo.",
+    keyBenefits: [
+      { title: "Escurrido sin usar las manos", detail: "El pedal activa el giro para retirar el exceso de agua." },
+      { title: "Control de humedad", detail: "Cuantas más veces se acciona el pedal, más seca queda la mopa." },
+      { title: "Cabezal para esquinas", detail: "La forma triangular facilita limpiar bordes y zonas difíciles." },
+      { title: "Microfibra reutilizable", detail: "El cabezal se puede lavar y volver a utilizar siguiendo las instrucciones de cuidado." },
+    ],
+    faq: [
+      { question: "¿Sirve para pisos de madera?", answer: "Sí, para madera sellada compatible con limpieza húmeda. Conviene escurrir bien la mopa y seguir las indicaciones del fabricante del piso." },
+      { question: "¿Hay que escurrirla con las manos?", answer: "No. El pedal hace girar el sistema de escurrido dentro de la cubeta." },
+      { question: "¿La mopa es lavable?", answer: "Sí. O-Cedar indica que el repuesto de microfibra es reutilizable y lavable; no recomienda suavizante ni lejía." },
+      { question: "¿Qué incluye el sistema?", answer: "Incluye cubeta EasyWring, mango telescópico y cabezal de microfibra." },
+    ],
+  },
 };
 
 const catalog: Record<string, EditorialProduct> = {
@@ -626,6 +701,46 @@ const catalog: Record<string, EditorialProduct> = {
     ],
     "Televisor Philco PH43HDCE de 43″ | NEXO",
     "Compra el televisor Philco PH43HDCE de 43 pulgadas con Full HD, HDMI, USB 2.0 y Dolby Audio. Entrega o recogida con NEXO.",
+  ),
+  "NEXO-SUMRY-4000W-24V": product(
+    "Inversor Solar Híbrido SUMRY 4000W 24V 120V con MPPT",
+    "Inversor híbrido de onda sinusoidal pura para sistemas de 24 V, con salida de 120 V y controlador solar MPPT.",
+    [["Marca", "SUMRY"], ["Potencia nominal", "4000 W"], ["Sistema de batería", "24 V DC"], ["Salida AC", "120 V"], ["Forma de onda", "Sinusoidal pura"], ["Controlador solar", "MPPT integrado"], ["Pantalla", "LCD"]],
+    ["inversor solar", "SUMRY 4000W", "inversor 24V", "inversor 120V", "onda pura", "MPPT", "respaldo para apagones"],
+    "Inversor Solar SUMRY 4000W 24V 120V | NEXO",
+    "Compra el inversor solar híbrido SUMRY de 4000 W, sistema de 24 V, salida de 120 V, onda sinusoidal pura y controlador MPPT.",
+  ),
+  "NEXO-BLUETTI-ELITE100-V2": product(
+    "BLUETTI Elite 100 V2 — Estación de Energía 1024Wh 1800W",
+    "Estación portátil con batería LiFePO₄ de 1024 Wh, salida de 1800 W y carga rápida para respaldo eléctrico.",
+    [["Marca", "BLUETTI"], ["Modelo", "Elite 100 V2"], ["Capacidad", "1024 Wh"], ["Potencia nominal", "1800 W"], ["Potencia pico", "3600 W"], ["Batería", "LiFePO₄"], ["Salidas AC", "4 × 120 V"], ["Carga solar", "Compatible"]],
+    ["BLUETTI", "Elite 100 V2", "estacion de energia", "power station", "1024Wh", "1800W", "bateria LFP", "apagones"],
+    "BLUETTI Elite 100 V2 1024Wh 1800W | NEXO",
+    "Estación de energía BLUETTI Elite 100 V2 con 1024 Wh, 1800 W, batería LiFePO₄, carga rápida y compatibilidad solar.",
+  ),
+  "NEXO-ECOFLOW-DELTA3-ULTRA": product(
+    "EcoFlow DELTA 3 Ultra — Estación de Energía 3072Wh 3600W",
+    "Respaldo portátil de 3072 Wh y 3600 W con batería LFP, UPS rápida, carga solar y control mediante aplicación.",
+    [["Marca", "EcoFlow"], ["Modelo", "DELTA 3 Ultra"], ["Capacidad", "3072 Wh"], ["Potencia nominal", "3600 W"], ["Sobretensión", "7200 W"], ["Batería", "LFP"], ["Salida AC", "120 V / 60 Hz"], ["Entrada solar máxima", "800 W"], ["UPS", "Menos de 10 ms"], ["Conectividad", "Wi‑Fi y Bluetooth"]],
+    ["EcoFlow", "DELTA 3 Ultra", "estacion de energia", "3072Wh", "3600W", "bateria LFP", "UPS", "respaldo hogar", "apagones"],
+    "EcoFlow DELTA 3 Ultra 3072Wh 3600W | NEXO",
+    "EcoFlow DELTA 3 Ultra con 3072 Wh, salida de 3600 W, batería LFP, UPS rápida, entrada solar y control inteligente.",
+  ),
+  "NEXO-LAMPARA-LED-30W": product(
+    "Lámpara LED Recargable USB 30W con Gancho — 3 Modos",
+    "Lámpara portátil recargable por USB con gancho y tres modos de iluminación para apagones y actividades al aire libre.",
+    [["Tipo", "Lámpara LED recargable"], ["Potencia anunciada", "30 W"], ["Carga", "USB"], ["Modos", "3"], ["Montaje", "Gancho integrado"]],
+    ["lampara recargable", "luz para apagones", "lampara USB", "lampara LED 30W", "luz camping", "bombillo recargable"],
+    "Lámpara LED Recargable USB 30W | NEXO",
+    "Lámpara LED recargable por USB con gancho y tres modos de iluminación. Práctica para apagones, patios y camping.",
+  ),
+  "NEXO-OCEDAR-EASYWRING": product(
+    "Fregona Giratoria O-Cedar EasyWring con Cubeta y Pedal",
+    "Sistema de fregona de microfibra con cubeta y pedal para escurrir sin usar las manos.",
+    [["Marca", "O-Cedar"], ["Línea", "EasyWring"], ["Tipo", "Fregona / trapeador giratorio"], ["Escurrido", "Pedal de pie"], ["Material de la mopa", "Microfibra lavable"], ["Mango", "Telescópico hasta 51 pulgadas"], ["Cabezal", "Triangular con giro de 360°"]],
+    ["fregona", "trapeador", "spin mop", "O-Cedar", "EasyWring", "cubeta con pedal", "mopa giratoria", "limpieza de pisos"],
+    "Fregona O-Cedar EasyWring con Cubeta | NEXO",
+    "Compra la fregona giratoria O-Cedar EasyWring con cubeta, pedal de escurrido y mopa de microfibra reutilizable.",
   ),
 };
 
