@@ -38,4 +38,22 @@ describe("vale WhatsApp NEXO", () => {
     expect(message).not.toContain("Mensajería:");
     expect(message).not.toContain("Municipio:");
   });
+
+  it("identifica de forma legible el pedido de una gestora", () => {
+    const message = buildOrderWhatsappMessage({
+      ...base,
+      mode: "pickup",
+      attribution: { gestoraName: "Celia Pérez", referralCode: "NX-CELIA" },
+    });
+    expect(message).toContain("*Origen del pedido*");
+    expect(message).toContain("Gestora: Celia Pérez");
+    expect(message).toContain("Código referido: NX-CELIA");
+    expect(message).toContain("Canal: Tienda referida NEXO");
+  });
+
+  it("identifica las compras orgánicas como tienda general", () => {
+    const message = buildOrderWhatsappMessage({ ...base, mode: "pickup" });
+    expect(message).toContain("Canal: Tienda general NEXO");
+    expect(message).not.toContain("Gestora:");
+  });
 });

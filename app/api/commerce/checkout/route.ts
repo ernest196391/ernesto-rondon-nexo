@@ -242,6 +242,9 @@ async function place(
     { key: "_nexo_referral_requested", value: referral || "organic" },
     { key: "_nexo_referral_effective", value: attribution.effectiveRef || "organic" },
     { key: "_nexo_effective_gestora_id", value: attribution.effectiveGestoraId || "" },
+    { key: "_nexo_effective_gestora_name", value: attribution.effectiveGestoraName },
+    { key: "_nexo_effective_gestora_slug", value: attribution.effectiveGestoraSlug },
+    { key: "_nexo_order_origin", value: attribution.effectiveGestoraId ? "gestora_store" : "nexo_store" },
     { key: "_nexo_attribution_source", value: attribution.source },
     { key: "_nexo_ledger_owner", value: "nexo" },
     { key: "_cvd_fulfillment_type", value: input.mode },
@@ -329,6 +332,10 @@ async function place(
       phone: input.phone,
       alternatePhone: input.alternatePhone,
       notes: input.notes,
+      attribution: attribution.effectiveGestoraId ? {
+        gestoraName: attribution.effectiveGestoraName,
+        referralCode: attribution.effectiveRef,
+      } : undefined,
       pickup,
     });
   return {
