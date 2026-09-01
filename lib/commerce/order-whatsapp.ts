@@ -17,6 +17,10 @@ export type OrderWhatsappInput = {
   phone: string;
   alternatePhone?: string;
   notes?: string;
+  attribution?: {
+    gestoraName: string;
+    referralCode: string;
+  };
   pickup: Pickup;
 };
 
@@ -51,6 +55,14 @@ export function buildOrderWhatsappMessage(input: OrderWhatsappInput) {
           ]);
   return [
     `🟦 *NEXO · PEDIDO #${input.orderNumber}*`,
+    "",
+    ...section("Origen del pedido", input.attribution?.gestoraName
+      ? [
+          `Gestora: ${input.attribution.gestoraName}`,
+          input.attribution.referralCode && `Código referido: ${input.attribution.referralCode}`,
+          "Canal: Tienda referida NEXO",
+        ]
+      : ["Canal: Tienda general NEXO"]),
     "",
     ...section("Productos", products),
     "",
