@@ -96,3 +96,6 @@ export async function payPayout(input:{payoutId:string;method:string;reference:s
 
 export async function recordReconciliationFailure(orderId:number,idempotencyKey:string,error:unknown){await ensureCommercialSchema();const message=error instanceof Error?error.message:"Unknown commercial reconciliation failure";await db().query("INSERT INTO nexo_commercial_reconciliation(id,woocommerce_order_id,idempotency_key,error_message) VALUES($1,$2,$3,$4) ON CONFLICT(woocommerce_order_id,idempotency_key) DO UPDATE SET error_message=EXCLUDED.error_message,attempts=nexo_commercial_reconciliation.attempts+1,updated_at=NOW()",[id("rec"),orderId,idempotencyKey,message.slice(0,500)]);}
 export async function existingOrderForIdempotency(idempotencyKey:string){await ensureCommercialSchema();const result=await db().query("SELECT woocommerce_order_id FROM nexo_checkout_idempotency WHERE idempotency_key=$1",[idempotencyKey]);return result.rowCount?Number(result.rows[0].woocommerce_order_id):null;}
+
+
+export async function resetGestoraPassword(userId:string,passwordHash:string){await ensureCommercialSchema();await db().query("UPDATE nexo_gestora_credentials SET password_hash=$2,updated_at=NOW() WHERE user_id=$1",[userId.toLowerCase(),passwordHash]);}
