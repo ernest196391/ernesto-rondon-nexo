@@ -21,6 +21,7 @@ export type ResolvedPrice = {
 
 export type AttributionResolution = {
   requestedRef: string; effectiveRef: string; effectiveGestoraId: string | null;
+  effectiveGestoraName: string; effectiveGestoraSlug: string;
   source: "override" | "identity" | "session" | "organic"; preserved: boolean;
 };
 
