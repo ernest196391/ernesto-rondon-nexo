@@ -127,6 +127,74 @@ const blankPlaybook = (): SalesPlaybook => ({ benefits: [], idealCustomer: [], s
 
 export const initialKnowledgeSeeds: ProductKnowledgeSeed[] = [
   {
+    id: "pk_lolaran_al1000", woocommerceProductId: 1078, sku: "NEXO-LOLARAN-AL1000", brand: "LOLARAN", model: "AL1000",
+    aliases: ["LOLARAN AL1000", "contadora de billetes", "máquina de contar dinero", "detector de billetes falsos"], productType: "Contadora de billetes",
+    summary: "Contadora LOLARAN AL1000 de hasta 1.000 billetes por minuto, con cálculo de valor por denominación, detección UV/MG/MT/IR/DD y display externo.",
+    customerDescription: "Equipo para agilizar el conteo de efectivo en tiendas y oficinas, con modos por lotes y acumulación.", confidence: "confirmed_external",
+    specs: [
+      { name: "Velocidad", value: "hasta 1.000", unit: "billetes/min", confidence: "confirmed_external", evidence: "Ficha LOLARAN AL1000 y manual investigado" },
+      { name: "Detección", value: "UV, MG, MT, IR y DD", confidence: "confirmed_external", evidence: "Ficha LOLARAN AL1000 y manual investigado" },
+      { name: "Monedas admitidas", value: "USD y EUR", confidence: "confirmed_external", evidence: "Ficha oficial/comercial LOLARAN" },
+      { name: "Modos", value: "Count, Add y Batch", confidence: "confirmed_external", evidence: "Manual LOLARAN AL1000" },
+      { name: "Capacidad de tolva", value: "200", unit: "billetes", confidence: "confirmed_external", evidence: "Ficha técnica investigada" },
+      { name: "Conteo de valor", value: "por denominación seleccionada", confidence: "confirmed_external", evidence: "Manual LOLARAN AL1000" }
+    ],
+    faq: [
+      { question: "¿Reconoce denominaciones mezcladas?", answer: "No. Calcula el valor de una denominación seleccionada; los billetes mezclados deben separarse.", audience: "customer", confidence: "confirmed_external" },
+      { question: "¿Garantiza que un billete sea auténtico?", answer: "No. Los sensores ayudan a identificar billetes sospechosos, pero no sustituyen una revisión profesional.", audience: "customer", confidence: "confirmed_external" }
+    ],
+    sources: [
+      { sourceType: "physical_photo", title: "Fotografía del equipo LOLARAN AL1000", supports: ["diseño", "pantalla LCD", "display externo"], confidence: "confirmed_nexo" },
+      { sourceType: "manufacturer", title: "LOLARAN AL1000", url: "https://ilolaran.com/products/lolaran-al1000", supports: ["modelo", "velocidad", "USD/EUR", "detección", "modos"], confidence: "confirmed_external" },
+      { sourceType: "manual", title: "LOLARAN AL1000 Money Counter User Manual", url: "https://manuals.plus/lolaran/al1000-money-counter-machine-manual", supports: ["operación", "detección", "Batch/Add"], confidence: "confirmed_external" }
+    ],
+    salesPlaybook: { benefits: ["Reduce tiempo de conteo", "Ayuda a detectar billetes sospechosos", "Permite preparar lotes", "Display visible para el cliente"], idealCustomer: ["Tiendas", "Oficinas", "Negocios con flujo diario de efectivo"], sellingPoints: ["Hasta 1.000 billetes por minuto", "Cinco sistemas de detección", "Conteo por lotes y acumulación"], objections: [{ objection: "¿Cuenta un fajo mezclado?", answer: "Cuenta los billetes, pero el valor requiere seleccionar una denominación; no clasifica denominaciones mezcladas.", confidence: "confirmed_external" }], warnings: ["No presentar la detección como garantía absoluta de autenticidad."] },
+    gaps: [{ question: "¿Cuál es la garantía y el voltaje de la unidad disponible?", requiredEvidence: "Foto de etiqueta eléctrica y condiciones escritas del proveedor", priority: "medium" }]
+  },
+  {
+    id: "pk_generic_handheld_usb_vacuum", woocommerceProductId: 1079, sku: "NEXO-ASPIRADORA-MANO-USB", brand: null, model: null,
+    aliases: ["aspiradora de mano", "aspiradora portátil USB", "aspiradora para carro", "car vacuum"], productType: "Aspiradora de mano inalámbrica",
+    summary: "Aspiradora portátil genérica con carga USB, depósito transparente, filtro desmontable y accesorios para espacios estrechos.",
+    customerDescription: "Equipo compacto para limpiezas rápidas de polvo, migas y residuos ligeros en automóvil, hogar u oficina.", confidence: "probable",
+    specs: [
+      { name: "Alimentación", value: "batería recargable", confidence: "probable", evidence: "Publicación del proveedor" },
+      { name: "Carga", value: "USB", confidence: "confirmed_nexo", evidence: "Cable visible y publicación del proveedor" },
+      { name: "Filtro", value: "desmontable", confidence: "confirmed_nexo", evidence: "Imagen del producto" },
+      { name: "Accesorios", value: "boquillas, cepillo y manguera flexible", confidence: "confirmed_nexo", evidence: "Imagen del conjunto" }
+    ],
+    faq: [
+      { question: "¿Sirve para líquidos?", answer: "No hay evidencia suficiente para recomendarla para aspirar líquidos.", audience: "customer", confidence: "unknown" },
+      { question: "¿Cuánto dura la batería?", answer: "La capacidad y autonomía no están especificadas.", audience: "customer", confidence: "unknown" }
+    ],
+    sources: [{ sourceType: "physical_photo", title: "Fotografías de la aspiradora portátil y accesorios", supports: ["diseño", "filtro", "depósito", "accesorios", "cable USB"], confidence: "confirmed_nexo" }],
+    salesPlaybook: { benefits: ["Limpieza rápida sin cable", "Formato fácil de guardar", "Accesorios para rincones"], idealCustomer: ["Conductores", "Hogares", "Oficinas"], sellingPoints: ["Recargable por USB", "Accesorios visibles incluidos"], objections: [{ objection: "¿Qué potencia tiene?", answer: "La publicación no muestra una potencia verificable; no debe prometerse una cifra.", confidence: "unknown" }], warnings: ["No afirmar potencia, autonomía, fuerza de succión ni uso con líquidos."] },
+    gaps: [{ question: "¿Cuál es la marca, modelo, potencia, batería y autonomía?", requiredEvidence: "Foto de caja, manual o etiqueta técnica", priority: "high" }]
+  },
+  {
+    id: "pk_lumivault_x3pro", woocommerceProductId: 1080, sku: "NEXO-LUMIVAULT-X3PRO", brand: "LUMIVAULT", model: "X3PRO",
+    aliases: ["LUMIVAULT X3PRO", "timbre inteligente", "videoportero WiFi", "smart video doorbell"], productType: "Timbre inteligente con cámara",
+    summary: "Timbre LUMIVAULT X3PRO con vídeo HD, visión nocturna, audio bidireccional, alertas mediante aplicación y receptor interior.",
+    customerDescription: "Sistema inalámbrico para observar y hablar con visitantes desde un teléfono compatible.", confidence: "probable",
+    specs: [
+      { name: "Vídeo", value: "HD", confidence: "probable", evidence: "Publicación del proveedor y ficha comercial coincidente" },
+      { name: "Visión nocturna", value: "sí", confidence: "probable", evidence: "Publicación del proveedor y ficha comercial coincidente" },
+      { name: "Audio", value: "bidireccional", confidence: "probable", evidence: "Publicación del proveedor y ficha comercial coincidente" },
+      { name: "Conectividad", value: "Wi‑Fi", confidence: "probable", evidence: "Publicación del proveedor" },
+      { name: "Alimentación", value: "batería recargable o USB", confidence: "probable", evidence: "Publicación del proveedor" },
+      { name: "Receptor interior", value: "incluido", confidence: "confirmed_nexo", evidence: "Fotografía del conjunto" }
+    ],
+    faq: [
+      { question: "¿Necesita Internet?", answer: "Sí para las alertas y la visualización remota mediante la aplicación.", audience: "customer", confidence: "confirmed_external" },
+      { question: "¿Puede mojarse?", answer: "No se ha confirmado un grado IP; debe protegerse de lluvia directa.", audience: "customer", confidence: "unknown" }
+    ],
+    sources: [
+      { sourceType: "physical_photo", title: "Fotografías LUMIVAULT X3PRO con receptor", supports: ["marca", "modelo", "cámara", "receptor"], confidence: "confirmed_nexo" },
+      { sourceType: "retailer", title: "LUMIVAULT X3PRO Smart Doorbell Camera", url: "https://m.shein.com/LUMIVAULT-X3PRO-Smart-Doorbell-Camera-With-HD-Video-Night-Vision-Two-Way-Audio-Dual-Mic-Wi-Fi-App-Alerts-Battery-USB-Power-Cable-Free-Installation-For-Home-Security-Compatible-With-Smart-Doorbells-p-188230868.html", supports: ["HD", "visión nocturna", "audio bidireccional", "Wi-Fi", "alimentación"], confidence: "probable" }
+    ],
+    salesPlaybook: { benefits: ["Atender visitantes desde el móvil", "Ver con poca luz", "Hablar sin abrir la puerta", "Receptor interior incluido"], idealCustomer: ["Hogares", "Oficinas pequeñas", "Entradas con Wi‑Fi estable"], sellingPoints: ["Cámara, audio y timbre en un solo conjunto", "Instalación sin cableado permanente"], objections: [{ objection: "¿Funciona sin Wi‑Fi?", answer: "El receptor puede anunciar la llamada, pero las funciones remotas requieren Wi‑Fi e Internet.", confidence: "probable" }], warnings: ["No afirmar resolución exacta, autonomía, alcance ni resistencia al agua sin manual."] },
+    gaps: [{ question: "¿Cuál es la resolución, aplicación, batería, alcance y grado IP exactos?", requiredEvidence: "Caja o manual específico de la unidad X3PRO", priority: "high" }]
+  },
+  {
     id: "pk_gwell_gf8816", woocommerceProductId: 1017, sku: "NEXO-GF-8816", brand: "GWELL", model: "GF-8816",
     aliases: ["GWELL", "GF-8816", "ventilador GWELL", "ventilador recargable GWELL"], productType: "Ventilador de pedestal recargable",
     summary: "Ventilador AC/DC de 16 pulgadas con batería, panel solar, control remoto, USB y dos bombillos LED.",
