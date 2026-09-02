@@ -14,7 +14,9 @@ describe("contrato de textos comerciales", () => {
   });
 
   it("mantiene una portada móvil centrada en la necesidad y sin bloques repetidos", () => {
+    const home = readFileSync("app/page.tsx", "utf8");
     const marketplace = readFileSync("app/marketplace/MarketplaceClient.tsx", "utf8");
+    expect(home).toContain('dynamic = "force-dynamic"');
     expect(marketplace).toContain("¿Qué quieres hoy?");
     expect(marketplace).toContain("Busca un producto");
     expect(marketplace).toContain("Vender");
