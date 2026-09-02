@@ -4,7 +4,6 @@ export default function CommerceFooter() {
     <footer className="commerce-footer">
       <div>
         <Image src="/brand/nexo-logo-001g.png" width={150} height={54} alt="NEXO" />
-        <p>Más cerca de ti.</p>
       </div>
     </footer>
   );
