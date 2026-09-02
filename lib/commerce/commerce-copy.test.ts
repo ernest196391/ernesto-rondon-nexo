@@ -8,10 +8,18 @@ describe("contrato de textos comerciales", () => {
     expect(page).not.toContain("Lo más importante");
   });
 
-  it("deja el pie de página reducido a marca y lema", () => {
+  it("deja el pie de página reducido a la marca", () => {
     const footer = readFileSync("app/CommerceFooter.tsx", "utf8");
-    expect(footer).toContain("Más cerca de ti.");
-    expect(footer).not.toMatch(/Comprar|Explorar|WhatsApp/);
+    expect(footer).not.toMatch(/Más cerca de ti|Comprar|Explorar|WhatsApp/);
+  });
+
+  it("mantiene una portada móvil centrada en la necesidad y sin bloques repetidos", () => {
+    const marketplace = readFileSync("app/marketplace/MarketplaceClient.tsx", "utf8");
+    expect(marketplace).toContain("¿Qué quieres hoy?");
+    expect(marketplace).toContain("Busca un producto");
+    expect(marketplace).toContain("Vender");
+    expect(marketplace.match(/<h1/g)).toHaveLength(1);
+    expect(marketplace).not.toMatch(/Buscar en NEXO|Elige dónde recibir|Más cerca de ti|campaigns|trust-strip/);
   });
 
   it("no vuelve a mostrar tutoriales largos de permisos", () => {

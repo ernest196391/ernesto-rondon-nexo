@@ -6,7 +6,7 @@ describe("capacidades del navegador y servidor", () => {
     const config = readFileSync("next.config.mjs", "utf8");
     expect(config).toContain("microphone=(self)");
     expect(config).toContain("geolocation=(self)");
-    expect(config).toContain("camera=()");
+    expect(config).toContain("camera=(self)");
     expect(config).not.toContain("microphone=()");
     expect(config).not.toContain("geolocation=()");
   });
