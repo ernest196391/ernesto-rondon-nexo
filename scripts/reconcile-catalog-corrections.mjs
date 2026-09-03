@@ -62,6 +62,24 @@ async function reconcile() {
   } else {
     console.log("[nexo-catalog-reconcile] NEXO-BUTACA-AMARILLA no existe; no hay nada que archivar.");
   }
+
+  const gwell16 = await productBySku("NEXO-GF-8816");
+  if (gwell16) {
+    const updated = await woo(`/products/${gwell16.id}`, {
+      method: "PUT",
+      body: JSON.stringify({
+        stock_status: "outofstock",
+        catalog_visibility: "hidden",
+        meta_data: [
+          ...(Array.isArray(gwell16.meta_data) ? gwell16.meta_data.filter((item) => item?.key !== "nexo_availability_note") : []),
+          { key: "nexo_availability_note", value: "Agotado temporalmente; oculto por solicitud operativa 2026-09-03. Reactivar solo tras confirmación." },
+        ],
+      }),
+    });
+    console.log(`[nexo-catalog-reconcile] GWELL 16 ${updated.id} -> ${updated.stock_status}, visibility=${updated.catalog_visibility}`);
+  } else {
+    console.warn("[nexo-catalog-reconcile] No se encontró NEXO-GF-8816.");
+  }
 }
 
 reconcile().catch((error) => {
