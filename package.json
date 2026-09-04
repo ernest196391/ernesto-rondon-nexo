@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "node scripts/seed-pilot-products.mjs && node scripts/seed-gestora-products.mjs && node scripts/seed-furniture-products.mjs && node scripts/seed-product-batch-20260902.mjs && node scripts/seed-energy-batch-20260904.mjs && node scripts/fix-panel-image-20260904.mjs && node scripts/reconcile-catalog-corrections.mjs && next start",
+    "start": "node scripts/seed-pilot-products.mjs && node scripts/seed-gestora-products.mjs && node scripts/seed-furniture-products.mjs && node scripts/seed-product-batch-20260902.mjs && node scripts/seed-energy-batch-20260904.mjs && node scripts/reconcile-catalog-corrections.mjs && next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "test": "vitest run"
