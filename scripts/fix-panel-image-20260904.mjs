@@ -1,0 +1,7 @@
+const required=["WOOCOMMERCE_URL","WOOCOMMERCE_CONSUMER_KEY","WOOCOMMERCE_CONSUMER_SECRET"];
+if(required.some(k=>!process.env[k])){console.log("[nexo-panel-image] WooCommerce no configurado; se omite.");process.exit(0);}
+const storeUrl=process.env.WOOCOMMERCE_URL.replace(/\/$/,"");
+const imageUrl="https://ernesto-rondon-nexo.onrender.com/api/catalog-image/panel-120w";
+async function woo(path,init={}){const u=new URL(`${storeUrl}/wp-json/wc/v3${path}`);u.searchParams.set("consumer_key",process.env.WOOCOMMERCE_CONSUMER_KEY);u.searchParams.set("consumer_secret",process.env.WOOCOMMERCE_CONSUMER_SECRET);const r=await fetch(u,{...init,headers:{"Content-Type":"application/json",...(init.headers||{})},signal:AbortSignal.timeout(90000),cache:"no-store"});const b=await r.json().catch(()=>null);if(!r.ok)throw new Error(`${path} ${r.status}: ${JSON.stringify(b)?.slice(0,500)}`);return b;}
+async function run(){const products=await woo('/products?sku=NEXO-SOLAR-FOLD-120W&status=any&per_page=10');const p=products[0];if(!p)throw new Error('NEXO-SOLAR-FOLD-120W no encontrado');const saved=await woo(`/products/${p.id}`,{method:'PUT',body:JSON.stringify({images:[{src:imageUrl,alt:'Panel Solar Plegable 120 W 18 V 36 V',name:'Panel Solar Plegable 120 W'}]})});console.log(`[nexo-panel-image] OK ${saved.id} image=${saved.images?.[0]?.src||'none'}`);}
+run().catch(e=>{console.error('[nexo-panel-image] ERROR',e instanceof Error?e.message:e);process.exitCode=1;});
