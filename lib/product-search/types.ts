@@ -19,6 +19,7 @@ export type ProductSearchResult = {
   phone: string;
   url: string;
   source: string;
+  image?: string;
   observedAt: string;
   availability: "advertised" | "unconfirmed";
   note: string;
