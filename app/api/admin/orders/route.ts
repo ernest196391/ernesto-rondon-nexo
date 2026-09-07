@@ -1,0 +1,4 @@
+import {NextResponse} from "next/server";
+import {currentCommercialActor} from "../../../../lib/commercial/auth";
+import {adminOrderAction} from "../../../../lib/commercial/admin-overview";
+export async function POST(request:Request){const actor=await currentCommercialActor();if(!actor||actor.role!=="admin")return NextResponse.json({error:"Unauthorized"},{status:401});try{const body=await request.json(),orderId=Number(body.orderId),action=String(body.action) as "delivered_paid"|"cancelled"|"refunded";if(!Number.isFinite(orderId)||!["delivered_paid","cancelled","refunded"].includes(action))throw new Error("Acción inválida");return NextResponse.json(await adminOrderAction(orderId,action,actor.userId||"admin"));}catch(e){return NextResponse.json({error:e instanceof Error?e.message:"No se pudo actualizar el pedido"},{status:422});}}
