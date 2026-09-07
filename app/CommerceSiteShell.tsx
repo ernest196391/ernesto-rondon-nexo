@@ -9,7 +9,7 @@ const commercePrefixes = ["/marketplace", "/producto/", "/carrito", "/checkout",
 
 export default function CommerceSiteShell({ children, marketplaceEnabled }: { children: React.ReactNode; marketplaceEnabled: boolean }) {
   const pathname = usePathname();
-  const workspace = pathname.startsWith("/impulsa") || pathname.startsWith("/studio");
+  const workspace = pathname.startsWith("/impulsa") || pathname.startsWith("/studio") || pathname.startsWith("/admin");
   const commerce = (pathname === "/" && marketplaceEnabled) || commercePrefixes.some((prefix) => pathname.startsWith(prefix));
   if (workspace) return <div id="contenido-principal">{children}</div>;
   if (commerce) return <><div id="contenido-principal">{children}</div><CommerceFooter/><GlobalCommerceAssistant/></>;
