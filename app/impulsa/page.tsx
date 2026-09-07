@@ -9,7 +9,7 @@ export const dynamic="force-dynamic";
 export default async function Page(){
  const actor=await currentCommercialActor();
  if(!actor)redirect("/impulsa/login");
- if(actor.role==="admin")return <main className="impulsa-shell"><section className="impulsa-hero"><span>ADMINISTRACIÓN</span><h1>Centro de control</h1><p>La consola administrativa se construirá como un espacio separado de la oficina de gestoras.</p></section></main>;
+ if(actor.role==="admin")redirect("/admin");
  const data=await getGestoraDashboard(actor.gestoraId);if(!data)redirect("/impulsa/login");
  const storefront=await commercialStorefront(data.profile.slug);
  const publishedCount=storefront?.products.length??0;
