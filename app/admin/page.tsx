@@ -5,4 +5,4 @@ import AdminClient from "./AdminClient";
 import "./admin.css";
 export const dynamic="force-dynamic";
 export const metadata={title:"Centro de control | NEXO"};
-export default async function Page(){const actor=await currentCommercialActor();if(!actor)redirect("/impulsa/login");if(actor.role!=="admin")redirect("/impulsa");const data=await adminOverview();return <AdminClient initial={data}/>;}
+export default async function Page(){const actor=await currentCommercialActor();if(!actor||actor.role!=="admin")redirect("/admin/login");const data=await adminOverview();return <AdminClient initial={data}/>;}
