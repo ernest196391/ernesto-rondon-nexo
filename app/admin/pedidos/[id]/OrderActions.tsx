@@ -1,6 +1,7 @@
 "use client";
 import {useRouter} from "next/navigation";
 import {useState} from "react";
+import styles from "./OrderActions.module.css";
 
 type Action="delivered_paid"|"cancelled"|"refunded";
 
@@ -20,11 +21,11 @@ export default function OrderActions({orderId,status}:{orderId:number;status:str
   finally{setBusy(null);}
  }
  const closed=["cancelled","refunded"].includes(status);
- return <div className="admin-order-actions" aria-label="Acciones del pedido">
+ return <div className={styles.actions} aria-label="Acciones del pedido">
   {!closed&&status!=="completed"&&<button disabled={busy!==null} onClick={()=>run("delivered_paid")}>Marcar entregado y cobrado</button>}
-  {!closed&&status!=="completed"&&<button className="secondary" disabled={busy!==null} onClick={()=>run("cancelled")}>Cancelar pedido</button>}
-  {status==="completed"&&<button className="secondary" disabled={busy!==null} onClick={()=>run("refunded")}>Registrar reembolso</button>}
-  {closed&&<span className="admin-action-note">Este pedido está cerrado. No hay acciones operativas pendientes.</span>}
-  {message&&<span className="admin-action-feedback" role="status">{message}</span>}
+  {!closed&&status!=="completed"&&<button className={styles.secondary} disabled={busy!==null} onClick={()=>run("cancelled")}>Cancelar pedido</button>}
+  {status==="completed"&&<button className={styles.secondary} disabled={busy!==null} onClick={()=>run("refunded")}>Registrar reembolso</button>}
+  {closed&&<span className={styles.note}>Este pedido está cerrado. No hay acciones operativas pendientes.</span>}
+  {message&&<span className={styles.feedback} role="status">{message}</span>}
  </div>;
 }
