@@ -6,6 +6,7 @@ async function woo(path:string,init:RequestInit={}){const c=config();const u=new
 export function wooConfigured(){return Boolean(process.env.WOOCOMMERCE_URL&&process.env.WOOCOMMERCE_CONSUMER_KEY&&process.env.WOOCOMMERCE_CONSUMER_SECRET);}
 export async function listWooProducts(params:{search?:string;category?:string;page?:number;perPage?:number}={}){const q=new URLSearchParams({status:"publish",per_page:String(Math.min(params.perPage??24,50)),page:String(params.page??1)});if(params.search)q.set("search",params.search);if(params.category)q.set("category",params.category);return woo(`/products?${q}`);}
 export async function getWooProduct(id:number){return woo(`/products/${id}`);}
+export async function getWooProductVariations(id:number){return woo(`/products/${id}/variations?status=publish&per_page=100`);}
 export async function getWooOrder(id:number){return woo(`/orders/${id}`);}
 export async function updateWooOrder(id:number,input:Record<string,unknown>){return woo(`/orders/${id}`,{method:"PUT",body:JSON.stringify(input)});}
 export async function createWooDraft(input:{captureId:string;commerceId:string;analysis:ProductAnalysis;research:ProductResearch;copy:ProductCopy;price:PriceCalculation;imageIds?:number[]}){

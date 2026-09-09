@@ -209,6 +209,9 @@ async function place(
   };
   const notes = [
     `Modalidad: ${input.mode}`,
+    `Origen NEXO: ${attribution.effectiveGestoraId ? "gestora_store" : "nexo_store"}`,
+    attribution.effectiveGestoraName && `Gestora: ${attribution.effectiveGestoraName}`,
+    attribution.effectiveRef && `Código referido: ${attribution.effectiveRef}`,
     input.locality && `Localidad: ${input.locality}`,
     input.alternatePhone && `Teléfono alternativo: ${input.alternatePhone}`,
     input.deliveryWindow && `Horario preferido: ${input.deliveryWindow}`,
@@ -297,9 +300,11 @@ async function place(
     const official = await getWooOrder(orderId), byProduct = new Map<number, any[]>();
     for (const item of official.line_items || []) { const list=byProduct.get(Number(item.product_id))||[];list.push(item);byProduct.set(Number(item.product_id),list); }
     const line_items = projection.lines.map((line) => { const officialLine=byProduct.get(line.productId)?.shift();return officialLine?{id:officialLine.id,total:(line.finalUnit*line.quantity).toFixed(2),subtotal:(line.finalUnit*line.quantity).toFixed(2)}:null; }).filter(Boolean);
-    await updateWooOrder(orderId, { line_items, meta_data: metadata });
+    await updateWooOrder(orderId, { meta_data: metadata });
+    if (line_items.length) await updateWooOrder(orderId, { line_items });
     await createOrderSnapshot({orderId,gestoraId:attribution.effectiveGestoraId,requestedRef:referral,effectiveRef:attribution.effectiveRef,currency:cart.totals?.currency_code||"USD",lines:projection.lines,baseCommission:0,shipping:quote.feeCup,idempotencyKey:input.idempotencyKey});
   } catch (error) {
+    console.error("NEXO_CHECKOUT_RECONCILIATION_FAILED", { orderId, idempotencyKey: input.idempotencyKey, error: error instanceof Error ? error.message : String(error) });
     await recordReconciliationFailure(orderId,input.idempotencyKey,error).catch(()=>undefined);
   }
   const money = (amount: string | number, totals: any) =>
