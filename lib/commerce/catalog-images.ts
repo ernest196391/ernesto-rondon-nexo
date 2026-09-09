@@ -16,6 +16,7 @@ const localCatalogImages: Record<string, string> = {
   "NEXO-MOCHILA-COMPACTA": "/catalog/owner/mochila-compacta.webp?v=20260901",
   "NEXO-CINTURON-TERMICO": "/catalog/owner/cinturon-termico.webp?v=20260901",
   "NEXO-IPAD-9-WIFI-64": "https://casavivadecuba.com/wp-content/uploads/2026/09/09-612887.jpg?v=20260901-2",
+  "NEXO-SOLAR-FOLD-120W": "/api/catalog-image/panel-120w.webp?v=20260909",
 };
 export function catalogImageFor(product: { sku?: string; images?: Array<{ src?: string }> }) {
   const sku = product.sku?.trim();
