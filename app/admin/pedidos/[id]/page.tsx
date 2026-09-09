@@ -1,4 +1,5 @@
 import {notFound,redirect} from "next/navigation";
+import Link from "next/link";
 import {currentCommercialActor} from "../../../../lib/commercial/auth";
 import {adminOrderDetail} from "../../../../lib/commercial/admin-overview";
 import AdminNav from "../../AdminNav";
@@ -19,10 +20,10 @@ export default async function Page({params}:{params:Promise<{id:string}>}){
  const o=data.order;
  const commission=data.ledger.reduce((s:number,x:any)=>s+Number(x.amount||0),0);
  return <main className="admin-shell">
-  <header className="admin-top"><div><img src="/brand/nexo-logo-001g.png" alt="NEXO"/><span>ADMIN</span></div><a href="/">Ver tienda</a></header>
+  <header className="admin-top"><div><img src="/brand/nexo-logo-001g.png" alt="NEXO"/><span>ADMIN</span></div><Link href="/">Ver tienda</Link></header>
   <AdminNav/>
   <div className="admin-wrap">
-   <a className="admin-back" href="/admin/pedidos">← Pedidos</a>
+   <Link className="admin-back" href="/admin/pedidos">← Pedidos</Link>
    <section className="admin-order-detail-head"><div><span>PEDIDO #{o.id}</span><h1>{o.customer}</h1><p>{new Date(o.date).toLocaleString("es-CU",{dateStyle:"medium",timeStyle:"short"})}</p></div><div><strong>{o.total.toFixed(2)} {o.currency}</strong><span>{labels[o.status]||o.status}</span></div></section>
    <OrderActions orderId={o.id} status={o.status}/>
    <section className="admin-detail-grid">

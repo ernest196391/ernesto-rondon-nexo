@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import AdminNav from "./AdminNav";
 
 type Overview={
@@ -18,7 +19,7 @@ export default function AdminClient({initial}:{initial:Overview}){
  ].slice(0,7);
  const priorityAction=pending.length?{href:"/admin/pedidos?estado=abiertos",label:"Ver pedidos abiertos"}:stock.length?{href:"#inventario",label:"Ver stock"}:null;
  return <main className="admin-shell">
-  <header className="admin-top"><div><img src="/brand/nexo-logo-001g.png" alt="NEXO"/><span>ADMIN</span></div><a href="/">Ver tienda</a></header>
+  <header className="admin-top"><div><img src="/brand/nexo-logo-001g.png" alt="NEXO"/><span>ADMIN</span></div><Link href="/">Ver tienda</Link></header>
   <AdminNav/>
   <div className="admin-wrap">
    <section className="admin-hero"><span>OPERACIONES</span><h1>¿Qué necesita atención?</h1><p>Prioridades reales de pedidos, inventario e incidencias.</p></section>

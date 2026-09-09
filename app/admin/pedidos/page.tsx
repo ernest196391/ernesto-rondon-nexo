@@ -1,4 +1,5 @@
 import {redirect} from "next/navigation";
+import Link from "next/link";
 import {currentCommercialActor} from "../../../lib/commercial/auth";
 import {adminOverview} from "../../../lib/commercial/admin-overview";
 import AdminNav from "../AdminNav";
@@ -20,7 +21,7 @@ export default async function Page({searchParams}:{searchParams?:Promise<{estado
  const visible=data.orders.filter(o=>estado==="abiertos"?["pending","on_hold","processing"].includes(o.status):estado==="procesando"?o.status==="processing":estado==="completados"?o.status==="completed":estado==="cancelados"?o.status==="cancelled":true);
  const chip=(key:string,label:string,count:number)=>{const active=estado===key;return <a href={key==="todos"?"/admin/pedidos":`/admin/pedidos?estado=${key}`} aria-current={active?"page":undefined} style={active?{background:"#174431",color:"#fff",borderColor:"#174431"}:undefined}>{label} <b>{count}</b></a>};
  return <main className="admin-shell">
-  <header className="admin-top"><div><img src="/brand/nexo-logo-001g.png" alt="NEXO"/><span>ADMIN</span></div><a href="/">Ver tienda</a></header>
+  <header className="admin-top"><div><img src="/brand/nexo-logo-001g.png" alt="NEXO"/><span>ADMIN</span></div><Link href="/">Ver tienda</Link></header>
   <AdminNav/>
   <div className="admin-wrap">
    <section className="admin-hero compact"><span>PEDIDOS</span><h1>Pedidos</h1></section>
