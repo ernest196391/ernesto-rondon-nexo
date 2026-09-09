@@ -25,7 +25,12 @@ export default function AdminNav(){
     const active=item.href==="/admin"?path==="/admin":path.startsWith(item.href);
     return <a key={item.href} href={item.href} className={active?"active":""} aria-current={active?"page":undefined}>{item.label}</a>;
    })}
-   <button className="admin-switch-access" type="button" onClick={switchAccess} disabled={busy}>{busy?"Saliendo…":"Cambiar acceso"}</button>
+   <button
+    type="button"
+    onClick={switchAccess}
+    disabled={busy}
+    style={{marginLeft:"auto",whiteSpace:"nowrap",border:"1px solid #cbd5cf",background:"#fff",color:"#174431",borderRadius:999,padding:"9px 13px",fontWeight:800,font:"inherit",cursor:busy?"wait":"pointer",opacity:busy?.65:1}}
+   >{busy?"Saliendo…":"Cambiar acceso"}</button>
   </div>
  </nav>;
 }
