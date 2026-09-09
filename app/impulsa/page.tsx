@@ -5,6 +5,7 @@ import { commercialStorefront } from "../../lib/commercial/storefront";
 import ImpulsaHomeClient from "./ImpulsaHomeClient";
 import "./impulsa.css";
 import "./impulsa-enhancements.css";
+import "./impulsa-premium.css";
 export const dynamic="force-dynamic";
 export default async function Page(){
  const actor=await currentCommercialActor();
