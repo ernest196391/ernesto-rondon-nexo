@@ -4,6 +4,7 @@ import { CART_COOKIE, REFERRAL_COOKIE, requestStoreCart, StoreApiError } from ".
 import { applyEditorial } from "../../../../lib/commerce/product-editorial";
 import { catalogImageFor } from "../../../../lib/commerce/catalog-images";
 import { projectCommercialCart } from "../../../../lib/commercial/storefront";
+import { getWooProduct } from "../../../../lib/commerce/woocommerce";
 
 export const dynamic = "force-dynamic";
 type CartAction = { action: "add"; productId: number; quantity?: number; referral?: string } | { action: "update"; key: string; quantity: number } | { action: "remove"; key: string };
@@ -37,6 +38,12 @@ async function execute(action?: CartAction) {
     path = "/cart/remove-item"; method = "POST"; body = { key: action.key };
   }
   const result = await requestStoreCart(path, { method, token, body, referral });
+  const enrichedItems = await Promise.all((result.cart.items || []).map(async (item: any) => {
+    if (!item.variation?.length) return item;
+    try { const variation = await getWooProduct(Number(item.id)); return { ...item, parent_id: Number(variation.parent_id || 0) }; }
+    catch { return item; }
+  }));
+  result.cart = { ...result.cart, items: enrichedItems };
   const effectiveReferral = referral || jar.get(REFERRAL_COOKIE)?.value || "";
   const projected = await projectCommercialCart(result.cart, effectiveReferral);
   const cart = {

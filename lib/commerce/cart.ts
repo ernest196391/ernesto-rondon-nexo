@@ -18,12 +18,14 @@ export type MoneyShape = {
 export type CartItem = {
   key: string;
   id: number;
+  parent_id?: number;
   name: string;
   quantity: number;
   images: Array<{ src: string; alt: string }>;
   prices: MoneyShape & { price: string };
   totals: MoneyShape & { line_total: string };
   quantity_limits?: { minimum: number; maximum: number; multiple_of: number; editable?: boolean };
+  variation?: Array<{ attribute?: string; value?: string; name?: string; option?: string }>;
 };
 
 export type Cart = {

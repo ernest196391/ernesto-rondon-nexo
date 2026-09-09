@@ -20,4 +20,10 @@ describe("checkout resilience", () => {
     expect(source).toContain("variationId ? Number(variationId) : productId");
     expect(source).toContain("Selecciona una opción antes de añadir el producto.");
   });
+
+  it("links cart variations back to their parent product", () => {
+    const source = readFileSync("app/carrito/CartClient.tsx", "utf8");
+    expect(source).toContain("item.parent_id || item.id");
+    expect(source).toContain("Opción: {variation}");
+  });
 });

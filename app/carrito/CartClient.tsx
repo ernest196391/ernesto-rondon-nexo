@@ -211,7 +211,9 @@ export default function CartClient({
                 maximum: 99,
                 multiple_of: 1,
               },
-              busy = updating === item.key;
+              busy = updating === item.key,
+              productId = item.parent_id || item.id,
+              variation = item.variation?.map((x) => x.value || x.option).filter(Boolean).join(" · ");
             return (
               <article
                 className={`cart-item${busy ? " is-updating" : ""}`}
@@ -219,7 +221,7 @@ export default function CartClient({
               >
                 <Link
                   className="cart-image"
-                  href={`/producto/${item.id}${query}`}
+                  href={`/producto/${productId}${query}`}
                 >
                   <img
                     src={item.images?.[0]?.src || "/brand/nexo-symbol.png"}
@@ -229,7 +231,8 @@ export default function CartClient({
                   />
                 </Link>
                 <div className="cart-product">
-                  <Link href={`/producto/${item.id}${query}`}>{item.name}</Link>
+                  <Link href={`/producto/${productId}${query}`}>{item.name}</Link>
+                  {variation && <span className="unit-price">Opción: {variation}</span>}
                   <span className="unit-price">
                     Precio unitario:{" "}
                     {formatMoney(item.prices.price, item.prices)}
