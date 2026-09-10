@@ -1,0 +1,35 @@
+import type { ProductKnowledgeSeed } from "./knowledge";
+
+type SeedInput={id:string;sku:string;brand?:string;model?:string;type:string;summary:string;specs:string[];aliases?:string[];confidence?:ProductKnowledgeSeed["confidence"];gaps?:string[]};
+const make=(x:SeedInput):ProductKnowledgeSeed=>({
+  id:x.id,woocommerceProductId:null,sku:x.sku,brand:x.brand??null,model:x.model??null,
+  aliases:x.aliases??[],productType:x.type,summary:x.summary,customerDescription:x.summary,
+  confidence:x.confidence??"confirmed_nexo",
+  specs:x.specs.map((value,index)=>({name:`Dato ${index+1}`,value,confidence:x.confidence??"confirmed_nexo",evidence:"Notas y fotografías del proveedor recibidas el 10-09-2026"})),
+  faq:[
+    {question:"¿Está disponible ahora?",answer:"La existencia y el precio se confirman antes de completar la compra.",audience:"customer",confidence:"confirmed_nexo"},
+    {question:"¿Cuánto tiempo puede alimentar mis equipos?",answer:"Depende del consumo continuo, el pico de arranque y las pérdidas del sistema. Se calcula con los datos de cada equipo antes de recomendar una solución.",audience:"customer",confidence:"confirmed_nexo"}
+  ],
+  sources:[{sourceType:"physical_photo",title:"Evidencia del proveedor — lote 10-09-2026",supports:["identidad visual","oferta","condiciones comerciales"],confidence:"confirmed_nexo"}],
+  salesPlaybook:{benefits:[],idealCustomer:[],sellingPoints:[],objections:[],warnings:["No prometer autonomía, compatibilidad, disponibilidad o garantía diferentes de las documentadas."]},
+  gaps:(x.gaps??[]).map(question=>({question,requiredEvidence:"Fotografía legible de la placa o ficha oficial del modelo exacto",priority:"high"}))
+});
+
+export const supplierKnowledgeSeeds20260910:ProductKnowledgeSeed[]=[
+ make({id:"pk_sigma_sg6500ised",sku:"NEXO-SIGMA-SG6500ISED",brand:"SIGMA",model:"SG6500ISED",type:"Generador inverter dual fuel",summary:"Generador portátil dual fuel con salida 120/240 V y tres formas de arranque.",specs:["Gasolina: 6500 W arranque / 5000 W continuos","GLP: 5800 W arranque / 4500 W continuos","Arranque eléctrico, manual y remoto"]}),
+ make({id:"pk_saco_aio_6_16",sku:"NEXO-SACO-AIO-6KW-16KWH",brand:"SACO",type:"Sistema solar todo en uno",summary:"Sistema integrado anunciado con inversor de 6 kW y 16 kWh de respaldo.",specs:["6 kW","16 kWh anunciados","Transporte incluido"],confidence:"probable",gaps:["¿Cuál es el modelo exacto y la configuración 110/220 V?"]}),
+ make({id:"pk_ecoflow_delta3_classic_20260910",sku:"NEXO-ECOFLOW-DELTA3-CLASSIC",brand:"EcoFlow",model:"DELTA 3 Classic",type:"Estación de energía portátil",summary:"Estación LiFePO₄ de 1024 Wh y 1800 W para respaldo portátil.",specs:["1024 Wh","1800 W nominales","3600 W de sobretensión","Cotizaciones del proveedor: 660 y 690 USD","7 días de garantía comercial"],confidence:"confirmed_external",aliases:["Delta 3 Classic"]}),
+ make({id:"pk_infinity_moonflyer_pro",sku:"NEXO-INFINITY-MOONFLYER-PRO",brand:"Infinity Solar",model:"MoonFlyer Pro",type:"Sistema solar todo en uno",summary:"Sistema split-phase de 6 kW con batería anunciada de 15,36 kWh.",specs:["6 kW / 48 V","51,2 V 300 Ah","15,36 kWh","MPPT 80 A","1 mes de garantía comercial"]}),
+ make({id:"pk_longi_bifacial_610",sku:"NEXO-LONGI-BIFACIAL-610W",brand:"LONGi",type:"Panel solar bifacial",summary:"Panel bifacial LONGi anunciado de 610 W.",specs:["610 W anunciados","Transporte adicional"],confidence:"probable",gaps:["¿Cuál es el código exacto de modelo de la placa LONGi?"]}),
+ make({id:"pk_ecoflow_river3_plus",sku:"NEXO-ECOFLOW-RIVER3-PLUS",brand:"EcoFlow",model:"RIVER 3 Plus",type:"Estación de energía portátil",summary:"Estación compacta LiFePO₄ de 286 Wh y 600 W, con X-Boost hasta 1200 W.",specs:["286 Wh oficiales; el proveedor escribió 288 Wh","600 W nominales","X-Boost 1200 W","Garantía comercial limitada a prueba al recibir"],confidence:"confirmed_external"}),
+ make({id:"pk_delta3_450_combo",sku:"NEXO-ECOFLOW-DELTA3-450W-COMBO",brand:"EcoFlow",model:"DELTA 3 Classic + panel 450 W",type:"Kit de energía solar",summary:"Combo de estación DELTA 3 Classic, panel solar de 450 W y cable.",specs:["Estación 1024 Wh / 1800 W","Panel 450 W","Cable incluido","7 días de garantía comercial"]}),
+ make({id:"pk_sumry_hgx_4000",sku:"NEXO-SUMRY-4000W-24V",brand:"SUMRY",model:"HGX 4000W 24V",type:"Inversor híbrido",summary:"Inversor de onda sinusoidal pura de 4000 W para batería de 24 V.",specs:["4000 W","24 V","120 V AC en la unidad fotografiada","MPPT 55–280 VDC","Arreglo FV máximo anunciado 5600 W"]}),
+ make({id:"pk_sunshine_must_5_5",sku:"NEXO-SUNSHINE-MUST-KIT-5-5",brand:"Sunshine / MUST",type:"Kit solar",summary:"Kit solar con inversor Sunshine, batería MUST y cuatro paneles.",specs:["Configuración anunciada 110/220 V","4 paneles","Transporte incluido en La Habana"],confidence:"probable",gaps:["¿Cuál es la capacidad exacta de la batería y potencia de cada panel?"]}),
+ make({id:"pk_panel_generic_450",sku:"NEXO-SOLAR-PANEL-450W",type:"Panel solar",summary:"Panel monocristalino de 450 W con marca y parámetros eléctricos pendientes.",specs:["450 W","Transporte incluido en zonas céntricas"],confidence:"probable",gaps:["¿Cuál es la marca, modelo, Voc, Vmp, Isc e Imp?"]}),
+ make({id:"pk_miesi_450",sku:"NEXO-MIESI-MS48NBH450M",brand:"MIESI",model:"MS-48N-BH-450M",type:"Panel solar bifacial",summary:"Panel bifacial de 450 W identificado por la placa fotografiada; corrige la nota que decía Milexus 500 W.",specs:["450 W","Vmp 30,08 V / Imp 14,97 A","Voc 35,03 V / Isc 16,05 A","1762 × 1134 × 30 mm","24,5 kg"]}),
+ make({id:"pk_ecoflow_cable_10m",sku:"NEXO-ECOFLOW-CABLE-10M",type:"Cable solar",summary:"Cable compatible de 10 m para conectar paneles a estaciones EcoFlow con entrada compatible.",specs:["10 m","MC4 a XT60i según evidencia","No original EcoFlow"]}),
+ make({id:"pk_maf_triciclo_72v50ah",sku:"NEXO-MAF-TRICICLO-72V50AH",brand:"MAF",type:"Triciclo eléctrico",summary:"Triciclo eléctrico de carga y pasajeros con batería LiFePO₄ 72 V 50 Ah.",specs:["72 V 50 Ah","Autonomía anunciada hasta 100 km","Cama 1,10 × 1,60 m","Asientos plegables","Capacidad anunciada 8 personas"],confidence:"probable",gaps:["¿Cuál es el modelo, carga máxima homologada y documentación exacta para chapa?"]}),
+ make({id:"pk_solar_install_supports",sku:"NEXO-SOLAR-INSTALL-SUPPORTS",type:"Servicio de instalación",summary:"Servicio opcional de montaje con soportes para el combo EcoFlow con panel.",specs:["Base proveedor 120 USD","Alcance sujeto a inspección y ubicación"]}),
+ make({id:"pk_solar_support_kit",sku:"NEXO-SOLAR-SUPPORT-KIT",type:"Soportes solares",summary:"Herrajes para montaje de panel; precio y contenido exacto pendientes.",specs:["Evidencia fotográfica disponible"],confidence:"unknown",gaps:["¿Qué piezas, medidas, material y precio incluye el kit?"]}),
+ make({id:"pk_infinity_physical_evidence",sku:"NEXO-INFINITY-MOONFLYER-PRO-EVIDENCE",brand:"Infinity Solar",model:"MoonFlyer Pro",type:"Registro de evidencia",summary:"Registro interno de la fotografía física del MoonFlyer Pro; no representa otro producto vendible.",specs:["Vinculado al producto NEXO-INFINITY-MOONFLYER-PRO"]})
+];
