@@ -1,6 +1,7 @@
 import { Pool } from "pg";
 import { getWooProduct, wooConfigured } from "./woocommerce";
 import { productBatchKnowledgeSeeds20260902 } from "./knowledge-seeds-20260902";
+import { supplierKnowledgeSeeds20260910 } from "./knowledge-seeds-20260910";
 
 export type KnowledgeConfidence = "confirmed_nexo" | "confirmed_external" | "probable" | "unknown";
 export type KnowledgeAudience = "customer" | "gestora" | "admin";
@@ -128,6 +129,7 @@ const blankPlaybook = (): SalesPlaybook => ({ benefits: [], idealCustomer: [], s
 
 export const initialKnowledgeSeeds: ProductKnowledgeSeed[] = [
   ...productBatchKnowledgeSeeds20260902,
+  ...supplierKnowledgeSeeds20260910,
   {
     id: "pk_logic_ml8", woocommerceProductId: 1081, sku: "NEXO-LOGIC-ML8", brand: "Logic", model: "ML8",
     aliases: ["Logic ML8", "ML8 MiFi 4G", "módem portátil", "router SIM", "hotspot 4G"], productType: "Módem portátil 4G",
