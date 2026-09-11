@@ -1,11 +1,11 @@
 # NEXO — Bloque 0: Certificación Operativa
 
 Fecha: 2026-09-11
-Estado: PARCIALMENTE CERTIFICADO / E2E TRANSACCIONAL AÚN NO CERRADO
+Estado: AVANZADO / DOS DEPENDENCIAS EXTERNAS PENDIENTES
 
 ## Objetivo
 
-Certificar la cadena operativa completa:
+Certificar y proteger la cadena operativa completa:
 
 GESTORA → TIENDA → CLIENTE → CARRITO → CHECKOUT → PEDIDO → WOOCOMMERCE → STOCK → ATRIBUCIÓN → COMISIÓN → GESTORA → ADMIN → ESTADO
 
@@ -15,124 +15,106 @@ GESTORA → TIENDA → CLIENTE → CARRITO → CHECKOUT → PEDIDO → WOOCOMMER
 - Rama: `main`
 - Render app: `ernesto-rondon-nexo`
 - Render worker: `nexo-content-worker`
-- Auto deploy: activo en ambos servicios
+- Auto deploy: activo
 - Producción principal: `https://nexotienda.casavivadecuba.com`
-- Último deploy auditado: LIVE
+- WooCommerce continúa como fuente transaccional de catálogo, precio, stock y pedidos.
+- NEXO DB conserva gestoras, atribución, snapshots, ledger, payouts, configuración administrativa y reconciliación.
 
-## Certificación por tramo
+## Estado de la cadena comercial
 
-### 1. Tienda pública → carrito
-Estado: IMPLEMENTADO / NO EJECUTADO END-TO-END EN ESTA AUDITORÍA
+### E2E de gestora
+Estado: CERTIFICADO
 
-`/api/commerce/cart` crea sesión de carrito, conserva referral y proyecta precios comerciales por gestora.
+La prueba real de gestora completó registro, autenticación, referral, selección de producto, carrito, checkout, pedido WooCommerce, atribución `gestora_store`, snapshot comercial, ledger de comisión, visibilidad en la oficina de gestora y cancelación del pedido QA.
 
-### 2. Carrito → checkout
-Estado: IMPLEMENTADO
+### Centro de Control v1
+Estado: CERTIFICADO
 
-`/api/commerce/checkout` valida datos, crea pedido WooCommerce y aplica idempotencia.
+Admin, pedidos, productos/inventario, variantes, gestoras, clientes, comisiones/pagos, marketing, analítica, configuración e incidencias están construidos y desplegados. Smoke técnico de producción: `NEXO_ADMIN_V1_QA_RESULT status=passed`.
 
-### 3. Checkout → atribución
-Estado: IMPLEMENTADO
+## Riesgo 1 — Registro sin verificación real de email
+Estado: CORREGIDO EN CÓDIGO / PROVEEDOR DE CORREO PENDIENTE
 
-Metadata relevante que se escribe en WooCommerce:
+### FIX
+- `app/api/gestoras/auth/register/route.ts` ahora exige que el email firmado en `nexo_email_verified` coincida exactamente con el email que intenta registrarse.
+- Un registro sin cookie de email verificado responde 403 y no crea la gestora.
+- `app/impulsa/login/page.tsx` ya no pasa directamente del correo al formulario de registro: primero solicita un código, obliga a verificarlo y después abre el registro.
+- El correo del formulario final queda bloqueado para evitar cambiarlo después de verificar otro email.
+- Reenvío de código separado del submit para evitar una ruta incorrecta.
 
-- `_nexo_marketplace_order`
-- `_nexo_checkout_idempotency_key`
-- `_nexo_referral_requested`
-- `_nexo_referral_effective`
-- `_nexo_effective_gestora_id`
-- `_nexo_effective_gestora_name`
-- `_nexo_effective_gestora_slug`
-- `_nexo_order_origin`
-- `_nexo_attribution_source`
-- `_nexo_ledger_owner`
+### QA real
+Resultado de producción:
 
-### 4. Checkout → snapshot comercial
-Estado: IMPLEMENTADO
+`NEXO_BLOCK0_AUTH_QA_RESULT {"status":"passed","checks":{"login":200,"invalidEmailRequest":true,"unverifiedRegistrationBlocked":true},"emailConfig":{"resend":false,"from":false}}`
 
-Se crea `nexo_order_commercial_snapshots` y se registra fallo de reconciliación si la escritura posterior al pedido falla.
+Esto certifica la protección del registro, pero también confirma que Render NO tiene configurados todavía:
 
-### 5. Gestora → selección de productos
-Estado: CORREGIDO
+- `RESEND_API_KEY`
+- `NEXO_EMAIL_FROM`
 
-Una selección vacía ya no publica todo el catálogo. `commercialStorefront()` filtra exclusivamente por los IDs seleccionados.
+Sin esas dos variables nadie puede recibir el código. La aplicación falla de forma segura: no deja saltarse la verificación.
 
-### 6. Admin
-Estado: IMPLEMENTADO Y PROTEGIDO POR ROL
+## Riesgo 2 — Continuidad de la base de datos
+Estado: BLOQUEADO POR CAPACIDAD EXTERNA
 
-`/admin` comprueba actor autenticado y exige `role === "admin"` antes de cargar el centro de control.
+Postgres Render `nexo-studio` sigue en plan Free y expira el `2026-09-23T04:29:20.163684Z`.
 
-### 7. Pedidos admin
-Estado: IMPLEMENTADO
+La conexión directa del conector de Render sigue fallando porque exige SSL/TLS, aunque la aplicación sí conecta mediante `DATABASE_URL` y las pruebas dentro del servicio confirman que la base está operativa.
 
-Existen `/admin/pedidos` y `/admin/pedidos/[id]` con detalle operativo y acciones.
+### Supabase comprobado el 11-sep-2026
+Organización: `Ernesto Rondón` / `bwlootmoaihlmfpphlee`.
 
-### 8. Render / producción
-Estado: VALIDADO
+Proyectos:
+- `gestor-remesas` — ACTIVE_HEALTHY — us-east-1
+- `cuyana` — ACTIVE_HEALTHY — us-east-1
+- `ernest196391's Project` — INACTIVE — eu-west-3
 
-Los servicios están activos y el último deploy auditado terminó `live`. Los scripts de sincronización de catálogo están ejecutándose correctamente en el arranque.
+El plan Free permite 2 proyectos activos. Un intento de restaurar el proyecto inactivo fue rechazado por Supabase con el límite de `2 project limit`.
 
-## Hallazgos críticos
+Por tanto, no se puede crear ni restaurar un destino NEXO separado hasta hacer UNA de estas acciones:
 
-### P0 — Base de datos Render expira
+1. pausar/retirar uno de los dos proyectos activos;
+2. subir el plan de Supabase;
+3. elegir conscientemente compartir infraestructura con uno de esos proyectos, opción no recomendada porque aumenta el radio de impacto.
 
-Postgres `nexo-studio` es Free y expira el 2026-09-23. Render elimina las bases Free tras su ventana de gracia si no se actualizan o migran.
+No se pausó, borró ni sobrescribió Cuyana ni Remesas.
 
-Acción recomendada: migrar a una base Postgres persistente antes de esa fecha.
+## Riesgo 3 — Scripts de QA/seed en cada arranque
+Estado: ELIMINADO
 
-### P0 — Auditoría SQL directa bloqueada
+Se retiraron del `start` normal los harness E2E, verificadores y el seed de proveedor que seguían ejecutándose en cada inicio aunque estuvieran protegidos. El arranque productivo queda reducido a la reconciliación de catálogo necesaria y `next start`.
 
-La herramienta SQL externa no logra conectar porque el servidor exige SSL/TLS. La aplicación sí usa `DATABASE_URL`, pero la inspección directa desde el conector falla.
-
-### P0 — Registro de gestoras no obliga verificación de email
-
-`app/api/gestoras/auth/register/route.ts` calcula `verifiedEmail(...)`, pero actualmente no compara el email verificado con el email que intenta registrarse. Además, el flujo `app/impulsa/login/page.tsx` pasa desde la pantalla inicial directamente a registro sin solicitar el código de verificación.
-
-Esto debe corregirse antes de considerar el onboarding certificado.
-
-### P1 — Falta certificación transaccional completa
-
-Aún debe ejecutarse una transacción controlada real que compruebe en una sola prueba:
-
-1. tienda de una gestora activa;
-2. producto seleccionado con stock conocido;
-3. carrito con referral;
-4. checkout;
-5. creación de pedido Woo;
-6. metadata de gestora;
-7. snapshot comercial;
-8. movimiento de comisión;
-9. aparición en oficina de gestora;
-10. aparición en admin;
-11. cambio de estado;
-12. efecto real sobre stock;
-13. cancelación/reversión cuando corresponda.
-
-## Resultado del Bloque 0
+## Estado actual del Bloque 0
 
 PASS:
-- arquitectura de checkout;
-- idempotencia;
-- metadata de atribución;
-- separación WooCommerce/NEXO;
-- storefront de gestora filtrado;
-- admin protegido por rol;
-- Render y auto deploy;
-- build actual en producción.
+- E2E transaccional real de gestora;
+- checkout e idempotencia;
+- atribución y fallback de metadata WooCommerce;
+- snapshot y comisión/ledger;
+- oficina de gestora;
+- Centro de Control v1;
+- protección de registro contra email no verificado;
+- onboarding obliga a pasar por código;
+- build y producción;
+- limpieza de scripts QA/seed del arranque.
 
-FAIL / BLOQUEADO:
-- acceso SQL directo por SSL/TLS;
-- onboarding no fuerza verificación de email;
-- prueba E2E real completa no puede declararse cerrada sólo por inspección de código.
+PENDIENTE EXTERNO:
+- configurar proveedor real de email (`RESEND_API_KEY` + `NEXO_EMAIL_FROM`) y realizar prueba de entrega;
+- liberar capacidad o ampliar Supabase para crear un destino NEXO separado;
+- copiar y comparar la base Render → Supabase;
+- probar NEXO contra la copia;
+- cambiar `DATABASE_URL` sólo después del PASS;
+- mantener Render como rollback hasta certificar el corte.
 
 ## Regla de cierre
 
-El Bloque 0 sólo pasa a CERTIFICADO cuando una compra real de gestora atraviesa toda la cadena y sus efectos quedan comprobados en WooCommerce, Postgres, oficina de gestora y admin.
+El Bloque 0 queda CERTIFICADO cuando:
+
+1. una gestora real puede recibir y verificar el email de alta;
+2. NEXO opera contra una base persistente que no tenga la caducidad actual del Render Free;
+3. los conteos/esquema críticos coinciden antes y después de la migración;
+4. una prueba E2E posterior al cambio de base vuelve a pasar.
 
 ## Siguiente acción exacta
 
-1. Resolver primero la continuidad de Postgres (migración recomendada a Supabase Free si el tamaño de la base cabe dentro del límite gratuito).
-2. Corregir el flujo de verificación de email.
-3. Ejecutar una compra E2E controlada con un producto de stock conocido.
-4. Verificar atribución, snapshot, comisión, stock y admin.
-5. Cancelar/revertir el pedido de prueba si corresponde y comprobar restauración.
+Resolver las dos dependencias externas: proveedor de correo y capacidad de Supabase. Todo lo demás necesario para el Bloque 0 ya puede continuar desde el código actual sin reabrir los bloques comerciales cerrados.
