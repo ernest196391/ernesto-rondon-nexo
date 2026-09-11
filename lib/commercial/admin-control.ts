@@ -1,5 +1,5 @@
 import {Pool} from "pg";
-import {ensureCommercialSchema,setGestoraStatus} from "./db";
+import {ensureCommercialSchema,payPayout,requestPayout,setGestoraStatus} from "./db";
 
 let pool:Pool|undefined;
 function db(){const connectionString=process.env.DATABASE_URL;if(!connectionString)throw new Error("DATABASE_URL is not configured");pool??=new Pool({connectionString,max:3,idleTimeoutMillis:30_000});return pool;}
@@ -22,6 +22,8 @@ export async function adminControlData(){await ensureAdminSchema();const [gestor
 export async function adminSetGestoraStatus(id:string,status:"pending"|"active"|"suspended",actorId:string){await setGestoraStatus(id,status,actorId,crypto.randomUUID());}
 export async function adminSaveSetting(key:string,value:string){await ensureAdminSchema();if(!/^[a-z0-9_.-]{2,80}$/i.test(key))throw new Error("Clave inválida");await db().query(`INSERT INTO nexo_admin_settings(key,value,updated_at) VALUES($1,$2,NOW()) ON CONFLICT(key) DO UPDATE SET value=EXCLUDED.value,updated_at=NOW()`,[key,value]);}
 export async function adminCreateCampaign(input:{title:string;subtitle:string;ctaLabel:string;ctaUrl:string}){await ensureAdminSchema();if(input.title.trim().length<3)throw new Error("Título demasiado corto");const id=`mkt_${crypto.randomUUID()}`;await db().query(`INSERT INTO nexo_marketing_campaigns(id,title,subtitle,cta_label,cta_url,status) VALUES($1,$2,$3,$4,$5,'draft')`,[id,input.title.trim(),input.subtitle.trim(),input.ctaLabel.trim(),input.ctaUrl.trim()]);return id;}
-export async function adminSetCampaignStatus(id:string,status:"draft"|"active"|"paused"){await ensureAdminSchema();await db().query(`UPDATE nexo_marketing_campaigns SET status=$2,updated_at=NOW() WHERE id=$1`,[id,status]);}
-export async function adminResolveIncident(id:string){await ensureAdminSchema();await db().query(`UPDATE nexo_commercial_reconciliation SET status='resolved',updated_at=NOW() WHERE id=$1`,[id]);}
+export async function adminSetCampaignStatus(id:string,status:"draft"|"active"|"paused"){await ensureAdminSchema();if(status==="active")await db().query(`UPDATE nexo_marketing_campaigns SET status='paused',updated_at=NOW() WHERE status='active' AND id<>$1`,[id]);await db().query(`UPDATE nexo_marketing_campaigns SET status=$2,updated_at=NOW() WHERE id=$1`,[id,status]);}
+export async function adminResolveIncident(id:string){await ensureAdminSchema();const r=await db().query(`UPDATE nexo_commercial_reconciliation SET status='resolved',updated_at=NOW() WHERE id=$1 RETURNING id`,[id]);if(!r.rowCount)throw new Error("Incidencia no encontrada");}
 export async function activeMarketingCampaign(){await ensureAdminSchema();const r=await db().query(`SELECT id,title,subtitle,cta_label AS "ctaLabel",cta_url AS "ctaUrl" FROM nexo_marketing_campaigns WHERE status='active' ORDER BY updated_at DESC LIMIT 1`);return r.rows[0]??null;}
+export async function adminRequestPayout(gestoraId:string,currency:string,actorId:string){return requestPayout({gestoraId,currency,actorId,requestId:crypto.randomUUID()});}
+export async function adminPayPayout(payoutId:string,method:string,reference:string,evidenceUrl:string,actorId:string){return payPayout({payoutId,method,reference,evidenceUrl,actorId,requestId:crypto.randomUUID()});}
