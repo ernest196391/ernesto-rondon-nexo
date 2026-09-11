@@ -14,7 +14,7 @@ Documento de continuidad para que otro chat o agente pueda auditar el estado rea
 - `/admin/pedidos` y `/admin/pedidos/[id]` están operativos con filtros y acciones de estado.
 - La compra E2E de gestora del Bloque 1 terminó PASS con margen +5 USD, pedido WooCommerce, atribución `gestora_store`, snapshot, ledger, visibilidad en dashboard de gestora y cancelación del pedido QA.
 
-## SUBBLOQUE PRODUCTOS / INVENTARIO — CERRADO
+## SUBBLOQUE PRODUCTOS / INVENTARIO — CERRADO Y CERTIFICADO
 
 ### Implementado
 - Ruta administrativa real `/admin/productos`.
@@ -32,13 +32,17 @@ Documento de continuidad para que otro chat o agente pueda auditar el estado rea
 - Precio, stock y estado de cada variante se escriben en la variación WooCommerce correspondiente.
 - API `/api/admin/products` exige rol `admin` y valida producto, variante, precio, cantidad y estado.
 - No existe inventario paralelo en NEXO.
+- Eliminado el cliente de UI duplicado/obsoleto para evitar dos implementaciones divergentes del mismo módulo.
 
 ### QA / evidencia
 - Build Render del 11-sep-2026: SUCCESS.
-- Servicio reiniciado y LIVE en dominio principal.
-- Next.js incluye `/admin/productos` y `/api/admin/products` en build productivo.
-- Último despliegue queda operativo tras incorporar gestión segura de productos variables.
-- No se alteraron productos reales para forzar una prueba destructiva; la validación se hizo por build, rutas productivas, contratos y la integración Woo ya utilizada por catálogo/pedidos.
+- Servicio LIVE en el dominio principal.
+- Next.js incluye `/admin/productos`, `/admin/productos/[id]` y `/api/admin/products` en el build productivo.
+- Smoke productivo seguro `products-block-close-20260911-1202`: PASS.
+- Producto simple probado mediante escritura no-op en WooCommerce: producto `1017`, respuesta verificada `ok=true`.
+- Producto variable probado mediante escritura no-op en WooCommerce: producto `1146`, variante `1148`, respuesta verificada `ok=true`.
+- La prueba escribió exactamente los valores ya existentes; no modificó precio, stock ni estado comercial real.
+- Resultado de Render: `NEXO_PRODUCT_ADMIN_SMOKE_RESULT` con `status=passed`.
 
 ## FIX + RULE + TEST
 
@@ -49,7 +53,7 @@ Se añadió edición administrativa de catálogo sin crear una segunda fuente de
 Todo cambio administrativo de precio, stock o publicación debe escribirse en WooCommerce. NEXO puede presentar y auditar la operación, pero no duplicar el valor operativo.
 
 ### TEST
-Cambiar un producto QA o de prueba desde `/admin/productos`, recargar y confirmar que el valor leído por NEXO coincide con WooCommerce.
+Prueba productiva segura de lectura + escritura no-op contra WooCommerce y verificación de respuesta para producto simple. Para una modificación comercial real, el valor recargado en NEXO debe coincidir con WooCommerce.
 
 ### FIX 2026-09-11-PRODUCTS-02
 Los productos variables dejaron de tratarse como simples.
@@ -58,7 +62,7 @@ Los productos variables dejaron de tratarse como simples.
 Nunca modificar precio o existencia del producto padre cuando el valor comercial vive en variaciones. Las variantes se administran de forma independiente.
 
 ### TEST
-Abrir un producto variable en `/admin/productos/[id]`; cada variante debe conservar su propio precio, stock y publicación sin alterar las demás.
+Prueba productiva segura de una variante mediante lectura + escritura no-op y verificación de la misma variante, sin alterar las demás.
 
 ## Estado de la etapa Centro de Control
 
