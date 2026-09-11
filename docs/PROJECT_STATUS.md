@@ -6,7 +6,16 @@ Fecha de auditoría: 2026-09-11 UTC. Rama documental: `docs/product-studio-one-b
 
 Product Studio One aún no existe como repositorio ni aplicación independiente. Su implementación más cercana es NEXO Product Studio dentro de `ernest196391/ernesto-rondon-nexo`. NEXO combina escaparate, oficina de gestoras, administración, Product Studio, Postgres de Render y WooCommerce. Cuyana vive en `ernest196391/cuyana-app`, se despliega separadamente y usa Supabase. Casa Viva conserva el modelo operativo más maduro para pedidos, atribución, comisiones, inventario y mensajería.
 
-La extracción segura es progresiva: definir contratos en NEXO, crear después un repositorio independiente y migrar módulos probados sin alterar los canales operativos.
+La extracción segura es progresiva. El scaffold independiente ya está preparado localmente con workspace, CI, contratos TypeScript y migración multiempresa; su publicación está bloqueada únicamente por la creación del repositorio remoto.
+
+## Bloque 1 en curso
+
+- `packages/core-contracts`: organización, tienda, membresía, producto, hechos, publicación y pedido.
+- `supabase/migrations`: organizaciones, tiendas, membresías, productos, fuentes, evidencia, hechos, conocimiento y auditoría.
+- RLS obligatorio y políticas por membresía; sin autorización basada en `user_metadata`.
+- `audit_log` es append-only para usuarios autenticados.
+- La creación inicial de organizaciones queda reservada a un flujo administrativo server-side; no existe política pública de bootstrap.
+- Ningún dato de NEXO o Cuyana ha sido migrado.
 
 ## Despliegues comprobados
 
