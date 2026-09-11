@@ -1,11 +1,20 @@
 import type { ProductKnowledgeSeed } from "./knowledge";
 
 type SeedInput={id:string;sku:string;brand?:string;model?:string;type:string;summary:string;specs:string[];aliases?:string[];confidence?:ProductKnowledgeSeed["confidence"];gaps?:string[]};
+const structuredSpec=(text:string,confidence:ProductKnowledgeSeed["confidence"]):ProductKnowledgeSeed["specs"][number]=>{
+  const separator=text.indexOf(":");
+  return {
+    name:separator<0?"Dato confirmado":text.slice(0,separator).trim(),
+    value:separator<0?text:text.slice(separator+1).trim(),
+    confidence,
+    evidence:"Notas y fotografías del proveedor recibidas el 10-09-2026",
+  };
+};
 const make=(x:SeedInput):ProductKnowledgeSeed=>({
   id:x.id,woocommerceProductId:null,sku:x.sku,brand:x.brand??null,model:x.model??null,
   aliases:x.aliases??[],productType:x.type,summary:x.summary,customerDescription:x.summary,
   confidence:x.confidence??"confirmed_nexo",
-  specs:x.specs.map((value,index)=>({name:`Dato ${index+1}`,value,confidence:x.confidence??"confirmed_nexo",evidence:"Notas y fotografías del proveedor recibidas el 10-09-2026"})),
+  specs:x.specs.map((value)=>structuredSpec(value,x.confidence??"confirmed_nexo")),
   faq:[
     {question:"¿Está disponible ahora?",answer:"La existencia y el precio se confirman antes de completar la compra.",audience:"customer",confidence:"confirmed_nexo"},
     {question:"¿Cuánto tiempo puede alimentar mis equipos?",answer:"Depende del consumo continuo, el pico de arranque y las pérdidas del sistema. Se calcula con los datos de cada equipo antes de recomendar una solución.",audience:"customer",confidence:"confirmed_nexo"}
