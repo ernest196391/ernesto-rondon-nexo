@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "node scripts/verify-block1-existing-order.mjs & node scripts/run-block1-gestora-e2e.mjs & node scripts/verify-admin-products.mjs & node scripts/seed-supplier-batch-20260910.mjs; node scripts/reconcile-catalog-corrections.mjs; next start",
+    "start": "node scripts/verify-block1-existing-order.mjs & node scripts/run-block1-gestora-e2e.mjs & node scripts/verify-admin-products.mjs & node scripts/verify-admin-control-v1.mjs & node scripts/seed-supplier-batch-20260910.mjs; node scripts/reconcile-catalog-corrections.mjs; next start",
     "catalog:repair": "node scripts/reconcile-catalog-corrections.mjs && node scripts/fix-panel-image-20260904.mjs",
     "catalog:sync": "node scripts/seed-pilot-products.mjs && node scripts/seed-gestora-products.mjs && node scripts/seed-furniture-products.mjs && node scripts/seed-product-batch-20260902.mjs && node scripts/seed-energy-batch-20260904.mjs && node scripts/seed-supplier-batch-20260910.mjs && node scripts/fix-panel-image-20260904.mjs && node scripts/reconcile-catalog-corrections.mjs",
     "lint": "eslint .",
