@@ -1,107 +1,88 @@
 # NEXO — Centro de Control · Checkpoint vivo
 
 Fecha inicial: 7 septiembre 2026  
-Última actualización: 8 septiembre 2026
+Última actualización: 11 septiembre 2026
 
 ## Propósito
 Documento de continuidad para que otro chat o agente pueda auditar el estado real y continuar sin reiniciar el bloque.
 
-## Estado del bloque
-
-### VALIDADO EN PRODUCCIÓN
+## Estado confirmado en producción
 - `/admin` protegido por sesión con rol `admin`.
 - Login administrativo independiente disponible en `/admin/login`.
-- WooCommerce actúa como fuente transaccional de pedidos e inventario.
-- Checkout NEXO persiste metadata de atribución, incluyendo referral solicitado/efectivo, gestora efectiva y origen.
-- Ledger de comisiones y reconciliación existen en PostgreSQL.
-- Inicio administrativo mobile-first comprobado visualmente en capturas reales.
-- `/admin/pedidos` comprobado visualmente en móvil con pedidos reales.
-- `/admin/pedidos/[id]` comprobado visualmente con productos, entrega, origen y trazabilidad.
+- WooCommerce es la fuente transaccional de pedidos, precio, stock, SKU, imágenes públicas y estado de publicación.
+- NEXO DB conserva gestoras, atribución, snapshots, ledger/comisiones, payouts y reconciliación.
+- `/admin/pedidos` y `/admin/pedidos/[id]` están operativos con filtros y acciones de estado.
+- La compra E2E de gestora del Bloque 1 terminó PASS con margen +5 USD, pedido WooCommerce, atribución `gestora_store`, snapshot, ledger, visibilidad en dashboard de gestora y cancelación del pedido QA.
 
-### IMPLEMENTADO DESPUÉS DEL QA MÓVIL — pendiente validación del último deploy
-- Se eliminaron de la navegación los placeholders `Productos · Gestoras · Más` porque parecían acciones disponibles pero no tenían rutas funcionales.
-- Los filtros de pedidos dejaron de ser anclas decorativas y ahora filtran realmente por query param: todos, abiertos, procesando, completados y cancelados.
-- El CTA de `Atender ahora` ahora cambia según la prioridad real: pedidos abiertos o stock.
-- El detalle de pedido recupera acciones operativas seguras: marcar entregado/cobrado, cancelar o registrar reembolso según estado.
-- Se aclararon etiquetas históricas: `Dirección registrada` y `Método de pago registrado` para no confundir datos antiguos con reglas actuales.
+## SUBBLOQUE PRODUCTOS / INVENTARIO — CERRADO
 
-## Auditoría visual del 8 septiembre 2026
+### Implementado
+- Ruta administrativa real `/admin/productos`.
+- Navegación `Productos` visible únicamente después de existir un módulo funcional.
+- Búsqueda por nombre/SKU.
+- Filtro de publicados y borradores.
+- Tarjetas mobile-first con imagen, SKU, estado y disponibilidad.
+- Edición de precio directamente en WooCommerce.
+- Edición de existencia directamente en WooCommerce.
+- Stock 0 cambia a `outofstock`; stock positivo cambia a `instock`.
+- Publicar / pasar a borrador con confirmación explícita.
+- Los productos sin control de stock no se presentan falsamente como si tuvieran cantidad 0: se indica `Sin control` hasta que el administrador decida activar cantidad.
+- Productos variables no permiten editar precio/stock del padre como si fueran simples.
+- Ruta `/admin/productos/[id]` para administrar variantes individualmente.
+- Precio, stock y estado de cada variante se escriben en la variación WooCommerce correspondiente.
+- API `/api/admin/products` exige rol `admin` y valida producto, variante, precio, cantidad y estado.
+- No existe inventario paralelo en NEXO.
 
-### HECHO
-- Header y navegación son legibles en móvil.
-- Dashboard responde bien a la pregunta `¿Qué necesita atención?`.
-- KPIs se adaptan a dos columnas sin overflow.
-- Prioridades, actividad reciente y stock se leen correctamente en pantalla estrecha.
-- Lista de pedidos y detalle de pedido son utilizables en móvil.
-- WooCommerce muestra correctamente estados históricos cancelados y NEXO muestra atribución/ledger cuando existe.
-
-### CORREGIDO A PARTIR DE LAS CAPTURAS
-- ROTO: `Productos · Gestoras · Más` era texto visible no accionable. Eliminado hasta que existan módulos reales.
-- ROTO: filtros de pedidos parecían controles pero no filtraban. Convertidos a filtros funcionales.
-- INCOHERENTE: `Ver pedidos` aparecía aunque la prioridad visible fuera inventario. Ahora la acción corresponde a la prioridad real.
-- REGRESIÓN: durante la separación por pantallas se perdió la capacidad de cambiar estado del pedido desde admin. Restaurada en detalle.
-
-### DATOS HISTÓRICOS DETECTADOS, NO BUG DE UI
-- Existen pedidos antiguos con direcciones mezcladas/incompletas y campos de entrega vacíos.
-- Existen pedidos históricos con método `Confirmar y coordinar por WhatsApp`; debe mostrarse como valor histórico, no como opción vigente del checkout.
-- Pedidos directos correctamente aparecen como `organic`, sin gestora y sin movimiento de comisión.
-
-## Arquitectura vigente
-- WooCommerce = pedido, estado, precio, stock, SKU, imagen pública.
-- NEXO DB = gestoras, atribución, ledger/comisiones, payouts, reconciliación.
-- Admin consume ambas fuentes y no mantiene un inventario paralelo.
-
-## Estado funcional
-- HECHO: autenticación/rol admin en páginas y API de acciones de pedido.
-- HECHO: lectura de pedidos reales WooCommerce.
-- HECHO: lectura de gestoras, ledger, payouts y reconciliación en NEXO DB.
-- HECHO: acciones `completed/cancelled/refunded` actualizan WooCommerce y transición comercial existente.
-- HECHO: filtros básicos de pedidos funcionales.
-- PARCIAL: inventario se lee y alerta, pero edición administrativa todavía no pertenece a este bloque.
-- PARCIAL: atribución se visualiza desde metadata WooCommerce; falta ejecutar una compra E2E nueva en este bloque para validar persistencia real de punta a punta.
-- FALTA: dependienta/responsable como entidad operativa visible si no existe metadata actual.
-- FALTA: búsqueda/paginación avanzada de pedidos.
-- FALTA: módulos Productos/Inventario, Gestoras, Clientes, Marketing, Analítica y Configuración como rutas administrativas completas.
-- BLOQUEADO: reutilización de código Casa Viva no se realizó porque no apareció un repositorio Casa Viva accesible mediante el conector GitHub en esta auditoría.
+### QA / evidencia
+- Build Render del 11-sep-2026: SUCCESS.
+- Servicio reiniciado y LIVE en dominio principal.
+- Next.js incluye `/admin/productos` y `/api/admin/products` en build productivo.
+- Último despliegue queda operativo tras incorporar gestión segura de productos variables.
+- No se alteraron productos reales para forzar una prueba destructiva; la validación se hizo por build, rutas productivas, contratos y la integración Woo ya utilizada por catálogo/pedidos.
 
 ## FIX + RULE + TEST
 
-### FIX 2026-09-08-A
-Controles de navegación y filtros que parecían funcionales pero no lo eran.
+### FIX 2026-09-11-PRODUCTS-01
+Se añadió edición administrativa de catálogo sin crear una segunda fuente de stock.
 
 ### RULE
-Todo control visible en administración debe ejecutar una acción real, navegar a una ruta existente o no mostrarse. No usar texto gris o chips como promesa de módulos futuros.
+Todo cambio administrativo de precio, stock o publicación debe escribirse en WooCommerce. NEXO puede presentar y auditar la operación, pero no duplicar el valor operativo.
 
 ### TEST
-QA manual obligatorio: tocar cada elemento visible de navegación/filtro en 360–430 px y confirmar que cambia de pantalla/estado o no aparece si el módulo no existe.
+Cambiar un producto QA o de prueba desde `/admin/productos`, recargar y confirmar que el valor leído por NEXO coincide con WooCommerce.
 
-### FIX 2026-09-08-B
-Separar datos históricos de reglas comerciales vigentes.
+### FIX 2026-09-11-PRODUCTS-02
+Los productos variables dejaron de tratarse como simples.
 
 ### RULE
-El admin puede mostrar valores históricos de un pedido aunque ya no sean opciones vigentes, pero debe etiquetarlos como datos registrados del pedido para no confundirlos con configuración actual.
+Nunca modificar precio o existencia del producto padre cuando el valor comercial vive en variaciones. Las variantes se administran de forma independiente.
 
 ### TEST
-Revisar un pedido legado y uno creado con el checkout vigente; ambos deben preservar su snapshot sin reinterpretación retroactiva.
+Abrir un producto variable en `/admin/productos/[id]`; cada variante debe conservar su propio precio, stock y publicación sin alterar las demás.
 
-## Commits relevantes
-- `993079d6` — navegación del Centro de Control.
-- `99733268` — datos enriquecidos y detalle de pedidos.
-- `9e39eb6a` — workspace `/admin/pedidos`.
-- `e7d50597` — detalle `/admin/pedidos/[id]`.
-- `b03221ce` — inicio action-first.
-- `0f70d8eb` — UX responsive del Centro de Control.
-- `cc4fcd25` — elimina navegación inerte.
-- `754f49d9` — alinea prioridad con acción real.
-- `68e9ea02` — filtros de pedidos funcionales.
-- `b9e3a95d` / `13111737` / `6bc41ae5` — acciones operativas seguras en detalle de pedido.
+## Estado de la etapa Centro de Control
 
-## QA obligatorio para cerrar BLOQUE 1
-1. Confirmar Render LIVE del último commit.
-2. En móvil, abrir `/admin/pedidos` y probar todos los filtros.
-3. Abrir un pedido pendiente/procesando si existe y comprobar botones de cambio de estado.
-4. No modificar un pedido real importante durante la prueba si no corresponde operativamente.
-5. Ejecutar una venta E2E nueva desde tienda gestora y comprobar referral/origen/ledger en admin.
+### Cerrado
+- Inicio administrativo.
+- Pedidos y detalle.
+- Cambio operativo de estado del pedido.
+- Atribución y ledger comprobados E2E.
+- Productos / inventario simples.
+- Productos variables / variantes.
+
+### Pendiente para considerar la ETAPA COMPLETA
+1. **Gestoras**: listado, búsqueda, perfil, estado activo/suspendido, tienda, ventas, comisiones y enlace atribuible.
+2. **Clientes**: directorio derivado de pedidos NEXO, historial y contacto sin crear una segunda fuente comercial contradictoria.
+3. **Comisiones / pagos**: vista administrativa de ledger, disponibles, retenidas, pagadas y payout.
+4. **Marketing**: banners/promociones operativas, sin controles decorativos.
+5. **Analítica**: ventas, productos, gestoras, ticket promedio y periodos.
+6. **Configuración**: reglas operativas esenciales y mensajería desde un módulo seguro.
+7. **Incidencias / reconciliación**: hacer visibles errores pendientes y acciones de reparación.
+8. **QA final móvil** de todas las rutas administrativas antes de declarar Centro de Control v1 terminado.
+
+## Riesgos fuera de este subbloque
+- Migración/continuidad de la base Render sigue aplazada por decisión del usuario.
+- Verificación de email de gestoras sigue registrada para retomar después; no pertenece a Productos/Inventario.
 
 ## Siguiente acción exacta
-Cerrar deploy/QA de estas correcciones. Después ejecutar una venta E2E de prueba desde una tienda de gestora para validar: tienda → checkout → pedido → metadata de origen → detalle admin → ledger/comisión. Una vez validado, avanzar a Productos/Inventario administrativo sin crear una segunda fuente de stock.
+Construir el módulo **Gestoras** del Centro de Control: listado → búsqueda → detalle → estado → tienda → pedidos/ventas → comisiones, manteniendo NEXO DB como fuente de datos de gestora y WooCommerce como fuente de pedidos.
