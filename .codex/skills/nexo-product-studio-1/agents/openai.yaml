@@ -1,0 +1,8 @@
+interface:
+  display_name: "NEXO Product Studio 1"
+  short_description: "Investiga, prepara y publica productos NEXO"
+  brand_color: "#075E54"
+  default_prompt: "Usa $nexo-product-studio-1 para procesar estas fotos y notas hasta una ficha verificada y publicable."
+
+policy:
+  allow_implicit_invocation: true

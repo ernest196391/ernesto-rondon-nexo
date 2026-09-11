@@ -80,6 +80,27 @@ async function reconcile() {
   } else {
     console.warn("[nexo-catalog-reconcile] No se encontró NEXO-GF-8816.");
   }
+
+  const boviet = await productBySku("NEXO-BOVIET-BVM8611M-620");
+  if (boviet) {
+    const updated = await woo(`/products/${boviet.id}`, {
+      method: "PUT",
+      body: JSON.stringify({
+        status: "draft",
+        catalog_visibility: "hidden",
+        meta_data: [
+          ...(Array.isArray(boviet.meta_data)
+            ? boviet.meta_data.filter((item) => item?.key !== "nexo_archived_reason")
+            : []),
+          {
+            key: "nexo_archived_reason",
+            value: "Archived by Product Studio 1: out of stock and unsuitable blank imagery, 2026-09-10",
+          },
+        ],
+      }),
+    });
+    console.log(`[nexo-catalog-reconcile] BOVIET ${updated.id} -> ${updated.status}, visibility=${updated.catalog_visibility}`);
+  }
 }
 
 reconcile().catch((error) => {
