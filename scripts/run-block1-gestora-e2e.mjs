@@ -69,21 +69,26 @@ async function request(path, { method = "GET", body, jar, origin = true } = {}) 
 }
 
 async function wooOrder(orderId) {
-  const store = String(process.env.WC_STORE_URL || "").replace(/\/$/, "");
-  const key = process.env.WC_CONSUMER_KEY || "";
-  const secret = process.env.WC_CONSUMER_SECRET || "";
+  const store = String(process.env.WOOCOMMERCE_URL || "").replace(/\/$/, "");
+  const key = process.env.WOOCOMMERCE_CONSUMER_KEY || "";
+  const secret = process.env.WOOCOMMERCE_CONSUMER_SECRET || "";
   if (!store || !key || !secret) throw new Error("WooCommerce credentials are not configured");
-  const auth = Buffer.from(`${key}:${secret}`).toString("base64");
-  const r = await fetch(`${store}/wp-json/wc/v3/orders/${orderId}`, { headers: { Authorization: `Basic ${auth}`, Accept: "application/json" } });
+  const url = new URL(`${store}/wp-json/wc/v3/orders/${orderId}`);
+  url.searchParams.set("consumer_key", key);
+  url.searchParams.set("consumer_secret", secret);
+  const r = await fetch(url, { headers: { Accept: "application/json" } });
   const data = await r.json();
   if (!r.ok) throw new Error(`Woo order read failed ${r.status}: ${JSON.stringify(data).slice(0, 400)}`);
-  return { store, auth, data };
+  return { store, key, secret, data };
 }
 
-async function cancelWooOrder(store, auth, orderId) {
-  const r = await fetch(`${store}/wp-json/wc/v3/orders/${orderId}`, {
+async function cancelWooOrder(store, key, secret, orderId) {
+  const url = new URL(`${store}/wp-json/wc/v3/orders/${orderId}`);
+  url.searchParams.set("consumer_key", key);
+  url.searchParams.set("consumer_secret", secret);
+  const r = await fetch(url, {
     method: "PUT",
-    headers: { Authorization: `Basic ${auth}`, "Content-Type": "application/json", Accept: "application/json" },
+    headers: { "Content-Type": "application/json", Accept: "application/json" },
     body: JSON.stringify({ status: "cancelled" }),
   });
   const data = await r.json();
@@ -144,6 +149,10 @@ async function main() {
   if (!summary.referralCode) throw new Error(`dashboard did not expose referralCode; keys=${Object.keys(dashboard).join(",")}`);
   mark("dashboard_authenticated", true, `ref=${summary.referralCode}`);
 
+  r = await request("/api/gestoras/dashboard", { method: "POST", jar, body: { action: "price_rule", mode: "fixed", scope: "global", value: 5, minFinal: "", maxFinal: "", rounding: 0.01, currency: "USD" } });
+  if (!r.response.ok) throw new Error(`margin rule ${r.response.status}: ${JSON.stringify(r.data)}`);
+  mark("gestora_margin_rule", true, "+5 USD");
+
   const candidates = (dashboard.catalog || []).filter((p) => p && p.stockStatus === "instock" && Number(p.price) > 0).sort((a, b) => Number(a.price) - Number(b.price));
   if (!candidates.length) throw new Error("No in-stock priced catalog product available for E2E");
 
@@ -193,29 +202,37 @@ async function main() {
     }
   });
   if (!r.response.ok) throw new Error(`checkout ${r.response.status}: ${JSON.stringify(r.data)}`);
-  summary.orderId = Number(r.data?.orderId);
+  summary.orderId = Number(r.data?.orderId ?? r.data?.order?.id);
   if (!Number.isInteger(summary.orderId) || summary.orderId <= 0) throw new Error(`checkout returned invalid orderId: ${JSON.stringify(r.data)}`);
   mark("checkout_created", true, `order=${summary.orderId}`);
 
   const woo = await wooOrder(summary.orderId);
   const meta = Object.fromEntries((woo.data.meta_data || []).map((x) => [x.key, x.value]));
-  const wanted = ["_nexo_marketplace_order","_nexo_referral_effective","_nexo_effective_gestora_id","_nexo_effective_gestora_name","_nexo_effective_gestora_slug","_nexo_order_origin","_nexo_attribution_source","_nexo_checkout_idempotency_key"];
-  summary.wooMeta = Object.fromEntries(wanted.map((k) => [k, meta[k] ?? null]));
-  const attributionOk = meta._nexo_marketplace_order === "yes" && meta._nexo_order_origin === "gestora_store" && String(meta._nexo_effective_gestora_slug || "") === summary.slug && String(meta._nexo_referral_effective || "") === summary.referralCode;
+  const note = String(woo.data.customer_note || "");
+  const noteValue = (label) => note.match(new RegExp(`(?:^|\\n)${label}:\\s*(.+)`, "i"))?.[1]?.trim() || "";
+  const read = (key) => meta[key] ?? meta[String(key).replace(/^_/, "")] ?? null;
+  const origin = String(read("_nexo_order_origin") || noteValue("Origen NEXO") || "");
+  const gestoraName = String(read("_nexo_effective_gestora_name") || noteValue("Gestora") || "");
+  const ref = String(read("_nexo_referral_effective") || noteValue("Código referido") || "");
+  summary.wooMeta = { origin, gestoraName, ref, slug: read("_nexo_effective_gestora_slug"), gestoraId: read("_nexo_effective_gestora_id") };
+  const attributionOk = origin === "gestora_store" && gestoraName === publicName && ref === summary.referralCode;
   if (!attributionOk) throw new Error(`Woo attribution mismatch: ${JSON.stringify(summary.wooMeta)}`);
   mark("woo_attribution", true, JSON.stringify(summary.wooMeta));
 
   summary.dbOrderRows = await inspectDbOrder(summary.orderId);
-  mark("db_snapshot_ledger", summary.dbOrderRows.length > 0, JSON.stringify(summary.dbOrderRows));
-  if (!summary.dbOrderRows.length) throw new Error("No NEXO DB row found for Woo order");
+  const hasSnapshot = summary.dbOrderRows.some((x) => x.table === "nexo_order_commercial_snapshots");
+  const hasLedger = summary.dbOrderRows.some((x) => x.table === "nexo_commission_ledger");
+  mark("db_snapshot_ledger", hasSnapshot && hasLedger, JSON.stringify(summary.dbOrderRows));
+  if (!hasSnapshot || !hasLedger) throw new Error("Commercial snapshot or commission ledger missing");
 
   r = await request("/api/gestoras/dashboard", { jar });
   if (r.response.ok) {
     summary.dashboardSeesOrder = JSON.stringify(r.data).includes(String(summary.orderId));
   }
   mark("gestora_dashboard_order_visibility", summary.dashboardSeesOrder, summary.dashboardSeesOrder ? `order=${summary.orderId}` : "order id not found in dashboard payload");
+  if (!summary.dashboardSeesOrder) throw new Error("Gestora dashboard does not expose the order earning");
 
-  summary.cleanup = await cancelWooOrder(woo.store, woo.auth, summary.orderId);
+  summary.cleanup = await cancelWooOrder(woo.store, woo.key, woo.secret, summary.orderId);
   mark("cleanup_cancel_test_order", summary.cleanup === "cancelled", summary.cleanup);
 
   await pool.query("UPDATE nexo_gestora_profiles SET status='inactive',updated_at=NOW() WHERE slug=$1", [summary.slug]).catch(() => undefined);
