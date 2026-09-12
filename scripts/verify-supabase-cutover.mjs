@@ -23,7 +23,7 @@ try{
 
   const integrity=await pool.query(`
     SELECT
-      (SELECT COUNT(*)::int FROM nexo_gestora_credentials c LEFT JOIN nexo_gestora_profiles g ON g.id=c.gestora_id WHERE g.id IS NULL) AS orphan_credentials,
+      (SELECT COUNT(*)::int FROM nexo_gestora_credentials c LEFT JOIN nexo_gestora_profiles g ON g.user_id=c.user_id WHERE g.user_id IS NULL) AS orphan_credentials,
       (SELECT COUNT(*)::int FROM nexo_storefront_products p LEFT JOIN nexo_gestora_profiles g ON g.id=p.gestora_id WHERE g.id IS NULL) AS orphan_storefront_products,
       (SELECT COUNT(*)::int FROM nexo_commission_ledger l LEFT JOIN nexo_gestora_profiles g ON g.id=l.gestora_id WHERE g.id IS NULL) AS orphan_ledger,
       (SELECT COUNT(*)::int FROM nexo_product_knowledge_sources s LEFT JOIN nexo_product_knowledge k ON k.id=s.product_knowledge_id WHERE k.id IS NULL) AS orphan_knowledge_sources,
