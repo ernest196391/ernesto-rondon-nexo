@@ -50,6 +50,14 @@ class Jar {
   header() { return [...this.map.entries()].map(([k, v]) => `${k}=${v}`).join("; "); }
 }
 
+function verifiedEmailCookie(email) {
+  const secret = String(process.env.NEXO_GESTORA_SESSION_SECRET || "");
+  if (!secret) throw new Error("NEXO_GESTORA_SESSION_SECRET is not configured");
+  const payload = Buffer.from(JSON.stringify({ email, expires: Date.now() + 20 * 60_000 })).toString("base64url");
+  const signature = crypto.createHmac("sha256", secret).update(payload).digest("base64url");
+  return `${payload}.${signature}`;
+}
+
 async function request(path, { method = "GET", body, jar, origin = true } = {}) {
   const headers = { Accept: "application/json" };
   if (body !== undefined) headers["Content-Type"] = "application/json";
@@ -136,6 +144,11 @@ async function main() {
   const email = `nexo-e2e-${short}@example.invalid`;
   const password = `Nx!${crypto.createHash("sha256").update(runId).digest("hex").slice(0, 18)}aA9`;
   const publicName = `NEXO QA ${short}`;
+
+  // The production registration flow requires a verified-email cookie. The
+  // one-shot E2E harness signs its own short-lived QA cookie with the same
+  // server-side secret, without sending mail to a synthetic address.
+  jar.map.set("nexo_email_verified", verifiedEmailCookie(email));
 
   let r = await request("/api/gestoras/auth/register", { method: "POST", jar, body: { email, password, publicName, whatsapp: "+5355550000" } });
   if (!r.response.ok) throw new Error(`register ${r.response.status}: ${JSON.stringify(r.data)}`);
