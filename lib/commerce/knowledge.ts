@@ -127,7 +127,7 @@ async function ensureKnowledgeSchema() {
 
 const blankPlaybook = (): SalesPlaybook => ({ benefits: [], idealCustomer: [], sellingPoints: [], objections: [], warnings: [] });
 
-export const initialKnowledgeSeeds: ProductKnowledgeSeed[] = [
+const knowledgeSeeds: ProductKnowledgeSeed[] = [
   ...productBatchKnowledgeSeeds20260902,
   ...supplierKnowledgeSeeds20260910,
   {
@@ -645,6 +645,37 @@ export const initialKnowledgeSeeds: ProductKnowledgeSeed[] = [
     salesPlaybook: { benefits: ["Escurrido sin usar las manos", "Control de humedad", "Microfibra lavable", "Acceso a esquinas"], idealCustomer: ["Hogares con distintos tipos de pisos sellados", "Personas que buscan reducir el contacto con el agua sucia"], sellingPoints: ["El pedal permite decidir qué tan húmeda queda la mopa"], objections: [{ objection: "¿Sirve para madera?", answer: "Sí, sobre madera sellada y usando la mopa bien escurrida.", confidence: "confirmed_external" }], warnings: ["No decir que mata bacterias; el fabricante habla de retirar bacterias bajo condiciones de prueba."] }, gaps: []
   }
 ];
+
+export function dedupeKnowledgeSeeds(seeds: ProductKnowledgeSeed[]) {
+  const result: ProductKnowledgeSeed[] = [];
+  const identityIndex = new Map<string, number>();
+  for (const seed of seeds) {
+    const sku = seed.sku?.trim().toLowerCase() || null;
+    const keys = [
+      `id:${seed.id}`,
+      ...(sku ? [`sku:${sku}`] : []),
+      ...(seed.woocommerceProductId !== null ? [`woo:${seed.woocommerceProductId}`] : []),
+    ];
+    const existingIndex = keys.map((key) => identityIndex.get(key)).find((index) => index !== undefined);
+    if (existingIndex !== undefined) {
+      const existing = result[existingIndex];
+      if (existing.woocommerceProductId === null && seed.woocommerceProductId !== null) {
+        result[existingIndex] = seed;
+        for (const [key, index] of identityIndex) if (index === existingIndex) identityIndex.delete(key);
+        for (const key of keys) identityIndex.set(key, existingIndex);
+      }
+      continue;
+    }
+    const index = result.push(seed) - 1;
+    for (const key of keys) identityIndex.set(key, index);
+  }
+  return result;
+}
+
+// Detailed, channel-ready records are listed before the newer supplier batch.
+// When both describe the same SKU or Woo product, keep the first canonical
+// record instead of attempting to create a second product identity.
+export const initialKnowledgeSeeds = dedupeKnowledgeSeeds(knowledgeSeeds);
 
 function aliasKeys(seed: ProductKnowledgeSeed) {
   return [...new Set([seed.id, seed.sku ?? "", seed.brand ?? "", seed.model ?? "", String(seed.woocommerceProductId ?? ""), ...seed.aliases].filter(Boolean).map(normalizeKnowledgeIdentifier))];

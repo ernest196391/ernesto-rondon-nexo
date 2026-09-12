@@ -55,7 +55,7 @@ Esto certifica la protección del registro, pero también confirma que Render NO
 Sin esas dos variables nadie puede recibir el código. La aplicación falla de forma segura: no deja saltarse la verificación.
 
 ## Riesgo 2 — Continuidad de la base de datos
-Estado: BLOQUEADO POR CAPACIDAD EXTERNA
+Estado: COPIA CERTIFICADA / CORTE DE CONEXIÓN PENDIENTE
 
 Postgres Render `nexo-studio` sigue en plan Free y expira el `2026-09-23T04:29:20.163684Z`.
 
@@ -71,13 +71,20 @@ Proyectos:
 
 El plan Free permite 2 proyectos activos. Un intento de restaurar el proyecto inactivo fue rechazado por Supabase con el límite de `2 project limit`.
 
-Por tanto, no se puede crear ni restaurar un destino NEXO separado hasta hacer UNA de estas acciones:
+La capacidad se liberó y se creó el proyecto Supabase independiente `nexo-production`
+(`viwwlriwlwodrfukbgbj`). El 11-sep-2026 se ejecutó la copia Render → Supabase.
+El log `NEXO_DB_COPY_RESULT` terminó en `passed`, sin tablas desconocidas, y los
+conteos de las 27 tablas coinciden exactamente con el destino.
 
-1. pausar/retirar uno de los dos proyectos activos;
-2. subir el plan de Supabase;
-3. elegir conscientemente compartir infraestructura con uno de esos proyectos, opción no recomendada porque aumenta el radio de impacto.
+El importador temporal quedó desactivado con JWT obligatorio y respuesta 404. La ruta
+de exportación y el script temporal se retiraron del repositorio después de certificar
+la copia.
 
-No se pausó, borró ni sobrescribió Cuyana ni Remesas.
+El despliegue de Render quedó conectado a Supabase. La lectura productiva de
+`/api/knowledge/products` alcanzó `nexo-production` y detectó un conflicto entre
+dos semillas que describían el mismo SKU con identificadores distintos. El código
+ahora deduplica las semillas por ID, SKU y producto WooCommerce, dando prioridad al
+registro canónico enlazado con WooCommerce. No se pausó, borró ni sobrescribió Cuyana.
 
 ## Riesgo 3 — Scripts de QA/seed en cada arranque
 Estado: ELIMINADO
@@ -100,10 +107,8 @@ PASS:
 
 PENDIENTE EXTERNO:
 - configurar proveedor real de email (`RESEND_API_KEY` + `NEXO_EMAIL_FROM`) y realizar prueba de entrega;
-- liberar capacidad o ampliar Supabase para crear un destino NEXO separado;
-- copiar y comparar la base Render → Supabase;
-- probar NEXO contra la copia;
-- cambiar `DATABASE_URL` sólo después del PASS;
+- desplegar y verificar en producción la corrección de semillas idempotentes;
+- repetir el E2E comercial completo contra Supabase;
 - mantener Render como rollback hasta certificar el corte.
 
 ## Regla de cierre
@@ -117,4 +122,6 @@ El Bloque 0 queda CERTIFICADO cuando:
 
 ## Siguiente acción exacta
 
-Resolver las dos dependencias externas: proveedor de correo y capacidad de Supabase. Todo lo demás necesario para el Bloque 0 ya puede continuar desde el código actual sin reabrir los bloques comerciales cerrados.
+Desplegar la corrección de semillas, verificar health, conocimiento, login, panel
+administrativo y E2E comercial contra Supabase. Después, configurar el proveedor de
+correo y ejecutar una alta real con verificación.
