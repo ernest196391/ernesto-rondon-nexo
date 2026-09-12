@@ -107,7 +107,6 @@ PASS:
 
 PENDIENTE EXTERNO:
 - configurar proveedor real de email (`RESEND_API_KEY` + `NEXO_EMAIL_FROM`) y realizar prueba de entrega;
-- desplegar y verificar en producción la corrección de semillas idempotentes;
 - repetir el E2E comercial completo contra Supabase;
 - mantener Render como rollback hasta certificar el corte.
 
@@ -122,6 +121,8 @@ El Bloque 0 queda CERTIFICADO cuando:
 
 ## Siguiente acción exacta
 
-Desplegar la corrección de semillas, verificar health, conocimiento, login, panel
-administrativo y E2E comercial contra Supabase. Después, configurar el proveedor de
-correo y ejecutar una alta real con verificación.
+La corrección de semillas quedó desplegada en Render mediante `c10b196`. Health y
+conocimiento responden HTTP 200 y no hubo errores de runtime posteriores al
+despliegue. La siguiente acción es repetir login, panel administrativo y E2E
+comercial contra Supabase. Después, configurar el proveedor de correo y ejecutar
+una alta real con verificación.
