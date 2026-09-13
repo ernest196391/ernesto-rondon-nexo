@@ -1,5 +1,15 @@
 # Relevo actual
 
+## Hotfix 2026-09-13 — panel solar plegable
+
+- Objetivo: reparar la imagen rota de `NEXO-SOLAR-FOLD-120W` en NEXO y en Cuyana.
+- Resultado: reemplazo recibido del propietario, convertido a WebP 1080×720; eliminado el payload Base64 truncado; catálogo migrado a activo estático con versión `20260913`.
+- Archivos: `public/catalog/owner/panel-solar-plegable-120w.webp`, `app/api/catalog-image/panel-120w/route.ts`, `lib/commerce/catalog-images.ts` y documentación operativa.
+- Pruebas: ImageMagick decodifica el WebP; Vitest catálogo 5/5; typecheck PASS; build PASS.
+- Commit/despliegue: pendiente al escribir este relevo; Render debe desplegar automáticamente desde `main`.
+- Bloqueos: ninguno.
+- Siguiente acción exacta: comprobar el activo versionado y las tarjetas del producto en NEXO y Cuyana después del despliegue.
+
 - Fecha: 2026-09-11 UTC.
 - Objetivo: continuar el Bloque 0 operativo de NEXO y certificar Render → Supabase.
 - Resultado: copia certificada por conteos exactos de 27 tablas; `nexo-production`

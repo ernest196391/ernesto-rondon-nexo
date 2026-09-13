@@ -1,6 +1,23 @@
 # Tablero compartido
 
 ```yaml
+- id: NEXO-HOTFIX-PANEL-IMAGE-20260913
+  title: Reparar imagen del panel solar plegable 120 W en NEXO y Cuyana
+  status: done
+  owner: chatgpt
+  claimed_at: 2026-09-13T00:00:00Z
+  depends_on: []
+  acceptance: [WebP válido, URL versionada, NEXO compila, Cuyana consume el activo corregido]
+  evidence:
+    commit: pending
+    pull_request: direct_push_authorized
+    deployment: pending
+    tests: [catalog-images 5/5, typecheck, build]
+  blocker: null
+  next_action: Verificar ambas fachadas tras el despliegue automático
+```
+
+```yaml
 - id: PS1-B00-T01
   title: Consolidar fuente de verdad e inventario verificable
   status: review
