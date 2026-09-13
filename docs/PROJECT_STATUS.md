@@ -1,5 +1,12 @@
 # Estado real — Product Studio One
 
+## Corrección operativa 2026-09-13 — imagen del panel plegable 120 W
+
+- Sustituido el WebP truncado de `NEXO-SOLAR-FOLD-120W` por un activo estático válido de 1080×720.
+- La URL de catálogo quedó versionada para invalidar la caché de NEXO y del escaparate Cuyana.
+- La ruta histórica `/api/catalog-image/panel-120w` continúa funcionando, pero ahora lee el mismo activo válido.
+- Verificación local: imagen decodificable, 5/5 pruebas de catálogo, typecheck y build completos.
+
 Fecha de auditoría: 2026-09-11 UTC. Rama documental: `docs/product-studio-one-block-0`.
 
 ## Diagnóstico
