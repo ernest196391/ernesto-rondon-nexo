@@ -67,3 +67,13 @@ Then inspect current code before changing anything. Update STATUS.md at the end 
 
 ### Next executable block
 Create the actual Tauri 2 shell in an isolated app workspace, wire SQLite migration, then Android barcode scan adapter. Validate Windows build strategy separately and record build prerequisites/costs.
+
+## Local verification — Windows laptop — 2026-09-28
+Verified on Node.js 24.19.0 / npm 11.17.0 / Git 2.55.0.windows.3:
+- npm install completed (398 packages).
+- Vitest: 35/35 test files passed, 151/151 tests passed.
+- TypeScript: tsc --noEmit passed with no errors.
+- Next.js 16.3.4 production build compiled successfully; 54/54 static pages generated.
+- Node engine baseline updated from obsolete Node 20 range to >=24 <25 after this verification.
+
+Next: Tauri 2 executable shell + local SQLite wiring. Android APK/device scan comes after desktop/local persistence proof.
