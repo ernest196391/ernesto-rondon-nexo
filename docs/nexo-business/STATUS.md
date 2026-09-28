@@ -1,12 +1,16 @@
 # NEXO Business — STATUS
 
 **Last update:** 2026-09-28
-**Pilot:** Casa Viva
+**Pilots:** Casa Viva (Pilot 01, NEXO-native) · Colo Shop + AxisSoft (Pilot 02, external-system connector)
 **Current phase:** Phase 0 — Implementation Spike
-**Overall state:** Implementation spike started: shared domain + local SQLite schema committed; Tauri shells/scanner integration next.
+**Overall state:** Shared POS vertical-slice scaffold is now in `apps/business-pos`; domain + local SQLite foundations exist. Windows/Android remain converged on one Tauri target architecture. Native Tauri packaging/device proof is still pending. NEXO Sync + Axis connector strategy is now accepted and documented.
 
 ## What we are building
-Offline-first, hardware-optional Android + Windows POS/business OS integrated with NEXO online stores. The minimum viable setup is one Android phone. Casa Viva is Pilot 01.
+Offline-first, hardware-optional Android + Windows POS/business OS integrated with NEXO online stores. The minimum viable setup is one Android phone.
+
+Two deployment modes share the same platform:
+- **NEXO-native:** NEXO supplies POS/inventory/cash/orders. Pilot 01 = Casa Viva.
+- **Existing-system connector:** merchant keeps its POS/ERP and NEXO connects the digital channel. Pilot 02 = Colo Shop + AxisSoft.
 
 ## Current decisions
 - Android + Windows are first-class POS clients using a shared Tauri 2 + React + TypeScript core where practical.
@@ -17,7 +21,11 @@ Offline-first, hardware-optional Android + Windows POS/business OS integrated wi
 - Next.js web/admin.
 - Offline sales are non-negotiable.
 - Accounting and AI are later phases.
-- Casa Viva first, then reusable/white-label.
+- Casa Viva validates the full NEXO-native flow; Colo Shop validates the external-POS connector flow.
+- NEXO Sync is inside NEXO Business, not a separate repository.
+- Axis is initially source of truth for Colo Shop physical catalog/price/stock; read-only/assisted sync first.
+- Casa Viva + Colo Shop must converge on the same provider-neutral domain and sync semantics.
+- Then reusable/white-label.
 
 ## Work completed
 - Existing NEXO reuse audit: cart, pricing, delivery, checkout/idempotency, Woo connector, admin inventory, Casa Viva contracts.
@@ -31,15 +39,30 @@ Offline-first, hardware-optional Android + Windows POS/business OS integrated wi
 - Offline sync principles.
 - Casa Viva acceptance scenarios.
 - Hardware accessibility ladder: phone-only → phone/PC → cheap peripherals → full POS counter.
+- Shared `apps/business-pos` vertical-slice scaffold added for the converged Windows + Android path.
+- Demo POS frontend currently opens local SQLite, seeds/searches demo products, records a demo sale and queues a demo outbox record.
+- NEXO Sync / external connector architecture accepted.
+- Colo Shop + AxisSoft designated Pilot 02.
+- Added `docs/nexo-business/CONNECTORS_AND_SYNC.md`.
+- Added `docs/nexo-business/AI_HANDOFF.md` for chat-independent continuation.
 
 ## Next task — DO THIS FIRST
-Start the implementation spike, without changing production commerce behavior:
-1. establish workspace/package skeleton;
-2. create pure business-domain package;
-3. create local SQLite schema/migration prototype;
-4. prove Tauri Android + Windows build strategy;
-5. prove Android offline camera barcode scanning;
-6. run existing NEXO tests/build and record regression result.
+Continue from the current shared `apps/business-pos` scaffold without changing production commerce behavior:
+
+### Core POS spike
+1. turn the shared scaffold into a proven native Tauri 2 executable shell;
+2. wire the versioned `packages/business-db` migrations instead of demo-only CREATE TABLE statements;
+3. make sale + payment + inventory movement + outbox atomic against the real local schema;
+4. prove Windows restart/persistence behavior;
+5. then prove Android build + offline camera barcode scan;
+6. rerun NEXO regression tests/typecheck/build and record results.
+
+### Parallel connector contract work — safe to do without blocking core POS
+1. create provider-neutral external catalog/import types and fixtures;
+2. create an Axis fixture/import adapter boundary only;
+3. implement mapping + diff + repeated-import idempotency tests;
+4. do not access undocumented Axis databases;
+5. do not promise or implement Axis writes until supported capability is verified.
 
 Do not apply schema-v0 to production Supabase yet. Do not migrate Woo data yet.
 
@@ -53,8 +76,11 @@ Do not apply schema-v0 to production Supabase yet. Do not migrate Woo data yet.
 ## Resume protocol for any agent
 Read in order:
 1. docs/nexo-business/STATUS.md
-2. docs/nexo-business/MASTER_BLUEPRINT.md
-3. repository README and relevant architecture/docs
+2. docs/nexo-business/AI_HANDOFF.md
+3. docs/nexo-business/MASTER_BLUEPRINT.md
+4. docs/nexo-business/TECHNICAL_ARCHITECTURE.md
+5. docs/nexo-business/CONNECTORS_AND_SYNC.md
+6. repository README and current code/recent commits
 Then inspect current code before changing anything. Update STATUS.md at the end of every completed work block.
 
 ## Implementation spike checkpoint — 2026-09-28
@@ -77,3 +103,22 @@ Verified on Node.js 24.19.0 / npm 11.17.0 / Git 2.55.0.windows.3:
 - Node engine baseline updated from obsolete Node 20 range to >=24 <25 after this verification.
 
 Next: Tauri 2 executable shell + local SQLite wiring. Android APK/device scan comes after desktop/local persistence proof.
+
+
+## Connector decision checkpoint — 2026-09-28
+
+Accepted after reviewing Colo Shop's real operating context:
+- Colo Shop already uses AxisSoft with PC/counter hardware, printer and scanner.
+- Do **not** delay Colo Shop launch waiting for a deep Axis integration.
+- Start with NEXO Sync assisted/semi-automatic flow using supported exports if available.
+- Axis remains source of truth for physical catalog/price/stock in the first stage.
+- NEXO normalizes, maps, diffs and propagates safe changes to the online channel.
+- Repeated imports must not duplicate products.
+- Failed/partial imports must not wipe the live storefront.
+- Direct writes to undocumented Axis internals are forbidden.
+- Official API/read integration is a later upgrade if Axis supports it.
+- Bidirectional writes come only after supported capability + reconciliation/idempotency proof.
+
+See:
+- `docs/nexo-business/CONNECTORS_AND_SYNC.md`
+- `docs/nexo-business/AI_HANDOFF.md`
