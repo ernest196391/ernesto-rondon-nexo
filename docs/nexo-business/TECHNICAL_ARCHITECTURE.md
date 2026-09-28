@@ -19,8 +19,7 @@ Do not move production code in Phase 0.
 
 apps/
 - business-web — later management SaaS
-- business-desktop — Tauri Windows
-- business-mobile — Tauri Android
+- business-pos        # one Tauri 2 application targeting Windows + Android
 
 packages/
 - business-domain — pure TypeScript entities/commands/money/invariants
@@ -44,3 +43,6 @@ Test EAN-8/EAN-13/UPC-A/UPC-E/Code128/QR in airplane mode, low/mid Android, torc
 
 ## Peripheral rule
 Dedicated scanners first use keyboard/HID. Printer/cash drawer are retryable adapters after sale commit; their failure cannot block checkout.
+
+## ADR refinement — one POS shell (2026-09-28)
+The implementation spike uses one `apps/business-pos` Tauri 2 shell for Windows and Android instead of duplicated desktop/mobile applications. Platform-specific behavior lives behind adapters (camera scanner on Android, HID keyboard scanner on Windows). Shared UI, domain, SQLite repositories and sync semantics remain one codebase.
