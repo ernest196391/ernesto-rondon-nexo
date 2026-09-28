@@ -1,5 +1,23 @@
 # Ernesto Rondón — NEXO Pilot MVP
 
+## NEXO Business active development
+
+The repository also contains the active NEXO Business POS/business-OS work.
+
+**Any coding AI touching NEXO Business must start here:**
+1. `docs/nexo-business/STATUS.md`
+2. `docs/nexo-business/AI_HANDOFF.md`
+3. `docs/nexo-business/MASTER_BLUEPRINT.md`
+4. `docs/nexo-business/TECHNICAL_ARCHITECTURE.md`
+5. `docs/nexo-business/CONNECTORS_AND_SYNC.md`
+
+Current pilots:
+- **Pilot 01 — Casa Viva:** NEXO-native offline-first POS/business system.
+- **Pilot 02 — Colo Shop + AxisSoft:** external-system connector mode using NEXO Sync.
+
+Do not create a separate NEXO Sync repository. NEXO Sync is an internal capability of NEXO Business.
+
+
 First end-to-end build produced by NEXO Skill Master.
 
 ## Run
