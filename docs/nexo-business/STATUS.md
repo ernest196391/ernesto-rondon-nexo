@@ -6,11 +6,13 @@
 **Overall state:** Blueprint created; implementation not started in this repo.
 
 ## What we are building
-Offline-first Windows POS/business OS integrated with NEXO online stores. Casa Viva is Pilot 01.
+Offline-first, hardware-optional Android + Windows POS/business OS integrated with NEXO online stores. The minimum viable setup is one Android phone. Casa Viva is Pilot 01.
 
 ## Current decisions
-- Tauri + React + TypeScript desktop.
-- SQLite local.
+- Android + Windows are first-class POS clients using a shared Tauri 2 + React + TypeScript core where practical.
+- SQLite local on POS-capable clients.
+- Android camera barcode/QR scanning is a Phase-1 requirement and must work offline after installation.
+- Printer, dedicated scanner, cash drawer and scale are optional progressive enhancements; checkout must not depend on them.
 - Supabase/Postgres cloud.
 - Next.js web/admin.
 - Offline sales are non-negotiable.
@@ -23,6 +25,7 @@ Offline-first Windows POS/business OS integrated with NEXO online stores. Casa V
 - Initial domain/data model.
 - Offline sync principles.
 - Casa Viva acceptance scenarios.
+- Hardware accessibility ladder: phone-only → phone/PC → cheap peripherals → full POS counter.
 
 ## Next task — DO THIS FIRST
 Audit the existing NEXO codebase and Casa Viva integration points, then propose the exact monorepo/package structure without breaking current production behavior.
@@ -33,7 +36,9 @@ Expected output:
 3. schema-v0 SQL/ERD;
 4. ADR-001 offline sync strategy;
 5. Phase-1 task checklist;
-6. tests required before implementation.
+6. tests required before implementation;
+7. Android camera-scanning spike and low-end-device performance test;
+8. peripheral adapter boundary for HID scanners/printers without making them Phase-1 dependencies.
 
 ## Guardrails
 - Do not rewrite working NEXO commerce blindly.
