@@ -2,8 +2,8 @@
 
 **Last update:** 2026-09-28
 **Pilot:** Casa Viva
-**Current phase:** Phase 0 — Foundation
-**Overall state:** Phase 0 technical design substantially documented; implementation spike is next.
+**Current phase:** Phase 0 — Implementation Spike
+**Overall state:** Implementation spike started: shared domain + local SQLite schema committed; Tauri shells/scanner integration next.
 
 ## What we are building
 Offline-first, hardware-optional Android + Windows POS/business OS integrated with NEXO online stores. The minimum viable setup is one Android phone. Casa Viva is Pilot 01.
@@ -56,3 +56,14 @@ Read in order:
 2. docs/nexo-business/MASTER_BLUEPRINT.md
 3. repository README and relevant architecture/docs
 Then inspect current code before changing anything. Update STATUS.md at the end of every completed work block.
+
+## Implementation spike checkpoint — 2026-09-28
+- Added packages/business-domain with money, sale validation, outbox identity and scanner normalization.
+- Added first offline SQLite migration under packages/business-db.
+- Added Android and Windows app boundaries under apps/.
+- Official Tauri SQL + barcode-scanner plugins selected for spike.
+- Casa Viva integration remains read-only/contract-first.
+- GitHub workflow had not yet surfaced a run at the immediate checkpoint; do not claim CI green until a run completes.
+
+### Next executable block
+Create the actual Tauri 2 shell in an isolated app workspace, wire SQLite migration, then Android barcode scan adapter. Validate Windows build strategy separately and record build prerequisites/costs.
