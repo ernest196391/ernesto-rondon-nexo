@@ -45,6 +45,7 @@ Two deployment modes share the same platform:
 - Colo Shop + AxisSoft designated Pilot 02.
 - Added `docs/nexo-business/CONNECTORS_AND_SYNC.md`.
 - Added `docs/nexo-business/AI_HANDOFF.md` for chat-independent continuation.
+- Added `docs/nexo-business/COLO_SHOP_PILOT.md` to lock Pilot 02 merchant experience, source-of-truth rules, sync boundaries and acceptance criteria.
 
 ## Next task — DO THIS FIRST
 Continue from the current shared `apps/business-pos` scaffold without changing production commerce behavior:
@@ -80,7 +81,8 @@ Read in order:
 3. docs/nexo-business/MASTER_BLUEPRINT.md
 4. docs/nexo-business/TECHNICAL_ARCHITECTURE.md
 5. docs/nexo-business/CONNECTORS_AND_SYNC.md
-6. repository README and current code/recent commits
+6. docs/nexo-business/COLO_SHOP_PILOT.md
+7. repository README and current code/recent commits
 Then inspect current code before changing anything. Update STATUS.md at the end of every completed work block.
 
 ## Implementation spike checkpoint — 2026-09-28
@@ -121,4 +123,7 @@ Accepted after reviewing Colo Shop's real operating context:
 
 See:
 - `docs/nexo-business/CONNECTORS_AND_SYNC.md`
+- `docs/nexo-business/COLO_SHOP_PILOT.md`
 - `docs/nexo-business/AI_HANDOFF.md`
+
+Parallel-work rule: the desktop/Tauri implementation may advance from another chat/agent. Always inspect recent commits and current code before changing implementation; never roll back newer working progress to match stale chat context.
