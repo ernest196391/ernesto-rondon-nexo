@@ -10,8 +10,9 @@ Do not infer project state from an old chat. Read, in this order:
 2. `docs/nexo-business/MASTER_BLUEPRINT.md`
 3. `docs/nexo-business/TECHNICAL_ARCHITECTURE.md`
 4. `docs/nexo-business/CONNECTORS_AND_SYNC.md`
-5. `docs/nexo-business/PHASE-1-CHECKLIST.md`
-6. current code and recent commits
+5. `docs/nexo-business/COLO_SHOP_PILOT.md`
+6. `docs/nexo-business/PHASE-1-CHECKLIST.md`
+7. current code and recent commits
 
 At the end of every completed work block:
 - run relevant tests/typecheck/build;
@@ -140,6 +141,8 @@ NEXO's commercial promise is not another website or another POS. The operational
 
 Unsupported external integration must remain labeled planned/experimental until proven.
 
+For Colo Shop-specific merchant burden, source-of-truth rules, launch behavior and Pilot 02 acceptance criteria, treat `docs/nexo-business/COLO_SHOP_PILOT.md` as authoritative.
+
 ## How to choose the next task
 
 First read `STATUS.md`.
@@ -149,6 +152,10 @@ If the shared Tauri shell/native packaging is still incomplete, continue that im
 Axis/Colo Shop work may proceed in parallel at the contract/fixture/import-adapter level without blocking the core POS spike.
 
 The first Axis implementation should be a provider-neutral import fixture + mapping/diff test, not undocumented database access.
+
+## Parallel-agent coordination
+
+This project may be advanced simultaneously from another chat or coding agent, especially the Windows/Tauri desktop work. Before editing implementation code, inspect recent commits and current files. Do not overwrite newer working progress based on an older chat description. Documentation defines intent; repository state defines implementation reality.
 
 ## Definition of done for any AI work block
 
