@@ -8,11 +8,18 @@
 ## Product thesis
 NEXO Business is not a clone of AxisSoft. It borrows validated ERP/POS concepts while owning its UX, code, data model and integrations. Its differentiator is one source of truth shared by physical POS, online store, inventory, fulfillment and management.
 
-## Pilot
-Casa Viva is the first production laboratory. Success means an operator can complete daily work even with poor/no Internet and management can see synchronized truth when connectivity returns.
+## Pilots
+
+### Pilot 01 — Casa Viva
+Casa Viva is the first production laboratory for the **NEXO-native** mode. Success means an operator can complete daily work even with poor/no Internet and management can see synchronized truth when connectivity returns.
+
+### Pilot 02 — Colo Shop + AxisSoft
+Colo Shop is the first production laboratory for the **existing-system connector** mode. Colo Shop keeps AxisSoft as the physical-store system while NEXO progressively connects catalog/price/stock to the online storefront, orders, analytics and automation.
+
+The two pilots are not separate products. Both must converge on the same provider-neutral domain, identity model, inventory rules, sync semantics and cloud model.
 
 ## Architecture
-- Android and Windows are first-class clients: Tauri 2 + React + TypeScript, with native mobile integrations where required.
+- Android and Windows are first-class clients through one shared `apps/business-pos` Tauri 2 + React + TypeScript shell, with platform adapters where required.
 - Android barcode/QR capture: phone camera; prefer bundled on-device scanning so first-use scanning does not depend on Internet. Evaluate Tauri barcode-scanner plugin vs native ML Kit bridge during Phase 0.
 - Local persistence: SQLite on every POS-capable client.
 - Cloud: Supabase/Postgres + Auth + RLS.
@@ -20,6 +27,7 @@ Casa Viva is the first production laboratory. Success means an operator can comp
 - Hosting: Vercel initially.
 - Source: GitHub.
 - Sync: local outbox/event queue, idempotent cloud writes, conflict policy, retry/backoff.
+- External integration: NEXO Sync lives inside NEXO Business; provider-specific adapters live behind a connector boundary (Axis/CSV/Excel/manual/Woo etc.).
 - Principle: cloud outage must not stop a cash sale.
 - Principle: dedicated POS hardware is optional. Minimum viable hardware = one supported Android phone. PC, scanner, printer, cash drawer, scale and customer display are progressive enhancements.
 
@@ -101,7 +109,9 @@ Exit: every sale changes stock and can be audited back to a movement.
 - Recovery tests after long disconnect.
 Exit: two devices + cloud converge without duplicate sales/payments.
 
-### Phase 4 — Casa Viva online-store bridge
+### Phase 4 — Online-store bridge + external-system connector
+
+#### 4A — Casa Viva online-store bridge
 - Single catalog identity.
 - Web order enters NEXO Business.
 - Reserve/commit/release inventory policy.
@@ -109,6 +119,19 @@ Exit: two devices + cloud converge without duplicate sales/payments.
 - Casa Viva delivery pricing/zone integration.
 - Fulfillment status.
 Exit: online and counter sales share inventory safely.
+
+#### 4B — Colo Shop / Axis connector pilot
+- Keep Axis as initial source of truth for physical catalog/price/stock.
+- Build provider-neutral import contract and durable external identity mapping.
+- Start with supported export/import + diff/review if no official API is available.
+- Make repeated imports idempotent.
+- Propagate safe price/availability changes to Colo Shop storefront.
+- Add sync audit/checkpoints and failure recovery.
+- Investigate official Axis API/read integration.
+- Bidirectional writes only through documented/supported Axis capability after reconciliation tests.
+- Never write directly to undocumented Axis internals.
+
+Exit: Colo Shop staff do not maintain the same catalog manually in Axis and NEXO, repeated sync does not duplicate products, and failed imports cannot destroy last known-good storefront state.
 
 ### Phase 5 — Management
 - Dashboard: today sales/cash/margin/orders/stock alerts.
@@ -189,3 +212,14 @@ Use open-source/free tiers while validating. Do not buy code-signing, paid hosti
 
 ## Definition of Done
 A feature is not done until typecheck/lint/tests pass, offline behavior is tested where relevant, permissions are tested, failure/retry state is handled, and docs/status are updated.
+
+
+## NEXO Sync decision
+
+NEXO Sync is a capability of NEXO Business, not a separate repository or standalone product.
+
+For a business without an existing POS, NEXO Business can be the source system. For a business with an established POS/ERP, NEXO uses connectors to normalize external catalog/inventory data and connect it to the digital channel.
+
+The first connector is AxisSoft for Colo Shop. The staged plan and integrity rules are defined in `docs/nexo-business/CONNECTORS_AND_SYNC.md`.
+
+Any coding agent must also read `docs/nexo-business/AI_HANDOFF.md` before resuming cross-cutting work.
