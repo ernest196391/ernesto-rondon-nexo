@@ -5,7 +5,7 @@ pub fn run() {
     let migrations = vec![Migration {
         version: 1,
         description: "create_phase1_local_core",
-        sql: include_str!("../../../business-db/migrations/0001_local_core.sql"),
+        sql: include_str!("../../../../packages/business-db/migrations/0001_local_core.sql"),
         kind: MigrationKind::Up,
     }];
 
