@@ -1,12 +1,15 @@
+import { invoke } from "@tauri-apps/api/core";
 import Database from "@tauri-apps/plugin-sql";
 import "./style.css";
 
-type Product = { id: string; name: string; price_minor: number; barcode: string };
-const demo: Product[] = [
-  { id: "demo-001", name: "Producto Casa Viva Demo", price_minor: 25000, barcode: "850000000001" },
-  { id: "demo-002", name: "Producto NEXO Demo", price_minor: 12500, barcode: "850000000002" }
+type Product = { id: string; name: string; price_minor: number; barcode: string | null };
+
+const seed = [
+  { id: "casa-viva-demo-001", sku: "CV-DEMO-001", name: "Producto Casa Viva Demo", price: 25000, barcode: "850000000001" },
+  { id: "nexo-demo-002", sku: "NX-DEMO-002", name: "Producto NEXO Demo", price: 12500, barcode: "850000000002" }
 ];
 
+const BUSINESS_ID = "casa-viva";
 const app = document.querySelector<HTMLElement>("#app")!;
 app.innerHTML = `
 <section class="shell">
@@ -23,17 +26,39 @@ let selected: Product | null = null;
 
 async function init() {
   db = await Database.load("sqlite:nexo-business.db");
-  await db.execute("CREATE TABLE IF NOT EXISTS demo_products (id TEXT PRIMARY KEY, name TEXT NOT NULL, price_minor INTEGER NOT NULL, barcode TEXT NOT NULL UNIQUE)");
-  await db.execute("CREATE TABLE IF NOT EXISTS demo_sales (id TEXT PRIMARY KEY, product_id TEXT NOT NULL, total_minor INTEGER NOT NULL, occurred_at TEXT NOT NULL)");
-  await db.execute("CREATE TABLE IF NOT EXISTS demo_outbox (id TEXT PRIMARY KEY, entity_id TEXT NOT NULL, operation_type TEXT NOT NULL, synced_at TEXT)");
-  for (const p of demo) await db.execute("INSERT OR IGNORE INTO demo_products (id,name,price_minor,barcode) VALUES ($1,$2,$3,$4)", [p.id,p.name,p.price_minor,p.barcode]);
-  document.querySelector("#status")!.textContent = "Base local lista · Internet no requerido";
+  const now = new Date().toISOString();
+
+  for (const p of seed) {
+    await db.execute(
+      "INSERT OR IGNORE INTO local_products (id,business_id,sku,name,active,version,updated_at) VALUES ($1,$2,$3,$4,1,1,$5)",
+      [p.id, BUSINESS_ID, p.sku, p.name, now]
+    );
+    await db.execute(
+      "INSERT OR IGNORE INTO local_barcodes (id,business_id,product_id,code,format) VALUES ($1,$2,$3,$4,'EAN13')",
+      [`barcode-${p.id}`, BUSINESS_ID, p.id, p.barcode]
+    );
+    await db.execute(
+      "INSERT OR IGNORE INTO local_prices (id,business_id,product_id,currency,amount_minor,active,updated_at) VALUES ($1,$2,$3,'USD',$4,1,$5)",
+      [`price-${p.id}`, BUSINESS_ID, p.id, p.price, now]
+    );
+  }
+
+  document.querySelector("#status")!.textContent = "Base local formal lista · Internet no requerido";
   await renderProducts("");
   await renderHistory();
 }
 
 async function renderProducts(q: string) {
-  const rows = await db.select<Product[]>("SELECT id,name,price_minor,barcode FROM demo_products WHERE name LIKE $1 OR barcode LIKE $1 ORDER BY name", [`%${q}%`]);
+  const rows = await db.select<Product[]>(
+    `SELECT p.id,p.name,pr.amount_minor AS price_minor,b.code AS barcode
+     FROM local_products p
+     JOIN local_prices pr ON pr.product_id=p.id AND pr.business_id=p.business_id AND pr.active=1
+     LEFT JOIN local_barcodes b ON b.product_id=p.id AND b.business_id=p.business_id
+     WHERE p.business_id=$1 AND p.active=1
+       AND (p.name LIKE $2 OR COALESCE(p.sku,'') LIKE $2 OR COALESCE(b.code,'') LIKE $2)
+     ORDER BY p.name`,
+    [BUSINESS_ID, `%${q}%`]
+  );
   const el = document.querySelector("#products")!;
   el.innerHTML = rows.map(p => `<button class="product" data-id="${p.id}"><strong>${p.name}</strong><span>${(p.price_minor/100).toFixed(2)}</span></button>`).join("");
   el.querySelectorAll<HTMLButtonElement>(".product").forEach(b => b.onclick = () => choose(rows.find(p => p.id === b.dataset.id)!));
@@ -47,19 +72,48 @@ function choose(p: Product) {
 
 async function sell() {
   if (!selected) return;
-  const id = crypto.randomUUID();
+  const p = selected;
+  const saleId = crypto.randomUUID();
   const now = new Date().toISOString();
-  await db.execute("INSERT INTO demo_sales (id,product_id,total_minor,occurred_at) VALUES ($1,$2,$3,$4)", [id,selected.id,selected.price_minor,now]);
-  await db.execute("INSERT INTO demo_outbox (id,entity_id,operation_type) VALUES ($1,$2,'sale.completed')", [id,id]);
-  selected = null;
-  document.querySelector("#cart")!.textContent = "Vacío";
-  (document.querySelector("#sell") as HTMLButtonElement).disabled = true;
-  await renderHistory();
+  const button = document.querySelector("#sell") as HTMLButtonElement;
+  button.disabled = true;
+  document.querySelector("#status")!.textContent = "Guardando venta atómica…";
+
+  try {
+    await invoke("complete_sale", {
+      input: {
+        saleId,
+        lineId: crypto.randomUUID(),
+        paymentId: crypto.randomUUID(),
+        movementId: crypto.randomUUID(),
+        outboxId: crypto.randomUUID(),
+        productId: p.id,
+        totalMinor: p.price_minor,
+        occurredAt: now
+      }
+    });
+    selected = null;
+    document.querySelector("#cart")!.textContent = "Vacío";
+    document.querySelector("#status")!.textContent = "Venta guardada completa · pendiente de sincronizar";
+    await renderHistory();
+  } catch (e) {
+    document.querySelector("#status")!.textContent = `Venta rechazada · no se guardó parcialmente: ${String(e)}`;
+    button.disabled = false;
+  }
 }
 
 async function renderHistory() {
-  const rows = await db.select<Array<{id:string; occurred_at:string}>>("SELECT id,occurred_at FROM demo_sales ORDER BY occurred_at DESC LIMIT 5");
-  document.querySelector("#history")!.textContent = rows.length ? `Ventas guardadas localmente: ${rows.length}` : "Aún no hay ventas locales";
+  const sales = await db.select<Array<{ id: string }>>(
+    "SELECT id FROM local_sales WHERE business_id=$1 ORDER BY occurred_at DESC LIMIT 50",
+    [BUSINESS_ID]
+  );
+  const pending = await db.select<Array<{ count: number }>>(
+    "SELECT COUNT(*) AS count FROM local_outbox WHERE business_id=$1 AND synced_at IS NULL",
+    [BUSINESS_ID]
+  );
+  document.querySelector("#history")!.textContent = sales.length
+    ? `Ventas formales locales: ${sales.length} · Pendientes de sincronizar: ${pending[0]?.count ?? 0}`
+    : "Aún no hay ventas formales locales";
 }
 
 (document.querySelector("#query") as HTMLInputElement).oninput = e => renderProducts((e.target as HTMLInputElement).value);
