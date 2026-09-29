@@ -1,9 +1,9 @@
 # NEXO Business — STATUS
 
-**Last update:** 2026-09-28
+**Last update:** 2026-09-29
 **Pilots:** Casa Viva (Pilot 01, NEXO-native) · Colo Shop + AxisSoft (Pilot 02, external-system connector)
 **Current phase:** Phase 0 — Implementation Spike
-**Overall state:** Shared POS vertical-slice scaffold is now in `apps/business-pos`; domain + local SQLite foundations exist. Windows/Android remain converged on one Tauri target architecture. Native Tauri packaging/device proof is still pending. NEXO Sync + Axis connector strategy is now accepted and documented.
+**Overall state:** Windows native offline core PASS. The shared `apps/business-pos` Tauri 2 shell runs natively on Windows with formal SQLite migrations, atomic sale writes, restart persistence, outbox persistence, integrity audit and rollback proof. Android device/APK/camera proof is the next executable block. NEXO Sync + Axis connector strategy remains accepted and documented.
 
 ## What we are building
 Offline-first, hardware-optional Android + Windows POS/business OS integrated with NEXO online stores. The minimum viable setup is one Android phone.
@@ -93,8 +93,21 @@ Then inspect current code before changing anything. Update STATUS.md at the end 
 - Casa Viva integration remains read-only/contract-first.
 - GitHub workflow had not yet surfaced a run at the immediate checkpoint; do not claim CI green until a run completes.
 
+### Windows native offline-core checkpoint — PASS — 2026-09-29
+Verified on the pilot Windows laptop:
+- Tauri 2 native NEXO Business window launches successfully.
+- Formal migrations run from `packages/business-db/migrations`; demo tables are no longer used by the active sale path.
+- Formal product, barcode and price records are readable locally.
+- Sale completion is executed in Rust on one SQLite connection and one transaction.
+- A completed sale writes sale + line + cash payment + inventory movement + outbox.
+- The formal sale and pending outbox survive full app close/restart.
+- Built-in integrity audit reported: sales 1, lines 1, payments 1, inventory 1, outbox 1, incomplete sales 0.
+- Built-in rollback probe reported rollback OK with no residual probe sale.
+- Windows prerequisite stack proven: Node 24.19.0, npm 11.17.0, Rust 1.98.1, Cargo 1.98.1, Visual Studio Build Tools C++ workload/MSVC 14.44.35207.
+- This is a Phase-0/Phase-1 implementation checkpoint, not production certification.
+
 ### Next executable block
-Create the actual Tauri 2 shell in an isolated app workspace, wire SQLite migration, then Android barcode scan adapter. Validate Windows build strategy separately and record build prerequisites/costs.
+Initialize/prove the same Tauri 2 shell for Android, produce a development APK, install it on a physical Android device, then add/prove camera barcode scanning and repeat the airplane-mode sale + restart/persistence test. Do not change the Windows-passing transaction semantics while doing this.
 
 ## Local verification — Windows laptop — 2026-09-28
 Verified on Node.js 24.19.0 / npm 11.17.0 / Git 2.55.0.windows.3:
