@@ -3,6 +3,15 @@ import Database from "@tauri-apps/plugin-sql";
 import "./style.css";
 
 type Product = { id: string; name: string; price_minor: number; barcode: string | null };
+type IntegrityReport = {
+  sales: number;
+  saleLines: number;
+  payments: number;
+  inventoryMovements: number;
+  outbox: number;
+  incompleteSales: number;
+  rollbackOk: boolean;
+};
 
 const seed = [
   { id: "casa-viva-demo-001", sku: "CV-DEMO-001", name: "Producto Casa Viva Demo", price: 25000, barcode: "850000000001" },
@@ -19,6 +28,7 @@ app.innerHTML = `
   <div id="products"></div>
   <aside><h2>Carrito</h2><div id="cart">Vacío</div><button id="sell" disabled>Cobrar en efectivo</button></aside>
   <footer id="history"></footer>
+  <div class="status" id="audit">Auditoría local pendiente…</div>
 </section>`;
 
 let db: Database;
@@ -46,6 +56,7 @@ async function init() {
   document.querySelector("#status")!.textContent = "Base local formal lista · Internet no requerido";
   await renderProducts("");
   await renderHistory();
+  await renderAudit();
 }
 
 async function renderProducts(q: string) {
@@ -96,9 +107,23 @@ async function sell() {
     document.querySelector("#cart")!.textContent = "Vacío";
     document.querySelector("#status")!.textContent = "Venta guardada completa · pendiente de sincronizar";
     await renderHistory();
+    await renderAudit();
   } catch (e) {
     document.querySelector("#status")!.textContent = `Venta rechazada · no se guardó parcialmente: ${String(e)}`;
     button.disabled = false;
+  }
+}
+
+
+async function renderAudit() {
+  try {
+    const r = await invoke<IntegrityReport>("audit_local_integrity");
+    const complete = r.incompleteSales === 0 && r.rollbackOk;
+    document.querySelector("#audit")!.textContent = complete
+      ? `Integridad OK · ventas ${r.sales} · líneas ${r.saleLines} · pagos ${r.payments} · inventario ${r.inventoryMovements} · outbox ${r.outbox} · rollback OK`
+      : `ALERTA de integridad · ventas incompletas ${r.incompleteSales} · rollback ${r.rollbackOk ? "OK" : "FALLÓ"}`;
+  } catch (e) {
+    document.querySelector("#audit")!.textContent = `Auditoría local falló: ${String(e)}`;
   }
 }
 
