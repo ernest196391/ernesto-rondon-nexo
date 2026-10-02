@@ -5,6 +5,20 @@ import "./style.css";
 
 type Product = { id: string; name: string; price_minor: number; barcode: string | null };
 type CartLine = { product: Product; quantity: number };
+type ReceiptLine = {
+  name: string;
+  quantity: number;
+  unitPriceMinor: number;
+  lineTotalMinor: number;
+};
+type Receipt = {
+  saleId: string;
+  occurredAt: string;
+  currency: "USD";
+  paymentMethod: "cash";
+  totalMinor: number;
+  lines: ReceiptLine[];
+};
 type IntegrityReport = {
   sales: number;
   saleLines: number;
@@ -35,15 +49,110 @@ app.innerHTML = `
     <div class="cart-summary"><span>Total</span><strong id="cart-total">$0.00</strong></div>
     <button id="sell" disabled>Cobrar en efectivo</button>
   </aside>
+  <section id="receipt-panel" class="receipt-panel" hidden>
+    <div class="receipt-heading">
+      <div><small>RECIBO DIGITAL</small><h2>Venta completada</h2></div>
+      <strong id="receipt-total">$0.00</strong>
+    </div>
+    <div id="receipt-content"></div>
+    <div class="receipt-actions">
+      <button id="share-receipt" type="button">Compartir recibo</button>
+      <button id="copy-receipt" type="button">Copiar texto</button>
+    </div>
+  </section>
   <footer id="history"></footer>
   <div class="status" id="audit">Auditoría local pendiente…</div>
 </section>`;
 
 let db: Database;
 const cart = new Map<string, CartLine>();
+let lastReceipt: Receipt | null = null;
 
 function money(minor: number) {
   return `$${(minor / 100).toFixed(2)}`;
+}
+
+function receiptText(receipt: Receipt) {
+  const lines = receipt.lines.map(line =>
+    `${line.quantity} x ${line.name} · ${money(line.lineTotalMinor)}`
+  );
+  return [
+    "Casa Viva · NEXO Business",
+    "Recibo digital",
+    `Venta: ${receipt.saleId}`,
+    `Fecha: ${new Date(receipt.occurredAt).toLocaleString()}`,
+    "",
+    ...lines,
+    "",
+    `Total: ${money(receipt.totalMinor)} USD`,
+    "Pago: Efectivo"
+  ].join("\n");
+}
+
+function renderReceipt(receipt: Receipt) {
+  lastReceipt = receipt;
+  const panel = document.querySelector("#receipt-panel") as HTMLElement;
+  const content = document.querySelector("#receipt-content")!;
+  const total = document.querySelector("#receipt-total")!;
+
+  total.textContent = money(receipt.totalMinor);
+  content.innerHTML = `
+    <div class="receipt-meta">
+      <span>${new Date(receipt.occurredAt).toLocaleString()}</span>
+      <span>Pago · Efectivo</span>
+    </div>
+    <div class="receipt-lines">
+      ${receipt.lines.map(line => `
+        <div class="receipt-line">
+          <div><strong>${line.name}</strong><span>${line.quantity} × ${money(line.unitPriceMinor)}</span></div>
+          <strong>${money(line.lineTotalMinor)}</strong>
+        </div>
+      `).join("")}
+    </div>
+    <div class="receipt-id">ID ${receipt.saleId}</div>
+  `;
+  panel.hidden = false;
+}
+
+async function copyReceipt() {
+  if (!lastReceipt) return;
+  const text = receiptText(lastReceipt);
+  try {
+    await navigator.clipboard.writeText(text);
+    document.querySelector("#status")!.textContent = "Recibo copiado · listo para pegar en WhatsApp u otra app";
+  } catch {
+    const area = document.createElement("textarea");
+    area.value = text;
+    area.style.position = "fixed";
+    area.style.opacity = "0";
+    document.body.appendChild(area);
+    area.select();
+    document.execCommand("copy");
+    area.remove();
+    document.querySelector("#status")!.textContent = "Recibo copiado";
+  }
+}
+
+async function shareReceipt() {
+  if (!lastReceipt) return;
+  const text = receiptText(lastReceipt);
+
+  if (navigator.share) {
+    try {
+      await navigator.share({
+        title: "Recibo Casa Viva",
+        text
+      });
+      document.querySelector("#status")!.textContent = "Recibo compartido";
+      return;
+    } catch (e) {
+      if ((e as DOMException)?.name === "AbortError") return;
+    }
+  }
+
+  await copyReceipt();
+  document.querySelector("#status")!.textContent =
+    "Compartir no está disponible aquí · recibo copiado para pegarlo";
 }
 
 function cartTotalMinor() {
@@ -236,6 +345,12 @@ async function sell() {
   const saleId = crypto.randomUUID();
   const now = new Date().toISOString();
   const button = document.querySelector("#sell") as HTMLButtonElement;
+  const cartSnapshot = Array.from(cart.values()).map(({ product, quantity }) => ({
+    name: product.name,
+    quantity,
+    unitPriceMinor: product.price_minor,
+    lineTotalMinor: product.price_minor * quantity
+  }));
   const lines = Array.from(cart.values()).map(({ product, quantity }) => ({
     lineId: crypto.randomUUID(),
     movementId: crypto.randomUUID(),
@@ -261,9 +376,19 @@ async function sell() {
       }
     });
 
+    const receipt: Receipt = {
+      saleId,
+      occurredAt: now,
+      currency: "USD",
+      paymentMethod: "cash",
+      totalMinor,
+      lines: cartSnapshot
+    };
+
     cart.clear();
     renderCart();
-    document.querySelector("#status")!.textContent = "Venta guardada completa · pendiente de sincronizar";
+    renderReceipt(receipt);
+    document.querySelector("#status")!.textContent = "Venta guardada completa · recibo listo para compartir";
     await renderHistory();
     await renderAudit();
   } catch (e) {
@@ -350,6 +475,8 @@ document.addEventListener("keydown", e => {
 
 (document.querySelector("#scan") as HTMLButtonElement).onclick = scanProduct;
 (document.querySelector("#sell") as HTMLButtonElement).onclick = sell;
+(document.querySelector("#share-receipt") as HTMLButtonElement).onclick = shareReceipt;
+(document.querySelector("#copy-receipt") as HTMLButtonElement).onclick = copyReceipt;
 
 init().catch(e => {
   document.querySelector("#status")!.textContent = `Error local: ${String(e)}`;
