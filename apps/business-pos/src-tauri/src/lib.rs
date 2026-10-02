@@ -45,7 +45,13 @@ fn complete_sale(app: tauri::AppHandle, input: CompleteSaleInput) -> Result<(), 
 
     let business_id = "casa-viva";
     let branch_id = "casa-viva-main";
-    let device_id = "windows-pilot-01";
+    let device_id = if cfg!(target_os = "android") {
+        "android-pilot-01"
+    } else if cfg!(target_os = "windows") {
+        "windows-pilot-01"
+    } else {
+        "pos-pilot-01"
+    };
     let currency = "USD";
 
     tx.execute(
