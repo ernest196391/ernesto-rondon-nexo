@@ -1,7 +1,7 @@
 # NEXO Business — Cash Shift Ledger (Turno de Caja)
 
 **Updated:** 2026-10-02
-**Status:** backend foundation implemented on branch `claude/cash-shift-foundation`; no UI yet.
+**Status:** backend foundation implemented on branch `claude/reusable-financial-model`; no UI yet. Rails, sources and external refs (0005) are described in `FINANCIAL_MODEL.md`.
 **Applies to:** `packages/business-db`, `packages/business-domain`, `apps/business-pos/src-tauri`
 
 ## Scope of this block
@@ -30,7 +30,7 @@ Per currency:
 expected = opening floats + POS cash payments + other cash in − cash out
 ```
 
-- POS sale cash is derived from `local_payments` with `method = 'cash'` of sales whose `shift_id` is the shift. It is not copied into the movement ledger, so it can never be double-counted.
+- POS sale cash is derived from `local_payments` on rail `cash` (or legacy rows with `method = 'cash'` and no rail) of sales whose `shift_id` is the shift. It is not copied into the movement ledger, so it can never be double-counted.
 - Transfers and any non-`cash` method never change expected drawer cash.
 - A cash out (or out-correction) cannot exceed the current expected cash of that currency.
 
