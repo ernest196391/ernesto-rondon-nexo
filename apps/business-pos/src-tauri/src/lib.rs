@@ -1,6 +1,9 @@
 use nexo_business_db::cash_shift::{
     self, CloseShiftInput, OpenShiftInput, RecordMovementInput, ShiftScope, ShiftSummary,
 };
+use nexo_business_db::receivables::{
+    self, OpenReceivableInput, ReceivableBalance, ReceivablePaymentInput, ReceivableWriteOffInput,
+};
 use rusqlite::{params, Connection};
 use serde::{Deserialize, Serialize};
 use std::fs;
@@ -292,6 +295,44 @@ fn cash_shift_summary(app: tauri::AppHandle, shift_id: String) -> Result<ShiftSu
     cash_shift::shift_summary(&conn, &shift_id).map_err(|e| e.to_string())
 }
 
+#[tauri::command]
+fn receivable_open(
+    app: tauri::AppHandle,
+    input: OpenReceivableInput,
+) -> Result<ReceivableBalance, String> {
+    let mut conn = open_local_db(&app)?;
+    receivables::open_receivable(&mut conn, &pilot_scope(), &input).map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+fn receivable_record_payment(
+    app: tauri::AppHandle,
+    input: ReceivablePaymentInput,
+) -> Result<ReceivableBalance, String> {
+    let mut conn = open_local_db(&app)?;
+    receivables::record_receivable_payment(&mut conn, &pilot_scope(), &input)
+        .map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+fn receivable_write_off(
+    app: tauri::AppHandle,
+    input: ReceivableWriteOffInput,
+) -> Result<ReceivableBalance, String> {
+    let mut conn = open_local_db(&app)?;
+    receivables::write_off_receivable(&mut conn, &pilot_scope(), &input).map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+fn receivables_for_customer(
+    app: tauri::AppHandle,
+    customer_id: String,
+) -> Result<Vec<ReceivableBalance>, String> {
+    let conn = open_local_db(&app)?;
+    receivables::customer_open_receivables(&conn, &pilot_scope().business_id, &customer_id)
+        .map_err(|e| e.to_string())
+}
+
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     let migrations = nexo_business_db::MIGRATIONS
@@ -322,7 +363,11 @@ pub fn run() {
             cash_shift_open,
             cash_shift_record_movement,
             cash_shift_close,
-            cash_shift_summary
+            cash_shift_summary,
+            receivable_open,
+            receivable_record_payment,
+            receivable_write_off,
+            receivables_for_customer
         ])
         .run(tauri::generate_context!())
         .expect("error while running NEXO Business");
