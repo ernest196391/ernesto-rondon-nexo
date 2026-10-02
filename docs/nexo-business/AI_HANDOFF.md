@@ -273,3 +273,6 @@ Do not continue the current simplistic `0003_cash_shifts.sql` as final design.
 Treat migration 0003 and current cash-shift domain primitives as a spike/draft until reconciled with the approved multi-currency, multi-location and source-aware financial model.
 
 Before editing those files, audit migration compatibility. Because migration 0003 already exists on `main`, do not silently rewrite an applied migration if any device may already have executed it. Prefer a safe follow-up migration when necessary.
+
+## Cash shift checkpoint — 2026-10-02 (Claude Code lane)
+Migration 0003 is no longer a standalone draft: `0004_cash_ledger_multicurrency.sql` and `0005_financial_rails_and_refs.sql` extend it additively and all are now in the device migration list, which moved to `packages/business-db/rust/src/lib.rs` (`MIGRATIONS`). Cash shift writes go through `packages/business-db/rust/src/cash_shift.rs`; do not write cash tables directly from TypeScript. Do not edit 0003–0005 once merged; add 0006+. Read `FINANCIAL_MODEL.md` before any money-related schema (receivables, refunds, consignment, messenger custody).

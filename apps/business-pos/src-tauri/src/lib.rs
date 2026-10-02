@@ -1,3 +1,6 @@
+use nexo_business_db::cash_shift::{
+    self, CloseShiftInput, OpenShiftInput, RecordMovementInput, ShiftScope, ShiftSummary,
+};
 use rusqlite::{params, Connection};
 use serde::{Deserialize, Serialize};
 use std::fs;
@@ -36,6 +39,22 @@ struct IntegrityReport {
     outbox: i64,
     incomplete_sales: i64,
     rollback_ok: bool,
+}
+
+/// Same pilot business/branch/device identity used by `complete_sale`.
+fn pilot_scope() -> ShiftScope {
+    let device_id = if cfg!(target_os = "android") {
+        "android-pilot-01"
+    } else if cfg!(target_os = "windows") {
+        "windows-pilot-01"
+    } else {
+        "pos-pilot-01"
+    };
+    ShiftScope {
+        business_id: "casa-viva".into(),
+        branch_id: "casa-viva-main".into(),
+        device_id: device_id.into(),
+    }
 }
 
 fn open_local_db(app: &tauri::AppHandle) -> Result<Connection, String> {
@@ -93,10 +112,23 @@ fn complete_sale(app: tauri::AppHandle, input: CompleteSaleInput) -> Result<(), 
     };
     let currency = "USD";
 
-    tx.execute(
-        "INSERT INTO local_sales (id,business_id,branch_id,device_id,currency,total_minor,occurred_at,sync_status) VALUES (?1,?2,?3,?4,?5,?6,?7,'pending')",
-        params![input.sale_id, business_id, branch_id, device_id, currency, input.total_minor, input.occurred_at],
-    ).map_err(|e| e.to_string())?;
+    // Attach the sale to this device's open cash shift when there is one.
+    // Without an open shift (or before migration 0004) the sale is recorded
+    // exactly as before.
+    let shift_id = cash_shift::shift_for_sale(&tx, &pilot_scope(), currency)
+        .map_err(|e| e.to_string())?;
+
+    match &shift_id {
+        Some(shift_id) => tx.execute(
+            "INSERT INTO local_sales (id,business_id,branch_id,device_id,currency,total_minor,occurred_at,sync_status,shift_id) VALUES (?1,?2,?3,?4,?5,?6,?7,'pending',?8)",
+            params![input.sale_id, business_id, branch_id, device_id, currency, input.total_minor, input.occurred_at, shift_id],
+        ),
+        None => tx.execute(
+            "INSERT INTO local_sales (id,business_id,branch_id,device_id,currency,total_minor,occurred_at,sync_status) VALUES (?1,?2,?3,?4,?5,?6,?7,'pending')",
+            params![input.sale_id, business_id, branch_id, device_id, currency, input.total_minor, input.occurred_at],
+        ),
+    }
+    .map_err(|e| e.to_string())?;
 
     for line in &input.lines {
         tx.execute(
@@ -155,7 +187,8 @@ fn complete_sale(app: tauri::AppHandle, input: CompleteSaleInput) -> Result<(), 
             "lines": payload_lines,
             "total_minor": input.total_minor,
             "currency": currency,
-            "payment_method": "cash"
+            "payment_method": "cash",
+            "shift_id": shift_id
         }
     })
     .to_string();
@@ -220,22 +253,56 @@ fn audit_local_integrity(app: tauri::AppHandle) -> Result<IntegrityReport, Strin
     })
 }
 
+#[tauri::command]
+fn cash_shift_current(app: tauri::AppHandle) -> Result<Option<ShiftSummary>, String> {
+    let conn = open_local_db(&app)?;
+    if !nexo_business_db::cash_ledger_ready(&conn).map_err(|e| e.to_string())? {
+        return Ok(None);
+    }
+    let shift_id = cash_shift::current_open_shift(&conn, &pilot_scope()).map_err(|e| e.to_string())?;
+    shift_id
+        .map(|id| cash_shift::shift_summary(&conn, &id).map_err(|e| e.to_string()))
+        .transpose()
+}
+
+#[tauri::command]
+fn cash_shift_open(app: tauri::AppHandle, input: OpenShiftInput) -> Result<ShiftSummary, String> {
+    let mut conn = open_local_db(&app)?;
+    cash_shift::open_shift(&mut conn, &pilot_scope(), &input).map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+fn cash_shift_record_movement(
+    app: tauri::AppHandle,
+    input: RecordMovementInput,
+) -> Result<ShiftSummary, String> {
+    let mut conn = open_local_db(&app)?;
+    cash_shift::record_movement(&mut conn, &pilot_scope(), &input).map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+fn cash_shift_close(app: tauri::AppHandle, input: CloseShiftInput) -> Result<ShiftSummary, String> {
+    let mut conn = open_local_db(&app)?;
+    cash_shift::close_shift(&mut conn, &pilot_scope(), &input).map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+fn cash_shift_summary(app: tauri::AppHandle, shift_id: String) -> Result<ShiftSummary, String> {
+    let conn = open_local_db(&app)?;
+    cash_shift::shift_summary(&conn, &shift_id).map_err(|e| e.to_string())
+}
+
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
-    let migrations = vec![
-        Migration {
-            version: 1,
-            description: "create_phase1_local_core",
-            sql: include_str!("../../../../packages/business-db/migrations/0001_local_core.sql"),
+    let migrations = nexo_business_db::MIGRATIONS
+        .iter()
+        .map(|m| Migration {
+            version: m.version,
+            description: m.description,
+            sql: m.sql,
             kind: MigrationKind::Up,
-        },
-        Migration {
-            version: 2,
-            description: "create_local_prices",
-            sql: include_str!("../../../../packages/business-db/migrations/0002_local_prices.sql"),
-            kind: MigrationKind::Up,
-        },
-    ];
+        })
+        .collect::<Vec<_>>();
 
     let builder = tauri::Builder::default();
 
@@ -250,7 +317,12 @@ pub fn run() {
         )
         .invoke_handler(tauri::generate_handler![
             complete_sale,
-            audit_local_integrity
+            audit_local_integrity,
+            cash_shift_current,
+            cash_shift_open,
+            cash_shift_record_movement,
+            cash_shift_close,
+            cash_shift_summary
         ])
         .run(tauri::generate_context!())
         .expect("error while running NEXO Business");
