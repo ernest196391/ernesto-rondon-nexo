@@ -18,6 +18,7 @@ tauri-plugin-sql = { version = "2", features = ["sqlite"] }
 serde_json = "1"
 
 rusqlite = { version = "0.32", features = ["bundled"] }
+nexo-business-db = { path = "../../../packages/business-db/rust" }
 serde = { version = "1", features = ["derive"] }
 
 [target.'cfg(any(target_os = "android", target_os = "ios"))'.dependencies]
