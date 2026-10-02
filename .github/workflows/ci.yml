@@ -40,3 +40,26 @@ jobs:
 
       - name: Build
         run: npm run build
+
+  business-db-rust:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    defaults:
+      run:
+        working-directory: packages/business-db/rust
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache cargo
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: packages/business-db/rust
+
+      - name: Rust tests (SQLite migrations and cash ledger)
+        run: cargo test --locked
