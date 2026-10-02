@@ -6,15 +6,24 @@ use tauri_plugin_sql::{Migration, MigrationKind};
 
 #[derive(Deserialize)]
 #[serde(rename_all = "camelCase")]
+struct SaleLineInput {
+    line_id: String,
+    movement_id: String,
+    product_id: String,
+    quantity: i64,
+    unit_price_minor: i64,
+    line_total_minor: i64,
+}
+
+#[derive(Deserialize)]
+#[serde(rename_all = "camelCase")]
 struct CompleteSaleInput {
     sale_id: String,
-    line_id: String,
     payment_id: String,
-    movement_id: String,
     outbox_id: String,
-    product_id: String,
     total_minor: i64,
     occurred_at: String,
+    lines: Vec<SaleLineInput>,
 }
 
 #[derive(Serialize)]
@@ -41,6 +50,35 @@ fn open_local_db(app: &tauri::AppHandle) -> Result<Connection, String> {
 
 #[tauri::command]
 fn complete_sale(app: tauri::AppHandle, input: CompleteSaleInput) -> Result<(), String> {
+    if input.lines.is_empty() {
+        return Err("La venta no puede estar vacía".into());
+    }
+
+    let calculated_total = input.lines.iter().try_fold(0_i64, |sum, line| {
+        if line.quantity <= 0 {
+            return Err("La cantidad debe ser mayor que cero".to_string());
+        }
+        if line.unit_price_minor < 0 {
+            return Err("El precio no puede ser negativo".to_string());
+        }
+
+        let expected_line_total = line
+            .unit_price_minor
+            .checked_mul(line.quantity)
+            .ok_or_else(|| "Desbordamiento calculando el total de línea".to_string())?;
+
+        if expected_line_total != line.line_total_minor {
+            return Err("El total de una línea no coincide con precio × cantidad".to_string());
+        }
+
+        sum.checked_add(line.line_total_minor)
+            .ok_or_else(|| "Desbordamiento calculando el total de venta".to_string())
+    })?;
+
+    if calculated_total != input.total_minor {
+        return Err("El total de la venta no coincide con sus líneas".into());
+    }
+
     let mut conn = open_local_db(&app)?;
     let tx = conn.transaction().map_err(|e| e.to_string())?;
 
@@ -60,20 +98,49 @@ fn complete_sale(app: tauri::AppHandle, input: CompleteSaleInput) -> Result<(), 
         params![input.sale_id, business_id, branch_id, device_id, currency, input.total_minor, input.occurred_at],
     ).map_err(|e| e.to_string())?;
 
-    tx.execute(
-        "INSERT INTO local_sale_lines (id,sale_id,product_id,quantity,unit_price_minor,line_total_minor) VALUES (?1,?2,?3,1,?4,?4)",
-        params![input.line_id, input.sale_id, input.product_id, input.total_minor],
-    ).map_err(|e| e.to_string())?;
+    for line in &input.lines {
+        tx.execute(
+            "INSERT INTO local_sale_lines (id,sale_id,product_id,quantity,unit_price_minor,line_total_minor) VALUES (?1,?2,?3,?4,?5,?6)",
+            params![
+                line.line_id,
+                input.sale_id,
+                line.product_id,
+                line.quantity,
+                line.unit_price_minor,
+                line.line_total_minor
+            ],
+        ).map_err(|e| e.to_string())?;
+
+        tx.execute(
+            "INSERT INTO local_inventory_movements (id,business_id,product_id,quantity_delta,reason,source_type,source_id,occurred_at) VALUES (?1,?2,?3,?4,'sale','sale',?5,?6)",
+            params![
+                line.movement_id,
+                business_id,
+                line.product_id,
+                -line.quantity,
+                input.sale_id,
+                input.occurred_at
+            ],
+        ).map_err(|e| e.to_string())?;
+    }
 
     tx.execute(
         "INSERT INTO local_payments (id,sale_id,method,currency,amount_minor,occurred_at) VALUES (?1,?2,'cash',?3,?4,?5)",
         params![input.payment_id, input.sale_id, currency, input.total_minor, input.occurred_at],
     ).map_err(|e| e.to_string())?;
 
-    tx.execute(
-        "INSERT INTO local_inventory_movements (id,business_id,product_id,quantity_delta,reason,source_type,source_id,occurred_at) VALUES (?1,?2,?3,-1,'sale','sale',?4,?5)",
-        params![input.movement_id, business_id, input.product_id, input.sale_id, input.occurred_at],
-    ).map_err(|e| e.to_string())?;
+    let payload_lines = input
+        .lines
+        .iter()
+        .map(|line| {
+            serde_json::json!({
+                "product_id": line.product_id,
+                "quantity": line.quantity,
+                "unit_price_minor": line.unit_price_minor,
+                "line_total_minor": line.line_total_minor
+            })
+        })
+        .collect::<Vec<_>>();
 
     let payload = serde_json::json!({
         "contract_version": 1,
@@ -85,8 +152,7 @@ fn complete_sale(app: tauri::AppHandle, input: CompleteSaleInput) -> Result<(), 
         "idempotency_key": input.sale_id,
         "payload": {
             "sale_id": input.sale_id,
-            "product_id": input.product_id,
-            "quantity": 1,
+            "lines": payload_lines,
             "total_minor": input.total_minor,
             "currency": currency,
             "payment_method": "cash"
@@ -134,7 +200,6 @@ fn audit_local_integrity(app: tauri::AppHandle) -> Result<IntegrityReport, Strin
             "INSERT INTO local_sales (id,business_id,branch_id,device_id,currency,total_minor,occurred_at,sync_status) VALUES (?1,?2,'probe','probe','USD',1,'probe','pending')",
             params![rollback_id, business_id],
         ).map_err(|e| e.to_string())?;
-        // Intentionally no commit: dropping the transaction must roll it back.
     }
     let residue: i64 = conn
         .query_row(
@@ -190,4 +255,3 @@ pub fn run() {
         .run(tauri::generate_context!())
         .expect("error while running NEXO Business");
 }
-
