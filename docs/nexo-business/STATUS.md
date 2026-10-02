@@ -1,9 +1,9 @@
 # NEXO Business — STATUS
 
-**Last update:** 2026-09-29
+**Last update:** 2026-10-02
 **Pilots:** Casa Viva (Pilot 01, NEXO-native) · Colo Shop + AxisSoft (Pilot 02, external-system connector)
 **Current phase:** Phase 0 — Implementation Spike
-**Overall state:** Windows native offline core PASS. The shared `apps/business-pos` Tauri 2 shell runs natively on Windows with formal SQLite migrations, atomic sale writes, restart persistence, outbox persistence, integrity audit and rollback proof. Android device/APK/camera proof is the next executable block. NEXO Sync + Axis connector strategy remains accepted and documented.
+**Overall state:** Windows native offline core PASS. Android physical-device core proof is also PASS for build/install/launch, local catalog, airplane-mode sale, outbox persistence and full app close/reopen persistence. Camera barcode scanning remains the next Android acceptance block. NEXO Sync + Axis connector strategy remains accepted and documented.
 
 ## What we are building
 Offline-first, hardware-optional Android + Windows POS/business OS integrated with NEXO online stores. The minimum viable setup is one Android phone.
@@ -106,8 +106,19 @@ Verified on the pilot Windows laptop:
 - Windows prerequisite stack proven: Node 24.19.0, npm 11.17.0, Rust 1.98.1, Cargo 1.98.1, Visual Studio Build Tools C++ workload/MSVC 14.44.35207.
 - This is a Phase-0/Phase-1 implementation checkpoint, not production certification.
 
+### Android physical-device checkpoint — CORE PASS — 2026-10-02
+Verified manually on a physical Android device:
+- Tauri 2 Android debug APK and AAB build completed successfully.
+- Universal debug APK installed through ADB and launches on the physical phone.
+- Formal local catalog/products load in the Android app.
+- With the phone in airplane mode, a product can be added and one cash sale completes successfully.
+- The sale is recorded as pending synchronization in the local outbox.
+- After fully closing and reopening the app while still offline, the formal local sale and pending outbox remain present.
+- The sale path now assigns a platform-specific pilot device ID: `android-pilot-01` on Android and `windows-pilot-01` on Windows.
+- This proves the Android offline core path, but does **not** yet certify camera scanning, cloud synchronization, an 8-hour offline shift, backup/restore, or production readiness.
+
 ### Next executable block
-Initialize/prove the same Tauri 2 shell for Android, produce a development APK, install it on a physical Android device, then add/prove camera barcode scanning and repeat the airplane-mode sale + restart/persistence test. Do not change the Windows-passing transaction semantics while doing this.
+Rebuild/install the device-ID update, verify the built-in integrity audit on Android, then implement/prove offline camera barcode scanning on the physical device. Do not change the Windows-passing transaction semantics while doing this.
 
 ## Local verification — Windows laptop — 2026-09-28
 Verified on Node.js 24.19.0 / npm 11.17.0 / Git 2.55.0.windows.3:
