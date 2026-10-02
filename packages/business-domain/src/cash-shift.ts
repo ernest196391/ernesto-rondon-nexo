@@ -59,6 +59,13 @@ export type CashLedgerKind =
   | "order_cash"
   | "messenger_return";
 
+export type CashSourceRef = {
+  /** System that owns the source entity: "nexo", "woocommerce", "axis"... */
+  system: string;
+  type: string;
+  id: string;
+};
+
 export type CashLedgerEntry = {
   kind: CashLedgerKind;
   direction: CashDirection;
@@ -66,10 +73,15 @@ export type CashLedgerEntry = {
   amountMinor: bigint;
   reason: string;
   correctsMovementId?: string;
+  source?: CashSourceRef;
 };
+
+/** Settlement rail. Provider/channel (e.g. Transfermóvil) are metadata. */
+export type PaymentRail = "cash" | "transfer" | "card" | "digital_asset" | "other";
 
 export type ShiftPayment = {
   method: string;
+  rail?: PaymentRail;
   currency: string;
   amountMinor: bigint;
 };
@@ -103,6 +115,26 @@ export function isDrawerCash(method: string): boolean {
   return method === "cash";
 }
 
+/** Rail-aware drawer rule; rows without a rail fall back to the method. */
+export function isDrawerCashPayment(payment: Pick<ShiftPayment, "method" | "rail">): boolean {
+  if (payment.rail !== undefined) {
+    if ((payment.rail === "cash") !== isDrawerCash(payment.method)) {
+      throw new Error("Payment method/rail mismatch");
+    }
+    return payment.rail === "cash";
+  }
+  return isDrawerCash(payment.method);
+}
+
+const SOURCE_REQUIRED: ReadonlySet<CashLedgerKind> = new Set(["order_cash", "messenger_return"]);
+
+/** Key that identifies one order collection; the same key enters a drawer once. */
+export function collectionKey(entry: CashLedgerEntry): string | undefined {
+  if (!SOURCE_REQUIRED.has(entry.kind) || !entry.source) return undefined;
+  const { system, type, id } = entry.source;
+  return [entry.kind, system.trim().toLowerCase(), type.trim(), id.trim(), normalizeCashCurrency(entry.currency)].join("|");
+}
+
 export function validateLedgerEntry(entry: CashLedgerEntry): void {
   validateCashMovement(entry);
   normalizeCashCurrency(entry.currency);
@@ -114,6 +146,12 @@ export function validateLedgerEntry(entry: CashLedgerEntry): void {
   }
   if (entry.correctsMovementId) {
     throw new Error("Only a correction can reference another movement");
+  }
+  if (SOURCE_REQUIRED.has(entry.kind)) {
+    const source = entry.source;
+    if (!source?.system.trim() || !source.type.trim() || !source.id.trim()) {
+      throw new Error("Order cash and messenger returns require a source");
+    }
   }
   if (FIXED_DIRECTION[entry.kind] !== entry.direction) {
     throw new Error("Direction does not match movement kind");
@@ -131,15 +169,23 @@ export function expectedCashByCurrency(args: {
     expected.set(code, (expected.get(code) ?? 0n) + delta);
   };
 
+  const collections = new Set<string>();
   for (const entry of args.entries) {
     validateLedgerEntry(entry);
+    const key = collectionKey(entry);
+    if (key) {
+      if (collections.has(key)) {
+        throw new Error("Order cash already recorded for this currency");
+      }
+      collections.add(key);
+    }
     bump(entry.currency, entry.direction === "in" ? entry.amountMinor : -entry.amountMinor);
   }
   for (const payment of args.salePayments) {
     if (payment.amountMinor < 0n) {
       throw new Error("Payment amount cannot be negative");
     }
-    if (isDrawerCash(payment.method)) {
+    if (isDrawerCashPayment(payment)) {
       bump(payment.currency, payment.amountMinor);
     }
   }
