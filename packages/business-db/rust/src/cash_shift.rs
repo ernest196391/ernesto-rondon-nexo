@@ -73,7 +73,7 @@ impl Direction {
 
 /// Manual ledger entries an operator can record on an open shift. Opening
 /// floats are written only by `open_shift`; POS sale cash is derived from
-/// payments and never recorded here.
+/// payments (rail `cash`) and never recorded here.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub enum MovementKind {
@@ -95,6 +95,14 @@ impl MovementKind {
             MovementKind::OrderCash => "order_cash",
             MovementKind::MessengerReturn => "messenger_return",
         }
+    }
+
+    /// Order-backed cash must name the order it came from.
+    fn requires_source(self) -> bool {
+        matches!(
+            self,
+            MovementKind::OrderCash | MovementKind::MessengerReturn
+        )
     }
 
     /// Fixed direction for every kind except corrections.
@@ -124,6 +132,9 @@ pub struct OpenShiftInput {
     pub outbox_id: String,
     pub operator_id: Option<String>,
     pub primary_currency: String,
+    /// Cash location (store/branch drawer) when the merchant models several.
+    #[serde(default)]
+    pub location_id: Option<String>,
     pub opening_floats: Vec<OpeningFloatInput>,
     pub opened_at: String,
 }
@@ -141,6 +152,9 @@ pub struct RecordMovementInput {
     pub amount_minor: i64,
     pub reason: String,
     pub category: Option<String>,
+    /// System that owns the source entity: "nexo", "woocommerce", "axis"…
+    #[serde(default)]
+    pub source_system: Option<String>,
     pub source_type: Option<String>,
     pub source_id: Option<String>,
     pub corrects_movement_id: Option<String>,
@@ -398,7 +412,7 @@ pub fn currency_totals(
     let mut sales = conn.prepare(
         "SELECT p.currency, SUM(p.amount_minor)
          FROM local_payments p JOIN local_sales s ON s.id = p.sale_id
-         WHERE s.shift_id=?1 AND p.method='cash'
+         WHERE s.shift_id=?1 AND (p.rail = 'cash' OR (p.rail IS NULL AND p.method = 'cash'))
          GROUP BY p.currency",
     )?;
     let rows = sales.query_map([shift_id], |row| {
@@ -516,10 +530,11 @@ pub fn open_shift(
         .map(|(_, amount)| *amount)
         .unwrap_or(0);
     let operator = non_empty(&input.operator_id);
+    let location = non_empty(&input.location_id);
 
     tx.execute(
-        "INSERT INTO local_cash_shifts (id,business_id,branch_id,device_id,currency,opening_float_minor,status,opened_at,opened_by,sync_status)
-         VALUES (?1,?2,?3,?4,?5,?6,'open',?7,?8,'pending')",
+        "INSERT INTO local_cash_shifts (id,business_id,branch_id,device_id,currency,opening_float_minor,status,opened_at,opened_by,sync_status,location_id)
+         VALUES (?1,?2,?3,?4,?5,?6,'open',?7,?8,'pending',?9)",
         params![
             input.shift_id,
             scope.business_id,
@@ -528,7 +543,8 @@ pub fn open_shift(
             primary_currency,
             primary_float,
             input.opened_at,
-            operator
+            operator,
+            location
         ],
     )?;
 
@@ -570,6 +586,7 @@ pub fn open_shift(
             "branch_id": scope.branch_id,
             "device_id": scope.device_id,
             "operator_id": operator,
+            "location_id": location,
             "primary_currency": primary_currency,
             "opening_floats": floats_payload,
         }),
@@ -608,6 +625,14 @@ pub fn record_movement(
         (_, Some(_)) => return invalid("Solo una corrección puede referenciar otro movimiento"),
         (_, None) => {}
     }
+    let source_system = non_empty(&input.source_system);
+    let source_type = non_empty(&input.source_type);
+    let source_id = non_empty(&input.source_id);
+    if input.kind.requires_source()
+        && (source_system.is_none() || source_type.is_none() || source_id.is_none())
+    {
+        return invalid("Un cobro de pedido o devolución de mensajero debe indicar su origen");
+    }
 
     let tx = conn.transaction()?;
     let shift = require_owned_shift(&tx, scope, &input.shift_id)?;
@@ -631,6 +656,29 @@ pub fn record_movement(
 
     if shift.status != "open" {
         return Err(CashError::Conflict("El turno de caja está cerrado".into()));
+    }
+
+    if input.kind.requires_source() {
+        let already: Option<String> = tx
+            .query_row(
+                "SELECT id FROM local_cash_movements
+                 WHERE business_id=?1 AND kind=?2 AND source_system=?3 AND source_type=?4 AND source_id=?5 AND currency=?6",
+                params![
+                    shift.business_id,
+                    input.kind.as_str(),
+                    source_system,
+                    source_type,
+                    source_id,
+                    currency
+                ],
+                |row| row.get(0),
+            )
+            .optional()?;
+        if already.is_some() {
+            return Err(CashError::Conflict(
+                "Ese cobro ya fue registrado en caja para esa moneda".into(),
+            ));
+        }
     }
 
     if let Some(target) = &corrects {
@@ -658,13 +706,11 @@ pub fn record_movement(
 
     track_currency(&tx, &input.shift_id, &currency)?;
     let category = non_empty(&input.category);
-    let source_type = non_empty(&input.source_type);
-    let source_id = non_empty(&input.source_id);
     let operator = non_empty(&input.operator_id);
 
     tx.execute(
-        "INSERT INTO local_cash_movements (id,shift_id,business_id,branch_id,device_id,direction,amount_minor,reason,occurred_at,currency,kind,category,source_type,source_id,operator_id,corrects_movement_id)
-         VALUES (?1,?2,?3,?4,?5,?6,?7,?8,?9,?10,?11,?12,?13,?14,?15,?16)",
+        "INSERT INTO local_cash_movements (id,shift_id,business_id,branch_id,device_id,direction,amount_minor,reason,occurred_at,currency,kind,category,source_type,source_id,operator_id,corrects_movement_id,source_system)
+         VALUES (?1,?2,?3,?4,?5,?6,?7,?8,?9,?10,?11,?12,?13,?14,?15,?16,?17)",
         params![
             input.movement_id,
             input.shift_id,
@@ -681,7 +727,8 @@ pub fn record_movement(
             source_type,
             source_id,
             operator,
-            corrects
+            corrects,
+            source_system
         ],
     )?;
 
@@ -703,6 +750,7 @@ pub fn record_movement(
             "amount_minor": input.amount_minor,
             "reason": reason,
             "category": category,
+            "source_system": source_system,
             "source_type": source_type,
             "source_id": source_id,
             "operator_id": operator,

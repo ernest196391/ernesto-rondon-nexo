@@ -4,6 +4,7 @@
 //! tests here run exactly the schema that ships to Windows/Android devices.
 
 pub mod cash_shift;
+pub mod external_refs;
 
 /// A versioned migration: (version, description, sql).
 pub struct LocalMigration {
@@ -33,6 +34,11 @@ pub const MIGRATIONS: &[LocalMigration] = &[
         description: "cash_ledger_multicurrency",
         sql: include_str!("../../migrations/0004_cash_ledger_multicurrency.sql"),
     },
+    LocalMigration {
+        version: 5,
+        description: "financial_rails_and_refs",
+        sql: include_str!("../../migrations/0005_financial_rails_and_refs.sql"),
+    },
 ];
 
 /// Applies every migration in order. Used by tests and tooling; on devices the
@@ -44,11 +50,13 @@ pub fn apply_all_migrations(conn: &rusqlite::Connection) -> rusqlite::Result<()>
     Ok(())
 }
 
-/// True once migration 0004 (multi-currency cash ledger) is present.
+/// True once migrations 0004 (multi-currency cash ledger) and 0005 (payment
+/// rails, source identity, external refs) are present.
 pub fn cash_ledger_ready(conn: &rusqlite::Connection) -> rusqlite::Result<bool> {
     conn.query_row(
         "SELECT EXISTS (SELECT 1 FROM sqlite_master WHERE type='table' AND name='local_cash_shift_counts')
-            AND EXISTS (SELECT 1 FROM pragma_table_info('local_sales') WHERE name='shift_id')",
+            AND EXISTS (SELECT 1 FROM pragma_table_info('local_sales') WHERE name='shift_id')
+            AND EXISTS (SELECT 1 FROM pragma_table_info('local_payments') WHERE name='rail')",
         [],
         |row| row.get(0),
     )

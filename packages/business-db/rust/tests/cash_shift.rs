@@ -23,6 +23,7 @@ fn open_input(id: &str, floats: &[(&str, i64)]) -> OpenShiftInput {
         outbox_id: format!("{id}-outbox"),
         operator_id: Some("op-ana".into()),
         primary_currency: "cup".into(),
+        location_id: Some("store-main".into()),
         opening_floats: floats
             .iter()
             .map(|(currency, amount)| OpeningFloatInput {
@@ -53,6 +54,7 @@ fn movement(
         amount_minor: amount,
         reason: reason.into(),
         category: None,
+        source_system: None,
         source_type: None,
         source_id: None,
         corrects_movement_id: None,
@@ -119,7 +121,7 @@ fn migrations_apply_in_order_and_enable_ledger() {
     let conn = db();
     assert!(cash_ledger_ready(&conn).unwrap());
     let versions: Vec<i64> = MIGRATIONS.iter().map(|m| m.version).collect();
-    assert_eq!(versions, vec![1, 2, 3, 4]);
+    assert_eq!(versions, vec![1, 2, 3, 4, 5]);
 }
 
 #[test]
@@ -135,7 +137,9 @@ fn legacy_0003_shift_keeps_opening_float_after_0004() {
         [],
     )
     .unwrap();
-    conn.execute_batch(MIGRATIONS[3].sql).unwrap();
+    for migration in &MIGRATIONS[3..] {
+        conn.execute_batch(migration.sql).unwrap();
+    }
     let summary = shift_summary(&conn, "legacy").unwrap();
     assert_eq!(currency(&summary, "USD").expected_minor, 5000);
 }
@@ -407,14 +411,7 @@ fn movement_retry_is_idempotent() {
     let mut conn = db();
     let s = scope("android-pilot-01");
     open_shift(&mut conn, &s, &open_input("s1", &[("CUP", 1_000)])).unwrap();
-    let m = movement(
-        "m-in",
-        "s1",
-        MovementKind::MessengerReturn,
-        "CUP",
-        700,
-        "Mensajero devuelve cobro",
-    );
+    let m = collection("m-in", MovementKind::MessengerReturn, "2608", "CUP", 700);
     record_movement(&mut conn, &s, &m).unwrap();
     let summary = record_movement(&mut conn, &s, &m).unwrap();
     assert_eq!(currency(&summary, "CUP").expected_minor, 1_700);
@@ -686,4 +683,157 @@ fn closed_shift_and_ledger_are_immutable_at_schema_level() {
         [],
     )
     .unwrap();
+}
+
+fn insert_payment(
+    conn: &Connection,
+    sale: &str,
+    method: &str,
+    rail: Option<&str>,
+    currency: &str,
+    amount: i64,
+) -> rusqlite::Result<usize> {
+    conn.execute(
+        "INSERT INTO local_payments (id,sale_id,method,currency,amount_minor,occurred_at,rail) VALUES (?1,?2,?3,?4,?5,'2026-10-02T12:00:00Z',?6)",
+        params![format!("{sale}-{method}-{currency}"), sale, method, currency, amount, rail],
+    )
+}
+
+fn collection(
+    id: &str,
+    kind: MovementKind,
+    order: &str,
+    currency: &str,
+    amount: i64,
+) -> RecordMovementInput {
+    let mut m = movement(id, "s1", kind, currency, amount, "Cobro del pedido");
+    m.source_system = Some("woocommerce".into());
+    m.source_type = Some("order".into());
+    m.source_id = Some(order.into());
+    m
+}
+
+#[test]
+fn only_cash_rail_changes_the_drawer() {
+    let mut conn = db();
+    let s = scope("android-pilot-01");
+    open_shift(&mut conn, &s, &open_input("s1", &[("CUP", 0)])).unwrap();
+    conn.execute(
+        "INSERT INTO local_sales (id,business_id,branch_id,device_id,currency,total_minor,occurred_at,shift_id)
+         VALUES ('mixed','casa-viva','casa-viva-main','android-pilot-01','CUP',10000,'x','s1')",
+        [],
+    )
+    .unwrap();
+    insert_payment(&conn, "mixed", "cash", Some("cash"), "CUP", 1_000).unwrap();
+    insert_payment(&conn, "mixed", "transfer", Some("transfer"), "CUP", 2_000).unwrap();
+    insert_payment(&conn, "mixed", "card", Some("card"), "CUP", 3_000).unwrap();
+    insert_payment(&conn, "mixed", "cash-legacy", None, "CUP", 500).unwrap();
+    let summary = shift_summary(&conn, "s1").unwrap();
+    assert_eq!(currency(&summary, "CUP").sales_cash_minor, 1_000);
+
+    // Physical cash cannot be disguised as another rail, nor the reverse.
+    assert!(insert_payment(&conn, "mixed", "cash", Some("transfer"), "USD", 1).is_err());
+    assert!(insert_payment(&conn, "mixed", "transfer", Some("cash"), "USD", 1).is_err());
+}
+
+#[test]
+fn order_cash_requires_source_and_counts_once_per_currency() {
+    let mut conn = db();
+    let s = scope("android-pilot-01");
+    open_shift(&mut conn, &s, &open_input("s1", &[("CUP", 0)])).unwrap();
+
+    let mut no_source = movement(
+        "m0",
+        "s1",
+        MovementKind::MessengerReturn,
+        "CUP",
+        100,
+        "Sin pedido",
+    );
+    no_source.source_type = Some("order".into());
+    assert!(matches!(
+        record_movement(&mut conn, &s, &no_source),
+        Err(CashError::Validation(_))
+    ));
+
+    // Split collection: the same order may return USD and CUP.
+    record_movement(
+        &mut conn,
+        &s,
+        &collection("m1", MovementKind::MessengerReturn, "2608", "CUP", 150_000),
+    )
+    .unwrap();
+    let summary = record_movement(
+        &mut conn,
+        &s,
+        &collection("m2", MovementKind::MessengerReturn, "2608", "USD", 2_000),
+    )
+    .unwrap();
+    assert_eq!(currency(&summary, "USD").other_in_minor, 2_000);
+
+    // A second recording of the same order money (new ID, retry from another
+    // screen) is rejected instead of double counting.
+    let dup = record_movement(
+        &mut conn,
+        &s,
+        &collection("m3", MovementKind::MessengerReturn, "2608", "CUP", 150_000),
+    );
+    assert!(matches!(dup, Err(CashError::Conflict(_))));
+    // Pickup cash for the same order is a different kind and is allowed.
+    record_movement(
+        &mut conn,
+        &s,
+        &collection("m4", MovementKind::OrderCash, "2609", "CUP", 9_000),
+    )
+    .unwrap();
+    assert_eq!(
+        scalar(
+            &conn,
+            "SELECT COUNT(*) FROM local_cash_movements WHERE source_id IN ('2608','2609')"
+        ),
+        3
+    );
+}
+
+#[test]
+fn order_money_cannot_enter_two_drawers() {
+    let mut conn = db();
+    open_shift(
+        &mut conn,
+        &scope("android-pilot-01"),
+        &open_input("s1", &[("CUP", 0)]),
+    )
+    .unwrap();
+    let mut other = open_input("s2", &[("CUP", 0)]);
+    other.outbox_id = "s2-outbox".into();
+    open_shift(&mut conn, &scope("windows-pilot-01"), &other).unwrap();
+
+    record_movement(
+        &mut conn,
+        &scope("android-pilot-01"),
+        &collection("m1", MovementKind::MessengerReturn, "2608", "CUP", 100),
+    )
+    .unwrap();
+    let mut on_windows = collection("m2", MovementKind::MessengerReturn, "2608", "CUP", 100);
+    on_windows.shift_id = "s2".into();
+    assert!(record_movement(&mut conn, &scope("windows-pilot-01"), &on_windows).is_err());
+}
+
+#[test]
+fn shift_records_location() {
+    let mut conn = db();
+    open_shift(
+        &mut conn,
+        &scope("android-pilot-01"),
+        &open_input("s1", &[("CUP", 0)]),
+    )
+    .unwrap();
+    let location: String = conn
+        .query_row(
+            "SELECT location_id FROM local_cash_shifts WHERE id='s1'",
+            [],
+            |r| r.get(0),
+        )
+        .unwrap();
+    assert_eq!(location, "store-main");
 }
