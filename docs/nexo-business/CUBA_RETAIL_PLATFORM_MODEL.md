@@ -330,3 +330,31 @@ A future pilot merchant should be able to operate:
 - management view;
 
 without duplicating business logic across apps.
+
+
+## 14. Approved product decisions v1
+
+The owner-approved operational/commercial decisions are recorded in `PRODUCT_DECISIONS_V1.md`.
+
+Key consequences:
+- multi-currency architecture: CUP, USD, MLC now, extensible to crypto/digital assets;
+- generic transfer payment category initially;
+- gestora module optional and multi-store;
+- messenger module supports merchant fleet + future shared NEXO network;
+- delivery pricing configurable by zone, km or manual;
+- multiple simultaneous devices/cash shifts;
+- one branch initially, multi-branch-ready data model;
+- location-based inventory with warehouse/store/branch transfers;
+- POS sales attributed to operator and eligible for configurable commissions;
+- customer CRM/history with optional anonymous fast sale;
+- credit/fiado, partial payments and consignment are first-class future requirements;
+- returns/exchanges and structured expenses are required;
+- owner can view one business or an authorized multi-business portfolio;
+- self-service onboarding is the destination, guided onboarding first;
+- commercial hypothesis: USD 30 setup + USD 10/month, configurable outside code;
+- hours-long offline operation with later idempotent sync;
+- critical workflows progressively move into NEXO, with WhatsApp optional;
+- accounting evolves from operational ledgers toward full financial reporting;
+- Estilo y Hogar is the next full NEXO-native reusable-template pilot after Casa Viva.
+
+See `docs/nexo-business/PRODUCT_DECISIONS_V1.md` for the authoritative detail.
