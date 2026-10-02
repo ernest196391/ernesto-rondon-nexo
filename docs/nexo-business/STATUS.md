@@ -114,6 +114,8 @@ Verified manually on a physical Android device:
 - With the phone in airplane mode, a product can be added and one cash sale completes successfully.
 - The sale is recorded as pending synchronization in the local outbox.
 - After fully closing and reopening the app while still offline, the formal local sale and pending outbox remain present.
+- After an in-place APK update (`adb install -r`), the existing local SQLite data remained intact.
+- Post-update Android integrity audit reported: sales 6, lines 6, payments 6, inventory movements 6, outbox 6, incomplete sales 0, rollback OK.
 - The sale path now assigns a platform-specific pilot device ID: `android-pilot-01` on Android and `windows-pilot-01` on Windows.
 - This proves the Android offline core path, but does **not** yet certify camera scanning, cloud synchronization, an 8-hour offline shift, backup/restore, or production readiness.
 
