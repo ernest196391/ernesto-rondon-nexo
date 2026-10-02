@@ -3,7 +3,7 @@
 **Last update:** 2026-10-02
 **Pilots:** Casa Viva (Pilot 01, NEXO-native) · Colo Shop + AxisSoft (Pilot 02, external-system connector)
 **Current phase:** Phase 0 — Implementation Spike
-**Overall state:** Windows native offline core PASS. Android physical-device core proof is also PASS for build/install/launch, local catalog, airplane-mode sale, outbox persistence and full app close/reopen persistence. Android barcode-scanner integration is implemented, builds successfully, installs in place and opens the camera offline; end-to-end decode -> local lookup -> cart is still pending because the Redmi 9A opens the NEXO scanner but does not decode the test QR inside NEXO. NEXO Sync + Axis connector strategy remains accepted and documented.
+**Overall state:** Windows native offline core PASS. Android physical-device core PASS. Multi-line cart and digital receipt are proven on Windows/Android. Android camera decoding on Redmi 9A remains partial. Product direction is now explicitly reusable/white-label for Cuban businesses: online store + POS/cash + inventory + gestora + messenger + management, with merchant-specific behavior handled by configuration/adapters rather than forks.
 
 ## What we are building
 Offline-first, hardware-optional Android + Windows POS/business OS integrated with NEXO online stores. The minimum viable setup is one Android phone.
@@ -169,8 +169,15 @@ Verified manually on Windows and Android:
 
 Native Android share sheet remains an optional enhancement, not a blocker because copy-to-clipboard is proven.
 
+### Product-direction checkpoint — 2026-10-02
+- Added `CUBA_RETAIL_PLATFORM_MODEL.md` defining NEXO Business as a reusable retail operating platform for Cuban merchants.
+- Casa Viva remains the reference complex pilot, but its WordPress/Woo internals must not become the generic core.
+- Shared core must cover online store, POS/cash, inventory, gestora, messenger and management coordination.
+- Merchant differences belong in configuration/adapters whenever possible.
+- The generic cash model must support multiple currencies, physical vs non-cash payments, source-aware movements and external order references before UI expansion.
+
 ### Next executable block
-Implement Phase-1 cash-shift foundation: open shift, opening float, cash in/out with required reason, expected cash, close/count/difference, all offline and auditable.
+Pause expansion of the simplistic cash-shift model and redesign it as a reusable merchant cash model: multi-currency, source-aware, external-order-linked and compatible with Casa Viva messenger cash return. Then implement Phase-1 cash-shift foundation on top of that model.
 
 ## Local verification — Windows laptop — 2026-09-28
 Verified on Node.js 24.19.0 / npm 11.17.0 / Git 2.55.0.windows.3:
