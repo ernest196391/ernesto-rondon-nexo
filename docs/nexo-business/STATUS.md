@@ -3,7 +3,7 @@
 **Last update:** 2026-10-02
 **Pilots:** Casa Viva (Pilot 01, complex reference) · Colo Shop + AxisSoft (connector pilot) · Estilo y Hogar (next full reusable NEXO-native pilot)
 **Current phase:** Phase 0 — Implementation Spike
-**Overall state:** Cash shift ledger backend implemented and unit-tested on a branch, not device-tested. Windows native offline core PASS. Android physical-device core PASS. Multi-line cart and digital receipt are proven on Windows/Android. Android camera decoding on Redmi 9A remains partial. Product direction is now explicitly reusable/white-label for Cuban businesses: online store + POS/cash + inventory + gestora + messenger + management, with merchant-specific behavior handled by configuration/adapters rather than forks.
+**Overall state:** Cash shift ledger backend merged; migrations 3–5 verified as in-place upgrades on the Windows and Android pilot DBs (no cash UI yet). Windows native offline core PASS. Android physical-device core PASS. Multi-line cart and digital receipt are proven on Windows/Android. Android camera decoding on Redmi 9A remains partial. Product direction is now explicitly reusable/white-label for Cuban businesses: online store + POS/cash + inventory + gestora + messenger + management, with merchant-specific behavior handled by configuration/adapters rather than forks.
 
 ## What we are building
 Offline-first, hardware-optional Android + Windows POS/business OS integrated with NEXO online stores. The minimum viable setup is one Android phone.
@@ -211,11 +211,19 @@ Branch `claude/reusable-financial-model` (Claude Code lane; includes the earlier
 - **Not manually tested, not hardware tested, not production:** no UI exists yet; migrations 0003/0004 have not run through the Tauri SQL plugin on a real Windows or Android install; `complete_sale` with an open shift has not been exercised on a device.
 - Root `tsc --noEmit` errors are pre-existing (`apps/business-pos/src/main.ts` Tauri modules not installed at root). CI on `main` is red at `npm audit` (critical advisory in `next` 16.3.4), also pre-existing.
 
+### Financial migrations upgrade checkpoint — WINDOWS + ANDROID DEVICE PASS — 2026-10-02
+Merged to `main` as PR #130 (`bb9b135`); follow-up branch `claude/cash-ci-and-rail`.
+- **Windows (pilot laptop, existing pilot DB at migration 2, 7 sales, backed up first):** `cargo test` 24/24, root `vitest` 160/160, `tauri build --debug --no-bundle` OK. On launch the Tauri SQL plugin applied migrations 3, 4 and 5 with no checksum error (`_sqlx_migrations` 1–5 success, 17 triggers, `integrity_check` ok, `foreign_key_check` empty). Startup audit OK; one test sale without a shift saved completely and the audit stayed OK (sales 8).
+- **Android (Redmi 9A, armeabi-v7a, existing DB at migration 2, 12 sales, backed up first):** arm debug APK installed with `adb install -r` (data kept). Migrations 3–5 applied on first launch; startup audit OK with 12 sales. One test sale without a shift saved completely, with `rail='cash'`; after force-stop and relaunch the sale persisted (13 sales, `integrity_check` ok, audit OK).
+- **Follow-up (`claude/cash-ci-and-rail`):** CI job `business-db-rust` runs `cargo test --locked`; `complete_sale` writes `rail='cash'` instead of relying on the legacy NULL-rail fallback.
+- **Not exercised on a device:** opening/closing a cash shift and cash movements (append-only rows would stay in the pilot DBs; covered only by `cargo test`). No UI exists yet.
+- **Windows Android build note:** `tauri android build` fails on this laptop at the jniLibs symlink step (Windows Developer Mode is off). Workaround used: `tauri android build --debug --apk --target armv7` (compiles Rust, then fails at the symlink), copy `D:\NexoBuild\target\armv7-linux-androideabi\debug\libnexo_business_pos_lib.so` into `gen/android/app/src/main/jniLibs/armeabi-v7a/`, then `gradlew.bat assembleArmDebug -x rustBuildArmDebug`. APK: `gen/android/app/build/outputs/apk/arm/debug/app-arm-debug.apk`. Enabling Developer Mode restores the normal flow.
+- **Device DB inspection:** the Android DB uses WAL; copy it with `adb exec-out run-as com.nexo.business cat nexo-business.db` only after a relaunch (checkpoint), or the newest rows may be missing from the copy.
+
 ### Next executable block
-1. Windows: `npm.cmd` build + launch the POS with this branch, confirm migrations 3, 4 and 5 apply on the existing pilot DB (no checksum error) and that a sale without a shift still passes the integrity audit.
+1. Receivables / fiado / partial payment backend (migration 0006 + Rust repository + tests), per `FINANCIAL_MODEL.md` §6.
 2. Minimal cash-shift UI (open with float, cash in/out with reason, close with count per currency) — coordinate with the owner of `main.ts`.
-3. Android: same migration/upgrade check with `adb install -r` over existing data, then one offline shift with sales + movements + close.
-4. Add `cargo test` for `packages/business-db/rust` to CI.
+3. One offline shift on Android (open, sales, movements, close) once the UI exists.
 
 ## Local verification — Windows laptop — 2026-09-28
 Verified on Node.js 24.19.0 / npm 11.17.0 / Git 2.55.0.windows.3:

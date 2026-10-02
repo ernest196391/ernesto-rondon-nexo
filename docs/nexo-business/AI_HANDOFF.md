@@ -276,3 +276,6 @@ Before editing those files, audit migration compatibility. Because migration 000
 
 ## Cash shift checkpoint — 2026-10-02 (Claude Code lane)
 Migration 0003 is no longer a standalone draft: `0004_cash_ledger_multicurrency.sql` and `0005_financial_rails_and_refs.sql` extend it additively and all are now in the device migration list, which moved to `packages/business-db/rust/src/lib.rs` (`MIGRATIONS`). Cash shift writes go through `packages/business-db/rust/src/cash_shift.rs`; do not write cash tables directly from TypeScript. Do not edit 0003–0005 once merged; add 0006+. Read `FINANCIAL_MODEL.md` before any money-related schema (receivables, refunds, consignment, messenger custody).
+
+## Device upgrade checkpoint — 2026-10-02 (Claude Code lane)
+Migrations 3–5 are verified as in-place upgrades on the Windows pilot DB and on the Android Redmi 9A (armeabi-v7a) pilot DB; see STATUS "Financial migrations upgrade checkpoint". On this Windows laptop `tauri android build` cannot create its jniLibs symlink (Developer Mode off): build `--target armv7`, copy the `.so` into `gen/android/app/src/main/jniLibs/armeabi-v7a/` and run `gradlew.bat assembleArmDebug -x rustBuildArmDebug`. CI now runs `cargo test --locked` for `packages/business-db/rust`. Next money block: receivables/fiado (migration 0006).

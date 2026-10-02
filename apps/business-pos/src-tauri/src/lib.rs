@@ -157,7 +157,7 @@ fn complete_sale(app: tauri::AppHandle, input: CompleteSaleInput) -> Result<(), 
     }
 
     tx.execute(
-        "INSERT INTO local_payments (id,sale_id,method,currency,amount_minor,occurred_at) VALUES (?1,?2,'cash',?3,?4,?5)",
+        "INSERT INTO local_payments (id,sale_id,method,rail,currency,amount_minor,occurred_at) VALUES (?1,?2,'cash','cash',?3,?4,?5)",
         params![input.payment_id, input.sale_id, currency, input.total_minor, input.occurred_at],
     ).map_err(|e| e.to_string())?;
 
