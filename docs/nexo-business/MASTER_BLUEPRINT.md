@@ -1,12 +1,25 @@
 # NEXO Business — Master Blueprint
 
-**Status:** PLANNED / Pilot 01 = Casa Viva
+**Status:** ACTIVE DESIGN / Pilot 01 = Casa Viva / next reusable native pilot = Estilo y Hogar
 **Repository:** ernest196391/ernesto-rondon-nexo
-**Updated:** 2026-09-28
+**Updated:** 2026-10-02
 **Purpose:** Offline-first, hardware-optional business operating system for NEXO-powered stores. Android + Windows POS, inventory, orders, cash, cloud sync and web-store integration. A business must be able to start with only an Android phone.
 
 ## Product thesis
-NEXO Business is not a clone of AxisSoft. It borrows validated ERP/POS concepts while owning its UX, code, data model and integrations. Its differentiator is one source of truth shared by physical POS, online store, inventory, fulfillment and management.
+NEXO Business is not a clone of AxisSoft and not a one-off Casa Viva POS. It is a reusable/white-label retail operating platform for Cuban businesses.
+
+The target commercial bundle is:
+- online store;
+- Android/Windows POS;
+- cash and financial operations;
+- inventory by location;
+- customer/CRM;
+- gestora sales network;
+- messenger/delivery network;
+- management/admin;
+- offline-first synchronization.
+
+The product must be adaptable primarily through tenant configuration and adapters, not repository forks. See `CUBA_RETAIL_PLATFORM_MODEL.md` and `PRODUCT_DECISIONS_V1.md`.
 
 ## Pilots
 
@@ -42,8 +55,12 @@ The two pilots are not separate products. Both must converge on the same provide
 8. Suppliers/Purchases: suppliers, purchase orders/receipts, costs.
 9. Delivery: assignment/status/proof fields; Casa Viva tariffs integrate here.
 10. Reporting: sales, margin, stock, cash, order performance.
-11. Accounting (later): journal, chart of accounts, periods, trial balance.
-12. AI (later): read-only grounded assistant with traceable report/source.
+11. CRM/Credit: customers, purchase history, receivables, partial payments, fiado, consignment.
+12. Returns/Exchanges: non-destructive reversal and replacement flows.
+13. Gestoras: attribution, storefront, commissions, multi-store profile.
+14. Messenger: jobs, collection, cash return, settlement, multi-store profile.
+15. Accounting (later): bank/cash, payables, journal, chart of accounts, periods, trial balance, P&L.
+16. AI (later): read-only grounded assistant with traceable report/source.
 
 ## Offline-first rules
 - SQLite is authoritative for an active offline POS session.
@@ -94,9 +111,12 @@ Exit: Casa Viva can run a simulated full day disconnected on an Android phone an
 
 ### Phase 2 — Inventory
 - Opening stock/import.
+- Location model: warehouse, store, branch, transit.
 - Immutable movement ledger.
+- Paired stock transfers between locations.
 - Purchase/receipt, adjustment, shrinkage.
-- Stock count.
+- Stock count and reconciliation.
+- Consignment-aware stock ownership/location groundwork.
 - Low-stock warning.
 - Cost and gross-margin basis.
 Exit: every sale changes stock and can be audited back to a movement.
@@ -133,19 +153,29 @@ Exit: online and counter sales share inventory safely.
 
 Exit: Colo Shop staff do not maintain the same catalog manually in Axis and NEXO, repeated sync does not duplicate products, and failed imports cannot destroy last known-good storefront state.
 
-### Phase 5 — Management
+### Phase 5 — Management + CRM + operational finance
 - Dashboard: today sales/cash/margin/orders/stock alerts.
-- Customers and suppliers.
-- Purchases/accounts operational views.
+- Customers and purchase history.
+- Optional customer capture at POS; anonymous fast sale remains possible.
+- Credit/fiado, partial payment and receivable ledger.
+- Suppliers, purchases and payables operational views.
+- Daily expenses and structured cash movements.
+- Returns/exchanges linked to original sale.
+- Gestora/operator commissions.
+- Owner portfolio view across authorized businesses.
 - CSV/XLSX export.
 - Audit log.
 Exit: owner can manage daily business without spreadsheets for core flows.
 
 ### Phase 6 — Accounting
+- Cash and bank reconciliation.
+- Operational ledgers feed accounting.
 - Chart of accounts.
 - Journal templates generated from operational events.
 - Periods, posting, trial balance.
 - Receivable/payable ledgers.
+- Inventory valuation/cost.
+- Profit/loss reporting.
 - Accountant review/export.
 Exit: accounting invariants and reconciliation tests pass. Local legal/accounting requirements require professional validation before marketing as compliant accounting.
 
@@ -153,7 +183,13 @@ Exit: accounting invariants and reconciliation tests pass. Local legal/accountin
 Read-only first. Natural-language questions grounded in reports, with source/report/date shown. No autonomous mutation of accounting, cash or stock initially.
 
 ### Phase 8 — SaaS/white-label
-Tenant onboarding, plans/entitlements, branding, updater, backups, telemetry with consent, support tooling, installer/signing, additional vertical templates.
+- Guided onboarding first, then self-service "Create your business".
+- Tenant onboarding, plans/entitlements and configurable commercial pricing.
+- Branding/domain/storefront.
+- Optional modules: gestora, messenger, credit, advanced accounting.
+- Updater, backups, telemetry with consent, support tooling, installer/signing.
+- Additional vertical templates.
+- Estilo y Hogar is the next intended full NEXO-native pilot used to prove configuration-over-fork reuse.
 
 ## AxisCloud audit → NEXO decision
 Validated AxisCloud concepts worth adopting as product patterns:
