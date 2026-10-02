@@ -314,8 +314,8 @@ queryInput.onkeydown = async e => {
 
 let hidBuffer = "";
 let hidLastKeyAt = 0;
-const HID_MAX_GAP_MS = 80;
-const HID_ENTER_GRACE_MS = 160;
+const HID_MAX_GAP_MS = 1500;
+const HID_ENTER_GRACE_MS = 2000;
 
 document.addEventListener("keydown", e => {
   const target = e.target as HTMLElement | null;
