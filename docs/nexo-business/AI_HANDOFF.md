@@ -243,3 +243,33 @@ Record separately:
 - production-ready.
 
 Never collapse these into one PASS.
+
+
+## Owner-approved product decisions — 2026-10-02
+Read `docs/nexo-business/PRODUCT_DECISIONS_V1.md` before new schema or workflow design.
+
+Critical requirements now include:
+- CUP/USD/MLC with ledger extensible to crypto/digital assets;
+- generic transfer category first;
+- gestora optional, multi-store, configurable commission by product/store/order/percentage;
+- merchant messengers plus future shared NEXO messenger network;
+- delivery rate modes: zone, per-km, manual;
+- simultaneous POS devices/shifts;
+- location inventory and transfers across warehouse/store/branch;
+- POS operator attribution and operator commission capability;
+- CRM/customer purchase history for future retention/retargeting;
+- credit/fiado, partial payments and consignment;
+- returns/exchanges;
+- structured expenses;
+- multi-business owner portfolio;
+- guided onboarding now, self-service later;
+- offline for hours with later idempotent reconciliation;
+- WhatsApp as optional channel, not future source of truth;
+- accounting grows toward receivables/payables, bank, inventory valuation and P&L;
+- Estilo y Hogar is the next full reusable NEXO-native pilot.
+
+### Immediate architecture correction
+Do not continue the current simplistic `0003_cash_shifts.sql` as final design.
+Treat migration 0003 and current cash-shift domain primitives as a spike/draft until reconciled with the approved multi-currency, multi-location and source-aware financial model.
+
+Before editing those files, audit migration compatibility. Because migration 0003 already exists on `main`, do not silently rewrite an applied migration if any device may already have executed it. Prefer a safe follow-up migration when necessary.
