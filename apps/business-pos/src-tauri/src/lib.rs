@@ -34,7 +34,8 @@ fn open_local_db(app: &tauri::AppHandle) -> Result<Connection, String> {
     fs::create_dir_all(&dir).map_err(|e| e.to_string())?;
     let path = dir.join("nexo-business.db");
     let conn = Connection::open(path).map_err(|e| e.to_string())?;
-    conn.pragma_update(None, "foreign_keys", "ON").map_err(|e| e.to_string())?;
+    conn.pragma_update(None, "foreign_keys", "ON")
+        .map_err(|e| e.to_string())?;
     Ok(conn)
 }
 
@@ -90,7 +91,8 @@ fn complete_sale(app: tauri::AppHandle, input: CompleteSaleInput) -> Result<(), 
             "currency": currency,
             "payment_method": "cash"
         }
-    }).to_string();
+    })
+    .to_string();
 
     tx.execute(
         "INSERT INTO local_outbox (id,business_id,device_id,operation_type,entity_type,entity_id,payload_json,occurred_at) VALUES (?1,?2,?3,'sale.completed','sale',?4,?5,?6)",
@@ -106,18 +108,26 @@ fn audit_local_integrity(app: tauri::AppHandle) -> Result<IntegrityReport, Strin
     let business_id = "casa-viva";
 
     let count = |conn: &Connection, sql: &str| -> Result<i64, String> {
-        conn.query_row(sql, [business_id], |row| row.get(0)).map_err(|e| e.to_string())
+        conn.query_row(sql, [business_id], |row| row.get(0))
+            .map_err(|e| e.to_string())
     };
 
-    let sales = count(&conn, "SELECT COUNT(*) FROM local_sales WHERE business_id=?1")?;
+    let sales = count(
+        &conn,
+        "SELECT COUNT(*) FROM local_sales WHERE business_id=?1",
+    )?;
     let sale_lines = count(&conn, "SELECT COUNT(*) FROM local_sale_lines l JOIN local_sales s ON s.id=l.sale_id WHERE s.business_id=?1")?;
     let payments = count(&conn, "SELECT COUNT(*) FROM local_payments p JOIN local_sales s ON s.id=p.sale_id WHERE s.business_id=?1")?;
     let inventory_movements = count(&conn, "SELECT COUNT(*) FROM local_inventory_movements WHERE business_id=?1 AND source_type='sale'")?;
-    let outbox = count(&conn, "SELECT COUNT(*) FROM local_outbox WHERE business_id=?1 AND entity_type='sale'")?;
+    let outbox = count(
+        &conn,
+        "SELECT COUNT(*) FROM local_outbox WHERE business_id=?1 AND entity_type='sale'",
+    )?;
     let incomplete_sales = count(&conn, "SELECT COUNT(*) FROM local_sales s WHERE s.business_id=?1 AND (NOT EXISTS (SELECT 1 FROM local_sale_lines l WHERE l.sale_id=s.id) OR NOT EXISTS (SELECT 1 FROM local_payments p WHERE p.sale_id=s.id) OR NOT EXISTS (SELECT 1 FROM local_inventory_movements m WHERE m.source_type='sale' AND m.source_id=s.id) OR NOT EXISTS (SELECT 1 FROM local_outbox o WHERE o.entity_type='sale' AND o.entity_id=s.id))")?;
 
     let rollback_id = "__nexo_rollback_probe__";
-    conn.execute("DELETE FROM local_sales WHERE id=?1", [rollback_id]).map_err(|e| e.to_string())?;
+    conn.execute("DELETE FROM local_sales WHERE id=?1", [rollback_id])
+        .map_err(|e| e.to_string())?;
     {
         let tx = conn.transaction().map_err(|e| e.to_string())?;
         tx.execute(
@@ -126,7 +136,13 @@ fn audit_local_integrity(app: tauri::AppHandle) -> Result<IntegrityReport, Strin
         ).map_err(|e| e.to_string())?;
         // Intentionally no commit: dropping the transaction must roll it back.
     }
-    let residue: i64 = conn.query_row("SELECT COUNT(*) FROM local_sales WHERE id=?1", [rollback_id], |row| row.get(0)).map_err(|e| e.to_string())?;
+    let residue: i64 = conn
+        .query_row(
+            "SELECT COUNT(*) FROM local_sales WHERE id=?1",
+            [rollback_id],
+            |row| row.get(0),
+        )
+        .map_err(|e| e.to_string())?;
 
     Ok(IntegrityReport {
         sales,
@@ -156,13 +172,22 @@ pub fn run() {
         },
     ];
 
-    tauri::Builder::default()
+    let builder = tauri::Builder::default();
+
+    #[cfg(mobile)]
+    let builder = builder.plugin(tauri_plugin_barcode_scanner::init());
+
+    builder
         .plugin(
             tauri_plugin_sql::Builder::default()
                 .add_migrations("sqlite:nexo-business.db", migrations)
                 .build(),
         )
-        .invoke_handler(tauri::generate_handler![complete_sale, audit_local_integrity])
+        .invoke_handler(tauri::generate_handler![
+            complete_sale,
+            audit_local_integrity
+        ])
         .run(tauri::generate_context!())
         .expect("error while running NEXO Business");
 }
+

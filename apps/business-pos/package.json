@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@tauri-apps/api": "^2.0.0",
+    "@tauri-apps/plugin-barcode-scanner": "^2.5.1",
     "@tauri-apps/plugin-sql": "^2.0.0"
   },
   "devDependencies": {

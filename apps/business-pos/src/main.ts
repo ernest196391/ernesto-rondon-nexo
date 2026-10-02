@@ -1,5 +1,6 @@
 import { invoke } from "@tauri-apps/api/core";
 import Database from "@tauri-apps/plugin-sql";
+import { scan, Format, checkPermissions, requestPermissions } from "@tauri-apps/plugin-barcode-scanner";
 import "./style.css";
 
 type Product = { id: string; name: string; price_minor: number; barcode: string | null };
@@ -25,6 +26,7 @@ app.innerHTML = `
   <header><small>PILOTO 01 Â· CASA VIVA</small><h1>NEXO Business</h1><p>POS offline Â· Windows + Android</p></header>
   <div class="status" id="status">Preparando base localâ€¦</div>
   <label>Buscar o escanear<input id="query" autocomplete="off" inputmode="search" placeholder="Nombre, SKU o cÃ³digo"></label>
+  <button id="scan" type="button">Escanear con cámara</button>
   <div id="products"></div>
   <aside><h2>Carrito</h2><div id="cart">VacÃ­o</div><button id="sell" disabled>Cobrar en efectivo</button></aside>
   <footer id="history"></footer>
@@ -81,6 +83,69 @@ function choose(p: Product) {
   (document.querySelector("#sell") as HTMLButtonElement).disabled = false;
 }
 
+async function scanProduct() {
+  const status = document.querySelector("#status")!;
+  const button = document.querySelector("#scan") as HTMLButtonElement;
+
+  try {
+    button.disabled = true;
+    status.textContent = "Preparando cámara...";
+
+    let permission = await checkPermissions();
+
+    if (permission !== "granted") {
+      permission = await requestPermissions();
+    }
+
+    if (permission !== "granted") {
+      status.textContent = "Permiso de cámara no concedido · puedes buscar manualmente";
+      return;
+    }
+
+    status.textContent = "Escanea el código del producto...";
+
+    const result = await scan({
+      cameraDirection: "back",
+      formats: [
+        Format.QRCode,
+        Format.UPC_A,
+        Format.UPC_E,
+        Format.EAN8,
+        Format.EAN13
+      ]
+    });
+
+    const code = result.content.trim();
+
+    const rows = await db.select<Product[]>(
+      `SELECT p.id,p.name,pr.amount_minor AS price_minor,b.code AS barcode
+       FROM local_barcodes b
+       JOIN local_products p
+         ON p.id=b.product_id AND p.business_id=b.business_id
+       JOIN local_prices pr
+         ON pr.product_id=p.id
+        AND pr.business_id=p.business_id
+        AND pr.active=1
+       WHERE b.business_id=$1
+         AND b.code=$2
+         AND p.active=1
+       LIMIT 1`,
+      [BUSINESS_ID, code]
+    );
+
+    if (!rows.length) {
+      status.textContent = `Código no registrado: ${code}`;
+      return;
+    }
+
+    choose(rows[0]);
+    status.textContent = `Código leído · ${rows[0].name} añadido al carrito`;
+  } catch (e) {
+    status.textContent = `Escaneo cancelado o no disponible: ${String(e)}`;
+  } finally {
+    button.disabled = false;
+  }
+}
 async function sell() {
   if (!selected) return;
   const p = selected;
@@ -142,5 +207,9 @@ async function renderHistory() {
 }
 
 (document.querySelector("#query") as HTMLInputElement).oninput = e => renderProducts((e.target as HTMLInputElement).value);
+(document.querySelector("#scan") as HTMLButtonElement).onclick = scanProduct;
 (document.querySelector("#sell") as HTMLButtonElement).onclick = sell;
 init().catch(e => { document.querySelector("#status")!.textContent = `Error local: ${String(e)}`; });
+
+
+
