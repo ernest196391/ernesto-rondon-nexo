@@ -279,3 +279,6 @@ Migration 0003 is no longer a standalone draft: `0004_cash_ledger_multicurrency.
 
 ## Device upgrade checkpoint — 2026-10-02 (Claude Code lane)
 Migrations 3–5 are verified as in-place upgrades on the Windows pilot DB and on the Android Redmi 9A (armeabi-v7a) pilot DB; see STATUS "Financial migrations upgrade checkpoint". On this Windows laptop `tauri android build` cannot create its jniLibs symlink (Developer Mode off): build `--target armv7`, copy the `.so` into `gen/android/app/src/main/jniLibs/armeabi-v7a/` and run `gradlew.bat assembleArmDebug -x rustBuildArmDebug`. CI now runs `cargo test --locked` for `packages/business-db/rust`. Next money block: receivables/fiado (migration 0006).
+
+## Receivables checkpoint — 2026-10-02 (Claude Code lane)
+`0006_receivables.sql` + `packages/business-db/rust/src/receivables.rs` implement fiado/partial payments as append-only receivable entries (never negative cash). Do not edit 0006 once merged; add 0007+. Writes go through the Rust repository, not TypeScript SQL.

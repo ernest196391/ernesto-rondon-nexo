@@ -3,7 +3,7 @@
 **Last update:** 2026-10-02
 **Pilots:** Casa Viva (Pilot 01, complex reference) · Colo Shop + AxisSoft (connector pilot) · Estilo y Hogar (next full reusable NEXO-native pilot)
 **Current phase:** Phase 0 — Implementation Spike
-**Overall state:** Cash shift ledger backend merged; migrations 3–5 verified as in-place upgrades on the Windows and Android pilot DBs (no cash UI yet). Windows native offline core PASS. Android physical-device core PASS. Multi-line cart and digital receipt are proven on Windows/Android. Android camera decoding on Redmi 9A remains partial. Product direction is now explicitly reusable/white-label for Cuban businesses: online store + POS/cash + inventory + gestora + messenger + management, with merchant-specific behavior handled by configuration/adapters rather than forks.
+**Overall state:** Cash shift ledger and receivables (fiado) backends implemented; migrations 3–6 verified as in-place upgrades on the Windows and Android pilot DBs (no cash/credit UI yet). Windows native offline core PASS. Android physical-device core PASS. Multi-line cart and digital receipt are proven on Windows/Android. Android camera decoding on Redmi 9A remains partial. Product direction is now explicitly reusable/white-label for Cuban businesses: online store + POS/cash + inventory + gestora + messenger + management, with merchant-specific behavior handled by configuration/adapters rather than forks.
 
 ## What we are building
 Offline-first, hardware-optional Android + Windows POS/business OS integrated with NEXO online stores. The minimum viable setup is one Android phone.
@@ -220,8 +220,16 @@ Merged to `main` as PR #130 (`bb9b135`); follow-up branch `claude/cash-ci-and-ra
 - **Windows Android build note:** `tauri android build` fails on this laptop at the jniLibs symlink step (Windows Developer Mode is off). Workaround used: `tauri android build --debug --apk --target armv7` (compiles Rust, then fails at the symlink), copy `D:\NexoBuild\target\armv7-linux-androideabi\debug\libnexo_business_pos_lib.so` into `gen/android/app/src/main/jniLibs/armeabi-v7a/`, then `gradlew.bat assembleArmDebug -x rustBuildArmDebug`. APK: `gen/android/app/build/outputs/apk/arm/debug/app-arm-debug.apk`. Enabling Developer Mode restores the normal flow.
 - **Device DB inspection:** the Android DB uses WAL; copy it with `adb exec-out run-as com.nexo.business cat nexo-business.db` only after a relaunch (checkpoint), or the newest rows may be missing from the copy.
 
+### Receivables (fiado / partial payment) checkpoint — BACKEND + DEVICE UPGRADE PASS — 2026-10-02
+Branch `claude/receivables-fiado`. Design and rules: `FINANCIAL_MODEL.md` §6.
+- **Implemented:** additive migration `0006_receivables.sql` (receivables + append-only entries + balance view, overpay/currency/immutability triggers); Rust `receivables.rs` (open, payment by rail, write-off with reason, customer open balances; idempotent; outbox in the same transaction; cash payment enters the open drawer as `cash_in`/`receivable_payment`); Tauri commands `receivable_open`, `receivable_record_payment`, `receivable_write_off`, `receivables_for_customer`; TS `receivables.ts` (balance, credit-sale split).
+- **Tests passed:** `cargo test` 35/35 (11 new), `cargo clippy` clean on the crate and POS shell, root `vitest` 164/164.
+- **Windows:** debug build OK; migration 6 applied on the pilot DB (backed up first); audit OK (8 sales).
+- **Android (Redmi 9A):** arm debug APK installed with `adb install -r` over existing data (backed up first); migration 6 applied; audit OK (13 sales); `receivables_for_customer` and a payment on a missing receivable answered correctly from the device (no rows written).
+- **Not exercised on a device:** creating a receivable or recording payments/write-offs (would leave permanent rows in the pilot DBs). The sale flow does not open receivables yet; that needs customer selection in the UI.
+
 ### Next executable block
-1. Receivables / fiado / partial payment backend (migration 0006 + Rust repository + tests), per `FINANCIAL_MODEL.md` §6.
+1. Messenger custody balance (collected, not yet returned) per messenger and currency, settled by `messenger_return` — migration 0007, per `FINANCIAL_MODEL.md` §6.
 2. Minimal cash-shift UI (open with float, cash in/out with reason, close with count per currency) — coordinate with the owner of `main.ts`.
 3. One offline shift on Android (open, sales, movements, close) once the UI exists.
 

@@ -66,14 +66,14 @@ None of these rules name Casa Viva, Woo meta keys or gestora logic. Colo Shop/Ax
 
 ## 6. Designed, not implemented (next blocks)
 - **Messenger custody:** money collected but not yet returned (`pending_return`) belongs to a *messenger custody* balance per messenger and currency, not to any drawer. It is settled by the `messenger_return` movement above, with the same source key.
-- **Receivables / fiado / partial payment:** a sale with balance due creates a `receivable` (customer, currency, amount, due date). Payments later reference the receivable. Cash payments still enter the drawer through rail `cash`. Never store debt as free text or as a negative cash movement.
+- **Receivables / fiado / partial payment — IMPLEMENTED (migration 0006, `packages/business-db/rust/src/receivables.rs`):** a receivable (customer, currency, amount owed, optional due date) is opened from a source (`source_system`/`source_type`/`source_id`, once per currency). Payments (with rail) and write-offs (with reason) are append-only entries; balance = original − payments − write-offs and can never go below zero (trigger). A cash payment taken while the device has an open shift writes a `cash_in` movement (category `receivable_payment`, source `receivable_entry`) to that drawer in the same transaction; non-cash rails never touch the drawer. Outbox: `receivable.opened`, `receivable.payment_recorded`, `receivable.written_off`. Tauri commands: `receivable_open`, `receivable_record_payment`, `receivable_write_off`, `receivables_for_customer`. The POS sale flow does not create receivables yet (needs customer selection UI).
 - **Consignment:** goods delivered to a wholesale client stay owned by the merchant at a `consignment` location (inventory ledger). Settlement creates a receivable or payment. Ownership, location and pending balance stay separate.
 - **Returns/refunds:** a refund is a new payment-like entry linked to the original sale. A cash refund is an out movement (`sale_refund`, to add) with the sale as source. The original sale is never edited.
 - **Gestora/operator commissions:** derived from attributed sales/orders in their own ledger, not from cash movements.
 - **Accounting:** journal templates generated from these operational events (Phase 6). Not built now.
 
 ## 7. Verification status
-- Implemented: migrations 0004/0005, Rust repository + Tauri commands, TS invariants.
-- Tests passed: `cargo test` (24, real in-memory SQLite with the shipped migrations), `vitest` 160/160.
-- Compiled: Linux `cargo check`/`clippy` of the POS shell only.
-- Not tested: Windows/Android builds, migration upgrade over the existing pilot DBs, any UI, production.
+- Implemented: migrations 0004/0005/0006, Rust repositories (cash shift, external refs, receivables) + Tauri commands, TS invariants (`cash-shift.ts`, `receivables.ts`).
+- Tests passed: `cargo test` 35/35 (real in-memory SQLite with the shipped migrations), root `vitest` 164/164.
+- Device-verified: migrations 3–6 apply as in-place upgrades on the Windows and Android (Redmi 9A) pilot DBs; sales keep passing the integrity audit; receivable commands answer on Android (read-only probe).
+- Not tested on a device: opening shifts, cash movements and receivable writes (append-only rows would stay in the pilot DBs); no UI yet; nothing in production.

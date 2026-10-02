@@ -3,3 +3,4 @@ export * from "./money";
 export * from "./sale";
 export * from "./scanner";
 export * from "./cash-shift";
+export * from "./receivables";

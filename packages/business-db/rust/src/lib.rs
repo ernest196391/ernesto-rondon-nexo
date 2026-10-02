@@ -5,6 +5,7 @@
 
 pub mod cash_shift;
 pub mod external_refs;
+pub mod receivables;
 
 /// A versioned migration: (version, description, sql).
 pub struct LocalMigration {
@@ -38,6 +39,11 @@ pub const MIGRATIONS: &[LocalMigration] = &[
         version: 5,
         description: "financial_rails_and_refs",
         sql: include_str!("../../migrations/0005_financial_rails_and_refs.sql"),
+    },
+    LocalMigration {
+        version: 6,
+        description: "receivables",
+        sql: include_str!("../../migrations/0006_receivables.sql"),
     },
 ];
 

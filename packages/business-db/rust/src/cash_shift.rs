@@ -224,7 +224,7 @@ pub fn normalize_currency(raw: &str) -> CashResult<String> {
     Ok(currency)
 }
 
-fn normalize_reason(raw: &str) -> CashResult<String> {
+pub(crate) fn normalize_reason(raw: &str) -> CashResult<String> {
     let reason = raw.trim();
     if reason.is_empty() {
         return invalid("El motivo es obligatorio");
@@ -235,7 +235,7 @@ fn normalize_reason(raw: &str) -> CashResult<String> {
     Ok(reason.to_string())
 }
 
-fn require_id(raw: &str, what: &str) -> CashResult<()> {
+pub(crate) fn require_id(raw: &str, what: &str) -> CashResult<()> {
     if raw.trim().is_empty() {
         return Err(CashError::Validation(format!(
             "Falta el identificador de {what}"
@@ -244,7 +244,7 @@ fn require_id(raw: &str, what: &str) -> CashResult<()> {
     Ok(())
 }
 
-fn non_empty(value: &Option<String>) -> Option<String> {
+pub(crate) fn non_empty(value: &Option<String>) -> Option<String> {
     value
         .as_deref()
         .map(str::trim)
@@ -295,7 +295,7 @@ fn require_owned_shift(
 }
 
 #[allow(clippy::too_many_arguments)]
-fn enqueue_outbox(
+pub(crate) fn enqueue_outbox(
     tx: &Transaction,
     outbox_id: &str,
     business_id: &str,
@@ -324,7 +324,7 @@ fn enqueue_outbox(
     Ok(())
 }
 
-fn track_currency(conn: &Connection, shift_id: &str, currency: &str) -> CashResult<()> {
+pub(crate) fn track_currency(conn: &Connection, shift_id: &str, currency: &str) -> CashResult<()> {
     conn.execute(
         "INSERT OR IGNORE INTO local_cash_shift_currencies (shift_id, currency) VALUES (?1, ?2)",
         params![shift_id, currency],
