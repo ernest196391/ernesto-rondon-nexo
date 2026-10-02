@@ -146,8 +146,18 @@ Verified manually on Windows and Android:
 
 Scanner compatibility on Redmi 9A remains a separate open item and does not block the cart checkpoint.
 
+### Windows HID scanner checkpoint — FUNCTIONAL SIMULATION PASS — 2026-10-02
+Verified manually on Windows:
+- vendor-neutral keyboard-wedge/HID capture is implemented;
+- exact barcode lookup reuses the same local barcode path used by camera/manual entry;
+- a simulated HID scan (`850000000001` + Enter with focus outside the search field) adds the expected product to the cart;
+- manual barcode entry + Enter is also supported;
+- no vendor SDK is required.
+
+A physical USB/Bluetooth barcode reader has not yet been tested, so hardware acceptance remains pending.
+
 ### Next executable block
-Implement Windows HID scanner input without vendor lock-in, then continue Phase-1 sale UX with digital receipt/share. Keep cloud sync, cash-shift and printer work separate from this block.
+Implement digital receipt/share for completed sales without making printing mandatory. Keep cloud sync, cash-shift and physical printer work separate from this block.
 
 ## Local verification — Windows laptop — 2026-09-28
 Verified on Node.js 24.19.0 / npm 11.17.0 / Git 2.55.0.windows.3:
