@@ -114,28 +114,39 @@ function renderReceipt(receipt: Receipt) {
   panel.hidden = false;
 }
 
-async function copyReceipt() {
-  if (!lastReceipt) return;
+async function copyReceipt(): Promise<boolean> {
+  if (!lastReceipt) return false;
   const text = receiptText(lastReceipt);
+  const status = document.querySelector("#status")!;
+
   try {
     await navigator.clipboard.writeText(text);
-    document.querySelector("#status")!.textContent = "Recibo copiado · listo para pegar en WhatsApp u otra app";
+    status.textContent = "✓ Recibo copiado al portapapeles · ya puedes pegarlo en WhatsApp";
+    return true;
   } catch {
     const area = document.createElement("textarea");
     area.value = text;
     area.style.position = "fixed";
-    area.style.opacity = "0";
+    area.style.left = "-9999px";
+    area.setAttribute("readonly", "");
     document.body.appendChild(area);
+    area.focus();
     area.select();
-    document.execCommand("copy");
+
+    const copied = document.execCommand("copy");
     area.remove();
-    document.querySelector("#status")!.textContent = "Recibo copiado";
+
+    status.textContent = copied
+      ? "✓ Recibo copiado al portapapeles · ya puedes pegarlo en WhatsApp"
+      : "No se pudo copiar automáticamente · usa Copiar texto e inténtalo de nuevo";
+    return copied;
   }
 }
 
 async function shareReceipt() {
   if (!lastReceipt) return;
   const text = receiptText(lastReceipt);
+  const status = document.querySelector("#status")!;
 
   if (navigator.share) {
     try {
@@ -143,16 +154,18 @@ async function shareReceipt() {
         title: "Recibo Casa Viva",
         text
       });
-      document.querySelector("#status")!.textContent = "Recibo compartido";
+      status.textContent = "✓ Recibo compartido";
       return;
     } catch (e) {
       if ((e as DOMException)?.name === "AbortError") return;
     }
   }
 
-  await copyReceipt();
-  document.querySelector("#status")!.textContent =
-    "Compartir no está disponible aquí · recibo copiado para pegarlo";
+  const copied = await copyReceipt();
+  if (copied) {
+    status.textContent =
+      "Compartir directo no está disponible en este Android · ✓ recibo copiado al portapapeles";
+  }
 }
 
 function cartTotalMinor() {
