@@ -4,6 +4,7 @@ import { scan, Format, checkPermissions, requestPermissions } from "@tauri-apps/
 import "./style.css";
 
 type Product = { id: string; name: string; price_minor: number; barcode: string | null };
+type CartLine = { product: Product; quantity: number };
 type IntegrityReport = {
   sales: number;
   saleLines: number;
@@ -26,15 +27,96 @@ app.innerHTML = `
   <header><small>PILOTO 01 · CASA VIVA</small><h1>NEXO Business</h1><p>POS offline · Windows + Android</p></header>
   <div class="status" id="status">Preparando base local…</div>
   <label>Buscar o escanear<input id="query" autocomplete="off" inputmode="search" placeholder="Nombre, SKU o código"></label>
-  <button id="scan" type="button">Escanear con c�mara</button>
+  <button id="scan" type="button">Escanear con cámara</button>
   <div id="products"></div>
-  <aside><h2>Carrito</h2><div id="cart">Vacío</div><button id="sell" disabled>Cobrar en efectivo</button></aside>
+  <aside>
+    <h2>Carrito</h2>
+    <div id="cart">Vacío</div>
+    <div class="cart-summary"><span>Total</span><strong id="cart-total">$0.00</strong></div>
+    <button id="sell" disabled>Cobrar en efectivo</button>
+  </aside>
   <footer id="history"></footer>
   <div class="status" id="audit">Auditoría local pendiente…</div>
 </section>`;
 
 let db: Database;
-let selected: Product | null = null;
+const cart = new Map<string, CartLine>();
+
+function money(minor: number) {
+  return `$${(minor / 100).toFixed(2)}`;
+}
+
+function cartTotalMinor() {
+  return Array.from(cart.values()).reduce(
+    (total, line) => total + line.product.price_minor * line.quantity,
+    0
+  );
+}
+
+function renderCart() {
+  const el = document.querySelector("#cart")!;
+  const sellButton = document.querySelector("#sell") as HTMLButtonElement;
+  const totalEl = document.querySelector("#cart-total")!;
+
+  if (!cart.size) {
+    el.textContent = "Vacío";
+    totalEl.textContent = "$0.00";
+    sellButton.disabled = true;
+    return;
+  }
+
+  el.innerHTML = Array.from(cart.values()).map(({ product, quantity }) => `
+    <div class="cart-line" data-id="${product.id}">
+      <div class="cart-line-info">
+        <strong>${product.name}</strong>
+        <span>${money(product.price_minor)} c/u · ${money(product.price_minor * quantity)}</span>
+      </div>
+      <div class="cart-controls">
+        <button type="button" class="qty-minus" aria-label="Quitar uno">−</button>
+        <strong class="qty">${quantity}</strong>
+        <button type="button" class="qty-plus" aria-label="Agregar uno">+</button>
+        <button type="button" class="remove-line">Eliminar</button>
+      </div>
+    </div>
+  `).join("");
+
+  el.querySelectorAll<HTMLElement>(".cart-line").forEach(row => {
+    const id = row.dataset.id!;
+    row.querySelector<HTMLButtonElement>(".qty-minus")!.onclick = () => changeQuantity(id, -1);
+    row.querySelector<HTMLButtonElement>(".qty-plus")!.onclick = () => changeQuantity(id, 1);
+    row.querySelector<HTMLButtonElement>(".remove-line")!.onclick = () => removeFromCart(id);
+  });
+
+  totalEl.textContent = money(cartTotalMinor());
+  sellButton.disabled = false;
+}
+
+function addToCart(product: Product) {
+  const current = cart.get(product.id);
+  cart.set(product.id, {
+    product,
+    quantity: (current?.quantity ?? 0) + 1
+  });
+  renderCart();
+}
+
+function changeQuantity(productId: string, delta: number) {
+  const current = cart.get(productId);
+  if (!current) return;
+
+  const next = current.quantity + delta;
+  if (next <= 0) {
+    cart.delete(productId);
+  } else {
+    cart.set(productId, { ...current, quantity: next });
+  }
+  renderCart();
+}
+
+function removeFromCart(productId: string) {
+  cart.delete(productId);
+  renderCart();
+}
 
 async function init() {
   db = await Database.load("sqlite:nexo-business.db");
@@ -57,6 +139,7 @@ async function init() {
 
   document.querySelector("#status")!.textContent = "Base local formal lista · Internet no requerido";
   await renderProducts("");
+  renderCart();
   await renderHistory();
   await renderAudit();
 }
@@ -73,14 +156,12 @@ async function renderProducts(q: string) {
     [BUSINESS_ID, `%${q}%`]
   );
   const el = document.querySelector("#products")!;
-  el.innerHTML = rows.map(p => `<button class="product" data-id="${p.id}"><strong>${p.name}</strong><span>${(p.price_minor/100).toFixed(2)}</span></button>`).join("");
-  el.querySelectorAll<HTMLButtonElement>(".product").forEach(b => b.onclick = () => choose(rows.find(p => p.id === b.dataset.id)!));
-}
-
-function choose(p: Product) {
-  selected = p;
-  document.querySelector("#cart")!.textContent = `${p.name} · ${(p.price_minor/100).toFixed(2)}`;
-  (document.querySelector("#sell") as HTMLButtonElement).disabled = false;
+  el.innerHTML = rows.map(p =>
+    `<button class="product" data-id="${p.id}"><strong>${p.name}</strong><span>${money(p.price_minor)}</span></button>`
+  ).join("");
+  el.querySelectorAll<HTMLButtonElement>(".product").forEach(
+    b => b.onclick = () => addToCart(rows.find(p => p.id === b.dataset.id)!)
+  );
 }
 
 async function scanProduct() {
@@ -89,34 +170,24 @@ async function scanProduct() {
 
   try {
     button.disabled = true;
-    status.textContent = "Preparando c�mara...";
+    status.textContent = "Preparando cámara...";
 
     let permission = await checkPermissions();
+    if (permission !== "granted") permission = await requestPermissions();
 
     if (permission !== "granted") {
-      permission = await requestPermissions();
-    }
-
-    if (permission !== "granted") {
-      status.textContent = "Permiso de c�mara no concedido � puedes buscar manualmente";
+      status.textContent = "Permiso de cámara no concedido · puedes buscar manualmente";
       return;
     }
 
-    status.textContent = "Escanea el c�digo del producto...";
+    status.textContent = "Escanea el código del producto...";
 
     const result = await scan({
       cameraDirection: "back",
-      formats: [
-        Format.QRCode,
-        Format.UPC_A,
-        Format.UPC_E,
-        Format.EAN8,
-        Format.EAN13
-      ]
+      formats: [Format.QRCode, Format.UPC_A, Format.UPC_E, Format.EAN8, Format.EAN13]
     });
 
     const code = result.content.trim();
-
     const rows = await db.select<Product[]>(
       `SELECT p.id,p.name,pr.amount_minor AS price_minor,b.code AS barcode
        FROM local_barcodes b
@@ -134,24 +205,35 @@ async function scanProduct() {
     );
 
     if (!rows.length) {
-      status.textContent = `C�digo no registrado: ${code}`;
+      status.textContent = `Código no registrado: ${code}`;
       return;
     }
 
-    choose(rows[0]);
-    status.textContent = `C�digo le�do � ${rows[0].name} a�adido al carrito`;
+    addToCart(rows[0]);
+    status.textContent = `Código leído · ${rows[0].name} añadido al carrito`;
   } catch (e) {
     status.textContent = `Escaneo cancelado o no disponible: ${String(e)}`;
   } finally {
     button.disabled = false;
   }
 }
+
 async function sell() {
-  if (!selected) return;
-  const p = selected;
+  if (!cart.size) return;
+
   const saleId = crypto.randomUUID();
   const now = new Date().toISOString();
   const button = document.querySelector("#sell") as HTMLButtonElement;
+  const lines = Array.from(cart.values()).map(({ product, quantity }) => ({
+    lineId: crypto.randomUUID(),
+    movementId: crypto.randomUUID(),
+    productId: product.id,
+    quantity,
+    unitPriceMinor: product.price_minor,
+    lineTotalMinor: product.price_minor * quantity
+  }));
+  const totalMinor = lines.reduce((sum, line) => sum + line.lineTotalMinor, 0);
+
   button.disabled = true;
   document.querySelector("#status")!.textContent = "Guardando venta atómica…";
 
@@ -159,26 +241,25 @@ async function sell() {
     await invoke("complete_sale", {
       input: {
         saleId,
-        lineId: crypto.randomUUID(),
         paymentId: crypto.randomUUID(),
-        movementId: crypto.randomUUID(),
         outboxId: crypto.randomUUID(),
-        productId: p.id,
-        totalMinor: p.price_minor,
-        occurredAt: now
+        totalMinor,
+        occurredAt: now,
+        lines
       }
     });
-    selected = null;
-    document.querySelector("#cart")!.textContent = "Vacío";
+
+    cart.clear();
+    renderCart();
     document.querySelector("#status")!.textContent = "Venta guardada completa · pendiente de sincronizar";
     await renderHistory();
     await renderAudit();
   } catch (e) {
-    document.querySelector("#status")!.textContent = `Venta rechazada · no se guardó parcialmente: ${String(e)}`;
+    document.querySelector("#status")!.textContent =
+      `Venta rechazada · no se guardó parcialmente: ${String(e)}`;
     button.disabled = false;
   }
 }
-
 
 async function renderAudit() {
   try {
@@ -206,10 +287,11 @@ async function renderHistory() {
     : "Aún no hay ventas formales locales";
 }
 
-(document.querySelector("#query") as HTMLInputElement).oninput = e => renderProducts((e.target as HTMLInputElement).value);
+(document.querySelector("#query") as HTMLInputElement).oninput =
+  e => renderProducts((e.target as HTMLInputElement).value);
 (document.querySelector("#scan") as HTMLButtonElement).onclick = scanProduct;
 (document.querySelector("#sell") as HTMLButtonElement).onclick = sell;
-init().catch(e => { document.querySelector("#status")!.textContent = `Error local: ${String(e)}`; });
 
-
-
+init().catch(e => {
+  document.querySelector("#status")!.textContent = `Error local: ${String(e)}`;
+});
