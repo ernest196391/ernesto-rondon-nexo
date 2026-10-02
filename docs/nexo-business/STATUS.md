@@ -3,7 +3,7 @@
 **Last update:** 2026-10-02
 **Pilots:** Casa Viva (Pilot 01, complex reference) · Colo Shop + AxisSoft (connector pilot) · Estilo y Hogar (next full reusable NEXO-native pilot)
 **Current phase:** Phase 0 — Implementation Spike
-**Overall state:** Windows native offline core PASS. Android physical-device core PASS. Multi-line cart and digital receipt are proven on Windows/Android. Android camera decoding on Redmi 9A remains partial. Product direction is now explicitly reusable/white-label for Cuban businesses: online store + POS/cash + inventory + gestora + messenger + management, with merchant-specific behavior handled by configuration/adapters rather than forks.
+**Overall state:** Cash shift ledger backend implemented and unit-tested on a branch, not device-tested. Windows native offline core PASS. Android physical-device core PASS. Multi-line cart and digital receipt are proven on Windows/Android. Android camera decoding on Redmi 9A remains partial. Product direction is now explicitly reusable/white-label for Cuban businesses: online store + POS/cash + inventory + gestora + messenger + management, with merchant-specific behavior handled by configuration/adapters rather than forks.
 
 ## What we are building
 Offline-first, hardware-optional Android + Windows POS/business OS integrated with NEXO online stores. The minimum viable setup is one Android phone.
@@ -199,8 +199,21 @@ Product requirements confirmed:
 
 See `PRODUCT_DECISIONS_V1.md`.
 
+### Cash shift ledger checkpoint — BACKEND IMPLEMENTED, NOT DEVICE-TESTED — 2026-10-02
+Branch `claude/cash-shift-foundation` (Claude Code lane). Design: `CASH_SHIFT_LEDGER.md`.
+- **Implemented:** additive migration `0004_cash_ledger_multicurrency.sql` (0003 kept unchanged); multi-currency drawer per shift; opening float per currency; cash in/out, expense, order cash, messenger return and referenced corrections with mandatory reason; expected cash per currency (transfers excluded); close with count and difference per currency; append-only/immutability rules as SQLite triggers; outbox events `cash_shift.opened`, `cash_movement.recorded`, `cash_shift.closed`; idempotent retries.
+- **Implemented:** Rust crate `packages/business-db/rust` (`nexo-business-db`) with the shared migration list and the transactional repository; Tauri commands `cash_shift_current/open/record_movement/close/summary`; `complete_sale` attaches the sale to the device's open shift (no behavior change without an open shift; sale outbox payload gains nullable `shift_id`).
+- **Implemented:** TS domain invariants for the multi-currency ledger in `packages/business-domain/src/cash-shift.ts`.
+- **Compiled:** `cargo check` + `cargo clippy` of `apps/business-pos/src-tauri` on Linux (cloud session, placeholder icon/dist only for the check; nothing committed). Not compiled for Windows or Android.
+- **Tests passed:** `cargo test` in `packages/business-db/rust` 18/18 against real in-memory SQLite with the shipped migrations (atomic rollback, idempotency, multi-device, transfer exclusion, per-currency close, schema-level immutability, legacy 0003 shift, sale with/without shift). Root `vitest run` 37 files / 158 tests.
+- **Not manually tested, not hardware tested, not production:** no UI exists yet; migrations 0003/0004 have not run through the Tauri SQL plugin on a real Windows or Android install; `complete_sale` with an open shift has not been exercised on a device.
+- Root `tsc --noEmit` errors are pre-existing (`apps/business-pos/src/main.ts` Tauri modules not installed at root). CI on `main` is red at `npm audit` (critical advisory in `next` 16.3.4), also pre-existing.
+
 ### Next executable block
-Before more cash UI, reconcile the existing draft migration `0003_cash_shifts.sql` with the approved reusable financial model. Do not destructively rewrite an already-applied migration. Design the safe follow-up schema for multi-currency balances/movements, source type/reference, operator, location, payment rail, and future receivables/consignment compatibility.
+1. Windows: `npm.cmd` build + launch the POS with this branch, confirm migrations 3 and 4 apply on the existing pilot DB (no checksum error) and that a sale without a shift still passes the integrity audit.
+2. Minimal cash-shift UI (open with float, cash in/out with reason, close with count per currency) — coordinate with the owner of `main.ts`.
+3. Android: same migration/upgrade check with `adb install -r` over existing data, then one offline shift with sales + movements + close.
+4. Add `cargo test` for `packages/business-db/rust` to CI.
 
 ## Local verification — Windows laptop — 2026-09-28
 Verified on Node.js 24.19.0 / npm 11.17.0 / Git 2.55.0.windows.3:
