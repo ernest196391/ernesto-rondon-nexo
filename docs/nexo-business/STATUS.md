@@ -156,8 +156,18 @@ Verified manually on Windows:
 
 A physical USB/Bluetooth barcode reader has not yet been tested, so hardware acceptance remains pending.
 
+### Digital receipt checkpoint — WINDOWS PASS — 2026-10-02
+Verified manually on Windows:
+- completed sale renders a digital receipt;
+- receipt includes products, quantities, unit prices, total, date/time, cash payment method and sale ID;
+- `Copiar texto` works and produces a complete shareable receipt;
+- `Compartir recibo` works, with copy fallback available when native share is unavailable;
+- printing remains optional and checkout does not depend on printer hardware.
+
+Android receipt/share validation is still pending.
+
 ### Next executable block
-Implement digital receipt/share for completed sales without making printing mandatory. Keep cloud sync, cash-shift and physical printer work separate from this block.
+Build/install the current Android app and verify the digital receipt + share/copy flow on the physical phone. After that, move to Phase-1 cash-shift work (open shift, cash in/out, expected cash, close/count/difference).
 
 ## Local verification — Windows laptop — 2026-09-28
 Verified on Node.js 24.19.0 / npm 11.17.0 / Git 2.55.0.windows.3:
