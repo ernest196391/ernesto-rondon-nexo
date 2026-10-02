@@ -3,7 +3,7 @@
 **Last update:** 2026-10-02
 **Pilots:** Casa Viva (Pilot 01, NEXO-native) · Colo Shop + AxisSoft (Pilot 02, external-system connector)
 **Current phase:** Phase 0 — Implementation Spike
-**Overall state:** Windows native offline core PASS. Android physical-device core proof is also PASS for build/install/launch, local catalog, airplane-mode sale, outbox persistence and full app close/reopen persistence. Camera barcode scanning remains the next Android acceptance block. NEXO Sync + Axis connector strategy remains accepted and documented.
+**Overall state:** Windows native offline core PASS. Android physical-device core proof is also PASS for build/install/launch, local catalog, airplane-mode sale, outbox persistence and full app close/reopen persistence. Android barcode-scanner integration is implemented, builds successfully, installs in place and opens the camera offline; end-to-end decode -> local lookup -> cart is still pending because the Redmi 9A opens the NEXO scanner but does not decode the test QR inside NEXO. NEXO Sync + Axis connector strategy remains accepted and documented.
 
 ## What we are building
 Offline-first, hardware-optional Android + Windows POS/business OS integrated with NEXO online stores. The minimum viable setup is one Android phone.
@@ -46,6 +46,8 @@ Two deployment modes share the same platform:
 - Added `docs/nexo-business/CONNECTORS_AND_SYNC.md`.
 - Added `docs/nexo-business/AI_HANDOFF.md` for chat-independent continuation.
 - Added `docs/nexo-business/COLO_SHOP_PILOT.md` to lock Pilot 02 merchant experience, source-of-truth rules, sync boundaries and acceptance criteria.
+- Added official Tauri barcode-scanner integration to `apps/business-pos`, including mobile capability permissions, Android/iOS-scoped Rust dependency and QR/UPC/EAN scan-to-local-barcode lookup flow.
+- Verified the scanner integration does not break the Windows build and that the Android debug APK/AAB builds successfully after integration.
 
 ## Next task — DO THIS FIRST
 Continue from the current shared `apps/business-pos` scaffold without changing production commerce behavior:
@@ -119,8 +121,19 @@ Verified manually on a physical Android device:
 - The sale path now assigns a platform-specific pilot device ID: `android-pilot-01` on Android and `windows-pilot-01` on Windows.
 - This proves the Android offline core path, but does **not** yet certify camera scanning, cloud synchronization, an 8-hour offline shift, backup/restore, or production readiness.
 
+### Scanner integration checkpoint — PARTIAL PASS — 2026-10-02
+Verified manually:
+- `@tauri-apps/plugin-barcode-scanner` and the Rust mobile plugin are integrated.
+- Mobile capability includes `barcode-scanner:default`.
+- Windows debug build still passes with the mobile plugin gated by `cfg(mobile)`.
+- Android universal debug APK and AAB build successfully with the scanner integration.
+- Updated APK installs in place with `adb install -r`, preserving existing app data.
+- On the Redmi 9A, NEXO opens the camera while offline, so camera permission/plugin invocation works.
+- The Redmi 9A native scanner can decode the same test QR to `850000000001`, but the NEXO scanner on that phone does not yet decode it. Therefore end-to-end `scan -> local_barcodes -> cart` is **not** certified yet.
+- Compatibility tuning / second-device validation remains pending. Do not mark Android offline scanner acceptance complete yet.
+
 ### Next executable block
-Rebuild/install the device-ID update, verify the built-in integrity audit on Android, then implement/prove offline camera barcode scanning on the physical device. Do not change the Windows-passing transaction semantics while doing this.
+Continue the POS sale UX with a real multi-line cart (quantity/add/remove/total) while preserving the atomic offline transaction path. Keep the Redmi 9A scanner compatibility issue open for a focused follow-up; then prove end-to-end `scan -> SQLite local lookup -> cart` on at least one Android device before checking off the Phase-1 scanner requirement.
 
 ## Local verification — Windows laptop — 2026-09-28
 Verified on Node.js 24.19.0 / npm 11.17.0 / Git 2.55.0.windows.3:
