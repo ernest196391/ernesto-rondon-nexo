@@ -62,11 +62,53 @@ app.innerHTML = `
   </section>
   <footer id="history"></footer>
   <div class="status" id="audit">Auditoría local pendiente…</div>
-</section>`;
+</section>
+<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+<div id="sale-sheet" class="sale-sheet" hidden>
+  <button id="sale-sheet-backdrop" class="sale-sheet-backdrop" aria-label="Cerrar resumen"></button>
+  <section class="sale-sheet-card" role="dialog" aria-modal="true" aria-labelledby="sale-sheet-title">
+    <div class="sale-sheet-handle"></div>
+    <small>VENTA COMPLETADA</small>
+    <div class="sale-sheet-head">
+      <div>
+        <h2 id="sale-sheet-title">Recibo listo</h2>
+        <p id="sale-sheet-subtitle">Puedes compartirlo o copiarlo.</p>
+      </div>
+      <strong id="sale-sheet-total">$0.00</strong>
+    </div>
+    <div class="sale-sheet-actions">
+      <button id="sale-sheet-share" type="button">Compartir</button>
+      <button id="sale-sheet-copy" type="button">Copiar</button>
+    </div>
+    <button id="sale-sheet-close" class="sale-sheet-close" type="button">Cerrar</button>
+  </section>
+</div>`;
 
 let db: Database;
 const cart = new Map<string, CartLine>();
 let lastReceipt: Receipt | null = null;
+let toastTimer: number | undefined;
+
+function showToast(message: string, tone: "success" | "info" | "error" = "info") {
+  const toast = document.querySelector("#toast") as HTMLElement;
+  toast.textContent = message;
+  toast.dataset.tone = tone;
+  toast.hidden = false;
+  window.clearTimeout(toastTimer);
+  toastTimer = window.setTimeout(() => {
+    toast.hidden = true;
+  }, 3200);
+}
+
+function openSaleSheet(receipt: Receipt) {
+  const sheet = document.querySelector("#sale-sheet") as HTMLElement;
+  document.querySelector("#sale-sheet-total")!.textContent = money(receipt.totalMinor);
+  sheet.hidden = false;
+}
+
+function closeSaleSheet() {
+  (document.querySelector("#sale-sheet") as HTMLElement).hidden = true;
+}
 
 function money(minor: number) {
   return `$${(minor / 100).toFixed(2)}`;
@@ -122,6 +164,7 @@ async function copyReceipt(): Promise<boolean> {
   try {
     await navigator.clipboard.writeText(text);
     status.textContent = "✓ Recibo copiado al portapapeles · ya puedes pegarlo en WhatsApp";
+    showToast("✓ Recibo copiado al portapapeles", "success");
     return true;
   } catch {
     const area = document.createElement("textarea");
@@ -139,6 +182,10 @@ async function copyReceipt(): Promise<boolean> {
     status.textContent = copied
       ? "✓ Recibo copiado al portapapeles · ya puedes pegarlo en WhatsApp"
       : "No se pudo copiar automáticamente · usa Copiar texto e inténtalo de nuevo";
+    showToast(
+      copied ? "✓ Recibo copiado al portapapeles" : "No se pudo copiar el recibo",
+      copied ? "success" : "error"
+    );
     return copied;
   }
 }
@@ -155,6 +202,7 @@ async function shareReceipt() {
         text
       });
       status.textContent = "✓ Recibo compartido";
+      showToast("✓ Recibo compartido", "success");
       return;
     } catch (e) {
       if ((e as DOMException)?.name === "AbortError") return;
@@ -165,6 +213,7 @@ async function shareReceipt() {
   if (copied) {
     status.textContent =
       "Compartir directo no está disponible en este Android · ✓ recibo copiado al portapapeles";
+    showToast("Compartir directo no disponible · recibo copiado", "success");
   }
 }
 
@@ -401,6 +450,8 @@ async function sell() {
     cart.clear();
     renderCart();
     renderReceipt(receipt);
+    openSaleSheet(receipt);
+    showToast("✓ Venta guardada · recibo listo", "success");
     document.querySelector("#status")!.textContent = "Venta guardada completa · recibo listo para compartir";
     await renderHistory();
     await renderAudit();
@@ -490,6 +541,10 @@ document.addEventListener("keydown", e => {
 (document.querySelector("#sell") as HTMLButtonElement).onclick = sell;
 (document.querySelector("#share-receipt") as HTMLButtonElement).onclick = shareReceipt;
 (document.querySelector("#copy-receipt") as HTMLButtonElement).onclick = copyReceipt;
+(document.querySelector("#sale-sheet-share") as HTMLButtonElement).onclick = shareReceipt;
+(document.querySelector("#sale-sheet-copy") as HTMLButtonElement).onclick = copyReceipt;
+(document.querySelector("#sale-sheet-close") as HTMLButtonElement).onclick = closeSaleSheet;
+(document.querySelector("#sale-sheet-backdrop") as HTMLButtonElement).onclick = closeSaleSheet;
 
 init().catch(e => {
   document.querySelector("#status")!.textContent = `Error local: ${String(e)}`;
