@@ -132,8 +132,22 @@ Verified manually:
 - The Redmi 9A native scanner can decode the same test QR to `850000000001`, but the NEXO scanner on that phone does not yet decode it. Therefore end-to-end `scan -> local_barcodes -> cart` is **not** certified yet.
 - Compatibility tuning / second-device validation remains pending. Do not mark Android offline scanner acceptance complete yet.
 
+### Multi-line cart checkpoint — PASS — 2026-10-02
+Verified manually on Windows and Android:
+- cart supports multiple products;
+- quantity increase/decrease works;
+- line removal works;
+- totals update correctly;
+- cash checkout persists as one atomic local transaction;
+- multi-line sale writes sale lines, inventory movements, payment and outbox consistently;
+- Android APK builds successfully with the multi-line cart;
+- in-place Android update succeeds and preserves existing local data;
+- completed Android sale remains persisted after full app close/reopen.
+
+Scanner compatibility on Redmi 9A remains a separate open item and does not block the cart checkpoint.
+
 ### Next executable block
-Continue the POS sale UX with a real multi-line cart (quantity/add/remove/total) while preserving the atomic offline transaction path. Keep the Redmi 9A scanner compatibility issue open for a focused follow-up; then prove end-to-end `scan -> SQLite local lookup -> cart` on at least one Android device before checking off the Phase-1 scanner requirement.
+Implement Windows HID scanner input without vendor lock-in, then continue Phase-1 sale UX with digital receipt/share. Keep cloud sync, cash-shift and printer work separate from this block.
 
 ## Local verification — Windows laptop — 2026-09-28
 Verified on Node.js 24.19.0 / npm 11.17.0 / Git 2.55.0.windows.3:
