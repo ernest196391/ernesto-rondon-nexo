@@ -164,6 +164,41 @@ async function renderProducts(q: string) {
   );
 }
 
+async function addBarcodeToCart(code: string, source: "camera" | "hid" | "manual") {
+  const normalized = code.trim();
+  if (!normalized) return false;
+
+  const rows = await db.select<Product[]>(
+    `SELECT p.id,p.name,pr.amount_minor AS price_minor,b.code AS barcode
+     FROM local_barcodes b
+     JOIN local_products p
+       ON p.id=b.product_id AND p.business_id=b.business_id
+     JOIN local_prices pr
+       ON pr.product_id=p.id
+      AND pr.business_id=p.business_id
+      AND pr.active=1
+     WHERE b.business_id=$1
+       AND b.code=$2
+       AND p.active=1
+     LIMIT 1`,
+    [BUSINESS_ID, normalized]
+  );
+
+  const status = document.querySelector("#status")!;
+  if (!rows.length) {
+    status.textContent = `Código no registrado: ${normalized}`;
+    return false;
+  }
+
+  addToCart(rows[0]);
+  const sourceLabel =
+    source === "camera" ? "Cámara" :
+    source === "hid" ? "Lector USB/Bluetooth" :
+    "Código";
+  status.textContent = `${sourceLabel} · ${rows[0].name} añadido al carrito`;
+  return true;
+}
+
 async function scanProduct() {
   const status = document.querySelector("#status")!;
   const button = document.querySelector("#scan") as HTMLButtonElement;
@@ -187,30 +222,7 @@ async function scanProduct() {
       formats: [Format.QRCode, Format.UPC_A, Format.UPC_E, Format.EAN8, Format.EAN13]
     });
 
-    const code = result.content.trim();
-    const rows = await db.select<Product[]>(
-      `SELECT p.id,p.name,pr.amount_minor AS price_minor,b.code AS barcode
-       FROM local_barcodes b
-       JOIN local_products p
-         ON p.id=b.product_id AND p.business_id=b.business_id
-       JOIN local_prices pr
-         ON pr.product_id=p.id
-        AND pr.business_id=p.business_id
-        AND pr.active=1
-       WHERE b.business_id=$1
-         AND b.code=$2
-         AND p.active=1
-       LIMIT 1`,
-      [BUSINESS_ID, code]
-    );
-
-    if (!rows.length) {
-      status.textContent = `Código no registrado: ${code}`;
-      return;
-    }
-
-    addToCart(rows[0]);
-    status.textContent = `Código leído · ${rows[0].name} añadido al carrito`;
+    await addBarcodeToCart(result.content, "camera");
   } catch (e) {
     status.textContent = `Escaneo cancelado o no disponible: ${String(e)}`;
   } finally {
@@ -287,8 +299,55 @@ async function renderHistory() {
     : "Aún no hay ventas formales locales";
 }
 
-(document.querySelector("#query") as HTMLInputElement).oninput =
-  e => renderProducts((e.target as HTMLInputElement).value);
+const queryInput = document.querySelector("#query") as HTMLInputElement;
+queryInput.oninput = e => renderProducts((e.target as HTMLInputElement).value);
+queryInput.onkeydown = async e => {
+  if (e.key !== "Enter") return;
+  const code = queryInput.value.trim();
+  if (!code) return;
+  const added = await addBarcodeToCart(code, "manual");
+  if (added) {
+    queryInput.value = "";
+    await renderProducts("");
+  }
+};
+
+let hidBuffer = "";
+let hidLastKeyAt = 0;
+const HID_MAX_GAP_MS = 80;
+const HID_ENTER_GRACE_MS = 160;
+
+document.addEventListener("keydown", e => {
+  const target = e.target as HTMLElement | null;
+  const tag = target?.tagName?.toLowerCase();
+  if (tag === "input" || tag === "textarea" || target?.isContentEditable) return;
+  if (e.ctrlKey || e.altKey || e.metaKey) return;
+
+  const now = performance.now();
+
+  if (e.key === "Enter") {
+    const code = hidBuffer;
+    const recent = now - hidLastKeyAt <= HID_ENTER_GRACE_MS;
+    hidBuffer = "";
+    hidLastKeyAt = 0;
+
+    if (recent && code.length >= 4) {
+      e.preventDefault();
+      void addBarcodeToCart(code, "hid");
+    }
+    return;
+  }
+
+  if (e.key.length !== 1) return;
+
+  if (now - hidLastKeyAt > HID_MAX_GAP_MS) {
+    hidBuffer = "";
+  }
+
+  hidBuffer += e.key;
+  hidLastKeyAt = now;
+});
+
 (document.querySelector("#scan") as HTMLButtonElement).onclick = scanProduct;
 (document.querySelector("#sell") as HTMLButtonElement).onclick = sell;
 
