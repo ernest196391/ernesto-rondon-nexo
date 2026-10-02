@@ -1,7 +1,7 @@
 # NEXO Business — STATUS
 
 **Last update:** 2026-10-02
-**Pilots:** Casa Viva (Pilot 01, NEXO-native) · Colo Shop + AxisSoft (Pilot 02, external-system connector)
+**Pilots:** Casa Viva (Pilot 01, complex reference) · Colo Shop + AxisSoft (connector pilot) · Estilo y Hogar (next full reusable NEXO-native pilot)
 **Current phase:** Phase 0 — Implementation Spike
 **Overall state:** Windows native offline core PASS. Android physical-device core PASS. Multi-line cart and digital receipt are proven on Windows/Android. Android camera decoding on Redmi 9A remains partial. Product direction is now explicitly reusable/white-label for Cuban businesses: online store + POS/cash + inventory + gestora + messenger + management, with merchant-specific behavior handled by configuration/adapters rather than forks.
 
@@ -25,7 +25,7 @@ Two deployment modes share the same platform:
 - NEXO Sync is inside NEXO Business, not a separate repository.
 - Axis is initially source of truth for Colo Shop physical catalog/price/stock; read-only/assisted sync first.
 - Casa Viva + Colo Shop must converge on the same provider-neutral domain and sync semantics.
-- Then reusable/white-label.
+- Reusable/white-label is now the primary product architecture, not a later afterthought.
 
 ## Work completed
 - Existing NEXO reuse audit: cart, pricing, delivery, checkout/idempotency, Woo connector, admin inventory, Casa Viva contracts.
@@ -176,8 +176,31 @@ Native Android share sheet remains an optional enhancement, not a blocker becaus
 - Merchant differences belong in configuration/adapters whenever possible.
 - The generic cash model must support multiple currencies, physical vs non-cash payments, source-aware movements and external order references before UI expansion.
 
+### Owner decision checkpoint — 2026-10-02
+Product requirements confirmed:
+- multi-currency CUP/USD/MLC, extensible to crypto/digital assets;
+- transfer as generic non-cash category initially;
+- optional multi-store gestora module with configurable commissions;
+- merchant + shared-network messengers;
+- delivery pricing by zone, km or manual;
+- multiple simultaneous devices/shifts;
+- one branch initially but multi-branch-ready;
+- location-based warehouse/store/branch inventory;
+- operator-attributed POS sales and configurable operator commissions;
+- CRM/customer purchase history;
+- credit/fiado, partial payments and consignment;
+- returns/exchanges;
+- structured expenses;
+- owner multi-business portfolio;
+- guided onboarding first, self-service later;
+- offline for hours, then idempotent sync;
+- progressively move critical workflows into NEXO;
+- next full reusable native pilot: Estilo y Hogar.
+
+See `PRODUCT_DECISIONS_V1.md`.
+
 ### Next executable block
-Pause expansion of the simplistic cash-shift model and redesign it as a reusable merchant cash model: multi-currency, source-aware, external-order-linked and compatible with Casa Viva messenger cash return. Then implement Phase-1 cash-shift foundation on top of that model.
+Before more cash UI, reconcile the existing draft migration `0003_cash_shifts.sql` with the approved reusable financial model. Do not destructively rewrite an already-applied migration. Design the safe follow-up schema for multi-currency balances/movements, source type/reference, operator, location, payment rail, and future receivables/consignment compatibility.
 
 ## Local verification — Windows laptop — 2026-09-28
 Verified on Node.js 24.19.0 / npm 11.17.0 / Git 2.55.0.windows.3:
