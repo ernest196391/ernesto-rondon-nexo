@@ -337,6 +337,14 @@ Owner approved ("sí, crea la sincronización en Supabase"). Project `nexo-produ
 - **Verified:** `cargo test` green (5 new device tests), `tsc` clean. Windows: provisioned as `windows-pilot-01` / casa-viva ("Laptop piloto Windows"), header updated, sync 0 pending. Redmi 9A: APK installed, provisioned as `android-pilot-01` ("Redmi 9A piloto"). Existing pilot data unchanged (same business/device IDs).
 - **New device:** owner creates it in the dashboard ("Equipos del negocio"), enters the key in Operaciones → Sincronización; the POS takes that business/device on the first sync.
 
+### POS product photos + "Quedan N" + low-stock warning — LIVE ON BOTH PILOTS — 2026-10-03
+- **Owner request:** photos on products; warn when 2 units are left. Live data: 202 tracked products, 90 with 1 unit and 51 with 2, so a standing "≤ 2" list would flag 142 at once. Decision: badge on every card ("Quedan N", "Agotado") and a warning only when a sale takes a product to its level (`min_stock` if the owner set one, else 2). 84 products sold "sin control" on the website have no stock and never warn.
+- **Cloud (applied):** `20261003120000_nexo_business_stock_pull.sql` — read-only `nexo_business_stock_pull(token)` (derived stock + min stock per tracked product); Edge Function `nexo-stock-pull` deployed.
+- **Local migration 0014:** `local_products.image_url` (https only; catalog re-pulled once) and `local_stock_snapshot`. Rust `stock.rs`: snapshot replace, current stock = snapshot − local sales not yet in it (unsynced, or synced after the snapshot). Every sync pulls stock after the catalog.
+- **POS:** product rows with photo (letter placeholder when missing or offline), stock badges, list refresh after each sale and after each stock pull, warning toast + status line "Atención: quedan 2 de …".
+- **Verified:** `cargo test` green (3 new tests), `tsc` clean; Windows (pilot DB backed up first): 202 stock rows, 284 photo URLs, 141 "Quedan" + 1 "Agotado" badges, phone-width screenshot checked. Redmi: APK installed, 203 stock rows and 284 photo URLs (screen locked, checked through its DB).
+- **Caveat:** photos rely on the WebView's HTTP cache offline; a dedicated local photo cache comes with the redesign.
+
 ### Next executable block
 1. Owner review of the Operaciones panel on the phone; then consignment and transfer/count screens.
 3. One offline shift on Android (open, sales, movements, fiado, messenger return, refund, close) once the UI exists.

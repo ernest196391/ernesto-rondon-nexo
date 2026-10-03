@@ -3,6 +3,7 @@ use nexo_business_db::cash_shift::{
 };
 use nexo_business_db::catalog::{self, ApplyResult, CatalogChange};
 use nexo_business_db::device::{self, DeviceIdentity};
+use nexo_business_db::stock::{self, CloudStock, ProductStock};
 use nexo_business_db::consignment::{
     self, ConsignmentAccount, OpenConsignmentAccountInput, SettleConsignmentInput,
 };
@@ -540,6 +541,20 @@ fn device_provision(
     device::provision(&mut conn, &business_id, &device_id, label.as_deref(), &now).map_err(|e| e.to_string())
 }
 
+#[tauri::command]
+fn stock_replace(app: tauri::AppHandle, items: Vec<CloudStock>, fetched_at: String) -> Result<usize, String> {
+    let mut conn = open_local_db(&app)?;
+    let business_id = device_scope(&conn)?.business_id;
+    stock::replace_snapshot(&mut conn, &business_id, &items, &fetched_at).map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+fn stock_current(app: tauri::AppHandle, product_ids: Vec<String>) -> Result<Vec<ProductStock>, String> {
+    let conn = open_local_db(&app)?;
+    let business_id = device_scope(&conn)?.business_id;
+    stock::current_stock(&conn, &business_id, &product_ids).map_err(|e| e.to_string())
+}
+
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     let migrations = nexo_business_db::MIGRATIONS
@@ -595,7 +610,9 @@ pub fn run() {
             catalog_checkpoint,
             catalog_apply,
             device_identity,
-            device_provision
+            device_provision,
+            stock_replace,
+            stock_current
         ])
         .run(tauri::generate_context!())
         .expect("error while running NEXO Business");

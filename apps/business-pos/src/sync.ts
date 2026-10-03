@@ -105,6 +105,19 @@ export async function pullCatalog(endpoint: string, deviceToken: string): Promis
   return total;
 }
 
+// ---------- Stock pull ----------
+
+/** Replaces the local stock snapshot with the cloud's derived stock. */
+export async function pullStock(endpoint: string, deviceToken: string): Promise<number> {
+  const response = await fetch(endpoint.replace(/nexo-sync-push\/?$/, "nexo-stock-pull"), { headers: { "x-nexo-device-token": deviceToken } });
+  if (!response.ok) throw new Error(`Existencias: HTTP ${response.status}`);
+  const { stock, generatedAt } = (await response.json()) as { stock: unknown[]; generatedAt: string };
+  if (!Array.isArray(stock)) return 0;
+  const count = await invoke<number>("stock_replace", { items: stock, fetchedAt: generatedAt });
+  window.dispatchEvent(new CustomEvent("nexo:stock-updated"));
+  return count;
+}
+
 // ---------- Device identity (provisioning) ----------
 
 export type DeviceIdentity = { businessId: string; branchId: string; deviceId: string; label: string | null; provisioned: boolean };
@@ -159,6 +172,11 @@ async function syncOnce(): Promise<SyncState | undefined> {
       await pullCatalog(endpoint, token);
     } catch (e) {
       console.warn("catalog pull", e);
+    }
+    try {
+      await pullStock(endpoint, token);
+    } catch (e) {
+      console.warn("stock pull", e);
     }
     return state;
   } finally {
