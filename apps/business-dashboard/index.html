@@ -93,13 +93,63 @@ function render(summary) {
       <p><strong>Total histórico:</strong> ${list(b.totals, t => `${t.salesCount} ventas · ${money(t.salesMinor, t.currency)}`)}</p>
       <p><strong>Fiado pendiente:</strong> ${list(b.receivables, r => `${money(r.balanceMinor, r.currency)} (${r.openCount})`)}</p>
       <p><strong>Efectivo en manos de mensajeros:</strong> ${list(b.messengerCash, m => money(m.outstandingMinor, m.currency))}</p>
+      <h3>Stock</h3>
+      ${(b.stock ?? []).some(p => p.low) ? `<p class="msg" data-tone="bad">Stock bajo: ${b.stock.filter(p => p.low).map(p => esc(p.name)).join(", ")}</p>` : ""}
+      <div class="wrap"><table>
+        <thead><tr><th>Producto</th><th>Stock</th><th>Mínimo</th></tr></thead>
+        <tbody>${(b.stock ?? []).map(p => `<tr><td>${p.low ? "⚠ " : ""}${esc(p.name)}</td><td>${p.quantity}</td><td>${p.minStock ?? "—"}</td></tr>`).join("") || `<tr><td colspan="3">Sin productos</td></tr>`}</tbody>
+      </table></div>
+      ${(b.stock ?? []).some(p => p.quantity < 0) ? `<p class="muted">Un stock negativo significa que aún no se ha hecho el conteo inicial de ese producto: haz un conteo en el POS (Ubicaciones e inventario) para fijar la cantidad real.</p>` : ""}
       <h3>Equipos</h3>
-      <ul>${b.devices.map(d => `<li>${esc(d.label ?? d.deviceId)} · ${d.events} registros · última conexión ${d.lastSeenAt ? esc(new Date(d.lastSeenAt).toLocaleString("es")) : "nunca"}</li>`).join("")}</ul>
+      <ul>${b.devices.map(d => `<li>${esc(d.label ?? d.deviceId)} · ${d.events} registros · última conexión ${d.lastSeenAt ? esc(new Date(d.lastSeenAt).toLocaleString("es")) : "nunca"}${d.active === false ? " · <strong>desactivado</strong>" : ""}</li>`).join("")}</ul>
       <p class="muted">Datos sincronizados hasta ${esc(new Date(b.generatedAt).toLocaleString("es"))}. Un equipo sin conexión sube sus ventas al recuperarla.</p>
     </section>
-    ${b.role === "owner" ? `<section class="card" data-catalog="${esc(b.businessId)}"><h2>Catálogo y precios</h2><p class="muted">Cargando…</p></section>` : ""}`;
+    ${b.role === "owner" ? `<section class="card" data-catalog="${esc(b.businessId)}"><h2>Catálogo y precios</h2><p class="muted">Cargando…</p></section>` : ""}
+    ${b.role === "owner" ? devicesSection(b) : ""}`;
   }).join("");
   document.querySelectorAll("[data-catalog]").forEach(el => void loadCatalog(el));
+  document.querySelectorAll("[data-devices]").forEach(wireDevices);
+}
+
+// ---------- Devices (owners) ----------
+
+function devicesSection(b) {
+  return `<section class="card" data-devices="${esc(b.businessId)}">
+    <h2>Equipos del negocio</h2>
+    <ul>${b.devices.map(d => `<li>${esc(d.label ?? d.deviceId)} <span class="muted">(${esc(d.deviceId)})</span> · ${d.active === false ? "desactivado" : "activo"}
+      <button type="button" class="link" data-toggle="${esc(d.deviceId)}" data-active="${d.active === false ? "true" : "false"}">${d.active === false ? "Reactivar" : "Desactivar"}</button></li>`).join("")}</ul>
+    <form data-new-device>
+      <h3>Añadir equipo</h3>
+      <label>Nombre<input name="label" required placeholder="Móvil de la tienda"></label>
+      <label>Identificador<input name="device" required pattern="[a-z0-9][a-z0-9-]{2,62}" placeholder="movil-tienda-02"></label>
+      <button type="submit">Crear y ver la clave</button>
+    </form>
+    <div class="msg" data-device-msg role="status"></div>
+    <p class="muted">Desactiva un equipo si se pierde o lo roban: deja de poder sincronizar al instante.</p>
+  </section>`;
+}
+
+function wireDevices(el) {
+  const business = el.dataset.devices;
+  const msg = el.querySelector("[data-device-msg]");
+  el.querySelectorAll("[data-toggle]").forEach(btn => {
+    btn.onclick = async () => {
+      const active = btn.dataset.active === "true";
+      if (!active && !confirm("¿Desactivar este equipo? Dejará de sincronizar hasta que lo reactives.")) return;
+      const { data, error } = await supabase.rpc("nexo_business_set_device_active", { p_business: business, p_device_id: btn.dataset.toggle, p_active: active });
+      if (error || data?.error) { msg.textContent = `No se pudo: ${error?.message ?? data.error}`; msg.dataset.tone = "bad"; return; }
+      await load();
+    };
+  });
+  el.querySelector("[data-new-device]").onsubmit = async e => {
+    e.preventDefault();
+    const f = new FormData(e.target);
+    const { data, error } = await supabase.rpc("nexo_business_create_device", { p_business: business, p_device_id: f.get("device"), p_label: f.get("label") });
+    if (error || data?.error) { msg.textContent = `No se creó: ${error?.message ?? data.error}`; msg.dataset.tone = "bad"; return; }
+    msg.dataset.tone = "ok";
+    msg.innerHTML = `Equipo <strong>${esc(data.deviceId)}</strong> creado. Copia esta clave en el POS (Operaciones → Sincronización → Clave del dispositivo). <strong>Solo se muestra ahora.</strong><br><code style="word-break:break-all">${esc(data.token)}</code>`;
+    e.target.reset();
+  };
 }
 
 // ---------- Catalog editor (owners) ----------
@@ -141,6 +191,7 @@ async function loadCatalog(el) {
       <label>SKU<input name="sku" value="${esc(p?.sku ?? "")}"></label>
       <label>Códigos de barras (separados por coma)<input name="barcodes" value="${esc((p?.barcodes ?? []).join(", "))}"></label>
       ${CURRENCIES.map(c => `<label>Precio ${c}<input name="price-${c}" inputmode="decimal" placeholder="Sin precio" value="${p?.prices?.[c] != null ? (p.prices[c] / 100).toFixed(2) : ""}"></label>`).join("")}
+      <label>Stock mínimo (aviso)<input name="min" type="number" min="0" step="1" placeholder="Sin aviso" value="${p?.min_stock ?? ""}"></label>
       <label><span><input type="checkbox" name="active" ${p?.active === false ? "" : "checked"} style="width:auto"> Activo (se vende en el POS)</span></label>
       <div class="row"><button type="submit">Guardar</button><button type="button" class="link" data-cancel>Cancelar</button></div>`;
     form.querySelector("[data-cancel]").onclick = () => { form.hidden = true; };
@@ -164,6 +215,7 @@ async function loadCatalog(el) {
         p_barcodes: String(f.get("barcodes") ?? "").split(",").map(s => s.trim()).filter(Boolean),
         p_prices: prices,
         p_active: f.get("active") === "on",
+        p_min_stock: String(f.get("min") ?? "").trim() === "" ? null : Number(f.get("min")),
       });
       if (saveError || saved?.error) {
         msg.textContent = `No se guardó: ${saveError?.message ?? saved.error}`; msg.dataset.tone = "bad";

@@ -300,10 +300,17 @@ Owner approved ("sí, crea la sincronización en Supabase"). Project `nexo-produ
 - **Dashboard:** "Catálogo y precios" editor for owners (name, SKU, barcodes, USD/CUP/MLC prices, active). Auth refresh events no longer redraw the page. Vercel now deploys from Git (`rootDirectory: apps/business-dashboard`).
 - **Verified:** `cargo test` 74/74, clippy clean, POS `tsc` clean. A no-op save of "Producto NEXO Demo" in the dashboard (version 4) reached both pilots: migration 11 applied over existing data, checkpoint 4 on Windows and on the Redmi, the product updated in place with no duplicate prices, audit OK on both.
 
+### Cloud stock + owner-managed devices checkpoint — LIVE — 2026-10-03
+- **Cloud (applied, `20261003060000_nexo_business_stock_and_devices.sql`):** `nexo_business.stock_movements` / `stock_by_product` derived from synced sales (both payload formats), returns, counts, transfers and consignment settlements; `catalog_products.min_stock`; the summary returns `stock` with a `low` flag (low items first); owners create devices (`nexo_business_create_device`, token shown once, only the hash stored) and deactivate/reactivate them (`nexo_business_set_device_active`).
+- **Dashboard:** stock table with low-stock banner and a hint when stock is negative (no initial count yet), min stock in the product editor, "Equipos del negocio" (add device and show its key once, deactivate/reactivate). Vercel project settings now pin `rootDirectory: apps/business-dashboard` with no build step (a Git deploy without them tried to build the whole repo and failed).
+- **POS:** "Conteo físico" form in Ubicaciones e inventario (location, product, counted quantity, reason) that writes the reconciliation movement and triggers a sync.
+- **Verified:** cloud stock today is −23 / −26 (sales only, no counts yet) and the dashboard explains it. A rolled-back cloud test with a +48 count and min stock 25 returned stock 22 flagged low. Windows count form on a copy of the pilot DB: expected −8, counted 40, adjustment +48; sync paused during the test, the pilot DB restored byte-identical and no test events reached the cloud. APK with the count form installed on the Redmi.
+- **Pending:** the owner does the first real counts; until then stock shows negative.
+
 ### Next executable block
-1. Owner review of the Operaciones panel on the phone; then consignment and transfer/count screens.
-2. Stock per location in the cloud (inventory events from sales lines) and low-stock alerts in the dashboard.
-3. Device provisioning from the dashboard (create device + one-time token) instead of SQL.
+1. Owner: initial physical count of each product in the POS; set min stock in the dashboard.
+2. POS device identity from provisioning (today `device_id` is fixed per platform), needed before a second phone or a second business.
+3. Owner review of the Operaciones panel on the phone; then consignment and transfer/count screens.
 3. One offline shift on Android (open, sales, movements, fiado, messenger return, refund, close) once the UI exists.
 
 ## Local verification — Windows laptop — 2026-09-28

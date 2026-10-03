@@ -442,7 +442,44 @@ async function renderLocations() {
       <label>Nombre<input name="name" required placeholder="${locations.length ? "Almacén" : "Tienda principal"}"></label>
       <label>Tipo<select name="kind">${kinds.map(([v, l]) => `<option value="${v}">${l}</option>`).join("")}</select></label>
       <button type="submit">Crear ubicación</button>
-    </form>`;
+    </form>
+    ${locations.length ? `<form id="fin-count" class="fin-form">
+      <h4>Conteo físico</h4>
+      <p class="fin-muted">Cuenta lo que hay de verdad: el sistema ajusta la diferencia y la registra.</p>
+      <label>Ubicación<select name="location">${locations.filter(l => l.active).map(l => `<option value="${esc(l.locationId)}"${l.isDefault ? " selected" : ""}>${esc(l.name)}</option>`).join("")}</select></label>
+      <label>Producto<select name="product">${[...productNames].map(([pid, name]) => `<option value="${esc(pid)}">${esc(name)}</option>`).join("")}</select></label>
+      <label>Cantidad contada<input name="counted" type="number" min="0" step="1" required></label>
+      <label>Motivo<input name="reason" required value="Conteo físico"></label>
+      <button type="submit">Registrar conteo</button>
+    </form>` : ""}`;
+  const countForm = box.querySelector<HTMLFormElement>("#fin-count");
+  if (countForm) {
+    countForm.onsubmit = e => {
+      e.preventDefault();
+      void (async () => {
+        try {
+        const result = await invoke<{ expectedQuantity: number; countedQuantity: number; differenceQuantity: number }>("inventory_count", {
+          input: {
+            countId: id(),
+            outboxId: id(),
+            adjustmentMovementId: id(),
+            locationId: field<HTMLSelectElement>(countForm, "location").value,
+            productId: field<HTMLSelectElement>(countForm, "product").value,
+            countedQuantity: Number(field(countForm, "counted").value),
+            reason: field(countForm, "reason").value,
+            operatorId: null,
+            countedAt: now(),
+          },
+        });
+        await renderLocations();
+        say(`✓ Conteo: esperado ${result.expectedQuantity}, contado ${result.countedQuantity}, ajuste ${result.differenceQuantity > 0 ? "+" : ""}${result.differenceQuantity}`);
+        requestSync();
+        } catch (err) {
+          say(`Conteo: ${String(err)}`, "error");
+        }
+      })();
+    };
+  }
   box.querySelector<HTMLFormElement>("#fin-loc")!.onsubmit = e => {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
