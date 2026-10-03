@@ -1,6 +1,9 @@
 use nexo_business_db::cash_shift::{
     self, CloseShiftInput, OpenShiftInput, RecordMovementInput, ShiftScope, ShiftSummary,
 };
+use nexo_business_db::inventory::{
+    self, CountInput, CountResult, CreateLocationInput, Location, StockLine, TransferInput,
+};
 use nexo_business_db::messenger_custody::{
     self, CustodyBalance, CustodyWriteOffInput, RecordCollectionInput, RecordReturnInput,
 };
@@ -391,6 +394,43 @@ fn sale_return_summary(app: tauri::AppHandle, sale_id: String) -> Result<SaleRet
     sale_returns::sale_return_summary(&conn, &sale_id).map_err(|e| e.to_string())
 }
 
+#[tauri::command]
+fn inventory_locations(app: tauri::AppHandle) -> Result<Vec<Location>, String> {
+    let conn = open_local_db(&app)?;
+    inventory::list_locations(&conn, &pilot_scope().business_id).map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+fn inventory_create_location(
+    app: tauri::AppHandle,
+    input: CreateLocationInput,
+) -> Result<Location, String> {
+    let mut conn = open_local_db(&app)?;
+    inventory::create_location(&mut conn, &pilot_scope(), &input).map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+fn inventory_location_stock(
+    app: tauri::AppHandle,
+    location_id: String,
+) -> Result<Vec<StockLine>, String> {
+    let conn = open_local_db(&app)?;
+    inventory::location_stock(&conn, &pilot_scope().business_id, &location_id)
+        .map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+fn inventory_transfer(app: tauri::AppHandle, input: TransferInput) -> Result<Vec<StockLine>, String> {
+    let mut conn = open_local_db(&app)?;
+    inventory::transfer_stock(&mut conn, &pilot_scope(), &input).map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+fn inventory_count(app: tauri::AppHandle, input: CountInput) -> Result<CountResult, String> {
+    let mut conn = open_local_db(&app)?;
+    inventory::record_count(&mut conn, &pilot_scope(), &input).map_err(|e| e.to_string())
+}
+
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     let migrations = nexo_business_db::MIGRATIONS
@@ -431,7 +471,12 @@ pub fn run() {
             messenger_custody_write_off,
             messenger_custody_balances,
             sale_return_record,
-            sale_return_summary
+            sale_return_summary,
+            inventory_locations,
+            inventory_create_location,
+            inventory_location_stock,
+            inventory_transfer,
+            inventory_count
         ])
         .run(tauri::generate_context!())
         .expect("error while running NEXO Business");

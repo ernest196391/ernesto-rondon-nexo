@@ -288,3 +288,6 @@ Migrations 3–5 are verified as in-place upgrades on the Windows pilot DB and o
 
 ## Sale returns — 2026-10-02 (Claude Code lane)
 `0008_sale_returns.sql` + `sale_returns.rs`: returns reference the original sale (never edited), restock with `reason='return'`, and cash refunds leave the drawer as `cash_out`/`sale_refund`. The integrity audit counts only `source_type='sale'` inventory movements, so returns do not affect it. The financial backend (drawer, rails, external refs, receivables, messenger custody, returns) is ready for a UI; next money block is consignment after location inventory.
+
+## Location inventory — 2026-10-02 (Claude Code lane)
+`0009_location_inventory.sql` + `inventory.rs`: stock is derived per location from append-only movements (update/delete now blocked by triggers). Movements without `location_id` belong to the business's default location; create one default store location during onboarding. Transfers are paired movements; counts write one reconciliation movement.
