@@ -162,14 +162,14 @@ const toMinor = raw => {
   return Number.isFinite(v) && v >= 0 ? Math.round(v * 100) : null;
 };
 
-const SOURCE_LABELS = { biznecubano: "BizneCubano (la web aporta las variantes)", woocommerce: "Web de la tienda (casavivadecuba.com)" };
+const SOURCE_LABELS = { biznecubano: "BizneCubano (la web aporta las variantes)", woocommerce: "Web de la tienda" };
 
 async function renderSource(el, business) {
   const box = el.querySelector("[data-source]");
   const { data, error } = await supabase.rpc("nexo_business_get_catalog_source", { p_business: business });
   if (error || !data || data.error) { box.textContent = "Sin fuente de catálogo configurada."; return; }
   const last = data.lastImportResult;
-  box.innerHTML = `<label>Fuente del catálogo<select data-kind>${Object.entries(SOURCE_LABELS).map(([k, l]) => `<option value="${k}"${k === data.kind ? " selected" : ""}>${esc(l)}</option>`).join("")}</select></label>
+  box.innerHTML = `<label>Fuente del catálogo<select data-kind>${Object.entries(SOURCE_LABELS).map(([k, l]) => `<option value="${k}"${k === data.kind ? " selected" : ""}>${esc(k === "woocommerce" && data.websiteUrl ? `${l} (${new URL(data.websiteUrl).hostname})` : l)}</option>`).join("")}</select></label>
     <label><span><input type="checkbox" data-auto ${data.autoImport ? "checked" : ""} style="width:auto"> Importar automáticamente cada hora</span></label>
     <p class="muted">Última importación: ${data.lastImportAt ? esc(new Date(data.lastImportAt).toLocaleString("es")) : "nunca"}${last ? (last.error ? ` · error: ${esc(last.detail ?? last.error)}` : ` · ${last.items} artículos, ${last.catalogChanges} cambios, ${last.stockCounts} existencias${last.snapshotAt ? ` · instantánea BizneCubano del ${esc(new Date(last.snapshotAt).toLocaleString("es"))}` : ""}${last.websiteUnavailable ? " · la web no respondía: se usó la copia de NEXO para las variantes" : ""}`) : ""}</p>`;
   const save = async () => {
