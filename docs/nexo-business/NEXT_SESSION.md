@@ -17,4 +17,4 @@ Read this first in a new session; open STATUS.md / AI_HANDOFF.md only for the pa
 
 ## Open items
 1. Casa-Viva repo hourly BizneCubano snapshot is merged but GitHub had not run it yet (last snapshot 2026-10-02 20:45 UTC); its script still defaults to casavivadecuba.com.
-2. Owner: initial physical counts for untracked items; min stock in the dashboard; Supabase Site URL → dashboard.
+2. Owner: initial physical counts for untracked items; min stock in the dashboard; set CUP/MLC/USDT rates in the dashboard (Tasas de cambio). Supabase Site URL done by the owner 2026-10-03; dashboard redeployed with the rates editor (dpl_8Ficz5iYi2g5vNSzz65npieHutEX).
