@@ -285,3 +285,6 @@ Migrations 3–5 are verified as in-place upgrades on the Windows pilot DB and o
 
 ## Messenger custody + migration bytes — 2026-10-02 (Claude Code lane)
 `0007_messenger_custody.sql` + `messenger_custody.rs`: messenger cash is custody until `record_return` writes the `messenger_return` drawer movement and the custody entry together. **Migration bytes are checksummed on devices**: `.gitattributes` pins 0001–0005 to CRLF and 0006+ to LF; `tests/migration_bytes.rs` guards it. Never edit or re-save an applied migration; add 0008+.
+
+## Sale returns — 2026-10-02 (Claude Code lane)
+`0008_sale_returns.sql` + `sale_returns.rs`: returns reference the original sale (never edited), restock with `reason='return'`, and cash refunds leave the drawer as `cash_out`/`sale_refund`. The integrity audit counts only `source_type='sale'` inventory movements, so returns do not affect it. The financial backend (drawer, rails, external refs, receivables, messenger custody, returns) is ready for a UI; next money block is consignment after location inventory.

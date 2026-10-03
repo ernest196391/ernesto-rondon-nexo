@@ -7,6 +7,7 @@ pub mod cash_shift;
 pub mod external_refs;
 pub mod messenger_custody;
 pub mod receivables;
+pub mod sale_returns;
 
 /// A versioned migration: (version, description, sql).
 pub struct LocalMigration {
@@ -50,6 +51,11 @@ pub const MIGRATIONS: &[LocalMigration] = &[
         version: 7,
         description: "messenger_custody",
         sql: include_str!("../../migrations/0007_messenger_custody.sql"),
+    },
+    LocalMigration {
+        version: 8,
+        description: "sale_returns",
+        sql: include_str!("../../migrations/0008_sale_returns.sql"),
     },
 ];
 
