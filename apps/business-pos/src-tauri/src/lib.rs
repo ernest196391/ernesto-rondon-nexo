@@ -1,6 +1,9 @@
 use nexo_business_db::cash_shift::{
     self, CloseShiftInput, OpenShiftInput, RecordMovementInput, ShiftScope, ShiftSummary,
 };
+use nexo_business_db::messenger_custody::{
+    self, CustodyBalance, CustodyWriteOffInput, RecordCollectionInput, RecordReturnInput,
+};
 use nexo_business_db::receivables::{
     self, OpenReceivableInput, ReceivableBalance, ReceivablePaymentInput, ReceivableWriteOffInput,
 };
@@ -333,6 +336,45 @@ fn receivables_for_customer(
         .map_err(|e| e.to_string())
 }
 
+#[tauri::command]
+fn messenger_custody_collect(
+    app: tauri::AppHandle,
+    input: RecordCollectionInput,
+) -> Result<Vec<CustodyBalance>, String> {
+    let mut conn = open_local_db(&app)?;
+    messenger_custody::record_collection(&mut conn, &pilot_scope(), &input)
+        .map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+fn messenger_custody_return(
+    app: tauri::AppHandle,
+    input: RecordReturnInput,
+) -> Result<Vec<CustodyBalance>, String> {
+    let mut conn = open_local_db(&app)?;
+    messenger_custody::record_return(&mut conn, &pilot_scope(), &input).map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+fn messenger_custody_write_off(
+    app: tauri::AppHandle,
+    input: CustodyWriteOffInput,
+) -> Result<Vec<CustodyBalance>, String> {
+    let mut conn = open_local_db(&app)?;
+    messenger_custody::write_off_custody(&mut conn, &pilot_scope(), &input)
+        .map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+fn messenger_custody_balances(
+    app: tauri::AppHandle,
+    messenger_id: String,
+) -> Result<Vec<CustodyBalance>, String> {
+    let conn = open_local_db(&app)?;
+    messenger_custody::messenger_balances(&conn, &pilot_scope().business_id, &messenger_id)
+        .map_err(|e| e.to_string())
+}
+
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     let migrations = nexo_business_db::MIGRATIONS
@@ -367,7 +409,11 @@ pub fn run() {
             receivable_open,
             receivable_record_payment,
             receivable_write_off,
-            receivables_for_customer
+            receivables_for_customer,
+            messenger_custody_collect,
+            messenger_custody_return,
+            messenger_custody_write_off,
+            messenger_custody_balances
         ])
         .run(tauri::generate_context!())
         .expect("error while running NEXO Business");

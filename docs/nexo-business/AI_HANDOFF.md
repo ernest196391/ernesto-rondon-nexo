@@ -282,3 +282,6 @@ Migrations 3–5 are verified as in-place upgrades on the Windows pilot DB and o
 
 ## Receivables checkpoint — 2026-10-02 (Claude Code lane)
 `0006_receivables.sql` + `packages/business-db/rust/src/receivables.rs` implement fiado/partial payments as append-only receivable entries (never negative cash). Do not edit 0006 once merged; add 0007+. Writes go through the Rust repository, not TypeScript SQL.
+
+## Messenger custody + migration bytes — 2026-10-02 (Claude Code lane)
+`0007_messenger_custody.sql` + `messenger_custody.rs`: messenger cash is custody until `record_return` writes the `messenger_return` drawer movement and the custody entry together. **Migration bytes are checksummed on devices**: `.gitattributes` pins 0001–0005 to CRLF and 0006+ to LF; `tests/migration_bytes.rs` guards it. Never edit or re-save an applied migration; add 0008+.

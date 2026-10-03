@@ -3,7 +3,7 @@
 **Last update:** 2026-10-02
 **Pilots:** Casa Viva (Pilot 01, complex reference) · Colo Shop + AxisSoft (connector pilot) · Estilo y Hogar (next full reusable NEXO-native pilot)
 **Current phase:** Phase 0 — Implementation Spike
-**Overall state:** Cash shift ledger and receivables (fiado) backends implemented; migrations 3–6 verified as in-place upgrades on the Windows and Android pilot DBs (no cash/credit UI yet). Windows native offline core PASS. Android physical-device core PASS. Multi-line cart and digital receipt are proven on Windows/Android. Android camera decoding on Redmi 9A remains partial. Product direction is now explicitly reusable/white-label for Cuban businesses: online store + POS/cash + inventory + gestora + messenger + management, with merchant-specific behavior handled by configuration/adapters rather than forks.
+**Overall state:** Cash shift ledger, receivables (fiado) and messenger custody backends implemented; migrations 3–7 verified as in-place upgrades on the Windows and Android pilot DBs (no cash/credit UI yet). Windows native offline core PASS. Android physical-device core PASS. Multi-line cart and digital receipt are proven on Windows/Android. Android camera decoding on Redmi 9A remains partial. Product direction is now explicitly reusable/white-label for Cuban businesses: online store + POS/cash + inventory + gestora + messenger + management, with merchant-specific behavior handled by configuration/adapters rather than forks.
 
 ## What we are building
 Offline-first, hardware-optional Android + Windows POS/business OS integrated with NEXO online stores. The minimum viable setup is one Android phone.
@@ -228,8 +228,16 @@ Branch `claude/receivables-fiado`. Design and rules: `FINANCIAL_MODEL.md` §6.
 - **Android (Redmi 9A):** arm debug APK installed with `adb install -r` over existing data (backed up first); migration 6 applied; audit OK (13 sales); `receivables_for_customer` and a payment on a missing receivable answered correctly from the device (no rows written).
 - **Not exercised on a device:** creating a receivable or recording payments/write-offs (would leave permanent rows in the pilot DBs). The sale flow does not open receivables yet; that needs customer selection in the UI.
 
+### Messenger custody checkpoint — BACKEND + DEVICE UPGRADE PASS — 2026-10-02
+Branch `claude/messenger-custody`. Rules: `FINANCIAL_MODEL.md` §6.
+- **Implemented:** additive migration `0007_messenger_custody.sql` (append-only custody entries collected/returned/write_off, once-per-order-and-currency indexes, settlement and return-pairing triggers, balance view); Rust `messenger_custody.rs`; Tauri commands `messenger_custody_collect`, `messenger_custody_return`, `messenger_custody_write_off`, `messenger_custody_balances`; TS `messenger-custody.ts`.
+- **Tests passed:** `cargo test` 44/44 (8 custody + 1 migration line-ending guard), clippy clean, root `vitest` 167/167.
+- **Windows + Android (Redmi 9A):** migration 7 applied over the existing pilot DBs (backed up first); audit OK (8 and 13 sales); `messenger_custody_balances` answers on both. No custody rows were written to the pilot DBs.
+- **Migration checksum incident (fixed before merge):** after committing 0006, Git re-checked it out with CRLF on Windows, its bytes changed and the POS refused to start (`migration 6 was previously applied but has been modified`). `.gitattributes` now pins 0001–0005 to CRLF (how the pilot devices applied them) and 0006+ to LF, and `tests/migration_bytes.rs` fails if that drifts. Never re-save an applied migration with different line endings.
+
 ### Next executable block
-1. Messenger custody balance (collected, not yet returned) per messenger and currency, settled by `messenger_return` — migration 0007, per `FINANCIAL_MODEL.md` §6.
+1. Returns/refunds: a refund linked to the original sale; cash refunds leave the drawer as `cash_out` (category `sale_refund`, source = sale) because the 0004 kind CHECK cannot gain new kinds without a table rebuild; inventory return movement; the original sale is never edited.
+2. Minimal cash-shift / fiado / messenger UI — coordinate with the owner of `main.ts`.
 2. Minimal cash-shift UI (open with float, cash in/out with reason, close with count per currency) — coordinate with the owner of `main.ts`.
 3. One offline shift on Android (open, sales, movements, close) once the UI exists.
 
