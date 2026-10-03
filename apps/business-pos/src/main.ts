@@ -333,7 +333,33 @@ async function init() {
   await mountFinance(document.querySelector<HTMLElement>("#finance")!, db);
 }
 
-type ListedProduct = Product & { category: string | null; variant_of: string | null; variant_label: string | null };
+type ListedProduct = Product & { category: string | null; variant_of: string | null; variant_label: string | null; image_url: string | null };
+type ProductStock = { productId: string; quantity: number; lowAt: number };
+
+async function stockFor(productIds: string[] = []) {
+  try {
+    const rows = await invoke<ProductStock[]>("stock_current", { productIds });
+    return new Map(rows.map(r => [r.productId, r]));
+  } catch {
+    return new Map<string, ProductStock>();
+  }
+}
+
+/** "Agotado" / "Quedan N" for tracked products at or below their warning level. */
+function stockBadge(stock: ProductStock | undefined) {
+  if (!stock) return "";
+  if (stock.quantity <= 0) return `<span class="badge badge-out">Agotado</span>`;
+  if (stock.quantity <= stock.lowAt) return `<span class="badge badge-low">Quedan ${stock.quantity}</span>`;
+  return "";
+}
+
+/** Product photo, or the first letter when there is none or it fails offline. */
+function thumb(url: string | null, title: string) {
+  const letter = escapeHtml(title.trim().charAt(0).toUpperCase() || "?");
+  return url
+    ? `<span class="thumb" data-letter="${letter}"><img src="${escapeHtml(url)}" alt="" loading="lazy" decoding="async" onerror="this.remove()"></span>`
+    : `<span class="thumb" data-letter="${letter}"></span>`;
+}
 type ProductGroup = { key: string; title: string; items: ListedProduct[] };
 
 const NO_CATEGORY = "Sin categoría";
@@ -389,7 +415,7 @@ async function renderCategories() {
 
 async function renderProducts(q: string) {
   const rows = await db.select<ListedProduct[]>(
-    `SELECT p.id,p.name,p.category,p.variant_of,p.variant_label,pr.amount_minor AS price_minor,MIN(b.code) AS barcode
+    `SELECT p.id,p.name,p.category,p.variant_of,p.variant_label,p.image_url,pr.amount_minor AS price_minor,MIN(b.code) AS barcode
      FROM local_products p
      JOIN local_prices pr ON pr.product_id=p.id AND pr.business_id=p.business_id AND pr.active=1 AND pr.currency='USD'
      LEFT JOIN local_barcodes b ON b.product_id=p.id AND b.business_id=p.business_id
@@ -402,18 +428,33 @@ async function renderProducts(q: string) {
   );
   const el = document.querySelector("#products")!;
   const byId = new Map(rows.map(p => [p.id, p]));
+  const stock = await stockFor();
   el.innerHTML = groupProducts(rows).map(g => g.items.length === 1 && !g.items[0].variant_of
-    ? `<button class="product" data-id="${escapeHtml(g.items[0].id)}"><strong>${escapeHtml(g.title)}</strong><span>${money(g.items[0].price_minor)}</span></button>`
+    ? `<button class="product" data-id="${escapeHtml(g.items[0].id)}">${thumb(g.items[0].image_url, g.title)}<span class="product-info"><strong>${escapeHtml(g.title)}</strong>${stockBadge(stock.get(g.items[0].id))}</span><span class="price">${money(g.items[0].price_minor)}</span></button>`
     : `<div class="product-group">
-        <strong>${escapeHtml(g.title)}</strong>
+        <div class="group-head">${thumb(g.items.find(p => p.image_url)?.image_url ?? null, g.title)}<strong>${escapeHtml(g.title)}</strong></div>
         <div class="variants">${g.items.map(p =>
-          `<button class="variant" data-id="${escapeHtml(p.id)}"><span>${escapeHtml(p.variant_label ?? p.name)}</span><span>${money(p.price_minor)}</span></button>`
+          `<button class="variant" data-id="${escapeHtml(p.id)}"><span>${escapeHtml(p.variant_label ?? p.name)}${stockBadge(stock.get(p.id))}</span><span>${money(p.price_minor)}</span></button>`
         ).join("")}</div>
       </div>`
   ).join("") || `<p class="empty">Sin productos para esta búsqueda</p>`;
   el.querySelectorAll<HTMLButtonElement>(".product, .variant").forEach(
     b => b.onclick = () => addToCart(byId.get(b.dataset.id!)!)
   );
+}
+
+/** Warns once when this sale leaves a product at or below its warning level. */
+async function warnLowStock(before: Map<string, ProductStock>, after: Map<string, ProductStock>, names: Map<string, string>) {
+  const crossed = Array.from(after.values()).filter(s => {
+    const prev = before.get(s.productId);
+    return s.quantity <= s.lowAt && (!prev || prev.quantity > prev.lowAt);
+  });
+  if (!crossed.length) return;
+  const text = crossed
+    .map(s => (s.quantity <= 0 ? `${names.get(s.productId)} agotado` : `quedan ${s.quantity} de ${names.get(s.productId)}`))
+    .join(" · ");
+  window.setTimeout(() => showToast(`Atención: ${text}`, "error"), 3400);
+  document.querySelector("#status")!.textContent = `Atención: ${text}`;
 }
 
 async function refreshCatalog() {
@@ -512,6 +553,9 @@ async function sell() {
 
   button.disabled = true;
   document.querySelector("#status")!.textContent = "Guardando venta atómica…";
+  const soldIds = lines.map(line => line.productId);
+  const soldNames = new Map(Array.from(cart.values()).map(({ product }) => [product.id, product.name]));
+  const stockBefore = await stockFor(soldIds);
 
   try {
     await invoke("complete_sale", {
@@ -539,6 +583,8 @@ async function sell() {
     renderReceipt(receipt);
     openSaleSheet(receipt);
     showToast("✓ Venta guardada · recibo listo", "success");
+    await warnLowStock(stockBefore, await stockFor(soldIds), soldNames);
+    await renderProducts(queryInput.value);
     document.querySelector("#status")!.textContent = "Venta guardada completa · recibo listo para compartir";
     await renderHistory();
     await renderAudit();
@@ -579,6 +625,7 @@ async function renderHistory() {
 const queryInput = document.querySelector("#query") as HTMLInputElement;
 queryInput.oninput = e => renderProducts((e.target as HTMLInputElement).value);
 window.addEventListener("nexo:catalog-updated", () => void refreshCatalog());
+window.addEventListener("nexo:stock-updated", () => void renderProducts(queryInput.value));
 queryInput.onkeydown = async e => {
   if (e.key !== "Enter") return;
   const code = queryInput.value.trim();

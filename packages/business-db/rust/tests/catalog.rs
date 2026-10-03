@@ -30,6 +30,7 @@ fn change(seq: i64, id: &str, name: &str, prices: &[(&str, i64)]) -> CatalogChan
         category: None,
         variant_of: None,
         variant_label: None,
+        image_url: None,
     }
 }
 
@@ -108,4 +109,16 @@ fn keeps_category_and_variant_grouping() {
         .unwrap();
     assert_eq!((category.as_str(), parent.as_str(), label.as_str()), ("Muebles", "cv-10", "Azul"));
     assert_eq!(scalar(&conn, "SELECT COUNT(*) FROM local_products WHERE id='cv-20' AND category IS NULL AND variant_of IS NULL"), 1);
+}
+
+#[test]
+fn keeps_https_photo_urls_only() {
+    let mut conn = db();
+    let mut a = change(1, "a", "A", &[("USD", 100)]);
+    a.image_url = Some("https://casaviva.company/a.jpg".into());
+    let mut b = change(2, "b", "B", &[("USD", 100)]);
+    b.image_url = Some("javascript:alert(1)".into());
+    apply_catalog_page(&mut conn, "biz", &[a, b], "now").unwrap();
+    assert_eq!(scalar(&conn, "SELECT COUNT(*) FROM local_products WHERE id='a' AND image_url='https://casaviva.company/a.jpg'"), 1);
+    assert_eq!(scalar(&conn, "SELECT COUNT(*) FROM local_products WHERE id='b' AND image_url IS NULL"), 1);
 }

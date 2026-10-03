@@ -36,6 +36,8 @@ pub struct CatalogChange {
     pub variant_of: Option<String>,
     #[serde(default)]
     pub variant_label: Option<String>,
+    #[serde(default)]
+    pub image_url: Option<String>,
 }
 
 fn clean(value: &Option<String>) -> Option<&str> {
@@ -116,11 +118,11 @@ pub fn apply_catalog_page(
         }
 
         tx.execute(
-            "INSERT INTO local_products (id,business_id,sku,name,active,version,updated_at,category,variant_of,variant_label)
-             VALUES (?1,?2,?3,?4,?5,?6,?7,?8,?9,?10)
+            "INSERT INTO local_products (id,business_id,sku,name,active,version,updated_at,category,variant_of,variant_label,image_url)
+             VALUES (?1,?2,?3,?4,?5,?6,?7,?8,?9,?10,?11)
              ON CONFLICT(id) DO UPDATE SET sku=excluded.sku, name=excluded.name, active=excluded.active,
                version=excluded.version, updated_at=excluded.updated_at, category=excluded.category,
-               variant_of=excluded.variant_of, variant_label=excluded.variant_label",
+               variant_of=excluded.variant_of, variant_label=excluded.variant_label, image_url=excluded.image_url",
             params![
                 product_id,
                 business_id,
@@ -131,7 +133,8 @@ pub fn apply_catalog_page(
                 change.updated_at,
                 clean(&change.category),
                 clean(&change.variant_of),
-                clean(&change.variant_label)
+                clean(&change.variant_label),
+                clean(&change.image_url).filter(|u| u.starts_with("https://"))
             ],
         )?;
 
