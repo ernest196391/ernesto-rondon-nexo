@@ -162,6 +162,28 @@ const toMinor = raw => {
   return Number.isFinite(v) && v >= 0 ? Math.round(v * 100) : null;
 };
 
+const SOURCE_LABELS = { biznecubano: "BizneCubano (la web aporta las variantes)", woocommerce: "Web de la tienda (casavivadecuba.com)" };
+
+async function renderSource(el, business) {
+  const box = el.querySelector("[data-source]");
+  const { data, error } = await supabase.rpc("nexo_business_get_catalog_source", { p_business: business });
+  if (error || !data || data.error) { box.textContent = "Sin fuente de catálogo configurada."; return; }
+  const last = data.lastImportResult;
+  box.innerHTML = `<label>Fuente del catálogo<select data-kind>${Object.entries(SOURCE_LABELS).map(([k, l]) => `<option value="${k}"${k === data.kind ? " selected" : ""}>${esc(l)}</option>`).join("")}</select></label>
+    <label><span><input type="checkbox" data-auto ${data.autoImport ? "checked" : ""} style="width:auto"> Importar automáticamente cada hora</span></label>
+    <p class="muted">Última importación: ${data.lastImportAt ? esc(new Date(data.lastImportAt).toLocaleString("es")) : "nunca"}${last ? (last.error ? ` · error: ${esc(last.detail ?? last.error)}` : ` · ${last.items} artículos, ${last.catalogChanges} cambios, ${last.stockCounts} existencias${last.snapshotAt ? ` · instantánea BizneCubano del ${esc(new Date(last.snapshotAt).toLocaleString("es"))}` : ""}`) : ""}</p>`;
+  const save = async () => {
+    const { data: r, error: e } = await supabase.rpc("nexo_business_set_catalog_source", {
+      p_business: business, p_kind: box.querySelector("[data-kind]").value, p_auto_import: box.querySelector("[data-auto]").checked,
+    });
+    const msg = el.querySelector("[data-msg]");
+    msg.textContent = e || r?.error ? `No se cambió: ${e?.message ?? r.error}` : "✓ Fuente guardada. Pulsa «Importar desde la web» para aplicarla ya, o espera a la importación automática.";
+    msg.dataset.tone = e || r?.error ? "bad" : "ok";
+  };
+  box.querySelector("[data-kind]").onchange = save;
+  box.querySelector("[data-auto]").onchange = save;
+}
+
 async function loadCatalog(el) {
   const business = el.dataset.catalog;
   const { data, error } = await supabase.rpc("nexo_business_catalog_list", { p_business: business });
@@ -173,8 +195,9 @@ async function loadCatalog(el) {
   const priceCell = (p, c) => (p.prices?.[c] != null ? money(p.prices[c], c) : "—");
   el.innerHTML = `
     <div class="row"><h2>Catálogo y precios</h2><div class="row"><button type="button" data-import>Importar desde la web</button><button type="button" data-new>Nuevo producto</button></div></div>
-    <p class="muted">${products.filter(p => p.active).length} productos activos. «Importar desde la web» trae productos, variantes, precios y existencias de la tienda online (solo lectura: no cambia nada en la web).</p>
+    <p class="muted">${products.filter(p => p.active).length} productos activos. «Importar desde la web» trae productos, variantes, precios y existencias desde la fuente elegida (solo lectura: no cambia nada ni en BizneCubano ni en la web).</p>
     <p class="muted">Los cambios llegan solos a los equipos en su próxima sincronización (cada minuto con conexión).</p>
+    <div data-source class="muted">Cargando fuente del catálogo…</div>
     <div class="wrap"><table>
       <thead><tr><th>Producto</th>${CURRENCIES.map(c => `<th>${c}</th>`).join("")}<th>Estado</th><th></th></tr></thead>
       <tbody>${products.map((p, i) => `<tr><td>${esc(p.name)}<br><span class="muted">${esc(p.sku ?? "")} ${esc((p.barcodes ?? []).join(", "))}</span></td>
@@ -235,6 +258,7 @@ async function loadCatalog(el) {
     form.scrollIntoView({ behavior: "smooth", block: "start" });
   };
   el.querySelector("[data-new]").onclick = () => open(null);
+  void renderSource(el, business);
   el.querySelector("[data-import]").onclick = async () => {
     const btn = el.querySelector("[data-import]");
     btn.disabled = true; msg.textContent = "Importando desde la web… puede tardar un minuto."; msg.dataset.tone = "";
