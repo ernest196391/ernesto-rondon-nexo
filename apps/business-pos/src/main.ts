@@ -2,6 +2,7 @@ import { invoke } from "@tauri-apps/api/core";
 import Database from "@tauri-apps/plugin-sql";
 import { scan, Format, checkPermissions, requestPermissions } from "@tauri-apps/plugin-barcode-scanner";
 import "./style.css";
+import { mountFinance, refreshFinance } from "./finance";
 
 type Product = { id: string; name: string; price_minor: number; barcode: string | null };
 type CartLine = { product: Product; quantity: number };
@@ -60,6 +61,7 @@ app.innerHTML = `
       <button id="copy-receipt" type="button">Copiar texto</button>
     </div>
   </section>
+  <section id="finance"></section>
   <footer id="history"></footer>
   <div class="status" id="audit">Auditoría local pendiente…</div>
 </section>
@@ -313,6 +315,7 @@ async function init() {
   renderCart();
   await renderHistory();
   await renderAudit();
+  await mountFinance(document.querySelector<HTMLElement>("#finance")!, db);
 }
 
 async function renderProducts(q: string) {
@@ -455,6 +458,7 @@ async function sell() {
     document.querySelector("#status")!.textContent = "Venta guardada completa · recibo listo para compartir";
     await renderHistory();
     await renderAudit();
+    await refreshFinance();
   } catch (e) {
     document.querySelector("#status")!.textContent =
       `Venta rechazada · no se guardó parcialmente: ${String(e)}`;
