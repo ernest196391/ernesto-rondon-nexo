@@ -309,3 +309,6 @@ Supabase `nexo-production` now has schema `nexo_business` (devices + append-only
 
 ## Auto-sync + cloud summary — 2026-10-03 (Claude Code lane)
 The POS pushes automatically (`startAutoSync`/`requestSync` in `sync.ts`). Cloud read models are views over `nexo_business.sync_events`; the owner summary is the `nexo-business-summary` Edge Function. Deploy functions from the repo root with `npx.cmd supabase functions deploy <name> --project-ref viwwlriwlwodrfukbgbj --no-verify-jwt --use-api`.
+
+## Owner web dashboard — 2026-10-03 (Claude Code lane)
+https://nexo-negocio.vercel.app (`apps/business-dashboard/index.html`). Access = Supabase Auth user + row in `nexo_business.members`; never let users insert memberships themselves. The page only uses the publishable key.
