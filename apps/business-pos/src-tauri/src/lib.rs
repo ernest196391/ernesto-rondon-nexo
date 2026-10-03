@@ -2,6 +2,7 @@ use nexo_business_db::cash_shift::{
     self, CloseShiftInput, OpenShiftInput, RecordMovementInput, ShiftScope, ShiftSummary,
 };
 use nexo_business_db::catalog::{self, ApplyResult, CatalogChange};
+use nexo_business_db::device::{self, DeviceIdentity};
 use nexo_business_db::consignment::{
     self, ConsignmentAccount, OpenConsignmentAccountInput, SettleConsignmentInput,
 };
@@ -56,20 +57,22 @@ struct IntegrityReport {
     rollback_ok: bool,
 }
 
-/// Same pilot business/branch/device identity used by `complete_sale`.
-fn pilot_scope() -> ShiftScope {
-    let device_id = if cfg!(target_os = "android") {
+/// Pilot device ID per platform, used until the device is provisioned.
+fn pilot_device_id() -> &'static str {
+    if cfg!(target_os = "android") {
         "android-pilot-01"
     } else if cfg!(target_os = "windows") {
         "windows-pilot-01"
     } else {
         "pos-pilot-01"
-    };
-    ShiftScope {
-        business_id: "casa-viva".into(),
-        branch_id: "casa-viva-main".into(),
-        device_id: device_id.into(),
     }
+}
+
+/// This device's business/branch/device, from provisioning or the pilot default.
+fn device_scope(conn: &Connection) -> Result<ShiftScope, String> {
+    device::current_identity(conn, pilot_device_id())
+        .map(|id| id.scope())
+        .map_err(|e| e.to_string())
 }
 
 fn open_local_db(app: &tauri::AppHandle) -> Result<Connection, String> {
@@ -116,21 +119,14 @@ fn complete_sale(app: tauri::AppHandle, input: CompleteSaleInput) -> Result<(), 
     let mut conn = open_local_db(&app)?;
     let tx = conn.transaction().map_err(|e| e.to_string())?;
 
-    let business_id = "casa-viva";
-    let branch_id = "casa-viva-main";
-    let device_id = if cfg!(target_os = "android") {
-        "android-pilot-01"
-    } else if cfg!(target_os = "windows") {
-        "windows-pilot-01"
-    } else {
-        "pos-pilot-01"
-    };
+    let scope = device_scope(&tx)?;
+    let (business_id, branch_id, device_id) = (scope.business_id.as_str(), scope.branch_id.as_str(), scope.device_id.as_str());
     let currency = "USD";
 
     // Attach the sale to this device's open cash shift when there is one.
     // Without an open shift (or before migration 0004) the sale is recorded
     // exactly as before.
-    let shift_id = cash_shift::shift_for_sale(&tx, &pilot_scope(), currency)
+    let shift_id = cash_shift::shift_for_sale(&tx, &scope, currency)
         .map_err(|e| e.to_string())?;
 
     match &shift_id {
@@ -271,10 +267,11 @@ fn audit_local_integrity(app: tauri::AppHandle) -> Result<IntegrityReport, Strin
 #[tauri::command]
 fn cash_shift_current(app: tauri::AppHandle) -> Result<Option<ShiftSummary>, String> {
     let conn = open_local_db(&app)?;
+    let scope = device_scope(&conn)?;
     if !nexo_business_db::cash_ledger_ready(&conn).map_err(|e| e.to_string())? {
         return Ok(None);
     }
-    let shift_id = cash_shift::current_open_shift(&conn, &pilot_scope()).map_err(|e| e.to_string())?;
+    let shift_id = cash_shift::current_open_shift(&conn, &scope).map_err(|e| e.to_string())?;
     shift_id
         .map(|id| cash_shift::shift_summary(&conn, &id).map_err(|e| e.to_string()))
         .transpose()
@@ -283,7 +280,8 @@ fn cash_shift_current(app: tauri::AppHandle) -> Result<Option<ShiftSummary>, Str
 #[tauri::command]
 fn cash_shift_open(app: tauri::AppHandle, input: OpenShiftInput) -> Result<ShiftSummary, String> {
     let mut conn = open_local_db(&app)?;
-    cash_shift::open_shift(&mut conn, &pilot_scope(), &input).map_err(|e| e.to_string())
+    let scope = device_scope(&conn)?;
+    cash_shift::open_shift(&mut conn, &scope, &input).map_err(|e| e.to_string())
 }
 
 #[tauri::command]
@@ -292,13 +290,15 @@ fn cash_shift_record_movement(
     input: RecordMovementInput,
 ) -> Result<ShiftSummary, String> {
     let mut conn = open_local_db(&app)?;
-    cash_shift::record_movement(&mut conn, &pilot_scope(), &input).map_err(|e| e.to_string())
+    let scope = device_scope(&conn)?;
+    cash_shift::record_movement(&mut conn, &scope, &input).map_err(|e| e.to_string())
 }
 
 #[tauri::command]
 fn cash_shift_close(app: tauri::AppHandle, input: CloseShiftInput) -> Result<ShiftSummary, String> {
     let mut conn = open_local_db(&app)?;
-    cash_shift::close_shift(&mut conn, &pilot_scope(), &input).map_err(|e| e.to_string())
+    let scope = device_scope(&conn)?;
+    cash_shift::close_shift(&mut conn, &scope, &input).map_err(|e| e.to_string())
 }
 
 #[tauri::command]
@@ -313,7 +313,8 @@ fn receivable_open(
     input: OpenReceivableInput,
 ) -> Result<ReceivableBalance, String> {
     let mut conn = open_local_db(&app)?;
-    receivables::open_receivable(&mut conn, &pilot_scope(), &input).map_err(|e| e.to_string())
+    let scope = device_scope(&conn)?;
+    receivables::open_receivable(&mut conn, &scope, &input).map_err(|e| e.to_string())
 }
 
 #[tauri::command]
@@ -322,7 +323,8 @@ fn receivable_record_payment(
     input: ReceivablePaymentInput,
 ) -> Result<ReceivableBalance, String> {
     let mut conn = open_local_db(&app)?;
-    receivables::record_receivable_payment(&mut conn, &pilot_scope(), &input)
+    let scope = device_scope(&conn)?;
+    receivables::record_receivable_payment(&mut conn, &scope, &input)
         .map_err(|e| e.to_string())
 }
 
@@ -332,7 +334,8 @@ fn receivable_write_off(
     input: ReceivableWriteOffInput,
 ) -> Result<ReceivableBalance, String> {
     let mut conn = open_local_db(&app)?;
-    receivables::write_off_receivable(&mut conn, &pilot_scope(), &input).map_err(|e| e.to_string())
+    let scope = device_scope(&conn)?;
+    receivables::write_off_receivable(&mut conn, &scope, &input).map_err(|e| e.to_string())
 }
 
 #[tauri::command]
@@ -341,7 +344,7 @@ fn receivables_for_customer(
     customer_id: String,
 ) -> Result<Vec<ReceivableBalance>, String> {
     let conn = open_local_db(&app)?;
-    receivables::customer_open_receivables(&conn, &pilot_scope().business_id, &customer_id)
+    receivables::customer_open_receivables(&conn, &device_scope(&conn)?.business_id, &customer_id)
         .map_err(|e| e.to_string())
 }
 
@@ -351,7 +354,8 @@ fn messenger_custody_collect(
     input: RecordCollectionInput,
 ) -> Result<Vec<CustodyBalance>, String> {
     let mut conn = open_local_db(&app)?;
-    messenger_custody::record_collection(&mut conn, &pilot_scope(), &input)
+    let scope = device_scope(&conn)?;
+    messenger_custody::record_collection(&mut conn, &scope, &input)
         .map_err(|e| e.to_string())
 }
 
@@ -361,7 +365,8 @@ fn messenger_custody_return(
     input: RecordReturnInput,
 ) -> Result<Vec<CustodyBalance>, String> {
     let mut conn = open_local_db(&app)?;
-    messenger_custody::record_return(&mut conn, &pilot_scope(), &input).map_err(|e| e.to_string())
+    let scope = device_scope(&conn)?;
+    messenger_custody::record_return(&mut conn, &scope, &input).map_err(|e| e.to_string())
 }
 
 #[tauri::command]
@@ -370,7 +375,8 @@ fn messenger_custody_write_off(
     input: CustodyWriteOffInput,
 ) -> Result<Vec<CustodyBalance>, String> {
     let mut conn = open_local_db(&app)?;
-    messenger_custody::write_off_custody(&mut conn, &pilot_scope(), &input)
+    let scope = device_scope(&conn)?;
+    messenger_custody::write_off_custody(&mut conn, &scope, &input)
         .map_err(|e| e.to_string())
 }
 
@@ -380,7 +386,7 @@ fn messenger_custody_balances(
     messenger_id: String,
 ) -> Result<Vec<CustodyBalance>, String> {
     let conn = open_local_db(&app)?;
-    messenger_custody::messenger_balances(&conn, &pilot_scope().business_id, &messenger_id)
+    messenger_custody::messenger_balances(&conn, &device_scope(&conn)?.business_id, &messenger_id)
         .map_err(|e| e.to_string())
 }
 
@@ -390,7 +396,8 @@ fn sale_return_record(
     input: RecordSaleReturnInput,
 ) -> Result<SaleReturnSummary, String> {
     let mut conn = open_local_db(&app)?;
-    sale_returns::record_sale_return(&mut conn, &pilot_scope(), &input).map_err(|e| e.to_string())
+    let scope = device_scope(&conn)?;
+    sale_returns::record_sale_return(&mut conn, &scope, &input).map_err(|e| e.to_string())
 }
 
 #[tauri::command]
@@ -402,7 +409,7 @@ fn sale_return_summary(app: tauri::AppHandle, sale_id: String) -> Result<SaleRet
 #[tauri::command]
 fn inventory_locations(app: tauri::AppHandle) -> Result<Vec<Location>, String> {
     let conn = open_local_db(&app)?;
-    inventory::list_locations(&conn, &pilot_scope().business_id).map_err(|e| e.to_string())
+    inventory::list_locations(&conn, &device_scope(&conn)?.business_id).map_err(|e| e.to_string())
 }
 
 #[tauri::command]
@@ -411,7 +418,8 @@ fn inventory_create_location(
     input: CreateLocationInput,
 ) -> Result<Location, String> {
     let mut conn = open_local_db(&app)?;
-    inventory::create_location(&mut conn, &pilot_scope(), &input).map_err(|e| e.to_string())
+    let scope = device_scope(&conn)?;
+    inventory::create_location(&mut conn, &scope, &input).map_err(|e| e.to_string())
 }
 
 #[tauri::command]
@@ -420,20 +428,22 @@ fn inventory_location_stock(
     location_id: String,
 ) -> Result<Vec<StockLine>, String> {
     let conn = open_local_db(&app)?;
-    inventory::location_stock(&conn, &pilot_scope().business_id, &location_id)
+    inventory::location_stock(&conn, &device_scope(&conn)?.business_id, &location_id)
         .map_err(|e| e.to_string())
 }
 
 #[tauri::command]
 fn inventory_transfer(app: tauri::AppHandle, input: TransferInput) -> Result<Vec<StockLine>, String> {
     let mut conn = open_local_db(&app)?;
-    inventory::transfer_stock(&mut conn, &pilot_scope(), &input).map_err(|e| e.to_string())
+    let scope = device_scope(&conn)?;
+    inventory::transfer_stock(&mut conn, &scope, &input).map_err(|e| e.to_string())
 }
 
 #[tauri::command]
 fn inventory_count(app: tauri::AppHandle, input: CountInput) -> Result<CountResult, String> {
     let mut conn = open_local_db(&app)?;
-    inventory::record_count(&mut conn, &pilot_scope(), &input).map_err(|e| e.to_string())
+    let scope = device_scope(&conn)?;
+    inventory::record_count(&mut conn, &scope, &input).map_err(|e| e.to_string())
 }
 
 #[tauri::command]
@@ -442,7 +452,8 @@ fn consignment_open_account(
     input: OpenConsignmentAccountInput,
 ) -> Result<ConsignmentAccount, String> {
     let mut conn = open_local_db(&app)?;
-    consignment::open_consignment_account(&mut conn, &pilot_scope(), &input)
+    let scope = device_scope(&conn)?;
+    consignment::open_consignment_account(&mut conn, &scope, &input)
         .map_err(|e| e.to_string())
 }
 
@@ -452,7 +463,8 @@ fn consignment_settle(
     input: SettleConsignmentInput,
 ) -> Result<ReceivableBalance, String> {
     let mut conn = open_local_db(&app)?;
-    consignment::settle_consignment(&mut conn, &pilot_scope(), &input).map_err(|e| e.to_string())
+    let scope = device_scope(&conn)?;
+    consignment::settle_consignment(&mut conn, &scope, &input).map_err(|e| e.to_string())
 }
 
 #[tauri::command]
@@ -505,8 +517,27 @@ fn catalog_apply(
     now: String,
 ) -> Result<ApplyResult, String> {
     let mut conn = open_local_db(&app)?;
-    catalog::apply_catalog_page(&mut conn, &pilot_scope().business_id, &changes, &now)
+    let business_id = device_scope(&conn)?.business_id;
+    catalog::apply_catalog_page(&mut conn, &business_id, &changes, &now)
         .map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+fn device_identity(app: tauri::AppHandle) -> Result<DeviceIdentity, String> {
+    let conn = open_local_db(&app)?;
+    device::current_identity(&conn, pilot_device_id()).map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+fn device_provision(
+    app: tauri::AppHandle,
+    business_id: String,
+    device_id: String,
+    label: Option<String>,
+    now: String,
+) -> Result<DeviceIdentity, String> {
+    let mut conn = open_local_db(&app)?;
+    device::provision(&mut conn, &business_id, &device_id, label.as_deref(), &now).map_err(|e| e.to_string())
 }
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
@@ -562,7 +593,9 @@ pub fn run() {
             sync_record_results,
             sync_record_failure,
             catalog_checkpoint,
-            catalog_apply
+            catalog_apply,
+            device_identity,
+            device_provision
         ])
         .run(tauri::generate_context!())
         .expect("error while running NEXO Business");

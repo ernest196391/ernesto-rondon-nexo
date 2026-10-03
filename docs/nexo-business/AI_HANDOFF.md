@@ -317,7 +317,7 @@ https://nexo-negocio.vercel.app (`apps/business-dashboard/index.html`). Access =
 The catalog is owned by the cloud (`nexo_business.catalog_products`, edited in the dashboard). Devices pull it (`catalog.rs`, `pullCatalog` in `sync.ts`). Do not seed new products from `main.ts`; add them in the dashboard. The dashboard deploys to Vercel from Git (`apps/business-dashboard`).
 
 ## Cloud stock + devices — 2026-10-03 (Claude Code lane)
-Cloud stock = `nexo_business.stock_by_product` (derived). Owners provision devices from the dashboard. Caveat: the POS still sends a fixed `device_id` per platform (`pilot_scope` in `lib.rs`); the cloud attributes events to the token's device, but local IDs must come from provisioning before adding more devices of the same platform or another business.
+Cloud stock = `nexo_business.stock_by_product` (derived). Owners provision devices from the dashboard. The POS takes its business/device from the key on each sync (`nexo-device-identity`, local `local_device_identity`, `device_scope` in `lib.rs`); unprovisioned installs keep the pilot identity per platform.
 
 ## Real Casa Viva catalog — 2026-10-03 (Claude Code lane)
 Casa Viva's catalog truth is BizneCubano → casavivadecuba.com. NEXO imports it read-only with the `nexo-catalog-import` Edge Function (product IDs `cv-<wooId>`, variants as separate items with `variant_of`). Never write to WooCommerce from NEXO. Website stock lands as `inventory.counted` events from device `casa-viva-web`.
