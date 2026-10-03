@@ -328,7 +328,7 @@ Owner approved ("sí, crea la sincronización en Supabase"). Project `nexo-produ
 - **Local migration 0012 (`0012_product_grouping.sql`):** `local_products.category`, `variant_of`, `variant_label`; drops the `catalog` checkpoint once so devices re-pull the catalog with those fields (the cloud already sent them; applying is idempotent).
 - **Rust:** `CatalogChange` carries `category` / `variantOf` / `variantLabel` (optional, trimmed, blank → NULL) and the upsert stores them. Test `keeps_category_and_variant_grouping`.
 - **POS:** category chips above the list ("Todas" + each category with its product count, "Sin categoría" for NULL; hidden when there is only one), combined with the search. Variants of one product show as one card ("Alfombra de chenilla") with a button per variant (label + price); each variant is still its own cart line, SKU and barcode. Names from the cloud are HTML-escaped.
-- **Verified:** `cargo test` all green, `tsc` clean, Windows debug build on the pilot DB: migration 12 applied, catalog re-pulled to checkpoint 3098, 281 active items all with category (9 categories), 107 variants → 200 cards.
+- **Verified:** `cargo test` all green, `tsc` clean, Windows debug build on the pilot DB: migration 12 applied, catalog re-pulled to checkpoint 3098, 281 active items all with category (9 categories), 107 variants → 200 cards. Redmi 9A (APK installed, verified by reading its DB with run-as because the phone was locked): same result, checkpoint 3098.
 
 ### Next executable block
 1. POS device identity from provisioning (today `device_id` is fixed per platform), needed before a second phone or a second business.
