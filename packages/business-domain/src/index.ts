@@ -6,3 +6,4 @@ export * from "./cash-shift";
 export * from "./receivables";
 export * from "./messenger-custody";
 export * from "./sale-return";
+export * from "./location-inventory";

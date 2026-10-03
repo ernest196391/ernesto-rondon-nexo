@@ -3,7 +3,7 @@
 **Last update:** 2026-10-02
 **Pilots:** Casa Viva (Pilot 01, complex reference) · Colo Shop + AxisSoft (connector pilot) · Estilo y Hogar (next full reusable NEXO-native pilot)
 **Current phase:** Phase 0 — Implementation Spike
-**Overall state:** Cash shift ledger, receivables (fiado), messenger custody and sale returns backends implemented; migrations 3–8 verified as in-place upgrades on the Windows and Android pilot DBs (no cash/credit UI yet). Windows native offline core PASS. Android physical-device core PASS. Multi-line cart and digital receipt are proven on Windows/Android. Android camera decoding on Redmi 9A remains partial. Product direction is now explicitly reusable/white-label for Cuban businesses: online store + POS/cash + inventory + gestora + messenger + management, with merchant-specific behavior handled by configuration/adapters rather than forks.
+**Overall state:** Cash shift ledger, receivables (fiado), messenger custody, sale returns and location inventory backends implemented; migrations 3–9 verified as in-place upgrades on the Windows and Android pilot DBs (no cash/credit UI yet). Windows native offline core PASS. Android physical-device core PASS. Multi-line cart and digital receipt are proven on Windows/Android. Android camera decoding on Redmi 9A remains partial. Product direction is now explicitly reusable/white-label for Cuban businesses: online store + POS/cash + inventory + gestora + messenger + management, with merchant-specific behavior handled by configuration/adapters rather than forks.
 
 ## What we are building
 Offline-first, hardware-optional Android + Windows POS/business OS integrated with NEXO online stores. The minimum viable setup is one Android phone.
@@ -241,9 +241,17 @@ Branch `claude/sale-returns`. Rules: `FINANCIAL_MODEL.md` §6.
 - **Tests passed:** `cargo test` 51/51 (7 new), clippy clean, root `vitest` 170/170.
 - **Windows + Android (Redmi 9A):** migration 8 applied over the existing pilot DBs (backed up first); audit OK (8 and 13 sales); `sale_return_summary` answers for a real pilot sale on both. No returns were written to the pilot DBs.
 
+### Location inventory checkpoint — BACKEND + DEVICE UPGRADE PASS — 2026-10-02
+Branch `claude/location-inventory`. Rules: `PRODUCT_DECISIONS_V1.md` §5.
+- **Implemented:** additive migration `0009_location_inventory.sql`: locations (warehouse/store/branch/transit/consignment/damaged, one default per business, configurable authority system), `location_id`/`operator_id`/`transfer_id` on inventory movements, append-only movements (no update/delete), paired transfers, physical counts with expected/counted/difference and one reconciliation movement, `local_stock_by_location` view (movements without location belong to the default location). Rust `inventory.rs`; Tauri `inventory_locations`, `inventory_create_location`, `inventory_location_stock`, `inventory_transfer`, `inventory_count`; TS `location-inventory.ts`.
+- **Tests passed:** `cargo test` 58/58 (7 new), clippy clean, root `vitest` 173/173.
+- **Windows:** migration 9 applied over the pilot DB (backed up first); one test sale after the upgrade saved completely, audit OK (9 sales).
+- **Android (Redmi 9A):** migration 9 applied over existing data (backed up first); audit OK (13 sales); `inventory_locations` answers (empty).
+- **Pending:** no location exists yet on the pilot devices, so stock per location is not shown until onboarding/UI creates the default store location. POS sales still write movements without a location (they count toward the default).
+
 ### Next executable block
-1. Minimal cash-shift / fiado / messenger UI — coordinate with the owner of `main.ts`.
-2. Consignment (goods at a client location, settlement into a receivable) — needs the location inventory model first; see `PRODUCT_DECISIONS_V1.md`.
+1. Minimal POS UI for cash shift, fiado, messenger return, refunds and locations — coordinate with the owner of `main.ts`.
+2. Consignment (goods at a `consignment` location, settlement into a receivable), now that locations exist.
 3. One offline shift on Android (open, sales, movements, fiado, messenger return, refund, close) once the UI exists.
 
 ## Local verification — Windows laptop — 2026-09-28

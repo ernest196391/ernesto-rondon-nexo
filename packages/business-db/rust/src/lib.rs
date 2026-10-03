@@ -5,6 +5,7 @@
 
 pub mod cash_shift;
 pub mod external_refs;
+pub mod inventory;
 pub mod messenger_custody;
 pub mod receivables;
 pub mod sale_returns;
@@ -56,6 +57,11 @@ pub const MIGRATIONS: &[LocalMigration] = &[
         version: 8,
         description: "sale_returns",
         sql: include_str!("../../migrations/0008_sale_returns.sql"),
+    },
+    LocalMigration {
+        version: 9,
+        description: "location_inventory",
+        sql: include_str!("../../migrations/0009_location_inventory.sql"),
     },
 ];
 
