@@ -4,6 +4,7 @@ use nexo_business_db::cash_shift::{
 use nexo_business_db::catalog::{self, ApplyResult, CatalogChange};
 use nexo_business_db::device::{self, DeviceIdentity};
 use nexo_business_db::stock::{self, CloudStock, ProductStock};
+use nexo_business_db::sale::{self, CompleteSaleInput, ExchangeRate};
 use nexo_business_db::consignment::{
     self, ConsignmentAccount, OpenConsignmentAccountInput, SettleConsignmentInput,
 };
@@ -19,32 +20,10 @@ use nexo_business_db::receivables::{
 use nexo_business_db::sale_returns::{self, RecordSaleReturnInput, SaleReturnSummary};
 use nexo_business_db::sync::{self, OutboxEvent, PushResult, SyncState};
 use rusqlite::{params, Connection};
-use serde::{Deserialize, Serialize};
+use serde::Serialize;
 use std::fs;
 use tauri::Manager;
 use tauri_plugin_sql::{Migration, MigrationKind};
-
-#[derive(Deserialize)]
-#[serde(rename_all = "camelCase")]
-struct SaleLineInput {
-    line_id: String,
-    movement_id: String,
-    product_id: String,
-    quantity: i64,
-    unit_price_minor: i64,
-    line_total_minor: i64,
-}
-
-#[derive(Deserialize)]
-#[serde(rename_all = "camelCase")]
-struct CompleteSaleInput {
-    sale_id: String,
-    payment_id: String,
-    outbox_id: String,
-    total_minor: i64,
-    occurred_at: String,
-    lines: Vec<SaleLineInput>,
-}
 
 #[derive(Serialize)]
 #[serde(rename_all = "camelCase")]
@@ -88,129 +67,23 @@ fn open_local_db(app: &tauri::AppHandle) -> Result<Connection, String> {
 
 #[tauri::command]
 fn complete_sale(app: tauri::AppHandle, input: CompleteSaleInput) -> Result<(), String> {
-    if input.lines.is_empty() {
-        return Err("La venta no puede estar vacía".into());
-    }
-
-    let calculated_total = input.lines.iter().try_fold(0_i64, |sum, line| {
-        if line.quantity <= 0 {
-            return Err("La cantidad debe ser mayor que cero".to_string());
-        }
-        if line.unit_price_minor < 0 {
-            return Err("El precio no puede ser negativo".to_string());
-        }
-
-        let expected_line_total = line
-            .unit_price_minor
-            .checked_mul(line.quantity)
-            .ok_or_else(|| "Desbordamiento calculando el total de línea".to_string())?;
-
-        if expected_line_total != line.line_total_minor {
-            return Err("El total de una línea no coincide con precio × cantidad".to_string());
-        }
-
-        sum.checked_add(line.line_total_minor)
-            .ok_or_else(|| "Desbordamiento calculando el total de venta".to_string())
-    })?;
-
-    if calculated_total != input.total_minor {
-        return Err("El total de la venta no coincide con sus líneas".into());
-    }
-
     let mut conn = open_local_db(&app)?;
-    let tx = conn.transaction().map_err(|e| e.to_string())?;
+    let scope = device_scope(&conn)?;
+    sale::complete_sale(&mut conn, &scope, &input).map(|_| ()).map_err(|e| e.to_string())
+}
 
-    let scope = device_scope(&tx)?;
-    let (business_id, branch_id, device_id) = (scope.business_id.as_str(), scope.branch_id.as_str(), scope.device_id.as_str());
-    let currency = "USD";
+#[tauri::command]
+fn rates_replace(app: tauri::AppHandle, rates: Vec<ExchangeRate>, fetched_at: String) -> Result<(), String> {
+    let mut conn = open_local_db(&app)?;
+    let business_id = device_scope(&conn)?.business_id;
+    sale::replace_rates(&mut conn, &business_id, &rates, &fetched_at).map_err(|e| e.to_string())
+}
 
-    // Attach the sale to this device's open cash shift when there is one.
-    // Without an open shift (or before migration 0004) the sale is recorded
-    // exactly as before.
-    let shift_id = cash_shift::shift_for_sale(&tx, &scope, currency)
-        .map_err(|e| e.to_string())?;
-
-    match &shift_id {
-        Some(shift_id) => tx.execute(
-            "INSERT INTO local_sales (id,business_id,branch_id,device_id,currency,total_minor,occurred_at,sync_status,shift_id) VALUES (?1,?2,?3,?4,?5,?6,?7,'pending',?8)",
-            params![input.sale_id, business_id, branch_id, device_id, currency, input.total_minor, input.occurred_at, shift_id],
-        ),
-        None => tx.execute(
-            "INSERT INTO local_sales (id,business_id,branch_id,device_id,currency,total_minor,occurred_at,sync_status) VALUES (?1,?2,?3,?4,?5,?6,?7,'pending')",
-            params![input.sale_id, business_id, branch_id, device_id, currency, input.total_minor, input.occurred_at],
-        ),
-    }
-    .map_err(|e| e.to_string())?;
-
-    for line in &input.lines {
-        tx.execute(
-            "INSERT INTO local_sale_lines (id,sale_id,product_id,quantity,unit_price_minor,line_total_minor) VALUES (?1,?2,?3,?4,?5,?6)",
-            params![
-                line.line_id,
-                input.sale_id,
-                line.product_id,
-                line.quantity,
-                line.unit_price_minor,
-                line.line_total_minor
-            ],
-        ).map_err(|e| e.to_string())?;
-
-        tx.execute(
-            "INSERT INTO local_inventory_movements (id,business_id,product_id,quantity_delta,reason,source_type,source_id,occurred_at) VALUES (?1,?2,?3,?4,'sale','sale',?5,?6)",
-            params![
-                line.movement_id,
-                business_id,
-                line.product_id,
-                -line.quantity,
-                input.sale_id,
-                input.occurred_at
-            ],
-        ).map_err(|e| e.to_string())?;
-    }
-
-    tx.execute(
-        "INSERT INTO local_payments (id,sale_id,method,rail,currency,amount_minor,occurred_at) VALUES (?1,?2,'cash','cash',?3,?4,?5)",
-        params![input.payment_id, input.sale_id, currency, input.total_minor, input.occurred_at],
-    ).map_err(|e| e.to_string())?;
-
-    let payload_lines = input
-        .lines
-        .iter()
-        .map(|line| {
-            serde_json::json!({
-                "product_id": line.product_id,
-                "quantity": line.quantity,
-                "unit_price_minor": line.unit_price_minor,
-                "line_total_minor": line.line_total_minor
-            })
-        })
-        .collect::<Vec<_>>();
-
-    let payload = serde_json::json!({
-        "contract_version": 1,
-        "event_id": input.outbox_id,
-        "business_id": business_id,
-        "source_system": "nexo-business-pos",
-        "source_entity_id": input.sale_id,
-        "occurred_at": input.occurred_at,
-        "idempotency_key": input.sale_id,
-        "payload": {
-            "sale_id": input.sale_id,
-            "lines": payload_lines,
-            "total_minor": input.total_minor,
-            "currency": currency,
-            "payment_method": "cash",
-            "shift_id": shift_id
-        }
-    })
-    .to_string();
-
-    tx.execute(
-        "INSERT INTO local_outbox (id,business_id,device_id,operation_type,entity_type,entity_id,payload_json,occurred_at) VALUES (?1,?2,?3,'sale.completed','sale',?4,?5,?6)",
-        params![input.outbox_id, business_id, device_id, input.sale_id, payload, input.occurred_at],
-    ).map_err(|e| e.to_string())?;
-
-    tx.commit().map_err(|e| e.to_string())
+#[tauri::command]
+fn rates_current(app: tauri::AppHandle) -> Result<Vec<ExchangeRate>, String> {
+    let conn = open_local_db(&app)?;
+    let business_id = device_scope(&conn)?.business_id;
+    sale::current_rates(&conn, &business_id).map_err(|e| e.to_string())
 }
 
 #[tauri::command]
@@ -612,7 +485,9 @@ pub fn run() {
             device_identity,
             device_provision,
             stock_replace,
-            stock_current
+            stock_current,
+            rates_replace,
+            rates_current
         ])
         .run(tauri::generate_context!())
         .expect("error while running NEXO Business");
