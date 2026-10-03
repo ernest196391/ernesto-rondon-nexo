@@ -321,3 +321,6 @@ Cloud stock = `nexo_business.stock_by_product` (derived). Owners provision devic
 
 ## Real Casa Viva catalog — 2026-10-03 (Claude Code lane)
 Casa Viva's catalog truth is BizneCubano → casavivadecuba.com. NEXO imports it read-only with the `nexo-catalog-import` Edge Function (product IDs `cv-<wooId>`, variants as separate items with `variant_of`). Never write to WooCommerce from NEXO. Website stock lands as `inventory.counted` events from device `casa-viva-web`.
+
+## Catalog source switch — 2026-10-03 (Claude Code lane)
+Casa Viva follows BizneCubano (`catalog_sources.kind = 'biznecubano'`). To follow the website instead, the owner switches it in the dashboard (or `nexo_business_set_catalog_source`). Hourly: Casa-Viva snapshot at :05, NEXO import at :50 (pg_cron). Never write to BizneCubano or WooCommerce.

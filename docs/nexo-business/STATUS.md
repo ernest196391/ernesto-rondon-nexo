@@ -315,11 +315,17 @@ Owner approved ("sí, crea la sincronización en Supabase"). Project `nexo-produ
 - **Dashboard:** "Importar desde la web" button for owners (tested in the owner session: 200, idempotent).
 - **Caveats:** quantities are what the store allows in a cart (stock minus items held in checkouts); variant names are "Producto — variante"; the POS still sells in USD only and lists all items without category filters.
 
+### Catalog source (BizneCubano now, website later) + hourly import — LIVE — 2026-10-03
+- **Owner decision:** follow BizneCubano for now; the goal is to follow the Casa Viva website later, switchable without rework.
+- **Cloud (applied):** `20261003080000_nexo_business_catalog_sources.sql` — `nexo_business.catalog_sources` per business (`kind` = `biznecubano` | `woocommerce`, website URL, snapshot URL, `auto_import`, last result); owner RPCs to read/switch it; import deactivation now covers items from any source. `20261003081000_nexo_business_catalog_cron.sql` — `pg_cron` + `pg_net` enabled; job `nexo-business-catalog-import` hourly at :50 calls the import with a key generated and kept in Vault (`nexo_catalog_import_key`, never leaves Postgres).
+- **Import function:** `biznecubano` mode reads the public snapshot `evidence/catalog-snapshot/biznecubano.json` (Casa-Viva repo): BizneCubano decides what is sold, price and stock; the website supplies variants and WooCommerce IDs; items match by SKU (`BC-…`), so switching to `woocommerce` never duplicates. Products on BizneCubano not yet on the website enter as `bc-…`. Items the owner creates in the dashboard are never touched.
+- **Casa-Viva repo:** `catalog-source-snapshot.yml` now also runs hourly at :05 (merged to `main` as `bee3b77`; only the trigger changed).
+- **Verified:** BizneCubano mode imported 281 items (0 stock differences with the website, 0 changes on rerun); the cron path returned HTTP 200 and stored its result. Dashboard shows the source, last import and lets the owner switch source or turn auto-import off.
+
 ### Next executable block
-1. Schedule the website import (e.g. hourly) once the owner agrees, so NEXO follows BizneCubano automatically.
-2. POS product list: category filter and variant grouping for 281 items.
-3. POS device identity from provisioning from provisioning (today `device_id` is fixed per platform), needed before a second phone or a second business.
-4. Owner review of the Operaciones panel on the phone; then consignment and transfer/count screens.
+1. POS product list: category filter and variant grouping for 281 items.
+2. POS device identity from provisioning from provisioning from provisioning (today `device_id` is fixed per platform), needed before a second phone or a second business.
+3. Owner review of the Operaciones panel on the phone; then consignment and transfer/count screens.
 3. One offline shift on Android (open, sales, movements, fiado, messenger return, refund, close) once the UI exists.
 
 ## Local verification — Windows laptop — 2026-09-28
