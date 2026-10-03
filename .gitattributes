@@ -1,0 +1,9 @@
+# Local SQLite migrations: the Tauri SQL plugin checksums the exact bytes, so
+# line endings must never depend on the checkout. 0001–0005 were first applied
+# on pilot devices from a Windows (CRLF) checkout; 0006+ are LF.
+packages/business-db/migrations/*.sql text eol=lf
+packages/business-db/migrations/0001_*.sql text eol=crlf
+packages/business-db/migrations/0002_*.sql text eol=crlf
+packages/business-db/migrations/0003_*.sql text eol=crlf
+packages/business-db/migrations/0004_*.sql text eol=crlf
+packages/business-db/migrations/0005_*.sql text eol=crlf
