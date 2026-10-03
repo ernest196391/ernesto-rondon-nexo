@@ -297,3 +297,6 @@ Migrations 3–5 are verified as in-place upgrades on the Windows pilot DB and o
 
 ## POS operations UI — 2026-10-03 (Claude Code lane)
 The owner approved Claude working on the POS UI. Financial screens live in `apps/business-pos/src/finance.ts` (+ `finance.css`); `main.ts` only mounts them (`mountFinance`) and refreshes after a sale (`refreshFinance`). Keep new screens in their own modules to avoid conflicts in `main.ts`. To test UI writes without polluting pilot data on Windows: close the app, copy `%APPDATA%\com.nexo.business\nexo-business.db`, test, close, delete `-wal`/`-shm`, copy the backup back and compare SHA-256.
+
+## Outbox push client — 2026-10-03 (Claude Code lane)
+`sync.rs` + `apps/business-pos/src/sync.ts` implement the push side of ADR-001 against `SYNC_PUSH_CONTRACT.md`. To test without touching pilot data, run `node mock-sync-server.mjs`-style stand-ins locally and restore the DB copy afterwards. The cloud endpoint is not built: it changes the production Supabase schema and needs the owner's explicit approval.

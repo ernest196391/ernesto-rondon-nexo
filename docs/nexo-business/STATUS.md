@@ -3,7 +3,7 @@
 **Last update:** 2026-10-02
 **Pilots:** Casa Viva (Pilot 01, complex reference) · Colo Shop + AxisSoft (connector pilot) · Estilo y Hogar (next full reusable NEXO-native pilot)
 **Current phase:** Phase 0 — Implementation Spike
-**Overall state:** Cash shift ledger, receivables (fiado), messenger custody, sale returns, location inventory and consignment backends implemented; migrations 3–10 verified as in-place upgrades on the Windows and Android pilot DBs (no cash/credit UI yet). Windows native offline core PASS. Android physical-device core PASS. Multi-line cart and digital receipt are proven on Windows/Android. Android camera decoding on Redmi 9A remains partial. Product direction is now explicitly reusable/white-label for Cuban businesses: online store + POS/cash + inventory + gestora + messenger + management, with merchant-specific behavior handled by configuration/adapters rather than forks.
+**Overall state:** Cash shift ledger, receivables (fiado), messenger custody, sale returns, location inventory and consignment backends, an operations UI and the outbox push client implemented; migrations 3–10 verified as in-place upgrades on the Windows and Android pilot DBs (no cash/credit UI yet). Windows native offline core PASS. Android physical-device core PASS. Multi-line cart and digital receipt are proven on Windows/Android. Android camera decoding on Redmi 9A remains partial. Product direction is now explicitly reusable/white-label for Cuban businesses: online store + POS/cash + inventory + gestora + messenger + management, with merchant-specific behavior handled by configuration/adapters rather than forks.
 
 ## What we are building
 Offline-first, hardware-optional Android + Windows POS/business OS integrated with NEXO online stores. The minimum viable setup is one Android phone.
@@ -262,9 +262,17 @@ Branch `claude/pos-finance-ui`. Owner approved Claude taking this UI ("haz lo qu
 - **Android (Redmi 9A):** APK installed with `adb install -r`; panel renders with existing data; no writes made on the phone. Visual layout on the phone not yet reviewed by a person (screen was locked).
 - **Not done:** consignment UI, location transfers/counts UI, customer list (customers are free text), operator login.
 
+### Outbox push client checkpoint — WINDOWS FUNCTIONAL PASS (LOCAL STAND-IN SERVER) — 2026-10-03
+Branch `claude/outbox-sync`. Contract: `SYNC_PUSH_CONTRACT.md`.
+- **Implemented:** Rust `sync.rs` (due batch oldest first, applied/duplicate → synced, rejected/transport failure → kept with exponential backoff 30 s…1 h, queue never cleared), Tauri `sync_state`, `sync_pending_batch`, `sync_record_results`, `sync_record_failure`; TS contract `sync-contract.ts` (response check + reference server classifier); POS `sync.ts` with a "Sincronización" section (endpoint per device, "Sincronizar ahora", queue state).
+- **Tests passed:** `cargo test` 68/68 (5 new), clippy clean, root `vitest` 176/176, POS `tsc` clean.
+- **Windows (copy of the pilot DB, restored byte-identical afterwards):** against a local stand-in server, 9 pending events were sent and stored once; a second sync sent nothing; after a new sale with the server down the event stayed pending with `attempts=1` and the error shown. Audit OK.
+- **Android (Redmi 9A):** APK installed; the Sincronización section shows 13 pending events. No endpoint configured, so nothing left the phone.
+- **Not built (needs owner approval, production cloud):** cloud endpoint + Supabase tables, device authentication, pull side.
+
 ### Next executable block
-1. Sync: push the local outbox events (sale, cash, receivable, custody, return, inventory, consignment) to the cloud with idempotent ingestion (ADR-001).
-2. Owner review of the Operaciones panel on the phone; then consignment and transfer/count screens.
+1. Owner review of the Operaciones panel on the phone; then consignment and transfer/count screens.
+2. Cloud ingestion endpoint + Supabase tables for the push contract — only with explicit owner approval (production schema).
 3. One offline shift on Android (open, sales, movements, fiado, messenger return, refund, close) once the UI exists.
 
 ## Local verification — Windows laptop — 2026-09-28
