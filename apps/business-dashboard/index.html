@@ -104,11 +104,46 @@ function render(summary) {
       <ul>${b.devices.map(d => `<li>${esc(d.label ?? d.deviceId)} · ${d.events} registros · última conexión ${d.lastSeenAt ? esc(new Date(d.lastSeenAt).toLocaleString("es")) : "nunca"}${d.active === false ? " · <strong>desactivado</strong>" : ""}</li>`).join("")}</ul>
       <p class="muted">Datos sincronizados hasta ${esc(new Date(b.generatedAt).toLocaleString("es"))}. Un equipo sin conexión sube sus ventas al recuperarla.</p>
     </section>
+    <section class="card" data-rates="${esc(b.businessId)}" data-owner="${b.role === "owner"}"><h2>Tasas de cambio</h2><p class="muted">Cargando…</p></section>
     ${b.role === "owner" ? `<section class="card" data-catalog="${esc(b.businessId)}"><h2>Catálogo y precios</h2><p class="muted">Cargando…</p></section>` : ""}
     ${b.role === "owner" ? devicesSection(b) : ""}`;
   }).join("");
+  document.querySelectorAll("[data-rates]").forEach(el => void loadRates(el));
   document.querySelectorAll("[data-catalog]").forEach(el => void loadCatalog(el));
   document.querySelectorAll("[data-devices]").forEach(wireDevices);
+}
+
+// ---------- Exchange rates (owners set, everyone sees) ----------
+
+const RATE_CURRENCIES = { CUP: "CUP por 1 USD (efectivo y transferencia)", MLC: "MLC por 1 USD", USDT: "USDT por 1 USD" };
+
+async function loadRates(el) {
+  const business = el.dataset.rates;
+  const owner = el.dataset.owner === "true";
+  const { data, error } = await supabase.rpc("nexo_business_rates", { p_business: business });
+  if (error || data?.error) { el.innerHTML = `<h2>Tasas de cambio</h2><p class="muted">No se pudieron cargar: ${esc(error?.message ?? data.error)}</p>`; return; }
+  const byCurrency = Object.fromEntries((data.rates ?? []).map(r => [r.currency, r]));
+  const since = r => r ? ` · fijada ${esc(new Date(r.setAt).toLocaleString("es"))}` : " · sin fijar";
+  el.innerHTML = `<h2>Tasas de cambio</h2>
+    <p class="muted">Los precios están en USD. El POS convierte los pagos en otras monedas con estas tasas y las recibe en la siguiente sincronización.</p>
+    ${Object.entries(RATE_CURRENCIES).map(([c, label]) => owner
+      ? `<form data-rate="${c}" class="row"><label>${esc(label)}<input name="rate" inputmode="decimal" required value="${esc(byCurrency[c]?.perUsd ?? "")}" placeholder="${c === "CUP" ? "490" : c === "USDT" ? "1" : "1.2"}"></label><button type="submit">Guardar</button><span class="muted">${since(byCurrency[c])}</span></form>`
+      : `<p><strong>${c}</strong>: ${byCurrency[c] ? esc(byCurrency[c].perUsd) : "—"}${since(byCurrency[c])}</p>`).join("")}
+    <div class="msg" data-rate-msg role="status"></div>`;
+  const msg = el.querySelector("[data-rate-msg]");
+  el.querySelectorAll("[data-rate]").forEach(form => {
+    form.onsubmit = async e => {
+      e.preventDefault();
+      const value = Number(String(new FormData(form).get("rate")).replace(",", ".").trim());
+      if (!Number.isFinite(value) || value <= 0) { msg.textContent = "Escribe una tasa mayor que cero."; msg.dataset.tone = "bad"; return; }
+      const { data: saved, error: e2 } = await supabase.rpc("nexo_business_set_rate", { p_business: business, p_currency: form.dataset.rate, p_per_usd: value });
+      if (e2 || saved?.error) { msg.textContent = `No se guardó: ${e2?.message ?? saved.error}`; msg.dataset.tone = "bad"; return; }
+      await loadRates(el);
+      const m = el.querySelector("[data-rate-msg]");
+      m.textContent = `Tasa ${form.dataset.rate} guardada: ${value}. Los equipos la reciben al sincronizar.`;
+      m.dataset.tone = "ok";
+    };
+  });
 }
 
 // ---------- Devices (owners) ----------

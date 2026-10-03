@@ -4,6 +4,7 @@ import { scan, Format, checkPermissions, requestPermissions } from "@tauri-apps/
 import "./style.css";
 import { mountFinance, refreshFinance } from "./finance";
 import type { DeviceIdentity } from "./sync";
+import { openCheckout, describePayments } from "./checkout";
 
 type Product = { id: string; name: string; price_minor: number; barcode: string | null };
 type CartLine = { product: Product; quantity: number };
@@ -17,7 +18,7 @@ type Receipt = {
   saleId: string;
   occurredAt: string;
   currency: "USD";
-  paymentMethod: "cash";
+  payments: string[];
   totalMinor: number;
   lines: ReceiptLine[];
 };
@@ -59,7 +60,7 @@ app.innerHTML = `
     <h2>Carrito</h2>
     <div id="cart">Vacío</div>
     <div class="cart-summary"><span>Total</span><strong id="cart-total">$0.00</strong></div>
-    <button id="sell" disabled>Cobrar en efectivo</button>
+    <button id="sell" disabled>Cobrar</button>
   </aside>
   <section id="receipt-panel" class="receipt-panel" hidden>
     <div class="receipt-heading">
@@ -140,7 +141,7 @@ function receiptText(receipt: Receipt) {
     ...lines,
     "",
     `Total: ${money(receipt.totalMinor)} USD`,
-    "Pago: Efectivo"
+    ...receipt.payments.map(p => `Pago: ${p}`)
   ].join("\n");
 }
 
@@ -154,7 +155,7 @@ function renderReceipt(receipt: Receipt) {
   content.innerHTML = `
     <div class="receipt-meta">
       <span>${new Date(receipt.occurredAt).toLocaleString()}</span>
-      <span>Pago · Efectivo</span>
+      <span>${receipt.payments.map(p => escapeHtml(p)).join("<br>")}</span>
     </div>
     <div class="receipt-lines">
       ${receipt.lines.map(line => `
@@ -551,6 +552,9 @@ async function sell() {
   }));
   const totalMinor = lines.reduce((sum, line) => sum + line.lineTotalMinor, 0);
 
+  const payments = await openCheckout(totalMinor);
+  if (!payments) return;
+
   button.disabled = true;
   document.querySelector("#status")!.textContent = "Guardando venta atómica…";
   const soldIds = lines.map(line => line.productId);
@@ -561,7 +565,7 @@ async function sell() {
     await invoke("complete_sale", {
       input: {
         saleId,
-        paymentId: crypto.randomUUID(),
+        payments,
         outboxId: crypto.randomUUID(),
         totalMinor,
         occurredAt: now,
@@ -573,7 +577,7 @@ async function sell() {
       saleId,
       occurredAt: now,
       currency: "USD",
-      paymentMethod: "cash",
+      payments: describePayments(payments),
       totalMinor,
       lines: cartSnapshot
     };

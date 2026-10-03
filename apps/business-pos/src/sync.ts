@@ -8,6 +8,7 @@ import {
   type PushEvent,
   type PushRequest,
 } from "../../../packages/business-domain/src/sync-contract";
+import { pullRates } from "./checkout";
 
 type SyncState = { pending: number; failing: number; synced: number; oldestPendingAt: string | null; lastError: string | null };
 type OutboxEvent = PushEvent & { attempts: number };
@@ -177,6 +178,11 @@ async function syncOnce(): Promise<SyncState | undefined> {
       await pullStock(endpoint, token);
     } catch (e) {
       console.warn("stock pull", e);
+    }
+    try {
+      await pullRates(endpoint, token);
+    } catch (e) {
+      console.warn("rates pull", e);
     }
     return state;
   } finally {

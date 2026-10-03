@@ -12,6 +12,7 @@ pub mod external_refs;
 pub mod inventory;
 pub mod messenger_custody;
 pub mod receivables;
+pub mod sale;
 pub mod sale_returns;
 pub mod sync;
 
@@ -92,6 +93,11 @@ pub const MIGRATIONS: &[LocalMigration] = &[
         version: 14,
         description: "product_photos_and_stock",
         sql: include_str!("../../migrations/0014_product_photos_and_stock.sql"),
+    },
+    LocalMigration {
+        version: 15,
+        description: "split_payments",
+        sql: include_str!("../../migrations/0015_split_payments.sql"),
     },
 ];
 

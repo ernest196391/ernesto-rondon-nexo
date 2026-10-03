@@ -345,6 +345,15 @@ Owner approved ("sí, crea la sincronización en Supabase"). Project `nexo-produ
 - **Verified:** `cargo test` green (3 new tests), `tsc` clean; Windows (pilot DB backed up first): 202 stock rows, 284 photo URLs, 141 "Quedan" + 1 "Agotado" badges, phone-width screenshot checked. Redmi: APK installed, 203 stock rows and 284 photo URLs (screen locked, checked through its DB).
 - **Caveat:** photos rely on the WebView's HTTP cache offline; a dedicated local photo cache comes with the redesign.
 
+### Split payments + owner exchange rates — LIVE — 2026-10-03
+- **Owner decisions:** charge in USD, CUP, CUP transfer (Transfermóvil or EnZona: bank transfers, only the app differs), MLC (transfer to an MLC card), Zelle, USDT and other crypto; 2 or 3 methods in one sale; no elTOQUE API key, so owners set rates by hand in the dashboard.
+- **Cloud (applied):** `20261003130000_nexo_business_exchange_rates.sql` — append-only `exchange_rates` (CUP/MLC/USDT per 1 USD, latest in force, history kept), `nexo_business_set_rate` (owners), `nexo_business_rates` (members), `nexo_business_device_rates` + Edge Function `nexo-rates-pull` (devices); view `sale_payments` (old sales read as one cash payment; verified 22/22, totals match).
+- **Local migration 0015:** `local_payments.usd_minor` / `exchange_rate`, `local_exchange_rates`. Rust `sale.rs` now owns `complete_sale` (moved out of the Tauri shell): up to 4 payments, method → rail (cash/transfer/digital_asset), USD values must equal the total exactly, foreign amounts must match their rate within one cent, references trimmed; cash in each currency joins the open drawer; payload gains `payments` and `payment_method` (single method or `split`). Old POS builds (one `paymentId`) still work.
+- **POS:** "Cobrar" opens a checkout sheet (`checkout.ts`): method chips (disabled when the rate is missing; USDT defaults to 1), amount per method prefilled with what is left, CUP equivalent and rate age, reference required for transfers/crypto, extra cash becomes change recorded net. Receipts list every payment. Rates pull on each sync.
+- **Dashboard:** "Tasas de cambio" card (owners edit, viewers read).
+- **Verified:** `cargo test` green (7 new sale tests), `tsc` clean. Windows on the pilot DB with sync paused: $22 = $10 cash + 5,880 CUP Transfermóvil (rate 490, ref) and $11 paid with $20 (change $9, recorded $11); rows, rails, rates and receipt checked; DB restored byte-identical, no test event reached the cloud. Redmi: APK installed, migration 15 applied.
+- **Owner to do:** set the CUP, MLC and USDT rates in the dashboard; until then only USD methods (and USDT at 1) are available.
+
 ### Next executable block
 1. Owner review of the Operaciones panel on the phone; then consignment and transfer/count screens.
 3. One offline shift on Android (open, sales, movements, fiado, messenger return, refund, close) once the UI exists.
