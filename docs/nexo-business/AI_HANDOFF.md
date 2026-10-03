@@ -312,3 +312,6 @@ The POS pushes automatically (`startAutoSync`/`requestSync` in `sync.ts`). Cloud
 
 ## Owner web dashboard — 2026-10-03 (Claude Code lane)
 https://nexo-negocio.vercel.app (`apps/business-dashboard/index.html`). Access = Supabase Auth user + row in `nexo_business.members`; never let users insert memberships themselves. The page only uses the publishable key.
+
+## Cloud catalog — 2026-10-03 (Claude Code lane)
+The catalog is owned by the cloud (`nexo_business.catalog_products`, edited in the dashboard). Devices pull it (`catalog.rs`, `pullCatalog` in `sync.ts`). Do not seed new products from `main.ts`; add them in the dashboard. The dashboard deploys to Vercel from Git (`apps/business-dashboard`).

@@ -96,8 +96,87 @@ function render(summary) {
       <h3>Equipos</h3>
       <ul>${b.devices.map(d => `<li>${esc(d.label ?? d.deviceId)} · ${d.events} registros · última conexión ${d.lastSeenAt ? esc(new Date(d.lastSeenAt).toLocaleString("es")) : "nunca"}</li>`).join("")}</ul>
       <p class="muted">Datos sincronizados hasta ${esc(new Date(b.generatedAt).toLocaleString("es"))}. Un equipo sin conexión sube sus ventas al recuperarla.</p>
-    </section>`;
+    </section>
+    ${b.role === "owner" ? `<section class="card" data-catalog="${esc(b.businessId)}"><h2>Catálogo y precios</h2><p class="muted">Cargando…</p></section>` : ""}`;
   }).join("");
+  document.querySelectorAll("[data-catalog]").forEach(el => void loadCatalog(el));
+}
+
+// ---------- Catalog editor (owners) ----------
+
+const CURRENCIES = ["USD", "CUP", "MLC"];
+const toMinor = raw => {
+  const v = Number(String(raw).replace(",", ".").trim());
+  return Number.isFinite(v) && v >= 0 ? Math.round(v * 100) : null;
+};
+
+async function loadCatalog(el) {
+  const business = el.dataset.catalog;
+  const { data, error } = await supabase.rpc("nexo_business_catalog_list", { p_business: business });
+  if (error || data?.error) {
+    el.innerHTML = `<h2>Catálogo y precios</h2><p>No se pudo cargar: ${esc(error?.message ?? data.error)}</p>`;
+    return;
+  }
+  const products = data;
+  const priceCell = (p, c) => (p.prices?.[c] != null ? money(p.prices[c], c) : "—");
+  el.innerHTML = `
+    <div class="row"><h2>Catálogo y precios</h2><button type="button" data-new>Nuevo producto</button></div>
+    <p class="muted">Los cambios llegan solos a los equipos en su próxima sincronización (cada minuto con conexión).</p>
+    <div class="wrap"><table>
+      <thead><tr><th>Producto</th>${CURRENCIES.map(c => `<th>${c}</th>`).join("")}<th>Estado</th><th></th></tr></thead>
+      <tbody>${products.map((p, i) => `<tr><td>${esc(p.name)}<br><span class="muted">${esc(p.sku ?? "")} ${esc((p.barcodes ?? []).join(", "))}</span></td>
+        ${CURRENCIES.map(c => `<td>${priceCell(p, c)}</td>`).join("")}
+        <td>${p.active ? "Activo" : "Inactivo"}</td><td><button type="button" class="link" data-edit="${i}">Editar</button></td></tr>`).join("")
+        || `<tr><td colspan="6">Sin productos</td></tr>`}</tbody>
+    </table></div>
+    <form data-form hidden></form>
+    <div class="msg" data-msg role="status"></div>`;
+  const form = el.querySelector("[data-form]");
+  const msg = el.querySelector("[data-msg]");
+  const open = p => {
+    form.hidden = false;
+    form.innerHTML = `
+      <h3>${p ? "Editar producto" : "Nuevo producto"}</h3>
+      <label>Nombre<input name="name" required value="${esc(p?.name ?? "")}"></label>
+      <label>SKU<input name="sku" value="${esc(p?.sku ?? "")}"></label>
+      <label>Códigos de barras (separados por coma)<input name="barcodes" value="${esc((p?.barcodes ?? []).join(", "))}"></label>
+      ${CURRENCIES.map(c => `<label>Precio ${c}<input name="price-${c}" inputmode="decimal" placeholder="Sin precio" value="${p?.prices?.[c] != null ? (p.prices[c] / 100).toFixed(2) : ""}"></label>`).join("")}
+      <label><span><input type="checkbox" name="active" ${p?.active === false ? "" : "checked"} style="width:auto"> Activo (se vende en el POS)</span></label>
+      <div class="row"><button type="submit">Guardar</button><button type="button" class="link" data-cancel>Cancelar</button></div>`;
+    form.querySelector("[data-cancel]").onclick = () => { form.hidden = true; };
+    form.onsubmit = async e => {
+      e.preventDefault();
+      const f = new FormData(form);
+      const prices = {};
+      for (const c of CURRENCIES) {
+        const raw = String(f.get(`price-${c}`) ?? "").trim();
+        if (!raw) continue;
+        const minor = toMinor(raw);
+        if (minor == null) { msg.textContent = `Precio ${c} inválido`; msg.dataset.tone = "bad"; return; }
+        prices[c] = minor;
+      }
+      msg.textContent = "Guardando…"; msg.dataset.tone = "";
+      const { data: saved, error: saveError } = await supabase.rpc("nexo_business_catalog_upsert", {
+        p_business: business,
+        p_product_id: p?.product_id ?? crypto.randomUUID(),
+        p_name: f.get("name"),
+        p_sku: f.get("sku"),
+        p_barcodes: String(f.get("barcodes") ?? "").split(",").map(s => s.trim()).filter(Boolean),
+        p_prices: prices,
+        p_active: f.get("active") === "on",
+      });
+      if (saveError || saved?.error) {
+        msg.textContent = `No se guardó: ${saveError?.message ?? saved.error}`; msg.dataset.tone = "bad";
+        return;
+      }
+      await loadCatalog(el);
+      const done = el.querySelector("[data-msg]");
+      done.textContent = `✓ Guardado: ${saved.name}`; done.dataset.tone = "ok";
+    };
+    form.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+  el.querySelector("[data-new]").onclick = () => open(null);
+  el.querySelectorAll("[data-edit]").forEach(btn => { btn.onclick = () => open(products[Number(btn.dataset.edit)]); });
 }
 
 async function load() {
@@ -110,11 +189,17 @@ async function load() {
   render(data);
 }
 
+let shownUser = null;
+
 async function show(session) {
-  const signedIn = Boolean(session);
-  $("#auth").hidden = signedIn;
-  $("#app").hidden = !signedIn;
-  if (signedIn) {
+  const userId = session?.user?.id ?? null;
+  // Token refreshes re-fire auth events; only redraw when the user changes,
+  // so an open catalog form is never wiped.
+  if (userId === shownUser) return;
+  shownUser = userId;
+  $("#auth").hidden = Boolean(userId);
+  $("#app").hidden = !userId;
+  if (userId) {
     $("#who").textContent = session.user.email ?? "";
     await load();
   }

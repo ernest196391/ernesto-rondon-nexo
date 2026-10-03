@@ -64,6 +64,9 @@ Any non-200, malformed or incomplete response is a transport failure: every even
 ## Owner summary
 `GET https://viwwlriwlwodrfukbgbj.supabase.co/functions/v1/nexo-business-summary?days=7` with `x-nexo-device-token` returns sales per day/currency (America/Havana), totals, open receivables, messenger cash and devices for the business of the caller. Read models: views in schema `nexo_business` (migration `20261003030000`).
 
+## Catalog pull
+`GET https://viwwlriwlwodrfukbgbj.supabase.co/functions/v1/nexo-catalog-pull?after=<seq>&limit=200` with `x-nexo-device-token` returns `{ changes: [{ seq, productId, sku, name, active, barcodes, prices, updatedAt }] }` for the device's business, oldest first. Devices store the last applied `seq` in `local_sync_checkpoints` (stream `catalog`) in the same transaction as the changes.
+
 ## Not built yet
 - Stock per location in the cloud (needs inventory events from every flow, including sale lines).
 - Pull side (ordered changes + checkpoint) and admin UI for provisioning devices.

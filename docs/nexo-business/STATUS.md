@@ -293,10 +293,17 @@ Owner approved ("sí, crea la sincronización en Supabase"). Project `nexo-produ
 - **Access control (applied, `20261003040000_nexo_business_members.sql`):** `nexo_business.members` (user ↔ business, role owner/viewer) added only by NEXO with the service role; `public.nexo_business_member_summary(days)` is executable by signed-in users and returns data only for their memberships (anon gets 401). The device-token summary now shares `summary_for()`.
 - **Pending:** the owner signs up on the page and confirms the email; NEXO then inserts the membership row for `casa-viva`. Redeploy: `create_deployment` with the file, or Vercel CLI from `apps/business-dashboard`.
 
+### Owner account + cloud catalog checkpoint — WINDOWS + ANDROID PASS — 2026-10-03
+- **Owner account:** `ernest196391@gmail.com` signed up, confirmed and linked to `casa-viva` as owner; the dashboard shows the real data (22 sales, 9000.00 USD, both devices). Confirmation links redirect to `localhost:3000` (project Site URL, shared with other apps) but the confirmation itself succeeds.
+- **Cloud catalog (applied, `20261003050000_nexo_business_catalog.sql`):** `nexo_business.catalog_products` (barcodes + prices per currency, global change sequence, deactivate-never-delete), owner-only `nexo_business_catalog_upsert`, member `nexo_business_catalog_list`, device `catalog_pull` behind the `nexo-catalog-pull` Edge Function (deployed). Seeded with the two pilot products.
+- **POS:** local migration `0011_sync_checkpoints.sql`; Rust `catalog.rs` applies a page and advances the checkpoint in one transaction (idempotent, cloud owns SKUs, prices missing from a change are deactivated); the POS pulls after every push and refreshes the product list. `main.ts` now lists USD prices only (3-line change).
+- **Dashboard:** "Catálogo y precios" editor for owners (name, SKU, barcodes, USD/CUP/MLC prices, active). Auth refresh events no longer redraw the page. Vercel now deploys from Git (`rootDirectory: apps/business-dashboard`).
+- **Verified:** `cargo test` 74/74, clippy clean, POS `tsc` clean. A no-op save of "Producto NEXO Demo" in the dashboard (version 4) reached both pilots: migration 11 applied over existing data, checkpoint 4 on Windows and on the Redmi, the product updated in place with no duplicate prices, audit OK on both.
+
 ### Next executable block
-1. Link the owner account to `casa-viva` once it exists, and check the dashboard with real data.
-2. Pull side (catalog/prices from cloud to devices) per ADR-001.
-3. Owner review of the Operaciones panel on the phone; then consignment and transfer/count screens.
+1. Owner review of the Operaciones panel on the phone; then consignment and transfer/count screens.
+2. Stock per location in the cloud (inventory events from sales lines) and low-stock alerts in the dashboard.
+3. Device provisioning from the dashboard (create device + one-time token) instead of SQL.
 3. One offline shift on Android (open, sales, movements, fiado, messenger return, refund, close) once the UI exists.
 
 ## Local verification — Windows laptop — 2026-09-28

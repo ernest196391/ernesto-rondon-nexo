@@ -1,6 +1,7 @@
 use nexo_business_db::cash_shift::{
     self, CloseShiftInput, OpenShiftInput, RecordMovementInput, ShiftScope, ShiftSummary,
 };
+use nexo_business_db::catalog::{self, ApplyResult, CatalogChange};
 use nexo_business_db::consignment::{
     self, ConsignmentAccount, OpenConsignmentAccountInput, SettleConsignmentInput,
 };
@@ -491,6 +492,23 @@ fn sync_record_failure(
     sync::record_transport_failure(&mut conn, &event_ids, &error, &now).map_err(|e| e.to_string())
 }
 
+#[tauri::command]
+fn catalog_checkpoint(app: tauri::AppHandle) -> Result<i64, String> {
+    let conn = open_local_db(&app)?;
+    catalog::checkpoint(&conn, catalog::CATALOG_STREAM).map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+fn catalog_apply(
+    app: tauri::AppHandle,
+    changes: Vec<CatalogChange>,
+    now: String,
+) -> Result<ApplyResult, String> {
+    let mut conn = open_local_db(&app)?;
+    catalog::apply_catalog_page(&mut conn, &pilot_scope().business_id, &changes, &now)
+        .map_err(|e| e.to_string())
+}
+
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     let migrations = nexo_business_db::MIGRATIONS
@@ -542,7 +560,9 @@ pub fn run() {
             sync_state,
             sync_pending_batch,
             sync_record_results,
-            sync_record_failure
+            sync_record_failure,
+            catalog_checkpoint,
+            catalog_apply
         ])
         .run(tauri::generate_context!())
         .expect("error while running NEXO Business");
