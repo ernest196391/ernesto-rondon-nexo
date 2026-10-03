@@ -313,7 +313,7 @@ Owner approved ("sí, crea la sincronización en Supabase"). Project `nexo-produ
 - **Imported:** 200 website products → 281 sellable items (174 simple + 107 variants, each with its own SKU `BC-…`, USD price, category, image). 197 items with a tracked quantity got their stock (497 units in total); untracked items ("disponible sin control" on the web) have no NEXO stock yet. Second run: 0 changes, 0 new counts. Spot-checked against the live site (price, quantity, out of stock).
 - **Devices:** Windows and the Redmi pulled the catalog (checkpoint 288) and now list the 281 real products; the two demo products are inactive. Audit OK on both.
 - **Dashboard:** "Importar desde la web" button for owners (tested in the owner session: 200, idempotent).
-- **Caveats:** quantities are what the store allows in a cart (stock minus items held in checkouts); variant names are "Producto — variante"; the POS still sells in USD only and lists all items without category filters.
+- **Caveats:** quantities are what the store allows in a cart (stock minus items held in checkouts); variant names are "Producto — variante"; the POS still sells in USD only (category filters and variant grouping added later the same day).
 
 ### Catalog source (BizneCubano now, website later) + hourly import — LIVE — 2026-10-03
 - **Owner decision:** follow BizneCubano for now; the goal is to follow the Casa Viva website later, switchable without rework.
@@ -324,10 +324,15 @@ Owner approved ("sí, crea la sincronización en Supabase"). Project `nexo-produ
 - **Website domain:** per the owner, the Casa Viva website now lives at **casaviva.company** (same WooCommerce store: product IDs and SKUs match). `catalog_sources.website_url` updated (`20261003100000_nexo_business_casa_viva_domain.sql`); the import ran against it with 281 items, no duplicates, and a rerun changed nothing.
 - **Verified:** BizneCubano mode imported 281 items (0 stock differences with the website, 0 changes on rerun); the cron path returned HTTP 200 and stored its result. Dashboard shows the source, last import and lets the owner switch source or turn auto-import off.
 
+### POS category filter + variant grouping — 2026-10-03
+- **Local migration 0012 (`0012_product_grouping.sql`):** `local_products.category`, `variant_of`, `variant_label`; drops the `catalog` checkpoint once so devices re-pull the catalog with those fields (the cloud already sent them; applying is idempotent).
+- **Rust:** `CatalogChange` carries `category` / `variantOf` / `variantLabel` (optional, trimmed, blank → NULL) and the upsert stores them. Test `keeps_category_and_variant_grouping`.
+- **POS:** category chips above the list ("Todas" + each category with its product count, "Sin categoría" for NULL; hidden when there is only one), combined with the search. Variants of one product show as one card ("Alfombra de chenilla") with a button per variant (label + price); each variant is still its own cart line, SKU and barcode. Names from the cloud are HTML-escaped.
+- **Verified:** `cargo test` all green, `tsc` clean, Windows debug build on the pilot DB: migration 12 applied, catalog re-pulled to checkpoint 3098, 281 active items all with category (9 categories), 107 variants → 200 cards. Redmi 9A (APK installed, verified by reading its DB with run-as because the phone was locked): same result, checkpoint 3098.
+
 ### Next executable block
-1. POS product list: category filter and variant grouping for 281 items.
-2. POS device identity from provisioning from provisioning from provisioning (today `device_id` is fixed per platform), needed before a second phone or a second business.
-3. Owner review of the Operaciones panel on the phone; then consignment and transfer/count screens.
+1. POS device identity from provisioning (today `device_id` is fixed per platform), needed before a second phone or a second business.
+2. Owner review of the Operaciones panel on the phone; then consignment and transfer/count screens.
 3. One offline shift on Android (open, sales, movements, fiado, messenger return, refund, close) once the UI exists.
 
 ## Local verification — Windows laptop — 2026-09-28

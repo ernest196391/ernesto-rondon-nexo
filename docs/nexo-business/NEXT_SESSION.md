@@ -4,7 +4,7 @@ Read this first in a new session; open STATUS.md / AI_HANDOFF.md only for the pa
 
 ## Where things are (2026-10-03)
 - **Repo:** `C:\Users\Ernesto\ernesto-rondon-nexo`, branch `main`. Work on a `claude/<block>` branch, merge `--no-ff` to `main` (owner authorized merges).
-- **POS (Tauri, Windows + Android):** `apps/business-pos`. Local SQLite migrations `packages/business-db/migrations` 0001–0011 (line endings pinned in `.gitattributes`; never edit an applied migration). Rust repos in `packages/business-db/rust/src` (`cargo test` there). Operations UI in `src/finance.ts`, sync/catalog pull in `src/sync.ts`; `main.ts` only mounts them.
+- **POS (Tauri, Windows + Android):** `apps/business-pos`. Local SQLite migrations `packages/business-db/migrations` 0001–0012 (line endings pinned in `.gitattributes`; never edit an applied migration). Rust repos in `packages/business-db/rust/src` (`cargo test` there). Operations UI in `src/finance.ts`, sync/catalog pull in `src/sync.ts`; `main.ts` only mounts them.
 - **Cloud:** Supabase `nexo-production` (`viwwlriwlwodrfukbgbj`), schema `nexo_business`. Migrations in `supabase/migrations` (apply with the Supabase MCP `apply_migration`). Edge Functions in `supabase/functions` (deploy: `npx.cmd supabase functions deploy <name> --project-ref viwwlriwlwodrfukbgbj --no-verify-jwt --use-api`; CLI is logged in on this laptop).
 - **Owner dashboard:** https://nexo-negocio.vercel.app (`apps/business-dashboard/index.html`), Vercel project `nexo-negocio` deploys from Git (`create_deployment` with `gitSource` ref `main`).
 - **Catalog:** follows BizneCubano (`catalog_sources.kind='biznecubano'`), website `https://casaviva.company` supplies variants; hourly import at :50 (pg_cron). Never write to BizneCubano or WooCommerce.
@@ -17,6 +17,5 @@ Read this first in a new session; open STATUS.md / AI_HANDOFF.md only for the pa
 
 ## Open items
 1. Casa-Viva repo hourly BizneCubano snapshot is merged but GitHub had not run it yet (last snapshot 2026-10-02 20:45 UTC); its script still defaults to casavivadecuba.com.
-2. POS: category filter / variant grouping for 281 items.
-3. POS device identity from provisioning (today fixed per platform; business fixed to `casa-viva`).
-4. Owner: initial physical counts for untracked items; min stock in the dashboard; Supabase Site URL → dashboard.
+2. POS device identity from provisioning (today fixed per platform; business fixed to `casa-viva`).
+3. Owner: initial physical counts for untracked items; min stock in the dashboard; Supabase Site URL → dashboard.

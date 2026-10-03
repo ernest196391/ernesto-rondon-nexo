@@ -27,6 +27,9 @@ fn change(seq: i64, id: &str, name: &str, prices: &[(&str, i64)]) -> CatalogChan
         barcodes: vec![format!("77{seq:010}")],
         prices: prices.iter().map(|(c, a)| (c.to_string(), *a)).collect::<BTreeMap<_, _>>(),
         updated_at: "2026-10-03T13:00:00Z".into(),
+        category: None,
+        variant_of: None,
+        variant_label: None,
     }
 }
 
@@ -88,4 +91,21 @@ fn checkpoint_never_moves_backwards() {
     let conn = db();
     conn.execute("INSERT INTO local_sync_checkpoints (stream,last_seq,updated_at) VALUES ('catalog',10,'t')", []).unwrap();
     assert!(conn.execute("UPDATE local_sync_checkpoints SET last_seq=5 WHERE stream='catalog'", []).is_err());
+}
+
+#[test]
+fn keeps_category_and_variant_grouping() {
+    let mut conn = db();
+    let mut azul = change(1, "cv-11", "Silla - Azul", &[("USD", 3000)]);
+    azul.category = Some(" Muebles ".into());
+    azul.variant_of = Some("cv-10".into());
+    azul.variant_label = Some("Azul".into());
+    let mut mesa = change(2, "cv-20", "Mesa", &[("USD", 9000)]);
+    mesa.category = Some("  ".into());
+    apply_catalog_page(&mut conn, "biz", &[azul, mesa], "now").unwrap();
+    let (category, parent, label): (String, String, String) = conn
+        .query_row("SELECT category,variant_of,variant_label FROM local_products WHERE id='cv-11'", [], |r| Ok((r.get(0)?, r.get(1)?, r.get(2)?)))
+        .unwrap();
+    assert_eq!((category.as_str(), parent.as_str(), label.as_str()), ("Muebles", "cv-10", "Azul"));
+    assert_eq!(scalar(&conn, "SELECT COUNT(*) FROM local_products WHERE id='cv-20' AND category IS NULL AND variant_of IS NULL"), 1);
 }

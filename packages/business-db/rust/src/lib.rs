@@ -76,6 +76,11 @@ pub const MIGRATIONS: &[LocalMigration] = &[
         description: "sync_checkpoints",
         sql: include_str!("../../migrations/0011_sync_checkpoints.sql"),
     },
+    LocalMigration {
+        version: 12,
+        description: "product_grouping",
+        sql: include_str!("../../migrations/0012_product_grouping.sql"),
+    },
 ];
 
 /// Applies every migration in order. Used by tests and tooling; on devices the
