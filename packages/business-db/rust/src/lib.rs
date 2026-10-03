@@ -4,6 +4,7 @@
 //! tests here run exactly the schema that ships to Windows/Android devices.
 
 pub mod cash_shift;
+pub mod consignment;
 pub mod external_refs;
 pub mod inventory;
 pub mod messenger_custody;
@@ -62,6 +63,11 @@ pub const MIGRATIONS: &[LocalMigration] = &[
         version: 9,
         description: "location_inventory",
         sql: include_str!("../../migrations/0009_location_inventory.sql"),
+    },
+    LocalMigration {
+        version: 10,
+        description: "consignment",
+        sql: include_str!("../../migrations/0010_consignment.sql"),
     },
 ];
 

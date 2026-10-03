@@ -1,6 +1,9 @@
 use nexo_business_db::cash_shift::{
     self, CloseShiftInput, OpenShiftInput, RecordMovementInput, ShiftScope, ShiftSummary,
 };
+use nexo_business_db::consignment::{
+    self, ConsignmentAccount, OpenConsignmentAccountInput, SettleConsignmentInput,
+};
 use nexo_business_db::inventory::{
     self, CountInput, CountResult, CreateLocationInput, Location, StockLine, TransferInput,
 };
@@ -431,6 +434,25 @@ fn inventory_count(app: tauri::AppHandle, input: CountInput) -> Result<CountResu
     inventory::record_count(&mut conn, &pilot_scope(), &input).map_err(|e| e.to_string())
 }
 
+#[tauri::command]
+fn consignment_open_account(
+    app: tauri::AppHandle,
+    input: OpenConsignmentAccountInput,
+) -> Result<ConsignmentAccount, String> {
+    let mut conn = open_local_db(&app)?;
+    consignment::open_consignment_account(&mut conn, &pilot_scope(), &input)
+        .map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+fn consignment_settle(
+    app: tauri::AppHandle,
+    input: SettleConsignmentInput,
+) -> Result<ReceivableBalance, String> {
+    let mut conn = open_local_db(&app)?;
+    consignment::settle_consignment(&mut conn, &pilot_scope(), &input).map_err(|e| e.to_string())
+}
+
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     let migrations = nexo_business_db::MIGRATIONS
@@ -476,7 +498,9 @@ pub fn run() {
             inventory_create_location,
             inventory_location_stock,
             inventory_transfer,
-            inventory_count
+            inventory_count,
+            consignment_open_account,
+            consignment_settle
         ])
         .run(tauri::generate_context!())
         .expect("error while running NEXO Business");

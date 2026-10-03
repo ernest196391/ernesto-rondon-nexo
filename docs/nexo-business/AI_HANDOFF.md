@@ -291,3 +291,6 @@ Migrations 3–5 are verified as in-place upgrades on the Windows pilot DB and o
 
 ## Location inventory — 2026-10-02 (Claude Code lane)
 `0009_location_inventory.sql` + `inventory.rs`: stock is derived per location from append-only movements (update/delete now blocked by triggers). Movements without `location_id` belong to the business's default location; create one default store location during onboarding. Transfers are paired movements; counts write one reconciliation movement.
+
+## Consignment — 2026-10-02 (Claude Code lane)
+`0010_consignment.sql` + `consignment.rs`: a `consignment` location is bound to one client/currency; settlements decrease its stock and open a receivable atomically (uses `receivables::insert_receivable`). The local financial core (drawer, rails, external refs, receivables, custody, returns, location inventory, consignment) is complete as backend; what remains is UI (`main.ts`, owner coordination) and cloud sync of the outbox.

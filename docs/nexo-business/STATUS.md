@@ -3,7 +3,7 @@
 **Last update:** 2026-10-02
 **Pilots:** Casa Viva (Pilot 01, complex reference) · Colo Shop + AxisSoft (connector pilot) · Estilo y Hogar (next full reusable NEXO-native pilot)
 **Current phase:** Phase 0 — Implementation Spike
-**Overall state:** Cash shift ledger, receivables (fiado), messenger custody, sale returns and location inventory backends implemented; migrations 3–9 verified as in-place upgrades on the Windows and Android pilot DBs (no cash/credit UI yet). Windows native offline core PASS. Android physical-device core PASS. Multi-line cart and digital receipt are proven on Windows/Android. Android camera decoding on Redmi 9A remains partial. Product direction is now explicitly reusable/white-label for Cuban businesses: online store + POS/cash + inventory + gestora + messenger + management, with merchant-specific behavior handled by configuration/adapters rather than forks.
+**Overall state:** Cash shift ledger, receivables (fiado), messenger custody, sale returns, location inventory and consignment backends implemented; migrations 3–10 verified as in-place upgrades on the Windows and Android pilot DBs (no cash/credit UI yet). Windows native offline core PASS. Android physical-device core PASS. Multi-line cart and digital receipt are proven on Windows/Android. Android camera decoding on Redmi 9A remains partial. Product direction is now explicitly reusable/white-label for Cuban businesses: online store + POS/cash + inventory + gestora + messenger + management, with merchant-specific behavior handled by configuration/adapters rather than forks.
 
 ## What we are building
 Offline-first, hardware-optional Android + Windows POS/business OS integrated with NEXO online stores. The minimum viable setup is one Android phone.
@@ -249,9 +249,15 @@ Branch `claude/location-inventory`. Rules: `PRODUCT_DECISIONS_V1.md` §5.
 - **Android (Redmi 9A):** migration 9 applied over existing data (backed up first); audit OK (13 sales); `inventory_locations` answers (empty).
 - **Pending:** no location exists yet on the pilot devices, so stock per location is not shown until onboarding/UI creates the default store location. POS sales still write movements without a location (they count toward the default).
 
+### Consignment checkpoint — BACKEND + DEVICE UPGRADE PASS — 2026-10-02
+Branch `claude/consignment`. Rules: `FINANCIAL_MODEL.md` §6, `PRODUCT_DECISIONS_V1.md` §8.
+- **Implemented:** additive migration `0010_consignment.sql`: consignment account (one `consignment` location ↔ one client and currency), append-only settlements and lines (line total = qty × price). Rust `consignment.rs`: goods move with ordinary transfers; a settlement decreases stock at the consignment location (reason `consignment_sale`) and opens a receivable (`source_type=consignment_settlement`) in one transaction; payments use the receivable API. `receivables::insert_receivable` is now shared. Tauri `consignment_open_account`, `consignment_settle`.
+- **Tests passed:** `cargo test` 63/63 (5 new), clippy clean, root `vitest` 173/173.
+- **Windows + Android (Redmi 9A):** migration 10 applied over the pilot DBs (backed up first); audit OK (9 and 13 sales); `consignment_settle` answers with the expected rejection for an unknown location. No consignment rows written.
+
 ### Next executable block
-1. Minimal POS UI for cash shift, fiado, messenger return, refunds and locations — coordinate with the owner of `main.ts`.
-2. Consignment (goods at a `consignment` location, settlement into a receivable), now that locations exist.
+1. Minimal POS UI for cash shift, fiado, messenger return, refunds, locations and consignment — coordinate with the owner of `main.ts`.
+2. Sync: push the local outbox events (sale, cash, receivable, custody, return, inventory, consignment) to the cloud with idempotent ingestion (ADR-001).
 3. One offline shift on Android (open, sales, movements, fiado, messenger return, refund, close) once the UI exists.
 
 ## Local verification — Windows laptop — 2026-09-28

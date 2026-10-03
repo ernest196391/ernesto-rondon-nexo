@@ -13,7 +13,7 @@ use crate::cash_shift::{
     current_open_shift, enqueue_outbox, non_empty, normalize_currency, normalize_reason,
     require_id, track_currency, CashError, CashResult, ShiftScope,
 };
-use rusqlite::{params, Connection, OptionalExtension};
+use rusqlite::{params, Connection, OptionalExtension, Transaction};
 use serde::{Deserialize, Serialize};
 
 /// Payment rails from migration 0005. Only `Cash` can change a drawer.
@@ -190,11 +190,14 @@ fn existing_entry(conn: &Connection, entry_id: &str) -> CashResult<Option<String
         .optional()?)
 }
 
-pub fn open_receivable(
-    conn: &mut Connection,
+/// Validates and inserts a new receivable plus its outbox event on an open
+/// transaction. Shared by `open_receivable` and flows that create debt as part
+/// of a larger write (consignment settlement).
+pub(crate) fn insert_receivable(
+    conn: &Transaction,
     scope: &ShiftScope,
     input: &OpenReceivableInput,
-) -> CashResult<ReceivableBalance> {
+) -> CashResult<()> {
     require_id(&input.receivable_id, "cuenta por cobrar")?;
     require_id(&input.outbox_id, "evento")?;
     let customer_id = required(&input.customer_id, "el cliente")?;
@@ -208,24 +211,7 @@ pub fn open_receivable(
         ));
     }
 
-    let tx = conn.transaction()?;
-
-    if tx
-        .query_row(
-            "SELECT 1 FROM local_receivables WHERE id = ?1",
-            [&input.receivable_id],
-            |_| Ok(()),
-        )
-        .optional()?
-        .is_some()
-    {
-        // Retry of an open that already committed.
-        require_scope(&tx, scope, &input.receivable_id)?;
-        drop(tx);
-        return receivable_balance(conn, &input.receivable_id);
-    }
-
-    let duplicate: Option<String> = tx
+    let duplicate: Option<String> = conn
         .query_row(
             "SELECT id FROM local_receivables
              WHERE business_id=?1 AND source_system=?2 AND source_type=?3 AND source_id=?4 AND currency=?5",
@@ -243,7 +229,7 @@ pub fn open_receivable(
     let note = non_empty(&input.note);
     let operator = non_empty(&input.operator_id);
 
-    tx.execute(
+    conn.execute(
         "INSERT INTO local_receivables (id,business_id,branch_id,device_id,customer_id,source_system,source_type,source_id,currency,original_minor,due_at,note,operator_id,created_at)
          VALUES (?1,?2,?3,?4,?5,?6,?7,?8,?9,?10,?11,?12,?13,?14)",
         params![
@@ -265,7 +251,7 @@ pub fn open_receivable(
     )?;
 
     enqueue_outbox(
-        &tx,
+        conn,
         &input.outbox_id,
         &scope.business_id,
         &scope.device_id,
@@ -286,6 +272,33 @@ pub fn open_receivable(
         }),
     )?;
 
+    Ok(())
+}
+
+pub fn open_receivable(
+    conn: &mut Connection,
+    scope: &ShiftScope,
+    input: &OpenReceivableInput,
+) -> CashResult<ReceivableBalance> {
+    require_id(&input.receivable_id, "cuenta por cobrar")?;
+    let tx = conn.transaction()?;
+
+    if tx
+        .query_row(
+            "SELECT 1 FROM local_receivables WHERE id = ?1",
+            [&input.receivable_id],
+            |_| Ok(()),
+        )
+        .optional()?
+        .is_some()
+    {
+        // Retry of an open that already committed.
+        require_scope(&tx, scope, &input.receivable_id)?;
+        drop(tx);
+        return receivable_balance(conn, &input.receivable_id);
+    }
+
+    insert_receivable(&tx, scope, input)?;
     tx.commit()?;
     receivable_balance(conn, &input.receivable_id)
 }

@@ -139,7 +139,7 @@ pub fn list_locations(conn: &Connection, business_id: &str) -> CashResult<Vec<Lo
     Ok(rows)
 }
 
-fn load_location(conn: &Connection, business_id: &str, location_id: &str) -> CashResult<Location> {
+pub(crate) fn load_location(conn: &Connection, business_id: &str, location_id: &str) -> CashResult<Location> {
     conn.query_row(
         &format!("SELECT {LOCATION_COLUMNS} FROM local_locations WHERE id=?1 AND business_id=?2"),
         params![location_id, business_id],
@@ -185,7 +185,7 @@ pub fn location_stock(
     Ok(rows)
 }
 
-fn require_product(conn: &Connection, business_id: &str, product_id: &str) -> CashResult<()> {
+pub(crate) fn require_product(conn: &Connection, business_id: &str, product_id: &str) -> CashResult<()> {
     let found: Option<i64> = conn
         .query_row(
             "SELECT 1 FROM local_products WHERE id=?1 AND business_id=?2",
