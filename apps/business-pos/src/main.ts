@@ -1,36 +1,29 @@
 import { invoke } from "@tauri-apps/api/core";
 import Database from "@tauri-apps/plugin-sql";
 import { scan, Format, checkPermissions, requestPermissions } from "@tauri-apps/plugin-barcode-scanner";
-import "./style.css";
+import "@fontsource/atkinson-hyperlegible/400.css";
+import "@fontsource/atkinson-hyperlegible/700.css";
+import "@fontsource/figtree/400.css";
+import "@fontsource/figtree/600.css";
+import "@fontsource/figtree/700.css";
+import "@fontsource/cinzel/600.css";
+import "./nexo.css";
+import "./themes/casaviva.css";
+import "./app.css";
 import { mountFinance, refreshFinance } from "./finance";
 import type { DeviceIdentity } from "./sync";
-import { openCheckout, describePayments } from "./checkout";
+import { openCheckout, describePayments, type PaymentInput } from "./checkout";
+import { icon, ISOTIPO, escapeHtml, openSheet } from "./ui";
 
 type Product = { id: string; name: string; price_minor: number; barcode: string | null };
-type CartLine = { product: Product; quantity: number };
-type ReceiptLine = {
-  name: string;
-  quantity: number;
-  unitPriceMinor: number;
-  lineTotalMinor: number;
-};
-type Receipt = {
-  saleId: string;
-  occurredAt: string;
-  currency: "USD";
-  payments: string[];
-  totalMinor: number;
-  lines: ReceiptLine[];
-};
-type IntegrityReport = {
-  sales: number;
-  saleLines: number;
-  payments: number;
-  inventoryMovements: number;
-  outbox: number;
-  incompleteSales: number;
-  rollbackOk: boolean;
-};
+type ListedProduct = Product & { category: string | null; variant_of: string | null; variant_label: string | null; image_url: string | null };
+type CartLine = { product: ListedProduct; quantity: number };
+type ProductStock = { productId: string; quantity: number; lowAt: number };
+type ProductGroup = { key: string; title: string; items: ListedProduct[] };
+type ReceiptLine = { name: string; quantity: number; unitPriceMinor: number; lineTotalMinor: number };
+type Receipt = { saleId: string; occurredAt: string; currency: "USD"; payments: string[]; totalMinor: number; lines: ReceiptLine[] };
+type IntegrityReport = { sales: number; saleLines: number; payments: number; inventoryMovements: number; outbox: number; incompleteSales: number; rollbackOk: boolean };
+type SyncState = { pending: number; failing: number; synced: number; lastError: string | null };
 
 const seed = [
   { id: "casa-viva-demo-001", sku: "CV-DEMO-001", name: "Producto Casa Viva Demo", price: 25000, barcode: "850000000001" },
@@ -40,145 +33,201 @@ const seed = [
 // Set from the device identity (provisioning) before anything reads it.
 let BUSINESS_ID = "casa-viva";
 const PILOT_BUSINESS = "casa-viva";
-function showDeviceLabel(identity: DeviceIdentity) {
-  document.querySelector("#device-label")!.textContent = identity.provisioned
-    ? `${identity.label ?? identity.deviceId} · ${identity.businessId}`.toUpperCase()
-    : "PILOTO 01 · CASA VIVA";
-}
-window.addEventListener("nexo:device-updated", e => showDeviceLabel((e as CustomEvent<DeviceIdentity>).detail));
 const businessName = () => (BUSINESS_ID === PILOT_BUSINESS ? "Casa Viva" : BUSINESS_ID);
+const NO_CATEGORY = "Sin categoría";
+const VIEWS = [
+  ["vender", "Vender", "tag"],
+  ["caja", "Caja", "wallet"],
+  ["inventario", "Inventario", "box"],
+  ["mas", "Más", "grid"],
+] as const;
+type View = (typeof VIEWS)[number][0];
+
 const app = document.querySelector<HTMLElement>("#app")!;
 app.innerHTML = `
-<section class="shell">
-  <header><small id="device-label">NEXO BUSINESS</small><h1>NEXO Business</h1><p>POS offline · Windows + Android</p></header>
-  <div class="status" id="status">Preparando base local…</div>
-  <label>Buscar o escanear<input id="query" autocomplete="off" inputmode="search" placeholder="Nombre, SKU o código"></label>
-  <button id="scan" type="button">Escanear con cámara</button>
-  <nav id="categories" class="categories" aria-label="Categorías" hidden></nav>
-  <div id="products"></div>
-  <aside>
-    <h2>Carrito</h2>
-    <div id="cart">Vacío</div>
-    <div class="cart-summary"><span>Total</span><strong id="cart-total">$0.00</strong></div>
-    <button id="sell" disabled>Cobrar</button>
-  </aside>
-  <section id="receipt-panel" class="receipt-panel" hidden>
-    <div class="receipt-heading">
-      <div><small>RECIBO DIGITAL</small><h2>Venta completada</h2></div>
-      <strong id="receipt-total">$0.00</strong>
-    </div>
-    <div id="receipt-content"></div>
-    <div class="receipt-actions">
-      <button id="share-receipt" type="button">Compartir recibo</button>
-      <button id="copy-receipt" type="button">Copiar texto</button>
-    </div>
-  </section>
-  <section id="finance"></section>
-  <footer id="history"></footer>
-  <div class="status" id="audit">Auditoría local pendiente…</div>
-</section>
-<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
-<div id="sale-sheet" class="sale-sheet" hidden>
-  <button id="sale-sheet-backdrop" class="sale-sheet-backdrop" aria-label="Cerrar resumen"></button>
-  <section class="sale-sheet-card" role="dialog" aria-modal="true" aria-labelledby="sale-sheet-title">
-    <div class="sale-sheet-handle"></div>
-    <small>VENTA COMPLETADA</small>
-    <div class="sale-sheet-head">
-      <div>
-        <h2 id="sale-sheet-title">Recibo listo</h2>
-        <p id="sale-sheet-subtitle">Puedes compartirlo o copiarlo.</p>
+<div class="nx app" data-theme="casaviva">
+  <nav class="nav" aria-label="Principal">
+    <div class="nav-logo">${ISOTIPO}</div>
+    ${VIEWS.map(([id, label, ic]) => `<button type="button" class="tab" data-view="${id}" ${id === "vender" ? 'aria-current="page"' : ""}>${icon(ic)}${label}</button>`).join("")}
+    <div class="nav-spacer"></div>
+  </nav>
+  <div class="views">
+    <section class="view" data-view="vender">
+      <header class="top"><div class="logo">${ISOTIPO}<span class="logo-name" id="store-name">Casa Viva</span></div><span class="pill calm" id="net">${icon("offline", "sm")}Sin conexión</span></header>
+      <div class="sell">
+        <div class="body">
+          <div class="search">
+            <label class="search-field">${icon("search")}<input id="query" type="search" autocomplete="off" inputmode="search" placeholder="Buscar nombre o código" aria-label="Buscar producto"></label>
+            <button class="btn scan" id="scan" type="button" aria-label="Escanear código de barras">${icon("scan")}</button>
+          </div>
+          <div class="chips" id="categories" role="group" aria-label="Categorías"></div>
+          <p class="t-sm muted status-line" id="status" role="status"></p>
+          <div class="grid-prod" id="products"></div>
+        </div>
+        <aside class="side-cart" aria-label="Carrito"><div class="top"><h2 class="title" id="side-cart-title">Carrito</h2><button class="btn btn-ghost" id="side-cart-clear" style="color: var(--nx-danger)">Vaciar</button></div><div class="cart-body" id="side-cart-body"></div><div class="cart-foot" id="side-cart-foot"></div></aside>
       </div>
-      <strong id="sale-sheet-total">$0.00</strong>
-    </div>
-    <div class="sale-sheet-actions">
-      <button id="sale-sheet-share" type="button">Compartir</button>
-      <button id="sale-sheet-copy" type="button">Copiar</button>
-    </div>
-    <button id="sale-sheet-close" class="sale-sheet-close" type="button">Cerrar</button>
-  </section>
+      <div class="dock" id="dock"><button class="cartbar is-empty" id="cartbar" type="button"><span class="count">Carrito vacío</span></button></div>
+    </section>
+    <section class="view" data-view="caja" hidden>
+      <header class="top"><h1 class="title">Caja</h1></header>
+      <div class="scroll"><div class="stack">
+        <section class="panel"><div id="fin-shift"></div></section>
+        <details class="panel"><summary>Devoluciones</summary><div id="fin-returns"></div></details>
+      </div></div>
+    </section>
+    <section class="view" data-view="inventario" hidden>
+      <header class="top"><h1 class="title">Inventario</h1></header>
+      <div class="scroll"><div class="stack">
+        <section class="panel"><h2>Quedan pocas unidades</h2><div class="low-list" id="low-stock"></div></section>
+        <details class="panel"><summary>Ubicaciones, traslados y conteos</summary><div id="fin-locations"></div></details>
+      </div></div>
+    </section>
+    <section class="view" data-view="mas" hidden>
+      <header class="top"><h1 class="title">Más</h1></header>
+      <div class="scroll"><div class="stack">
+        <details class="panel"><summary>Último recibo</summary><div id="receipt-content"><p class="muted">Aún no hay ventas en esta sesión.</p></div></details>
+        <details class="panel"><summary>Fiado y abonos</summary><div id="fin-fiado"></div></details>
+        <details class="panel"><summary>Efectivo de mensajeros</summary><div id="fin-messenger"></div></details>
+        <details class="panel"><summary>Resumen del negocio</summary><div id="fin-summary"></div></details>
+        <details class="panel"><summary>Sincronización</summary><div id="fin-sync"></div></details>
+        <details class="panel"><summary>Este equipo</summary><p class="t-sm" id="device-label"></p><p class="t-sm muted" id="history"></p><p class="t-sm muted" id="audit">Auditoría local pendiente…</p></details>
+      </div></div>
+    </section>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 </div>`;
 
+const $ = <T extends HTMLElement = HTMLElement>(sel: string) => document.querySelector<T>(sel)!;
 let db: Database;
 const cart = new Map<string, CartLine>();
 let lastReceipt: Receipt | null = null;
 let toastTimer: number | undefined;
+let selectedCategory = "";
+let groupsByKey = new Map<string, ProductGroup>();
+let stockNow = new Map<string, ProductStock>();
+let cartSheet: ReturnType<typeof openSheet> | null = null;
 
-function showToast(message: string, tone: "success" | "info" | "error" = "info") {
-  const toast = document.querySelector("#toast") as HTMLElement;
+// ---------- Navigation ----------
+
+function showView(view: View) {
+  document.querySelectorAll<HTMLElement>(".view").forEach(v => (v.hidden = v.dataset.view !== view));
+  document.querySelectorAll<HTMLElement>(".nav .tab").forEach(t =>
+    t.dataset.view === view ? t.setAttribute("aria-current", "page") : t.removeAttribute("aria-current")
+  );
+  if (view === "inventario") void renderLowStock();
+}
+document.querySelectorAll<HTMLButtonElement>(".nav .tab").forEach(t => (t.onclick = () => showView(t.dataset.view as View)));
+
+// ---------- Feedback ----------
+
+function showToast(message: string, tone: "success" | "info" | "error" = "info", ms = 3200) {
+  const toast = $("#toast");
   toast.textContent = message;
   toast.dataset.tone = tone;
   toast.hidden = false;
   window.clearTimeout(toastTimer);
-  toastTimer = window.setTimeout(() => {
-    toast.hidden = true;
-  }, 3200);
+  toastTimer = window.setTimeout(() => (toast.hidden = true), ms);
+}
+window.addEventListener("nexo:say", e => {
+  const { message, tone } = (e as CustomEvent<{ message: string; tone: "ok" | "error" }>).detail;
+  showToast(message, tone === "error" ? "error" : "success", tone === "error" ? 5000 : 3200);
+});
+
+function setStatus(text: string) {
+  $("#status").textContent = text;
 }
 
-function openSaleSheet(receipt: Receipt) {
-  const sheet = document.querySelector("#sale-sheet") as HTMLElement;
-  document.querySelector("#sale-sheet-total")!.textContent = money(receipt.totalMinor);
-  sheet.hidden = false;
+function showDeviceLabel(identity: DeviceIdentity) {
+  $("#device-label").textContent = identity.provisioned
+    ? `${identity.label ?? identity.deviceId} · ${identity.businessId}`
+    : "Piloto 01 · Casa Viva";
+  $("#store-name").textContent = businessName();
 }
+window.addEventListener("nexo:device-updated", e => showDeviceLabel((e as CustomEvent<DeviceIdentity>).detail));
 
-function closeSaleSheet() {
-  (document.querySelector("#sale-sheet") as HTMLElement).hidden = true;
+/** "Sin conexión" stays calm; pending sales are shown, errors only if they persist. */
+async function renderNet() {
+  let state: SyncState | null = null;
+  try {
+    state = await invoke<SyncState>("sync_state");
+  } catch {
+    state = null;
+  }
+  const pill = $("#net");
+  if (!navigator.onLine) {
+    pill.className = "pill calm";
+    pill.innerHTML = `${icon("offline", "sm")}Sin conexión${state?.pending ? ` · ${state.pending}` : ""}`;
+  } else if (state?.failing) {
+    pill.className = "pill danger";
+    pill.innerHTML = `${icon("alert", "sm")}Revisar envío`;
+  } else if (state?.pending) {
+    pill.className = "pill info";
+    pill.innerHTML = `${icon("cloud", "sm")}Enviando ${state.pending}`;
+  } else {
+    pill.className = "pill ok";
+    pill.innerHTML = `${icon("check", "sm")}Al día`;
+  }
 }
+window.addEventListener("online", () => void renderNet());
+window.addEventListener("offline", () => void renderNet());
+window.setInterval(() => void renderNet(), 10_000);
+
+// ---------- Money and receipts ----------
 
 function money(minor: number) {
   return `$${(minor / 100).toFixed(2)}`;
 }
 
 function receiptText(receipt: Receipt) {
-  const lines = receipt.lines.map(line =>
-    `${line.quantity} x ${line.name} · ${money(line.lineTotalMinor)}`
-  );
   return [
     `${businessName()} · NEXO Business`,
     "Recibo digital",
     `Venta: ${receipt.saleId}`,
     `Fecha: ${new Date(receipt.occurredAt).toLocaleString()}`,
     "",
-    ...lines,
+    ...receipt.lines.map(line => `${line.quantity} x ${line.name} · ${money(line.lineTotalMinor)}`),
     "",
     `Total: ${money(receipt.totalMinor)} USD`,
     ...receipt.payments.map(p => `Pago: ${p}`)
   ].join("\n");
 }
 
+function receiptHtml(receipt: Receipt) {
+  return `<div class="kv t-sm muted"><span>${escapeHtml(new Date(receipt.occurredAt).toLocaleString())}</span><span class="num">${money(receipt.totalMinor)}</span></div>
+    ${receipt.lines.map(l => `<div class="kv"><span>${l.quantity} × ${escapeHtml(l.name)}</span><span class="num">${money(l.lineTotalMinor)}</span></div>`).join("")}
+    <div class="hr"></div>
+    ${receipt.payments.map(p => `<p class="t-sm">${escapeHtml(p)}</p>`).join("")}
+    <p class="t-xs muted">ID ${escapeHtml(receipt.saleId)}</p>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px"><button class="btn btn-secondary" data-share>${icon("share", "sm")}Compartir</button><button class="btn btn-secondary" data-copy>${icon("copy", "sm")}Copiar</button></div>`;
+}
+
+function wireReceipt(el: HTMLElement) {
+  el.querySelector<HTMLButtonElement>("[data-share]")!.onclick = () => void shareReceipt();
+  el.querySelector<HTMLButtonElement>("[data-copy]")!.onclick = () => void copyReceipt();
+}
+
 function renderReceipt(receipt: Receipt) {
   lastReceipt = receipt;
-  const panel = document.querySelector("#receipt-panel") as HTMLElement;
-  const content = document.querySelector("#receipt-content")!;
-  const total = document.querySelector("#receipt-total")!;
+  const box = $("#receipt-content");
+  box.innerHTML = receiptHtml(receipt);
+  wireReceipt(box);
+}
 
-  total.textContent = money(receipt.totalMinor);
-  content.innerHTML = `
-    <div class="receipt-meta">
-      <span>${new Date(receipt.occurredAt).toLocaleString()}</span>
-      <span>${receipt.payments.map(p => escapeHtml(p)).join("<br>")}</span>
-    </div>
-    <div class="receipt-lines">
-      ${receipt.lines.map(line => `
-        <div class="receipt-line">
-          <div><strong>${line.name}</strong><span>${line.quantity} × ${money(line.unitPriceMinor)}</span></div>
-          <strong>${money(line.lineTotalMinor)}</strong>
-        </div>
-      `).join("")}
-    </div>
-    <div class="receipt-id">ID ${receipt.saleId}</div>
-  `;
-  panel.hidden = false;
+function openSaleDone(receipt: Receipt) {
+  const sheet = openSheet(`
+    <div class="sheet-head"><div><p class="t-xs muted" style="font-weight: 700">VENTA COMPLETADA</p><h2 class="t-brand">Recibo listo</h2></div><span class="total-big num">${money(receipt.totalMinor)}</span></div>
+    <div class="panel">${receiptHtml(receipt)}</div>
+    <button class="btn btn-primary btn-xl btn-block" data-new>Nueva venta</button>`, "Venta completada");
+  wireReceipt(sheet.el);
+  sheet.el.querySelector<HTMLButtonElement>("[data-new]")!.onclick = sheet.close;
 }
 
 async function copyReceipt(): Promise<boolean> {
   if (!lastReceipt) return false;
   const text = receiptText(lastReceipt);
-  const status = document.querySelector("#status")!;
-
   try {
     await navigator.clipboard.writeText(text);
-    status.textContent = "✓ Recibo copiado al portapapeles · ya puedes pegarlo en WhatsApp";
-    showToast("✓ Recibo copiado al portapapeles", "success");
+    showToast("Recibo copiado · pégalo en WhatsApp", "success");
     return true;
   } catch {
     const area = document.createElement("textarea");
@@ -189,17 +238,9 @@ async function copyReceipt(): Promise<boolean> {
     document.body.appendChild(area);
     area.focus();
     area.select();
-
     const copied = document.execCommand("copy");
     area.remove();
-
-    status.textContent = copied
-      ? "✓ Recibo copiado al portapapeles · ya puedes pegarlo en WhatsApp"
-      : "No se pudo copiar automáticamente · usa Copiar texto e inténtalo de nuevo";
-    showToast(
-      copied ? "✓ Recibo copiado al portapapeles" : "No se pudo copiar el recibo",
-      copied ? "success" : "error"
-    );
+    showToast(copied ? "Recibo copiado · pégalo en WhatsApp" : "No se pudo copiar el recibo", copied ? "success" : "error");
     return copied;
   }
 }
@@ -207,101 +248,485 @@ async function copyReceipt(): Promise<boolean> {
 async function shareReceipt() {
   if (!lastReceipt) return;
   const text = receiptText(lastReceipt);
-  const status = document.querySelector("#status")!;
-
   if (navigator.share) {
     try {
-      await navigator.share({
-        title: `Recibo ${businessName()}`,
-        text
-      });
-      status.textContent = "✓ Recibo compartido";
-      showToast("✓ Recibo compartido", "success");
+      await navigator.share({ title: `Recibo ${businessName()}`, text });
+      showToast("Recibo compartido", "success");
       return;
     } catch (e) {
       if ((e as DOMException)?.name === "AbortError") return;
     }
   }
+  if (await copyReceipt()) showToast("Compartir no está disponible aquí · recibo copiado", "success");
+}
 
-  const copied = await copyReceipt();
-  if (copied) {
-    status.textContent =
-      "Compartir directo no está disponible en este Android · ✓ recibo copiado al portapapeles";
-    showToast("Compartir directo no disponible · recibo copiado", "success");
+// ---------- Products ----------
+
+async function stockFor(productIds: string[] = []) {
+  try {
+    const rows = await invoke<ProductStock[]>("stock_current", { productIds });
+    return new Map(rows.map(r => [r.productId, r]));
+  } catch {
+    return new Map<string, ProductStock>();
   }
 }
 
-function cartTotalMinor() {
-  return Array.from(cart.values()).reduce(
-    (total, line) => total + line.product.price_minor * line.quantity,
-    0
+/** "Agotado" / "Quedan N" for tracked products at or below their warning level. */
+function stockBadge(stock: ProductStock | undefined) {
+  if (!stock) return "";
+  if (stock.quantity <= 0) return `<span class="badge badge-out">Agotado</span>`;
+  if (stock.quantity <= stock.lowAt) return `<span class="badge badge-low">Quedan ${stock.quantity}</span>`;
+  return "";
+}
+
+/** Letter placeholder in the category color, with the photo on top when it loads. */
+function thumb(url: string | null, title: string, category: string | null) {
+  const letter = escapeHtml(title.trim().charAt(0).toUpperCase() || "?");
+  const tone = `c${(Array.from(category ?? "").reduce((h, ch) => h + ch.charCodeAt(0), 0) % 5) + 1}`;
+  const img = url ? `<img src="${escapeHtml(url)}" alt="" loading="lazy" decoding="async" onerror="this.remove()">` : "";
+  return `<div class="thumb ${tone}">${letter}${img}</div>`;
+}
+
+/** "Silla — Azul" with label "Azul" → "Silla" (the import names variants that way). */
+function variantTitle(p: ListedProduct) {
+  const label = p.variant_label?.trim();
+  if (!label || !p.name.endsWith(label)) return p.name;
+  return p.name.slice(0, -label.length).replace(/[\s—–-]+$/, "") || p.name;
+}
+
+function groupProducts(rows: ListedProduct[]): ProductGroup[] {
+  const groups = new Map<string, ProductGroup>();
+  for (const p of rows) {
+    const key = p.variant_of ? `v:${p.variant_of}` : `p:${p.id}`;
+    const group = groups.get(key) ?? { key, title: p.variant_of ? variantTitle(p) : p.name, items: [] };
+    group.items.push(p);
+    groups.set(key, group);
+  }
+  return Array.from(groups.values()).sort((a, b) => a.title.localeCompare(b.title, "es"));
+}
+
+const queryInput = $<HTMLInputElement>("#query");
+
+async function renderCategories() {
+  const rows = await db.select<Array<{ category: string | null; count: number }>>(
+    `SELECT p.category, COUNT(DISTINCT COALESCE(p.variant_of, p.id)) AS count
+     FROM local_products p
+     JOIN local_prices pr ON pr.product_id=p.id AND pr.business_id=p.business_id AND pr.active=1 AND pr.currency='USD'
+     WHERE p.business_id=$1 AND p.active=1
+     GROUP BY p.category
+     ORDER BY p.category IS NULL, p.category`,
+    [BUSINESS_ID]
   );
+  const el = $("#categories");
+  const names = rows.map(r => r.category ?? NO_CATEGORY);
+  if (selectedCategory && !names.includes(selectedCategory)) selectedCategory = "";
+  el.hidden = rows.length < 2;
+  const total = rows.reduce((sum, r) => sum + r.count, 0);
+  const chip = (value: string, count: number) =>
+    `<button type="button" class="chip" data-category="${escapeHtml(value)}" aria-pressed="${value === selectedCategory}">${escapeHtml(value || "Todo")} <span class="count">${count}</span></button>`;
+  el.innerHTML = chip("", total) + rows.map(r => chip(r.category ?? NO_CATEGORY, r.count)).join("");
+  el.querySelectorAll<HTMLButtonElement>(".chip").forEach(b => (b.onclick = () => {
+    selectedCategory = b.dataset.category ?? "";
+    el.querySelectorAll(".chip").forEach(c => c.setAttribute("aria-pressed", String(c === b)));
+    void renderProducts(queryInput.value);
+  }));
+}
+
+function inCart(group: ProductGroup) {
+  return group.items.reduce((n, p) => n + (cart.get(p.id)?.quantity ?? 0), 0);
+}
+
+function groupCard(g: ProductGroup) {
+  const first = g.items[0];
+  const isVariants = g.items.length > 1 || first.variant_of !== null;
+  const prices = g.items.map(p => p.price_minor);
+  const min = Math.min(...prices);
+  const price = isVariants && Math.max(...prices) !== min ? `desde ${money(min)}` : money(min);
+  const tracked = g.items.map(p => stockNow.get(p.id)).filter((s): s is ProductStock => Boolean(s));
+  const allOut = tracked.length === g.items.length && tracked.every(s => s.quantity <= 0);
+  const badge = isVariants
+    ? allOut ? stockBadge(tracked[0]) : ""
+    : stockBadge(stockNow.get(first.id));
+  const qty = inCart(g);
+  const photo = g.items.find(p => p.image_url)?.image_url ?? null;
+  return `<button type="button" class="card${qty ? " in-cart" : ""}${allOut ? " is-out" : ""}" data-key="${escapeHtml(g.key)}" ${allOut ? 'aria-disabled="true"' : ""}>
+    ${thumb(photo, g.title, first.category)}
+    ${qty ? `<span class="qty-in-cart">${qty}</span>` : ""}
+    <span class="name">${escapeHtml(g.title)}</span>
+    <span class="row"><span class="price num">${price}</span>${isVariants ? `<span class="vars">${g.items.length} opciones</span>` : ""}${badge}</span>
+  </button>`;
+}
+
+async function renderProducts(q: string) {
+  const rows = await db.select<ListedProduct[]>(
+    `SELECT p.id,p.name,p.category,p.variant_of,p.variant_label,p.image_url,pr.amount_minor AS price_minor,MIN(b.code) AS barcode
+     FROM local_products p
+     JOIN local_prices pr ON pr.product_id=p.id AND pr.business_id=p.business_id AND pr.active=1 AND pr.currency='USD'
+     LEFT JOIN local_barcodes b ON b.product_id=p.id AND b.business_id=p.business_id
+     WHERE p.business_id=$1 AND p.active=1
+       AND (p.name LIKE $2 OR COALESCE(p.sku,'') LIKE $2 OR COALESCE(b.code,'') LIKE $2)
+       AND ($3 = '' OR COALESCE(p.category,$4) = $3)
+     GROUP BY p.id
+     ORDER BY p.name`,
+    [BUSINESS_ID, `%${q}%`, selectedCategory, NO_CATEGORY]
+  );
+  stockNow = await stockFor();
+  const groups = groupProducts(rows);
+  groupsByKey = new Map(groups.map(g => [g.key, g]));
+  const el = $("#products");
+  el.innerHTML = groups.map(groupCard).join("") || `<p class="empty">Sin productos para esta búsqueda</p>`;
+  el.querySelectorAll<HTMLButtonElement>(".card").forEach(b => (b.onclick = () => pickGroup(groupsByKey.get(b.dataset.key!)!)));
+}
+
+function pickGroup(g: ProductGroup) {
+  const isVariants = g.items.length > 1 || g.items[0].variant_of !== null;
+  if (!isVariants) {
+    const stock = stockNow.get(g.items[0].id);
+    if (stock && stock.quantity <= 0) return showToast(`${g.title} está agotado`, "error");
+    return addToCart(g.items[0]);
+  }
+  const sheet = openSheet(`
+    <div class="sheet-head"><h2>${escapeHtml(g.title)}</h2><button class="btn btn-ghost btn-icon" data-close aria-label="Cerrar">×</button></div>
+    <p class="t-sm muted">Elige la opción</p>
+    <div class="vgrid">${g.items.map(p => {
+      const s = stockNow.get(p.id);
+      const out = Boolean(s && s.quantity <= 0);
+      return `<button type="button" class="vopt" data-id="${escapeHtml(p.id)}" ${out ? "disabled" : ""}><span class="vname">${escapeHtml(p.variant_label ?? p.name)}</span><span class="num t-sm">${money(p.price_minor)}</span>${stockBadge(s)}</button>`;
+    }).join("")}</div>`, `Opciones de ${g.title}`);
+  sheet.el.querySelector<HTMLButtonElement>("[data-close]")!.onclick = sheet.close;
+  sheet.el.querySelectorAll<HTMLButtonElement>(".vopt").forEach(b => (b.onclick = () => {
+    addToCart(g.items.find(p => p.id === b.dataset.id)!);
+    sheet.close();
+  }));
+}
+
+async function refreshCatalog() {
+  await renderCategories();
+  await renderProducts(queryInput.value);
+}
+
+async function renderLowStock() {
+  const stock = await stockFor();
+  const low = Array.from(stock.values()).filter(s => s.quantity <= s.lowAt);
+  if (!low.length) {
+    $("#low-stock").innerHTML = `<p class="muted">Ningún producto está en su mínimo.</p>`;
+    return;
+  }
+  const names = await db.select<Array<{ id: string; name: string; image_url: string | null; category: string | null }>>(
+    "SELECT id,name,image_url,category FROM local_products WHERE business_id=$1 AND active=1",
+    [BUSINESS_ID]
+  );
+  const byId = new Map(names.map(n => [n.id, n]));
+  $("#low-stock").innerHTML = `<p class="t-sm muted">${low.length} productos con ${low.some(s => s.lowAt !== 2) ? "su mínimo" : "2 unidades"} o menos.</p>` + low
+    .filter(s => byId.has(s.productId))
+    .sort((a, b) => a.quantity - b.quantity)
+    .map(s => {
+      const p = byId.get(s.productId)!;
+      return `<div class="list-row"><div style="width: 40px">${thumb(p.image_url, p.name, p.category)}</div><span class="grow">${escapeHtml(p.name)}</span>${stockBadge(s)}</div>`;
+    })
+    .join("");
+}
+
+/** Warns once when this sale leaves a product at or below its warning level. */
+function warnLowStock(before: Map<string, ProductStock>, after: Map<string, ProductStock>, names: Map<string, string>) {
+  const crossed = Array.from(after.values()).filter(s => {
+    const prev = before.get(s.productId);
+    return s.quantity <= s.lowAt && (!prev || prev.quantity > prev.lowAt);
+  });
+  if (!crossed.length) return;
+  const text = crossed
+    .map(s => (s.quantity <= 0 ? `${names.get(s.productId)} agotado` : `quedan ${s.quantity} de ${names.get(s.productId)}`))
+    .join(" · ");
+  window.setTimeout(() => showToast(`Atención: ${text}`, "error", 6000), 1500);
+  setStatus(`Atención: ${text}`);
+}
+
+// ---------- Cart ----------
+
+function cartTotalMinor() {
+  return Array.from(cart.values()).reduce((total, line) => total + line.product.price_minor * line.quantity, 0);
+}
+
+function cartCount() {
+  return Array.from(cart.values()).reduce((n, l) => n + l.quantity, 0);
+}
+
+function cartLinesHtml() {
+  if (!cart.size) return `<p class="empty">Toca un producto para añadirlo.</p>`;
+  return `<div class="cart-lines">${Array.from(cart.values()).map(({ product, quantity }) => `
+    <div class="line" data-id="${escapeHtml(product.id)}">
+      ${thumb(product.image_url, product.name, product.category)}
+      <div class="info"><div style="font-weight: 700">${escapeHtml(product.variant_of ? variantTitle(product) : product.name)}</div><div class="t-xs muted">${product.variant_label ? escapeHtml(product.variant_label) + " · " : ""}${money(product.price_minor)} c/u</div></div>
+      <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 6px">
+        <span class="num" style="font-weight: 700">${money(product.price_minor * quantity)}</span>
+        <div class="stepper"><button type="button" data-minus aria-label="Quitar uno">${icon(quantity === 1 ? "trash" : "minus", "sm")}</button><span>${quantity}</span><button type="button" data-plus aria-label="Añadir uno">${icon("plus", "sm")}</button></div>
+      </div>
+    </div>`).join("")}</div>`;
+}
+
+function cartFootHtml() {
+  const total = cartTotalMinor();
+  return `<div class="kv"><span class="muted">Total</span><span class="total-big num">${money(total)}</span></div>
+    <button class="btn btn-primary btn-xl btn-block" data-exact ${cart.size ? "" : "disabled"}>${icon("cash")}Efectivo USD exacto</button>
+    <button class="btn btn-secondary btn-block" data-split ${cart.size ? "" : "disabled"}>Otra forma o dividir</button>`;
+}
+
+function wireCart(scope: HTMLElement) {
+  scope.querySelectorAll<HTMLElement>(".line").forEach(row => {
+    const id = row.dataset.id!;
+    row.querySelector<HTMLButtonElement>("[data-minus]")!.onclick = () => changeQuantity(id, -1);
+    row.querySelector<HTMLButtonElement>("[data-plus]")!.onclick = () => changeQuantity(id, 1);
+  });
+  const exact = scope.querySelector<HTMLButtonElement>("[data-exact]");
+  if (exact) exact.onclick = () => void checkout(true);
+  const split = scope.querySelector<HTMLButtonElement>("[data-split]");
+  if (split) split.onclick = () => void checkout(false);
 }
 
 function renderCart() {
-  const el = document.querySelector("#cart")!;
-  const sellButton = document.querySelector("#sell") as HTMLButtonElement;
-  const totalEl = document.querySelector("#cart-total")!;
+  const count = cartCount();
+  const total = cartTotalMinor();
+  const bar = $("#cartbar");
+  bar.classList.toggle("is-empty", !count);
+  bar.innerHTML = count
+    ? `<span class="count">${count} ${count === 1 ? "artículo" : "artículos"}</span><span class="go">Cobrar ${money(total)} ${icon("chevron", "sm")}</span>`
+    : `<span class="count">Carrito vacío</span>`;
 
-  if (!cart.size) {
-    el.textContent = "Vacío";
-    totalEl.textContent = "$0.00";
-    sellButton.disabled = true;
-    return;
+  $("#side-cart-title").textContent = count ? `Carrito · ${count}` : "Carrito";
+  $("#side-cart-body").innerHTML = cartLinesHtml();
+  $("#side-cart-foot").innerHTML = cartFootHtml();
+  wireCart($(".side-cart"));
+
+  if (cartSheet) {
+    if (!cart.size) {
+      cartSheet.close();
+    } else {
+      cartSheet.el.querySelector<HTMLElement>("[data-lines]")!.innerHTML = cartLinesHtml();
+      cartSheet.el.querySelector<HTMLElement>("[data-foot]")!.innerHTML = cartFootHtml();
+      wireCart(cartSheet.el);
+    }
   }
-
-  el.innerHTML = Array.from(cart.values()).map(({ product, quantity }) => `
-    <div class="cart-line" data-id="${product.id}">
-      <div class="cart-line-info">
-        <strong>${product.name}</strong>
-        <span>${money(product.price_minor)} c/u · ${money(product.price_minor * quantity)}</span>
-      </div>
-      <div class="cart-controls">
-        <button type="button" class="qty-minus" aria-label="Quitar uno">−</button>
-        <strong class="qty">${quantity}</strong>
-        <button type="button" class="qty-plus" aria-label="Agregar uno">+</button>
-        <button type="button" class="remove-line">Eliminar</button>
-      </div>
-    </div>
-  `).join("");
-
-  el.querySelectorAll<HTMLElement>(".cart-line").forEach(row => {
-    const id = row.dataset.id!;
-    row.querySelector<HTMLButtonElement>(".qty-minus")!.onclick = () => changeQuantity(id, -1);
-    row.querySelector<HTMLButtonElement>(".qty-plus")!.onclick = () => changeQuantity(id, 1);
-    row.querySelector<HTMLButtonElement>(".remove-line")!.onclick = () => removeFromCart(id);
+  // Card counters follow the cart.
+  document.querySelectorAll<HTMLButtonElement>("#products .card").forEach(card => {
+    const g = groupsByKey.get(card.dataset.key!);
+    if (!g) return;
+    const qty = inCart(g);
+    card.classList.toggle("in-cart", qty > 0);
+    let badge = card.querySelector(".qty-in-cart");
+    if (qty && !badge) {
+      badge = document.createElement("span");
+      badge.className = "qty-in-cart";
+      card.querySelector(".thumb")!.after(badge);
+    }
+    if (badge) qty ? (badge.textContent = String(qty)) : badge.remove();
   });
-
-  totalEl.textContent = money(cartTotalMinor());
-  sellButton.disabled = false;
 }
 
-function addToCart(product: Product) {
+function openCart() {
+  if (!cart.size) return;
+  cartSheet = openSheet(`
+    <div class="sheet-head"><h2>Carrito</h2><button class="btn btn-ghost" data-clear style="color: var(--nx-danger)">Vaciar</button></div>
+    <div data-lines></div><div class="cart-foot" data-foot></div>`, "Carrito");
+  cartSheet.el.querySelector<HTMLButtonElement>("[data-clear]")!.onclick = clearCart;
+  void cartSheet.closed.then(() => (cartSheet = null));
+  renderCart();
+}
+
+function addToCart(product: ListedProduct) {
   const current = cart.get(product.id);
-  cart.set(product.id, {
-    product,
-    quantity: (current?.quantity ?? 0) + 1
-  });
+  cart.set(product.id, { product, quantity: (current?.quantity ?? 0) + 1 });
   renderCart();
 }
 
 function changeQuantity(productId: string, delta: number) {
   const current = cart.get(productId);
   if (!current) return;
-
   const next = current.quantity + delta;
-  if (next <= 0) {
-    cart.delete(productId);
-  } else {
-    cart.set(productId, { ...current, quantity: next });
-  }
+  if (next <= 0) cart.delete(productId);
+  else cart.set(productId, { ...current, quantity: next });
   renderCart();
 }
 
-function removeFromCart(productId: string) {
-  cart.delete(productId);
+function clearCart() {
+  if (!cart.size || !confirm("¿Vaciar el carrito?")) return;
+  cart.clear();
   renderCart();
 }
+
+$("#cartbar").onclick = openCart;
+$("#side-cart-clear").onclick = clearCart;
+
+// ---------- Barcodes ----------
+
+async function addBarcodeToCart(code: string, source: "camera" | "hid" | "manual") {
+  const normalized = code.trim();
+  if (!normalized) return false;
+  const rows = await db.select<ListedProduct[]>(
+    `SELECT p.id,p.name,p.category,p.variant_of,p.variant_label,p.image_url,pr.amount_minor AS price_minor,b.code AS barcode
+     FROM local_barcodes b
+     JOIN local_products p ON p.id=b.product_id AND p.business_id=b.business_id
+     JOIN local_prices pr ON pr.product_id=p.id AND pr.business_id=p.business_id AND pr.active=1 AND pr.currency='USD'
+     WHERE b.business_id=$1 AND b.code=$2 AND p.active=1
+     LIMIT 1`,
+    [BUSINESS_ID, normalized]
+  );
+  if (!rows.length) {
+    setStatus(`Código no registrado: ${normalized}`);
+    showToast(`Código no registrado: ${normalized}`, "error");
+    return false;
+  }
+  addToCart(rows[0]);
+  const sourceLabel = source === "camera" ? "Cámara" : source === "hid" ? "Lector" : "Código";
+  showToast(`${sourceLabel} · ${rows[0].name}`, "success");
+  setStatus("");
+  return true;
+}
+
+async function scanProduct() {
+  const button = $<HTMLButtonElement>("#scan");
+  try {
+    button.disabled = true;
+    let permission = await checkPermissions();
+    if (permission !== "granted") permission = await requestPermissions();
+    if (permission !== "granted") {
+      setStatus("Permiso de cámara no concedido · puedes buscar a mano");
+      return;
+    }
+    const result = await scan({
+      cameraDirection: "back",
+      formats: [Format.QRCode, Format.UPC_A, Format.UPC_E, Format.EAN8, Format.EAN13]
+    });
+    await addBarcodeToCart(result.content, "camera");
+  } catch (e) {
+    setStatus(`Escaneo cancelado o no disponible: ${String(e)}`);
+  } finally {
+    button.disabled = false;
+  }
+}
+
+// ---------- Sale ----------
+
+async function checkout(exactUsdCash: boolean) {
+  if (!cart.size) return;
+  const totalMinor = cartTotalMinor();
+  const payments: PaymentInput[] | null = exactUsdCash
+    ? [{ paymentId: crypto.randomUUID(), method: "cash", currency: "USD", amountMinor: totalMinor, usdMinor: totalMinor, exchangeRate: null, provider: null, externalRef: null }]
+    : await openCheckout(totalMinor);
+  if (!payments) return;
+  cartSheet?.close();
+  await completeSale(payments);
+}
+
+async function completeSale(payments: PaymentInput[]) {
+  const saleId = crypto.randomUUID();
+  const now = new Date().toISOString();
+  const cartSnapshot = Array.from(cart.values()).map(({ product, quantity }) => ({
+    name: product.name,
+    quantity,
+    unitPriceMinor: product.price_minor,
+    lineTotalMinor: product.price_minor * quantity
+  }));
+  const lines = Array.from(cart.values()).map(({ product, quantity }) => ({
+    lineId: crypto.randomUUID(),
+    movementId: crypto.randomUUID(),
+    productId: product.id,
+    quantity,
+    unitPriceMinor: product.price_minor,
+    lineTotalMinor: product.price_minor * quantity
+  }));
+  const totalMinor = lines.reduce((sum, line) => sum + line.lineTotalMinor, 0);
+  const soldIds = lines.map(line => line.productId);
+  const soldNames = new Map(Array.from(cart.values()).map(({ product }) => [product.id, product.name]));
+  const stockBefore = await stockFor(soldIds);
+
+  try {
+    await invoke("complete_sale", { input: { saleId, payments, outboxId: crypto.randomUUID(), totalMinor, occurredAt: now, lines } });
+  } catch (e) {
+    showToast(`Venta no guardada: ${String(e)}`, "error", 6000);
+    setStatus(`Venta rechazada · no se guardó nada: ${String(e)}`);
+    return;
+  }
+
+  const receipt: Receipt = { saleId, occurredAt: now, currency: "USD", payments: describePayments(payments), totalMinor, lines: cartSnapshot };
+  cart.clear();
+  renderCart();
+  renderReceipt(receipt);
+  openSaleDone(receipt);
+  setStatus("");
+  warnLowStock(stockBefore, await stockFor(soldIds), soldNames);
+  await renderProducts(queryInput.value);
+  await renderHistory();
+  await renderAudit();
+  await renderNet();
+  await refreshFinance();
+}
+
+async function renderAudit() {
+  try {
+    const r = await invoke<IntegrityReport>("audit_local_integrity");
+    const complete = r.incompleteSales === 0 && r.rollbackOk;
+    $("#audit").textContent = complete
+      ? `Integridad OK · ventas ${r.sales} · líneas ${r.saleLines} · pagos ${r.payments} · inventario ${r.inventoryMovements} · envíos ${r.outbox}`
+      : `ALERTA de integridad · ventas incompletas ${r.incompleteSales} · rollback ${r.rollbackOk ? "OK" : "FALLÓ"}`;
+  } catch (e) {
+    $("#audit").textContent = `Auditoría local falló: ${String(e)}`;
+  }
+}
+
+async function renderHistory() {
+  const sales = await db.select<Array<{ count: number }>>("SELECT COUNT(*) AS count FROM local_sales WHERE business_id=$1", [BUSINESS_ID]);
+  const pending = await db.select<Array<{ count: number }>>(
+    "SELECT COUNT(*) AS count FROM local_outbox WHERE business_id=$1 AND synced_at IS NULL",
+    [BUSINESS_ID]
+  );
+  $("#history").textContent = `Ventas en este equipo: ${sales[0]?.count ?? 0} · pendientes de enviar: ${pending[0]?.count ?? 0}`;
+}
+
+// ---------- Search, scanner, HID reader ----------
+
+queryInput.oninput = () => void renderProducts(queryInput.value);
+queryInput.onkeydown = async e => {
+  if (e.key !== "Enter") return;
+  const code = queryInput.value.trim();
+  if (!code) return;
+  if (await addBarcodeToCart(code, "manual")) {
+    queryInput.value = "";
+    await renderProducts("");
+  }
+};
+window.addEventListener("nexo:catalog-updated", () => void refreshCatalog());
+window.addEventListener("nexo:stock-updated", () => void renderProducts(queryInput.value));
+$<HTMLButtonElement>("#scan").onclick = () => void scanProduct();
+
+let hidBuffer = "";
+let hidLastKeyAt = 0;
+const HID_MAX_GAP_MS = 1500;
+const HID_ENTER_GRACE_MS = 2000;
+
+document.addEventListener("keydown", e => {
+  const target = e.target as HTMLElement | null;
+  const tag = target?.tagName?.toLowerCase();
+  if (tag === "input" || tag === "textarea" || tag === "select" || target?.isContentEditable) return;
+  if (e.ctrlKey || e.altKey || e.metaKey) return;
+  const now = performance.now();
+  if (e.key === "Enter") {
+    const code = hidBuffer;
+    const recent = now - hidLastKeyAt <= HID_ENTER_GRACE_MS;
+    hidBuffer = "";
+    hidLastKeyAt = 0;
+    if (recent && code.length >= 4) {
+      e.preventDefault();
+      void addBarcodeToCart(code, "hid");
+    }
+    return;
+  }
+  if (e.key.length !== 1) return;
+  if (now - hidLastKeyAt > HID_MAX_GAP_MS) hidBuffer = "";
+  hidBuffer += e.key;
+  hidLastKeyAt = now;
+});
+
+// ---------- Start ----------
 
 async function init() {
   db = await Database.load("sqlite:nexo-business.db");
@@ -326,366 +751,14 @@ async function init() {
     );
   }
 
-  document.querySelector("#status")!.textContent = "Base local formal lista · Internet no requerido";
   await refreshCatalog();
   renderCart();
+  await renderNet();
   await renderHistory();
   await renderAudit();
-  await mountFinance(document.querySelector<HTMLElement>("#finance")!, db);
+  await mountFinance($(".nx.app"), db);
 }
-
-type ListedProduct = Product & { category: string | null; variant_of: string | null; variant_label: string | null; image_url: string | null };
-type ProductStock = { productId: string; quantity: number; lowAt: number };
-
-async function stockFor(productIds: string[] = []) {
-  try {
-    const rows = await invoke<ProductStock[]>("stock_current", { productIds });
-    return new Map(rows.map(r => [r.productId, r]));
-  } catch {
-    return new Map<string, ProductStock>();
-  }
-}
-
-/** "Agotado" / "Quedan N" for tracked products at or below their warning level. */
-function stockBadge(stock: ProductStock | undefined) {
-  if (!stock) return "";
-  if (stock.quantity <= 0) return `<span class="badge badge-out">Agotado</span>`;
-  if (stock.quantity <= stock.lowAt) return `<span class="badge badge-low">Quedan ${stock.quantity}</span>`;
-  return "";
-}
-
-/** Product photo, or the first letter when there is none or it fails offline. */
-function thumb(url: string | null, title: string) {
-  const letter = escapeHtml(title.trim().charAt(0).toUpperCase() || "?");
-  return url
-    ? `<span class="thumb" data-letter="${letter}"><img src="${escapeHtml(url)}" alt="" loading="lazy" decoding="async" onerror="this.remove()"></span>`
-    : `<span class="thumb" data-letter="${letter}"></span>`;
-}
-type ProductGroup = { key: string; title: string; items: ListedProduct[] };
-
-const NO_CATEGORY = "Sin categoría";
-let selectedCategory = "";
-
-const escapeHtml = (s: unknown) =>
-  String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!);
-
-/** "Silla — Azul" with label "Azul" → "Silla" (the import names variants that way). */
-function variantTitle(p: ListedProduct) {
-  const label = p.variant_label?.trim();
-  if (!label || !p.name.endsWith(label)) return p.name;
-  return p.name.slice(0, -label.length).replace(/[\s—–-]+$/, "") || p.name;
-}
-
-/** Variants of one product become one card; simple products stay alone. */
-function groupProducts(rows: ListedProduct[]): ProductGroup[] {
-  const groups = new Map<string, ProductGroup>();
-  for (const p of rows) {
-    const key = p.variant_of ? `v:${p.variant_of}` : `p:${p.id}`;
-    const group = groups.get(key) ?? { key, title: p.variant_of ? variantTitle(p) : p.name, items: [] };
-    group.items.push(p);
-    groups.set(key, group);
-  }
-  return Array.from(groups.values()).sort((a, b) => a.title.localeCompare(b.title, "es"));
-}
-
-async function renderCategories() {
-  const rows = await db.select<Array<{ category: string | null; count: number }>>(
-    `SELECT p.category, COUNT(DISTINCT COALESCE(p.variant_of, p.id)) AS count
-     FROM local_products p
-     JOIN local_prices pr ON pr.product_id=p.id AND pr.business_id=p.business_id AND pr.active=1 AND pr.currency='USD'
-     WHERE p.business_id=$1 AND p.active=1
-     GROUP BY p.category
-     ORDER BY p.category IS NULL, p.category`,
-    [BUSINESS_ID]
-  );
-  const el = document.querySelector<HTMLElement>("#categories")!;
-  const names = rows.map(r => r.category ?? NO_CATEGORY);
-  if (selectedCategory && !names.includes(selectedCategory)) selectedCategory = "";
-  // One category (or none) adds nothing to filter by.
-  el.hidden = rows.length < 2;
-  const total = rows.reduce((sum, r) => sum + r.count, 0);
-  const chip = (value: string, text: string, count: number) =>
-    `<button type="button" class="chip" data-category="${escapeHtml(value)}" aria-pressed="${value === selectedCategory}">${escapeHtml(text)} <span>${count}</span></button>`;
-  el.innerHTML = chip("", "Todas", total) + rows.map(r => chip(r.category ?? NO_CATEGORY, r.category ?? NO_CATEGORY, r.count)).join("");
-  el.querySelectorAll<HTMLButtonElement>(".chip").forEach(b => b.onclick = () => {
-    selectedCategory = b.dataset.category ?? "";
-    el.querySelectorAll<HTMLButtonElement>(".chip").forEach(c => c.setAttribute("aria-pressed", String(c === b)));
-    void renderProducts(queryInput.value);
-  });
-}
-
-async function renderProducts(q: string) {
-  const rows = await db.select<ListedProduct[]>(
-    `SELECT p.id,p.name,p.category,p.variant_of,p.variant_label,p.image_url,pr.amount_minor AS price_minor,MIN(b.code) AS barcode
-     FROM local_products p
-     JOIN local_prices pr ON pr.product_id=p.id AND pr.business_id=p.business_id AND pr.active=1 AND pr.currency='USD'
-     LEFT JOIN local_barcodes b ON b.product_id=p.id AND b.business_id=p.business_id
-     WHERE p.business_id=$1 AND p.active=1
-       AND (p.name LIKE $2 OR COALESCE(p.sku,'') LIKE $2 OR COALESCE(b.code,'') LIKE $2)
-       AND ($3 = '' OR COALESCE(p.category,$4) = $3)
-     GROUP BY p.id
-     ORDER BY p.name`,
-    [BUSINESS_ID, `%${q}%`, selectedCategory, NO_CATEGORY]
-  );
-  const el = document.querySelector("#products")!;
-  const byId = new Map(rows.map(p => [p.id, p]));
-  const stock = await stockFor();
-  el.innerHTML = groupProducts(rows).map(g => g.items.length === 1 && !g.items[0].variant_of
-    ? `<button class="product" data-id="${escapeHtml(g.items[0].id)}">${thumb(g.items[0].image_url, g.title)}<span class="product-info"><strong>${escapeHtml(g.title)}</strong>${stockBadge(stock.get(g.items[0].id))}</span><span class="price">${money(g.items[0].price_minor)}</span></button>`
-    : `<div class="product-group">
-        <div class="group-head">${thumb(g.items.find(p => p.image_url)?.image_url ?? null, g.title)}<strong>${escapeHtml(g.title)}</strong></div>
-        <div class="variants">${g.items.map(p =>
-          `<button class="variant" data-id="${escapeHtml(p.id)}"><span>${escapeHtml(p.variant_label ?? p.name)}${stockBadge(stock.get(p.id))}</span><span>${money(p.price_minor)}</span></button>`
-        ).join("")}</div>
-      </div>`
-  ).join("") || `<p class="empty">Sin productos para esta búsqueda</p>`;
-  el.querySelectorAll<HTMLButtonElement>(".product, .variant").forEach(
-    b => b.onclick = () => addToCart(byId.get(b.dataset.id!)!)
-  );
-}
-
-/** Warns once when this sale leaves a product at or below its warning level. */
-async function warnLowStock(before: Map<string, ProductStock>, after: Map<string, ProductStock>, names: Map<string, string>) {
-  const crossed = Array.from(after.values()).filter(s => {
-    const prev = before.get(s.productId);
-    return s.quantity <= s.lowAt && (!prev || prev.quantity > prev.lowAt);
-  });
-  if (!crossed.length) return;
-  const text = crossed
-    .map(s => (s.quantity <= 0 ? `${names.get(s.productId)} agotado` : `quedan ${s.quantity} de ${names.get(s.productId)}`))
-    .join(" · ");
-  window.setTimeout(() => showToast(`Atención: ${text}`, "error"), 3400);
-  document.querySelector("#status")!.textContent = `Atención: ${text}`;
-}
-
-async function refreshCatalog() {
-  await renderCategories();
-  await renderProducts(queryInput.value);
-}
-
-async function addBarcodeToCart(code: string, source: "camera" | "hid" | "manual") {
-  const normalized = code.trim();
-  if (!normalized) return false;
-
-  const rows = await db.select<Product[]>(
-    `SELECT p.id,p.name,pr.amount_minor AS price_minor,b.code AS barcode
-     FROM local_barcodes b
-     JOIN local_products p
-       ON p.id=b.product_id AND p.business_id=b.business_id
-     JOIN local_prices pr
-       ON pr.product_id=p.id
-      AND pr.business_id=p.business_id
-      AND pr.active=1
-      AND pr.currency='USD'
-     WHERE b.business_id=$1
-       AND b.code=$2
-       AND p.active=1
-     LIMIT 1`,
-    [BUSINESS_ID, normalized]
-  );
-
-  const status = document.querySelector("#status")!;
-  if (!rows.length) {
-    status.textContent = `Código no registrado: ${normalized}`;
-    return false;
-  }
-
-  addToCart(rows[0]);
-  const sourceLabel =
-    source === "camera" ? "Cámara" :
-    source === "hid" ? "Lector USB/Bluetooth" :
-    "Código";
-  status.textContent = `${sourceLabel} · ${rows[0].name} añadido al carrito`;
-  return true;
-}
-
-async function scanProduct() {
-  const status = document.querySelector("#status")!;
-  const button = document.querySelector("#scan") as HTMLButtonElement;
-
-  try {
-    button.disabled = true;
-    status.textContent = "Preparando cámara...";
-
-    let permission = await checkPermissions();
-    if (permission !== "granted") permission = await requestPermissions();
-
-    if (permission !== "granted") {
-      status.textContent = "Permiso de cámara no concedido · puedes buscar manualmente";
-      return;
-    }
-
-    status.textContent = "Escanea el código del producto...";
-
-    const result = await scan({
-      cameraDirection: "back",
-      formats: [Format.QRCode, Format.UPC_A, Format.UPC_E, Format.EAN8, Format.EAN13]
-    });
-
-    await addBarcodeToCart(result.content, "camera");
-  } catch (e) {
-    status.textContent = `Escaneo cancelado o no disponible: ${String(e)}`;
-  } finally {
-    button.disabled = false;
-  }
-}
-
-async function sell() {
-  if (!cart.size) return;
-
-  const saleId = crypto.randomUUID();
-  const now = new Date().toISOString();
-  const button = document.querySelector("#sell") as HTMLButtonElement;
-  const cartSnapshot = Array.from(cart.values()).map(({ product, quantity }) => ({
-    name: product.name,
-    quantity,
-    unitPriceMinor: product.price_minor,
-    lineTotalMinor: product.price_minor * quantity
-  }));
-  const lines = Array.from(cart.values()).map(({ product, quantity }) => ({
-    lineId: crypto.randomUUID(),
-    movementId: crypto.randomUUID(),
-    productId: product.id,
-    quantity,
-    unitPriceMinor: product.price_minor,
-    lineTotalMinor: product.price_minor * quantity
-  }));
-  const totalMinor = lines.reduce((sum, line) => sum + line.lineTotalMinor, 0);
-
-  const payments = await openCheckout(totalMinor);
-  if (!payments) return;
-
-  button.disabled = true;
-  document.querySelector("#status")!.textContent = "Guardando venta atómica…";
-  const soldIds = lines.map(line => line.productId);
-  const soldNames = new Map(Array.from(cart.values()).map(({ product }) => [product.id, product.name]));
-  const stockBefore = await stockFor(soldIds);
-
-  try {
-    await invoke("complete_sale", {
-      input: {
-        saleId,
-        payments,
-        outboxId: crypto.randomUUID(),
-        totalMinor,
-        occurredAt: now,
-        lines
-      }
-    });
-
-    const receipt: Receipt = {
-      saleId,
-      occurredAt: now,
-      currency: "USD",
-      payments: describePayments(payments),
-      totalMinor,
-      lines: cartSnapshot
-    };
-
-    cart.clear();
-    renderCart();
-    renderReceipt(receipt);
-    openSaleSheet(receipt);
-    showToast("✓ Venta guardada · recibo listo", "success");
-    await warnLowStock(stockBefore, await stockFor(soldIds), soldNames);
-    await renderProducts(queryInput.value);
-    document.querySelector("#status")!.textContent = "Venta guardada completa · recibo listo para compartir";
-    await renderHistory();
-    await renderAudit();
-    await refreshFinance();
-  } catch (e) {
-    document.querySelector("#status")!.textContent =
-      `Venta rechazada · no se guardó parcialmente: ${String(e)}`;
-    button.disabled = false;
-  }
-}
-
-async function renderAudit() {
-  try {
-    const r = await invoke<IntegrityReport>("audit_local_integrity");
-    const complete = r.incompleteSales === 0 && r.rollbackOk;
-    document.querySelector("#audit")!.textContent = complete
-      ? `Integridad OK · ventas ${r.sales} · líneas ${r.saleLines} · pagos ${r.payments} · inventario ${r.inventoryMovements} · outbox ${r.outbox} · rollback OK`
-      : `ALERTA de integridad · ventas incompletas ${r.incompleteSales} · rollback ${r.rollbackOk ? "OK" : "FALLÓ"}`;
-  } catch (e) {
-    document.querySelector("#audit")!.textContent = `Auditoría local falló: ${String(e)}`;
-  }
-}
-
-async function renderHistory() {
-  const sales = await db.select<Array<{ id: string }>>(
-    "SELECT id FROM local_sales WHERE business_id=$1 ORDER BY occurred_at DESC LIMIT 50",
-    [BUSINESS_ID]
-  );
-  const pending = await db.select<Array<{ count: number }>>(
-    "SELECT COUNT(*) AS count FROM local_outbox WHERE business_id=$1 AND synced_at IS NULL",
-    [BUSINESS_ID]
-  );
-  document.querySelector("#history")!.textContent = sales.length
-    ? `Ventas formales locales: ${sales.length} · Pendientes de sincronizar: ${pending[0]?.count ?? 0}`
-    : "Aún no hay ventas formales locales";
-}
-
-const queryInput = document.querySelector("#query") as HTMLInputElement;
-queryInput.oninput = e => renderProducts((e.target as HTMLInputElement).value);
-window.addEventListener("nexo:catalog-updated", () => void refreshCatalog());
-window.addEventListener("nexo:stock-updated", () => void renderProducts(queryInput.value));
-queryInput.onkeydown = async e => {
-  if (e.key !== "Enter") return;
-  const code = queryInput.value.trim();
-  if (!code) return;
-  const added = await addBarcodeToCart(code, "manual");
-  if (added) {
-    queryInput.value = "";
-    await renderProducts("");
-  }
-};
-
-let hidBuffer = "";
-let hidLastKeyAt = 0;
-const HID_MAX_GAP_MS = 1500;
-const HID_ENTER_GRACE_MS = 2000;
-
-document.addEventListener("keydown", e => {
-  const target = e.target as HTMLElement | null;
-  const tag = target?.tagName?.toLowerCase();
-  if (tag === "input" || tag === "textarea" || target?.isContentEditable) return;
-  if (e.ctrlKey || e.altKey || e.metaKey) return;
-
-  const now = performance.now();
-
-  if (e.key === "Enter") {
-    const code = hidBuffer;
-    const recent = now - hidLastKeyAt <= HID_ENTER_GRACE_MS;
-    hidBuffer = "";
-    hidLastKeyAt = 0;
-
-    if (recent && code.length >= 4) {
-      e.preventDefault();
-      void addBarcodeToCart(code, "hid");
-    }
-    return;
-  }
-
-  if (e.key.length !== 1) return;
-
-  if (now - hidLastKeyAt > HID_MAX_GAP_MS) {
-    hidBuffer = "";
-  }
-
-  hidBuffer += e.key;
-  hidLastKeyAt = now;
-});
-
-(document.querySelector("#scan") as HTMLButtonElement).onclick = scanProduct;
-(document.querySelector("#sell") as HTMLButtonElement).onclick = sell;
-(document.querySelector("#share-receipt") as HTMLButtonElement).onclick = shareReceipt;
-(document.querySelector("#copy-receipt") as HTMLButtonElement).onclick = copyReceipt;
-(document.querySelector("#sale-sheet-share") as HTMLButtonElement).onclick = shareReceipt;
-(document.querySelector("#sale-sheet-copy") as HTMLButtonElement).onclick = copyReceipt;
-(document.querySelector("#sale-sheet-close") as HTMLButtonElement).onclick = closeSaleSheet;
-(document.querySelector("#sale-sheet-backdrop") as HTMLButtonElement).onclick = closeSaleSheet;
 
 init().catch(e => {
-  document.querySelector("#status")!.textContent = `Error local: ${String(e)}`;
+  setStatus(`Error local: ${String(e)}`);
 });
