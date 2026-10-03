@@ -13,21 +13,24 @@ type SyncState = { pending: number; failing: number; synced: number; oldestPendi
 type OutboxEvent = PushEvent & { attempts: number };
 
 const ENDPOINT_KEY = "nexo.sync.endpoint";
+const TOKEN_KEY = "nexo.sync.deviceToken";
+/** NEXO production ingestion (Supabase Edge Function nexo-sync-push). */
+export const DEFAULT_ENDPOINT = "https://viwwlriwlwodrfukbgbj.supabase.co/functions/v1/nexo-sync-push";
 const BATCH = 100;
 
-function readEndpoint(): string {
+function read(key: string, fallback = ""): string {
   try {
-    return localStorage.getItem(ENDPOINT_KEY) ?? "";
+    return localStorage.getItem(key) ?? fallback;
   } catch {
-    return "";
+    return fallback;
   }
 }
 
-function saveEndpoint(value: string) {
+function save(key: string, value: string) {
   try {
-    localStorage.setItem(ENDPOINT_KEY, value.trim());
+    localStorage.setItem(key, value.trim());
   } catch {
-    // Storage unavailable: the endpoint is used for this session only.
+    // Storage unavailable: the value is used for this session only.
   }
 }
 
@@ -39,9 +42,9 @@ function describe(state: SyncState) {
 }
 
 /** Pushes every due event. Returns the final queue state. */
-export async function pushOutbox(endpoint: string): Promise<SyncState> {
+export async function pushOutbox(endpoint: string, deviceToken: string): Promise<SyncState> {
   let state = await invoke<SyncState>("sync_state");
-  if (!endpoint) return state;
+  if (!endpoint || !deviceToken) return state;
   for (let round = 0; round < 50; round++) {
     const now = new Date().toISOString();
     const events = await invoke<OutboxEvent[]>("sync_pending_batch", { now, limit: BATCH });
@@ -56,7 +59,7 @@ export async function pushOutbox(endpoint: string): Promise<SyncState> {
     try {
       const response = await fetch(endpoint, {
         method: "POST",
-        headers: { "content-type": "application/json" },
+        headers: { "content-type": "application/json", "x-nexo-device-token": deviceToken },
         body: JSON.stringify(request),
       });
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
@@ -79,26 +82,30 @@ export async function pushOutbox(endpoint: string): Promise<SyncState> {
 export async function mountSync(container: HTMLElement) {
   container.innerHTML = `
     <form id="sync-form" class="fin-form">
-      <label>Servidor de sincronización<input name="endpoint" type="url" placeholder="https://…/api/nexo-business/sync/push"></label>
+      <label>Servidor de sincronización<input name="endpoint" type="url"></label>
+      <label>Clave del dispositivo<input name="token" type="password" autocomplete="off" placeholder="La entrega NEXO al dar de alta el equipo"></label>
       <button type="submit">Sincronizar ahora</button>
     </form>
     <p class="fin-muted" id="sync-state"></p>`;
   const form = container.querySelector<HTMLFormElement>("#sync-form")!;
   const input = form.querySelector<HTMLInputElement>('[name="endpoint"]')!;
+  const tokenInput = form.querySelector<HTMLInputElement>('[name="token"]')!;
   const stateEl = container.querySelector<HTMLElement>("#sync-state")!;
-  input.value = readEndpoint();
+  input.value = read(ENDPOINT_KEY, DEFAULT_ENDPOINT);
+  tokenInput.value = read(TOKEN_KEY);
   const show = (state: SyncState, note = "") => {
     stateEl.textContent = `${note}${describe(state)}`;
   };
   form.onsubmit = async e => {
     e.preventDefault();
-    saveEndpoint(input.value);
-    if (!input.value.trim()) {
-      show(await invoke<SyncState>("sync_state"), "Sin servidor configurado: todo sigue guardado en el equipo · ");
+    save(ENDPOINT_KEY, input.value);
+    save(TOKEN_KEY, tokenInput.value);
+    if (!input.value.trim() || !tokenInput.value.trim()) {
+      show(await invoke<SyncState>("sync_state"), "Falta el servidor o la clave del dispositivo: todo sigue guardado en el equipo · ");
       return;
     }
     stateEl.textContent = "Sincronizando…";
-    show(await pushOutbox(input.value.trim()));
+    show(await pushOutbox(input.value.trim(), tokenInput.value.trim()));
   };
   show(await invoke<SyncState>("sync_state"));
 }

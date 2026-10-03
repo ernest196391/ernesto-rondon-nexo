@@ -270,9 +270,15 @@ Branch `claude/outbox-sync`. Contract: `SYNC_PUSH_CONTRACT.md`.
 - **Android (Redmi 9A):** APK installed; the Sincronización section shows 13 pending events. No endpoint configured, so nothing left the phone.
 - **Not built (needs owner approval, production cloud):** cloud endpoint + Supabase tables, device authentication, pull side.
 
+### Cloud ingestion checkpoint — DATABASE LIVE, FUNCTION PENDING DEPLOY — 2026-10-03
+Owner approved ("sí, crea la sincronización en Supabase"). Project `nexo-production` (`viwwlriwlwodrfukbgbj`).
+- **Applied:** migration `20261003010000_nexo_business_sync.sql` (isolated schema `nexo_business`, devices with hashed tokens, append-only unique events, service-role-only ingestion function). Checked: anon/authenticated cannot execute it or read the tables; a rolled-back self-test returned applied/duplicate/rejected/unauthorized as specified and left no rows.
+- **Written, not deployed:** Edge Function `supabase/functions/nexo-sync-push` (the MCP deploy tool rejected its typed arguments; granting anon execute on the RPC was blocked as a permission change). The POS sync section now defaults to that URL and asks for a device token.
+- **Next:** deploy the function, provision `windows-pilot-01` and `android-pilot-01`, and run a real sync from both pilots.
+
 ### Next executable block
-1. Owner review of the Operaciones panel on the phone; then consignment and transfer/count screens.
-2. Cloud ingestion endpoint + Supabase tables for the push contract — only with explicit owner approval (production schema).
+1. Deploy `nexo-sync-push`, provision the two pilot devices and sync for real.
+2. Owner review of the Operaciones panel on the phone; then consignment and transfer/count screens.
 3. One offline shift on Android (open, sales, movements, fiado, messenger return, refund, close) once the UI exists.
 
 ## Local verification — Windows laptop — 2026-09-28

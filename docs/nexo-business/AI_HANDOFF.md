@@ -300,3 +300,6 @@ The owner approved Claude working on the POS UI. Financial screens live in `apps
 
 ## Outbox push client — 2026-10-03 (Claude Code lane)
 `sync.rs` + `apps/business-pos/src/sync.ts` implement the push side of ADR-001 against `SYNC_PUSH_CONTRACT.md`. To test without touching pilot data, run `node mock-sync-server.mjs`-style stand-ins locally and restore the DB copy afterwards. The cloud endpoint is not built: it changes the production Supabase schema and needs the owner's explicit approval.
+
+## Cloud ingestion — 2026-10-03 (Claude Code lane)
+Supabase `nexo-production` now has schema `nexo_business` (devices + append-only sync_events + `push_events`), applied from `supabase/migrations/`. The Edge Function `supabase/functions/nexo-sync-push` still needs deploying (`npx supabase functions deploy nexo-sync-push --project-ref viwwlriwlwodrfukbgbj --no-verify-jwt`). Never grant anon access to the ingestion RPC or the tables.
