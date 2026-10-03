@@ -1,0 +1,25 @@
+#finance{margin-top:22px;padding:18px;background:white;border-radius:18px}
+#finance h2{margin:0 0 10px}
+#finance details{border-top:1px solid #e5e7eb;padding:6px 0}
+#finance summary{cursor:pointer;font-weight:700;padding:12px 0;min-height:44px;display:flex;align-items:center}
+#finance h4{margin:8px 0 0}
+.fin-status{padding:10px 12px;border-radius:12px;margin:0 0 8px;background:#f1f5f9;min-height:0}
+.fin-status:empty{display:none}
+.fin-status[data-tone="ok"]{background:#e8f5ed}
+.fin-status[data-tone="error"]{background:#fee2e2;color:#7f1d1d}
+.fin-muted{color:#475569;margin:6px 0 10px}
+.fin-form{display:grid;gap:10px;margin:12px 0}
+.fin-form label{gap:6px}
+.fin-form input,.fin-form select{font:inherit;padding:12px;border:1px solid #cbd5e1;border-radius:12px;margin:0;background:white;width:100%}
+.fin-form button,.fin-actions button{min-height:48px;border:0;border-radius:12px;background:#111827;color:white;font-weight:700}
+.fin-form .fin-danger{background:#7f1d1d}
+.fin-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.fin-card{padding:12px;border:1px solid #e5e7eb;border-radius:14px}
+.fin-row{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.fin-row span{color:#475569}
+.fin-table-wrap{overflow-x:auto}
+.fin-table{width:100%;border-collapse:collapse;font-size:.92rem}
+.fin-table th,.fin-table td{padding:8px 6px;border-bottom:1px solid #e5e7eb;text-align:right;white-space:nowrap}
+.fin-table th:first-child{text-align:left}
+.fin-list{margin:6px 0;padding-left:18px}
+@media(max-width:520px){.fin-actions{grid-template-columns:1fr}}

@@ -294,3 +294,6 @@ Migrations 3–5 are verified as in-place upgrades on the Windows pilot DB and o
 
 ## Consignment — 2026-10-02 (Claude Code lane)
 `0010_consignment.sql` + `consignment.rs`: a `consignment` location is bound to one client/currency; settlements decrease its stock and open a receivable atomically (uses `receivables::insert_receivable`). The local financial core (drawer, rails, external refs, receivables, custody, returns, location inventory, consignment) is complete as backend; what remains is UI (`main.ts`, owner coordination) and cloud sync of the outbox.
+
+## POS operations UI — 2026-10-03 (Claude Code lane)
+The owner approved Claude working on the POS UI. Financial screens live in `apps/business-pos/src/finance.ts` (+ `finance.css`); `main.ts` only mounts them (`mountFinance`) and refreshes after a sale (`refreshFinance`). Keep new screens in their own modules to avoid conflicts in `main.ts`. To test UI writes without polluting pilot data on Windows: close the app, copy `%APPDATA%\com.nexo.business\nexo-business.db`, test, close, delete `-wal`/`-shm`, copy the backup back and compare SHA-256.

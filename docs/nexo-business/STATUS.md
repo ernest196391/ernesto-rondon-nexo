@@ -255,9 +255,16 @@ Branch `claude/consignment`. Rules: `FINANCIAL_MODEL.md` §6, `PRODUCT_DECISIONS
 - **Tests passed:** `cargo test` 63/63 (5 new), clippy clean, root `vitest` 173/173.
 - **Windows + Android (Redmi 9A):** migration 10 applied over the pilot DBs (backed up first); audit OK (9 and 13 sales); `consignment_settle` answers with the expected rejection for an unknown location. No consignment rows written.
 
+### POS operations UI checkpoint — WINDOWS FUNCTIONAL PASS, ANDROID RENDER PASS — 2026-10-03
+Branch `claude/pos-finance-ui`. Owner approved Claude taking this UI ("haz lo que sea mejor para avanzar y escalar").
+- **Implemented:** `apps/business-pos/src/finance.ts` + `finance.css`, an "Operaciones" panel under the cart: cash shift (open with floats per currency, cash in/out/expense with reason, per-currency summary, close with count and difference), fiado (note debt per customer, list open debts, record payments by rail), messenger cash (collected / handed over into the drawer), returns (pick a recent sale, quantities, refund by rail, reason) and locations (create; first one is the default; stock of the default). `main.ts` only gained 4 hook lines (import, container, mount, refresh after sale).
+- **Windows functional pass (on a copy of the pilot DB, restored afterwards byte-identical by SHA-256):** open shift (USD 50, CUP 1000) → cash in 10 USD → expense 200 CUP → POS sale 125 USD (linked to the shift) → fiado 20 USD + cash payment 5 → messenger collected/handed over 30 USD → return 1 unit with 125 USD cash refund → create "Tienda principal" → close: USD expected 95, counted 100, difference +5; CUP expected 800, counted 800. Integrity audit OK throughout.
+- **Android (Redmi 9A):** APK installed with `adb install -r`; panel renders with existing data; no writes made on the phone. Visual layout on the phone not yet reviewed by a person (screen was locked).
+- **Not done:** consignment UI, location transfers/counts UI, customer list (customers are free text), operator login.
+
 ### Next executable block
-1. Minimal POS UI for cash shift, fiado, messenger return, refunds, locations and consignment — coordinate with the owner of `main.ts`.
-2. Sync: push the local outbox events (sale, cash, receivable, custody, return, inventory, consignment) to the cloud with idempotent ingestion (ADR-001).
+1. Sync: push the local outbox events (sale, cash, receivable, custody, return, inventory, consignment) to the cloud with idempotent ingestion (ADR-001).
+2. Owner review of the Operaciones panel on the phone; then consignment and transfer/count screens.
 3. One offline shift on Android (open, sales, movements, fiado, messenger return, refund, close) once the UI exists.
 
 ## Local verification — Windows laptop — 2026-09-28
