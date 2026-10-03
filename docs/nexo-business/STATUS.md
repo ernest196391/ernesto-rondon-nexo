@@ -282,10 +282,16 @@ Owner approved ("sí, crea la sincronización en Supabase"). Project `nexo-produ
 - Windows pilot: 9/9 events pushed; a second push sent nothing. Redmi 9A: first push got HTTP 400 because its 6 oldest sales carry the label `windows-pilot-01` from an early build; fixed server-side (migration `20261003020000`: events are attributed to the authenticated sender, business must match) and the retry pushed 13/13. Cloud now holds 22 unique events, 0 duplicates. Integrity audit OK on both devices.
 - Cloud events are stored, not yet projected into cloud sales/cash/stock tables.
 
+### Auto-sync + cloud summary checkpoint — WINDOWS PASS — 2026-10-03
+- **POS:** automatic background push every 60 s, when the network returns and 2 s after each sale (one push at a time; manual button kept). Verified on Windows: the state shows `Auto <hora>` right after start.
+- **Cloud (applied, `20261003030000_nexo_business_projections.sql`):** read-model views `nexo_business.sales`, `sale_returns`, `cash_movements`, `receivable_balances`, `messenger_custody` parsed from `sync_events`; `business_summary(token, days)` (days in America/Havana) behind a service-role-only wrapper. Edge Function `nexo-business-summary` deployed (GET, same device token header).
+- **POS "Resumen del negocio (nube)":** sales per day and currency for all devices, historic totals, open fiado, messenger cash and the last connection of each device. Verified on Windows with real data: 22 sales, 9000.00 USD (13 from the Redmi, 9 from Windows).
+- **Data caveat:** the Redmi clock is about 6 days ahead (it reported 2026-10-09 on 2026-10-03), so its sales appear on 2026-10-08 in the cloud summary. Fix the phone date; events keep the time they were recorded with.
+
 ### Next executable block
-1. Cloud projections from `nexo_business.sync_events` (sales, cash, receivables, stock) and an owner dashboard.
-2. Automatic background sync on the POS (today it is the "Sincronizar ahora" button).
-3. Owner review of the Operaciones panel on the phone; then consignment and transfer/count screens.
+1. Owner review of the Operaciones panel on the phone; then consignment and transfer/count screens.
+2. Owner web dashboard with real login (Supabase Auth) instead of device tokens, when more than one person needs the numbers.
+3. Pull side (catalog/prices from cloud to devices) per ADR-001.
 3. One offline shift on Android (open, sales, movements, fiado, messenger return, refund, close) once the UI exists.
 
 ## Local verification — Windows laptop — 2026-09-28

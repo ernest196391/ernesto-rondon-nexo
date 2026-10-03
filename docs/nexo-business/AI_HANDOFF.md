@@ -306,3 +306,6 @@ Supabase `nexo-production` now has schema `nexo_business` (devices + append-only
 
 ## Cloud sync live — 2026-10-03 (Claude Code lane)
 `nexo-sync-push` is deployed and both pilots are provisioned and synced (22 events). The Supabase CLI is logged in on the owner laptop; redeploy with `npx.cmd supabase functions deploy nexo-sync-push --project-ref viwwlriwlwodrfukbgbj --no-verify-jwt` from the repo root. Device tokens: never print or commit them; provision new devices by inserting only the SHA-256 hash.
+
+## Auto-sync + cloud summary — 2026-10-03 (Claude Code lane)
+The POS pushes automatically (`startAutoSync`/`requestSync` in `sync.ts`). Cloud read models are views over `nexo_business.sync_events`; the owner summary is the `nexo-business-summary` Edge Function. Deploy functions from the repo root with `npx.cmd supabase functions deploy <name> --project-ref viwwlriwlwodrfukbgbj --no-verify-jwt --use-api`.

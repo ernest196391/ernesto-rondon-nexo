@@ -5,7 +5,7 @@
 import { invoke } from "@tauri-apps/api/core";
 import Database from "@tauri-apps/plugin-sql";
 import "./finance.css";
-import { mountSync } from "./sync";
+import { mountBusinessSummary, mountSync, requestSync } from "./sync";
 
 const CURRENCIES = ["USD", "CUP", "MLC"] as const;
 const RAILS: Array<[string, string]> = [
@@ -468,6 +468,7 @@ async function renderLocations() {
 
 export async function refreshFinance() {
   if (!root) return;
+  requestSync();
   await Promise.all([renderShift(), mountReturns()]).catch(e => say(String(e), "error"));
 }
 
@@ -484,8 +485,9 @@ export async function mountFinance(container: HTMLElement, database: Database) {
     <details><summary>Efectivo de mensajeros</summary><div id="fin-messenger"></div></details>
     <details><summary>Devoluciones</summary><div id="fin-returns"></div></details>
     <details><summary>Ubicaciones e inventario</summary><div id="fin-locations"></div></details>
-    <details><summary>Sincronización</summary><div id="fin-sync"></div></details>`;
+    <details><summary>Sincronización</summary><div id="fin-sync"></div></details>
+    <details><summary>Resumen del negocio (nube)</summary><div id="fin-summary"></div></details>`;
   mountReceivables();
   mountMessenger();
-  await Promise.all([renderShift(), mountReturns(), renderLocations(), mountSync(root.querySelector<HTMLElement>("#fin-sync")!)]).catch(e => say(String(e), "error"));
+  await Promise.all([renderShift(), mountReturns(), renderLocations(), mountSync(root.querySelector<HTMLElement>("#fin-sync")!), mountBusinessSummary(root.querySelector<HTMLElement>("#fin-summary")!)]).catch(e => say(String(e), "error"));
 }
