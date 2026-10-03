@@ -318,3 +318,6 @@ The catalog is owned by the cloud (`nexo_business.catalog_products`, edited in t
 
 ## Cloud stock + devices — 2026-10-03 (Claude Code lane)
 Cloud stock = `nexo_business.stock_by_product` (derived). Owners provision devices from the dashboard. Caveat: the POS still sends a fixed `device_id` per platform (`pilot_scope` in `lib.rs`); the cloud attributes events to the token's device, but local IDs must come from provisioning before adding more devices of the same platform or another business.
+
+## Real Casa Viva catalog — 2026-10-03 (Claude Code lane)
+Casa Viva's catalog truth is BizneCubano → casavivadecuba.com. NEXO imports it read-only with the `nexo-catalog-import` Edge Function (product IDs `cv-<wooId>`, variants as separate items with `variant_of`). Never write to WooCommerce from NEXO. Website stock lands as `inventory.counted` events from device `casa-viva-web`.

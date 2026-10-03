@@ -155,6 +155,8 @@ function wireDevices(el) {
 // ---------- Catalog editor (owners) ----------
 
 const CURRENCIES = ["USD", "CUP", "MLC"];
+// Message to show once the catalog section finishes re-rendering.
+const pendingCatalogMsg = {};
 const toMinor = raw => {
   const v = Number(String(raw).replace(",", ".").trim());
   return Number.isFinite(v) && v >= 0 ? Math.round(v * 100) : null;
@@ -170,7 +172,8 @@ async function loadCatalog(el) {
   const products = data;
   const priceCell = (p, c) => (p.prices?.[c] != null ? money(p.prices[c], c) : "—");
   el.innerHTML = `
-    <div class="row"><h2>Catálogo y precios</h2><button type="button" data-new>Nuevo producto</button></div>
+    <div class="row"><h2>Catálogo y precios</h2><div class="row"><button type="button" data-import>Importar desde la web</button><button type="button" data-new>Nuevo producto</button></div></div>
+    <p class="muted">${products.filter(p => p.active).length} productos activos. «Importar desde la web» trae productos, variantes, precios y existencias de la tienda online (solo lectura: no cambia nada en la web).</p>
     <p class="muted">Los cambios llegan solos a los equipos en su próxima sincronización (cada minuto con conexión).</p>
     <div class="wrap"><table>
       <thead><tr><th>Producto</th>${CURRENCIES.map(c => `<th>${c}</th>`).join("")}<th>Estado</th><th></th></tr></thead>
@@ -183,6 +186,10 @@ async function loadCatalog(el) {
     <div class="msg" data-msg role="status"></div>`;
   const form = el.querySelector("[data-form]");
   const msg = el.querySelector("[data-msg]");
+  if (pendingCatalogMsg[business]) {
+    msg.textContent = pendingCatalogMsg[business]; msg.dataset.tone = "ok";
+    delete pendingCatalogMsg[business];
+  }
   const open = p => {
     form.hidden = false;
     form.innerHTML = `
@@ -228,6 +235,22 @@ async function loadCatalog(el) {
     form.scrollIntoView({ behavior: "smooth", block: "start" });
   };
   el.querySelector("[data-new]").onclick = () => open(null);
+  el.querySelector("[data-import]").onclick = async () => {
+    const btn = el.querySelector("[data-import]");
+    btn.disabled = true; msg.textContent = "Importando desde la web… puede tardar un minuto."; msg.dataset.tone = "";
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      const r = await fetch(`https://viwwlriwlwodrfukbgbj.supabase.co/functions/v1/nexo-catalog-import?business=${encodeURIComponent(business)}`, {
+        method: "POST", headers: { authorization: `Bearer ${session?.access_token ?? ""}` },
+      });
+      const out = await r.json();
+      if (!r.ok) throw new Error(out.detail ?? out.error ?? `HTTP ${r.status}`);
+      pendingCatalogMsg[business] = `✓ Web: ${out.items} artículos, ${out.catalogChanges} cambios de catálogo, ${out.stockCounts} existencias actualizadas, ${out.deactivated} retirados.`;
+      await load();
+    } catch (e) {
+      msg.textContent = `No se pudo importar: ${e.message}`; msg.dataset.tone = "bad"; btn.disabled = false;
+    }
+  };
   el.querySelectorAll("[data-edit]").forEach(btn => { btn.onclick = () => open(products[Number(btn.dataset.edit)]); });
 }
 

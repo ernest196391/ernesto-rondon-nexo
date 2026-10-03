@@ -307,10 +307,19 @@ Owner approved ("sí, crea la sincronización en Supabase"). Project `nexo-produ
 - **Verified:** cloud stock today is −23 / −26 (sales only, no counts yet) and the dashboard explains it. A rolled-back cloud test with a +48 count and min stock 25 returned stock 22 flagged low. Windows count form on a copy of the pilot DB: expected −8, counted 40, adjustment +48; sync paused during the test, the pilot DB restored byte-identical and no test events reached the cloud. APK with the count form installed on the Redmi.
 - **Pending:** the owner does the first real counts; until then stock shows negative.
 
+### Real Casa Viva catalog checkpoint — LIVE ON BOTH PILOTS — 2026-10-03
+- **Source (owner instruction):** the real catalog, variants and quantities come from BizneCubano, mirrored on casavivadecuba.com (Casa-Viva repo: `scripts/catalog/biznecubano-sync.php`, BizneCubano approved as catalog source 2026-10-02). NEXO reads the website's public WooCommerce Store API, read-only (Bridge 1 of the Casa-Viva `NEXO_BUSINESS_INTEGRATION.md`); nothing is written to WooCommerce.
+- **Cloud (applied):** `20261003070000_nexo_business_catalog_import.sql` (category, image, variant and external-ref columns; catalog rows only take a new seq when something changes; `import_catalog` upserts items, deactivates unpublished ones and the demo products, and records website quantities as `inventory.counted` events from the virtual device `casa-viva-web` only when they differ) and `20261003071000` (service-only membership lookup). Edge Function `nexo-catalog-import` (deployed; owner JWT or `NEXO_IMPORT_KEY` secret, key kept only on the owner laptop at `%APPDATA%\com.nexo.business\import-key-NO-COMPARTIR.txt`).
+- **Imported:** 200 website products → 281 sellable items (174 simple + 107 variants, each with its own SKU `BC-…`, USD price, category, image). 197 items with a tracked quantity got their stock (497 units in total); untracked items ("disponible sin control" on the web) have no NEXO stock yet. Second run: 0 changes, 0 new counts. Spot-checked against the live site (price, quantity, out of stock).
+- **Devices:** Windows and the Redmi pulled the catalog (checkpoint 288) and now list the 281 real products; the two demo products are inactive. Audit OK on both.
+- **Dashboard:** "Importar desde la web" button for owners (tested in the owner session: 200, idempotent).
+- **Caveats:** quantities are what the store allows in a cart (stock minus items held in checkouts); variant names are "Producto — variante"; the POS still sells in USD only and lists all items without category filters.
+
 ### Next executable block
-1. Owner: initial physical count of each product in the POS; set min stock in the dashboard.
-2. POS device identity from provisioning (today `device_id` is fixed per platform), needed before a second phone or a second business.
-3. Owner review of the Operaciones panel on the phone; then consignment and transfer/count screens.
+1. Schedule the website import (e.g. hourly) once the owner agrees, so NEXO follows BizneCubano automatically.
+2. POS product list: category filter and variant grouping for 281 items.
+3. POS device identity from provisioning from provisioning (today `device_id` is fixed per platform), needed before a second phone or a second business.
+4. Owner review of the Operaciones panel on the phone; then consignment and transfer/count screens.
 3. One offline shift on Android (open, sales, movements, fiado, messenger return, refund, close) once the UI exists.
 
 ## Local verification — Windows laptop — 2026-09-28
