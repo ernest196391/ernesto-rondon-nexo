@@ -7,6 +7,7 @@ use nexo_business_db::messenger_custody::{
 use nexo_business_db::receivables::{
     self, OpenReceivableInput, ReceivableBalance, ReceivablePaymentInput, ReceivableWriteOffInput,
 };
+use nexo_business_db::sale_returns::{self, RecordSaleReturnInput, SaleReturnSummary};
 use rusqlite::{params, Connection};
 use serde::{Deserialize, Serialize};
 use std::fs;
@@ -375,6 +376,21 @@ fn messenger_custody_balances(
         .map_err(|e| e.to_string())
 }
 
+#[tauri::command]
+fn sale_return_record(
+    app: tauri::AppHandle,
+    input: RecordSaleReturnInput,
+) -> Result<SaleReturnSummary, String> {
+    let mut conn = open_local_db(&app)?;
+    sale_returns::record_sale_return(&mut conn, &pilot_scope(), &input).map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+fn sale_return_summary(app: tauri::AppHandle, sale_id: String) -> Result<SaleReturnSummary, String> {
+    let conn = open_local_db(&app)?;
+    sale_returns::sale_return_summary(&conn, &sale_id).map_err(|e| e.to_string())
+}
+
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     let migrations = nexo_business_db::MIGRATIONS
@@ -413,7 +429,9 @@ pub fn run() {
             messenger_custody_collect,
             messenger_custody_return,
             messenger_custody_write_off,
-            messenger_custody_balances
+            messenger_custody_balances,
+            sale_return_record,
+            sale_return_summary
         ])
         .run(tauri::generate_context!())
         .expect("error while running NEXO Business");
