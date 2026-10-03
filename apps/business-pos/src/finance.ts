@@ -78,10 +78,9 @@ function railOptions() {
   return RAILS.map(([value, label]) => `<option value="${value}">${label}</option>`).join("");
 }
 
+/** Result of an operation: shown as a toast by the app shell. */
 function say(message: string, tone: "ok" | "error" = "ok") {
-  const el = root.querySelector<HTMLElement>("#fin-status")!;
-  el.textContent = message;
-  el.dataset.tone = tone;
+  window.dispatchEvent(new CustomEvent("nexo:say", { detail: { message, tone } }));
 }
 
 async function run(label: string, action: () => Promise<void>) {
@@ -509,21 +508,16 @@ export async function refreshFinance() {
   await Promise.all([renderShift(), mountReturns()]).catch(e => say(String(e), "error"));
 }
 
+/**
+ * Fills the sections the app shell placed anywhere inside `container`:
+ * #fin-shift, #fin-fiado, #fin-messenger, #fin-returns, #fin-locations,
+ * #fin-sync and #fin-summary.
+ */
 export async function mountFinance(container: HTMLElement, database: Database) {
   root = container;
   db = database;
   const names = await db.select<Array<{ id: string; name: string }>>("SELECT id,name FROM local_products");
   productNames = new Map(names.map(p => [p.id, p.name]));
-  root.innerHTML = `
-    <h2>Operaciones</h2>
-    <div class="fin-status" id="fin-status" role="status"></div>
-    <details open><summary>Caja</summary><div id="fin-shift"></div></details>
-    <details><summary>Fiado y abonos</summary><div id="fin-fiado"></div></details>
-    <details><summary>Efectivo de mensajeros</summary><div id="fin-messenger"></div></details>
-    <details><summary>Devoluciones</summary><div id="fin-returns"></div></details>
-    <details><summary>Ubicaciones e inventario</summary><div id="fin-locations"></div></details>
-    <details><summary>Sincronización</summary><div id="fin-sync"></div></details>
-    <details><summary>Resumen del negocio (nube)</summary><div id="fin-summary"></div></details>`;
   mountReceivables();
   mountMessenger();
   await Promise.all([renderShift(), mountReturns(), renderLocations(), mountSync(root.querySelector<HTMLElement>("#fin-sync")!), mountBusinessSummary(root.querySelector<HTMLElement>("#fin-summary")!)]).catch(e => say(String(e), "error"));

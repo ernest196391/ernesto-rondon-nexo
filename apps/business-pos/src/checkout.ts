@@ -5,6 +5,7 @@
 // The USD values must add up exactly to the total (Rust checks it again);
 // extra cash becomes change and is recorded net on the last cash payment.
 import { invoke } from "@tauri-apps/api/core";
+import { icon, openSheet } from "./ui";
 
 export type PaymentInput = {
   paymentId: string;
@@ -40,7 +41,7 @@ const METHODS: MethodDef[] = [
   { key: "crypto", label: "Otra cripto", method: "crypto", currency: "USD", provider: "cripto", needsRef: true },
 ];
 
-const MAX_PAYMENTS = 4;
+const MAX_PAYMENTS = 3;
 
 type Row = { id: string; def: MethodDef; amountMinor: number; provider: string; ref: string };
 
@@ -49,6 +50,8 @@ const escapeHtml = (s: unknown) =>
 
 const fmt = (minor: number, currency: string) =>
   `${(minor / 100).toLocaleString("es", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ${currency}`;
+
+const methodIcon = (m: MethodDef) => icon(m.method === "cash" ? "cash" : "transfer");
 
 /** Units of `currency` per USD; USD is 1, USDT defaults to 1 until the owners set it. */
 function rateOf(rates: Map<string, Rate>, currency: string): number | null {
@@ -129,24 +132,16 @@ export async function openCheckout(totalMinor: number): Promise<PaymentInput[] |
   const rates = new Map(rateList.map(r => [r.currency, r]));
   const rows: Row[] = [];
 
-  const sheet = document.createElement("div");
-  sheet.className = "sale-sheet checkout";
-  sheet.innerHTML = `
-    <button class="sale-sheet-backdrop" aria-label="Cerrar cobro"></button>
-    <section class="sale-sheet-card" role="dialog" aria-modal="true" aria-labelledby="checkout-title">
-      <div class="sale-sheet-handle"></div>
-      <div class="sale-sheet-head">
-        <div><small>COBRAR</small><h2 id="checkout-title">${fmt(totalMinor, "USD")}</h2></div>
-      </div>
-      <p class="checkout-rates"></p>
-      <div class="checkout-methods"></div>
-      <div class="checkout-rows"></div>
-      <p class="checkout-balance" aria-live="polite"></p>
-      <p class="checkout-error" role="alert"></p>
-      <button type="button" class="checkout-confirm">Confirmar venta</button>
-      <button type="button" class="sale-sheet-close">Cancelar</button>
-    </section>`;
-  document.body.appendChild(sheet);
+  const panel = openSheet(`
+      <div class="sheet-head"><h2>Cobrar ${fmt(totalMinor, "USD")}</h2><button type="button" class="btn btn-ghost checkout-cancel">Cancelar</button></div>
+      <p class="t-sm muted checkout-rates"></p>
+      <div class="checkout-rows" style="display: flex; flex-direction: column; gap: 8px"></div>
+      <p class="t-xs muted" style="font-weight: 700">AÑADIR FORMA DE PAGO (MÁX. ${MAX_PAYMENTS})</p>
+      <div class="methods checkout-methods"></div>
+      <div class="kv"><span style="font-weight: 700">Cubierto</span><span class="badge checkout-balance" aria-live="polite" style="font-size: 15px"></span></div>
+      <p class="t-sm checkout-error" role="alert" style="color: var(--nx-danger); font-weight: 700"></p>
+      <button type="button" class="btn btn-primary btn-xl btn-block checkout-confirm">Confirmar venta</button>`, "Cobrar");
+  const sheet = panel.el;
 
   const $ = <T extends HTMLElement>(sel: string) => sheet.querySelector<T>(sel)!;
   const cup = rateOf(rates, "CUP");
@@ -154,13 +149,13 @@ export async function openCheckout(totalMinor: number): Promise<PaymentInput[] |
     .filter(c => rates.has(c))
     .map(c => `${c} ${escapeHtml(rates.get(c)!.perUsd)}`);
   const newest = rateList.map(r => r.setAt).sort().pop();
-  $(".checkout-rates").textContent = rateParts.length
+  $(".checkout-rates").innerHTML = icon("clock", "sm") + " " + escapeHtml(rateParts.length
     ? `${cup ? `= ${fmt(Math.round(totalMinor * cup), "CUP")} · ` : ""}Tasas: ${rateParts.join(" · ")}${newest ? ` (${ago(newest)})` : ""}`
-    : "Sin tasas de cambio: el dueño las fija en el panel. Solo USD disponible.";
+    : "Sin tasas de cambio: el dueño las fija en el panel. Solo USD disponible.");
 
   $(".checkout-methods").innerHTML = METHODS.map(m => {
     const missing = rateOf(rates, m.currency) === null;
-    return `<button type="button" class="chip" data-key="${m.key}" ${missing ? `aria-disabled="true" title="Falta la tasa ${m.currency} en el panel"` : ""}>${escapeHtml(m.label)}</button>`;
+    return `<button type="button" class="method-btn" data-key="${m.key}" ${missing ? `disabled title="Falta la tasa ${m.currency} en el panel"` : ""}>${icon("plus", "sm")}${escapeHtml(m.label)}</button>`;
   }).join("");
 
   const render = () => {
@@ -168,12 +163,13 @@ export async function openCheckout(totalMinor: number): Promise<PaymentInput[] |
     $(".checkout-rows").innerHTML = rows.map((row, i) => {
       const rate = rateOf(rates, row.def.currency)!;
       const usd = row.def.currency === "USD" ? "" : ` ≈ ${fmt(Math.round(row.amountMinor / rate), "USD")}`;
-      return `<div class="checkout-row" data-i="${i}">
-        <div class="checkout-row-head"><strong>${escapeHtml(row.def.label)}</strong><button type="button" class="checkout-remove" aria-label="Quitar pago">×</button></div>
-        <label>Importe en ${row.def.currency}<input class="checkout-amount" inputmode="decimal" value="${(row.amountMinor / 100).toFixed(2)}"></label>
-        <span class="fin-muted">${usd}</span>
-        ${row.def.providers ? `<label>Vía<select class="checkout-provider">${row.def.providers.map(p => `<option ${p === row.provider ? "selected" : ""}>${p}</option>`).join("")}</select></label>` : ""}
-        ${row.def.needsRef ? `<label>Referencia<input class="checkout-ref" autocomplete="off" value="${escapeHtml(row.ref)}" placeholder="Nº de transacción"></label>` : ""}
+      const missingRef = row.def.needsRef && !row.ref.trim();
+      return `<div class="pay checkout-row${missingRef ? " is-active" : ""}" data-i="${i}">
+        <span class="method">${methodIcon(row.def)}${escapeHtml(row.def.label)}<button type="button" class="btn btn-ghost btn-icon checkout-remove" aria-label="Quitar pago">${icon("trash", "sm")}</button></span>
+        <label class="amount"><input class="checkout-amount num" inputmode="decimal" aria-label="Importe en ${row.def.currency}" value="${(row.amountMinor / 100).toFixed(2)}" style="width: 96px; border: 0; background: transparent; font: inherit; text-align: right"><small>${row.def.currency}</small></label>
+        ${usd ? `<span class="t-xs muted" style="grid-column: 1 / -1; margin-top: -6px">${usd}</span>` : ""}
+        ${row.def.providers ? `<label class="field" style="grid-column: 1 / -1">Vía<select class="input checkout-provider">${row.def.providers.map(p => `<option ${p === row.provider ? "selected" : ""}>${p}</option>`).join("")}</select></label>` : ""}
+        ${row.def.needsRef ? `<label class="ref${missingRef ? " is-missing" : ""}">${icon(missingRef ? "alert" : "check", "sm")}<input class="checkout-ref" autocomplete="off" value="${escapeHtml(row.ref)}" placeholder="Referencia de la transacción" style="flex: 1; border: 0; background: transparent; font: inherit; color: inherit; min-height: 40px"></label>` : ""}
       </div>`;
     }).join("");
     sheet.querySelectorAll<HTMLElement>(".checkout-row").forEach(el => {
@@ -189,7 +185,10 @@ export async function openCheckout(totalMinor: number): Promise<PaymentInput[] |
         render();
       };
       const ref = el.querySelector<HTMLInputElement>(".checkout-ref");
-      if (ref) ref.oninput = () => (row.ref = ref.value);
+      if (ref) {
+        ref.oninput = () => (row.ref = ref.value);
+        ref.onchange = () => render();
+      }
       const provider = el.querySelector<HTMLSelectElement>(".checkout-provider");
       if (provider) provider.onchange = () => (row.provider = provider.value);
     });
@@ -197,16 +196,16 @@ export async function openCheckout(totalMinor: number): Promise<PaymentInput[] |
     const balance = $(".checkout-balance");
     if (s.remaining > 0) {
       balance.textContent = `Falta ${fmt(s.remaining, "USD")}${cup ? ` (${fmt(Math.ceil(s.remaining * cup), "CUP")})` : ""}`;
-      balance.dataset.tone = "due";
+      balance.className = "badge badge-low checkout-balance";
     } else if (s.changeMinor > 0 && s.remaining === 0) {
-      balance.textContent = `Cambio: ${fmt(s.changeLocal, s.changeCurrency)}`;
-      balance.dataset.tone = "ok";
+      balance.textContent = `Cambio a devolver: ${fmt(s.changeLocal, s.changeCurrency)}`;
+      balance.className = "badge badge-info checkout-balance";
     } else if (s.remaining < 0) {
       balance.textContent = `Sobran ${fmt(-s.remaining, "USD")}: solo el efectivo admite cambio`;
-      balance.dataset.tone = "due";
+      balance.className = "badge badge-out checkout-balance";
     } else {
-      balance.textContent = "Pagado completo";
-      balance.dataset.tone = "ok";
+      balance.textContent = `Completo · ${fmt(totalMinor, "USD")}`;
+      balance.className = "badge badge-ok checkout-balance";
     }
     $(".checkout-error").textContent = "";
   };
@@ -232,18 +231,19 @@ export async function openCheckout(totalMinor: number): Promise<PaymentInput[] |
     render();
     sheet.querySelectorAll<HTMLInputElement>(".checkout-amount").item(rows.length - 1)?.select();
   };
-  sheet.querySelectorAll<HTMLButtonElement>(".checkout-methods .chip").forEach(b => {
+  sheet.querySelectorAll<HTMLButtonElement>(".checkout-methods .method-btn").forEach(b => {
     b.onclick = () => addMethod(METHODS.find(m => m.key === b.dataset.key)!);
   });
   render();
 
   return new Promise(resolve => {
-    const close = (result: PaymentInput[] | null) => {
-      sheet.remove();
-      resolve(result);
+    let result: PaymentInput[] | null = null;
+    const close = (r: PaymentInput[] | null) => {
+      result = r;
+      panel.close();
     };
-    $(".sale-sheet-backdrop").onclick = () => close(null);
-    $(".sale-sheet-close").onclick = () => close(null);
+    void panel.closed.then(() => resolve(result));
+    $(".checkout-cancel").onclick = () => close(null);
     $(".checkout-confirm").onclick = () => {
       const s = settle(rows, totalMinor, rates);
       const error = $(".checkout-error");
