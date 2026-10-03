@@ -288,10 +288,15 @@ Owner approved ("sí, crea la sincronización en Supabase"). Project `nexo-produ
 - **POS "Resumen del negocio (nube)":** sales per day and currency for all devices, historic totals, open fiado, messenger cash and the last connection of each device. Verified on Windows with real data: 22 sales, 9000.00 USD (13 from the Redmi, 9 from Windows).
 - **Data caveat:** the Redmi clock is about 6 days ahead (it reported 2026-10-09 on 2026-10-03), so its sales appear on 2026-10-08 in the cloud summary. Fix the phone date; events keep the time they were recorded with.
 
+### Owner web dashboard checkpoint — LIVE, WAITING FOR OWNER ACCOUNT — 2026-10-03
+- **Live:** https://nexo-negocio.vercel.app (Vercel project `nexo-negocio`, team `ernest196391s-projects`; source `apps/business-dashboard/index.html`, a static page with supabase-js). Sign-up / sign-in with email and password (Supabase Auth of `nexo-production`), period selector (7/30/90 days), sales per day and currency, totals, open fiado, messenger cash and device sync state.
+- **Access control (applied, `20261003040000_nexo_business_members.sql`):** `nexo_business.members` (user ↔ business, role owner/viewer) added only by NEXO with the service role; `public.nexo_business_member_summary(days)` is executable by signed-in users and returns data only for their memberships (anon gets 401). The device-token summary now shares `summary_for()`.
+- **Pending:** the owner signs up on the page and confirms the email; NEXO then inserts the membership row for `casa-viva`. Redeploy: `create_deployment` with the file, or Vercel CLI from `apps/business-dashboard`.
+
 ### Next executable block
-1. Owner review of the Operaciones panel on the phone; then consignment and transfer/count screens.
-2. Owner web dashboard with real login (Supabase Auth) instead of device tokens, when more than one person needs the numbers.
-3. Pull side (catalog/prices from cloud to devices) per ADR-001.
+1. Link the owner account to `casa-viva` once it exists, and check the dashboard with real data.
+2. Pull side (catalog/prices from cloud to devices) per ADR-001.
+3. Owner review of the Operaciones panel on the phone; then consignment and transfer/count screens.
 3. One offline shift on Android (open, sales, movements, fiado, messenger return, refund, close) once the UI exists.
 
 ## Local verification — Windows laptop — 2026-09-28

@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NEXO Negocio</title>
+<meta name="robots" content="noindex">
+<style>
+:root{--bg:#f4f5f7;--card:#fff;--ink:#111827;--muted:#475569;--line:#e5e7eb;--ok:#14532d;--bad:#7f1d1d;color-scheme:light}
+@media (prefers-color-scheme:dark){:root{--bg:#0f172a;--card:#111c33;--ink:#e5e7eb;--muted:#94a3b8;--line:#1f2a44;--ok:#86efac;--bad:#fca5a5;color-scheme:dark}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Helvetica,Arial,sans-serif}
+main{max-width:760px;margin:auto;padding:24px 16px}header small{font-weight:700;letter-spacing:.08em;color:var(--muted)}h1{margin:.25rem 0 1rem}
+.card{background:var(--card);border-radius:18px;padding:18px;margin:14px 0}
+label{display:grid;gap:6px;font-weight:700;margin:10px 0}
+input,select{font:inherit;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink);width:100%}
+button{font:inherit;min-height:46px;border:0;border-radius:12px;background:var(--ink);color:var(--bg);font-weight:700;padding:0 16px;cursor:pointer}
+button.link{background:transparent;color:var(--muted);min-height:36px;padding:0}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+.muted{color:var(--muted)}.msg{padding:10px 12px;border-radius:12px;margin:10px 0}.msg[data-tone=ok]{color:var(--ok)}.msg[data-tone=bad]{color:var(--bad)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}.kpi{border:1px solid var(--line);border-radius:14px;padding:12px}.kpi strong{display:block;font-size:1.25rem;margin-top:4px}
+.wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:.95rem}th,td{padding:8px 6px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}th:first-child,td:first-child{text-align:left}
+ul{padding-left:18px}
+</style>
+</head>
+<body>
+<main>
+  <header><small>NEXO BUSINESS</small><h1>Resumen del negocio</h1></header>
+
+  <section class="card" id="auth">
+    <form id="login">
+      <label>Correo<input name="email" type="email" autocomplete="email" required></label>
+      <label>Contraseña<input name="password" type="password" autocomplete="current-password" minlength="8" required></label>
+      <div class="row">
+        <button type="submit">Entrar</button>
+        <button type="button" class="link" id="signup">Crear cuenta</button>
+      </div>
+    </form>
+    <div class="msg" id="auth-msg" role="status"></div>
+  </section>
+
+  <section id="app" hidden>
+    <div class="row card">
+      <span class="muted" id="who"></span>
+      <div class="row">
+        <select id="days" aria-label="Periodo"><option value="7">7 días</option><option value="30">30 días</option><option value="90">90 días</option></select>
+        <button type="button" id="refresh">Actualizar</button>
+        <button type="button" class="link" id="logout">Salir</button>
+      </div>
+    </div>
+    <div id="content"></div>
+  </section>
+</main>
+
+<script type="module">
+import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+
+// Publishable key: safe in the browser. Data access is enforced in the database
+// (only members of a business can read its summary).
+const supabase = createClient(
+  "https://viwwlriwlwodrfukbgbj.supabase.co",
+  "sb_publishable_1NdUSjDeoYWTMgu2MYOfeg_1K0G241x",
+);
+
+const $ = s => document.querySelector(s);
+const esc = v => String(v ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+const money = (minor, currency) =>
+  `${(minor / 100).toLocaleString("es", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ${esc(currency)}`;
+const say = (text, tone = "") => { const m = $("#auth-msg"); m.textContent = text; m.dataset.tone = tone; };
+
+function render(summary) {
+  const businesses = summary.businesses ?? [];
+  if (!businesses.length) {
+    $("#content").innerHTML = `<div class="card"><p>Tu cuenta todavía no tiene acceso a ningún negocio.</p><p class="muted">Pide a NEXO que la vincule a tu negocio; después pulsa Actualizar.</p></div>`;
+    return;
+  }
+  $("#content").innerHTML = businesses.map(b => {
+    const period = b.days.reduce((acc, d) => {
+      acc[d.currency] ??= { count: 0, minor: 0, refunds: 0 };
+      acc[d.currency].count += d.salesCount; acc[d.currency].minor += d.salesMinor; acc[d.currency].refunds += d.refundsMinor;
+      return acc;
+    }, {});
+    const kpis = Object.entries(period).map(([c, v]) =>
+      `<div class="kpi"><span class="muted">Ventas del periodo · ${esc(c)}</span><strong>${money(v.minor, c)}</strong><span class="muted">${v.count} ventas · devuelto ${money(v.refunds, c)}</span></div>`).join("")
+      || `<div class="kpi"><span class="muted">Ventas del periodo</span><strong>Sin ventas</strong></div>`;
+    const list = (items, fn) => items.length ? items.map(fn).join(" · ") : "nada";
+    return `<section class="card">
+      <div class="row"><h2>${esc(b.businessId)}</h2><span class="muted">desde ${esc(b.since)}</span></div>
+      <div class="kpis">${kpis}</div>
+      <div class="wrap"><table>
+        <thead><tr><th>Día</th><th>Ventas</th><th>Importe</th><th>Devuelto</th></tr></thead>
+        <tbody>${b.days.map(d => `<tr><td>${esc(d.day)}</td><td>${d.salesCount}</td><td>${money(d.salesMinor, d.currency)}</td><td>${money(d.refundsMinor, d.currency)}</td></tr>`).join("") || `<tr><td colspan="4">Sin ventas en el periodo</td></tr>`}</tbody>
+      </table></div>
+      <p><strong>Total histórico:</strong> ${list(b.totals, t => `${t.salesCount} ventas · ${money(t.salesMinor, t.currency)}`)}</p>
+      <p><strong>Fiado pendiente:</strong> ${list(b.receivables, r => `${money(r.balanceMinor, r.currency)} (${r.openCount})`)}</p>
+      <p><strong>Efectivo en manos de mensajeros:</strong> ${list(b.messengerCash, m => money(m.outstandingMinor, m.currency))}</p>
+      <h3>Equipos</h3>
+      <ul>${b.devices.map(d => `<li>${esc(d.label ?? d.deviceId)} · ${d.events} registros · última conexión ${d.lastSeenAt ? esc(new Date(d.lastSeenAt).toLocaleString("es")) : "nunca"}</li>`).join("")}</ul>
+      <p class="muted">Datos sincronizados hasta ${esc(new Date(b.generatedAt).toLocaleString("es"))}. Un equipo sin conexión sube sus ventas al recuperarla.</p>
+    </section>`;
+  }).join("");
+}
+
+async function load() {
+  $("#content").innerHTML = `<div class="card muted">Cargando…</div>`;
+  const { data, error } = await supabase.rpc("nexo_business_member_summary", { p_days: Number($("#days").value) });
+  if (error || data?.error) {
+    $("#content").innerHTML = `<div class="card">No se pudo cargar el resumen: ${esc(error?.message ?? data.error)}</div>`;
+    return;
+  }
+  render(data);
+}
+
+async function show(session) {
+  const signedIn = Boolean(session);
+  $("#auth").hidden = signedIn;
+  $("#app").hidden = !signedIn;
+  if (signedIn) {
+    $("#who").textContent = session.user.email ?? "";
+    await load();
+  }
+}
+
+$("#login").onsubmit = async e => {
+  e.preventDefault();
+  const f = new FormData(e.target);
+  say("Entrando…");
+  const { error } = await supabase.auth.signInWithPassword({ email: f.get("email"), password: f.get("password") });
+  if (error) say(error.message === "Email not confirmed" ? "Confirma tu correo con el enlace que te enviamos y vuelve a entrar." : "Correo o contraseña incorrectos.", "bad");
+};
+
+$("#signup").onclick = async () => {
+  const form = $("#login");
+  if (!form.reportValidity()) return;
+  const f = new FormData(form);
+  say("Creando cuenta…");
+  const { error } = await supabase.auth.signUp({
+    email: f.get("email"),
+    password: f.get("password"),
+    options: { emailRedirectTo: location.origin + location.pathname },
+  });
+  say(error ? `No se pudo crear la cuenta: ${error.message}` : "Cuenta creada. Revisa tu correo para confirmarla y después entra.", error ? "bad" : "ok");
+};
+
+$("#refresh").onclick = load;
+$("#days").onchange = load;
+$("#logout").onclick = () => supabase.auth.signOut();
+
+// Fires once on load (INITIAL_SESSION) and on every sign-in/out.
+supabase.auth.onAuthStateChange((_event, session) => { void show(session); });
+</script>
+</body>
+</html>
