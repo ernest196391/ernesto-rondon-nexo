@@ -29,6 +29,17 @@ pub struct CatalogChange {
     #[serde(default)]
     pub prices: BTreeMap<String, i64>,
     pub updated_at: String,
+    #[serde(default)]
+    pub category: Option<String>,
+    /// Product ID of the parent when this item is a variant.
+    #[serde(default)]
+    pub variant_of: Option<String>,
+    #[serde(default)]
+    pub variant_label: Option<String>,
+}
+
+fn clean(value: &Option<String>) -> Option<&str> {
+    value.as_deref().map(str::trim).filter(|s| !s.is_empty())
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize)]
@@ -105,10 +116,11 @@ pub fn apply_catalog_page(
         }
 
         tx.execute(
-            "INSERT INTO local_products (id,business_id,sku,name,active,version,updated_at)
-             VALUES (?1,?2,?3,?4,?5,?6,?7)
+            "INSERT INTO local_products (id,business_id,sku,name,active,version,updated_at,category,variant_of,variant_label)
+             VALUES (?1,?2,?3,?4,?5,?6,?7,?8,?9,?10)
              ON CONFLICT(id) DO UPDATE SET sku=excluded.sku, name=excluded.name, active=excluded.active,
-               version=excluded.version, updated_at=excluded.updated_at",
+               version=excluded.version, updated_at=excluded.updated_at, category=excluded.category,
+               variant_of=excluded.variant_of, variant_label=excluded.variant_label",
             params![
                 product_id,
                 business_id,
@@ -116,7 +128,10 @@ pub fn apply_catalog_page(
                 change.name.trim(),
                 change.active as i64,
                 change.seq,
-                change.updated_at
+                change.updated_at,
+                clean(&change.category),
+                clean(&change.variant_of),
+                clean(&change.variant_label)
             ],
         )?;
 

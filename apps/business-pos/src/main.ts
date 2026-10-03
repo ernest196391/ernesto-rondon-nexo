@@ -43,6 +43,7 @@ app.innerHTML = `
   <div class="status" id="status">Preparando base local…</div>
   <label>Buscar o escanear<input id="query" autocomplete="off" inputmode="search" placeholder="Nombre, SKU o código"></label>
   <button id="scan" type="button">Escanear con cámara</button>
+  <nav id="categories" class="categories" aria-label="Categorías" hidden></nav>
   <div id="products"></div>
   <aside>
     <h2>Carrito</h2>
@@ -311,31 +312,99 @@ async function init() {
   }
 
   document.querySelector("#status")!.textContent = "Base local formal lista · Internet no requerido";
-  await renderProducts("");
+  await refreshCatalog();
   renderCart();
   await renderHistory();
   await renderAudit();
   await mountFinance(document.querySelector<HTMLElement>("#finance")!, db);
 }
 
+type ListedProduct = Product & { category: string | null; variant_of: string | null; variant_label: string | null };
+type ProductGroup = { key: string; title: string; items: ListedProduct[] };
+
+const NO_CATEGORY = "Sin categoría";
+let selectedCategory = "";
+
+const escapeHtml = (s: unknown) =>
+  String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!);
+
+/** "Silla — Azul" with label "Azul" → "Silla" (the import names variants that way). */
+function variantTitle(p: ListedProduct) {
+  const label = p.variant_label?.trim();
+  if (!label || !p.name.endsWith(label)) return p.name;
+  return p.name.slice(0, -label.length).replace(/[\s—–-]+$/, "") || p.name;
+}
+
+/** Variants of one product become one card; simple products stay alone. */
+function groupProducts(rows: ListedProduct[]): ProductGroup[] {
+  const groups = new Map<string, ProductGroup>();
+  for (const p of rows) {
+    const key = p.variant_of ? `v:${p.variant_of}` : `p:${p.id}`;
+    const group = groups.get(key) ?? { key, title: p.variant_of ? variantTitle(p) : p.name, items: [] };
+    group.items.push(p);
+    groups.set(key, group);
+  }
+  return Array.from(groups.values()).sort((a, b) => a.title.localeCompare(b.title, "es"));
+}
+
+async function renderCategories() {
+  const rows = await db.select<Array<{ category: string | null; count: number }>>(
+    `SELECT p.category, COUNT(DISTINCT COALESCE(p.variant_of, p.id)) AS count
+     FROM local_products p
+     JOIN local_prices pr ON pr.product_id=p.id AND pr.business_id=p.business_id AND pr.active=1 AND pr.currency='USD'
+     WHERE p.business_id=$1 AND p.active=1
+     GROUP BY p.category
+     ORDER BY p.category IS NULL, p.category`,
+    [BUSINESS_ID]
+  );
+  const el = document.querySelector<HTMLElement>("#categories")!;
+  const names = rows.map(r => r.category ?? NO_CATEGORY);
+  if (selectedCategory && !names.includes(selectedCategory)) selectedCategory = "";
+  // One category (or none) adds nothing to filter by.
+  el.hidden = rows.length < 2;
+  const total = rows.reduce((sum, r) => sum + r.count, 0);
+  const chip = (value: string, text: string, count: number) =>
+    `<button type="button" class="chip" data-category="${escapeHtml(value)}" aria-pressed="${value === selectedCategory}">${escapeHtml(text)} <span>${count}</span></button>`;
+  el.innerHTML = chip("", "Todas", total) + rows.map(r => chip(r.category ?? NO_CATEGORY, r.category ?? NO_CATEGORY, r.count)).join("");
+  el.querySelectorAll<HTMLButtonElement>(".chip").forEach(b => b.onclick = () => {
+    selectedCategory = b.dataset.category ?? "";
+    el.querySelectorAll<HTMLButtonElement>(".chip").forEach(c => c.setAttribute("aria-pressed", String(c === b)));
+    void renderProducts(queryInput.value);
+  });
+}
+
 async function renderProducts(q: string) {
-  const rows = await db.select<Product[]>(
-    `SELECT p.id,p.name,pr.amount_minor AS price_minor,b.code AS barcode
+  const rows = await db.select<ListedProduct[]>(
+    `SELECT p.id,p.name,p.category,p.variant_of,p.variant_label,pr.amount_minor AS price_minor,MIN(b.code) AS barcode
      FROM local_products p
      JOIN local_prices pr ON pr.product_id=p.id AND pr.business_id=p.business_id AND pr.active=1 AND pr.currency='USD'
      LEFT JOIN local_barcodes b ON b.product_id=p.id AND b.business_id=p.business_id
      WHERE p.business_id=$1 AND p.active=1
        AND (p.name LIKE $2 OR COALESCE(p.sku,'') LIKE $2 OR COALESCE(b.code,'') LIKE $2)
+       AND ($3 = '' OR COALESCE(p.category,$4) = $3)
+     GROUP BY p.id
      ORDER BY p.name`,
-    [BUSINESS_ID, `%${q}%`]
+    [BUSINESS_ID, `%${q}%`, selectedCategory, NO_CATEGORY]
   );
   const el = document.querySelector("#products")!;
-  el.innerHTML = rows.map(p =>
-    `<button class="product" data-id="${p.id}"><strong>${p.name}</strong><span>${money(p.price_minor)}</span></button>`
-  ).join("");
-  el.querySelectorAll<HTMLButtonElement>(".product").forEach(
-    b => b.onclick = () => addToCart(rows.find(p => p.id === b.dataset.id)!)
+  const byId = new Map(rows.map(p => [p.id, p]));
+  el.innerHTML = groupProducts(rows).map(g => g.items.length === 1 && !g.items[0].variant_of
+    ? `<button class="product" data-id="${escapeHtml(g.items[0].id)}"><strong>${escapeHtml(g.title)}</strong><span>${money(g.items[0].price_minor)}</span></button>`
+    : `<div class="product-group">
+        <strong>${escapeHtml(g.title)}</strong>
+        <div class="variants">${g.items.map(p =>
+          `<button class="variant" data-id="${escapeHtml(p.id)}"><span>${escapeHtml(p.variant_label ?? p.name)}</span><span>${money(p.price_minor)}</span></button>`
+        ).join("")}</div>
+      </div>`
+  ).join("") || `<p class="empty">Sin productos para esta búsqueda</p>`;
+  el.querySelectorAll<HTMLButtonElement>(".product, .variant").forEach(
+    b => b.onclick = () => addToCart(byId.get(b.dataset.id!)!)
   );
+}
+
+async function refreshCatalog() {
+  await renderCategories();
+  await renderProducts(queryInput.value);
 }
 
 async function addBarcodeToCart(code: string, source: "camera" | "hid" | "manual") {
@@ -495,7 +564,7 @@ async function renderHistory() {
 
 const queryInput = document.querySelector("#query") as HTMLInputElement;
 queryInput.oninput = e => renderProducts((e.target as HTMLInputElement).value);
-window.addEventListener("nexo:catalog-updated", () => void renderProducts(queryInput.value));
+window.addEventListener("nexo:catalog-updated", () => void refreshCatalog());
 queryInput.onkeydown = async e => {
   if (e.key !== "Enter") return;
   const code = queryInput.value.trim();
