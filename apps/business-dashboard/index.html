@@ -155,6 +155,8 @@ function wireDevices(el) {
 // ---------- Catalog editor (owners) ----------
 
 const CURRENCIES = ["USD", "CUP", "MLC"];
+// Message to show once the catalog section finishes re-rendering.
+const pendingCatalogMsg = {};
 const toMinor = raw => {
   const v = Number(String(raw).replace(",", ".").trim());
   return Number.isFinite(v) && v >= 0 ? Math.round(v * 100) : null;
@@ -184,6 +186,10 @@ async function loadCatalog(el) {
     <div class="msg" data-msg role="status"></div>`;
   const form = el.querySelector("[data-form]");
   const msg = el.querySelector("[data-msg]");
+  if (pendingCatalogMsg[business]) {
+    msg.textContent = pendingCatalogMsg[business]; msg.dataset.tone = "ok";
+    delete pendingCatalogMsg[business];
+  }
   const open = p => {
     form.hidden = false;
     form.innerHTML = `
@@ -239,9 +245,8 @@ async function loadCatalog(el) {
       });
       const out = await r.json();
       if (!r.ok) throw new Error(out.detail ?? out.error ?? `HTTP ${r.status}`);
+      pendingCatalogMsg[business] = `✓ Web: ${out.items} artículos, ${out.catalogChanges} cambios de catálogo, ${out.stockCounts} existencias actualizadas, ${out.deactivated} retirados.`;
       await load();
-      const done = document.querySelector(`[data-catalog="${CSS.escape(business)}"] [data-msg]`);
-      if (done) { done.textContent = `✓ Web: ${out.items} artículos, ${out.catalogChanges} cambios de catálogo, ${out.stockCounts} existencias actualizadas, ${out.deactivated} retirados.`; done.dataset.tone = "ok"; }
     } catch (e) {
       msg.textContent = `No se pudo importar: ${e.message}`; msg.dataset.tone = "bad"; btn.disabled = false;
     }
