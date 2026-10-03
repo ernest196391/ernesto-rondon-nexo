@@ -79,6 +79,32 @@ export async function pushOutbox(endpoint: string, deviceToken: string): Promise
   return state;
 }
 
+// ---------- Catalog pull ----------
+
+type CatalogChange = { seq: number; productId: string; name: string; active: boolean; barcodes: string[]; prices: Record<string, number> };
+type ApplyResult = { applied: number; lastSeq: number };
+
+function pullUrl(endpoint: string, after: number) {
+  return `${endpoint.replace(/nexo-sync-push\/?$/, "nexo-catalog-pull")}?after=${after}&limit=200`;
+}
+
+/** Downloads catalog changes after the local checkpoint and applies them page by page. */
+export async function pullCatalog(endpoint: string, deviceToken: string): Promise<number> {
+  let total = 0;
+  for (let page = 0; page < 50; page++) {
+    const after = await invoke<number>("catalog_checkpoint");
+    const response = await fetch(pullUrl(endpoint, after), { headers: { "x-nexo-device-token": deviceToken } });
+    if (!response.ok) throw new Error(`Catálogo: HTTP ${response.status}`);
+    const { changes } = (await response.json()) as { changes: CatalogChange[] };
+    if (!Array.isArray(changes) || !changes.length) break;
+    const result = await invoke<ApplyResult>("catalog_apply", { changes, now: new Date().toISOString() });
+    total += result.applied;
+    if (changes.length < 200) break;
+  }
+  if (total) window.dispatchEvent(new CustomEvent("nexo:catalog-updated", { detail: { applied: total } }));
+  return total;
+}
+
 // ---------- Automatic background sync ----------
 
 const AUTO_INTERVAL_MS = 60_000;
@@ -93,7 +119,13 @@ async function syncOnce(): Promise<SyncState | undefined> {
   if (running || !endpoint || !token || !navigator.onLine) return undefined;
   running = true;
   try {
-    return await pushOutbox(endpoint, token);
+    const state = await pushOutbox(endpoint, token);
+    try {
+      await pullCatalog(endpoint, token);
+    } catch (e) {
+      console.warn("catalog pull", e);
+    }
+    return state;
   } finally {
     running = false;
   }

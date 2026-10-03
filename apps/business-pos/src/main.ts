@@ -322,7 +322,7 @@ async function renderProducts(q: string) {
   const rows = await db.select<Product[]>(
     `SELECT p.id,p.name,pr.amount_minor AS price_minor,b.code AS barcode
      FROM local_products p
-     JOIN local_prices pr ON pr.product_id=p.id AND pr.business_id=p.business_id AND pr.active=1
+     JOIN local_prices pr ON pr.product_id=p.id AND pr.business_id=p.business_id AND pr.active=1 AND pr.currency='USD'
      LEFT JOIN local_barcodes b ON b.product_id=p.id AND b.business_id=p.business_id
      WHERE p.business_id=$1 AND p.active=1
        AND (p.name LIKE $2 OR COALESCE(p.sku,'') LIKE $2 OR COALESCE(b.code,'') LIKE $2)
@@ -351,6 +351,7 @@ async function addBarcodeToCart(code: string, source: "camera" | "hid" | "manual
        ON pr.product_id=p.id
       AND pr.business_id=p.business_id
       AND pr.active=1
+      AND pr.currency='USD'
      WHERE b.business_id=$1
        AND b.code=$2
        AND p.active=1
@@ -494,6 +495,7 @@ async function renderHistory() {
 
 const queryInput = document.querySelector("#query") as HTMLInputElement;
 queryInput.oninput = e => renderProducts((e.target as HTMLInputElement).value);
+window.addEventListener("nexo:catalog-updated", () => void renderProducts(queryInput.value));
 queryInput.onkeydown = async e => {
   if (e.key !== "Enter") return;
   const code = queryInput.value.trim();
