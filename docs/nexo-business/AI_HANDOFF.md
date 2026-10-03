@@ -303,3 +303,6 @@ The owner approved Claude working on the POS UI. Financial screens live in `apps
 
 ## Cloud ingestion — 2026-10-03 (Claude Code lane)
 Supabase `nexo-production` now has schema `nexo_business` (devices + append-only sync_events + `push_events`), applied from `supabase/migrations/`. The Edge Function `supabase/functions/nexo-sync-push` still needs deploying (`npx supabase functions deploy nexo-sync-push --project-ref viwwlriwlwodrfukbgbj --no-verify-jwt`). Never grant anon access to the ingestion RPC or the tables.
+
+## Cloud sync live — 2026-10-03 (Claude Code lane)
+`nexo-sync-push` is deployed and both pilots are provisioned and synced (22 events). The Supabase CLI is logged in on the owner laptop; redeploy with `npx.cmd supabase functions deploy nexo-sync-push --project-ref viwwlriwlwodrfukbgbj --no-verify-jwt` from the repo root. Device tokens: never print or commit them; provision new devices by inserting only the SHA-256 hash.

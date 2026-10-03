@@ -1,6 +1,6 @@
 # NEXO Business — Outbox push contract v1
 
-**Status:** client implemented; cloud storage and ingestion function live in Supabase `nexo-production` (`viwwlriwlwodrfukbgbj`), schema `nexo_business` (2026-10-03). The Edge Function `nexo-sync-push` is written (`supabase/functions/nexo-sync-push`) but not deployed yet.
+**Status:** LIVE (2026-10-03). Supabase `nexo-production` (`viwwlriwlwodrfukbgbj`), schema `nexo_business`, Edge Function `nexo-sync-push` deployed. Both pilot devices are provisioned and have pushed their full outbox.
 **Read with:** `ADR-001-OFFLINE-SYNC.md`.
 
 ## Request
@@ -46,7 +46,7 @@ Any non-200, malformed or incomplete response is a transport failure: every even
 ## Server obligations
 1. Authenticate the device and its business (to be designed with device provisioning).
 2. Store `eventId` uniquely **in the same transaction** that applies the effect, so a retry can never duplicate a sale, payment, cash movement or stock movement.
-3. Reject events whose `businessId`/`deviceId` differ from the batch.
+3. Reject events of another business. Every stored event is attributed to the authenticated sender device (`sync_events.device_id`); the device label the event was written with stays in `envelope` (early Android builds labelled sales `windows-pilot-01`).
 4. Apply append-only semantics from `FINANCIAL_MODEL.md`; never last-write-wins for money or stock.
 
 `packages/business-domain/src/sync-contract.ts` holds the types, the client-side response check (`validatePushResponse`) and a reference classifier for the server (`classifyPush`).
@@ -57,7 +57,8 @@ Any non-200, malformed or incomplete response is a transport failure: every even
 ## Cloud side (Supabase `nexo-production`)
 - Migration `supabase/migrations/20261003010000_nexo_business_sync.sql` (applied): schema `nexo_business` with `devices` (token stored only as SHA-256) and append-only `sync_events` (unique `event_id`), RLS on, no anon/authenticated access. `nexo_business.push_events(token, request)` authenticates the device and stores each event once; `public.nexo_business_push_events` is its service-role-only RPC wrapper.
 - Verified inside a rolled-back transaction: new event → `applied`, retry → `duplicate`, foreign event → `rejected`, wrong token → `unauthorized`; tables left empty.
-- Edge Function `nexo-sync-push` forwards the batch with the service role. Deploy: `npx supabase functions deploy nexo-sync-push --project-ref viwwlriwlwodrfukbgbj --no-verify-jwt`.
+- Migration `20261003020000_nexo_business_sync_sender_device.sql` (applied): sender-device attribution, so a mislabelled legacy event no longer blocks the batch.
+- Edge Function `nexo-sync-push` (deployed 2026-10-03) forwards the batch with the service role. Redeploy from the repo root: `npx supabase functions deploy nexo-sync-push --project-ref viwwlriwlwodrfukbgbj --no-verify-jwt`.
 - Device provisioning: insert a row in `nexo_business.devices` with `encode(extensions.digest(<token>, sha256), hex)` and enter the token in the POS (Operaciones → Sincronización).
 
 ## Not built yet
