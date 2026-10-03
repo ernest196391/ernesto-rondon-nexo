@@ -14,6 +14,7 @@ use nexo_business_db::receivables::{
     self, OpenReceivableInput, ReceivableBalance, ReceivablePaymentInput, ReceivableWriteOffInput,
 };
 use nexo_business_db::sale_returns::{self, RecordSaleReturnInput, SaleReturnSummary};
+use nexo_business_db::sync::{self, OutboxEvent, PushResult, SyncState};
 use rusqlite::{params, Connection};
 use serde::{Deserialize, Serialize};
 use std::fs;
@@ -453,6 +454,43 @@ fn consignment_settle(
     consignment::settle_consignment(&mut conn, &pilot_scope(), &input).map_err(|e| e.to_string())
 }
 
+#[tauri::command]
+fn sync_state(app: tauri::AppHandle) -> Result<SyncState, String> {
+    let conn = open_local_db(&app)?;
+    sync::sync_state(&conn).map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+fn sync_pending_batch(
+    app: tauri::AppHandle,
+    now: String,
+    limit: i64,
+) -> Result<Vec<OutboxEvent>, String> {
+    let conn = open_local_db(&app)?;
+    sync::pending_batch(&conn, &now, limit).map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+fn sync_record_results(
+    app: tauri::AppHandle,
+    results: Vec<PushResult>,
+    now: String,
+) -> Result<SyncState, String> {
+    let mut conn = open_local_db(&app)?;
+    sync::record_push_results(&mut conn, &results, &now).map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+fn sync_record_failure(
+    app: tauri::AppHandle,
+    event_ids: Vec<String>,
+    error: String,
+    now: String,
+) -> Result<SyncState, String> {
+    let mut conn = open_local_db(&app)?;
+    sync::record_transport_failure(&mut conn, &event_ids, &error, &now).map_err(|e| e.to_string())
+}
+
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     let migrations = nexo_business_db::MIGRATIONS
@@ -500,7 +538,11 @@ pub fn run() {
             inventory_transfer,
             inventory_count,
             consignment_open_account,
-            consignment_settle
+            consignment_settle,
+            sync_state,
+            sync_pending_batch,
+            sync_record_results,
+            sync_record_failure
         ])
         .run(tauri::generate_context!())
         .expect("error while running NEXO Business");

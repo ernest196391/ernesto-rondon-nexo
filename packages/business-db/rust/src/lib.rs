@@ -10,6 +10,7 @@ pub mod inventory;
 pub mod messenger_custody;
 pub mod receivables;
 pub mod sale_returns;
+pub mod sync;
 
 /// A versioned migration: (version, description, sql).
 pub struct LocalMigration {

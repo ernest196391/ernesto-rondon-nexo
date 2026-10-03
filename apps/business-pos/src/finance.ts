@@ -5,6 +5,7 @@
 import { invoke } from "@tauri-apps/api/core";
 import Database from "@tauri-apps/plugin-sql";
 import "./finance.css";
+import { mountSync } from "./sync";
 
 const CURRENCIES = ["USD", "CUP", "MLC"] as const;
 const RAILS: Array<[string, string]> = [
@@ -482,8 +483,9 @@ export async function mountFinance(container: HTMLElement, database: Database) {
     <details><summary>Fiado y abonos</summary><div id="fin-fiado"></div></details>
     <details><summary>Efectivo de mensajeros</summary><div id="fin-messenger"></div></details>
     <details><summary>Devoluciones</summary><div id="fin-returns"></div></details>
-    <details><summary>Ubicaciones e inventario</summary><div id="fin-locations"></div></details>`;
+    <details><summary>Ubicaciones e inventario</summary><div id="fin-locations"></div></details>
+    <details><summary>Sincronización</summary><div id="fin-sync"></div></details>`;
   mountReceivables();
   mountMessenger();
-  await Promise.all([renderShift(), mountReturns(), renderLocations()]).catch(e => say(String(e), "error"));
+  await Promise.all([renderShift(), mountReturns(), renderLocations(), mountSync(root.querySelector<HTMLElement>("#fin-sync")!)]).catch(e => say(String(e), "error"));
 }
