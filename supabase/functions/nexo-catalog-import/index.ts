@@ -95,10 +95,21 @@ function bizneSku(p: BizneProduct): string {
   return m ? `BC-${m[1]}` : `BC-P-${p.code.toLowerCase().replace(/[^a-z0-9_-]/g, "")}`;
 }
 
+/** GET JSON with retries: the website sometimes answers with an HTML error page. */
 async function fetchJson<T>(url: string): Promise<T> {
-  const r = await fetch(url, { headers: { "user-agent": "NEXO-Business-Catalog-Import/1.0" } });
-  if (!r.ok) throw new Error(`${url}: HTTP ${r.status}`);
-  return await r.json() as T;
+  let last = "";
+  for (let attempt = 1; attempt <= 4; attempt++) {
+    try {
+      const r = await fetch(url, { headers: { "user-agent": "NEXO-Business-Catalog-Import/1.0", accept: "application/json" } });
+      const text = await r.text();
+      if (r.ok && /^\s*[[{]/.test(text)) return JSON.parse(text) as T;
+      last = `HTTP ${r.status}, ${r.headers.get("content-type") ?? "?"}: ${text.slice(0, 80).replace(/\s+/g, " ")}`;
+    } catch (e) {
+      last = String(e);
+    }
+    await new Promise(res => setTimeout(res, 1500 * attempt));
+  }
+  throw new Error(`${url}: ${last}`);
 }
 
 /** Website catalog: one item per simple product or per variant. */
@@ -151,6 +162,25 @@ async function readWebsite(base: string, host: string) {
     bySku.set(p.sku || `cv-${p.id}`, items);
   }
   return { products: products.length, bySku };
+}
+
+/**
+ * Stand-in for the website when it is unreachable: the items NEXO already
+ * imported, grouped like readWebsite() (variants under their BizneCubano SKU).
+ * Quantities are left untouched (null) except where BizneCubano gives one.
+ */
+// deno-lint-ignore no-explicit-any
+async function cachedWebsite(admin: any, business: string) {
+  const { data, error } = await admin.rpc("nexo_business_catalog_items", { p_business: business });
+  if (error) throw new Error(error.message);
+  const bySku = new Map<string, Item[]>();
+  for (const c of (data ?? []) as Item[]) {
+    const key = c.variantOf ? (c.sku?.match(/^BC-\d+/)?.[0] ?? c.variantOf) : (c.sku ?? c.productId);
+    const item: Item = { ...c, active: true, stockQuantity: null };
+    bySku.set(key, [...(bySku.get(key) ?? []), item]);
+  }
+  if (!bySku.size) throw new Error("website unavailable and no previous import to fall back on");
+  return { products: 0, bySku };
 }
 
 /** BizneCubano decides publication, price and stock; the website adds variants and IDs. */
@@ -237,7 +267,17 @@ Deno.serve(async req => {
 
   try {
     const host = new URL(source.website_url).hostname;
-    const web = await readWebsite(source.website_url, host);
+    let web: { products: number; bySku: Map<string, Item[]> };
+    let websiteError: string | null = null;
+    try {
+      web = await readWebsite(source.website_url, host);
+    } catch (e) {
+      // Following the website needs the website; following BizneCubano can use
+      // NEXO's own copy of the variants and IDs until the site is back.
+      if (source.kind !== "biznecubano") throw e;
+      websiteError = String(e);
+      web = await cachedWebsite(admin, business);
+    }
     let items: Item[];
     let snapshotAt: string | null = null;
     if (source.kind === "biznecubano") {
@@ -251,7 +291,10 @@ Deno.serve(async req => {
     const { data, error } = await admin.rpc("nexo_business_import_catalog", { p_business: business, p_source: sourceName, p_items: items });
     if (error) throw new Error(error.message);
     if (data?.error) return json(400, data);
-    const result = { source: source.kind, snapshotAt, websiteProducts: web.products, ...data };
+    const result = {
+      source: source.kind, snapshotAt, websiteProducts: web.products,
+      ...(websiteError ? { websiteUnavailable: true, websiteError } : {}), ...data,
+    };
     await admin.rpc("nexo_business_record_import", { p_business: business, p_result: result });
     return json(200, result);
   } catch (e) {
