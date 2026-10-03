@@ -61,6 +61,9 @@ Any non-200, malformed or incomplete response is a transport failure: every even
 - Edge Function `nexo-sync-push` (deployed 2026-10-03) forwards the batch with the service role. Redeploy from the repo root: `npx supabase functions deploy nexo-sync-push --project-ref viwwlriwlwodrfukbgbj --no-verify-jwt`.
 - Device provisioning: insert a row in `nexo_business.devices` with `encode(extensions.digest(<token>, sha256), hex)` and enter the token in the POS (Operaciones → Sincronización).
 
+## Owner summary
+`GET https://viwwlriwlwodrfukbgbj.supabase.co/functions/v1/nexo-business-summary?days=7` with `x-nexo-device-token` returns sales per day/currency (America/Havana), totals, open receivables, messenger cash and devices for the business of the caller. Read models: views in schema `nexo_business` (migration `20261003030000`).
+
 ## Not built yet
-- Projections from `sync_events` into cloud sales/cash/stock tables.
+- Stock per location in the cloud (needs inventory events from every flow, including sale lines).
 - Pull side (ordered changes + checkpoint) and admin UI for provisioning devices.
