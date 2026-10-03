@@ -3,6 +3,7 @@ import Database from "@tauri-apps/plugin-sql";
 import { scan, Format, checkPermissions, requestPermissions } from "@tauri-apps/plugin-barcode-scanner";
 import "./style.css";
 import { mountFinance, refreshFinance } from "./finance";
+import type { DeviceIdentity } from "./sync";
 
 type Product = { id: string; name: string; price_minor: number; barcode: string | null };
 type CartLine = { product: Product; quantity: number };
@@ -35,11 +36,20 @@ const seed = [
   { id: "nexo-demo-002", sku: "NX-DEMO-002", name: "Producto NEXO Demo", price: 12500, barcode: "850000000002" }
 ];
 
-const BUSINESS_ID = "casa-viva";
+// Set from the device identity (provisioning) before anything reads it.
+let BUSINESS_ID = "casa-viva";
+const PILOT_BUSINESS = "casa-viva";
+function showDeviceLabel(identity: DeviceIdentity) {
+  document.querySelector("#device-label")!.textContent = identity.provisioned
+    ? `${identity.label ?? identity.deviceId} · ${identity.businessId}`.toUpperCase()
+    : "PILOTO 01 · CASA VIVA";
+}
+window.addEventListener("nexo:device-updated", e => showDeviceLabel((e as CustomEvent<DeviceIdentity>).detail));
+const businessName = () => (BUSINESS_ID === PILOT_BUSINESS ? "Casa Viva" : BUSINESS_ID);
 const app = document.querySelector<HTMLElement>("#app")!;
 app.innerHTML = `
 <section class="shell">
-  <header><small>PILOTO 01 · CASA VIVA</small><h1>NEXO Business</h1><p>POS offline · Windows + Android</p></header>
+  <header><small id="device-label">NEXO BUSINESS</small><h1>NEXO Business</h1><p>POS offline · Windows + Android</p></header>
   <div class="status" id="status">Preparando base local…</div>
   <label>Buscar o escanear<input id="query" autocomplete="off" inputmode="search" placeholder="Nombre, SKU o código"></label>
   <button id="scan" type="button">Escanear con cámara</button>
@@ -122,7 +132,7 @@ function receiptText(receipt: Receipt) {
     `${line.quantity} x ${line.name} · ${money(line.lineTotalMinor)}`
   );
   return [
-    "Casa Viva · NEXO Business",
+    `${businessName()} · NEXO Business`,
     "Recibo digital",
     `Venta: ${receipt.saleId}`,
     `Fecha: ${new Date(receipt.occurredAt).toLocaleString()}`,
@@ -201,7 +211,7 @@ async function shareReceipt() {
   if (navigator.share) {
     try {
       await navigator.share({
-        title: "Recibo Casa Viva",
+        title: `Recibo ${businessName()}`,
         text
       });
       status.textContent = "✓ Recibo compartido";
@@ -295,8 +305,12 @@ function removeFromCart(productId: string) {
 async function init() {
   db = await Database.load("sqlite:nexo-business.db");
   const now = new Date().toISOString();
+  const identity = await invoke<DeviceIdentity>("device_identity");
+  BUSINESS_ID = identity.businessId;
+  showDeviceLabel(identity);
 
-  for (const p of seed) {
+  // Demo products only for the pilot business (the cloud deactivates them).
+  for (const p of BUSINESS_ID === PILOT_BUSINESS ? seed : []) {
     await db.execute(
       "INSERT OR IGNORE INTO local_products (id,business_id,sku,name,active,version,updated_at) VALUES ($1,$2,$3,$4,1,1,$5)",
       [p.id, BUSINESS_ID, p.sku, p.name, now]

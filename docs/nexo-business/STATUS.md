@@ -330,9 +330,15 @@ Owner approved ("sí, crea la sincronización en Supabase"). Project `nexo-produ
 - **POS:** category chips above the list ("Todas" + each category with its product count, "Sin categoría" for NULL; hidden when there is only one), combined with the search. Variants of one product show as one card ("Alfombra de chenilla") with a button per variant (label + price); each variant is still its own cart line, SKU and barcode. Names from the cloud are HTML-escaped.
 - **Verified:** `cargo test` all green, `tsc` clean, Windows debug build on the pilot DB: migration 12 applied, catalog re-pulled to checkpoint 3098, 281 active items all with category (9 categories), 107 variants → 200 cards. Redmi 9A (APK installed, verified by reading its DB with run-as because the phone was locked): same result, checkpoint 3098.
 
+### POS device identity from provisioning — LIVE ON BOTH PILOTS — 2026-10-03
+- **Cloud (applied):** `20261003110000_nexo_business_device_identity.sql` — read-only `public.nexo_business_device_identity(token)` (service role only; compares the key's SHA-256) returns `businessId`, `deviceId`, `label`. Edge Function `nexo-device-identity` (deployed; device key in `x-nexo-device-token`, 401 for unknown/inactive keys).
+- **Local migration 0013 (`0013_device_identity.sql`):** one-row `local_device_identity`. Rust `device.rs`: `current_identity` (stored row, else the old pilot identity per platform) and `provision` (refuses a key from another business while the device holds data of a different business; branch = `casa-viva-main` for the pilot, `<business>-main` otherwise). Every Tauri command now scopes with `device_scope(conn)` instead of the fixed `pilot_scope()`.
+- **POS:** each sync first asks the cloud who the key belongs to and stores it (never pushes/pulls under another identity; errors show in Sincronización). The header shows the device label and business; the app reloads if the business changes; demo seed only for the pilot business; receipts use the business name.
+- **Verified:** `cargo test` green (5 new device tests), `tsc` clean. Windows: provisioned as `windows-pilot-01` / casa-viva ("Laptop piloto Windows"), header updated, sync 0 pending. Redmi 9A: APK installed, provisioned as `android-pilot-01` ("Redmi 9A piloto"). Existing pilot data unchanged (same business/device IDs).
+- **New device:** owner creates it in the dashboard ("Equipos del negocio"), enters the key in Operaciones → Sincronización; the POS takes that business/device on the first sync.
+
 ### Next executable block
-1. POS device identity from provisioning (today `device_id` is fixed per platform), needed before a second phone or a second business.
-2. Owner review of the Operaciones panel on the phone; then consignment and transfer/count screens.
+1. Owner review of the Operaciones panel on the phone; then consignment and transfer/count screens.
 3. One offline shift on Android (open, sales, movements, fiado, messenger return, refund, close) once the UI exists.
 
 ## Local verification — Windows laptop — 2026-09-28

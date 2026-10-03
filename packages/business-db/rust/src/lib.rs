@@ -6,6 +6,7 @@
 pub mod cash_shift;
 pub mod catalog;
 pub mod consignment;
+pub mod device;
 pub mod external_refs;
 pub mod inventory;
 pub mod messenger_custody;
@@ -80,6 +81,11 @@ pub const MIGRATIONS: &[LocalMigration] = &[
         version: 12,
         description: "product_grouping",
         sql: include_str!("../../migrations/0012_product_grouping.sql"),
+    },
+    LocalMigration {
+        version: 13,
+        description: "device_identity",
+        sql: include_str!("../../migrations/0013_device_identity.sql"),
     },
 ];
 

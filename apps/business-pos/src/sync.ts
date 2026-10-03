@@ -105,12 +105,45 @@ export async function pullCatalog(endpoint: string, deviceToken: string): Promis
   return total;
 }
 
+// ---------- Device identity (provisioning) ----------
+
+export type DeviceIdentity = { businessId: string; branchId: string; deviceId: string; label: string | null; provisioned: boolean };
+
+function identityUrl(endpoint: string) {
+  return endpoint.replace(/nexo-sync-push\/?$/, "nexo-device-identity");
+}
+
+/**
+ * Asks the cloud which business/device this key belongs to and stores it.
+ * Reloads the app when the business changes so every screen uses it.
+ */
+export async function provisionDevice(endpoint: string, deviceToken: string): Promise<DeviceIdentity> {
+  const current = await invoke<DeviceIdentity>("device_identity");
+  const response = await fetch(identityUrl(endpoint), { headers: { "x-nexo-device-token": deviceToken } });
+  if (response.status === 401) throw new Error("La clave del dispositivo no es válida o está desactivada");
+  if (!response.ok) throw new Error(`Identidad: HTTP ${response.status}`);
+  const cloud = (await response.json()) as { businessId: string; deviceId: string; label: string | null };
+  if (current.provisioned && current.businessId === cloud.businessId && current.deviceId === cloud.deviceId && current.label === cloud.label) {
+    return current;
+  }
+  const next = await invoke<DeviceIdentity>("device_provision", {
+    businessId: cloud.businessId,
+    deviceId: cloud.deviceId,
+    label: cloud.label,
+    now: new Date().toISOString(),
+  });
+  if (next.businessId !== current.businessId) window.location.reload();
+  else window.dispatchEvent(new CustomEvent("nexo:device-updated", { detail: next }));
+  return next;
+}
+
 // ---------- Automatic background sync ----------
 
 const AUTO_INTERVAL_MS = 60_000;
 let running = false;
 let pendingRequest: number | undefined;
 let onState: ((state: SyncState, note?: string) => void) | undefined;
+let onProblem: ((message: string) => void) | undefined;
 
 /** One push at a time; manual and automatic syncs share this gate. */
 async function syncOnce(): Promise<SyncState | undefined> {
@@ -119,6 +152,8 @@ async function syncOnce(): Promise<SyncState | undefined> {
   if (running || !endpoint || !token || !navigator.onLine) return undefined;
   running = true;
   try {
+    // Never push or pull under an identity the key does not belong to.
+    await provisionDevice(endpoint, token);
     const state = await pushOutbox(endpoint, token);
     try {
       await pullCatalog(endpoint, token);
@@ -137,6 +172,7 @@ async function autoSync() {
     if (state) onState?.(state, `Auto ${new Date().toLocaleTimeString()} · `);
   } catch (e) {
     console.warn("auto sync", e);
+    onProblem?.(`No se sincronizó: ${e instanceof Error ? e.message : String(e)}`);
   }
 }
 
@@ -170,6 +206,9 @@ export async function mountSync(container: HTMLElement) {
     stateEl.textContent = `${note}${describe(state)}`;
   };
   onState = show;
+  onProblem = message => {
+    stateEl.textContent = message;
+  };
   form.onsubmit = async e => {
     e.preventDefault();
     save(ENDPOINT_KEY, input.value);
@@ -183,8 +222,12 @@ export async function mountSync(container: HTMLElement) {
       return;
     }
     stateEl.textContent = "Sincronizando…";
-    const state = await syncOnce();
-    show(state ?? (await invoke<SyncState>("sync_state")), state ? "" : "Ya hay un envío en curso · ");
+    try {
+      const state = await syncOnce();
+      show(state ?? (await invoke<SyncState>("sync_state")), state ? "" : "Ya hay un envío en curso · ");
+    } catch (e) {
+      onProblem?.(`No se sincronizó: ${e instanceof Error ? e.message : String(e)}`);
+    }
   };
   show(await invoke<SyncState>("sync_state"));
   startAutoSync();
