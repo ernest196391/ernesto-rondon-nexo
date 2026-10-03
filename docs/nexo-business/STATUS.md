@@ -3,7 +3,7 @@
 **Last update:** 2026-10-02
 **Pilots:** Casa Viva (Pilot 01, complex reference) · Colo Shop + AxisSoft (connector pilot) · Estilo y Hogar (next full reusable NEXO-native pilot)
 **Current phase:** Phase 0 — Implementation Spike
-**Overall state:** Cash shift ledger, receivables (fiado), messenger custody, sale returns, location inventory and consignment backends, an operations UI and the outbox push client implemented; migrations 3–10 verified as in-place upgrades on the Windows and Android pilot DBs (no cash/credit UI yet). Windows native offline core PASS. Android physical-device core PASS. Multi-line cart and digital receipt are proven on Windows/Android. Android camera decoding on Redmi 9A remains partial. Product direction is now explicitly reusable/white-label for Cuban businesses: online store + POS/cash + inventory + gestora + messenger + management, with merchant-specific behavior handled by configuration/adapters rather than forks.
+**Overall state:** Cash shift ledger, receivables (fiado), messenger custody, sale returns, location inventory and consignment backends, an operations UI and live cloud sync (Supabase, both pilots) implemented; migrations 3–10 verified as in-place upgrades on the Windows and Android pilot DBs (no cash/credit UI yet). Windows native offline core PASS. Android physical-device core PASS. Multi-line cart and digital receipt are proven on Windows/Android. Android camera decoding on Redmi 9A remains partial. Product direction is now explicitly reusable/white-label for Cuban businesses: online store + POS/cash + inventory + gestora + messenger + management, with merchant-specific behavior handled by configuration/adapters rather than forks.
 
 ## What we are building
 Offline-first, hardware-optional Android + Windows POS/business OS integrated with NEXO online stores. The minimum viable setup is one Android phone.
@@ -276,9 +276,16 @@ Owner approved ("sí, crea la sincronización en Supabase"). Project `nexo-produ
 - **Written, not deployed:** Edge Function `supabase/functions/nexo-sync-push` (the MCP deploy tool rejected its typed arguments; granting anon execute on the RPC was blocked as a permission change). The POS sync section now defaults to that URL and asks for a device token.
 - **Next:** deploy the function, provision `windows-pilot-01` and `android-pilot-01`, and run a real sync from both pilots.
 
+### Cloud sync checkpoint — LIVE, BOTH PILOTS SYNCED — 2026-10-03
+- Edge Function `nexo-sync-push` deployed (owner logged in the Supabase CLI; deploy run from the repo root). Invalid tokens get 401.
+- Devices `windows-pilot-01` and `android-pilot-01` provisioned for `casa-viva` (only SHA-256 token hashes in the cloud; plaintext tokens only on the owner laptop at `%APPDATA%com.nexo.businessdevice-tokens-NO-COMPARTIR.txt`).
+- Windows pilot: 9/9 events pushed; a second push sent nothing. Redmi 9A: first push got HTTP 400 because its 6 oldest sales carry the label `windows-pilot-01` from an early build; fixed server-side (migration `20261003020000`: events are attributed to the authenticated sender, business must match) and the retry pushed 13/13. Cloud now holds 22 unique events, 0 duplicates. Integrity audit OK on both devices.
+- Cloud events are stored, not yet projected into cloud sales/cash/stock tables.
+
 ### Next executable block
-1. Deploy `nexo-sync-push`, provision the two pilot devices and sync for real.
-2. Owner review of the Operaciones panel on the phone; then consignment and transfer/count screens.
+1. Cloud projections from `nexo_business.sync_events` (sales, cash, receivables, stock) and an owner dashboard.
+2. Automatic background sync on the POS (today it is the "Sincronizar ahora" button).
+3. Owner review of the Operaciones panel on the phone; then consignment and transfer/count screens.
 3. One offline shift on Android (open, sales, movements, fiado, messenger return, refund, close) once the UI exists.
 
 ## Local verification — Windows laptop — 2026-09-28

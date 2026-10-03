@@ -51,7 +51,9 @@ export function validatePushResponse(request: PushRequest, response: unknown): P
 
 /**
  * Server side: classify a batch against event IDs already stored. Events
- * repeated inside the same batch are applied once.
+ * repeated inside the same batch are applied once. Events are attributed to the
+ * authenticated sender device; only the business must match (early Android
+ * builds labelled their sales with another device id).
  */
 export function classifyPush(
   request: PushRequest,
@@ -61,8 +63,8 @@ export function classifyPush(
   if (request.contractVersion !== 1) throw new Error("Unsupported contract version");
   const seen = new Set(alreadyStored);
   return request.events.map(event => {
-    if (event.businessId !== request.businessId || event.deviceId !== request.deviceId) {
-      return { eventId: event.eventId, status: "rejected", error: "Event does not belong to this device" };
+    if (event.businessId !== request.businessId) {
+      return { eventId: event.eventId, status: "rejected", error: "Event belongs to another business" };
     }
     if (seen.has(event.eventId)) return { eventId: event.eventId, status: "duplicate" };
     const error = validate(event);

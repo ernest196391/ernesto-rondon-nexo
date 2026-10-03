@@ -21,11 +21,15 @@ describe("outbox push contract", () => {
     expect(classifyPush(req, new Set(["e2"])).map(r => r.status)).toEqual(["applied", "duplicate", "duplicate"]);
   });
 
-  it("rejects foreign or invalid events without blocking the rest", () => {
-    const req = request([event("e1", { deviceId: "other" }), event("e2"), event("e3")]);
+  it("rejects foreign-business or invalid events without blocking the rest", () => {
+    const req = request([event("e1", { businessId: "other" }), event("e2"), event("e3")]);
     const results = classifyPush(req, new Set(), e => (e.eventId === "e3" ? "Total mismatch" : undefined));
     expect(results.map(r => r.status)).toEqual(["rejected", "applied", "rejected"]);
     expect(results[2].error).toBe("Total mismatch");
+  });
+
+  it("accepts events labelled with another device of the same business", () => {
+    expect(classifyPush(request([event("e1", { deviceId: "windows-pilot-01" })]), new Set())[0].status).toBe("applied");
   });
 
   it("client accepts only complete, matching responses", () => {
