@@ -99,6 +99,19 @@ fn rejects_a_foreign_currency_payment_that_does_not_match_its_rate() {
 }
 
 #[test]
+fn zelle_carries_its_surcharge_rate_but_cash_usd_cannot() {
+    let mut conn = db();
+    // $37.00 by Zelle at 1.04 = $38.48 sent.
+    let mut zelle = pay("p1", "transfer", "USD", 3848, 3700, Some("1.04"));
+    zelle.provider = Some("zelle".into());
+    zelle.external_ref = Some("ZL-1".into());
+    complete_sale(&mut conn, &scope(), &sale("s1", vec![zelle])).unwrap();
+    assert_eq!(scalar(&conn, "SELECT COUNT(*) FROM local_payments WHERE id='p1' AND amount_minor=3848 AND usd_minor=3700 AND exchange_rate='1.04'"), 1);
+    let cash = sale("s2", vec![pay("p2", "cash", "USD", 3848, 3700, Some("1.04"))]);
+    assert!(complete_sale(&mut conn, &scope(), &cash).unwrap_err().to_string().contains("recargo"));
+}
+
+#[test]
 fn rejects_unknown_methods_and_too_many_payments() {
     let mut conn = db();
     assert!(complete_sale(&mut conn, &scope(), &sale("s1", vec![pay("p1", "cheque", "USD", 3700, 3700, None)])).is_err());

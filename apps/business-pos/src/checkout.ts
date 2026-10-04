@@ -29,6 +29,8 @@ type MethodDef = {
   /** Asks which app/bank the transfer came through. */
   providers?: string[];
   needsRef: boolean;
+  /** Rate entry when it is not the currency itself (Zelle: USD with a surcharge). */
+  rateKey?: string;
 };
 
 const METHODS: MethodDef[] = [
@@ -36,7 +38,7 @@ const METHODS: MethodDef[] = [
   { key: "cash-cup", label: "Efectivo CUP", method: "cash", currency: "CUP", needsRef: false },
   { key: "transfer-cup", label: "Transferencia CUP", method: "transfer", currency: "CUP", providers: ["Transfermóvil", "EnZona"], needsRef: true },
   { key: "transfer-mlc", label: "MLC", method: "transfer", currency: "MLC", provider: "tarjeta mlc", needsRef: true },
-  { key: "zelle", label: "Zelle", method: "transfer", currency: "USD", provider: "zelle", needsRef: true },
+  { key: "zelle", label: "Zelle", method: "transfer", currency: "USD", provider: "zelle", rateKey: "ZELLE", needsRef: true },
   { key: "usdt", label: "USDT", method: "crypto", currency: "USDT", provider: "usdt", needsRef: true },
   { key: "crypto", label: "Otra cripto", method: "crypto", currency: "USD", provider: "cripto", needsRef: true },
 ];
@@ -53,16 +55,18 @@ const fmt = (minor: number, currency: string) =>
 
 const methodIcon = (m: MethodDef) => icon(m.method === "cash" ? "cash" : "transfer");
 
-/** Units of `currency` per USD; USD is 1, USDT defaults to 1 until the owners set it. */
+const keyOf = (m: MethodDef) => m.rateKey ?? m.currency;
+
+/** Units per USD for a rate key; USD is 1, USDT and Zelle default to 1 until the owners set them. */
 function rateOf(rates: Map<string, Rate>, currency: string): number | null {
   if (currency === "USD") return 1;
   const r = Number(rates.get(currency)?.perUsd);
   if (Number.isFinite(r) && r > 0) return r;
-  return currency === "USDT" ? 1 : null;
+  return currency === "USDT" || currency === "ZELLE" ? 1 : null;
 }
 
 function rateText(rates: Map<string, Rate>, currency: string) {
-  return rates.get(currency)?.perUsd ?? (currency === "USDT" ? "1" : null);
+  return rates.get(currency)?.perUsd ?? (currency === "USDT" || currency === "ZELLE" ? "1" : null);
 }
 
 function ago(iso: string) {
@@ -76,14 +80,14 @@ function ago(iso: string) {
 /** Converts the rows to payments; change comes off the last cash row. */
 function settle(rows: Row[], totalMinor: number, rates: Map<string, Rate>) {
   const payments: PaymentInput[] = rows.map(row => {
-    const rate = rateOf(rates, row.def.currency)!;
+    const rate = rateOf(rates, keyOf(row.def))!;
     return {
       paymentId: row.id,
       method: row.def.method,
       currency: row.def.currency,
       amountMinor: row.amountMinor,
       usdMinor: Math.round(row.amountMinor / rate),
-      exchangeRate: row.def.currency === "USD" ? null : rateText(rates, row.def.currency),
+      exchangeRate: keyOf(row.def) === "USD" ? null : rateText(rates, keyOf(row.def)),
       provider: row.def.providers ? row.provider : row.def.provider ?? null,
       externalRef: row.ref.trim() || null,
     };
@@ -145,7 +149,7 @@ export async function openCheckout(totalMinor: number): Promise<PaymentInput[] |
 
   const $ = <T extends HTMLElement>(sel: string) => sheet.querySelector<T>(sel)!;
   const cup = rateOf(rates, "CUP");
-  const rateParts = ["CUP", "MLC", "USDT"]
+  const rateParts = ["CUP", "MLC", "USDT", "ZELLE"]
     .filter(c => rates.has(c))
     .map(c => `${c} ${escapeHtml(rates.get(c)!.perUsd)}`);
   const newest = rateList.map(r => r.setAt).sort().pop();
@@ -154,15 +158,15 @@ export async function openCheckout(totalMinor: number): Promise<PaymentInput[] |
     : "Sin tasas de cambio: el dueño las fija en el panel. Solo USD disponible.");
 
   $(".checkout-methods").innerHTML = METHODS.map(m => {
-    const missing = rateOf(rates, m.currency) === null;
+    const missing = rateOf(rates, keyOf(m)) === null;
     return `<button type="button" class="method-btn" data-key="${m.key}" ${missing ? `disabled title="Falta la tasa ${m.currency} en el panel"` : ""}>${icon("plus", "sm")}${escapeHtml(m.label)}</button>`;
   }).join("");
 
   const render = () => {
     const s = settle(rows, totalMinor, rates);
     $(".checkout-rows").innerHTML = rows.map((row, i) => {
-      const rate = rateOf(rates, row.def.currency)!;
-      const usd = row.def.currency === "USD" ? "" : ` ≈ ${fmt(Math.round(row.amountMinor / rate), "USD")}`;
+      const rate = rateOf(rates, keyOf(row.def))!;
+      const usd = keyOf(row.def) === "USD" ? "" : ` ≈ ${fmt(Math.round(row.amountMinor / rate), "USD")}`;
       const missingRef = row.def.needsRef && !row.ref.trim();
       return `<div class="pay checkout-row${missingRef ? " is-active" : ""}" data-i="${i}">
         <span class="method">${methodIcon(row.def)}${escapeHtml(row.def.label)}<button type="button" class="btn btn-ghost btn-icon checkout-remove" aria-label="Quitar pago">${icon("trash", "sm")}</button></span>
@@ -211,7 +215,7 @@ export async function openCheckout(totalMinor: number): Promise<PaymentInput[] |
   };
 
   const addMethod = (def: MethodDef) => {
-    const rate = rateOf(rates, def.currency);
+    const rate = rateOf(rates, keyOf(def));
     if (rate === null) {
       $(".checkout-error").textContent = `Falta la tasa ${def.currency}: el dueño la fija en el panel.`;
       return;
@@ -224,7 +228,7 @@ export async function openCheckout(totalMinor: number): Promise<PaymentInput[] |
     rows.push({
       id: crypto.randomUUID(),
       def,
-      amountMinor: def.currency === "USD" ? remaining : Math.ceil(remaining * rate),
+      amountMinor: keyOf(def) === "USD" ? remaining : Math.ceil(remaining * rate),
       provider: def.providers?.[0] ?? "",
       ref: "",
     });

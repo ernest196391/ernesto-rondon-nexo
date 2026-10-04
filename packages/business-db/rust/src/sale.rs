@@ -145,7 +145,13 @@ fn validate_payments(input: &CompleteSaleInput) -> CashResult<Vec<Payment>> {
         if p.amount_minor <= 0 || p.usd_minor <= 0 {
             return invalid("Cada pago debe ser mayor que cero");
         }
-        let exchange_rate = if currency == SALE_CURRENCY {
+        // A USD payment carries a rate only for a surcharge (e.g. Zelle at
+        // 1.04: the customer sends 1.04 USD per USD of price, cash never does).
+        let has_rate = p.exchange_rate.as_deref().is_some_and(|r| !r.trim().is_empty());
+        if currency == SALE_CURRENCY && has_rate && method == "cash" {
+            return invalid("El efectivo en USD no lleva recargo");
+        }
+        let exchange_rate = if currency == SALE_CURRENCY && !has_rate {
             if p.usd_minor != p.amount_minor {
                 return invalid("Un pago en USD no puede cambiar de valor");
             }

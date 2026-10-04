@@ -361,6 +361,11 @@ Owner approved ("sí, crea la sincronización en Supabase"). Project `nexo-produ
 - **Verified:** `tsc` clean; Windows screenshots at 360×800 (sell grid, cart sheet, variant sheet, split checkout, Caja, Más, Inventario) and 1024×768 (grid + fixed cart). No sales were made. Redmi: APK installed (screen locked, not viewed).
 - **Next:** restyle the operations forms (Caja close by currency, fiado, inventory) to the canvas screens; local photo cache (WebP 200 px); undo toast and continuous scanning from the interaction notes.
 
+### Zelle surcharge + premium mobile dashboard — 2026-10-03
+- **Zelle at 1.04 (owner request):** rate key `ZELLE` (`20261003140000_nexo_business_zelle_rate.sql`, applied; Casa Viva set to 1.04; owner had already set CUP 775, MLC 1.4, USDT 1.04). A Zelle payment is USD with a surcharge rate: $37.00 is $38.48 sent, `usd_minor` 3700, `exchange_rate` "1.04". Rust accepts a rate on a USD payment only for non-cash methods (test `zelle_carries_its_surcharge_rate_but_cash_usd_cannot`); the POS checkout uses `rateKey`.
+- **Dashboard redesign (`apps/business-dashboard`):** same NEXO base + Casa Viva theme as the POS (`nexo.css`, `casaviva.css` copied from `apps/business-pos/src`; keep them in sync) + `dash.css`. Branded login (isotipo, Cinzel name). Four sections with a bottom tab bar on phones and a side rail from 900 px: Resumen (KPI cards, daily sales bars, low-stock list at 2 or the product's minimum, devices), Catálogo (search, Activos/Con aviso/Inactivos chips, product rows with price/stock badges, edit in a sheet, import settings), Tasas (CUP, MLC, USDT, Zelle with age), Equipos (active/deactivated, the website import shown as "Sistema" without a switch, new device key with copy button). All RPCs unchanged.
+- **Verified:** `cargo test` 91/91, `tsc` clean; dashboard checked at 375 px in the built-in browser with a local, read-only copy of Casa Viva data (login, Resumen, Catálogo, product sheet, Tasas, Equipos); POS Windows build and Redmi APK installed.
+
 ### Next executable block
 1. Owner review of the Operaciones panel on the phone; then consignment and transfer/count screens.
 3. One offline shift on Android (open, sales, movements, fiado, messenger return, refund, close) once the UI exists.

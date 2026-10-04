@@ -1,0 +1,34 @@
+/* Copia de apps/business-pos/src/themes/casaviva.css. Mantener igual. */
+/* Tema Casa Viva — marca oficial (casa-viva-logo.zip, octubre 2026).
+   Crema #F6F1E6 · Marrón #2B2420 · Petróleo #0D3B45 · Ámbar #A35A1F.
+   Títulos Cinzel 600 en mayúsculas; texto Figtree. Solo variables: los
+   componentes son los de la base NEXO. */
+.nx[data-theme="casaviva"] {
+  --nx-font-ui: 'Figtree', 'Segoe UI', system-ui, sans-serif;
+  --nx-font-brand: 'Cinzel', Georgia, serif;
+
+  --nx-bg: #F6F1E6;
+  --nx-surface: #FFFDF8;
+  --nx-surface-2: #EFE8DA;
+  --nx-line: #DCD2C1;
+  --nx-text: #2B2420;
+  --nx-text-2: #574C44;
+  --nx-text-3: #6B5F56;
+
+  --nx-primary: #0D3B45;
+  --nx-primary-press: #082A31;
+  --nx-on-primary: #F6F1E6;
+  --nx-primary-soft: #DCE8EA;
+  --nx-on-primary-soft: #0D3B45;
+  --nx-accent: #A35A1F;
+  --nx-on-accent: #F6F1E6;
+
+  --nx-r-md: 14px;
+  --nx-r-lg: 20px;
+}
+
+/* Precios en ámbar, nombre en Cinzel espaciado, como en la web. */
+.nx[data-theme="casaviva"] .card .price { color: var(--nx-accent); }
+.nx[data-theme="casaviva"] .card.is-out .price { color: var(--nx-text-3); }
+.nx[data-theme="casaviva"] .logo-name,
+.nx[data-theme="casaviva"] .t-brand { font-weight: 600; text-transform: uppercase; letter-spacing: .08em; }
