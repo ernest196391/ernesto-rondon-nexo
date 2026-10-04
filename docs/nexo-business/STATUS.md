@@ -379,7 +379,7 @@ Owner approved ("sí, crea la sincronización en Supabase"). Project `nexo-produ
 - **POS offline photos:** local migration 0016 `local_image_cache` (bytes by URL, https and image/* only, ≤400 KB, unused rows pruned); Rust `images.rs` (tests); Tauri commands `images_cache` (downloads missing thumbnails with `ureq`/rustls, 40 per call, off the UI thread) and `images_cached` (data URLs). The POS loads cached photos at start and fills the cache in the background when online. Windows: 281 photos, 3.6 MB; all 200 cards rendered from the local cache.
 - **Undo:** adding a product shows "Añadido: … · Deshacer".
 - **Continuous scan:** the camera reopens after each product found (vibrates); an unknown code goes to the search box and stops.
-- **Landscape phones:** the Redmi runs sideways (800×360); landscape phones under 520 px tall now get the rail and fixed cart like a tablet.
+- **Landscape phones:** a phone turned sideways (under 520 px tall) gets the rail and fixed cart like a tablet. The owner uses the Redmi upright; the 800×360 reading came from the WebView while the screen was locked, not from real use.
 - **Store location (owner request):** "Tienda" (store, principal) created on the laptop and on the Redmi through each app's own command (Redmi via WebView debugging over adb, which also gives real-device screenshots).
 - **Verified:** `cargo test` 93/93, `tsc` clean, Windows build + Redmi APK (ureq/rustls builds for armv7).
 
