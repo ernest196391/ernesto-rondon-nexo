@@ -58,6 +58,7 @@
         <button type="button" data-sub="ventas" aria-pressed="true">Ventas</button>
         <button type="button" data-sub="caja" aria-pressed="false">Caja y cobros</button>
       </div>
+      <div class="attention" id="attention-summary" hidden></div>
       <div id="summary" data-res="ventas"><div class="panel muted">Cargando…</div></div>
       <div id="caja-box" data-res="caja" hidden>
         <p class="t-sm muted" id="money-period"></p>
@@ -109,6 +110,7 @@
         <button type="button" class="chip" data-f="lowmargin" aria-pressed="false" data-cost-only hidden>Margen bajo</button>
         <button type="button" class="chip" data-f="inactive" aria-pressed="false">Inactivos</button>
       </div>
+      <div class="attention" id="attention-products" hidden></div>
       <section class="panel" id="web-panel" hidden></section>
       <section class="panel" id="catalog"><p class="muted">Cargando…</p></section>
       <details class="panel" id="source-panel"><summary style="font-weight: 700; cursor: pointer">Origen del catálogo e importación</summary><div id="source" class="form" style="margin-top: 12px"></div></details>
@@ -269,6 +271,7 @@ async function load() {
   }
   setMode("admin");
   renderSummary();
+  void loadAttention();
   renderDevices();
   void supabase.rpc("nexo_business_rates", { p_business: current.businessId }).then(({ data }) => {
     current.rates = Object.fromEntries((data?.rates ?? []).map(r => [r.currency, Number(r.perUsd)]));
@@ -1387,6 +1390,76 @@ async function openWebPlan() {
       btn.disabled = false; btn.textContent = "Publicar en la web";
     }
   };
+}
+
+// ---------- Necesita tu atención: filas del Excel por confirmar ----------
+let review = null;
+async function loadAttention() {
+  if (!canCost()) return;
+  const { data, error } = await supabase.rpc("nexo_business_import_review", { p_business: current.businessId });
+  if (error || data?.error) return;
+  review = data;
+  const pending = (data.items ?? []).filter(i => i.status === "needs_review").length;
+  const missing = (data.items ?? []).filter(i => i.status === "not_found").length;
+  const html = pending || missing
+    ? '<button type="button" class="attention-btn" data-open-review><b>Necesita tu atención</b><span>' + (pending ? pending + " productos del Excel por confirmar" : "") + (pending && missing ? " · " : "") + (missing ? missing + " no están en la web" : "") + "</span>" + icon("chevron", "sm") + "</button>"
+    : "";
+  for (const id of ["#attention-summary", "#attention-products"]) {
+    const box = $(id);
+    box.hidden = !html;
+    box.innerHTML = html;
+    box.querySelector("[data-open-review]")?.addEventListener("click", openReview);
+  }
+}
+
+function openReview() {
+  let tab = "needs_review";
+  const sheet = openSheet('<div class="sheet-head"><h2>Necesita tu atención</h2><button type="button" class="btn btn-ghost" data-close>Cerrar</button></div>'
+    + '<p class="t-sm muted">Costos del Excel que no se pudieron enlazar solos. Confirma el producto y su costo, su comisión y su dueña se guardan en la ficha.</p>'
+    + '<div class="seg" data-rtab><button type="button" data-v="needs_review" aria-pressed="true">Por confirmar</button><button type="button" data-v="not_found" aria-pressed="false">No están en la web</button></div>'
+    + '<div data-rlist></div>', "Necesita tu atención");
+  const el = sheet.el;
+  const products = (catalog ?? []).filter(p => p.active);
+  const groupName = p => (p.name ?? "").split(" — ")[0];
+  const render = () => {
+    const items = (review.items ?? []).filter(i => i.status === tab);
+    el.querySelector("[data-rlist]").innerHTML = items.length ? items.map(i => '<div class="review-item" data-id="' + i.id + '">'
+      + '<div class="kv"><span class="title">' + esc(i.excelName) + '</span><span class="price-tag">' + dollars(i.purchaseUsd) + "</span></div>"
+      + '<span class="meta">' + esc(i.reason ?? "") + (i.owner ? " · de " + esc(i.owner) : "") + (i.commissionUsd ? " · comisión " + dollars(i.commissionUsd) : "") + " · fila " + i.row + " del Excel</span>"
+      + (i.productName ? '<span class="meta">Sugerido: <b>' + esc(i.productName) + "</b></span>" : "")
+      + '<div class="review-actions">' + (i.productId ? '<button type="button" class="btn btn-primary" data-ok>Sí, es este</button>' : "")
+      + '<button type="button" class="btn btn-secondary" data-pick>Elegir producto</button><button type="button" class="btn btn-ghost" data-skip>Ignorar</button></div>'
+      + '<div data-picker hidden><input class="input" data-pq placeholder="Buscar producto"><div class="pick-list" data-plist></div></div></div>').join("")
+      : '<p class="muted">Nada pendiente aquí.</p>';
+    el.querySelectorAll(".review-item").forEach(row => {
+      const item = review.items.find(x => String(x.id) === row.dataset.id);
+      const resolve = async product => {
+        const { data, error } = await supabase.rpc("nexo_business_import_resolve", { p_business: current.businessId, p_id: item.id, p_product: product });
+        if (error || data?.error) return toast("No se guardó: " + (error?.message ?? data.message ?? data.error), "bad");
+        item.status = product ? "resolved" : "ignored";
+        toast(product ? "Costo guardado" + (data.variants > 1 ? " en " + data.variants + " variantes" : "") : "Fila ignorada", "ok");
+        render(); costSheet = null; void loadAttention();
+      };
+      row.querySelector("[data-ok]")?.addEventListener("click", () => resolve(item.productId));
+      row.querySelector("[data-skip]").onclick = () => resolve(null);
+      row.querySelector("[data-pick]").onclick = () => {
+        const box = row.querySelector("[data-picker]");
+        box.hidden = !box.hidden;
+        const draw = () => {
+          const q = box.querySelector("[data-pq]").value.trim().toLowerCase();
+          const seen = new Set();
+          const list = products.filter(p => { const k = p.variant_of ?? p.product_id; if (seen.has(k)) return false; seen.add(k); return !q || p.name.toLowerCase().includes(q); }).slice(0, 15);
+          box.querySelector("[data-plist]").innerHTML = list.map(p => '<button type="button" class="pick" data-choose="' + esc(p.variant_of ?? p.product_id) + '">' + photo(p.image_url, p.name) + '<span class="grow"><span class="title">' + esc(p.variant_of ? groupName(p) : p.name) + "</span></span></button>").join("");
+          box.querySelectorAll("[data-choose]").forEach(b => (b.onclick = () => resolve(b.dataset.choose)));
+        };
+        box.querySelector("[data-pq]").oninput = draw;
+        box.querySelector("[data-pq]").value = item.excelName.split(" ").slice(0, 2).join(" ").toLowerCase();
+        draw();
+      };
+    });
+  };
+  el.querySelectorAll("[data-rtab] button").forEach(b => (b.onclick = () => { tab = b.dataset.v; el.querySelectorAll("[data-rtab] button").forEach(x => x.setAttribute("aria-pressed", String(x === b))); render(); }));
+  render();
 }
 
 // ---------- Caja: cobros, transferencias, turnos ----------

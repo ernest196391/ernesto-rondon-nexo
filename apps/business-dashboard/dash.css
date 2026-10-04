@@ -180,3 +180,9 @@ body { background: #F6F1E6; }
 .nx .rank .pos { width: 28px; text-align: center; font-weight: 700; }
 .nx .rank .title, .nx .rank .meta { display: block; }
 .nx .rank .meta { font-size: var(--nx-fs-xs); color: var(--nx-text-2); }
+.nx .attention-btn { width: 100%; display: flex; align-items: center; gap: 10px; text-align: left; border: 1px solid var(--nx-warn); background: var(--nx-warn-soft); color: var(--nx-warn); border-radius: var(--nx-r-md); padding: 12px 14px; font: inherit; }
+.nx .attention-btn span { flex: 1; font-size: var(--nx-fs-sm); }
+.nx .review-item { display: grid; gap: 4px; padding: 12px 0; border-bottom: 1px solid var(--nx-line); }
+.nx .review-item .meta { font-size: var(--nx-fs-xs); color: var(--nx-text-2); }
+.nx .review-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+.nx .attention { margin-bottom: var(--nx-s2); }
