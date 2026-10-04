@@ -29,6 +29,7 @@
   <nav class="nav" id="nav" aria-label="Secciones" hidden>
     <div class="nav-logo"><span data-iso></span></div>
     <button type="button" class="tab" data-page="resumen" aria-current="page"><span data-ic="chart"></span>Resumen</button>
+    <button type="button" class="tab" data-page="caja"><span data-ic="wallet"></span>Caja</button>
     <button type="button" class="tab" data-page="catalogo"><span data-ic="tag"></span>Catálogo</button>
     <button type="button" class="tab" data-page="tasas"><span data-ic="coins"></span>Tasas</button>
     <button type="button" class="tab" data-page="equipos"><span data-ic="device"></span>Equipos</button>
@@ -48,6 +49,13 @@
         <select id="days" class="btn btn-secondary" aria-label="Periodo" style="min-height: 40px"><option value="7">Últimos 7 días</option><option value="30">Últimos 30 días</option><option value="90">Últimos 90 días</option></select>
       </div>
       <div id="summary"><div class="panel muted">Cargando…</div></div>
+    </main>
+
+    <main class="page" data-page="caja" hidden>
+      <div class="page-head"><h1>Caja</h1><span class="t-sm muted" id="money-period"></span></div>
+      <section class="panel" id="money-methods"><p class="muted">Cargando…</p></section>
+      <section class="panel" id="money-transfers"></section>
+      <section class="panel" id="money-shifts"></section>
     </main>
 
     <main class="page" data-page="catalogo" hidden>
@@ -105,6 +113,7 @@ const usd = minor => `$${(minor / 100).toLocaleString("es", { minimumFractionDig
 const when = iso => iso ? new Date(iso).toLocaleString("es", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }) : "nunca";
 
 const ICONS = {
+  wallet: '<path d="M17 8V5a1 1 0 0 0-1-1H6a2 2 0 0 0 0 4h12a1 1 0 0 1 1 1v3m0 4v3a1 1 0 0 1-1 1H6a2 2 0 0 1-2-2V6"></path><path d="M20 12v4h-4a2 2 0 0 1 0-4h4"></path>',
   chart: '<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"></path>',
   tag: '<circle cx="7.5" cy="7.5" r="1.5"></circle><path d="M3 6v5.2a2 2 0 0 0 .6 1.4l7.7 7.7a2.4 2.4 0 0 0 3.4 0l5.6-5.6a2.4 2.4 0 0 0 0-3.4L12.6 3.6A2 2 0 0 0 11.2 3H6a3 3 0 0 0-3 3z"></path>',
   coins: '<ellipse cx="9" cy="7" rx="6" ry="3"></ellipse><path d="M3 7v5c0 1.7 2.7 3 6 3s6-1.3 6-3V7"></path><path d="M9 15v2c0 1.7 2.7 3 6 3s6-1.3 6-3v-5c0-1.7-2.7-3-6-3"></path>',
@@ -158,6 +167,7 @@ function go(next) {
     else void loadCatalog();
   }
   if (next === "tasas") void loadRates();
+  if (next === "caja") void loadMoney();
 }
 document.querySelectorAll("#nav .tab").forEach(t => (t.onclick = () => go(t.dataset.page)));
 
@@ -191,6 +201,7 @@ async function load() {
   renderDevices();
   if (page === "catalogo") await loadCatalog();
   if (page === "tasas") await loadRates();
+  if (page === "caja") await loadMoney();
 }
 $("#biz").onchange = () => { current = businesses.find(b => b.businessId === $("#biz").value); catalog = null; void load(); };
 
@@ -386,6 +397,55 @@ async function renderSource() {
       btn.disabled = false; btn.innerHTML = `${icon("download", "sm")}Importar ahora`;
     }
   };
+}
+
+// ---------- Caja: cobros, transferencias, turnos ----------
+
+function methodLabel(p) {
+  const prov = (p.provider ?? "").toLowerCase();
+  if (p.rail === "cash" || p.method === "cash") return `Efectivo ${p.currency}`;
+  if (prov === "zelle") return "Zelle";
+  if (p.currency === "MLC") return "MLC";
+  if (p.method === "transfer" && p.currency === "CUP") return `Transferencia CUP${prov ? ` · ${prov === "enzona" ? "EnZona" : prov === "transfermóvil" || prov === "transfermovil" ? "Transfermóvil" : p.provider}` : ""}`;
+  if (p.currency === "USDT") return "USDT";
+  if (p.method === "crypto") return "Otra cripto";
+  return `${p.method} ${p.currency}`;
+}
+
+async function loadMoney() {
+  const days = Number($("#days").value);
+  $("#money-period").textContent = $("#days").selectedOptions[0].text;
+  const { data, error } = await supabase.rpc("nexo_business_money", { p_business: current.businessId, p_days: days });
+  if (error || data?.error) { $("#money-methods").innerHTML = `<p class="muted">No se pudo cargar: ${esc(error?.message ?? data.error)}</p>`; return; }
+
+  const totalUsd = data.byMethod.reduce((t, m) => t + m.usdMinor, 0);
+  $("#money-methods").innerHTML = `<div class="kv"><h2 class="t-lg">Cobros por forma de pago</h2><span class="t-lg num">${usd(totalUsd)}</span></div>
+    ${data.byMethod.map(m => `<div class="row-item"><span class="avatar">${icon(m.rail === "cash" ? "wallet" : "coins", "sm")}</span>
+      <span class="grow"><span class="title">${esc(methodLabel(m))}</span><span class="meta">${m.count} cobros${m.currency !== "USD" ? ` · ≈ ${usd(m.usdMinor)}` : ""}</span></span>
+      <span class="price-tag">${money(m.amountMinor, m.currency)}</span></div>`).join("") || `<p class="muted">Sin cobros en el periodo.</p>`}
+    <p class="t-xs muted">Ventas sincronizadas. El efectivo entra en el cajón; lo demás se concilia abajo con su referencia.</p>`;
+
+  $("#money-transfers").innerHTML = `<div class="kv"><h2 class="t-lg">Transferencias y otros cobros</h2><span class="badge badge-info">${data.transfers.length}</span></div>
+    ${data.transfers.map(t => `<div class="row-item">
+      <span class="grow"><span class="title">${esc(methodLabel(t))} · ${money(t.amountMinor, t.currency)}</span>
+      <span class="meta">${esc(when(t.occurredAt))}${t.reference ? ` · ref <strong>${esc(t.reference)}</strong>` : " · sin referencia"}</span></span>
+      ${t.reference ? `<button type="button" class="btn btn-ghost btn-icon" data-copy-ref="${esc(t.reference)}" aria-label="Copiar referencia">${icon("copy", "sm")}</button>` : ""}</div>`).join("") || `<p class="muted">Sin transferencias, Zelle ni cripto en el periodo.</p>`}`;
+  document.querySelectorAll("[data-copy-ref]").forEach(b => (b.onclick = async () => { await navigator.clipboard.writeText(b.dataset.copyRef); toast("Referencia copiada", "ok"); }));
+
+  $("#money-shifts").innerHTML = `<h2 class="t-lg">Turnos de caja</h2>
+    ${data.shifts.map(sh => {
+      const counts = sh.counts ?? [];
+      const off = counts.filter(c => c.difference_minor);
+      const badge = !sh.closedAt ? `<span class="badge badge-info">Abierto</span>`
+        : off.length ? `<span class="badge badge-out">Descuadre</span>` : `<span class="badge badge-ok">Cuadra</span>`;
+      return `<div class="row-item" style="align-items: flex-start">
+        <span class="avatar">${icon("device", "sm")}</span>
+        <span class="grow"><span class="title">${esc(sh.deviceLabel ?? sh.deviceId)}</span>
+          <span class="meta">${esc(when(sh.openedAt))} → ${sh.closedAt ? esc(when(sh.closedAt)) : "sigue abierto"}</span>
+          ${counts.map(c => `<span class="meta">${esc(c.currency)}: debía ${money(c.expected_minor, c.currency)} · contó ${money(c.counted_minor, c.currency)}${c.difference_minor ? ` · <strong style="color: var(--nx-danger)">${c.difference_minor > 0 ? "sobran" : "faltan"} ${money(Math.abs(c.difference_minor), c.currency)}</strong>` : ""}</span>`).join("")}
+          ${sh.note ? `<span class="meta">Motivo: ${esc(sh.note)}</span>` : ""}</span>
+        ${badge}</div>`;
+    }).join("") || `<p class="muted">Aún no hay turnos sincronizados. Se abren y cierran en el POS (Caja).</p>`}`;
 }
 
 // ---------- Tasas ----------
