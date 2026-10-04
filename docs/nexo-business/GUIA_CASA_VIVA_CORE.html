@@ -1,0 +1,216 @@
+<title>Guía de Casa Viva Core</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Figtree:wght@400;600;700&display=swap">
+<style>
+/* Layout: a single reading column with a sticky "who are you" switcher; each audience is one section. */
+:root {
+  --bg: #F6F1E6; --surface: #FFFDF8; --ink: #2B2420; --ink-2: #6B6159; --line: #DCD2C1;
+  --petrol: #0D3B45; --petrol-soft: #DCE8EA; --amber: #A35A1F; --ok: #1E7044; --ok-soft: #E2F2E8; --todo: #8A4B00; --todo-soft: #FFEFD2;
+  --display: "Cinzel", Georgia, serif; --body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #171412; --surface: #221E1B; --ink: #F1EBE0; --ink-2: #B4AA9E; --line: #3A332D;
+  --petrol: #7FC1CC; --petrol-soft: #18343A; --amber: #E0A56E; --ok: #7BD3A0; --ok-soft: #173326; --todo: #F2C27B; --todo-soft: #3A2C14; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #171412; --surface: #221E1B; --ink: #F1EBE0; --ink-2: #B4AA9E; --line: #3A332D;
+  --petrol: #7FC1CC; --petrol-soft: #18343A; --amber: #E0A56E; --ok: #7BD3A0; --ok-soft: #173326; --todo: #F2C27B; --todo-soft: #3A2C14; color-scheme: dark }
+body { background: var(--bg); color: var(--ink); font: 16px/1.6 var(--body); }
+.wrap { max-width: 760px; margin: 0 auto; padding-inline: 18px; padding-block: 28px 64px; }
+h1, h2 { font-family: var(--display); font-weight: 600; letter-spacing: .04em; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(30px, 7vw, 44px); color: var(--petrol); }
+h2 { font-size: 24px; color: var(--petrol); margin-block: 8px 4px; }
+h3 { font-size: 17px; margin: 18px 0 6px; }
+p { margin: 6px 0; max-width: 65ch; }
+.lede { color: var(--ink-2); font-size: 18px; }
+.who { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 2; background: var(--bg); padding-block: 10px; display: flex; gap: 8px; overflow-x: auto; border-bottom: 1px solid var(--line); margin-block: 18px 8px; }
+.who a { flex: none; text-decoration: none; color: var(--ink); border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 7px 14px; font-weight: 600; font-size: 14px; }
+.who a:hover, .who a:focus-visible { border-color: var(--petrol); color: var(--petrol); outline: none; }
+section { padding-block: 22px; border-bottom: 1px solid var(--line); scroll-margin-top: 64px; }
+.eyebrow { text-transform: uppercase; letter-spacing: .12em; font-size: 12px; font-weight: 700; color: var(--amber); }
+ol.steps { padding-left: 22px; margin: 6px 0; }
+ol.steps li { margin: 6px 0; }
+.path { font-weight: 700; color: var(--petrol); white-space: nowrap; }
+.box { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; margin-block: 12px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+.item { display: flex; gap: 10px; align-items: flex-start; }
+.item > div { min-width: 0; }
+.pill { flex: none; font-size: 12px; font-weight: 700; padding: 2px 9px; border-radius: 999px; margin-top: 3px; }
+.done { background: var(--ok-soft); color: var(--ok); }
+.todo { background: var(--todo-soft); color: var(--todo); }
+.money { font-variant-numeric: tabular-nums; }
+table { width: 100%; border-collapse: collapse; font-size: 15px; }
+.tbl { overflow-x: auto; }
+th, td { text-align: left; padding: 8px 6px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--ink-2); }
+code { font-size: 14px; background: var(--petrol-soft); padding: 1px 5px; border-radius: 5px; word-break: break-word; }
+.foot { color: var(--ink-2); font-size: 14px; margin-top: 24px; }
+</style>
+
+<div class="wrap">
+  <p class="eyebrow">Casa Viva · octubre 2026</p>
+  <h1>Casa Viva Core</h1>
+  <p class="lede">La aplicación de la tienda que sustituye el Excel y el programa de gestoras de BizneCubano. Aquí está qué tenemos, cómo se usa cada parte y qué falta.</p>
+
+  <nav class="who" aria-label="Elige tu parte">
+    <a href="#resumen">Qué es</a><a href="#lennys">Lennys (dueña)</a><a href="#dependienta">Dependienta</a><a href="#gestora">Gestora</a><a href="#socias">Inversoras y socios</a><a href="#estado">Hecho y pendiente</a><a href="#ernesto">Ernesto (técnico)</a>
+  </nav>
+
+  <section id="resumen">
+    <h2>Qué es, en dos minutos</h2>
+    <p>Son dos piezas que comparten los mismos datos:</p>
+    <div class="grid">
+      <div class="box"><h3>El POS «Casa Viva Core»</h3><p>En el móvil Redmi y en la laptop. Vende sin internet, cobra en USD, CUP, transferencia, Zelle, MLC o USDT, y lleva la caja. Cuando hay conexión, sube todo solo.</p></div>
+      <div class="box"><h3>El panel web</h3><p><code>nexo-negocio.vercel.app</code> en el móvil o el ordenador. La dueña ve ventas, ganancia, pedidos, equipo, costos y la web. Cada gestora, dependienta o socia ve solo su propia cuenta.</p></div>
+    </div>
+    <p>Regla de oro: <b>cada venta se anota una sola vez</b>, en el POS o como pedido de gestora. De ahí salen solos el stock, la caja, la ganancia, las comisiones y lo que se le debe a cada socia.</p>
+  </section>
+
+  <section id="lennys">
+    <p class="eyebrow">Para Lennys · administradora</p>
+    <h2>Tu panel, paso a paso</h2>
+    <p>Entra en <code>nexo-negocio.vercel.app</code> con tu correo. Abajo hay cinco pestañas.</p>
+
+    <h3>1. Resumen: cómo va el negocio</h3>
+    <ol class="steps">
+      <li>Elige <span class="path">Hoy · 7 días · Este mes · Fechas</span>.</li>
+      <li>Arriba ves <b>Ventas</b>, <b>Ganancia</b> (ya descontados costos, comisiones y socias), <b>Unidades</b> y <b>Ticket medio</b>.</li>
+      <li>Debajo: ventas por hora o por día, lo más vendido, el <b>ranking de gestoras</b> y la lista de ventas.</li>
+      <li>Botones <span class="path">Excel (CSV)</span> y <span class="path">PDF</span> para descargar las ventas del periodo.</li>
+      <li><span class="path">Caja y cobros</span>: cobros por forma de pago, transferencias con su referencia y los cierres de caja (cuadra o descuadre).</li>
+    </ol>
+
+    <h3>2. Pedidos: lo que antes hacías en BizneCubano</h3>
+    <ol class="steps">
+      <li><span class="path">Nuevo</span>: eliges la gestora (o «venta de la tienda»), la clienta, si recoge o va a domicilio y el precio de la mensajería en CUP. Buscas los productos y tocas para añadirlos.</li>
+      <li>Si la clienta añadió un producto de más en la tienda, marca <b>Extra</b> en ese producto: su comisión se reparte entre gestora, negocio y dependienta.</li>
+      <li>Al abrir un pedido: botones de WhatsApp para la clienta y la gestora, <span class="path">Marcar pagado</span>, <span class="path">Editar</span> o <span class="path">Cancelar</span>.</li>
+      <li><span class="path">Completar y cobrar</span>: eliges cómo pagó (efectivo USD o CUP, Transfermóvil, EnZona, Zelle, MLC, USDT). En transferencias pide la referencia. Al completar, el pedido cuenta como venta, baja el stock y la gestora recibe su comisión.</li>
+      <li>Los pedidos abiertos con más de 2 días salen en rojo.</li>
+    </ol>
+
+    <h3>3. Productos: precios, costos y la web</h3>
+    <ol class="steps">
+      <li>Cada producto muestra su <b>% de margen</b>: verde si llega a tu objetivo, amarillo si se queda corto, rojo si pierde. Filtros <span class="path">Sin costo</span> y <span class="path">Margen bajo</span>.</li>
+      <li>Abre un producto, baja a <span class="path">Costo y ganancia</span> y escribe el precio de compra (USD o CUP con la tasa de ese día), el flete, la comisión de la gestora y el % de la dependienta. Verás el costo total, el <b>precio sugerido</b> y tu ganancia por unidad.</li>
+      <li><span class="path">Dueño de la mercancía</span>: si el producto es de Casa Bella, Maryta, Dayra… elígela. Primero guarda el costo.</li>
+      <li><span class="path">Web · casaviva.company</span>: decides quién manda en el precio (BizneCubano o Casa Viva Core) y ves la lista de cambios de precio y stock para la web. Marcas los que quieras y pulsas <span class="path">Publicar en la web</span>. Nada se publica sin que lo pulses.</li>
+    </ol>
+
+    <h3>4. Equipo: gestoras, dependientas y socias</h3>
+    <ol class="steps">
+      <li>Arriba: <b>Retiros por pagar</b>. Tocas uno, eliges moneda y forma de pago, pones la referencia y pulsas <span class="path">Marcar pagado</span>. Ella lo ve al momento.</li>
+      <li>Pestañas <span class="path">Gestoras · Dependientas · Socios</span>. Las nuevas salen «Por aprobar»: abre la ficha y pulsa <span class="path">Aprobar</span> o <span class="path">Rechazar</span>.</li>
+      <li>En la ficha de una gestora puedes darle una <b>comisión propia</b> (fija o en %) si vende mucho.</li>
+      <li>Al final están los <b>enlaces de registro</b> para gestoras y dependientas: cópialos y mándalos por WhatsApp.</li>
+      <li>Socios: tipo (consignación o inversora) y cómo cobra. En cada socia hay un <b>enlace de acceso</b> de un solo uso para su panel.</li>
+    </ol>
+
+    <h3>5. Ajustes</h3>
+    <ol class="steps">
+      <li><span class="path">Tasas</span>: CUP, MLC, USDT y el recargo de Zelle. El POS las recibe al sincronizar; en el POS no se pueden cambiar.</li>
+      <li><span class="path">Costos</span>: margen objetivo, contingencia, «otros cargos» (el 2 %), comisión general de gestora, % general de dependienta, el reparto del producto extra (33/33/33) y las unidades al mes.</li>
+      <li><span class="path">Gastos</span>: los gastos fijos del mes (ya están los 16 de tu Excel). La app los reparte entre las unidades vendidas.</li>
+      <li><span class="path">Equipos</span>: los móviles y la laptop. Desactiva uno si se pierde.</li>
+    </ol>
+  </section>
+
+  <section id="dependienta">
+    <p class="eyebrow">Para la dependienta</p>
+    <h2>Vender en el POS</h2>
+    <ol class="steps">
+      <li>Toca los productos (o escanea el código) para añadirlos al carrito. La estrella los guarda en <b>Favoritos</b>.</li>
+      <li>Abre el carrito. En <span class="path">Atiende</span> elige tu nombre: el móvil lo recuerda para las siguientes ventas.</li>
+      <li>Si la clienta viene por una gestora, elígela en <span class="path">Gestora</span>. Si además se lleva algo de más, marca <b>Extra</b> en ese producto.</li>
+      <li><span class="path">Efectivo USD exacto</span> cobra en un toque. <span class="path">Otra forma o dividir</span> permite hasta 3 formas de pago y calcula el cambio con la tasa del día.</li>
+      <li>Funciona sin internet. El aviso «Al día» indica que todo se subió.</li>
+    </ol>
+    <div class="box"><b>Tu cuenta.</b> Con el enlace de dependienta creas tu acceso al panel. Ahí ves lo que has ganado: tu % en cada venta que atiendes y tu parte de los productos extra. También puedes pedir tu retiro.</div>
+  </section>
+
+  <section id="gestora">
+    <p class="eyebrow">Para las gestoras</p>
+    <h2>Tu panel de gestora</h2>
+    <ol class="steps">
+      <li>Abre el enlace que te manda Casa Viva, crea tu cuenta y pon tu teléfono y cómo quieres cobrar (tarjeta CUP, MLC, Zelle o efectivo). Espera a que te aprueben.</li>
+      <li><span class="path">Pedidos → Nuevo</span>: buscas los productos (con foto, precio, stock y tu comisión), pones la clienta y la entrega, y lo envías.</li>
+      <li><span class="path">Mi cuenta</span>: lo <b>disponible</b> (pedidos completados), lo <b>pendiente</b> (pedidos aún abiertos), lo ya cobrado y tus movimientos.</li>
+      <li><span class="path">Pedir retiro</span>: Casa Viva te paga y verás la referencia del pago.</li>
+    </ol>
+  </section>
+
+  <section id="socias">
+    <p class="eyebrow">Para Maryta, Dayra, Nana, Joyce, Casa Bella y Cítricos Caribe</p>
+    <h2>Cómo cobra cada socia</h2>
+    <p>Del Excel de Casa Viva sale esta regla: <b>cuando se vende un producto tuyo, cobras tu precio por cada unidad vendida</b>. La tienda vende más caro y se queda la diferencia, menos la comisión de la gestora.</p>
+    <div class="box tbl">
+      <table>
+        <thead><tr><th>Ejemplo</th><th>Tu precio</th><th>La tienda vende a</th><th>Cobras por unidad</th></tr></thead>
+        <tbody>
+          <tr><td>Camapé plegable</td><td class="money">$45</td><td class="money">$60</td><td class="money"><b>$45</b></td></tr>
+          <tr><td>Base de electrodoméstico</td><td class="money">$15</td><td class="money">$23</td><td class="money"><b>$15</b></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <ol class="steps">
+      <li>Lennys te manda tu <b>enlace de acceso</b>. Lo abres, creas tu cuenta y entras en tu panel.</li>
+      <li><span class="path">Mi cuenta</span>: tus productos en la tienda (cuántos quedan y cuántos se vendieron), lo que te toca y tus movimientos.</li>
+      <li><span class="path">Pedir retiro</span>: te pagan en CUP a la tasa del día, en USD o en MLC, con su referencia.</li>
+      <li>Si una venta se devuelve, tu parte de esa venta se anula sola.</li>
+    </ol>
+    <div class="box"><b>¿Tu acuerdo es otro?</b> Lennys puede cambiar la regla de cada socia: % de la venta, fijo por unidad o % de la ganancia. Los faroles solares «a mitad» (hoja MITAD) están pendientes de confirmar.</div>
+  </section>
+
+  <section id="estado">
+    <p class="eyebrow">Dónde estamos</p>
+    <h2>Hecho y pendiente</h2>
+    <div class="grid">
+      <div class="box">
+        <h3>Ya funciona</h3>
+        <div class="item"><span class="pill done">Hecho</span><div>POS sin internet en Redmi y laptop, con fotos, favoritos, escáner y pago en 3 monedas</div></div>
+        <div class="item"><span class="pill done">Hecho</span><div>Caja con apertura, cierre y descuadre</div></div>
+        <div class="item"><span class="pill done">Hecho</span><div>Ficha de costo con precio sugerido y semáforo de margen</div></div>
+        <div class="item"><span class="pill done">Hecho</span><div>Resumen por periodo con ganancia real, ranking y descargas</div></div>
+        <div class="item"><span class="pill done">Hecho</span><div>Pedidos de gestoras, comisiones, reparto del extra y retiros</div></div>
+        <div class="item"><span class="pill done">Hecho</span><div>Socios con su regla y su panel</div></div>
+        <div class="item"><span class="pill done">Hecho</span><div>Puente con la web casaviva.company (precio y stock)</div></div>
+      </div>
+      <div class="box">
+        <h3>Falta</h3>
+        <div class="item"><span class="pill todo">Próximo</span><div>Compra de personal: trabajadoras a precio de costo, descontable del salario</div></div>
+        <div class="item"><span class="pill todo">Próximo</span><div>Importar del Excel los costos y los dueños de cada producto</div></div>
+        <div class="item"><span class="pill todo">Pendiente</span><div>Reparto 50/50 por producto (hoja MITAD), si se confirma</div></div>
+        <div class="item"><span class="pill todo">Pendiente</span><div>Pasar el precio a Core cuando la web propia sustituya a BizneCubano</div></div>
+        <div class="item"><span class="pill todo">Pendiente</span><div>Pruebas en la tienda: lector USB, reinicio a mitad de venta, turno de 8 h sin internet</div></div>
+        <div class="item"><span class="pill todo">Pendiente</span><div>Instaladores firmados para Windows y Android</div></div>
+      </div>
+    </div>
+    <h3>Lo que necesitamos de Lennys</h3>
+    <ol class="steps">
+      <li>Poner el costo de los productos y marcar los de cada socia.</li>
+      <li>Revisar la regla de cada socia en <span class="path">Equipo → Socios</span>.</li>
+      <li>Mandar los enlaces a gestoras y dependientas y aprobarlas.</li>
+      <li>La primera publicación en la web: revisar la lista y pulsar <span class="path">Publicar</span>.</li>
+    </ol>
+  </section>
+
+  <section id="ernesto">
+    <p class="eyebrow">Para Ernesto Rondón · programador</p>
+    <h2>Mapa técnico</h2>
+    <div class="box tbl">
+      <table>
+        <tbody>
+          <tr><th>Repo</th><td><code>ernest196391/ernesto-rondon-nexo</code>, rama <code>main</code></td></tr>
+          <tr><th>POS</th><td>Tauri + Rust + SQLite: <code>apps/business-pos</code>, núcleo <code>packages/business-db/rust</code></td></tr>
+          <tr><th>Panel</th><td><code>apps/business-dashboard/index.html</code>, desplegado en Vercel desde <code>main</code></td></tr>
+          <tr><th>Nube</th><td>Supabase <code>viwwlriwlwodrfukbgbj</code>, esquema <code>nexo_business</code>; migraciones <code>supabase/migrations</code></td></tr>
+          <tr><th>Web</th><td>Función <code>nexo-woo-sync</code> (check, plan, apply); claves solo en los secretos de la nube</td></tr>
+          <tr><th>Traspaso</th><td><code>docs/nexo-business/HANDOFF_2026-10-04.md</code>: todo el estado, los comandos y las reglas</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Principios: una sola fuente de ventas (eventos); comisiones y socios en un libro que se escribe solo con cada venta; nada destructivo sobre datos reales; nunca escribir en BizneCubano; publicar en la web solo cuando lo decide la dueña.</p>
+  </section>
+
+  <p class="foot">Casa Viva Core · guía actualizada el 4 de octubre de 2026.</p>
+</div>
