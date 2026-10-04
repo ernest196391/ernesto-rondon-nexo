@@ -44,8 +44,12 @@
     </header>
 
     <main class="page" data-page="resumen">
-      <div class="page-head"><h1>Resumen</h1>
-        <select id="days" class="btn btn-secondary" aria-label="Periodo" style="min-height: 40px"><option value="7">Últimos 7 días</option><option value="30">Últimos 30 días</option><option value="90">Últimos 90 días</option></select>
+      <div class="page-head"><h1>Resumen</h1><span class="t-sm muted" id="period-label"></span></div>
+      <div class="chips" id="period" role="group" aria-label="Periodo">
+        <button type="button" class="chip" data-p="hoy" aria-pressed="true">Hoy</button>
+        <button type="button" class="chip" data-p="semana" aria-pressed="false">7 días</button>
+        <button type="button" class="chip" data-p="mes" aria-pressed="false">Este mes</button>
+        <button type="button" class="chip" data-p="rango" aria-pressed="false">Fechas…</button>
       </div>
       <div id="summary"><div class="panel muted">Cargando…</div></div>
     </main>
@@ -184,6 +188,7 @@ function go(next) {
   }
   if (next === "ajustes") { void loadRates(); void loadCostSettings(); }
   if (next === "caja") void loadMoney();
+  if (next === "resumen") void loadReport();
 }
 document.querySelectorAll("#nav .tab").forEach(t => (t.onclick = () => go(t.dataset.page)));
 
@@ -196,7 +201,7 @@ const isOwner = () => current?.role === "owner";
 const canCost = () => ["owner", "economist"].includes(current?.role);
 
 async function load() {
-  const { data, error } = await supabase.rpc("nexo_business_member_summary", { p_days: Number($("#days").value) });
+  const { data, error } = await supabase.rpc("nexo_business_member_summary", { p_days: 30 });
   if (error || data?.error) { $("#summary").innerHTML = `<div class="panel">No se pudo cargar el resumen: ${esc(error?.message ?? data.error)}</div>`; return; }
   businesses = data.businesses ?? [];
   if (!businesses.length) {
@@ -223,61 +228,142 @@ async function load() {
 }
 $("#biz").onchange = () => { current = businesses.find(b => b.businessId === $("#biz").value); catalog = null; costSheet = null; void load(); };
 
-// ---------- Resumen ----------
+// ---------- Resumen: periodo, ventas, ganancia, descargas ----------
+const HAVANA = "America/Havana";
+const isoDay = d => d.toLocaleDateString("en-CA", { timeZone: HAVANA });
+const dayLabel = iso => new Date(iso + "T12:00:00").toLocaleDateString("es", { day: "numeric", month: "short" });
+let period = "hoy";
+let customRange = null;
+let report = null;
+
+function periodRange() {
+  const now = new Date();
+  const to = isoDay(now);
+  const back = n => { const d = new Date(now); d.setDate(d.getDate() - n); return isoDay(d); };
+  if (period === "semana") return { from: back(6), to, label: "Últimos 7 días" };
+  if (period === "mes") return { from: to.slice(0, 8) + "01", to, label: "Este mes" };
+  if (period === "rango" && customRange) return { ...customRange, label: dayLabel(customRange.from) + " – " + dayLabel(customRange.to) };
+  return { from: to, to, label: "Hoy, " + dayLabel(to) };
+}
+
+function setPeriod(p) {
+  period = p;
+  document.querySelectorAll("#period .chip").forEach(c => c.setAttribute("aria-pressed", String(c.dataset.p === p)));
+  void loadReport();
+  if (page === "caja") void loadMoney();
+}
+document.querySelectorAll("#period .chip").forEach(c => (c.onclick = () => {
+  if (c.dataset.p !== "rango") return setPeriod(c.dataset.p);
+  const r = periodRange();
+  const sheet = openSheet('<div class="sheet-head"><h2>Elegir fechas</h2><button type="button" class="btn btn-ghost" data-close>Cerrar</button></div>'
+    + '<form class="form"><div class="grid-2"><label class="field">Desde<input type="date" name="from" required value="' + r.from + '"></label>'
+    + '<label class="field">Hasta<input type="date" name="to" required value="' + r.to + '" max="' + isoDay(new Date()) + '"></label></div>'
+    + '<p class="msg" data-msg role="status"></p><button type="submit" class="btn btn-primary btn-xl btn-block">Ver</button></form>', "Elegir fechas");
+  sheet.el.querySelector("form").onsubmit = e => {
+    e.preventDefault();
+    const f = new FormData(e.target);
+    const from = String(f.get("from")), to = String(f.get("to"));
+    if (to < from) { const m = sheet.el.querySelector("[data-msg]"); m.textContent = "La fecha final va después de la inicial."; m.dataset.tone = "bad"; return; }
+    customRange = { from, to };
+    sheet.close();
+    setPeriod("rango");
+  };
+}));
+
 function renderSummary() {
   const b = current;
-  const period = {};
-  for (const d of b.days) {
-    period[d.currency] ??= { count: 0, minor: 0, refunds: 0 };
-    period[d.currency].count += d.salesCount; period[d.currency].minor += d.salesMinor; period[d.currency].refunds += d.refundsMinor;
-  }
-  const usdP = period.USD ?? { count: 0, minor: 0, refunds: 0 };
   const fiado = b.receivables.map(r => money(r.balanceMinor, r.currency)).join(" · ") || "Nada";
   const fiadoN = b.receivables.reduce((n, r) => n + (r.openCount ?? 0), 0);
   const courier = b.messengerCash.map(m => money(m.outstandingMinor, m.currency)).join(" · ") || "Nada";
-
-  // Daily USD sales, oldest to newest, one bar per day of the period (max 14 shown).
-  const daysN = Math.min(Number($("#days").value), 14);
-  const byDay = Object.fromEntries(b.days.filter(d => d.currency === "USD").map(d => [d.day, d.salesMinor]));
-  const today = new Date();
-  const series = Array.from({ length: daysN }, (_, i) => {
-    const d = new Date(today); d.setDate(today.getDate() - (daysN - 1 - i));
-    const key = d.toLocaleDateString("en-CA", { timeZone: "America/Havana" });
-    return { key, label: d.toLocaleDateString("es", { weekday: "narrow", day: "numeric" }), minor: byDay[key] ?? 0 };
-  });
-  const max = Math.max(1, ...series.map(s => s.minor));
-
   const tracked = (b.stock ?? []).filter(p => p.lastMovementAt);
   const low = tracked.filter(p => p.quantity <= (p.minStock ?? 2)).sort((x, y) => x.quantity - y.quantity);
-  const activeDevices = b.devices.filter(d => d.active !== false);
-
-  $("#summary").innerHTML = `
-    <div class="kpis">
-      <div class="kpi accent"><span class="label">Ventas · ${esc($("#days").selectedOptions[0].text.toLowerCase())}</span><span class="value num">${usd(usdP.minor)}</span><span class="sub">${usdP.count} ventas${usdP.refunds ? ` · devuelto ${usd(usdP.refunds)}` : ""}</span></div>
-      <div class="kpi"><span class="label">Ticket medio</span><span class="value num">${usdP.count ? usd(Math.round(usdP.minor / usdP.count)) : "—"}</span><span class="sub">por venta</span></div>
-      <div class="kpi"><span class="label">Fiado pendiente</span><span class="value num" style="font-size: var(--nx-fs-lg)">${fiado}</span><span class="sub">${fiadoN} cuentas abiertas</span></div>
-      <div class="kpi"><span class="label">En mensajeros</span><span class="value num" style="font-size: var(--nx-fs-lg)">${courier}</span><span class="sub">efectivo por recoger</span></div>
-    </div>
-    <section class="panel">
-      <div class="kv"><h2 class="t-lg">Ventas por día</h2><span class="t-xs muted">USD · últimos ${daysN} días</span></div>
-      <div class="bars" role="img" aria-label="Ventas por día">${series.map(s => `<div class="bar" title="${esc(s.key)}: ${usd(s.minor)}"><i class="${s.minor ? "" : "zero"}" style="height: ${Math.round((s.minor / max) * 100)}%"></i><span>${esc(s.label)}</span></div>`).join("")}</div>
-      ${Object.keys(period).filter(c => c !== "USD").map(c => `<p class="t-sm muted">${esc(c)}: ${money(period[c].minor, c)} en ${period[c].count} ventas</p>`).join("")}
-      <p class="t-xs muted">Histórico: ${b.totals.map(t => `${t.salesCount} ventas · ${money(t.salesMinor, t.currency)}`).join(" · ") || "sin ventas"}</p>
-    </section>
-    <section class="panel">
-      <div class="kv"><h2 class="t-lg">Quedan pocas unidades</h2><span class="badge ${low.length ? "badge-low" : "badge-ok"}">${low.length}</span></div>
-      ${low.length ? `<div>${low.slice(0, 8).map(p => `<div class="row-item">${photo(imageOf(p.productId), p.name)}<span class="grow"><span class="title">${esc(p.name)}</span></span><span class="badge ${p.quantity <= 0 ? "badge-out" : "badge-low"}">${p.quantity <= 0 ? "Agotado" : `Quedan ${p.quantity}`}</span></div>`).join("")}</div>
-        ${low.length > 8 ? `<button type="button" class="btn btn-ghost more" id="see-low">Ver los ${low.length} en el catálogo ${icon("chevron", "sm")}</button>` : ""}`
-        : `<p class="muted">Todo por encima de su mínimo.</p>`}
-      <p class="t-xs muted">Avisa con 2 unidades o menos, o con el mínimo que pongas en cada producto.</p>
-    </section>
-    <section class="panel">
-      <div class="kv"><h2 class="t-lg">Equipos</h2><span class="t-xs muted">${activeDevices.length} activos</span></div>
-      ${b.devices.map(d => `<div class="row-item"><span class="avatar">${icon("device", "sm")}</span><span class="grow"><span class="title">${esc(d.label ?? d.deviceId)}</span><span class="meta">Última conexión ${esc(when(d.lastSeenAt))} · ${d.events} registros</span></span>${d.active === false ? `<span class="badge badge-out">Desactivado</span>` : ""}</div>`).join("")}
-      <p class="t-xs muted">Datos sincronizados hasta ${esc(when(b.generatedAt))}. Un equipo sin conexión sube sus ventas al recuperarla.</p>
-    </section>`;
+  $("#summary").innerHTML = '<div id="report"><div class="panel muted">Cargando…</div></div>'
+    + '<div class="kpis two"><div class="kpi"><span class="label">Fiado pendiente</span><span class="value num" style="font-size: var(--nx-fs-lg)">' + fiado + '</span><span class="sub">' + fiadoN + ' cuentas abiertas</span></div>'
+    + '<div class="kpi"><span class="label">En mensajeros</span><span class="value num" style="font-size: var(--nx-fs-lg)">' + courier + '</span><span class="sub">efectivo por recoger</span></div></div>'
+    + '<section class="panel"><div class="kv"><h2 class="t-lg">Quedan pocas unidades</h2><span class="badge ' + (low.length ? "badge-low" : "badge-ok") + '">' + low.length + "</span></div>"
+    + (low.length ? "<div>" + low.slice(0, 8).map(p => '<div class="row-item">' + photo(imageOf(p.productId), p.name) + '<span class="grow"><span class="title">' + esc(p.name) + '</span></span><span class="badge ' + (p.quantity <= 0 ? "badge-out" : "badge-low") + '">' + (p.quantity <= 0 ? "Agotado" : "Quedan " + p.quantity) + "</span></div>").join("") + "</div>"
+      + (low.length > 8 ? '<button type="button" class="btn btn-ghost more" id="see-low">Ver los ' + low.length + " en Productos " + icon("chevron", "sm") + "</button>" : "")
+      : '<p class="muted">Todo por encima de su mínimo.</p>')
+    + '<p class="t-xs muted">Datos sincronizados hasta ' + esc(when(b.generatedAt)) + ". Un equipo sin conexión sube sus ventas al recuperarla.</p></section>";
   const see = $("#see-low");
   if (see) see.onclick = () => { catFilter = "low"; go("catalogo"); syncFilterChips(); renderCatalog(); };
+  void loadReport();
+}
+
+async function loadReport() {
+  const box = $("#report");
+  if (!box || !current) return;
+  const r = periodRange();
+  $("#period-label").textContent = r.label;
+  const { data, error } = await supabase.rpc("nexo_business_report", { p_business: current.businessId, p_from: r.from, p_to: r.to });
+  if (error || data?.error) { box.innerHTML = '<div class="panel">No se pudo cargar: ' + esc(error?.message ?? data.message ?? data.error) + "</div>"; return; }
+  report = { ...data, label: r.label };
+  const t = data.totals;
+  const covered = t.usdMinor ? Math.round(100 * t.costedMinor / t.usdMinor) : 0;
+  const oneDay = r.from === r.to;
+  const series = oneDay
+    ? Array.from({ length: 15 }, (_, i) => { const h = i + 8; const x = data.byHour.find(v => v.hour === h); return { label: String(h), title: h + ":00", minor: x?.usdMinor ?? 0 }; })
+    : (() => { const out = []; for (let d = new Date(r.from + "T12:00:00"); isoDay(d) <= r.to && out.length < 62; d.setDate(d.getDate() + 1)) { const k = isoDay(d); const x = data.byDay.find(v => v.day === k); out.push({ label: String(d.getDate()), title: dayLabel(k), minor: x?.usdMinor ?? 0 }); } return out; })();
+  const max = Math.max(1, ...series.map(s => s.minor));
+  box.innerHTML = '<div class="kpis">'
+    + '<div class="kpi accent"><span class="label">Ventas</span><span class="value num">' + usd(t.usdMinor) + '</span><span class="sub">' + t.sales + " ventas" + (t.refundsMinor ? " · devuelto " + usd(t.refundsMinor) : "") + "</span></div>"
+    + '<div class="kpi"><span class="label">Ganancia estimada</span><span class="value num">' + (t.costedMinor ? dollars(t.profitUsd) : "—") + '</span><span class="sub">' + (t.usdMinor ? (covered < 100 ? "con costo en el " + covered + " % de lo vendido" : "todo con costo") : "sin ventas") + "</span></div>"
+    + '<div class="kpi"><span class="label">Unidades</span><span class="value num">' + t.units + '</span><span class="sub">vendidas</span></div>'
+    + '<div class="kpi"><span class="label">Ticket medio</span><span class="value num">' + (t.sales ? usd(Math.round(t.usdMinor / t.sales)) : "—") + '</span><span class="sub">por venta</span></div></div>'
+    + '<section class="panel"><div class="kv"><h2 class="t-lg">' + (oneDay ? "Ventas por hora" : "Ventas por día") + '</h2><span class="t-xs muted">USD</span></div>'
+    + '<div class="bars" role="img" aria-label="' + (oneDay ? "Ventas por hora" : "Ventas por día") + '">' + series.map(s => '<div class="bar" title="' + esc(s.title) + ": " + usd(s.minor) + '"><i class="' + (s.minor ? "" : "zero") + '" style="height: ' + Math.round(s.minor / max * 100) + '%"></i><span>' + esc(s.label) + "</span></div>").join("") + "</div>"
+    + (data.byMethod.length ? '<div class="methods">' + data.byMethod.map(m => '<span class="badge badge-calm">' + esc(methodLabel(m)) + " · " + money(m.amountMinor, m.currency) + "</span>").join("") + "</div>" : "")
+    + "</section>"
+    + '<section class="panel"><h2 class="t-lg">Lo más vendido</h2>'
+    + (data.topProducts.length ? data.topProducts.map(p => '<div class="row-item">' + photo(p.imageUrl, p.name) + '<span class="grow"><span class="title">' + esc(p.name) + '</span><span class="meta">' + p.units + " u. · ganancia " + (p.profitUsd == null ? "sin costo" : dollars(p.profitUsd)) + '</span></span><span class="price-tag">' + usd(p.usdMinor) + "</span></div>").join("") : '<p class="muted">Sin ventas en el periodo.</p>')
+    + "</section>"
+    + '<section class="panel"><div class="kv"><h2 class="t-lg">Ventas</h2><span class="badge badge-info">' + data.sales.length + "</span></div>"
+    + '<div class="grid-2"><button type="button" class="btn btn-secondary" id="dl-csv">' + icon("download", "sm") + 'Excel (CSV)</button><button type="button" class="btn btn-secondary" id="dl-pdf">' + icon("download", "sm") + "PDF</button></div>"
+    + data.sales.slice(0, 30).map(s => '<div class="row-item"><span class="grow"><span class="title">' + esc((s.lines ?? []).map(l => (l.qty > 1 ? l.qty + "× " : "") + l.name).join(", ")) + '</span><span class="meta">' + esc(when(s.at)) + " · " + esc((s.payments ?? []).map(methodLabel).join(" + ")) + '</span></span><span class="price-tag">' + usd(s.usdMinor) + "</span></div>").join("")
+    + (data.sales.length > 30 ? '<p class="t-xs muted">Se muestran 30 de ' + data.sales.length + ". Las descargas llevan todas.</p>" : "")
+    + "</section>";
+  $("#dl-csv").onclick = downloadCsv;
+  $("#dl-pdf").onclick = printReport;
+}
+
+// One row per sold product, ready for Excel (semicolon, decimal comma, BOM).
+function downloadCsv() {
+  if (!report) return;
+  const num2 = minor => (minor / 100).toFixed(2).replace(".", ",");
+  const cell = v => '"' + String(v ?? "").replace(/"/g, '""') + '"';
+  const rows = [["Fecha", "Hora", "Venta", "Equipo", "Producto", "Cantidad", "Importe USD", "Total venta USD", "Cobro"]];
+  for (const s of report.sales) {
+    const d = new Date(s.at);
+    const pay = (s.payments ?? []).map(p => methodLabel(p) + " " + num2(p.amountMinor) + " " + p.currency + (p.reference ? " ref " + p.reference : "")).join(" + ");
+    for (const l of s.lines ?? []) rows.push([d.toLocaleDateString("es", { timeZone: HAVANA }), d.toLocaleTimeString("es", { timeZone: HAVANA, hour: "2-digit", minute: "2-digit" }), s.saleId.slice(0, 8), s.device, l.name, l.qty, num2(l.minor), num2(s.usdMinor), pay]);
+  }
+  const blob = new Blob(["﻿" + rows.map(r => r.map(cell).join(";")).join("\r\n")], { type: "text/csv;charset=utf-8" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "ventas-" + report.from + (report.to !== report.from ? "_" + report.to : "") + ".csv";
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+}
+
+// Printable report; the browser's "Guardar como PDF" makes the file.
+function printReport() {
+  if (!report) return;
+  const t = report.totals;
+  const w = window.open("", "_blank");
+  if (!w) return toast("Permite las ventanas emergentes para crear el PDF.", "bad");
+  const rowsHtml = report.sales.map(s => "<tr><td>" + esc(new Date(s.at).toLocaleString("es", { timeZone: HAVANA, day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" })) + "</td><td>" + esc((s.lines ?? []).map(l => (l.qty > 1 ? l.qty + "× " : "") + l.name).join(", ")) + "</td><td>" + esc((s.payments ?? []).map(methodLabel).join(" + ")) + '</td><td class="n">' + usd(s.usdMinor) + "</td></tr>").join("");
+  w.document.write('<!doctype html><html lang="es"><head><meta charset="utf-8"><title>Casa Viva · Ventas ' + esc(report.label) + "</title><style>"
+    + "body{font:13px/1.4 system-ui,sans-serif;color:#2B2420;margin:24px}h1{font:600 22px Georgia,serif;letter-spacing:.06em;margin:0}h2{font-size:15px;margin:20px 0 6px}"
+    + ".k{display:flex;gap:12px;margin:14px 0}.k div{flex:1;border:1px solid #DCD2C1;border-radius:8px;padding:8px}.k b{display:block;font-size:18px;color:#A35A1F}"
+    + "table{width:100%;border-collapse:collapse}td,th{border-bottom:1px solid #E8E1D3;padding:5px 4px;text-align:left;vertical-align:top}.n{text-align:right;white-space:nowrap}th{font-size:11px;text-transform:uppercase;color:#6B6159}"
+    + "</style></head><body><h1>CASA VIVA</h1><div>Ventas · " + esc(report.label) + " (" + esc(report.from) + (report.to !== report.from ? " a " + esc(report.to) : "") + ")</div>"
+    + '<div class="k"><div>Ventas<b>' + usd(t.usdMinor) + "</b>" + t.sales + " ventas</div><div>Ganancia estimada<b>" + (t.costedMinor ? dollars(t.profitUsd) : "—") + "</b></div><div>Unidades<b>" + t.units + "</b></div></div>"
+    + "<h2>Cobros</h2><table>" + report.byMethod.map(m => "<tr><td>" + esc(methodLabel(m)) + '</td><td class="n">' + m.count + ' cobros</td><td class="n">' + money(m.amountMinor, m.currency) + "</td></tr>").join("") + "</table>"
+    + "<h2>Lo más vendido</h2><table><tr><th>Producto</th><th class=n>Unidades</th><th class=n>Venta</th><th class=n>Ganancia</th></tr>" + report.topProducts.map(p => "<tr><td>" + esc(p.name) + '</td><td class="n">' + p.units + '</td><td class="n">' + usd(p.usdMinor) + '</td><td class="n">' + (p.profitUsd == null ? "—" : dollars(p.profitUsd)) + "</td></tr>").join("") + "</table>"
+    + "<h2>Ventas</h2><table><tr><th>Fecha</th><th>Productos</th><th>Cobro</th><th class=n>Total</th></tr>" + rowsHtml + "</table>"
+    + '<p style="color:#6B6159;font-size:11px;margin-top:16px">Casa Viva Core · generado ' + esc(new Date().toLocaleString("es")) + "</p>"
+    + "<script>onload=()=>print()<\/script></body></html>");
+  w.document.close();
 }
 
 // ---------- Catálogo ----------
@@ -693,8 +779,9 @@ function methodLabel(p) {
 }
 
 async function loadMoney() {
-  const days = Number($("#days").value);
-  $("#money-period").textContent = $("#days").selectedOptions[0].text;
+  const r = periodRange();
+  const days = Math.min(90, Math.max(1, Math.round((Date.parse(isoDay(new Date())) - Date.parse(r.from)) / 86400000) + 1));
+  $("#money-period").textContent = r.label;
   const { data, error } = await supabase.rpc("nexo_business_money", { p_business: current.businessId, p_days: days });
   if (error || data?.error) { $("#money-methods").innerHTML = `<p class="muted">No se pudo cargar: ${esc(error?.message ?? data.error)}</p>`; return; }
 
@@ -828,7 +915,7 @@ $("#signup").onclick = async () => {
   say(error ? `No se pudo crear la cuenta: ${error.message}` : "Cuenta creada. Revisa tu correo para confirmarla y después entra.", error ? "bad" : "ok");
 };
 $("#refresh").onclick = async () => { catalog = null; costSheet = null; await load(); toast("Actualizado", "ok"); };
-$("#days").onchange = () => void load();
+
 $("#logout").onclick = () => supabase.auth.signOut();
 
 // Fires once on load (INITIAL_SESSION) and on every sign-in/out.

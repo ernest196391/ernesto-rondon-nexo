@@ -146,3 +146,7 @@ body { background: #F6F1E6; }
 .nx #cost-vars > .verdict > div { background: var(--nx-surface-2); }
 .nx .share { display: block; height: 4px; border-radius: 2px; background: var(--nx-accent); opacity: .55; margin-top: 6px; }
 #fixed-costs .row-btn { padding-block: 10px; }
+@media (min-width: 900px) { .nx .kpis.two { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.nx .methods { display: flex; flex-wrap: wrap; gap: 6px; margin-top: var(--nx-s3); }
+.nx #period { margin-top: calc(-1 * var(--nx-s2)); }
+.nx .methods .badge { white-space: normal; text-align: left; }
