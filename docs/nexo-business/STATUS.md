@@ -373,6 +373,16 @@ Owner approved ("sí, crea la sincronización en Supabase"). Project `nexo-produ
 - **Verified:** `tsc` clean; Windows on the pilot DB with sync paused (backup first): opened a shift ($40 + 5,000 CUP), cash entry $25 → "Debe haber $65", close sheet showed the differences and asked for a reason; DB restored byte-identical, no test event reached the cloud. Screenshots at 360×800 of Caja (no shift, open shift, close), Fiado and Inventario. Redmi APK installed.
 - **Owner to do:** create the store location ("Tienda", and "Almacén" if there is one) in Inventario → Ubicaciones y conteos; counts and transfers need it.
 
+### Thumbnails, offline photos, undo, continuous scan, store locations — 2026-10-03
+- **Thumbnails:** `nexo-catalog-import` now stores the WooCommerce 300 px thumbnail (`images[0].thumbnail`, ~10–13 KB WebP) as `imageUrl` instead of the full photo (deployed; import run: 284 items, 280 photo changes, 2 stock counts). Devices re-pulled the catalog.
+- **Dashboard:** product photos (thumbnails) in Catálogo rows, the product sheet and "Quedan pocas unidades".
+- **POS offline photos:** local migration 0016 `local_image_cache` (bytes by URL, https and image/* only, ≤400 KB, unused rows pruned); Rust `images.rs` (tests); Tauri commands `images_cache` (downloads missing thumbnails with `ureq`/rustls, 40 per call, off the UI thread) and `images_cached` (data URLs). The POS loads cached photos at start and fills the cache in the background when online. Windows: 281 photos, 3.6 MB; all 200 cards rendered from the local cache.
+- **Undo:** adding a product shows "Añadido: … · Deshacer".
+- **Continuous scan:** the camera reopens after each product found (vibrates); an unknown code goes to the search box and stops.
+- **Landscape phones:** the Redmi runs sideways (800×360); landscape phones under 520 px tall now get the rail and fixed cart like a tablet.
+- **Store location (owner request):** "Tienda" (store, principal) created on the laptop and on the Redmi through each app's own command (Redmi via WebView debugging over adb, which also gives real-device screenshots).
+- **Verified:** `cargo test` 93/93, `tsc` clean, Windows build + Redmi APK (ureq/rustls builds for armv7).
+
 ### Next executable block
 1. Owner review of the Operaciones panel on the phone; then consignment and transfer/count screens.
 3. One offline shift on Android (open, sales, movements, fiado, messenger return, refund, close) once the UI exists.

@@ -29,7 +29,7 @@ type StoreProduct = {
   is_in_stock: boolean;
   add_to_cart?: { maximum?: number };
   categories?: Array<{ name: string }>;
-  images?: Array<{ src: string }>;
+  images?: Array<{ src: string; thumbnail?: string }>;
   variations?: Array<{ id: number; attributes: Array<{ name: string; value: string }> }>;
 };
 
@@ -124,7 +124,8 @@ async function readWebsite(base: string, host: string) {
   const bySku = new Map<string, Item[]>();
   for (const p of products) {
     const category = p.categories?.[0]?.name ? decode(p.categories[0].name) : null;
-    const image = p.images?.[0]?.src ?? null;
+    // The 300 px thumbnail is all the POS and the dashboard show (about 10 KB).
+    const image = p.images?.[0]?.thumbnail || p.images?.[0]?.src || null;
     const items: Item[] = [];
     if (p.type === "variable" && p.variations?.length) {
       for (const v of p.variations) {
@@ -135,7 +136,7 @@ async function readWebsite(base: string, host: string) {
           sku: variant.sku || `${p.sku}-${variant.id}`,
           name: `${decode(p.name)} — ${label}`,
           category,
-          imageUrl: variant.images?.[0]?.src ?? image,
+          imageUrl: variant.images?.[0]?.thumbnail || variant.images?.[0]?.src || image,
           variantOf: `cv-${p.id}`,
           variantLabel: label,
           prices: storePrice(variant),
