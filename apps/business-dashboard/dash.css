@@ -127,3 +127,22 @@ body { background: #F6F1E6; }
 
 /* Page children keep their own height (the search field flex-grows otherwise). */
 .nx .page > * { flex: none; }
+
+/* Cost sheet: breakdown card, verdict row, 3-column split, dimmed rows. */
+.nx .cost-form { margin-top: var(--nx-s5); padding-top: var(--nx-s4); border-top: 1px solid var(--nx-line); }
+.nx .breakdown { background: var(--nx-surface-2); border-radius: var(--nx-r-md); padding: var(--nx-s3) var(--nx-s4); display: grid; gap: 6px; font-size: var(--nx-fs-sm); }
+.nx .breakdown .kv { display: flex; justify-content: space-between; gap: var(--nx-s2); }
+.nx .breakdown .kv.strong { font-weight: 700; border-top: 1px solid var(--nx-line); padding-top: 6px; }
+.nx .verdict { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--nx-s2); margin-top: var(--nx-s2); }
+.nx .verdict > div { background: var(--nx-surface); border-radius: var(--nx-r-sm, 8px); padding: var(--nx-s2); display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.nx .verdict span { font-size: var(--nx-fs-xs, 12px); color: var(--nx-text-2); }
+.nx .verdict b { font-size: var(--nx-fs-lg); color: var(--nx-accent); }
+.nx .verdict .badge { align-self: flex-start; }
+.nx .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--nx-s2); }
+.nx .grid-3 input { min-width: 0; }
+.nx .row-item.dim { opacity: .55; }
+.nx .seg + input { margin-top: var(--nx-s2); }
+.nx #ajustes-seg { position: sticky; top: 64px; z-index: 5; }
+.nx #cost-vars > .verdict > div { background: var(--nx-surface-2); }
+.nx .share { display: block; height: 4px; border-radius: 2px; background: var(--nx-accent); opacity: .55; margin-top: 6px; }
+#fixed-costs .row-btn { padding-block: 10px; }

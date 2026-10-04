@@ -205,7 +205,7 @@ function money(minor: number) {
 
 function receiptText(receipt: Receipt) {
   return [
-    `${businessName()} · NEXO Business`,
+    businessName(),
     "Recibo digital",
     `Venta: ${receipt.saleId}`,
     `Fecha: ${new Date(receipt.occurredAt).toLocaleString()}`,
