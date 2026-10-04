@@ -30,9 +30,8 @@
     <div class="nav-logo"><span data-iso></span></div>
     <button type="button" class="tab" data-page="resumen" aria-current="page"><span data-ic="chart"></span>Resumen</button>
     <button type="button" class="tab" data-page="caja"><span data-ic="wallet"></span>Caja</button>
-    <button type="button" class="tab" data-page="catalogo"><span data-ic="tag"></span>Catálogo</button>
-    <button type="button" class="tab" data-page="tasas"><span data-ic="coins"></span>Tasas</button>
-    <button type="button" class="tab" data-page="equipos"><span data-ic="device"></span>Equipos</button>
+    <button type="button" class="tab" data-page="catalogo"><span data-ic="tag"></span>Productos</button>
+    <button type="button" class="tab" data-page="ajustes"><span data-ic="sliders"></span>Ajustes</button>
     <div class="nav-spacer"></div>
   </nav>
 
@@ -59,27 +58,39 @@
     </main>
 
     <main class="page" data-page="catalogo" hidden>
-      <div class="page-head"><h1>Catálogo</h1><button type="button" class="btn btn-primary" id="new-product"><span data-ic="plus"></span>Nuevo</button></div>
+      <div class="page-head"><h1>Productos</h1><button type="button" class="btn btn-primary" id="new-product"><span data-ic="plus"></span>Nuevo</button></div>
       <label class="search-field"><span data-ic="search"></span><input id="cat-q" type="search" placeholder="Buscar nombre, SKU o código" aria-label="Buscar en el catálogo"></label>
       <div class="chips" id="cat-filter" role="group" aria-label="Filtro">
         <button type="button" class="chip" data-f="active" aria-pressed="true">Activos</button>
         <button type="button" class="chip" data-f="low" aria-pressed="false">Con aviso</button>
+        <button type="button" class="chip" data-f="nocost" aria-pressed="false" data-cost-only hidden>Sin costo</button>
+        <button type="button" class="chip" data-f="lowmargin" aria-pressed="false" data-cost-only hidden>Margen bajo</button>
         <button type="button" class="chip" data-f="inactive" aria-pressed="false">Inactivos</button>
       </div>
       <section class="panel" id="catalog"><p class="muted">Cargando…</p></section>
       <details class="panel" id="source-panel"><summary style="font-weight: 700; cursor: pointer">Origen del catálogo e importación</summary><div id="source" class="form" style="margin-top: 12px"></div></details>
     </main>
 
-    <main class="page" data-page="tasas" hidden>
-      <div class="page-head"><h1>Tasas</h1></div>
-      <p class="t-sm muted">Los precios están en USD. El POS convierte cada pago con estas tasas y las recibe al sincronizar.</p>
-      <section class="panel" id="rates"><p class="muted">Cargando…</p></section>
-    </main>
-
-    <main class="page" data-page="equipos" hidden>
-      <div class="page-head"><h1>Equipos</h1></div>
-      <section class="panel" id="devices"><p class="muted">Cargando…</p></section>
-      <section class="panel" id="new-device-panel">
+    <main class="page" data-page="ajustes" hidden>
+      <div class="page-head"><h1>Ajustes</h1></div>
+      <div class="seg" id="ajustes-seg" role="group" aria-label="Sección">
+        <button type="button" data-sub="tasas" aria-pressed="true">Tasas</button>
+        <button type="button" data-sub="costos" aria-pressed="false" data-cost-only>Costos</button>
+        <button type="button" data-sub="gastos" aria-pressed="false" data-cost-only>Gastos</button>
+        <button type="button" data-sub="equipos" aria-pressed="false">Equipos</button>
+      </div>
+      <section class="panel" data-sub="tasas">
+        <h2 class="t-lg">Tasas de cambio</h2>
+        <p class="t-sm muted">Los precios están en USD. El POS convierte cada pago con estas tasas y las recibe al sincronizar.</p>
+        <div id="rates"><p class="muted">Cargando…</p></div>
+      </section>
+      <section class="panel" id="cost-vars" data-sub="costos" hidden></section>
+      <section class="panel" id="fixed-costs" data-sub="gastos" hidden></section>
+      <section class="panel" data-sub="equipos" hidden>
+        <h2 class="t-lg">Equipos</h2>
+        <div id="devices"><p class="muted">Cargando…</p></div>
+      </section>
+      <section class="panel" id="new-device-panel" data-sub="equipos" hidden>
         <h2 class="t-lg">Añadir equipo</h2>
         <form class="form" id="new-device">
           <label class="field">Nombre<input name="label" required placeholder="Móvil de la tienda"></label>
@@ -89,7 +100,7 @@
         <div id="device-key"></div>
         <p class="t-xs muted">Desactiva un equipo si se pierde o lo roban: deja de sincronizar al instante.</p>
       </section>
-      <p class="t-xs muted" id="who"></p>
+      <p class="t-xs muted" id="who" data-sub="equipos" hidden></p>
     </main>
   </div>
   <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
@@ -125,6 +136,7 @@ const ICONS = {
   chevron: '<path d="M9 6l6 6-6 6"></path>',
   copy: '<rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path>',
   download: '<path d="M12 4v11M7 10l5 5 5-5M5 20h14"></path>',
+  sliders: '<path d="M4 6h10M4 12h4M12 12h8M4 18h12"></path><circle cx="16" cy="6" r="2"></circle><circle cx="10" cy="12" r="2"></circle><circle cx="18" cy="18" r="2"></circle>',
 };
 const icon = (name, size = "") => `<svg class="i${size ? ` i-${size}` : ""}" viewBox="0 0 24 24" aria-hidden="true">${ICONS[name] ?? ""}</svg>`;
 const ISOTIPO = `<svg class="isotipo" viewBox="0 0 983 1000" aria-hidden="true"><path fill="currentColor" d="M473.3 995.1C211.9 995.1 0 772.4 0 497.6C0 222.8 211.9 0 473.3 0C582 0 682.2 38.6 762.1 103.4V196.7C700.9 127.4 618.5 85 527.9 85C338.9 85 185.7 269.7 185.7 497.6C185.7 725.5 338.9 910.2 527.9 910.2C535.3 910.2 542.7 909.9 550 909.3L575.3 983.6C542.4 991.1 508.3 995.1 473.3 995.1ZM322.8 245.1H555.8V264.6Q542.2 264.6 532.6 269.6L677.4 694.3L863.9 267.8Q855.6 264.6 844.7 264.6V245.1H983V264.6Q951.5 264.6 941.7 291.3H921.6L611.7 1000L370.1 291.3H364.1Q354.4 264.6 322.8 264.6ZM710.5 846.6C765.2 804.9 809.5 745 837.4 674V815.5C790.8 874.4 731.5 921.8 663.9 953.1Z"></path></svg>`;
@@ -163,10 +175,14 @@ function go(next) {
   document.querySelectorAll("#nav .tab").forEach(t => t.dataset.page === next ? t.setAttribute("aria-current", "page") : t.removeAttribute("aria-current"));
   window.scrollTo({ top: 0 });
   if (next === "catalogo") {
-    if (catalog && isOwner()) { $("#source-panel").hidden = false; renderCatalog(); void renderSource(); }
+    if (catalog && isOwner()) {
+      $("#source-panel").hidden = false; renderCatalog(); void renderSource();
+      document.querySelectorAll("[data-cost-only]").forEach(c => (c.hidden = !canCost()));
+      if (canCost() && !costSheet) void loadCostSheet().then(renderCatalog);
+    }
     else void loadCatalog();
   }
-  if (next === "tasas") void loadRates();
+  if (next === "ajustes") { void loadRates(); void loadCostSettings(); }
   if (next === "caja") void loadMoney();
 }
 document.querySelectorAll("#nav .tab").forEach(t => (t.onclick = () => go(t.dataset.page)));
@@ -176,6 +192,8 @@ let businesses = [];
 let current = null; // summary of the selected business
 let catalog = null; // product list of the selected business
 const isOwner = () => current?.role === "owner";
+// Owners and the economist see and change costs.
+const canCost = () => ["owner", "economist"].includes(current?.role);
 
 async function load() {
   const { data, error } = await supabase.rpc("nexo_business_member_summary", { p_days: Number($("#days").value) });
@@ -192,7 +210,7 @@ async function load() {
   sel.innerHTML = businesses.map(b => `<option value="${esc(b.businessId)}" ${b.businessId === current.businessId ? "selected" : ""}>${esc(b.businessId)}</option>`).join("");
   $("#biz-name").textContent = current.businessId === "casa-viva" ? "Casa Viva" : current.businessId;
   $("#new-product").hidden = !isOwner();
-  $("#new-device-panel").hidden = !isOwner();
+
   if (isOwner() && !catalog) {
     const { data: list } = await supabase.rpc("nexo_business_catalog_list", { p_business: current.businessId });
     if (Array.isArray(list)) catalog = list;
@@ -200,10 +218,10 @@ async function load() {
   renderSummary();
   renderDevices();
   if (page === "catalogo") await loadCatalog();
-  if (page === "tasas") await loadRates();
+  if (page === "ajustes") { await loadRates(); await loadCostSettings(); }
   if (page === "caja") await loadMoney();
 }
-$("#biz").onchange = () => { current = businesses.find(b => b.businessId === $("#biz").value); catalog = null; void load(); };
+$("#biz").onchange = () => { current = businesses.find(b => b.businessId === $("#biz").value); catalog = null; costSheet = null; void load(); };
 
 // ---------- Resumen ----------
 function renderSummary() {
@@ -280,6 +298,8 @@ async function loadCatalog() {
   const { data, error } = await supabase.rpc("nexo_business_catalog_list", { p_business: current.businessId });
   if (error || data?.error) { $("#catalog").innerHTML = `<p>No se pudo cargar: ${esc(error?.message ?? data.error)}</p>`; return; }
   catalog = data;
+  document.querySelectorAll("[data-cost-only]").forEach(c => (c.hidden = !canCost()));
+  if (canCost()) await loadCostSheet();
   renderCatalog();
   void renderSource();
 }
@@ -293,6 +313,8 @@ function renderCatalog() {
     if (catFilter === "active" && !p.active) return false;
     if (catFilter === "inactive" && p.active) return false;
     if (catFilter === "low" && !(p.active && isLow)) return false;
+    if (catFilter === "nocost" && !(p.active && costSheet && !costOf(p.product_id)?.cost)) return false;
+    if (catFilter === "lowmargin" && !(p.active && (costOf(p.product_id)?.calc?.marginPct ?? Infinity) < Number(costSheet?.settings.target_margin_pct))) return false;
     return !q || [p.name, p.sku, ...(p.barcodes ?? [])].some(v => String(v ?? "").toLowerCase().includes(q));
   });
   const shown = rows.slice(0, 120);
@@ -305,7 +327,7 @@ function renderCatalog() {
       return `<div class="row-item"><button type="button" class="row-btn" data-edit="${esc(p.product_id)}">
         ${photo(p.image_url, p.name)}
         <span class="grow"><span class="title">${esc(p.name)}</span><span class="meta">${esc(p.sku ?? "")}${s?.lastMovementAt ? ` · ${s.quantity} en stock` : ""}${p.min_stock != null ? ` · aviso ${p.min_stock}` : ""}</span></span>
-        <span style="display:flex;flex-direction:column;align-items:flex-end;gap:4px"><span class="price-tag">${p.prices?.USD != null ? usd(p.prices.USD) : "—"}</span>${badge}</span>
+        <span style="display:flex;flex-direction:column;align-items:flex-end;gap:4px"><span class="price-tag">${p.prices?.USD != null ? usd(p.prices.USD) : "—"}</span>${badge}${costSheet ? marginBadge(costOf(p.product_id)?.calc?.marginPct) : ""}</span>
       </button></div>`;
     }).join("") || `<p class="muted">Ningún producto coincide.</p>`}</div>`;
   document.querySelectorAll("#catalog [data-edit]").forEach(b => (b.onclick = () => editProduct(catalog.find(p => p.product_id === b.dataset.edit))));
@@ -328,9 +350,11 @@ function editProduct(p) {
       <label class="check"><input type="checkbox" name="active" ${p?.active === false ? "" : "checked"}> Activo (se vende en el POS)</label>
       <p class="msg" data-msg role="status"></p>
       <button type="submit" class="btn btn-primary btn-xl btn-block">Guardar</button>
-    </form>`, p ? `Editar ${p.name}` : "Nuevo producto");
-  const form = sheet.el.querySelector("form");
-  const msg = sheet.el.querySelector("[data-msg]");
+    </form>
+    ${p && canCost() && costSheet ? costSection(p) : ""}`, p ? `Editar ${p.name}` : "Nuevo producto");
+  if (p && canCost() && costSheet) wireCostSection(sheet.el, p);
+  const form = sheet.el.querySelector("form:not([data-cost])");
+  const msg = form.querySelector("[data-msg]");
   form.onsubmit = async e => {
     e.preventDefault();
     const f = new FormData(form);
@@ -396,6 +420,262 @@ async function renderSource() {
       toast(`No se pudo importar: ${e.message}`, "bad");
       btn.disabled = false; btn.innerHTML = `${icon("download", "sm")}Importar ahora`;
     }
+  };
+}
+
+// ---------- Costos (ficha de costo) ----------
+// The cloud computes every figure (nexo_business_cost_sheet). previewCost()
+// mirrors that formula only to show the numbers while typing, before saving.
+let costSheet = null;
+const costOf = id => costSheet?.products.find(r => r.productId === id) ?? null;
+const n2 = v => Number(v).toLocaleString("es", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const dollars = v => v == null || !Number.isFinite(Number(v)) ? "—" : "$" + n2(v);
+const pct1 = v => Number(v).toLocaleString("es", { maximumFractionDigits: 1 }) + " %";
+const num = raw => { const t = String(raw ?? "").replace(",", ".").trim(); const v = Number(t); return t !== "" && Number.isFinite(v) && v >= 0 ? v : null; };
+const rateNow = c => c === "USD" ? 1 : Number(costSheet?.rates.find(r => r.currency === c)?.perUsd) || null;
+const COST_CURRENCIES = ["USD", "CUP", "MLC", "USDT"];
+
+async function loadCostSheet() {
+  if (!canCost()) return null;
+  const { data, error } = await supabase.rpc("nexo_business_cost_sheet", { p_business: current.businessId });
+  if (error || data?.error) { toast("No se cargaron los costos: " + (error?.message ?? data.error), "bad"); return null; }
+  costSheet = data;
+  return data;
+}
+
+function previewCost({ amount, rate, freight, commission, staffPct }, priceUsd) {
+  const s = costSheet.settings;
+  // Unrounded fixed cost per unit, as the cloud computes it.
+  const fixedUsd = costSheet.fixedCosts.filter(g => g.active).reduce((t, g) => t + Number(g.amount) / (rateNow(g.currency) ?? Infinity), 0);
+  const fixed = fixedUsd / Number(costSheet.units);
+  const purchase = amount / rate;
+  const landed = purchase + freight;
+  const total = (landed + fixed) * (1 + Number(s.contingency_pct) / 100);
+  const comm = commission ?? (s.commission_mode === "fixed" ? Number(s.commission_value) : 0);
+  const staff = staffPct ?? Number(s.staff_pct);
+  const pct = Number(s.other_pct) + staff + (s.commission_mode === "percent" && commission == null ? Number(s.commission_value) : 0);
+  const divisor = 1 - (Number(s.target_margin_pct) + pct) / 100;
+  const step = Number(s.rounding);
+  const suggested = divisor > 0 ? Math.ceil((total + comm) / divisor / step - 1e-9) * step : null;
+  const profit = priceUsd != null ? priceUsd - total - comm - priceUsd * pct / 100 : null;
+  return { purchase, freight, fixed, contingency: total - landed - fixed, total, comm, staff,
+    staffUsd: (priceUsd ?? 0) * staff / 100, otherUsd: (priceUsd ?? 0) * Number(s.other_pct) / 100,
+    suggested, profit, margin: priceUsd ? 100 * profit / priceUsd : null };
+}
+
+function marginBadge(m) {
+  if (m == null) return "";
+  const target = Number(costSheet.settings.target_margin_pct);
+  return '<span class="badge ' + (m < 0 ? "badge-out" : m < target ? "badge-low" : "badge-ok") + '">' + pct1(m) + "</span>";
+}
+
+function breakdown(c, priceUsd) {
+  const s = costSheet.settings;
+  const line = (label, value, cls = "") => '<div class="kv ' + cls + '"><span>' + esc(label) + '</span><span class="num">' + value + "</span></div>";
+  const split = s.split_gestor_pct != null && c.comm > 0
+    ? '<p class="t-xs muted">Producto extra de clienta de gestora: gestora ' + dollars(c.comm * s.split_gestor_pct / 100) + " · negocio " + dollars(c.comm * s.split_business_pct / 100) + " · dependienta " + dollars(c.comm * s.split_staff_pct / 100) + "</p>" : "";
+  return '<div class="breakdown">'
+    + line("Compra", dollars(c.purchase)) + line("Flete", dollars(c.freight))
+    + line("Gastos fijos por unidad", dollars(c.fixed)) + line("Contingencia " + pct1(s.contingency_pct), dollars(c.contingency))
+    + line("Costo total", dollars(c.total), "strong")
+    + line("Comisión gestora", dollars(c.comm))
+    + (priceUsd != null ? line("Dependienta " + pct1(c.staff), dollars(c.staffUsd)) + line(s.other_label + " " + pct1(s.other_pct), dollars(c.otherUsd)) : "")
+    + '<div class="verdict">'
+    + '<div><span>Sugerido · margen ' + pct1(s.target_margin_pct) + '</span><b class="num">' + dollars(c.suggested) + "</b></div>"
+    + '<div><span>Precio actual</span><b class="num">' + dollars(priceUsd) + "</b></div>"
+    + '<div><span>Ganancia por unidad</span><b class="num">' + dollars(c.profit) + "</b>" + marginBadge(c.margin) + "</div>"
+    + "</div>" + split + "</div>";
+}
+
+// Cost part of the product sheet: its own form, saved apart from the catalog.
+function costSection(p) {
+  const row = costOf(p.product_id);
+  const k = row?.cost;
+  const s = costSheet.settings;
+  const defComm = s.commission_mode === "fixed" ? dollars(s.commission_value) : pct1(s.commission_value) + " del precio";
+  return '<form class="form cost-form" data-cost>'
+    + '<div class="kv"><h3 class="t-lg">Costo y ganancia</h3>' + (row?.calc ? marginBadge(row.calc.marginPct) : '<span class="badge badge-calm">Sin costo</span>') + "</div>"
+    + '<div class="grid-2"><label class="field">Precio de compra<input name="amount" inputmode="decimal" required placeholder="0,00" value="' + esc(k?.purchaseAmount ?? "") + '"></label>'
+    + '<label class="field">Moneda<select name="currency">' + COST_CURRENCIES.map(c => '<option' + ((k?.purchaseCurrency ?? "USD") === c ? " selected" : "") + ">" + c + "</option>").join("") + "</select></label></div>"
+    + '<label class="field" data-rate-field>Tasa de la compra<input name="rate" inputmode="decimal" value="' + esc(k && k.purchaseCurrency !== "USD" ? k.purchaseRate : "") + '"></label>'
+    + '<div class="grid-2"><label class="field">Flete por unidad (USD)<input name="freight" inputmode="decimal" placeholder="0,00" value="' + esc(k?.freightUsd ?? "") + '"></label>'
+    + '<label class="field">Comisión gestora (USD)<input name="commission" inputmode="decimal" placeholder="' + esc(defComm) + '" value="' + esc(k?.commissionUsd ?? "") + '"></label></div>'
+    + '<label class="field">% para la dependienta<input name="staff" inputmode="decimal" placeholder="' + esc(pct1(s.staff_pct)) + ' (general)" value="' + esc(k?.staffPct ?? "") + '"></label>'
+    + '<div data-breakdown></div>'
+    + '<p class="msg" data-cost-msg role="status"></p>'
+    + '<button type="submit" class="btn btn-secondary btn-block">Guardar costo</button>'
+    + '<p class="t-xs muted">El precio de venta lo manda la web: cámbialo allí si quieres el sugerido.</p>'
+    + "</form>";
+}
+
+function wireCostSection(sheetEl, p) {
+  const form = sheetEl.querySelector("[data-cost]");
+  if (!form) return;
+  const priceUsd = p.prices?.USD != null ? p.prices.USD / 100 : null;
+  const read = () => {
+    const f = new FormData(form);
+    const currency = f.get("currency");
+    return { amount: num(f.get("amount")), currency, rate: currency === "USD" ? 1 : num(f.get("rate")),
+      freight: num(f.get("freight")) ?? 0, commission: num(f.get("commission")), staffPct: num(f.get("staff")) };
+  };
+  let update = () => {
+    const v = read();
+    const rateField = form.querySelector("[data-rate-field]");
+    rateField.hidden = v.currency === "USD";
+    const rateInput = form.elements.rate;
+    if (v.currency !== "USD" && !rateInput.value) rateInput.value = rateNow(v.currency) ?? "";
+    rateInput.placeholder = rateNow(v.currency) ? "Hoy: " + rateNow(v.currency) : "Sin tasa";
+    const box = form.querySelector("[data-breakdown]");
+    const r = read();
+    box.innerHTML = r.amount != null && r.rate ? breakdown(previewCost(r, priceUsd), priceUsd) : '<p class="t-sm muted">Escribe el precio de compra para ver el costo y la ganancia.</p>';
+  };
+  form.elements.currency.onchange = () => { dirty = true; form.elements.rate.value = ""; update(); };
+  // Until the owner types, show the cloud's own figures for the saved cost.
+  let dirty = false;
+  const saved = row => row?.calc && row.cost ? { purchase: Number(row.calc.purchaseUsd), freight: Number(row.cost.freightUsd), fixed: Number(row.calc.fixedUsd),
+    contingency: Number(row.calc.contingencyUsd), total: Number(row.calc.totalCostUsd), comm: Number(row.calc.commissionUsd), staff: Number(row.calc.staffPct),
+    staffUsd: Number(row.calc.staffUsd), otherUsd: Number(row.calc.otherUsd), suggested: row.calc.suggestedUsd, profit: row.calc.profitUsd, margin: row.calc.marginPct } : null;
+  const render = update;
+  update = () => {
+    render();
+    const c = !dirty && saved(costOf(p.product_id));
+    if (c) form.querySelector("[data-breakdown]").innerHTML = breakdown(c, priceUsd);
+  };
+  form.oninput = () => { dirty = true; update(); };
+  update();
+  form.onsubmit = async e => {
+    e.preventDefault();
+    const v = read();
+    const msg = form.querySelector("[data-cost-msg]");
+    const bad = t => { msg.textContent = t; msg.dataset.tone = "bad"; };
+    if (v.amount == null) return bad("Precio de compra inválido");
+    if (v.currency !== "USD" && !v.rate) return bad("Escribe la tasa de la compra");
+    for (const [field, label] of [["freight", "Flete"], ["commission", "Comisión"], ["staff", "% dependienta"]]) {
+      const raw = String(new FormData(form).get(field) ?? "").trim();
+      if (raw && num(raw) == null) return bad(label + " inválido");
+    }
+    if (v.staffPct != null && v.staffPct > 50) return bad("El % de la dependienta no puede pasar de 50");
+    msg.textContent = "Guardando…"; msg.dataset.tone = "";
+    const { data, error } = await supabase.rpc("nexo_business_set_product_cost", { p_business: current.businessId, p_product: p.product_id,
+      p_cost: { purchaseAmount: v.amount, purchaseCurrency: v.currency, purchaseRate: v.currency === "USD" ? 1 : v.rate,
+        freightUsd: v.freight, commissionUsd: v.commission, staffPct: v.staffPct } });
+    if (error || data?.error) return bad("No se guardó: " + (error?.message ?? data.message ?? data.error));
+    await loadCostSheet();
+    dirty = false; update();
+    msg.textContent = "Costo guardado"; msg.dataset.tone = "ok";
+    renderCatalog();
+  };
+}
+
+// ---------- Ajustes: variables y gastos fijos ----------
+let ajustesSub = "tasas";
+function showSub(sub) {
+  if (!canCost() && (sub === "costos" || sub === "gastos")) sub = "tasas";
+  ajustesSub = sub;
+  document.querySelectorAll("#ajustes-seg [data-cost-only]").forEach(b => (b.hidden = !canCost()));
+  document.querySelectorAll("#ajustes-seg button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.sub === sub)));
+  document.querySelectorAll("main[data-page=ajustes] > [data-sub]").forEach(el => (el.hidden = el.dataset.sub !== sub || (el.id === "new-device-panel" && !isOwner())));
+}
+document.querySelectorAll("#ajustes-seg button").forEach(b => (b.onclick = () => { showSub(b.dataset.sub); window.scrollTo({ top: 0 }); }));
+
+async function loadCostSettings() {
+  showSub(ajustesSub);
+  if (!canCost() || !(await loadCostSheet())) return;
+  renderCostVars();
+  renderFixedCosts();
+}
+
+const seg = (name, value, options) => '<div class="seg" data-seg="' + name + '">' + options.map(([v, l]) => '<button type="button" data-v="' + v + '" aria-pressed="' + (v === value) + '">' + esc(l) + "</button>").join("") + '</div><input type="hidden" name="' + name + '" value="' + esc(value) + '">';
+
+function renderCostVars() {
+  const sh = costSheet, s = sh.settings;
+  const box = $("#cost-vars");
+  box.innerHTML = '<h2 class="t-lg">Variables de la ficha de costo</h2>'
+    + '<div class="verdict"><div><span>Gastos fijos al mes</span><b class="num">' + dollars(sh.fixedUsd) + '</b></div><div><span>÷ unidades al mes</span><b class="num">' + n2(sh.units).replace(/,00$/, "") + '</b></div><div><span>= por unidad</span><b class="num">' + dollars(sh.fixedPerUnit) + "</b></div></div>"
+    + '<form class="form" id="vars-form">'
+    + '<div class="grid-2"><label class="field">Margen objetivo %<input name="target_margin_pct" inputmode="decimal" value="' + esc(s.target_margin_pct) + '"></label>'
+    + '<label class="field">Contingencia %<input name="contingency_pct" inputmode="decimal" value="' + esc(s.contingency_pct) + '"></label></div>'
+    + '<div class="grid-2"><label class="field">Nombre del cargo<input name="other_label" maxlength="40" value="' + esc(s.other_label) + '"></label>'
+    + '<label class="field">Cargo % del precio<input name="other_pct" inputmode="decimal" value="' + esc(s.other_pct) + '"></label></div>'
+    + '<div class="field">Comisión de la gestora (si el producto no tiene la suya)' + seg("commission_mode", s.commission_mode, [["fixed", "Fija en USD"], ["percent", "% del precio"]])
+    + '<input name="commission_value" inputmode="decimal" aria-label="Valor de la comisión" value="' + esc(s.commission_value) + '"></div>'
+    + '<label class="field">% de la dependienta (general)<input name="staff_pct" inputmode="decimal" value="' + esc(s.staff_pct) + '"></label>'
+    + '<div class="field">Producto extra de una clienta de gestora: reparto de la comisión (%)'
+    + '<div class="grid-3"><label class="field t-sm">Gestora<input name="split_gestor_pct" inputmode="decimal" value="' + esc(s.split_gestor_pct) + '"></label>'
+    + '<label class="field t-sm">Negocio<input name="split_business_pct" inputmode="decimal" value="' + esc(s.split_business_pct) + '"></label>'
+    + '<label class="field t-sm">Dependienta<input name="split_staff_pct" inputmode="decimal" value="' + esc(s.split_staff_pct) + '"></label></div>'
+    + '<span class="t-xs" data-split-sum></span></div>'
+    + '<div class="field">Unidades vendidas al mes' + seg("units_mode", s.units_mode, [["auto", "Según las ventas"], ["manual", "Fijo"]])
+    + '<input name="manual_units" inputmode="numeric" aria-label="Unidades al mes" value="' + esc(s.manual_units) + '">'
+    + '<span class="t-xs muted">' + (sh.unitsFromSales ? "Usando " + n2(sh.autoUnits) + " unidades/mes de las ventas reales." : "Las ventas reales se usan cuando haya 30 días de historial (hoy " + sh.salesDays + "). Mientras, se usa el número fijo.") + "</span></div>"
+    + '<label class="field">Redondear el sugerido a<select name="rounding">' + [0.01, 0.1, 0.25, 0.5, 1, 5].map(v => '<option value="' + v + '"' + (Number(s.rounding) === v ? " selected" : "") + ">$" + n2(v) + "</option>").join("") + "</select></label>"
+    + '<p class="msg" data-msg role="status"></p>'
+    + '<button type="submit" class="btn btn-primary btn-block">Guardar variables</button>'
+    + '<p class="t-xs muted">Se guarda quién cambió qué y cuándo. Al guardar, todas las fichas se recalculan solas.</p></form>';
+  const form = $("#vars-form");
+  form.querySelectorAll("[data-seg]").forEach(g => g.querySelectorAll("button").forEach(b => (b.onclick = () => {
+    g.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+    form.elements[g.dataset.seg].value = b.dataset.v;
+  })));
+  const sumEl = form.querySelector("[data-split-sum]");
+  const splitSum = () => ["split_gestor_pct", "split_business_pct", "split_staff_pct"].reduce((t, k) => t + (num(form.elements[k].value) ?? NaN), 0);
+  const showSum = () => { const t = splitSum(); const ok = Math.abs(t - 100) < 0.001; sumEl.textContent = ok ? "Suma 100 %" : "Suma " + (Number.isFinite(t) ? pct1(t) : "—") + ": debe dar 100 %"; sumEl.style.color = ok ? "var(--nx-ok)" : "var(--nx-danger)"; };
+  form.oninput = showSum;
+  showSum();
+  form.onsubmit = async e => {
+    e.preventDefault();
+    const msg = form.querySelector("[data-msg]");
+    const out = {};
+    for (const k of ["target_margin_pct", "contingency_pct", "other_pct", "commission_value", "staff_pct", "split_gestor_pct", "split_business_pct", "split_staff_pct", "manual_units"]) {
+      const v = num(form.elements[k].value);
+      if (v == null) { msg.textContent = "Revisa los números: hay uno vacío o inválido."; msg.dataset.tone = "bad"; form.elements[k].focus(); return; }
+      out[k] = v;
+    }
+    if (Math.abs(splitSum() - 100) > 0.001) { msg.textContent = "El reparto debe sumar 100 %."; msg.dataset.tone = "bad"; return; }
+    out.manual_units = Math.round(out.manual_units);
+    Object.assign(out, { other_label: form.elements.other_label.value.trim() || "Otros cargos", commission_mode: form.elements.commission_mode.value, units_mode: form.elements.units_mode.value, rounding: Number(form.elements.rounding.value) });
+    msg.textContent = "Guardando…"; msg.dataset.tone = "";
+    const { data, error } = await supabase.rpc("nexo_business_set_cost_settings", { p_business: current.businessId, p_settings: out });
+    if (error || data?.error) { msg.textContent = "No se guardó: " + (error?.message ?? data.message ?? data.error); msg.dataset.tone = "bad"; return; }
+    toast("Variables guardadas: las fichas ya están recalculadas", "ok");
+    await loadCostSettings();
+  };
+}
+
+function renderFixedCosts() {
+  const list = costSheet.fixedCosts;
+  const box = $("#fixed-costs");
+  box.innerHTML = '<div class="kv"><h2 class="t-lg">Gastos fijos del mes</h2><span class="t-lg num">' + dollars(costSheet.fixedUsd) + "</span></div>"
+    + list.map(g => '<div class="row-item' + (g.active ? "" : " dim") + '"><button type="button" class="row-btn" data-fixed="' + g.id + '">'
+      + '<span class="grow"><span class="title">' + esc(g.label) + '</span><span class="meta">' + (g.currency === "USD" ? "" : "≈ " + dollars(g.usd)) + (g.active ? "" : " · no se cuenta") + "</span>"
+      + (g.active && costSheet.fixedUsd > 0 ? '<span class="share" style="width:' + Math.max(2, Math.round(100 * g.usd / costSheet.fixedUsd)) + '%"></span>' : "") + "</span>"
+      + '<span class="price-tag">' + Number(g.amount).toLocaleString("es", { maximumFractionDigits: 2 }) + " " + esc(g.currency) + "</span></button></div>").join("")
+    + '<button type="button" class="btn btn-secondary btn-block" data-new-fixed>' + icon("plus", "sm") + "Añadir gasto</button>"
+    + '<p class="t-xs muted">Los gastos en CUP o MLC se convierten con la tasa vigente.</p>';
+  box.querySelectorAll("[data-fixed]").forEach(b => (b.onclick = () => editFixedCost(list.find(g => String(g.id) === b.dataset.fixed))));
+  box.querySelector("[data-new-fixed]").onclick = () => editFixedCost(null);
+}
+
+function editFixedCost(g) {
+  const sheet = openSheet('<div class="sheet-head"><h2>' + (g ? "Editar gasto" : "Nuevo gasto") + '</h2><button type="button" class="btn btn-ghost" data-close>Cerrar</button></div>'
+    + '<form class="form"><label class="field">Concepto<input name="label" required maxlength="60" value="' + esc(g?.label ?? "") + '" placeholder="Renta"></label>'
+    + '<div class="grid-2"><label class="field">Monto al mes<input name="amount" required inputmode="decimal" value="' + esc(g?.amount ?? "") + '"></label>'
+    + '<label class="field">Moneda<select name="currency">' + COST_CURRENCIES.map(c => "<option" + ((g?.currency ?? "CUP") === c ? " selected" : "") + ">" + c + "</option>").join("") + "</select></label></div>"
+    + '<label class="check"><input type="checkbox" name="active" ' + (g?.active === false ? "" : "checked") + "> Contar este gasto</label>"
+    + '<p class="msg" data-msg role="status"></p><button type="submit" class="btn btn-primary btn-xl btn-block">Guardar</button></form>', g ? "Editar gasto" : "Nuevo gasto");
+  const form = sheet.el.querySelector("form");
+  form.onsubmit = async e => {
+    e.preventDefault();
+    const f = new FormData(form);
+    const msg = form.querySelector("[data-msg]");
+    const amount = num(f.get("amount"));
+    if (amount == null) { msg.textContent = "Monto inválido"; msg.dataset.tone = "bad"; return; }
+    const { data, error } = await supabase.rpc("nexo_business_save_fixed_cost", { p_business: current.businessId, p_id: g?.id ?? null,
+      p_label: String(f.get("label")).trim(), p_amount: amount, p_currency: f.get("currency"), p_active: f.get("active") === "on" });
+    if (error || data?.error) { msg.textContent = "No se guardó: " + (error?.message ?? data.message ?? data.error); msg.dataset.tone = "bad"; return; }
+    sheet.close();
+    toast("Gasto guardado", "ok");
+    await loadCostSettings();
   };
 }
 
@@ -547,7 +827,7 @@ $("#signup").onclick = async () => {
   const { error } = await supabase.auth.signUp({ email: f.get("email"), password: f.get("password"), options: { emailRedirectTo: location.origin + location.pathname } });
   say(error ? `No se pudo crear la cuenta: ${error.message}` : "Cuenta creada. Revisa tu correo para confirmarla y después entra.", error ? "bad" : "ok");
 };
-$("#refresh").onclick = async () => { catalog = null; await load(); toast("Actualizado", "ok"); };
+$("#refresh").onclick = async () => { catalog = null; costSheet = null; await load(); toast("Actualizado", "ok"); };
 $("#days").onchange = () => void load();
 $("#logout").onclick = () => supabase.auth.signOut();
 
