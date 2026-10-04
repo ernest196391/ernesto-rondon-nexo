@@ -395,6 +395,12 @@ Owner approved ("sí, crea la sincronización en Supabase"). Project `nexo-produ
 - **POS Vender:** star on every card (beside it, not inside the card button) pins/unpins; a "Favoritos" chip right after "Todo" shows the pinned cards, best sellers of the last 30 days first; with nothing pinned it shows the 12 best sellers of 30 days with a hint, or a hint alone when there are no sales.
 - **Verified:** `tsc` clean, migration tests green; Windows: chip empty state, pinned 2 cards (chip "Favoritos 2", amber stars), unpinned them (0 rows left). Redmi APK installed.
 
+### Resilience tests, double-tap guard, money in the dashboard — 2026-10-04
+- **Resilience tests (`tests/resilience.rs`, stand-ins for the field checks):** a crash before commit leaves nothing (file DB, reopened); a committed sale survives a restart whole; a failing line rolls back the whole sale; a repeated sale ID is never stored twice; 240 offline sales (8 h) reach a simulated cloud exactly once and a second sync sends nothing; a lost answer is resent and the cloud keeps one copy; stock stays right across an offline day and the next snapshot.
+- **Bug fixed:** tapping "Efectivo USD exacto" twice quickly recorded two sales (each tap made a new sale ID). Checkout now runs one at a time; verified on Windows (3 taps → 1 sale; DB restored, sync paused).
+- **Cloud (applied):** `20261004010000_nexo_business_money.sql` — members-only, read-only `nexo_business_money(business, days)`: payments by method/provider/currency (from `sale_payments`), non-cash payments with their reference, cash shifts (opened/closed events) with expected/counted/difference per currency and the note. Checked as the owner inside a rolled-back transaction (22 cash USD sales, no shifts synced yet).
+- **Dashboard:** new **Caja** tab (5 tabs): cobros por forma de pago with USD total, transferencias y otros cobros with reference and copy button, turnos de caja with "Cuadra" / "Descuadre" / "Abierto".
+
 ### Next executable block
 1. Field tests with the owner: camera scanner with real barcodes, the shop's USB reader, a forced restart during a sale.
 2. One offline shift on Android (open, sales, movements, fiado, messenger return, refund, close) and an 8-hour airplane-mode run, then check the cloud converges without duplicates.
