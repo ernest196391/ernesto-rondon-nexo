@@ -2,339 +2,460 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>NEXO Negocio</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F6F1E6">
 <meta name="robots" content="noindex">
-<style>
-:root{--bg:#f4f5f7;--card:#fff;--ink:#111827;--muted:#475569;--line:#e5e7eb;--ok:#14532d;--bad:#7f1d1d;color-scheme:light}
-@media (prefers-color-scheme:dark){:root{--bg:#0f172a;--card:#111c33;--ink:#e5e7eb;--muted:#94a3b8;--line:#1f2a44;--ok:#86efac;--bad:#fca5a5;color-scheme:dark}}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Helvetica,Arial,sans-serif}
-main{max-width:760px;margin:auto;padding:24px 16px}header small{font-weight:700;letter-spacing:.08em;color:var(--muted)}h1{margin:.25rem 0 1rem}
-.card{background:var(--card);border-radius:18px;padding:18px;margin:14px 0}
-label{display:grid;gap:6px;font-weight:700;margin:10px 0}
-input,select{font:inherit;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink);width:100%}
-button{font:inherit;min-height:46px;border:0;border-radius:12px;background:var(--ink);color:var(--bg);font-weight:700;padding:0 16px;cursor:pointer}
-button.link{background:transparent;color:var(--muted);min-height:36px;padding:0}
-.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between}
-.muted{color:var(--muted)}.msg{padding:10px 12px;border-radius:12px;margin:10px 0}.msg[data-tone=ok]{color:var(--ok)}.msg[data-tone=bad]{color:var(--bad)}
-.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}.kpi{border:1px solid var(--line);border-radius:14px;padding:12px}.kpi strong{display:block;font-size:1.25rem;margin-top:4px}
-.wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:.95rem}th,td{padding:8px 6px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}th:first-child,td:first-child{text-align:left}
-ul{padding-left:18px}
-</style>
+<title>Casa Viva · Administración</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Figtree:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="nexo.css">
+<link rel="stylesheet" href="casaviva.css">
+<link rel="stylesheet" href="dash.css">
 </head>
 <body>
-<main>
-  <header><small>NEXO BUSINESS</small><h1>Resumen del negocio</h1></header>
-
-  <section class="card" id="auth">
-    <form id="login">
-      <label>Correo<input name="email" type="email" autocomplete="email" required></label>
-      <label>Contraseña<input name="password" type="password" autocomplete="current-password" minlength="8" required></label>
-      <div class="row">
-        <button type="submit">Entrar</button>
-        <button type="button" class="link" id="signup">Crear cuenta</button>
-      </div>
+<div class="nx dash" data-theme="casaviva" id="root">
+  <section class="login" id="auth">
+    <div class="brand-lockup"><span data-iso></span><span class="logo-name">Casa Viva</span><span class="t-sm muted">Administración del negocio</span></div>
+    <form class="panel form" id="login">
+      <label class="field">Correo<input class="input" name="email" type="email" autocomplete="email" required></label>
+      <label class="field">Contraseña<input class="input" name="password" type="password" autocomplete="current-password" minlength="8" required></label>
+      <button type="submit" class="btn btn-primary btn-xl btn-block">Entrar</button>
+      <button type="button" class="btn btn-ghost btn-block" id="signup">Crear cuenta</button>
+      <p class="msg" id="auth-msg" role="status"></p>
     </form>
-    <div class="msg" id="auth-msg" role="status"></div>
   </section>
 
-  <section id="app" hidden>
-    <div class="row card">
-      <span class="muted" id="who"></span>
-      <div class="row">
-        <select id="days" aria-label="Periodo"><option value="7">7 días</option><option value="30">30 días</option><option value="90">90 días</option></select>
-        <button type="button" id="refresh">Actualizar</button>
-        <button type="button" class="link" id="logout">Salir</button>
+  <nav class="nav" id="nav" aria-label="Secciones" hidden>
+    <div class="nav-logo"><span data-iso></span></div>
+    <button type="button" class="tab" data-page="resumen" aria-current="page"><span data-ic="chart"></span>Resumen</button>
+    <button type="button" class="tab" data-page="catalogo"><span data-ic="tag"></span>Catálogo</button>
+    <button type="button" class="tab" data-page="tasas"><span data-ic="coins"></span>Tasas</button>
+    <button type="button" class="tab" data-page="equipos"><span data-ic="device"></span>Equipos</button>
+    <div class="nav-spacer"></div>
+  </nav>
+
+  <div class="shell" id="app" hidden>
+    <header class="top">
+      <div class="logo"><span data-iso></span><span class="logo-name" id="biz-name">Casa Viva</span></div>
+      <select id="biz" aria-label="Negocio" hidden></select>
+      <button type="button" class="btn btn-ghost btn-icon" id="refresh" aria-label="Actualizar"><span data-ic="refresh"></span></button>
+      <button type="button" class="btn btn-ghost btn-icon" id="logout" aria-label="Salir"><span data-ic="logout"></span></button>
+    </header>
+
+    <main class="page" data-page="resumen">
+      <div class="page-head"><h1>Resumen</h1>
+        <select id="days" class="btn btn-secondary" aria-label="Periodo" style="min-height: 40px"><option value="7">Últimos 7 días</option><option value="30">Últimos 30 días</option><option value="90">Últimos 90 días</option></select>
       </div>
-    </div>
-    <div id="content"></div>
-  </section>
-</main>
+      <div id="summary"><div class="panel muted">Cargando…</div></div>
+    </main>
+
+    <main class="page" data-page="catalogo" hidden>
+      <div class="page-head"><h1>Catálogo</h1><button type="button" class="btn btn-primary" id="new-product"><span data-ic="plus"></span>Nuevo</button></div>
+      <label class="search-field"><span data-ic="search"></span><input id="cat-q" type="search" placeholder="Buscar nombre, SKU o código" aria-label="Buscar en el catálogo"></label>
+      <div class="chips" id="cat-filter" role="group" aria-label="Filtro">
+        <button type="button" class="chip" data-f="active" aria-pressed="true">Activos</button>
+        <button type="button" class="chip" data-f="low" aria-pressed="false">Con aviso</button>
+        <button type="button" class="chip" data-f="inactive" aria-pressed="false">Inactivos</button>
+      </div>
+      <section class="panel" id="catalog"><p class="muted">Cargando…</p></section>
+      <details class="panel" id="source-panel"><summary style="font-weight: 700; cursor: pointer">Origen del catálogo e importación</summary><div id="source" class="form" style="margin-top: 12px"></div></details>
+    </main>
+
+    <main class="page" data-page="tasas" hidden>
+      <div class="page-head"><h1>Tasas</h1></div>
+      <p class="t-sm muted">Los precios están en USD. El POS convierte cada pago con estas tasas y las recibe al sincronizar.</p>
+      <section class="panel" id="rates"><p class="muted">Cargando…</p></section>
+    </main>
+
+    <main class="page" data-page="equipos" hidden>
+      <div class="page-head"><h1>Equipos</h1></div>
+      <section class="panel" id="devices"><p class="muted">Cargando…</p></section>
+      <section class="panel" id="new-device-panel">
+        <h2 class="t-lg">Añadir equipo</h2>
+        <form class="form" id="new-device">
+          <label class="field">Nombre<input name="label" required placeholder="Móvil de la tienda"></label>
+          <label class="field">Identificador<input name="device" required pattern="[a-z0-9][a-z0-9-]{2,62}" placeholder="movil-tienda-02" autocapitalize="off"></label>
+          <button type="submit" class="btn btn-primary btn-block">Crear y ver la clave</button>
+        </form>
+        <div id="device-key"></div>
+        <p class="t-xs muted">Desactiva un equipo si se pierde o lo roban: deja de sincronizar al instante.</p>
+      </section>
+      <p class="t-xs muted" id="who"></p>
+    </main>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+</div>
 
 <script type="module">
 import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
 
 // Publishable key: safe in the browser. Data access is enforced in the database
-// (only members of a business can read its summary).
+// (only members of a business can read or change it).
 const supabase = createClient(
   "https://viwwlriwlwodrfukbgbj.supabase.co",
   "sb_publishable_1NdUSjDeoYWTMgu2MYOfeg_1K0G241x",
 );
 
+// ---------- UI helpers ----------
 const $ = s => document.querySelector(s);
 const esc = v => String(v ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
-const money = (minor, currency) =>
-  `${(minor / 100).toLocaleString("es", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ${esc(currency)}`;
+const money = (minor, currency) => `${(minor / 100).toLocaleString("es", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ${esc(currency)}`;
+const usd = minor => `$${(minor / 100).toLocaleString("es", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+const when = iso => iso ? new Date(iso).toLocaleString("es", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }) : "nunca";
+
+const ICONS = {
+  chart: '<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"></path>',
+  tag: '<circle cx="7.5" cy="7.5" r="1.5"></circle><path d="M3 6v5.2a2 2 0 0 0 .6 1.4l7.7 7.7a2.4 2.4 0 0 0 3.4 0l5.6-5.6a2.4 2.4 0 0 0 0-3.4L12.6 3.6A2 2 0 0 0 11.2 3H6a3 3 0 0 0-3 3z"></path>',
+  coins: '<ellipse cx="9" cy="7" rx="6" ry="3"></ellipse><path d="M3 7v5c0 1.7 2.7 3 6 3s6-1.3 6-3V7"></path><path d="M9 15v2c0 1.7 2.7 3 6 3s6-1.3 6-3v-5c0-1.7-2.7-3-6-3"></path>',
+  device: '<rect x="6" y="3" width="12" height="18" rx="2"></rect><path d="M11 18h2"></path>',
+  refresh: '<path d="M20 11a8 8 0 0 0-14.9-3M4 5v4h4M4 13a8 8 0 0 0 14.9 3M20 19v-4h-4"></path>',
+  logout: '<path d="M14 8V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2v-2"></path><path d="M9 12h12l-3-3M18 15l3-3"></path>',
+  plus: '<path d="M12 5v14M5 12h14"></path>',
+  search: '<circle cx="10" cy="10" r="7"></circle><path d="M21 21l-6-6"></path>',
+  chevron: '<path d="M9 6l6 6-6 6"></path>',
+  copy: '<rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path>',
+  download: '<path d="M12 4v11M7 10l5 5 5-5M5 20h14"></path>',
+};
+const icon = (name, size = "") => `<svg class="i${size ? ` i-${size}` : ""}" viewBox="0 0 24 24" aria-hidden="true">${ICONS[name] ?? ""}</svg>`;
+const ISOTIPO = `<svg class="isotipo" viewBox="0 0 983 1000" aria-hidden="true"><path fill="currentColor" d="M473.3 995.1C211.9 995.1 0 772.4 0 497.6C0 222.8 211.9 0 473.3 0C582 0 682.2 38.6 762.1 103.4V196.7C700.9 127.4 618.5 85 527.9 85C338.9 85 185.7 269.7 185.7 497.6C185.7 725.5 338.9 910.2 527.9 910.2C535.3 910.2 542.7 909.9 550 909.3L575.3 983.6C542.4 991.1 508.3 995.1 473.3 995.1ZM322.8 245.1H555.8V264.6Q542.2 264.6 532.6 269.6L677.4 694.3L863.9 267.8Q855.6 264.6 844.7 264.6V245.1H983V264.6Q951.5 264.6 941.7 291.3H921.6L611.7 1000L370.1 291.3H364.1Q354.4 264.6 322.8 264.6ZM710.5 846.6C765.2 804.9 809.5 745 837.4 674V815.5C790.8 874.4 731.5 921.8 663.9 953.1Z"></path></svg>`;
+document.querySelectorAll("[data-iso]").forEach(el => (el.outerHTML = ISOTIPO));
+document.querySelectorAll("[data-ic]").forEach(el => (el.outerHTML = icon(el.dataset.ic)));
+
+let toastTimer;
+function toast(text, tone = "") {
+  const t = $("#toast");
+  t.textContent = text; t.dataset.tone = tone; t.hidden = false;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => (t.hidden = true), tone === "bad" ? 5000 : 3000);
+}
 const say = (text, tone = "") => { const m = $("#auth-msg"); m.textContent = text; m.dataset.tone = tone; };
 
-function render(summary) {
-  const businesses = summary.businesses ?? [];
+function openSheet(html, label) {
+  const wrap = document.createElement("div");
+  wrap.className = "overlay";
+  wrap.innerHTML = `<button class="scrim" aria-label="Cerrar"></button><section class="sheet" role="dialog" aria-modal="true" aria-label="${esc(label)}"><div class="handle"></div>${html}</section>`;
+  $("#root").appendChild(wrap);
+  const close = () => wrap.remove();
+  wrap.querySelector(".scrim").onclick = close;
+  wrap.querySelectorAll("[data-close]").forEach(b => (b.onclick = close));
+  return { el: wrap.querySelector(".sheet"), close };
+}
+
+// ---------- Navigation ----------
+let page = "resumen";
+function go(next) {
+  page = next;
+  document.querySelectorAll("main.page").forEach(p => (p.hidden = p.dataset.page !== next));
+  document.querySelectorAll("#nav .tab").forEach(t => t.dataset.page === next ? t.setAttribute("aria-current", "page") : t.removeAttribute("aria-current"));
+  window.scrollTo({ top: 0 });
+  if (next === "catalogo" && !catalog) void loadCatalog();
+  if (next === "tasas") void loadRates();
+}
+document.querySelectorAll("#nav .tab").forEach(t => (t.onclick = () => go(t.dataset.page)));
+
+// ---------- State ----------
+let businesses = [];
+let current = null; // summary of the selected business
+let catalog = null; // product list of the selected business
+const isOwner = () => current?.role === "owner";
+
+async function load() {
+  const { data, error } = await supabase.rpc("nexo_business_member_summary", { p_days: Number($("#days").value) });
+  if (error || data?.error) { $("#summary").innerHTML = `<div class="panel">No se pudo cargar el resumen: ${esc(error?.message ?? data.error)}</div>`; return; }
+  businesses = data.businesses ?? [];
   if (!businesses.length) {
-    $("#content").innerHTML = `<div class="card"><p>Tu cuenta todavía no tiene acceso a ningún negocio.</p><p class="muted">Pide a NEXO que la vincule a tu negocio; después pulsa Actualizar.</p></div>`;
+    $("#summary").innerHTML = `<div class="panel"><p style="font-weight:700">Tu cuenta todavía no tiene acceso a ningún negocio.</p><p class="muted">Pide a NEXO que la vincule a tu negocio; después pulsa actualizar.</p></div>`;
     return;
   }
-  $("#content").innerHTML = businesses.map(b => {
-    const period = b.days.reduce((acc, d) => {
-      acc[d.currency] ??= { count: 0, minor: 0, refunds: 0 };
-      acc[d.currency].count += d.salesCount; acc[d.currency].minor += d.salesMinor; acc[d.currency].refunds += d.refundsMinor;
-      return acc;
-    }, {});
-    const kpis = Object.entries(period).map(([c, v]) =>
-      `<div class="kpi"><span class="muted">Ventas del periodo · ${esc(c)}</span><strong>${money(v.minor, c)}</strong><span class="muted">${v.count} ventas · devuelto ${money(v.refunds, c)}</span></div>`).join("")
-      || `<div class="kpi"><span class="muted">Ventas del periodo</span><strong>Sin ventas</strong></div>`;
-    const list = (items, fn) => items.length ? items.map(fn).join(" · ") : "nada";
-    return `<section class="card">
-      <div class="row"><h2>${esc(b.businessId)}</h2><span class="muted">desde ${esc(b.since)}</span></div>
-      <div class="kpis">${kpis}</div>
-      <div class="wrap"><table>
-        <thead><tr><th>Día</th><th>Ventas</th><th>Importe</th><th>Devuelto</th></tr></thead>
-        <tbody>${b.days.map(d => `<tr><td>${esc(d.day)}</td><td>${d.salesCount}</td><td>${money(d.salesMinor, d.currency)}</td><td>${money(d.refundsMinor, d.currency)}</td></tr>`).join("") || `<tr><td colspan="4">Sin ventas en el periodo</td></tr>`}</tbody>
-      </table></div>
-      <p><strong>Total histórico:</strong> ${list(b.totals, t => `${t.salesCount} ventas · ${money(t.salesMinor, t.currency)}`)}</p>
-      <p><strong>Fiado pendiente:</strong> ${list(b.receivables, r => `${money(r.balanceMinor, r.currency)} (${r.openCount})`)}</p>
-      <p><strong>Efectivo en manos de mensajeros:</strong> ${list(b.messengerCash, m => money(m.outstandingMinor, m.currency))}</p>
-      <h3>Stock</h3>
-      ${(b.stock ?? []).some(p => p.low) ? `<p class="msg" data-tone="bad">Stock bajo: ${b.stock.filter(p => p.low).map(p => esc(p.name)).join(", ")}</p>` : ""}
-      <div class="wrap"><table>
-        <thead><tr><th>Producto</th><th>Stock</th><th>Mínimo</th></tr></thead>
-        <tbody>${(b.stock ?? []).map(p => `<tr><td>${p.low ? "⚠ " : ""}${esc(p.name)}</td><td>${p.quantity}</td><td>${p.minStock ?? "—"}</td></tr>`).join("") || `<tr><td colspan="3">Sin productos</td></tr>`}</tbody>
-      </table></div>
-      ${(b.stock ?? []).some(p => p.quantity < 0) ? `<p class="muted">Un stock negativo significa que aún no se ha hecho el conteo inicial de ese producto: haz un conteo en el POS (Ubicaciones e inventario) para fijar la cantidad real.</p>` : ""}
-      <h3>Equipos</h3>
-      <ul>${b.devices.map(d => `<li>${esc(d.label ?? d.deviceId)} · ${d.events} registros · última conexión ${d.lastSeenAt ? esc(new Date(d.lastSeenAt).toLocaleString("es")) : "nunca"}${d.active === false ? " · <strong>desactivado</strong>" : ""}</li>`).join("")}</ul>
-      <p class="muted">Datos sincronizados hasta ${esc(new Date(b.generatedAt).toLocaleString("es"))}. Un equipo sin conexión sube sus ventas al recuperarla.</p>
+  const keep = current?.businessId;
+  current = businesses.find(b => b.businessId === keep) ?? businesses[0];
+  const sel = $("#biz");
+  sel.hidden = businesses.length < 2;
+  sel.innerHTML = businesses.map(b => `<option value="${esc(b.businessId)}" ${b.businessId === current.businessId ? "selected" : ""}>${esc(b.businessId)}</option>`).join("");
+  $("#biz-name").textContent = current.businessId === "casa-viva" ? "Casa Viva" : current.businessId;
+  $("#new-product").hidden = !isOwner();
+  $("#new-device-panel").hidden = !isOwner();
+  renderSummary();
+  renderDevices();
+  if (page === "catalogo") await loadCatalog();
+  if (page === "tasas") await loadRates();
+}
+$("#biz").onchange = () => { current = businesses.find(b => b.businessId === $("#biz").value); catalog = null; void load(); };
+
+// ---------- Resumen ----------
+function renderSummary() {
+  const b = current;
+  const period = {};
+  for (const d of b.days) {
+    period[d.currency] ??= { count: 0, minor: 0, refunds: 0 };
+    period[d.currency].count += d.salesCount; period[d.currency].minor += d.salesMinor; period[d.currency].refunds += d.refundsMinor;
+  }
+  const usdP = period.USD ?? { count: 0, minor: 0, refunds: 0 };
+  const fiado = b.receivables.map(r => money(r.balanceMinor, r.currency)).join(" · ") || "Nada";
+  const fiadoN = b.receivables.reduce((n, r) => n + (r.openCount ?? 0), 0);
+  const courier = b.messengerCash.map(m => money(m.outstandingMinor, m.currency)).join(" · ") || "Nada";
+
+  // Daily USD sales, oldest to newest, one bar per day of the period (max 14 shown).
+  const daysN = Math.min(Number($("#days").value), 14);
+  const byDay = Object.fromEntries(b.days.filter(d => d.currency === "USD").map(d => [d.day, d.salesMinor]));
+  const today = new Date();
+  const series = Array.from({ length: daysN }, (_, i) => {
+    const d = new Date(today); d.setDate(today.getDate() - (daysN - 1 - i));
+    const key = d.toLocaleDateString("en-CA", { timeZone: "America/Havana" });
+    return { key, label: d.toLocaleDateString("es", { weekday: "narrow", day: "numeric" }), minor: byDay[key] ?? 0 };
+  });
+  const max = Math.max(1, ...series.map(s => s.minor));
+
+  const tracked = (b.stock ?? []).filter(p => p.lastMovementAt);
+  const low = tracked.filter(p => p.quantity <= (p.minStock ?? 2)).sort((x, y) => x.quantity - y.quantity);
+  const activeDevices = b.devices.filter(d => d.active !== false);
+
+  $("#summary").innerHTML = `
+    <div class="kpis">
+      <div class="kpi accent"><span class="label">Ventas · ${esc($("#days").selectedOptions[0].text.toLowerCase())}</span><span class="value num">${usd(usdP.minor)}</span><span class="sub">${usdP.count} ventas${usdP.refunds ? ` · devuelto ${usd(usdP.refunds)}` : ""}</span></div>
+      <div class="kpi"><span class="label">Ticket medio</span><span class="value num">${usdP.count ? usd(Math.round(usdP.minor / usdP.count)) : "—"}</span><span class="sub">por venta</span></div>
+      <div class="kpi"><span class="label">Fiado pendiente</span><span class="value num" style="font-size: var(--nx-fs-lg)">${fiado}</span><span class="sub">${fiadoN} cuentas abiertas</span></div>
+      <div class="kpi"><span class="label">En mensajeros</span><span class="value num" style="font-size: var(--nx-fs-lg)">${courier}</span><span class="sub">efectivo por recoger</span></div>
+    </div>
+    <section class="panel">
+      <div class="kv"><h2 class="t-lg">Ventas por día</h2><span class="t-xs muted">USD · últimos ${daysN} días</span></div>
+      <div class="bars" role="img" aria-label="Ventas por día">${series.map(s => `<div class="bar" title="${esc(s.key)}: ${usd(s.minor)}"><i class="${s.minor ? "" : "zero"}" style="height: ${Math.round((s.minor / max) * 100)}%"></i><span>${esc(s.label)}</span></div>`).join("")}</div>
+      ${Object.keys(period).filter(c => c !== "USD").map(c => `<p class="t-sm muted">${esc(c)}: ${money(period[c].minor, c)} en ${period[c].count} ventas</p>`).join("")}
+      <p class="t-xs muted">Histórico: ${b.totals.map(t => `${t.salesCount} ventas · ${money(t.salesMinor, t.currency)}`).join(" · ") || "sin ventas"}</p>
     </section>
-    <section class="card" data-rates="${esc(b.businessId)}" data-owner="${b.role === "owner"}"><h2>Tasas de cambio</h2><p class="muted">Cargando…</p></section>
-    ${b.role === "owner" ? `<section class="card" data-catalog="${esc(b.businessId)}"><h2>Catálogo y precios</h2><p class="muted">Cargando…</p></section>` : ""}
-    ${b.role === "owner" ? devicesSection(b) : ""}`;
-  }).join("");
-  document.querySelectorAll("[data-rates]").forEach(el => void loadRates(el));
-  document.querySelectorAll("[data-catalog]").forEach(el => void loadCatalog(el));
-  document.querySelectorAll("[data-devices]").forEach(wireDevices);
+    <section class="panel">
+      <div class="kv"><h2 class="t-lg">Quedan pocas unidades</h2><span class="badge ${low.length ? "badge-low" : "badge-ok"}">${low.length}</span></div>
+      ${low.length ? `<div>${low.slice(0, 8).map(p => `<div class="row-item"><span class="avatar">${esc(p.name.charAt(0).toUpperCase())}</span><span class="grow"><span class="title">${esc(p.name)}</span></span><span class="badge ${p.quantity <= 0 ? "badge-out" : "badge-low"}">${p.quantity <= 0 ? "Agotado" : `Quedan ${p.quantity}`}</span></div>`).join("")}</div>
+        ${low.length > 8 ? `<button type="button" class="btn btn-ghost more" id="see-low">Ver los ${low.length} en el catálogo ${icon("chevron", "sm")}</button>` : ""}`
+        : `<p class="muted">Todo por encima de su mínimo.</p>`}
+      <p class="t-xs muted">Avisa con 2 unidades o menos, o con el mínimo que pongas en cada producto.</p>
+    </section>
+    <section class="panel">
+      <div class="kv"><h2 class="t-lg">Equipos</h2><span class="t-xs muted">${activeDevices.length} activos</span></div>
+      ${b.devices.map(d => `<div class="row-item"><span class="avatar">${icon("device", "sm")}</span><span class="grow"><span class="title">${esc(d.label ?? d.deviceId)}</span><span class="meta">Última conexión ${esc(when(d.lastSeenAt))} · ${d.events} registros</span></span>${d.active === false ? `<span class="badge badge-out">Desactivado</span>` : ""}</div>`).join("")}
+      <p class="t-xs muted">Datos sincronizados hasta ${esc(when(b.generatedAt))}. Un equipo sin conexión sube sus ventas al recuperarla.</p>
+    </section>`;
+  const see = $("#see-low");
+  if (see) see.onclick = () => { catFilter = "low"; go("catalogo"); syncFilterChips(); renderCatalog(); };
 }
 
-// ---------- Exchange rates (owners set, everyone sees) ----------
+// ---------- Catálogo ----------
+const CURRENCIES = ["USD", "CUP", "MLC"];
+let catFilter = "active";
+const toMinor = raw => { const v = Number(String(raw).replace(",", ".").trim()); return Number.isFinite(v) && v >= 0 ? Math.round(v * 100) : null; };
+const stockOf = id => (current?.stock ?? []).find(s => s.productId === id);
 
-const RATE_CURRENCIES = { CUP: "CUP por 1 USD (efectivo y transferencia)", MLC: "MLC por 1 USD", USDT: "USDT por 1 USD" };
+function syncFilterChips() {
+  document.querySelectorAll("#cat-filter .chip").forEach(c => c.setAttribute("aria-pressed", String(c.dataset.f === catFilter)));
+}
+document.querySelectorAll("#cat-filter .chip").forEach(c => (c.onclick = () => { catFilter = c.dataset.f; syncFilterChips(); renderCatalog(); }));
+$("#cat-q").oninput = () => renderCatalog();
 
-async function loadRates(el) {
-  const business = el.dataset.rates;
-  const owner = el.dataset.owner === "true";
-  const { data, error } = await supabase.rpc("nexo_business_rates", { p_business: business });
-  if (error || data?.error) { el.innerHTML = `<h2>Tasas de cambio</h2><p class="muted">No se pudieron cargar: ${esc(error?.message ?? data.error)}</p>`; return; }
-  const byCurrency = Object.fromEntries((data.rates ?? []).map(r => [r.currency, r]));
-  const since = r => r ? ` · fijada ${esc(new Date(r.setAt).toLocaleString("es"))}` : " · sin fijar";
-  el.innerHTML = `<h2>Tasas de cambio</h2>
-    <p class="muted">Los precios están en USD. El POS convierte los pagos en otras monedas con estas tasas y las recibe en la siguiente sincronización.</p>
-    ${Object.entries(RATE_CURRENCIES).map(([c, label]) => owner
-      ? `<form data-rate="${c}" class="row"><label>${esc(label)}<input name="rate" inputmode="decimal" required value="${esc(byCurrency[c]?.perUsd ?? "")}" placeholder="${c === "CUP" ? "490" : c === "USDT" ? "1" : "1.2"}"></label><button type="submit">Guardar</button><span class="muted">${since(byCurrency[c])}</span></form>`
-      : `<p><strong>${c}</strong>: ${byCurrency[c] ? esc(byCurrency[c].perUsd) : "—"}${since(byCurrency[c])}</p>`).join("")}
-    <div class="msg" data-rate-msg role="status"></div>`;
-  const msg = el.querySelector("[data-rate-msg]");
-  el.querySelectorAll("[data-rate]").forEach(form => {
-    form.onsubmit = async e => {
-      e.preventDefault();
-      const value = Number(String(new FormData(form).get("rate")).replace(",", ".").trim());
-      if (!Number.isFinite(value) || value <= 0) { msg.textContent = "Escribe una tasa mayor que cero."; msg.dataset.tone = "bad"; return; }
-      const { data: saved, error: e2 } = await supabase.rpc("nexo_business_set_rate", { p_business: business, p_currency: form.dataset.rate, p_per_usd: value });
-      if (e2 || saved?.error) { msg.textContent = `No se guardó: ${e2?.message ?? saved.error}`; msg.dataset.tone = "bad"; return; }
-      await loadRates(el);
-      const m = el.querySelector("[data-rate-msg]");
-      m.textContent = `Tasa ${form.dataset.rate} guardada: ${value}. Los equipos la reciben al sincronizar.`;
-      m.dataset.tone = "ok";
-    };
+async function loadCatalog() {
+  if (!isOwner()) { $("#catalog").innerHTML = `<p class="muted">Solo los dueños pueden ver y editar el catálogo.</p>`; $("#source-panel").hidden = true; return; }
+  $("#source-panel").hidden = false;
+  const { data, error } = await supabase.rpc("nexo_business_catalog_list", { p_business: current.businessId });
+  if (error || data?.error) { $("#catalog").innerHTML = `<p>No se pudo cargar: ${esc(error?.message ?? data.error)}</p>`; return; }
+  catalog = data;
+  renderCatalog();
+  void renderSource();
+}
+
+function renderCatalog() {
+  if (!catalog) return;
+  const q = $("#cat-q").value.trim().toLowerCase();
+  const rows = catalog.filter(p => {
+    const s = stockOf(p.product_id);
+    const isLow = s?.lastMovementAt && s.quantity <= (p.min_stock ?? 2);
+    if (catFilter === "active" && !p.active) return false;
+    if (catFilter === "inactive" && p.active) return false;
+    if (catFilter === "low" && !(p.active && isLow)) return false;
+    return !q || [p.name, p.sku, ...(p.barcodes ?? [])].some(v => String(v ?? "").toLowerCase().includes(q));
   });
+  const shown = rows.slice(0, 120);
+  $("#catalog").innerHTML = `<p class="t-xs muted">${rows.length} de ${catalog.length} productos${rows.length > shown.length ? " · busca para ver el resto" : ""}</p>
+    <div>${shown.map(p => {
+      const s = stockOf(p.product_id);
+      const badge = !p.active ? `<span class="badge badge-calm">Inactivo</span>`
+        : s?.lastMovementAt && s.quantity <= 0 ? `<span class="badge badge-out">Agotado</span>`
+        : s?.lastMovementAt && s.quantity <= (p.min_stock ?? 2) ? `<span class="badge badge-low">Quedan ${s.quantity}</span>` : "";
+      return `<div class="row-item"><button type="button" class="row-btn" data-edit="${esc(p.product_id)}">
+        <span class="avatar">${esc(p.name.charAt(0).toUpperCase())}</span>
+        <span class="grow"><span class="title">${esc(p.name)}</span><span class="meta">${esc(p.sku ?? "")}${s?.lastMovementAt ? ` · ${s.quantity} en stock` : ""}${p.min_stock != null ? ` · aviso ${p.min_stock}` : ""}</span></span>
+        <span style="display:flex;flex-direction:column;align-items:flex-end;gap:4px"><span class="price-tag">${p.prices?.USD != null ? usd(p.prices.USD) : "—"}</span>${badge}</span>
+      </button></div>`;
+    }).join("") || `<p class="muted">Ningún producto coincide.</p>`}</div>`;
+  document.querySelectorAll("#catalog [data-edit]").forEach(b => (b.onclick = () => editProduct(catalog.find(p => p.product_id === b.dataset.edit))));
 }
 
-// ---------- Devices (owners) ----------
-
-function devicesSection(b) {
-  return `<section class="card" data-devices="${esc(b.businessId)}">
-    <h2>Equipos del negocio</h2>
-    <ul>${b.devices.map(d => `<li>${esc(d.label ?? d.deviceId)} <span class="muted">(${esc(d.deviceId)})</span> · ${d.active === false ? "desactivado" : "activo"}
-      <button type="button" class="link" data-toggle="${esc(d.deviceId)}" data-active="${d.active === false ? "true" : "false"}">${d.active === false ? "Reactivar" : "Desactivar"}</button></li>`).join("")}</ul>
-    <form data-new-device>
-      <h3>Añadir equipo</h3>
-      <label>Nombre<input name="label" required placeholder="Móvil de la tienda"></label>
-      <label>Identificador<input name="device" required pattern="[a-z0-9][a-z0-9-]{2,62}" placeholder="movil-tienda-02"></label>
-      <button type="submit">Crear y ver la clave</button>
-    </form>
-    <div class="msg" data-device-msg role="status"></div>
-    <p class="muted">Desactiva un equipo si se pierde o lo roban: deja de poder sincronizar al instante.</p>
-  </section>`;
-}
-
-function wireDevices(el) {
-  const business = el.dataset.devices;
-  const msg = el.querySelector("[data-device-msg]");
-  el.querySelectorAll("[data-toggle]").forEach(btn => {
-    btn.onclick = async () => {
-      const active = btn.dataset.active === "true";
-      if (!active && !confirm("¿Desactivar este equipo? Dejará de sincronizar hasta que lo reactives.")) return;
-      const { data, error } = await supabase.rpc("nexo_business_set_device_active", { p_business: business, p_device_id: btn.dataset.toggle, p_active: active });
-      if (error || data?.error) { msg.textContent = `No se pudo: ${error?.message ?? data.error}`; msg.dataset.tone = "bad"; return; }
-      await load();
-    };
-  });
-  el.querySelector("[data-new-device]").onsubmit = async e => {
+function editProduct(p) {
+  const s = p ? stockOf(p.product_id) : null;
+  const sheet = openSheet(`
+    <div class="sheet-head"><h2>${p ? "Editar producto" : "Nuevo producto"}</h2><button type="button" class="btn btn-ghost" data-close>Cerrar</button></div>
+    ${s?.lastMovementAt ? `<p class="t-sm muted">${s.quantity} en stock · último movimiento ${esc(when(s.lastMovementAt))}</p>` : ""}
+    <form class="form">
+      <label class="field">Nombre<input name="name" required value="${esc(p?.name ?? "")}"></label>
+      <div class="grid-2">
+        <label class="field">SKU<input name="sku" value="${esc(p?.sku ?? "")}" autocapitalize="characters"></label>
+        <label class="field">Aviso de stock<input name="min" type="number" min="0" step="1" inputmode="numeric" placeholder="2 por defecto" value="${p?.min_stock ?? ""}"></label>
+      </div>
+      <label class="field">Códigos de barras<input name="barcodes" value="${esc((p?.barcodes ?? []).join(", "))}" placeholder="Separados por coma" inputmode="numeric"></label>
+      <div class="grid-2">${CURRENCIES.map(c => `<label class="field">Precio ${c}<input name="price-${c}" inputmode="decimal" placeholder="—" value="${p?.prices?.[c] != null ? (p.prices[c] / 100).toFixed(2) : ""}"></label>`).join("")}</div>
+      <label class="check"><input type="checkbox" name="active" ${p?.active === false ? "" : "checked"}> Activo (se vende en el POS)</label>
+      <p class="msg" data-msg role="status"></p>
+      <button type="submit" class="btn btn-primary btn-xl btn-block">Guardar</button>
+    </form>`, p ? `Editar ${p.name}` : "Nuevo producto");
+  const form = sheet.el.querySelector("form");
+  const msg = sheet.el.querySelector("[data-msg]");
+  form.onsubmit = async e => {
     e.preventDefault();
-    const f = new FormData(e.target);
-    const { data, error } = await supabase.rpc("nexo_business_create_device", { p_business: business, p_device_id: f.get("device"), p_label: f.get("label") });
-    if (error || data?.error) { msg.textContent = `No se creó: ${error?.message ?? data.error}`; msg.dataset.tone = "bad"; return; }
-    msg.dataset.tone = "ok";
-    msg.innerHTML = `Equipo <strong>${esc(data.deviceId)}</strong> creado. Copia esta clave en el POS (Operaciones → Sincronización → Clave del dispositivo). <strong>Solo se muestra ahora.</strong><br><code style="word-break:break-all">${esc(data.token)}</code>`;
-    e.target.reset();
+    const f = new FormData(form);
+    const prices = {};
+    for (const c of CURRENCIES) {
+      const raw = String(f.get(`price-${c}`) ?? "").trim();
+      if (!raw) continue;
+      const minor = toMinor(raw);
+      if (minor == null) { msg.textContent = `Precio ${c} inválido`; msg.dataset.tone = "bad"; return; }
+      prices[c] = minor;
+    }
+    msg.textContent = "Guardando…"; msg.dataset.tone = "";
+    const { data: saved, error } = await supabase.rpc("nexo_business_catalog_upsert", {
+      p_business: current.businessId,
+      p_product_id: p?.product_id ?? crypto.randomUUID(),
+      p_name: f.get("name"),
+      p_sku: f.get("sku"),
+      p_barcodes: String(f.get("barcodes") ?? "").split(",").map(v => v.trim()).filter(Boolean),
+      p_prices: prices,
+      p_active: f.get("active") === "on",
+      p_min_stock: String(f.get("min") ?? "").trim() === "" ? null : Number(f.get("min")),
+    });
+    if (error || saved?.error) { msg.textContent = `No se guardó: ${error?.message ?? saved.error}`; msg.dataset.tone = "bad"; return; }
+    sheet.close();
+    toast(`Guardado: ${saved.name}. Llega a los equipos al sincronizar.`, "ok");
+    await loadCatalog();
   };
 }
-
-// ---------- Catalog editor (owners) ----------
-
-const CURRENCIES = ["USD", "CUP", "MLC"];
-// Message to show once the catalog section finishes re-rendering.
-const pendingCatalogMsg = {};
-const toMinor = raw => {
-  const v = Number(String(raw).replace(",", ".").trim());
-  return Number.isFinite(v) && v >= 0 ? Math.round(v * 100) : null;
-};
+$("#new-product").onclick = () => editProduct(null);
 
 const SOURCE_LABELS = { biznecubano: "BizneCubano (la web aporta las variantes)", woocommerce: "Web de la tienda" };
-
-async function renderSource(el, business) {
-  const box = el.querySelector("[data-source]");
+async function renderSource() {
+  const box = $("#source");
+  const business = current.businessId;
   const { data, error } = await supabase.rpc("nexo_business_get_catalog_source", { p_business: business });
-  if (error || !data || data.error) { box.textContent = "Sin fuente de catálogo configurada."; return; }
+  if (error || !data || data.error) { box.innerHTML = `<p class="muted">Sin fuente de catálogo configurada.</p>`; return; }
   const last = data.lastImportResult;
-  box.innerHTML = `<label>Fuente del catálogo<select data-kind>${Object.entries(SOURCE_LABELS).map(([k, l]) => `<option value="${k}"${k === data.kind ? " selected" : ""}>${esc(k === "woocommerce" && data.websiteUrl ? `${l} (${new URL(data.websiteUrl).hostname})` : l)}</option>`).join("")}</select></label>
-    <label><span><input type="checkbox" data-auto ${data.autoImport ? "checked" : ""} style="width:auto"> Importar automáticamente cada hora</span></label>
-    <p class="muted">Última importación: ${data.lastImportAt ? esc(new Date(data.lastImportAt).toLocaleString("es")) : "nunca"}${last ? (last.error ? ` · error: ${esc(last.detail ?? last.error)}` : ` · ${last.items} artículos, ${last.catalogChanges} cambios, ${last.stockCounts} existencias${last.snapshotAt ? ` · instantánea BizneCubano del ${esc(new Date(last.snapshotAt).toLocaleString("es"))}` : ""}${last.websiteUnavailable ? " · la web no respondía: se usó la copia de NEXO para las variantes" : ""}`) : ""}</p>`;
+  box.innerHTML = `
+    <label class="field">Fuente<select data-kind>${Object.entries(SOURCE_LABELS).map(([k, l]) => `<option value="${k}"${k === data.kind ? " selected" : ""}>${esc(k === "woocommerce" && data.websiteUrl ? `${l} (${new URL(data.websiteUrl).hostname})` : l)}</option>`).join("")}</select></label>
+    <label class="check"><input type="checkbox" data-auto ${data.autoImport ? "checked" : ""}> Importar automáticamente cada hora</label>
+    <p class="t-sm muted">Última importación: ${esc(when(data.lastImportAt))}${last ? (last.error ? ` · error: ${esc(last.detail ?? last.error)}` : ` · ${last.items} artículos, ${last.catalogChanges} cambios, ${last.stockCounts} existencias${last.websiteUnavailable ? " · la web no respondía: se usó la copia de NEXO" : ""}`) : ""}</p>
+    <button type="button" class="btn btn-secondary btn-block" data-import>${icon("download", "sm")}Importar ahora</button>
+    <p class="t-xs muted">Solo lee: no cambia nada ni en BizneCubano ni en la web.</p>`;
   const save = async () => {
-    const { data: r, error: e } = await supabase.rpc("nexo_business_set_catalog_source", {
-      p_business: business, p_kind: box.querySelector("[data-kind]").value, p_auto_import: box.querySelector("[data-auto]").checked,
-    });
-    const msg = el.querySelector("[data-msg]");
-    msg.textContent = e || r?.error ? `No se cambió: ${e?.message ?? r.error}` : "✓ Fuente guardada. Pulsa «Importar desde la web» para aplicarla ya, o espera a la importación automática.";
-    msg.dataset.tone = e || r?.error ? "bad" : "ok";
+    const { data: r, error: e } = await supabase.rpc("nexo_business_set_catalog_source", { p_business: business, p_kind: box.querySelector("[data-kind]").value, p_auto_import: box.querySelector("[data-auto]").checked });
+    toast(e || r?.error ? `No se cambió: ${e?.message ?? r.error}` : "Fuente guardada", e || r?.error ? "bad" : "ok");
   };
   box.querySelector("[data-kind]").onchange = save;
   box.querySelector("[data-auto]").onchange = save;
-}
-
-async function loadCatalog(el) {
-  const business = el.dataset.catalog;
-  const { data, error } = await supabase.rpc("nexo_business_catalog_list", { p_business: business });
-  if (error || data?.error) {
-    el.innerHTML = `<h2>Catálogo y precios</h2><p>No se pudo cargar: ${esc(error?.message ?? data.error)}</p>`;
-    return;
-  }
-  const products = data;
-  const priceCell = (p, c) => (p.prices?.[c] != null ? money(p.prices[c], c) : "—");
-  el.innerHTML = `
-    <div class="row"><h2>Catálogo y precios</h2><div class="row"><button type="button" data-import>Importar desde la web</button><button type="button" data-new>Nuevo producto</button></div></div>
-    <p class="muted">${products.filter(p => p.active).length} productos activos. «Importar desde la web» trae productos, variantes, precios y existencias desde la fuente elegida (solo lectura: no cambia nada ni en BizneCubano ni en la web).</p>
-    <p class="muted">Los cambios llegan solos a los equipos en su próxima sincronización (cada minuto con conexión).</p>
-    <div data-source class="muted">Cargando fuente del catálogo…</div>
-    <div class="wrap"><table>
-      <thead><tr><th>Producto</th>${CURRENCIES.map(c => `<th>${c}</th>`).join("")}<th>Estado</th><th></th></tr></thead>
-      <tbody>${products.map((p, i) => `<tr><td>${esc(p.name)}<br><span class="muted">${esc(p.sku ?? "")} ${esc((p.barcodes ?? []).join(", "))}</span></td>
-        ${CURRENCIES.map(c => `<td>${priceCell(p, c)}</td>`).join("")}
-        <td>${p.active ? "Activo" : "Inactivo"}</td><td><button type="button" class="link" data-edit="${i}">Editar</button></td></tr>`).join("")
-        || `<tr><td colspan="6">Sin productos</td></tr>`}</tbody>
-    </table></div>
-    <form data-form hidden></form>
-    <div class="msg" data-msg role="status"></div>`;
-  const form = el.querySelector("[data-form]");
-  const msg = el.querySelector("[data-msg]");
-  if (pendingCatalogMsg[business]) {
-    msg.textContent = pendingCatalogMsg[business]; msg.dataset.tone = "ok";
-    delete pendingCatalogMsg[business];
-  }
-  const open = p => {
-    form.hidden = false;
-    form.innerHTML = `
-      <h3>${p ? "Editar producto" : "Nuevo producto"}</h3>
-      <label>Nombre<input name="name" required value="${esc(p?.name ?? "")}"></label>
-      <label>SKU<input name="sku" value="${esc(p?.sku ?? "")}"></label>
-      <label>Códigos de barras (separados por coma)<input name="barcodes" value="${esc((p?.barcodes ?? []).join(", "))}"></label>
-      ${CURRENCIES.map(c => `<label>Precio ${c}<input name="price-${c}" inputmode="decimal" placeholder="Sin precio" value="${p?.prices?.[c] != null ? (p.prices[c] / 100).toFixed(2) : ""}"></label>`).join("")}
-      <label>Stock mínimo (aviso)<input name="min" type="number" min="0" step="1" placeholder="Sin aviso" value="${p?.min_stock ?? ""}"></label>
-      <label><span><input type="checkbox" name="active" ${p?.active === false ? "" : "checked"} style="width:auto"> Activo (se vende en el POS)</span></label>
-      <div class="row"><button type="submit">Guardar</button><button type="button" class="link" data-cancel>Cancelar</button></div>`;
-    form.querySelector("[data-cancel]").onclick = () => { form.hidden = true; };
-    form.onsubmit = async e => {
-      e.preventDefault();
-      const f = new FormData(form);
-      const prices = {};
-      for (const c of CURRENCIES) {
-        const raw = String(f.get(`price-${c}`) ?? "").trim();
-        if (!raw) continue;
-        const minor = toMinor(raw);
-        if (minor == null) { msg.textContent = `Precio ${c} inválido`; msg.dataset.tone = "bad"; return; }
-        prices[c] = minor;
-      }
-      msg.textContent = "Guardando…"; msg.dataset.tone = "";
-      const { data: saved, error: saveError } = await supabase.rpc("nexo_business_catalog_upsert", {
-        p_business: business,
-        p_product_id: p?.product_id ?? crypto.randomUUID(),
-        p_name: f.get("name"),
-        p_sku: f.get("sku"),
-        p_barcodes: String(f.get("barcodes") ?? "").split(",").map(s => s.trim()).filter(Boolean),
-        p_prices: prices,
-        p_active: f.get("active") === "on",
-        p_min_stock: String(f.get("min") ?? "").trim() === "" ? null : Number(f.get("min")),
-      });
-      if (saveError || saved?.error) {
-        msg.textContent = `No se guardó: ${saveError?.message ?? saved.error}`; msg.dataset.tone = "bad";
-        return;
-      }
-      await loadCatalog(el);
-      const done = el.querySelector("[data-msg]");
-      done.textContent = `✓ Guardado: ${saved.name}`; done.dataset.tone = "ok";
-    };
-    form.scrollIntoView({ behavior: "smooth", block: "start" });
-  };
-  el.querySelector("[data-new]").onclick = () => open(null);
-  void renderSource(el, business);
-  el.querySelector("[data-import]").onclick = async () => {
-    const btn = el.querySelector("[data-import]");
-    btn.disabled = true; msg.textContent = "Importando desde la web… puede tardar un minuto."; msg.dataset.tone = "";
+  box.querySelector("[data-import]").onclick = async () => {
+    const btn = box.querySelector("[data-import]");
+    btn.disabled = true; btn.textContent = "Importando… puede tardar un minuto";
     try {
       const { data: { session } } = await supabase.auth.getSession();
-      const r = await fetch(`https://viwwlriwlwodrfukbgbj.supabase.co/functions/v1/nexo-catalog-import?business=${encodeURIComponent(business)}`, {
-        method: "POST", headers: { authorization: `Bearer ${session?.access_token ?? ""}` },
-      });
+      const r = await fetch(`https://viwwlriwlwodrfukbgbj.supabase.co/functions/v1/nexo-catalog-import?business=${encodeURIComponent(business)}`, { method: "POST", headers: { authorization: `Bearer ${session?.access_token ?? ""}` } });
       const out = await r.json();
       if (!r.ok) throw new Error(out.detail ?? out.error ?? `HTTP ${r.status}`);
-      pendingCatalogMsg[business] = `✓ Web: ${out.items} artículos, ${out.catalogChanges} cambios de catálogo, ${out.stockCounts} existencias actualizadas, ${out.deactivated} retirados.`;
+      toast(`Importado: ${out.items} artículos, ${out.catalogChanges} cambios, ${out.stockCounts} existencias, ${out.deactivated} retirados`, "ok");
+      catalog = null;
       await load();
+      await loadCatalog();
     } catch (e) {
-      msg.textContent = `No se pudo importar: ${e.message}`; msg.dataset.tone = "bad"; btn.disabled = false;
+      toast(`No se pudo importar: ${e.message}`, "bad");
+      btn.disabled = false; btn.innerHTML = `${icon("download", "sm")}Importar ahora`;
     }
   };
-  el.querySelectorAll("[data-edit]").forEach(btn => { btn.onclick = () => open(products[Number(btn.dataset.edit)]); });
 }
 
-async function load() {
-  $("#content").innerHTML = `<div class="card muted">Cargando…</div>`;
-  const { data, error } = await supabase.rpc("nexo_business_member_summary", { p_days: Number($("#days").value) });
-  if (error || data?.error) {
-    $("#content").innerHTML = `<div class="card">No se pudo cargar el resumen: ${esc(error?.message ?? data.error)}</div>`;
-    return;
-  }
-  render(data);
+// ---------- Tasas ----------
+const RATES = [
+  ["CUP", "CUP", "Efectivo y transferencia (Transfermóvil, EnZona)", "CUP por 1 USD"],
+  ["MLC", "MLC", "Transferencia a tarjeta MLC", "MLC por 1 USD"],
+  ["USDT", "USDT", "Cripto", "USDT por 1 USD"],
+  ["ZELLE", "Zelle", "Recargo: USD que se envían por cada USD de precio", "USD Zelle por 1 USD"],
+];
+async function loadRates() {
+  const { data, error } = await supabase.rpc("nexo_business_rates", { p_business: current.businessId });
+  if (error || data?.error) { $("#rates").innerHTML = `<p class="muted">No se pudieron cargar: ${esc(error?.message ?? data.error)}</p>`; return; }
+  const by = Object.fromEntries((data.rates ?? []).map(r => [r.currency, r]));
+  const owner = isOwner();
+  $("#rates").innerHTML = RATES.map(([key, name, help, unit]) => `
+    <form class="rate" data-rate="${key}">
+      <span><span class="title" style="font-weight:700">${esc(name)}</span><br><span class="t-xs muted">${esc(help)}</span></span>
+      ${owner
+        ? `<span class="rate-row"><label class="rate-input"><input name="rate" inputmode="decimal" required aria-label="${esc(unit)}" value="${esc(by[key]?.perUsd ?? "")}" placeholder="—"><small>${key === "ZELLE" ? "×" : esc(key)}</small></label><button type="submit" class="btn btn-primary">Guardar</button></span>`
+        : `<span class="t-lg num">${by[key] ? esc(by[key].perUsd) : "—"}</span>`}
+      <span class="when">${by[key] ? `Vigente desde ${esc(when(by[key].setAt))}` : "Sin fijar: esta forma de pago no se ofrece en el POS"}</span>
+    </form>`).join("");
+  document.querySelectorAll("#rates [data-rate]").forEach(form => {
+    form.onsubmit = async e => {
+      e.preventDefault();
+      const value = Number(String(new FormData(form).get("rate")).replace(",", ".").trim());
+      if (!Number.isFinite(value) || value <= 0) return toast("Escribe una tasa mayor que cero.", "bad");
+      const { data: saved, error: err } = await supabase.rpc("nexo_business_set_rate", { p_business: current.businessId, p_currency: form.dataset.rate, p_per_usd: value });
+      if (err || saved?.error) return toast(`No se guardó: ${err?.message ?? saved.error}`, "bad");
+      toast(`${form.dataset.rate === "ZELLE" ? "Zelle" : form.dataset.rate} = ${value}. Los equipos la reciben al sincronizar.`, "ok");
+      await loadRates();
+    };
+  });
 }
 
+// ---------- Equipos ----------
+// Virtual devices the cloud uses (e.g. the website import) are not switched off here.
+const system = d => d.deviceId.endsWith("-web");
+function renderDevices() {
+  const owner = isOwner();
+  $("#devices").innerHTML = current.devices.map(d => `
+    <div class="row-item device"><span class="avatar">${icon("device", "sm")}</span>
+      <span class="grow"><span class="title">${esc(d.label ?? d.deviceId)}</span><span class="meta">${esc(d.deviceId)} · última conexión ${esc(when(d.lastSeenAt))}</span></span>
+      <span class="actions">${system(d) ? `<span class="badge badge-calm">Sistema</span>` : d.active === false ? `<span class="badge badge-out">Desactivado</span>` : `<span class="badge badge-ok">Activo</span>`}
+      ${owner && !system(d) ? `<button type="button" class="btn ${d.active === false ? "btn-secondary" : "btn-danger"}" data-toggle="${esc(d.deviceId)}" data-active="${d.active === false}">${d.active === false ? "Reactivar" : "Desactivar"}</button>` : ""}</span>
+    </div>`).join("") || `<p class="muted">Sin equipos.</p>`;
+  document.querySelectorAll("#devices [data-toggle]").forEach(btn => {
+    btn.onclick = async () => {
+      const active = btn.dataset.active === "true";
+      if (!active && !confirm("¿Desactivar este equipo? Dejará de sincronizar hasta que lo reactives.")) return;
+      const { data, error } = await supabase.rpc("nexo_business_set_device_active", { p_business: current.businessId, p_device_id: btn.dataset.toggle, p_active: active });
+      if (error || data?.error) return toast(`No se pudo: ${error?.message ?? data.error}`, "bad");
+      toast(active ? "Equipo reactivado" : "Equipo desactivado", "ok");
+      await load();
+    };
+  });
+}
+$("#new-device").onsubmit = async e => {
+  e.preventDefault();
+  const f = new FormData(e.target);
+  const { data, error } = await supabase.rpc("nexo_business_create_device", { p_business: current.businessId, p_device_id: f.get("device"), p_label: f.get("label") });
+  if (error || data?.error) return toast(`No se creó: ${error?.message ?? data.error}`, "bad");
+  $("#device-key").innerHTML = `<div class="notice ok" style="flex-direction:column;align-items:stretch"><b>Equipo ${esc(data.deviceId)} creado</b>Copia esta clave en el POS (Más → Sincronización → Clave del dispositivo). Solo se muestra ahora.<code class="key">${esc(data.token)}</code><button type="button" class="btn btn-secondary" data-copy-key>${icon("copy", "sm")}Copiar clave</button></div>`;
+  $("#device-key [data-copy-key]").onclick = async () => { await navigator.clipboard.writeText(data.token); toast("Clave copiada", "ok"); };
+  e.target.reset();
+  await load();
+};
+
+// ---------- Session ----------
 let shownUser = null;
-
 async function show(session) {
   const userId = session?.user?.id ?? null;
-  // Token refreshes re-fire auth events; only redraw when the user changes,
-  // so an open catalog form is never wiped.
+  // Token refreshes re-fire auth events; only redraw when the user changes.
   if (userId === shownUser) return;
   shownUser = userId;
   $("#auth").hidden = Boolean(userId);
   $("#app").hidden = !userId;
+  $("#nav").hidden = !userId;
+  $("#root").classList.toggle("signed", Boolean(userId));
   if (userId) {
-    $("#who").textContent = session.user.email ?? "";
+    $("#who").textContent = `Sesión: ${session.user.email ?? ""}`;
+    catalog = null;
     await load();
   }
 }
@@ -346,22 +467,16 @@ $("#login").onsubmit = async e => {
   const { error } = await supabase.auth.signInWithPassword({ email: f.get("email"), password: f.get("password") });
   if (error) say(error.message === "Email not confirmed" ? "Confirma tu correo con el enlace que te enviamos y vuelve a entrar." : "Correo o contraseña incorrectos.", "bad");
 };
-
 $("#signup").onclick = async () => {
   const form = $("#login");
   if (!form.reportValidity()) return;
   const f = new FormData(form);
   say("Creando cuenta…");
-  const { error } = await supabase.auth.signUp({
-    email: f.get("email"),
-    password: f.get("password"),
-    options: { emailRedirectTo: location.origin + location.pathname },
-  });
+  const { error } = await supabase.auth.signUp({ email: f.get("email"), password: f.get("password"), options: { emailRedirectTo: location.origin + location.pathname } });
   say(error ? `No se pudo crear la cuenta: ${error.message}` : "Cuenta creada. Revisa tu correo para confirmarla y después entra.", error ? "bad" : "ok");
 };
-
-$("#refresh").onclick = load;
-$("#days").onchange = load;
+$("#refresh").onclick = async () => { catalog = null; await load(); toast("Actualizado", "ok"); };
+$("#days").onchange = () => void load();
 $("#logout").onclick = () => supabase.auth.signOut();
 
 // Fires once on load (INITIAL_SESSION) and on every sign-in/out.
