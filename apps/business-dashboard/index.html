@@ -34,6 +34,7 @@
     <button type="button" class="tab" data-page="equipo" data-for="admin"><span data-ic="users"></span>Equipo<span class="dot" id="team-dot" hidden></span></button>
     <button type="button" class="tab" data-page="ajustes" data-for="admin"><span data-ic="sliders"></span>Ajustes</button>
     <button type="button" class="tab" data-page="cuenta" data-for="person" hidden><span data-ic="wallet"></span>Mi cuenta</button>
+    <button type="button" class="tab" data-page="recibir" data-for="person" hidden><span data-ic="download"></span>Recibir</button>
     <button type="button" class="tab" data-page="perfil" data-for="person" hidden><span data-ic="user"></span>Perfil</button>
     <div class="nav-spacer"></div>
   </nav>
@@ -95,6 +96,11 @@
       <div id="account"><div class="panel muted">Cargando…</div></div>
     </main>
 
+    <main class="page" data-page="recibir" hidden>
+      <div class="page-head"><h1>Recibir</h1></div>
+      <section class="panel" id="receipts-person"></section>
+    </main>
+
     <main class="page" data-page="perfil" hidden>
       <div class="page-head"><h1>Perfil</h1></div>
       <section class="panel" id="profile"></section>
@@ -111,6 +117,7 @@
         <button type="button" class="chip" data-f="inactive" aria-pressed="false">Inactivos</button>
       </div>
       <div class="attention" id="attention-products" hidden></div>
+      <section class="panel" id="receipts-panel" hidden></section>
       <section class="panel" id="web-panel" hidden></section>
       <section class="panel" id="catalog"><p class="muted">Cargando…</p></section>
       <details class="panel" id="source-panel"><summary style="font-weight: 700; cursor: pointer">Origen del catálogo e importación</summary><div id="source" class="form" style="margin-top: 12px"></div></details>
@@ -225,7 +232,7 @@ function go(next) {
   window.scrollTo({ top: 0 });
   if (next === "catalogo") {
     if (catalog && isOwner()) {
-      $("#source-panel").hidden = false; renderCatalog(); void renderSource(); void renderWebPanel();
+      $("#source-panel").hidden = false; renderCatalog(); void renderSource(); void renderWebPanel(); void renderReceipts($("#receipts-panel"));
       document.querySelectorAll("[data-cost-only]").forEach(c => (c.hidden = !canCost()));
       if (canCost() && !costSheet) void loadCostSheet().then(renderCatalog);
     }
@@ -237,6 +244,7 @@ function go(next) {
   if (next === "equipo") void loadTeam();
   if (next === "cuenta") void loadAccount();
   if (next === "perfil") renderProfile();
+  if (next === "recibir") void renderReceipts($("#receipts-person"));
 }
 document.querySelectorAll("#nav .tab").forEach(t => (t.onclick = () => go(t.dataset.page)));
 
@@ -447,6 +455,7 @@ async function loadCatalog() {
   renderCatalog();
   void renderSource();
   void renderWebPanel();
+  void renderReceipts($("#receipts-panel"));
 }
 
 function renderCatalog() {
@@ -1090,6 +1099,7 @@ async function startPerson() {
   $("#biz-name").textContent = mine.businessId === "casa-viva" ? "Casa Viva" : mine.businessId;
   $("#new-order").hidden = mine.kind !== "gestor" || mine.status !== "active";
   $("#nav .tab[data-page=pedidos]").hidden = mine.status !== "active" || mine.kind === "partner";
+  $("#nav .tab[data-page=recibir]").hidden = !(mine.status === "active" && mine.kind === "staff");
   go("cuenta");
   return true;
 }
@@ -1517,6 +1527,134 @@ function openReview() {
   };
   el.querySelectorAll("[data-rtab] button").forEach(b => (b.onclick = () => { tab = b.dataset.v; el.querySelectorAll("[data-rtab] button").forEach(x => x.setAttribute("aria-pressed", String(x === b))); render(); }));
   render();
+}
+
+// ---------- Recibir mercancía (factura con foto; Curru la lee) ----------
+async function renderReceipts(box) {
+  if (!box) return;
+  const { data, error } = await supabase.rpc("nexo_business_receipts", { p_business: bizId(), p_limit: 30 });
+  if (error || data?.error) { box.hidden = true; return; }
+  box.hidden = false;
+  box.innerHTML = '<div class="kv"><h2 class="t-lg">Entradas de mercancía</h2><button type="button" class="btn btn-primary" data-new-receipt>' + icon("plus", "sm") + "Recibir</button></div>"
+    + '<p class="t-xs muted">Llega mercancía: foto de la factura, Curru la lee, revisas y confirmas. Sube el stock y guarda el costo.</p>'
+    + (data.length ? data.map(r => '<div class="row-item"><button type="button" class="row-btn" data-receipt="' + r.id + '"><span class="grow"><span class="title">#' + r.number + " · " + esc(r.supplier) + '</span><span class="meta">'
+      + esc(r.lines.map(l => l.quantity + "× " + l.name).join(", ")) + '</span><span class="meta">' + esc(when(r.at)) + (r.by ? " · " + esc(r.by) : "") + (r.hasPhoto ? " · 📷 factura" : "") + (r.aiUsed ? " · leída por Curru" : "") + '</span></span><span class="price-tag">' + dollars(r.totalUsd) + "</span></button></div>").join("")
+      : '<p class="muted">Aún no hay entradas.</p>');
+  box.querySelector("[data-new-receipt]").onclick = () => receiveSheet(() => renderReceipts(box));
+  box.querySelectorAll("[data-receipt]").forEach(b => (b.onclick = async () => {
+    const r = data.find(x => x.id === b.dataset.receipt);
+    const photo = r.hasPhoto ? (await supabase.rpc("nexo_business_receipt_photo", { p_business: bizId(), p_id: r.id })).data : null;
+    openSheet('<div class="sheet-head"><h2>Entrada #' + r.number + '</h2><button type="button" class="btn btn-ghost" data-close>Cerrar</button></div>'
+      + '<p class="t-sm"><b>' + esc(r.supplier) + "</b> · " + esc(when(r.at)) + (r.by ? " · " + esc(r.by) : "") + "</p>"
+      + '<div class="breakdown">' + r.lines.map(l => '<div class="kv"><span>' + l.quantity + "× " + esc(l.name) + '</span><span class="num">' + Number(l.unit_cost).toLocaleString("es") + " " + esc(l.currency) + " c/u</span></div>").join("")
+      + '<div class="kv strong"><span>Total</span><span class="num">' + dollars(r.totalUsd) + "</span></div></div>"
+      + (r.note ? '<p class="t-sm muted">' + esc(r.note) + "</p>" : "")
+      + (photo ? '<img class="receipt-photo" src="' + esc(photo) + '" alt="Factura">' : '<p class="t-sm muted">Sin foto de factura.</p>'), "Entrada " + r.number);
+  }));
+}
+
+// Shrinks a camera photo to a ~150 KB JPEG data URL.
+function shrinkPhoto(file) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => {
+      const scale = Math.min(1, 1400 / Math.max(img.width, img.height));
+      const c = document.createElement("canvas");
+      c.width = Math.round(img.width * scale); c.height = Math.round(img.height * scale);
+      c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+      URL.revokeObjectURL(img.src);
+      resolve(c.toDataURL("image/jpeg", 0.7));
+    };
+    img.onerror = reject;
+    img.src = URL.createObjectURL(file);
+  });
+}
+
+async function receiveSheet(done) {
+  const items = await loadShop();
+  if (!items) return;
+  const partners = mode === "admin" ? ((peopleCache ?? (await loadPeople())) ?? []).filter(p => p.kind === "partner" && p.status === "active") : [];
+  const lines = [];
+  let invoicePhoto = null, aiUsed = false;
+  const sheet = openSheet('<div class="sheet-head"><h2>Recibir mercancía</h2><button type="button" class="btn btn-ghost" data-close>Cerrar</button></div>'
+    + '<form class="form">'
+    + '<label class="field">Foto de la factura<input type="file" accept="image/*" capture="environment" data-photo></label>'
+    + '<img class="receipt-photo" data-preview hidden alt="">'
+    + '<button type="button" class="btn btn-secondary btn-block" data-curru disabled>✨ Leer la factura con Curru</button>'
+    + '<p class="t-xs muted" data-curru-msg></p>'
+    + '<div class="grid-2"><label class="field">Proveedor<input name="supplier" required maxlength="80" placeholder="Dayra, Ensueño…"></label>'
+    + (partners.length ? '<label class="field">Es mercancía de<select name="partner"><option value="">Casa Viva</option>' + partners.map(p => '<option value="' + p.id + '">' + esc(p.fullName) + "</option>").join("") + "</select></label>" : "<span></span>") + "</div>"
+    + '<label class="search-field"><span>' + icon("search") + '</span><input data-q type="search" placeholder="Añadir producto a mano"></label>'
+    + '<div data-items class="pick-list"></div>'
+    + '<div data-lines></div>'
+    + '<label class="field">Nota<input name="note" maxlength="200" placeholder="Ej. 2 llegaron rotos"></label>'
+    + '<p class="msg" data-msg role="status"></p><button type="submit" class="btn btn-primary btn-xl btn-block">Confirmar entrada</button></form>', "Recibir mercancía");
+  const form = sheet.el.querySelector("form");
+  const byId = id => items.find(p => p.productId === id);
+  const renderLines = () => {
+    const usdTotal = lines.reduce((t, l) => t + (l.productId ? l.quantity * (Number(l.unitCost) || 0) / (l.currency === "USD" ? 1 : Number(current?.rates?.[l.currency] ?? NaN)) : 0), 0);
+    form.querySelector("[data-lines]").innerHTML = lines.length ? '<div class="breakdown">' + lines.map((l, i) => '<div class="recv-line" data-i="' + i + '">'
+      + '<div class="kv"><span class="title">' + (l.productId ? esc(byId(l.productId)?.name ?? l.productId) : '<span style="color:var(--nx-danger)">Elige el producto: «' + esc(l.readName) + "»</span>") + '</span><button type="button" class="btn btn-ghost btn-icon" data-del aria-label="Quitar">✕</button></div>'
+      + (l.readName && l.productId ? '<span class="meta">En la factura: ' + esc(l.readName) + "</span>" : "")
+      + (l.productId ? "" : '<select data-fix><option value="">— elegir —</option>' + items.filter(p => !l.readName || p.name.toLowerCase().includes(l.readName.split(" ")[0].toLowerCase())).slice(0, 30).map(p => '<option value="' + esc(p.productId) + '">' + esc(p.name) + "</option>").join("") + "</select>")
+      + '<div class="grid-3"><label class="field t-sm">Cantidad<input data-qty inputmode="numeric" value="' + l.quantity + '"></label><label class="field t-sm">Costo c/u<input data-cost inputmode="decimal" value="' + esc(l.unitCost ?? "") + '"></label>'
+      + '<label class="field t-sm">Moneda<select data-cur>' + ["USD", "CUP", "MLC"].map(c => "<option" + (l.currency === c ? " selected" : "") + ">" + c + "</option>").join("") + "</select></label></div></div>").join("")
+      + (Number.isFinite(usdTotal) ? '<div class="kv strong"><span>Total</span><span class="num">' + dollars(usdTotal) + "</span></div>" : "") + "</div>" : '<p class="t-sm muted">Haz la foto y pulsa «Leer con Curru», o añade los productos a mano.</p>';
+    form.querySelectorAll(".recv-line").forEach(row => {
+      const l = lines[Number(row.dataset.i)];
+      row.querySelector("[data-del]").onclick = () => { lines.splice(lines.indexOf(l), 1); renderLines(); };
+      row.querySelector("[data-fix]")?.addEventListener("change", e => { l.productId = e.target.value || null; renderLines(); });
+      row.querySelector("[data-qty]").onchange = e => { l.quantity = Math.max(1, parseInt(e.target.value, 10) || 1); renderLines(); };
+      row.querySelector("[data-cost]").onchange = e => { l.unitCost = num(e.target.value); renderLines(); };
+      row.querySelector("[data-cur]").onchange = e => { l.currency = e.target.value; renderLines(); };
+    });
+  };
+  const renderItems = () => {
+    const q = form.querySelector("[data-q]").value.trim().toLowerCase();
+    form.querySelector("[data-items]").innerHTML = q ? items.filter(p => p.name.toLowerCase().includes(q)).slice(0, 12).map(p => '<button type="button" class="pick" data-add="' + esc(p.productId) + '">' + photo(p.imageUrl, p.name) + '<span class="grow"><span class="title">' + esc(p.name) + '</span><span class="meta">' + p.stock + " en stock</span></span>" + icon("plus", "sm") + "</button>").join("") : "";
+    form.querySelectorAll("[data-add]").forEach(b => (b.onclick = () => { lines.push({ productId: b.dataset.add, quantity: 1, unitCost: null, currency: "USD" }); form.querySelector("[data-q]").value = ""; renderItems(); renderLines(); }));
+  };
+  form.querySelector("[data-q]").oninput = renderItems;
+  form.querySelector("[data-photo]").onchange = async e => {
+    const f = e.target.files?.[0];
+    if (!f) return;
+    invoicePhoto = await shrinkPhoto(f);
+    const prev = form.querySelector("[data-preview]");
+    prev.src = invoicePhoto; prev.hidden = false;
+    form.querySelector("[data-curru]").disabled = false;
+  };
+  form.querySelector("[data-curru]").onclick = async () => {
+    const msg = form.querySelector("[data-curru-msg]");
+    msg.textContent = "Curru está leyendo la factura…";
+    const { data: { session } } = await supabase.auth.getSession();
+    const r = await fetch("https://viwwlriwlwodrfukbgbj.supabase.co/functions/v1/nexo-curru", { method: "POST",
+      headers: { authorization: "Bearer " + (session?.access_token ?? ""), "content-type": "application/json" }, body: JSON.stringify({ business: bizId(), image: invoicePhoto }) });
+    const out = await r.json().catch(() => ({}));
+    if (!r.ok) { msg.textContent = out.error === "ai_not_configured" ? "Curru aún no está activada en la app. Añade los productos a mano; la foto se guarda igual." : "Curru no pudo leerla. Añade los productos a mano."; return; }
+    aiUsed = true;
+    if (out.supplier && !form.elements.supplier.value) form.elements.supplier.value = out.supplier;
+    for (const l of out.lines) lines.push({ productId: l.productId, readName: l.name, quantity: l.quantity, unitCost: l.unitCost, currency: l.currency });
+    msg.textContent = "Curru leyó " + out.lines.length + " productos" + (out.total ? " · total de la factura " + out.total : "") + (out.notes ? " · " + out.notes : "") + ". Revisa antes de confirmar.";
+    renderLines();
+  };
+  renderLines();
+  form.onsubmit = async e => {
+    e.preventDefault();
+    const msg = form.querySelector("[data-msg]");
+    const bad = t => { msg.textContent = t; msg.dataset.tone = "bad"; };
+    if (!lines.length) return bad("Añade al menos un producto.");
+    if (lines.some(l => !l.productId)) return bad("Hay productos sin elegir (en rojo).");
+    if (lines.some(l => l.unitCost == null)) return bad("Falta el costo de algún producto.");
+    msg.textContent = "Guardando…"; msg.dataset.tone = "";
+    const { data, error } = await supabase.rpc("nexo_business_receive_goods", { p_business: bizId(), p_receipt: {
+      supplierName: form.elements.supplier.value.trim(), partnerId: form.elements.partner?.value || null, photo: invoicePhoto, aiUsed,
+      note: form.elements.note.value.trim(), lines: lines.map(l => ({ productId: l.productId, quantity: l.quantity, unitCost: l.unitCost, currency: l.currency })) } });
+    if (error || data?.error) return bad("No se guardó: " + (error?.message ?? data.message ?? data.error));
+    sheet.close();
+    toast("Entrada #" + data.number + " guardada: stock y costos al día", "ok");
+    shop = null; costSheet = null;
+    done?.();
+  };
 }
 
 // ---------- Caja: cobros, transferencias, turnos ----------

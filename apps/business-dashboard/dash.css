@@ -186,3 +186,6 @@ body { background: #F6F1E6; }
 .nx .review-item .meta { font-size: var(--nx-fs-xs); color: var(--nx-text-2); }
 .nx .review-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
 .nx .attention { margin-bottom: var(--nx-s2); }
+.nx .receipt-photo { width: 100%; max-height: 60vh; object-fit: contain; border-radius: var(--nx-r-md); border: 1px solid var(--nx-line); background: var(--nx-surface-2); }
+.nx .recv-line { display: grid; gap: 6px; padding-block: 8px; border-bottom: 1px solid var(--nx-line); }
+.nx .recv-line .meta { font-size: var(--nx-fs-xs); color: var(--nx-text-2); }
