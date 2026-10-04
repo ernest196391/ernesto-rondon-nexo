@@ -833,6 +833,7 @@ function editPerson(p) {
     + '<p class="msg" data-msg role="status"></p>'
     + (p?.status === "pending" ? '<div class="grid-2"><button type="button" class="btn btn-primary" data-status="active">Aprobar</button><button type="button" class="btn btn-danger" data-status="rejected">Rechazar</button></div>' : "")
     + '<button type="submit" class="btn ' + (p?.status === "pending" ? "btn-secondary" : "btn-primary btn-xl") + ' btn-block">Guardar</button>'
+    + (p?.status === "active" && p.kind !== "partner" ? '<button type="button" class="btn btn-secondary btn-block" data-staff-buy>Compra de personal (a precio de costo)</button>' : "")
     + (p?.status === "active" ? '<button type="button" class="btn btn-ghost btn-block" data-status="inactive">Desactivar</button>' : "")
     + (p && (p.status === "inactive" || p.status === "rejected") ? '<button type="button" class="btn btn-secondary btn-block" data-status="active">Activar</button>' : "")
     + "</form>", p ? p.fullName : "Añadir persona");
@@ -872,7 +873,46 @@ function editPerson(p) {
     await loadTeam();
   };
   form.onsubmit = e => { e.preventDefault(); void save({}); };
+  form.querySelector("[data-staff-buy]")?.addEventListener("click", () => { sheet.close(); void staffPurchase(p); });
   form.querySelectorAll("[data-status]").forEach(x => (x.onclick = () => { if (form.reportValidity()) void save({ status: x.dataset.status }); }));
+}
+
+// Compra de personal: products at purchase cost, paid now or taken from her balance.
+async function staffPurchase(p) {
+  if (!costSheet) await loadCostSheet();
+  const items = (costSheet?.products ?? []).filter(x => x.cost);
+  const cart = new Map();
+  const unit = x => Math.round(Number(x.cost.purchaseAmount) / Number(x.cost.purchaseRate) * 100);
+  const sheet = openSheet('<div class="sheet-head"><h2>Compra de ' + esc(p.fullName) + '</h2><button type="button" class="btn btn-ghost" data-close>Cerrar</button></div>'
+    + '<p class="t-sm muted">A precio de costo, sin comisiones. Saldo actual: <b>' + dollars(p.balance.availableUsd) + "</b></p>"
+    + '<label class="search-field"><span>' + icon("search") + '</span><input data-q type="search" placeholder="Buscar producto con costo"></label>'
+    + '<div data-items class="pick-list"></div><div data-cart></div>'
+    + '<div class="pay-grid" style="margin-top:8px">' + [["deduction", "Descontar de su saldo"], ["cash", "Paga en efectivo"], ["transfer", "Paga por transferencia"]].map(([v, l], i) => '<label class="pay-opt"><input type="radio" name="sp-pay" value="' + v + '"' + (i === 0 ? " checked" : "") + "><span>" + l + "</span></label>").join("") + "</div>"
+    + '<p class="msg" data-msg role="status"></p><button type="button" class="btn btn-primary btn-xl btn-block" data-go>Registrar compra</button>', "Compra de personal");
+  const el = sheet.el;
+  const renderCart = () => {
+    const lines = [...cart.entries()];
+    const total = lines.reduce((t, [id, q]) => t + unit(items.find(x => x.productId === id)) * q, 0);
+    el.querySelector("[data-cart]").innerHTML = lines.length ? '<div class="breakdown">' + lines.map(([id, q]) => { const x = items.find(y => y.productId === id); return '<div class="kv"><span>' + q + "× " + esc(x.name) + '</span><span class="num">' + usd(unit(x) * q) + "</span></div>"; }).join("") + '<div class="kv strong"><span>Total a costo</span><span class="num">' + usd(total) + "</span></div></div>" : "";
+  };
+  const renderItems = () => {
+    const q = el.querySelector("[data-q]").value.trim().toLowerCase();
+    el.querySelector("[data-items]").innerHTML = items.filter(x => !q || x.name.toLowerCase().includes(q)).slice(0, 20).map(x => '<button type="button" class="pick" data-add="' + esc(x.productId) + '">' + photo(x.imageUrl, x.name) + '<span class="grow"><span class="title">' + esc(x.name) + '</span><span class="meta">costo ' + usd(unit(x)) + " · " + x.stock + " en stock</span></span>" + icon("plus", "sm") + "</button>").join("") || '<p class="t-sm muted">Solo aparecen productos con costo guardado.</p>';
+    el.querySelectorAll("[data-add]").forEach(b => (b.onclick = () => { cart.set(b.dataset.add, (cart.get(b.dataset.add) ?? 0) + 1); renderCart(); }));
+  };
+  el.querySelector("[data-q]").oninput = renderItems;
+  renderItems();
+  el.querySelector("[data-go]").onclick = async () => {
+    const msg = el.querySelector("[data-msg]");
+    if (!cart.size) { msg.textContent = "Añade al menos un producto."; msg.dataset.tone = "bad"; return; }
+    const method = el.querySelector("[name=sp-pay]:checked")?.value ?? "deduction";
+    const { data, error } = await supabase.rpc("nexo_business_staff_purchase", { p_business: bizId(), p_buyer: p.id,
+      p_lines: [...cart.entries()].map(([productId, quantity]) => ({ productId, quantity })), p_payment: { method, currency: "USD" } });
+    if (error || data?.error) { msg.textContent = "No se registró: " + (error?.message ?? data.message ?? data.error); msg.dataset.tone = "bad"; return; }
+    sheet.close();
+    toast("Compra #" + data.number + " registrada: " + usd(data.totalMinor) + (method === "deduction" ? " · saldo " + dollars(data.balance.availableUsd) : ""), "ok");
+    await loadTeam();
+  };
 }
 
 function payPayout(r) {
