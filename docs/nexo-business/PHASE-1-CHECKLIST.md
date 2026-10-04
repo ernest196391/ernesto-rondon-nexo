@@ -13,7 +13,7 @@ Updated 2026-10-03 from STATUS.md. `[x]` = built and verified; `[~]` = built, fi
 - [x] Casa Viva seed/import fixture (cloud import from BizneCubano + casaviva.company, 284 items).
 - [x] Product/category/SKU/barcode local repository (catalog pull, categories, variants, photos cached offline).
 - [x] Search by name/SKU/barcode.
-- [ ] Favorites/quick products.
+- [x] Favorites/quick products (star per card, Favoritos chip, best sellers when none pinned).
 - [~] Android camera scanner offline (continuous scanning built; needs a field test with real barcodes).
 - [~] Desktop HID scanner (keyboard-wedge reader supported; needs a test with the shop's reader).
 

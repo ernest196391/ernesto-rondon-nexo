@@ -105,6 +105,11 @@ pub const MIGRATIONS: &[LocalMigration] = &[
         description: "product_image_cache",
         sql: include_str!("../../migrations/0016_product_image_cache.sql"),
     },
+    LocalMigration {
+        version: 17,
+        description: "favorites",
+        sql: include_str!("../../migrations/0017_favorites.sql"),
+    },
 ];
 
 /// Applies every migration in order. Used by tests and tooling; on devices the
