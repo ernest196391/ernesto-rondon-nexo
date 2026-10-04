@@ -730,15 +730,23 @@ async function scanProduct() {
 
 // ---------- Sale ----------
 
+/** One checkout at a time: a double tap must never record the sale twice. */
+let checkingOut = false;
+
 async function checkout(exactUsdCash: boolean) {
-  if (!cart.size) return;
-  const totalMinor = cartTotalMinor();
-  const payments: PaymentInput[] | null = exactUsdCash
-    ? [{ paymentId: crypto.randomUUID(), method: "cash", currency: "USD", amountMinor: totalMinor, usdMinor: totalMinor, exchangeRate: null, provider: null, externalRef: null }]
-    : await openCheckout(totalMinor);
-  if (!payments) return;
-  cartSheet?.close();
-  await completeSale(payments);
+  if (!cart.size || checkingOut) return;
+  checkingOut = true;
+  try {
+    const totalMinor = cartTotalMinor();
+    const payments: PaymentInput[] | null = exactUsdCash
+      ? [{ paymentId: crypto.randomUUID(), method: "cash", currency: "USD", amountMinor: totalMinor, usdMinor: totalMinor, exchangeRate: null, provider: null, externalRef: null }]
+      : await openCheckout(totalMinor);
+    if (!payments) return;
+    cartSheet?.close();
+    await completeSale(payments);
+  } finally {
+    checkingOut = false;
+  }
 }
 
 async function completeSale(payments: PaymentInput[]) {
