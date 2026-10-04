@@ -108,6 +108,7 @@
         <button type="button" class="chip" data-f="lowmargin" aria-pressed="false" data-cost-only hidden>Margen bajo</button>
         <button type="button" class="chip" data-f="inactive" aria-pressed="false">Inactivos</button>
       </div>
+      <section class="panel" id="web-panel" hidden></section>
       <section class="panel" id="catalog"><p class="muted">Cargando…</p></section>
       <details class="panel" id="source-panel"><summary style="font-weight: 700; cursor: pointer">Origen del catálogo e importación</summary><div id="source" class="form" style="margin-top: 12px"></div></details>
     </main>
@@ -221,7 +222,7 @@ function go(next) {
   window.scrollTo({ top: 0 });
   if (next === "catalogo") {
     if (catalog && isOwner()) {
-      $("#source-panel").hidden = false; renderCatalog(); void renderSource();
+      $("#source-panel").hidden = false; renderCatalog(); void renderSource(); void renderWebPanel();
       document.querySelectorAll("[data-cost-only]").forEach(c => (c.hidden = !canCost()));
       if (canCost() && !costSheet) void loadCostSheet().then(renderCatalog);
     }
@@ -438,6 +439,7 @@ async function loadCatalog() {
   if (canCost()) await loadCostSheet();
   renderCatalog();
   void renderSource();
+  void renderWebPanel();
 }
 
 function renderCatalog() {
@@ -1229,6 +1231,75 @@ function editFixedCost(g) {
     sheet.close();
     toast("Gasto guardado", "ok");
     await loadCostSettings();
+  };
+}
+
+// ---------- Web: quién manda en el precio y publicar en casaviva.company ----------
+async function renderWebPanel() {
+  const box = $("#web-panel");
+  if (!isOwner()) { box.hidden = true; return; }
+  const { data, error } = await supabase.rpc("nexo_business_price_authority", { p_business: current.businessId });
+  if (error || data?.error) { box.hidden = true; return; }
+  box.hidden = false;
+  const nexo = data.priceAuthority === "nexo";
+  const last = data.lastPublish;
+  box.innerHTML = '<div class="kv"><h2 class="t-lg">Web · casaviva.company</h2>' + (last ? '<span class="t-xs muted">Publicado ' + esc(when(last.at)) + "</span>" : "") + "</div>"
+    + '<div class="field">Quién manda en el precio' + '<div class="seg" data-auth><button type="button" data-v="source" aria-pressed="' + !nexo + '">BizneCubano</button><button type="button" data-v="nexo" aria-pressed="' + nexo + '">Casa Viva Core</button></div></div>'
+    + '<p class="t-xs muted">' + (nexo ? "Los precios se cambian aquí en Core y se publican en la web. La importación ya no los toca." : "Hoy la importación de cada hora copia los precios de BizneCubano.") + "</p>"
+    + '<button type="button" class="btn btn-secondary btn-block" data-web-plan>' + icon("refresh", "sm") + "Ver cambios para la web</button>";
+  box.querySelectorAll("[data-auth] button").forEach(b => (b.onclick = async () => {
+    if ((b.dataset.v === "nexo") === nexo) return;
+    const text = b.dataset.v === "nexo"
+      ? "Desde ahora los precios mandan en Casa Viva Core. Los cambios de precio que se hagan en BizneCubano ya NO llegarán aquí. ¿Seguir?"
+      : "Los precios volverán a copiarse de BizneCubano cada hora y se perderán los que cambiaste en Core. ¿Seguir?";
+    if (!confirm(text)) return;
+    const { data: r, error: e } = await supabase.rpc("nexo_business_price_authority", { p_business: current.businessId, p_value: b.dataset.v });
+    if (e || r?.error) return toast("No se cambió: " + (e?.message ?? r.error), "bad");
+    toast(b.dataset.v === "nexo" ? "Ahora el precio lo manda Casa Viva Core" : "El precio vuelve a mandarlo BizneCubano", "ok");
+    void renderWebPanel();
+  }));
+  box.querySelector("[data-web-plan]").onclick = openWebPlan;
+}
+
+async function webCall(mode, body) {
+  const { data: { session } } = await supabase.auth.getSession();
+  const r = await fetch("https://viwwlriwlwodrfukbgbj.supabase.co/functions/v1/nexo-woo-sync?business=" + encodeURIComponent(current.businessId) + "&mode=" + mode,
+    { method: "POST", headers: { authorization: "Bearer " + (session?.access_token ?? ""), "content-type": "application/json" }, body: body ? JSON.stringify(body) : undefined });
+  const out = await r.json().catch(() => ({}));
+  if (!r.ok) throw new Error(out.detail ?? out.error ?? "HTTP " + r.status);
+  return out;
+}
+
+async function openWebPlan() {
+  const sheet = openSheet('<div class="sheet-head"><h2>Cambios para la web</h2><button type="button" class="btn btn-ghost" data-close>Cerrar</button></div><div data-body><p class="muted">Comparando Core con la web… puede tardar un minuto.</p></div>', "Cambios para la web");
+  const body = sheet.el.querySelector("[data-body]");
+  let plan;
+  try { plan = await webCall("plan"); } catch (e) { body.innerHTML = '<p class="msg" data-tone="bad">No se pudo leer la web: ' + esc(e.message) + "</p>"; return; }
+  if (!plan.changes.length) { body.innerHTML = '<p class="muted">La web ya coincide con Core en los ' + plan.matched + " productos enlazados.</p>"; return; }
+  const fmtP = v => v === "" || v == null ? "—" : "$" + n2(v);
+  body.innerHTML = '<p class="t-sm muted">' + plan.matched + " productos enlazados por SKU. Marca lo que quieres publicar.</p>"
+    + '<label class="check"><input type="checkbox" data-all checked> Todo (' + plan.changes.length + ")</label>"
+    + '<div class="web-list">' + plan.changes.map(c => '<label class="row-item web-change"><input type="checkbox" data-key="' + esc(c.key) + '" checked><span class="grow"><span class="title">' + esc(c.name) + '</span><span class="meta">'
+      + (c.price ? "Precio " + fmtP(c.price.from) + " → <b>" + fmtP(c.price.to) + "</b>" : "") + (c.price && c.stock ? " · " : "") + (c.stock ? "Stock " + (c.stock.from ?? "—") + " → <b>" + c.stock.to + "</b>" : "") + "</span></span></label>").join("") + "</div>"
+    + '<p class="msg" data-msg role="status"></p><button type="button" class="btn btn-primary btn-xl btn-block" data-publish>Publicar en la web</button>';
+  const boxes = () => [...body.querySelectorAll("[data-key]")];
+  body.querySelector("[data-all]").onchange = e => boxes().forEach(b => (b.checked = e.target.checked));
+  body.querySelector("[data-publish]").onclick = async () => {
+    const keys = boxes().filter(b => b.checked).map(b => b.dataset.key);
+    const msg = body.querySelector("[data-msg]");
+    if (!keys.length) { msg.textContent = "Marca al menos un cambio."; msg.dataset.tone = "bad"; return; }
+    if (!confirm("¿Publicar " + keys.length + " cambios en casaviva.company?")) return;
+    const btn = body.querySelector("[data-publish]");
+    btn.disabled = true; btn.textContent = "Publicando…";
+    try {
+      const r = await webCall("apply", { keys });
+      sheet.close();
+      toast("Web actualizada: " + r.updated + " de " + r.requested + (r.failed.length ? " · " + r.failed.length + " con error" : ""), r.failed.length ? "bad" : "ok");
+      void renderWebPanel();
+    } catch (e) {
+      msg.textContent = "No se publicó: " + e.message; msg.dataset.tone = "bad";
+      btn.disabled = false; btn.textContent = "Publicar en la web";
+    }
   };
 }
 

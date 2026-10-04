@@ -173,3 +173,6 @@ body { background: #F6F1E6; }
 .nx .nav .nav-logo { order: 0; }
 .nx .nav .tab[data-page=cuenta] { order: 1; }
 .nx .nav .nav-spacer { order: 3; }
+.nx .web-list { max-height: 50vh; overflow: auto; }
+.nx .web-change { gap: var(--nx-s3); cursor: pointer; }
+.nx .web-change input { width: 20px; height: 20px; flex: none; }
