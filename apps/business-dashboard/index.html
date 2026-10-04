@@ -359,7 +359,7 @@ async function loadReport() {
   const max = Math.max(1, ...series.map(s => s.minor));
   box.innerHTML = '<div class="kpis">'
     + '<div class="kpi accent"><span class="label">Ventas</span><span class="value num">' + usd(t.usdMinor) + '</span><span class="sub">' + t.sales + " ventas" + (t.refundsMinor ? " · devuelto " + usd(t.refundsMinor) : "") + "</span></div>"
-    + '<div class="kpi"><span class="label">Ganancia estimada</span><span class="value num">' + (t.costedMinor ? dollars(t.profitUsd) : "—") + '</span><span class="sub">' + (t.usdMinor ? (covered < 100 ? "con costo en el " + covered + " % de lo vendido" : "todo con costo") : "sin ventas") + "</span></div>"
+    + '<div class="kpi"><span class="label">Ganancia estimada</span><span class="value num">' + (t.costedMinor ? dollars(t.profitUsd) : "—") + '</span><span class="sub">' + (t.usdMinor ? (covered < 100 ? "con costo en el " + covered + " % de lo vendido" : "ya sin comisiones ni socios") : "sin ventas") + "</span></div>"
     + '<div class="kpi"><span class="label">Unidades</span><span class="value num">' + t.units + '</span><span class="sub">vendidas</span></div>'
     + '<div class="kpi"><span class="label">Ticket medio</span><span class="value num">' + (t.sales ? usd(Math.round(t.usdMinor / t.sales)) : "—") + '</span><span class="sub">por venta</span></div></div>'
     + '<section class="panel"><div class="kv"><h2 class="t-lg">' + (oneDay ? "Ventas por hora" : "Ventas por día") + '</h2><span class="t-xs muted">USD</span></div>'
@@ -369,6 +369,9 @@ async function loadReport() {
     + '<section class="panel"><h2 class="t-lg">Lo más vendido</h2>'
     + (data.topProducts.length ? data.topProducts.map(p => '<div class="row-item">' + photo(p.imageUrl, p.name) + '<span class="grow"><span class="title">' + esc(p.name) + '</span><span class="meta">' + p.units + " u. · ganancia " + (p.profitUsd == null ? "sin costo" : dollars(p.profitUsd)) + '</span></span><span class="price-tag">' + usd(p.usdMinor) + "</span></div>").join("") : '<p class="muted">Sin ventas en el periodo.</p>')
     + "</section>"
+    + (data.gestores?.length ? '<section class="panel"><div class="kv"><h2 class="t-lg">Ranking de gestoras</h2><span class="t-xs muted">' + esc(r.label) + "</span></div>"
+      + (() => { const top = Math.max(1, ...data.gestores.map(g => g.usdMinor)); return data.gestores.slice(0, 10).map((g, i) => '<div class="rank"><span class="pos">' + (["🥇", "🥈", "🥉"][i] ?? i + 1) + '</span><span class="grow"><span class="title">' + esc(g.name) + '</span><span class="meta">' + g.sales + " pedidos · comisión " + dollars(g.commissionUsd) + '</span><span class="share" style="width:' + Math.max(3, Math.round(100 * g.usdMinor / top)) + '%"></span></span><span class="price-tag">' + usd(g.usdMinor) + "</span></div>").join(""); })()
+      + "</section>" : "")
     + '<section class="panel"><div class="kv"><h2 class="t-lg">Ventas</h2><span class="badge badge-info">' + data.sales.length + "</span></div>"
     + '<div class="grid-2"><button type="button" class="btn btn-secondary" id="dl-csv">' + icon("download", "sm") + 'Excel (CSV)</button><button type="button" class="btn btn-secondary" id="dl-pdf">' + icon("download", "sm") + "PDF</button></div>"
     + data.sales.slice(0, 30).map(s => '<div class="row-item"><span class="grow"><span class="title">' + esc((s.lines ?? []).map(l => (l.qty > 1 ? l.qty + "× " : "") + l.name).join(", ")) + '</span><span class="meta">' + esc(when(s.at)) + " · " + esc((s.payments ?? []).map(methodLabel).join(" + ")) + '</span></span><span class="price-tag">' + usd(s.usdMinor) + "</span></div>").join("")

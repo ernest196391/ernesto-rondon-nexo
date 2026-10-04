@@ -176,3 +176,7 @@ body { background: #F6F1E6; }
 .nx .web-list { max-height: 50vh; overflow: auto; }
 .nx .web-change { gap: var(--nx-s3); cursor: pointer; }
 .nx .web-change input { width: 20px; height: 20px; flex: none; }
+.nx .rank { display: flex; align-items: center; gap: var(--nx-s3); padding: 8px 0; border-bottom: 1px solid var(--nx-line); }
+.nx .rank .pos { width: 28px; text-align: center; font-weight: 700; }
+.nx .rank .title, .nx .rank .meta { display: block; }
+.nx .rank .meta { font-size: var(--nx-fs-xs); color: var(--nx-text-2); }
