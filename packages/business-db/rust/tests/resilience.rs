@@ -66,6 +66,7 @@ fn sale_input(id: &str, product: &str, qty: i64, price: i64, at: &str) -> Comple
             quantity: qty,
             unit_price_minor: price,
             line_total_minor: qty * price,
+            extra: false,
         }],
         payments: vec![PaymentInput {
             payment_id: format!("{id}-p1"),
@@ -78,6 +79,8 @@ fn sale_input(id: &str, product: &str, qty: i64, price: i64, at: &str) -> Comple
             external_ref: None,
         }],
         payment_id: None,
+        gestor_id: None,
+        staff_id: None,
     }
 }
 
@@ -164,6 +167,7 @@ fn a_failing_line_rolls_back_the_whole_sale() {
         quantity: 1,
         unit_price_minor: 500,
         line_total_minor: 500,
+        extra: false,
     });
     input.total_minor = 1500;
     input.payments[0].amount_minor = 1500;

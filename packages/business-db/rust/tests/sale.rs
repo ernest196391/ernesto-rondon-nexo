@@ -42,9 +42,12 @@ fn sale(id: &str, payments: Vec<PaymentInput>) -> CompleteSaleInput {
             quantity: 2,
             unit_price_minor: 1850,
             line_total_minor: 3700,
+            extra: false,
         }],
         payments,
         payment_id: None,
+        gestor_id: None,
+        staff_id: None,
     }
 }
 
@@ -159,4 +162,30 @@ fn keeps_the_rates_in_force() {
     replace_rates(&mut conn, "casa-viva", &[rate("CUP", "495")], "later").unwrap();
     assert_eq!(current_rates(&conn, "casa-viva").unwrap(), vec![rate("CUP", "495")]);
     assert!(replace_rates(&mut conn, "casa-viva", &[rate("CUP", "-1")], "x").is_err());
+}
+
+#[test]
+fn gestora_and_extra_lines_travel_in_the_sale_event() {
+    let mut conn = db();
+    let mut input = sale("s-g", vec![pay("s-g-p1", "cash", "USD", 3700, 3700, None)]);
+    input.gestor_id = Some(" g-1 ".into());
+    input.staff_id = Some("d-1".into());
+    input.lines[0].extra = true;
+    complete_sale(&mut conn, &scope(), &input).unwrap();
+    let payload: String = conn.query_row("SELECT payload_json FROM local_outbox WHERE entity_id='s-g'", [], |r| r.get(0)).unwrap();
+    let v: serde_json::Value = serde_json::from_str(&payload).unwrap();
+    assert_eq!(v["payload"]["gestor_id"], "g-1");
+    assert_eq!(v["payload"]["staff_id"], "d-1");
+    assert_eq!(v["payload"]["channel"], "gestor");
+    assert_eq!(v["payload"]["lines"][0]["extra"], true);
+
+    // Without a gestora, "extra" means nothing and the sale is a store sale.
+    let mut direct = sale("s-d", vec![pay("s-d-p1", "cash", "USD", 3700, 3700, None)]);
+    direct.lines[0].extra = true;
+    complete_sale(&mut conn, &scope(), &direct).unwrap();
+    let payload: String = conn.query_row("SELECT payload_json FROM local_outbox WHERE entity_id='s-d'", [], |r| r.get(0)).unwrap();
+    let v: serde_json::Value = serde_json::from_str(&payload).unwrap();
+    assert_eq!(v["payload"]["channel"], "store");
+    assert!(v["payload"]["gestor_id"].is_null());
+    assert_eq!(v["payload"]["lines"][0]["extra"], false);
 }

@@ -24,6 +24,10 @@ pub struct SaleLineInput {
     pub quantity: i64,
     pub unit_price_minor: i64,
     pub line_total_minor: i64,
+    /// Product a gestora's client added in the shop: its commission is split
+    /// gestora / business / dependienta in the cloud.
+    #[serde(default)]
+    pub extra: bool,
 }
 
 #[derive(Debug, Clone, Deserialize)]
@@ -59,6 +63,12 @@ pub struct CompleteSaleInput {
     /// Older POS builds: one USD cash payment of the total with this ID.
     #[serde(default)]
     pub payment_id: Option<String>,
+    /// Gestora who brought the client (cloud people ID); none for a direct sale.
+    #[serde(default)]
+    pub gestor_id: Option<String>,
+    /// Dependienta who served the sale (cloud people ID).
+    #[serde(default)]
+    pub staff_id: Option<String>,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
@@ -256,6 +266,9 @@ pub fn complete_sale(conn: &mut Connection, scope: &ShiftScope, input: &Complete
         )?;
     }
 
+    let clean = |v: &Option<String>| v.as_deref().map(str::trim).filter(|s| !s.is_empty()).map(str::to_owned);
+    let gestor_id = clean(&input.gestor_id);
+    let staff_id = clean(&input.staff_id);
     let lines = input
         .lines
         .iter()
@@ -263,7 +276,8 @@ pub fn complete_sale(conn: &mut Connection, scope: &ShiftScope, input: &Complete
             "product_id": l.product_id,
             "quantity": l.quantity,
             "unit_price_minor": l.unit_price_minor,
-            "line_total_minor": l.line_total_minor
+            "line_total_minor": l.line_total_minor,
+            "extra": l.extra && gestor_id.is_some()
         }))
         .collect::<Vec<_>>();
     let payment_json = payments
@@ -296,7 +310,10 @@ pub fn complete_sale(conn: &mut Connection, scope: &ShiftScope, input: &Complete
             "currency": SALE_CURRENCY,
             "payment_method": payment_method,
             "payments": payment_json,
-            "shift_id": shift_id
+            "shift_id": shift_id,
+            "channel": if gestor_id.is_some() { "gestor" } else { "store" },
+            "gestor_id": gestor_id,
+            "staff_id": staff_id
         }
     })
     .to_string();

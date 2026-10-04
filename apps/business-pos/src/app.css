@@ -130,3 +130,8 @@ body { background: #F6F1E6; }
 .nx .chip-fav[aria-pressed="true"] svg { color: var(--nx-on-primary); fill: currentColor; }
 .nx .fav-note { grid-column: 1 / -1; }
 .nx .grid-prod > .empty { grid-column: 1 / -1; }
+
+/* Gestora / dependienta on the sale. */
+.nx .attribution { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-bottom: 8px; }
+.nx .attribution .field { min-width: 0; font-size: 13px; }
+.nx .extra-chip { margin-top: 4px; min-height: 28px; padding: 2px 10px; font-size: 12px; }

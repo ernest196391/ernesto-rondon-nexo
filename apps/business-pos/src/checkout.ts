@@ -5,6 +5,7 @@
 // The USD values must add up exactly to the total (Rust checks it again);
 // extra cash becomes change and is recorded net on the last cash payment.
 import { invoke } from "@tauri-apps/api/core";
+import { savePeople } from "./attribution";
 import { icon, openSheet } from "./ui";
 
 export type PaymentInput = {
@@ -274,7 +275,8 @@ export function describePayments(payments: PaymentInput[]) {
 export async function pullRates(endpoint: string, deviceToken: string) {
   const response = await fetch(endpoint.replace(/nexo-sync-push\/?$/, "nexo-rates-pull"), { headers: { "x-nexo-device-token": deviceToken } });
   if (!response.ok) throw new Error(`Tasas: HTTP ${response.status}`);
-  const { rates } = (await response.json()) as { rates: Array<{ currency: string; perUsd: number | string; setAt: string }> };
+  const { rates, people } = (await response.json()) as { rates: Array<{ currency: string; perUsd: number | string; setAt: string }>; people?: unknown };
+  savePeople(people);
   if (!Array.isArray(rates)) return;
   await invoke("rates_replace", {
     rates: rates.map(r => ({ currency: r.currency, perUsd: String(r.perUsd), setAt: r.setAt })),

@@ -14,6 +14,7 @@ import { mountFinance, refreshFinance } from "./finance";
 import type { DeviceIdentity } from "./sync";
 import { openCheckout, describePayments, type PaymentInput } from "./checkout";
 import { icon, ISOTIPO, escapeHtml, openSheet } from "./ui";
+import { attribution, attributionHtml, resetAttribution, saleAttribution, setGestor, setStaff, toggleExtra } from "./attribution";
 
 type Product = { id: string; name: string; price_minor: number; barcode: string | null };
 type ListedProduct = Product & { category: string | null; variant_of: string | null; variant_label: string | null; image_url: string | null };
@@ -566,7 +567,7 @@ function cartLinesHtml() {
   return `<div class="cart-lines">${Array.from(cart.values()).map(({ product, quantity }) => `
     <div class="line" data-id="${escapeHtml(product.id)}">
       ${thumb(product.image_url, product.name, product.category)}
-      <div class="info"><div style="font-weight: 700">${escapeHtml(product.variant_of ? variantTitle(product) : product.name)}</div><div class="t-xs muted">${product.variant_label ? escapeHtml(product.variant_label) + " · " : ""}${money(product.price_minor)} c/u</div></div>
+      <div class="info"><div style="font-weight: 700">${escapeHtml(product.variant_of ? variantTitle(product) : product.name)}</div><div class="t-xs muted">${product.variant_label ? escapeHtml(product.variant_label) + " · " : ""}${money(product.price_minor)} c/u</div>${attribution.gestorId ? `<button type="button" class="chip extra-chip" data-extra aria-pressed="${attribution.extra.has(product.id)}" title="Producto de más que añadió la clienta en tienda">Extra</button>` : ""}</div>
       <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 6px">
         <span class="num" style="font-weight: 700">${money(product.price_minor * quantity)}</span>
         <div class="stepper"><button type="button" data-minus aria-label="Quitar uno">${icon(quantity === 1 ? "trash" : "minus", "sm")}</button><span>${quantity}</span><button type="button" data-plus aria-label="Añadir uno">${icon("plus", "sm")}</button></div>
@@ -576,7 +577,7 @@ function cartLinesHtml() {
 
 function cartFootHtml() {
   const total = cartTotalMinor();
-  return `<div class="kv"><span class="muted">Total</span><span class="total-big num">${money(total)}</span></div>
+  return `${attributionHtml()}<div class="kv"><span class="muted">Total</span><span class="total-big num">${money(total)}</span></div>
     <button class="btn btn-primary btn-xl btn-block" data-exact ${cart.size ? "" : "disabled"}>${icon("cash")}Efectivo USD exacto</button>
     <button class="btn btn-secondary btn-block" data-split ${cart.size ? "" : "disabled"}>Otra forma o dividir</button>`;
 }
@@ -586,7 +587,13 @@ function wireCart(scope: HTMLElement) {
     const id = row.dataset.id!;
     row.querySelector<HTMLButtonElement>("[data-minus]")!.onclick = () => changeQuantity(id, -1);
     row.querySelector<HTMLButtonElement>("[data-plus]")!.onclick = () => changeQuantity(id, 1);
+    const extra = row.querySelector<HTMLButtonElement>("[data-extra]");
+    if (extra) extra.onclick = () => { toggleExtra(id); renderCart(); };
   });
+  const gestor = scope.querySelector<HTMLSelectElement>("[data-gestor]");
+  if (gestor) gestor.onchange = () => { setGestor(gestor.value || null); renderCart(); };
+  const staff = scope.querySelector<HTMLSelectElement>("[data-staff]");
+  if (staff) staff.onchange = () => setStaff(staff.value || null);
   const exact = scope.querySelector<HTMLButtonElement>("[data-exact]");
   if (exact) exact.onclick = () => void checkout(true);
   const split = scope.querySelector<HTMLButtonElement>("[data-split]");
@@ -764,7 +771,8 @@ async function completeSale(payments: PaymentInput[]) {
     productId: product.id,
     quantity,
     unitPriceMinor: product.price_minor,
-    lineTotalMinor: product.price_minor * quantity
+    lineTotalMinor: product.price_minor * quantity,
+    extra: attribution.extra.has(product.id)
   }));
   const totalMinor = lines.reduce((sum, line) => sum + line.lineTotalMinor, 0);
   const soldIds = lines.map(line => line.productId);
@@ -772,7 +780,7 @@ async function completeSale(payments: PaymentInput[]) {
   const stockBefore = await stockFor(soldIds);
 
   try {
-    await invoke("complete_sale", { input: { saleId, payments, outboxId: crypto.randomUUID(), totalMinor, occurredAt: now, lines } });
+    await invoke("complete_sale", { input: { saleId, payments, outboxId: crypto.randomUUID(), totalMinor, occurredAt: now, lines, ...saleAttribution() } });
   } catch (e) {
     showToast(`Venta no guardada: ${String(e)}`, "error", 6000);
     setStatus(`Venta rechazada · no se guardó nada: ${String(e)}`);
@@ -781,6 +789,7 @@ async function completeSale(payments: PaymentInput[]) {
 
   const receipt: Receipt = { saleId, occurredAt: now, currency: "USD", payments: describePayments(payments), totalMinor, lines: cartSnapshot };
   cart.clear();
+  resetAttribution();
   renderCart();
   renderReceipt(receipt);
   openSaleDone(receipt);
