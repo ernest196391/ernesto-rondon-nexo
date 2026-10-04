@@ -28,10 +28,13 @@
 
   <nav class="nav" id="nav" aria-label="Secciones" hidden>
     <div class="nav-logo"><span data-iso></span></div>
-    <button type="button" class="tab" data-page="resumen" aria-current="page"><span data-ic="chart"></span>Resumen</button>
-    <button type="button" class="tab" data-page="caja"><span data-ic="wallet"></span>Caja</button>
-    <button type="button" class="tab" data-page="catalogo"><span data-ic="tag"></span>Productos</button>
-    <button type="button" class="tab" data-page="ajustes"><span data-ic="sliders"></span>Ajustes</button>
+    <button type="button" class="tab" data-page="resumen" data-for="admin" aria-current="page"><span data-ic="chart"></span>Resumen</button>
+    <button type="button" class="tab" data-page="pedidos" data-for="admin person"><span data-ic="bag"></span>Pedidos<span class="dot" id="orders-dot" hidden></span></button>
+    <button type="button" class="tab" data-page="catalogo" data-for="admin"><span data-ic="tag"></span>Productos</button>
+    <button type="button" class="tab" data-page="equipo" data-for="admin"><span data-ic="users"></span>Equipo<span class="dot" id="team-dot" hidden></span></button>
+    <button type="button" class="tab" data-page="ajustes" data-for="admin"><span data-ic="sliders"></span>Ajustes</button>
+    <button type="button" class="tab" data-page="cuenta" data-for="person" hidden><span data-ic="wallet"></span>Mi cuenta</button>
+    <button type="button" class="tab" data-page="perfil" data-for="person" hidden><span data-ic="user"></span>Perfil</button>
     <div class="nav-spacer"></div>
   </nav>
 
@@ -51,14 +54,48 @@
         <button type="button" class="chip" data-p="mes" aria-pressed="false">Este mes</button>
         <button type="button" class="chip" data-p="rango" aria-pressed="false">Fechas…</button>
       </div>
-      <div id="summary"><div class="panel muted">Cargando…</div></div>
+      <div class="seg" id="res-seg" role="group" aria-label="Vista">
+        <button type="button" data-sub="ventas" aria-pressed="true">Ventas</button>
+        <button type="button" data-sub="caja" aria-pressed="false">Caja y cobros</button>
+      </div>
+      <div id="summary" data-res="ventas"><div class="panel muted">Cargando…</div></div>
+      <div id="caja-box" data-res="caja" hidden>
+        <p class="t-sm muted" id="money-period"></p>
+        <section class="panel" id="money-methods"><p class="muted">Cargando…</p></section>
+        <section class="panel" id="money-transfers"></section>
+        <section class="panel" id="money-shifts"></section>
+      </div>
     </main>
 
-    <main class="page" data-page="caja" hidden>
-      <div class="page-head"><h1>Caja</h1><span class="t-sm muted" id="money-period"></span></div>
-      <section class="panel" id="money-methods"><p class="muted">Cargando…</p></section>
-      <section class="panel" id="money-transfers"></section>
-      <section class="panel" id="money-shifts"></section>
+    <main class="page" data-page="pedidos" hidden>
+      <div class="page-head"><h1>Pedidos</h1><button type="button" class="btn btn-primary" id="new-order"><span data-ic="plus"></span>Nuevo</button></div>
+      <div class="chips" id="order-filter" role="group" aria-label="Estado">
+        <button type="button" class="chip" data-s="open" aria-pressed="true">Abiertos</button>
+        <button type="button" class="chip" data-s="completed" aria-pressed="false">Completados</button>
+        <button type="button" class="chip" data-s="cancelled" aria-pressed="false">Cancelados</button>
+      </div>
+      <section class="panel" id="orders"><p class="muted">Cargando…</p></section>
+    </main>
+
+    <main class="page" data-page="equipo" hidden>
+      <div class="page-head"><h1>Equipo</h1><button type="button" class="btn btn-primary" id="new-person"><span data-ic="plus"></span>Añadir</button></div>
+      <section class="panel" id="payout-requests" hidden></section>
+      <div class="seg" id="team-seg" role="group" aria-label="Personas">
+        <button type="button" data-kind="gestor" aria-pressed="true">Gestoras</button>
+        <button type="button" data-kind="staff" aria-pressed="false">Dependientas</button>
+      </div>
+      <section class="panel" id="people"><p class="muted">Cargando…</p></section>
+      <section class="panel" id="join-links"></section>
+    </main>
+
+    <main class="page" data-page="cuenta" hidden>
+      <div class="page-head"><h1>Mi cuenta</h1></div>
+      <div id="account"><div class="panel muted">Cargando…</div></div>
+    </main>
+
+    <main class="page" data-page="perfil" hidden>
+      <div class="page-head"><h1>Perfil</h1></div>
+      <section class="panel" id="profile"></section>
     </main>
 
     <main class="page" data-page="catalogo" hidden>
@@ -140,6 +177,10 @@ const ICONS = {
   chevron: '<path d="M9 6l6 6-6 6"></path>',
   copy: '<rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path>',
   download: '<path d="M12 4v11M7 10l5 5 5-5M5 20h14"></path>',
+  bag: '<path d="M5 8h14l-1 12H6L5 8z"></path><path d="M9 8V6a3 3 0 0 1 6 0v2"></path>',
+  users: '<circle cx="9" cy="8" r="3"></circle><path d="M3 20a6 6 0 0 1 12 0"></path><path d="M16 5a3 3 0 0 1 0 6M21 20a6 6 0 0 0-4-5.7"></path>',
+  user: '<circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path>',
+  whatsapp: '<path d="M4 20l1.3-3.9A8 8 0 1 1 8 19l-4 1z"></path><path d="M9 9.5c.5 2 2 3.5 4 4l1.2-1.2 2 1-.4 1.4c-3 .3-7-3.6-6.7-6.7L10.5 8l1 2z"></path>',
   sliders: '<path d="M4 6h10M4 12h4M12 12h8M4 18h12"></path><circle cx="16" cy="6" r="2"></circle><circle cx="10" cy="12" r="2"></circle><circle cx="18" cy="18" r="2"></circle>',
 };
 const icon = (name, size = "") => `<svg class="i${size ? ` i-${size}` : ""}" viewBox="0 0 24 24" aria-hidden="true">${ICONS[name] ?? ""}</svg>`;
@@ -187,8 +228,11 @@ function go(next) {
     else void loadCatalog();
   }
   if (next === "ajustes") { void loadRates(); void loadCostSettings(); }
-  if (next === "caja") void loadMoney();
-  if (next === "resumen") void loadReport();
+  if (next === "resumen") { if (resSub === "caja") void loadMoney(); else void loadReport(); }
+  if (next === "pedidos") void loadOrders();
+  if (next === "equipo") void loadTeam();
+  if (next === "cuenta") void loadAccount();
+  if (next === "perfil") renderProfile();
 }
 document.querySelectorAll("#nav .tab").forEach(t => (t.onclick = () => go(t.dataset.page)));
 
@@ -204,7 +248,8 @@ async function load() {
   const { data, error } = await supabase.rpc("nexo_business_member_summary", { p_days: 30 });
   if (error || data?.error) { $("#summary").innerHTML = `<div class="panel">No se pudo cargar el resumen: ${esc(error?.message ?? data.error)}</div>`; return; }
   businesses = data.businesses ?? [];
-  if (!businesses.length) {
+  if (!businesses.length || joinParams()) {
+    if (await startPerson()) return;
     $("#summary").innerHTML = `<div class="panel"><p style="font-weight:700">Tu cuenta todavía no tiene acceso a ningún negocio.</p><p class="muted">Pide a NEXO que la vincule a tu negocio; después pulsa actualizar.</p></div>`;
     return;
   }
@@ -220,11 +265,16 @@ async function load() {
     const { data: list } = await supabase.rpc("nexo_business_catalog_list", { p_business: current.businessId });
     if (Array.isArray(list)) catalog = list;
   }
+  setMode("admin");
   renderSummary();
   renderDevices();
+  void supabase.rpc("nexo_business_rates", { p_business: current.businessId }).then(({ data }) => {
+    current.rates = Object.fromEntries((data?.rates ?? []).map(r => [r.currency, Number(r.perUsd)]));
+  });
+  void supabase.rpc("nexo_business_people", { p_business: current.businessId }).then(({ data }) => { if (Array.isArray(data)) $("#team-dot").hidden = !data.some(p => p.status === "pending"); });
   if (page === "catalogo") await loadCatalog();
   if (page === "ajustes") { await loadRates(); await loadCostSettings(); }
-  if (page === "caja") await loadMoney();
+
 }
 $("#biz").onchange = () => { current = businesses.find(b => b.businessId === $("#biz").value); catalog = null; costSheet = null; void load(); };
 
@@ -250,7 +300,7 @@ function setPeriod(p) {
   period = p;
   document.querySelectorAll("#period .chip").forEach(c => c.setAttribute("aria-pressed", String(c.dataset.p === p)));
   void loadReport();
-  if (page === "caja") void loadMoney();
+  if (resSub === "caja") void loadMoney();
 }
 document.querySelectorAll("#period .chip").forEach(c => (c.onclick = () => {
   if (c.dataset.p !== "rango") return setPeriod(c.dataset.p);
@@ -507,6 +557,423 @@ async function renderSource() {
       btn.disabled = false; btn.innerHTML = `${icon("download", "sm")}Importar ahora`;
     }
   };
+}
+
+// ---------- Resumen: Ventas | Caja ----------
+let resSub = "ventas";
+document.querySelectorAll("#res-seg button").forEach(b => (b.onclick = () => {
+  resSub = b.dataset.sub;
+  document.querySelectorAll("#res-seg button").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+  document.querySelectorAll("[data-res]").forEach(el => (el.hidden = el.dataset.res !== resSub));
+  if (resSub === "caja") void loadMoney(); else void loadReport();
+}));
+
+// ---------- Mode: owner panel or a gestora's / dependienta's own panel ----------
+let mode = "admin";
+let person = null; // { businessId, kind, status, fullName } in person mode
+const bizId = () => mode === "admin" ? current?.businessId : person?.businessId;
+const KIND = { gestor: "Gestora", staff: "Dependienta" };
+function setMode(next) {
+  mode = next;
+  document.querySelectorAll("#nav .tab").forEach(t => (t.hidden = !t.dataset.for.split(" ").includes(next)));
+  $("#new-person").hidden = next !== "admin";
+}
+const waLink = (phone, text) => phone ? "https://wa.me/" + String(phone).replace(/\D/g, "").replace(/^(?!53)(\d{8})$/, "53$1") + "?text=" + encodeURIComponent(text) : null;
+const ORDER_STATUS = { pending: ["Pendiente", "badge-low"], paid: ["Pagado", "badge-info"], completed: ["Completado", "badge-ok"], cancelled: ["Cancelado", "badge-calm"] };
+const cup = n => Number(n).toLocaleString("es", { maximumFractionDigits: 0 }) + " CUP";
+
+// ---------- Pedidos ----------
+let orders = [];
+let orderFilter = "open";
+let shop = null;
+document.querySelectorAll("#order-filter .chip").forEach(c => (c.onclick = () => {
+  orderFilter = c.dataset.s;
+  document.querySelectorAll("#order-filter .chip").forEach(x => x.setAttribute("aria-pressed", String(x === c)));
+  void loadOrders();
+}));
+$("#new-order").onclick = () => editOrder(null);
+
+async function loadOrders() {
+  const status = orderFilter === "open" ? null : orderFilter;
+  const { data, error } = await supabase.rpc("nexo_business_orders", { p_business: bizId(), p_status: status, p_limit: 200 });
+  if (error || data?.error) { $("#orders").innerHTML = '<p class="muted">No se pudo cargar: ' + esc(error?.message ?? data.error) + "</p>"; return; }
+  orders = orderFilter === "open" ? data.filter(o => o.status === "pending" || o.status === "paid") : data;
+  const open = data.filter(o => o.status === "pending" || o.status === "paid").length;
+  if (orderFilter === "open") { $("#orders-dot").hidden = !open; }
+  $("#orders").innerHTML = orders.length ? orders.map(o => {
+    const [label, cls] = ORDER_STATUS[o.status];
+    const old = (o.status === "pending" || o.status === "paid") && Date.now() - Date.parse(o.createdAt) > 2 * 86400000;
+    return '<div class="row-item"><button type="button" class="row-btn" data-order="' + o.id + '"><span class="grow">'
+      + '<span class="title">#' + o.number + " · " + esc(o.customerName) + "</span>"
+      + '<span class="meta">' + esc(o.lines.map(l => (l.quantity > 1 ? l.quantity + "× " : "") + l.name).join(", ")) + "</span>"
+      + '<span class="meta">' + (o.gestor ? "Gestora " + esc(o.gestor) + " · " : "Tienda · ") + esc(when(o.createdAt)) + (o.delivery === "home" ? " · domicilio" : " · recoge") + (old ? ' · <strong style="color:var(--nx-danger)">más de 2 días</strong>' : "") + "</span></span>"
+      + '<span style="display:flex;flex-direction:column;align-items:flex-end;gap:4px"><span class="price-tag">' + usd(o.totalMinor) + '</span><span class="badge ' + cls + '">' + label + "</span></span></button></div>";
+  }).join("") : '<p class="muted">' + (orderFilter === "open" ? "No hay pedidos abiertos." : "Nada por aquí.") + "</p>";
+  document.querySelectorAll("#orders [data-order]").forEach(b => (b.onclick = () => showOrder(orders.find(o => o.id === b.dataset.order))));
+}
+
+async function loadShop() {
+  if (shop) return shop;
+  const { data, error } = await supabase.rpc("nexo_business_shop", { p_business: bizId() });
+  if (error || data?.error) { toast("No se pudo cargar el catálogo", "bad"); return null; }
+  return (shop = data);
+}
+
+function showOrder(o) {
+  const [label, cls] = ORDER_STATUS[o.status];
+  const open = o.status === "pending" || o.status === "paid";
+  const text = "Pedido #" + o.number + " Casa Viva: " + o.lines.map(l => l.quantity + "× " + l.name).join(", ") + ". Total " + usd(o.totalMinor) + (o.deliveryFeeCup ? " + mensajería " + cup(o.deliveryFeeCup) : "");
+  const waC = waLink(o.customerPhone, "Hola " + o.customerName + ". " + text);
+  const waG = mode === "admin" ? waLink(o.gestorPhone, "Hola " + (o.gestor ?? "") + ". " + text) : null;
+  const sheet = openSheet('<div class="sheet-head"><h2>Pedido #' + o.number + '</h2><button type="button" class="btn btn-ghost" data-close>Cerrar</button></div>'
+    + '<div class="kv"><span class="badge ' + cls + '">' + label + '</span><span class="t-xs muted">' + esc(when(o.createdAt)) + "</span></div>"
+    + '<div class="breakdown">' + o.lines.map(l => '<div class="kv"><span>' + l.quantity + "× " + esc(l.name) + (l.extra ? ' <span class="badge badge-info">extra</span>' : "") + '</span><span class="num">' + usd(l.quantity * l.unit_price_minor) + "</span></div>").join("")
+    + '<div class="kv strong"><span>Total productos</span><span class="num">' + usd(o.totalMinor) + "</span></div>"
+    + (o.deliveryFeeCup ? '<div class="kv"><span>Mensajería</span><span class="num">' + cup(o.deliveryFeeCup) + "</span></div>" : "") + "</div>"
+    + '<p class="t-sm"><b>' + esc(o.customerName) + "</b>" + (o.customerPhone ? " · " + esc(o.customerPhone) : "") + "<br>" + (o.delivery === "home" ? "Domicilio: " + esc(o.address ?? "") : "Recoge en tienda") + "</p>"
+    + (o.gestor ? '<p class="t-sm">Gestora: <b>' + esc(o.gestor) + "</b>" + (o.staff ? " · Dependienta: " + esc(o.staff) : "") + "</p>" : o.staff ? '<p class="t-sm">Dependienta: ' + esc(o.staff) + "</p>" : "")
+    + (o.note ? '<p class="t-sm muted">Nota: ' + esc(o.note) + "</p>" : "")
+    + (o.payment?.method ? '<p class="t-sm muted">Cobro: ' + esc(methodLabel({ method: o.payment.method, rail: o.payment.method, provider: o.payment.provider, currency: o.payment.currency ?? "USD" })) + (o.payment.amountMinor ? " · " + money(o.payment.amountMinor, o.payment.currency ?? "USD") : "") + (o.payment.reference ? " · ref " + esc(o.payment.reference) : "") + "</p>" : "")
+    + '<div class="grid-2">' + (waC ? '<a class="btn btn-secondary" target="_blank" rel="noopener" href="' + esc(waC) + '">' + icon("whatsapp", "sm") + "Clienta</a>" : "") + (waG ? '<a class="btn btn-secondary" target="_blank" rel="noopener" href="' + esc(waG) + '">' + icon("whatsapp", "sm") + "Gestora</a>" : "") + "</div>"
+    + (open ? '<div class="form" style="margin-top:12px">'
+      + (mode === "admin" ? '<button type="button" class="btn btn-primary btn-xl btn-block" data-complete>Completar y cobrar</button>' + (o.status === "pending" ? '<button type="button" class="btn btn-secondary btn-block" data-paid>Marcar pagado</button>' : "") : "")
+      + (o.status === "pending" && (mode === "admin" || person?.kind === "gestor") ? '<button type="button" class="btn btn-secondary btn-block" data-edit-order>Editar</button>' : "")
+      + (mode === "admin" ? '<button type="button" class="btn btn-danger btn-block" data-cancel>Cancelar pedido</button>' : "") + "</div>" : ""), "Pedido " + o.number);
+  const act = async (status, payment) => {
+    const { data, error } = await supabase.rpc("nexo_business_order_status", { p_business: bizId(), p_id: o.id, p_status: status, p_payment: payment ?? null });
+    if (error || data?.error) return toast("No se pudo: " + (error?.message ?? data.message ?? data.error), "bad");
+    sheet.close();
+    toast(status === "completed" ? "Pedido completado: venta, stock y comisiones al día" : status === "paid" ? "Marcado como pagado" : "Pedido cancelado", "ok");
+    await loadOrders();
+  };
+  sheet.el.querySelector("[data-paid]")?.addEventListener("click", () => act("paid"));
+  sheet.el.querySelector("[data-cancel]")?.addEventListener("click", () => { if (confirm("¿Cancelar el pedido #" + o.number + "? La comisión no se pagará.")) void act("cancelled"); });
+  sheet.el.querySelector("[data-edit-order]")?.addEventListener("click", () => { sheet.close(); void editOrder(o); });
+  sheet.el.querySelector("[data-complete]")?.addEventListener("click", () => { sheet.close(); completeOrder(o, act); });
+}
+
+const PAY_OPTIONS = [
+  ["Efectivo USD", { method: "cash", currency: "USD" }], ["Efectivo CUP", { method: "cash", currency: "CUP" }],
+  ["Transfermóvil", { method: "transfer", currency: "CUP", provider: "transfermovil" }], ["EnZona", { method: "transfer", currency: "CUP", provider: "enzona" }],
+  ["Zelle", { method: "transfer", currency: "USD", provider: "zelle" }], ["MLC", { method: "transfer", currency: "MLC" }], ["USDT", { method: "crypto", currency: "USDT" }],
+];
+function completeOrder(o, act) {
+  const sheet = openSheet('<div class="sheet-head"><h2>Cobrar #' + o.number + '</h2><button type="button" class="btn btn-ghost" data-close>Cerrar</button></div>'
+    + '<p class="t-lg num" style="margin:0">' + usd(o.totalMinor) + "</p>"
+    + '<form class="form"><div class="pay-grid">' + PAY_OPTIONS.map(([l], i) => '<label class="pay-opt"><input type="radio" name="pay" value="' + i + '"' + (i === 0 ? " checked" : "") + "><span>" + esc(l) + "</span></label>").join("") + "</div>"
+    + '<label class="field" data-ref hidden>Referencia de la transferencia<input name="reference" autocomplete="off"></label>'
+    + '<p class="t-sm muted" data-conv></p>'
+    + '<button type="submit" class="btn btn-primary btn-xl btn-block">Completar pedido</button></form>', "Cobrar pedido");
+  const form = sheet.el.querySelector("form");
+  const sync = () => {
+    const [, p] = PAY_OPTIONS[Number(new FormData(form).get("pay"))];
+    form.querySelector("[data-ref]").hidden = p.method === "cash";
+    const r = p.currency === "USD" ? 1 : Number(current?.rates?.[p.currency] ?? 0);
+    form.querySelector("[data-conv]").textContent = p.currency === "USD" ? "" : r ? "≈ " + money(Math.round(o.totalMinor * r), p.currency) + " a la tasa de hoy" : "Se usa la tasa vigente de " + p.currency;
+  };
+  form.onchange = sync; sync();
+  form.onsubmit = e => {
+    e.preventDefault();
+    const f = new FormData(form);
+    const [, p] = PAY_OPTIONS[Number(f.get("pay"))];
+    const reference = String(f.get("reference") ?? "").trim();
+    if (p.method !== "cash" && !reference) { form.querySelector("[data-conv]").innerHTML = '<span style="color:var(--nx-danger)">Pon la referencia: sirve para cuadrar con el banco.</span>'; return; }
+    sheet.close();
+    void act("completed", { ...p, reference: reference || null });
+  };
+}
+
+async function editOrder(o) {
+  const items = await loadShop();
+  if (!items) return;
+  const people = mode === "admin" ? (await loadPeople()) ?? [] : [];
+  const cart = new Map((o?.lines ?? []).map(l => [l.product_id, { qty: l.quantity, extra: !!l.extra }]));
+  const gestoras = people.filter(p => p.kind === "gestor" && p.status === "active");
+  const staff = people.filter(p => p.kind === "staff" && p.status === "active");
+  const sheet = openSheet('<div class="sheet-head"><h2>' + (o ? "Editar pedido #" + o.number : "Nuevo pedido") + '</h2><button type="button" class="btn btn-ghost" data-close>Cerrar</button></div>'
+    + '<form class="form">'
+    + (mode === "admin" ? '<div class="grid-2"><label class="field">Gestora<select name="gestorId"><option value="">Venta de la tienda</option>' + gestoras.map(g => '<option value="' + g.id + '"' + (o?.gestorId === g.id ? " selected" : "") + ">" + esc(g.fullName) + "</option>").join("") + "</select></label>"
+      + '<label class="field">Dependienta<select name="staffId"><option value="">—</option>' + staff.map(g => '<option value="' + g.id + '"' + (o?.staffId === g.id ? " selected" : "") + ">" + esc(g.fullName) + "</option>").join("") + "</select></label></div>" : "")
+    + '<div class="grid-2"><label class="field">Clienta<input name="customerName" required maxlength="80" value="' + esc(o?.customerName ?? "") + '"></label>'
+    + '<label class="field">Teléfono<input name="customerPhone" inputmode="tel" value="' + esc(o?.customerPhone ?? "") + '"></label></div>'
+    + '<div class="seg" data-delivery><button type="button" data-v="pickup" aria-pressed="' + ((o?.delivery ?? "pickup") === "pickup") + '">Recoge en tienda</button><button type="button" data-v="home" aria-pressed="' + (o?.delivery === "home") + '">Domicilio</button></div>'
+    + '<div class="grid-2" data-home' + (o?.delivery === "home" ? "" : " hidden") + '><label class="field">Dirección<input name="address" value="' + esc(o?.address ?? "") + '"></label><label class="field">Mensajería (CUP)<input name="fee" inputmode="numeric" value="' + esc(o?.deliveryFeeCup || "") + '"></label></div>'
+    + '<label class="search-field"><span>' + icon("search") + '</span><input data-q type="search" placeholder="Buscar producto"></label>'
+    + '<div data-items class="pick-list"></div>'
+    + '<div data-cart></div>'
+    + '<label class="field">Nota<input name="note" maxlength="200" value="' + esc(o?.note ?? "") + '"></label>'
+    + '<p class="msg" data-msg role="status"></p><button type="submit" class="btn btn-primary btn-xl btn-block">' + (o ? "Guardar cambios" : "Crear pedido") + "</button></form>", "Pedido");
+  const form = sheet.el.querySelector("form");
+  let delivery = o?.delivery ?? "pickup";
+  form.querySelectorAll("[data-delivery] button").forEach(b => (b.onclick = () => {
+    delivery = b.dataset.v;
+    form.querySelectorAll("[data-delivery] button").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+    form.querySelector("[data-home]").hidden = delivery !== "home";
+  }));
+  const byId = id => items.find(p => p.productId === id);
+  const renderCart = () => {
+    const lines = [...cart.entries()].filter(([id]) => byId(id));
+    const total = lines.reduce((t, [id, c]) => t + byId(id).priceMinor * c.qty, 0);
+    const comm = lines.reduce((t, [id, c]) => t + (byId(id).commissionUsd ?? 0) * c.qty * (c.extra ? 0.3334 : 1), 0);
+    form.querySelector("[data-cart]").innerHTML = lines.length ? '<div class="breakdown">' + lines.map(([id, c]) => '<div class="cart-line"><span class="grow">' + esc(byId(id).name) + '<br><span class="t-xs muted">' + usd(byId(id).priceMinor) + ' c/u</span></span>'
+      + '<label class="check t-xs"><input type="checkbox" data-extra="' + esc(id) + '"' + (c.extra ? " checked" : "") + '> Extra</label>'
+      + '<span class="stepper"><button type="button" class="btn btn-ghost btn-icon" data-minus="' + esc(id) + '">−</button><b class="num">' + c.qty + '</b><button type="button" class="btn btn-ghost btn-icon" data-plus="' + esc(id) + '">+</button></span></div>').join("")
+      + '<div class="kv strong"><span>Total</span><span class="num">' + usd(total) + "</span></div>"
+      + (comm ? '<div class="kv"><span>' + (mode === "admin" ? "Comisión gestora" : "Tu comisión") + '</span><span class="num">' + dollars(comm) + "</span></div>" : "") + "</div>"
+      + '<p class="t-xs muted">"Extra": producto de más que la clienta añadió en tienda; su comisión se reparte entre gestora, negocio y dependienta.</p>'
+      : '<p class="t-sm muted">Busca y toca los productos para añadirlos.</p>';
+    form.querySelectorAll("[data-plus]").forEach(b => (b.onclick = () => { cart.get(b.dataset.plus).qty++; renderCart(); }));
+    form.querySelectorAll("[data-minus]").forEach(b => (b.onclick = () => { const c = cart.get(b.dataset.minus); if (--c.qty < 1) cart.delete(b.dataset.minus); renderCart(); }));
+    form.querySelectorAll("[data-extra]").forEach(b => (b.onchange = () => { cart.get(b.dataset.extra).extra = b.checked; renderCart(); }));
+  };
+  const renderItems = () => {
+    const q = form.querySelector("[data-q]").value.trim().toLowerCase();
+    const list = items.filter(p => !q || p.name.toLowerCase().includes(q)).slice(0, q ? 30 : 12);
+    form.querySelector("[data-items]").innerHTML = list.map(p => '<button type="button" class="pick" data-add="' + esc(p.productId) + '">' + photo(p.imageUrl, p.name) + '<span class="grow"><span class="title">' + esc(p.name) + '</span><span class="meta">' + usd(p.priceMinor) + (p.stock > 0 ? " · " + p.stock + " en stock" : " · sin stock") + (p.commissionUsd ? " · comisión " + dollars(p.commissionUsd) : "") + "</span></span>" + icon("plus", "sm") + "</button>").join("");
+    form.querySelectorAll("[data-add]").forEach(b => (b.onclick = () => { const c = cart.get(b.dataset.add); if (c) c.qty++; else cart.set(b.dataset.add, { qty: 1, extra: false }); renderCart(); }));
+  };
+  form.querySelector("[data-q]").oninput = renderItems;
+  renderItems(); renderCart();
+  form.onsubmit = async e => {
+    e.preventDefault();
+    const f = new FormData(form);
+    const msg = form.querySelector("[data-msg]");
+    if (!cart.size) { msg.textContent = "Añade al menos un producto."; msg.dataset.tone = "bad"; return; }
+    const fee = String(f.get("fee") ?? "").trim();
+    if (delivery === "home" && fee && !/^\d+$/.test(fee)) { msg.textContent = "Mensajería: escribe solo números (CUP)."; msg.dataset.tone = "bad"; return; }
+    msg.textContent = "Guardando…"; msg.dataset.tone = "";
+    const { data, error } = await supabase.rpc("nexo_business_order_save", { p_business: bizId(), p_order: {
+      id: o?.id ?? null, gestorId: f.get("gestorId") || null, staffId: f.get("staffId") || null,
+      customerName: String(f.get("customerName")).trim(), customerPhone: String(f.get("customerPhone") ?? "").trim(),
+      delivery, address: delivery === "home" ? String(f.get("address") ?? "").trim() : null, deliveryFeeCup: delivery === "home" && fee ? Number(fee) : 0,
+      note: String(f.get("note") ?? "").trim(), lines: [...cart.entries()].map(([productId, c]) => ({ productId, quantity: c.qty, extra: c.extra })) } });
+    if (error || data?.error) { msg.textContent = "No se guardó: " + (error?.message ?? data.message ?? data.error); msg.dataset.tone = "bad"; return; }
+    sheet.close();
+    toast("Pedido #" + data.number + " guardado", "ok");
+    orderFilter = "open";
+    document.querySelectorAll("#order-filter .chip").forEach(x => x.setAttribute("aria-pressed", String(x.dataset.s === "open")));
+    await loadOrders();
+  };
+}
+
+// ---------- Equipo: gestoras, dependientas, retiros ----------
+let peopleCache = null;
+let teamKind = "gestor";
+async function loadPeople() {
+  const { data, error } = await supabase.rpc("nexo_business_people", { p_business: bizId() });
+  if (error || data?.error) { toast("No se pudo cargar el equipo", "bad"); return null; }
+  return (peopleCache = data);
+}
+document.querySelectorAll("#team-seg button").forEach(b => (b.onclick = () => {
+  teamKind = b.dataset.kind;
+  document.querySelectorAll("#team-seg button").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+  renderPeople();
+}));
+$("#new-person").onclick = () => editPerson(null);
+
+const PERSON_STATUS = { pending: ["Por aprobar", "badge-low"], active: ["Activa", "badge-ok"], inactive: ["Inactiva", "badge-calm"], rejected: ["Rechazada", "badge-out"] };
+async function loadTeam() {
+  const [people, payouts] = await Promise.all([loadPeople(), supabase.rpc("nexo_business_payouts", { p_business: bizId() })]);
+  if (!people) return;
+  const requests = (payouts.data ?? []).filter(p => p.status === "requested");
+  const pending = people.filter(p => p.status === "pending").length;
+  $("#team-dot").hidden = !(requests.length || pending);
+  const box = $("#payout-requests");
+  box.hidden = !requests.length;
+  box.innerHTML = '<div class="kv"><h2 class="t-lg">Retiros por pagar</h2><span class="badge badge-low">' + requests.length + "</span></div>"
+    + requests.map(r => '<div class="row-item"><button type="button" class="row-btn" data-payout="' + r.id + '"><span class="grow"><span class="title">' + esc(r.person) + '</span><span class="meta">Pidió el ' + esc(when(r.requestedAt)) + " · ≈ " + cup(Number(r.amountUsd) * Number(current?.rates?.CUP ?? 0)) + '</span></span><span class="price-tag">' + dollars(r.amountUsd) + "</span></button></div>").join("");
+  box.querySelectorAll("[data-payout]").forEach(b => (b.onclick = () => payPayout(requests.find(r => r.id === b.dataset.payout))));
+  renderPeople();
+  const base = location.origin + location.pathname + "?unirme=" + encodeURIComponent(bizId());
+  $("#join-links").innerHTML = '<h2 class="t-lg">Enlaces de registro</h2><p class="t-sm muted">Mándalos por WhatsApp. Cada persona crea su cuenta, pone sus datos de cobro y tú la apruebas aquí.</p>'
+    + [["gestora", "Gestoras"], ["dependienta", "Dependientas"]].map(([k, l]) => '<div class="row-item"><span class="grow"><span class="title">' + l + '</span><span class="meta">' + esc(base + "&como=" + k) + '</span></span><button type="button" class="btn btn-ghost btn-icon" data-copy-link="' + esc(base + "&como=" + k) + '" aria-label="Copiar">' + icon("copy", "sm") + "</button></div>").join("");
+  document.querySelectorAll("[data-copy-link]").forEach(b => (b.onclick = async () => { await navigator.clipboard.writeText(b.dataset.copyLink); toast("Enlace copiado", "ok"); }));
+}
+
+function renderPeople() {
+  const list = (peopleCache ?? []).filter(p => p.kind === teamKind);
+  const rank = [...list].filter(p => p.status === "active").sort((a, b) => b.balance.contributedMinor - a.balance.contributedMinor);
+  $("#people").innerHTML = list.length ? list.map(p => {
+    const [label, cls] = PERSON_STATUS[p.status];
+    const idle = p.kind === "gestor" && p.status === "active" && (!p.lastOrderAt || Date.now() - Date.parse(p.lastOrderAt) > 30 * 86400000);
+    const pos = rank.indexOf(p);
+    return '<div class="row-item"><button type="button" class="row-btn" data-person="' + p.id + '"><span class="avatar">' + esc(p.fullName.charAt(0).toUpperCase()) + '</span><span class="grow">'
+      + '<span class="title">' + (pos >= 0 && pos < 3 && p.balance.contributedMinor ? ["🥇", "🥈", "🥉"][pos] + " " : "") + esc(p.fullName) + "</span>"
+      + '<span class="meta">' + (p.kind === "gestor" ? p.balance.completedOrders + " pedidos · " + usd(p.balance.contributedMinor) + " vendidos" : "Ganado " + dollars(p.balance.earnedUsd)) + (idle ? " · 30 días sin vender" : "") + "</span></span>"
+      + '<span style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">' + (p.balance.availableUsd > 0 ? '<span class="price-tag">' + dollars(p.balance.availableUsd) + "</span>" : "") + '<span class="badge ' + cls + '">' + label + "</span></span></button></div>";
+  }).join("") : '<p class="muted">Todavía no hay ' + (teamKind === "gestor" ? "gestoras" : "dependientas") + ". Comparte el enlace de registro de abajo.</p>";
+  document.querySelectorAll("#people [data-person]").forEach(b => (b.onclick = () => editPerson(peopleCache.find(p => p.id === b.dataset.person))));
+}
+
+const payoutText = p => [p?.cupCard ? "Tarjeta CUP " + p.cupCard : "", p?.mlcCard ? "Tarjeta MLC " + p.mlcCard : "", p?.zelle ? "Zelle " + p.zelle : "", p?.cash ? "Efectivo en tienda" : ""].filter(Boolean).join(" · ") || "Sin datos de cobro";
+function editPerson(p) {
+  const b = p?.balance;
+  const sheet = openSheet('<div class="sheet-head"><h2>' + (p ? esc(p.fullName) : "Añadir persona") + '</h2><button type="button" class="btn btn-ghost" data-close>Cerrar</button></div>'
+    + (p ? '<div class="verdict"><div><span>Disponible</span><b class="num">' + dollars(b.availableUsd) + '</b></div><div><span>Pendiente</span><b class="num">' + dollars(b.pendingUsd) + '</b></div><div><span>Pagado</span><b class="num">' + dollars(b.paidUsd) + "</b></div></div>"
+      + '<p class="t-sm">' + esc(KIND[p.kind]) + (p.phone ? " · " + esc(p.phone) : "") + (p.email ? " · " + esc(p.email) : "") + '<br><span class="muted">' + esc(payoutText(p.payout)) + "</span></p>" : "")
+    + '<form class="form">'
+    + (p ? "" : '<div class="seg" data-kind-seg><button type="button" data-v="gestor" aria-pressed="' + (teamKind === "gestor") + '">Gestora</button><button type="button" data-v="staff" aria-pressed="' + (teamKind === "staff") + '">Dependienta</button></div>')
+    + '<div class="grid-2"><label class="field">Nombre<input name="fullName" required maxlength="80" value="' + esc(p?.fullName ?? "") + '"></label><label class="field">Teléfono<input name="phone" inputmode="tel" value="' + esc(p?.phone ?? "") + '"></label></div>'
+    + (p && p.kind === "gestor" ? '<div class="field">Comisión propia (vacío = la del producto)<div class="grid-2"><select name="commissionMode"><option value="">De cada producto</option><option value="fixed"' + (p.commissionMode === "fixed" ? " selected" : "") + '>Fija USD por unidad</option><option value="percent"' + (p.commissionMode === "percent" ? " selected" : "") + '>% del precio</option></select><input name="commissionValue" inputmode="decimal" placeholder="Valor" value="' + esc(p.commissionValue ?? "") + '"></div></div>' : "")
+    + (p ? '<label class="field">Nota interna<input name="note" maxlength="200" value="' + esc(p.note ?? "") + '"></label>' : "")
+    + '<p class="msg" data-msg role="status"></p>'
+    + (p?.status === "pending" ? '<div class="grid-2"><button type="button" class="btn btn-primary" data-status="active">Aprobar</button><button type="button" class="btn btn-danger" data-status="rejected">Rechazar</button></div>' : "")
+    + '<button type="submit" class="btn ' + (p?.status === "pending" ? "btn-secondary" : "btn-primary btn-xl") + ' btn-block">Guardar</button>'
+    + (p?.status === "active" ? '<button type="button" class="btn btn-ghost btn-block" data-status="inactive">Desactivar</button>' : "")
+    + (p && (p.status === "inactive" || p.status === "rejected") ? '<button type="button" class="btn btn-secondary btn-block" data-status="active">Activar</button>' : "")
+    + "</form>", p ? p.fullName : "Añadir persona");
+  const form = sheet.el.querySelector("form");
+  let kind = teamKind;
+  form.querySelectorAll("[data-kind-seg] button").forEach(x => (x.onclick = () => { kind = x.dataset.v; form.querySelectorAll("[data-kind-seg] button").forEach(y => y.setAttribute("aria-pressed", String(y === x))); }));
+  const save = async extra => {
+    const f = new FormData(form);
+    const msg = form.querySelector("[data-msg]");
+    const data = { fullName: String(f.get("fullName")).trim(), phone: String(f.get("phone") ?? "").trim(), ...extra };
+    if (!p) data.kind = kind;
+    if (p?.kind === "gestor") {
+      data.commissionMode = f.get("commissionMode") || "";
+      const v = String(f.get("commissionValue") ?? "").trim();
+      if (data.commissionMode && num(v) == null) { msg.textContent = "Escribe el valor de la comisión."; msg.dataset.tone = "bad"; return; }
+      data.commissionValue = data.commissionMode ? v : "";
+    }
+    if (p) data.note = String(f.get("note") ?? "");
+    const { data: r, error } = await supabase.rpc("nexo_business_person_save", { p_business: bizId(), p_id: p?.id ?? null, p_data: data });
+    if (error || r?.error) { msg.textContent = "No se guardó: " + (error?.message ?? r.message ?? r.error); msg.dataset.tone = "bad"; return; }
+    sheet.close();
+    toast(extra?.status === "active" ? "Aprobada" : extra?.status ? "Hecho" : "Guardado", "ok");
+    await loadTeam();
+  };
+  form.onsubmit = e => { e.preventDefault(); void save({}); };
+  form.querySelectorAll("[data-status]").forEach(x => (x.onclick = () => { if (form.reportValidity()) void save({ status: x.dataset.status }); }));
+}
+
+function payPayout(r) {
+  const rate = Number(current?.rates?.CUP ?? 0);
+  const sheet = openSheet('<div class="sheet-head"><h2>Pagar a ' + esc(r.person) + '</h2><button type="button" class="btn btn-ghost" data-close>Cerrar</button></div>'
+    + '<div class="verdict"><div><span>Pide</span><b class="num">' + dollars(r.amountUsd) + '</b></div><div><span>En CUP (' + rate + ')</span><b class="num">' + cup(Number(r.amountUsd) * rate) + "</b></div></div>"
+    + '<p class="t-sm muted">' + esc(payoutText(r.payoutInfo)) + "</p>"
+    + '<form class="form"><div class="grid-2"><label class="field">Moneda<select name="currency"><option>CUP</option><option>USD</option><option>MLC</option></select></label>'
+    + '<label class="field">Cómo<select name="method"><option value="transfer">Transferencia</option><option value="cash">Efectivo</option><option value="zelle">Zelle</option></select></label></div>'
+    + '<label class="field">Referencia del pago<input name="reference" autocomplete="off" placeholder="Nº de la transferencia"></label>'
+    + '<p class="msg" data-msg role="status"></p><button type="submit" class="btn btn-primary btn-xl btn-block">Marcar pagado</button>'
+    + '<button type="button" class="btn btn-ghost btn-block" data-reject>Rechazar solicitud</button></form>', "Pagar retiro");
+  const form = sheet.el.querySelector("form");
+  const decide = async (decision, data) => {
+    const { data: res, error } = await supabase.rpc("nexo_business_payout_decide", { p_business: bizId(), p_id: r.id, p_decision: decision, p_data: data });
+    if (error || res?.error) { const m = form.querySelector("[data-msg]"); m.textContent = "No se pudo: " + (error?.message ?? res.message ?? res.error); m.dataset.tone = "bad"; return; }
+    sheet.close();
+    toast(decision === "paid" ? "Pagado: " + Number(res.amountPaid).toLocaleString("es") + " " + res.currency : "Solicitud rechazada", "ok");
+    await loadTeam();
+  };
+  form.onsubmit = e => {
+    e.preventDefault();
+    const f = new FormData(form);
+    if (f.get("method") !== "cash" && !String(f.get("reference") ?? "").trim()) { const m = form.querySelector("[data-msg]"); m.textContent = "Pon la referencia para que ella pueda comprobar el pago."; m.dataset.tone = "bad"; return; }
+    void decide("paid", { currency: f.get("currency"), method: f.get("method"), reference: f.get("reference") });
+  };
+  form.querySelector("[data-reject]").onclick = () => { const note = prompt("Motivo del rechazo (ella lo verá):"); if (note !== null) void decide("rejected", { note }); };
+}
+
+// ---------- Panel de la gestora / dependienta ----------
+let account = null;
+async function loadAccount() {
+  const [{ data, error }, payouts] = await Promise.all([supabase.rpc("nexo_business_my_account", { p_business: bizId() }), supabase.rpc("nexo_business_payouts", { p_business: bizId() })]);
+  if (error || data?.error) { $("#account").innerHTML = '<div class="panel">No se pudo cargar.</div>'; return; }
+  account = data;
+  const b = data.balance, me = data.person;
+  if (me.status !== "active") {
+    $("#account").innerHTML = '<div class="panel"><h2 class="t-lg">' + (me.status === "pending" ? "Tu registro está en revisión" : "Tu cuenta no está activa") + '</h2><p class="muted">' + (me.status === "pending" ? "Casa Viva revisará tus datos y te avisará. Mientras, revisa que tu perfil y tus datos de cobro estén bien." : "Habla con Casa Viva si crees que es un error.") + "</p></div>";
+    return;
+  }
+  const mine = (payouts.data ?? []);
+  const requested = mine.find(p => p.status === "requested");
+  $("#account").innerHTML = '<div class="kpis"><div class="kpi accent"><span class="label">Disponible para retirar</span><span class="value num">' + dollars(b.availableUsd) + '</span><span class="sub">pedidos completados</span></div>'
+    + '<div class="kpi"><span class="label">Pendiente</span><span class="value num">' + dollars(b.pendingUsd) + '</span><span class="sub">pedidos aún abiertos</span></div>'
+    + '<div class="kpi"><span class="label">Cobrado</span><span class="value num">' + dollars(b.paidUsd) + '</span><span class="sub">en total</span></div>'
+    + (me.kind === "gestor" ? '<div class="kpi"><span class="label">Pedidos completados</span><span class="value num">' + b.completedOrders + '</span><span class="sub">' + usd(b.contributedMinor) + " vendidos</span></div>" : '<div class="kpi"><span class="label">Ganado</span><span class="value num">' + dollars(b.earnedUsd) + '</span><span class="sub">en total</span></div>') + "</div>"
+    + '<section class="panel">' + (requested ? '<p class="t-sm"><span class="badge badge-info">Retiro pedido</span> ' + dollars(requested.amountUsd) + " el " + esc(when(requested.requestedAt)) + ". Casa Viva te avisará al pagar.</p>"
+      : '<button type="button" class="btn btn-primary btn-xl btn-block" id="ask-payout"' + (b.availableUsd < 1 ? " disabled" : "") + ">Pedir retiro de " + dollars(b.availableUsd) + "</button>" + (b.availableUsd < 1 ? '<p class="t-xs muted">Necesitas al menos $1,00 disponible.</p>' : ""))
+    + '<p class="t-xs muted">Se cobra a: ' + esc(payoutText(me.payout)) + ". Cámbialo en Perfil.</p></section>"
+    + '<section class="panel"><h2 class="t-lg">Movimientos</h2>' + (data.entries.length ? data.entries.map(e => '<div class="row-item"><span class="grow"><span class="title">' + esc(e.name ?? e.productId) + '</span><span class="meta">' + esc(when(e.at)) + " · " + e.quantity + " u. · " + ({ gestor: "comisión", extra_gestor: "extra (reparto)", extra_staff: "extra (reparto)", staff: "venta en tienda" })[e.kind] + (e.status === "void" ? " · anulada por devolución" : "") + '</span></span><span class="price-tag"' + (e.status === "void" ? ' style="text-decoration:line-through;opacity:.5"' : "") + ">" + dollars(e.amountUsd) + "</span></div>").join("") : '<p class="muted">Aún no hay comisiones. Aparecen cuando un pedido tuyo se completa.</p>') + "</section>"
+    + (mine.length ? '<section class="panel"><h2 class="t-lg">Retiros</h2>' + mine.map(p => '<div class="row-item"><span class="grow"><span class="title">' + dollars(p.amountUsd) + (p.amountPaid ? " → " + Number(p.amountPaid).toLocaleString("es") + " " + esc(p.currency) : "") + '</span><span class="meta">' + esc(when(p.decidedAt ?? p.requestedAt)) + (p.reference ? " · ref " + esc(p.reference) : "") + (p.note ? " · " + esc(p.note) : "") + '</span></span><span class="badge ' + ({ requested: "badge-info", paid: "badge-ok", rejected: "badge-out" })[p.status] + '">' + ({ requested: "Pedido", paid: "Pagado", rejected: "Rechazado" })[p.status] + "</span></div>").join("") + "</section>" : "");
+  $("#ask-payout")?.addEventListener("click", async () => {
+    if (!confirm("¿Pedir el retiro de " + dollars(b.availableUsd) + "?")) return;
+    const { data: r, error: e } = await supabase.rpc("nexo_business_request_payout", { p_business: bizId() });
+    if (e || r?.error) return toast("No se pudo: " + (e?.message ?? r.message ?? r.error), "bad");
+    toast("Retiro pedido: " + dollars(r.amountUsd), "ok");
+    await loadAccount();
+  });
+}
+
+function profileForm(me, submitLabel) {
+  const p = me?.payout ?? {};
+  return '<form class="form" id="profile-form"><div class="grid-2"><label class="field">Nombre y apellidos<input name="fullName" required minlength="2" maxlength="80" value="' + esc(me?.fullName ?? "") + '"></label>'
+    + '<label class="field">Teléfono (WhatsApp)<input name="phone" required inputmode="tel" value="' + esc(me?.phone ?? "") + '"></label></div>'
+    + '<h3 class="t-lg" style="margin:8px 0 0">¿Cómo quieres cobrar?</h3>'
+    + '<label class="field">Tarjeta CUP (Transfermóvil / EnZona)<input name="cupCard" inputmode="numeric" maxlength="19" value="' + esc(p.cupCard ?? "") + '"></label>'
+    + '<label class="field">Tarjeta MLC<input name="mlcCard" inputmode="numeric" maxlength="19" value="' + esc(p.mlcCard ?? "") + '"></label>'
+    + '<label class="field">Correo de Zelle<input name="zelle" type="email" value="' + esc(p.zelle ?? "") + '"></label>'
+    + '<label class="check"><input type="checkbox" name="cash"' + (p.cash ? " checked" : "") + "> Prefiero efectivo en la tienda</label>"
+    + '<p class="msg" data-msg role="status"></p><button type="submit" class="btn btn-primary btn-xl btn-block">' + submitLabel + "</button></form>";
+}
+const readProfile = form => {
+  const f = new FormData(form);
+  const clean = v => String(v ?? "").replace(/\s+/g, "").trim();
+  return { fullName: String(f.get("fullName")).trim(), phone: String(f.get("phone")).trim(),
+    payout: { cupCard: clean(f.get("cupCard")) || undefined, mlcCard: clean(f.get("mlcCard")) || undefined, zelle: String(f.get("zelle") ?? "").trim() || undefined, cash: f.get("cash") === "on" || undefined } };
+};
+
+function renderProfile() {
+  const me = account?.person;
+  $("#profile").innerHTML = profileForm(me, "Guardar") + '<p class="t-xs muted" style="margin-top:12px">' + esc(me?.email ?? "") + "</p>";
+  const form = $("#profile-form");
+  form.onsubmit = async e => {
+    e.preventDefault();
+    const { data, error } = await supabase.rpc("nexo_business_my_profile", { p_business: bizId(), p_profile: readProfile(form) });
+    const msg = form.querySelector("[data-msg]");
+    if (error || data?.error) { msg.textContent = "No se guardó: " + (error?.message ?? data.message ?? data.error); msg.dataset.tone = "bad"; return; }
+    msg.textContent = "Guardado"; msg.dataset.tone = "ok";
+    await loadAccount();
+  };
+}
+
+// Sign-up from a link: ?unirme=<business>&como=gestora|dependienta
+function joinParams() {
+  const q = new URLSearchParams(location.search);
+  const biz = q.get("unirme");
+  const kind = ({ gestora: "gestor", gestor: "gestor", dependienta: "staff", dependiente: "staff" })[q.get("como") ?? ""];
+  return biz && kind ? { biz, kind } : null;
+}
+function showJoin(j) {
+  setMode("person");
+  document.querySelectorAll("#nav .tab").forEach(t => (t.hidden = true));
+  document.querySelectorAll("main.page").forEach(p => (p.hidden = p.dataset.page !== "perfil"));
+  $("#profile").innerHTML = '<h2 class="t-lg">Regístrate como ' + (j.kind === "gestor" ? "gestora" : "dependienta") + " de Casa Viva</h2>" + profileForm(null, "Enviar registro");
+  const form = $("#profile-form");
+  form.onsubmit = async e => {
+    e.preventDefault();
+    const { data, error } = await supabase.rpc("nexo_business_join", { p_business: j.biz, p_kind: j.kind, p_profile: readProfile(form) });
+    const msg = form.querySelector("[data-msg]");
+    if (error || data?.error) { msg.textContent = "No se pudo: " + (error?.message ?? data.message ?? data.error); msg.dataset.tone = "bad"; return; }
+    history.replaceState(null, "", location.pathname);
+    toast("Registro enviado. Casa Viva lo revisará.", "ok");
+    await startPerson();
+  };
+}
+
+async function startPerson() {
+  const { data } = await supabase.rpc("nexo_business_my_people");
+  const mine = (data ?? []).sort((a, b) => (b.status === "active") - (a.status === "active"))[0];
+  const j = joinParams();
+  if (j && !(data ?? []).some(p => p.businessId === j.biz && p.kind === j.kind)) return showJoin(j);
+  if (!mine) return false;
+  person = mine;
+  setMode("person");
+  $("#biz-name").textContent = mine.businessId === "casa-viva" ? "Casa Viva" : mine.businessId;
+  $("#new-order").hidden = mine.kind !== "gestor" || mine.status !== "active";
+  $("#nav .tab[data-page=pedidos]").hidden = mine.status !== "active";
+  go("cuenta");
+  return true;
 }
 
 // ---------- Costos (ficha de costo) ----------

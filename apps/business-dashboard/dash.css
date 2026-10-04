@@ -150,3 +150,26 @@ body { background: #F6F1E6; }
 .nx .methods { display: flex; flex-wrap: wrap; gap: 6px; margin-top: var(--nx-s3); }
 .nx #period { margin-top: calc(-1 * var(--nx-s2)); }
 .nx .methods .badge { white-space: normal; text-align: left; }
+
+/* Orders, team and the person panel. */
+.nx .nav .tab { position: relative; }
+.nx .nav .tab .dot { position: absolute; top: 6px; right: calc(50% - 16px); width: 8px; height: 8px; border-radius: 50%; background: var(--nx-danger); }
+.nx .pick-list { display: grid; gap: 6px; max-height: 280px; overflow: auto; }
+.nx .pick { display: flex; align-items: center; gap: var(--nx-s3); width: 100%; text-align: left; background: var(--nx-surface); border: 1px solid var(--nx-line); border-radius: var(--nx-r-md); padding: 8px; font: inherit; color: inherit; }
+.nx .pick .avatar { width: 40px; height: 40px; flex: none; }
+.nx .pick .title, .nx .pick .meta { display: block; }
+.nx .pick .meta { font-size: var(--nx-fs-xs); color: var(--nx-text-2); }
+.nx .cart-line { display: flex; align-items: center; gap: var(--nx-s2); }
+.nx .stepper { display: flex; align-items: center; gap: 2px; }
+.nx .stepper .btn-icon { min-width: 36px; min-height: 36px; font-size: 18px; }
+.nx .pay-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.nx .pay-opt { display: flex; }
+.nx .pay-opt input { position: absolute; opacity: 0; }
+.nx .pay-opt span { flex: 1; text-align: center; padding: 12px 8px; border: 1px solid var(--nx-line); border-radius: var(--nx-r-md); font-weight: 700; background: var(--nx-surface); }
+.nx .pay-opt input:checked + span { border-color: var(--nx-primary); background: var(--nx-primary-soft); color: var(--nx-primary); }
+.nx .pay-opt input:focus-visible + span { outline: 2px solid var(--nx-primary); }
+.nx #res-seg, .nx #team-seg { margin-bottom: var(--nx-s2); }
+.nx .nav > * { order: 2; }
+.nx .nav .nav-logo { order: 0; }
+.nx .nav .tab[data-page=cuenta] { order: 1; }
+.nx .nav .nav-spacer { order: 3; }
