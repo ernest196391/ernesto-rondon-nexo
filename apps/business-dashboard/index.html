@@ -83,6 +83,7 @@
       <div class="seg" id="team-seg" role="group" aria-label="Personas">
         <button type="button" data-kind="gestor" aria-pressed="true">Gestoras</button>
         <button type="button" data-kind="staff" aria-pressed="false">Dependientas</button>
+        <button type="button" data-kind="partner" aria-pressed="false">Socios</button>
       </div>
       <section class="panel" id="people"><p class="muted">Cargando…</p></section>
       <section class="panel" id="join-links"></section>
@@ -574,7 +575,10 @@ document.querySelectorAll("#res-seg button").forEach(b => (b.onclick = () => {
 let mode = "admin";
 let person = null; // { businessId, kind, status, fullName } in person mode
 const bizId = () => mode === "admin" ? current?.businessId : person?.businessId;
-const KIND = { gestor: "Gestora", staff: "Dependienta" };
+const KIND = { gestor: "Gestora", staff: "Dependienta", partner: "Socio" };
+const PARTNER_TYPE = { consignment: "Consignación", investor: "Inversor" };
+const PARTNER_RULE = { supplier_price: "Su precio de proveedor por unidad", percent_of_sale: "% de la venta", fixed_per_unit: "Fijo USD por unidad", percent_of_profit: "% de la ganancia" };
+const ruleText = p => p.partnerRule ? (p.partnerRule === "supplier_price" ? PARTNER_RULE.supplier_price : p.partnerRule === "fixed_per_unit" ? dollars(p.partnerValue ?? 0) + " por unidad" : pct1(p.partnerValue ?? 0) + (p.partnerRule === "percent_of_sale" ? " de la venta" : " de la ganancia")) : "Sin regla";
 function setMode(next) {
   mode = next;
   document.querySelectorAll("#nav .tab").forEach(t => (t.hidden = !t.dataset.for.split(" ").includes(next)));
@@ -801,9 +805,9 @@ function renderPeople() {
     const pos = rank.indexOf(p);
     return '<div class="row-item"><button type="button" class="row-btn" data-person="' + p.id + '"><span class="avatar">' + esc(p.fullName.charAt(0).toUpperCase()) + '</span><span class="grow">'
       + '<span class="title">' + (pos >= 0 && pos < 3 && p.balance.contributedMinor ? ["🥇", "🥈", "🥉"][pos] + " " : "") + esc(p.fullName) + "</span>"
-      + '<span class="meta">' + (p.kind === "gestor" ? p.balance.completedOrders + " pedidos · " + usd(p.balance.contributedMinor) + " vendidos" : "Ganado " + dollars(p.balance.earnedUsd)) + (idle ? " · 30 días sin vender" : "") + "</span></span>"
+      + '<span class="meta">' + (p.kind === "gestor" ? p.balance.completedOrders + " pedidos · " + usd(p.balance.contributedMinor) + " vendidos" : p.kind === "partner" ? esc(PARTNER_TYPE[p.partnerType] ?? "Socio") + " · " + esc(ruleText(p)) + " · " + (p.products ?? 0) + " productos" : "Ganado " + dollars(p.balance.earnedUsd)) + (idle ? " · 30 días sin vender" : "") + "</span></span>"
       + '<span style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">' + (p.balance.availableUsd > 0 ? '<span class="price-tag">' + dollars(p.balance.availableUsd) + "</span>" : "") + '<span class="badge ' + cls + '">' + label + "</span></span></button></div>";
-  }).join("") : '<p class="muted">Todavía no hay ' + (teamKind === "gestor" ? "gestoras" : "dependientas") + ". Comparte el enlace de registro de abajo.</p>";
+  }).join("") : '<p class="muted">' + (teamKind === "partner" ? "Añade a cada socio con su regla y asígnale sus productos en la ficha de cada producto." : "Todavía no hay " + (teamKind === "gestor" ? "gestoras" : "dependientas") + ". Comparte el enlace de registro de abajo.") + "</p>";
   document.querySelectorAll("#people [data-person]").forEach(b => (b.onclick = () => editPerson(peopleCache.find(p => p.id === b.dataset.person))));
 }
 
@@ -814,9 +818,14 @@ function editPerson(p) {
     + (p ? '<div class="verdict"><div><span>Disponible</span><b class="num">' + dollars(b.availableUsd) + '</b></div><div><span>Pendiente</span><b class="num">' + dollars(b.pendingUsd) + '</b></div><div><span>Pagado</span><b class="num">' + dollars(b.paidUsd) + "</b></div></div>"
       + '<p class="t-sm">' + esc(KIND[p.kind]) + (p.phone ? " · " + esc(p.phone) : "") + (p.email ? " · " + esc(p.email) : "") + '<br><span class="muted">' + esc(payoutText(p.payout)) + "</span></p>" : "")
     + '<form class="form">'
-    + (p ? "" : '<div class="seg" data-kind-seg><button type="button" data-v="gestor" aria-pressed="' + (teamKind === "gestor") + '">Gestora</button><button type="button" data-v="staff" aria-pressed="' + (teamKind === "staff") + '">Dependienta</button></div>')
+    + (p ? "" : '<div class="seg" data-kind-seg><button type="button" data-v="gestor" aria-pressed="' + (teamKind === "gestor") + '">Gestora</button><button type="button" data-v="staff" aria-pressed="' + (teamKind === "staff") + '">Dependienta</button><button type="button" data-v="partner" aria-pressed="' + (teamKind === "partner") + '">Socio</button></div>')
     + '<div class="grid-2"><label class="field">Nombre<input name="fullName" required maxlength="80" value="' + esc(p?.fullName ?? "") + '"></label><label class="field">Teléfono<input name="phone" inputmode="tel" value="' + esc(p?.phone ?? "") + '"></label></div>'
     + (p && p.kind === "gestor" ? '<div class="field">Comisión propia (vacío = la del producto)<div class="grid-2"><select name="commissionMode"><option value="">De cada producto</option><option value="fixed"' + (p.commissionMode === "fixed" ? " selected" : "") + '>Fija USD por unidad</option><option value="percent"' + (p.commissionMode === "percent" ? " selected" : "") + '>% del precio</option></select><input name="commissionValue" inputmode="decimal" placeholder="Valor" value="' + esc(p.commissionValue ?? "") + '"></div></div>' : "")
+    + '<div data-partner-fields' + ((p ? p.kind : teamKind) === "partner" ? "" : " hidden") + '><div class="grid-2"><label class="field">Tipo<select name="partnerType">' + Object.entries(PARTNER_TYPE).map(([k, l]) => '<option value="' + k + '"' + (p?.partnerType === k ? " selected" : "") + ">" + l + "</option>").join("") + "</select></label>"
+      + '<label class="field">Cobra<select name="partnerRule">' + Object.entries(PARTNER_RULE).map(([k, l]) => '<option value="' + k + '"' + ((p?.partnerRule ?? "supplier_price") === k ? " selected" : "") + ">" + l + "</option>").join("") + "</select></label></div>"
+      + '<label class="field" data-pvalue>Valor<input name="partnerValue" inputmode="decimal" value="' + esc(p?.partnerValue ?? "") + '"></label>'
+      + '<p class="t-xs muted">Sus productos se marcan en Productos → ficha → Dueño de la mercancía.</p>'
+      + (p && !p.hasAccount ? '<div class="row-item"><span class="grow"><span class="title">Enlace de acceso a su panel</span><span class="meta">Solo sirve una vez</span></span><button type="button" class="btn btn-ghost btn-icon" data-partner-link aria-label="Copiar">' + icon("copy", "sm") + "</button></div>" : "") + "</div>"
     + (p ? '<label class="field">Nota interna<input name="note" maxlength="200" value="' + esc(p.note ?? "") + '"></label>' : "")
     + '<p class="msg" data-msg role="status"></p>'
     + (p?.status === "pending" ? '<div class="grid-2"><button type="button" class="btn btn-primary" data-status="active">Aprobar</button><button type="button" class="btn btn-danger" data-status="rejected">Rechazar</button></div>' : "")
@@ -826,7 +835,14 @@ function editPerson(p) {
     + "</form>", p ? p.fullName : "Añadir persona");
   const form = sheet.el.querySelector("form");
   let kind = teamKind;
-  form.querySelectorAll("[data-kind-seg] button").forEach(x => (x.onclick = () => { kind = x.dataset.v; form.querySelectorAll("[data-kind-seg] button").forEach(y => y.setAttribute("aria-pressed", String(y === x))); }));
+  const pf = form.querySelector("[data-partner-fields]");
+  const syncRule = () => { form.querySelector("[data-pvalue]").hidden = form.elements.partnerRule.value === "supplier_price"; };
+  form.elements.partnerRule.onchange = syncRule; syncRule();
+  form.querySelectorAll("[data-kind-seg] button").forEach(x => (x.onclick = () => { kind = x.dataset.v; pf.hidden = kind !== "partner"; form.querySelectorAll("[data-kind-seg] button").forEach(y => y.setAttribute("aria-pressed", String(y === x))); }));
+  form.querySelector("[data-partner-link]")?.addEventListener("click", async () => {
+    await navigator.clipboard.writeText(location.origin + location.pathname + "?unirme=" + encodeURIComponent(bizId()) + "&socio=" + p.id);
+    toast("Enlace copiado: mándalo por WhatsApp", "ok");
+  });
   const save = async extra => {
     const f = new FormData(form);
     const msg = form.querySelector("[data-msg]");
@@ -839,6 +855,13 @@ function editPerson(p) {
       data.commissionValue = data.commissionMode ? v : "";
     }
     if (p) data.note = String(f.get("note") ?? "");
+    if ((p ? p.kind : kind) === "partner") {
+      data.partnerType = f.get("partnerType"); data.partnerRule = f.get("partnerRule");
+      const v = String(f.get("partnerValue") ?? "").trim();
+      if (data.partnerRule !== "supplier_price" && num(v) == null) { msg.textContent = "Escribe el valor de su regla."; msg.dataset.tone = "bad"; return; }
+      if (data.partnerRule.startsWith("percent") && num(v) > 100) { msg.textContent = "Un porcentaje no puede pasar de 100."; msg.dataset.tone = "bad"; return; }
+      data.partnerValue = data.partnerRule === "supplier_price" ? "" : v;
+    }
     const { data: r, error } = await supabase.rpc("nexo_business_person_save", { p_business: bizId(), p_id: p?.id ?? null, p_data: data });
     if (error || r?.error) { msg.textContent = "No se guardó: " + (error?.message ?? r.message ?? r.error); msg.dataset.tone = "bad"; return; }
     sheet.close();
@@ -892,11 +915,12 @@ async function loadAccount() {
   $("#account").innerHTML = '<div class="kpis"><div class="kpi accent"><span class="label">Disponible para retirar</span><span class="value num">' + dollars(b.availableUsd) + '</span><span class="sub">pedidos completados</span></div>'
     + '<div class="kpi"><span class="label">Pendiente</span><span class="value num">' + dollars(b.pendingUsd) + '</span><span class="sub">pedidos aún abiertos</span></div>'
     + '<div class="kpi"><span class="label">Cobrado</span><span class="value num">' + dollars(b.paidUsd) + '</span><span class="sub">en total</span></div>'
-    + (me.kind === "gestor" ? '<div class="kpi"><span class="label">Pedidos completados</span><span class="value num">' + b.completedOrders + '</span><span class="sub">' + usd(b.contributedMinor) + " vendidos</span></div>" : '<div class="kpi"><span class="label">Ganado</span><span class="value num">' + dollars(b.earnedUsd) + '</span><span class="sub">en total</span></div>') + "</div>"
+    + (me.kind === "partner" ? '<div class="kpi"><span class="label">Tu regla</span><span class="value num" style="font-size:var(--nx-fs-lg)">' + esc(ruleText(me)) + '</span><span class="sub">' + esc(PARTNER_TYPE[me.partnerType] ?? "") + "</span></div>" : me.kind === "gestor" ? '<div class="kpi"><span class="label">Pedidos completados</span><span class="value num">' + b.completedOrders + '</span><span class="sub">' + usd(b.contributedMinor) + " vendidos</span></div>" : '<div class="kpi"><span class="label">Ganado</span><span class="value num">' + dollars(b.earnedUsd) + '</span><span class="sub">en total</span></div>') + "</div>"
     + '<section class="panel">' + (requested ? '<p class="t-sm"><span class="badge badge-info">Retiro pedido</span> ' + dollars(requested.amountUsd) + " el " + esc(when(requested.requestedAt)) + ". Casa Viva te avisará al pagar.</p>"
       : '<button type="button" class="btn btn-primary btn-xl btn-block" id="ask-payout"' + (b.availableUsd < 1 ? " disabled" : "") + ">Pedir retiro de " + dollars(b.availableUsd) + "</button>" + (b.availableUsd < 1 ? '<p class="t-xs muted">Necesitas al menos $1,00 disponible.</p>' : ""))
     + '<p class="t-xs muted">Se cobra a: ' + esc(payoutText(me.payout)) + ". Cámbialo en Perfil.</p></section>"
-    + '<section class="panel"><h2 class="t-lg">Movimientos</h2>' + (data.entries.length ? data.entries.map(e => '<div class="row-item"><span class="grow"><span class="title">' + esc(e.name ?? e.productId) + '</span><span class="meta">' + esc(when(e.at)) + " · " + e.quantity + " u. · " + ({ gestor: "comisión", extra_gestor: "extra (reparto)", extra_staff: "extra (reparto)", staff: "venta en tienda" })[e.kind] + (e.status === "void" ? " · anulada por devolución" : "") + '</span></span><span class="price-tag"' + (e.status === "void" ? ' style="text-decoration:line-through;opacity:.5"' : "") + ">" + dollars(e.amountUsd) + "</span></div>").join("") : '<p class="muted">Aún no hay comisiones. Aparecen cuando un pedido tuyo se completa.</p>') + "</section>"
+    + (data.products ? '<section class="panel"><h2 class="t-lg">Mis productos en la tienda</h2>' + (data.products.length ? data.products.map(x => '<div class="row-item">' + photo(x.imageUrl, x.name) + '<span class="grow"><span class="title">' + esc(x.name) + '</span><span class="meta">' + usd(x.priceMinor ?? 0) + " · vendidas " + x.soldUnits + '</span></span><span class="badge ' + (x.stock > 0 ? "badge-ok" : "badge-out") + '">' + (x.stock > 0 ? x.stock + " en tienda" : "Agotado") + "</span></div>").join("") : '<p class="muted">Casa Viva aún no ha marcado tus productos.</p>') + "</section>" : "")
+    + '<section class="panel"><h2 class="t-lg">Movimientos</h2>' + (data.entries.length ? data.entries.map(e => '<div class="row-item"><span class="grow"><span class="title">' + esc(e.name ?? e.productId) + '</span><span class="meta">' + esc(when(e.at)) + " · " + e.quantity + " u. · " + ({ gestor: "comisión", extra_gestor: "extra (reparto)", extra_staff: "extra (reparto)", staff: "venta en tienda", partner: "venta de tu producto" })[e.kind] + (e.status === "void" ? " · anulada por devolución" : "") + '</span></span><span class="price-tag"' + (e.status === "void" ? ' style="text-decoration:line-through;opacity:.5"' : "") + ">" + dollars(e.amountUsd) + "</span></div>").join("") : '<p class="muted">Aún no hay comisiones. Aparecen cuando un pedido tuyo se completa.</p>') + "</section>"
     + (mine.length ? '<section class="panel"><h2 class="t-lg">Retiros</h2>' + mine.map(p => '<div class="row-item"><span class="grow"><span class="title">' + dollars(p.amountUsd) + (p.amountPaid ? " → " + Number(p.amountPaid).toLocaleString("es") + " " + esc(p.currency) : "") + '</span><span class="meta">' + esc(when(p.decidedAt ?? p.requestedAt)) + (p.reference ? " · ref " + esc(p.reference) : "") + (p.note ? " · " + esc(p.note) : "") + '</span></span><span class="badge ' + ({ requested: "badge-info", paid: "badge-ok", rejected: "badge-out" })[p.status] + '">' + ({ requested: "Pedido", paid: "Pagado", rejected: "Rechazado" })[p.status] + "</span></div>").join("") + "</section>" : "");
   $("#ask-payout")?.addEventListener("click", async () => {
     if (!confirm("¿Pedir el retiro de " + dollars(b.availableUsd) + "?")) return;
@@ -944,7 +968,7 @@ function joinParams() {
   const q = new URLSearchParams(location.search);
   const biz = q.get("unirme");
   const kind = ({ gestora: "gestor", gestor: "gestor", dependienta: "staff", dependiente: "staff" })[q.get("como") ?? ""];
-  return biz && kind ? { biz, kind } : null;
+  return biz && (kind || q.get("socio")) ? { biz, kind: kind ?? "partner", socio: q.get("socio") } : null;
 }
 function showJoin(j) {
   setMode("person");
@@ -964,16 +988,22 @@ function showJoin(j) {
 }
 
 async function startPerson() {
+  const claim = new URLSearchParams(location.search);
+  if (claim.get("socio") && claim.get("unirme")) {
+    const { data: c } = await supabase.rpc("nexo_business_claim_partner", { p_business: claim.get("unirme"), p_id: claim.get("socio") });
+    history.replaceState(null, "", location.pathname);
+    toast(c?.ok ? "Bienvenido a tu panel de socio" : c?.message ?? "Enlace no válido", c?.ok ? "ok" : "bad");
+  }
   const { data } = await supabase.rpc("nexo_business_my_people");
   const mine = (data ?? []).sort((a, b) => (b.status === "active") - (a.status === "active"))[0];
   const j = joinParams();
-  if (j && !(data ?? []).some(p => p.businessId === j.biz && p.kind === j.kind)) return showJoin(j);
+  if (j && !j.socio && !(data ?? []).some(p => p.businessId === j.biz && p.kind === j.kind)) return showJoin(j);
   if (!mine) return false;
   person = mine;
   setMode("person");
   $("#biz-name").textContent = mine.businessId === "casa-viva" ? "Casa Viva" : mine.businessId;
   $("#new-order").hidden = mine.kind !== "gestor" || mine.status !== "active";
-  $("#nav .tab[data-page=pedidos]").hidden = mine.status !== "active";
+  $("#nav .tab[data-page=pedidos]").hidden = mine.status !== "active" || mine.kind === "partner";
   go("cuenta");
   return true;
 }
@@ -1056,6 +1086,7 @@ function costSection(p) {
     + '<div class="grid-2"><label class="field">Flete por unidad (USD)<input name="freight" inputmode="decimal" placeholder="0,00" value="' + esc(k?.freightUsd ?? "") + '"></label>'
     + '<label class="field">Comisión gestora (USD)<input name="commission" inputmode="decimal" placeholder="' + esc(defComm) + '" value="' + esc(k?.commissionUsd ?? "") + '"></label></div>'
     + '<label class="field">% para la dependienta<input name="staff" inputmode="decimal" placeholder="' + esc(pct1(s.staff_pct)) + ' (general)" value="' + esc(k?.staffPct ?? "") + '"></label>'
+    + '<label class="field">Dueño de la mercancía<select name="owner" data-owner' + (k ? "" : " disabled") + '><option value="">Casa Viva</option></select></label>'
     + '<div data-breakdown></div>'
     + '<p class="msg" data-cost-msg role="status"></p>'
     + '<button type="submit" class="btn btn-secondary btn-block">Guardar costo</button>'
@@ -1084,6 +1115,18 @@ function wireCostSection(sheetEl, p) {
     const r = read();
     box.innerHTML = r.amount != null && r.rate ? breakdown(previewCost(r, priceUsd), priceUsd) : '<p class="t-sm muted">Escribe el precio de compra para ver el costo y la ganancia.</p>';
   };
+  void (async () => {
+    const [people, owners] = await Promise.all([peopleCache ?? loadPeople(), supabase.rpc("nexo_business_product_partners", { p_business: current.businessId })]);
+    const sel = form.querySelector("[data-owner]");
+    const partners = (people ?? []).filter(x => x.kind === "partner" && x.status === "active");
+    const mine = owners.data?.[p.product_id] ?? "";
+    sel.innerHTML = '<option value="">Casa Viva</option>' + partners.map(x => '<option value="' + x.id + '"' + (x.id === mine ? " selected" : "") + ">" + esc(x.fullName) + " · " + esc(ruleText(x)) + "</option>").join("");
+    sel.onchange = async () => {
+      const { data, error } = await supabase.rpc("nexo_business_set_product_partner", { p_business: current.businessId, p_product: p.product_id, p_partner: sel.value || null });
+      if (error || data?.error) { toast("No se cambió: " + (error?.message ?? data.message ?? data.error), "bad"); sel.value = mine; return; }
+      toast(sel.value ? "Producto de " + sel.selectedOptions[0].text.split(" · ")[0] : "Producto de Casa Viva", "ok");
+    };
+  })();
   form.elements.currency.onchange = () => { dirty = true; form.elements.rate.value = ""; update(); };
   // Until the owner types, show the cloud's own figures for the saved cost.
   let dirty = false;
