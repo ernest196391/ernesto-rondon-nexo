@@ -836,6 +836,7 @@ function editPerson(p) {
     + '<p class="msg" data-msg role="status"></p>'
     + (p?.status === "pending" ? '<div class="grid-2"><button type="button" class="btn btn-primary" data-status="active">Aprobar</button><button type="button" class="btn btn-danger" data-status="rejected">Rechazar</button></div>' : "")
     + '<button type="submit" class="btn ' + (p?.status === "pending" ? "btn-secondary" : "btn-primary btn-xl") + ' btn-block">Guardar</button>'
+    + (p ? '<button type="button" class="btn btn-secondary btn-block" data-statement>Estado de cuenta (PDF)</button>' : "")
     + (p?.status === "active" && p.kind !== "partner" ? '<button type="button" class="btn btn-secondary btn-block" data-staff-buy>Compra de personal (a precio de costo)</button>' : "")
     + (p?.status === "active" ? '<button type="button" class="btn btn-ghost btn-block" data-status="inactive">Desactivar</button>' : "")
     + (p && (p.status === "inactive" || p.status === "rejected") ? '<button type="button" class="btn btn-secondary btn-block" data-status="active">Activar</button>' : "")
@@ -877,6 +878,7 @@ function editPerson(p) {
   };
   form.onsubmit = e => { e.preventDefault(); void save({}); };
   form.querySelector("[data-staff-buy]")?.addEventListener("click", () => { sheet.close(); void staffPurchase(p); });
+  form.querySelector("[data-statement]")?.addEventListener("click", () => { sheet.close(); statementSheet(p.id); });
   form.querySelectorAll("[data-status]").forEach(x => (x.onclick = () => { if (form.reportValidity()) void save({ status: x.dataset.status }); }));
 }
 
@@ -915,6 +917,42 @@ async function staffPurchase(p) {
     sheet.close();
     toast("Compra #" + data.number + " registrada: " + usd(data.totalMinor) + (method === "deduction" ? " · saldo " + dollars(data.balance.availableUsd) : ""), "ok");
     await loadTeam();
+  };
+}
+
+// Estado de cuenta: one person's entries and payouts for a period, as a printable page (Guardar como PDF).
+function statementSheet(personId) {
+  const today = isoDay(new Date());
+  const sheet = openSheet('<div class="sheet-head"><h2>Estado de cuenta</h2><button type="button" class="btn btn-ghost" data-close>Cerrar</button></div>'
+    + '<form class="form"><div class="grid-2"><label class="field">Desde<input type="date" name="from" required value="' + today.slice(0, 8) + '01"></label>'
+    + '<label class="field">Hasta<input type="date" name="to" required value="' + today + '" max="' + today + '"></label></div>'
+    + '<p class="msg" data-msg role="status"></p><button type="submit" class="btn btn-primary btn-xl btn-block">Ver PDF</button>'
+    + '<p class="t-xs muted">Se abre lista para imprimir o «Guardar como PDF» y mandarla por WhatsApp.</p></form>', "Estado de cuenta");
+  sheet.el.querySelector("form").onsubmit = async e => {
+    e.preventDefault();
+    const f = new FormData(e.target);
+    const msg = sheet.el.querySelector("[data-msg]");
+    const { data, error } = await supabase.rpc("nexo_business_statement", { p_business: bizId(), p_person: personId, p_from: f.get("from"), p_to: f.get("to") });
+    if (error || data?.error) { msg.textContent = "No se pudo: " + (error?.message ?? data.message ?? data.error); msg.dataset.tone = "bad"; return; }
+    const w = window.open("", "_blank");
+    if (!w) { msg.textContent = "Permite las ventanas emergentes para crear el PDF."; msg.dataset.tone = "bad"; return; }
+    const kindText = { gestor: "comisión", extra_gestor: "extra (reparto)", extra_staff: "extra (reparto)", staff: "venta en tienda", partner: "venta de su producto" };
+    const p = data.person;
+    const d = iso => new Date(iso).toLocaleDateString("es", { timeZone: HAVANA, day: "2-digit", month: "2-digit", year: "numeric" });
+    w.document.write('<!doctype html><html lang="es"><head><meta charset="utf-8"><title>Estado de cuenta · ' + esc(p.fullName) + "</title><style>"
+      + "body{font:13px/1.45 system-ui,sans-serif;color:#2B2420;margin:24px}h1{font:600 22px Georgia,serif;letter-spacing:.06em;margin:0}h2{font-size:15px;margin:18px 0 6px}"
+      + ".k{display:flex;gap:10px;margin:14px 0}.k div{flex:1;border:1px solid #DCD2C1;border-radius:8px;padding:8px}.k b{display:block;font-size:18px;color:#A35A1F}"
+      + "table{width:100%;border-collapse:collapse}td,th{border-bottom:1px solid #E8E1D3;padding:5px 4px;text-align:left}.n{text-align:right;white-space:nowrap}th{font-size:11px;text-transform:uppercase;color:#6B6159}.void{text-decoration:line-through;color:#999}"
+      + "</style></head><body><h1>CASA VIVA</h1><div><b>Estado de cuenta de " + esc(p.fullName) + "</b> · " + esc(KIND[p.kind] ?? "") + (p.kind === "partner" ? " · " + esc(ruleText(p)) : "") + "</div>"
+      + "<div>Del " + d(data.from + "T12:00:00") + " al " + d(data.to + "T12:00:00") + " · cobra en: " + esc(payoutText(p.payout)) + "</div>"
+      + '<div class="k"><div>Ganado en el periodo<b>' + dollars(data.earnedUsd) + "</b></div><div>Pagado en el periodo<b>" + dollars(data.paidUsd) + "</b></div><div>Saldo disponible hoy<b>" + dollars(data.balance.availableUsd) + "</b></div></div>"
+      + "<h2>Movimientos</h2><table><tr><th>Fecha</th><th>Producto</th><th>Concepto</th><th class=n>Unid.</th><th class=n>USD</th></tr>"
+      + (data.entries.map(x => '<tr class="' + (x.status === "void" ? "void" : "") + '"><td>' + d(x.at) + "</td><td>" + esc(x.name) + "</td><td>" + esc(kindText[x.kind] ?? x.kind) + (x.status === "void" ? " (devuelto)" : "") + '</td><td class="n">' + x.quantity + '</td><td class="n">' + dollars(x.amountUsd) + "</td></tr>").join("") || '<tr><td colspan="5">Sin movimientos en el periodo.</td></tr>') + "</table>"
+      + "<h2>Pagos y retiros</h2><table><tr><th>Fecha</th><th>Estado</th><th>Pagado</th><th>Referencia</th><th class=n>USD</th></tr>"
+      + (data.payouts.map(x => "<tr><td>" + d(x.at) + "</td><td>" + ({ requested: "Pedido", paid: "Pagado", rejected: "Rechazado" })[x.status] + (x.method === "deduction" ? " (descuento)" : "") + "</td><td>" + (x.amountPaid ? Number(x.amountPaid).toLocaleString("es") + " " + esc(x.currency) : "—") + "</td><td>" + esc(x.reference ?? x.note ?? "") + '</td><td class="n">' + dollars(x.amountUsd) + "</td></tr>").join("") || '<tr><td colspan="5">Sin pagos en el periodo.</td></tr>') + "</table>"
+      + '<p style="color:#6B6159;font-size:11px;margin-top:16px">Casa Viva Core · generado ' + esc(new Date().toLocaleString("es")) + "</p><script>onload=()=>print()<\/script></body></html>");
+    w.document.close();
+    sheet.close();
   };
 }
 
@@ -964,10 +1002,12 @@ async function loadAccount() {
     + (me.kind === "partner" ? '<div class="kpi"><span class="label">Tu regla</span><span class="value num" style="font-size:var(--nx-fs-lg)">' + esc(ruleText(me)) + '</span><span class="sub">' + esc(PARTNER_TYPE[me.partnerType] ?? "") + "</span></div>" : me.kind === "gestor" ? '<div class="kpi"><span class="label">Pedidos completados</span><span class="value num">' + b.completedOrders + '</span><span class="sub">' + usd(b.contributedMinor) + " vendidos</span></div>" : '<div class="kpi"><span class="label">Ganado</span><span class="value num">' + dollars(b.earnedUsd) + '</span><span class="sub">en total</span></div>') + "</div>"
     + '<section class="panel">' + (requested ? '<p class="t-sm"><span class="badge badge-info">Retiro pedido</span> ' + dollars(requested.amountUsd) + " el " + esc(when(requested.requestedAt)) + ". Casa Viva te avisará al pagar.</p>"
       : '<button type="button" class="btn btn-primary btn-xl btn-block" id="ask-payout"' + (b.availableUsd < 1 ? " disabled" : "") + ">Pedir retiro de " + dollars(b.availableUsd) + "</button>" + (b.availableUsd < 1 ? '<p class="t-xs muted">Necesitas al menos $1,00 disponible.</p>' : ""))
-    + '<p class="t-xs muted">Se cobra a: ' + esc(payoutText(me.payout)) + ". Cámbialo en Perfil.</p></section>"
+    + '<p class="t-xs muted">Se cobra a: ' + esc(payoutText(me.payout)) + ". Cámbialo en Perfil.</p>"
+    + '<button type="button" class="btn btn-secondary btn-block" id="my-statement">Mi estado de cuenta (PDF)</button></section>'
     + (data.products ? '<section class="panel"><h2 class="t-lg">Mis productos en la tienda</h2>' + (data.products.length ? data.products.map(x => '<div class="row-item">' + photo(x.imageUrl, x.name) + '<span class="grow"><span class="title">' + esc(x.name) + '</span><span class="meta">' + usd(x.priceMinor ?? 0) + " · vendidas " + x.soldUnits + '</span></span><span class="badge ' + (x.stock > 0 ? "badge-ok" : "badge-out") + '">' + (x.stock > 0 ? x.stock + " en tienda" : "Agotado") + "</span></div>").join("") : '<p class="muted">Casa Viva aún no ha marcado tus productos.</p>') + "</section>" : "")
     + '<section class="panel"><h2 class="t-lg">Movimientos</h2>' + (data.entries.length ? data.entries.map(e => '<div class="row-item"><span class="grow"><span class="title">' + esc(e.name ?? e.productId) + '</span><span class="meta">' + esc(when(e.at)) + " · " + e.quantity + " u. · " + ({ gestor: "comisión", extra_gestor: "extra (reparto)", extra_staff: "extra (reparto)", staff: "venta en tienda", partner: "venta de tu producto" })[e.kind] + (e.status === "void" ? " · anulada por devolución" : "") + '</span></span><span class="price-tag"' + (e.status === "void" ? ' style="text-decoration:line-through;opacity:.5"' : "") + ">" + dollars(e.amountUsd) + "</span></div>").join("") : '<p class="muted">Aún no hay comisiones. Aparecen cuando un pedido tuyo se completa.</p>') + "</section>"
     + (mine.length ? '<section class="panel"><h2 class="t-lg">Retiros</h2>' + mine.map(p => '<div class="row-item"><span class="grow"><span class="title">' + dollars(p.amountUsd) + (p.amountPaid ? " → " + Number(p.amountPaid).toLocaleString("es") + " " + esc(p.currency) : "") + '</span><span class="meta">' + esc(when(p.decidedAt ?? p.requestedAt)) + (p.reference ? " · ref " + esc(p.reference) : "") + (p.note ? " · " + esc(p.note) : "") + '</span></span><span class="badge ' + ({ requested: "badge-info", paid: "badge-ok", rejected: "badge-out" })[p.status] + '">' + ({ requested: "Pedido", paid: "Pagado", rejected: "Rechazado" })[p.status] + "</span></div>").join("") + "</section>" : "");
+  $("#my-statement")?.addEventListener("click", () => statementSheet(me.id));
   $("#ask-payout")?.addEventListener("click", async () => {
     if (!confirm("¿Pedir el retiro de " + dollars(b.availableUsd) + "?")) return;
     const { data: r, error: e } = await supabase.rpc("nexo_business_request_payout", { p_business: bizId() });
