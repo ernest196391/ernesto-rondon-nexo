@@ -1133,6 +1133,7 @@ function costSection(p) {
     + '<label class="field">Comisión gestora (USD)<input name="commission" inputmode="decimal" placeholder="' + esc(defComm) + '" value="' + esc(k?.commissionUsd ?? "") + '"></label></div>'
     + '<label class="field">% para la dependienta<input name="staff" inputmode="decimal" placeholder="' + esc(pct1(s.staff_pct)) + ' (general)" value="' + esc(k?.staffPct ?? "") + '"></label>'
     + '<label class="field">Dueño de la mercancía<select name="owner" data-owner' + (k ? "" : " disabled") + '><option value="">Casa Viva</option></select></label>'
+    + '<div class="grid-2" data-prule hidden><label class="field">Regla para este producto<select name="prule"><option value="">La de la socia</option><option value="percent_of_profit">% de la ganancia</option><option value="percent_of_sale">% de la venta</option><option value="fixed_per_unit">Fijo USD por unidad</option><option value="supplier_price">Su precio de proveedor</option></select></label><label class="field">Valor<input name="pvalue" inputmode="decimal" placeholder="Ej. 50"></label></div>'
     + '<div data-breakdown></div>'
     + '<p class="msg" data-cost-msg role="status"></p>'
     + '<button type="submit" class="btn btn-secondary btn-block">Guardar costo</button>'
@@ -1167,7 +1168,23 @@ function wireCostSection(sheetEl, p) {
     const partners = (people ?? []).filter(x => x.kind === "partner" && x.status === "active");
     const mine = owners.data?.[p.product_id] ?? "";
     sel.innerHTML = '<option value="">Casa Viva</option>' + partners.map(x => '<option value="' + x.id + '"' + (x.id === mine ? " selected" : "") + ">" + esc(x.fullName) + " · " + esc(ruleText(x)) + "</option>").join("");
+    const pr = form.querySelector("[data-prule]");
+    const rules = owners.data?._rules?.[p.product_id];
+    form.elements.prule.value = rules?.rule ?? "";
+    form.elements.pvalue.value = rules?.value ?? "";
+    pr.hidden = !sel.value;
+    const saveRule = async () => {
+      const rule = form.elements.prule.value || null;
+      const value = num(form.elements.pvalue.value);
+      if (rule && rule !== "supplier_price" && value == null) return;
+      const { data, error } = await supabase.rpc("nexo_business_set_product_partner_rule", { p_business: current.businessId, p_product: p.product_id, p_rule: rule, p_value: value });
+      if (error || data?.error) return toast("No se guardó la regla: " + (error?.message ?? data.message ?? data.error), "bad");
+      toast(rule ? "Regla especial guardada para este producto" : "Usa la regla general de la socia", "ok");
+    };
+    form.elements.prule.onchange = saveRule;
+    form.elements.pvalue.onchange = saveRule;
     sel.onchange = async () => {
+      pr.hidden = !sel.value;
       const { data, error } = await supabase.rpc("nexo_business_set_product_partner", { p_business: current.businessId, p_product: p.product_id, p_partner: sel.value || null });
       if (error || data?.error) { toast("No se cambió: " + (error?.message ?? data.message ?? data.error), "bad"); sel.value = mine; return; }
       toast(sel.value ? "Producto de " + sel.selectedOptions[0].text.split(" · ")[0] : "Producto de Casa Viva", "ok");
