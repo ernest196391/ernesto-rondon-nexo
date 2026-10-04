@@ -154,7 +154,7 @@ function go(next) {
   document.querySelectorAll("#nav .tab").forEach(t => t.dataset.page === next ? t.setAttribute("aria-current", "page") : t.removeAttribute("aria-current"));
   window.scrollTo({ top: 0 });
   if (next === "catalogo") {
-    if (catalog && isOwner()) { .hidden = false; renderCatalog(); void renderSource(); }
+    if (catalog && isOwner()) { $("#source-panel").hidden = false; renderCatalog(); void renderSource(); }
     else void loadCatalog();
   }
   if (next === "tasas") void loadRates();
