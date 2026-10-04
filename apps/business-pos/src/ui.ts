@@ -21,6 +21,11 @@ const ICONS: Record<string, string> = {
   share: '<circle cx="6" cy="12" r="2.5"></circle><circle cx="18" cy="6" r="2.5"></circle><circle cx="18" cy="18" r="2.5"></circle><path d="M8.2 10.8l7.6-3.6M8.2 13.2l7.6 3.6"></path>',
   copy: '<rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path>',
   clock: '<circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 3"></path>',
+  arrowUp: '<path d="M12 19V5M6 11l6-6 6 6"></path>',
+  arrowDown: '<path d="M12 5v14M6 13l6 6 6-6"></path>',
+  receipt: '<path d="M6 3h12v18l-3-2-3 2-3-2-3 2V3z"></path><path d="M9 8h6M9 12h6"></path>',
+  move: '<path d="M7 10h14l-4-4M17 14H3l4 4"></path>',
+  clipboard: '<path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"></path><rect x="9" y="3" width="6" height="4" rx="1"></rect><path d="M9 14l2 2 4-4"></path>',
   alert: '<path d="M12 9v4M12 17h.01"></path><path d="M10.3 3.9L2.4 17.5A2 2 0 0 0 4.1 20.5h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"></path>',
 };
 
