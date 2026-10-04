@@ -618,6 +618,177 @@ async function renderLocations() {
   };
 }
 
+// ---------- Consignment ----------
+
+type ConsignmentRow = { location_id: string; customer_id: string; currency: string; name: string };
+
+async function defaultLocation() {
+  const locations = await invoke<Location[]>("inventory_locations");
+  return locations.find(l => l.isDefault && l.active) ?? null;
+}
+
+function productOptions() {
+  return [...productNames].sort((a, b) => a[1].localeCompare(b[1], "es")).map(([pid, name]) => `<option value="${esc(pid)}">${esc(name)}</option>`).join("");
+}
+
+/** Moves units between the store and a client's consignment location. */
+function consignmentMoveSheet(account: ConsignmentRow, direction: "send" | "collect", store: Location) {
+  const send = direction === "send";
+  const title = send ? `Enviar a ${account.customer_id}` : `Recoger de ${account.customer_id}`;
+  const sheet = openSheet(`
+    <div class="sheet-head"><h2>${esc(title)}</h2><button type="button" class="btn btn-ghost" data-close>Cerrar</button></div>
+    <form class="nx-form">
+      <p class="t-sm muted">${send ? `Sale de ${esc(store.name)} y queda en depósito del cliente: sigue siendo tuyo hasta que lo liquides.` : `Vuelve a ${esc(store.name)} lo que el cliente no vendió.`}</p>
+      <label class="field">Producto<select class="input" name="product">${productOptions()}</select></label>
+      <label class="field">Cantidad<input class="input" name="qty" type="number" min="1" step="1" required></label>
+      <button type="submit" class="btn btn-primary btn-xl btn-block">${send ? "Enviar" : "Recoger"}</button>
+    </form>`, title);
+  sheet.el.querySelector<HTMLButtonElement>("[data-close]")!.onclick = sheet.close;
+  const form = sheet.el.querySelector<HTMLFormElement>("form")!;
+  form.onsubmit = e => {
+    e.preventDefault();
+    void run(send ? "Mercancía enviada en consignación" : "Mercancía recogida", async () => {
+      await invoke("inventory_transfer", {
+        input: {
+          transferId: id(),
+          outboxId: id(),
+          outMovementId: id(),
+          inMovementId: id(),
+          productId: field<HTMLSelectElement>(form, "product").value,
+          fromLocationId: send ? store.locationId : account.location_id,
+          toLocationId: send ? account.location_id : store.locationId,
+          quantity: Number(field(form, "qty").value),
+          reason: send ? `Consignación a ${account.customer_id}` : `Devolución de consignación de ${account.customer_id}`,
+          operatorId: null,
+          occurredAt: now(),
+        },
+      });
+      sheet.close();
+      requestSync();
+      await renderConsignment();
+    });
+  };
+}
+
+/** Records what the client sold: stock leaves their location and a fiado opens for the total. */
+async function settleSheet(account: ConsignmentRow) {
+  const stock = (await invoke<StockLine[]>("inventory_location_stock", { locationId: account.location_id })).filter(s => s.quantity > 0);
+  const prices = await db.select<Array<{ product_id: string; amount_minor: number }>>(
+    "SELECT product_id, amount_minor FROM local_prices WHERE active=1 AND currency=$1",
+    [account.currency],
+  );
+  const priceOf = new Map(prices.map(p => [p.product_id, p.amount_minor]));
+  const title = `Liquidar a ${account.customer_id}`;
+  const sheet = openSheet(`
+    <div class="sheet-head"><h2>${esc(title)}</h2><button type="button" class="btn btn-ghost" data-close>Cerrar</button></div>
+    ${stock.length ? `<form class="nx-form">
+      <p class="t-sm muted">Escribe cuántas unidades vendió el cliente y a qué precio. El total queda como fiado del cliente.</p>
+      <table class="tbl"><thead><tr><th>Producto</th><th>Tiene</th><th>Vendió</th><th>Precio ${esc(account.currency)}</th></tr></thead><tbody>
+        ${stock.map(s => `<tr><td>${esc(productNames.get(s.productId) ?? s.productId)}</td><td>${s.quantity}</td>
+          <td><input class="input" name="qty-${esc(s.productId)}" type="number" min="0" max="${s.quantity}" step="1" value="0" style="width: 64px; text-align: right"></td>
+          <td><input class="input" name="price-${esc(s.productId)}" inputmode="decimal" value="${priceOf.has(s.productId) ? (priceOf.get(s.productId)! / 100).toFixed(2) : ""}" style="width: 84px; text-align: right"></td></tr>`).join("")}
+      </tbody></table>
+      <div class="kv"><span style="font-weight: 700">Total a cobrar</span><span class="t-lg num" data-total>0.00 ${esc(account.currency)}</span></div>
+      <label class="field">Vence<input class="input" name="due" type="date"></label>
+      <button type="submit" class="btn btn-primary btn-xl btn-block">Liquidar</button>
+    </form>` : `<p class="muted">El cliente no tiene mercancía en depósito.</p>`}`, title);
+  sheet.el.querySelector<HTMLButtonElement>("[data-close]")!.onclick = sheet.close;
+  const form = sheet.el.querySelector<HTMLFormElement>("form");
+  if (!form) return;
+  const lines = () => stock.flatMap(s => {
+    const qty = Number(field(form, `qty-${s.productId}`).value || 0);
+    if (!qty) return [];
+    return [{ productId: s.productId, quantity: qty, unitPriceMinor: toMinor(field(form, `price-${s.productId}`).value || "0") }];
+  });
+  const paint = () => {
+    try {
+      const total = lines().reduce((t, l) => t + l.quantity * l.unitPriceMinor, 0);
+      form.querySelector("[data-total]")!.textContent = fmt(total, account.currency);
+    } catch {
+      form.querySelector("[data-total]")!.textContent = "Precio inválido";
+    }
+  };
+  form.querySelectorAll("input").forEach(i => i.addEventListener("input", paint));
+  form.onsubmit = e => {
+    e.preventDefault();
+    void run("Consignación liquidada · el total quedó en fiado", async () => {
+      const sold = lines();
+      if (!sold.length) throw new Error("Indica al menos un producto vendido");
+      await invoke("consignment_settle", {
+        input: {
+          settlementId: id(),
+          outboxId: id(),
+          receivableId: id(),
+          receivableOutboxId: id(),
+          locationId: account.location_id,
+          lines: sold.map(l => ({ lineId: id(), inventoryMovementId: id(), ...l })),
+          dueAt: field(form, "due").value || null,
+          note: null,
+          operatorId: null,
+          occurredAt: now(),
+        },
+      });
+      sheet.close();
+      requestSync();
+      await renderConsignment();
+    });
+  };
+}
+
+async function renderConsignment() {
+  const box = root.querySelector<HTMLElement>("#fin-consignment");
+  if (!box) return;
+  const store = await defaultLocation();
+  const accounts = await db.select<ConsignmentRow[]>(
+    `SELECT a.location_id, a.customer_id, a.currency, l.name
+     FROM local_consignment_accounts a JOIN local_locations l ON l.id = a.location_id
+     ORDER BY a.customer_id`,
+  );
+  const cards = await Promise.all(accounts.map(async a => {
+    const stock = (await invoke<StockLine[]>("inventory_location_stock", { locationId: a.location_id })).filter(s => s.quantity > 0);
+    const units = stock.reduce((n, s) => n + s.quantity, 0);
+    return `<div class="panel" data-account="${esc(a.location_id)}" style="gap: 8px">
+      <div class="kv"><span style="font-weight: 700">${esc(a.customer_id)}</span><span class="badge ${units ? "badge-info" : "badge-calm"}">${units} en depósito</span></div>
+      ${stock.length ? `<p class="t-xs muted">${stock.slice(0, 4).map(s => `${esc(productNames.get(s.productId) ?? s.productId)} × ${s.quantity}`).join(" · ")}${stock.length > 4 ? ` · y ${stock.length - 4} más` : ""}</p>` : ""}
+      <div class="grid-3"><button type="button" class="btn btn-secondary" data-act="send">Enviar</button><button type="button" class="btn btn-secondary" data-act="collect" ${units ? "" : "disabled"}>Recoger</button><button type="button" class="btn btn-primary" data-act="settle" ${units ? "" : "disabled"}>Liquidar</button></div>
+    </div>`;
+  }));
+  box.innerHTML = `
+    <p class="t-sm muted">Mercancía que dejas a un cliente para que la venda: sigue siendo tuya hasta que la liquides, y entonces el total pasa a su fiado.</p>
+    ${store ? "" : `<div class="notice warn">${icon("alert")}<div><b>Falta la ubicación principal</b>Créala en Inventario → Ubicaciones y conteos.</div></div>`}
+    ${cards.join("") || `<p class="muted">Sin clientes en consignación.</p>`}
+    <form id="fin-consign-new" class="nx-form">
+      <h3 class="t-lg">Nuevo cliente en consignación</h3>
+      <label class="field">Cliente<input class="input" name="customer" required placeholder="Nombre o teléfono"></label>
+      <label class="field">Moneda de los precios<select class="input" name="currency">${currencyOptions()}</select></label>
+      <button type="submit" class="btn btn-primary btn-block">Crear</button>
+    </form>`;
+  box.querySelectorAll<HTMLElement>("[data-account]").forEach(card => {
+    const account = accounts.find(a => a.location_id === card.dataset.account)!;
+    card.querySelectorAll<HTMLButtonElement>("[data-act]").forEach(b => (b.onclick = () => {
+      if (b.dataset.act === "settle") return void settleSheet(account);
+      if (!store) return say("Primero crea la ubicación principal en Inventario", "error");
+      consignmentMoveSheet(account, b.dataset.act as "send" | "collect", store);
+    }));
+  });
+  const form = box.querySelector<HTMLFormElement>("#fin-consign-new")!;
+  form.onsubmit = e => {
+    e.preventDefault();
+    void run("Cliente en consignación creado", async () => {
+      const customer = field(form, "customer").value.trim();
+      const locationId = id();
+      await invoke("inventory_create_location", {
+        input: { locationId, outboxId: id(), name: `Consignación · ${customer}`, kind: "consignment", branchId: null, isDefault: false, authoritySystem: null, createdAt: now() },
+      });
+      await invoke("consignment_open_account", {
+        input: { locationId, outboxId: id(), customerId: customer, currency: field<HTMLSelectElement>(form, "currency").value, createdAt: now() },
+      });
+      requestSync();
+      await renderConsignment();
+    });
+  };
+}
+
 // ---------- Mount ----------
 
 export async function refreshFinance() {
@@ -638,5 +809,6 @@ export async function mountFinance(container: HTMLElement, database: Database) {
   productNames = new Map(names.map(p => [p.id, p.name]));
   mountReceivables();
   mountMessenger();
+  void renderConsignment().catch(e => say(String(e), "error"));
   await Promise.all([renderShift(), mountReturns(), renderLocations(), mountSync(root.querySelector<HTMLElement>("#fin-sync")!), mountBusinessSummary(root.querySelector<HTMLElement>("#fin-summary")!)]).catch(e => say(String(e), "error"));
 }

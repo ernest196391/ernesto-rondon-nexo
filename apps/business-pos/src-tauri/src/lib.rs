@@ -419,7 +419,10 @@ fn device_provision(
 fn stock_replace(app: tauri::AppHandle, items: Vec<CloudStock>, fetched_at: String) -> Result<usize, String> {
     let mut conn = open_local_db(&app)?;
     let business_id = device_scope(&conn)?.business_id;
-    stock::replace_snapshot(&mut conn, &business_id, &items, &fetched_at).map_err(|e| e.to_string())
+    let count = stock::replace_snapshot(&mut conn, &business_id, &items, &fetched_at).map_err(|e| e.to_string())?;
+    // Keep this device's store location in line with business stock (local only).
+    stock::align_default_location(&mut conn, &business_id, &fetched_at).map_err(|e| e.to_string())?;
+    Ok(count)
 }
 
 #[tauri::command]

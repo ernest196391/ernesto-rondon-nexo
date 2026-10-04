@@ -383,9 +383,17 @@ Owner approved ("sí, crea la sincronización en Supabase"). Project `nexo-produ
 - **Store location (owner request):** "Tienda" (store, principal) created on the laptop and on the Redmi through each app's own command (Redmi via WebView debugging over adb, which also gives real-device screenshots).
 - **Verified:** `cargo test` 93/93, `tsc` clean, Windows build + Redmi APK (ureq/rustls builds for armv7).
 
+### Consignment screen + store aligned with cloud stock — 2026-10-03
+- **Bug found:** a device's locations only held its own movements, so the new "Tienda" had 0 of everything: transfers (and consignment) were refused, and a physical count would have sent a difference against 0, adding the whole quantity again in the cloud (website counts already there).
+- **Fix:** Rust `stock::align_default_location` runs after every stock pull: the default (store) location gets a local-only `cloud_alignment` movement so store + other local locations = cloud stock. No outbox event, so the cloud is never counted twice; counts and transfers now start from the real quantity. Tests: alignment, consignment stock kept out of the store, no store → nothing.
+- **Consignment (Más → Consignación):** client cards with units in deposit, Enviar / Recoger (transfers store ↔ client location), Liquidar (sold units at the product price in the account currency → `consignment_settle`, the total opens a fiado), new client (creates the consignment location + account).
+- **Verified:** `cargo test` green; Windows on the pilot DB with sync paused: store aligned (201 products), sent 2 desks to a test client, settled 1 at $230 → fiado $230 open, 1 left in deposit; alignment produced no outbox events; DB restored, no test event reached the cloud. Redmi APK installed. Casa-Viva hourly snapshot confirmed running (snapshot 00:40 UTC, import 00:50, 284 items).
+- **PHASE-1-CHECKLIST.md** updated to what is built and verified.
+
 ### Next executable block
-1. Owner review of the Operaciones panel on the phone; then consignment and transfer/count screens.
-3. One offline shift on Android (open, sales, movements, fiado, messenger return, refund, close) once the UI exists.
+1. Favorites/quick products on the Vender screen.
+2. Field tests with the owner: camera scanner with real barcodes, the shop's USB reader, a forced restart during a sale.
+3. One offline shift on Android (open, sales, movements, fiado, messenger return, refund, close) and an 8-hour airplane-mode run, then check the cloud converges without duplicates.
 
 ## Local verification — Windows laptop — 2026-09-28
 Verified on Node.js 24.19.0 / npm 11.17.0 / Git 2.55.0.windows.3:

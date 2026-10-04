@@ -73,3 +73,53 @@ pub fn current_stock(conn: &Connection, business_id: &str, product_ids: &[String
         rows.into_iter().filter(|r| product_ids.contains(&r.product_id)).collect()
     })
 }
+
+/// Brings this device's default location (the store) in line with the cloud.
+///
+/// Business stock is what the cloud derives from every device and the
+/// website import; a device only sees its own movements. After each stock
+/// pull, the store gets a local-only adjustment so that store + other local
+/// locations = cloud stock. These movements never go to the outbox, so the
+/// cloud is never counted twice; later counts and transfers on this device
+/// start from the real quantity.
+pub fn align_default_location(conn: &mut Connection, business_id: &str, now: &str) -> CashResult<usize> {
+    let default: Option<String> = conn
+        .query_row(
+            "SELECT id FROM local_locations WHERE business_id=?1 AND is_default=1 AND active=1",
+            [business_id],
+            |r| r.get(0),
+        )
+        .ok();
+    let Some(store) = default else { return Ok(0) };
+    let current = current_stock(conn, business_id, &[])?;
+    let tx = conn.transaction()?;
+    let mut adjusted = 0;
+    for s in current {
+        let known: bool = tx.query_row(
+            "SELECT EXISTS(SELECT 1 FROM local_products WHERE id=?1 AND business_id=?2)",
+            params![s.product_id, business_id],
+            |r| r.get(0),
+        )?;
+        if !known {
+            continue;
+        }
+        let (here, elsewhere): (i64, i64) = tx.query_row(
+            "SELECT COALESCE(SUM(CASE WHEN location_id=?3 THEN quantity END),0), COALESCE(SUM(CASE WHEN location_id<>?3 THEN quantity END),0)
+             FROM local_stock_by_location WHERE business_id=?1 AND product_id=?2",
+            params![business_id, s.product_id, store],
+            |r| Ok((r.get(0)?, r.get(1)?)),
+        )?;
+        let delta = s.quantity - elsewhere - here;
+        if delta == 0 {
+            continue;
+        }
+        tx.execute(
+            "INSERT INTO local_inventory_movements (id,business_id,product_id,quantity_delta,reason,source_type,source_id,occurred_at,location_id)
+             VALUES (?1,?2,?3,?4,'cloud_alignment','cloud_stock',NULL,?5,?6)",
+            params![format!("align-{now}-{}", s.product_id), business_id, s.product_id, delta, now, store],
+        )?;
+        adjusted += 1;
+    }
+    tx.commit()?;
+    Ok(adjusted)
+}
