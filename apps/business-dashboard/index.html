@@ -122,6 +122,10 @@ const ISOTIPO = `<svg class="isotipo" viewBox="0 0 983 1000" aria-hidden="true">
 document.querySelectorAll("[data-iso]").forEach(el => (el.outerHTML = ISOTIPO));
 document.querySelectorAll("[data-ic]").forEach(el => (el.outerHTML = icon(el.dataset.ic)));
 
+// Small product photo (300 px thumbnail from the catalog) over the initial letter.
+const photo = (url, name) => `<span class="avatar">${esc(String(name ?? "?").trim().charAt(0).toUpperCase())}${url ? `<img src="${esc(url)}" alt="" loading="lazy" decoding="async" onerror="this.remove()">` : ""}</span>`;
+const imageOf = id => catalog?.find(p => p.product_id === id)?.image_url ?? null;
+
 let toastTimer;
 function toast(text, tone = "") {
   const t = $("#toast");
@@ -176,6 +180,10 @@ async function load() {
   $("#biz-name").textContent = current.businessId === "casa-viva" ? "Casa Viva" : current.businessId;
   $("#new-product").hidden = !isOwner();
   $("#new-device-panel").hidden = !isOwner();
+  if (isOwner() && !catalog) {
+    const { data: list } = await supabase.rpc("nexo_business_catalog_list", { p_business: current.businessId });
+    if (Array.isArray(list)) catalog = list;
+  }
   renderSummary();
   renderDevices();
   if (page === "catalogo") await loadCatalog();
@@ -226,7 +234,7 @@ function renderSummary() {
     </section>
     <section class="panel">
       <div class="kv"><h2 class="t-lg">Quedan pocas unidades</h2><span class="badge ${low.length ? "badge-low" : "badge-ok"}">${low.length}</span></div>
-      ${low.length ? `<div>${low.slice(0, 8).map(p => `<div class="row-item"><span class="avatar">${esc(p.name.charAt(0).toUpperCase())}</span><span class="grow"><span class="title">${esc(p.name)}</span></span><span class="badge ${p.quantity <= 0 ? "badge-out" : "badge-low"}">${p.quantity <= 0 ? "Agotado" : `Quedan ${p.quantity}`}</span></div>`).join("")}</div>
+      ${low.length ? `<div>${low.slice(0, 8).map(p => `<div class="row-item">${photo(imageOf(p.productId), p.name)}<span class="grow"><span class="title">${esc(p.name)}</span></span><span class="badge ${p.quantity <= 0 ? "badge-out" : "badge-low"}">${p.quantity <= 0 ? "Agotado" : `Quedan ${p.quantity}`}</span></div>`).join("")}</div>
         ${low.length > 8 ? `<button type="button" class="btn btn-ghost more" id="see-low">Ver los ${low.length} en el catálogo ${icon("chevron", "sm")}</button>` : ""}`
         : `<p class="muted">Todo por encima de su mínimo.</p>`}
       <p class="t-xs muted">Avisa con 2 unidades o menos, o con el mínimo que pongas en cada producto.</p>
@@ -281,7 +289,7 @@ function renderCatalog() {
         : s?.lastMovementAt && s.quantity <= 0 ? `<span class="badge badge-out">Agotado</span>`
         : s?.lastMovementAt && s.quantity <= (p.min_stock ?? 2) ? `<span class="badge badge-low">Quedan ${s.quantity}</span>` : "";
       return `<div class="row-item"><button type="button" class="row-btn" data-edit="${esc(p.product_id)}">
-        <span class="avatar">${esc(p.name.charAt(0).toUpperCase())}</span>
+        ${photo(p.image_url, p.name)}
         <span class="grow"><span class="title">${esc(p.name)}</span><span class="meta">${esc(p.sku ?? "")}${s?.lastMovementAt ? ` · ${s.quantity} en stock` : ""}${p.min_stock != null ? ` · aviso ${p.min_stock}` : ""}</span></span>
         <span style="display:flex;flex-direction:column;align-items:flex-end;gap:4px"><span class="price-tag">${p.prices?.USD != null ? usd(p.prices.USD) : "—"}</span>${badge}</span>
       </button></div>`;
@@ -293,6 +301,7 @@ function editProduct(p) {
   const s = p ? stockOf(p.product_id) : null;
   const sheet = openSheet(`
     <div class="sheet-head"><h2>${p ? "Editar producto" : "Nuevo producto"}</h2><button type="button" class="btn btn-ghost" data-close>Cerrar</button></div>
+    ${p?.image_url ? `<img class="sheet-photo" src="${esc(p.image_url)}" alt="" loading="lazy" onerror="this.remove()">` : ""}
     ${s?.lastMovementAt ? `<p class="t-sm muted">${s.quantity} en stock · último movimiento ${esc(when(s.lastMovementAt))}</p>` : ""}
     <form class="form">
       <label class="field">Nombre<input name="name" required value="${esc(p?.name ?? "")}"></label>

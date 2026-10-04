@@ -20,6 +20,9 @@ serde_json = "1"
 rusqlite = { version = "0.32", features = ["bundled"] }
 nexo-business-db = { path = "../../../packages/business-db/rust" }
 serde = { version = "1", features = ["derive"] }
+# Offline product photos: one-time thumbnail download (rustls, no OpenSSL on Android).
+ureq = { version = "2", default-features = false, features = ["tls"] }
+base64 = "0.22"
 
 [target.'cfg(any(target_os = "android", target_os = "ios"))'.dependencies]
 tauri-plugin-barcode-scanner = "2"

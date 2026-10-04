@@ -64,7 +64,7 @@ body { background: #F6F1E6; }
 .nx .panel h2 { font-size: var(--nx-fs-lg); }
 .nx .low-list { display: flex; flex-direction: column; }
 
-@media (min-width: 900px) {
+@media (min-width: 900px), (orientation: landscape) and (max-height: 520px) {
   .nx.app { flex-direction: row; }
   .nx .nav { order: 0; width: 96px; flex: none; display: flex; flex-direction: column; gap: var(--nx-s1); padding: var(--nx-s3) var(--nx-s2); border-top: 0; border-right: 1px solid var(--nx-line); }
   .nx .nav .nav-logo { display: flex; justify-content: center; margin: 4px 0 12px; }
@@ -105,3 +105,17 @@ body { background: #F6F1E6; }
 .nx .tbl input.input { min-height: 44px; }
 .nx .seg button { cursor: pointer; }
 .nx .panel[hidden] { display: none; }
+.nx .toast .toast-action { margin-left: 8px; min-height: 36px; padding: 0 12px; border: 0; border-radius: var(--nx-r-sm); background: var(--nx-accent); color: var(--nx-on-accent); font-weight: 700; cursor: pointer; }
+
+/* Phone held sideways: rail and fixed cart like a tablet, but compact. */
+@media (orientation: landscape) and (max-height: 520px) and (max-width: 899px) {
+  .nx .nav { width: 76px; padding: var(--nx-s2) 6px; }
+  .nx .nav .nav-logo { margin: 0 0 4px; }
+  .nx .nav .nav-logo .isotipo { width: 30px; height: 30px; }
+  .nx .nav .tab { min-height: 56px; font-size: 11px; }
+  .nx .side-cart { width: 290px; }
+  .nx .top { min-height: 48px; }
+  .nx .grid-prod { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); }
+  .nx .side-cart .cart-foot { padding: var(--nx-s2) var(--nx-s3); gap: 6px; }
+  .nx .side-cart .total-big { font-size: var(--nx-fs-xl); }
+}

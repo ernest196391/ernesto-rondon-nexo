@@ -9,6 +9,7 @@ pub mod consignment;
 pub mod device;
 pub mod stock;
 pub mod external_refs;
+pub mod images;
 pub mod inventory;
 pub mod messenger_custody;
 pub mod receivables;
@@ -98,6 +99,11 @@ pub const MIGRATIONS: &[LocalMigration] = &[
         version: 15,
         description: "split_payments",
         sql: include_str!("../../migrations/0015_split_payments.sql"),
+    },
+    LocalMigration {
+        version: 16,
+        description: "product_image_cache",
+        sql: include_str!("../../migrations/0016_product_image_cache.sql"),
     },
 ];
 

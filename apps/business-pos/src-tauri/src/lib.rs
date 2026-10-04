@@ -3,6 +3,7 @@ use nexo_business_db::cash_shift::{
 };
 use nexo_business_db::catalog::{self, ApplyResult, CatalogChange};
 use nexo_business_db::device::{self, DeviceIdentity};
+use nexo_business_db::images;
 use nexo_business_db::stock::{self, CloudStock, ProductStock};
 use nexo_business_db::sale::{self, CompleteSaleInput, ExchangeRate};
 use nexo_business_db::consignment::{
@@ -428,6 +429,59 @@ fn stock_current(app: tauri::AppHandle, product_ids: Vec<String>) -> Result<Vec<
     stock::current_stock(&conn, &business_id, &product_ids).map_err(|e| e.to_string())
 }
 
+#[derive(Serialize)]
+#[serde(rename_all = "camelCase")]
+struct CachedImage {
+    url: String,
+    data_url: String,
+}
+
+/// Downloads up to `limit` missing product thumbnails into the local cache.
+/// Runs off the UI thread; failures are skipped and retried next time.
+#[tauri::command(async)]
+fn images_cache(app: tauri::AppHandle, limit: i64, now: String) -> Result<usize, String> {
+    let conn = open_local_db(&app)?;
+    let business_id = device_scope(&conn)?.business_id;
+    let urls = images::missing_urls(&conn, &business_id, limit.clamp(1, 100)).map_err(|e| e.to_string())?;
+    let agent = ureq::AgentBuilder::new().timeout(std::time::Duration::from_secs(15)).build();
+    let mut saved = 0;
+    for url in urls {
+        let Ok(response) = agent.get(&url).call() else { continue };
+        let content_type = response.content_type().to_string();
+        let mut bytes = Vec::new();
+        use std::io::Read;
+        if response
+            .into_reader()
+            .take(images::MAX_IMAGE_BYTES as u64 + 1)
+            .read_to_end(&mut bytes)
+            .is_err()
+        {
+            continue;
+        }
+        if images::store(&conn, &url, &content_type, &bytes, &now).is_ok() {
+            saved += 1;
+        }
+    }
+    images::prune(&conn).map_err(|e| e.to_string())?;
+    Ok(saved)
+}
+
+/// Every cached thumbnail as a data URL, for the product cards.
+#[tauri::command(async)]
+fn images_cached(app: tauri::AppHandle) -> Result<Vec<CachedImage>, String> {
+    use base64::Engine;
+    let conn = open_local_db(&app)?;
+    let business_id = device_scope(&conn)?.business_id;
+    let rows = images::load_all(&conn, &business_id).map_err(|e| e.to_string())?;
+    Ok(rows
+        .into_iter()
+        .map(|(url, content_type, bytes)| CachedImage {
+            url,
+            data_url: format!("data:{content_type};base64,{}", base64::engine::general_purpose::STANDARD.encode(bytes)),
+        })
+        .collect())
+}
+
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     let migrations = nexo_business_db::MIGRATIONS
@@ -487,7 +541,9 @@ pub fn run() {
             stock_replace,
             stock_current,
             rates_replace,
-            rates_current
+            rates_current,
+            images_cache,
+            images_cached
         ])
         .run(tauri::generate_context!())
         .expect("error while running NEXO Business");

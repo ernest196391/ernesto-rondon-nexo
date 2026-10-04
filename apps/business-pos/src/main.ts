@@ -107,6 +107,9 @@ let selectedCategory = "";
 let groupsByKey = new Map<string, ProductGroup>();
 let stockNow = new Map<string, ProductStock>();
 let cartSheet: ReturnType<typeof openSheet> | null = null;
+/** Thumbnails saved on this device (url → data URL), so photos show offline. */
+const photoCache = new Map<string, string>();
+let caching = false;
 
 // ---------- Navigation ----------
 
@@ -126,9 +129,20 @@ document.querySelectorAll<HTMLButtonElement>("[data-inv]").forEach(b => (b.oncli
 
 // ---------- Feedback ----------
 
-function showToast(message: string, tone: "success" | "info" | "error" = "info", ms = 3200) {
+function showToast(message: string, tone: "success" | "info" | "error" = "info", ms = 3200, action?: { label: string; run: () => void }) {
   const toast = $("#toast");
   toast.textContent = message;
+  if (action) {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "toast-action";
+    button.textContent = action.label;
+    button.onclick = () => {
+      toast.hidden = true;
+      action.run();
+    };
+    toast.append(" ", button);
+  }
   toast.dataset.tone = tone;
   toast.hidden = false;
   window.clearTimeout(toastTimer);
@@ -289,7 +303,8 @@ function stockBadge(stock: ProductStock | undefined) {
 function thumb(url: string | null, title: string, category: string | null) {
   const letter = escapeHtml(title.trim().charAt(0).toUpperCase() || "?");
   const tone = `c${(Array.from(category ?? "").reduce((h, ch) => h + ch.charCodeAt(0), 0) % 5) + 1}`;
-  const img = url ? `<img src="${escapeHtml(url)}" alt="" loading="lazy" decoding="async" onerror="this.remove()">` : "";
+  const src = url ? photoCache.get(url) ?? url : null;
+  const img = src ? `<img src="${escapeHtml(src)}" alt="" loading="lazy" decoding="async" onerror="this.remove()">` : "";
   return `<div class="thumb ${tone}">${letter}${img}</div>`;
 }
 
@@ -447,6 +462,40 @@ function warnLowStock(before: Map<string, ProductStock>, after: Map<string, Prod
   setStatus(`Atención: ${text}`);
 }
 
+// ---------- Offline photos ----------
+
+async function loadCachedPhotos() {
+  try {
+    const rows = await invoke<Array<{ url: string; dataUrl: string }>>("images_cached");
+    for (const r of rows) photoCache.set(r.url, r.dataUrl);
+  } catch (e) {
+    console.warn("photo cache", e);
+  }
+}
+
+/** Downloads missing thumbnails in the background, then repaints once. */
+async function cachePhotos() {
+  if (caching || !navigator.onLine) return;
+  caching = true;
+  let saved = 0;
+  try {
+    for (let round = 0; round < 10; round++) {
+      const n = await invoke<number>("images_cache", { limit: 40, now: new Date().toISOString() });
+      saved += n;
+      if (n < 40) break;
+    }
+  } catch (e) {
+    console.warn("photo download", e);
+  } finally {
+    caching = false;
+  }
+  if (saved) {
+    await loadCachedPhotos();
+    await renderProducts(queryInput.value);
+  }
+}
+window.addEventListener("online", () => void cachePhotos());
+
 // ---------- Cart ----------
 
 function cartTotalMinor() {
@@ -538,10 +587,14 @@ function openCart() {
   renderCart();
 }
 
-function addToCart(product: ListedProduct) {
+function addToCart(product: ListedProduct, undo = true) {
   const current = cart.get(product.id);
   cart.set(product.id, { product, quantity: (current?.quantity ?? 0) + 1 });
   renderCart();
+  if (undo) {
+    const name = product.variant_label ? `${variantTitle(product)} · ${product.variant_label}` : product.name;
+    showToast(`Añadido: ${name}`, "info", 3000, { label: "Deshacer", run: () => changeQuantity(product.id, -1) });
+  }
 }
 
 function changeQuantity(productId: string, delta: number) {
@@ -581,7 +634,7 @@ async function addBarcodeToCart(code: string, source: "camera" | "hid" | "manual
     showToast(`Código no registrado: ${normalized}`, "error");
     return false;
   }
-  addToCart(rows[0]);
+  addToCart(rows[0], false);
   const sourceLabel = source === "camera" ? "Cámara" : source === "hid" ? "Lector" : "Código";
   showToast(`${sourceLabel} · ${rows[0].name}`, "success");
   setStatus("");
@@ -598,13 +651,23 @@ async function scanProduct() {
       setStatus("Permiso de cámara no concedido · puedes buscar a mano");
       return;
     }
-    const result = await scan({
-      cameraDirection: "back",
-      formats: [Format.QRCode, Format.UPC_A, Format.UPC_E, Format.EAN8, Format.EAN13]
-    });
-    await addBarcodeToCart(result.content, "camera");
+    // The camera reopens after each product found, for the next code; it
+    // stops when the seller closes it or a code is not in the catalog.
+    for (let i = 0; i < 50; i++) {
+      const result = await scan({
+        cameraDirection: "back",
+        formats: [Format.QRCode, Format.UPC_A, Format.UPC_E, Format.EAN8, Format.EAN13, Format.Code128]
+      });
+      const found = await addBarcodeToCart(result.content, "camera");
+      if (!found) {
+        queryInput.value = result.content.trim();
+        await renderProducts(queryInput.value);
+        break;
+      }
+      navigator.vibrate?.(60);
+    }
   } catch (e) {
-    setStatus(`Escaneo cancelado o no disponible: ${String(e)}`);
+    if (!/cancel/i.test(String(e))) setStatus(`Escaneo no disponible: ${String(e)}`);
   } finally {
     button.disabled = false;
   }
@@ -700,7 +763,7 @@ queryInput.onkeydown = async e => {
     await renderProducts("");
   }
 };
-window.addEventListener("nexo:catalog-updated", () => void refreshCatalog());
+window.addEventListener("nexo:catalog-updated", () => void refreshCatalog().then(cachePhotos));
 window.addEventListener("nexo:stock-updated", () => void renderProducts(queryInput.value));
 $<HTMLButtonElement>("#scan").onclick = () => void scanProduct();
 
@@ -757,6 +820,7 @@ async function init() {
     );
   }
 
+  await loadCachedPhotos();
   await refreshCatalog();
   renderCart();
   await renderNet();
@@ -765,6 +829,6 @@ async function init() {
   await mountFinance($(".nx.app"), db);
 }
 
-init().catch(e => {
+init().then(() => cachePhotos()).catch(e => {
   setStatus(`Error local: ${String(e)}`);
 });
