@@ -121,7 +121,7 @@ fn migrations_apply_in_order_and_enable_ledger() {
     let conn = db();
     assert!(cash_ledger_ready(&conn).unwrap());
     let versions: Vec<i64> = MIGRATIONS.iter().map(|m| m.version).collect();
-    assert_eq!(versions, vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]);
+    assert_eq!(versions, vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]);
 }
 
 #[test]

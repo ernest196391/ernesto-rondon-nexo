@@ -119,3 +119,14 @@ body { background: #F6F1E6; }
   .nx .side-cart .cart-foot { padding: var(--nx-s2) var(--nx-s3); gap: 6px; }
   .nx .side-cart .total-big { font-size: var(--nx-fs-xl); }
 }
+
+/* Favorites: star beside each card, filled when pinned. */
+.nx .card-wrap { position: relative; display: flex; }
+.nx .card-wrap > .card { flex: 1; min-width: 0; }
+.nx .fav { position: absolute; top: 6px; left: 6px; width: 40px; height: 40px; border: 0; border-radius: 50%; background: rgba(255, 253, 248, .9); color: var(--nx-text-2); display: flex; align-items: center; justify-content: center; cursor: pointer; }
+.nx .fav[aria-pressed="true"] { color: var(--nx-accent); }
+.nx .fav[aria-pressed="true"] svg { fill: currentColor; }
+.nx .chip-fav svg { color: var(--nx-accent); }
+.nx .chip-fav[aria-pressed="true"] svg { color: var(--nx-on-primary); fill: currentColor; }
+.nx .fav-note { grid-column: 1 / -1; }
+.nx .grid-prod > .empty { grid-column: 1 / -1; }

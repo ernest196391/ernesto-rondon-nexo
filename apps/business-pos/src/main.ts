@@ -105,6 +105,10 @@ const cart = new Map<string, CartLine>();
 let lastReceipt: Receipt | null = null;
 let toastTimer: number | undefined;
 let selectedCategory = "";
+/** Chip value for the seller's quick picks (not a real category). */
+const FAVORITES = "__favoritos__";
+/** Cards this device pinned ('p:<id>' or 'v:<parent>'). */
+let favorites = new Set<string>();
 let groupsByKey = new Map<string, ProductGroup>();
 let stockNow = new Map<string, ProductStock>();
 let cartSheet: ReturnType<typeof openSheet> | null = null;
@@ -341,12 +345,13 @@ async function renderCategories() {
   );
   const el = $("#categories");
   const names = rows.map(r => r.category ?? NO_CATEGORY);
-  if (selectedCategory && !names.includes(selectedCategory)) selectedCategory = "";
+  if (selectedCategory && selectedCategory !== FAVORITES && !names.includes(selectedCategory)) selectedCategory = "";
   el.hidden = rows.length < 2;
   const total = rows.reduce((sum, r) => sum + r.count, 0);
   const chip = (value: string, count: number) =>
     `<button type="button" class="chip" data-category="${escapeHtml(value)}" aria-pressed="${value === selectedCategory}">${escapeHtml(value || "Todo")} <span class="count">${count}</span></button>`;
-  el.innerHTML = chip("", total) + rows.map(r => chip(r.category ?? NO_CATEGORY, r.count)).join("");
+  const favChip = `<button type="button" class="chip chip-fav" data-category="${FAVORITES}" aria-pressed="${selectedCategory === FAVORITES}">${icon("star", "sm")}Favoritos${favorites.size ? ` <span class="count">${favorites.size}</span>` : ""}</button>`;
+  el.innerHTML = chip("", total) + favChip + rows.map(r => chip(r.category ?? NO_CATEGORY, r.count)).join("");
   el.querySelectorAll<HTMLButtonElement>(".chip").forEach(b => (b.onclick = () => {
     selectedCategory = b.dataset.category ?? "";
     el.querySelectorAll(".chip").forEach(c => c.setAttribute("aria-pressed", String(c === b)));
@@ -371,12 +376,47 @@ function groupCard(g: ProductGroup) {
     : stockBadge(stockNow.get(first.id));
   const qty = inCart(g);
   const photo = g.items.find(p => p.image_url)?.image_url ?? null;
-  return `<button type="button" class="card${qty ? " in-cart" : ""}${allOut ? " is-out" : ""}" data-key="${escapeHtml(g.key)}" ${allOut ? 'aria-disabled="true"' : ""}>
+  const fav = favorites.has(g.key);
+  return `<div class="card-wrap"><button type="button" class="card${qty ? " in-cart" : ""}${allOut ? " is-out" : ""}" data-key="${escapeHtml(g.key)}" ${allOut ? 'aria-disabled="true"' : ""}>
     ${thumb(photo, g.title, first.category)}
     ${qty ? `<span class="qty-in-cart">${qty}</span>` : ""}
     <span class="name">${escapeHtml(g.title)}</span>
     <span class="row"><span class="price num">${price}</span>${isVariants ? `<span class="vars">${g.items.length} opciones</span>` : ""}${badge}</span>
-  </button>`;
+  </button><button type="button" class="fav" data-fav="${escapeHtml(g.key)}" aria-pressed="${fav}" aria-label="${fav ? "Quitar de favoritos" : "Marcar como favorito"}: ${escapeHtml(g.title)}">${icon("star", "sm")}</button></div>`;
+}
+
+/** Cards sold most on this device in the last 30 days, best first. */
+async function topSellers(): Promise<string[]> {
+  const since = new Date(Date.now() - 30 * 86_400_000).toISOString();
+  const rows = await db.select<Array<{ card: string }>>(
+    `SELECT CASE WHEN p.variant_of IS NOT NULL THEN 'v:' || p.variant_of ELSE 'p:' || p.id END AS card
+     FROM local_sale_lines l
+     JOIN local_sales s ON s.id = l.sale_id
+     JOIN local_products p ON p.id = l.product_id
+     WHERE s.business_id=$1 AND s.occurred_at >= $2
+     GROUP BY card ORDER BY SUM(l.quantity) DESC LIMIT 40`,
+    [BUSINESS_ID, since]
+  );
+  return rows.map(r => r.card);
+}
+
+async function loadFavorites() {
+  const rows = await db.select<Array<{ card_key: string }>>("SELECT card_key FROM local_favorites WHERE business_id=$1", [BUSINESS_ID]);
+  favorites = new Set(rows.map(r => r.card_key));
+}
+
+async function toggleFavorite(key: string) {
+  const title = groupsByKey.get(key)?.title ?? "Producto";
+  if (favorites.has(key)) {
+    await db.execute("DELETE FROM local_favorites WHERE business_id=$1 AND card_key=$2", [BUSINESS_ID, key]);
+    favorites.delete(key);
+    showToast(`${title} ya no está en favoritos`, "info");
+  } else {
+    await db.execute("INSERT OR IGNORE INTO local_favorites (business_id,card_key,created_at) VALUES ($1,$2,$3)", [BUSINESS_ID, key, new Date().toISOString()]);
+    favorites.add(key);
+    showToast(`${title} en favoritos`, "success");
+  }
+  await refreshCatalog();
 }
 
 async function renderProducts(q: string) {
@@ -390,14 +430,28 @@ async function renderProducts(q: string) {
        AND ($3 = '' OR COALESCE(p.category,$4) = $3)
      GROUP BY p.id
      ORDER BY p.name`,
-    [BUSINESS_ID, `%${q}%`, selectedCategory, NO_CATEGORY]
+    [BUSINESS_ID, `%${q}%`, selectedCategory === FAVORITES ? "" : selectedCategory, NO_CATEGORY]
   );
   stockNow = await stockFor();
-  const groups = groupProducts(rows);
+  let groups = groupProducts(rows);
+  let note = "";
+  if (selectedCategory === FAVORITES) {
+    const sellers = await topSellers();
+    const rank = (k: string) => { const i = sellers.indexOf(k); return i < 0 ? sellers.length : i; };
+    if (favorites.size) {
+      groups = groups.filter(g => favorites.has(g.key)).sort((a, b) => rank(a.key) - rank(b.key) || a.title.localeCompare(b.title, "es"));
+    } else {
+      groups = groups.filter(g => sellers.includes(g.key)).sort((a, b) => rank(a.key) - rank(b.key)).slice(0, 12);
+      note = groups.length
+        ? `<p class="t-sm muted fav-note">Lo más vendido en 30 días. Toca la estrella de un producto para fijarlo aquí.</p>`
+        : `<p class="empty">Toca la estrella de un producto para tenerlo siempre a mano aquí.</p>`;
+    }
+  }
   groupsByKey = new Map(groups.map(g => [g.key, g]));
   const el = $("#products");
-  el.innerHTML = groups.map(groupCard).join("") || `<p class="empty">Sin productos para esta búsqueda</p>`;
+  el.innerHTML = note + (groups.map(groupCard).join("") || (note ? "" : `<p class="empty">Sin productos para esta búsqueda</p>`));
   el.querySelectorAll<HTMLButtonElement>(".card").forEach(b => (b.onclick = () => pickGroup(groupsByKey.get(b.dataset.key!)!)));
+  el.querySelectorAll<HTMLButtonElement>(".fav").forEach(b => (b.onclick = () => void toggleFavorite(b.dataset.fav!)));
 }
 
 function pickGroup(g: ProductGroup) {
@@ -822,6 +876,7 @@ async function init() {
   }
 
   await loadCachedPhotos();
+  await loadFavorites();
   await refreshCatalog();
   renderCart();
   await renderNet();

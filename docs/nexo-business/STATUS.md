@@ -390,10 +390,14 @@ Owner approved ("sí, crea la sincronización en Supabase"). Project `nexo-produ
 - **Verified:** `cargo test` green; Windows on the pilot DB with sync paused: store aligned (201 products), sent 2 desks to a test client, settled 1 at $230 → fiado $230 open, 1 left in deposit; alignment produced no outbox events; DB restored, no test event reached the cloud. Redmi APK installed. Casa-Viva hourly snapshot confirmed running (snapshot 00:40 UTC, import 00:50, 284 items).
 - **PHASE-1-CHECKLIST.md** updated to what is built and verified.
 
+### Favorites / quick products — 2026-10-03
+- **Local migration 0017** `local_favorites` (per device, keyed by card: `p:<id>` or `v:<parent>`).
+- **POS Vender:** star on every card (beside it, not inside the card button) pins/unpins; a "Favoritos" chip right after "Todo" shows the pinned cards, best sellers of the last 30 days first; with nothing pinned it shows the 12 best sellers of 30 days with a hint, or a hint alone when there are no sales.
+- **Verified:** `tsc` clean, migration tests green; Windows: chip empty state, pinned 2 cards (chip "Favoritos 2", amber stars), unpinned them (0 rows left). Redmi APK installed.
+
 ### Next executable block
-1. Favorites/quick products on the Vender screen.
-2. Field tests with the owner: camera scanner with real barcodes, the shop's USB reader, a forced restart during a sale.
-3. One offline shift on Android (open, sales, movements, fiado, messenger return, refund, close) and an 8-hour airplane-mode run, then check the cloud converges without duplicates.
+1. Field tests with the owner: camera scanner with real barcodes, the shop's USB reader, a forced restart during a sale.
+2. One offline shift on Android (open, sales, movements, fiado, messenger return, refund, close) and an 8-hour airplane-mode run, then check the cloud converges without duplicates.
 
 ## Local verification — Windows laptop — 2026-09-28
 Verified on Node.js 24.19.0 / npm 11.17.0 / Git 2.55.0.windows.3:
