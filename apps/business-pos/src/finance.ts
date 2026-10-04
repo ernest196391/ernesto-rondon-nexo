@@ -6,6 +6,7 @@ import { invoke } from "@tauri-apps/api/core";
 import Database from "@tauri-apps/plugin-sql";
 import "./finance.css";
 import { mountBusinessSummary, mountSync, requestSync } from "./sync";
+import { icon, openSheet } from "./ui";
 
 const CURRENCIES = ["USD", "CUP", "MLC"] as const;
 const RAILS: Array<[string, string]> = [
@@ -94,89 +95,84 @@ async function run(label: string, action: () => Promise<void>) {
 
 // ---------- Cash shift ----------
 
-async function renderShift() {
-  const box = root.querySelector<HTMLElement>("#fin-shift")!;
-  const shift = await invoke<ShiftSummary | null>("cash_shift_current");
+let shiftCurrency = "";
 
-  if (!shift) {
-    box.innerHTML = `
-      <p class="fin-muted">No hay turno abierto en este dispositivo. Las ventas se guardan igual, pero no entran en ningún cajón.</p>
-      <form id="fin-open" class="fin-form">
-        <label>Moneda principal<select name="primary">${currencyOptions()}</select></label>
-        ${CURRENCIES.map(c => `<label>Fondo inicial ${c}<input name="float-${c}" inputmode="decimal" placeholder="0.00"></label>`).join("")}
-        <button type="submit">Abrir turno</button>
-      </form>`;
-    box.querySelector<HTMLFormElement>("#fin-open")!.onsubmit = e => {
-      e.preventDefault();
-      const form = e.target as HTMLFormElement;
-      void run("Turno abierto", async () => {
-        const openingFloats = CURRENCIES.flatMap(c => {
-          const raw = field(form, `float-${c}`).value;
-          return raw.trim() ? [{ movementId: id(), currency: c, amountMinor: toMinor(raw) }] : [];
-        });
-        await invoke("cash_shift_open", {
-          input: {
-            shiftId: id(),
-            outboxId: id(),
-            operatorId: null,
-            primaryCurrency: field<HTMLSelectElement>(form, "primary").value,
-            openingFloats,
-            openedAt: now(),
-          },
-        });
-        await renderShift();
-      });
-    };
-    return;
-  }
+const signed = (minor: number, currency: string, sign: "+" | "−") => `${sign} ${fmt(minor, currency)}`;
 
-  const rows = shift.currencies
-    .map(
-      c => `<tr><th>${esc(c.currency)}</th><td>${fmt(c.openingFloatMinor, c.currency)}</td><td>${fmt(c.salesCashMinor, c.currency)}</td>
-        <td>${fmt(c.otherInMinor, c.currency)}</td><td>${fmt(c.otherOutMinor, c.currency)}</td><td><strong>${fmt(c.expectedMinor, c.currency)}</strong></td></tr>`,
-    )
-    .join("");
+async function shiftMovements(shiftId: string) {
+  return db.select<Array<{ kind: string | null; direction: string; currency: string | null; amount_minor: number; reason: string; occurred_at: string }>>(
+    `SELECT kind,direction,currency,amount_minor,reason,occurred_at FROM local_cash_movements
+     WHERE shift_id=$1 AND COALESCE(kind,'') <> 'opening_float'
+     ORDER BY occurred_at DESC LIMIT 30`,
+    [shiftId],
+  );
+}
+
+function openShiftForm(box: HTMLElement) {
   box.innerHTML = `
-    <p class="fin-muted">Turno abierto desde ${esc(new Date(shift.openedAt).toLocaleString())}</p>
-    <div class="fin-table-wrap"><table class="fin-table">
-      <thead><tr><th></th><th>Fondo</th><th>Ventas</th><th>Entradas</th><th>Salidas</th><th>Esperado</th></tr></thead>
-      <tbody>${rows}</tbody>
-    </table></div>
-    <form id="fin-move" class="fin-form">
-      <h4>Movimiento de caja</h4>
-      <label>Tipo<select name="kind">
-        <option value="cash_in">Entrada</option>
-        <option value="cash_out">Salida</option>
-        <option value="expense">Gasto</option>
-      </select></label>
-      <label>Moneda<select name="currency">${currencyOptions(shift.primaryCurrency)}</select></label>
-      <label>Importe<input name="amount" inputmode="decimal" required placeholder="0.00"></label>
-      <label>Motivo<input name="reason" required maxlength="280" placeholder="Obligatorio"></label>
-      <label>Categoría (gastos)<input name="category" placeholder="transporte, mensajería…"></label>
-      <button type="submit">Registrar</button>
-    </form>
-    <form id="fin-close" class="fin-form">
-      <h4>Cerrar turno · contar el efectivo</h4>
-      ${shift.currencies.map(c => `<label>Contado ${esc(c.currency)}<input name="count-${esc(c.currency)}" inputmode="decimal" required placeholder="0.00"></label>`).join("")}
-      <label>Nota<input name="note" placeholder="Opcional"></label>
-      <button type="submit" class="fin-danger">Cerrar turno</button>
+    <div class="notice calm">${icon("clock")}<div><b>No hay turno abierto</b>Las ventas se guardan igual, pero no entran en ningún cajón.</div></div>
+    <form id="fin-open" class="panel nx-form">
+      <h2 class="t-lg">Abrir turno</h2>
+      <label class="field">Moneda principal<select class="input" name="primary">${currencyOptions()}</select></label>
+      <p class="t-sm muted">Fondo inicial en el cajón (deja vacío lo que no tengas):</p>
+      <div class="grid-3">${CURRENCIES.map(c => `<label class="field">${c}<input class="input" name="float-${c}" inputmode="decimal" placeholder="0,00"></label>`).join("")}</div>
+      <button type="submit" class="btn btn-primary btn-xl btn-block">Abrir turno</button>
     </form>`;
-
-  box.querySelector<HTMLFormElement>("#fin-move")!.onsubmit = e => {
+  box.querySelector<HTMLFormElement>("#fin-open")!.onsubmit = e => {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
-    void run("Movimiento registrado", async () => {
+    void run("Turno abierto", async () => {
+      const openingFloats = CURRENCIES.flatMap(c => {
+        const raw = field(form, `float-${c}`).value;
+        return raw.trim() ? [{ movementId: id(), currency: c, amountMinor: toMinor(raw) }] : [];
+      });
+      await invoke("cash_shift_open", {
+        input: {
+          shiftId: id(),
+          outboxId: id(),
+          operatorId: null,
+          primaryCurrency: field<HTMLSelectElement>(form, "primary").value,
+          openingFloats,
+          openedAt: now(),
+        },
+      });
+      await renderShift();
+    });
+  };
+}
+
+function movementSheet(shift: ShiftSummary, kind: "cash_in" | "cash_out" | "expense") {
+  const title = kind === "cash_in" ? "Entrada de dinero" : kind === "cash_out" ? "Salida de dinero" : "Gasto";
+  const sheet = openSheet(`
+    <div class="sheet-head"><h2>${title}</h2><button type="button" class="btn btn-ghost" data-close>Cerrar</button></div>
+    <form class="nx-form">
+      <div class="seg" role="group" aria-label="Moneda">${shift.currencies.map(c => `<button type="button" data-cur="${esc(c.currency)}" aria-pressed="${c.currency === shiftCurrency}">${esc(c.currency)}</button>`).join("")}</div>
+      <label class="field">Importe<input class="input" name="amount" inputmode="decimal" required placeholder="0,00" style="font-size: var(--nx-fs-xl); font-weight: 700"></label>
+      <label class="field">Motivo<input class="input" name="reason" required maxlength="280" placeholder="${kind === "cash_in" ? "Cambio traído del banco" : kind === "expense" ? "Transporte" : "Pago a mensajero"}"></label>
+      ${kind === "expense" ? `<label class="field">Categoría<input class="input" name="category" placeholder="transporte, mensajería…"></label>` : ""}
+      <button type="submit" class="btn btn-primary btn-xl btn-block">Registrar</button>
+    </form>`, title);
+  let currency = shiftCurrency;
+  sheet.el.querySelector<HTMLButtonElement>("[data-close]")!.onclick = sheet.close;
+  sheet.el.querySelectorAll<HTMLButtonElement>("[data-cur]").forEach(b => (b.onclick = () => {
+    currency = b.dataset.cur!;
+    sheet.el.querySelectorAll("[data-cur]").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+  }));
+  const form = sheet.el.querySelector<HTMLFormElement>("form")!;
+  form.onsubmit = e => {
+    e.preventDefault();
+    void run(`${title} registrada`, async () => {
       await invoke("cash_shift_record_movement", {
         input: {
           movementId: id(),
           outboxId: id(),
           shiftId: shift.shiftId,
-          kind: field<HTMLSelectElement>(form, "kind").value,
+          kind,
           direction: null,
-          currency: field<HTMLSelectElement>(form, "currency").value,
+          currency,
           amountMinor: toMinor(field(form, "amount").value),
           reason: field(form, "reason").value,
-          category: field(form, "category").value || null,
+          category: kind === "expense" ? field(form, "category").value || null : null,
           sourceType: null,
           sourceId: null,
           correctsMovementId: null,
@@ -184,34 +180,76 @@ async function renderShift() {
           occurredAt: now(),
         },
       });
+      sheet.close();
       await renderShift();
     });
   };
+}
 
-  box.querySelector<HTMLFormElement>("#fin-close")!.onsubmit = e => {
+function closeSheet(shift: ShiftSummary) {
+  const sheet = openSheet(`
+    <div class="sheet-head"><h2>Contar y cerrar turno</h2><button type="button" class="btn btn-ghost" data-close>Volver</button></div>
+    <form class="nx-form">
+      <table class="tbl"><thead><tr><th>Efectivo</th><th>Debe haber</th><th>Contado</th><th>Dif.</th></tr></thead><tbody>
+        ${shift.currencies.map(c => `<tr><td style="font-weight: 700">${esc(c.currency)}</td><td class="num">${(c.expectedMinor / 100).toFixed(2)}</td>
+          <td><input class="input" name="count-${esc(c.currency)}" data-expected="${c.expectedMinor}" inputmode="decimal" required placeholder="0,00" style="width: 88px; text-align: right"></td>
+          <td class="num muted" data-diff="${esc(c.currency)}">—</td></tr>`).join("")}
+      </tbody></table>
+      <p class="t-xs muted">Transferencias, Zelle y cripto no se cuentan en caja: van con su referencia en cada venta.</p>
+      <div data-warn></div>
+      <label class="field">Motivo de la diferencia<input class="input" name="note" placeholder="Ej.: vuelto mal dado"></label>
+      <button type="submit" class="btn btn-primary btn-xl btn-block">Cerrar turno</button>
+    </form>`, "Cerrar turno");
+  sheet.el.querySelector<HTMLButtonElement>("[data-close]")!.onclick = sheet.close;
+  const form = sheet.el.querySelector<HTMLFormElement>("form")!;
+  const diffs = () => shift.currencies.map(c => {
+    const raw = field(form, `count-${c.currency}`).value;
+    let counted: number | null = null;
+    try {
+      counted = raw.trim() ? toMinor(raw) : null;
+    } catch {
+      counted = null;
+    }
+    return { currency: c.currency, diff: counted === null ? null : counted - c.expectedMinor };
+  });
+  const paint = () => {
+    const all = diffs();
+    for (const d of all) {
+      const cell = sheet.el.querySelector<HTMLElement>(`[data-diff="${d.currency}"]`)!;
+      cell.className = `num ${d.diff === null ? "muted" : d.diff === 0 ? "pos" : "neg"}`;
+      cell.textContent = d.diff === null ? "—" : d.diff === 0 ? "0" : `${d.diff > 0 ? "+" : "−"}${(Math.abs(d.diff) / 100).toFixed(2)}`;
+    }
+    const off = all.filter(d => d.diff);
+    sheet.el.querySelector<HTMLElement>("[data-warn]")!.innerHTML = off.length
+      ? `<div class="notice warn">${icon("alert")}<div><b>${off.map(d => `${d.diff! < 0 ? "Faltan" : "Sobran"} ${fmt(Math.abs(d.diff!), d.currency)}`).join(" · ")}</b>Escribe un motivo para cerrar.</div></div>`
+      : "";
+  };
+  form.querySelectorAll("input[data-expected]").forEach(i => i.addEventListener("input", paint));
+  form.onsubmit = e => {
     e.preventDefault();
-    const form = e.target as HTMLFormElement;
+    const off = diffs().some(d => d.diff);
+    if (off && !field(form, "note").value.trim()) {
+      say("Escribe el motivo de la diferencia para cerrar", "error");
+      return;
+    }
     void (async () => {
       try {
-      const closed = await invoke<ShiftSummary>("cash_shift_close", {
-        input: {
-          shiftId: shift.shiftId,
-          outboxId: id(),
-          counts: shift.currencies.map(c => ({
-            countId: id(),
-            currency: c.currency,
-            countedMinor: toMinor(field(form, `count-${c.currency}`).value),
-          })),
-          closedBy: null,
-          note: field(form, "note").value || null,
-          closedAt: now(),
-        },
-      });
-      const lines = closed.counts
-        .map(c => `${c.currency}: esperado ${fmt(c.expectedMinor, c.currency)} · contado ${fmt(c.countedMinor, c.currency)} · diferencia ${fmt(c.differenceMinor, c.currency)}`)
-        .join(" | ");
-      await renderShift();
-      say(`✓ Turno cerrado · ${lines}`);
+        const closed = await invoke<ShiftSummary>("cash_shift_close", {
+          input: {
+            shiftId: shift.shiftId,
+            outboxId: id(),
+            counts: shift.currencies.map(c => ({ countId: id(), currency: c.currency, countedMinor: toMinor(field(form, `count-${c.currency}`).value) })),
+            closedBy: null,
+            note: field(form, "note").value || null,
+            closedAt: now(),
+          },
+        });
+        sheet.close();
+        const lines = closed.counts
+          .map(c => `${c.currency} ${c.differenceMinor === 0 ? "cuadra" : `${c.differenceMinor > 0 ? "sobran" : "faltan"} ${fmt(Math.abs(c.differenceMinor), c.currency)}`}`)
+          .join(" · ");
+        await renderShift();
+        say(`✓ Turno cerrado · ${lines}`);
       } catch (err) {
         say(`Cierre de turno: ${String(err)}`, "error");
       }
@@ -219,26 +257,65 @@ async function renderShift() {
   };
 }
 
+async function renderShift() {
+  const box = root.querySelector<HTMLElement>("#fin-shift")!;
+  const shift = await invoke<ShiftSummary | null>("cash_shift_current");
+  if (!shift) return openShiftForm(box);
+
+  if (!shift.currencies.some(c => c.currency === shiftCurrency)) shiftCurrency = shift.primaryCurrency;
+  const cur = shift.currencies.find(c => c.currency === shiftCurrency) ?? shift.currencies[0];
+  const opened = new Date(shift.openedAt);
+  const floats = shift.currencies.filter(c => c.openingFloatMinor).map(c => fmt(c.openingFloatMinor, c.currency)).join(" y ") || "sin fondo";
+  const moves = await shiftMovements(shift.shiftId);
+  box.innerHTML = `
+    <div class="notice ok">${icon("clock")}<div><b>Turno abierto · ${esc(opened.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }))}</b>Desde ${esc(opened.toLocaleDateString())} · abrió con ${floats}</div></div>
+    ${shift.currencies.length > 1 ? `<div class="seg" role="group" aria-label="Moneda">${shift.currencies.map(c => `<button type="button" data-cur="${esc(c.currency)}" aria-pressed="${c.currency === cur.currency}">${esc(c.currency)}</button>`).join("")}</div>` : ""}
+    <div class="panel" style="gap: 8px">
+      <div class="kv"><span class="muted">Fondo inicial</span><span class="num">${fmt(cur.openingFloatMinor, cur.currency)}</span></div>
+      <div class="kv"><span class="muted">Ventas en efectivo</span><span class="num pos">${signed(cur.salesCashMinor, cur.currency, "+")}</span></div>
+      <div class="kv"><span class="muted">Entradas</span><span class="num pos">${signed(cur.otherInMinor, cur.currency, "+")}</span></div>
+      <div class="kv"><span class="muted">Salidas y gastos</span><span class="num neg">${signed(cur.otherOutMinor, cur.currency, "−")}</span></div>
+      <div class="hr"></div>
+      <div class="kv" style="font-weight: 700"><span>Debe haber</span><span class="t-lg num">${fmt(cur.expectedMinor, cur.currency)}</span></div>
+    </div>
+    <div class="grid-3">
+      <button type="button" class="btn btn-secondary" data-move="cash_in">${icon("arrowDown", "sm")}Entrada</button>
+      <button type="button" class="btn btn-secondary" data-move="cash_out">${icon("arrowUp", "sm")}Salida</button>
+      <button type="button" class="btn btn-secondary" data-move="expense">${icon("receipt", "sm")}Gasto</button>
+    </div>
+    <button type="button" class="btn btn-primary btn-xl btn-block" data-close-shift>Contar y cerrar turno</button>
+    <p class="t-xs muted" style="font-weight: 700">MOVIMIENTOS DEL TURNO</p>
+    <div class="panel" style="padding: 4px 16px; gap: 0">${moves.length ? moves.map(m => {
+      const out = m.direction === "out";
+      return `<div class="list-row"><div class="ico-box" style="background: var(--nx-${out ? "danger" : "ok"}-soft); color: var(--nx-${out ? "danger" : "ok"})">${icon(out ? "arrowUp" : "arrowDown")}</div>
+        <div class="grow"><div style="font-weight: 700">${esc(m.reason)}</div><div class="t-xs muted">${esc(new Date(m.occurred_at).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }))}${m.kind === "expense" ? " · gasto" : ""}</div></div>
+        <span class="num ${out ? "neg" : "pos"}">${out ? "−" : "+"} ${fmt(m.amount_minor, m.currency ?? cur.currency)}</span></div>`;
+    }).join("") : `<p class="muted" style="padding: 12px 0">Sin entradas ni salidas todavía.</p>`}</div>`;
+  box.querySelectorAll<HTMLButtonElement>("[data-cur]").forEach(b => (b.onclick = () => { shiftCurrency = b.dataset.cur!; void renderShift(); }));
+  box.querySelectorAll<HTMLButtonElement>("[data-move]").forEach(b => (b.onclick = () => movementSheet(shift, b.dataset.move as "cash_in" | "cash_out" | "expense")));
+  box.querySelector<HTMLButtonElement>("[data-close-shift]")!.onclick = () => closeSheet(shift);
+}
+
 // ---------- Fiado / receivables ----------
 
 async function renderReceivables(customerId: string) {
   const list = root.querySelector<HTMLElement>("#fin-debts")!;
   if (!customerId.trim()) {
-    list.innerHTML = `<p class="fin-muted">Escribe el cliente para ver sus deudas.</p>`;
+    list.innerHTML = `<p class="t-sm muted">Escribe el cliente para ver sus deudas.</p>`;
     return;
   }
   const debts = await invoke<ReceivableBalance[]>("receivables_for_customer", { customerId: customerId.trim() });
   if (!debts.length) {
-    list.innerHTML = `<p class="fin-muted">Sin deudas abiertas.</p>`;
+    list.innerHTML = `<p class="t-sm muted">Sin deudas abiertas.</p>`;
     return;
   }
   list.innerHTML = debts
     .map(
-      d => `<form class="fin-card fin-form" data-id="${esc(d.receivableId)}">
-        <div class="fin-row"><strong>${fmt(d.balanceMinor, d.currency)} pendiente</strong><span>de ${fmt(d.originalMinor, d.currency)}${d.dueAt ? ` · vence ${esc(d.dueAt)}` : ""}</span></div>
-        <label>Abono<input name="amount" inputmode="decimal" required placeholder="0.00"></label>
-        <label>Forma de pago<select name="rail">${railOptions()}</select></label>
-        <button type="submit">Registrar abono</button>
+      d => `<form class="panel nx-form" data-id="${esc(d.receivableId)}">
+        <div class="kv"><strong>${fmt(d.balanceMinor, d.currency)} pendiente</strong><span>de ${fmt(d.originalMinor, d.currency)}${d.dueAt ? ` · vence ${esc(d.dueAt)}` : ""}</span></div>
+        <label class="field">Abono<input class="input" name="amount" inputmode="decimal" required placeholder="0.00"></label>
+        <label class="field">Forma de pago<select class="input" name="rail">${railOptions()}</select></label>
+        <button type="submit" class="btn btn-primary btn-block">Registrar abono</button>
       </form>`,
     )
     .join("");
@@ -267,13 +344,13 @@ async function renderReceivables(customerId: string) {
 function mountReceivables() {
   const box = root.querySelector<HTMLElement>("#fin-fiado")!;
   box.innerHTML = `
-    <form id="fin-debt" class="fin-form">
-      <label>Cliente<input name="customer" required placeholder="Nombre o teléfono"></label>
-      <label>Moneda<select name="currency">${currencyOptions()}</select></label>
-      <label>Importe fiado<input name="amount" inputmode="decimal" required placeholder="0.00"></label>
-      <label>Vence<input name="due" type="date"></label>
-      <label>Nota<input name="note" placeholder="Qué se llevó"></label>
-      <button type="submit">Anotar fiado</button>
+    <form id="fin-debt" class="nx-form">
+      <label class="field">Cliente<input class="input" name="customer" required placeholder="Nombre o teléfono"></label>
+      <label class="field">Moneda<select class="input" name="currency">${currencyOptions()}</select></label>
+      <label class="field">Importe fiado<input class="input" name="amount" inputmode="decimal" required placeholder="0.00"></label>
+      <label class="field">Vence<input class="input" name="due" type="date"></label>
+      <label class="field">Nota<input class="input" name="note" placeholder="Qué se llevó"></label>
+      <button type="submit" class="btn btn-primary btn-block">Anotar fiado</button>
     </form>
     <div id="fin-debts"></div>`;
   const form = box.querySelector<HTMLFormElement>("#fin-debt")!;
@@ -311,18 +388,18 @@ function mountReceivables() {
 function mountMessenger() {
   const box = root.querySelector<HTMLElement>("#fin-messenger")!;
   box.innerHTML = `
-    <form id="fin-courier" class="fin-form">
-      <label>Mensajero<input name="messenger" required placeholder="Nombre"></label>
-      <label>Pedido<input name="order" required placeholder="Número de pedido"></label>
-      <label>Sistema del pedido<select name="system"><option value="woocommerce">Tienda online</option><option value="nexo">NEXO</option><option value="other">Otro</option></select></label>
-      <label>Moneda<select name="currency">${currencyOptions()}</select></label>
-      <label>Importe<input name="amount" inputmode="decimal" required placeholder="0.00"></label>
-      <div class="fin-actions">
-        <button type="button" data-act="collect">Cobró al cliente</button>
-        <button type="button" data-act="return">Entregó en caja</button>
+    <form id="fin-courier" class="nx-form">
+      <label class="field">Mensajero<input class="input" name="messenger" required placeholder="Nombre"></label>
+      <label class="field">Pedido<input class="input" name="order" required placeholder="Número de pedido"></label>
+      <label class="field">Sistema del pedido<select class="input" name="system"><option value="woocommerce">Tienda online</option><option value="nexo">NEXO</option><option value="other">Otro</option></select></label>
+      <label class="field">Moneda<select class="input" name="currency">${currencyOptions()}</select></label>
+      <label class="field">Importe<input class="input" name="amount" inputmode="decimal" required placeholder="0.00"></label>
+      <div class="grid-2">
+        <button type="button" class="btn btn-secondary" data-act="collect">Cobró al cliente</button>
+        <button type="button" class="btn btn-secondary" data-act="return">Entregó en caja</button>
       </div>
     </form>
-    <div id="fin-courier-balance" class="fin-muted"></div>`;
+    <div id="fin-courier-balance" class="t-sm muted"></div>`;
   const form = box.querySelector<HTMLFormElement>("#fin-courier")!;
   const read = () => ({
     messengerId: field(form, "messenger").value.trim(),
@@ -359,10 +436,10 @@ async function mountReturns() {
     "SELECT id,total_minor,currency,occurred_at FROM local_sales ORDER BY rowid DESC LIMIT 15",
   );
   box.innerHTML = `
-    <label>Venta<select id="fin-sale"><option value="">Elige una venta reciente</option>${sales
+    <label class="field">Venta<select class="input" id="fin-sale"><option value="">Elige una venta reciente</option>${sales
       .map(s => `<option value="${esc(s.id)}">${esc(new Date(s.occurred_at).toLocaleString())} · ${fmt(s.total_minor, s.currency)}</option>`)
       .join("")}</select></label>
-    <form id="fin-return" class="fin-form" hidden></form>`;
+    <form id="fin-return" class="nx-form" hidden></form>`;
   const select = box.querySelector<HTMLSelectElement>("#fin-sale")!;
   select.onchange = () => void renderReturnForm(select.value);
 }
@@ -380,14 +457,14 @@ async function renderReturnForm(saleId: string) {
     ${summary.lines
       .map(l => {
         const max = l.soldQuantity - l.returnedQuantity;
-        return `<label>${esc(productNames.get(l.productId) ?? l.productId)} · vendidos ${l.soldQuantity}, devueltos ${l.returnedQuantity}
-          <input name="qty-${esc(l.saleLineId)}" type="number" min="0" max="${max}" value="0"${max ? "" : " disabled"}></label>`;
+        return `<label class="field">${esc(productNames.get(l.productId) ?? l.productId)} · vendidos ${l.soldQuantity}, devueltos ${l.returnedQuantity}
+          <input class="input" name="qty-${esc(l.saleLineId)}" type="number" min="0" max="${max}" value="0"${max ? "" : " disabled"}></label>`;
       })
       .join("")}
-    <label>Reembolso (máx. ${fmt(left, summary.currency)})<input name="refund" inputmode="decimal" value="0"></label>
-    <label>Forma de reembolso<select name="rail">${railOptions()}</select></label>
-    <label>Motivo<input name="reason" required placeholder="Obligatorio"></label>
-    <button type="submit">Registrar devolución</button>`;
+    <label class="field">Reembolso (máx. ${fmt(left, summary.currency)})<input class="input" name="refund" inputmode="decimal" value="0"></label>
+    <label class="field">Forma de reembolso<select class="input" name="rail">${railOptions()}</select></label>
+    <label class="field">Motivo<input class="input" name="reason" required placeholder="Obligatorio"></label>
+    <button type="submit" class="btn btn-primary btn-block">Registrar devolución</button>`;
   form.onsubmit = e => {
     e.preventDefault();
     void run("Devolución registrada", async () => {
@@ -435,22 +512,63 @@ async function renderLocations() {
   box.innerHTML = `
     ${locations.length
       ? `<ul class="fin-list">${locations.map(l => `<li><strong>${esc(l.name)}</strong> · ${esc(kinds.find(k => k[0] === l.kind)?.[1] ?? l.kind)}${l.isDefault ? " · principal" : ""}</li>`).join("")}</ul>`
-      : `<p class="fin-muted">Aún no hay ubicaciones. La primera será la principal: las ventas descuentan stock de ella.</p>`}
-    ${first ? `<p class="fin-muted">Stock en ${esc(first.name)}: ${stock.map(s => `${esc(productNames.get(s.productId) ?? s.productId)} ${s.quantity}`).join(" · ") || "sin movimientos"}</p>` : ""}
-    <form id="fin-loc" class="fin-form">
-      <label>Nombre<input name="name" required placeholder="${locations.length ? "Almacén" : "Tienda principal"}"></label>
-      <label>Tipo<select name="kind">${kinds.map(([v, l]) => `<option value="${v}">${l}</option>`).join("")}</select></label>
-      <button type="submit">Crear ubicación</button>
+      : `<p class="t-sm muted">Aún no hay ubicaciones. La primera será la principal: las ventas descuentan stock de ella.</p>`}
+    ${first ? `<p class="t-sm muted">Stock en ${esc(first.name)}: ${stock.map(s => `${esc(productNames.get(s.productId) ?? s.productId)} ${s.quantity}`).join(" · ") || "sin movimientos"}</p>` : ""}
+    <form id="fin-loc" class="nx-form">
+      <label class="field">Nombre<input class="input" name="name" required placeholder="${locations.length ? "Almacén" : "Tienda principal"}"></label>
+      <label class="field">Tipo<select class="input" name="kind">${kinds.map(([v, l]) => `<option value="${v}">${l}</option>`).join("")}</select></label>
+      <button type="submit" class="btn btn-primary btn-block">Crear ubicación</button>
     </form>
-    ${locations.length ? `<form id="fin-count" class="fin-form">
-      <h4>Conteo físico</h4>
-      <p class="fin-muted">Cuenta lo que hay de verdad: el sistema ajusta la diferencia y la registra.</p>
-      <label>Ubicación<select name="location">${locations.filter(l => l.active).map(l => `<option value="${esc(l.locationId)}"${l.isDefault ? " selected" : ""}>${esc(l.name)}</option>`).join("")}</select></label>
-      <label>Producto<select name="product">${[...productNames].map(([pid, name]) => `<option value="${esc(pid)}">${esc(name)}</option>`).join("")}</select></label>
-      <label>Cantidad contada<input name="counted" type="number" min="0" step="1" required></label>
-      <label>Motivo<input name="reason" required value="Conteo físico"></label>
-      <button type="submit">Registrar conteo</button>
+    ${locations.length ? `<form id="fin-count" class="nx-form">
+      <h3 class="t-lg">Conteo físico</h3>
+      <p class="t-sm muted">Cuenta lo que hay de verdad: el sistema ajusta la diferencia y la registra.</p>
+      <label class="field">Ubicación<select class="input" name="location">${locations.filter(l => l.active).map(l => `<option value="${esc(l.locationId)}"${l.isDefault ? " selected" : ""}>${esc(l.name)}</option>`).join("")}</select></label>
+      <label class="field">Producto<select class="input" name="product">${[...productNames].map(([pid, name]) => `<option value="${esc(pid)}">${esc(name)}</option>`).join("")}</select></label>
+      <label class="field">Cantidad contada<input class="input" name="counted" type="number" min="0" step="1" required></label>
+      <label class="field">Motivo<input class="input" name="reason" required value="Conteo físico"></label>
+      <button type="submit" class="btn btn-primary btn-block">Registrar conteo</button>
+    </form>` : ""}
+    ${locations.filter(l => l.active).length > 1 ? `<form id="fin-transfer" class="nx-form">
+      <h3 class="t-lg">Trasladar</h3>
+      <p class="t-sm muted">Mueve unidades de una ubicación a otra (por ejemplo, del almacén a la tienda).</p>
+      <label class="field">Producto<select class="input" name="product">${[...productNames].map(([pid, name]) => `<option value="${esc(pid)}">${esc(name)}</option>`).join("")}</select></label>
+      <div class="grid-2">
+        <label class="field">Desde<select class="input" name="from">${locations.filter(l => l.active).map(l => `<option value="${esc(l.locationId)}">${esc(l.name)}</option>`).join("")}</select></label>
+        <label class="field">Hacia<select class="input" name="to">${locations.filter(l => l.active).map((l, i) => `<option value="${esc(l.locationId)}"${i === 1 ? " selected" : ""}>${esc(l.name)}</option>`).join("")}</select></label>
+      </div>
+      <label class="field">Cantidad<input class="input" name="qty" type="number" min="1" step="1" required></label>
+      <label class="field">Motivo<input class="input" name="reason" required value="Reposición"></label>
+      <button type="submit" class="btn btn-primary btn-block">Trasladar</button>
     </form>` : ""}`;
+  const transferForm = box.querySelector<HTMLFormElement>("#fin-transfer");
+  if (transferForm) {
+    transferForm.onsubmit = e => {
+      e.preventDefault();
+      if (field<HTMLSelectElement>(transferForm, "from").value === field<HTMLSelectElement>(transferForm, "to").value) {
+        say("Elige dos ubicaciones distintas", "error");
+        return;
+      }
+      void run("Traslado registrado", async () => {
+        await invoke("inventory_transfer", {
+          input: {
+            transferId: id(),
+            outboxId: id(),
+            outMovementId: id(),
+            inMovementId: id(),
+            productId: field<HTMLSelectElement>(transferForm, "product").value,
+            fromLocationId: field<HTMLSelectElement>(transferForm, "from").value,
+            toLocationId: field<HTMLSelectElement>(transferForm, "to").value,
+            quantity: Number(field(transferForm, "qty").value),
+            reason: field(transferForm, "reason").value,
+            operatorId: null,
+            occurredAt: now(),
+          },
+        });
+        await renderLocations();
+        requestSync();
+      });
+    };
+  }
   const countForm = box.querySelector<HTMLFormElement>("#fin-count");
   if (countForm) {
     countForm.onsubmit = e => {

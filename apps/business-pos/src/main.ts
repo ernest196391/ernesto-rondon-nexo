@@ -71,15 +71,16 @@ app.innerHTML = `
     <section class="view" data-view="caja" hidden>
       <header class="top"><h1 class="title">Caja</h1></header>
       <div class="scroll"><div class="stack">
-        <section class="panel"><div id="fin-shift"></div></section>
+        <div id="fin-shift"></div>
         <details class="panel"><summary>Devoluciones</summary><div id="fin-returns"></div></details>
       </div></div>
     </section>
     <section class="view" data-view="inventario" hidden>
       <header class="top"><h1 class="title">Inventario</h1></header>
       <div class="scroll"><div class="stack">
-        <section class="panel"><h2>Quedan pocas unidades</h2><div class="low-list" id="low-stock"></div></section>
-        <details class="panel"><summary>Ubicaciones, traslados y conteos</summary><div id="fin-locations"></div></details>
+        <div class="seg" role="group" aria-label="Vista de inventario"><button type="button" data-inv="low" aria-pressed="true">Poco stock</button><button type="button" data-inv="ops" aria-pressed="false">Ubicaciones y conteos</button></div>
+        <section class="panel" data-inv-pane="low"><div class="low-list" id="low-stock"></div></section>
+        <section class="panel" data-inv-pane="ops" hidden><div id="fin-locations"></div></section>
       </div></div>
     </section>
     <section class="view" data-view="mas" hidden>
@@ -117,6 +118,11 @@ function showView(view: View) {
   if (view === "inventario") void renderLowStock();
 }
 document.querySelectorAll<HTMLButtonElement>(".nav .tab").forEach(t => (t.onclick = () => showView(t.dataset.view as View)));
+
+document.querySelectorAll<HTMLButtonElement>("[data-inv]").forEach(b => (b.onclick = () => {
+  document.querySelectorAll("[data-inv]").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+  document.querySelectorAll<HTMLElement>("[data-inv-pane]").forEach(p => (p.hidden = p.dataset.invPane !== b.dataset.inv));
+}));
 
 // ---------- Feedback ----------
 

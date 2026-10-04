@@ -366,6 +366,13 @@ Owner approved ("sí, crea la sincronización en Supabase"). Project `nexo-produ
 - **Dashboard redesign (`apps/business-dashboard`):** same NEXO base + Casa Viva theme as the POS (`nexo.css`, `casaviva.css` copied from `apps/business-pos/src`; keep them in sync) + `dash.css`. Branded login (isotipo, Cinzel name). Four sections with a bottom tab bar on phones and a side rail from 900 px: Resumen (KPI cards, daily sales bars, low-stock list at 2 or the product's minimum, devices), Catálogo (search, Activos/Con aviso/Inactivos chips, product rows with price/stock badges, edit in a sheet, import settings), Tasas (CUP, MLC, USDT, Zelle with age), Equipos (active/deactivated, the website import shown as "Sistema" without a switch, new device key with copy button). All RPCs unchanged.
 - **Verified:** `cargo test` 91/91, `tsc` clean; dashboard checked at 375 px in the built-in browser with a local, read-only copy of Casa Viva data (login, Resumen, Catálogo, product sheet, Tasas, Equipos); POS Windows build and Redmi APK installed.
 
+### POS operations screens in the design — 2026-10-03
+- **Caja (canvas PCaja/TCaja):** status notice (no shift / shift open since hh:mm with opening floats), currency segmented control, per-currency summary (fondo, ventas en efectivo, entradas, salidas y gastos, debe haber), Entrada / Salida / Gasto as sheets, shift movements list (from `local_cash_movements`), "Contar y cerrar turno" sheet with expected vs counted per currency, live difference and a required reason when it does not match. Same Rust commands as before.
+- **Inventario:** segmented "Poco stock" / "Ubicaciones y conteos"; new **Trasladar** form (existing `inventory_transfer` command) when there are two or more active locations.
+- **Fiado, mensajeros, devoluciones, ubicaciones, sincronización, resumen:** forms moved to the design components (`field`/`input`/`btn`, `panel`, `tbl`); results as toasts.
+- **Verified:** `tsc` clean; Windows on the pilot DB with sync paused (backup first): opened a shift ($40 + 5,000 CUP), cash entry $25 → "Debe haber $65", close sheet showed the differences and asked for a reason; DB restored byte-identical, no test event reached the cloud. Screenshots at 360×800 of Caja (no shift, open shift, close), Fiado and Inventario. Redmi APK installed.
+- **Owner to do:** create the store location ("Tienda", and "Almacén" if there is one) in Inventario → Ubicaciones y conteos; counts and transfers need it.
+
 ### Next executable block
 1. Owner review of the Operaciones panel on the phone; then consignment and transfer/count screens.
 3. One offline shift on Android (open, sales, movements, fiado, messenger return, refund, close) once the UI exists.

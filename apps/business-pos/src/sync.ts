@@ -214,12 +214,12 @@ export function startAutoSync() {
 
 export async function mountSync(container: HTMLElement) {
   container.innerHTML = `
-    <form id="sync-form" class="fin-form">
-      <label>Servidor de sincronización<input name="endpoint" type="url"></label>
-      <label>Clave del dispositivo<input name="token" type="password" autocomplete="off" placeholder="La entrega NEXO al dar de alta el equipo"></label>
-      <button type="submit">Sincronizar ahora</button>
+    <form id="sync-form" class="nx-form">
+      <label class="field">Servidor de sincronización<input class="input" name="endpoint" type="url"></label>
+      <label class="field">Clave del dispositivo<input class="input" name="token" type="password" autocomplete="off" placeholder="La entrega NEXO al dar de alta el equipo"></label>
+      <button type="submit" class="btn btn-primary btn-block">Sincronizar ahora</button>
     </form>
-    <p class="fin-muted" id="sync-state"></p>`;
+    <p class="t-sm muted" id="sync-state"></p>`;
   const form = container.querySelector<HTMLFormElement>("#sync-form")!;
   const input = form.querySelector<HTMLInputElement>('[name="endpoint"]')!;
   const tokenInput = form.querySelector<HTMLInputElement>('[name="token"]')!;
@@ -279,18 +279,18 @@ function summaryUrl(endpoint: string, days: number) {
 
 export async function mountBusinessSummary(container: HTMLElement) {
   container.innerHTML = `
-    <p class="fin-muted">Ventas de todos los equipos del negocio, según lo ya sincronizado.</p>
-    <button type="button" id="summary-load" class="fin-load">Actualizar resumen</button>
+    <p class="t-sm muted">Ventas de todos los equipos del negocio, según lo ya sincronizado.</p>
+    <button type="button" id="summary-load" class="btn btn-secondary btn-block">Actualizar resumen</button>
     <div id="summary-body"></div>`;
   const body = container.querySelector<HTMLElement>("#summary-body")!;
   const load = async () => {
     const endpoint = read(ENDPOINT_KEY, DEFAULT_ENDPOINT).trim();
     const token = read(TOKEN_KEY).trim();
     if (!endpoint || !token) {
-      body.innerHTML = `<p class="fin-muted">Configura la clave del dispositivo en Sincronización.</p>`;
+      body.innerHTML = `<p class="t-sm muted">Configura la clave del dispositivo en Sincronización.</p>`;
       return;
     }
-    body.innerHTML = `<p class="fin-muted">Cargando…</p>`;
+    body.innerHTML = `<p class="t-sm muted">Cargando…</p>`;
     try {
       const response = await fetch(summaryUrl(endpoint, 7), { headers: { "x-nexo-device-token": token } });
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
@@ -298,7 +298,7 @@ export async function mountBusinessSummary(container: HTMLElement) {
       const list = (items: CurrencyAmount[], pick: (c: CurrencyAmount) => string) =>
         items.length ? items.map(pick).join(" · ") : "nada";
       body.innerHTML = `
-        <div class="fin-table-wrap"><table class="fin-table">
+        <div style="overflow-x: auto"><table class="tbl">
           <thead><tr><th>Día</th><th>Ventas</th><th>Importe</th><th>Devuelto</th></tr></thead>
           <tbody>${s.days
             .map(d => `<tr><th>${escapeHtml(d.day)}</th><td>${d.salesCount}</td><td>${money(d.salesMinor, d.currency)}</td><td>${money(d.refundsMinor, d.currency)}</td></tr>`)
@@ -310,9 +310,9 @@ export async function mountBusinessSummary(container: HTMLElement) {
         <ul class="fin-list">${s.devices
           .map(d => `<li>${escapeHtml(d.label ?? d.deviceId)} · ${d.events} eventos · última conexión ${d.lastSeenAt ? escapeHtml(new Date(d.lastSeenAt).toLocaleString()) : "nunca"}</li>`)
           .join("")}</ul>
-        <p class="fin-muted">Actualizado ${escapeHtml(new Date(s.generatedAt).toLocaleString())}</p>`;
+        <p class="t-sm muted">Actualizado ${escapeHtml(new Date(s.generatedAt).toLocaleString())}</p>`;
     } catch (e) {
-      body.innerHTML = `<p class="fin-muted">No se pudo cargar el resumen (${escapeHtml(String(e))}). Sin conexión el POS sigue funcionando.</p>`;
+      body.innerHTML = `<p class="t-sm muted">No se pudo cargar el resumen (${escapeHtml(String(e))}). Sin conexión el POS sigue funcionando.</p>`;
     }
   };
   container.querySelector<HTMLButtonElement>("#summary-load")!.onclick = () => void load();

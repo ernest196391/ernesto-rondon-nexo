@@ -92,3 +92,16 @@ body { background: #F6F1E6; }
 .nx .fin-form button, .nx .fin-actions button, .nx .fin-load { background: var(--nx-primary); color: var(--nx-on-primary); border-radius: var(--nx-r-md); }
 .nx .fin-form button.fin-danger { background: var(--nx-surface); color: var(--nx-danger); border: var(--nx-border) solid var(--nx-danger); }
 .nx .fin-form input, .nx .fin-form select { font: inherit; border-color: var(--nx-line); border-radius: var(--nx-r-md); background: var(--nx-surface); }
+
+/* Operations forms in the design system (Caja, fiado, mensajeros, devoluciones, inventario, sincronización). */
+.nx .nx-form { display: flex; flex-direction: column; gap: var(--nx-s3); }
+.nx .nx-form + .nx-form, .nx .stack .panel > div > .nx-form + .nx-form { border-top: 1px solid var(--nx-line); padding-top: var(--nx-s4); margin-top: var(--nx-s2); }
+.nx .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--nx-s2); }
+.nx .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--nx-s2); }
+.nx .field .input, .nx input.input, .nx select.input { width: 100%; min-width: 0; font: inherit; font-weight: 400; color: var(--nx-text); }
+.nx select.input { appearance: auto; }
+.nx #fin-shift { display: flex; flex-direction: column; gap: var(--nx-s3); }
+.nx .fin-list { margin: 0; padding-left: 18px; }
+.nx .tbl input.input { min-height: 44px; }
+.nx .seg button { cursor: pointer; }
+.nx .panel[hidden] { display: none; }
