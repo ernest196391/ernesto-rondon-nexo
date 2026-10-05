@@ -1,5 +1,7 @@
 # NEXO Business — STATUS
 
+> **2026-10-05:** la fuente de verdad general es `docs/00-FUENTE-DE-VERDAD/`. Cambios que afectan a este módulo: el producto se llama **NEXO Business** (D08); el tercer piloto nativo es **Mercado 23 y 28**, no Estilo y Hogar (D05). Ver `docs/00-FUENTE-DE-VERDAD/DECISIONES.md`.
+
 **Last update:** 2026-10-02
 **Pilots:** Casa Viva (Pilot 01, complex reference) · Colo Shop + AxisSoft (connector pilot) · Estilo y Hogar (next full reusable NEXO-native pilot)
 **Current phase:** Phase 0 — Implementation Spike

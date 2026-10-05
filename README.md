@@ -1,4 +1,9 @@
-# Ernesto Rondón — NEXO Pilot MVP
+# NEXO
+
+> **Fuente de verdad de todos los proyectos:** [`docs/00-FUENTE-DE-VERDAD/LEEME.md`](docs/00-FUENTE-DE-VERDAD/LEEME.md)
+> Dónde va cada proyecto: [`ESTADO.md`](docs/00-FUENTE-DE-VERDAD/ESTADO.md)
+
+## Notas históricas del repositorio
 
 ## NEXO Business active development
 

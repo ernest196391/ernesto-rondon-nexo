@@ -1,4 +1,17 @@
-# Product Studio One — reglas de agentes
+# NEXO — instrucciones para agentes (Codex, Claude Code, ChatGPT)
+
+**PRIMERO, SIEMPRE:** lee `docs/00-FUENTE-DE-VERDAD/LEEME.md` y sigue su orden de lectura
+(`ESTADO.md`, `GLOSARIO.md`, `DECISIONES.md`). Es la única fuente de verdad de todos los proyectos de Ernesto.
+
+Al terminar cualquier bloque de trabajo: actualiza tu fila en `docs/00-FUENTE-DE-VERDAD/ESTADO.md`
+y, si decidiste algo, añádelo al final de `docs/00-FUENTE-DE-VERDAD/DECISIONES.md`.
+Habla con Ernesto en español sencillo, paso a paso; trabaja desde el móvil y no es programador.
+
+Las reglas de abajo son **reglas de módulo**: valen solo para su parte y nunca contradicen la fuente de verdad.
+
+---
+
+## Módulo Product Studio — reglas de agentes
 
 Antes de cambiar código o documentación, leer completos, en este orden:
 

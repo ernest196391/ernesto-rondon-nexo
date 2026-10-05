@@ -1,4 +1,10 @@
-# Claude Code — NEXO Business / Product Studio routing
+# Claude Code — NEXO
+
+**PRIMERO, SIEMPRE:** lee `docs/00-FUENTE-DE-VERDAD/LEEME.md` y su orden de lectura. Es la única fuente de verdad.
+Al terminar un bloque: actualiza `docs/00-FUENTE-DE-VERDAD/ESTADO.md` (y `DECISIONES.md` si decidiste algo).
+Español sencillo para Ernesto, paso a paso.
+
+Después, según el módulo:
 
 If the active task concerns **NEXO Business**, `apps/business-pos`, `packages/business-*`, Casa Viva integration, cash/POS/inventory/sync, gestoras, messengers or the reusable Cuban retail platform:
 
