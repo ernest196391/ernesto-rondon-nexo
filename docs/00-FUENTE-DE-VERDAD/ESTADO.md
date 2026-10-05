@@ -1,6 +1,6 @@
 # ESTADO — dónde va cada proyecto
 
-**Última actualización:** 2026-10-05 tarde (mudanza a nexocuba.com, Claude).
+**Última actualización:** 2026-10-05 12:45 (subdominios, Claude).
 Regla: el agente que termine un bloque de trabajo actualiza **su fila** y la fecha de arriba.
 
 Estados: **FOCO** (se trabaja ahora) · **ACTIVO** (funciona, solo mantenimiento) · **ESPERA** (bloqueado por algo externo) · **PAUSADO** (no se toca hasta que se cumpla su condición) · **POR CLASIFICAR** (Ernesto debe decir qué es).
@@ -41,7 +41,7 @@ Estados: **FOCO** (se trabaja ahora) · **ACTIVO** (funciona, solo mantenimiento
 | **Curuguay** | Remesas Uruguay → Cuba (cliente) | EN CONSTRUCCIÓN | Vercel `curuguay` | Terminar y entregar al cliente sobre NEXO Business |
 | **Zaldívar** | Remesas (cliente) | EN CONSTRUCCIÓN | Vercel `zaldivar-web` | Terminar y entregar al cliente sobre NEXO Business |
 | **Cuadre** | Contabilidad para operadores de remesas | PAUSADO | Repo `cuadre`, Vercel `cuadre`, Supabase `gestor-remesas` (**inactivo**) | Pausado hasta que haya un operador que pague. La lógica de caja y comisiones de NEXO Business puede servir de base |
-| **Luz Propia** (antes "NEXO Energía") | Diagnóstico, venta e instalación solar | PAUSADO | Vercel `nexo-energia` (`nexo-energia-seven.vercel.app`) | Nombre propuesto 2026-10-05, pendiente de tu sí. Dominio libre: `luzpropiacuba.com` (11,25 USD/año) |
+| **Luz Propia** (antes "NEXO Energía") | Diagnóstico, venta e instalación solar | PAUSADO | Vercel `nexo-energia` (`nexo-energia-seven.vercel.app`) | Nombre aceptado 2026-10-05. Vive en `luzpropia.nexocuba.com` (sin comprar dominio) |
 | **JRG Electronics** | Instalación solar y eléctrica (cliente) | ACTIVO | Vercel `jrg-electronics` | Mantener. Su catálogo de equipos y el de energía deben salir de un mismo catálogo |
 
 ## D. Ideas en pausa
@@ -79,15 +79,28 @@ Estados: **FOCO** (se trabaja ahora) · **ACTIVO** (funciona, solo mantenimiento
 | Panel NEXO Business | `negocio.nexocuba.com` | **FUNCIONA** (Vercel `nexo-negocio`, DNS CNAME) | Supabase → Authentication → URL Configuration: añadir `https://negocio.nexocuba.com` a "Redirect URLs" (si no, el enlace de acceso por correo vuelve a la dirección vieja). Necesita el login de Ernesto |
 | Cuyana | `cuyana.nexocuba.com` | **FUNCIONA** | Avisar a Adonys y cambiar el enlace en redes y WhatsApp |
 | Cuadre | `cuadre.nexocuba.com` | **FUNCIONA** | Nada |
-| Tienda NEXO + gestoras | `tienda.nexocuba.com` | DNS listo (CNAME → `ernesto-rondon-nexo.onrender.com`) | Ernesto en Render: servicio `ernesto-rondon-nexo` → Settings → Custom Domains → añadir `tienda.nexocuba.com`; y en Environment poner `NEXO_PUBLIC_URL=https://tienda.nexocuba.com`. El código ya lee esa variable (`lib/site.ts`) |
+| Tienda NEXO + gestoras | `tienda.nexocuba.com` | **ABRE**, pero el catálogo falla (error 500) | Ernesto en Render → Environment: cambiar `WOOCOMMERCE_URL` a `https://casaviva.company` (hoy apunta a `casavivadecuba.com`, que ya no responde; el fallo también ocurre en la dirección vieja) |
 | Correo de la tienda (Resend) | — | Hoy usa `correo.nexotienda.casavivadecuba.com` | Crear dominio de envío `correo.nexocuba.com` en Resend y copiar sus registros a Hostinger |
 | Fotos del catálogo | `casaviva.company/wp-content/...` | **HECHO** en código | Nada |
+
+### Subdominios de emprendimientos y clientes (D23)
+
+| Subdominio | Proyecto Vercel | Vercel | DNS en Hostinger |
+|---|---|---|---|
+| `luzpropia.nexocuba.com` | `nexo-energia` | Añadido | **Falta** |
+| `curuguay.nexocuba.com` | `curuguay` | Añadido | **Falta** |
+| `zaldivar.nexocuba.com` | `zaldivar-web` | Añadido | **Falta** |
+| `coloshop.nexocuba.com` | `frutos-secos` | Añadido | **Falta** |
+| `losguajiros.nexocuba.com` | `los-guajiros` | Añadido | **Falta** |
+| `jrg.nexocuba.com` | `jrg-electronics` | Añadido | **Falta** |
+
+Falta en Hostinger (DNS de nexocuba.com) un registro **CNAME** con nombre `*` y destino `cname.vercel-dns.com`. Con ese único registro funcionan todos los de la tabla y los futuros; los que ya tienen registro propio (tienda, negocio, cuyana, cuadre) no cambian.
 
 Regla: **no soltar `casavivadecuba.com`** hasta que esta tabla esté toda en verde. Las direcciones viejas siguen funcionando mientras tanto.
 
 ## Decisiones pendientes de Ernesto (en orden)
 
-1. Hacer los dos pasos con tu login de la sección G (Render y Supabase). Te guío paso a paso.
-2. ¿Aceptas el nombre **Luz Propia** para el servicio de energía? ¿Compro `luzpropiacuba.com` (11,25 USD)?
+1. Render: cambiar `WOOCOMMERCE_URL` a `https://casaviva.company`.
+2. Hostinger: añadir el registro CNAME `*` → `cname.vercel-dns.com`.
 3. `todo-hogar`, `larampa`, `vitayaq`, `tienda-barrio`, `nexo-plan-veci`: ¿qué es cada uno?
 4. ¿JRG y Luz Propia son el mismo negocio o separados?
