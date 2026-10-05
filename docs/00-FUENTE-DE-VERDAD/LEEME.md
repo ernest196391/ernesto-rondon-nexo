@@ -18,7 +18,7 @@ Lee estos archivos **en este orden** antes de hacer nada:
    - Estrategia, productos, marca → `BLUEPRINT.md`
    - Ofertas, precios, captación, ventas, cierre → `NEGOCIO.md`
    - Cobros, empresa, riesgos legales → `PAGOS-Y-LEGAL.md`
-   - Colores, letras, logo, pantallas → `SISTEMA-VISUAL.md`
+   - Colores, letras, logo, pantallas → `SISTEMA-VISUAL.md` (y el prompt de marca: `PROMPT-MARCA.md`)
    - Qué estaba desordenado y cómo se reorganizó → `AUDITORIA-2026-10-05.md`
 6. Solo después, los documentos del módulo que vayas a tocar (ver "Documentos de módulo").
 
