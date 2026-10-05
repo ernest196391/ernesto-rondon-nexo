@@ -1,6 +1,6 @@
 # ESTADO — dónde va cada proyecto
 
-**Última actualización:** 2026-10-05 12:45 (subdominios, Claude).
+**Última actualización:** 2026-10-05 15:45 (DNS comodín, catálogo tienda, Claude).
 Regla: el agente que termine un bloque de trabajo actualiza **su fila** y la fecha de arriba.
 
 Estados: **FOCO** (se trabaja ahora) · **ACTIVO** (funciona, solo mantenimiento) · **ESPERA** (bloqueado por algo externo) · **PAUSADO** (no se toca hasta que se cumpla su condición) · **POR CLASIFICAR** (Ernesto debe decir qué es).
@@ -20,7 +20,7 @@ Estados: **FOCO** (se trabaja ahora) · **ACTIVO** (funciona, solo mantenimiento
 | Pieza | Estado | Dónde vive | Qué hay hecho | Siguiente acción exacta |
 |---|---|---|---|---|
 | **NEXO Business** (caja, inventario, panel, equipo, sincronización) | **FOCO** | Repo `ernesto-rondon-nexo`: `apps/business-pos`, `apps/business-dashboard`, `packages/business-*`, `supabase/`. Nube: Supabase `nexo-production`. Panel: `nexo-negocio.vercel.app` | Caja offline Windows + Android probada; ventas, caja, fiado, devoluciones, consignación, mensajeros; panel de dueña con resumen, costos, gestoras, socias, compra de personal; importación del Excel de Casa Viva (43 filas listas, 135 por revisar); puente WooCommerce en modo seguro (no ha publicado nada aún) | Ir a la tienda: probar escáner real, lector USB y un turno de 8 h sin internet. Luego que Lennys revise las 135 filas en "Necesita tu atención". Detalle: `docs/nexo-business/HANDOFF_2026-10-04.md` §10 |
-| **Tienda NEXO + oficina de gestoras web** | ACTIVO (mudándose) | Mismo repo: `app/`, `lib/`. Render, hoy en `nexotienda.casavivadecuba.com`; destino `tienda.nexocuba.com` | Catálogo, carrito, checkout por WhatsApp, oficina de gestoras, asistente, admin | Ernesto: añadir `tienda.nexocuba.com` en Render y fijar `NEXO_PUBLIC_URL` (sección G). Build de `main` arreglado el 2026-10-05 (antes fallaba y Render no podía publicar) |
+| **Tienda NEXO + oficina de gestoras web** | ACTIVO | Mismo repo: `app/`, `lib/`. Render, en `tienda.nexocuba.com` | Catálogo, carrito, checkout por WhatsApp, oficina de gestoras, asistente, admin | Ernesto: añadir `tienda.nexocuba.com` en Render y fijar `NEXO_PUBLIC_URL` (sección G). Build de `main` arreglado el 2026-10-05 (antes fallaba y Render no podía publicar) |
 | **Product Studio** (fotos → fichas de producto) | PAUSADO | `app/studio`, `wordpress/nexo-product-studio`, `docs/PRODUCT_STUDIO_ONE_BLUEPRINT.md` | Captura, fichas, publicación a Woo parcial | Se reanuda como función "Digitaliza tus productos" dentro de NEXO Business cuando entre el piloto Mercado 23 y 28 |
 | **Asistente WhatsApp (VivaBot)** | ACTIVO (en construcción) | Repo `ernest196391/vivabot`, VPS Hostinger, número 5354056173 | Bot vinculado; responde y escala; resumen de dueña de solo lectura desde NEXO (`nexo_owner_summary`) | Que lea catálogo y stock **solo** de NEXO Business (una sola verdad). Conseguir número de negocio aparte del personal |
 | **Kits de Implementación** (auditoría, contenido, web studio…) | PAUSADO | `kits/*/SPEC.md` | Especificaciones | Se usan como herramientas internas al implementar NEXO en cada comercio |
@@ -79,7 +79,7 @@ Estados: **FOCO** (se trabaja ahora) · **ACTIVO** (funciona, solo mantenimiento
 | Panel NEXO Business | `negocio.nexocuba.com` | **FUNCIONA** (Vercel `nexo-negocio`, DNS CNAME) | Supabase → Authentication → URL Configuration: añadir `https://negocio.nexocuba.com` a "Redirect URLs" (si no, el enlace de acceso por correo vuelve a la dirección vieja). Necesita el login de Ernesto |
 | Cuyana | `cuyana.nexocuba.com` | **FUNCIONA** | Avisar a Adonys y cambiar el enlace en redes y WhatsApp |
 | Cuadre | `cuadre.nexocuba.com` | **FUNCIONA** | Nada |
-| Tienda NEXO + gestoras | `tienda.nexocuba.com` | **ABRE**, pero el catálogo falla (error 500) | Ernesto en Render → Environment: cambiar `WOOCOMMERCE_URL` a `https://casaviva.company` (hoy apunta a `casavivadecuba.com`, que ya no responde; el fallo también ocurre en la dirección vieja) |
+| Tienda NEXO + gestoras | `tienda.nexocuba.com` | **FUNCIONA**, conectada a `casaviva.company`; muestra el catálogo publicado de Casa Viva (D24) | Nada. Si un día hay que volver a solo productos NEXO: variable `NEXO_CATALOG_SCOPE=nexo` en Render |
 | Correo de la tienda (Resend) | — | Hoy usa `correo.nexotienda.casavivadecuba.com` | Crear dominio de envío `correo.nexocuba.com` en Resend y copiar sus registros a Hostinger |
 | Fotos del catálogo | `casaviva.company/wp-content/...` | **HECHO** en código | Nada |
 
@@ -87,20 +87,18 @@ Estados: **FOCO** (se trabaja ahora) · **ACTIVO** (funciona, solo mantenimiento
 
 | Subdominio | Proyecto Vercel | Vercel | DNS en Hostinger |
 |---|---|---|---|
-| `luzpropia.nexocuba.com` | `nexo-energia` | Añadido | **Falta** |
-| `curuguay.nexocuba.com` | `curuguay` | Añadido | **Falta** |
-| `zaldivar.nexocuba.com` | `zaldivar-web` | Añadido | **Falta** |
-| `coloshop.nexocuba.com` | `frutos-secos` | Añadido | **Falta** |
-| `losguajiros.nexocuba.com` | `los-guajiros` | Añadido | **Falta** |
-| `jrg.nexocuba.com` | `jrg-electronics` | Añadido | **Falta** |
+| `luzpropia.nexocuba.com` | `nexo-energia` | Añadido | Hecho (comodín `*`) |
+| `curuguay.nexocuba.com` | `curuguay` | Añadido | Hecho (comodín `*`) |
+| `zaldivar.nexocuba.com` | `zaldivar-web` | Añadido | Hecho (comodín `*`) |
+| `coloshop.nexocuba.com` | `frutos-secos` | Añadido | Hecho (comodín `*`) |
+| `losguajiros.nexocuba.com` | `los-guajiros` | Añadido | Hecho (comodín `*`) |
+| `jrg.nexocuba.com` | `jrg-electronics` | Añadido | Hecho (comodín `*`) |
 
-Falta en Hostinger (DNS de nexocuba.com) un registro **CNAME** con nombre `*` y destino `cname.vercel-dns.com`. Con ese único registro funcionan todos los de la tabla y los futuros; los que ya tienen registro propio (tienda, negocio, cuyana, cuadre) no cambian.
+Hecho 2026-10-05: registro **CNAME `*` → `cname.vercel-dns.com`** en Hostinger. Cualquier subdominio nuevo solo necesita darse de alta en el proyecto de Vercel; los que tienen registro propio (tienda, negocio, cuyana, cuadre) no cambian.
 
 Regla: **no soltar `casavivadecuba.com`** hasta que esta tabla esté toda en verde. Las direcciones viejas siguen funcionando mientras tanto.
 
 ## Decisiones pendientes de Ernesto (en orden)
 
-1. Render: cambiar `WOOCOMMERCE_URL` a `https://casaviva.company`.
-2. Hostinger: añadir el registro CNAME `*` → `cname.vercel-dns.com`.
-3. `todo-hogar`, `larampa`, `vitayaq`, `tienda-barrio`, `nexo-plan-veci`: ¿qué es cada uno?
-4. ¿JRG y Luz Propia son el mismo negocio o separados?
+1. `todo-hogar`, `larampa`, `vitayaq`, `tienda-barrio`, `nexo-plan-veci`: ¿qué es cada uno?
+2. ¿JRG y Luz Propia son el mismo negocio o separados?

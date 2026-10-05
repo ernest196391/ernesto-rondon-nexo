@@ -13,8 +13,17 @@ const NEXO_MARKERS = new Set([
   "nexo_capture_id",
 ]);
 
-export function isNexoCatalogProduct(product: StorefrontProduct) {
+// Qué productos de la tienda conectada (WooCommerce) muestra NEXO.
+// "all" (por defecto, D24): todo lo publicado en el comercio conectado (hoy Casa Viva).
+// "nexo": solo los productos marcados como NEXO (SKU NEXO-… o metadatos NEXO).
+export type CatalogScope = "all" | "nexo";
+export function catalogScope(): CatalogScope {
+  return process.env.NEXO_CATALOG_SCOPE === "nexo" ? "nexo" : "all";
+}
+
+export function isNexoCatalogProduct(product: StorefrontProduct, scope: CatalogScope = catalogScope()) {
   if (product.status && product.status !== "publish") return false;
+  if (scope === "all") return true;
   if (product.sku?.toUpperCase().startsWith("NEXO-")) return true;
   return Boolean(
     product.meta_data?.some(

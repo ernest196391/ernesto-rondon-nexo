@@ -16,12 +16,18 @@ export async function GET(request: Request) {
   }
 
   const url = new URL(request.url);
-  const products = await listWooProducts({
-    search: url.searchParams.get("search") || undefined,
-    category: url.searchParams.get("category") || undefined,
-    page: Number(url.searchParams.get("page") || 1),
-    perPage: 50,
-  });
+  const search = url.searchParams.get("search") || undefined;
+  const category = url.searchParams.get("category") || undefined;
+  const requestedPage = url.searchParams.get("page");
+  // Sin página pedida: trae hasta 300 productos (6 páginas de 50) para mostrar el catálogo completo del comercio.
+  const pages = requestedPage ? [Number(requestedPage) || 1] : [1, 2, 3, 4, 5, 6];
+  const products: any[] = [];
+  for (const page of pages) {
+    const batch = await listWooProducts({ search, category, page, perPage: 50 });
+    if (!Array.isArray(batch) || batch.length === 0) break;
+    products.push(...batch);
+    if (batch.length < 50) break;
+  }
 
   const normalizedProducts = storefrontProducts(products).map((raw: any) => {
     const product = applyEditorial(raw);
