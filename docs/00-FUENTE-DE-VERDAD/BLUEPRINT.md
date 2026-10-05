@@ -53,8 +53,8 @@ Cada comercio recibe valor **solo**, sin depender de la red. Los compradores ent
 
 | Fase | Qué | Para pasar a la siguiente |
 |---|---|---|
-| **AHORA** | NEXO Business estable en Casa Viva (pruebas en tienda, uso diario de Lennys). Mudanza de dominios. Oferta escrita con método Hormozi. Sistema visual NEXO. | Casa Viva lo usa 30 días seguidos y los tres pilotos tienen oferta presentada |
-| **SIGUIENTE** | Colo Shop (conector Axis) cuando pague. Mercado 23 y 28 como tercer piloto nativo. "Digitaliza tus productos" para cargar catálogos. Asistente WhatsApp leyendo de NEXO. Web `nexocuba.com`. | 3 comercios pagando |
+| **AHORA** | NEXO Business estable en Casa Viva (pruebas en tienda, uso diario de Lennys). Mudanza de dominios. Oferta escrita con método Hormozi. Sistema visual NEXO. | Casa Viva lo usa 30 días seguidos y Colo Shop tiene oferta presentada |
+| **SIGUIENTE** | Colo Shop (conector Axis) cuando pague. Entregar Curuguay y Zaldívar sobre NEXO Business. "Digitaliza tus productos" para cargar catálogos. Asistente WhatsApp leyendo de NEXO. Web `nexocuba.com`. | Casa Viva, Colo Shop y los dos clientes de remesas pagando |
 | **DESPUÉS** | NEXO Impulsa abierto a gestoras de varios comercios. Entregas y mensajeros. Clientes y campañas. | Gestoras vendiendo cada semana en más de un comercio |
 | **FUTURO** | NEXO para compradores (buscar en todos los comercios). Alta sin ayuda. Marca blanca. Otros mercados. | Demanda real |
 

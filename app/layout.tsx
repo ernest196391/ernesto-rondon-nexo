@@ -5,8 +5,9 @@ import "./nexo-home-film.css";
 import type { Metadata } from "next";
 import CommerceSiteShell from "./CommerceSiteShell";
 import PwaRegistration from "./PwaRegistration";
+import { SITE_URL } from "../lib/site";
 
-const siteUrl = "https://nexotienda.casavivadecuba.com";
+const siteUrl = SITE_URL;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

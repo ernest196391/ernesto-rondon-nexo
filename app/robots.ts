@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { SITE_URL } from "../lib/site";
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -7,7 +8,7 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: ["/api/", "/carrito", "/checkout", "/pedido/", "/studio/"],
     },
-    sitemap: "https://nexotienda.casavivadecuba.com/sitemap.xml",
-    host: "https://nexotienda.casavivadecuba.com",
+    sitemap: `${SITE_URL}/sitemap.xml`,
+    host: SITE_URL,
   };
 }

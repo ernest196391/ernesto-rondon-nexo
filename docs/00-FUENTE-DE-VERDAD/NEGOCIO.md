@@ -1,7 +1,7 @@
 # NEGOCIO — oferta, captación, modelo de dinero y cierre (método Hormozi)
 
 Decisión D12: todo el ecosistema vende con los tres libros de Alex Hormozi y su método de cierre.
-**Estado:** borrador 1 escrito por Claude con los conceptos públicos de los libros. **Pendiente:** Ernesto comparte sus resúmenes para afinar, y se ponen los precios con los tres pilotos.
+**Estado:** borrador 1 escrito por Claude con los conceptos públicos de los libros. **Pendiente:** Ernesto comparte sus resúmenes para afinar, y se ponen los precios con los pilotos.
 Los nombres de técnicas están en inglés (como en los libros) para poder buscarlos; la explicación, en español.
 
 ---
@@ -47,7 +47,7 @@ Condicional: si en 30 días de uso la caja no cuadra con lo vendido, se devuelve
 ### Las cuatro vías (Core Four)
 | Vía | Para NEXO ahora |
 |---|---|
-| Contactos cálidos (warm outreach) | Comercios que ya conoces: Mercado 23 y 28, La Rampa, Colo Shop, clientes de las webs de Vercel. Primer canal. |
+| Contactos cálidos (warm outreach) | Comercios que ya conoces: Colo Shop, La Rampa, Los Guajiros, clientes de las webs de Vercel. Primer canal. |
 | Contenido gratis (post free content) | Videos cortos de la caja de Casa Viva vendiendo en modo avión, del resumen del día, de una gestora cobrando su comisión. Higgsfield para producir. |
 | Contacto en frío (cold outreach) | WhatsApp a mipymes de La Habana con una auditoría gratis de su negocio (kit `business-audit`). |
 | Anuncios pagados | Después, cuando la oferta convierta. |
@@ -81,7 +81,7 @@ Técnicas concretas del libro a revisar con tus resúmenes: dentro de atracción
 | NEXO Impulsa | Gestora | Nadie directo: NEXO toma parte de la comisión |
 | NEXO tienda | Comprador | Nadie al inicio |
 
-**Precios:** sin definir (decisión de Ernesto). Se fijan con los tres pilotos.
+**Precios:** sin definir (decisión de Ernesto). Se fijan con los pilotos.
 
 ---
 
@@ -104,4 +104,4 @@ Guion para la llamada de diagnóstico (borrador, en lenguaje de Cuba):
 
 ## Aplicación al resto del ecosistema
 
-Cada negocio de servicios (Cuyana, Curuguay, Zaldívar, energía solar, JRG) tendrá su propia hoja con las mismas cuatro secciones **cuando se reactive**. Plantilla: copiar este archivo como `NEGOCIO-<nombre>.md`.
+Cada negocio de servicios (Cuyana, Luz Propia) y cada cliente (Curuguay, Zaldívar, JRG) tendrá su propia hoja con las mismas cuatro secciones **cuando se reactive**. Plantilla: copiar este archivo como `NEGOCIO-<nombre>.md`.

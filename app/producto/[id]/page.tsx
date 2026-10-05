@@ -11,6 +11,7 @@ import { applyEditorial, editorialFor } from "../../../lib/commerce/product-edit
 import type { Metadata } from "next";
 import { resolvedProductPrice } from "../../../lib/commercial/storefront";
 import { productContentFor } from "../../../lib/commerce/product-content";
+import { SITE_URL } from "../../../lib/site";
 
 export const dynamic = "force-dynamic";
 
@@ -41,7 +42,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   if (!product) return { title: "Producto no disponible" };
   const seo = product.seo;
   const image = catalogImageFor(product);
-  const url = `https://nexotienda.casavivadecuba.com/producto/${id}`;
+  const url = `${SITE_URL}/producto/${id}`;
   return {
     title: { absolute: seo?.seoTitle || `${product.name} | NEXO` },
     description: seo?.metaDescription || product.short_description?.replace(/<[^>]+>/g, ""),
@@ -71,7 +72,7 @@ export default async function ProductPage({ params, searchParams }: {
     : [];
   const summary = purchaseSummary(content.shortDescriptionHtml);
   const brand = content.specifications.find((x) => x.label.toLocaleLowerCase("es") === "marca")?.value;
-  const jsonLd = { "@context": "https://schema.org", "@type": "Product", name: product.name, sku: product.sku, image: imageSrc ? [imageSrc] : undefined, description: content.shortDescriptionHtml.replace(/<[^>]+>/g, " "), brand: brand ? { "@type": "Brand", name: brand } : undefined, offers: { "@type": "Offer", price: publicPrice, priceCurrency: "USD", availability: "https://schema.org/InStock", url: `https://nexotienda.casavivadecuba.com/producto/${id}` } };
+  const jsonLd = { "@context": "https://schema.org", "@type": "Product", name: product.name, sku: product.sku, image: imageSrc ? [imageSrc] : undefined, description: content.shortDescriptionHtml.replace(/<[^>]+>/g, " "), brand: brand ? { "@type": "Brand", name: brand } : undefined, offers: { "@type": "Offer", price: publicPrice, priceCurrency: "USD", availability: "https://schema.org/InStock", url: `${SITE_URL}/producto/${id}` } };
   return <main className="product-page">
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
     <header className="market-header"><Link href={ref ? `/?ref=${encodeURIComponent(ref)}` : "/"} aria-label="NEXO — Inicio"><Image className="market-logo" src="/brand/nexo-logo.png" width={380} height={140} alt="NEXO" /><Image className="market-symbol" src="/brand/nexo-symbol.png" width={512} height={512} alt="" aria-hidden="true" /></Link><div className="product-header-actions"><Link href={ref ? `/?ref=${encodeURIComponent(ref)}` : "/"}>← Catálogo</Link><Link href={`/carrito${ref ? `?ref=${encodeURIComponent(ref)}` : ""}`}>Carrito</Link></div></header>

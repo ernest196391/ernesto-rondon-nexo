@@ -45,6 +45,6 @@ Regla de marca: el nombre siempre es **NEXO** más una palabra que dice para qui
 ## Negocios de Ernesto que **no** son NEXO
 
 Tienen su propia marca y **nunca** se mezclan con la marca NEXO; solo usan NEXO por dentro:
-Casa Viva, Cuyana, Curuguay, Zaldívar, Cuadre, el servicio de energía (nombre pendiente), Triciclub.
+Casa Viva, Cuyana, Cuadre, Luz Propia (energía solar; antes "NEXO Energía"), Triciclub.
 
-Clientes (marca del cliente): Colo Shop, Mercado 23 y 28, JRG Electronics, La Rampa.
+Clientes (marca del cliente): Colo Shop, Curuguay, Zaldívar, Los Guajiros, JRG Electronics, La Rampa, Mercado 23 y 28 (solo demo).

@@ -164,7 +164,7 @@ export async function auditWebsite(rawUrl: string): Promise<WebAuditResult> {
     const response = await fetch(requested, {
       redirect: "manual",
       signal: controller.signal,
-      headers: { "user-agent": "NEXO-Web-Studio/0.2 (+https://nexo.casavivadecuba.com)" },
+      headers: { "user-agent": "NEXO-Web-Studio/0.2 (+https://nexocuba.com)" },
     });
 
     let current = requested;
@@ -173,7 +173,7 @@ export async function auditWebsite(rawUrl: string): Promise<WebAuditResult> {
       const location = currentResponse.headers.get("location");
       if (!location) break;
       current = await assertPublicHttpUrl(new URL(location, current).toString());
-      currentResponse = await fetch(current, { redirect: "manual", signal: controller.signal, headers: { "user-agent": "NEXO-Web-Studio/0.2 (+https://nexo.casavivadecuba.com)" } });
+      currentResponse = await fetch(current, { redirect: "manual", signal: controller.signal, headers: { "user-agent": "NEXO-Web-Studio/0.2 (+https://nexocuba.com)" } });
     }
 
     const contentType = currentResponse.headers.get("content-type") || "";

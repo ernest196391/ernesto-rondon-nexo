@@ -21,6 +21,7 @@ import {
 } from "../../../../lib/commerce/product-editorial";
 import { getDeliveryQuoteAnswer } from "../../../../lib/commerce/assistant-delivery-tool";
 import { assistantCapability } from "../../../../lib/commerce/assistant-routing";
+import { SITE_URL } from "../../../../lib/site";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -92,7 +93,7 @@ function publicOrigin(request: Request) {
       if (!/^(localhost|127\.0\.0\.1)$/i.test(url.hostname)) return url.origin;
     } catch {}
   }
-  return "https://nexotienda.casavivadecuba.com";
+  return SITE_URL;
 }
 
 export async function POST(request: Request) {

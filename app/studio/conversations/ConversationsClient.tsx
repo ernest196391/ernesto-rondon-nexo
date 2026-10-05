@@ -16,7 +16,7 @@ export default function ConversationsClient() {
   const [businessName, setBusinessName] = useState("Casa Viva");
   const [objective, setObjective] = useState(goals[0]);
   const [allowedPrices, setAllowedPrices] = useState("");
-  const [allowedHosts, setAllowedHosts] = useState("casavivadecuba.com");
+  const [allowedHosts, setAllowedHosts] = useState("casaviva.company");
   const [handoffKeywords, setHandoffKeywords] = useState("humano, reclamación, queja, devolución, denuncia");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
