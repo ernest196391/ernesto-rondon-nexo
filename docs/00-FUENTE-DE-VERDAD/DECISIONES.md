@@ -72,3 +72,5 @@ Sustituye: el cambio de nombre a "Casa Viva Core" del 2026-10-04 como nombre de 
 **D25 · 2026-10-05 · Claude puede cambiar por su cuenta DNS y despliegues de `nexocuba.com` y de los proyectos de Ernesto** sin pedir confirmación cada vez (autorización de Ernesto). Sigue sin teclear contraseñas: lo que exige su login lo hace Ernesto.
 
 **D26 · 2026-10-05 · JRG Electronics y Luz Propia son negocios separados.** Pueden compartir catálogo de equipos dentro de NEXO, pero cada uno con su marca y su subdominio.
+
+**D27 · 2026-10-05 · El negocio de automatización (Implementación NEXO) vive en `automatizacion.nexocuba.com`** (proyecto Vercel `nexo-plan-veci`, repo `Nexo-web-`). Se recreará con Higgsfield. Su plan Growth ya no promete "familia paga desde el exterior" (D14).

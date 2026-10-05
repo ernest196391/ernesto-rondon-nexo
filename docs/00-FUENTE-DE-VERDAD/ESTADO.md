@@ -61,14 +61,15 @@ Estados: **FOCO** (se trabaja ahora) · **ACTIVO** (funciona, solo mantenimiento
 | `los-guajiros` | Web construida por Ernesto (cliente) |
 | `todo-hogar` | **Todo Hogar**: tienda tipo Casa Viva. PAUSADO, se construye después |
 | `larampa` | **La Rampa**: menú (relacionado con el Hotel Habana Libre). PAUSADO, se le da forma después |
-| `vitayaq` | **VitayaQ**: tienda de suplementos y bienestar (27 productos, precios provisionales, WhatsApp 5358222088). Ernesto: ¿de quién es? |
-| `nexo-plan-veci` | **Web vieja de la agencia NEXO** (portafolio, NEXO Lab y planes con precios). Se reutiliza como material para la web `nexocuba.com`; sus precios están en `NEGOCIO.md` como borrador |
+| `vitayaq` | **Demo/plantilla** de tienda de suplementos "VitayaQ" (27 productos, precios provisionales). Ernesto no la reconoce: queda como demo de la plantilla de tiendas |
+| `nexo-plan-veci` | **Web de Implementación NEXO (negocio de automatización)** en **`automatizacion.nexocuba.com`** (repo `Nexo-web-`). FUNCIONA. Siguiente: recrearla con Higgsfield. Ya corregido: direcciones y plan Growth sin "cobro desde el exterior" |
+| `tienda-barrio` | **Demo/plantilla** "Bodega La Esquina" (9 productos de ejemplo, WhatsApp falso, `noindex`). Plantilla de tienda de barrio para enseñar a clientes |
 
 ## F. Infraestructura (inventario verificado 2026-10-05)
 
 | Recurso | Cantidad | Detalle |
 |---|---|---|
-| Repos en GitHub conocidos | 5+ | `ernesto-rondon-nexo` (principal), `vivabot`, `cuyana-app`, `cuadre`, `Casa-Viva` |
+| Repos en GitHub | 20 | Principal `ernesto-rondon-nexo`. Otros: `vivabot`, `cuyana-app`, `cuadre`, `Casa-Viva`, `Nexo-web-` (web de automatización), `frutos-secos`/`Frutos-secos-` (Colo Shop, hay dos), `Curuguay`, `zaldivar-web`, `Larampa`, `Los-Guajiros`, `jrg-electronics`/`Jrg-el-ctronics-` (hay dos), `23-y-28-`, `Triciclub`, `Papo-`, `pictures-`, `gestor-plantillas-`, `gestor-brand-system` |
 | Proyectos Supabase | 4 | `nexo-production` (activo, **el central**), `cuyana` (activo), `gestor-remesas` (inactivo), `ernest196391's Project` (inactivo, sin uso conocido) |
 | Proyectos Vercel | 15 | Ver secciones C y E |
 | Render | 2 servicios | Tienda NEXO web + worker de contenido |
@@ -96,6 +97,7 @@ Estados: **FOCO** (se trabaja ahora) · **ACTIVO** (funciona, solo mantenimiento
 | `coloshop.nexocuba.com` | `frutos-secos` | Añadido | Hecho (comodín `*`) |
 | `losguajiros.nexocuba.com` | `los-guajiros` | Añadido | Hecho (comodín `*`) |
 | `jrg.nexocuba.com` | `jrg-electronics` | Añadido | Hecho (comodín `*`) |
+| `automatizacion.nexocuba.com` | `nexo-plan-veci` | Añadido | Hecho — **verificado funcionando** |
 
 Hecho 2026-10-05: registro **CNAME `*` → `cname.vercel-dns.com`** en Hostinger. Cualquier subdominio nuevo solo necesita darse de alta en el proyecto de Vercel; los que tienen registro propio (tienda, negocio, cuyana, cuadre) no cambian.
 
@@ -103,5 +105,4 @@ Regla: **no soltar `casavivadecuba.com`** hasta que esta tabla esté toda en ver
 
 ## Decisiones pendientes de Ernesto (en orden)
 
-1. VitayaQ: ¿es un cliente o un negocio tuyo?
-2. `tienda-barrio`: ¿qué es?
+1. Recrear `automatizacion.nexocuba.com` con Higgsfield (siguiente tarea de diseño).
