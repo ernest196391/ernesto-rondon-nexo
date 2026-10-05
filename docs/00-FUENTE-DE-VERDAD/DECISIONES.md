@@ -70,3 +70,5 @@ Sustituye: el cambio de nombre a "Casa Viva Core" del 2026-10-04 como nombre de 
 **D24 · 2026-10-05 · La tienda NEXO muestra todo el catálogo publicado del comercio conectado** (hoy Casa Viva en `casaviva.company`), no solo los productos con SKU `NEXO-`. Por qué: esos productos vivían en la web vieja que ya no existe; Ernesto eligió la opción A. Reversible con `NEXO_CATALOG_SCOPE=nexo`.
 
 **D25 · 2026-10-05 · Claude puede cambiar por su cuenta DNS y despliegues de `nexocuba.com` y de los proyectos de Ernesto** sin pedir confirmación cada vez (autorización de Ernesto). Sigue sin teclear contraseñas: lo que exige su login lo hace Ernesto.
+
+**D26 · 2026-10-05 · JRG Electronics y Luz Propia son negocios separados.** Pueden compartir catálogo de equipos dentro de NEXO, pero cada uno con su marca y su subdominio.

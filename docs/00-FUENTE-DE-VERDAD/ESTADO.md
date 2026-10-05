@@ -42,7 +42,7 @@ Estados: **FOCO** (se trabaja ahora) · **ACTIVO** (funciona, solo mantenimiento
 | **Zaldívar** | Remesas (cliente) | EN CONSTRUCCIÓN | Vercel `zaldivar-web` | Terminar y entregar al cliente sobre NEXO Business |
 | **Cuadre** | Contabilidad para operadores de remesas | PAUSADO | Repo `cuadre`, Vercel `cuadre`, Supabase `gestor-remesas` (**inactivo**) | Pausado hasta que haya un operador que pague. La lógica de caja y comisiones de NEXO Business puede servir de base |
 | **Luz Propia** (antes "NEXO Energía") | Diagnóstico, venta e instalación solar | PAUSADO | Vercel `nexo-energia` (`nexo-energia-seven.vercel.app`) | Nombre aceptado 2026-10-05. Vive en `luzpropia.nexocuba.com` (sin comprar dominio) |
-| **JRG Electronics** | Instalación solar y eléctrica (cliente) | ACTIVO | Vercel `jrg-electronics` | Mantener. Su catálogo de equipos y el de energía deben salir de un mismo catálogo |
+| **JRG Electronics** | Instalación solar y eléctrica (cliente; **negocio aparte de Luz Propia**) | ACTIVO | Vercel `jrg-electronics` | Mantener. Su catálogo de equipos y el de energía deben salir de un mismo catálogo |
 
 ## D. Ideas en pausa
 
@@ -59,7 +59,10 @@ Estados: **FOCO** (se trabaja ahora) · **ACTIVO** (funciona, solo mantenimiento
 |---|---|
 | `frutos-secos` | Web de **Colo Shop** |
 | `los-guajiros` | Web construida por Ernesto (cliente) |
-| `todo-hogar`, `larampa`, `vitayaq`, `tienda-barrio`, `nexo-plan-veci` | **Por clasificar**: Ernesto dice si es cliente, demo o archivo |
+| `todo-hogar` | **Todo Hogar**: tienda tipo Casa Viva. PAUSADO, se construye después |
+| `larampa` | **La Rampa**: menú (relacionado con el Hotel Habana Libre). PAUSADO, se le da forma después |
+| `vitayaq` | **VitayaQ**: tienda de suplementos y bienestar (27 productos, precios provisionales, WhatsApp 5358222088). Ernesto: ¿de quién es? |
+| `nexo-plan-veci` | **Web vieja de la agencia NEXO** (portafolio, NEXO Lab y planes con precios). Se reutiliza como material para la web `nexocuba.com`; sus precios están en `NEGOCIO.md` como borrador |
 
 ## F. Infraestructura (inventario verificado 2026-10-05)
 
@@ -100,5 +103,5 @@ Regla: **no soltar `casavivadecuba.com`** hasta que esta tabla esté toda en ver
 
 ## Decisiones pendientes de Ernesto (en orden)
 
-1. `todo-hogar`, `larampa`, `vitayaq`, `tienda-barrio`, `nexo-plan-veci`: ¿qué es cada uno?
-2. ¿JRG y Luz Propia son el mismo negocio o separados?
+1. VitayaQ: ¿es un cliente o un negocio tuyo?
+2. `tienda-barrio`: ¿qué es?

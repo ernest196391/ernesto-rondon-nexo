@@ -83,6 +83,16 @@ Técnicas concretas del libro a revisar con tus resúmenes: dentro de atracción
 
 **Precios:** sin definir (decisión de Ernesto). Se fijan con los pilotos.
 
+Borrador anterior encontrado (web vieja de la agencia, `nexo-plan-veci.vercel.app`, sep. 2026), como punto de partida:
+
+| Plan | Instalación | Mensual | Comisión sobre ventas |
+|---|---|---|---|
+| Starter | 250 USD | 125 USD | 10 % |
+| Growth | 500 USD | 150 USD | 8 % |
+| Full | 900 USD | 250 USD | 6 % |
+
+Ojo: el plan Growth prometía "puente de cobro: familia paga desde el exterior". Revisar con `PAGOS-Y-LEGAL.md` (reglas de la OFAC del 30-09-2026) antes de volver a ofrecerlo.
+
 ---
 
 ## 4. Cierre — CLOSER (método de ventas de Hormozi)
