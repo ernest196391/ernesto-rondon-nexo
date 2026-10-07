@@ -23,6 +23,7 @@
     "sharp": "0.35.4"
   },
   "devDependencies": {
+    "@electric-sql/pglite": "^0.3.16",
     "@types/node": "20.14.12",
     "@types/pg": "8.15.5",
     "@types/react": "19.2.18",

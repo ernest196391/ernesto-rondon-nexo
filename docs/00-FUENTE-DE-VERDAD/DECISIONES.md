@@ -74,3 +74,6 @@ Sustituye: el cambio de nombre a "Casa Viva Core" del 2026-10-04 como nombre de 
 **D26 · 2026-10-05 · JRG Electronics y Luz Propia son negocios separados.** Pueden compartir catálogo de equipos dentro de NEXO, pero cada uno con su marca y su subdominio.
 
 **D27 · 2026-10-05 · El negocio de automatización (Implementación NEXO) vive en `automatizacion.nexocuba.com`** (proyecto Vercel `nexo-plan-veci`, repo `Nexo-web-`). Se recreará con Higgsfield. Su plan Growth ya no promete "familia paga desde el exterior" (D14).
+
+**D28 · 2026-10-07 · "Digitaliza tus productos" se reanuda dentro de NEXO Business con Casa Viva como piloto** (pedido de Ernesto, 2026-10-05). Página del panel (`digitaliza.html`), Core como única autoridad de producto y stock, y una ficha central de conocimiento por producto como única fuente para contenido e IA. Detalle: `docs/nexo-business/DIGITALIZA.md`.
+Sustituye: la condición de ESTADO "se reanuda cuando entre el piloto Mercado 23 y 28" (ese piloto salió, D18).

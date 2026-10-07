@@ -50,6 +50,7 @@ Two deployment modes share the same platform:
 - Added `docs/nexo-business/COLO_SHOP_PILOT.md` to lock Pilot 02 merchant experience, source-of-truth rules, sync boundaries and acceptance criteria.
 - Added official Tauri barcode-scanner integration to `apps/business-pos`, including mobile capability permissions, Android/iOS-scoped Rust dependency and QR/UPC/EAN scan-to-local-barcode lookup flow.
 - Verified the scanner integration does not break the Windows build and that the Android debug APK/AAB builds successfully after integration.
+- 2026-10-07: "Digitaliza tus productos" (recepción → ficha → Core, ficha central de conocimiento). Local tests only; cloud migrations not applied yet. See `docs/nexo-business/DIGITALIZA.md`.
 
 ## Next task — DO THIS FIRST
 Continue from the current shared `apps/business-pos` scaffold without changing production commerce behavior:
