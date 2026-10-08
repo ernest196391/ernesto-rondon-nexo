@@ -212,14 +212,58 @@ export function startAutoSync() {
   requestSync();
 }
 
+/** Alta con código corto: la nube crea el equipo y entrega su clave una sola vez. */
+export async function enrollWithCode(code: string): Promise<{ label: string; deviceId: string }> {
+  const url = DEFAULT_ENDPOINT.replace(/nexo-sync-push\/?$/, "nexo-device-enroll");
+  const response = await fetch(url, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ code }) });
+  const body = (await response.json().catch(() => ({}))) as { error?: string; token?: string; label?: string; deviceId?: string };
+  if (!response.ok || !body.token) throw new Error(body.error || "No se pudo dar de alta");
+  save(ENDPOINT_KEY, DEFAULT_ENDPOINT);
+  save(TOKEN_KEY, body.token);
+  await provisionDevice(DEFAULT_ENDPOINT, body.token);
+  return { label: body.label ?? "", deviceId: body.deviceId ?? "" };
+}
+
 export async function mountSync(container: HTMLElement) {
   container.innerHTML = `
+    <form id="enroll-form" class="nx-form" ${read(TOKEN_KEY) ? 'hidden style="display:none"' : ""}>
+      <p class="t-sm">Para conectar este equipo con la tienda, pide a Ernesto un <b>código de alta</b> y escríbelo aquí.</p>
+      <label class="field">Código de alta<input class="input" name="code" autocomplete="off" autocapitalize="characters" maxlength="7" placeholder="Ej.: K7M2QX" style="text-transform:uppercase;letter-spacing:.2em;font-size:1.3em"></label>
+      <button type="submit" class="btn btn-primary btn-block">Conectar este equipo</button>
+    </form>
     <form id="sync-form" class="nx-form">
-      <label class="field">Servidor de sincronización<input class="input" name="endpoint" type="url"></label>
-      <label class="field">Clave del dispositivo<input class="input" name="token" type="password" autocomplete="off" placeholder="La entrega NEXO al dar de alta el equipo"></label>
       <button type="submit" class="btn btn-primary btn-block">Sincronizar ahora</button>
+      <details class="t-sm"><summary class="muted">Opciones avanzadas</summary>
+        <label class="field">Servidor de sincronización<input class="input" name="endpoint" type="url"></label>
+        <label class="field">Clave del dispositivo<input class="input" name="token" type="password" autocomplete="off" placeholder="La entrega NEXO al dar de alta el equipo"></label>
+      </details>
     </form>
     <p class="t-sm muted" id="sync-state"></p>`;
+  const enrollForm = container.querySelector<HTMLFormElement>("#enroll-form")!;
+  enrollForm.onsubmit = async e => {
+    e.preventDefault();
+    const codeInput = enrollForm.querySelector<HTMLInputElement>('[name="code"]')!;
+    const button = enrollForm.querySelector<HTMLButtonElement>("button")!;
+    if (!navigator.onLine) {
+      stateEl.textContent = "Necesitas internet solo para este paso. Conéctate y prueba otra vez.";
+      return;
+    }
+    button.disabled = true;
+    stateEl.textContent = "Conectando…";
+    try {
+      const who = await enrollWithCode(codeInput.value);
+      tokenInput.value = read(TOKEN_KEY);
+      enrollForm.hidden = true;
+      enrollForm.style.display = "none";
+      stateEl.textContent = `✅ Equipo conectado: ${who.label}. Descargando productos…`;
+      const state = await syncOnce();
+      if (state) show(state, `✅ ${who.label} · `);
+    } catch (err) {
+      stateEl.textContent = err instanceof Error ? err.message : String(err);
+    } finally {
+      button.disabled = false;
+    }
+  };
   const form = container.querySelector<HTMLFormElement>("#sync-form")!;
   const input = form.querySelector<HTMLInputElement>('[name="endpoint"]')!;
   const tokenInput = form.querySelector<HTMLInputElement>('[name="token"]')!;
