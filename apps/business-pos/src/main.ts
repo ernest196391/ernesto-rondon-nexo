@@ -180,7 +180,12 @@ async function renderNet() {
     state = null;
   }
   const pill = $("#net");
-  if (!navigator.onLine) {
+  let token = "";
+  try { token = localStorage.getItem("nexo.sync.deviceToken") ?? ""; } catch { /* sin almacenamiento */ }
+  if (!token.trim()) {
+    pill.className = "pill calm";
+    pill.innerHTML = `${icon("offline", "sm")}Sin conectar`;
+  } else if (!navigator.onLine) {
     pill.className = "pill calm";
     pill.innerHTML = `${icon("offline", "sm")}Sin conexión${state?.pending ? ` · ${state.pending}` : ""}`;
   } else if (state?.failing) {
@@ -900,6 +905,14 @@ async function init() {
   await renderHistory();
   await renderAudit();
   await mountFinance($(".nx.app"), db);
+  // Equipo nuevo sin conectar: abre directamente "Más → Sincronización" para poner el código de alta.
+  let connected = "";
+  try { connected = localStorage.getItem("nexo.sync.deviceToken") ?? ""; } catch { /* sin almacenamiento */ }
+  if (!connected.trim()) {
+    showView("mas");
+    const panel = $("#fin-sync").closest("details");
+    if (panel) panel.open = true;
+  }
 }
 
 init().then(() => cachePhotos()).catch(e => {
