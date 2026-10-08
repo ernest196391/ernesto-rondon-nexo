@@ -639,12 +639,25 @@ function consignmentMoveSheet(account: ConsignmentRow, direction: "send" | "coll
     <div class="sheet-head"><h2>${esc(title)}</h2><button type="button" class="btn btn-ghost" data-close>Cerrar</button></div>
     <form class="nx-form">
       <p class="t-sm muted">${send ? `Sale de ${esc(store.name)} y queda en depósito del cliente: sigue siendo tuyo hasta que lo liquides.` : `Vuelve a ${esc(store.name)} lo que el cliente no vendió.`}</p>
-      <label class="field">Producto<select class="input" name="product">${productOptions()}</select></label>
+      <label class="field">Buscar producto<input class="input" type="search" data-filter placeholder="🔍 Escribe parte del nombre" autocomplete="off"></label>
+      <label class="field">Producto<select class="input" name="product" size="6">${productOptions()}</select></label>
       <label class="field">Cantidad<input class="input" name="qty" type="number" min="1" step="1" required></label>
       <button type="submit" class="btn btn-primary btn-xl btn-block">${send ? "Enviar" : "Recoger"}</button>
     </form>`, title);
   sheet.el.querySelector<HTMLButtonElement>("[data-close]")!.onclick = sheet.close;
   const form = sheet.el.querySelector<HTMLFormElement>("form")!;
+  // Buscador: filtra la lista de productos mientras se escribe (sin tildes ni mayúsculas)
+  const plain = (s: string) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+  const picker = field<HTMLSelectElement>(form, "product");
+  form.querySelector<HTMLInputElement>("[data-filter]")!.addEventListener("input", ev => {
+    const q = plain((ev.target as HTMLInputElement).value.trim());
+    let first: HTMLOptionElement | null = null;
+    for (const o of Array.from(picker.options)) {
+      o.hidden = !!q && !plain(o.text).includes(q);
+      if (!o.hidden && !first) first = o;
+    }
+    if (first && picker.selectedOptions[0]?.hidden !== false) first.selected = true;
+  });
   form.onsubmit = e => {
     e.preventDefault();
     void run(send ? "Mercancía enviada en consignación" : "Mercancía recogida", async () => {
@@ -754,7 +767,8 @@ async function renderConsignment() {
     </div>`;
   }));
   box.innerHTML = `
-    <p class="t-sm muted">Mercancía que dejas a un cliente para que la venda: sigue siendo tuya hasta que la liquides, y entonces el total pasa a su fiado.</p>
+    <p class="t-sm muted">Aquí va la mercancía que <b>la tienda deja a un cliente</b> para que él la venda: sigue siendo de la tienda hasta que la liquides, y entonces el total pasa a su fiado.</p>
+    <div class="notice info">${icon("alert")}<div><b>¿Te dan mercancía a ti para vender?</b> (Casa Bella, Cítricos Caribe, las socias…) Eso no va aquí: véndela normal en <b>Vender</b>. En el panel de la dueña cada producto tiene marcado su dueño, y al venderlo la app apunta sola lo que hay que pagarle.</div></div>
     ${store ? "" : `<div class="notice warn">${icon("alert")}<div><b>Falta la ubicación principal</b>Créala en Inventario → Ubicaciones y conteos.</div></div>`}
     ${cards.join("") || `<p class="muted">Sin clientes en consignación.</p>`}
     <form id="fin-consign-new" class="nx-form">

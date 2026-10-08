@@ -10,7 +10,7 @@
   /* Tipografía */
   --nx-font-ui: 'Atkinson Hyperlegible', 'Segoe UI', system-ui, sans-serif;
   --nx-font-brand: var(--nx-font-ui);
-  --nx-fs-xs: 13px;
+  --nx-fs-xs: 14px;
   --nx-fs-sm: 15px;
   --nx-fs-md: 17px;
   --nx-fs-lg: 20px;

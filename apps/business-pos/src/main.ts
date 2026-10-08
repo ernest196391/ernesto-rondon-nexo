@@ -90,7 +90,7 @@ app.innerHTML = `
         <details class="panel"><summary>Último recibo</summary><div id="receipt-content"><p class="muted">Aún no hay ventas en esta sesión.</p></div></details>
         <details class="panel"><summary>Fiado y abonos</summary><div id="fin-fiado"></div></details>
         <details class="panel"><summary>Efectivo de mensajeros</summary><div id="fin-messenger"></div></details>
-        <details class="panel"><summary>Consignación</summary><div id="fin-consignment" class="nx-form"></div></details>
+        <details class="panel"><summary>Consignación a clientes</summary><div id="fin-consignment" class="nx-form"></div></details>
         <details class="panel"><summary>Resumen del negocio</summary><div id="fin-summary"></div></details>
         <details class="panel"><summary>Sincronización</summary><div id="fin-sync"></div></details>
         <details class="panel"><summary>Este equipo</summary><p class="t-sm" id="device-label"></p><p class="t-sm muted" id="history"></p><p class="t-sm muted" id="audit">Auditoría local pendiente…</p></details>
