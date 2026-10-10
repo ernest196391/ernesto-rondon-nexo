@@ -112,6 +112,7 @@ const FAVORITES = "__favoritos__";
 let favorites = new Set<string>();
 let groupsByKey = new Map<string, ProductGroup>();
 let stockNow = new Map<string, ProductStock>();
+let fullSyncInSession = false;
 let cartSheet: ReturnType<typeof openSheet> | null = null;
 /** Thumbnails saved on this device (url → data URL), so photos show offline. */
 const photoCache = new Map<string, string>();
@@ -194,11 +195,16 @@ async function renderNet() {
   } else if (state?.pending) {
     pill.className = "pill info";
     pill.innerHTML = `${icon("cloud", "sm")}Enviando ${state.pending}`;
+  } else if (!fullSyncInSession) {
+    pill.className = "pill info";
+    pill.innerHTML = `${icon("alert", "sm")}Verificar sincronización`;
   } else {
     pill.className = "pill ok";
     pill.innerHTML = `${icon("check", "sm")}Al día`;
   }
 }
+window.addEventListener("nexo:sync-complete", () => { fullSyncInSession = true; void renderNet(); });
+window.addEventListener("nexo:sync-failed", () => { fullSyncInSession = false; void renderNet(); });
 window.addEventListener("online", () => void renderNet());
 window.addEventListener("offline", () => void renderNet());
 window.setInterval(() => void renderNet(), 10_000);
