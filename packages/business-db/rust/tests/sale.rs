@@ -1,13 +1,15 @@
 use nexo_business_db::apply_all_migrations;
 use nexo_business_db::cash_shift::{open_shift, shift_summary, OpenShiftInput, OpeningFloatInput, ShiftScope};
 use nexo_business_db::sale::*;
+use nexo_business_db::stock::{replace_snapshot, CloudStock};
 use rusqlite::Connection;
 
 fn db() -> Connection {
-    let conn = Connection::open_in_memory().unwrap();
+    let mut conn = Connection::open_in_memory().unwrap();
     conn.pragma_update(None, "foreign_keys", "ON").unwrap();
     apply_all_migrations(&conn).unwrap();
     conn.execute_batch("INSERT INTO local_products (id,business_id,name,active,version,updated_at) VALUES ('silla','casa-viva','Silla',1,1,'t');").unwrap();
+    replace_snapshot(&mut conn, "casa-viva", &[CloudStock { product_id: "silla".into(), quantity: 100, min_stock: None }], "2026-10-03T12:00:00Z").unwrap();
     conn
 }
 
@@ -188,4 +190,48 @@ fn gestora_and_extra_lines_travel_in_the_sale_event() {
     assert_eq!(v["payload"]["channel"], "store");
     assert!(v["payload"]["gestor_id"].is_null());
     assert_eq!(v["payload"]["lines"][0]["extra"], false);
+}
+
+
+#[test]
+fn refuses_a_sale_without_verified_stock_and_saves_nothing() {
+    let mut conn = db();
+    conn.execute("DELETE FROM local_stock_snapshot WHERE business_id='casa-viva'", []).unwrap();
+    let err = complete_sale(&mut conn, &scope(), &sale("missing-stock", vec![pay("pay-missing", "cash", "USD", 3700, 3700, None)])).unwrap_err();
+    assert!(err.to_string().contains("Stock sin verificar"));
+    assert_eq!(scalar(&conn, "SELECT COUNT(*) FROM local_sales"), 0);
+    assert_eq!(scalar(&conn, "SELECT COUNT(*) FROM local_outbox"), 0);
+}
+
+#[test]
+fn refuses_overselling_including_repeated_lines() {
+    let mut conn = db();
+    replace_snapshot(&mut conn, "casa-viva", &[CloudStock { product_id: "silla".into(), quantity: 3, min_stock: None }], "2026-10-03T12:00:00Z").unwrap();
+    let mut too_many = sale("oversell", vec![pay("pay-over", "cash", "USD", 7400, 7400, None)]);
+    too_many.lines[0].quantity = 4;
+    too_many.lines[0].line_total_minor = 7400;
+    too_many.total_minor = 7400;
+    assert!(complete_sale(&mut conn, &scope(), &too_many).unwrap_err().to_string().contains("Solo quedan 3"));
+
+    let mut doubled = sale("twolines", vec![pay("pay-twoline", "cash", "USD", 7400, 7400, None)]);
+    let mut second_line = doubled.lines[0].clone();
+    second_line.line_id = "twolines-l2".into();
+    second_line.movement_id = "twolines-m2".into();
+    doubled.lines.push(second_line);
+    doubled.total_minor = 7400;
+    assert!(complete_sale(&mut conn, &scope(), &doubled).unwrap_err().to_string().contains("Solo quedan 3"));
+
+    assert_eq!(scalar(&conn, "SELECT COUNT(*) FROM local_sales"), 0);
+    assert_eq!(scalar(&conn, "SELECT COUNT(*) FROM local_inventory_movements"), 0);
+    assert_eq!(scalar(&conn, "SELECT COUNT(*) FROM local_outbox"), 0);
+}
+
+#[test]
+fn the_native_stock_gate_counts_previous_offline_sales() {
+    let mut conn = db();
+    replace_snapshot(&mut conn, "casa-viva", &[CloudStock { product_id: "silla".into(), quantity: 3, min_stock: None }], "2026-10-03T12:00:00Z").unwrap();
+    complete_sale(&mut conn, &scope(), &sale("first", vec![pay("pay-first", "cash", "USD", 3700, 3700, None)])).unwrap();
+    let second = sale("second", vec![pay("pay-second", "cash", "USD", 3700, 3700, None)]);
+    assert!(complete_sale(&mut conn, &scope(), &second).unwrap_err().to_string().contains("Solo quedan 1"));
+    assert_eq!(scalar(&conn, "SELECT COUNT(*) FROM local_sales"), 1);
 }
