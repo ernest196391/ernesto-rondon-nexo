@@ -1,9 +1,19 @@
 # ESTADO — dónde va cada proyecto
 
-**Última actualización:** 2026-10-08 (reparto Casa Viva + gestoras + voz clonada + comunidad; relevo en `docs/nexo-business/HANDOFF_2026-10-08_MENSAJERIA.md`).
+**Última actualización:** 2026-10-10 (fase 1 Casa Viva: incidencia de sobreventa en la caja; corrección en revisión, sin desplegar) (reparto Casa Viva + gestoras + voz clonada + comunidad; relevo en `docs/nexo-business/HANDOFF_2026-10-08_MENSAJERIA.md`).
 Regla: el agente que termine un bloque de trabajo actualiza **su fila** y la fecha de arriba.
 
 Estados: **FOCO** (se trabaja ahora) · **ACTIVO** (funciona, solo mantenimiento) · **ESPERA** (bloqueado por algo externo) · **PAUSADO** (no se toca hasta que se cumpla su condición) · **POR CLASIFICAR** (Ernesto debe decir qué es).
+
+---
+
+## Casa Viva — comprobación urgente del 10-oct-2026 (fase 1)
+- **Evidencia real:** Lennys instaló la caja Windows 1.0.3 y pudo añadir 14 "Toallas pequeña" aunque nube y conteo físico son 3. El producto no tenía stock verificado en la pantalla; el código permitía añadir unidades sin límite si faltaba la fila en el mapa de existencias.
+- **Solución propuesta, NO publicada:** rama `fix/casa-viva-stock-guard-20261010`, protege tarjeta, lector y carrito cuando no hay conteo; añade comprobación definitiva y atómica de existencias en Rust antes de guardar pagos/venta, incluso offline. Pruebas Rust pendientes de CI.
+- **Carrito:** ya tiene opción `Vaciar` en la hoja; Lennys confirmó su funcionamiento. Se aclaró el acceso como "Revisar · Cobrar"; no hay que vender para abrir el carrito.
+- **Datos:** 3 ventas de prueba previas siguen sin devolver; la sincronización horaria posterior registró conteos que revirtieron movimientos, así que se prohíben devoluciones automáticas hasta conciliar el efecto. Lennys confirmó 3 toallas físicamente.
+- **Siguiente paso exacto:** ejecutar CI Rust y compilación TS, revisar PR; generar instalador con nueva versión SOLO al aprobar la corrección; probar en la PC de Lennys el tope de 3 y la ausencia de stock. Después reconciliar las pruebas con asientos trazables, y verificar comisión y stock sin modificar datos reales sin autorización.
+- **Separación de seguridad:** inspección de funciones `SECURITY DEFINER` en `nexo-production` sin cambios de permisos todavía; revisar autorización interna antes de modificar SQL.
 
 ---
 
