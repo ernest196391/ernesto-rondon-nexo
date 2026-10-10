@@ -446,3 +446,9 @@ See:
 - `docs/nexo-business/AI_HANDOFF.md`
 
 Parallel-work rule: the desktop/Tauri implementation may advance from another chat/agent. Always inspect recent commits and current code before changing implementation; never roll back newer working progress to match stale chat context.
+
+
+### Catalog import unblocked — 2026-10-10
+- **Symptom (Lennys, Casa Viva):** the POS kept showing sold-out products and missed new ones. `catalog_sources.last_import_result` = `duplicate key value violates unique constraint "catalog_products_sku_idx"` since ~2026-10-08 (every hourly run failed, so devices got no catalog changes).
+- **Cause:** a product new on BizneCubano is imported as `bc-<sku>`; when the website publishes it, it arrives as `cv-<id>` with the same SKU, and the import tried to create a second row.
+- **Fix:** `nexo-catalog-import` (v8, deployed) keeps the existing `product_id` for a known SKU (`keepProductIds`) and drops duplicate SKUs in one batch; variants follow a renamed parent. No migration.

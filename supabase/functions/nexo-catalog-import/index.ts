@@ -231,6 +231,40 @@ function followBizne(snapshot: { generated_at: string; products: BizneProduct[] 
   return { items, snapshotAt: snapshot.generated_at, host };
 }
 
+/**
+ * A SKU keeps the product_id it already has in NEXO. A product first seen on BizneCubano
+ * is created as `bc-<sku>`; once the website publishes it, the website item arrives as
+ * `cv-<id>` with the same SKU and the unique (business, sku) index rejected the whole
+ * import (2026-10-08 → 10-10: devices stopped getting new and sold-out products).
+ * Reusing the existing id keeps device history and sales linked; duplicate SKUs in one
+ * batch keep only the first.
+ */
+// deno-lint-ignore no-explicit-any
+async function keepProductIds(admin: any, business: string, items: Item[]): Promise<Item[]> {
+  const { data, error } = await admin.rpc("nexo_business_catalog_items", { p_business: business });
+  if (error) throw new Error(`catalog read failed: ${error.message}`);
+  const idBySku = new Map<string, string>();
+  for (const c of (data ?? []) as Item[]) if (c.sku) idBySku.set(c.sku, c.productId);
+  const renamed = new Map<string, string>();
+  const seen = new Set<string>();
+  const out: Item[] = [];
+  for (const item of items) {
+    if (item.sku) {
+      if (seen.has(item.sku)) continue;
+      seen.add(item.sku);
+      const existing = idBySku.get(item.sku);
+      if (existing && existing !== item.productId) {
+        renamed.set(item.productId, existing);
+        out.push({ ...item, productId: existing });
+        continue;
+      }
+    }
+    out.push(item);
+  }
+  // Variants point at their parent's id: follow the rename.
+  return out.map(i => (i.variantOf && renamed.has(i.variantOf) ? { ...i, variantOf: renamed.get(i.variantOf)! } : i));
+}
+
 Deno.serve(async req => {
   if (req.method === "OPTIONS") return new Response(null, { status: 204, headers: cors });
   if (req.method !== "POST") return json(405, { error: "method_not_allowed" });
@@ -288,6 +322,7 @@ Deno.serve(async req => {
     } else {
       items = [...web.bySku.values()].flat();
     }
+    items = await keepProductIds(admin, business, items);
     const sourceName = source.kind === "biznecubano" ? "biznecubano" : host;
     const { data, error } = await admin.rpc("nexo_business_import_catalog", { p_business: business, p_source: sourceName, p_items: items });
     if (error) throw new Error(error.message);
