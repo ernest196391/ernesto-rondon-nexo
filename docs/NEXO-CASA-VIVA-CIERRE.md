@@ -74,3 +74,9 @@ Regla: no confundir compilación con funcionamiento real.
 3. Rama Supabase de prueba para la corrección de comisiones.
 4. Issue #132: actualizar Next.js.
 5. Prueba de la tienda de principio a fin (sin pedido real hasta tener aprobación).
+
+### Corrección 2026-10-10 23:40 UTC (Ernesto: "no le llegó a Lennys", "¿por qué no en casaviva.company?")
+- Causa del WhatsApp perdido: Lennys tiene el chat `110917564006425@lid`; el buzón mandó a `5356885368@s.whatsapp.net` → WhatsApp lo acepta ("enviado") pero no aparece en su chat. Arreglado: `nexo_panel_whatsapp_login_send` usa el `jid` del contacto (`to_group`). Ojo: el mismo problema afecta a otros envíos del buzón por teléfono (supervisor, reparto) → revisar en VivaBot.
+- El estado "enviado" del buzón **no prueba la entrega**: el bot no guarda copia de lo enviado. Solo la persona puede confirmarlo.
+- Panel publicado también en **https://casaviva.company/panel/** (carpeta estática en Hostinger, `.htaccess` sin caché). Enlace de acceso apunta ahí.
+- Probado por Claude: la página pide el enlace y responde bien; el enlace generado (`casaviva.company/panel/?acceso=…`) abre sesión (`/auth/v1/verify` → sesión OK). PENDIENTE: confirmación de entrega en WhatsApp por Ernesto y luego por Lennys.

@@ -1844,7 +1844,7 @@ $("#wa-login").onsubmit = async e => {
     const res = await fetch("https://viwwlriwlwodrfukbgbj.supabase.co/functions/v1/nexo-panel-whatsapp-login", {
       method: "POST",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify({ phone: new FormData(e.target).get("phone"), site: location.origin + "/" }),
+      body: JSON.stringify({ phone: new FormData(e.target).get("phone"), site: location.origin + location.pathname }),
     });
     const data = await res.json();
     show(data.message ?? data.error ?? "No se pudo enviar.", res.ok ? "ok" : "bad");

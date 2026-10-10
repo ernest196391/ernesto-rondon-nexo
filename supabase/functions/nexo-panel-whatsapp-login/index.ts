@@ -9,7 +9,7 @@ const cors = {
   "access-control-allow-headers": "content-type",
   "access-control-allow-methods": "POST, OPTIONS",
 };
-const SITES = ["https://negocio.nexocuba.com/", "https://nexo-negocio.vercel.app/"];
+const SITES = ["https://casaviva.company/panel/", "https://negocio.nexocuba.com/", "https://nexo-negocio.vercel.app/"];
 const SAME = { ok: true, message: "Si ese número está registrado en el panel, te llega un WhatsApp con el enlace para entrar." };
 
 const json = (status: number, body: unknown) =>
