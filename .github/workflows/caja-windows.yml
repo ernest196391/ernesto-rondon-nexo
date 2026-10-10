@@ -1,0 +1,49 @@
+# Compila el instalador de Windows de Casa Viva Core y lo deja en una versión (Release)
+# de GitHub para bajarlo sin la laptop. Se lanza a mano o al cambiar la caja en esta rama.
+name: Caja Windows (instalador)
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ccr-f459b3eb-utyhix]
+    paths: ['apps/business-pos/**', 'packages/business-*/**', '.github/workflows/caja-windows.yml']
+
+permissions:
+  contents: write
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    defaults:
+      run:
+        working-directory: apps/business-pos
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: swatinem/rust-cache@v2
+        with:
+          workspaces: apps/business-pos/src-tauri
+      - run: npm ci
+      - run: npx tauri build --bundles nsis
+      - name: Versión
+        id: v
+        shell: bash
+        run: echo "version=$(node -p "require('./src-tauri/tauri.conf.json').version")" >> "$GITHUB_OUTPUT"
+      - name: Copiar instalador con nombre fijo
+        shell: bash
+        run: cp src-tauri/target/release/bundle/nsis/*.exe "CasaVivaCore-Windows.exe"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: CasaVivaCore-Windows-${{ steps.v.outputs.version }}
+          path: apps/business-pos/CasaVivaCore-Windows.exe
+      - name: Publicar versión
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          tag="caja-v${{ steps.v.outputs.version }}"
+          gh release view "$tag" >/dev/null 2>&1 || gh release create "$tag" --target "$GITHUB_SHA" --title "Casa Viva Core ${{ steps.v.outputs.version }}" --notes "Instalador de Windows compilado en GitHub." --prerelease
+          gh release upload "$tag" CasaVivaCore-Windows.exe --clobber
