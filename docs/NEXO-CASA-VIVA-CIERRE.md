@@ -28,6 +28,13 @@ Regla: no confundir compilación con funcionamiento real.
 ### Ventas de prueba sin conciliar
 `862e588c` (80 USD), `92188b31` (23 USD), `226ba41d` (49 USD). PENDIENTE: comparar con el conteo físico antes de proponer ajustes. No tocar sin autorización.
 
+### Reinicio a cero (2026-10-10 22:30 UTC, autorizado por Ernesto: "todo lo hecho es de prueba")
+- Copia: esquema privado `nexo_backup` → `sync_events_20261010` (481 filas) y `commission_entries_20261010` (2).
+- Borrado en `casa-viva`: todas las ventas, devoluciones, turnos y conteos de existencias; comisiones. El candado `sync_events_append_only` se desactivó solo dentro de esa transacción y se comprobó reactivado.
+- Existencias recargadas con la importación programada (`run_scheduled_catalog_imports`) desde la foto de BizneCubano de las **22:34 UTC**: 217 productos con stock. Toalla pequeña `cv-684` = **3** (coincide con el conteo físico de Lennys).
+- Con esto las 3 ventas de prueba sin conciliar dejan de existir: VERIFICADO.
+- Cada equipo de caja debe borrar su base local (`%APPDATA%\com.nexo.business\nexo-business.db`, renombrarla) y darse de alta otra vez.
+
 ### Pendiente inmediato (en orden)
 1. Ernesto: pedir a Lennys la captura del aviso y si instaló 1.0.4.
 2. Fusionar `ccr` → `main` (avance rápido) y los borradores de Codex tras revisarlos.
