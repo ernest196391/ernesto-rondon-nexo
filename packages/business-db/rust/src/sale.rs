@@ -9,7 +9,9 @@
 //! the change it gave back.
 
 use crate::cash_shift::{self, normalize_currency, CashError, CashResult, ShiftScope};
+use crate::stock;
 use rusqlite::{params, Connection};
+use std::collections::BTreeMap;
 use serde::{Deserialize, Serialize};
 
 pub const SALE_CURRENCY: &str = "USD";
@@ -234,6 +236,26 @@ pub fn complete_sale(conn: &mut Connection, scope: &ShiftScope, input: &Complete
     validate_lines(input)?;
     let payments = validate_payments(input)?;
     let tx = conn.transaction()?;
+
+    // No se cobra sin existencias verificadas. La comprobación vive en la
+    // transacción (no solamente en la pantalla) para impedir ventas inválidas
+    // desde clientes viejos, lector de códigos o carritos obsoletos.
+    // Se suman líneas del mismo producto para que no se eluda el límite.
+    let mut requested: BTreeMap<&str, i64> = BTreeMap::new();
+    for line in &input.lines {
+        let qty = requested.entry(line.product_id.as_str()).or_insert(0);
+        *qty = qty.checked_add(line.quantity)
+            .ok_or_else(|| CashError::Validation("Cantidad de producto demasiado grande".into()))?;
+    }
+    let stock_rows = stock::current_stock(&tx, &scope.business_id, &[])?;
+    for (product_id, wanted) in requested {
+        let Some(available) = stock_rows.iter().find(|s| s.product_id == product_id) else {
+            return invalid("Stock sin verificar: sincroniza o registra el conteo antes de cobrar");
+        };
+        if wanted > available.quantity {
+            return invalid(&format!("Solo quedan {} unidades disponibles de {}", available.quantity.max(0), product_id));
+        }
+    }
 
     // The sale and its cash join this device's open shift, one drawer
     // currency per cash payment currency.
