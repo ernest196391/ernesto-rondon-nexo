@@ -61,7 +61,7 @@ Ernesto se quedó sin crédito en Claude Code. Este documento es todo lo que nec
 
 ## 3. Pendiente, en orden
 
-1. **Comprobar la Pregunta 149.**
+1. **Comprobar las Preguntas 149 y 155** (155 = orden CLONA MI VOZ, commit `1874048`, incluye la 149).
    - Que el VPS quedó en `e7c3f12`.
    - Que una foto nueva crea una fila en `crm_media`.
    - Revisar las respuestas del bot en `crm_messages` de las siguientes horas.
