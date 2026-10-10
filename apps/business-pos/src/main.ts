@@ -304,7 +304,7 @@ async function stockFor(productIds: string[] = []) {
 
 /** "Agotado" / "Quedan N" for tracked products at or below their warning level. */
 function stockBadge(stock: ProductStock | undefined) {
-  if (!stock) return "";
+  if (!stock) return '<span class="badge badge-out">Stock sin verificar</span>';
   if (stock.quantity <= 0) return `<span class="badge badge-out">Agotado</span>`;
   if (stock.quantity <= stock.lowAt) return `<span class="badge badge-low">Quedan ${stock.quantity}</span>`;
   return "";
@@ -376,9 +376,10 @@ function groupCard(g: ProductGroup) {
   const min = Math.min(...prices);
   const price = isVariants && Math.max(...prices) !== min ? `desde ${money(min)}` : money(min);
   const tracked = g.items.map(p => stockNow.get(p.id)).filter((s): s is ProductStock => Boolean(s));
-  const allOut = tracked.length === g.items.length && tracked.every(s => s.quantity <= 0);
+  // Una ficha sin conteo descargado no equivale a inventario ilimitado.
+  const allOut = g.items.every(p => (stockNow.get(p.id)?.quantity ?? 0) <= 0);
   const badge = isVariants
-    ? allOut ? stockBadge(tracked[0]) : ""
+    ? allOut ? stockBadge(tracked.length === g.items.length ? tracked[0] : undefined) : ""
     : stockBadge(stockNow.get(first.id));
   const qty = inCart(g);
   const photo = g.items.find(p => p.image_url)?.image_url ?? null;
@@ -464,7 +465,8 @@ function pickGroup(g: ProductGroup) {
   const isVariants = g.items.length > 1 || g.items[0].variant_of !== null;
   if (!isVariants) {
     const stock = stockNow.get(g.items[0].id);
-    if (stock && stock.quantity <= 0) return showToast(`${g.title} está agotado`, "error");
+    if (!stock) return showToast(`${g.title}: stock sin verificar · sincroniza o realiza un conteo`, "error");
+    if (stock.quantity <= 0) return showToast(`${g.title} está agotado`, "error");
     return addToCart(g.items[0]);
   }
   const sheet = openSheet(`
@@ -472,7 +474,7 @@ function pickGroup(g: ProductGroup) {
     <p class="t-sm muted">Elige la opción</p>
     <div class="vgrid">${g.items.map(p => {
       const s = stockNow.get(p.id);
-      const out = Boolean(s && s.quantity <= 0);
+      const out = !s || s.quantity <= 0;
       return `<button type="button" class="vopt" data-id="${escapeHtml(p.id)}" ${out ? "disabled" : ""}><span class="vname">${escapeHtml(p.variant_label ?? p.name)}</span><span class="num t-sm">${money(p.price_minor)}</span>${stockBadge(s)}</button>`;
     }).join("")}</div>`, `Opciones de ${g.title}`);
   sheet.el.querySelector<HTMLButtonElement>("[data-close]")!.onclick = sheet.close;
@@ -611,7 +613,7 @@ function renderCart() {
   const bar = $("#cartbar");
   bar.classList.toggle("is-empty", !count);
   bar.innerHTML = count
-    ? `<span class="count">${count} ${count === 1 ? "artículo" : "artículos"}</span><span class="go">Cobrar ${money(total)} ${icon("chevron", "sm")}</span>`
+    ? `<span class="count">${count} ${count === 1 ? "artículo" : "artículos"}</span><span class="go">Revisar · Cobrar ${money(total)} ${icon("chevron", "sm")}</span>`
     : `<span class="count">Carrito vacío</span>`;
 
   $("#side-cart-title").textContent = count ? `Carrito · ${count}` : "Carrito";
@@ -657,21 +659,26 @@ function openCart() {
 /** False (and a toast) when the cart would hold more units than the stock this device knows. */
 function withinStock(product: ListedProduct, wanted: number) {
   const stock = stockNow.get(product.id);
-  if (!stock || wanted <= stock.quantity) return true;
   const name = product.variant_label ? `${variantTitle(product)} · ${product.variant_label}` : product.name;
+  if (!stock) {
+    showToast(`${name}: stock sin verificar · sincroniza o realiza un conteo`, "error", 5500);
+    return false;
+  }
+  if (wanted <= stock.quantity) return true;
   showToast(stock.quantity <= 0 ? `${name} está agotado` : `Solo quedan ${stock.quantity} de ${name}`, "error");
   return false;
 }
 
 function addToCart(product: ListedProduct, undo = true) {
   const current = cart.get(product.id);
-  if (!withinStock(product, (current?.quantity ?? 0) + 1)) return;
+  if (!withinStock(product, (current?.quantity ?? 0) + 1)) return false;
   cart.set(product.id, { product, quantity: (current?.quantity ?? 0) + 1 });
   renderCart();
   if (undo) {
     const name = product.variant_label ? `${variantTitle(product)} · ${product.variant_label}` : product.name;
     showToast(`Añadido: ${name}`, "info", 3000, { label: "Deshacer", run: () => changeQuantity(product.id, -1) });
   }
+  return true;
 }
 
 function changeQuantity(productId: string, delta: number) {
@@ -712,7 +719,7 @@ async function addBarcodeToCart(code: string, source: "camera" | "hid" | "manual
     showToast(`Código no registrado: ${normalized}`, "error");
     return false;
   }
-  addToCart(rows[0], false);
+  if (!addToCart(rows[0], false)) return false;
   const sourceLabel = source === "camera" ? "Cámara" : source === "hid" ? "Lector" : "Código";
   showToast(`${sourceLabel} · ${rows[0].name}`, "success");
   setStatus("");
