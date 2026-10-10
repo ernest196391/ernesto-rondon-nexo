@@ -49,7 +49,15 @@ Regla: no confundir compilación con funcionamiento real.
 - Control: la app se abre con `WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS=--remote-debugging-port=9333` y se maneja por CDP (sin control de pantalla).
 - Turno abierto con fondo 0: OK.
 - Sobreventa: 4 toques sobre "Toallas pequeña" (stock 3) → el carrito se queda en 3 y aparece "Solo quedan 3 de Toallas pequeña". **VERIFICADO EN OPERACIÓN.**
-- Cobro de la venta: BLOQUEADO por el sistema de permisos de Claude Code (lo considera transacción real, porque se sincroniza con producción). Hace falta que Ernesto pulse el cobro o lo autorice.
+- Cobro: Ernesto cobró 3 toallas (30 USD, venta directa). Nube: stock 3 → 0, dependienta 0,15. VERIFICADO.
+- Devolución parcial (1 de 3, 10 USD efectivo): caja 30 → 20, stock nube 0 → 1. VERIFICADO.
+  - **Fallo encontrado y arreglado:** la devolución parcial anulaba la comisión entera. Migración `20261010230000_nexo_business_partial_return_commissions.sql` (aplicada en producción): anula y vuelve a crear la parte proporcional. Simulada antes (3 → 2 → 1 → 0, revertida) y aplicada.
+  - Mejora pendiente (UX): el campo "Reembolso" no se rellena solo con el precio de lo devuelto (aparece 0).
+- Venta con gestora Claudia (1 toalla, 10 USD): gestora 1,00 (10 %) + dependienta 0,05; stock 1 → 0. VERIFICADO.
+- Cierre de turno: debe haber 30 (40 ventas − 10 devolución), contado 30, "USD cuadra". VERIFICADO.
+- Panel de la dueña (`summary_for`): 2 ventas, 40 USD, 10 USD devueltos. VERIFICADO.
+- Venta sin internet: NO probada en el equipo (habría que cortar la red cambiando el cortafuegos; no se toca). Cubierta por las pruebas automáticas de Rust (stock offline, devoluciones offline).
+- Estas ventas son de prueba: hay que borrarlas antes de entregar a Lennys (mismo procedimiento con copia en `nexo_backup`).
 
 ### Pendiente inmediato (en orden)
 1. Ernesto: pedir a Lennys la captura del aviso y si instaló 1.0.4.
