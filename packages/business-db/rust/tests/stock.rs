@@ -107,3 +107,27 @@ fn without_a_store_location_nothing_is_aligned() {
     replace_snapshot(&mut conn, "biz", &[cloud("silla", 5, None)], "t1").unwrap();
     assert_eq!(align_default_location(&mut conn, "biz", "t1").unwrap(), 0);
 }
+
+#[test]
+fn offline_returns_restore_only_the_units_not_yet_in_the_cloud_snapshot() {
+    let mut conn = db();
+    sale(&conn, "s1", "silla", 2, None);
+    conn.execute_batch(
+        "INSERT INTO local_sale_returns
+          (id,business_id,branch_id,device_id,sale_id,currency,refund_minor,reason,occurred_at)
+          VALUES ('r1','biz','b','d','s1','USD',0,'prueba','2026-10-03T11:00:00Z');
+         INSERT INTO local_inventory_movements
+          (id,business_id,product_id,quantity_delta,reason,source_type,source_id,occurred_at)
+          VALUES ('m1','biz','silla',1,'return','sale_return','r1','2026-10-03T11:00:00Z');
+         INSERT INTO local_sale_return_lines (id,return_id,sale_line_id,product_id,quantity,inventory_movement_id)
+          VALUES ('rl1','r1','s1','silla',1,'m1');
+         INSERT INTO local_outbox (id,business_id,device_id,operation_type,entity_type,entity_id,payload_json,occurred_at)
+          VALUES ('or1','biz','d','sale.returned','sale_return','r1','{}','2026-10-03T11:00:00Z');"
+    ).unwrap();
+    replace_snapshot(&mut conn, "biz", &[cloud("silla", 3, None)], "2026-10-03T10:00:00Z").unwrap();
+    let qty = |c: &Connection| current_stock(c, "biz", &["silla".into()]).unwrap()[0].quantity;
+    assert_eq!(qty(&conn), 2, "3 del servidor - 2 ventas locales + 1 devuelta");
+    conn.execute("UPDATE local_outbox SET synced_at='2026-10-03T11:30:00Z'", []).unwrap();
+    replace_snapshot(&mut conn, "biz", &[cloud("silla", 2, None)], "2026-10-03T12:00:00Z").unwrap();
+    assert_eq!(qty(&conn), 2, "la siguiente foto ya tiene venta y devolución: no duplicar");
+}
