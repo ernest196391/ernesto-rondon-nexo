@@ -110,11 +110,15 @@ export async function pullCatalog(endpoint: string, deviceToken: string): Promis
 
 /** Replaces the local stock snapshot with the cloud's derived stock. */
 export async function pullStock(endpoint: string, deviceToken: string): Promise<number> {
+  // Reloj de ESTE equipo, no el del servidor: las ventas se marcan sincronizadas con la hora
+  // local, y si la PC va adelantada una venta ya incluida en la foto se restaba dos veces
+  // (Lennys 10/10: vendió 1 de 2 y la caja decía "Agotado").
+  const fetchedAt = new Date().toISOString();
   const response = await fetch(endpoint.replace(/nexo-sync-push\/?$/, "nexo-stock-pull"), { headers: { "x-nexo-device-token": deviceToken } });
   if (!response.ok) throw new Error(`Existencias: HTTP ${response.status}`);
-  const { stock, generatedAt } = (await response.json()) as { stock: unknown[]; generatedAt: string };
+  const { stock } = (await response.json()) as { stock: unknown[] };
   if (!Array.isArray(stock)) return 0;
-  const count = await invoke<number>("stock_replace", { items: stock, fetchedAt: generatedAt });
+  const count = await invoke<number>("stock_replace", { items: stock, fetchedAt });
   window.dispatchEvent(new CustomEvent("nexo:stock-updated"));
   return count;
 }
