@@ -1,0 +1,36 @@
+# Casa Viva — checkpoint de cierre (único, compartido entre Claude, Codex y ChatGPT)
+
+Etiquetas: DESARROLLADO · PROBADO EN CI · INSTALADO · VERIFICADO EN OPERACIÓN · PENDIENTE · BLOQUEADO.
+Regla: no confundir compilación con funcionamiento real.
+
+## Corte 2026-10-10 (noche) — Claude Code, bloque 1
+
+### Ramas y commits comprobados
+| Repo | Rama de integración real | Commit | Nota |
+|---|---|---|---|
+| `ernesto-rondon-nexo` | `ccr-f459b3eb-utyhix` | `1b51559` | `main` (`40c4820`) está **22 commits detrás**; se puede avanzar sin conflicto (solo avance rápido). Aún no fusionado. |
+| `Casa-Viva` | `main` | `eecbb92` (3.13.27) | PR #160 (borrador Codex, prueba CRLF) abierto |
+| `vivabot` | `main` | `523ea4a` (incluye `54e7d54`) | PR #2 (borrador Codex, negocio vacío en la cola) abierto. Despliegue en VPS **sin verificar** |
+
+### Caja (Casa Viva Core)
+- 1.0.4: DESARROLLADO · PROBADO EN CI (release `caja-v1.0.4`, run 38085383914).
+- Local, rama `ccr` el 2026-10-10: `tsc` de la caja OK; `cargo test` de `packages/business-db/rust` OK (60 pruebas, 0 fallos). La crate de `src-tauri` no tiene pruebas propias.
+- INSTALADO en PC de Lennys: **PENDIENTE de confirmar**.
+- Aviso de "virus": el instalador **no está firmado** (`tauri.conf.json` sin certificado). Lo más probable es Microsoft SmartScreen ("Windows protegió su PC") o el navegador marcando un .exe sin reputación, no una detección real. Falta ver la captura de Lennys para confirmarlo. No desactivar Defender. Camino correcto: comprobar el SHA-256 publicado y, a medio plazo, firma de código (certificado OV/EV o Azure Trusted Signing).
+
+### Comisiones (issue #133) — causa encontrada (solo lectura, nada cambiado)
+- El trigger `sync_events_commissions` → `record_commissions()` **sí funciona**: la venta `7263cbe5…` (22:26 UTC) creó su asiento de dependienta (0,10 USD). Hoy hay **1** asiento, no 0.
+- De los 26 `sale.completed`, **21 son ventas demo sin gestora ni dependienta** → 0 asientos es lo correcto.
+- Las 3 ventas de prueba (04:02–04:08 UTC) no dejaron asiento de dependienta porque en ese momento el % de dependienta era 0: `cost_settings` de casa-viva se cambió a las **17:02 UTC** (`staff_pct` = 0,50). El trigger calcula al insertar y no recalcula después. (Deducido de `updated_at`; no hay historial de cambios para probarlo al 100 %.)
+- La gestora sale con 0 USD porque **D36 se cargó en Casa Viva Core (WordPress), no en NEXO Business**: `product_costs` de casa-viva tiene solo 51 filas (del 2026-10-04), `cv-684` no está, y la regla general es `fixed 0` en lugar de 10 %.
+- Corrección propuesta (PENDIENTE de aprobación de Ernesto, toca dinero): (1) poner la regla general en `percent 10`; (2) copiar las comisiones por producto de Core a `product_costs` (por SKU); (3) función de recálculo que añada asientos que falten a ventas pasadas sin duplicar (por `event_id`), probada antes en una rama de Supabase.
+
+### Ventas de prueba sin conciliar
+`862e588c` (80 USD), `92188b31` (23 USD), `226ba41d` (49 USD). PENDIENTE: comparar con el conteo físico antes de proponer ajustes. No tocar sin autorización.
+
+### Pendiente inmediato (en orden)
+1. Ernesto: pedir a Lennys la captura del aviso y si instaló 1.0.4.
+2. Fusionar `ccr` → `main` (avance rápido) y los borradores de Codex tras revisarlos.
+3. Rama Supabase de prueba para la corrección de comisiones.
+4. Issue #132: actualizar Next.js.
+5. Prueba de la tienda de principio a fin (sin pedido real hasta tener aprobación).
