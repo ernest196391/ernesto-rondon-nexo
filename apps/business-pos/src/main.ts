@@ -654,8 +654,18 @@ function openCart() {
   renderCart();
 }
 
+/** False (and a toast) when the cart would hold more units than the stock this device knows. */
+function withinStock(product: ListedProduct, wanted: number) {
+  const stock = stockNow.get(product.id);
+  if (!stock || wanted <= stock.quantity) return true;
+  const name = product.variant_label ? `${variantTitle(product)} · ${product.variant_label}` : product.name;
+  showToast(stock.quantity <= 0 ? `${name} está agotado` : `Solo quedan ${stock.quantity} de ${name}`, "error");
+  return false;
+}
+
 function addToCart(product: ListedProduct, undo = true) {
   const current = cart.get(product.id);
+  if (!withinStock(product, (current?.quantity ?? 0) + 1)) return;
   cart.set(product.id, { product, quantity: (current?.quantity ?? 0) + 1 });
   renderCart();
   if (undo) {
@@ -668,6 +678,7 @@ function changeQuantity(productId: string, delta: number) {
   const current = cart.get(productId);
   if (!current) return;
   const next = current.quantity + delta;
+  if (delta > 0 && !withinStock(current.product, next)) return;
   if (next <= 0) cart.delete(productId);
   else cart.set(productId, { ...current, quantity: next });
   renderCart();

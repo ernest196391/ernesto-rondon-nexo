@@ -146,3 +146,5 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
 ## Decisiones pendientes de Ernesto (en orden)
 
 1. Recrear `automatizacion.nexocuba.com` con Higgsfield (siguiente tarea de diseño).
+
+**2026-10-10 04:00 UTC:** Caja (apps/business-pos): el carrito ya no deja añadir más unidades que las existencias conocidas por el equipo (aviso "Solo quedan N"). Falta compilar el nuevo instalador Windows/APK (no hay build en CI; se hace en la laptop de Ernesto) y enviarlo a Lennys, Zaymi y Nana. Web 3.13.27 (mejora #23) publicada. Fotos de BizneCubano ya en la caja (importación 03:50).
