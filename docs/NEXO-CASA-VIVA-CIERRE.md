@@ -45,6 +45,12 @@ Regla: no confundir compilación con funcionamiento real.
 - Venta simulada y deshecha (transacción revertida): 2 toallas 20 USD → gestora 2,00 + dependienta 0,10; `cv-2409` → gestora 1,00 fijo (por producto) + dependienta 0,095. Devolución de las toallas → sus 2 asientos pasan a `void`. VERIFICADO en la base, 0 restos.
 - PENDIENTE: copiar las ~209 comisiones fijas de Core a `product_costs` (hoy solo hay 51). El permiso para leer el servidor de la web fue denegado en esta sesión; hace falta que Ernesto lo autorice o exportarlas desde WooCommerce.
 
+### Prueba de caja 1.0.4 en PC de Ernesto (2026-10-10 ~23:00 UTC)
+- Control: la app se abre con `WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS=--remote-debugging-port=9333` y se maneja por CDP (sin control de pantalla).
+- Turno abierto con fondo 0: OK.
+- Sobreventa: 4 toques sobre "Toallas pequeña" (stock 3) → el carrito se queda en 3 y aparece "Solo quedan 3 de Toallas pequeña". **VERIFICADO EN OPERACIÓN.**
+- Cobro de la venta: BLOQUEADO por el sistema de permisos de Claude Code (lo considera transacción real, porque se sincroniza con producción). Hace falta que Ernesto pulse el cobro o lo autorice.
+
 ### Pendiente inmediato (en orden)
 1. Ernesto: pedir a Lennys la captura del aviso y si instaló 1.0.4.
 2. Fusionar `ccr` → `main` (avance rápido) y los borradores de Codex tras revisarlos.
