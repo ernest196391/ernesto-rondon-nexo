@@ -17,7 +17,14 @@
 <div class="nx dash" data-theme="casaviva" id="root">
   <section class="login" id="auth">
     <div class="brand-lockup"><span data-iso></span><span class="logo-name">Casa Viva</span><span class="t-sm muted">Administración del negocio</span></div>
-    <form class="panel form" id="login">
+    <form class="panel form" id="wa-login">
+      <label class="field">Tu WhatsApp<input class="input" name="phone" type="tel" inputmode="numeric" autocomplete="tel" placeholder="Ej.: 56885368" required></label>
+      <button type="submit" class="btn btn-primary btn-xl btn-block">Recibir enlace por WhatsApp</button>
+      <p class="t-sm muted">Te llega un mensaje con un enlace para entrar. Sin correo y sin contraseña.</p>
+      <p class="msg" id="wa-msg" role="status"></p>
+      <button type="button" class="btn btn-ghost btn-block" id="use-email">Entrar con correo y contraseña</button>
+    </form>
+    <form class="panel form" id="login" hidden>
       <label class="field">Correo<input class="input" name="email" type="email" autocomplete="email" required></label>
       <label class="field">Contraseña<input class="input" name="password" id="pw" type="password" autocomplete="current-password" minlength="8" required></label>
       <label class="t-sm"><input type="checkbox" id="pw-show"> Ver contraseña</label>
@@ -25,6 +32,7 @@
       <button type="button" class="btn btn-ghost btn-block" id="signup">Crear cuenta</button>
       <button type="button" class="btn btn-ghost btn-block" id="forgot">¿Olvidaste tu contraseña?</button>
       <p class="msg" id="auth-msg" role="status"></p>
+      <button type="button" class="btn btn-ghost btn-block" id="use-wa">Entrar con WhatsApp</button>
     </form>
   </section>
 
@@ -1824,6 +1832,35 @@ supabase.auth.onAuthStateChange(async event => {
   const { error } = await supabase.auth.updateUser({ password });
   toast(error ? `No se pudo cambiar: ${error.message}` : "Contraseña cambiada ✅", error ? "bad" : "ok");
 });
+// Entrar con WhatsApp: el bot manda un enlace de un solo uso (…/?acceso=<token>).
+$("#use-email").onclick = () => { $("#wa-login").hidden = true; $("#login").hidden = false; };
+$("#use-wa").onclick = () => { $("#login").hidden = true; $("#wa-login").hidden = false; };
+$("#wa-login").onsubmit = async e => {
+  e.preventDefault();
+  const msg = $("#wa-msg");
+  const show = (text, kind) => { msg.textContent = text; msg.className = `msg ${kind ?? ""}`; };
+  show("Enviando…");
+  try {
+    const res = await fetch("https://viwwlriwlwodrfukbgbj.supabase.co/functions/v1/nexo-panel-whatsapp-login", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ phone: new FormData(e.target).get("phone"), site: location.origin + "/" }),
+    });
+    const data = await res.json();
+    show(data.message ?? data.error ?? "No se pudo enviar.", res.ok ? "ok" : "bad");
+  } catch {
+    show("Sin conexión. Prueba otra vez.", "bad");
+  }
+};
+const accessToken = new URLSearchParams(location.search).get("acceso");
+if (accessToken) {
+  history.replaceState(null, "", location.pathname);
+  const { error } = await supabase.auth.verifyOtp({ token_hash: accessToken, type: "magiclink" });
+  if (error) {
+    $("#wa-msg").textContent = "Ese enlace ya se usó o caducó. Pide otro aquí abajo.";
+    $("#wa-msg").className = "msg bad";
+  }
+}
 $("#refresh").onclick = async () => { catalog = null; costSheet = null; await load(); toast("Actualizado", "ok"); };
 
 $("#logout").onclick = () => supabase.auth.signOut();
