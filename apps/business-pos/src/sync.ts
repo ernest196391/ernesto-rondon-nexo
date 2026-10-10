@@ -117,7 +117,7 @@ export async function pullStock(endpoint: string, deviceToken: string): Promise<
   const response = await fetch(endpoint.replace(/nexo-sync-push\/?$/, "nexo-stock-pull"), { headers: { "x-nexo-device-token": deviceToken } });
   if (!response.ok) throw new Error(`Existencias: HTTP ${response.status}`);
   const { stock } = (await response.json()) as { stock: unknown[] };
-  if (!Array.isArray(stock)) return 0;
+  if (!Array.isArray(stock)) throw new Error("Existencias: respuesta inválida del servidor");
   const count = await invoke<number>("stock_replace", { items: stock, fetchedAt });
   window.dispatchEvent(new CustomEvent("nexo:stock-updated"));
   return count;
@@ -173,22 +173,19 @@ async function syncOnce(): Promise<SyncState | undefined> {
     // Never push or pull under an identity the key does not belong to.
     await provisionDevice(endpoint, token);
     const state = await pushOutbox(endpoint, token);
+    // "Al día" debe significar que catálogo, existencias y tasas llegaron.
+    // Antes se ocultaban errores de las tres descargas mientras el POS mostraba
+    // una marca verde aun sin stock para algunos artículos.
     try {
       await pullCatalog(endpoint, token);
-    } catch (e) {
-      console.warn("catalog pull", e);
-    }
-    try {
       await pullStock(endpoint, token);
-    } catch (e) {
-      console.warn("stock pull", e);
-    }
-    try {
       await pullRates(endpoint, token);
-    } catch (e) {
-      console.warn("rates pull", e);
+      window.dispatchEvent(new Event("nexo:sync-complete"));
+      return state;
+    } catch (error) {
+      window.dispatchEvent(new Event("nexo:sync-failed"));
+      throw error;
     }
-    return state;
   } finally {
     running = false;
   }
