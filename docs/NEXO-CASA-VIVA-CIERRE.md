@@ -59,6 +59,15 @@ Regla: no confundir compilación con funcionamiento real.
 - Venta sin internet: NO probada en el equipo (habría que cortar la red cambiando el cortafuegos; no se toca). Cubierta por las pruebas automáticas de Rust (stock offline, devoluciones offline).
 - Estas ventas son de prueba: hay que borrarlas antes de entregar a Lennys (mismo procedimiento con copia en `nexo_backup`).
 
+### Panel de la dueña: entrar con WhatsApp (2026-10-10 23:27 UTC)
+- Problema: Lennys no podía entrar (sin botón de recuperar, correos de Supabase no llegaban a Gmail, no se veía la contraseña). Las mejoras de ChatGPT (`2d1a819`) estaban en la rama `ccr` sin publicar; Vercel no publicaba nada desde el 4-oct (la conexión automática con GitHub no dispara).
+- Hecho: pantalla de entrada con **"Recibir enlace por WhatsApp"** como opción principal; correo + contraseña (con "Ver contraseña" y "¿Olvidaste…?") como segunda opción.
+  - Función `nexo-panel-whatsapp-login` (desplegada): busca `members.whatsapp`, genera un enlace de un solo uso (`generateLink` → `?acceso=<token_hash>` → `verifyOtp`), lo encola en `crm_outbox` (`created_by='panel-acceso'`). Misma respuesta exista o no el número; 1 enlace cada 2 min y 5 al día por número.
+  - Migración `20261010233000_nexo_business_panel_whatsapp_login.sql` aplicada. WhatsApp de Lennys (5356885368) y Ernesto (5354056173) cargados.
+- `main` avanzado a la rama `ccr` (`3a20101`) y publicado a mano con un redeploy en Vercel (`dpl_5CKedD9S9npgckzA9rQmiyogLxgw`). VERIFICADO en `negocio.nexocuba.com`.
+- Enviados a Lennys (outbox 203 y 204, estado `enviado`): explicación + su primer enlace. PENDIENTE: que confirme que entró.
+- PENDIENTE: reconectar el despliegue automático de Vercel con GitHub (hoy hay que publicar a mano).
+
 ### Pendiente inmediato (en orden)
 1. Ernesto: pedir a Lennys la captura del aviso y si instaló 1.0.4.
 2. Fusionar `ccr` → `main` (avance rápido) y los borradores de Codex tras revisarlos.
