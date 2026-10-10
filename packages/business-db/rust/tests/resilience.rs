@@ -23,6 +23,11 @@ fn seed(conn: &Connection) {
            ('toalla','casa-viva','Toalla',1,1,'t'),('sarten','casa-viva','Sartén',1,1,'t');",
     )
     .unwrap();
+    // Los ensayos offline parten de un último conteo verificable; sin él
+    // una caja no debe autorizar ventas aunque no tenga internet.
+    conn.execute_batch("INSERT INTO local_stock_snapshot (business_id,product_id,quantity,min_stock,fetched_at) VALUES
+        ('casa-viva','toalla',10000,NULL,'2026-10-03T07:00:00Z'),
+        ('casa-viva','sarten',10000,NULL,'2026-10-03T07:00:00Z');").unwrap();
 }
 
 fn memory_db() -> Connection {

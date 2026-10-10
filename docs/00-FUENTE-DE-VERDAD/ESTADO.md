@@ -1,9 +1,20 @@
 # ESTADO — dónde va cada proyecto
 
-**Última actualización:** 2026-10-08 (reparto Casa Viva + gestoras + voz clonada + comunidad; relevo en `docs/nexo-business/HANDOFF_2026-10-08_MENSAJERIA.md`).
+**Última actualización:** 2026-10-10 (fase 1 Casa Viva: incidencia de sobreventa en la caja; corrección en revisión, sin desplegar) (reparto Casa Viva + gestoras + voz clonada + comunidad; relevo en `docs/nexo-business/HANDOFF_2026-10-08_MENSAJERIA.md`).
 Regla: el agente que termine un bloque de trabajo actualiza **su fila** y la fecha de arriba.
 
 Estados: **FOCO** (se trabaja ahora) · **ACTIVO** (funciona, solo mantenimiento) · **ESPERA** (bloqueado por algo externo) · **PAUSADO** (no se toca hasta que se cumpla su condición) · **POR CLASIFICAR** (Ernesto debe decir qué es).
+
+---
+
+## Casa Viva — comprobación urgente del 10-oct-2026 (fase 1)
+- **Evidencia real:** Lennys instaló la caja Windows 1.0.3 y pudo añadir 14 "Toallas pequeña" aunque nube y conteo físico son 3. El producto no tenía stock verificado en la pantalla; el código permitía añadir unidades sin límite si faltaba la fila en el mapa de existencias.
+- **Solución propuesta, NO publicada:** PR #131 (`fix/casa-viva-stock-guard-20261010`); bloquea stock desconocido en tarjeta/lector/carrito y en transacción Rust (incluidos ventas offline y líneas repetidas), incorpora devoluciones offline en stock calculado, y hace visible si falla la descarga de catálogo/stock/tasas. CI Rust y TypeScript POS **aprobadas**; CI general **falló por vulnerabilidad crítica Next.js 16.3.4** (issue #132), no por POS.
+- **Carrito:** ya tiene opción `Vaciar` en la hoja; Lennys confirmó su funcionamiento. Se aclaró el acceso como "Revisar · Cobrar"; no hay que vender para abrir el carrito.
+- **Datos:** 3 ventas de prueba previas siguen sin devolver; la sincronización horaria posterior registró conteos que revirtieron movimientos, así que se prohíben devoluciones automáticas hasta conciliar el efecto. Lennys confirmó 3 toallas físicamente.
+- **Siguiente paso exacto:** revisar/aprobar PR #131 (versión 1.0.4 reservada en rama), generar instalador sin sustituir release 1.0.3; probar en PC de Lennys tope de 3 y stock sin verificar, comprobar `Vaciar` y estado de sincronización. Antes de pasar a ventas reales, conciliar las 3 ventas de prueba con asientos reversibles y confirmar los cálculos de comisión. No modificar producción sin autorización.
+- **Comisiones BLOQUEANTE:** `nexo_business.cost_settings` en `casa-viva` tiene `commission_mode='fixed'`, `commission_value=0`, diferente de la regla D36 (10 % general y excepciones por producto). Para la venta simulada de 8 toallas, `line_entries()` calcula **0 USD de gestora** (y 0,40 USD de dependienta); `commission_entries` está vacía pese a 26 ventas sincronizadas (1 gestora, 4 con dependienta). Issue #133; auditar trigger e integración; corregir regla solo tras aprobación explícita. Web WooCommerce calcula comisiones por su propio Core: no asumir que arregla la caja.
+- **Separación de seguridad:** inspección de funciones `SECURITY DEFINER` en `nexo-production` sin cambios de permisos todavía; revisar autorización interna antes de modificar SQL.
 
 ---
 

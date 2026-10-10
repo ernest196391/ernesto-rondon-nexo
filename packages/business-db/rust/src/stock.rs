@@ -56,6 +56,13 @@ pub fn current_stock(conn: &Connection, business_id: &str, product_ids: &[String
                   LEFT JOIN local_outbox o ON o.entity_type = 'sale' AND o.entity_id = sa.id
                   WHERE l.product_id = s.product_id
                     AND (o.id IS NULL OR o.synced_at IS NULL OR o.synced_at > s.fetched_at)
+                ), 0) + COALESCE((
+                  SELECT SUM(rl.quantity) FROM local_sale_return_lines rl
+                  JOIN local_sale_returns r ON r.id = rl.return_id
+                  LEFT JOIN local_outbox o ON o.entity_type = 'sale_return' AND o.entity_id = r.id
+                  WHERE r.business_id = s.business_id
+                    AND rl.product_id = s.product_id
+                    AND (o.id IS NULL OR o.synced_at IS NULL OR o.synced_at > s.fetched_at)
                 ), 0),
                 COALESCE(s.min_stock, ?2)
          FROM local_stock_snapshot s

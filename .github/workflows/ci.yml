@@ -63,3 +63,21 @@ jobs:
 
       - name: Rust tests (SQLite migrations and cash ledger)
         run: cargo test --locked
+
+  business-pos-typescript:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: apps/business-pos
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Install POS dependencies
+        run: npm ci --no-audit --no-fund
+      - name: Verificar tipos POS
+        run: npx tsc --noEmit -p tsconfig.json
