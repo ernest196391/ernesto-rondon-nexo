@@ -35,6 +35,16 @@ Regla: no confundir compilación con funcionamiento real.
 - Con esto las 3 ventas de prueba sin conciliar dejan de existir: VERIFICADO.
 - Cada equipo de caja debe borrar su base local (`%APPDATA%\com.nexo.business\nexo-business.db`, renombrarla) y darse de alta otra vez.
 
+### PC de Ernesto (2026-10-10 22:55 UTC)
+- Caja **1.0.4 INSTALADA** (instalador comprobado por SHA-256 `4d7cfddf…e787`; sin firma → "NotSigned"; Defender sin detecciones). Antes tenía 1.0.0.
+- Base local nueva: identidad `windows-pilot-01`, 318 productos, 217 existencias, 0 ventas.
+- Ruido: entre 22:35 y 22:40 UTC una compilación de pruebas de Codex (`Documents\Chat Gpt codex\NEXO\build\tauri-qa\debug`) abrió/cerró 2 turnos vacíos. Sin dinero ni stock; se dejan.
+
+### Comisiones: regla general aplicada
+- `cost_settings` casa-viva → `percent 10` (D36), autorizado por Ernesto.
+- Venta simulada y deshecha (transacción revertida): 2 toallas 20 USD → gestora 2,00 + dependienta 0,10; `cv-2409` → gestora 1,00 fijo (por producto) + dependienta 0,095. Devolución de las toallas → sus 2 asientos pasan a `void`. VERIFICADO en la base, 0 restos.
+- PENDIENTE: copiar las ~209 comisiones fijas de Core a `product_costs` (hoy solo hay 51). El permiso para leer el servidor de la web fue denegado en esta sesión; hace falta que Ernesto lo autorice o exportarlas desde WooCommerce.
+
 ### Pendiente inmediato (en orden)
 1. Ernesto: pedir a Lennys la captura del aviso y si instaló 1.0.4.
 2. Fusionar `ccr` → `main` (avance rápido) y los borradores de Codex tras revisarlos.
