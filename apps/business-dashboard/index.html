@@ -17,23 +17,70 @@
 <div class="nx dash" data-theme="casaviva" id="root">
   <section class="login" id="auth">
     <div class="brand-lockup"><span data-iso></span><span class="logo-name">Casa Viva</span><span class="t-sm muted">Administración del negocio</span></div>
-    <form class="panel form" id="wa-login">
+    <!-- Una sola vista visible a la vez (data-view). -->
+    <form class="panel form" data-view="wa" id="wa-login">
+      <h2 class="t-lg">Entrar</h2>
       <label class="field">Tu WhatsApp<input class="input" name="phone" type="tel" inputmode="numeric" autocomplete="tel" placeholder="Ej.: 56885368" required></label>
       <button type="submit" class="btn btn-primary btn-xl btn-block">Recibir enlace por WhatsApp</button>
       <p class="t-sm muted">Te llega un mensaje con un enlace para entrar. Sin correo y sin contraseña.</p>
       <p class="msg" id="wa-msg" role="status"></p>
-      <button type="button" class="btn btn-ghost btn-block" id="use-email">Entrar con correo y contraseña</button>
+      <button type="button" class="btn btn-ghost btn-block" data-go="login">Iniciar sesión con correo y contraseña</button>
+      <button type="button" class="btn btn-ghost btn-block" data-go="signup">Crear cuenta nueva</button>
     </form>
-    <form class="panel form" id="login" hidden>
+
+    <form class="panel form" data-view="login" id="login" hidden>
+      <h2 class="t-lg">Iniciar sesión</h2>
       <label class="field">Correo<input class="input" name="email" type="email" autocomplete="email" required></label>
-      <label class="field">Contraseña<input class="input" name="password" id="pw" type="password" autocomplete="current-password" minlength="8" required></label>
-      <label class="t-sm"><input type="checkbox" id="pw-show"> Ver contraseña</label>
-      <button type="submit" class="btn btn-primary btn-xl btn-block">Entrar</button>
-      <button type="button" class="btn btn-ghost btn-block" id="signup">Crear cuenta</button>
-      <button type="button" class="btn btn-ghost btn-block" id="forgot">¿Olvidaste tu contraseña?</button>
-      <p class="msg" id="auth-msg" role="status"></p>
-      <button type="button" class="btn btn-ghost btn-block" id="use-wa">Entrar con WhatsApp</button>
+      <label class="field">Contraseña<input class="input" name="password" type="password" autocomplete="current-password" required></label>
+      <label class="t-sm"><input type="checkbox" data-show-pw> Ver contraseña</label>
+      <button type="submit" class="btn btn-primary btn-xl btn-block">Iniciar sesión</button>
+      <p class="msg" data-msg role="status"></p>
+      <button type="button" class="btn btn-secondary btn-block" id="resend-verify" hidden>Reenviar correo de verificación</button>
+      <button type="button" class="btn btn-ghost btn-block" data-go="forgot">¿Olvidaste tu contraseña?</button>
+      <button type="button" class="btn btn-ghost btn-block" data-go="signup">Crear cuenta nueva</button>
+      <button type="button" class="btn btn-ghost btn-block" data-go="wa">Entrar con WhatsApp</button>
     </form>
+
+    <form class="panel form" data-view="signup" id="signup-form" hidden>
+      <h2 class="t-lg">Crear cuenta</h2>
+      <label class="field">Correo<input class="input" name="email" type="email" autocomplete="email" required></label>
+      <label class="field">Contraseña (mínimo 8)<input class="input" name="password" type="password" autocomplete="new-password" minlength="8" required></label>
+      <label class="field">Repite la contraseña<input class="input" name="password2" type="password" autocomplete="new-password" minlength="8" required></label>
+      <label class="t-sm"><input type="checkbox" data-show-pw> Ver contraseña</label>
+      <button type="submit" class="btn btn-primary btn-xl btn-block">Crear cuenta</button>
+      <p class="msg" data-msg role="status"></p>
+      <button type="button" class="btn btn-ghost btn-block" data-go="login">Ya tengo cuenta: iniciar sesión</button>
+    </form>
+
+    <div class="panel form" data-view="check-email" hidden>
+      <h2 class="t-lg" id="check-title">Revisa tu correo</h2>
+      <p id="check-text"></p>
+      <p class="t-sm muted">Si no lo ves en unos minutos, mira en «Spam» o «Promociones».</p>
+      <button type="button" class="btn btn-secondary btn-block" id="check-resend">Reenviar el correo</button>
+      <p class="msg" data-msg role="status"></p>
+      <button type="button" class="btn btn-primary btn-block" data-go="login">Iniciar sesión</button>
+      <button type="button" class="btn btn-ghost btn-block" data-go="wa">Entrar con WhatsApp</button>
+    </div>
+
+    <form class="panel form" data-view="forgot" id="forgot-form" hidden>
+      <h2 class="t-lg">¿Olvidaste tu contraseña?</h2>
+      <p class="t-sm muted">Te mandamos un correo para elegir una contraseña nueva.</p>
+      <label class="field">Correo<input class="input" name="email" type="email" autocomplete="email" required></label>
+      <button type="submit" class="btn btn-primary btn-xl btn-block">Enviar correo</button>
+      <p class="msg" data-msg role="status"></p>
+      <button type="button" class="btn btn-ghost btn-block" data-go="wa">Mejor entrar con WhatsApp</button>
+      <button type="button" class="btn btn-ghost btn-block" data-go="login">Volver a iniciar sesión</button>
+    </form>
+
+    <form class="panel form" data-view="new-password" id="new-password-form" hidden>
+      <h2 class="t-lg">Elige tu contraseña nueva</h2>
+      <label class="field">Contraseña nueva (mínimo 8)<input class="input" name="password" type="password" autocomplete="new-password" minlength="8" required></label>
+      <label class="field">Repítela<input class="input" name="password2" type="password" autocomplete="new-password" minlength="8" required></label>
+      <label class="t-sm"><input type="checkbox" data-show-pw> Ver contraseña</label>
+      <button type="submit" class="btn btn-primary btn-xl btn-block">Guardar y entrar</button>
+      <p class="msg" data-msg role="status"></p>
+    </form>
+    <p class="msg" id="auth-msg" role="status" hidden></p>
   </section>
 
   <nav class="nav" id="nav" aria-label="Secciones" hidden>
@@ -177,6 +224,11 @@ const supabase = createClient(
   "https://viwwlriwlwodrfukbgbj.supabase.co",
   "sb_publishable_1NdUSjDeoYWTMgu2MYOfeg_1K0G241x",
 );
+// Leído antes de que supabase-js limpie la dirección: de qué correo vuelve la persona.
+const authReturn = (() => {
+  const h = new URLSearchParams(location.hash.slice(1)), q = new URLSearchParams(location.search);
+  return { type: h.get("type") ?? q.get("type"), error: h.get("error_description") ?? q.get("error_description") };
+})();
 
 // ---------- UI helpers ----------
 const $ = s => document.querySelector(s);
@@ -1786,6 +1838,8 @@ $("#new-device").onsubmit = async e => {
 // ---------- Session ----------
 let shownUser = null;
 async function show(session) {
+  // Volviendo de «olvidé mi contraseña»: primero la contraseña nueva, luego el panel.
+  if (recovering) return;
   const userId = session?.user?.id ?? null;
   // Token refreshes re-fire auth events; only redraw when the user changes.
   if (userId === shownUser) return;
@@ -1801,65 +1855,150 @@ async function show(session) {
   }
 }
 
+// ---------- Entrada: WhatsApp, iniciar sesión, crear cuenta, verificar, olvidé ----------
+const here = location.origin + location.pathname;
+let authView = "wa";
+function view(name, text, tone = "") {
+  authView = name;
+  document.querySelectorAll("#auth [data-view]").forEach(v => { v.hidden = v.dataset.view !== name; });
+  const box = document.querySelector(`#auth [data-view="${name}"] [data-msg], #auth [data-view="${name}"] #wa-msg`);
+  if (box) { box.textContent = text ?? ""; box.dataset.tone = tone; }
+}
+const viewMsg = (text, tone = "") => view(authView, text, tone);
+document.querySelectorAll("#auth [data-go]").forEach(b => {
+  b.onclick = () => {
+    // Lleva el correo escrito de una pantalla a otra.
+    const email = document.querySelector(`#auth [data-view="${authView}"] [name=email]`)?.value;
+    view(b.dataset.go);
+    const next = document.querySelector(`#auth [data-view="${b.dataset.go}"] [name=email]`);
+    if (email && next && !next.value) next.value = email;
+  };
+});
+document.querySelectorAll("#auth [data-show-pw]").forEach(c => {
+  c.onchange = () => c.closest("form").querySelectorAll("input[name^=password]").forEach(i => { i.type = c.checked ? "text" : "password"; });
+});
+
+let pendingEmail = "", pendingKind = "signup", resendAt = 0;
+function checkEmail(email, kind) {
+  pendingEmail = email; pendingKind = kind; resendAt = Date.now() + 60_000;
+  $("#check-title").textContent = kind === "signup" ? "Verifica tu correo" : "Revisa tu correo";
+  $("#check-text").textContent = kind === "signup"
+    ? `Te enviamos un correo a ${email}. Toca «Confirmar» en ese correo: tu cuenta queda verificada y entras directamente.`
+    : `Te enviamos un correo a ${email} para elegir una contraseña nueva.`;
+  view("check-email");
+}
+$("#check-resend").onclick = async () => {
+  const wait = Math.ceil((resendAt - Date.now()) / 1000);
+  if (wait > 0) return viewMsg(`Espera ${wait} segundos para pedir otro.`, "bad");
+  viewMsg("Enviando…");
+  const { error } = pendingKind === "signup"
+    ? await supabase.auth.resend({ type: "signup", email: pendingEmail, options: { emailRedirectTo: here } })
+    : await supabase.auth.resetPasswordForEmail(pendingEmail, { redirectTo: here });
+  resendAt = Date.now() + 60_000;
+  viewMsg(error ? "No se pudo reenviar. Prueba en un minuto." : "Listo, te lo enviamos otra vez.", error ? "bad" : "ok");
+};
+
 $("#login").onsubmit = async e => {
   e.preventDefault();
   const f = new FormData(e.target);
-  say("Entrando…");
+  $("#resend-verify").hidden = true;
+  viewMsg("Entrando…");
   const { error } = await supabase.auth.signInWithPassword({ email: f.get("email"), password: f.get("password") });
-  if (error) say(error.message === "Email not confirmed" ? "Confirma tu correo con el enlace que te enviamos y vuelve a entrar." : "Correo o contraseña incorrectos.", "bad");
+  if (!error) return;
+  if (error.message === "Email not confirmed") {
+    $("#resend-verify").hidden = false;
+    return viewMsg("Tu correo aún no está verificado. Toca el enlace del correo que te enviamos o pide otro aquí abajo.", "bad");
+  }
+  viewMsg("Correo o contraseña incorrectos. Si no la recuerdas, toca «¿Olvidaste tu contraseña?» o entra con WhatsApp.", "bad");
 };
-$("#signup").onclick = async () => {
-  const form = $("#login");
-  if (!form.reportValidity()) return;
-  const f = new FormData(form);
-  say("Creando cuenta…");
-  const { error } = await supabase.auth.signUp({ email: f.get("email"), password: f.get("password"), options: { emailRedirectTo: location.origin + location.pathname } });
-  say(error ? `No se pudo crear la cuenta: ${error.message}` : "Cuenta creada. Revisa tu correo para confirmarla y después entra.", error ? "bad" : "ok");
-};
-$("#pw-show").onchange = e => { $("#pw").type = e.target.checked ? "text" : "password"; };
-$("#forgot").onclick = async () => {
+$("#resend-verify").onclick = async () => {
   const email = new FormData($("#login")).get("email");
-  if (!email) return say("Escribe tu correo arriba y vuelve a tocar «¿Olvidaste tu contraseña?».", "bad");
-  say("Enviando…");
-  const { error } = await supabase.auth.resetPasswordForEmail(email, { redirectTo: location.origin + location.pathname });
-  say(error ? `No se pudo enviar: ${error.message}` : "Te enviamos un correo para elegir una contraseña nueva (mira también en Spam).", error ? "bad" : "ok");
+  const { error } = await supabase.auth.resend({ type: "signup", email, options: { emailRedirectTo: here } });
+  if (error) return viewMsg("No se pudo reenviar. Prueba en un minuto.", "bad");
+  checkEmail(email, "signup");
 };
-// Al volver del correo de «olvidé mi contraseña», pide la nueva.
-supabase.auth.onAuthStateChange(async event => {
+
+$("#signup-form").onsubmit = async e => {
+  e.preventDefault();
+  const f = new FormData(e.target);
+  if (f.get("password") !== f.get("password2")) return viewMsg("Las dos contraseñas no son iguales.", "bad");
+  viewMsg("Creando cuenta…");
+  const email = String(f.get("email")).trim();
+  const { data, error } = await supabase.auth.signUp({ email, password: f.get("password"), options: { emailRedirectTo: here } });
+  if (error) {
+    const known = /registered|already/i.test(error.message);
+    return viewMsg(known ? "Ese correo ya tiene cuenta. Inicia sesión o recupera la contraseña." : `No se pudo crear la cuenta: ${error.message}`, "bad");
+  }
+  // Supabase no dice que el correo ya existía: devuelve un usuario sin identidades.
+  if (data.user && data.user.identities?.length === 0) {
+    view("login", "Ese correo ya tiene cuenta. Inicia sesión, o toca «¿Olvidaste tu contraseña?».", "bad");
+    $("#login [name=email]").value = email;
+    return;
+  }
+  if (data.session) return; // sin verificación obligatoria: ya entró
+  checkEmail(email, "signup");
+};
+
+$("#forgot-form").onsubmit = async e => {
+  e.preventDefault();
+  const email = String(new FormData(e.target).get("email")).trim();
+  viewMsg("Enviando…");
+  const { error } = await supabase.auth.resetPasswordForEmail(email, { redirectTo: here });
+  if (error) return viewMsg("No se pudo enviar. Prueba en un minuto.", "bad");
+  checkEmail(email, "recovery");
+};
+
+// Al volver del correo de «olvidé mi contraseña»: pantalla propia, no entra al panel hasta guardarla.
+let recovering = authReturn.type === "recovery";
+supabase.auth.onAuthStateChange(event => {
   if (event !== "PASSWORD_RECOVERY") return;
-  const password = prompt("Escribe tu contraseña nueva (mínimo 8 caracteres):");
-  if (!password || password.length < 8) return toast("La contraseña debe tener al menos 8 caracteres", "bad");
-  const { error } = await supabase.auth.updateUser({ password });
-  toast(error ? `No se pudo cambiar: ${error.message}` : "Contraseña cambiada ✅", error ? "bad" : "ok");
+  recovering = true;
+  $("#auth").hidden = false; $("#app").hidden = true; $("#nav").hidden = true;
+  view("new-password");
 });
+$("#new-password-form").onsubmit = async e => {
+  e.preventDefault();
+  const f = new FormData(e.target);
+  if (f.get("password") !== f.get("password2")) return viewMsg("Las dos contraseñas no son iguales.", "bad");
+  viewMsg("Guardando…");
+  const { data, error } = await supabase.auth.updateUser({ password: f.get("password") });
+  if (error) return viewMsg(`No se pudo guardar: ${error.message}`, "bad");
+  recovering = false;
+  toast("Contraseña cambiada ✅", "ok");
+  shownUser = null;
+  await show({ user: data.user });
+};
+
 // Entrar con WhatsApp: el bot manda un enlace de un solo uso (…/?acceso=<token>).
-$("#use-email").onclick = () => { $("#wa-login").hidden = true; $("#login").hidden = false; };
-$("#use-wa").onclick = () => { $("#login").hidden = true; $("#wa-login").hidden = false; };
 $("#wa-login").onsubmit = async e => {
   e.preventDefault();
-  const msg = $("#wa-msg");
-  const show = (text, kind) => { msg.textContent = text; msg.className = `msg ${kind ?? ""}`; };
-  show("Enviando…");
+  viewMsg("Enviando…");
   try {
     const res = await fetch("https://viwwlriwlwodrfukbgbj.supabase.co/functions/v1/nexo-panel-whatsapp-login", {
       method: "POST",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify({ phone: new FormData(e.target).get("phone"), site: location.origin + location.pathname }),
+      body: JSON.stringify({ phone: new FormData(e.target).get("phone"), site: here }),
     });
     const data = await res.json();
-    show(data.message ?? data.error ?? "No se pudo enviar.", res.ok ? "ok" : "bad");
+    viewMsg(data.message ?? data.error ?? "No se pudo enviar.", res.ok ? "ok" : "bad");
   } catch {
-    show("Sin conexión. Prueba otra vez.", "bad");
+    viewMsg("Sin conexión. Prueba otra vez.", "bad");
   }
 };
 const accessToken = new URLSearchParams(location.search).get("acceso");
 if (accessToken) {
   history.replaceState(null, "", location.pathname);
   const { error } = await supabase.auth.verifyOtp({ token_hash: accessToken, type: "magiclink" });
-  if (error) {
-    $("#wa-msg").textContent = "Ese enlace ya se usó o caducó. Pide otro aquí abajo.";
-    $("#wa-msg").className = "msg bad";
-  }
+  if (error) view("wa", "Ese enlace ya se usó o caducó. Pide otro aquí.", "bad");
+}
+// Vuelta desde un correo (verificar cuenta / enlace caducado).
+if (authReturn.error) {
+  history.replaceState(null, "", location.pathname);
+  view("login", /expired|invalid/i.test(authReturn.error)
+    ? "Ese enlace del correo ya se usó o caducó. Inicia sesión o pide otro."
+    : "No se pudo completar el enlace del correo. Inicia sesión o pide otro.", "bad");
+} else if (authReturn.type === "signup" || authReturn.type === "email") {
+  setTimeout(() => toast("Correo verificado ✅ Ya estás dentro", "ok"), 600);
 }
 $("#refresh").onclick = async () => { catalog = null; costSheet = null; await load(); toast("Actualizado", "ok"); };
 
