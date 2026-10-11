@@ -1,0 +1,20 @@
+*Caja Casa Viva (1.0.7) · guía rápida para dependientas*
+
+1. Abre la APK nueva y toca *Instalar / Actualizar* encima de la que tienes. *No la desinstales.*
+2. Antes de abrirla: Ajustes del teléfono → Aplicaciones → Casa Viva Core → Almacenamiento → *Borrar datos*. Lo de antes eran pruebas, y si no lo borras no aparece la casilla del código.
+3. Abre la caja con internet. Sola te lleva a *Más → Sincronización*. Escribe *TU* código de 6 letras (cada una tiene el suyo) y toca *Conectar este equipo*. Espera a que bajen los productos. Si dice que el código "venció" o "ya se usó", pídele otro a Lennys (lo crea en su panel: Ajustes → Cajas).
+4. Cierra la caja del todo y ábrela otra vez, para que carguen todos los nombres.
+5. Al empezar el día: *Caja → Abrir turno*. Escribe el dinero que hay en el cajón (USD, CUP, MLC). Deja vacío lo que no haya.
+6. Para vender: busca por nombre (o usa el botón de escanear) y toca el producto. Si tiene opciones, elige una. Si sale *Agotado* o *Stock sin verificar*, la caja no deja venderlo: avisa a Lennys para que ponga la cantidad en el panel, y después toca *Más → Sincronización → Sincronizar ahora*. No uses "Ubicaciones y conteos": las cantidades las arregla Lennys.
+7. Toca abajo *Revisar · Cobrar*. En *Atiende* elige tu nombre. Se queda guardado para las próximas ventas.
+8. *Gestora*: elígela si el cliente viene de parte de ella. Si no, deja *Venta directa*. Si el cliente de la gestora coge algo más en la tienda, toca *Extra* en ese producto.
+9. *Entrega*: pon "Se lo lleva el cliente" o el mensajero. *Cliente (opcional)*: escribe nombre y teléfono. Sin teléfono, el cliente no se guarda.
+10. *Efectivo USD exacto* guarda la venta en el momento. Úsalo solo si te paga el precio justo en dólares. Para todo lo demás, toca *Otra forma o dividir*.
+11. En *Otra forma*, toca cómo paga: Efectivo USD, Efectivo CUP, Transferencia CUP, MLC, Zelle, USDT… Puedes poner hasta 3 formas. Escribe lo que te da el cliente y toca fuera de la casilla para que se actualice. Arriba salen la tasa y el total en CUP.
+12. *Vuelto*: si te da más efectivo, la caja te dice "Cambio a devolver: …" en la moneda del último efectivo. Las transferencias van exactas y piden la *referencia*. Cuando salga "Completo" o "Cambio a devolver", toca *Confirmar venta*.
+13. Recibo: toca *Copiar* y pégalo en el WhatsApp del cliente ("Compartir" en el teléfono también lo copia). El último recibo queda en *Más → Último recibo*.
+14. Devolución: entra en *Caja → Devoluciones* y elige la venta. Salen la fecha y el total, y solo las últimas 15 ventas de ESTE teléfono. Pon cuántas unidades devuelve; el reembolso se llena solo. Elige la forma de reembolso, escribe el motivo y toca *Registrar devolución*. Si dice "supera el efectivo esperado en caja", elige *Otro* y apunta el dinero que diste en *Caja → Salida*.
+15. Si llegó mercancía (hace falta internet): *Inventario → Llegó mercancía*. Haz foto a la factura (o elígela en Galería) y toca *Que Curru lea la factura* si aparece. Revisa el proveedor y cada producto: los rojos hay que elegirlos, y la cantidad y el *costo* son obligatorios. Toca *Confirmar entrada*. Las cantidades suben en la caja en unos minutos.
+16. Sin internet o en un apagón, *sigue vendiendo*: todo se guarda en el teléfono. Arriba verás "Sin conexión · N", que son las ventas que faltan por enviar. Cuando vuelva la red, deja la caja abierta: se envían solas, aunque a veces tardan hasta 1 hora. No se pierde nada. Sin internet no funcionan "Llegó mercancía", el código de alta ni el Resumen. *Nunca borres datos ni desinstales si quedan ventas por enviar.*
+17. Arriba a la derecha: "Al día" = todo enviado; "Enviando N" = está enviando; "Revisar envío" = falló un intento y lo repite solo. Si sigue así varias horas con internet, avisa a Ernesto.
+18. Al terminar el día: *Caja → Contar y cerrar turno*. Escribe lo que contaste en cada moneda. Si no cuadra, escribe el motivo. Las transferencias no se cuentan. Si un mensajero cobra después, al vender apunta *Caja → Salida* "lo tiene el mensajero X", y cuando traiga el dinero apunta *Caja → Entrada*.

@@ -65,8 +65,11 @@ Deno.serve(async req => {
         let r = "";
         if (SOLD.has(o.status) && l.reduced > 0) {
           r = (await admin.rpc("nexo_business_stock_from_web", { p_business: BUSINESS, p_key: `web:${o.id}:${l.itemId}:out`, p_woo_id: l.wooId, p_delta: -l.reduced, p_order: String(o.number) })).data;
-        } else if (UNDONE.has(o.status) && l.reduced === 0) {
-          r = (await admin.rpc("nexo_business_stock_from_web", { p_business: BUSINESS, p_key: `web:${o.id}:${l.itemId}:back`, p_woo_id: l.wooId, p_delta: l.qty, p_order: String(o.number) })).data;
+        } else if (UNDONE.has(o.status) && l.reduced === 0
+          // Solo se devuelve a la caja lo que antes se restó (:out). Un pedido que nunca descontó
+          // (pendiente de pago, fallido, cancelado antes de que pasara el puente) no debe sumar unidades.
+          && (await admin.rpc("nexo_business_web_line_synced", { p_business: BUSINESS, p_order: o.id, p_item: l.itemId })).data === true) {
+          r =(await admin.rpc("nexo_business_stock_from_web", { p_business: BUSINESS, p_key: `web:${o.id}:${l.itemId}:back`, p_woo_id: l.wooId, p_delta: l.qty, p_order: String(o.number) })).data;
         }
         if (r === "ok") report.fromWeb++;
       }
