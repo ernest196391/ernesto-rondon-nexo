@@ -1,1 +1,0 @@
-{"default":{"identifier":"default","description":"Default NEXO Business POS permissions","local":true,"windows":["main"],"permissions":["core:default","sql:default","sql:allow-execute","sql:allow-select"]},"mobile-capability":{"identifier":"mobile-capability","description":"","local":true,"windows":["main"],"permissions":["barcode-scanner:default"],"platforms":["android","iOS"]}}
