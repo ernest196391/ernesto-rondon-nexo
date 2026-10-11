@@ -1,0 +1,133 @@
+<title>Mapa de Casa Viva</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Figtree:wght@400;600;700&display=swap">
+<style>
+/* Layout: una columna de lectura (máx. 760px) con fichas de estado en rejilla y un diagrama. Marca Casa Viva. */
+:root {
+  --bg: #F6F1E6; --surface: #FFFDF8; --line: #DCD2C1; --fg: #2B2420; --fg-2: #6B5F56;
+  --primary: #0D3B45; --accent: #A35A1F;
+  --ok: #2F6B3F; --ok-soft: #E1EDE3; --warn: #8A5A0B; --warn-soft: #F5E7C8; --bad: #9B2C2C; --bad-soft: #F4DEDB;
+  --f-brand: 'Cinzel', Georgia, serif; --f-ui: 'Figtree', 'Segoe UI', system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #141B1D; --surface: #1C2629; --line: #2F3D41; --fg: #EFE8DA; --fg-2: #A9A097;
+  --primary: #8FC3CE; --accent: #E0A066;
+  --ok: #8CCB9A; --ok-soft: #1F3326; --warn: #E7C27A; --warn-soft: #3A2F18; --bad: #EE9A93; --bad-soft: #3B2221; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #141B1D; --surface: #1C2629; --line: #2F3D41; --fg: #EFE8DA; --fg-2: #A9A097;
+  --primary: #8FC3CE; --accent: #E0A066;
+  --ok: #8CCB9A; --ok-soft: #1F3326; --warn: #E7C27A; --warn-soft: #3A2F18; --bad: #EE9A93; --bad-soft: #3B2221; color-scheme: dark }
+body { background: var(--bg); color: var(--fg); font: 16px/1.55 var(--f-ui); }
+.wrap { max-width: 760px; margin: 0 auto; padding-inline: 16px; padding-block: 28px 56px; display: grid; gap: 36px; }
+h1, h2 { font-family: var(--f-brand); font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--primary); text-wrap: balance; margin: 0; }
+h1 { font-size: 1.7rem; }
+h2 { font-size: 1.05rem; }
+section { display: grid; gap: 14px; min-width: 0; }
+p { margin: 0; }
+.lead { color: var(--fg-2); }
+.eyebrow { font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); font-weight: 700; }
+.diagram { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 12px; overflow-x: auto; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+.piece { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px; display: grid; gap: 6px; align-content: start; min-width: 0; }
+.piece b { font-size: 1rem; }
+.piece small { color: var(--fg-2); font-size: .86rem; }
+.pill { justify-self: start; font-size: .74rem; font-weight: 700; padding: 2px 10px; border-radius: 99px; }
+.ok { background: var(--ok-soft); color: var(--ok); } .warn { background: var(--warn-soft); color: var(--warn); } .bad { background: var(--bad-soft); color: var(--bad); }
+.table-wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: .92rem; }
+th, td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-size: .74rem; text-transform: uppercase; letter-spacing: .08em; color: var(--fg-2); }
+td.now { color: var(--fg-2); }
+ol.phases { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; counter-reset: f; }
+ol.phases li { counter-increment: f; display: grid; grid-template-columns: 34px 1fr; gap: 10px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; }
+ol.phases li::before { content: counter(f); font-family: var(--f-brand); font-size: 1.2rem; color: var(--accent); }
+ol.phases li.current { border-color: var(--primary); box-shadow: inset 4px 0 0 var(--primary); }
+.done-when { color: var(--fg-2); font-size: .88rem; }
+.say { background: var(--primary); color: var(--bg); border-radius: 14px; padding: 18px; display: grid; gap: 8px; }
+.say h2 { color: var(--bg); }
+.say ul { margin: 0; padding-left: 18px; display: grid; gap: 4px; }
+ul.plain { margin: 0; padding-left: 18px; display: grid; gap: 6px; }
+</style>
+
+<div class="wrap">
+  <header style="display:grid;gap:8px">
+    <span class="eyebrow">11 de octubre de 2026</span>
+    <h1>Mapa de Casa Viva</h1>
+    <p class="lead">Qué piezas hay, cómo se hablan, qué funciona ya y el plan para cerrar.</p>
+  </header>
+
+  <section>
+    <h2>Cómo se comunica todo</h2>
+    <p class="lead">Todo pasa por una nube central (NEXO). Cada pieza es una ventana distinta a los mismos datos.</p>
+    <div class="diagram">
+<pre class="mermaid">
+flowchart LR
+  BC["BizneCubano<br/>(se deja)"] -. "copia cada hora" .-> NUBE
+  NUBE[("Nube NEXO<br/>productos · existencias<br/>ventas · comisiones")]
+  WEB["Tienda web<br/>casaviva.company"] <--> NUBE
+  CAJA["Caja<br/>PC y Android"] <-- "sincroniza<br/>(funciona sin internet)" --> NUBE
+  PANEL["Panel de Lennys<br/>casaviva.company/panel"] <--> NUBE
+  PANEL -- "lee pedidos" --> WEB
+  BOT["VivaBot<br/>WhatsApp"] <--> WEB
+  BOT <--> NUBE
+  GEST["Gestoras y clientes"] --> WEB
+  MENS["Mensajeros"] <--> BOT
+</pre>
+    </div>
+  </section>
+
+  <section>
+    <h2>Estado de cada pieza</h2>
+    <div class="grid">
+      <div class="piece"><span class="pill warn">A medias</span><b>Panel de Lennys</b><small>Entra con WhatsApp y ve los pedidos de la web. Le faltan las acciones (completar, cancelar), los pagos a gestoras y el inventario en masa.</small></div>
+      <div class="piece"><span class="pill ok">Funciona</span><b>Caja en PC</b><small>Versión 1.0.4 probada: no deja vender de más, devoluciones, comisiones y cierre cuadrado.</small></div>
+      <div class="piece"><span class="pill warn">A medias</span><b>Caja en Android</b><small>Instalada en los teléfonos, pero con una versión anterior. Hay que actualizarla y probarla.</small></div>
+      <div class="piece"><span class="pill warn">A medias</span><b>Tienda web</b><small>Catálogo, carrito, gestoras y reparto funcionan. Falta una compra real completa de prueba y las medidas y colores en las fichas.</small></div>
+      <div class="piece"><span class="pill ok">Funciona</span><b>VivaBot</b><small>Reparto, gestoras y preguntas frecuentes. Sigue en tu número personal.</small></div>
+      <div class="piece"><span class="pill bad">Falla</span><b>Copia de BizneCubano</b><small>No se actualiza desde el 10 de octubre a las 6:34 p. m.</small></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Quién manda en cada dato</h2>
+    <p class="lead">La regla que evita los errores: cada dato se cambia en un solo sitio y los demás lo leen.</p>
+    <div class="table-wrap"><table>
+      <tr><th>Dato</th><th>Hoy</th><th>Cuando terminemos</th></tr>
+      <tr><td>Productos, precios y fotos</td><td class="now">BizneCubano</td><td>Panel</td></tr>
+      <tr><td>Existencias</td><td class="now">BizneCubano</td><td>Nube (la caja y la web descuentan ahí)</td></tr>
+      <tr><td>Pedidos de la web y reparto</td><td class="now">Web</td><td>Web (el panel los muestra y los mueve)</td></tr>
+      <tr><td>Ventas en tienda</td><td class="now">Caja</td><td>Caja</td></tr>
+      <tr><td>Gestoras y comisiones</td><td class="now">Repetidas en web y caja</td><td>Panel</td></tr>
+      <tr><td>Pagos a gestoras</td><td class="now">BizneCubano</td><td>Panel</td></tr>
+    </table></div>
+  </section>
+
+  <section>
+    <h2>Plan para cerrar</h2>
+    <ol class="phases">
+      <li class="current"><div><b>Panel único</b><div class="done-when">Termina cuando Lennys pasa un día entero sin abrir el panel de BizneCubano.</div></div></li>
+      <li><div><b>Un dato, un sitio</b><div class="done-when">Termina cuando cambiar un precio en el panel se ve en la web y en la caja en menos de una hora.</div></div></li>
+      <li><div><b>Tienda web</b><div class="done-when">Termina con una compra real de principio a fin, en el móvil, sin ayuda.</div></div></li>
+      <li><div><b>Cajas</b><div class="done-when">Termina cuando la 1.0.5 funciona un día completo en la PC de Lennys y en un Android.</div></div></li>
+      <li><div><b>Bot</b><div class="done-when">Termina con un número propio y cada aviso confirmado por quien lo recibe.</div></div></li>
+      <li><div><b>Dejar BizneCubano</b><div class="done-when">Termina con BizneCubano sin pedidos nuevos y las comisiones viejas pagadas.</div></div></li>
+    </ol>
+  </section>
+
+  <section class="say">
+    <h2>Qué le dices a Lennys</h2>
+    <ul>
+      <li><b>Para vender en la tienda:</b> la caja (PC o teléfono).</li>
+      <li><b>Para ver y controlar todo:</b> casaviva.company/panel. Entra con su WhatsApp.</li>
+      <li><b>Pedidos de gestoras y clientes:</b> llegan por la web; el bot avisa a los mensajeros.</li>
+      <li><b>De momento</b> sigue usando BizneCubano para los pedidos de siempre. Le avisaremos cuando deje de hacer falta.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Lo que necesito que decidas</h2>
+    <ul class="plain">
+      <li>¿Las comisiones de las gestoras se gestionan solo desde el panel? (Recomendado: sí.)</li>
+      <li>¿Cuándo pasamos el bot a un número de Casa Viva?</li>
+    </ul>
+  </section>
+</div>
