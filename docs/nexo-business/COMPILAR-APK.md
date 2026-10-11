@@ -14,6 +14,21 @@ Sin esto la compilación falla al final con "Creation symbolic link is not allow
 Windows → **Configuración → Sistema → Para programadores** (o Privacidad y seguridad → Para programadores) → activar **Modo de programador** → Sí.
 Solo hay que hacerlo una vez.
 
+## Arreglo que hay que conservar (desde la 1.0.8)
+La carpeta `apps\business-pos\src-tauri\gen\` no se guarda en Git. En `gen\android\app\src\main\java\com\nexo\business\MainActivity.kt`
+hay un arreglo hecho a mano: reserva el hueco de la barra de estado y de los botones del teléfono
+(sin él, en Android 15+ los botones del teléfono tapan *Vender / Caja / Inventario / Más*). Si alguien
+regenera Android (`tauri android init`), hay que volver a poner este bloque después de `super.onCreate(...)`:
+```kotlin
+val root = findViewById<View>(android.R.id.content)
+ViewCompat.setOnApplyWindowInsetsListener(root) { view, insets ->
+  val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout())
+  view.setPadding(bars.left, bars.top, bars.right, bars.bottom)
+  WindowInsetsCompat.CONSUMED
+}
+```
+(imports: `android.view.View`, `androidx.core.view.ViewCompat`, `androidx.core.view.WindowInsetsCompat`).
+
 ## Pasos (PowerShell, en la carpeta del proyecto)
 1. Traer lo último: `git pull`
 2. Subir la versión en `apps\business-pos\src-tauri\tauri.conf.json` (`"version": "1.0.X"`) si no se subió ya.
