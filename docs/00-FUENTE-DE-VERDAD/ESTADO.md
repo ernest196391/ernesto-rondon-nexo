@@ -163,7 +163,22 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
 
 **2026-10-10 04:45 UTC — Prueba guiada caja PC (Lennys):** sincronizar ✅, existencias ✅, venta ✅, devolución ✅. Fallo encontrado y arreglado en caja 1.0.3 (reloj de la PC adelantado → "Agotado" con 1 en stock). Instalador Windows ahora se compila en GitHub (workflow `caja-windows.yml`, Releases `caja-vX.Y.Z`). **Decisión de Ernesto: todas las ventas en la caja son PRUEBAS hasta que él diga "ya estamos online"** (incluidas las 3 del equipo `ernesto-pc-1010-acaf` antes de la prueba: 8 toallas pequeñas con gestora, zapatera, 5 productos). Antes de salir en vivo: devolver/limpiar esas ventas de prueba y sus comisiones.
 
-## I. Relevo 2026-10-11 (Claude Code) — leer esto primero
+## J. Relevo 2026-10-11 tarde (Claude Code) — LEER ESTO PRIMERO
+**Dónde quedó todo (resumen del chat largo del 11-oct; el detalle está en la sección I, más abajo):**
+- **Panel de Lennys** `casaviva.company/panel/` (también `negocio.nexocuba.com`, Vercel a mano con redeploy del último deployment + `withLatestCommit`). 6 pestañas: Resumen (este mes web+tienda, meses anteriores), Pedidos (solo web; acciones y "Cambiar pedido"), Productos (lista única con precio/quedan, oferta, "Cambiar varios", nuevo producto que también se crea en la web, Llegó mercancía con Curru), Clientes (web + caja + bot, por gestora), Equipo (Gestoras, Mensajeros, Dependientas con permisos, Socios), Ajustes (tasas, mensajería por zona, costos, cajas con código de alta).
+- **Web** `casaviva.company` = Casa Viva Core **3.13.41** (repo `ernest196391/Casa-Viva`, clon `C:\Users\Ernesto\Casa-Viva`; subir por SSH con copia `~/bak-*` y `php -l`). El tema `casa-viva-storefront` NO está en el repo (editado en el servidor; copias `~/bak-2026101*`).
+- **Caja**: Windows 1.0.7 en GitHub Releases. **APK 1.0.7: compilada en la laptop el 11-oct** (ver `docs/nexo-business/COMPILAR-APK.md`); falta mandarla e instalarla en los teléfonos de Lennys, Zaymi y Nana junto con sus códigos de alta (UFEYKN, QNHMG7, 455JFM, GGK4W3; vencen ~12-oct 03:40 UTC; si vencen, crear otros en Ajustes → Cajas).
+- **Puente** `nexo-stock-bridge` cada 2 min: existencias caja↔web, mensajeros y gestoras de la web → caja, clientes de caja y bot → web.
+- **Datos en cero**: sin ventas, pedidos, clientes ni comisiones (todo lo anterior era prueba). Cajas de prueba desactivadas.
+
+**Siguiente (en orden):**
+1. **Revisar de punta a punta la parte de gestoras** (pedido de Ernesto): `/registro-gestora/` (registro e invitación `?invita=`), `/area-gestoras/` (Mis clientes, catálogo y precios propios, comisiones, pagos, invitar con QR, mensajería), el panel → Equipo → Gestoras (aprobar, pagos) y que la gestora aparezca en la caja. Probar con una cuenta de prueba que luego se borre; cada botón debe funcionar y cada texto aportar algo.
+2. Mandar la APK y los códigos a Lennys/Zaymi/Nana; comprobar que aparece cada equipo en `devices`.
+3. Preguntar a Lennys la política de devoluciones y garantía (mensaje preparado en la sección I) → publicar páginas.
+4. Mensajeros reales: alta y aprobación (Equipo → Mensajeros); cambiar contraseña de "Mensajero piloto".
+5. Primer uso real: primer pedido web (resta en la caja, cliente guardado), primera entrada de mercancía desde la caja, primer pago a gestora.
+
+## I. Relevo 2026-10-11 (Claude Code) — detalle del día
 - **Casa Viva deja BizneCubano hoy (D38).** Manda la caja (nube NEXO). Puente de existencias caja ↔ web cada 2 min. Detalle técnico y pruebas: `docs/NEXO-CASA-VIVA-CIERRE.md` (checkpoint único). Errores aprendidos: `docs/00-FUENTE-DE-VERDAD/LECCIONES.md`.
 - **Panel único de Lennys:** `casaviva.company/panel/` (también `negocio.nexocuba.com`; Vercel se publica a mano con redeploy). Tiene: entrada por WhatsApp/correo, resumen web del mes, pedidos web con acciones, gestoras (aprobar, pagos, invitación y QR), comisiones (solo en el panel, D37), inventario y precios.
 - **Core (web):** versión 3.13.31; puerta `CVD_Panel_Bridge` (clave `CASAVIVA_PANEL_KEY`).
