@@ -250,6 +250,22 @@ Deno.serve(async req => {
       return json(200, await core("POST", "panel/shipping-rates", { municipality, zone: String(body.zone ?? "").trim(), fee, active: body.active !== false }));
     }
 
+    // Tarjetas de la tienda (Core 3.13.50): nombre + últimos 4 (nunca el número completo), activar/desactivar,
+    // y los cobros de la web que no fueron en efectivo, con a qué tarjeta entró cada uno y su número.
+    if (body.action === "pay_accounts") return json(200, await core("GET", "panel/pay-accounts"));
+    if (body.action === "pay_account_save") {
+      const last4 = String(body.last4 ?? "").trim();
+      if (last4 && !/^\d{4}$/.test(last4)) return json(400, { error: "Escribe solo los últimos 4 números de la tarjeta." });
+      return json(200, await core("POST", "panel/pay-accounts", {
+        id: String(body.id ?? ""), label: String(body.label ?? "").trim().slice(0, 40), last4, active: body.active !== false,
+      }));
+    }
+    if (body.action === "web_collections") {
+      const day = (v: unknown) => typeof v === "string" && /^\d{4}-\d{2}-\d{2}$/.test(v) ? v : "";
+      const q = new URLSearchParams({ from: day(body.from), to: day(body.to) });
+      return json(200, await core("GET", `panel/collections?${q}`));
+    }
+
     // Pedidos: las mismas acciones que /ventas/ (Core aplica sus reglas y firma como la dueña).
     if (body.action === "sale") {
       const q = new URLSearchParams({ search: String(body.number ?? "") });

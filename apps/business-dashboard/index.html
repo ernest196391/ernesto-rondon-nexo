@@ -221,6 +221,7 @@
       <div class="seg" id="ajustes-seg" role="group" aria-label="Sección">
         <button type="button" data-sub="tasas" aria-pressed="true">Tasas</button>
         <button type="button" data-sub="mensajeria" aria-pressed="false">Mensajería</button>
+        <button type="button" data-sub="tarjetas" aria-pressed="false">Tarjetas</button>
         <button type="button" data-sub="costos" aria-pressed="false" data-cost-only>Costos</button>
         <button type="button" data-sub="gastos" aria-pressed="false" data-cost-only>Gastos</button>
         <button type="button" data-sub="equipos" aria-pressed="false">Cajas</button>
@@ -229,6 +230,11 @@
         <h2 class="t-lg">Tasas de cambio</h2>
         <p class="t-sm muted">Los precios están en dólares. La caja usa estas tasas para cobrar en CUP, MLC o Zelle.</p>
         <div id="rates"><p class="muted">Cargando…</p></div>
+      </section>
+      <section class="panel" data-sub="tarjetas" hidden>
+        <h2 class="t-lg">Tarjetas de la tienda</h2>
+        <p class="t-sm muted">Las tarjetas donde los clientes transfieren. Al cerrar un pedido pagado por transferencia se elige a cuál entró, para cuadrar luego con cada banco. Solo se guardan un nombre y los últimos 4 números.</p>
+        <div id="cards"><p class="muted">Cargando…</p></div>
       </section>
       <section class="panel" data-sub="mensajeria" hidden>
         <h2 class="t-lg">Mensajería por zona</h2>
@@ -334,7 +340,7 @@ function go(next) {
   document.querySelectorAll("#nav .tab").forEach(t => t.dataset.page === next ? t.setAttribute("aria-current", "page") : t.removeAttribute("aria-current"));
   window.scrollTo({ top: 0 });
   if (next === "catalogo") void loadInventory();
-  if (next === "ajustes") { void loadRates(); void loadCostSettings(); if (ajustesSub === "mensajeria") void loadShipping(); }
+  if (next === "ajustes") { void loadRates(); void loadCostSettings(); if (ajustesSub === "mensajeria") void loadShipping(); if (ajustesSub === "tarjetas") void loadCards(); }
   if (next === "resumen") { if (resSub === "caja") void loadMoney(); else void loadReport(); }
   if (next === "pedidos") void loadOrders();
   if (next === "equipo") void loadTeam();
@@ -1086,11 +1092,24 @@ async function loadSaleActions(sheet, o) {
 const actLabel = (a, sale) => a === "delivered" && sale.fulfillment === "Recogida en tienda" ? "Lo recogió y pagó · cerrar"
   : a === "preparing" && !["ready", "with_courier", "picked_up", "incident"].includes(sale.status) ? "Empezar a preparar"
   : SALE_ACTION[a][0];
+// Tarjetas de la tienda (Core 3.13.50): lo que sale en «¿A qué tarjeta entró?» (activas + Zelle, USDT, Otra).
+// Se pide una vez y se guarda; al cambiar la lista en Ajustes › Tarjetas se vuelve a pedir.
+let payChoices = null;
+async function loadPayChoices() {
+  if (!payChoices) payChoices = panelWeb({ action: "pay_accounts" }).then(r => r.choices ?? []).catch(e => { payChoices = null; throw e; });
+  return payChoices;
+}
+// Zelle y USDT van como su propio método y Core los guarda como «transferencia» a esa cuenta (la caja y los mensajeros no cambian).
+const COLLECT_METHODS = [["cash_usd", "Efectivo USD"], ["cash_cup", "Efectivo CUP"], ["transfer", "Transferencia a tarjeta (CUP)"], ["zelle", "Zelle"], ["usdt", "USDT"], ["mixed", "Mixto (efectivo + transferencia)"], ["other", "Otro"]];
 function saleActionForm(box, sale, act) {
   const form = box.querySelector("[data-form]");
   const pickup = sale.fulfillment === "Recogida en tienda";
   const money = act === "delivered"
-    ? '<label class="field">Cómo pagó<select name="collectionMethod"><option value="cash_usd">Efectivo USD</option><option value="cash_cup">Efectivo CUP</option><option value="transfer">Transferencia</option><option value="mixed">Mixto</option><option value="other">Otro</option></select></label>'
+    ? '<label class="field">Cómo pagó<select name="collectionMethod">' + COLLECT_METHODS.map(([v, l]) => '<option value="' + v + '">' + esc(l) + "</option>").join("") + "</select></label>"
+      + '<label class="field" data-acct hidden>¿A qué tarjeta entró?<select name="collectionAccount"><option value="">Cargando tarjetas…</option></select></label>'
+      + '<div class="grid-2" data-typed hidden><label class="field">Nombre de la tarjeta<input name="collectionCardLabel" maxlength="40" autocomplete="off" placeholder="Ej.: MN BPA"></label><label class="field">Últimos 4 números<input name="collectionCardLast4" inputmode="numeric" maxlength="4" pattern="[0-9]{4}" autocomplete="off" placeholder="2690"></label></div>'
+      + '<label class="t-sm" data-typed hidden><input type="checkbox" name="collectionSaveCard" checked> Guardar en la lista de tarjetas</label>'
+      + '<label class="field" data-ref hidden>Nº de transferencia / referencia<input name="collectionReference" maxlength="60" autocomplete="off" placeholder="El número que sale en el SMS o en la app"></label>'
       + '<div class="grid-2"><label class="field">USD recibidos<input name="collectedUsd" inputmode="decimal" value="' + esc(sale.declaredUsd) + '"></label><label class="field">CUP recibidos<input name="collectedCup" inputmode="decimal" value="' + esc(sale.declaredCup) + '"></label></div>'
       + '<label class="t-sm"><input type="checkbox" name="moneyConfirmed" required> Tengo el dinero en la mano</label>'
       + (pickup ? '<label class="t-sm"><input type="checkbox" name="handoverConfirmed" required> El cliente se llevó el producto</label>' : "")
@@ -1098,19 +1117,40 @@ function saleActionForm(box, sale, act) {
       ? '<label class="field">Motivo<input name="reason" required maxlength="200"></label><div class="grid-2"><label class="field">Devuelto USD<input name="refundUsd" inputmode="decimal" value="0"></label><label class="field">Devuelto CUP<input name="refundCup" inputmode="decimal" value="0"></label></div>'
       : act === "cancelled" ? '<p class="t-sm">Se cancela el pedido, vuelve el stock y se anula la comisión. No se puede deshacer.</p>' : "";
   form.innerHTML = '<form class="form" style="margin-top:8px">' + money + '<button type="submit" class="btn btn-primary btn-block">Confirmar: ' + esc(act === "return" ? "Registrar devolución" : actLabel(act, sale)) + "</button></form>";
+  if (act === "delivered") {
+    // Transferencia o mixto: a qué tarjeta entró (en mixto puede no haber transferencia). Zelle, USDT y Otro: solo el número.
+    const f = form.querySelector("form"), acct = f.elements.collectionAccount, ref = f.elements.collectionReference;
+    const sync = () => {
+      const m = f.elements.collectionMethod.value, card = m === "transfer" || m === "mixed";
+      f.querySelector("[data-acct]").hidden = !card; acct.required = m === "transfer";
+      f.querySelector("[data-ref]").hidden = !(card || ["zelle", "usdt", "other"].includes(m));
+      if (!card) acct.value = "";
+      // «Otra tarjeta…»: se escribe ahí mismo; marcada «Guardar en la lista», Core la añade (el panel firma como la dueña).
+      const typed = card && acct.value === "typed";
+      f.querySelectorAll("[data-typed]").forEach(el => (el.hidden = !typed));
+      f.elements.collectionCardLabel.required = f.elements.collectionCardLast4.required = typed;
+    };
+    f.elements.collectionMethod.onchange = acct.onchange = sync;
+    loadPayChoices().then(list => {
+      acct.innerHTML = '<option value="">Elige la tarjeta</option>' + list.map(c => '<option value="' + esc(c.id) + '">' + esc(c.name) + "</option>").join("");
+      if (!list.some(c => !["zelle", "usdt", "other", "typed"].includes(c.id))) acct.insertAdjacentHTML("afterend", '<span class="t-xs muted">Aún no hay tarjetas. Añádelas en Ajustes › Tarjetas.</span>');
+    }).catch(() => { acct.innerHTML = '<option value="">Elige</option><option value="typed">Otra tarjeta… (escribirla)</option>'; });
+    sync();
+  }
   form.querySelector("form").onsubmit = async e => {
     e.preventDefault();
     const f = new FormData(e.target);
     const params = act === "return"
       ? { reason: f.get("reason"), refundUsd: f.get("refundUsd"), refundCup: f.get("refundCup") }
       : { status: act, idempotencyKey: "panel:" + sale.id + ":" + act + ":" + Date.now() };
-    if (act === "delivered") Object.assign(params, { collectionMethod: f.get("collectionMethod"), collectedUsd: f.get("collectedUsd"), collectedCup: f.get("collectedCup"), moneyConfirmed: f.get("moneyConfirmed") === "on", handoverConfirmed: f.get("handoverConfirmed") === "on" });
+    if (act === "delivered") Object.assign(params, { collectionMethod: f.get("collectionMethod"), collectionAccount: f.get("collectionAccount") ?? "", collectionReference: String(f.get("collectionReference") ?? "").trim(), collectionCardLabel: String(f.get("collectionCardLabel") ?? "").trim(), collectionCardLast4: String(f.get("collectionCardLast4") ?? "").trim(), collectionSaveCard: f.get("collectionSaveCard") === "on", collectedUsd: f.get("collectedUsd"), collectedCup: f.get("collectedCup"), moneyConfirmed: f.get("moneyConfirmed") === "on", handoverConfirmed: f.get("handoverConfirmed") === "on" });
     const msg = box.querySelector("[data-amsg]");
     const btn = e.target.querySelector("button[type=submit]");
     btn.disabled = true; msg.textContent = "Guardando…"; msg.dataset.tone = "";
     try {
       const r = await panelWeb({ action: "sale_action", id: sale.id, what: act === "return" ? "return" : "status", params });
       toast(r.message ?? "Hecho", "ok");
+      if (params.collectionSaveCard) payChoices = null; // pudo entrar una tarjeta nueva en la lista
       box.closest(".sheet, [role=dialog]")?.querySelector("[data-close]")?.click();
       void loadWebOrders();
     } catch (err) {
@@ -1973,7 +2013,7 @@ function showSub(sub) {
   document.querySelectorAll("#ajustes-seg button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.sub === sub)));
   document.querySelectorAll("main[data-page=ajustes] > [data-sub]").forEach(el => (el.hidden = el.dataset.sub !== sub || (el.id === "new-device-panel" && !isOwner())));
 }
-document.querySelectorAll("#ajustes-seg button").forEach(b => (b.onclick = () => { showSub(b.dataset.sub); if (b.dataset.sub === "mensajeria") void loadShipping(); window.scrollTo({ top: 0 }); }));
+document.querySelectorAll("#ajustes-seg button").forEach(b => (b.onclick = () => { showSub(b.dataset.sub); if (b.dataset.sub === "mensajeria") void loadShipping(); if (b.dataset.sub === "tarjetas") void loadCards(); window.scrollTo({ top: 0 }); }));
 
 // ---------- Clientes (Core cvd_clients): base de datos de Casa Viva y de cada gestora ----------
 let clients = [], cliTimer = null, cliGestoras = null;
@@ -2038,6 +2078,42 @@ $("#cli-csv").onclick = () => {
   a.href = URL.createObjectURL(new Blob(["﻿" + rows.map(r => r.map(cell).join(";")).join("\r\n")], { type: "text/csv;charset=utf-8" }));
   a.download = "clientes-casa-viva.csv"; a.click();
 };
+
+// ---------- Tarjetas de la tienda (Core 3.13.50) ----------
+// Nombre + últimos 4 (nunca el número completo). No se borran: se desactivan, y los pedidos viejos siguen diciendo a cuál entró.
+async function loadCards() {
+  $("#cards").innerHTML = '<p class="muted">Cargando…</p>';
+  let data;
+  try { data = await panelWeb({ action: "pay_accounts" }); }
+  catch (e) { $("#cards").innerHTML = '<p class="muted">No se pudo cargar: ' + esc(e.message) + "</p>"; return; }
+  const cards = data.accounts ?? [];
+  $("#cards").innerHTML = (cards.length ? cards.map(c => '<div class="row-item" data-card="' + esc(c.id) + '">'
+      + '<span class="avatar">' + icon("coins", "sm") + "</span>"
+      + '<span class="grow"><span class="title">' + esc(c.name) + "</span>"
+      + '<span class="meta">' + (c.active ? "Sale al cerrar un cobro" : "Desactivada: no sale al cerrar") + "</span></span>"
+      + '<button type="button" class="btn ' + (c.active ? "btn-ghost" : "btn-secondary") + '" data-toggle>' + (c.active ? "Desactivar" : "Activar") + "</button></div>").join("")
+    : '<p class="muted">Aún no hay tarjetas. Añade la primera abajo.</p>')
+    + '<form class="form" id="card-new" style="margin-top:12px"><h3 class="t-lg">Añadir tarjeta</h3>'
+    + '<div class="grid-2"><label class="field">Nombre<input name="label" required maxlength="40" placeholder="Ej.: MN BPA"></label>'
+    + '<label class="field">Últimos 4 números<input name="last4" required inputmode="numeric" maxlength="4" pattern="\\d{4}" placeholder="2690"></label></div>'
+    + '<button type="submit" class="btn btn-primary btn-block">Añadir</button></form>'
+    + '<p class="t-xs muted" style="margin-top:8px">Zelle, USDT y «Otra tarjeta…» siempre salen al cerrar un cobro; no hace falta añadirlas. Si una dependienta escribe una tarjeta que no está, puede quedar guardada aquí.</p>';
+  const save = async (body, btn, ok) => {
+    btn.disabled = true;
+    try { await panelWeb({ action: "pay_account_save", ...body }); payChoices = null; toast(ok, "ok"); await loadCards(); }
+    catch (e) { btn.disabled = false; toast("No se guardó: " + e.message, "bad"); }
+  };
+  document.querySelectorAll("#cards [data-card]").forEach(row => {
+    const c = cards.find(x => x.id === row.dataset.card);
+    row.querySelector("[data-toggle]").onclick = e => save({ id: c.id, active: !c.active }, e.target, c.active ? c.name + " desactivada" : c.name + " activada");
+  });
+  $("#card-new").onsubmit = e => {
+    e.preventDefault();
+    const f = e.target, last4 = f.last4.value.trim();
+    if (!/^\d{4}$/.test(last4)) return toast("Escribe solo los últimos 4 números", "bad");
+    void save({ label: f.label.value.trim(), last4 }, f.querySelector("[type=submit]"), "Tarjeta añadida");
+  };
+}
 
 // ---------- Mensajería por zona (tarifas de la web, Core) ----------
 let ship = null, shipMuni = "";
@@ -2424,10 +2500,58 @@ function methodLabel(p) {
   return `${p.method} ${p.currency}`;
 }
 
+// Transferencias y otros cobros: los de la caja (Supabase) y los de la web (Core), con a qué tarjeta entró cada uno.
+// Se pueden ver por tarjeta para cuadrar con cada banco. La caja aún no pregunta la tarjeta: sale como «Caja · sin tarjeta»
+// (salvo Zelle y USDT, que ya dicen la cuenta).
+let moneyTransfers = { rows: [], webError: "" }, moneyCard = "";
+function transferRows(pos, web) {
+  const rows = (pos ?? []).map(t => {
+    const prov = (t.provider ?? "").toLowerCase();
+    const key = prov === "zelle" ? "zelle" : t.currency === "USDT" ? "usdt" : "none";
+    return { at: t.occurredAt, src: "Caja", title: methodLabel(t) + " · " + money(t.amountMinor, t.currency), ref: t.reference ?? "",
+      key, card: key === "zelle" ? "Zelle" : key === "usdt" ? "USDT" : "Sin tarjeta", sums: { [t.currency]: t.amountMinor / 100 } };
+  });
+  for (const w of web?.items ?? []) {
+    // Tarjeta de la lista: por su id (aunque luego se renombre). «Otra tarjeta» escrita a mano: por el nombre que se escribió.
+    const key = w.account && w.account !== "typed" ? w.account : w.accountName ? "n:" + w.accountName.toLowerCase() : "none";
+    const amount = [w.usd ? usd2(w.usd) : "", w.cup ? Number(w.cup).toLocaleString("es") + " CUP" : ""].filter(Boolean).join(" + ") || "sin importe";
+    rows.push({ at: w.at, src: "Web #" + w.number + (w.customer ? " · " + w.customer : "") + (w.refunded ? " · devuelto" : ""), title: (w.account === "zelle" ? "Zelle" : w.account === "usdt" ? "USDT" : w.methodLabel) + " · " + amount, ref: w.reference ?? "",
+      key, card: w.accountName || "Sin tarjeta", mixed: w.method === "mixed", sums: { ...(w.usd ? { USD: w.usd } : {}), ...(w.cup ? { CUP: w.cup } : {}) } });
+  }
+  rows.sort((a, b) => String(b.at).localeCompare(String(a.at)));
+  return { rows, webError: web?.error ?? "" };
+}
+function renderTransfers() {
+  const { rows, webError } = moneyTransfers;
+  const groups = new Map();
+  for (const r of rows) { const g = groups.get(r.key) ?? { name: r.card, n: 0 }; g.n++; groups.set(r.key, g); }
+  if (moneyCard && !groups.has(moneyCard)) moneyCard = "";
+  const shown = rows.filter(r => !moneyCard || r.key === moneyCard);
+  const sums = {};
+  for (const r of shown) for (const [c, v] of Object.entries(r.sums)) sums[c] = (sums[c] ?? 0) + v;
+  const sorted = [...groups.entries()].sort((a, b) => (a[0] === "none") - (b[0] === "none") || a[1].name.localeCompare(b[1].name, "es"));
+  $("#money-transfers").innerHTML = `<div class="kv"><h2 class="t-lg">Transferencias y otros cobros</h2><span class="badge badge-info">${rows.length}</span></div>
+    ${groups.size > 1 ? `<div class="chips" id="money-cards" role="group" aria-label="Tarjeta" style="margin:8px 0">
+      <button type="button" class="chip" data-card="" aria-pressed="${!moneyCard}">Todas <span class="count">${rows.length}</span></button>
+      ${sorted.map(([k, g]) => `<button type="button" class="chip" data-card="${esc(k)}" aria-pressed="${moneyCard === k}">${esc(g.name)} <span class="count">${g.n}</span></button>`).join("")}</div>` : ""}
+    ${shown.length ? `<p class="t-sm"><strong>${moneyCard ? esc(groups.get(moneyCard).name) + ": " : "Total: "}</strong>${Object.entries(sums).map(([c, v]) => esc(v.toLocaleString("es", { maximumFractionDigits: 2 }) + " " + c)).join(" · ")}</p>` : ""}
+    ${shown.map(t => `<div class="row-item">
+      <span class="grow"><span class="title">${esc(t.title)}</span>
+      <span class="meta">${esc(when(t.at))} · ${esc(t.src)}</span>
+      <span class="meta">${t.key === "none" ? "No se apuntó la tarjeta" : `Entró a <strong>${esc(t.card)}</strong>`}${t.ref ? ` · ref <strong>${esc(t.ref)}</strong>` : " · sin referencia"}</span></span>
+      ${t.ref ? `<button type="button" class="btn btn-ghost btn-icon" data-copy-ref="${esc(t.ref)}" aria-label="Copiar referencia">${icon("copy", "sm")}</button>` : ""}</div>`).join("") || `<p class="muted">Sin transferencias, Zelle ni cripto en el periodo.</p>`}
+    ${shown.some(t => t.mixed) ? `<p class="t-xs muted">En «Mixto» el importe incluye también la parte en efectivo.</p>` : ""}
+    ${webError ? `<p class="t-xs muted">No se pudieron leer los cobros de la web: ${esc(webError)}</p>` : ""}`;
+  document.querySelectorAll("#money-cards [data-card]").forEach(b => (b.onclick = () => { moneyCard = b.dataset.card; renderTransfers(); }));
+  document.querySelectorAll("[data-copy-ref]").forEach(b => (b.onclick = async () => { await navigator.clipboard.writeText(b.dataset.copyRef); toast("Referencia copiada", "ok"); }));
+}
+
 async function loadMoney() {
   const r = periodRange();
   const days = Math.min(90, Math.max(1, Math.round((Date.parse(isoDay(new Date())) - Date.parse(r.from)) / 86400000) + 1));
   $("#money-period").textContent = r.label;
+  // Cobros de la web (Core 3.13.50) con su tarjeta, a la vez que la caja. Mismo tramo que la caja: desde «from» hasta hoy.
+  const webCollections = panelWeb({ action: "web_collections", from: r.from, to: isoDay(new Date()) }).catch(e => ({ error: e.message, items: [] }));
   const { data, error } = await supabase.rpc("nexo_business_money", { p_business: current.businessId, p_days: days });
   if (error || data?.error) { $("#money-methods").innerHTML = `<p class="muted">No se pudo cargar: ${esc(error?.message ?? data.error)}</p>`; return; }
 
@@ -2438,12 +2562,8 @@ async function loadMoney() {
       <span class="price-tag">${money(m.amountMinor, m.currency)}</span></div>`).join("") || `<p class="muted">Sin cobros en el periodo.</p>`}
     <p class="t-xs muted">Cobros que ya llegaron de las cajas. El efectivo entra en el cajón; lo demás se comprueba abajo con su referencia.</p>`;
 
-  $("#money-transfers").innerHTML = `<div class="kv"><h2 class="t-lg">Transferencias y otros cobros</h2><span class="badge badge-info">${data.transfers.length}</span></div>
-    ${data.transfers.map(t => `<div class="row-item">
-      <span class="grow"><span class="title">${esc(methodLabel(t))} · ${money(t.amountMinor, t.currency)}</span>
-      <span class="meta">${esc(when(t.occurredAt))}${t.reference ? ` · ref <strong>${esc(t.reference)}</strong>` : " · sin referencia"}</span></span>
-      ${t.reference ? `<button type="button" class="btn btn-ghost btn-icon" data-copy-ref="${esc(t.reference)}" aria-label="Copiar referencia">${icon("copy", "sm")}</button>` : ""}</div>`).join("") || `<p class="muted">Sin transferencias, Zelle ni cripto en el periodo.</p>`}`;
-  document.querySelectorAll("[data-copy-ref]").forEach(b => (b.onclick = async () => { await navigator.clipboard.writeText(b.dataset.copyRef); toast("Referencia copiada", "ok"); }));
+  moneyTransfers = transferRows(data.transfers, await webCollections);
+  renderTransfers();
 
   $("#money-shifts").innerHTML = `<h2 class="t-lg">Turnos de caja</h2>
     ${data.shifts.map(sh => {
