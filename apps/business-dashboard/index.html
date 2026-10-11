@@ -1060,8 +1060,16 @@ async function loadSaleActions(sheet, o) {
     const acts = sale.actions.filter(a => SALE_ACTION[a]);
     // Domicilio listo, pero ningún mensajero lo ha aceptado todavía: decir qué falta (si no, parece que no hay nada que hacer).
     const waiting = sale.status === "ready" && sale.fulfillment !== "Recogida en tienda" && ["Por ofertar", "Oferta abierta", "Asignada"].includes(sale.deliveryStatus);
+    // Reparto (Core 3.13.48): quién lo lleva y a qué hora, sus pasos, si dice que ya entregó el dinero y el seguimiento del cliente.
+    const timeline = sale.timeline || [];
     box.innerHTML = '<div class="kv"><span>Estado</span><span><b>' + esc(sale.statusLabel) + "</b>" + (sale.deliveryStatus ? " · " + esc(sale.deliveryStatus) : "") + "</span></div>"
-      + (waiting ? '<p class="t-sm muted">La carrera ya salió en el grupo de WhatsApp «Mensajerías CASA Viva». Cuando un mensajero escriba «Yo», le llega el vale y aquí sale «Entregado al mensajero». Si en un rato nadie la toma, avisa a un mensajero aprobado.</p>' : "")
+      + (sale.messengerName ? '<p class="t-sm">Lo lleva: <b>' + esc(sale.messengerName) + "</b>" + (sale.eta ? " · Hora: <b>" + esc(sale.eta) + "</b>" : "") + "</p>"
+        : sale.preferredMessenger ? '<p class="t-sm">La gestora eligió a <b>' + esc(sale.preferredMessenger) + "</b>: al pulsar «Listo para salir» se le asigna directo (no sale al grupo).</p>" : "")
+      + (timeline.length ? '<div class="breakdown">' + timeline.map(t => '<div class="kv"><span class="t-xs muted">' + esc(t.time) + '</span><span class="t-sm">' + esc(t.label) + "</span></div>").join("") + "</div>" : "")
+      + (sale.cashHandoverDeclaredAt ? '<p class="t-sm"><b>El mensajero dice que ya entregó el dinero (' + esc(sale.cashHandoverDeclaredAt) + ").</b> Cuando lo tengas en la mano, pulsa «Dinero recibido · cerrar».</p>" : "")
+      + (sale.trackingUrl ? '<a class="btn btn-ghost btn-block" target="_blank" rel="noopener" href="' + esc(sale.trackingUrl) + '">Seguimiento del cliente</a>' : "")
+      + (waiting && sale.directAssignment ? '<p class="t-sm muted">Asignado directo a ' + esc(sale.messengerName) + ": la gestora lo eligió y no salió al grupo. Le llegó el vale por WhatsApp; cuando venga a recogerlo, pulsa «Entregado al mensajero».</p>"
+        : waiting ? '<p class="t-sm muted">La carrera ya salió en el grupo de WhatsApp «Mensajerías CASA Viva». Cuando un mensajero escriba «Yo», le llega el vale y aquí sale «Entregado al mensajero». Si en un rato nadie la toma, avisa a un mensajero aprobado.</p>' : "")
       + acts.map(a => '<button type="button" class="btn ' + SALE_ACTION[a][1] + ' btn-block" data-act="' + a + '">' + actLabel(a, sale) + "</button>").join("")
       + (sale.canReturn ? '<button type="button" class="btn btn-secondary btn-block" data-act="return">Registrar devolución</button>' : "")
       + (!acts.length && !sale.canReturn ? '<p class="muted">Este pedido no tiene acciones pendientes.</p>' : "")
