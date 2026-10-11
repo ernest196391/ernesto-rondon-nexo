@@ -87,3 +87,11 @@ Regla: no confundir compilación con funcionamiento real.
 - Casos cubiertos: contraseñas distintas; correo que ya tiene cuenta (Supabase devuelve usuario sin identidades) → manda a iniciar sesión con el correo puesto; correo sin verificar → botón "Reenviar correo de verificación"; enlace de correo caducado (`#error_description`) → mensaje claro; vuelta de verificación → aviso "Correo verificado ✅".
 - Probado por Claude en local y en `casaviva.company/panel/`: navegación, contraseñas distintas, correo existente, contraseña mala, enlace caducado, vista móvil 375 px. Publicado también en Vercel (`dpl_B4T7cMAQ9HceXipWi8NvwSiFUemV`).
 - NO probado (necesita un correo real nuevo): que llegue el correo de verificación y a qué dirección lleva. Depende de "Redirect URLs" de Supabase (Authentication → URL Configuration): añadir `https://casaviva.company/panel/`. Las plantillas de correo de Supabase siguen en inglés.
+
+### Panel único — bloque 1: pedidos reales y resumen de la web (2026-10-11 01:45 UTC)
+- Decisión de Ernesto: **un solo panel** (`casaviva.company/panel/`). Auditoría de BizneCubano: `docs/nexo-business/AUDITORIA-PANEL-BIZNECUBANO-2026-10-11.md`.
+- Función `nexo-panel-web` (solo dueñas vía `nexo_panel_is_owner`, solo lectura, clave Woo solo en el servidor): `summary` (mes: concretado / por atender / perdido + gestoras) y `orders` (filtros, búsqueda, 20 por página).
+- Panel: Resumen → bloque "Web casaviva.company · este mes"; Pedidos → pestaña "Web casaviva.company" (por defecto para la dueña) con detalle, WhatsApp al cliente y "Gestionar en la web".
+- Probado por Claude: sin sesión → 401; con la sesión de Ernesto (entrada por enlace de WhatsApp, de punta a punta) → resumen real (13 pedidos en octubre: 0 concretados, 4 por atender 75 USD, 9 perdidos 399 USD), lista y detalle; vista móvil 375 px; sesión cerrada al terminar. Publicado en Hostinger y Vercel (`dpl_AabrhTPWTB5LR2YWaD2MntV9tLro`).
+- **Aviso operativo:** 4 pedidos web "En espera" sin atender: #2820 (8-oct), #2827 (9-oct), #2881 (10-oct) y #2677 (prueba de Lennys como gestora).
+- Siguiente del panel único: acciones sobre el pedido (completar / cancelar con las reglas de Core), gestoras (pagos, solicitudes, prueba), comisión por producto editable y la misma en caja, inventario y precios en masa.
