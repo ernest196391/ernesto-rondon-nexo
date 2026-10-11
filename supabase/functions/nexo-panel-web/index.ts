@@ -193,6 +193,20 @@ Deno.serve(async req => {
       }));
     }
 
+    // Clientes (Core cvd_clients): todos, o de una gestora; la dueña añade o corrige.
+    if (body.action === "clients") {
+      const q = new URLSearchParams();
+      if (Number(body.ownerId) > 0) q.set("owner", String(Number(body.ownerId)));
+      if (typeof body.search === "string" && body.search.trim()) q.set("search", body.search.trim());
+      return json(200, await core("GET", `panel/clients?${q}`));
+    }
+    if (body.action === "client_save") {
+      return json(200, await core("POST", "panel/clients", {
+        phone: String(body.phone ?? ""), name: String(body.name ?? ""), note: String(body.note ?? ""),
+        ownerId: Number(body.ownerId) > 0 ? Number(body.ownerId) : 0, optOut: typeof body.optOut === "boolean" ? body.optOut : null,
+      }));
+    }
+
     // Mensajería: tarifas por zona en CUP (las que usa el checkout de la web).
     if (body.action === "shipping_rates") return json(200, await core("GET", "panel/shipping-rates"));
     if (body.action === "shipping_rate_save") {

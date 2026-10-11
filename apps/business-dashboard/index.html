@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Figtree:wght@400;600;700&display=swap">
 <link rel="stylesheet" href="nexo.css">
 <link rel="stylesheet" href="casaviva.css">
-<link rel="stylesheet" href="dash.css">
+<link rel="stylesheet" href="dash.css?v=20261011b">
 </head>
 <body>
 <div class="nx dash" data-theme="casaviva" id="root">
@@ -89,6 +89,7 @@
     <button type="button" class="tab" data-page="pedidos" data-for="admin person"><span data-ic="bag"></span>Pedidos<span class="dot" id="orders-dot" hidden></span></button>
     <button type="button" class="tab" data-page="catalogo" data-for="admin"><span data-ic="tag"></span>Productos</button>
     <button type="button" class="tab" data-page="inventario" data-for="admin"><span data-ic="device"></span>Inventario</button>
+    <button type="button" class="tab" data-page="clientes" data-for="admin"><span data-ic="user"></span>Clientes</button>
     <button type="button" class="tab" data-page="equipo" data-for="admin"><span data-ic="users"></span>Equipo<span class="dot" id="team-dot" hidden></span></button>
     <button type="button" class="tab" data-page="ajustes" data-for="admin"><span data-ic="sliders"></span>Ajustes</button>
     <button type="button" class="tab" data-page="cuenta" data-for="person" hidden><span data-ic="wallet"></span>Mi cuenta</button>
@@ -152,6 +153,15 @@
       </div>
       <section class="panel" id="orders"><p class="muted">Cargando…</p></section>
       </div>
+    </main>
+
+    <main class="page" data-page="clientes" hidden>
+      <div class="page-head"><h1>Clientes</h1><button type="button" class="btn btn-primary" id="new-client"><span data-ic="plus"></span>Añadir</button></div>
+      <p class="t-sm muted" id="cli-note">Quien compra en la web queda aquí solo, con su gestora. Las gestoras ven los suyos en su área de la web.</p>
+      <input class="input" id="cli-q" type="search" placeholder="Buscar nombre o teléfono" style="margin:8px 0">
+      <select class="input" id="cli-owner" aria-label="Gestora" style="margin-bottom:8px"><option value="">Todas las gestoras</option><option value="-1">Sin gestora (de la tienda)</option></select>
+      <section class="panel" id="clients"><p class="muted">Cargando…</p></section>
+      <button type="button" class="btn btn-secondary btn-block" id="cli-csv"><span data-ic="download"></span>Descargar lista (Excel)</button>
     </main>
 
     <main class="page" data-page="equipo" hidden>
@@ -343,6 +353,7 @@ function go(next) {
   if (next === "pedidos") void loadOrders();
   if (next === "equipo") void loadTeam();
   if (next === "inventario") void loadInventory();
+  if (next === "clientes") void loadClients();
   if (next === "cuenta") void loadAccount();
   if (next === "perfil") renderProfile();
   if (next === "recibir") void renderReceipts($("#receipts-person"));
@@ -1796,6 +1807,66 @@ function showSub(sub) {
   document.querySelectorAll("main[data-page=ajustes] > [data-sub]").forEach(el => (el.hidden = el.dataset.sub !== sub || (el.id === "new-device-panel" && !isOwner())));
 }
 document.querySelectorAll("#ajustes-seg button").forEach(b => (b.onclick = () => { showSub(b.dataset.sub); if (b.dataset.sub === "mensajeria") void loadShipping(); window.scrollTo({ top: 0 }); }));
+
+// ---------- Clientes (Core cvd_clients): base de datos de Casa Viva y de cada gestora ----------
+let clients = [], cliTimer = null, cliGestoras = null;
+async function loadClients() {
+  if (!cliGestoras) {
+    try {
+      cliGestoras = (await panelWeb({ action: "gestoras" })).gestoras.filter(g => g.status === "approved");
+      $("#cli-owner").innerHTML = '<option value="">Todas las gestoras</option><option value="-1">Sin gestora (de la tienda)</option>'
+        + cliGestoras.map(g => '<option value="' + g.id + '">' + esc(g.name) + "</option>").join("");
+    } catch { cliGestoras = []; }
+  }
+  $("#clients").innerHTML = '<p class="muted">Cargando…</p>';
+  try { clients = (await panelWeb({ action: "clients", search: $("#cli-q").value })).clients; }
+  catch (e) { $("#clients").innerHTML = '<p class="muted">No se pudo cargar: ' + esc(e.message) + "</p>"; return; }
+  renderClients();
+}
+function renderClients() {
+  const owner = $("#cli-owner").value;
+  const rows = clients.filter(c => !owner || (owner === "-1" ? !c.ownerId : String(c.ownerId) === owner));
+  $("#cli-note").textContent = rows.length + " clientes" + (owner ? "" : " · " + clients.filter(c => c.ownerId).length + " traídos por gestoras");
+  $("#clients").innerHTML = rows.length ? rows.slice(0, 300).map(c => {
+    const wa = c.optOut ? null : waLink(c.phone, "Hola" + (c.name ? " " + c.name.split(" ")[0] : "") + ", te escribe Casa Viva. ");
+    return '<div class="row-item"><button type="button" class="row-btn grow" data-cli="' + c.id + '"><span class="grow"><span class="title">' + esc(c.name || "Sin nombre") + '</span><span class="meta">'
+      + esc(c.phone) + " · " + (c.owner ? "de " + esc(c.owner) : "de la tienda") + " · " + (c.orders ? c.orders + " compra" + (c.orders > 1 ? "s" : "") + (c.spent ? " · $" + c.spent : "") : "sin compras") + (c.note ? " · " + esc(c.note) : "") + "</span></span></button>"
+      + (wa ? '<a class="btn btn-secondary" target="_blank" rel="noopener" href="' + esc(wa) + '">WhatsApp</a>' : '<span class="badge badge-calm">No escribir</span>') + "</div>";
+  }).join("") + (rows.length > 300 ? '<p class="muted">Mostrando 300. Usa el buscador.</p>' : "") : '<p class="muted">Todavía no hay clientes. Se llenan solos con los pedidos de la web, o añádelos con “Añadir”.</p>';
+  document.querySelectorAll("#clients [data-cli]").forEach(b => (b.onclick = () => editClient(clients.find(c => String(c.id) === b.dataset.cli))));
+}
+function editClient(c) {
+  const sheet = openSheet('<div class="sheet-head"><h2>' + (c ? "Cliente" : "Nuevo cliente") + '</h2><button type="button" class="btn btn-ghost" data-close>Cerrar</button></div><form class="form">'
+    + '<label class="field">Nombre<input name="name" value="' + esc(c?.name ?? "") + '" required></label>'
+    + '<label class="field">Teléfono (WhatsApp)<input name="phone" inputmode="tel" value="' + esc(c?.phone ?? "") + '"' + (c ? " readonly" : " required") + "></label>"
+    + '<label class="field">Nota (qué le gusta)<input name="note" maxlength="255" value="' + esc(c?.note ?? "") + '"></label>'
+    + (c?.ownerId ? '<p class="t-sm">Gestora: <b>' + esc(c.owner) + "</b> (no se cambia)</p>" : '<label class="field">Gestora<select name="owner"><option value="">De la tienda</option>' + (cliGestoras ?? []).map(g => '<option value="' + g.id + '">' + esc(g.name) + "</option>").join("") + "</select></label>")
+    + '<label class="check"><input type="checkbox" name="optout"' + (c?.optOut ? " checked" : "") + "> Pidió que no le escriban</label>"
+    + '<p class="msg" data-msg role="status"></p><button type="submit" class="btn btn-primary btn-xl btn-block">Guardar</button></form>', c ? "Cliente " + (c.name ?? "") : "Nuevo cliente");
+  const form = sheet.el.querySelector("form");
+  form.onsubmit = async e => {
+    e.preventDefault();
+    const f = new FormData(form);
+    form.querySelector("[type=submit]").disabled = true;
+    try {
+      const r = await panelWeb({ action: "client_save", phone: f.get("phone"), name: f.get("name"), note: f.get("note"), ownerId: Number(f.get("owner") || 0), optOut: f.get("optout") === "on" });
+      sheet.close();
+      toast(r.taken ? "Ese cliente ya es de otra gestora; se guardaron los demás datos." : "Cliente guardado", r.taken ? "bad" : "ok");
+      await loadClients();
+    } catch (err) { const m = form.querySelector("[data-msg]"); m.textContent = "No se guardó: " + err.message; m.dataset.tone = "bad"; form.querySelector("[type=submit]").disabled = false; }
+  };
+}
+$("#new-client").onclick = () => editClient(null);
+$("#cli-owner").onchange = () => renderClients();
+$("#cli-q").oninput = () => { clearTimeout(cliTimer); cliTimer = setTimeout(loadClients, 400); };
+$("#cli-csv").onclick = () => {
+  const cell = v => '"' + String(v ?? "").replace(/"/g, '""') + '"';
+  const rows = [["Nombre", "Teléfono", "Gestora", "Compras", "Gastado USD", "Última compra", "Nota", "No escribir"]]
+    .concat(clients.map(c => [c.name, c.phone, c.owner ?? "Tienda", c.orders, String(c.spent).replace(".", ","), c.lastOrderAt ?? "", c.note, c.optOut ? "sí" : ""]));
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob(["﻿" + rows.map(r => r.map(cell).join(";")).join("\r\n")], { type: "text/csv;charset=utf-8" }));
+  a.download = "clientes-casa-viva.csv"; a.click();
+};
 
 // ---------- Mensajería por zona (tarifas de la web, Core) ----------
 let ship = null, shipMuni = "";
