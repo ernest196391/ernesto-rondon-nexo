@@ -125,3 +125,12 @@ Regla: no confundir compilación con funcionamiento real.
 - Arreglado: la ficha de gestora usaba `sheet.querySelector` (openSheet devuelve `{el, close}`).
 - Probado: lectura `panel/sales` con clave (50 pedidos, todos cancelados → sin acciones) y sin clave → 401; sintaxis OK; publicado.
 - NO probado: ejecutar una acción real (no hay pedidos abiertos y crear uno avisaría a mensajeros) ni la pantalla con sesión de dueña (límite diario de enlaces). Primer pedido real: probar con Lennys.
+
+### CAMBIO: fin de BizneCubano (2026-10-11 03:18 UTC) — D38
+- Última foto BizneCubano 03:15 → web (0 cambios) y caja (0 cambios). Comparación web vs caja: 279 productos comunes, 0 diferencias.
+- Congelado: workflows de BizneCubano desactivados; NEXO `auto_import=false`, `price_authority=nexo`, `stock_bridge_from=03:18:09`.
+- Puente de existencias `nexo-stock-bridge` (pg_cron cada 2 min, clave en Vault). Core 3.13.31: `panel/stock/adjust` (claves únicas en `wp_cvd_nexo_stock_keys`), `panel/stock/web-sales`, `panel/stock/levels`, `panel/products/price`.
+- Probado de verdad: caja 3→2 → web 2; caja 2→3 → web 3; tercera pasada 0 movimientos (sin duplicar). Lógica web→caja (simulada y revertida): devolución sin venta rechazada, venta resta, repetida no hace nada, cancelación devuelve, no rebota a la web.
+- Panel → pestaña Inventario: precio y cantidad por producto, filtros (web distinta, pocas unidades, agotados). Precio → nube (las cajas lo descargan) + web; cantidad → conteo → puente → web.
+- Quedan 2 movimientos de prueba en el historial de la toalla (−1 y +1, "Prueba del puente (Claude)"), neto 0.
+- PENDIENTE mañana: (1) cajas de Lennys/Zaymi/Nana: vaciar datos locales y volver a dar de alta (por si guardan ventas de prueba sin enviar); (2) productos nuevos: hoy entran por la web pero no llegan solos a la caja → definir el flujo (Digitaliza o importación manual sin stock); (3) primer pedido web real: comprobar que la caja resta.
