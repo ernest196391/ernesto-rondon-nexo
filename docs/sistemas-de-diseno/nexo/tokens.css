@@ -1,0 +1,127 @@
+:root{
+  --nexo-amarillo: #FFC21A;
+  --nexo-tinta: #121212;
+  --nexo-blanco: #FFFFFF;
+  --surface: #FFFFFF;
+  --surface-raised: #FFFFFF;
+  --surface-sunken: #F3F3F2;
+  --ink: #121212;
+  --ink-muted: #545454;
+  --ink-subtle: #6E6E6E;
+  --line: #E2E2DF;
+  --line-strong: #8A8A86;
+  --brand: var(--nexo-amarillo);
+  --on-brand: var(--nexo-tinta);
+  --brand-surface: #FFF3CC;
+  --on-brand-surface: #121212;
+  --accent: #0B5F8A;
+  --on-accent: #FFFFFF;
+  --accent-surface: #E3F1F9;
+  --success: #1A7438;
+  --success-surface: #E4F4E8;
+  --warning: #A84A05;
+  --warning-surface: #FDEBDD;
+  --danger: #B42318;
+  --danger-surface: #FCE6E4;
+  --focus: #0B5F8A;
+  --merchant: var(--brand);
+  --on-merchant: var(--on-brand);
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-full: 999px;
+  --size-target: 48px;
+  --size-button-lg: 56px;
+  --size-icon: 24px;
+  --size-icon-sm: 20px;
+  --size-stroke-icon: 2px;
+  --size-focus: 3px;
+  --size-border: 1px;
+  --shadow-sheet: 0 -4px 16px rgba(18,18,18,0.12);
+  --font-sans: Archivo, "Helvetica Neue", Helvetica, sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --nexo-amarillo: #FFC21A;
+  --nexo-tinta: #121212;
+  --nexo-blanco: #FFFFFF;
+  --surface: #141414;
+  --surface-raised: #1F1F1F;
+  --surface-sunken: #0A0A0A;
+  --ink: #F3F3F2;
+  --ink-muted: #B4B4B0;
+  --ink-subtle: #8F8F8B;
+  --line: #2C2C2C;
+  --line-strong: #6E6E6A;
+  --brand: var(--nexo-amarillo);
+  --on-brand: var(--nexo-tinta);
+  --brand-surface: #3A2E08;
+  --on-brand-surface: #FFE08A;
+  --accent: #6EBEEB;
+  --on-accent: #06202E;
+  --accent-surface: #0D2A3A;
+  --success: #5CCB80;
+  --success-surface: #0F2E19;
+  --warning: #FF9E57;
+  --warning-surface: #3A1F0A;
+  --danger: #FF7C70;
+  --danger-surface: #3D1311;
+  --focus: #6EBEEB;
+  --merchant: var(--brand);
+  --on-merchant: var(--on-brand);
+  --shadow-sheet: 0 -4px 16px rgba(0,0,0,0.5);
+}}
+:root[data-theme="dark"]{
+  --nexo-amarillo: #FFC21A;
+  --nexo-tinta: #121212;
+  --nexo-blanco: #FFFFFF;
+  --surface: #141414;
+  --surface-raised: #1F1F1F;
+  --surface-sunken: #0A0A0A;
+  --ink: #F3F3F2;
+  --ink-muted: #B4B4B0;
+  --ink-subtle: #8F8F8B;
+  --line: #2C2C2C;
+  --line-strong: #6E6E6A;
+  --brand: var(--nexo-amarillo);
+  --on-brand: var(--nexo-tinta);
+  --brand-surface: #3A2E08;
+  --on-brand-surface: #FFE08A;
+  --accent: #6EBEEB;
+  --on-accent: #06202E;
+  --accent-surface: #0D2A3A;
+  --success: #5CCB80;
+  --success-surface: #0F2E19;
+  --warning: #FF9E57;
+  --warning-surface: #3A1F0A;
+  --danger: #FF7C70;
+  --danger-surface: #3D1311;
+  --focus: #6EBEEB;
+  --merchant: var(--brand);
+  --on-merchant: var(--on-brand);
+}
+@font-face{font-family:"Archivo";src:url("fonts/Archivo-400.woff2") format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Archivo";src:url("fonts/Archivo-500.woff2") format("woff2");font-weight:500;font-display:swap}
+@font-face{font-family:"Archivo";src:url("fonts/Archivo-600.woff2") format("woff2");font-weight:600;font-display:swap}
+@font-face{font-family:"Archivo";src:url("fonts/Archivo-700.woff2") format("woff2");font-weight:700;font-display:swap}
+@font-face{font-family:"Archivo";src:url("fonts/Archivo-800.woff2") format("woff2");font-weight:800;font-display:swap}
+.display-lg{font-family:var(--font-sans);font-size:48px;line-height:52px;font-weight:800;letter-spacing:-0.02em}
+.display{font-family:var(--font-sans);font-size:32px;line-height:36px;font-weight:800;letter-spacing:-0.02em}
+.title-lg{font-family:var(--font-sans);font-size:24px;line-height:30px;font-weight:700;letter-spacing:-0.01em}
+.title{font-family:var(--font-sans);font-size:20px;line-height:26px;font-weight:700}
+.amount{font-family:var(--font-sans);font-size:28px;line-height:32px;font-weight:800;letter-spacing:-0.01em}
+.body-lg{font-family:var(--font-sans);font-size:18px;line-height:26px;font-weight:400}
+.body{font-family:var(--font-sans);font-size:16px;line-height:24px;font-weight:400}
+.body-strong{font-family:var(--font-sans);font-size:16px;line-height:24px;font-weight:600}
+.button{font-family:var(--font-sans);font-size:16px;line-height:20px;font-weight:600}
+.small{font-family:var(--font-sans);font-size:14px;line-height:20px;font-weight:400}
+.label{font-family:var(--font-sans);font-size:13px;line-height:16px;font-weight:600;letter-spacing:0.04em}

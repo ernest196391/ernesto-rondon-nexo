@@ -1,0 +1,24 @@
+<!-- @dsCard height=300 -->
+<!doctype html><html><head><meta charset="utf-8"><style>
+html,body{margin:0;background:var(--surface)}
+.c{position:relative;width:960px;height:300px;font-family:var(--font-sans);overflow:hidden}
+svg{position:absolute;left:0;top:0}
+.ink{fill:var(--nexo-tinta)} .ac{fill:var(--accent)} .y{fill:var(--brand)} .s{fill:var(--surface-sunken)}
+.n{position:absolute;left:40px;bottom:64px;font-size:120px;line-height:.92;font-weight:800;letter-spacing:-.03em;color:var(--ink)}
+.g{position:absolute;left:44px;bottom:36px;font-size:14px;color:var(--ink-muted);max-width:440px}
+</style></head><body><div class="c">
+<svg width="960" height="300" viewBox="0 0 960 300" aria-hidden="true">
+<!-- blocks: brand 312x300 slab bleeding off top/bottom/right, accent 136x300 slab, surface-sunken 136x96 tint
+     arrangement: one tall brand slab on the right with an accent slab and a small tint beside it, flush with space-2 (8px) gutters
+     pattern: the symbol's own glyph used as a shape — one oversized four-piece X clipped by the brand slab, in nexo-tinta (fixed, never flips); the brand is known by that X
+     steps: space-2 8px gutters, space-6 24px insets; X gap 2.5u at this scale = 45px, square corners (the system's radius here is 0) -->
+<rect class="ac" x="504" y="0" width="136" height="300"/>
+<rect class="s" x="504" y="204" width="136" height="96"/>
+<rect class="y" x="648" y="0" width="312" height="300"/>
+<g transform="translate(672 24) scale(3.6)">
+<path class="ink" d="M8.8 0 L91.2 0 L50 41.2Z M100 8.8 L100 91.2 L58.8 50Z M91.2 100 L8.8 100 L50 58.8Z M0 91.2 L0 8.8 L41.2 50Z"/>
+</g>
+</svg>
+<div class="n">NEXO</div>
+<div class="g">Del producto al cliente, todo conectado.</div>
+</div><script></script></body></html>

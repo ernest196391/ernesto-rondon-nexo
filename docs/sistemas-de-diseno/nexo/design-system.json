@@ -1,0 +1,360 @@
+{
+ "v": 3,
+ "layout": "files",
+ "createdOnFiles": {
+  "v": 1,
+  "at": "2026-10-05T18:00:00Z"
+ },
+ "title": "NEXO",
+ "namespace": "NEXO",
+ "libraries": [],
+ "sections": {},
+ "groups": [
+  "Logo",
+  "Iconos"
+ ],
+ "assetGroups": {
+  "Logo": {
+   "name": "Logo",
+   "tile": "m",
+   "order": [
+    "nexo-horizontal-tinta.svg",
+    "nexo-horizontal-negativo.svg",
+    "nexo-horizontal-blanco.svg",
+    "nexo-vertical-tinta.svg",
+    "nexo-vertical-negativo.svg",
+    "nexo-simbolo-tinta.svg",
+    "nexo-simbolo-amarillo.svg",
+    "nexo-simbolo-blanco.svg",
+    "nexo-simbolo-pequeno.svg",
+    "nexo-logotipo-tinta.svg",
+    "nexo-logotipo-blanco.svg",
+    "nexo-business-tinta.svg",
+    "nexo-business-negativo.svg",
+    "nexo-impulsa-tinta.svg",
+    "nexo-impulsa-negativo.svg",
+    "nexo-icono-app.svg",
+    "nexo-favicon-16.svg",
+    "nexo-favicon-32.svg"
+   ],
+   "files": {
+    "nexo-horizontal-tinta.svg": {
+     "name": "nexo-horizontal-tinta.svg",
+     "blob": "d3ca60c04f0c9ce6575178989dd2ce1e",
+     "size": 5628,
+     "type": "image/svg+xml"
+    },
+    "nexo-horizontal-negativo.svg": {
+     "name": "nexo-horizontal-negativo.svg",
+     "blob": "f16e602b22448903ac83fcadfa744241",
+     "size": 5628,
+     "type": "image/svg+xml"
+    },
+    "nexo-horizontal-blanco.svg": {
+     "name": "nexo-horizontal-blanco.svg",
+     "blob": "6682e1870c09473cf0ef1bf1dfe296e1",
+     "size": 5628,
+     "type": "image/svg+xml"
+    },
+    "nexo-vertical-tinta.svg": {
+     "name": "nexo-vertical-tinta.svg",
+     "blob": "ee4576f2d0b83d6ff02d85fe4d0cbf01",
+     "size": 6320,
+     "type": "image/svg+xml"
+    },
+    "nexo-vertical-negativo.svg": {
+     "name": "nexo-vertical-negativo.svg",
+     "blob": "22fb2d8ba099901e581b43f278899aa4",
+     "size": 6320,
+     "type": "image/svg+xml"
+    },
+    "nexo-simbolo-tinta.svg": {
+     "name": "nexo-simbolo-tinta.svg",
+     "blob": "4ba712a7575e2193c28a981ed807142e",
+     "size": 2889,
+     "type": "image/svg+xml"
+    },
+    "nexo-simbolo-amarillo.svg": {
+     "name": "nexo-simbolo-amarillo.svg",
+     "blob": "a135787f6bfa25d3475ce018ee0df5e4",
+     "size": 2889,
+     "type": "image/svg+xml"
+    },
+    "nexo-simbolo-blanco.svg": {
+     "name": "nexo-simbolo-blanco.svg",
+     "blob": "e08871c8ba940373e4a0e706166d0207",
+     "size": 2889,
+     "type": "image/svg+xml"
+    },
+    "nexo-simbolo-pequeno.svg": {
+     "name": "nexo-simbolo-pequeno.svg",
+     "blob": "a98a18c2c6ddba2d584f81057177f385",
+     "size": 233,
+     "type": "image/svg+xml"
+    },
+    "nexo-logotipo-tinta.svg": {
+     "name": "nexo-logotipo-tinta.svg",
+     "blob": "d27e2fb0a8dd2fa914321cfb88f9ba98",
+     "size": 2847,
+     "type": "image/svg+xml"
+    },
+    "nexo-logotipo-blanco.svg": {
+     "name": "nexo-logotipo-blanco.svg",
+     "blob": "e36533790c021ef0a7edb1fbc969a387",
+     "size": 2847,
+     "type": "image/svg+xml"
+    },
+    "nexo-business-tinta.svg": {
+     "name": "nexo-business-tinta.svg",
+     "blob": "ccc75f9c67d3f6f7fdeaef94226f172c",
+     "size": 10981,
+     "type": "image/svg+xml"
+    },
+    "nexo-business-negativo.svg": {
+     "name": "nexo-business-negativo.svg",
+     "blob": "bdd9bcb494a9fefca8dc7996f407443a",
+     "size": 10981,
+     "type": "image/svg+xml"
+    },
+    "nexo-impulsa-tinta.svg": {
+     "name": "nexo-impulsa-tinta.svg",
+     "blob": "7ea07f3271c305f9509cf81f63d535c2",
+     "size": 9418,
+     "type": "image/svg+xml"
+    },
+    "nexo-impulsa-negativo.svg": {
+     "name": "nexo-impulsa-negativo.svg",
+     "blob": "bd06d26599dc7bc6bef6b663e209ff92",
+     "size": 9418,
+     "type": "image/svg+xml"
+    },
+    "nexo-icono-app.svg": {
+     "name": "nexo-icono-app.svg",
+     "blob": "b3b9499379250f6a9e05a6d04a16ae7e",
+     "size": 3521,
+     "type": "image/svg+xml"
+    },
+    "nexo-favicon-16.svg": {
+     "name": "nexo-favicon-16.svg",
+     "blob": "487ec81fecda9606248638c9e8980dae",
+     "size": 641,
+     "type": "image/svg+xml"
+    },
+    "nexo-favicon-32.svg": {
+     "name": "nexo-favicon-32.svg",
+     "blob": "a1a5770cbf7d891b282819b8e0db144f",
+     "size": 1691,
+     "type": "image/svg+xml"
+    }
+   }
+  },
+  "Iconos": {
+   "name": "Iconos",
+   "tile": "s",
+   "order": [
+    "icono-inicio.svg",
+    "icono-vender.svg",
+    "icono-productos.svg",
+    "icono-inventario.svg",
+    "icono-pedidos.svg",
+    "icono-clientes.svg",
+    "icono-gestora.svg",
+    "icono-tienda.svg",
+    "icono-mensaje.svg",
+    "icono-pregunta.svg",
+    "icono-sin-conexion.svg",
+    "icono-sincronizar.svg",
+    "icono-buscar.svg",
+    "icono-anadir.svg",
+    "icono-escanear.svg",
+    "icono-dinero.svg",
+    "icono-comision.svg",
+    "icono-imprimir.svg",
+    "icono-foto.svg",
+    "icono-ajustes.svg",
+    "icono-enviar.svg",
+    "icono-bien.svg",
+    "icono-aviso.svg",
+    "icono-error.svg",
+    "icono-info.svg",
+    "icono-siguiente.svg",
+    "icono-cerrar.svg"
+   ],
+   "files": {
+    "icono-inicio.svg": {
+     "name": "icono-inicio.svg",
+     "blob": "b65dad8dcc946c88c0edf2217067cf5a",
+     "size": 262,
+     "type": "image/svg+xml"
+    },
+    "icono-vender.svg": {
+     "name": "icono-vender.svg",
+     "blob": "29af62da7e08cbd392b52757ec090d6a",
+     "size": 275,
+     "type": "image/svg+xml"
+    },
+    "icono-productos.svg": {
+     "name": "icono-productos.svg",
+     "blob": "3c2c3bc0e6dee594eac620aded43fb1d",
+     "size": 299,
+     "type": "image/svg+xml"
+    },
+    "icono-inventario.svg": {
+     "name": "icono-inventario.svg",
+     "blob": "5398205fbb7126da25a23810be93cd4f",
+     "size": 285,
+     "type": "image/svg+xml"
+    },
+    "icono-pedidos.svg": {
+     "name": "icono-pedidos.svg",
+     "blob": "a7e5558a4e654e5ecf8e547cfa3384de",
+     "size": 286,
+     "type": "image/svg+xml"
+    },
+    "icono-clientes.svg": {
+     "name": "icono-clientes.svg",
+     "blob": "572c036c049c7f81719c214f13dc3331",
+     "size": 358,
+     "type": "image/svg+xml"
+    },
+    "icono-gestora.svg": {
+     "name": "icono-gestora.svg",
+     "blob": "095e98e58d538c9be170391638dcc0bf",
+     "size": 325,
+     "type": "image/svg+xml"
+    },
+    "icono-tienda.svg": {
+     "name": "icono-tienda.svg",
+     "blob": "6c519ff8337773f2ae4155c884c43c28",
+     "size": 287,
+     "type": "image/svg+xml"
+    },
+    "icono-mensaje.svg": {
+     "name": "icono-mensaje.svg",
+     "blob": "8cb03a3a2751fd1fa25477b574a500ea",
+     "size": 279,
+     "type": "image/svg+xml"
+    },
+    "icono-pregunta.svg": {
+     "name": "icono-pregunta.svg",
+     "blob": "ab87d317bfb80e794fbc35b573b44d1c",
+     "size": 328,
+     "type": "image/svg+xml"
+    },
+    "icono-sin-conexion.svg": {
+     "name": "icono-sin-conexion.svg",
+     "blob": "26a586288f0d9af979ca0bbb35e392e0",
+     "size": 288,
+     "type": "image/svg+xml"
+    },
+    "icono-sincronizar.svg": {
+     "name": "icono-sincronizar.svg",
+     "blob": "48551690536f093cf8e74cfb88aa59f7",
+     "size": 320,
+     "type": "image/svg+xml"
+    },
+    "icono-buscar.svg": {
+     "name": "icono-buscar.svg",
+     "blob": "00984f3120abb4bea9bc6d4bafb1b783",
+     "size": 280,
+     "type": "image/svg+xml"
+    },
+    "icono-anadir.svg": {
+     "name": "icono-anadir.svg",
+     "blob": "4f04d949ab140093b90ce0ba92230dea",
+     "size": 242,
+     "type": "image/svg+xml"
+    },
+    "icono-escanear.svg": {
+     "name": "icono-escanear.svg",
+     "blob": "32ceffc32a117ae3c4ff60e36cec04a0",
+     "size": 297,
+     "type": "image/svg+xml"
+    },
+    "icono-dinero.svg": {
+     "name": "icono-dinero.svg",
+     "blob": "012f7ed6f30e9ffdf1190848cece175e",
+     "size": 332,
+     "type": "image/svg+xml"
+    },
+    "icono-comision.svg": {
+     "name": "icono-comision.svg",
+     "blob": "b616d642526db3f71de6f995b445bee0",
+     "size": 306,
+     "type": "image/svg+xml"
+    },
+    "icono-imprimir.svg": {
+     "name": "icono-imprimir.svg",
+     "blob": "24b643f81963cfd67f2739bbba7735a3",
+     "size": 287,
+     "type": "image/svg+xml"
+    },
+    "icono-foto.svg": {
+     "name": "icono-foto.svg",
+     "blob": "d7fb699a1f09d717ff0ce63bd7282b94",
+     "size": 297,
+     "type": "image/svg+xml"
+    },
+    "icono-ajustes.svg": {
+     "name": "icono-ajustes.svg",
+     "blob": "a6b62038055003a6c9e7387a6142f3aa",
+     "size": 268,
+     "type": "image/svg+xml"
+    },
+    "icono-enviar.svg": {
+     "name": "icono-enviar.svg",
+     "blob": "fff279923b2af8aa0b5a62d56adc41a8",
+     "size": 273,
+     "type": "image/svg+xml"
+    },
+    "icono-bien.svg": {
+     "name": "icono-bien.svg",
+     "blob": "25a1fec16d74f52d95fcdb468ba30b01",
+     "size": 272,
+     "type": "image/svg+xml"
+    },
+    "icono-aviso.svg": {
+     "name": "icono-aviso.svg",
+     "blob": "4dd0234d7d1c39baf6eb9e587ade26a0",
+     "size": 268,
+     "type": "image/svg+xml"
+    },
+    "icono-error.svg": {
+     "name": "icono-error.svg",
+     "blob": "cd8ac77eee8b46470134550f5d6ea388",
+     "size": 273,
+     "type": "image/svg+xml"
+    },
+    "icono-info.svg": {
+     "name": "icono-info.svg",
+     "blob": "72c54ba8827487a6387678c3535852ec",
+     "size": 279,
+     "type": "image/svg+xml"
+    },
+    "icono-siguiente.svg": {
+     "name": "icono-siguiente.svg",
+     "blob": "25aaad5bf2ded381bd814d2488edfca5",
+     "size": 240,
+     "type": "image/svg+xml"
+    },
+    "icono-cerrar.svg": {
+     "name": "icono-cerrar.svg",
+     "blob": "50587b4ca957593f6d904ac95cdbf335",
+     "size": 245,
+     "type": "image/svg+xml"
+    }
+   }
+  }
+ },
+ "blobs": {},
+ "docs": {
+  "readme": "project/README.md",
+  "sections": []
+ },
+ "lastChange": {
+  "by": "Ernesto",
+  "at": "2026-10-06T14:00:00Z",
+  "via": "Claude (Cowork)",
+  "note": "Fase 3: color claro/oscuro, tipografía, espaciado, iconos, estados, marca del comercio, fotografía y tono"
+ }
+}

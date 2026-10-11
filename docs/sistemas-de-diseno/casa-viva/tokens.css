@@ -1,0 +1,10 @@
+/* Casa Viva — colores y fuentes (del Manual de marca v1, octubre 2026) */
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Figtree:wght@400;500;600&display=swap");
+:root {
+  --cv-crema: #F6F1E6;    /* fondo (60 %) */
+  --cv-marron: #2B2420;   /* texto y logo (25 %) */
+  --cv-petroleo: #0D3B45; /* fondo oscuro alternativo (10 %) */
+  --cv-ambar: #A35A1F;    /* botones y precios (5 %) */
+  --cv-titulos: "Cinzel", Georgia, serif;
+  --cv-texto: "Figtree", system-ui, sans-serif;
+}
