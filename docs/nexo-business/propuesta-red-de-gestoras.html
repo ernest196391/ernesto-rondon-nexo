@@ -1,0 +1,109 @@
+<title>Red de gestoras Casa Viva</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Figtree:wght@400;600;700&display=swap">
+<style>
+/* Layout: una columna de lectura (máx. 720px). Cifras en tablas con números alineados. Marca Casa Viva. */
+:root {
+  --bg: #F6F1E6; --surface: #FFFDF8; --line: #DCD2C1; --fg: #2B2420; --fg-2: #6B5F56;
+  --primary: #0D3B45; --accent: #A35A1F; --ok: #2F6B3F; --ok-soft: #E1EDE3;
+  --f-brand: 'Cinzel', Georgia, serif; --f-ui: 'Figtree', 'Segoe UI', system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #141B1D; --surface: #1C2629; --line: #2F3D41; --fg: #EFE8DA; --fg-2: #A9A097;
+  --primary: #8FC3CE; --accent: #E0A066; --ok: #8CCB9A; --ok-soft: #1F3326; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #141B1D; --surface: #1C2629; --line: #2F3D41; --fg: #EFE8DA; --fg-2: #A9A097;
+  --primary: #8FC3CE; --accent: #E0A066; --ok: #8CCB9A; --ok-soft: #1F3326; color-scheme: dark }
+body { background: var(--bg); color: var(--fg); font: 16px/1.55 var(--f-ui); }
+.wrap { max-width: 720px; margin: 0 auto; padding-inline: 16px; padding-block: 28px 56px; display: grid; gap: 34px; }
+h1, h2 { font-family: var(--f-brand); font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--primary); text-wrap: balance; margin: 0; }
+h1 { font-size: 1.6rem; } h2 { font-size: 1.02rem; }
+section { display: grid; gap: 12px; min-width: 0; }
+p { margin: 0; } .lead { color: var(--fg-2); }
+.eyebrow { font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); font-weight: 700; }
+.table-wrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
+table { border-collapse: collapse; width: 100%; font-size: .93rem; font-variant-numeric: tabular-nums; }
+th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--line); }
+tr:last-child td { border-bottom: 0; }
+td.n, th.n { text-align: right; white-space: nowrap; }
+th { font-size: .72rem; text-transform: uppercase; letter-spacing: .08em; color: var(--fg-2); }
+tr.total td { font-weight: 700; }
+.rules { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.rules li { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; display: grid; gap: 2px; }
+.rules b { color: var(--primary); }
+.rules span { color: var(--fg-2); font-size: .9rem; }
+.callout { background: var(--ok-soft); color: var(--fg); border-radius: 12px; padding: 14px 16px; }
+.callout b { color: var(--ok); }
+ol.ask { margin: 0; padding-left: 20px; display: grid; gap: 6px; }
+</style>
+
+<div class="wrap">
+  <header style="display:grid;gap:8px">
+    <span class="eyebrow">Propuesta para Lennys · octubre 2026</span>
+    <h1>Red de gestoras Casa Viva</h1>
+    <p class="lead">Que vendan más las gestoras y las dependientas, sin que la tienda pierda nunca. Hecho con los números reales de Casa Viva.</p>
+  </header>
+
+  <section>
+    <h2>Los números de hoy</h2>
+    <div class="table-wrap"><table>
+      <tr><td>Ganancia media de un producto (tu fórmula: costo × 1,5)</td><td class="n">33 %</td></tr>
+      <tr><td>Ticket medio</td><td class="n">35,63 USD</td></tr>
+      <tr><td>Parte de la ganancia que hoy se lleva la gestora</td><td class="n">32 %</td></tr>
+      <tr><td>Gastos fijos del mes (local, salarios, teléfono…)</td><td class="n">526 USD</td></tr>
+      <tr><td>Pedidos cancelados en octubre</td><td class="n">22 %</td></tr>
+    </table></div>
+    <p class="lead">Con estas cifras, cada venta deja de media unos 12 USD de ganancia. Hoy se reparten unos 4. La propuesta reparte un poco más, siempre con un tope.</p>
+  </section>
+
+  <section>
+    <h2>Las 5 reglas</h2>
+    <ul class="rules">
+      <li><b>1. Solo se gana por ventas</b><span>Nadie cobra por invitar gente. Si se pagara por inscribir, sería una pirámide.</span></li>
+      <li><b>2. Tope: el 40 % de la ganancia de cada venta</b><span>Todas las comisiones juntas nunca pasan de ahí. El sistema lo comprueba solo.</span></li>
+      <li><b>3. Equipo de 1 nivel: 2 % de lo que vende tu invitada</b><span>Si Ana invita a Rosa, Ana gana el 2 % de cada venta de Rosa. Sale del tope, no del bolsillo de Rosa.</span></li>
+      <li><b>4. Para cobrar de tu equipo, vende tú</b><span>Al menos una venta propia en el mes.</span></li>
+      <li><b>5. Se cobra cuando la venta es firme</b><span>Entregada, cobrada y pasados 7 días sin devolución. Con un 22 % de cancelaciones, esto protege a la tienda.</span></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Ejemplo: una alfombra de 30 USD</h2>
+    <div class="table-wrap"><table>
+      <tr><th>Venta por el enlace de Rosa</th><th class="n">USD</th></tr>
+      <tr><td>Costo (con flete)</td><td class="n">20,00</td></tr>
+      <tr><td>Ganancia</td><td class="n">10,00</td></tr>
+      <tr><td>Comisión de Rosa</td><td class="n">3,00</td></tr>
+      <tr><td>2 % para Ana, que invitó a Rosa</td><td class="n">0,60</td></tr>
+      <tr class="total"><td>Queda para Casa Viva</td><td class="n">6,40</td></tr>
+    </table></div>
+    <p class="lead">Reparto total: 3,60 de 10,00, el 36 %. Está por debajo del tope.</p>
+  </section>
+
+  <section>
+    <h2>Cliente que llega a la tienda de parte de una gestora</h2>
+    <p>Cada gestora tiene un <b>código corto y un QR</b> (por ejemplo, ROSA7). El cliente lo dice antes de pagar y la dependienta lo marca en la caja. Sin código no hay reparto.</p>
+    <div class="table-wrap"><table>
+      <tr><th>Misma alfombra, en la tienda</th><th class="n">33/33/33 de la ganancia</th><th class="n">Propuesta</th></tr>
+      <tr><td>Gestora</td><td class="n">3,33</td><td class="n">3,00</td></tr>
+      <tr><td>Dependienta</td><td class="n">3,33</td><td class="n">1,00</td></tr>
+      <tr><td>Casa Viva</td><td class="n">3,33</td><td class="n">6,00</td></tr>
+    </table></div>
+    <p class="lead">Propuesta: la gestora cobra lo mismo que si vendiera por su enlace, así no tiene miedo de mandar clientes. La dependienta gana el 10 % de la ganancia (hoy gana 0,15). La tienda conserva la mayor parte. El 33/33/33 se mantiene para lo que el cliente compra de más (como ya funciona).</p>
+  </section>
+
+  <section>
+    <h2>Cuánto cuesta y cuánto puede dar</h2>
+    <div class="callout">Si todas las ventas tuvieran una gestora con equipo, el 2 % costaría unos <b>300 USD al mes</b> sobre 15.000 USD de ventas. Si la red trae un 10 % más de ventas (unos 1.500 USD al mes), se paga sola.</div>
+  </section>
+
+  <section>
+    <h2>Lo que necesitamos que decidas</h2>
+    <ol class="ask">
+      <li>¿Te parece bien el tope del 40 % de la ganancia?</li>
+      <li>¿El 2 % del equipo, solo 1 nivel para empezar?</li>
+      <li>¿Las comisiones se pagan a los 7 días de entregado?</li>
+      <li>¿10 % de la ganancia para la dependienta cuando el cliente trae código?</li>
+      <li>¿Apruebas tú a cada gestora nueva, aunque venga invitada?</li>
+    </ol>
+  </section>
+</div>
