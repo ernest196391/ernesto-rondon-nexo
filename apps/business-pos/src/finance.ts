@@ -465,6 +465,23 @@ async function renderReturnForm(saleId: string) {
     <label class="field">Forma de reembolso<select class="input" name="rail">${railOptions()}</select></label>
     <label class="field">Motivo<input class="input" name="reason" required placeholder="Obligatorio"></label>
     <button type="submit" class="btn btn-primary btn-block">Registrar devolución</button>`;
+  // El reembolso se rellena solo con lo que vale lo devuelto (precio cobrado por unidad);
+  // si la dependienta lo cambia a mano, se respeta.
+  const prices = new Map(
+    (await db.select<Array<{ id: string; quantity: number; line_total_minor: number }>>(
+      "SELECT id,quantity,line_total_minor FROM local_sale_lines WHERE sale_id = $1", [saleId],
+    )).map(l => [l.id, l.line_total_minor / l.quantity]),
+  );
+  const refund = field(form, "refund");
+  let touched = false;
+  refund.addEventListener("input", () => { touched = true; });
+  form.querySelectorAll<HTMLInputElement>("input[name^='qty-']").forEach(input =>
+    input.addEventListener("input", () => {
+      if (touched) return;
+      const minor = summary.lines.reduce((t, l) => t + Number(field(form, `qty-${l.saleLineId}`).value || 0) * (prices.get(l.saleLineId) ?? 0), 0);
+      refund.value = (Math.min(Math.round(minor), left) / 100).toFixed(2);
+    }),
+  );
   form.onsubmit = e => {
     e.preventDefault();
     void run("Devolución registrada", async () => {

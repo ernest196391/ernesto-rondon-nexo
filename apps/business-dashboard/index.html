@@ -676,7 +676,7 @@ async function editProduct(p) {
         <label class="field">Códigos de barras<input name="barcodes" value="${esc((p?.barcodes ?? []).join(", "))}" placeholder="Separados por coma" inputmode="numeric"></label>
         <label class="check"><input type="checkbox" name="active" ${p?.active === false ? "" : "checked"}> Se vende en la caja</label>
       </details>
-      <p class="t-xs muted">${p ? (onWeb ? "Está en la web: el precio y la cantidad se copian allí." : "No está en la web: solo se vende en la caja.") : "Se vende en la caja. Para la web, súbelo también en casaviva.company."}</p>
+      <p class="t-xs muted">${p && onWeb ? "Está en la web: los cambios y la cantidad se copian allí." : "Al guardar se crea también en casaviva.company (desmarca “Se vende” para ocultarlo)."}</p>
       <p class="msg" data-msg role="status"></p>
       <button type="submit" class="btn btn-primary btn-xl btn-block">Guardar</button>
     </form>
@@ -712,11 +712,18 @@ async function editProduct(p) {
         const { data: st, error: e2 } = await supabase.rpc("nexo_business_set_stock", { p_business: bizId(), p_product: saved.productId, p_quantity: qty, p_reason: saved.created ? "Alta desde el panel" : "Conteo desde el panel" });
         if (e2 || st?.error) notes.push("la cantidad no se guardó (" + (e2?.message ?? st.message ?? st.error) + ")");
       }
-      if (saved.priceChanged && saved.wooId) {
-        try { await panelWeb({ action: "push_price", wooId: saved.wooId, price }); } catch (e3) { notes.push("el precio no llegó a la web (" + e3.message + ")"); }
-      }
+      // Web (D39): crear el producto allí o copiar los cambios. El stock lo lleva el puente.
+      msg.textContent = "Guardando en la web…";
+      try {
+        const w = await panelWeb({ action: "product_web_save", wooId: saved.wooId ?? null, nexoId: saved.productId, name: f.get("name"), price,
+          category: f.get("category"), imageUrl: imageUrl ?? (saved.wooId ? "" : (p?.image_url ?? "")), sku: saved.sku, active: f.get("active") === "on" });
+        if (!saved.wooId && w.wooId) {
+          const { data: ln, error: e4 } = await supabase.rpc("nexo_business_product_link_web", { p_business: bizId(), p_product: saved.productId, p_woo_id: w.wooId });
+          if (e4 || ln?.error) notes.push("se creó en la web pero no quedó enlazado (" + (e4?.message ?? ln.error) + ")");
+        }
+      } catch (e3) { notes.push("no llegó a la web (" + e3.message + "); vuelve a guardar para reintentar"); }
       sheet.close();
-      toast(`Guardado: ${saved.name} (${saved.sku}). Las cajas lo reciben al sincronizar.` + (notes.length ? " Ojo: " + notes.join("; ") + "." : ""), notes.length ? "bad" : "ok");
+      toast(`Guardado: ${saved.name} (${saved.sku}). Llega a las cajas al sincronizar y a la web en unos minutos.` + (notes.length ? " Ojo: " + notes.join("; ") + "." : ""), notes.length ? "bad" : "ok");
       catalog = null;
       await load();
       if (!$('main[data-page="catalogo"]').hidden) await loadCatalog();

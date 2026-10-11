@@ -182,6 +182,17 @@ Deno.serve(async req => {
       return json(200, await core("POST", "panel/products/price", { wooId: Number(body.wooId), price }));
     }
 
+    // Producto: crear en la web (sin wooId) o copiar cambios (con wooId). D39.
+    if (body.action === "product_web_save") {
+      const price = Number(body.price);
+      const name = String(body.name ?? "").trim();
+      if (!name || !(price > 0)) return json(400, { error: "Falta el nombre o el precio." });
+      return json(200, await core("POST", "panel/products/save", {
+        wooId: Number(body.wooId) > 0 ? Number(body.wooId) : undefined, nexoId: String(body.nexoId ?? ""), name, price,
+        category: String(body.category ?? ""), imageUrl: String(body.imageUrl ?? ""), sku: String(body.sku ?? ""), active: body.active !== false,
+      }));
+    }
+
     // Mensajería: tarifas por zona en CUP (las que usa el checkout de la web).
     if (body.action === "shipping_rates") return json(200, await core("GET", "panel/shipping-rates"));
     if (body.action === "shipping_rate_save") {
