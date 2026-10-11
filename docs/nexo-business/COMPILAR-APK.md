@@ -9,6 +9,11 @@ La versión de Windows se compila sola en GitHub (Releases `caja-vX.Y.Z`); la de
 - Clave de firma: `%APPDATA%\com.nexo.business\signing\` (`casaviva-core-release.jks` + `signing-NO-COMPARTIR.txt`).
   **Nunca subirla a GitHub ni mandarla por WhatsApp.** Con otra clave, los teléfonos no podrían actualizar sin borrar datos.
 
+## Antes de la primera vez: Modo de desarrollador de Windows
+Sin esto la compilación falla al final con "Creation symbolic link is not allowed for this system".
+Windows → **Configuración → Sistema → Para programadores** (o Privacidad y seguridad → Para programadores) → activar **Modo de programador** → Sí.
+Solo hay que hacerlo una vez.
+
 ## Pasos (PowerShell, en la carpeta del proyecto)
 1. Traer lo último: `git pull`
 2. Subir la versión en `apps\business-pos\src-tauri\tauri.conf.json` (`"version": "1.0.X"`) si no se subió ya.
