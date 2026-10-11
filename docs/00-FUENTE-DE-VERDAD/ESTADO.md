@@ -64,6 +64,10 @@ Estados: **FOCO** (se trabaja ahora) · **ACTIVO** (funciona, solo mantenimiento
 | Plantilla de remesas clonable para otros corredores | PAUSADO | Cuando Cuyana sea rentable y estable |
 | Studio One (crear marcas y tiendas en automático) | Fusionado | Es lo mismo que Implementación NEXO + kits. No se construye aparte |
 | Agencia (Rocket Social Media, Brand Lovers) | Fusionado | Pasa a ser "Implementación NEXO" |
+| Frigate (`blakeblackshear/frigate`, cámaras con IA) | PENDIENTE (2026-10-11) | Cuando un comercio cliente pida vigilancia con cámaras IP |
+| Pipecat (`pipecat-ai/pipecat`, bots de voz) | PENDIENTE (2026-10-11) | Cuando haya un cliente que quiera VivaBot con voz/llamadas |
+| TastyIgniter (`tastyigniter/TastyIgniter`, pedidos de restaurante) | PENDIENTE (2026-10-11) | Cuando un restaurante cliente lo necesite y BizneCubano/NEXO Business no lo cubra |
+| Chatwoot (`chatwoot/chatwoot`, bandeja única de mensajes) | EN PRUEBA (2026-10-11) | Instalando local con Docker Desktop para probar; en producción irá en servidor en la nube |
 
 ## E. Proyectos en Vercel por clasificar
 
@@ -167,7 +171,7 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
 **Dónde quedó todo (resumen del chat largo del 11-oct; el detalle está en la sección I, más abajo):**
 - **Panel de Lennys** `casaviva.company/panel/` (también `negocio.nexocuba.com`, Vercel a mano con redeploy del último deployment + `withLatestCommit`). 6 pestañas: Resumen (este mes web+tienda, meses anteriores), Pedidos (solo web; acciones y "Cambiar pedido"), Productos (lista única con precio/quedan, oferta, "Cambiar varios", nuevo producto que también se crea en la web, Llegó mercancía con Curru), Clientes (web + caja + bot, por gestora), Equipo (Gestoras, Mensajeros, Dependientas con permisos, Socios), Ajustes (tasas, mensajería por zona, costos, cajas con código de alta).
 - **Web** `casaviva.company` = Casa Viva Core **3.13.41** (repo `ernest196391/Casa-Viva`, clon `C:\Users\Ernesto\Casa-Viva`; subir por SSH con copia `~/bak-*` y `php -l`). El tema `casa-viva-storefront` NO está en el repo (editado en el servidor; copias `~/bak-2026101*`).
-- **Caja**: Windows 1.0.7 en GitHub Releases. **APK 1.0.7: NO compilada todavía** — falló al final porque Windows no tiene activado el "Modo de programador" (Ernesto debe activarlo: Configuración → Sistema → Para programadores; luego repetir los pasos de `docs/nexo-business/COMPILAR-APK.md`; la parte de Rust ya compila bien). Después falta mandarla e instalarla en los teléfonos de Lennys, Zaymi y Nana junto con sus códigos de alta (UFEYKN, QNHMG7, 455JFM, GGK4W3; vencen ~12-oct 03:40 UTC; si vencen, crear otros en Ajustes → Cajas).
+- **Caja**: Windows 1.0.7 en GitHub Releases. **APK 1.0.7 COMPILADA el 11-oct** (firmada con la clave Casa Viva Core, SHA-256 cert b869006e…; versionCode 1000007; arm64, armv7, x86; copia en el Escritorio: CasaViva-Caja-1.0.7.apk). Después falta mandarla e instalarla en los teléfonos de Lennys, Zaymi y Nana junto con sus códigos de alta (UFEYKN, QNHMG7, 455JFM, GGK4W3; vencen ~12-oct 03:40 UTC; si vencen, crear otros en Ajustes → Cajas).
 - **Puente** `nexo-stock-bridge` cada 2 min: existencias caja↔web, mensajeros y gestoras de la web → caja, clientes de caja y bot → web.
 - **Datos en cero**: sin ventas, pedidos, clientes ni comisiones (todo lo anterior era prueba). Cajas de prueba desactivadas.
 
