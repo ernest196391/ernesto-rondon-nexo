@@ -117,3 +117,11 @@ Regla: no confundir compilación con funcionamiento real.
 - Probado: enlace real → "Te invita Harley Adrián Peña La Rosa" + código oculto; código falso → nada; área renderizada como la usuaria 43 → sección con 2 QR y enlace correcto. Copia `~/bak-20261011-cvd-3.13.28`.
 - No probado: un registro real por invitación (crearía una cuenta) ni el dibujo del QR en un móvil.
 - Ajuste de trabajo: ECC GateGuard sin preguntas en archivos/comandos normales (`.claude/settings.local.json`); sigue activo ante comandos destructivos.
+
+### Acciones sobre pedidos web desde el panel (Core 3.13.30, 2026-10-11)
+- `CVD_Panel_Bridge`: `GET panel/sales`, `POST panel/sales/{id}/status|return` → ejecuta las rutas del Centro de ventas (`/sales`) con `rest_do_request` firmando como Lennys (user 14): mismas reglas, permisos y transiciones que `/ventas/`.
+- `nexo-panel-web`: `sale` (estado y acciones permitidas de un pedido) y `sale_action`.
+- Panel → detalle de pedido web: estado real + solo los botones que Core permite (Listo para salir, Entregado al mensajero, Dinero recibido con forma de pago/USD/CUP/confirmaciones, Incidencia, Cancelar, Devolución con motivo e importes).
+- Arreglado: la ficha de gestora usaba `sheet.querySelector` (openSheet devuelve `{el, close}`).
+- Probado: lectura `panel/sales` con clave (50 pedidos, todos cancelados → sin acciones) y sin clave → 401; sintaxis OK; publicado.
+- NO probado: ejecutar una acción real (no hay pedidos abiertos y crear uno avisaría a mensajeros) ni la pantalla con sesión de dueña (límite diario de enlaces). Primer pedido real: probar con Lennys.
