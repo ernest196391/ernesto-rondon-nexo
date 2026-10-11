@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Figtree:wght@400;600;700&display=swap">
 <link rel="stylesheet" href="nexo.css">
 <link rel="stylesheet" href="casaviva.css">
-<link rel="stylesheet" href="dash.css?v=20261011d">
+<link rel="stylesheet" href="dash.css?v=20261011e">
 </head>
 <body>
 <div class="nx dash" data-theme="casaviva" id="root">
@@ -205,10 +205,13 @@
         <button type="button" class="chip" data-f="out" aria-pressed="false">Agotados</button>
         <button type="button" class="chip" data-f="low" aria-pressed="false">Pocas unidades</button>
         <button type="button" class="chip" data-f="nocost" aria-pressed="false" data-cost-only hidden>Sin costo</button>
+        <button type="button" class="chip" data-f="offer" aria-pressed="false">En oferta</button>
         <button type="button" class="chip" data-f="hidden" aria-pressed="false">Ocultos</button>
         <button type="button" class="chip" data-f="diff" aria-pressed="false" hidden>No coincide con la web</button>
       </div>
       <div class="attention" id="attention-products" hidden></div>
+      <button type="button" class="btn btn-ghost btn-block" id="bulk-btn">Cambiar varios</button>
+      <div class="bulk-bar" id="bulk-bar" hidden><span id="bulk-count">Toca los productos</span><button type="button" class="btn btn-primary" id="bulk-go" disabled>Cambiar precio</button></div>
       <section class="panel" id="inventory"><p class="muted">Cargando…</p></section>
       <button type="button" class="btn btn-ghost btn-block" id="recv-history">Ver mercancía recibida</button>
     </main>
@@ -457,6 +460,8 @@ async function loadWebMonth() {
       + (!web.error && web.pending.orders ? '<button type="button" class="btn btn-primary btn-block" id="see-web-open">Tienes ' + web.pending.orders + " pedido" + (web.pending.orders > 1 ? "s" : "") + " de la web por atender</button>" : "")
       + (!web.error && web.ranking.length ? '<p class="t-sm muted" style="margin-top:8px">Gestoras con más ventas en la web: ' + web.ranking.slice(0, 3).map(r => esc(r.name) + " (" + r.orders + ")").join(", ") + "</p>" : "")
       + "</section>";
+    box.querySelector("section").insertAdjacentHTML("beforeend", '<button type="button" class="btn btn-secondary btn-block" id="see-history" style="margin-top:8px">' + icon("chart", "sm") + "Meses anteriores</button>");
+    $("#see-history").onclick = openHistory;
     const seeOut = $("#see-out");
     if (seeOut) seeOut.onclick = () => openProducts("out");
     const see = $("#see-web-open");
@@ -470,6 +475,29 @@ async function loadWebMonth() {
     box.innerHTML = '<div class="panel muted">No se pudo leer la web: ' + esc(e.message) + "</div>";
   }
 }
+// Historial por meses (como BizneCubano): web + tienda, número de ventas y promedio por venta.
+async function openHistory() {
+  const sheet = openSheet('<div class="sheet-head"><h2>Meses anteriores</h2><button type="button" class="btn btn-ghost" data-close>Cerrar</button></div><div data-hist><p class="muted">Cargando…</p></div>', "Meses anteriores");
+  const box = sheet.el.querySelector("[data-hist]");
+  const [web, shop] = await Promise.all([
+    panelWeb({ action: "history", months: 12 }).catch(() => null),
+    supabase.rpc("nexo_business_monthly", { p_business: bizId(), p_months: 12 }).then(r => (r.error || r.data?.error ? null : r.data)),
+  ]);
+  if (!shop) { box.innerHTML = '<p class="muted">No se pudo cargar. Prueba otra vez.</p>'; return; }
+  const name = m => new Date(m + "-15T12:00:00").toLocaleDateString("es", { month: "long", year: "numeric" });
+  const rows = shop.map(s => {
+    const w = web?.months?.[s.month] ?? { done: 0, doneOrders: 0, lost: 0, lostOrders: 0 };
+    const tienda = (s.usdMinor - s.refundsMinor) / 100;
+    const n = w.doneOrders + s.sales;
+    return { month: s.month, web: w.done, webN: w.doneOrders, lost: w.lost, tienda, tiendaN: s.sales, total: w.done + tienda, n };
+  });
+  const max = Math.max(1, ...rows.map(r => r.total));
+  box.innerHTML = (web ? "" : '<p class="t-sm muted">No se pudo leer la web: se muestra solo la tienda.</p>')
+    + rows.map(r => '<div class="row-item" style="display:block"><div class="kv"><span class="title" style="text-transform:capitalize">' + esc(name(r.month)) + '</span><span class="price-tag">' + usd2(r.total) + "</span></div>"
+      + '<div style="height:6px;border-radius:3px;background:var(--nx-primary-soft);margin:4px 0"><div style="height:100%;width:' + Math.round(100 * r.total / max) + '%;border-radius:3px;background:var(--nx-primary)"></div></div>'
+      + '<span class="meta">Web ' + usd2(r.web) + " (" + r.webN + ") · Tienda " + usd2(r.tienda) + " (" + r.tiendaN + ")" + (r.n ? " · promedio " + usd2(r.total / r.n) : "") + (r.lost ? " · cancelado " + usd2(r.lost) : "") + "</span></div>").join("");
+}
+
 function renderSummary() {
   if (isOwner()) setTimeout(loadWebMonth, 0);
   const b = current;
@@ -606,6 +634,7 @@ async function uploadPhoto(file) {
 async function editProduct(p) {
   if (!catalog) { const { data } = await supabase.rpc("nexo_business_catalog_list", { p_business: bizId() }); if (Array.isArray(data)) catalog = data; }
   const s = p ? stockOf(p.product_id) : null;
+  const inv = p ? invRows.find(x => x.productId === p.product_id) : null;
   const onWeb = p?.external_refs?.["casaviva.company"]?.wooId;
   const cats = [...new Set((catalog ?? []).map(x => x.category).filter(Boolean))].sort((a, b) => a.localeCompare(b, "es"));
   const sheet = openSheet(`
@@ -615,9 +644,10 @@ async function editProduct(p) {
       <input type="hidden" name="sku" value="${esc(p?.sku ?? "")}">
       <label class="field">Nombre<input name="name" required value="${esc(p?.name ?? "")}" placeholder="Ej.: Toalla grande azul"></label>
       <div class="grid-2">
-        <label class="field">Precio USD<input name="price" required inputmode="decimal" placeholder="0.00" value="${p?.prices?.USD != null ? (p.prices.USD / 100).toFixed(2) : ""}"></label>
+        <label class="field">Precio USD<input name="price" required inputmode="decimal" placeholder="0.00" value="${inv?.priceUsd ?? (p?.prices?.USD != null ? (p.prices.USD / 100).toFixed(2) : "")}"></label>
         <label class="field">Quedan<input name="qty" inputmode="numeric" placeholder="${p ? "" : "0"}" value="${s?.lastMovementAt ? s.quantity : ""}"></label>
       </div>
+      <label class="field">Precio de oferta (opcional)<input name="offer" inputmode="decimal" placeholder="Sin oferta" value="${inv?.offerUsd ?? ""}"></label>
       <label class="field">Categoría<input name="category" list="cat-list" value="${esc(p?.category ?? "")}" placeholder="Ej.: Baño"></label>
       <datalist id="cat-list">${cats.map(c => `<option value="${esc(c)}">`).join("")}</datalist>
       <details><summary class="t-sm">Más opciones</summary>
@@ -641,6 +671,8 @@ async function editProduct(p) {
     const f = new FormData(form);
     const price = num(f.get("price"));
     if (price == null || price <= 0) return fail("Escribe un precio mayor que 0");
+    const offer = num(f.get("offer"));
+    if (String(f.get("offer") ?? "").trim() && !(offer > 0 && offer < price)) return fail("La oferta debe ser menor que el precio");
     const qtyRaw = String(f.get("qty") ?? "").trim();
     const qty = qtyRaw === "" ? null : Number(qtyRaw);
     if (qty != null && (!Number.isInteger(qty) || qty < 0)) return fail("La cantidad debe ser un número entero");
@@ -674,6 +706,11 @@ async function editProduct(p) {
           if (e4 || ln?.error) notes.push("se creó en la web pero no quedó enlazado (" + (e4?.message ?? ln.error) + ")");
         }
       } catch (e3) { notes.push("no llegó a la web (" + e3.message + "); vuelve a guardar para reintentar"); }
+      // Precio normal y oferta (en la caja y en la web).
+      try {
+        const pr = await applyPrices([offer ? { productId: saved.productId, price, offer } : { productId: saved.productId, price, clearOffer: true }]);
+        if (pr.webFail) notes.push("la oferta no llegó a la web");
+      } catch { notes.push("la oferta no se guardó"); }
       sheet.close();
       toast("Guardado. Llega a las cajas y a la web en unos minutos." + (notes.length ? " Ojo: " + notes.join("; ") + "." : ""), notes.length ? "bad" : "ok");
       catalog = null; shop = null;
@@ -746,6 +783,59 @@ async function loadInventory() {
   document.querySelectorAll("#inv-filter [data-cost-only]").forEach(c => (c.hidden = !canCost()));
   renderInventory();
 }
+// Precios (normal y oferta) en la nube y luego en la web. items: [{productId, price?, offer?, clearOffer?}]
+async function applyPrices(items) {
+  const { data, error } = await supabase.rpc("nexo_business_bulk_prices", { p_business: bizId(), p_items: items });
+  if (error || data?.error) throw new Error(error?.message ?? data.error);
+  let webFail = false;
+  const web = data.items.filter(i => i.wooId).map(i => ({ wooId: i.wooId, regular: i.regular, sale: i.sale }));
+  for (let k = 0; k < web.length; k += 100) {
+    try { await panelWeb({ action: "push_prices", items: web.slice(k, k + 100) }); } catch { webFail = true; }
+  }
+  for (const i of data.items) { const r = invRows.find(x => x.productId === i.productId); if (r) { r.priceUsd = i.regular; r.offerUsd = i.sale; } }
+  return { done: data.items.length, skipped: data.skipped ?? [], webFail };
+}
+
+// "Cambiar varios": marcar productos y cambiarles el precio u oferta de una vez.
+let picking = false; const picked = new Set();
+function setPicking(on) {
+  picking = on; picked.clear();
+  $("#bulk-bar").hidden = !on;
+  $("#bulk-btn").textContent = on ? "Cancelar" : "Cambiar varios";
+  renderInventory(); updateBulkBar();
+}
+function updateBulkBar() { $("#bulk-count").textContent = picked.size ? picked.size + " marcados" : "Toca los productos"; $("#bulk-go").disabled = !picked.size; }
+function bulkSheet() {
+  const sheet = openSheet('<div class="sheet-head"><h2>Cambiar ' + picked.size + " productos</h2><button type=\"button\" class=\"btn btn-ghost\" data-close>Cerrar</button></div>"
+    + '<form class="form"><label class="field">¿Qué quieres hacer?<select name="mode">'
+    + '<option value="offer">Poner en oferta (% de descuento)</option><option value="clear">Quitar la oferta</option>'
+    + '<option value="up">Subir el precio (%)</option><option value="down">Bajar el precio (%)</option><option value="set">Poner el mismo precio a todos (USD)</option></select></label>'
+    + '<label class="field" data-val>Cantidad<input name="value" inputmode="decimal" placeholder="Ej.: 10"></label>'
+    + '<p class="msg" data-msg role="status"></p><button type="submit" class="btn btn-primary btn-xl btn-block">Aplicar</button></form>', "Cambiar varios");
+  const form = sheet.el.querySelector("form");
+  const msg = form.querySelector("[data-msg]");
+  form.mode.onchange = () => { form.querySelector("[data-val]").hidden = form.mode.value === "clear"; };
+  form.onsubmit = async e => {
+    e.preventDefault();
+    const mode = form.mode.value, v = num(form.value.value);
+    if (mode !== "clear" && !(v > 0) || (["offer", "down"].includes(mode) && v >= 100)) { msg.textContent = "Escribe una cantidad válida"; msg.dataset.tone = "bad"; return; }
+    const round = x => Math.round(x * 100) / 100;
+    const items = [...picked].map(id => {
+      const r = invRows.find(x => x.productId === id);
+      if (mode === "offer") return { productId: id, offer: round(r.priceUsd * (1 - v / 100)) };
+      if (mode === "clear") return { productId: id, clearOffer: true };
+      if (mode === "set") return { productId: id, price: v };
+      return { productId: id, price: round(r.priceUsd * (mode === "up" ? 1 + v / 100 : 1 - v / 100)) };
+    });
+    form.querySelector("[type=submit]").disabled = true; msg.textContent = "Guardando " + items.length + " productos…"; msg.dataset.tone = "";
+    try {
+      const r = await applyPrices(items);
+      sheet.close(); setPicking(false);
+      toast("Listo: " + r.done + " productos." + (r.skipped.length ? " No se cambiaron " + r.skipped.length + " (la oferta debe ser menor que el precio)." : "") + (r.webFail ? " Ojo: la web no respondió, vuelve a intentarlo." : ""), r.skipped.length || r.webFail ? "bad" : "ok");
+    } catch (err) { form.querySelector("[type=submit]").disabled = false; msg.textContent = "No se guardó: " + err.message; msg.dataset.tone = "bad"; }
+  };
+}
+
 function openProducts(filter) {
   invFilter = filter;
   document.querySelectorAll("#inv-filter [data-f]").forEach(x => x.setAttribute("aria-pressed", String(x.dataset.f === filter)));
@@ -763,13 +853,17 @@ function renderInventory() {
     if (invFilter === "low") return isLow(r);
     if (invFilter === "out") return r.stock <= 0;
     if (invFilter === "nocost") return costSheet && !costOf(r.productId)?.cost;
+    if (invFilter === "offer") return r.offerUsd != null;
     return true;
   });
   const active = invRows.filter(r => r.active).length;
   $("#inv-note").textContent = invFilter === "all" && !q ? active + " productos a la venta" : rows.length + " de " + active;
   $("#inventory").innerHTML = rows.length ? rows.slice(0, 300).map(r => {
     const name = r.variant && !r.name.toLowerCase().includes(r.variant.toLowerCase()) ? r.name + " · " + r.variant : r.name;
-    const state = !r.active ? '<span class="badge badge-calm">Oculto</span>' : r.stock <= 0 ? '<span class="badge badge-out">Agotado</span>' : isLow(r) ? '<span class="badge badge-low">Pocas</span>' : "";
+    const state = (r.offerUsd != null ? '<span class="badge badge-info">Oferta ' + usd2(r.offerUsd) + "</span>" : "")
+      + (!r.active ? '<span class="badge badge-calm">Oculto</span>' : r.stock <= 0 ? '<span class="badge badge-out">Agotado</span>' : isLow(r) ? '<span class="badge badge-low">Pocas</span>' : "");
+    if (picking) return '<label class="inv-row inv-pick"><input type="checkbox" data-pick="' + esc(r.productId) + '"' + (picked.has(r.productId) ? " checked" : "") + ">" + photo(r.imageUrl, name)
+      + '<span class="grow"><span class="title">' + esc(name) + '</span><span class="meta">' + usd2(r.priceUsd) + "</span></span>" + state + "</label>";
     return '<div class="inv-row" data-inv="' + esc(r.productId) + '"><button type="button" class="inv-head" data-open aria-label="Abrir ' + esc(name) + '">' + photo(r.imageUrl, name)
       + '<span class="grow"><span class="title">' + esc(name) + "</span>"
       + (isDiff(r) ? '<span class="meta" style="color:var(--nx-danger)">En la web: ' + r.web.stock + " · se iguala sola en 2 min</span>" : !r.wooId ? '<span class="meta">No está en la web</span>' : "")
@@ -795,12 +889,11 @@ function renderInventory() {
       save.disabled = true; save.textContent = "Guardando…";
       const problems = [];
       if (price !== Number(r.priceUsd)) {
-        const { data, error } = await supabase.rpc("nexo_business_set_price", { p_business: bizId(), p_product: r.productId, p_usd: price });
-        if (error || data?.error) problems.push("el precio no se guardó");
-        else {
-          r.priceUsd = price;
-          if (data.wooId) await panelWeb({ action: "push_price", wooId: data.wooId, price }).catch(() => problems.push("el precio no llegó a la web (vuelve a guardar)"));
-        }
+        try {
+          const res = await applyPrices([{ productId: r.productId, price }]);
+          if (res.skipped.length) problems.push("el precio debe ser mayor que la oferta (" + usd2(r.offerUsd) + ")");
+          if (res.webFail) problems.push("el precio no llegó a la web (vuelve a guardar)");
+        } catch { problems.push("el precio no se guardó"); }
       }
       if (stock !== r.stock) {
         const { data, error } = await supabase.rpc("nexo_business_set_stock", { p_business: bizId(), p_product: r.productId, p_quantity: stock, p_reason: "Conteo desde el panel" });
@@ -813,6 +906,14 @@ function renderInventory() {
     };
   });
 }
+$("#bulk-btn").onclick = () => setPicking(!picking);
+$("#bulk-go").onclick = bulkSheet;
+$("#inventory").addEventListener("change", e => {
+  const id = e.target?.dataset?.pick;
+  if (!id) return;
+  if (e.target.checked) picked.add(id); else picked.delete(id);
+  updateBulkBar();
+});
 document.querySelectorAll("#inv-filter [data-f]").forEach(b => (b.onclick = () => {
   invFilter = b.dataset.f;
   document.querySelectorAll("#inv-filter [data-f]").forEach(x => x.setAttribute("aria-pressed", String(x === b)));

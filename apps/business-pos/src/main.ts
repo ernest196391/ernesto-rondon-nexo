@@ -14,6 +14,7 @@ import { mountFinance, refreshFinance } from "./finance";
 import type { DeviceIdentity } from "./sync";
 import { openCheckout, describePayments, type PaymentInput } from "./checkout";
 import { icon, ISOTIPO, escapeHtml, openSheet } from "./ui";
+import { openReceive } from "./receive";
 import { attribution, attributionHtml, resetAttribution, saleAttribution, setGestor, setMessenger, setStaff, toggleExtra } from "./attribution";
 
 type Product = { id: string; name: string; price_minor: number; barcode: string | null };
@@ -79,6 +80,7 @@ app.innerHTML = `
     <section class="view" data-view="inventario" hidden>
       <header class="top"><h1 class="title">Inventario</h1></header>
       <div class="scroll"><div class="stack">
+        <button type="button" class="btn btn-primary btn-xl btn-block" id="recv-open">${icon("plus")}Llegó mercancía</button>
         <div class="seg" role="group" aria-label="Vista de inventario"><button type="button" data-inv="low" aria-pressed="true">Poco stock</button><button type="button" data-inv="ops" aria-pressed="false">Ubicaciones y conteos</button></div>
         <section class="panel" data-inv-pane="low"><div class="low-list" id="low-stock"></div></section>
         <section class="panel" data-inv-pane="ops" hidden><div id="fin-locations"></div></section>
@@ -935,6 +937,7 @@ async function init() {
   await renderHistory();
   await renderAudit();
   await mountFinance($(".nx.app"), db);
+  document.querySelector<HTMLButtonElement>("#recv-open")!.onclick = () => void openReceive(db);
   // Equipo nuevo sin conectar: abre directamente "Más → Sincronización" para poner el código de alta.
   let connected = "";
   try { connected = localStorage.getItem("nexo.sync.deviceToken") ?? ""; } catch { /* sin almacenamiento */ }

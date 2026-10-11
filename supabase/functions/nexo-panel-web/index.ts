@@ -145,6 +145,25 @@ Deno.serve(async req => {
       });
     }
 
+    // Historial por meses de la web (vendido / cancelado y número de pedidos), últimos N meses.
+    if (body.action === "history") {
+      const months = Math.min(36, Math.max(1, Number(body.months) || 12));
+      const now = new Date();
+      const from = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - months + 1, 1)).toISOString();
+      const by: Record<string, { done: number; doneOrders: number; lost: number; lostOrders: number; pending: number; pendingOrders: number }> = {};
+      for (let page = 1; page <= 50; page++) {
+        const { data, pages } = await woo("orders", { after: from, per_page: "100", page: String(page), status: "any" });
+        for (const o of data as WooOrder[]) {
+          const m = o.date_created.slice(0, 7);
+          const g = GROUP[o.status] ?? "pending";
+          by[m] ??= { done: 0, doneOrders: 0, lost: 0, lostOrders: 0, pending: 0, pendingOrders: 0 };
+          by[m][g] += money(o.total); by[m][(g + "Orders") as "doneOrders"]++;
+        }
+        if (page >= pages) break;
+      }
+      return json(200, { months: by });
+    }
+
     if (body.action === "orders") {
       const params: Record<string, string> = { per_page: "20", page: String(Math.max(1, Number(body.page) || 1)), status: "any" };
       if (typeof body.status === "string" && body.status) params.status = body.status;
@@ -180,6 +199,13 @@ Deno.serve(async req => {
       const price = Number(body.price);
       if (!(Number(body.wooId) > 0) || !(price > 0)) return json(400, { error: "Producto o precio no válido." });
       return json(200, await core("POST", "panel/products/price", { wooId: Number(body.wooId), price }));
+    }
+
+    // Precios en masa / oferta: [{wooId, regular, sale|null}] → precio normal y de oferta en la web.
+    if (body.action === "push_prices") {
+      const items = (Array.isArray(body.items) ? body.items : []).filter((i: { wooId?: number }) => Number(i?.wooId) > 0).slice(0, 500);
+      if (!items.length) return json(200, { items: [] });
+      return json(200, await core("POST", "panel/products/prices", { items }));
     }
 
     // Producto: crear en la web (sin wooId) o copiar cambios (con wooId). D39.

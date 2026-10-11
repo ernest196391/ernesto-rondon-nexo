@@ -3,8 +3,8 @@
 // offline use; the cloud turns them into commissions when the sale syncs.
 import { escapeHtml } from "./ui";
 
-export type Person = { id: string; kind: "gestor" | "staff" | "messenger"; name: string };
-const KINDS = new Set(["gestor", "staff", "messenger"]);
+export type Person = { id: string; kind: "gestor" | "staff" | "messenger" | "partner"; name: string };
+const KINDS = new Set(["gestor", "staff", "messenger", "partner"]);
 
 const PEOPLE_KEY = "nexo.people";
 const STAFF_KEY = "nexo.staffId";

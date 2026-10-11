@@ -205,6 +205,13 @@ body { background: #F6F1E6; }
 .nx .inv-edit .input { width: 100%; min-width: 0; box-sizing: border-box; }
 .nx .inv-edit .btn[hidden] { display: none; }
 .nx .inv-edit .btn { min-height: 44px; }
+/* "Cambiar varios": barra fija abajo y filas con casilla. */
+.nx .bulk-bar { position: sticky; bottom: 72px; z-index: 5; display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 10px 12px; margin: 8px 0; background: var(--nx-surface); border: 1px solid var(--nx-line); border-radius: var(--nx-r-md); box-shadow: 0 4px 16px rgba(0,0,0,.08); }
+.nx .bulk-bar[hidden] { display: none; }
+.nx .inv-pick { display: flex; align-items: center; gap: var(--nx-s3); min-height: 52px; cursor: pointer; }
+.nx .inv-pick input { width: 22px; height: 22px; flex: none; }
+.nx .inv-pick .title { display: block; font-weight: 600; }
+.nx .inv-pick .meta { display: block; font-size: var(--nx-fs-xs); color: var(--nx-text-2); }
 /* Enlace dentro de un texto (p. ej. "3 agotados"). */
 .nx .link-btn { background: none; border: 0; padding: 0; font: inherit; color: var(--nx-primary); text-decoration: underline; cursor: pointer; min-height: 32px; }
 /* "Más opciones" y desplegables: área de toque cómoda. */

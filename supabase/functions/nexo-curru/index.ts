@@ -25,14 +25,30 @@ const SYSTEM = "Eres Curru, la asistente de Casa Viva (tienda de artículos para
   + '"lines": [{"name": "producto como aparece", "quantity": número, "unitCost": número o null, "currency": "USD|CUP|MLC"}], '
   + '"total": número o null, "notes": "dudas breves o null"}';
 
+async function core(method: "GET" | "POST", path: string, body?: unknown) {
+  const res = await fetch(`${(Deno.env.get("WOO_URL") ?? "").replace(/\/$/, "")}/wp-json/casa-viva/v1/${path}?_=${Date.now()}`, {
+    method, headers: { "x-nexo-panel-key": Deno.env.get("CASAVIVA_PANEL_KEY") ?? "", "content-type": "application/json" },
+    body: body ? JSON.stringify(body) : undefined,
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(`core ${path} ${res.status}`);
+  return data;
+}
+
 Deno.serve(async req => {
   if (req.method === "OPTIONS") return new Response(null, { status: 204, headers: cors });
   if (req.method !== "POST") return json(405, { error: "method" });
   const key = Deno.env.get("OPENAI_API_KEY") ?? "";
   const body = await req.json().catch(() => ({})) as { business?: string; image?: string; check?: boolean };
+  // Sin clave propia, se usa la Curru de la tienda (Core): la clave nunca sale de WordPress.
+  const viaCore = !key && !!Deno.env.get("WOO_URL") && !!Deno.env.get("CASAVIVA_PANEL_KEY");
   // El panel pregunta antes de mostrar el botón: si Curru no está activada, no se ofrece.
-  if (body.check) return json(200, { configured: key.length > 0 });
-  if (!key) return json(503, { error: "ai_not_configured" });
+  if (body.check) {
+    if (key) return json(200, { configured: true });
+    const s = viaCore ? await core("GET", "panel/curru/status").catch(() => ({ enabled: false })) : { enabled: false };
+    return json(200, { configured: s.enabled === true });
+  }
+  if (!key && !viaCore) return json(503, { error: "ai_not_configured" });
 
   const business = body.business ?? "casa-viva";
   const image = body.image ?? "";
@@ -46,6 +62,11 @@ Deno.serve(async req => {
   const { data: allowed } = await asUser.rpc("nexo_business_receipts", { p_business: business, p_limit: 1 });
   if (!Array.isArray(allowed)) return json(401, { error: "unauthorized" });
 
+  let read: { supplier?: string | null; date?: string | null; lines?: Array<{ name: string; quantity: number; unitCost: number | null; currency?: string }>; total?: number | null; notes?: string | null };
+  if (!key) {
+    try { read = await core("POST", "panel/curru/invoice", { system: SYSTEM, image }); }
+    catch (e) { console.error("curru core", (e as Error).message); return json(502, { error: "ai_error" }); }
+  } else {
   const base = (Deno.env.get("CURRU_BASE_URL") ?? "https://api.openai.com/v1").replace(/\/$/, "");
   const r = await fetch(`${base}/chat/completions`, {
     method: "POST",
@@ -66,8 +87,8 @@ Deno.serve(async req => {
     return json(502, { error: "ai_error", status: r.status });
   }
   const out = await r.json();
-  let read: { supplier?: string | null; date?: string | null; lines?: Array<{ name: string; quantity: number; unitCost: number | null; currency?: string }>; total?: number | null; notes?: string | null };
   try { read = JSON.parse(out.choices?.[0]?.message?.content ?? "{}"); } catch { return json(502, { error: "ai_unreadable" }); }
+  }
   const lines = (read.lines ?? []).filter(l => l && typeof l.name === "string").slice(0, 40);
 
   // Match each read name to the catalog (same matcher as the Excel import).
