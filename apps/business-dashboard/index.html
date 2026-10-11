@@ -1061,7 +1061,7 @@ async function loadSaleActions(sheet, o) {
     // Domicilio listo, pero ningún mensajero lo ha aceptado todavía: decir qué falta (si no, parece que no hay nada que hacer).
     const waiting = sale.status === "ready" && sale.fulfillment !== "Recogida en tienda" && ["Por ofertar", "Oferta abierta", "Asignada"].includes(sale.deliveryStatus);
     box.innerHTML = '<div class="kv"><span>Estado</span><span><b>' + esc(sale.statusLabel) + "</b>" + (sale.deliveryStatus ? " · " + esc(sale.deliveryStatus) : "") + "</span></div>"
-      + (waiting ? '<p class="t-sm muted">Esperando a que un mensajero acepte la carrera en su área (casaviva.company/area-mensajeros). Cuando la acepte, aquí sale «Entregado al mensajero». Si nadie la toma, avisa a un mensajero aprobado por WhatsApp.</p>' : "")
+      + (waiting ? '<p class="t-sm muted">La carrera ya salió en el grupo de WhatsApp «Mensajerías CASA Viva». Cuando un mensajero escriba «Yo», le llega el vale y aquí sale «Entregado al mensajero». Si en un rato nadie la toma, avisa a un mensajero aprobado.</p>' : "")
       + acts.map(a => '<button type="button" class="btn ' + SALE_ACTION[a][1] + ' btn-block" data-act="' + a + '">' + actLabel(a, sale) + "</button>").join("")
       + (sale.canReturn ? '<button type="button" class="btn btn-secondary btn-block" data-act="return">Registrar devolución</button>' : "")
       + (!acts.length && !sale.canReturn ? '<p class="muted">Este pedido no tiene acciones pendientes.</p>' : "")
@@ -1074,7 +1074,10 @@ async function loadSaleActions(sheet, o) {
   }
 }
 // En una recogida en tienda, "Dinero recibido" significa que la clienta vino, pagó y se lo llevó.
-const actLabel = (a, sale) => a === "delivered" && sale.fulfillment === "Recogida en tienda" ? "Lo recogió y pagó · cerrar" : SALE_ACTION[a][0];
+// Pedido nuevo o confirmado: "Preparando" es el siguiente paso, no un "volver".
+const actLabel = (a, sale) => a === "delivered" && sale.fulfillment === "Recogida en tienda" ? "Lo recogió y pagó · cerrar"
+  : a === "preparing" && !["ready", "with_courier", "picked_up", "incident"].includes(sale.status) ? "Empezar a preparar"
+  : SALE_ACTION[a][0];
 function saleActionForm(box, sale, act) {
   const form = box.querySelector("[data-form]");
   const pickup = sale.fulfillment === "Recogida en tienda";
