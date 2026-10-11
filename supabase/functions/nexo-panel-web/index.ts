@@ -174,6 +174,19 @@ Deno.serve(async req => {
       return json(200, await core("POST", `panel/payouts/${Number(body.id)}`, { action: act, reference: String(body.reference ?? "") }));
     }
 
+    // Pedidos: las mismas acciones que /ventas/ (Core aplica sus reglas y firma como la dueña).
+    if (body.action === "sale") {
+      const q = new URLSearchParams({ search: String(body.number ?? "") });
+      const data = await core("GET", `panel/sales?${q}`);
+      const one = (data.orders ?? []).find((o: { number: string }) => String(o.number) === String(body.number));
+      return one ? json(200, one) : json(404, { error: "No encontré ese pedido entre los 50 más recientes." });
+    }
+    if (body.action === "sale_action") {
+      const what = body.what === "return" ? "return" : "status";
+      const params = (body.params && typeof body.params === "object") ? body.params : {};
+      return json(200, await core("POST", `panel/sales/${Number(body.id)}/${what}`, params));
+    }
+
     return json(400, { error: "Acción desconocida." });
   } catch (e) {
     const msg = (e as Error).message;

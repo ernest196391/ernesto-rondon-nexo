@@ -777,7 +777,7 @@ async function loadWebOrders() {
 function showWebOrder(o) {
   const items = o.items.map(i => i.qty + "× " + i.name + (i.variant ? " (" + i.variant + ")" : "")).join(", ");
   const wa = o.phone ? waLink(o.phone, "Hola " + o.customer + ". Le escribimos de Casa Viva por su pedido #" + o.number + ": " + items + ".") : null;
-  openSheet('<div class="sheet-head"><h2>Pedido web #' + esc(o.number) + '</h2><button type="button" class="btn btn-ghost" data-close>Cerrar</button></div>'
+  const sheet = openSheet('<div class="sheet-head"><h2>Pedido web #' + esc(o.number) + '</h2><button type="button" class="btn btn-ghost" data-close>Cerrar</button></div>'
     + '<div class="kv"><span class="badge ' + WEB_BADGE[o.group] + '">' + esc(o.statusText) + '</span><span class="t-xs muted">' + esc(when(o.date)) + "</span></div>"
     + '<div class="breakdown">' + o.items.map(i => '<div class="kv"><span>' + i.qty + "× " + esc(i.name) + (i.variant ? '<br><span class="t-xs muted">' + esc(i.variant) + "</span>" : "") + '</span><span class="num">$' + i.total.toFixed(2) + "</span></div>").join("")
     + '<div class="kv strong"><span>Total productos</span><span class="num">$' + o.total.toFixed(2) + "</span></div>"
@@ -788,8 +788,68 @@ function showWebOrder(o) {
     + (o.note ? '<p class="t-sm"><b>Nota:</b> ' + esc(o.note) + "</p>" : "")
     + '<div style="display:flex;flex-direction:column;gap:8px;margin-top:12px">'
     + (wa ? '<a class="btn btn-primary btn-block" target="_blank" rel="noopener" href="' + esc(wa) + '">Escribir al cliente por WhatsApp</a>' : "")
-    + '<a class="btn btn-secondary btn-block" target="_blank" rel="noopener" href="https://casaviva.company/ventas/?pedido=' + encodeURIComponent(o.id) + '">Gestionar en la web (reparto, cobro, cerrar)</a></div>',
+    + '<div data-actions style="display:flex;flex-direction:column;gap:8px"><p class="muted">Buscando qué se puede hacer…</p></div></div>',
     "Pedido web " + o.number);
+  void loadSaleActions(sheet.el, o);
+}
+
+// Acciones del pedido: las decide Core según su estado (las mismas que en /ventas/).
+const SALE_ACTION = {
+  ready: ["Listo para salir", "btn-primary"],
+  picked_up: ["Entregado al mensajero", "btn-primary"],
+  delivered: ["Dinero recibido · cerrar", "btn-primary"],
+  confirmed: ["Volver a confirmado", "btn-secondary"],
+  preparing: ["Volver a preparando", "btn-secondary"],
+  with_courier: ["Volver a en camino", "btn-secondary"],
+  incident: ["Marcar incidencia", "btn-secondary"],
+  cancelled: ["Cancelar pedido", "btn-danger"],
+};
+async function loadSaleActions(sheet, o) {
+  const box = sheet.querySelector("[data-actions]");
+  try {
+    const sale = await panelWeb({ action: "sale", number: o.number });
+    const acts = sale.actions.filter(a => SALE_ACTION[a]);
+    box.innerHTML = '<div class="kv"><span>Estado</span><span><b>' + esc(sale.statusLabel) + "</b>" + (sale.deliveryStatus ? " · " + esc(sale.deliveryStatus) : "") + "</span></div>"
+      + acts.map(a => '<button type="button" class="btn ' + SALE_ACTION[a][1] + ' btn-block" data-act="' + a + '">' + SALE_ACTION[a][0] + "</button>").join("")
+      + (sale.canReturn ? '<button type="button" class="btn btn-secondary btn-block" data-act="return">Registrar devolución</button>' : "")
+      + (!acts.length && !sale.canReturn ? '<p class="muted">Este pedido no tiene acciones pendientes.</p>' : "")
+      + '<div data-form></div><p class="msg" data-amsg role="status"></p>';
+    box.querySelectorAll("[data-act]").forEach(b => (b.onclick = () => saleActionForm(box, sale, b.dataset.act)));
+  } catch (e) {
+    box.innerHTML = '<p class="muted">' + esc(e.message) + "</p>";
+  }
+}
+function saleActionForm(box, sale, act) {
+  const form = box.querySelector("[data-form]");
+  const pickup = sale.fulfillment === "Recogida en tienda";
+  const money = act === "delivered"
+    ? '<label class="field">Cómo pagó<select name="collectionMethod"><option value="cash_usd">Efectivo USD</option><option value="cash_cup">Efectivo CUP</option><option value="transfer">Transferencia</option><option value="mixed">Mixto</option><option value="other">Otro</option></select></label>'
+      + '<div class="grid-2"><label class="field">USD recibidos<input name="collectedUsd" inputmode="decimal" value="' + esc(sale.declaredUsd) + '"></label><label class="field">CUP recibidos<input name="collectedCup" inputmode="decimal" value="' + esc(sale.declaredCup) + '"></label></div>'
+      + '<label class="t-sm"><input type="checkbox" name="moneyConfirmed" required> Tengo el dinero en la mano</label>'
+      + (pickup ? '<label class="t-sm"><input type="checkbox" name="handoverConfirmed" required> El cliente se llevó el producto</label>' : "")
+    : act === "return"
+      ? '<label class="field">Motivo<input name="reason" required maxlength="200"></label><div class="grid-2"><label class="field">Devuelto USD<input name="refundUsd" inputmode="decimal" value="0"></label><label class="field">Devuelto CUP<input name="refundCup" inputmode="decimal" value="0"></label></div>'
+      : act === "cancelled" ? '<p class="t-sm">Se cancela el pedido, vuelve el stock y se anula la comisión. No se puede deshacer.</p>' : "";
+  form.innerHTML = '<form class="form" style="margin-top:8px">' + money + '<button type="submit" class="btn btn-primary btn-block">Confirmar: ' + esc(act === "return" ? "Registrar devolución" : SALE_ACTION[act][0]) + "</button></form>";
+  form.querySelector("form").onsubmit = async e => {
+    e.preventDefault();
+    const f = new FormData(e.target);
+    const params = act === "return"
+      ? { reason: f.get("reason"), refundUsd: f.get("refundUsd"), refundCup: f.get("refundCup") }
+      : { status: act, idempotencyKey: "panel:" + sale.id + ":" + act + ":" + Date.now() };
+    if (act === "delivered") Object.assign(params, { collectionMethod: f.get("collectionMethod"), collectedUsd: f.get("collectedUsd"), collectedCup: f.get("collectedCup"), moneyConfirmed: f.get("moneyConfirmed") === "on", handoverConfirmed: f.get("handoverConfirmed") === "on" });
+    const msg = box.querySelector("[data-amsg]");
+    const btn = e.target.querySelector("button[type=submit]");
+    btn.disabled = true; msg.textContent = "Guardando…"; msg.dataset.tone = "";
+    try {
+      const r = await panelWeb({ action: "sale_action", id: sale.id, what: act === "return" ? "return" : "status", params });
+      toast(r.message ?? "Hecho", "ok");
+      box.closest(".sheet, [role=dialog]")?.querySelector("[data-close]")?.click();
+      void loadWebOrders();
+    } catch (err) {
+      btn.disabled = false; msg.textContent = err.message; msg.dataset.tone = "bad";
+    }
+  };
 }
 document.querySelectorAll("#orders-src [data-src]").forEach(b => (b.onclick = () => {
   ordersSrc = b.dataset.src;
@@ -1029,21 +1089,21 @@ async function showWebGestora(x) {
     + (x.status === "rejected" ? '<button type="button" class="btn btn-secondary btn-block" data-set="approved">Aprobar de todas formas</button>' : "")
     + (wa ? '<a class="btn btn-secondary btn-block" target="_blank" rel="noopener" href="' + esc(wa) + '">Escribirle por WhatsApp</a>' : "") + "</div>",
     "Gestora " + x.name);
-  const msg = sheet.querySelector("[data-msg]");
-  sheet.querySelectorAll("[data-set]").forEach(b => (b.onclick = async () => {
+  const msg = sheet.el.querySelector("[data-msg]");
+  sheet.el.querySelectorAll("[data-set]").forEach(b => (b.onclick = async () => {
     b.disabled = true; msg.textContent = "Guardando…"; msg.dataset.tone = "";
     try {
       await panelWeb({ action: "gestora_status", id: x.id, status: b.dataset.set });
       toast(b.dataset.set === "approved" ? "Gestora aprobada" : "Gestora rechazada", "ok");
-      sheet.querySelector("[data-close]").click();
+      sheet.close();
       await loadWebGestoras();
     } catch (e) { b.disabled = false; msg.textContent = e.message; msg.dataset.tone = "bad"; }
   }));
   try {
     const all = await Promise.all(["requested", "approved", "paid", "rejected"].map(s => panelWeb({ action: "payouts", status: s, gestoraId: x.id })));
     const rows = all.flatMap(r => r.payouts).sort((a, b) => b.id - a.id);
-    sheet.querySelector("[data-hist]").innerHTML = rows.length ? rows.map(r => '<div class="kv"><span>' + esc(when(r.paidAt || r.approvedAt || r.requestedAt)) + " · " + esc(PAYOUT_STATUS_ES[r.status] ?? r.status) + "</span><span class=\"num\">" + usd2(r.amount) + " " + esc(r.currency) + "</span></div>").join("") : '<p class="muted">Todavía no ha pedido ningún pago en la web.</p>';
-  } catch (e) { sheet.querySelector("[data-hist]").innerHTML = '<p class="muted">' + esc(e.message) + "</p>"; }
+    sheet.el.querySelector("[data-hist]").innerHTML = rows.length ? rows.map(r => '<div class="kv"><span>' + esc(when(r.paidAt || r.approvedAt || r.requestedAt)) + " · " + esc(PAYOUT_STATUS_ES[r.status] ?? r.status) + "</span><span class=\"num\">" + usd2(r.amount) + " " + esc(r.currency) + "</span></div>").join("") : '<p class="muted">Todavía no ha pedido ningún pago en la web.</p>';
+  } catch (e) { sheet.el.querySelector("[data-hist]").innerHTML = '<p class="muted">' + esc(e.message) + "</p>"; }
 }
 const PAYOUT_STATUS_ES = { requested: "Pedido", approved: "Aprobado", paid: "Pagado", rejected: "Rechazado" };
 function renderWebPayouts(list) {
