@@ -182,6 +182,15 @@ Deno.serve(async req => {
       return json(200, await core("POST", "panel/products/price", { wooId: Number(body.wooId), price }));
     }
 
+    // Mensajería: tarifas por zona en CUP (las que usa el checkout de la web).
+    if (body.action === "shipping_rates") return json(200, await core("GET", "panel/shipping-rates"));
+    if (body.action === "shipping_rate_save") {
+      const fee = Number(body.fee);
+      const municipality = String(body.municipality ?? "").trim();
+      if (!municipality || !Number.isInteger(fee) || fee < 0 || fee > 100000) return json(400, { error: "Municipio o tarifa no válidos." });
+      return json(200, await core("POST", "panel/shipping-rates", { municipality, zone: String(body.zone ?? "").trim(), fee, active: body.active !== false }));
+    }
+
     // Pedidos: las mismas acciones que /ventas/ (Core aplica sus reglas y firma como la dueña).
     if (body.action === "sale") {
       const q = new URLSearchParams({ search: String(body.number ?? "") });

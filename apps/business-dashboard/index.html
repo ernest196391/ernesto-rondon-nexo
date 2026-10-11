@@ -183,7 +183,8 @@
     </main>
 
     <main class="page" data-page="inventario" hidden>
-      <div class="page-head"><h1>Inventario y precios</h1><span class="t-sm muted" id="inv-note"></span></div>
+      <div class="page-head"><h1>Inventario y precios</h1><button type="button" class="btn btn-primary" id="inv-new"><span data-ic="plus"></span>Nuevo</button></div>
+      <p class="t-sm muted" id="inv-note"></p>
       <div class="chips" id="inv-filter" role="group" aria-label="Mostrar">
         <button type="button" class="chip" data-f="all" aria-pressed="true">Todos</button>
         <button type="button" class="chip" data-f="diff" aria-pressed="false">Web distinta</button>
@@ -215,6 +216,7 @@
       <div class="page-head"><h1>Ajustes</h1></div>
       <div class="seg" id="ajustes-seg" role="group" aria-label="Sección">
         <button type="button" data-sub="tasas" aria-pressed="true">Tasas</button>
+        <button type="button" data-sub="mensajeria" aria-pressed="false">Mensajería</button>
         <button type="button" data-sub="costos" aria-pressed="false" data-cost-only>Costos</button>
         <button type="button" data-sub="gastos" aria-pressed="false" data-cost-only>Gastos</button>
         <button type="button" data-sub="equipos" aria-pressed="false">Equipos</button>
@@ -223,6 +225,11 @@
         <h2 class="t-lg">Tasas de cambio</h2>
         <p class="t-sm muted">Los precios están en USD. El POS convierte cada pago con estas tasas y las recibe al sincronizar.</p>
         <div id="rates"><p class="muted">Cargando…</p></div>
+      </section>
+      <section class="panel" data-sub="mensajeria" hidden>
+        <h2 class="t-lg">Mensajería por zona</h2>
+        <p class="t-sm muted">Precio en CUP que paga el cliente según su reparto. La web lo cobra al hacer el pedido; cada pedido guarda el precio del momento.</p>
+        <div id="ship"><p class="muted">Cargando…</p></div>
       </section>
       <section class="panel" id="cost-vars" data-sub="costos" hidden></section>
       <section class="panel" id="fixed-costs" data-sub="gastos" hidden></section>
@@ -331,7 +338,7 @@ function go(next) {
     }
     else void loadCatalog();
   }
-  if (next === "ajustes") { void loadRates(); void loadCostSettings(); }
+  if (next === "ajustes") { void loadRates(); void loadCostSettings(); if (ajustesSub === "mensajeria") void loadShipping(); }
   if (next === "resumen") { if (resSub === "caja") void loadMoney(); else void loadReport(); }
   if (next === "pedidos") void loadOrders();
   if (next === "equipo") void loadTeam();
@@ -427,17 +434,36 @@ document.querySelectorAll("#period .chip").forEach(c => (c.onclick = () => {
   };
 }));
 
-// Web del mes, como el inicio de BizneCubano: concretado / por atender / perdido.
+// Inicio del mes, como BizneCubano, con la web y la tienda (caja) juntas:
+// concretado / por atender / perdido, pedidos y ventas, productos agotados.
 async function loadWebMonth() {
   const box = $("#web-month");
   if (!box) return;
+  const to = isoDay(new Date()), from = to.slice(0, 8) + "01";
+  const [web, shop] = await Promise.all([
+    panelWeb({ action: "summary" }).catch(e => ({ error: e.message })),
+    supabase.rpc("nexo_business_report", { p_business: current.businessId, p_from: from, p_to: to }).then(r => r.error || r.data?.error ? { error: r.error?.message ?? r.data.error } : r.data),
+  ]);
+  const $$ = v => "$" + Number(v).toLocaleString("es", { maximumFractionDigits: 2 });
+  const shopUsd = shop.error ? 0 : (shop.totals.usdMinor - (shop.totals.refundsMinor ?? 0)) / 100;
+  const webDone = web.error ? 0 : web.done.total;
+  const tracked = (current.stock ?? []).filter(p => p.lastMovementAt);
+  const out = tracked.filter(p => p.quantity <= 0).length;
+  const active = (catalog ?? []).filter(p => p.active);
+  const cats = new Set(active.map(p => p.category).filter(Boolean)).size;
+  const tile = (label, value, sub, tone) => '<div class="kpi"><span class="label">' + label + '</span><span class="value num" style="font-size:var(--nx-fs-lg)' + (tone ? ";color:var(--nx-" + tone + ")" : "") + '">' + value + '</span><span class="sub">' + sub + "</span></div>";
   try {
-    const s = await panelWeb({ action: "summary" });
-    const tile = (label, v, sub, tone) => '<div class="kpi"><span class="label">' + label + '</span><span class="value num" style="font-size:var(--nx-fs-lg)' + (tone ? ";color:var(--nx-" + tone + ")" : "") + '">$' + v.total.toLocaleString("es", { maximumFractionDigits: 2 }) + '</span><span class="sub">' + v.orders + " pedidos · " + sub + "</span></div>";
-    box.innerHTML = '<section class="panel"><div class="kv"><h2 class="t-lg">Web casaviva.company · este mes</h2><span class="t-sm muted">' + s.orders + " pedidos</span></div>"
-      + '<div class="kpis">' + tile("Concretado", s.done, "completados", "ok") + tile("Por atender", s.pending, "en curso", "warn") + tile("Perdido", s.lost, "cancelados", "danger") + "</div>"
-      + (s.pending.orders ? '<button type="button" class="btn btn-secondary btn-block" id="see-web-open">Ver los ' + s.pending.orders + " pedidos por atender</button>" : "")
-      + (s.ranking.length ? '<p class="t-sm muted" style="margin-top:8px">Gestoras con más ventas en la web: ' + s.ranking.slice(0, 3).map(r => esc(r.name) + " (" + r.orders + ")").join(", ") + "</p>" : "")
+    box.innerHTML = '<section class="panel"><div class="kv"><h2 class="t-lg">Este mes · web y tienda</h2><span class="t-sm muted">desde el 1</span></div>'
+      + '<div class="kpis">'
+      + tile("Concretado", $$(webDone + shopUsd), "web " + $$(webDone) + " (" + (web.error ? "?" : web.done.orders) + ") + tienda " + $$(shopUsd) + " (" + (shop.error ? "?" : shop.totals.sales) + ")", "ok")
+      + tile("Por atender", web.error ? "—" : $$(web.pending.total), (web.error ? "?" : web.pending.orders) + " pedidos web en curso", "warn")
+      + tile("Perdido", web.error ? "—" : $$(web.lost.total), (web.error ? "?" : web.lost.orders) + " pedidos web cancelados", "danger")
+      + "</div>"
+      + '<p class="t-sm" style="margin-top:8px">Productos: <b>' + active.length + "</b> a la venta · <b>" + out + "</b> agotados · " + cats + " categorías</p>"
+      + (web.error ? '<p class="t-sm muted">No se pudo leer la web: ' + esc(web.error) + "</p>" : "")
+      + (shop.error ? '<p class="t-sm muted">No se pudo leer la tienda: ' + esc(shop.error) + "</p>" : "")
+      + (!web.error && web.pending.orders ? '<button type="button" class="btn btn-primary btn-block" id="see-web-open">Tienes ' + web.pending.orders + " pedido" + (web.pending.orders > 1 ? "s" : "") + " de la web por atender</button>" : "")
+      + (!web.error && web.ranking.length ? '<p class="t-sm muted" style="margin-top:8px">Gestoras con más ventas en la web: ' + web.ranking.slice(0, 3).map(r => esc(r.name) + " (" + r.orders + ")").join(", ") + "</p>" : "")
       + "</section>";
     const see = $("#see-web-open");
     if (see) see.onclick = () => {
@@ -606,21 +632,51 @@ function renderCatalog() {
   document.querySelectorAll("#catalog [data-edit]").forEach(b => (b.onclick = () => editProduct(catalog.find(p => p.product_id === b.dataset.edit))));
 }
 
-function editProduct(p) {
+// Reduce la foto en el teléfono antes de subirla (máx. 900 px, WebP): sube rápido con datos móviles.
+async function productPhotoBlob(file) {
+  const img = await createImageBitmap(file);
+  const k = Math.min(1, 900 / Math.max(img.width, img.height));
+  const c = document.createElement("canvas");
+  c.width = Math.round(img.width * k); c.height = Math.round(img.height * k);
+  c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+  return await new Promise(res => c.toBlob(res, "image/webp", 0.82));
+}
+async function uploadPhoto(file) {
+  const blob = await productPhotoBlob(file);
+  const path = `${bizId()}/${crypto.randomUUID()}.webp`;
+  const { error } = await supabase.storage.from("nexo-product-photos").upload(path, blob, { contentType: "image/webp" });
+  if (error) throw new Error(error.message);
+  return supabase.storage.from("nexo-product-photos").getPublicUrl(path).data.publicUrl;
+}
+
+// Crear o editar un producto. La caja lo recibe al sincronizar; si está en la web, el precio se copia allí.
+async function editProduct(p) {
+  if (!catalog) { const { data } = await supabase.rpc("nexo_business_catalog_list", { p_business: bizId() }); if (Array.isArray(data)) catalog = data; }
   const s = p ? stockOf(p.product_id) : null;
+  const onWeb = p?.external_refs?.["casaviva.company"]?.wooId;
+  const cats = [...new Set((catalog ?? []).map(x => x.category).filter(Boolean))].sort((a, b) => a.localeCompare(b, "es"));
   const sheet = openSheet(`
     <div class="sheet-head"><h2>${p ? "Editar producto" : "Nuevo producto"}</h2><button type="button" class="btn btn-ghost" data-close>Cerrar</button></div>
-    ${p?.image_url ? `<img class="sheet-photo" src="${esc(p.image_url)}" alt="" loading="lazy" onerror="this.remove()">` : ""}
-    ${s?.lastMovementAt ? `<p class="t-sm muted">${s.quantity} en stock · último movimiento ${esc(when(s.lastMovementAt))}</p>` : ""}
     <form class="form">
-      <label class="field">Nombre<input name="name" required value="${esc(p?.name ?? "")}"></label>
+      <label class="field">Foto
+        <img class="sheet-photo" data-preview src="${esc(p?.image_url ?? "")}" alt="" ${p?.image_url ? "" : "hidden"} onerror="this.hidden=true">
+        <input type="file" name="photo" accept="image/*"></label>
+      <label class="field">Nombre<input name="name" required value="${esc(p?.name ?? "")}" placeholder="Ej.: Toalla grande azul"></label>
       <div class="grid-2">
-        <label class="field">SKU<input name="sku" value="${esc(p?.sku ?? "")}" autocapitalize="characters"></label>
-        <label class="field">Aviso de stock<input name="min" type="number" min="0" step="1" inputmode="numeric" placeholder="2 por defecto" value="${p?.min_stock ?? ""}"></label>
+        <label class="field">Precio USD<input name="price" required inputmode="decimal" placeholder="0.00" value="${p?.prices?.USD != null ? (p.prices.USD / 100).toFixed(2) : ""}"></label>
+        <label class="field">Quedan<input name="qty" inputmode="numeric" placeholder="${p ? "" : "0"}" value="${s?.lastMovementAt ? s.quantity : ""}"></label>
       </div>
-      <label class="field">Códigos de barras<input name="barcodes" value="${esc((p?.barcodes ?? []).join(", "))}" placeholder="Separados por coma" inputmode="numeric"></label>
-      <div class="grid-2">${CURRENCIES.map(c => `<label class="field">Precio ${c}<input name="price-${c}" inputmode="decimal" placeholder="—" value="${p?.prices?.[c] != null ? (p.prices[c] / 100).toFixed(2) : ""}"></label>`).join("")}</div>
-      <label class="check"><input type="checkbox" name="active" ${p?.active === false ? "" : "checked"}> Activo (se vende en el POS)</label>
+      <label class="field">Categoría<input name="category" list="cat-list" value="${esc(p?.category ?? "")}" placeholder="Ej.: Baño"></label>
+      <datalist id="cat-list">${cats.map(c => `<option value="${esc(c)}">`).join("")}</datalist>
+      <details><summary class="t-sm">Más opciones</summary>
+        <div class="grid-2">
+          <label class="field">SKU<input name="sku" value="${esc(p?.sku ?? "")}" placeholder="Se pone solo" autocapitalize="characters"></label>
+          <label class="field">Avisar cuando queden<input name="min" type="number" min="0" step="1" inputmode="numeric" placeholder="2" value="${p?.min_stock ?? ""}"></label>
+        </div>
+        <label class="field">Códigos de barras<input name="barcodes" value="${esc((p?.barcodes ?? []).join(", "))}" placeholder="Separados por coma" inputmode="numeric"></label>
+        <label class="check"><input type="checkbox" name="active" ${p?.active === false ? "" : "checked"}> Se vende en la caja</label>
+      </details>
+      <p class="t-xs muted">${p ? (onWeb ? "Está en la web: el precio y la cantidad se copian allí." : "No está en la web: solo se vende en la caja.") : "Se vende en la caja. Para la web, súbelo también en casaviva.company."}</p>
       <p class="msg" data-msg role="status"></p>
       <button type="submit" class="btn btn-primary btn-xl btn-block">Guardar</button>
     </form>
@@ -628,35 +684,48 @@ function editProduct(p) {
   if (p && canCost() && costSheet) wireCostSection(sheet.el, p);
   const form = sheet.el.querySelector("form:not([data-cost])");
   const msg = form.querySelector("[data-msg]");
+  const preview = form.querySelector("[data-preview]");
+  form.photo.onchange = () => { const f = form.photo.files[0]; if (f) { preview.src = URL.createObjectURL(f); preview.hidden = false; } };
+  const fail = text => { msg.textContent = text; msg.dataset.tone = "bad"; form.querySelector("[type=submit]").disabled = false; };
   form.onsubmit = async e => {
     e.preventDefault();
     const f = new FormData(form);
-    const prices = {};
-    for (const c of CURRENCIES) {
-      const raw = String(f.get(`price-${c}`) ?? "").trim();
-      if (!raw) continue;
-      const minor = toMinor(raw);
-      if (minor == null) { msg.textContent = `Precio ${c} inválido`; msg.dataset.tone = "bad"; return; }
-      prices[c] = minor;
-    }
-    msg.textContent = "Guardando…"; msg.dataset.tone = "";
-    const { data: saved, error } = await supabase.rpc("nexo_business_catalog_upsert", {
-      p_business: current.businessId,
-      p_product_id: p?.product_id ?? crypto.randomUUID(),
-      p_name: f.get("name"),
-      p_sku: f.get("sku"),
-      p_barcodes: String(f.get("barcodes") ?? "").split(",").map(v => v.trim()).filter(Boolean),
-      p_prices: prices,
-      p_active: f.get("active") === "on",
-      p_min_stock: String(f.get("min") ?? "").trim() === "" ? null : Number(f.get("min")),
-    });
-    if (error || saved?.error) { msg.textContent = `No se guardó: ${error?.message ?? saved.error}`; msg.dataset.tone = "bad"; return; }
-    sheet.close();
-    toast(`Guardado: ${saved.name}. Llega a los equipos al sincronizar.`, "ok");
-    await loadCatalog();
+    const price = num(f.get("price"));
+    if (price == null || price <= 0) return fail("Escribe un precio mayor que 0");
+    const qtyRaw = String(f.get("qty") ?? "").trim();
+    const qty = qtyRaw === "" ? null : Number(qtyRaw);
+    if (qty != null && (!Number.isInteger(qty) || qty < 0)) return fail("La cantidad debe ser un número entero");
+    form.querySelector("[type=submit]").disabled = true;
+    try {
+      let imageUrl = null;
+      if (form.photo.files[0]) { msg.textContent = "Subiendo foto…"; msg.dataset.tone = ""; imageUrl = await uploadPhoto(form.photo.files[0]); }
+      msg.textContent = "Guardando…"; msg.dataset.tone = "";
+      const { data: saved, error } = await supabase.rpc("nexo_business_product_save", {
+        p_business: bizId(), p_product_id: p?.product_id ?? null, p_name: f.get("name"), p_sku: f.get("sku"),
+        p_barcodes: String(f.get("barcodes") ?? "").split(",").map(v => v.trim()).filter(Boolean),
+        p_price_usd: price, p_category: f.get("category"), p_image_url: imageUrl,
+        p_active: f.get("active") === "on", p_min_stock: String(f.get("min") ?? "").trim() === "" ? null : Number(f.get("min")),
+      });
+      if (error || saved?.error) throw new Error(error?.message ?? (saved.error === "forbidden" ? "solo la dueña puede hacerlo" : saved.error));
+      const notes = [];
+      if (qty != null && (!s?.lastMovementAt || qty !== s.quantity)) {
+        const { data: st, error: e2 } = await supabase.rpc("nexo_business_set_stock", { p_business: bizId(), p_product: saved.productId, p_quantity: qty, p_reason: saved.created ? "Alta desde el panel" : "Conteo desde el panel" });
+        if (e2 || st?.error) notes.push("la cantidad no se guardó (" + (e2?.message ?? st.message ?? st.error) + ")");
+      }
+      if (saved.priceChanged && saved.wooId) {
+        try { await panelWeb({ action: "push_price", wooId: saved.wooId, price }); } catch (e3) { notes.push("el precio no llegó a la web (" + e3.message + ")"); }
+      }
+      sheet.close();
+      toast(`Guardado: ${saved.name} (${saved.sku}). Las cajas lo reciben al sincronizar.` + (notes.length ? " Ojo: " + notes.join("; ") + "." : ""), notes.length ? "bad" : "ok");
+      catalog = null;
+      await load();
+      if (!$('main[data-page="catalogo"]').hidden) await loadCatalog();
+      if (!$('main[data-page="inventario"]').hidden) await loadInventory();
+    } catch (err) { fail("No se guardó: " + err.message); }
   };
 }
 $("#new-product").onclick = () => editProduct(null);
+$("#inv-new").onclick = () => editProduct(null);
 
 const SOURCE_LABELS = { biznecubano: "BizneCubano (la web aporta las variantes)", woocommerce: "Web de la tienda" };
 async function renderSource() {
@@ -759,9 +828,9 @@ function renderInventory() {
   });
   $("#inventory").innerHTML = rows.length ? rows.slice(0, 300).map(r => {
     const diff = r.web && r.web.stock !== null && r.web.stock !== r.stock;
-    return '<div class="row-item" data-inv="' + esc(r.productId) + '">' + photo(r.imageUrl, r.name)
+    return '<div class="row-item" data-inv="' + esc(r.productId) + '"><button type="button" class="row-btn grow" data-open aria-label="Editar ' + esc(r.name) + '">' + photo(r.imageUrl, r.name)
       + '<span class="grow"><span class="title">' + esc(r.name) + (r.variant ? " · " + esc(r.variant) : "") + "</span>"
-      + '<span class="meta">' + (r.web ? (diff ? '<strong style="color:var(--nx-danger)">Web: ' + r.web.stock + "</strong>" : "Web igual") : "No está en la web") + "</span></span>"
+      + '<span class="meta">' + (r.web ? (diff ? '<strong style="color:var(--nx-danger)">Web: ' + r.web.stock + "</strong>" : "Web igual") : "Solo en la caja") + "</span></span></button>"
       + '<label class="t-xs">Precio<input class="input" style="width:6em" inputmode="decimal" data-price value="' + esc(r.priceUsd ?? "") + '"></label>'
       + '<label class="t-xs">Quedan<input class="input" style="width:5em" inputmode="numeric" data-stock value="' + esc(r.stock) + '"></label>'
       + '<button type="button" class="btn btn-secondary" data-save hidden>Guardar</button></div>';
@@ -769,6 +838,11 @@ function renderInventory() {
   document.querySelectorAll("#inventory [data-inv]").forEach(row => {
     const r = invRows.find(x => x.productId === row.dataset.inv);
     const save = row.querySelector("[data-save]");
+    row.querySelector("[data-open]").onclick = async () => {
+      if (!catalog?.some(p => p.product_id === r.productId)) { const { data } = await supabase.rpc("nexo_business_catalog_list", { p_business: bizId() }); if (Array.isArray(data)) catalog = data; }
+      const p = catalog?.find(x => x.product_id === r.productId);
+      if (p) editProduct(p); else toast("No se pudo abrir el producto. Pulsa actualizar.", "bad");
+    };
     row.querySelectorAll("input").forEach(i => (i.oninput = () => { save.hidden = false; }));
     save.onclick = async () => {
       const price = num(row.querySelector("[data-price]").value);
@@ -1714,7 +1788,58 @@ function showSub(sub) {
   document.querySelectorAll("#ajustes-seg button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.sub === sub)));
   document.querySelectorAll("main[data-page=ajustes] > [data-sub]").forEach(el => (el.hidden = el.dataset.sub !== sub || (el.id === "new-device-panel" && !isOwner())));
 }
-document.querySelectorAll("#ajustes-seg button").forEach(b => (b.onclick = () => { showSub(b.dataset.sub); window.scrollTo({ top: 0 }); }));
+document.querySelectorAll("#ajustes-seg button").forEach(b => (b.onclick = () => { showSub(b.dataset.sub); if (b.dataset.sub === "mensajeria") void loadShipping(); window.scrollTo({ top: 0 }); }));
+
+// ---------- Mensajería por zona (tarifas de la web, Core) ----------
+let ship = null, shipMuni = "";
+async function loadShipping() {
+  $("#ship").innerHTML = '<p class="muted">Cargando…</p>';
+  try { ship = await panelWeb({ action: "shipping_rates" }); }
+  catch (e) { $("#ship").innerHTML = '<p class="muted">No se pudo cargar: ' + esc(e.message) + "</p>"; return; }
+  const munis = [...new Set(ship.rates.map(r => r.municipality))].sort((a, b) => a.localeCompare(b, "es"));
+  if (!munis.includes(shipMuni)) shipMuni = munis[0] ?? "";
+  renderShipping(munis);
+}
+function renderShipping(munis) {
+  const rows = ship.rates.filter(r => r.municipality === shipMuni).sort((a, b) => (a.zone === "" ? -1 : b.zone === "" ? 1 : a.zone.localeCompare(b.zone, "es")));
+  const q = ($("#ship-q")?.value ?? "").toLowerCase();
+  $("#ship").innerHTML = '<label class="field">Municipio<select id="ship-muni">' + munis.map(m => '<option' + (m === shipMuni ? " selected" : "") + ">" + esc(m) + "</option>").join("") + "</select></label>"
+    + '<input class="input" id="ship-q" type="search" placeholder="Buscar reparto" value="' + esc(q) + '" style="margin:8px 0">'
+    + rows.filter(r => !q || r.zone.toLowerCase().includes(q)).map(r => '<div class="row-item" data-zone="' + esc(r.zone) + '">'
+      + '<span class="grow"><span class="title">' + (r.zone ? esc(r.zone) : "Precio general del municipio") + "</span>"
+      + '<span class="meta">' + (r.zone ? (r.active ? "Se cobra en la web" : "Apagada: la web no la ofrece") : "Solo de referencia; no se cobra") + "</span></span>"
+      + '<label class="t-xs">CUP<input class="input" style="width:6.5em" inputmode="numeric" data-fee value="' + Number(r.fee) + '"></label>'
+      + (r.zone ? '<label class="t-xs" style="display:flex;gap:4px;align-items:center"><input type="checkbox" data-on ' + (r.active ? "checked" : "") + ">Activa</label>" : "")
+      + '<button type="button" class="btn btn-secondary" data-save hidden>Guardar</button></div>').join("")
+    + '<details style="margin-top:12px"><summary class="t-sm">Añadir un reparto a ' + esc(shipMuni) + '</summary><form class="form" id="ship-new">'
+    + '<label class="field">Reparto<input name="zone" required placeholder="Ej.: Vista Alegre"></label>'
+    + '<label class="field">Precio CUP<input name="fee" required inputmode="numeric"></label>'
+    + '<button type="submit" class="btn btn-primary btn-block">Añadir</button></form></details>'
+    + '<p class="t-xs muted" style="margin-top:8px">El mensajero recibe el ' + (100 - Number(ship.platformPercent)) + " % de la tarifa; Casa Viva se queda el " + Number(ship.platformPercent) + " %.</p>";
+  $("#ship-muni").onchange = e => { shipMuni = e.target.value; $("#ship-q").value = ""; renderShipping(munis); };
+  $("#ship-q").oninput = () => { const pos = $("#ship-q").selectionStart; renderShipping(munis); const i = $("#ship-q"); i.focus(); i.setSelectionRange(pos, pos); };
+  const save = async (zone, feeRaw, active, btn) => {
+    const fee = Number(String(feeRaw).replace(/[ .,]/g, ""));
+    if (!Number.isInteger(fee) || fee < 0 || fee > 100000) return toast("Escribe un precio en CUP sin decimales", "bad");
+    if (btn) btn.disabled = true;
+    try {
+      await panelWeb({ action: "shipping_rate_save", municipality: shipMuni, zone, fee, active });
+      toast("Guardado. La web ya cobra " + fee.toLocaleString("es") + " CUP" + (zone ? " en " + zone : ""), "ok");
+      await loadShipping();
+    } catch (e) { if (btn) btn.disabled = false; toast("No se guardó: " + e.message, "bad"); }
+  };
+  document.querySelectorAll("#ship [data-zone]").forEach(row => {
+    const btn = row.querySelector("[data-save]");
+    row.querySelectorAll("input").forEach(i => (i.oninput = i.onchange = () => { btn.hidden = false; }));
+    btn.onclick = () => save(row.dataset.zone, row.querySelector("[data-fee]").value, row.querySelector("[data-on]")?.checked ?? true, btn);
+  });
+  $("#ship-new").onsubmit = e => {
+    e.preventDefault();
+    const f = new FormData(e.target), zone = String(f.get("zone")).trim();
+    if (ship.rates.some(r => r.municipality === shipMuni && r.zone.toLowerCase() === zone.toLowerCase())) return toast("Ese reparto ya existe: cambia su precio en la lista", "bad");
+    void save(zone, f.get("fee"), true, e.target.querySelector("button"));
+  };
+}
 
 async function loadCostSettings() {
   showSub(ajustesSub);
