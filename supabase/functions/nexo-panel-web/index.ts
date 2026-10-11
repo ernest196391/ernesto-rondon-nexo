@@ -174,6 +174,14 @@ Deno.serve(async req => {
       return json(200, await core("POST", `panel/payouts/${Number(body.id)}`, { action: act, reference: String(body.reference ?? "") }));
     }
 
+    // Inventario: existencias de la web para comparar, y copiar a la web un precio cambiado en el panel.
+    if (body.action === "web_levels") return json(200, await core("GET", "panel/stock/levels"));
+    if (body.action === "push_price") {
+      const price = Number(body.price);
+      if (!(Number(body.wooId) > 0) || !(price > 0)) return json(400, { error: "Producto o precio no válido." });
+      return json(200, await core("POST", "panel/products/price", { wooId: Number(body.wooId), price }));
+    }
+
     // Pedidos: las mismas acciones que /ventas/ (Core aplica sus reglas y firma como la dueña).
     if (body.action === "sale") {
       const q = new URLSearchParams({ search: String(body.number ?? "") });

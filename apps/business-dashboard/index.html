@@ -88,6 +88,7 @@
     <button type="button" class="tab" data-page="resumen" data-for="admin" aria-current="page"><span data-ic="chart"></span>Resumen</button>
     <button type="button" class="tab" data-page="pedidos" data-for="admin person"><span data-ic="bag"></span>Pedidos<span class="dot" id="orders-dot" hidden></span></button>
     <button type="button" class="tab" data-page="catalogo" data-for="admin"><span data-ic="tag"></span>Productos</button>
+    <button type="button" class="tab" data-page="inventario" data-for="admin"><span data-ic="device"></span>Inventario</button>
     <button type="button" class="tab" data-page="equipo" data-for="admin"><span data-ic="users"></span>Equipo<span class="dot" id="team-dot" hidden></span></button>
     <button type="button" class="tab" data-page="ajustes" data-for="admin"><span data-ic="sliders"></span>Ajustes</button>
     <button type="button" class="tab" data-page="cuenta" data-for="person" hidden><span data-ic="wallet"></span>Mi cuenta</button>
@@ -179,6 +180,18 @@
     <main class="page" data-page="perfil" hidden>
       <div class="page-head"><h1>Perfil</h1></div>
       <section class="panel" id="profile"></section>
+    </main>
+
+    <main class="page" data-page="inventario" hidden>
+      <div class="page-head"><h1>Inventario y precios</h1><span class="t-sm muted" id="inv-note"></span></div>
+      <div class="chips" id="inv-filter" role="group" aria-label="Mostrar">
+        <button type="button" class="chip" data-f="all" aria-pressed="true">Todos</button>
+        <button type="button" class="chip" data-f="diff" aria-pressed="false">Web distinta</button>
+        <button type="button" class="chip" data-f="low" aria-pressed="false">Pocas unidades</button>
+        <button type="button" class="chip" data-f="out" aria-pressed="false">Agotados</button>
+      </div>
+      <input class="input" id="inv-search" type="search" placeholder="Buscar producto" style="margin:8px 0">
+      <section class="panel" id="inventory"><p class="muted">Cargando…</p></section>
     </main>
 
     <main class="page" data-page="catalogo" hidden>
@@ -322,6 +335,7 @@ function go(next) {
   if (next === "resumen") { if (resSub === "caja") void loadMoney(); else void loadReport(); }
   if (next === "pedidos") void loadOrders();
   if (next === "equipo") void loadTeam();
+  if (next === "inventario") void loadInventory();
   if (next === "cuenta") void loadAccount();
   if (next === "perfil") renderProfile();
   if (next === "recibir") void renderReceipts($("#receipts-person"));
@@ -718,6 +732,74 @@ document.querySelectorAll("#order-filter .chip").forEach(c => (c.onclick = () =>
   void loadOrders();
 }));
 $("#new-order").onclick = () => editOrder(null);
+
+// ---------- Inventario y precios: una tabla para la caja y la web (D37 fase 2) ----------
+let invRows = [], invFilter = "all", invTimer = null;
+async function loadInventory() {
+  $("#inventory").innerHTML = '<p class="muted">Cargando inventario…</p>';
+  const [{ data, error }, web] = await Promise.all([
+    supabase.rpc("nexo_business_inventory", { p_business: bizId() }),
+    panelWeb({ action: "web_levels" }).catch(() => ({ products: [] })),
+  ]);
+  if (error || data?.error) { $("#inventory").innerHTML = '<p class="muted">No se pudo cargar: ' + esc(error?.message ?? data.error) + "</p>"; return; }
+  const webBy = new Map(web.products.map(w => [w.wooId, w]));
+  invRows = data.products.map(p => ({ ...p, web: p.wooId ? webBy.get(p.wooId) ?? null : null }));
+  const diffs = invRows.filter(r => r.web && r.web.stock !== null && r.web.stock !== r.stock).length;
+  $("#inv-note").textContent = invRows.length + " productos" + (diffs ? " · " + diffs + " con la web distinta" : " · web igual que la caja");
+  renderInventory();
+}
+function renderInventory() {
+  const q = ($("#inv-search").value || "").toLowerCase();
+  const rows = invRows.filter(r => {
+    if (q && !(r.name + " " + (r.variant ?? "")).toLowerCase().includes(q)) return false;
+    if (invFilter === "diff") return r.web && r.web.stock !== null && r.web.stock !== r.stock;
+    if (invFilter === "low") return r.stock > 0 && r.stock <= (r.minStock ?? 2);
+    if (invFilter === "out") return r.stock <= 0;
+    return true;
+  });
+  $("#inventory").innerHTML = rows.length ? rows.slice(0, 300).map(r => {
+    const diff = r.web && r.web.stock !== null && r.web.stock !== r.stock;
+    return '<div class="row-item" data-inv="' + esc(r.productId) + '">' + photo(r.imageUrl, r.name)
+      + '<span class="grow"><span class="title">' + esc(r.name) + (r.variant ? " · " + esc(r.variant) : "") + "</span>"
+      + '<span class="meta">' + (r.web ? (diff ? '<strong style="color:var(--nx-danger)">Web: ' + r.web.stock + "</strong>" : "Web igual") : "No está en la web") + "</span></span>"
+      + '<label class="t-xs">Precio<input class="input" style="width:6em" inputmode="decimal" data-price value="' + esc(r.priceUsd ?? "") + '"></label>'
+      + '<label class="t-xs">Quedan<input class="input" style="width:5em" inputmode="numeric" data-stock value="' + esc(r.stock) + '"></label>'
+      + '<button type="button" class="btn btn-secondary" data-save hidden>Guardar</button></div>';
+  }).join("") + (rows.length > 300 ? '<p class="muted">Mostrando 300. Usa el buscador.</p>' : "") : '<p class="muted">Nada por aquí.</p>';
+  document.querySelectorAll("#inventory [data-inv]").forEach(row => {
+    const r = invRows.find(x => x.productId === row.dataset.inv);
+    const save = row.querySelector("[data-save]");
+    row.querySelectorAll("input").forEach(i => (i.oninput = () => { save.hidden = false; }));
+    save.onclick = async () => {
+      const price = num(row.querySelector("[data-price]").value);
+      const stock = Number(row.querySelector("[data-stock]").value);
+      if (price == null || price <= 0) return toast("Escribe un precio válido", "bad");
+      if (!Number.isInteger(stock) || stock < 0) return toast("La cantidad debe ser un número entero", "bad");
+      save.disabled = true;
+      try {
+        if (price !== Number(r.priceUsd)) {
+          const { data, error } = await supabase.rpc("nexo_business_set_price", { p_business: bizId(), p_product: r.productId, p_usd: price });
+          if (error || data?.error) throw new Error(error?.message ?? data.message ?? data.error);
+          if (data.wooId) await panelWeb({ action: "push_price", wooId: data.wooId, price });
+          r.priceUsd = price;
+        }
+        if (stock !== r.stock) {
+          const { data, error } = await supabase.rpc("nexo_business_set_stock", { p_business: bizId(), p_product: r.productId, p_quantity: stock, p_reason: "Conteo desde el panel" });
+          if (error || data?.error) throw new Error(error?.message ?? data.message ?? data.error);
+          r.stock = stock;
+        }
+        save.hidden = true; save.disabled = false;
+        toast("Guardado. La web se actualiza en unos minutos.", "ok");
+      } catch (e) { save.disabled = false; toast("No se guardó: " + e.message, "bad"); }
+    };
+  });
+}
+document.querySelectorAll("#inv-filter [data-f]").forEach(b => (b.onclick = () => {
+  invFilter = b.dataset.f;
+  document.querySelectorAll("#inv-filter [data-f]").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+  renderInventory();
+}));
+$("#inv-search").oninput = () => { clearTimeout(invTimer); invTimer = setTimeout(renderInventory, 250); };
 
 // D37: la comisión se cambia aquí y se copia a la web para que cobre lo mismo que la caja.
 async function pushCommission(productId) {
