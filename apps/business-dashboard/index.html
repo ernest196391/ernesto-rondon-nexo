@@ -128,12 +128,29 @@
 
     <main class="page" data-page="pedidos" hidden>
       <div class="page-head"><h1>Pedidos</h1><button type="button" class="btn btn-primary" id="new-order"><span data-ic="plus"></span>Nuevo</button></div>
+      <div class="seg" id="orders-src" role="group" aria-label="Origen" hidden>
+        <button type="button" data-src="web" aria-pressed="true">Web casaviva.company</button>
+        <button type="button" data-src="panel" aria-pressed="false">Panel y caja</button>
+      </div>
+      <div id="web-orders-box" hidden>
+        <div class="chips" id="web-filter" role="group" aria-label="Estado">
+          <button type="button" class="chip" data-w="open" aria-pressed="true">Por atender</button>
+          <button type="button" class="chip" data-w="completed" aria-pressed="false">Completados</button>
+          <button type="button" class="chip" data-w="cancelled" aria-pressed="false">Cancelados</button>
+          <button type="button" class="chip" data-w="" aria-pressed="false">Todos</button>
+        </div>
+        <input class="input" id="web-search" type="search" placeholder="Buscar por número, cliente o teléfono" style="margin:8px 0">
+        <section class="panel" id="web-orders"><p class="muted">Cargando…</p></section>
+        <div style="display:flex;justify-content:center;gap:8px" id="web-pager"></div>
+      </div>
+      <div id="panel-orders-box">
       <div class="chips" id="order-filter" role="group" aria-label="Estado">
         <button type="button" class="chip" data-s="open" aria-pressed="true">Abiertos</button>
         <button type="button" class="chip" data-s="completed" aria-pressed="false">Completados</button>
         <button type="button" class="chip" data-s="cancelled" aria-pressed="false">Cancelados</button>
       </div>
       <section class="panel" id="orders"><p class="muted">Cargando…</p></section>
+      </div>
     </main>
 
     <main class="page" data-page="equipo" hidden>
@@ -395,14 +412,39 @@ document.querySelectorAll("#period .chip").forEach(c => (c.onclick = () => {
   };
 }));
 
+// Web del mes, como el inicio de BizneCubano: concretado / por atender / perdido.
+async function loadWebMonth() {
+  const box = $("#web-month");
+  if (!box) return;
+  try {
+    const s = await panelWeb({ action: "summary" });
+    const tile = (label, v, sub, tone) => '<div class="kpi"><span class="label">' + label + '</span><span class="value num" style="font-size:var(--nx-fs-lg)' + (tone ? ";color:var(--nx-" + tone + ")" : "") + '">$' + v.total.toLocaleString("es", { maximumFractionDigits: 2 }) + '</span><span class="sub">' + v.orders + " pedidos · " + sub + "</span></div>";
+    box.innerHTML = '<section class="panel"><div class="kv"><h2 class="t-lg">Web casaviva.company · este mes</h2><span class="t-sm muted">' + s.orders + " pedidos</span></div>"
+      + '<div class="kpis">' + tile("Concretado", s.done, "completados", "ok") + tile("Por atender", s.pending, "en curso", "warn") + tile("Perdido", s.lost, "cancelados", "danger") + "</div>"
+      + (s.pending.orders ? '<button type="button" class="btn btn-secondary btn-block" id="see-web-open">Ver los ' + s.pending.orders + " pedidos por atender</button>" : "")
+      + (s.ranking.length ? '<p class="t-sm muted" style="margin-top:8px">Gestoras con más ventas en la web: ' + s.ranking.slice(0, 3).map(r => esc(r.name) + " (" + r.orders + ")").join(", ") + "</p>" : "")
+      + "</section>";
+    const see = $("#see-web-open");
+    if (see) see.onclick = () => {
+      ordersSrc = "web"; webFilter = "open"; webPage = 1;
+      document.querySelectorAll("#web-filter [data-w]").forEach(x => x.setAttribute("aria-pressed", String(x.dataset.w === "open")));
+      document.querySelectorAll("#orders-src [data-src]").forEach(x => x.setAttribute("aria-pressed", String(x.dataset.src === "web")));
+      go("pedidos");
+    };
+  } catch (e) {
+    box.innerHTML = '<div class="panel muted">No se pudo leer la web: ' + esc(e.message) + "</div>";
+  }
+}
 function renderSummary() {
+  if (isOwner()) setTimeout(loadWebMonth, 0);
   const b = current;
   const fiado = b.receivables.map(r => money(r.balanceMinor, r.currency)).join(" · ") || "Nada";
   const fiadoN = b.receivables.reduce((n, r) => n + (r.openCount ?? 0), 0);
   const courier = b.messengerCash.map(m => money(m.outstandingMinor, m.currency)).join(" · ") || "Nada";
   const tracked = (b.stock ?? []).filter(p => p.lastMovementAt);
   const low = tracked.filter(p => p.quantity <= (p.minStock ?? 2)).sort((x, y) => x.quantity - y.quantity);
-  $("#summary").innerHTML = '<div id="report"><div class="panel muted">Cargando…</div></div>'
+  $("#summary").innerHTML = (isOwner() ? '<div id="web-month"><div class="panel muted">Cargando la web…</div></div>' : "")
+    + '<div id="report"><div class="panel muted">Cargando…</div></div>'
     + '<div class="kpis two"><div class="kpi"><span class="label">Fiado pendiente</span><span class="value num" style="font-size: var(--nx-fs-lg)">' + fiado + '</span><span class="sub">' + fiadoN + ' cuentas abiertas</span></div>'
     + '<div class="kpi"><span class="label">En mensajeros</span><span class="value num" style="font-size: var(--nx-fs-lg)">' + courier + '</span><span class="sub">efectivo por recoger</span></div></div>'
     + '<section class="panel"><div class="kv"><h2 class="t-lg">Quedan pocas unidades</h2><span class="badge ' + (low.length ? "badge-low" : "badge-ok") + '">' + low.length + "</span></div>"
@@ -676,7 +718,83 @@ document.querySelectorAll("#order-filter .chip").forEach(c => (c.onclick = () =>
 }));
 $("#new-order").onclick = () => editOrder(null);
 
+// ---------- Pedidos de la web (casaviva.company), vía nexo-panel-web ----------
+let ordersSrc = "web", webFilter = "open", webPage = 1, webSearchTimer = null, webOrders = [];
+async function panelWeb(body) {
+  const { data: { session } } = await supabase.auth.getSession();
+  const res = await fetch("https://viwwlriwlwodrfukbgbj.supabase.co/functions/v1/nexo-panel-web", {
+    method: "POST",
+    headers: { "content-type": "application/json", authorization: "Bearer " + (session?.access_token ?? "") },
+    body: JSON.stringify(body),
+  });
+  const data = await res.json().catch(() => ({ error: "Respuesta no válida" }));
+  if (!res.ok) throw new Error(data.error ?? "No se pudo leer la web");
+  return data;
+}
+const WEB_STATUS = { open: "on-hold,processing,pending", completed: "completed", cancelled: "cancelled,refunded,failed", "": "" };
+const WEB_BADGE = { done: "badge-ok", pending: "badge-warn", lost: "badge-out" };
+async function loadWebOrders() {
+  $("#web-orders").innerHTML = '<p class="muted">Cargando pedidos de la web…</p>';
+  try {
+    const data = await panelWeb({ action: "orders", status: WEB_STATUS[webFilter], search: $("#web-search").value, page: webPage });
+    webOrders = data.orders;
+    $("#web-orders").innerHTML = webOrders.length ? webOrders.map(o => {
+      const old = o.group === "pending" && Date.now() - Date.parse(o.date) > 86400000;
+      return '<div class="row-item"><button type="button" class="row-btn" data-web="' + o.id + '"><span class="grow">'
+        + '<span class="title">#' + esc(o.number) + " · " + esc(o.customer || "Sin nombre") + "</span>"
+        + '<span class="meta">' + esc(o.items.map(i => (i.qty > 1 ? i.qty + "× " : "") + i.name + (i.variant ? " (" + i.variant + ")" : "")).join(", ")) + "</span>"
+        + '<span class="meta">' + (o.gestora ? "Gestora " + esc(o.gestora) : "Venta directa") + " · " + esc(when(o.date)) + (o.pickup ? " · recoge en tienda" : " · domicilio")
+        + (old ? ' · <strong style="color:var(--nx-danger)">esperando más de 1 día</strong>' : "") + "</span></span>"
+        + '<span style="display:flex;flex-direction:column;align-items:flex-end;gap:4px"><span class="price-tag">$' + o.total.toFixed(2) + '</span><span class="badge ' + WEB_BADGE[o.group] + '">' + esc(o.statusText) + "</span></span></button></div>";
+    }).join("") : '<p class="muted">' + (webFilter === "open" ? "No hay pedidos por atender en la web." : "Nada por aquí.") + "</p>";
+    document.querySelectorAll("#web-orders [data-web]").forEach(b => (b.onclick = () => showWebOrder(webOrders.find(o => String(o.id) === b.dataset.web))));
+    $("#web-pager").innerHTML = data.pages > 1
+      ? '<button type="button" class="btn btn-ghost" data-pg="-1"' + (webPage <= 1 ? " disabled" : "") + '>‹ Anteriores</button><span class="t-sm muted" style="align-self:center">Página ' + webPage + " de " + data.pages + '</span><button type="button" class="btn btn-ghost" data-pg="1"' + (webPage >= data.pages ? " disabled" : "") + ">Siguientes ›</button>"
+      : "";
+    document.querySelectorAll("#web-pager [data-pg]").forEach(b => (b.onclick = () => { webPage += Number(b.dataset.pg); void loadWebOrders(); }));
+    if (webFilter === "open") $("#orders-dot").hidden = !webOrders.length;
+  } catch (e) {
+    $("#web-orders").innerHTML = '<p class="muted">' + esc(e.message) + "</p>";
+  }
+}
+function showWebOrder(o) {
+  const items = o.items.map(i => i.qty + "× " + i.name + (i.variant ? " (" + i.variant + ")" : "")).join(", ");
+  const wa = o.phone ? waLink(o.phone, "Hola " + o.customer + ". Le escribimos de Casa Viva por su pedido #" + o.number + ": " + items + ".") : null;
+  openSheet('<div class="sheet-head"><h2>Pedido web #' + esc(o.number) + '</h2><button type="button" class="btn btn-ghost" data-close>Cerrar</button></div>'
+    + '<div class="kv"><span class="badge ' + WEB_BADGE[o.group] + '">' + esc(o.statusText) + '</span><span class="t-xs muted">' + esc(when(o.date)) + "</span></div>"
+    + '<div class="breakdown">' + o.items.map(i => '<div class="kv"><span>' + i.qty + "× " + esc(i.name) + (i.variant ? '<br><span class="t-xs muted">' + esc(i.variant) + "</span>" : "") + '</span><span class="num">$' + i.total.toFixed(2) + "</span></div>").join("")
+    + '<div class="kv strong"><span>Total productos</span><span class="num">$' + o.total.toFixed(2) + "</span></div>"
+    + (o.shippingCup ? '<div class="kv"><span>Mensajería</span><span class="num">' + o.shippingCup.toLocaleString("es") + " CUP</span></div>" : "") + "</div>"
+    + '<div class="kv"><span>Cliente</span><span>' + esc(o.customer) + (o.phone ? " · " + esc(o.phone) : "") + "</span></div>"
+    + '<div class="kv"><span>Entrega</span><span>' + (o.pickup ? "Recoge en tienda" : esc(o.address || "Domicilio")) + "</span></div>"
+    + '<div class="kv"><span>Gestora</span><span>' + (o.gestora ? esc(o.gestora) + (o.commission ? " · comisión $" + o.commission.toFixed(2) : "") : "Venta directa") + "</span></div>"
+    + (o.note ? '<p class="t-sm"><b>Nota:</b> ' + esc(o.note) + "</p>" : "")
+    + '<div style="display:flex;flex-direction:column;gap:8px;margin-top:12px">'
+    + (wa ? '<a class="btn btn-primary btn-block" target="_blank" rel="noopener" href="' + esc(wa) + '">Escribir al cliente por WhatsApp</a>' : "")
+    + '<a class="btn btn-secondary btn-block" target="_blank" rel="noopener" href="https://casaviva.company/ventas/?pedido=' + encodeURIComponent(o.id) + '">Gestionar en la web (reparto, cobro, cerrar)</a></div>',
+    "Pedido web " + o.number);
+}
+document.querySelectorAll("#orders-src [data-src]").forEach(b => (b.onclick = () => {
+  ordersSrc = b.dataset.src;
+  document.querySelectorAll("#orders-src [data-src]").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+  void loadOrders();
+}));
+document.querySelectorAll("#web-filter [data-w]").forEach(b => (b.onclick = () => {
+  webFilter = b.dataset.w; webPage = 1;
+  document.querySelectorAll("#web-filter [data-w]").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+  void loadWebOrders();
+}));
+$("#web-search").oninput = () => { clearTimeout(webSearchTimer); webSearchTimer = setTimeout(() => { webPage = 1; void loadWebOrders(); }, 400); };
+
 async function loadOrders() {
+  // La dueña ve primero los pedidos reales de la web; el resto, los del panel y la caja.
+  const web = mode === "admin" && isOwner();
+  $("#orders-src").hidden = !web;
+  const showWeb = web && ordersSrc === "web";
+  $("#web-orders-box").hidden = !showWeb;
+  $("#panel-orders-box").hidden = showWeb;
+  if (web) $("#new-order").hidden = showWeb;
+  if (showWeb) return loadWebOrders();
   const status = orderFilter === "open" ? null : orderFilter;
   const { data, error } = await supabase.rpc("nexo_business_orders", { p_business: bizId(), p_status: status, p_limit: 200 });
   if (error || data?.error) { $("#orders").innerHTML = '<p class="muted">No se pudo cargar: ' + esc(error?.message ?? data.error) + "</p>"; return; }
