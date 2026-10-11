@@ -12,5 +12,10 @@
 10. Al entregar escribe *entregado*. Si tienes varias carreras: *entregado #2674*.
 11. ¿Cobraste otra cantidad? Escríbela: *entregado 15 usd*. Si te pagó los productos en CUP: *entregado 9000 cup* (sin contar tu mensajería).
 12. *La mensajería es tuya*: la cobras en CUP al cliente y te la quedas. El dinero de los *productos* lo entregas en la tienda *antes de las 4:00 p. m.*
-13. Si el cliente *devuelve algún producto* al recibir, te paga *la mitad de la mensajería* por el regreso. Trae el producto a la tienda y cobra solo lo que se queda.
+13. *Devoluciones al entregar* (el cliente revisa delante de ti):
+   • Si llevaste varios modelos para que eligiera y te devuelve alguno, te paga *la mitad de la mensajería* por el regreso.
+   • Si rechaza el pedido sin que tenga defecto, paga *la mensajería completa más la mitad*.
+   • Si tiene un defecto, no paga nada.
+   Trae a la tienda lo devuelto y cobra solo lo que se queda.
+   No subes a edificios: el cliente baja. Billetes sin roturas ni escritos, y como máximo 20 billetes de 1 USD.
 14. ¿Problema en la entrega (no está el cliente, dirección mal, vas tarde)? Escríbelo en este mismo chat: la tienda lo ve.
