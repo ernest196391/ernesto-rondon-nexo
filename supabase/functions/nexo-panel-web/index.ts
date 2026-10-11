@@ -83,6 +83,8 @@ function row(o: WooOrder, people: Record<number, string>) {
     operation: meta(o, "_cvd_operation_status"), total: money(o.total), currency: o.currency,
     shippingCup: Number(meta(o, "_cvd_shipping_fee_cup") ?? 0) || null,
     pickup: meta(o, "_cvd_fulfillment_type") === "pickup",
+    // Día de entrega (Core 3.13.51): Y-m-d o vacío (= lo antes posible) y franja morning | afternoon.
+    deliveryDate: meta(o, "_cvd_delivery_date") || null, deliveryWindow: meta(o, "_cvd_delivery_window") || null,
     customer: `${o.billing.first_name} ${o.billing.last_name}`.trim(), phone: o.billing.phone,
     address: [o.shipping.address_1, o.shipping.city].filter(Boolean).join(", "),
     gestora: ownerType === "gestora" && ownerId ? (people[ownerId] ?? `#${ownerId}`) : null,
@@ -248,6 +250,22 @@ Deno.serve(async req => {
       const municipality = String(body.municipality ?? "").trim();
       if (!municipality || !Number.isInteger(fee) || fee < 0 || fee > 100000) return json(400, { error: "Municipio o tarifa no válidos." });
       return json(200, await core("POST", "panel/shipping-rates", { municipality, zone: String(body.zone ?? "").trim(), fee, active: body.active !== false }));
+    }
+
+    // Tasa del día de la web (Core 3.13.51): la calculadora y el "· N CUP" de las gestoras. VivaBot la pone
+    // cada mañana desde «FORMAS DE PAGO»; aquí la dueña la ve y corrige. Solo se mandan los campos escritos.
+    if (body.action === "daily_rates") return json(200, await core("GET", "panel/daily-rates"));
+    if (body.action === "daily_rates_save") {
+      const out: Record<string, number> = {};
+      const limits: Record<string, [number, number]> = { cup: [50, 5000], eur: [0.5, 2], clasica: [0.8, 2], zelle: [0.8, 2], paypalPct: [0, 30] };
+      for (const [k, [min, max]] of Object.entries(limits)) {
+        if (body[k] === undefined || body[k] === null || body[k] === "") continue;
+        const n = Number(String(body[k]).replace(",", "."));
+        if (!Number.isFinite(n) || n < min || n > max) return json(400, { error: `Valor no válido: ${k} (entre ${min} y ${max}).` });
+        out[k] = n;
+      }
+      if (!Object.keys(out).length) return json(400, { error: "Escribe al menos una tasa." });
+      return json(200, await core("POST", "panel/daily-rates", out));
     }
 
     // Tarjetas de la tienda (Core 3.13.50): nombre + últimos 4 (nunca el número completo), activar/desactivar,

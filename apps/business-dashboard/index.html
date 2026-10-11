@@ -230,6 +230,7 @@
         <h2 class="t-lg">Tasas de cambio</h2>
         <p class="t-sm muted">Los precios están en dólares. La caja usa estas tasas para cobrar en CUP, MLC o Zelle.</p>
         <div id="rates"><p class="muted">Cargando…</p></div>
+        <div id="web-rates"></div>
       </section>
       <section class="panel" data-sub="tarjetas" hidden>
         <h2 class="t-lg">Tarjetas de la tienda</h2>
@@ -948,6 +949,18 @@ async function pushCommission(productId) {
 
 // ---------- Pedidos de la web (casaviva.company), vía nexo-panel-web ----------
 let ordersSrc = "web", webFilter = "open", webPage = 1, webSearchTimer = null, webOrders = [];
+// Día de entrega de un pedido web (Core 3.13.51): "hoy", "mañana sáb 12/10 · por la tarde" o "lo antes posible" (hora de Cuba).
+const DAY_ES = ["dom", "lun", "mar", "mié", "jue", "vie", "sáb"];
+function deliveryDay(o) {
+  const slot = { morning: "por la mañana", afternoon: "por la tarde" }[o.deliveryWindow] ?? "";
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(o.deliveryDate ?? "");
+  if (!m) return { label: slot ? "lo antes posible · " + slot : "lo antes posible", future: false };
+  const [y, mo, d] = new Date().toLocaleDateString("en-CA", { timeZone: "America/Havana" }).split("-").map(Number);
+  const day = new Date(Date.UTC(+m[1], m[2] - 1, +m[3])), diff = Math.round((day - Date.UTC(y, mo - 1, d)) / 864e5);
+  const short = DAY_ES[day.getUTCDay()] + " " + day.getUTCDate() + "/" + (day.getUTCMonth() + 1);
+  const label = diff === 0 ? "hoy" : diff === 1 ? "mañana " + short : diff < 0 ? short + " (ya pasó)" : short;
+  return { label: slot ? label + " · " + slot : label, future: diff > 0 };
+}
 async function panelWeb(body) {
   const { data: { session } } = await supabase.auth.getSession();
   const res = await fetch("https://viwwlriwlwodrfukbgbj.supabase.co/functions/v1/nexo-panel-web", {
@@ -975,6 +988,7 @@ async function loadWebOrders() {
         + '<span class="title">#' + esc(o.number) + " · " + esc(o.customer || "Sin nombre") + "</span>"
         + '<span class="meta">' + esc(o.items.map(i => (i.qty > 1 ? i.qty + "× " : "") + i.name + (i.variant ? " (" + i.variant + ")" : "")).join(", ")) + "</span>"
         + '<span class="meta">' + (o.gestora ? "Gestora " + esc(o.gestora) : "Sin gestora") + " · " + esc(when(o.date)) + (o.pickup ? " · recoge en tienda" : " · domicilio")
+        + (!o.pickup && o.deliveryDate ? ' · <strong' + (deliveryDay(o).future ? ' style="color:var(--nx-warn, #a8641c)"' : "") + ">📅 " + esc(deliveryDay(o).label) + "</strong>" : "")
         + (old ? ' · <strong style="color:var(--nx-danger)">esperando más de 1 día</strong>' : "") + "</span></span>"
         + '<span style="display:flex;flex-direction:column;align-items:flex-end;gap:4px"><span class="price-tag">' + usd2(o.total) + '</span><span class="badge ' + WEB_BADGE[o.group] + '">' + esc(o.statusText) + "</span></span></button></div>";
     }).join("") : '<p class="muted">' + (webFilter === "open" ? "No hay pedidos por atender en la web." : "Nada por aquí.") + "</p>";
@@ -998,6 +1012,7 @@ function showWebOrder(o) {
     + (o.shippingCup ? '<div class="kv"><span>Mensajería</span><span class="num">' + o.shippingCup.toLocaleString("es") + " CUP</span></div>" : "") + "</div>"
     + '<div class="kv"><span>Cliente</span><span>' + esc(o.customer) + (o.phone ? " · " + esc(o.phone) : "") + "</span></div>"
     + '<div class="kv"><span>Entrega</span><span>' + (o.pickup ? "Recoge en tienda" : esc(o.address || "Domicilio")) + "</span></div>"
+    + (o.pickup ? "" : '<div class="kv"><span>Día de entrega</span><span><b>📅 ' + esc(deliveryDay(o).label) + "</b></span></div>")
     + '<div class="kv"><span>Gestora</span><span>' + (o.gestora ? esc(o.gestora) + (o.commission ? " · comisión " + usd2(o.commission) : "") : "Sin gestora") + "</span></div>"
     + (o.note ? '<p class="t-sm"><b>Nota:</b> ' + esc(o.note) + "</p>" : "")
     + '<div style="display:flex;flex-direction:column;gap:8px;margin-top:12px">'
@@ -2613,6 +2628,39 @@ async function loadRates() {
       await loadRates();
     };
   });
+  if (owner) void loadWebRates();
+}
+
+// ---------- Tasa del día de la web (Core 3.13.51) ----------
+// La que usan la calculadora de las gestoras y el "· N CUP" junto a los precios. VivaBot la pone cada
+// mañana leyendo «FORMAS DE PAGO Y SUS CAMBIOS» del grupo General; aquí se ve y se corrige.
+const WEB_RATES = [
+  ["cup", "CUP", "1 USD = … CUP", "CUP"], ["eur", "Euro", "1 = 1:1 (7 USD = 7 EUR)", "×"],
+  ["clasica", "Tarjeta clásica", "Ej.: 1,15 = 15 % más", "×"], ["zelle", "Zelle", "Ej.: 1,04 = 4 % más", "×"], ["paypalPct", "PayPal", "Porcentaje que se suma", "%"],
+];
+async function loadWebRates() {
+  const box = $("#web-rates");
+  if (!box) return;
+  let data;
+  try { data = await panelWeb({ action: "daily_rates" }); }
+  catch (e) { box.innerHTML = '<p class="t-sm muted">Tasa de la web: no se pudo cargar (' + esc(e.message) + ").</p>"; return; }
+  const r = data.rates ?? {};
+  const by = { web: "la web", panel: "el panel", bot: "VivaBot (grupo General)" };
+  box.innerHTML = '<h3 class="t-lg" style="margin-top:18px">Tasa del día para las gestoras (web)</h3>'
+    + '<p class="t-sm muted">La calculadora de las gestoras y el precio en CUP de la tienda. VivaBot la pone cada mañana desde «FORMAS DE PAGO»; si lee mal un número, corrígelo aquí. Lo que dejes vacío no cambia.</p>'
+    + '<form id="web-rates-form">' + WEB_RATES.map(([k, name, help, unit]) => '<div class="rate"><span><span class="title" style="font-weight:700">' + esc(name) + '</span><br><span class="t-xs muted">' + esc(help) + '</span></span>'
+      + '<span class="rate-row"><label class="rate-input"><input name="' + k + '" inputmode="decimal" aria-label="' + esc(name) + '" value="' + esc(r[k] ?? "") + '" placeholder="—"><small>' + esc(unit) + "</small></label></span></div>").join("")
+    + '<p class="t-xs muted" style="margin:8px 0">' + (r.updatedAt ? "Actualizada " + esc(when(r.updatedAt)) + " por " + esc(by[r.source] ?? r.source ?? "—") + (r.stale ? ' · <strong style="color: var(--nx-danger)">tiene más de ' + esc(r.staleHours ?? 36) + " h</strong>" : "") : "Aún sin tasa en la web.") + "</p>"
+    + '<button type="submit" class="btn btn-primary btn-block">Guardar tasa de la web</button></form>';
+  $("#web-rates-form").onsubmit = async e => {
+    e.preventDefault();
+    const f = new FormData(e.target), body = { action: "daily_rates_save" };
+    for (const [k] of WEB_RATES) { const v = String(f.get(k) ?? "").replace(",", ".").trim(); if (v !== "" && String(r[k] ?? "") !== v) body[k] = v; }
+    if (Object.keys(body).length === 1) return toast("No cambiaste ninguna tasa.", "bad");
+    const btn = e.target.querySelector("[type=submit]"); btn.disabled = true;
+    try { await panelWeb(body); toast("Tasa de la web guardada: las gestoras la ven al momento.", "ok"); await loadWebRates(); }
+    catch (err) { btn.disabled = false; toast("No se guardó: " + err.message, "bad"); }
+  };
 }
 
 // ---------- Equipos ----------
