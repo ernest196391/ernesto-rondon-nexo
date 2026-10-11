@@ -110,3 +110,10 @@ Regla: no confundir compilación con funcionamiento real.
 - Probado por Claude: Core sin clave → 401; con clave → 30 gestoras (29 activas, 1 por aprobar), pagos OK; sintaxis del panel OK; publicado en Hostinger y Vercel.
 - NO probado por Claude: la pantalla con sesión de dueña (límite de 5 enlaces/día alcanzado) ni aprobar/pagar de verdad (decisiones de Lennys; no hay solicitudes de pago abiertas).
 - Pendiente de este bloque: guardar "quién la invitó" en el registro (`_cvd_invited_by`, el panel ya lo muestra) y el QR del código.
+
+### Invitación y QR de gestoras (Core 3.13.29, 2026-10-11)
+- `/registro-gestora/?invita=CÓDIGO`: muestra "Te invita X" y guarda `_cvd_invited_by` al registrarse (solo si quien invita es gestora aprobada; nunca a sí misma; no se reescribe). El panel ya lo muestra ("invitada por").
+- Área de la gestora → sección "Invita a otras gestoras": enlace, copiar, compartir por WhatsApp, QR para invitar y QR de su código para la tienda (usa `CVQRCode` ya existente).
+- Probado: enlace real → "Te invita Harley Adrián Peña La Rosa" + código oculto; código falso → nada; área renderizada como la usuaria 43 → sección con 2 QR y enlace correcto. Copia `~/bak-20261011-cvd-3.13.28`.
+- No probado: un registro real por invitación (crearía una cuenta) ni el dibujo del QR en un móvil.
+- Ajuste de trabajo: ECC GateGuard sin preguntas en archivos/comandos normales (`.claude/settings.local.json`); sigue activo ante comandos destructivos.
