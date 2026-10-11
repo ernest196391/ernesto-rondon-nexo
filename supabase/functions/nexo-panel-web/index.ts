@@ -3,6 +3,7 @@
 // La clave de WooCommerce (WOO_URL, WOO_CK, WOO_CS) nunca sale del servidor.
 //   POST { action: "summary", from?, to? }          → resumen del periodo (por defecto, este mes)
 //   POST { action: "orders", status?, search?, page? } → lista de pedidos (20 por página)
+//   Productos (Core 3.13.52): product_variations, variation_add, product_variable_create, products_visibility
 // Deploy: npx.cmd supabase functions deploy nexo-panel-web --project-ref viwwlriwlwodrfukbgbj --no-verify-jwt --use-api
 import { createClient } from "jsr:@supabase/supabase-js@2";
 
@@ -219,6 +220,72 @@ Deno.serve(async req => {
         wooId: Number(body.wooId) > 0 ? Number(body.wooId) : undefined, nexoId: String(body.nexoId ?? ""), name, price,
         category: String(body.category ?? ""), imageUrl: String(body.imageUrl ?? ""), sku: String(body.sku ?? ""), active: body.active !== false,
       }));
+    }
+
+    // ---------- Diseños y colores (variaciones de la web) y «Dejar de vender» (Core 3.13.52) ----------
+    // Quién lo hizo queda anotado en Core (cvd_panel_product_log) y en NEXO (cost_audit).
+    const by = who.user.email ?? who.user.phone ?? who.user.id;
+    type WebVariation = { id: number; label: string; sku: string; price: number; stock: number | null; status: string; image: string | null;
+      recent?: { orderId: number; itemId: number; status: string; reduced: number }[] };
+    // Las líneas recientes que la web ya descontó (o devolvió) no las debe volver a aplicar el puente en la caja.
+    const seenKeys = (v: WebVariation) => (v.recent ?? []).flatMap(l =>
+      l.reduced > 0 ? [`web:${l.orderId}:${l.itemId}:out`] : ["cancelled", "refunded", "failed"].includes(l.status) ? [`web:${l.orderId}:${l.itemId}:back`] : []);
+    const linkVariants = async (group: string, parent: { id: number; name: string }, list: WebVariation[], extra: { category?: string } = {}) => {
+      if (!list.length) return [];
+      const { data, error } = await admin.rpc("nexo_business_variant_link", {
+        p_business: BUSINESS, p_user: who.user.id, p_group: group,
+        p_items: list.map(v => ({ wooId: v.id, parentWooId: parent.id, label: v.label, parentName: parent.name, price: v.price, sku: v.sku,
+          imageUrl: v.image ?? "", category: extra.category ?? "", webStock: v.stock, seen: seenKeys(v) })),
+      });
+      if (error || data?.error) throw new Error("No se pudo enlazar con la caja: " + (error?.message ?? data.error));
+      return data.items as { wooId: number; productId: string; created: boolean }[];
+    };
+
+    // Ver los diseños de un producto. Los que la web tiene y la caja no (a la venta) se enlazan ahora,
+    // con la cantidad de la web como punto de partida. group = el grupo de la caja (variant_of).
+    if (body.action === "product_variations") {
+      const data = await core("GET", `panel/products/${Number(body.wooId)}/variations`);
+      const group = String(body.group ?? "").trim();
+      // La RPC no toca las que ya están en la caja (por wooId): solo crea las que faltan.
+      const onSale = (data.variations as WebVariation[]).filter(v => v.status === "publish" && v.price > 0);
+      const linked = group ? await linkVariants(group, data.parent, onSale) : [];
+      return json(200, { ...data, linked });
+    }
+    // Añadir un diseño o color a un producto que ya tiene diseños: Core lo crea con 0 y la caja lo enlaza.
+    if (body.action === "variation_add") {
+      const group = String(body.group ?? "").trim();
+      const price = Number(body.price);
+      if (!group || !(price > 0)) return json(400, { error: "Falta el producto o el precio." });
+      const out = await core("POST", `panel/products/${Number(body.wooId)}/variations`, {
+        label: String(body.label ?? "").trim(), price, imageUrl: String(body.imageUrl ?? ""), by,
+      });
+      const v = out.variation as WebVariation & { existing: boolean; retired: boolean };
+      // Ya existía y está retirado en la web: no se reactiva solo; la dueña decide con «Volver a vender».
+      if (v.existing && v.retired) return json(200, { variation: v, productId: null, created: false, existing: true, retired: true });
+      // Una variante recién creada empieza en 0 en la web: la cantidad la pone la caja (y el puente la copia).
+      const [link] = await linkVariants(group, { id: Number(out.parentId), name: String(out.parentName ?? "") }, [{ ...v, image: v.image ?? (String(body.imageUrl ?? "") || null), stock: v.existing ? v.stock : 0 }]);
+      return json(200, { variation: v, productId: link?.productId ?? null, created: link?.created ?? false, existing: v.existing, retired: false });
+    }
+    // Producto nuevo con diseños (en la web como producto con variantes; en la caja, un grupo).
+    if (body.action === "product_variable_create") {
+      const price = Number(body.price);
+      const designs = (Array.isArray(body.designs) ? body.designs : []).slice(0, 30)
+        .map((d: { label?: string; imageUrl?: string }) => ({ label: String(d?.label ?? "").trim(), imageUrl: String(d?.imageUrl ?? "") }))
+        .filter((d: { label: string }) => d.label);
+      if (!String(body.name ?? "").trim() || !(price > 0) || !designs.length) return json(400, { error: "Falta el nombre, el precio o un diseño." });
+      const out = await core("POST", "panel/products/variable", {
+        name: String(body.name).trim(), price, category: String(body.category ?? ""), imageUrl: String(body.imageUrl ?? ""),
+        designs, ref: String(body.ref ?? ""), by,
+      });
+      const vars = (out.variations as (WebVariation & { existing: boolean })[]).map(v => ({ ...v, stock: v.existing ? v.stock : 0 }));
+      const linked = await linkVariants(`cv-${out.parentId}`, { id: out.parentId, name: out.name }, vars, { category: String(body.category ?? "") });
+      return json(200, { parentId: out.parentId, url: out.url, group: `cv-${out.parentId}`, variations: out.variations, linked });
+    }
+    // Dejar de vender / volver a vender en la web: [wooId] (productos, sus padres o diseños sueltos).
+    if (body.action === "products_visibility") {
+      const items = (Array.isArray(body.wooIds) ? body.wooIds : []).map(Number).filter(n => n > 0).slice(0, 300);
+      if (!items.length) return json(200, { items: [] });
+      return json(200, await core("POST", "panel/products/visibility", { items, sell: body.sell === true, by }));
     }
 
     // Mensajeros: lista y aprobar/rechazar (misma lógica que gestoras en Core).

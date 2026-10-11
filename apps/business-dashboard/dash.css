@@ -222,3 +222,46 @@ body { background: #F6F1E6; }
 .nx .avatar img, .nx .receipt-photo, .nx .sheet-photo { outline: 1px solid rgba(0, 0, 0, .08); outline-offset: -1px; }
 /* En computadora el logo ya está en el menú lateral: no repetirlo arriba. */
 @media (min-width: 900px) { .nx .top .logo [data-iso] { display: none; } }
+/* Productos: ayuda corta, diseños y colores, retirar (2026-10-11, para Lennys desde el móvil). */
+.nx .inv-help { font-size: var(--nx-fs-sm); color: var(--nx-text-2); background: var(--nx-surface-2); border-radius: var(--nx-r-md); padding: 10px 12px; margin: 0 0 var(--nx-s2); text-wrap: pretty; }
+.nx .inv-help[hidden] { display: none; }
+.nx .note-box { background: var(--nx-surface-2); border: 1px solid var(--nx-line); border-radius: var(--nx-r-md); padding: 12px; display: flex; flex-direction: column; gap: 10px; }
+.nx .note-box p { margin: 0; }
+.nx .note-calm { background: var(--nx-calm-soft, var(--nx-surface-2)); }
+.nx .note-warn { background: var(--nx-warn-soft); border-color: var(--nx-warn); color: var(--nx-text); }
+.nx .btn-danger-text { color: var(--nx-danger); }
+.nx .confirm-list { margin: 0; padding-left: 20px; font-weight: 600; }
+.nx .confirm-list li + li { margin-top: 4px; }
+.nx .bulk-actions { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+.nx .bulk-actions .btn[hidden] { display: none; }
+.nx .row-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+.nx .row-actions .btn { flex: 1; min-height: 48px; }
+.nx .design-chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+.nx .design-chip { font-size: var(--nx-fs-xs); padding: 4px 10px; border-radius: var(--nx-r-pill); background: var(--nx-surface-2); border: 1px solid var(--nx-line); }
+.nx .design-chip b { font-weight: 700; }
+.nx .design-chip.out { color: var(--nx-danger); border-color: var(--nx-danger); }
+.nx .designs { display: flex; flex-direction: column; gap: var(--nx-s3); }
+.nx .designs h3 { margin: 0; }
+.nx .design { border: 1px solid var(--nx-line); border-radius: var(--nx-r-md); padding: 10px; display: flex; flex-direction: column; gap: 8px; }
+.nx .design + .design { margin-top: 10px; }
+.nx .design-top { display: flex; align-items: center; gap: var(--nx-s3); }
+.nx .design-top .avatar { width: 56px; height: 56px; }
+.nx .design-top .grow { flex: 1; min-width: 0; }
+.nx .design-top .title { display: block; font-weight: 700; text-wrap: pretty; }
+.nx .design-top .meta { display: block; font-size: var(--nx-fs-xs); color: var(--nx-text-2); }
+.nx .design-edit { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 8px; align-items: end; }
+.nx .design-edit .field { margin: 0; min-width: 0; }
+.nx .stepper { display: grid; grid-template-columns: 48px minmax(0, 1fr) 48px; gap: 6px; align-items: stretch; }
+.nx .stepper .btn { min-height: 48px; min-width: 48px; padding: 0; font-size: 22px; font-weight: 700; }
+.nx .stepper .input { min-height: 48px; text-align: center; font-size: var(--nx-fs-lg); font-weight: 700; width: 100%; min-width: 0; box-sizing: border-box; }
+.nx .input.bad { border-color: var(--nx-danger); }
+.nx .sticky-save { position: sticky; bottom: 0; z-index: 2; box-shadow: 0 -6px 16px rgba(0, 0, 0, .08); }
+.nx .sticky-save[hidden] { display: none; }
+.nx .retired-box { border-top: 1px solid var(--nx-line); padding-top: 4px; }
+.nx .retired-box[hidden] { display: none; }
+.nx .add-design { border: 1px dashed var(--nx-line); border-radius: var(--nx-r-md); padding: 12px; }
+.nx .design-new { border: 1px solid var(--nx-line); border-radius: var(--nx-r-md); padding: 10px; display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px; }
+.nx .photo-mini { align-self: end; }
+/* Textos largos en botones de la ficha: que bajen de línea en el móvil en vez de salirse. */
+.nx .designs .btn, .nx .btn-danger-text, .nx .note-box .btn, .nx .row-actions .btn, .nx .retired-box .btn { white-space: normal; text-align: center; line-height: 1.25; }
+.nx .retired-box .row-item .btn { flex: none; max-width: 48%; }

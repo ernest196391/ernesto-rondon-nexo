@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Figtree:wght@400;600;700&display=swap">
 <link rel="stylesheet" href="nexo.css">
 <link rel="stylesheet" href="casaviva.css">
-<link rel="stylesheet" href="dash.css?v=20261011e">
+<link rel="stylesheet" href="dash.css?v=20261011f">
 </head>
 <body>
 <div class="nx dash" data-theme="casaviva" id="root">
@@ -195,6 +195,7 @@
 
     <main class="page" data-page="catalogo" hidden>
       <div class="page-head"><h1>Productos</h1><span class="t-sm muted" id="inv-note"></span></div>
+      <p class="inv-help" id="inv-help">Para añadir colores a un producto, ábrelo → <strong>Diseños y colores</strong>. Para mercancía que llegó, usa <strong>Llegó mercancía</strong> (Recibir mercancía).</p>
       <div class="grid-2" style="margin-bottom:8px">
         <button type="button" class="btn btn-primary" id="new-product"><span data-ic="plus"></span>Nuevo producto</button>
         <button type="button" class="btn btn-secondary" id="recv-btn"><span data-ic="download"></span>Llegó mercancía</button>
@@ -206,12 +207,13 @@
         <button type="button" class="chip" data-f="low" aria-pressed="false">Pocas unidades</button>
         <button type="button" class="chip" data-f="nocost" aria-pressed="false" data-cost-only hidden>Sin costo</button>
         <button type="button" class="chip" data-f="offer" aria-pressed="false">En oferta</button>
-        <button type="button" class="chip" data-f="hidden" aria-pressed="false">Ocultos</button>
+        <button type="button" class="chip" data-f="hidden" aria-pressed="false">Retirados</button>
         <button type="button" class="chip" data-f="diff" aria-pressed="false" hidden>No coincide con la web</button>
       </div>
       <div class="attention" id="attention-products" hidden></div>
+      <div class="inv-help" id="inv-filter-help" hidden></div>
       <button type="button" class="btn btn-ghost btn-block" id="bulk-btn">Cambiar varios</button>
-      <div class="bulk-bar" id="bulk-bar" hidden><span id="bulk-count">Toca los productos</span><button type="button" class="btn btn-primary" id="bulk-go" disabled>Cambiar precio</button></div>
+      <div class="bulk-bar" id="bulk-bar" hidden><span id="bulk-count">Toca los productos</span><span class="bulk-actions"><button type="button" class="btn btn-secondary" id="bulk-retire" disabled>Dejar de vender</button><button type="button" class="btn btn-primary" id="bulk-go" disabled>Cambiar precio</button></span></div>
       <section class="panel" id="inventory"><p class="muted">Cargando…</p></section>
       <button type="button" class="btn btn-ghost btn-block" id="recv-history">Ver mercancía recibida</button>
     </main>
@@ -647,8 +649,13 @@ async function editProduct(p) {
   const inv = p ? invRows.find(x => x.productId === p.product_id) : null;
   const onWeb = p?.external_refs?.["casaviva.company"]?.wooId;
   const cats = [...new Set((catalog ?? []).map(x => x.category).filter(Boolean))].sort((a, b) => a.localeCompare(b, "es"));
+  const group = p?.variant_of ?? null; // es un diseño de un producto con diseños
+  const retired = p ? p.active === false : false;
   const sheet = openSheet(`
-    <div class="sheet-head"><h2>${p ? "Editar producto" : "Nuevo producto"}</h2><button type="button" class="btn btn-ghost" data-close>Cerrar</button></div>
+    <div class="sheet-head"><h2>${p ? (group ? "Editar diseño" : "Editar producto") : "Nuevo producto"}</h2><button type="button" class="btn btn-ghost" data-close>Cerrar</button></div>
+    ${retired ? `<div class="note-box note-calm"><p><strong>Retirado:</strong> no se vende en la caja ni en la web. No se borró nada.</p><button type="button" class="btn btn-primary btn-block" data-sell>Volver a vender</button></div>` : ""}
+    ${group ? `<div class="note-box"><p>Es un diseño de <strong>${esc(groupName(group))}</strong>.</p><button type="button" class="btn btn-secondary btn-block" data-group-open>Ver todos sus diseños y colores</button></div>` : ""}
+    ${!p ? `<div class="note-box"><p>¿Viene en varios colores o diseños (por ejemplo, cortinas)?</p><button type="button" class="btn btn-secondary btn-block" data-new-designs>Crear producto con diseños</button></div>` : ""}
     <form class="form">
       ${photoPicker("Foto", p?.image_url ?? "")}
       <input type="hidden" name="sku" value="${esc(p?.sku ?? "")}">
@@ -664,13 +671,20 @@ async function editProduct(p) {
         <label class="field">Avisarme cuando queden<input name="min" type="number" min="0" step="1" inputmode="numeric" placeholder="Sin aviso" value="${p?.min_stock ?? ""}"></label>
         <label class="field">Código de barras<input name="barcodes" value="${esc((p?.barcodes ?? []).join(", "))}" placeholder="Si tiene, separados por coma" inputmode="numeric"></label>
       </details>
-      <label class="check"><input type="checkbox" name="active" ${p?.active === false ? "" : "checked"}> A la venta (caja y web)</label>
-      ${p && !onWeb ? '<p class="t-xs muted">Al guardar aparece también en la web.</p>' : p ? "" : '<p class="t-xs muted">Aparece en las cajas y en la web.</p>'}
+      ${p && !onWeb && !retired ? '<p class="t-xs muted">Al guardar aparece también en la web.</p>' : p ? "" : '<p class="t-xs muted">Aparece en las cajas y en la web.</p>'}
       <p class="msg" data-msg role="status"></p>
       <button type="submit" class="btn btn-primary btn-xl btn-block">Guardar</button>
     </form>
-    ${p && canCost() && costSheet ? costSection(p) : ""}`, p ? `Editar ${p.name}` : "Nuevo producto");
+    ${p && !group && !retired && onWeb ? `<div class="note-box"><p><strong>Este producto no tiene colores.</strong> ¿Quieres añadir colores o diseños?</p><button type="button" class="btn btn-secondary btn-block" data-add-colors>Añadir colores o diseños</button></div>` : ""}
+    ${p && canCost() && costSheet ? costSection(p) : ""}
+    ${p && !retired ? `<button type="button" class="btn btn-ghost btn-block btn-danger-text" data-retire>${group ? "Dejar de vender este diseño" : "Dejar de vender este producto"}</button>` : ""}`, p ? `Editar ${p.name}` : "Nuevo producto");
   if (p && canCost() && costSheet) wireCostSection(sheet.el, p);
+  const after = () => { sheet.close(); };
+  sheet.el.querySelector("[data-sell]")?.addEventListener("click", () => retireFlow([p.product_id], false, after));
+  sheet.el.querySelector("[data-retire]")?.addEventListener("click", () => retireFlow([p.product_id], true, after));
+  sheet.el.querySelector("[data-group-open]")?.addEventListener("click", () => { sheet.close(); void editGroup(group); });
+  sheet.el.querySelector("[data-new-designs]")?.addEventListener("click", () => { sheet.close(); designsProductSheet(null); });
+  sheet.el.querySelector("[data-add-colors]")?.addEventListener("click", () => colorsForSimple(p, inv, sheet));
   const form = sheet.el.querySelector("form:not([data-cost])");
   const msg = form.querySelector("[data-msg]");
   let photoFile = null;
@@ -698,7 +712,7 @@ async function editProduct(p) {
         p_business: bizId(), p_product_id: p?.product_id ?? null, p_name: f.get("name"), p_sku: f.get("sku"),
         p_barcodes: String(f.get("barcodes") ?? "").split(",").map(v => v.trim()).filter(Boolean),
         p_price_usd: price, p_category: f.get("category"), p_image_url: imageUrl,
-        p_active: f.get("active") === "on", p_min_stock: String(f.get("min") ?? "").trim() === "" ? null : Number(f.get("min")),
+        p_active: p ? p.active !== false : true, p_min_stock: String(f.get("min") ?? "").trim() === "" ? null : Number(f.get("min")),
       });
       if (error || saved?.error) throw new Error(error?.message ?? (saved.error === "forbidden" ? "solo la dueña puede hacerlo" : saved.error));
       const notes = [];
@@ -710,7 +724,7 @@ async function editProduct(p) {
       msg.textContent = "Guardando en la web…";
       try {
         const w = await panelWeb({ action: "product_web_save", wooId: saved.wooId ?? null, nexoId: saved.productId, name: f.get("name"), price,
-          category: f.get("category"), imageUrl: imageUrl ?? (saved.wooId ? "" : (p?.image_url ?? "")), sku: saved.sku, active: f.get("active") === "on" });
+          category: f.get("category"), imageUrl: imageUrl ?? (saved.wooId ? "" : (p?.image_url ?? "")), sku: saved.sku, active: p ? p.active !== false : true });
         if (!saved.wooId && w.wooId) {
           const { data: ln, error: e4 } = await supabase.rpc("nexo_business_product_link_web", { p_business: bizId(), p_product: saved.productId, p_woo_id: w.wooId });
           if (e4 || ln?.error) notes.push("se creó en la web pero no quedó enlazado (" + (e4?.message ?? ln.error) + ")");
@@ -811,10 +825,18 @@ let picking = false; const picked = new Set();
 function setPicking(on) {
   picking = on; picked.clear();
   $("#bulk-bar").hidden = !on;
-  $("#bulk-btn").textContent = on ? "Cancelar" : "Cambiar varios";
   renderInventory(); updateBulkBar();
 }
-function updateBulkBar() { $("#bulk-count").textContent = picked.size ? picked.size + " marcados" : "Toca los productos"; $("#bulk-go").disabled = !picked.size; }
+// En «Retirados» se marca para volver a vender; en el resto, para cambiar precio o dejar de vender.
+function updateBulkBar() {
+  const back = invFilter === "hidden";
+  $("#bulk-count").textContent = picked.size ? picked.size + " marcados" : "Toca los productos";
+  $("#bulk-go").disabled = !picked.size; $("#bulk-go").hidden = back;
+  $("#bulk-retire").disabled = !picked.size;
+  $("#bulk-retire").textContent = back ? "Volver a vender" : "Dejar de vender";
+  $("#bulk-retire").className = "btn " + (back ? "btn-primary" : "btn-secondary");
+  $("#bulk-btn").textContent = picking ? "Cancelar" : back ? "Marcar varios para volver a vender" : invFilter === "out" ? "Marcar agotados para dejar de vender" : "Cambiar varios";
+}
 function bulkSheet() {
   const sheet = openSheet('<div class="sheet-head"><h2>Cambiar ' + picked.size + " productos</h2><button type=\"button\" class=\"btn btn-ghost\" data-close>Cerrar</button></div>"
     + '<form class="form"><label class="field">¿Qué quieres hacer?<select name="mode">'
@@ -853,43 +875,143 @@ function openProducts(filter) {
 }
 const isDiff = r => r.active && r.web && r.web.stock !== null && r.web.stock !== r.stock;
 const isLow = r => r.active && r.stock > 0 && r.minStock != null && r.stock <= r.minStock;
+// Retirado en la caja pero todavía a la venta en la web (la web no respondió al retirarlo).
+const webLeft = r => !r.active && r.web && (r.web.itemStatus ?? r.web.status) === "publish";
+
+// ---------- Productos con diseños (variantes): una fila por producto con la cantidad de cada diseño ----------
+const designLabel = r => r.variant || (r.name.includes(" — ") ? r.name.split(" — ").slice(1).join(" — ") : r.name);
+const sameLabel = (a, b) => String(a).trim().toLowerCase().replace(/\s+/g, " ") === String(b).trim().toLowerCase().replace(/\s+/g, " ");
+function groupName(key) {
+  const row = invRows.find(x => x.variantOf === key) ?? catalog?.find(x => x.variant_of === key);
+  return String(row?.name ?? "Producto").split(" — ")[0];
+}
+// Una fila para la lista, venga de Inventario (invRows) o del catálogo.
+function rowOf(id) {
+  const r = invRows.find(x => x.productId === id);
+  if (r) return r;
+  const p = catalog?.find(x => x.product_id === id);
+  if (!p) return null;
+  const refs = p.external_refs?.["casaviva.company"] ?? {};
+  return { productId: p.product_id, name: p.name, variant: p.variant_label, variantOf: p.variant_of, active: p.active !== false,
+    stock: stockOf(p.product_id)?.quantity ?? 0, wooId: refs.wooId ?? null, parentWooId: refs.parentWooId ?? null };
+}
+// Qué filas de un producto con diseños cuentan para el filtro actual.
+function shownOf(rows) {
+  const live = rows.filter(r => r.active);
+  switch (invFilter) {
+    case "hidden": return rows.filter(r => !r.active);
+    case "out": return live.filter(r => r.stock <= 0);
+    case "low": return live.filter(isLow);
+    case "diff": return live.filter(isDiff);
+    case "nocost": return costSheet ? live.filter(r => !costOf(r.productId)?.cost) : [];
+    case "offer": return live.filter(r => r.offerUsd != null);
+    default: return live;
+  }
+}
+function oneMatches(r) {
+  if (invFilter === "hidden") return !r.active;
+  if (!r.active) return false;
+  if (invFilter === "diff") return isDiff(r);
+  if (invFilter === "low") return isLow(r);
+  if (invFilter === "out") return r.stock <= 0;
+  if (invFilter === "nocost") return costSheet && !costOf(r.productId)?.cost;
+  if (invFilter === "offer") return r.offerUsd != null;
+  return true;
+}
+const FILTER_HELP = {
+  out: "Aquí salen los productos y diseños sin unidades. Si no vas a volver a tenerlos, toca «Marcar agotados para dejar de vender». No se borra nada.",
+  hidden: "Retirados: no se venden en la caja ni en la web. No se borró nada. Ábrelos (o márcalos) para volver a venderlos.",
+};
+let pickGroups = new Map(); // grupo → ids marcables con el filtro actual
 function renderInventory() {
-  const q = ($("#inv-search").value || "").toLowerCase();
-  const rows = invRows.filter(r => {
-    if (q && !r.name.toLowerCase().includes(q)) return false;
-    if (invFilter === "hidden") return !r.active;
-    if (!r.active) return false;
-    if (invFilter === "diff") return isDiff(r);
-    if (invFilter === "low") return isLow(r);
-    if (invFilter === "out") return r.stock <= 0;
-    if (invFilter === "nocost") return costSheet && !costOf(r.productId)?.cost;
-    if (invFilter === "offer") return r.offerUsd != null;
-    return true;
-  });
-  const active = invRows.filter(r => r.active).length;
-  $("#inv-note").textContent = invFilter === "all" && !q ? active + " productos a la venta" : rows.length + " de " + active;
-  $("#inventory").innerHTML = rows.length ? rows.slice(0, 300).map(r => {
-    const name = r.variant && !r.name.toLowerCase().includes(r.variant.toLowerCase()) ? r.name + " · " + r.variant : r.name;
-    const state = (r.offerUsd != null ? '<span class="badge badge-info">Oferta ' + usd2(r.offerUsd) + "</span>" : "")
-      + (!r.active ? '<span class="badge badge-calm">Oculto</span>' : r.stock <= 0 ? '<span class="badge badge-out">Agotado</span>' : isLow(r) ? '<span class="badge badge-low">Pocas</span>' : "");
-    if (picking) return '<label class="inv-row inv-pick"><input type="checkbox" data-pick="' + esc(r.productId) + '"' + (picked.has(r.productId) ? " checked" : "") + ">" + photo(r.imageUrl, name)
-      + '<span class="grow"><span class="title">' + esc(name) + '</span><span class="meta">' + usd2(r.priceUsd) + "</span></span>" + state + "</label>";
-    return '<div class="inv-row" data-inv="' + esc(r.productId) + '"><button type="button" class="inv-head" data-open aria-label="Abrir ' + esc(name) + '">' + photo(r.imageUrl, name)
-      + '<span class="grow"><span class="title">' + esc(name) + "</span>"
-      + (isDiff(r) ? '<span class="meta" style="color:var(--nx-danger)">En la web: ' + r.web.stock + " · se iguala sola en 2 min</span>" : !r.wooId ? '<span class="meta">No está en la web</span>' : "")
-      + "</span>" + state + "</button>"
-      + '<div class="inv-edit"><label class="field t-sm">Precio USD<input class="input" inputmode="decimal" data-price value="' + esc(r.priceUsd ?? "") + '"></label>'
-      + '<label class="field t-sm">Quedan<input class="input" inputmode="numeric" data-stock value="' + esc(r.stock) + '"></label>'
-      + '<button type="button" class="btn btn-primary" data-save hidden>Guardar</button></div></div>';
-  }).join("") + (rows.length > 300 ? '<p class="muted">Mostrando 300. Usa el buscador.</p>' : "") : '<p class="muted">Ningún producto aquí.</p>';
+  const q = ($("#inv-search").value || "").toLowerCase().trim();
+  const items = [];
+  const groups = new Map();
+  for (const r of invRows) {
+    if (!r.variantOf) { if (oneMatches(r) && (!q || r.name.toLowerCase().includes(q))) items.push({ one: r }); continue; }
+    if (!groups.has(r.variantOf)) groups.set(r.variantOf, []);
+    groups.get(r.variantOf).push(r);
+  }
+  pickGroups = new Map();
+  let liveCount = invRows.filter(r => r.active && !r.variantOf).length;
+  for (const [key, rows] of groups) {
+    const live = rows.filter(r => r.active);
+    if (live.length) liveCount++;
+    let shown = shownOf(rows);
+    const name = groupName(key);
+    if (q && !name.toLowerCase().includes(q)) shown = shown.filter(r => designLabel(r).toLowerCase().includes(q));
+    if (!shown.length) continue;
+    pickGroups.set(key, shown.map(r => r.productId));
+    items.push({ group: { key, name, rows, live, shown } });
+  }
+  items.sort((a, b) => (a.one?.name ?? a.group.name).localeCompare(b.one?.name ?? b.group.name, "es"));
+  const help = FILTER_HELP[invFilter];
+  $("#inv-filter-help").hidden = !help; $("#inv-filter-help").textContent = help ?? "";
+  $("#bulk-btn").hidden = !items.length && !picking;
+  updateBulkBar();
+  $("#inv-note").textContent = invFilter === "all" && !q ? liveCount + " productos a la venta" : items.length + " de " + liveCount;
+  $("#inventory").innerHTML = items.length ? items.slice(0, 300).map(it => it.group ? groupRow(it.group) : oneRow(it.one)).join("")
+    + (items.length > 300 ? '<p class="muted">Mostrando 300. Usa el buscador.</p>' : "") : '<p class="muted">Ningún producto aquí.</p>';
+  wireInventory();
+}
+function oneRow(r) {
+  const name = r.name;
+  const state = (r.offerUsd != null && r.active ? '<span class="badge badge-info">Oferta ' + usd2(r.offerUsd) + "</span>" : "")
+    + (!r.active ? '<span class="badge badge-calm">Retirado</span>' : r.stock <= 0 ? '<span class="badge badge-out">Agotado</span>' : isLow(r) ? '<span class="badge badge-low">Pocas</span>' : "");
+  if (picking) return '<label class="inv-row inv-pick"><input type="checkbox" data-pick="' + esc(r.productId) + '"' + (picked.has(r.productId) ? " checked" : "") + ">" + photo(r.imageUrl, name)
+    + '<span class="grow"><span class="title">' + esc(name) + '</span><span class="meta">' + usd2(r.priceUsd) + " · quedan " + r.stock + "</span></span>" + state + "</label>";
+  const head = '<button type="button" class="inv-head" data-open aria-label="Abrir ' + esc(name) + '">' + photo(r.imageUrl, name)
+    + '<span class="grow"><span class="title">' + esc(name) + "</span>"
+    + (webLeft(r) ? '<span class="meta" style="color:var(--nx-danger)">Todavía se ve en la web</span>'
+      : isDiff(r) ? '<span class="meta" style="color:var(--nx-danger)">En la web: ' + r.web.stock + " · se iguala sola en 2 min</span>" : !r.wooId ? '<span class="meta">No está en la web</span>' : "")
+    + "</span>" + state + "</button>";
+  if (!r.active) return '<div class="inv-row" data-inv="' + esc(r.productId) + '">' + head + '<div class="row-actions">'
+    + (webLeft(r) ? '<button type="button" class="btn btn-secondary" data-webhide>Quitar de la web</button>' : "")
+    + '<button type="button" class="btn btn-primary" data-sell>Volver a vender</button></div></div>';
+  return '<div class="inv-row" data-inv="' + esc(r.productId) + '">' + head
+    + '<div class="inv-edit"><label class="field t-sm">Precio USD<input class="input" inputmode="decimal" data-price value="' + esc(r.priceUsd ?? "") + '"></label>'
+    + '<label class="field t-sm">Quedan<input class="input" inputmode="numeric" data-stock value="' + esc(r.stock) + '"></label>'
+    + '<button type="button" class="btn btn-primary" data-save hidden>Guardar</button></div></div>';
+}
+function groupRow(g) {
+  const img = g.rows.find(r => r.imageUrl)?.imageUrl ?? null;
+  const back = invFilter === "hidden";
+  const total = g.live.reduce((s, r) => s + Math.max(0, r.stock), 0);
+  const state = back ? '<span class="badge badge-calm">Retirado</span>' : !total ? '<span class="badge badge-out">Agotado</span>' : g.shown.some(isLow) ? '<span class="badge badge-low">Pocas</span>' : "";
+  const meta = back ? g.shown.length + (g.shown.length === 1 ? " diseño retirado" : " diseños retirados")
+    : invFilter === "out" ? g.shown.length + " de " + g.live.length + (g.live.length === 1 ? " diseño agotado" : " diseños agotados")
+    : g.live.length + (g.live.length === 1 ? " diseño" : " diseños") + " · quedan " + total + " en total";
+  const chips = '<div class="design-chips">' + g.shown.slice(0, 12).map(r => '<span class="design-chip' + (r.stock <= 0 || !r.active ? " out" : "") + '">'
+    + esc(designLabel(r)) + (r.active ? " <b>" + r.stock + "</b>" : "") + "</span>").join("")
+    + (g.shown.length > 12 ? '<span class="design-chip">+' + (g.shown.length - 12) + "</span>" : "") + "</div>";
+  if (picking) {
+    const ids = pickGroups.get(g.key) ?? [];
+    return '<label class="inv-row inv-pick"><input type="checkbox" data-pick-group="' + esc(g.key) + '"' + (ids.length && ids.every(id => picked.has(id)) ? " checked" : "") + ">" + photo(img, g.name)
+      + '<span class="grow"><span class="title">' + esc(g.name) + '</span><span class="meta">' + (invFilter === "all" ? "todos sus diseños" : (invFilter === "out" ? "solo los agotados: " : invFilter === "hidden" ? "" : "solo: ") + g.shown.map(designLabel).slice(0, 6).map(esc).join(", ")) + "</span></span>" + state + "</label>";
+  }
+  return '<div class="inv-row" data-group="' + esc(g.key) + '"><button type="button" class="inv-head" data-open-group aria-label="Abrir ' + esc(g.name) + '">' + photo(img, g.name)
+    + '<span class="grow"><span class="title">' + esc(g.name) + '</span><span class="meta">' + esc(meta) + "</span></span>" + state + "</button>" + chips
+    + '<button type="button" class="btn btn-secondary btn-block" data-open-group>' + (back ? "Ver retirados y volver a vender" : "Ver y cambiar diseños y colores") + "</button></div>";
+}
+function wireInventory() {
+  document.querySelectorAll("#inventory [data-group]").forEach(row => row.querySelectorAll("[data-open-group]").forEach(b => (b.onclick = () => editGroup(row.dataset.group))));
   document.querySelectorAll("#inventory [data-inv]").forEach(row => {
     const r = invRows.find(x => x.productId === row.dataset.inv);
-    const save = row.querySelector("[data-save]");
     row.querySelector("[data-open]").onclick = async () => {
       if (!catalog?.some(p => p.product_id === r.productId)) { const { data } = await supabase.rpc("nexo_business_catalog_list", { p_business: bizId() }); if (Array.isArray(data)) catalog = data; }
       const p = catalog?.find(x => x.product_id === r.productId);
       if (p) editProduct(p); else toast("No se pudo abrir el producto. Pulsa actualizar.", "bad");
     };
+    const sell = row.querySelector("[data-sell]");
+    if (sell) sell.onclick = () => retireFlow([r.productId], false);
+    const webhide = row.querySelector("[data-webhide]");
+    if (webhide) webhide.onclick = async () => {
+      webhide.disabled = true; webhide.textContent = "Quitando…";
+      try { await panelWeb({ action: "products_visibility", wooIds: webIdsFor([r.productId], true), sell: false }); toast("Listo: ya no se ve en la web.", "ok"); await loadInventory(); }
+      catch (e) { webhide.disabled = false; webhide.textContent = "Quitar de la web"; toast("La web no respondió: " + e.message, "bad"); }
+    };
+    const save = row.querySelector("[data-save]");
+    if (!save) return;
     row.querySelectorAll("input").forEach(i => (i.oninput = () => { save.hidden = false; }));
     save.onclick = async () => {
       const price = num(row.querySelector("[data-price]").value);
@@ -918,18 +1040,365 @@ function renderInventory() {
 }
 $("#bulk-btn").onclick = () => setPicking(!picking);
 $("#bulk-go").onclick = bulkSheet;
+$("#bulk-retire").onclick = () => { if (picked.size) retireFlow([...picked], invFilter !== "hidden", () => setPicking(false)); };
 $("#inventory").addEventListener("change", e => {
-  const id = e.target?.dataset?.pick;
-  if (!id) return;
-  if (e.target.checked) picked.add(id); else picked.delete(id);
+  const id = e.target?.dataset?.pick, key = e.target?.dataset?.pickGroup;
+  if (!id && !key) return;
+  for (const x of id ? [id] : pickGroups.get(key) ?? []) { if (e.target.checked) picked.add(x); else picked.delete(x); }
   updateBulkBar();
 });
 document.querySelectorAll("#inv-filter [data-f]").forEach(b => (b.onclick = () => {
   invFilter = b.dataset.f;
   document.querySelectorAll("#inv-filter [data-f]").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+  if (picking) { picked.clear(); }
   renderInventory();
 }));
 $("#inv-search").oninput = () => { clearTimeout(invTimer); invTimer = setTimeout(renderInventory, 250); };
+
+// ---------- Dejar de vender / Volver a vender (nunca se borra nada) ----------
+// Lo que hay que cambiar en la web: cada producto o diseño y, si es un producto con diseños, también el
+// producto (padre) cuando ya no le queda ningún diseño a la venta (al retirar) o al volver a vender.
+function webIdsFor(ids, retire) {
+  const out = new Set();
+  const rows = ids.map(rowOf).filter(Boolean);
+  for (const r of rows) if (r.wooId) out.add(Number(r.wooId));
+  for (const key of new Set(rows.filter(r => r.variantOf).map(r => r.variantOf))) {
+    const all = invRows.filter(r => r.variantOf === key);
+    const parent = all.find(r => r.parentWooId)?.parentWooId;
+    if (!parent) continue;
+    // Al volver a vender, Core no toca un producto que ya estaba a la venta.
+    if (!retire || all.every(r => ids.includes(r.productId) || !r.active)) out.add(Number(parent));
+  }
+  return [...out];
+}
+function retireFlow(ids, retire, done) {
+  const rows = ids.map(rowOf).filter(Boolean);
+  if (!rows.length) return toast("No encontré ese producto. Pulsa actualizar.", "bad");
+  const names = rows.map(r => r.name);
+  const withStock = retire ? rows.filter(r => r.stock > 0) : [];
+  const sheet = openSheet('<div class="sheet-head"><h2>' + (retire ? "¿Dejar de vender?" : "¿Volver a vender?") + '</h2><button type="button" class="btn btn-ghost" data-close>Cerrar</button></div>'
+    + '<ul class="confirm-list">' + names.slice(0, 8).map(n => "<li>" + esc(n) + "</li>").join("") + (names.length > 8 ? "<li>y " + (names.length - 8) + " más</li>" : "") + "</ul>"
+    + (retire
+      ? "<p>Dejará" + (rows.length > 1 ? "n" : "") + " de verse en la web, en el buscador, en la tienda de las gestoras y en la caja.</p><p><strong>No se borra nada.</strong> " + (rows.length > 1 ? "Los encuentras en «Retirados» y puedes volver a venderlos" : "Lo encuentras en «Retirados» y puedes volver a venderlo") + " cuando quieras.</p>"
+      : "<p>Volverá" + (rows.length > 1 ? "n" : "") + " a verse en la web, en la tienda de las gestoras y en la caja, con las unidades que tenga" + (rows.length > 1 ? "n" : "") + ".</p>")
+    + (withStock.length ? '<p class="note-box note-warn">Ojo: ' + withStock.slice(0, 3).map(r => "«" + esc(r.name) + "» todavía tiene " + r.stock).join(", ") + (withStock.length > 3 ? "…" : "") + ".</p>" : "")
+    + '<p class="msg" data-msg role="status"></p>'
+    + '<button type="button" class="btn ' + (retire ? "btn-danger" : "btn-primary") + ' btn-xl btn-block" data-yes>' + (retire ? "Sí, dejar de vender" : "Sí, volver a vender") + "</button>"
+    + '<button type="button" class="btn btn-ghost btn-block" data-close>No, volver atrás</button>', retire ? "Dejar de vender" : "Volver a vender");
+  const msg = sheet.el.querySelector("[data-msg]");
+  const yes = sheet.el.querySelector("[data-yes]");
+  yes.onclick = async () => {
+    yes.disabled = true; msg.textContent = "Guardando…"; msg.dataset.tone = "";
+    const web = webIdsFor(ids, retire); // antes de cambiar nada (mira qué queda a la venta)
+    const { data, error } = await supabase.rpc("nexo_business_products_retire", { p_business: bizId(), p_products: ids, p_retire: retire });
+    if (error || data?.error) { yes.disabled = false; msg.textContent = "No se guardó: " + (error?.message ?? (data.error === "forbidden" ? "solo la dueña puede hacerlo" : data.error)); msg.dataset.tone = "bad"; return; }
+    let webFail = false;
+    if (web.length) { try { await panelWeb({ action: "products_visibility", wooIds: web, sell: !retire }); } catch { webFail = true; } }
+    sheet.close();
+    const n = data.items.length;
+    toast(retire
+      ? "Listo: " + n + (n === 1 ? " retirado" : " retirados") + ". Ya no se vende" + (n === 1 ? "" : "n") + " en la caja." + (webFail ? " Ojo: la web no respondió; en «Retirados» toca «Quitar de la web»." : " En la web también.")
+      : "Listo: " + n + " de vuelta a la venta." + (webFail ? " Ojo: la web no respondió; vuelve a intentarlo." : ""), webFail ? "bad" : "ok");
+    catalog = null; shop = null;
+    await loadInventory();
+    done?.();
+  };
+}
+
+// ---------- Ficha de un producto con diseños: «Diseños y colores» ----------
+async function editGroup(key) {
+  const rowsNow = () => invRows.filter(r => r.variantOf === key);
+  const rowById = id => invRows.find(r => r.productId === id);
+  const parentWooId = rowsNow().find(r => r.parentWooId)?.parentWooId ?? null;
+  const name = groupName(key);
+  const dirty = new Map(); // productId → { qty?, price? }
+  let web = null; // diseños leídos de la web
+  const sheet = openSheet('<div class="sheet-head"><h2>' + esc(name) + '</h2><button type="button" class="btn btn-ghost" data-x>Cerrar</button></div>'
+    + '<section class="designs" aria-label="Diseños y colores"><h3 class="t-lg">Diseños y colores</h3>'
+    + '<p class="t-sm muted">Cambia cuántas quedan con <strong>−</strong> y <strong>+</strong> (o escribe el número) y pulsa <strong>Guardar</strong>. Llega a la caja y a la web en unos minutos.</p>'
+    + '<p class="t-sm" data-webnote hidden></p>'
+    + '<div data-list></div>'
+    + '<p class="msg" data-msg role="status"></p>'
+    + '<button type="button" class="btn btn-primary btn-xl btn-block sticky-save" data-save hidden>Guardar</button>'
+    + '<button type="button" class="btn btn-secondary btn-xl btn-block" data-add>＋ Añadir diseño o color</button>'
+    + '<div data-addform hidden></div>'
+    + '<details class="retired-box" data-retired hidden><summary>Diseños retirados</summary><div data-retired-list></div></details></section>'
+    + '<button type="button" class="btn btn-ghost btn-block btn-danger-text" data-retire-all>Dejar de vender todo este producto</button>', name);
+  const $s = sel => sheet.el.querySelector(sel);
+  const list = $s("[data-list]"), msg = $s("[data-msg]"), saveBtn = $s("[data-save]"), addBtn = $s("[data-add]"), addForm = $s("[data-addform]"), webNote = $s("[data-webnote]");
+  // Cerrar con cambios sin guardar: preguntar antes.
+  const tryClose = () => { if (!dirty.size || confirm("Tienes cambios sin guardar. ¿Salir sin guardar?")) sheet.close(); };
+  $s("[data-x]").onclick = tryClose;
+  sheet.el.parentElement.querySelector(".scrim").onclick = tryClose;
+
+  const setDirty = (id, patch) => {
+    const r = rowById(id); if (!r) return;
+    const d = { ...(dirty.get(id) ?? {}), ...patch };
+    if (d.qty === r.stock) delete d.qty;
+    if (d.price != null && d.price === Number(r.priceUsd)) delete d.price;
+    if (d.qty == null && d.price == null && !d.badPrice && !d.badQty) dirty.delete(id); else dirty.set(id, d);
+    saveBtn.hidden = !dirty.size;
+    saveBtn.textContent = dirty.size === 1 ? "Guardar el cambio" : "Guardar " + dirty.size + " cambios";
+  };
+  function render() {
+    const rows = rowsNow();
+    const live = rows.filter(r => r.active), gone = rows.filter(r => !r.active);
+    const webBy = new Map((web?.variations ?? []).map(v => [Number(v.id), v]));
+    list.innerHTML = live.length ? live.map(r => {
+      const d = dirty.get(r.productId) ?? {};
+      const label = designLabel(r);
+      const img = r.imageUrl || webBy.get(Number(r.wooId))?.image || null;
+      return '<div class="design" data-pid="' + esc(r.productId) + '"><div class="design-top">' + photo(img, label)
+        + '<span class="grow"><span class="title">' + esc(label) + '</span><span class="meta">'
+        + (r.stock <= 0 ? '<span class="badge badge-out">Agotado</span>' : "Quedan " + r.stock) + (r.offerUsd != null ? " · en oferta " + usd2(r.offerUsd) : "")
+        + (!r.wooId ? " · no está en la web" : "") + "</span></span>"
+        + '<button type="button" class="btn btn-ghost" data-more aria-label="Más opciones de ' + esc(label) + '">Más</button></div>'
+        + '<div class="design-edit"><div class="field t-sm"><span>Quedan</span><div class="stepper">'
+        + '<button type="button" class="btn btn-secondary" data-minus aria-label="Una menos de ' + esc(label) + '">−</button>'
+        + '<input class="input" inputmode="numeric" data-qty value="' + esc(d.qty ?? r.stock) + '" aria-label="Cuántas quedan de ' + esc(label) + '">'
+        + '<button type="button" class="btn btn-secondary" data-plus aria-label="Una más de ' + esc(label) + '">+</button></div></div>'
+        + '<label class="field t-sm">Precio USD<input class="input" inputmode="decimal" data-price value="' + esc(d.priceRaw ?? r.priceUsd ?? "") + '"></label></div></div>';
+    }).join("") : '<p class="muted">Este producto no tiene diseños a la venta. Añade uno abajo' + (gone.length ? " o vuelve a vender uno retirado" : "") + ".</p>";
+    list.querySelectorAll("[data-pid]").forEach(el => {
+      const id = el.dataset.pid;
+      const qty = el.querySelector("[data-qty]");
+      const step = n => { const cur = parseInt(qty.value, 10); qty.value = String(Math.max(0, (Number.isFinite(cur) ? cur : 0) + n)); qty.dispatchEvent(new Event("input")); };
+      el.querySelector("[data-minus]").onclick = () => step(-1);
+      el.querySelector("[data-plus]").onclick = () => step(1);
+      qty.oninput = () => {
+        const t = qty.value.trim(), n = Number(t);
+        qty.classList.toggle("bad", !(t !== "" && Number.isInteger(n) && n >= 0));
+        if (t !== "" && Number.isInteger(n) && n >= 0) setDirty(id, { qty: n, badQty: false }); else setDirty(id, { badQty: true });
+      };
+      const price = el.querySelector("[data-price]");
+      price.oninput = () => { const v = num(price.value); price.classList.toggle("bad", !(v > 0)); setDirty(id, v > 0 ? { price: v, priceRaw: price.value, badPrice: false } : { badPrice: true, priceRaw: price.value }); };
+      el.querySelector("[data-more]").onclick = async () => {
+        if (dirty.size && !confirm("Tienes cambios sin guardar. ¿Salir sin guardar?")) return;
+        if (!catalog?.some(p => p.product_id === id)) { const { data } = await supabase.rpc("nexo_business_catalog_list", { p_business: bizId() }); if (Array.isArray(data)) catalog = data; }
+        const p = catalog?.find(x => x.product_id === id);
+        if (!p) return toast("No se pudo abrir. Pulsa actualizar.", "bad");
+        sheet.close(); editProduct(p);
+      };
+    });
+    // Retirados: los de la caja y los que la web tiene desactivados y la caja no conoce.
+    const webOnlyGone = (web?.variations ?? []).filter(v => v.status !== "publish" && !rows.some(r => Number(r.wooId) === Number(v.id)));
+    $s("[data-retired]").hidden = !gone.length && !webOnlyGone.length;
+    $s("[data-retired] summary").textContent = "Diseños retirados (" + (gone.length + webOnlyGone.length) + ")";
+    $s("[data-retired-list]").innerHTML = gone.map(r => '<div class="row-item"><span class="grow"><span class="title">' + esc(designLabel(r)) + '</span><span class="meta">No se vende · quedan ' + r.stock + "</span></span>"
+      + '<button type="button" class="btn btn-secondary" data-sell="' + esc(r.productId) + '">Volver a vender</button></div>').join("")
+      + webOnlyGone.map(v => '<div class="row-item"><span class="grow"><span class="title">' + esc(v.label) + '</span><span class="meta">Retirado en la web</span></span>'
+      + '<button type="button" class="btn btn-secondary" data-websell="' + Number(v.id) + '">Volver a vender</button></div>').join("");
+    $s("[data-retired-list]").querySelectorAll("[data-sell]").forEach(b => (b.onclick = () => retireFlow([b.dataset.sell], false, render)));
+    $s("[data-retired-list]").querySelectorAll("[data-websell]").forEach(b => (b.onclick = async () => {
+      if (!confirm("¿Volver a vender «" + (webBy.get(Number(b.dataset.websell))?.label ?? "") + "»?")) return;
+      b.disabled = true;
+      try {
+        await panelWeb({ action: "products_visibility", wooIds: [Number(b.dataset.websell), ...(web?.parent?.retired ? [Number(parentWooId)] : [])], sell: true });
+        await loadWeb();
+        toast("Listo: vuelve a la venta. Revisa cuántas quedan.", "ok");
+      } catch (e) { b.disabled = false; toast("La web no respondió: " + e.message, "bad"); }
+    }));
+    $s("[data-retire-all]").hidden = !live.length;
+    saveBtn.hidden = !dirty.size;
+  }
+
+  async function loadWeb() {
+    if (!parentWooId) {
+      webNote.hidden = false; webNote.textContent = "Este producto no está en la web: aquí solo cambias la caja.";
+      addBtn.hidden = true; render(); return;
+    }
+    try {
+      web = await panelWeb({ action: "product_variations", wooId: parentWooId, group: key });
+      const added = (web.linked ?? []).filter(l => l.created).length;
+      if (added) { await loadInventory(); webNote.hidden = false; webNote.textContent = added === 1 ? "Encontré 1 diseño de la web que la caja no tenía. Ya está en la lista." : "Encontré " + added + " diseños de la web que la caja no tenía. Ya están en la lista."; }
+      if (web.parent && !web.parent.canAdd) { addBtn.disabled = true; webNote.hidden = false; webNote.textContent = web.parent.cantAddReason ?? "A este producto no se le pueden añadir diseños desde aquí."; }
+    } catch (e) {
+      webNote.hidden = false; webNote.textContent = "No pude leer la web ahora (" + e.message + "). Puedes cambiar las cantidades igual.";
+    }
+    render();
+  }
+
+  saveBtn.onclick = async () => {
+    const changes = [...dirty.entries()];
+    const bad = changes.find(([, d]) => d.badQty || d.badPrice);
+    if (bad) { msg.textContent = "Revisa «" + designLabel(rowById(bad[0])) + "»: " + (bad[1].badQty ? "la cantidad debe ser un número entero (0 o más)" : "el precio debe ser mayor que 0"); msg.dataset.tone = "bad"; return; }
+    saveBtn.disabled = true; msg.textContent = "Guardando…"; msg.dataset.tone = "";
+    const problems = [];
+    const prices = changes.filter(([, d]) => d.price != null).map(([id, d]) => ({ productId: id, price: d.price }));
+    if (prices.length) {
+      try {
+        const r = await applyPrices(prices);
+        if (r.skipped.length) problems.push("un precio debe ser mayor que su oferta");
+        if (r.webFail) problems.push("algún precio no llegó a la web (vuelve a guardar)");
+      } catch { problems.push("los precios no se guardaron"); }
+    }
+    for (const [id, d] of changes) {
+      if (d.qty == null) continue;
+      const { data, error } = await supabase.rpc("nexo_business_set_stock", { p_business: bizId(), p_product: id, p_quantity: d.qty, p_reason: "Diseños y colores (panel)" });
+      if (error || data?.error) problems.push("no se guardó la cantidad de «" + designLabel(rowById(id)) + "»");
+    }
+    dirty.clear(); saveBtn.disabled = false;
+    msg.textContent = problems.length ? "Ojo: " + problems.join("; ") + "." : ""; msg.dataset.tone = problems.length ? "bad" : "";
+    if (!problems.length) toast("Guardado. Llega a la caja y a la web en unos minutos.", "ok");
+    await loadInventory();
+    render();
+  };
+
+  addBtn.onclick = () => {
+    const def = rowsNow().find(r => r.active)?.priceUsd ?? rowsNow()[0]?.priceUsd ?? "";
+    addBtn.hidden = true; addForm.hidden = false;
+    addForm.innerHTML = '<form class="form add-design"><h3 class="t-lg">Nuevo diseño o color</h3>'
+      + '<label class="field">Nombre del diseño o color<input class="input" name="label" required maxlength="60" placeholder="Ej.: flores azules" autocomplete="off"></label>'
+      + photoPicker("Foto (si tienes)")
+      + '<div class="grid-2"><div class="field"><span>Cuántas hay</span><div class="stepper"><button type="button" class="btn btn-secondary" data-minus aria-label="Una menos">−</button>'
+      + '<input class="input" name="qty" inputmode="numeric" required placeholder="0" aria-label="Cuántas hay"><button type="button" class="btn btn-secondary" data-plus aria-label="Una más">+</button></div></div>'
+      + '<label class="field">Precio USD<input class="input" name="price" inputmode="decimal" required value="' + esc(def) + '"></label></div>'
+      + '<p class="msg" data-amsg role="status"></p>'
+      + '<button type="submit" class="btn btn-primary btn-xl btn-block">Añadir</button>'
+      + '<button type="button" class="btn btn-ghost btn-block" data-cancel>Cancelar</button></form>';
+    const form = addForm.querySelector("form"), amsg = form.querySelector("[data-amsg]");
+    let file = null;
+    wirePhotoPicker(form, async f => { file = f; return true; });
+    const step = n => { const cur = parseInt(form.qty.value, 10); form.qty.value = String(Math.max(0, (Number.isFinite(cur) ? cur : 0) + n)); };
+    form.querySelector("[data-minus]").onclick = () => step(-1);
+    form.querySelector("[data-plus]").onclick = () => step(1);
+    form.querySelector("[data-cancel]").onclick = () => { addForm.hidden = true; addForm.innerHTML = ""; addBtn.hidden = false; };
+    form.label.focus();
+    const fail = t => { amsg.textContent = t; amsg.dataset.tone = "bad"; form.querySelector("[type=submit]").disabled = false; };
+    form.onsubmit = async e => {
+      e.preventDefault();
+      const label = form.label.value.trim().replace(/\s+/g, " ");
+      const price = num(form.price.value);
+      const qtyT = form.qty.value.trim(), qty = Number(qtyT);
+      if (!label) return fail("Escribe el nombre del diseño o color");
+      const twin = rowsNow().find(r => sameLabel(designLabel(r), label));
+      if (twin) return fail(twin.active ? "Ya hay un diseño «" + designLabel(twin) + "». Cambia su cantidad en la lista de arriba." : "«" + designLabel(twin) + "» ya existe pero está retirado: ábrelo en «Diseños retirados» y pulsa «Volver a vender».");
+      if (!(price > 0)) return fail("Escribe un precio mayor que 0");
+      if (qtyT === "" || !Number.isInteger(qty) || qty < 0) return fail("Escribe cuántas hay (0 o más)");
+      form.querySelector("[type=submit]").disabled = true;
+      try {
+        let imageUrl = "";
+        if (file) { amsg.textContent = "Subiendo foto…"; amsg.dataset.tone = ""; try { imageUrl = await uploadPhoto(file); } catch { throw new Error("esa foto no se pudo usar. Prueba con otra o añádelo sin foto"); } }
+        amsg.textContent = "Creando el diseño en la web y en la caja…"; amsg.dataset.tone = "";
+        const out = await panelWeb({ action: "variation_add", wooId: parentWooId, group: key, label, price, imageUrl });
+        if (out.retired) { await loadWeb(); return fail("«" + label + "» ya existe en la web pero está retirado: ábrelo en «Diseños retirados» y pulsa «Volver a vender»."); }
+        if (!out.productId) throw new Error("no quedó enlazado con la caja; vuelve a pulsar «Añadir»");
+        let note = "";
+        if (out.existing) note = " Ya estaba en la web: lo dejé en la lista con sus unidades.";
+        else if (qty > 0) {
+          const { data: st, error: e2 } = await supabase.rpc("nexo_business_set_stock", { p_business: bizId(), p_product: out.productId, p_quantity: qty, p_reason: "Diseño nuevo desde el panel" });
+          if (e2 || st?.error) note = " Ojo: la cantidad no se guardó; escríbela en la lista y pulsa Guardar.";
+        }
+        toast("Añadido «" + label + "»." + (note || " Llega a la caja y a la web en unos minutos."), note.startsWith(" Ojo") ? "bad" : "ok");
+        addForm.hidden = true; addForm.innerHTML = ""; addBtn.hidden = false;
+        catalog = null; shop = null;
+        await loadInventory();
+        await loadWeb();
+      } catch (err) { fail("No se añadió: " + err.message); }
+    };
+  };
+
+  $s("[data-retire-all]").onclick = () => {
+    if (dirty.size && !confirm("Tienes cambios sin guardar. ¿Seguir sin guardarlos?")) return;
+    retireFlow(rowsNow().filter(r => r.active).map(r => r.productId), true, () => sheet.close());
+  };
+
+  render();
+  await loadWeb();
+}
+
+// Un producto sin colores no se convierte (sus ventas, unidades, comisiones y costos son de ese producto y
+// el puente de existencias dejaría de funcionar): se crea un producto nuevo con diseños.
+function colorsForSimple(p, inv, parentSheet) {
+  const stock = stockOf(p.product_id)?.quantity ?? 0;
+  const sheet = openSheet('<div class="sheet-head"><h2>Añadir colores o diseños</h2><button type="button" class="btn btn-ghost" data-close>Cerrar</button></div>'
+    + "<p>Para no mezclar lo que ya se vendió" + (stock > 0 ? " ni " + (stock === 1 ? "la <strong>unidad</strong> que le queda" : "las <strong>" + stock + " unidades</strong> que le quedan") : "") + ", «" + esc(p.name) + "» se queda como está.</p>"
+    + "<p>Los colores o diseños se crean en un <strong>producto nuevo con diseños</strong>. Te lo dejo casi listo, con el mismo nombre y precio.</p>"
+    + '<p class="t-sm muted">Cuando termines, si este producto ya no lo vas a vender, ábrelo y pulsa «Dejar de vender». No se borra nada.</p>'
+    + '<button type="button" class="btn btn-primary btn-xl btn-block" data-go>Crear producto con diseños</button>'
+    + '<button type="button" class="btn btn-ghost btn-block" data-close>No, volver</button>', "Añadir colores o diseños");
+  sheet.el.querySelector("[data-go]").onclick = () => {
+    sheet.close(); parentSheet?.close();
+    designsProductSheet({ name: p.name, price: inv?.priceUsd ?? (p.prices?.USD != null ? (p.prices.USD / 100).toFixed(2) : ""), category: p.category ?? "" });
+  };
+}
+
+// Producto nuevo con diseños: en la web, un producto con variantes; en la caja, un diseño por fila.
+function designsProductSheet(pre) {
+  const cats = [...new Set((catalog ?? invRows.map(r => ({ category: r.category }))).map(x => x.category).filter(Boolean))].sort((a, b) => a.localeCompare(b, "es"));
+  const ref = crypto.randomUUID(); // evita duplicarlo si se pulsa dos veces o se reintenta
+  const sheet = openSheet('<div class="sheet-head"><h2>Producto con diseños</h2><button type="button" class="btn btn-ghost" data-close>Cerrar</button></div>'
+    + '<form class="form"><p class="t-sm muted">Un solo producto con varios colores o diseños. En la web el cliente elige el diseño; en la caja cada diseño sale con sus unidades.</p>'
+    + '<label class="field">Nombre del producto<input class="input" name="name" required value="' + esc(pre?.name ?? "") + '" placeholder="Ej.: Cortina de baño 180×180 cm"></label>'
+    + '<div class="grid-2"><label class="field">Precio USD<input class="input" name="price" required inputmode="decimal" placeholder="0.00" value="' + esc(pre?.price ?? "") + '"></label>'
+    + '<label class="field">Categoría<input class="input" name="category" list="cat-list-d" value="' + esc(pre?.category ?? "") + '" placeholder="Ej.: Baño"></label></div>'
+    + '<datalist id="cat-list-d">' + cats.map(c => '<option value="' + esc(c) + '">').join("") + "</datalist>"
+    + photoPicker("Foto del producto (si tienes)")
+    + '<h3 class="t-lg">Diseños o colores</h3><div data-designs></div>'
+    + '<button type="button" class="btn btn-secondary btn-block" data-more>＋ Otro diseño</button>'
+    + '<p class="msg" data-msg role="status"></p><button type="submit" class="btn btn-primary btn-xl btn-block">Crear producto</button></form>', "Producto con diseños");
+  const form = sheet.el.querySelector("form"), msg = form.querySelector("[data-msg]"), box = form.querySelector("[data-designs]");
+  let mainFile = null;
+  const files = new Map();
+  wirePhotoPicker(form, async f => { mainFile = f; return true; });
+  const addRow = () => {
+    const row = document.createElement("div");
+    row.className = "design-new";
+    row.innerHTML = '<label class="field">Diseño o color<input class="input" data-label maxlength="60" placeholder="Ej.: rojo" autocomplete="off"></label>'
+      + '<div class="grid-2"><label class="field">Cuántas hay<input class="input" data-qty inputmode="numeric" placeholder="0"></label>'
+      + '<label class="btn btn-secondary photo-mini"><span data-ph>📷 Foto</span><input type="file" accept="image/*" data-dphoto ' + HIDE_INPUT + "></label></div>"
+      + '<button type="button" class="btn btn-ghost" data-remove>Quitar este diseño</button>';
+    row.querySelector("[data-dphoto]").onchange = e => { const f = e.target.files?.[0]; if (f) { files.set(row, f); row.querySelector("[data-ph]").textContent = "✓ Foto lista"; } };
+    row.querySelector("[data-remove]").onclick = () => { if (box.children.length > 1) { files.delete(row); row.remove(); } };
+    box.appendChild(row);
+    return row;
+  };
+  addRow();
+  form.querySelector("[data-more]").onclick = () => addRow().querySelector("[data-label]").focus();
+  const fail = t => { msg.textContent = t; msg.dataset.tone = "bad"; form.querySelector("[type=submit]").disabled = false; };
+  form.onsubmit = async e => {
+    e.preventDefault();
+    const name = form.name.value.trim(), price = num(form.price.value);
+    if (!name) return fail("Escribe el nombre del producto");
+    if (!(price > 0)) return fail("Escribe un precio mayor que 0");
+    const designs = [];
+    for (const row of box.children) {
+      const label = row.querySelector("[data-label]").value.trim().replace(/\s+/g, " ");
+      const qtyT = row.querySelector("[data-qty]").value.trim(), qty = qtyT === "" ? 0 : Number(qtyT);
+      if (!label) continue;
+      if (!Number.isInteger(qty) || qty < 0) return fail("Revisa las unidades de «" + label + "»: un número entero, 0 o más");
+      if (designs.some(d => sameLabel(d.label, label))) return fail("«" + label + "» está repetido");
+      designs.push({ label, qty, row });
+    }
+    if (!designs.length) return fail("Escribe al menos un diseño o color");
+    form.querySelector("[type=submit]").disabled = true;
+    try {
+      msg.textContent = "Subiendo fotos…"; msg.dataset.tone = "";
+      const up = async f => { if (!f) return ""; try { return await uploadPhoto(f); } catch { throw new Error("una foto no se pudo usar. Prueba con otra o sin foto"); } };
+      const imageUrl = await up(mainFile);
+      for (const d of designs) d.imageUrl = await up(files.get(d.row));
+      msg.textContent = "Creando el producto en la web y en la caja…";
+      const out = await panelWeb({ action: "product_variable_create", name, price, category: form.category.value.trim(), imageUrl, ref,
+        designs: designs.map(d => ({ label: d.label, imageUrl: d.imageUrl })) });
+      const pidByWoo = new Map((out.linked ?? []).map(l => [Number(l.wooId), l.productId]));
+      const notes = [];
+      for (const d of designs) {
+        const v = (out.variations ?? []).find(x => sameLabel(x.label, d.label));
+        const pid = v ? pidByWoo.get(Number(v.id)) : null;
+        if (!pid) { notes.push("«" + d.label + "» no quedó enlazado con la caja"); continue; }
+        if (d.qty > 0) { // cantidad absoluta: repetirla en un reintento no suma nada
+          const { data: st, error: e2 } = await supabase.rpc("nexo_business_set_stock", { p_business: bizId(), p_product: pid, p_quantity: d.qty, p_reason: "Producto nuevo con diseños (panel)" });
+          if (e2 || st?.error) notes.push("no se guardaron las unidades de «" + d.label + "»");
+        }
+      }
+      sheet.close();
+      toast("Creado «" + name + "» con " + designs.length + (designs.length === 1 ? " diseño" : " diseños") + "." + (notes.length ? " Ojo: " + notes.join("; ") + "." : " Llega a la caja y a la web en unos minutos."), notes.length ? "bad" : "ok");
+      catalog = null; shop = null;
+      await loadInventory();
+      if (out.group) void editGroup(out.group);
+    } catch (err) { fail("No se creó: " + err.message + ". Puedes volver a pulsar «Crear producto» (no se duplica)."); }
+  };
+}
 
 // D37: la comisión se cambia aquí y se copia a la web para que cobre lo mismo que la caja.
 async function pushCommission(productId) {
