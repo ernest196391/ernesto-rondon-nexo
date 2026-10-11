@@ -157,7 +157,8 @@
       <div class="page-head"><h1>Equipo</h1><button type="button" class="btn btn-primary" id="new-person"><span data-ic="plus"></span>Añadir</button></div>
       <section class="panel" id="payout-requests" hidden></section>
       <div class="seg" id="team-seg" role="group" aria-label="Personas">
-        <button type="button" data-kind="gestor" aria-pressed="true">Gestoras</button>
+        <button type="button" data-kind="web" aria-pressed="true">Gestoras web</button>
+        <button type="button" data-kind="gestor" aria-pressed="false">Gestoras caja</button>
         <button type="button" data-kind="staff" aria-pressed="false">Dependientas</button>
         <button type="button" data-kind="partner" aria-pressed="false">Socios</button>
       </div>
@@ -975,7 +976,91 @@ async function editOrder(o) {
 
 // ---------- Equipo: gestoras, dependientas, retiros ----------
 let peopleCache = null;
-let teamKind = "gestor";
+let teamKind = "web";
+
+// ---------- Gestoras de la web (casaviva.company) y sus pagos, vía nexo-panel-web ----------
+let webGestoras = [], webGFilter = "pending";
+const WEB_G_STATUS = { approved: ["Activa", "badge-ok"], pending: ["Por aprobar", "badge-low"], rejected: ["Rechazada", "badge-out"] };
+const usd2 = v => "$" + Number(v ?? 0).toLocaleString("es", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+async function loadWebGestoras() {
+  $("#people").innerHTML = '<p class="muted">Cargando gestoras de la web…</p>';
+  try {
+    const [g, p] = await Promise.all([panelWeb({ action: "gestoras" }), panelWeb({ action: "payouts" })]);
+    webGestoras = g.gestoras;
+    renderWebPayouts(p.payouts);
+    const pending = webGestoras.filter(x => x.status === "pending").length;
+    if (!pending && webGFilter === "pending") webGFilter = "approved";
+    renderWebGestoras();
+  } catch (e) {
+    $("#people").innerHTML = '<p class="muted">' + esc(e.message) + "</p>";
+  }
+}
+function renderWebGestoras() {
+  const counts = { pending: 0, approved: 0, rejected: 0 };
+  webGestoras.forEach(x => (counts[x.status] = (counts[x.status] ?? 0) + 1));
+  const list = webGestoras.filter(x => x.status === webGFilter).sort((a, b) => b.sales - a.sales);
+  $("#people").innerHTML = '<div class="chips" role="group" aria-label="Estado">'
+    + [["pending", "Por aprobar"], ["approved", "Activas"], ["rejected", "Rechazadas"]].map(([k, l]) => '<button type="button" class="chip" data-wg="' + k + '" aria-pressed="' + (k === webGFilter) + '">' + l + " " + (counts[k] ?? 0) + "</button>").join("") + "</div>"
+    + (list.length ? list.map(x => {
+      const [label, cls] = WEB_G_STATUS[x.status] ?? [x.status, ""];
+      const owed = x.commission.available + x.commission.pending;
+      return '<div class="row-item"><button type="button" class="row-btn" data-wgid="' + x.id + '"><span class="grow">'
+        + '<span class="title">' + esc(x.name) + "</span>"
+        + '<span class="meta">' + (x.code ? "Código " + esc(x.code) + " · " : "") + x.orders + " ventas · " + usd2(x.sales) + (x.invitedBy ? " · invitada por " + esc(x.invitedBy) : "") + "</span>"
+        + (owed ? '<span class="meta">Comisión por pagar ' + usd2(owed) + "</span>" : "") + "</span>"
+        + '<span class="badge ' + cls + '">' + label + "</span></button></div>";
+    }).join("") : '<p class="muted">Nadie en esta lista.</p>');
+  document.querySelectorAll("#people [data-wg]").forEach(b => (b.onclick = () => { webGFilter = b.dataset.wg; renderWebGestoras(); }));
+  document.querySelectorAll("#people [data-wgid]").forEach(b => (b.onclick = () => showWebGestora(webGestoras.find(x => String(x.id) === b.dataset.wgid))));
+}
+async function showWebGestora(x) {
+  const wa = x.phone ? waLink(x.phone, "Hola " + x.name + ", te escribimos de Casa Viva.") : null;
+  const sheet = openSheet('<div class="sheet-head"><h2>' + esc(x.name) + '</h2><button type="button" class="btn btn-ghost" data-close>Cerrar</button></div>'
+    + '<div class="kpis two"><div class="kpi"><span class="label">Ventas web</span><span class="value num" style="font-size:var(--nx-fs-lg)">' + usd2(x.sales) + '</span><span class="sub">' + x.orders + ' pedidos</span></div>'
+    + '<div class="kpi"><span class="label">Comisión</span><span class="value num" style="font-size:var(--nx-fs-lg)">' + usd2(x.commission.available) + '</span><span class="sub">lista para pagar · ' + usd2(x.commission.pending) + " por confirmar · " + usd2(x.commission.paid) + " pagada</span></div></div>"
+    + '<div class="kv"><span>Código</span><span>' + (x.code ? esc(x.code) : "Se crea al aprobarla") + "</span></div>"
+    + '<div class="kv"><span>Teléfono</span><span>' + esc(x.phone || "—") + "</span></div>"
+    + '<div class="kv"><span>Desde</span><span>' + esc(when(x.since)) + "</span></div>"
+    + (x.invitedBy ? '<div class="kv"><span>Invitada por</span><span>' + esc(x.invitedBy) + "</span></div>" : "")
+    + '<h3 class="t-sm" style="margin-top:12px">Pagos</h3><div data-hist><p class="muted">Cargando…</p></div>'
+    + '<p class="msg" data-msg role="status"></p>'
+    + '<div style="display:flex;flex-direction:column;gap:8px;margin-top:12px">'
+    + (x.status === "pending" ? '<button type="button" class="btn btn-primary btn-block" data-set="approved">Aprobar</button><button type="button" class="btn btn-danger btn-block" data-set="rejected">Rechazar</button>' : "")
+    + (x.status === "rejected" ? '<button type="button" class="btn btn-secondary btn-block" data-set="approved">Aprobar de todas formas</button>' : "")
+    + (wa ? '<a class="btn btn-secondary btn-block" target="_blank" rel="noopener" href="' + esc(wa) + '">Escribirle por WhatsApp</a>' : "") + "</div>",
+    "Gestora " + x.name);
+  const msg = sheet.querySelector("[data-msg]");
+  sheet.querySelectorAll("[data-set]").forEach(b => (b.onclick = async () => {
+    b.disabled = true; msg.textContent = "Guardando…"; msg.dataset.tone = "";
+    try {
+      await panelWeb({ action: "gestora_status", id: x.id, status: b.dataset.set });
+      toast(b.dataset.set === "approved" ? "Gestora aprobada" : "Gestora rechazada", "ok");
+      sheet.querySelector("[data-close]").click();
+      await loadWebGestoras();
+    } catch (e) { b.disabled = false; msg.textContent = e.message; msg.dataset.tone = "bad"; }
+  }));
+  try {
+    const all = await Promise.all(["requested", "approved", "paid", "rejected"].map(s => panelWeb({ action: "payouts", status: s, gestoraId: x.id })));
+    const rows = all.flatMap(r => r.payouts).sort((a, b) => b.id - a.id);
+    sheet.querySelector("[data-hist]").innerHTML = rows.length ? rows.map(r => '<div class="kv"><span>' + esc(when(r.paidAt || r.approvedAt || r.requestedAt)) + " · " + esc(PAYOUT_STATUS_ES[r.status] ?? r.status) + "</span><span class=\"num\">" + usd2(r.amount) + " " + esc(r.currency) + "</span></div>").join("") : '<p class="muted">Todavía no ha pedido ningún pago en la web.</p>';
+  } catch (e) { sheet.querySelector("[data-hist]").innerHTML = '<p class="muted">' + esc(e.message) + "</p>"; }
+}
+const PAYOUT_STATUS_ES = { requested: "Pedido", approved: "Aprobado", paid: "Pagado", rejected: "Rechazado" };
+function renderWebPayouts(list) {
+  const box = $("#payout-requests");
+  box.hidden = !list.length;
+  $("#team-dot").hidden = !list.length && !webGestoras.some(x => x.status === "pending");
+  box.innerHTML = '<div class="kv"><h2 class="t-lg">Pagos de la web por atender</h2><span class="badge badge-low">' + list.length + "</span></div>"
+    + list.map(r => '<div class="row-item"><span class="grow"><span class="title">' + esc(r.gestora) + '</span><span class="meta">' + esc(PAYOUT_STATUS_ES[r.status]) + " · " + esc(when(r.requestedAt)) + (r.method ? " · " + esc(r.method) : "") + '</span></span><span class="price-tag">' + usd2(r.amount) + " " + esc(r.currency) + "</span>"
+      + '<span style="display:flex;gap:6px">' + (r.status === "requested" ? '<button type="button" class="btn btn-secondary" data-po="' + r.id + '" data-do="approve">Aprobar</button>' : '<button type="button" class="btn btn-primary" data-po="' + r.id + '" data-do="pay">Pagado</button>')
+      + '<button type="button" class="btn btn-ghost" data-po="' + r.id + '" data-do="reject">Rechazar</button></span></div>').join("");
+  box.querySelectorAll("[data-po]").forEach(b => (b.onclick = async () => {
+    const reference = b.dataset.do === "pay" ? (window.prompt("Referencia del pago (opcional):") ?? "") : "";
+    b.disabled = true;
+    try { await panelWeb({ action: "payout_action", id: Number(b.dataset.po), do: b.dataset.do, reference }); toast("Hecho", "ok"); await loadWebGestoras(); }
+    catch (e) { b.disabled = false; toast(e.message, "bad"); }
+  }));
+}
 async function loadPeople() {
   const { data, error } = await supabase.rpc("nexo_business_people", { p_business: bizId() });
   if (error || data?.error) { toast("No se pudo cargar el equipo", "bad"); return null; }
@@ -984,7 +1069,7 @@ async function loadPeople() {
 document.querySelectorAll("#team-seg button").forEach(b => (b.onclick = () => {
   teamKind = b.dataset.kind;
   document.querySelectorAll("#team-seg button").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
-  renderPeople();
+  void loadTeam(); // cada apartado trae sus propios pagos por atender
 }));
 $("#new-person").onclick = () => editPerson(null);
 
@@ -1008,6 +1093,9 @@ async function loadTeam() {
 }
 
 function renderPeople() {
+  // Las gestoras se registran en la web: allí no se añaden a mano.
+  $("#new-person").hidden = teamKind === "web";
+  if (teamKind === "web") return void loadWebGestoras();
   const list = (peopleCache ?? []).filter(p => p.kind === teamKind);
   const rank = [...list].filter(p => p.status === "active").sort((a, b) => b.balance.contributedMinor - a.balance.contributedMinor);
   $("#people").innerHTML = list.length ? list.map(p => {

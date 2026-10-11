@@ -47,6 +47,18 @@ async function woo(path: string, params: Record<string, string>) {
   return { data: await res.json(), pages: Number(res.headers.get("x-wp-totalpages") ?? "1"), total: Number(res.headers.get("x-wp-total") ?? "0") };
 }
 
+async function core(method: "GET" | "POST", path: string, body?: unknown) {
+  const sep = path.includes("?") ? "&" : "?";
+  const res = await fetch(`${base()}/wp-json/casa-viva/v1/${path}${sep}_=${Date.now()}`, {
+    method,
+    headers: { "x-nexo-panel-key": Deno.env.get("CASAVIVA_PANEL_KEY") ?? "", "content-type": "application/json" },
+    body: body ? JSON.stringify(body) : undefined,
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data?.message ?? `core ${path} ${res.status}`);
+  return data;
+}
+
 const meta = (o: WooOrder, key: string) => o.meta_data.find(m => m.key === key)?.value ?? null;
 const money = (v: string) => Math.round(Number(v || 0) * 100) / 100;
 
@@ -143,9 +155,31 @@ Deno.serve(async req => {
       return json(200, { orders: (data as WooOrder[]).map(o => row(o, people)), pages, total });
     }
 
+    // Gestoras y pagos: puerta CVD_Panel_Bridge de Core (clave CASAVIVA_PANEL_KEY, solo en el servidor).
+    if (body.action === "gestoras") return json(200, await core("GET", "panel/gestoras"));
+    if (body.action === "gestora_status") {
+      const status = String(body.status ?? "");
+      if (!["approved", "rejected"].includes(status)) return json(400, { error: "Estado no válido." });
+      return json(200, await core("POST", `panel/gestoras/${Number(body.id)}/status`, { status }));
+    }
+    if (body.action === "payouts") {
+      const q = new URLSearchParams();
+      if (typeof body.status === "string" && body.status) q.set("status", body.status);
+      if (Number(body.gestoraId) > 0) q.set("owner", String(Number(body.gestoraId)));
+      return json(200, await core("GET", `panel/payouts?${q}`));
+    }
+    if (body.action === "payout_action") {
+      const act = String(body.do ?? "");
+      if (!["approve", "pay", "reject"].includes(act)) return json(400, { error: "Acción no válida." });
+      return json(200, await core("POST", `panel/payouts/${Number(body.id)}`, { action: act, reference: String(body.reference ?? "") }));
+    }
+
     return json(400, { error: "Acción desconocida." });
   } catch (e) {
-    console.error("nexo-panel-web", (e as Error).message);
-    return json(502, { error: "No se pudo leer la web ahora. Prueba en un minuto." });
+    const msg = (e as Error).message;
+    console.error("nexo-panel-web", msg);
+    // Los mensajes de Core ya están en español y son para la dueña; los técnicos, no.
+    const technical = /^(woo|core) /.test(msg);
+    return json(502, { error: technical ? "No se pudo conectar con la web ahora. Prueba en un minuto." : msg });
   }
 });
