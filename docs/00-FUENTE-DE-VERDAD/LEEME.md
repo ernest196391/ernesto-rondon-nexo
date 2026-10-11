@@ -14,6 +14,7 @@ Lee estos archivos **en este orden** antes de hacer nada:
 2. `ESTADO.md` — en qué punto está cada proyecto y cuál es la siguiente acción.
 3. `GLOSARIO.md` — los nombres oficiales. Usa siempre estos; nunca inventes nombres nuevos.
 4. `DECISIONES.md` — lo que ya está decidido. No lo vuelvas a discutir sin motivo nuevo.
+4b. `LECCIONES.md` — errores ya cometidos y cómo no repetirlos. Obligatorio antes de decir "ya funciona".
 5. Según la tarea:
    - Estrategia, productos, marca → `BLUEPRINT.md`
    - Ofertas, precios, captación, ventas, cierre → `NEGOCIO.md`
