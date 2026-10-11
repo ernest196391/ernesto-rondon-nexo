@@ -50,6 +50,9 @@ fn sale(id: &str, payments: Vec<PaymentInput>) -> CompleteSaleInput {
         payment_id: None,
         gestor_id: None,
         staff_id: None,
+        customer_name: None,
+        customer_phone: None,
+        messenger_id: None,
     }
 }
 

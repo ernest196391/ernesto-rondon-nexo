@@ -86,6 +86,9 @@ fn sale_input(id: &str, product: &str, qty: i64, price: i64, at: &str) -> Comple
         payment_id: None,
         gestor_id: None,
         staff_id: None,
+        customer_name: None,
+        customer_phone: None,
+        messenger_id: None,
     }
 }
 

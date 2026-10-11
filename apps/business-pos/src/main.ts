@@ -14,7 +14,7 @@ import { mountFinance, refreshFinance } from "./finance";
 import type { DeviceIdentity } from "./sync";
 import { openCheckout, describePayments, type PaymentInput } from "./checkout";
 import { icon, ISOTIPO, escapeHtml, openSheet } from "./ui";
-import { attribution, attributionHtml, resetAttribution, saleAttribution, setGestor, setStaff, toggleExtra } from "./attribution";
+import { attribution, attributionHtml, resetAttribution, saleAttribution, setGestor, setMessenger, setStaff, toggleExtra } from "./attribution";
 
 type Product = { id: string; name: string; price_minor: number; barcode: string | null };
 type ListedProduct = Product & { category: string | null; variant_of: string | null; variant_label: string | null; image_url: string | null };
@@ -607,6 +607,12 @@ function wireCart(scope: HTMLElement) {
   if (gestor) gestor.onchange = () => { setGestor(gestor.value || null); renderCart(); };
   const staff = scope.querySelector<HTMLSelectElement>("[data-staff]");
   if (staff) staff.onchange = () => setStaff(staff.value || null);
+  const messenger = scope.querySelector<HTMLSelectElement>("[data-messenger]");
+  if (messenger) messenger.onchange = () => setMessenger(messenger.value || null);
+  const cName = scope.querySelector<HTMLInputElement>("[data-customer-name]");
+  if (cName) cName.oninput = () => { attribution.customerName = cName.value; };
+  const cPhone = scope.querySelector<HTMLInputElement>("[data-customer-phone]");
+  if (cPhone) cPhone.oninput = () => { attribution.customerPhone = cPhone.value; };
   const exact = scope.querySelector<HTMLButtonElement>("[data-exact]");
   if (exact) exact.onclick = () => void checkout(true);
   const split = scope.querySelector<HTMLButtonElement>("[data-split]");

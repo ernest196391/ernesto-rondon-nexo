@@ -71,6 +71,14 @@ pub struct CompleteSaleInput {
     /// Dependienta who served the sale (cloud people ID).
     #[serde(default)]
     pub staff_id: Option<String>,
+    /// Cliente anotado al cobrar (opcional): va a la lista de clientes de la web.
+    #[serde(default)]
+    pub customer_name: Option<String>,
+    #[serde(default)]
+    pub customer_phone: Option<String>,
+    /// Mensajero que se lleva el pedido (cloud people ID, kind messenger); none = se lo lleva el cliente.
+    #[serde(default)]
+    pub messenger_id: Option<String>,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
@@ -291,6 +299,11 @@ pub fn complete_sale(conn: &mut Connection, scope: &ShiftScope, input: &Complete
     let clean = |v: &Option<String>| v.as_deref().map(str::trim).filter(|s| !s.is_empty()).map(str::to_owned);
     let gestor_id = clean(&input.gestor_id);
     let staff_id = clean(&input.staff_id);
+    let messenger_id = clean(&input.messenger_id);
+    let customer_phone: Option<String> = clean(&input.customer_phone)
+        .map(|p| p.chars().filter(char::is_ascii_digit).collect::<String>())
+        .filter(|p| (8..=15).contains(&p.len()));
+    let customer = customer_phone.map(|phone| serde_json::json!({ "phone": phone, "name": clean(&input.customer_name) }));
     let lines = input
         .lines
         .iter()
@@ -335,7 +348,9 @@ pub fn complete_sale(conn: &mut Connection, scope: &ShiftScope, input: &Complete
             "shift_id": shift_id,
             "channel": if gestor_id.is_some() { "gestor" } else { "store" },
             "gestor_id": gestor_id,
-            "staff_id": staff_id
+            "staff_id": staff_id,
+            "messenger_id": messenger_id,
+            "customer": customer
         }
     })
     .to_string();

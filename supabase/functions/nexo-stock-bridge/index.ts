@@ -38,7 +38,7 @@ Deno.serve(async req => {
   const { data: state } = await admin.rpc("nexo_business_stock_checkpoint", { p_business: BUSINESS });
   if (!state?.from) return json(200, { off: true }); // puente apagado hasta el cambio
 
-  const report = { toWeb: 0, toWebSkipped: 0, fromWeb: 0, errors: [] as string[] };
+  const report = { toWeb: 0, toWebSkipped: 0, fromWeb: 0, messengers: 0, customers: 0, errors: [] as string[] };
 
   // A. caja/panel → web
   try {
@@ -75,6 +75,33 @@ Deno.serve(async req => {
     const next = new Date(Date.parse(data.now) - 5 * 60_000).toISOString();
     await admin.rpc("nexo_business_stock_checkpoint", { p_business: BUSINESS, p_value: next });
   } catch (e) { report.errors.push("B: " + (e as Error).message); }
+
+  // C. Mensajeros de la web → caja (people.kind='messenger'; aprobado = activo).
+  try {
+    const { messengers } = await core("GET", "panel/messengers");
+    const items = (messengers ?? []).filter((m: { pilot: boolean }) => !m.pilot)
+      .map((m: { id: number; name: string; phone: string; status: string }) => ({ wooId: m.id, name: m.name, phone: m.phone, status: m.status }));
+    report.messengers = (await admin.rpc("nexo_business_sync_messengers", { p_business: BUSINESS, p_items: items })).data ?? 0;
+  } catch (e) { report.errors.push("C: " + (e as Error).message); }
+
+  // D. Clientes de la caja y del bot → lista de clientes de la web (una fila por teléfono).
+  try {
+    const { data: sales, error: e1 } = await admin.rpc("nexo_business_customers_from_sales", { p_business: BUSINESS, p_limit: 300 });
+    if (e1) throw new Error(e1.message);
+    const { data: bot, error: e2 } = await admin.rpc("nexo_business_bot_customers", { p_business: BUSINESS, p_limit: 300 });
+    if (e2) throw new Error(e2.message);
+    const items = [
+      ...(sales ?? []).map((s: { phone: string; name: string; owner_phone: string; usd: number; at: string }) =>
+        ({ phone: s.phone, name: s.name ?? "", ownerPhone: s.owner_phone ?? "", source: "caja", purchase: { usd: Number(s.usd), at: s.at } })),
+      ...(bot ?? []).map((b: { phone: string; name: string; opt_out: boolean }) => ({ phone: b.phone, name: b.name ?? "", source: "bot", optOut: b.opt_out })),
+    ];
+    if (items.length) {
+      const r = await core("POST", "panel/clients/bulk", { items });
+      report.customers = r.saved ?? 0;
+    }
+    const last = (rows: { received_at?: string; changed_at?: string }[] | null, k: "received_at" | "changed_at") => rows?.length ? rows[rows.length - 1][k] : null;
+    await admin.rpc("nexo_business_set_customer_checkpoints", { p_business: BUSINESS, p_sales: last(sales, "received_at"), p_bot: last(bot, "changed_at") });
+  } catch (e) { report.errors.push("D: " + (e as Error).message); }
 
   return json(report.errors.length ? 207 : 200, report);
 });

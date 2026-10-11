@@ -169,6 +169,7 @@
       <section class="panel" id="payout-requests" hidden></section>
       <div class="seg" id="team-seg" role="group" aria-label="Personas">
         <button type="button" data-kind="web" aria-pressed="true">Gestoras web</button>
+        <button type="button" data-kind="messenger" aria-pressed="false">Mensajeros</button>
         <button type="button" data-kind="gestor" aria-pressed="false">Gestoras caja</button>
         <button type="button" data-kind="staff" aria-pressed="false">Dependientas</button>
         <button type="button" data-kind="partner" aria-pressed="false">Socios</button>
@@ -1279,6 +1280,54 @@ async function showWebGestora(x) {
     sheet.el.querySelector("[data-hist]").innerHTML = rows.length ? rows.map(r => '<div class="kv"><span>' + esc(when(r.paidAt || r.approvedAt || r.requestedAt)) + " · " + esc(PAYOUT_STATUS_ES[r.status] ?? r.status) + "</span><span class=\"num\">" + usd2(r.amount) + " " + esc(r.currency) + "</span></div>").join("") : '<p class="muted">Todavía no ha pedido ningún pago en la web.</p>';
   } catch (e) { sheet.el.querySelector("[data-hist]").innerHTML = '<p class="muted">' + esc(e.message) + "</p>"; }
 }
+// ---------- Mensajeros (se registran en la web; la dueña los aprueba aquí; la caja los recibe solos) ----------
+let messengers = [], msgFilter = "pending";
+async function loadMessengers() {
+  $("#people").innerHTML = '<p class="muted">Cargando mensajeros…</p>';
+  $("#payout-requests").hidden = true;
+  try {
+    const r = await panelWeb({ action: "messengers" });
+    messengers = r.messengers.filter(m => !m.pilot);
+    if (!messengers.some(m => m.status === "pending") && msgFilter === "pending") msgFilter = "approved";
+    renderMessengers(r.signupUrl);
+  } catch (e) { $("#people").innerHTML = '<p class="muted">' + esc(e.message) + "</p>"; }
+}
+function renderMessengers(signupUrl) {
+  const counts = {};
+  messengers.forEach(m => (counts[m.status] = (counts[m.status] ?? 0) + 1));
+  const list = messengers.filter(m => m.status === msgFilter);
+  $("#people").innerHTML = '<div class="chips" role="group" aria-label="Estado">'
+    + [["pending", "Por aprobar"], ["approved", "Activos"], ["rejected", "Rechazados"]].map(([k, l]) => '<button type="button" class="chip" data-ms="' + k + '" aria-pressed="' + (k === msgFilter) + '">' + l + " " + (counts[k] ?? 0) + "</button>").join("") + "</div>"
+    + (list.length ? list.map(m => '<div class="row-item"><button type="button" class="row-btn" data-mid="' + m.id + '"><span class="grow"><span class="title">' + esc(m.name) + (m.available ? ' <span class="badge badge-ok">Disponible</span>' : "") + "</span>"
+      + '<span class="meta">' + [m.zone, m.vehicle, m.deliveries + " carreras", m.owedCup ? "se le debe " + cup(m.owedCup) : ""].filter(Boolean).map(esc).join(" · ") + "</span></span>"
+      + '<span class="badge ' + (WEB_G_STATUS[m.status]?.[1] ?? "") + '">' + esc({ approved: "Activo", pending: "Por aprobar", rejected: "Rechazado", suspended: "Suspendido" }[m.status] ?? m.status) + "</span></button></div>").join("") : '<p class="muted">Nadie en esta lista.</p>')
+    + '<div class="row-item" style="margin-top:8px"><span class="grow"><span class="title">Enlace para que se registren</span><span class="meta">' + esc(signupUrl) + '</span></span><button type="button" class="btn btn-ghost btn-icon" data-copy-msg aria-label="Copiar">' + icon("copy", "sm") + "</button></div>"
+    + '<p class="t-xs muted">Al aprobarlo, aparece en las cajas para elegirlo al entregar un pedido, y puede entrar a su área en casaviva.company/area-mensajeros.</p>';
+  document.querySelectorAll("#people [data-ms]").forEach(b => (b.onclick = () => { msgFilter = b.dataset.ms; renderMessengers(signupUrl); }));
+  document.querySelector("#people [data-copy-msg]").onclick = async () => { await navigator.clipboard.writeText(signupUrl); toast("Enlace copiado", "ok"); };
+  document.querySelectorAll("#people [data-mid]").forEach(b => (b.onclick = () => showMessenger(messengers.find(m => String(m.id) === b.dataset.mid), signupUrl)));
+}
+function showMessenger(m, signupUrl) {
+  const wa = m.phone ? waLink(m.phone, "Hola " + m.name + ", te escribimos de Casa Viva.") : null;
+  const sheet = openSheet('<div class="sheet-head"><h2>' + esc(m.name) + '</h2><button type="button" class="btn btn-ghost" data-close>Cerrar</button></div>'
+    + '<div class="kpis two"><div class="kpi"><span class="label">Carreras</span><span class="value num">' + m.deliveries + '</span><span class="sub">pedidos asignados</span></div>'
+    + '<div class="kpi"><span class="label">Por pagarle</span><span class="value num" style="font-size:var(--nx-fs-lg)">' + cup(m.owedCup) + '</span><span class="sub">pagado ' + cup(m.paidCup) + "</span></div></div>"
+    + [["Teléfono", m.phone || "—"], ["Zona", m.zone || "—"], ["Vehículo", m.vehicle || "—"], ["Ahora", m.available ? "Disponible" : "No disponible"], ["Desde", when(m.since)]].map(([k, v]) => '<div class="kv"><span>' + k + "</span><span>" + esc(v) + "</span></div>").join("")
+    + '<p class="msg" data-msg role="status"></p><div style="display:flex;flex-direction:column;gap:8px;margin-top:12px">'
+    + (m.status !== "approved" ? '<button type="button" class="btn btn-primary btn-block" data-set="approved">Aprobar</button>' : "")
+    + (m.status === "pending" ? '<button type="button" class="btn btn-danger btn-block" data-set="rejected">Rechazar</button>' : "")
+    + (m.status === "approved" ? '<button type="button" class="btn btn-secondary btn-block" data-set="rejected">Quitar (deja de recibir pedidos)</button>' : "")
+    + (wa ? '<a class="btn btn-secondary btn-block" target="_blank" rel="noopener" href="' + esc(wa) + '">Escribirle por WhatsApp</a>' : "") + "</div>", "Mensajero " + m.name);
+  const msg = sheet.el.querySelector("[data-msg]");
+  sheet.el.querySelectorAll("[data-set]").forEach(b => (b.onclick = async () => {
+    b.disabled = true; msg.textContent = "Guardando…"; msg.dataset.tone = "";
+    try {
+      await panelWeb({ action: "messenger_status", id: m.id, status: b.dataset.set });
+      toast(b.dataset.set === "approved" ? "Mensajero aprobado. Llega a las cajas en unos minutos." : "Hecho", "ok");
+      sheet.close(); await loadMessengers();
+    } catch (e) { b.disabled = false; msg.textContent = e.message; msg.dataset.tone = "bad"; }
+  }));
+}
 const PAYOUT_STATUS_ES = { requested: "Pedido", approved: "Aprobado", paid: "Pagado", rejected: "Rechazado" };
 function renderWebPayouts(list) {
   const box = $("#payout-requests");
@@ -1328,8 +1377,9 @@ async function loadTeam() {
 
 function renderPeople() {
   // Las gestoras se registran en la web: allí no se añaden a mano.
-  $("#new-person").hidden = teamKind === "web";
+  $("#new-person").hidden = teamKind === "web" || teamKind === "messenger";
   if (teamKind === "web") return void loadWebGestoras();
+  if (teamKind === "messenger") return void loadMessengers();
   const list = (peopleCache ?? []).filter(p => p.kind === teamKind);
   const rank = [...list].filter(p => p.status === "active").sort((a, b) => b.balance.contributedMinor - a.balance.contributedMinor);
   $("#people").innerHTML = list.length ? list.map(p => {

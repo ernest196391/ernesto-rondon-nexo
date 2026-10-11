@@ -7,6 +7,7 @@ import Database from "@tauri-apps/plugin-sql";
 import "./finance.css";
 import { mountBusinessSummary, mountSync, requestSync } from "./sync";
 import { icon, openSheet } from "./ui";
+import { messengerNames } from "./attribution";
 
 const CURRENCIES = ["USD", "CUP", "MLC"] as const;
 const RAILS: Array<[string, string]> = [
@@ -389,7 +390,8 @@ function mountMessenger() {
   const box = root.querySelector<HTMLElement>("#fin-messenger")!;
   box.innerHTML = `
     <form id="fin-courier" class="nx-form">
-      <label class="field">Mensajero<input class="input" name="messenger" required placeholder="Nombre"></label>
+      <label class="field">Mensajero<input class="input" name="messenger" required placeholder="Nombre" list="fin-messengers" autocomplete="off"></label>
+      <datalist id="fin-messengers">${messengerNames().map(n => `<option value="${esc(n)}">`).join("")}</datalist>
       <label class="field">Pedido<input class="input" name="order" required placeholder="Número de pedido"></label>
       <label class="field">Sistema del pedido<select class="input" name="system"><option value="woocommerce">Tienda online</option><option value="nexo">NEXO</option><option value="other">Otro</option></select></label>
       <label class="field">Moneda<select class="input" name="currency">${currencyOptions()}</select></label>

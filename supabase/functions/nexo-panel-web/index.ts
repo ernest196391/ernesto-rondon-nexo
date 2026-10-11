@@ -193,6 +193,14 @@ Deno.serve(async req => {
       }));
     }
 
+    // Mensajeros: lista y aprobar/rechazar (misma lógica que gestoras en Core).
+    if (body.action === "messengers") return json(200, await core("GET", "panel/messengers"));
+    if (body.action === "messenger_status") {
+      const status = String(body.status ?? "");
+      if (!["approved", "rejected"].includes(status)) return json(400, { error: "Estado no válido." });
+      return json(200, await core("POST", `panel/messengers/${Number(body.id)}/status`, { status }));
+    }
+
     // Clientes (Core cvd_clients): todos, o de una gestora; la dueña añade o corrige.
     if (body.action === "clients") {
       const q = new URLSearchParams();
