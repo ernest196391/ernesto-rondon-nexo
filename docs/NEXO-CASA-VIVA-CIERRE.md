@@ -102,3 +102,11 @@ Regla: no confundir compilación con funcionamiento real.
 - Simulación revertida: 2 toallas → 2,00 (1 fijo c/u); cv-2457 → 6,00; desvío OK.
 - `nexo-commission-push`: copia la comisión del panel a la web (`_cvd_commission_type=fixed`, `_cvd_commission_value`), variantes por `products/{padre}/variations/{id}`, comprueba lo guardado. Panel: al guardar una comisión se copia al momento. Copia completa cada noche (`pg_cron` 03:15 UTC, clave en Vault). Probada: 193 copiadas, 0 fallos.
 - Pendiente: los 21 productos con comisión "percent" en la web (ocultos) no se tocaron.
+
+### Panel único — bloque gestoras (2026-10-11 ~04:00 UTC)
+- Core 3.13.28 (Casa-Viva `9c7e5bd`, en producción, copia `~/bak-20261011-cvd-3.13.27`): `CVD_Panel_Bridge` → `GET panel/gestoras`, `POST panel/gestoras/{id}/status` (misma lógica que el bot), `GET panel/payouts`, `POST panel/payouts/{id}` (approve/pay/reject vía `CVD_Payouts::transition`, firma Lennys user 14). Clave propia `X-Nexo-Panel-Key` (hash en opción `cvd_panel_key_hash`; clave en secreto Supabase `CASAVIVA_PANEL_KEY`).
+- `nexo-panel-web`: acciones `gestoras`, `gestora_status`, `payouts`, `payout_action` (solo dueñas).
+- Panel → Equipo → "Gestoras web": por aprobar / activas / rechazadas, código, ventas, comisión por pagar, invitada por, ficha con historial de pagos, aprobar/rechazar, WhatsApp; caja "Pagos de la web por atender" con Aprobar / Pagado / Rechazar.
+- Probado por Claude: Core sin clave → 401; con clave → 30 gestoras (29 activas, 1 por aprobar), pagos OK; sintaxis del panel OK; publicado en Hostinger y Vercel.
+- NO probado por Claude: la pantalla con sesión de dueña (límite de 5 enlaces/día alcanzado) ni aprobar/pagar de verdad (decisiones de Lennys; no hay solicitudes de pago abiertas).
+- Pendiente de este bloque: guardar "quién la invitó" en el registro (`_cvd_invited_by`, el panel ya lo muestra) y el QR del código.
