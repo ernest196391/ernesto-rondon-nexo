@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Figtree:wght@400;600;700&display=swap">
 <link rel="stylesheet" href="nexo.css">
 <link rel="stylesheet" href="casaviva.css">
-<link rel="stylesheet" href="dash.css?v=20261011b">
+<link rel="stylesheet" href="dash.css?v=20261011d">
 </head>
 <body>
 <div class="nx dash" data-theme="casaviva" id="root">
@@ -88,7 +88,6 @@
     <button type="button" class="tab" data-page="resumen" data-for="admin" aria-current="page"><span data-ic="chart"></span>Resumen</button>
     <button type="button" class="tab" data-page="pedidos" data-for="admin person"><span data-ic="bag"></span>Pedidos<span class="dot" id="orders-dot" hidden></span></button>
     <button type="button" class="tab" data-page="catalogo" data-for="admin"><span data-ic="tag"></span>Productos</button>
-    <button type="button" class="tab" data-page="inventario" data-for="admin"><span data-ic="device"></span>Inventario</button>
     <button type="button" class="tab" data-page="clientes" data-for="admin"><span data-ic="user"></span>Clientes</button>
     <button type="button" class="tab" data-page="equipo" data-for="admin"><span data-ic="users"></span>Equipo<span class="dot" id="team-dot" hidden></span></button>
     <button type="button" class="tab" data-page="ajustes" data-for="admin"><span data-ic="sliders"></span>Ajustes</button>
@@ -107,7 +106,9 @@
     </header>
 
     <main class="page" data-page="resumen">
-      <div class="page-head"><h1>Resumen</h1><span class="t-sm muted" id="period-label"></span></div>
+      <div class="page-head"><h1>Resumen</h1></div>
+      <div id="web-month"></div>
+      <div class="kv" style="margin-top:16px"><h2 class="t-lg">La tienda</h2><span class="t-sm muted" id="period-label"></span></div>
       <div class="chips" id="period" role="group" aria-label="Periodo">
         <button type="button" class="chip" data-p="hoy" aria-pressed="true">Hoy</button>
         <button type="button" class="chip" data-p="semana" aria-pressed="false">7 días</button>
@@ -118,7 +119,6 @@
         <button type="button" data-sub="ventas" aria-pressed="true">Ventas</button>
         <button type="button" data-sub="caja" aria-pressed="false">Caja y cobros</button>
       </div>
-      <div class="attention" id="attention-summary" hidden></div>
       <div id="summary" data-res="ventas"><div class="panel muted">Cargando…</div></div>
       <div id="caja-box" data-res="caja" hidden>
         <p class="t-sm muted" id="money-period"></p>
@@ -157,9 +157,9 @@
 
     <main class="page" data-page="clientes" hidden>
       <div class="page-head"><h1>Clientes</h1><button type="button" class="btn btn-primary" id="new-client"><span data-ic="plus"></span>Añadir</button></div>
-      <p class="t-sm muted" id="cli-note">Quien compra en la web queda aquí solo, con su gestora. Las gestoras ven los suyos en su área de la web.</p>
+      <p class="t-sm muted" id="cli-note"></p>
       <input class="input" id="cli-q" type="search" placeholder="Buscar nombre o teléfono" style="margin:8px 0">
-      <select class="input" id="cli-owner" aria-label="Gestora" style="margin-bottom:8px"><option value="">Todas las gestoras</option><option value="-1">Sin gestora (de la tienda)</option></select>
+      <select class="input" id="cli-owner" aria-label="Gestora" style="margin-bottom:8px"><option value="">Todas las gestoras</option><option value="-1">De la tienda (sin gestora)</option></select>
       <section class="panel" id="clients"><p class="muted">Cargando…</p></section>
       <button type="button" class="btn btn-secondary btn-block" id="cli-csv"><span data-ic="download"></span>Descargar lista (Excel)</button>
     </main>
@@ -168,9 +168,9 @@
       <div class="page-head"><h1>Equipo</h1><button type="button" class="btn btn-primary" id="new-person"><span data-ic="plus"></span>Añadir</button></div>
       <section class="panel" id="payout-requests" hidden></section>
       <div class="seg" id="team-seg" role="group" aria-label="Personas">
-        <button type="button" data-kind="web" aria-pressed="true">Gestoras web</button>
+        <button type="button" data-kind="web" aria-pressed="true">Gestoras</button>
         <button type="button" data-kind="messenger" aria-pressed="false">Mensajeros</button>
-        <button type="button" data-kind="gestor" aria-pressed="false">Gestoras caja</button>
+        
         <button type="button" data-kind="staff" aria-pressed="false">Dependientas</button>
         <button type="button" data-kind="partner" aria-pressed="false">Socios</button>
       </div>
@@ -193,34 +193,24 @@
       <section class="panel" id="profile"></section>
     </main>
 
-    <main class="page" data-page="inventario" hidden>
-      <div class="page-head"><h1>Inventario y precios</h1><button type="button" class="btn btn-primary" id="inv-new"><span data-ic="plus"></span>Nuevo</button></div>
-      <p class="t-sm muted" id="inv-note"></p>
+    <main class="page" data-page="catalogo" hidden>
+      <div class="page-head"><h1>Productos</h1><span class="t-sm muted" id="inv-note"></span></div>
+      <div class="grid-2" style="margin-bottom:8px">
+        <button type="button" class="btn btn-primary" id="new-product"><span data-ic="plus"></span>Nuevo producto</button>
+        <button type="button" class="btn btn-secondary" id="recv-btn"><span data-ic="download"></span>Llegó mercancía</button>
+      </div>
+      <label class="search-field"><span data-ic="search"></span><input id="inv-search" type="search" placeholder="Buscar producto" aria-label="Buscar producto"></label>
       <div class="chips" id="inv-filter" role="group" aria-label="Mostrar">
         <button type="button" class="chip" data-f="all" aria-pressed="true">Todos</button>
-        <button type="button" class="chip" data-f="diff" aria-pressed="false">Web distinta</button>
-        <button type="button" class="chip" data-f="low" aria-pressed="false">Pocas unidades</button>
         <button type="button" class="chip" data-f="out" aria-pressed="false">Agotados</button>
-      </div>
-      <input class="input" id="inv-search" type="search" placeholder="Buscar producto" style="margin:8px 0">
-      <section class="panel" id="inventory"><p class="muted">Cargando…</p></section>
-    </main>
-
-    <main class="page" data-page="catalogo" hidden>
-      <div class="page-head"><h1>Productos</h1><button type="button" class="btn btn-primary" id="new-product"><span data-ic="plus"></span>Nuevo</button></div>
-      <label class="search-field"><span data-ic="search"></span><input id="cat-q" type="search" placeholder="Buscar nombre, SKU o código" aria-label="Buscar en el catálogo"></label>
-      <div class="chips" id="cat-filter" role="group" aria-label="Filtro">
-        <button type="button" class="chip" data-f="active" aria-pressed="true">Activos</button>
-        <button type="button" class="chip" data-f="low" aria-pressed="false">Con aviso</button>
+        <button type="button" class="chip" data-f="low" aria-pressed="false">Pocas unidades</button>
         <button type="button" class="chip" data-f="nocost" aria-pressed="false" data-cost-only hidden>Sin costo</button>
-        <button type="button" class="chip" data-f="lowmargin" aria-pressed="false" data-cost-only hidden>Margen bajo</button>
-        <button type="button" class="chip" data-f="inactive" aria-pressed="false">Inactivos</button>
+        <button type="button" class="chip" data-f="hidden" aria-pressed="false">Ocultos</button>
+        <button type="button" class="chip" data-f="diff" aria-pressed="false" hidden>No coincide con la web</button>
       </div>
       <div class="attention" id="attention-products" hidden></div>
-      <section class="panel" id="receipts-panel" hidden></section>
-      <section class="panel" id="web-panel" hidden></section>
-      <section class="panel" id="catalog"><p class="muted">Cargando…</p></section>
-      <details class="panel" id="source-panel"><summary style="font-weight: 700; cursor: pointer">Origen del catálogo e importación</summary><div id="source" class="form" style="margin-top: 12px"></div></details>
+      <section class="panel" id="inventory"><p class="muted">Cargando…</p></section>
+      <button type="button" class="btn btn-ghost btn-block" id="recv-history">Ver mercancía recibida</button>
     </main>
 
     <main class="page" data-page="ajustes" hidden>
@@ -230,11 +220,11 @@
         <button type="button" data-sub="mensajeria" aria-pressed="false">Mensajería</button>
         <button type="button" data-sub="costos" aria-pressed="false" data-cost-only>Costos</button>
         <button type="button" data-sub="gastos" aria-pressed="false" data-cost-only>Gastos</button>
-        <button type="button" data-sub="equipos" aria-pressed="false">Equipos</button>
+        <button type="button" data-sub="equipos" aria-pressed="false">Cajas</button>
       </div>
       <section class="panel" data-sub="tasas">
         <h2 class="t-lg">Tasas de cambio</h2>
-        <p class="t-sm muted">Los precios están en USD. El POS convierte cada pago con estas tasas y las recibe al sincronizar.</p>
+        <p class="t-sm muted">Los precios están en dólares. La caja usa estas tasas para cobrar en CUP, MLC o Zelle.</p>
         <div id="rates"><p class="muted">Cargando…</p></div>
       </section>
       <section class="panel" data-sub="mensajeria" hidden>
@@ -245,18 +235,17 @@
       <section class="panel" id="cost-vars" data-sub="costos" hidden></section>
       <section class="panel" id="fixed-costs" data-sub="gastos" hidden></section>
       <section class="panel" data-sub="equipos" hidden>
-        <h2 class="t-lg">Equipos</h2>
+        <h2 class="t-lg">Cajas</h2>
         <div id="devices"><p class="muted">Cargando…</p></div>
+        <p class="t-xs muted">Si se pierde o roban un teléfono, toca «Desactivar»: deja de funcionar al momento.</p>
       </section>
       <section class="panel" id="new-device-panel" data-sub="equipos" hidden>
-        <h2 class="t-lg">Añadir equipo</h2>
+        <h2 class="t-lg">Poner una caja nueva</h2>
         <form class="form" id="new-device">
-          <label class="field">Nombre<input name="label" required placeholder="Móvil de la tienda"></label>
-          <label class="field">Identificador<input name="device" required pattern="[a-z0-9][a-z0-9-]{2,62}" placeholder="movil-tienda-02" autocapitalize="off"></label>
-          <button type="submit" class="btn btn-primary btn-block">Crear y ver la clave</button>
+          <label class="field">¿De quién es?<input name="label" required maxlength="60" placeholder="Ej.: Teléfono de Zaymi"></label>
+          <button type="submit" class="btn btn-primary btn-block">Crear código</button>
         </form>
         <div id="device-key"></div>
-        <p class="t-xs muted">Desactiva un equipo si se pierde o lo roban: deja de sincronizar al instante.</p>
       </section>
       <p class="t-xs muted" id="who" data-sub="equipos" hidden></p>
     </main>
@@ -311,7 +300,7 @@ document.querySelectorAll("[data-iso]").forEach(el => (el.outerHTML = ISOTIPO));
 document.querySelectorAll("[data-ic]").forEach(el => (el.outerHTML = icon(el.dataset.ic)));
 
 // Small product photo (300 px thumbnail from the catalog) over the initial letter.
-const photo = (url, name) => `<span class="avatar">${esc(String(name ?? "?").trim().charAt(0).toUpperCase())}${url ? `<img src="${esc(url)}" alt="" loading="lazy" decoding="async" onerror="this.remove()">` : ""}</span>`;
+const photo = (url, name) => `<span class="avatar">${esc((Array.from(String(name ?? "?").trim().replace(/^[^\p{L}\p{N}]+/u, ""))[0] ?? "?").toUpperCase())}${url ? `<img src="${esc(url)}" alt="" loading="lazy" decoding="async" onerror="this.remove()">` : ""}</span>`;
 const imageOf = id => catalog?.find(p => p.product_id === id)?.image_url ?? null;
 
 let toastTimer;
@@ -341,19 +330,11 @@ function go(next) {
   document.querySelectorAll("main.page").forEach(p => (p.hidden = p.dataset.page !== next));
   document.querySelectorAll("#nav .tab").forEach(t => t.dataset.page === next ? t.setAttribute("aria-current", "page") : t.removeAttribute("aria-current"));
   window.scrollTo({ top: 0 });
-  if (next === "catalogo") {
-    if (catalog && isOwner()) {
-      $("#source-panel").hidden = false; renderCatalog(); void renderSource(); void renderWebPanel(); void renderReceipts($("#receipts-panel"));
-      document.querySelectorAll("[data-cost-only]").forEach(c => (c.hidden = !canCost()));
-      if (canCost() && !costSheet) void loadCostSheet().then(renderCatalog);
-    }
-    else void loadCatalog();
-  }
+  if (next === "catalogo") void loadInventory();
   if (next === "ajustes") { void loadRates(); void loadCostSettings(); if (ajustesSub === "mensajeria") void loadShipping(); }
   if (next === "resumen") { if (resSub === "caja") void loadMoney(); else void loadReport(); }
   if (next === "pedidos") void loadOrders();
   if (next === "equipo") void loadTeam();
-  if (next === "inventario") void loadInventory();
   if (next === "clientes") void loadClients();
   if (next === "cuenta") void loadAccount();
   if (next === "perfil") renderProfile();
@@ -462,21 +443,22 @@ async function loadWebMonth() {
   const tracked = (current.stock ?? []).filter(p => p.lastMovementAt);
   const out = tracked.filter(p => p.quantity <= 0).length;
   const active = (catalog ?? []).filter(p => p.active);
-  const cats = new Set(active.map(p => p.category).filter(Boolean)).size;
   const tile = (label, value, sub, tone) => '<div class="kpi"><span class="label">' + label + '</span><span class="value num" style="font-size:var(--nx-fs-lg)' + (tone ? ";color:var(--nx-" + tone + ")" : "") + '">' + value + '</span><span class="sub">' + sub + "</span></div>";
   try {
-    box.innerHTML = '<section class="panel"><div class="kv"><h2 class="t-lg">Este mes · web y tienda</h2><span class="t-sm muted">desde el 1</span></div>'
+    box.innerHTML = '<section class="panel"><h2 class="t-lg">Este mes</h2>'
       + '<div class="kpis">'
-      + tile("Concretado", $$(webDone + shopUsd), "web " + $$(webDone) + " (" + (web.error ? "?" : web.done.orders) + ") + tienda " + $$(shopUsd) + " (" + (shop.error ? "?" : shop.totals.sales) + ")", "ok")
-      + tile("Por atender", web.error ? "—" : $$(web.pending.total), (web.error ? "?" : web.pending.orders) + " pedidos web en curso", "warn")
-      + tile("Perdido", web.error ? "—" : $$(web.lost.total), (web.error ? "?" : web.lost.orders) + " pedidos web cancelados", "danger")
+      + tile("Vendido", $$(webDone + shopUsd), "Web " + $$(webDone) + " · Tienda " + $$(shopUsd), "ok")
+      + tile("Por entregar", web.error ? "—" : $$(web.pending.total), (web.error ? "?" : web.pending.orders) + " pedidos de la web", "warn")
+      + tile("Cancelado", web.error ? "—" : $$(web.lost.total), (web.error ? "?" : web.lost.orders) + " pedidos de la web", "danger")
       + "</div>"
-      + '<p class="t-sm" style="margin-top:8px">Productos: <b>' + active.length + "</b> a la venta · <b>" + out + "</b> agotados · " + cats + " categorías</p>"
+      + '<p class="t-sm" style="margin-top:8px">' + active.length + " productos a la venta" + (out ? ' · <button type="button" class="link-btn" id="see-out">' + out + " agotados</button>" : "") + "</p>"
       + (web.error ? '<p class="t-sm muted">No se pudo leer la web: ' + esc(web.error) + "</p>" : "")
       + (shop.error ? '<p class="t-sm muted">No se pudo leer la tienda: ' + esc(shop.error) + "</p>" : "")
       + (!web.error && web.pending.orders ? '<button type="button" class="btn btn-primary btn-block" id="see-web-open">Tienes ' + web.pending.orders + " pedido" + (web.pending.orders > 1 ? "s" : "") + " de la web por atender</button>" : "")
       + (!web.error && web.ranking.length ? '<p class="t-sm muted" style="margin-top:8px">Gestoras con más ventas en la web: ' + web.ranking.slice(0, 3).map(r => esc(r.name) + " (" + r.orders + ")").join(", ") + "</p>" : "")
       + "</section>";
+    const seeOut = $("#see-out");
+    if (seeOut) seeOut.onclick = () => openProducts("out");
     const see = $("#see-web-open");
     if (see) see.onclick = () => {
       ordersSrc = "web"; webFilter = "open"; webPage = 1;
@@ -494,19 +476,18 @@ function renderSummary() {
   const fiado = b.receivables.map(r => money(r.balanceMinor, r.currency)).join(" · ") || "Nada";
   const fiadoN = b.receivables.reduce((n, r) => n + (r.openCount ?? 0), 0);
   const courier = b.messengerCash.map(m => money(m.outstandingMinor, m.currency)).join(" · ") || "Nada";
-  const tracked = (b.stock ?? []).filter(p => p.lastMovementAt);
-  const low = tracked.filter(p => p.quantity <= (p.minStock ?? 2)).sort((x, y) => x.quantity - y.quantity);
-  $("#summary").innerHTML = (isOwner() ? '<div id="web-month"><div class="panel muted">Cargando la web…</div></div>' : "")
-    + '<div id="report"><div class="panel muted">Cargando…</div></div>'
-    + '<div class="kpis two"><div class="kpi"><span class="label">Fiado pendiente</span><span class="value num" style="font-size: var(--nx-fs-lg)">' + fiado + '</span><span class="sub">' + fiadoN + ' cuentas abiertas</span></div>'
-    + '<div class="kpi"><span class="label">En mensajeros</span><span class="value num" style="font-size: var(--nx-fs-lg)">' + courier + '</span><span class="sub">efectivo por recoger</span></div></div>'
-    + '<section class="panel"><div class="kv"><h2 class="t-lg">Quedan pocas unidades</h2><span class="badge ' + (low.length ? "badge-low" : "badge-ok") + '">' + low.length + "</span></div>"
-    + (low.length ? "<div>" + low.slice(0, 8).map(p => '<div class="row-item">' + photo(imageOf(p.productId), p.name) + '<span class="grow"><span class="title">' + esc(p.name) + '</span></span><span class="badge ' + (p.quantity <= 0 ? "badge-out" : "badge-low") + '">' + (p.quantity <= 0 ? "Agotado" : "Quedan " + p.quantity) + "</span></div>").join("") + "</div>"
-      + (low.length > 8 ? '<button type="button" class="btn btn-ghost more" id="see-low">Ver los ' + low.length + " en Productos " + icon("chevron", "sm") + "</button>" : "")
-      : '<p class="muted">Todo por encima de su mínimo.</p>')
-    + '<p class="t-xs muted">Datos sincronizados hasta ' + esc(when(b.generatedAt)) + ". Un equipo sin conexión sube sus ventas al recuperarla.</p></section>";
+  // Solo lo que pide hacer algo: lo que se acabó o bajó del aviso que puso la dueña en la ficha.
+  const low = (b.stock ?? []).filter(p => p.lastMovementAt && (p.quantity <= 0 || (p.minStock != null && p.quantity <= p.minStock))).sort((x, y) => x.quantity - y.quantity);
+  if (isOwner() && !$("#web-month").innerHTML) $("#web-month").innerHTML = '<div class="panel muted">Cargando…</div>';
+  $("#summary").innerHTML = '<div id="report"><div class="panel muted">Cargando…</div></div>'
+    + (fiadoN || b.messengerCash.length ? '<div class="kpis two"><div class="kpi"><span class="label">Fiado pendiente</span><span class="value num" style="font-size: var(--nx-fs-lg)">' + fiado + '</span><span class="sub">' + fiadoN + ' cuentas abiertas</span></div>'
+      + '<div class="kpi"><span class="label">En mensajeros</span><span class="value num" style="font-size: var(--nx-fs-lg)">' + courier + '</span><span class="sub">efectivo por recoger</span></div></div>' : "")
+    + (low.length ? '<section class="panel"><div class="kv"><h2 class="t-lg">Hay que reponer</h2><span class="badge badge-low">' + low.length + "</span></div>"
+      + low.slice(0, 5).map(p => '<div class="row-item">' + photo(imageOf(p.productId), p.name) + '<span class="grow"><span class="title">' + esc(p.name) + '</span></span><span class="badge ' + (p.quantity <= 0 ? "badge-out" : "badge-low") + '">' + (p.quantity <= 0 ? "Agotado" : "Quedan " + p.quantity) + "</span></div>").join("")
+      + (low.length > 5 ? '<button type="button" class="btn btn-ghost more" id="see-low">Ver los ' + low.length + " " + icon("chevron", "sm") + "</button>" : "") + "</section>" : "")
+    + '<p class="t-xs muted">Actualizado: ' + esc(when(b.generatedAt)) + ". Si una caja no tiene internet, sus ventas llegan cuando se conecte.</p>";
   const see = $("#see-low");
-  if (see) see.onclick = () => { catFilter = "low"; go("catalogo"); syncFilterChips(); renderCatalog(); };
+  if (see) see.onclick = () => openProducts("out");
   void loadReport();
 }
 
@@ -525,23 +506,24 @@ async function loadReport() {
     ? Array.from({ length: 15 }, (_, i) => { const h = i + 8; const x = data.byHour.find(v => v.hour === h); return { label: String(h), title: h + ":00", minor: x?.usdMinor ?? 0 }; })
     : (() => { const out = []; for (let d = new Date(r.from + "T12:00:00"); isoDay(d) <= r.to && out.length < 62; d.setDate(d.getDate() + 1)) { const k = isoDay(d); const x = data.byDay.find(v => v.day === k); out.push({ label: String(d.getDate()), title: dayLabel(k), minor: x?.usdMinor ?? 0 }); } return out; })();
   const max = Math.max(1, ...series.map(s => s.minor));
+  if (!t.sales) { box.innerHTML = '<div class="panel muted">Sin ventas en la tienda ' + (oneDay ? "hoy" : "en estas fechas") + ".</div>"; return; }
   box.innerHTML = '<div class="kpis">'
     + '<div class="kpi accent"><span class="label">Ventas</span><span class="value num">' + usd(t.usdMinor) + '</span><span class="sub">' + t.sales + " ventas" + (t.refundsMinor ? " · devuelto " + usd(t.refundsMinor) : "") + "</span></div>"
-    + '<div class="kpi"><span class="label">Ganancia estimada</span><span class="value num">' + (t.costedMinor ? dollars(t.profitUsd) : "—") + '</span><span class="sub">' + (t.usdMinor ? (covered < 100 ? "con costo en el " + covered + " % de lo vendido" : "ya sin comisiones ni socios") : "sin ventas") + "</span></div>"
+    + '<div class="kpi"><span class="label">Ganancia</span><span class="value num">' + (t.costedMinor ? dollars(t.profitUsd) : "—") + '</span><span class="sub">' + (covered < 100 ? "solo de productos con costo (" + covered + " %)" : "ya descontadas comisiones") + "</span></div>"
     + '<div class="kpi"><span class="label">Unidades</span><span class="value num">' + t.units + '</span><span class="sub">vendidas</span></div>'
-    + '<div class="kpi"><span class="label">Ticket medio</span><span class="value num">' + (t.sales ? usd(Math.round(t.usdMinor / t.sales)) : "—") + '</span><span class="sub">por venta</span></div></div>'
+    + '<div class="kpi"><span class="label">Promedio</span><span class="value num">' + usd(Math.round(t.usdMinor / t.sales)) + '</span><span class="sub">por venta</span></div></div>'
     + '<section class="panel"><div class="kv"><h2 class="t-lg">' + (oneDay ? "Ventas por hora" : "Ventas por día") + '</h2><span class="t-xs muted">USD</span></div>'
     + '<div class="bars" role="img" aria-label="' + (oneDay ? "Ventas por hora" : "Ventas por día") + '">' + series.map(s => '<div class="bar" title="' + esc(s.title) + ": " + usd(s.minor) + '"><i class="' + (s.minor ? "" : "zero") + '" style="height: ' + Math.round(s.minor / max * 100) + '%"></i><span>' + esc(s.label) + "</span></div>").join("") + "</div>"
     + (data.byMethod.length ? '<div class="methods">' + data.byMethod.map(m => '<span class="badge badge-calm">' + esc(methodLabel(m)) + " · " + money(m.amountMinor, m.currency) + "</span>").join("") + "</div>" : "")
     + "</section>"
     + '<section class="panel"><h2 class="t-lg">Lo más vendido</h2>'
-    + (data.topProducts.length ? data.topProducts.map(p => '<div class="row-item">' + photo(p.imageUrl, p.name) + '<span class="grow"><span class="title">' + esc(p.name) + '</span><span class="meta">' + p.units + " u. · ganancia " + (p.profitUsd == null ? "sin costo" : dollars(p.profitUsd)) + '</span></span><span class="price-tag">' + usd(p.usdMinor) + "</span></div>").join("") : '<p class="muted">Sin ventas en el periodo.</p>')
+    + (data.topProducts.length ? data.topProducts.map(p => '<div class="row-item">' + photo(p.imageUrl, p.name) + '<span class="grow"><span class="title">' + esc(p.name) + '</span><span class="meta">' + p.units + " u. · ganancia " + (p.profitUsd == null ? "sin costo puesto" : dollars(p.profitUsd)) + '</span></span><span class="price-tag">' + usd(p.usdMinor) + "</span></div>").join("") : '<p class="muted">Sin ventas en el periodo.</p>')
     + "</section>"
     + (data.gestores?.length ? '<section class="panel"><div class="kv"><h2 class="t-lg">Ranking de gestoras</h2><span class="t-xs muted">' + esc(r.label) + "</span></div>"
       + (() => { const top = Math.max(1, ...data.gestores.map(g => g.usdMinor)); return data.gestores.slice(0, 10).map((g, i) => '<div class="rank"><span class="pos">' + (["🥇", "🥈", "🥉"][i] ?? i + 1) + '</span><span class="grow"><span class="title">' + esc(g.name) + '</span><span class="meta">' + g.sales + " pedidos · comisión " + dollars(g.commissionUsd) + '</span><span class="share" style="width:' + Math.max(3, Math.round(100 * g.usdMinor / top)) + '%"></span></span><span class="price-tag">' + usd(g.usdMinor) + "</span></div>").join(""); })()
       + "</section>" : "")
     + '<section class="panel"><div class="kv"><h2 class="t-lg">Ventas</h2><span class="badge badge-info">' + data.sales.length + "</span></div>"
-    + '<div class="grid-2"><button type="button" class="btn btn-secondary" id="dl-csv">' + icon("download", "sm") + 'Excel (CSV)</button><button type="button" class="btn btn-secondary" id="dl-pdf">' + icon("download", "sm") + "PDF</button></div>"
+    + '<div class="grid-2"><button type="button" class="btn btn-secondary" id="dl-csv">' + icon("download", "sm") + 'Descargar Excel</button><button type="button" class="btn btn-secondary" id="dl-pdf">' + icon("download", "sm") + "Descargar PDF</button></div>"
     + data.sales.slice(0, 30).map(s => '<div class="row-item"><span class="grow"><span class="title">' + esc((s.lines ?? []).map(l => (l.qty > 1 ? l.qty + "× " : "") + l.name).join(", ")) + '</span><span class="meta">' + esc(when(s.at)) + " · " + esc((s.payments ?? []).map(methodLabel).join(" + ")) + '</span></span><span class="price-tag">' + usd(s.usdMinor) + "</span></div>").join("")
     + (data.sales.length > 30 ? '<p class="t-xs muted">Se muestran 30 de ' + data.sales.length + ". Las descargas llevan todas.</p>" : "")
     + "</section>";
@@ -591,58 +573,17 @@ function printReport() {
 
 // ---------- Catálogo ----------
 const CURRENCIES = ["USD", "CUP", "MLC"];
-let catFilter = "active";
 const toMinor = raw => { const v = Number(String(raw).replace(",", ".").trim()); return Number.isFinite(v) && v >= 0 ? Math.round(v * 100) : null; };
 const stockOf = id => (current?.stock ?? []).find(s => s.productId === id);
 
-function syncFilterChips() {
-  document.querySelectorAll("#cat-filter .chip").forEach(c => c.setAttribute("aria-pressed", String(c.dataset.f === catFilter)));
-}
-document.querySelectorAll("#cat-filter .chip").forEach(c => (c.onclick = () => { catFilter = c.dataset.f; syncFilterChips(); renderCatalog(); }));
-$("#cat-q").oninput = () => renderCatalog();
-
+// La lista de productos es la de Inventario (una sola pantalla). Esto refresca el catálogo y los costos que usa la ficha.
 async function loadCatalog() {
-  if (!isOwner()) { $("#catalog").innerHTML = `<p class="muted">Solo los dueños pueden ver y editar el catálogo.</p>`; $("#source-panel").hidden = true; return; }
-  $("#source-panel").hidden = false;
-  const { data, error } = await supabase.rpc("nexo_business_catalog_list", { p_business: current.businessId });
-  if (error || data?.error) { $("#catalog").innerHTML = `<p>No se pudo cargar: ${esc(error?.message ?? data.error)}</p>`; return; }
-  catalog = data;
-  document.querySelectorAll("[data-cost-only]").forEach(c => (c.hidden = !canCost()));
+  const { data } = await supabase.rpc("nexo_business_catalog_list", { p_business: bizId() });
+  if (Array.isArray(data)) catalog = data;
   if (canCost()) await loadCostSheet();
-  renderCatalog();
-  void renderSource();
-  void renderWebPanel();
-  void renderReceipts($("#receipts-panel"));
+  if (page === "catalogo") renderInventory();
 }
-
-function renderCatalog() {
-  if (!catalog) return;
-  const q = $("#cat-q").value.trim().toLowerCase();
-  const rows = catalog.filter(p => {
-    const s = stockOf(p.product_id);
-    const isLow = s?.lastMovementAt && s.quantity <= (p.min_stock ?? 2);
-    if (catFilter === "active" && !p.active) return false;
-    if (catFilter === "inactive" && p.active) return false;
-    if (catFilter === "low" && !(p.active && isLow)) return false;
-    if (catFilter === "nocost" && !(p.active && costSheet && !costOf(p.product_id)?.cost)) return false;
-    if (catFilter === "lowmargin" && !(p.active && (costOf(p.product_id)?.calc?.marginPct ?? Infinity) < Number(costSheet?.settings.target_margin_pct))) return false;
-    return !q || [p.name, p.sku, ...(p.barcodes ?? [])].some(v => String(v ?? "").toLowerCase().includes(q));
-  });
-  const shown = rows.slice(0, 120);
-  $("#catalog").innerHTML = `<p class="t-xs muted">${rows.length} de ${catalog.length} productos${rows.length > shown.length ? " · busca para ver el resto" : ""}</p>
-    <div>${shown.map(p => {
-      const s = stockOf(p.product_id);
-      const badge = !p.active ? `<span class="badge badge-calm">Inactivo</span>`
-        : s?.lastMovementAt && s.quantity <= 0 ? `<span class="badge badge-out">Agotado</span>`
-        : s?.lastMovementAt && s.quantity <= (p.min_stock ?? 2) ? `<span class="badge badge-low">Quedan ${s.quantity}</span>` : "";
-      return `<div class="row-item"><button type="button" class="row-btn" data-edit="${esc(p.product_id)}">
-        ${photo(p.image_url, p.name)}
-        <span class="grow"><span class="title">${esc(p.name)}</span><span class="meta">${esc(p.sku ?? "")}${s?.lastMovementAt ? ` · ${s.quantity} en stock` : ""}${p.min_stock != null ? ` · aviso ${p.min_stock}` : ""}</span></span>
-        <span style="display:flex;flex-direction:column;align-items:flex-end;gap:4px"><span class="price-tag">${p.prices?.USD != null ? usd(p.prices.USD) : "—"}</span>${badge}${costSheet ? marginBadge(costOf(p.product_id)?.calc?.marginPct) : ""}</span>
-      </button></div>`;
-    }).join("") || `<p class="muted">Ningún producto coincide.</p>`}</div>`;
-  document.querySelectorAll("#catalog [data-edit]").forEach(b => (b.onclick = () => editProduct(catalog.find(p => p.product_id === b.dataset.edit))));
-}
+function renderCatalog() { if (page === "catalogo") renderInventory(); }
 
 // Reduce la foto en el teléfono antes de subirla (máx. 900 px, WebP): sube rápido con datos móviles.
 async function productPhotoBlob(file) {
@@ -670,9 +611,8 @@ async function editProduct(p) {
   const sheet = openSheet(`
     <div class="sheet-head"><h2>${p ? "Editar producto" : "Nuevo producto"}</h2><button type="button" class="btn btn-ghost" data-close>Cerrar</button></div>
     <form class="form">
-      <label class="field">Foto
-        <img class="sheet-photo" data-preview src="${esc(p?.image_url ?? "")}" alt="" ${p?.image_url ? "" : "hidden"} onerror="this.hidden=true">
-        <input type="file" name="photo" accept="image/*"></label>
+      ${photoPicker("Foto", p?.image_url ?? "")}
+      <input type="hidden" name="sku" value="${esc(p?.sku ?? "")}">
       <label class="field">Nombre<input name="name" required value="${esc(p?.name ?? "")}" placeholder="Ej.: Toalla grande azul"></label>
       <div class="grid-2">
         <label class="field">Precio USD<input name="price" required inputmode="decimal" placeholder="0.00" value="${p?.prices?.USD != null ? (p.prices.USD / 100).toFixed(2) : ""}"></label>
@@ -681,14 +621,11 @@ async function editProduct(p) {
       <label class="field">Categoría<input name="category" list="cat-list" value="${esc(p?.category ?? "")}" placeholder="Ej.: Baño"></label>
       <datalist id="cat-list">${cats.map(c => `<option value="${esc(c)}">`).join("")}</datalist>
       <details><summary class="t-sm">Más opciones</summary>
-        <div class="grid-2">
-          <label class="field">SKU<input name="sku" value="${esc(p?.sku ?? "")}" placeholder="Se pone solo" autocapitalize="characters"></label>
-          <label class="field">Avisar cuando queden<input name="min" type="number" min="0" step="1" inputmode="numeric" placeholder="2" value="${p?.min_stock ?? ""}"></label>
-        </div>
-        <label class="field">Códigos de barras<input name="barcodes" value="${esc((p?.barcodes ?? []).join(", "))}" placeholder="Separados por coma" inputmode="numeric"></label>
-        <label class="check"><input type="checkbox" name="active" ${p?.active === false ? "" : "checked"}> Se vende en la caja</label>
+        <label class="field">Avisarme cuando queden<input name="min" type="number" min="0" step="1" inputmode="numeric" placeholder="Sin aviso" value="${p?.min_stock ?? ""}"></label>
+        <label class="field">Código de barras<input name="barcodes" value="${esc((p?.barcodes ?? []).join(", "))}" placeholder="Si tiene, separados por coma" inputmode="numeric"></label>
       </details>
-      <p class="t-xs muted">${p && onWeb ? "Está en la web: los cambios y la cantidad se copian allí." : "Al guardar se crea también en casaviva.company (desmarca “Se vende” para ocultarlo)."}</p>
+      <label class="check"><input type="checkbox" name="active" ${p?.active === false ? "" : "checked"}> A la venta (caja y web)</label>
+      ${p && !onWeb ? '<p class="t-xs muted">Al guardar aparece también en la web.</p>' : p ? "" : '<p class="t-xs muted">Aparece en las cajas y en la web.</p>'}
       <p class="msg" data-msg role="status"></p>
       <button type="submit" class="btn btn-primary btn-xl btn-block">Guardar</button>
     </form>
@@ -696,8 +633,8 @@ async function editProduct(p) {
   if (p && canCost() && costSheet) wireCostSection(sheet.el, p);
   const form = sheet.el.querySelector("form:not([data-cost])");
   const msg = form.querySelector("[data-msg]");
-  const preview = form.querySelector("[data-preview]");
-  form.photo.onchange = () => { const f = form.photo.files[0]; if (f) { preview.src = URL.createObjectURL(f); preview.hidden = false; } };
+  let photoFile = null;
+  wirePhotoPicker(form, async f => { photoFile = f; return true; });
   const fail = text => { msg.textContent = text; msg.dataset.tone = "bad"; form.querySelector("[type=submit]").disabled = false; };
   form.onsubmit = async e => {
     e.preventDefault();
@@ -710,7 +647,10 @@ async function editProduct(p) {
     form.querySelector("[type=submit]").disabled = true;
     try {
       let imageUrl = null;
-      if (form.photo.files[0]) { msg.textContent = "Subiendo foto…"; msg.dataset.tone = ""; imageUrl = await uploadPhoto(form.photo.files[0]); }
+      if (photoFile) {
+        msg.textContent = "Subiendo foto…"; msg.dataset.tone = "";
+        try { imageUrl = await uploadPhoto(photoFile); } catch { throw new Error("esa foto no se pudo usar. Prueba con otra o haz una nueva"); }
+      }
       msg.textContent = "Guardando…"; msg.dataset.tone = "";
       const { data: saved, error } = await supabase.rpc("nexo_business_product_save", {
         p_business: bizId(), p_product_id: p?.product_id ?? null, p_name: f.get("name"), p_sku: f.get("sku"),
@@ -735,54 +675,19 @@ async function editProduct(p) {
         }
       } catch (e3) { notes.push("no llegó a la web (" + e3.message + "); vuelve a guardar para reintentar"); }
       sheet.close();
-      toast(`Guardado: ${saved.name} (${saved.sku}). Llega a las cajas al sincronizar y a la web en unos minutos.` + (notes.length ? " Ojo: " + notes.join("; ") + "." : ""), notes.length ? "bad" : "ok");
-      catalog = null;
+      toast("Guardado. Llega a las cajas y a la web en unos minutos." + (notes.length ? " Ojo: " + notes.join("; ") + "." : ""), notes.length ? "bad" : "ok");
+      catalog = null; shop = null;
       await load();
-      if (!$('main[data-page="catalogo"]').hidden) await loadCatalog();
-      if (!$('main[data-page="inventario"]').hidden) await loadInventory();
+      if (page === "catalogo") await loadInventory();
     } catch (err) { fail("No se guardó: " + err.message); }
   };
 }
 $("#new-product").onclick = () => editProduct(null);
-$("#inv-new").onclick = () => editProduct(null);
-
-const SOURCE_LABELS = { biznecubano: "BizneCubano (la web aporta las variantes)", woocommerce: "Web de la tienda" };
-async function renderSource() {
-  const box = $("#source");
-  const business = current.businessId;
-  const { data, error } = await supabase.rpc("nexo_business_get_catalog_source", { p_business: business });
-  if (error || !data || data.error) { box.innerHTML = `<p class="muted">Sin fuente de catálogo configurada.</p>`; return; }
-  const last = data.lastImportResult;
-  box.innerHTML = `
-    <label class="field">Fuente<select data-kind>${Object.entries(SOURCE_LABELS).map(([k, l]) => `<option value="${k}"${k === data.kind ? " selected" : ""}>${esc(k === "woocommerce" && data.websiteUrl ? `${l} (${new URL(data.websiteUrl).hostname})` : l)}</option>`).join("")}</select></label>
-    <label class="check"><input type="checkbox" data-auto ${data.autoImport ? "checked" : ""}> Importar automáticamente cada hora</label>
-    <p class="t-sm muted">Última importación: ${esc(when(data.lastImportAt))}${last ? (last.error ? ` · error: ${esc(last.detail ?? last.error)}` : ` · ${last.items} artículos, ${last.catalogChanges} cambios, ${last.stockCounts} existencias${last.websiteUnavailable ? " · la web no respondía: se usó la copia de NEXO" : ""}`) : ""}</p>
-    <button type="button" class="btn btn-secondary btn-block" data-import>${icon("download", "sm")}Importar ahora</button>
-    <p class="t-xs muted">Solo lee: no cambia nada ni en BizneCubano ni en la web.</p>`;
-  const save = async () => {
-    const { data: r, error: e } = await supabase.rpc("nexo_business_set_catalog_source", { p_business: business, p_kind: box.querySelector("[data-kind]").value, p_auto_import: box.querySelector("[data-auto]").checked });
-    toast(e || r?.error ? `No se cambió: ${e?.message ?? r.error}` : "Fuente guardada", e || r?.error ? "bad" : "ok");
-  };
-  box.querySelector("[data-kind]").onchange = save;
-  box.querySelector("[data-auto]").onchange = save;
-  box.querySelector("[data-import]").onclick = async () => {
-    const btn = box.querySelector("[data-import]");
-    btn.disabled = true; btn.textContent = "Importando… puede tardar un minuto";
-    try {
-      const { data: { session } } = await supabase.auth.getSession();
-      const r = await fetch(`https://viwwlriwlwodrfukbgbj.supabase.co/functions/v1/nexo-catalog-import?business=${encodeURIComponent(business)}`, { method: "POST", headers: { authorization: `Bearer ${session?.access_token ?? ""}` } });
-      const out = await r.json();
-      if (!r.ok) throw new Error(out.detail ?? out.error ?? `HTTP ${r.status}`);
-      toast(`Importado: ${out.items} artículos, ${out.catalogChanges} cambios, ${out.stockCounts} existencias, ${out.deactivated} retirados`, "ok");
-      catalog = null;
-      await load();
-      await loadCatalog();
-    } catch (e) {
-      toast(`No se pudo importar: ${e.message}`, "bad");
-      btn.disabled = false; btn.innerHTML = `${icon("download", "sm")}Importar ahora`;
-    }
-  };
-}
+$("#recv-btn").onclick = () => receiveSheet(() => loadInventory());
+$("#recv-history").onclick = () => {
+  const sheet = openSheet('<div class="sheet-head"><h2>Mercancía recibida</h2><button type="button" class="btn btn-ghost" data-close>Cerrar</button></div><div data-receipts><p class="muted">Cargando…</p></div>', "Mercancía recibida");
+  void renderReceipts(sheet.el.querySelector("[data-receipts]"));
+};
 
 // ---------- Resumen: Ventas | Caja ----------
 let resSub = "ventas";
@@ -832,28 +737,47 @@ async function loadInventory() {
   if (error || data?.error) { $("#inventory").innerHTML = '<p class="muted">No se pudo cargar: ' + esc(error?.message ?? data.error) + "</p>"; return; }
   const webBy = new Map(web.products.map(w => [w.wooId, w]));
   invRows = data.products.map(p => ({ ...p, web: p.wooId ? webBy.get(p.wooId) ?? null : null }));
-  const diffs = invRows.filter(r => r.web && r.web.stock !== null && r.web.stock !== r.stock).length;
-  $("#inv-note").textContent = invRows.length + " productos" + (diffs ? " · " + diffs + " con la web distinta" : " · web igual que la caja");
+  if (canCost() && !costSheet) await loadCostSheet();
+  const diffs = invRows.filter(isDiff).length;
+  // "No coincide con la web" solo aparece si hay diferencias (el puente las iguala cada 2 minutos).
+  const diffChip = $('#inv-filter [data-f="diff"]');
+  diffChip.hidden = !diffs; diffChip.textContent = "No coincide con la web " + diffs;
+  if (!diffs && invFilter === "diff") invFilter = "all";
+  document.querySelectorAll("#inv-filter [data-cost-only]").forEach(c => (c.hidden = !canCost()));
   renderInventory();
 }
+function openProducts(filter) {
+  invFilter = filter;
+  document.querySelectorAll("#inv-filter [data-f]").forEach(x => x.setAttribute("aria-pressed", String(x.dataset.f === filter)));
+  go("catalogo");
+}
+const isDiff = r => r.active && r.web && r.web.stock !== null && r.web.stock !== r.stock;
+const isLow = r => r.active && r.stock > 0 && r.minStock != null && r.stock <= r.minStock;
 function renderInventory() {
   const q = ($("#inv-search").value || "").toLowerCase();
   const rows = invRows.filter(r => {
-    if (q && !(r.name + " " + (r.variant ?? "")).toLowerCase().includes(q)) return false;
-    if (invFilter === "diff") return r.web && r.web.stock !== null && r.web.stock !== r.stock;
-    if (invFilter === "low") return r.stock > 0 && r.stock <= (r.minStock ?? 2);
+    if (q && !r.name.toLowerCase().includes(q)) return false;
+    if (invFilter === "hidden") return !r.active;
+    if (!r.active) return false;
+    if (invFilter === "diff") return isDiff(r);
+    if (invFilter === "low") return isLow(r);
     if (invFilter === "out") return r.stock <= 0;
+    if (invFilter === "nocost") return costSheet && !costOf(r.productId)?.cost;
     return true;
   });
+  const active = invRows.filter(r => r.active).length;
+  $("#inv-note").textContent = invFilter === "all" && !q ? active + " productos a la venta" : rows.length + " de " + active;
   $("#inventory").innerHTML = rows.length ? rows.slice(0, 300).map(r => {
-    const diff = r.web && r.web.stock !== null && r.web.stock !== r.stock;
-    return '<div class="row-item" data-inv="' + esc(r.productId) + '"><button type="button" class="row-btn grow" data-open aria-label="Editar ' + esc(r.name) + '">' + photo(r.imageUrl, r.name)
-      + '<span class="grow"><span class="title">' + esc(r.name) + (r.variant ? " · " + esc(r.variant) : "") + "</span>"
-      + '<span class="meta">' + (r.web ? (diff ? '<strong style="color:var(--nx-danger)">Web: ' + r.web.stock + "</strong>" : "Web igual") : "Solo en la caja") + "</span></span></button>"
-      + '<label class="t-xs">Precio<input class="input" style="width:6em" inputmode="decimal" data-price value="' + esc(r.priceUsd ?? "") + '"></label>'
-      + '<label class="t-xs">Quedan<input class="input" style="width:5em" inputmode="numeric" data-stock value="' + esc(r.stock) + '"></label>'
-      + '<button type="button" class="btn btn-secondary" data-save hidden>Guardar</button></div>';
-  }).join("") + (rows.length > 300 ? '<p class="muted">Mostrando 300. Usa el buscador.</p>' : "") : '<p class="muted">Nada por aquí.</p>';
+    const name = r.variant && !r.name.toLowerCase().includes(r.variant.toLowerCase()) ? r.name + " · " + r.variant : r.name;
+    const state = !r.active ? '<span class="badge badge-calm">Oculto</span>' : r.stock <= 0 ? '<span class="badge badge-out">Agotado</span>' : isLow(r) ? '<span class="badge badge-low">Pocas</span>' : "";
+    return '<div class="inv-row" data-inv="' + esc(r.productId) + '"><button type="button" class="inv-head" data-open aria-label="Abrir ' + esc(name) + '">' + photo(r.imageUrl, name)
+      + '<span class="grow"><span class="title">' + esc(name) + "</span>"
+      + (isDiff(r) ? '<span class="meta" style="color:var(--nx-danger)">En la web: ' + r.web.stock + " · se iguala sola en 2 min</span>" : !r.wooId ? '<span class="meta">No está en la web</span>' : "")
+      + "</span>" + state + "</button>"
+      + '<div class="inv-edit"><label class="field t-sm">Precio USD<input class="input" inputmode="decimal" data-price value="' + esc(r.priceUsd ?? "") + '"></label>'
+      + '<label class="field t-sm">Quedan<input class="input" inputmode="numeric" data-stock value="' + esc(r.stock) + '"></label>'
+      + '<button type="button" class="btn btn-primary" data-save hidden>Guardar</button></div></div>';
+  }).join("") + (rows.length > 300 ? '<p class="muted">Mostrando 300. Usa el buscador.</p>' : "") : '<p class="muted">Ningún producto aquí.</p>';
   document.querySelectorAll("#inventory [data-inv]").forEach(row => {
     const r = invRows.find(x => x.productId === row.dataset.inv);
     const save = row.querySelector("[data-save]");
@@ -868,22 +792,24 @@ function renderInventory() {
       const stock = Number(row.querySelector("[data-stock]").value);
       if (price == null || price <= 0) return toast("Escribe un precio válido", "bad");
       if (!Number.isInteger(stock) || stock < 0) return toast("La cantidad debe ser un número entero", "bad");
-      save.disabled = true;
-      try {
-        if (price !== Number(r.priceUsd)) {
-          const { data, error } = await supabase.rpc("nexo_business_set_price", { p_business: bizId(), p_product: r.productId, p_usd: price });
-          if (error || data?.error) throw new Error(error?.message ?? data.message ?? data.error);
-          if (data.wooId) await panelWeb({ action: "push_price", wooId: data.wooId, price });
+      save.disabled = true; save.textContent = "Guardando…";
+      const problems = [];
+      if (price !== Number(r.priceUsd)) {
+        const { data, error } = await supabase.rpc("nexo_business_set_price", { p_business: bizId(), p_product: r.productId, p_usd: price });
+        if (error || data?.error) problems.push("el precio no se guardó");
+        else {
           r.priceUsd = price;
+          if (data.wooId) await panelWeb({ action: "push_price", wooId: data.wooId, price }).catch(() => problems.push("el precio no llegó a la web (vuelve a guardar)"));
         }
-        if (stock !== r.stock) {
-          const { data, error } = await supabase.rpc("nexo_business_set_stock", { p_business: bizId(), p_product: r.productId, p_quantity: stock, p_reason: "Conteo desde el panel" });
-          if (error || data?.error) throw new Error(error?.message ?? data.message ?? data.error);
-          r.stock = stock;
-        }
-        save.hidden = true; save.disabled = false;
-        toast("Guardado. La web se actualiza en unos minutos.", "ok");
-      } catch (e) { save.disabled = false; toast("No se guardó: " + e.message, "bad"); }
+      }
+      if (stock !== r.stock) {
+        const { data, error } = await supabase.rpc("nexo_business_set_stock", { p_business: bizId(), p_product: r.productId, p_quantity: stock, p_reason: "Conteo desde el panel" });
+        if (error || data?.error) problems.push("la cantidad no se guardó"); else r.stock = stock;
+      }
+      save.disabled = false; save.textContent = "Guardar";
+      if (problems.length) return toast("Ojo: " + problems.join("; ") + ".", "bad");
+      save.hidden = true;
+      toast("Guardado. Llega a las cajas y a la web en unos minutos.", "ok");
     };
   });
 }
@@ -935,9 +861,9 @@ async function loadWebOrders() {
       return '<div class="row-item"><button type="button" class="row-btn" data-web="' + o.id + '"><span class="grow">'
         + '<span class="title">#' + esc(o.number) + " · " + esc(o.customer || "Sin nombre") + "</span>"
         + '<span class="meta">' + esc(o.items.map(i => (i.qty > 1 ? i.qty + "× " : "") + i.name + (i.variant ? " (" + i.variant + ")" : "")).join(", ")) + "</span>"
-        + '<span class="meta">' + (o.gestora ? "Gestora " + esc(o.gestora) : "Venta directa") + " · " + esc(when(o.date)) + (o.pickup ? " · recoge en tienda" : " · domicilio")
+        + '<span class="meta">' + (o.gestora ? "Gestora " + esc(o.gestora) : "Sin gestora") + " · " + esc(when(o.date)) + (o.pickup ? " · recoge en tienda" : " · domicilio")
         + (old ? ' · <strong style="color:var(--nx-danger)">esperando más de 1 día</strong>' : "") + "</span></span>"
-        + '<span style="display:flex;flex-direction:column;align-items:flex-end;gap:4px"><span class="price-tag">$' + o.total.toFixed(2) + '</span><span class="badge ' + WEB_BADGE[o.group] + '">' + esc(o.statusText) + "</span></span></button></div>";
+        + '<span style="display:flex;flex-direction:column;align-items:flex-end;gap:4px"><span class="price-tag">' + usd2(o.total) + '</span><span class="badge ' + WEB_BADGE[o.group] + '">' + esc(o.statusText) + "</span></span></button></div>";
     }).join("") : '<p class="muted">' + (webFilter === "open" ? "No hay pedidos por atender en la web." : "Nada por aquí.") + "</p>";
     document.querySelectorAll("#web-orders [data-web]").forEach(b => (b.onclick = () => showWebOrder(webOrders.find(o => String(o.id) === b.dataset.web))));
     $("#web-pager").innerHTML = data.pages > 1
@@ -954,16 +880,16 @@ function showWebOrder(o) {
   const wa = o.phone ? waLink(o.phone, "Hola " + o.customer + ". Le escribimos de Casa Viva por su pedido #" + o.number + ": " + items + ".") : null;
   const sheet = openSheet('<div class="sheet-head"><h2>Pedido web #' + esc(o.number) + '</h2><button type="button" class="btn btn-ghost" data-close>Cerrar</button></div>'
     + '<div class="kv"><span class="badge ' + WEB_BADGE[o.group] + '">' + esc(o.statusText) + '</span><span class="t-xs muted">' + esc(when(o.date)) + "</span></div>"
-    + '<div class="breakdown">' + o.items.map(i => '<div class="kv"><span>' + i.qty + "× " + esc(i.name) + (i.variant ? '<br><span class="t-xs muted">' + esc(i.variant) + "</span>" : "") + '</span><span class="num">$' + i.total.toFixed(2) + "</span></div>").join("")
-    + '<div class="kv strong"><span>Total productos</span><span class="num">$' + o.total.toFixed(2) + "</span></div>"
+    + '<div class="breakdown">' + o.items.map(i => '<div class="kv"><span>' + i.qty + "× " + esc(i.name) + (i.variant ? '<br><span class="t-xs muted">' + esc(i.variant) + "</span>" : "") + '</span><span class="num">' + usd2(i.total) + "</span></div>").join("")
+    + '<div class="kv strong"><span>Total productos</span><span class="num">' + usd2(o.total) + "</span></div>"
     + (o.shippingCup ? '<div class="kv"><span>Mensajería</span><span class="num">' + o.shippingCup.toLocaleString("es") + " CUP</span></div>" : "") + "</div>"
     + '<div class="kv"><span>Cliente</span><span>' + esc(o.customer) + (o.phone ? " · " + esc(o.phone) : "") + "</span></div>"
     + '<div class="kv"><span>Entrega</span><span>' + (o.pickup ? "Recoge en tienda" : esc(o.address || "Domicilio")) + "</span></div>"
-    + '<div class="kv"><span>Gestora</span><span>' + (o.gestora ? esc(o.gestora) + (o.commission ? " · comisión $" + o.commission.toFixed(2) : "") : "Venta directa") + "</span></div>"
+    + '<div class="kv"><span>Gestora</span><span>' + (o.gestora ? esc(o.gestora) + (o.commission ? " · comisión " + usd2(o.commission) : "") : "Sin gestora") + "</span></div>"
     + (o.note ? '<p class="t-sm"><b>Nota:</b> ' + esc(o.note) + "</p>" : "")
     + '<div style="display:flex;flex-direction:column;gap:8px;margin-top:12px">'
     + (wa ? '<a class="btn btn-primary btn-block" target="_blank" rel="noopener" href="' + esc(wa) + '">Escribir al cliente por WhatsApp</a>' : "")
-    + '<div data-actions style="display:flex;flex-direction:column;gap:8px"><p class="muted">Buscando qué se puede hacer…</p></div></div>',
+    + '<div data-actions style="display:flex;flex-direction:column;gap:8px"><p class="muted">Cargando…</p></div></div>',
     "Pedido web " + o.number);
   void loadSaleActions(sheet.el, o);
 }
@@ -1040,12 +966,13 @@ $("#web-search").oninput = () => { clearTimeout(webSearchTimer); webSearchTimer 
 
 async function loadOrders() {
   // La dueña ve primero los pedidos reales de la web; el resto, los del panel y la caja.
+  // Los pedidos "del panel" no se usan (0 desde el inicio): la dueña solo ve los de la web.
   const web = mode === "admin" && isOwner();
-  $("#orders-src").hidden = !web;
-  const showWeb = web && ordersSrc === "web";
+  $("#orders-src").hidden = true;
+  const showWeb = web;
   $("#web-orders-box").hidden = !showWeb;
   $("#panel-orders-box").hidden = showWeb;
-  if (web) $("#new-order").hidden = showWeb;
+  if (web) $("#new-order").hidden = true;
   if (showWeb) return loadWebOrders();
   const status = orderFilter === "open" ? null : orderFilter;
   const { data, error } = await supabase.rpc("nexo_business_orders", { p_business: bizId(), p_status: status, p_limit: 200 });
@@ -1173,7 +1100,7 @@ async function editOrder(o) {
       + '<span class="stepper"><button type="button" class="btn btn-ghost btn-icon" data-minus="' + esc(id) + '">−</button><b class="num">' + c.qty + '</b><button type="button" class="btn btn-ghost btn-icon" data-plus="' + esc(id) + '">+</button></span></div>').join("")
       + '<div class="kv strong"><span>Total</span><span class="num">' + usd(total) + "</span></div>"
       + (comm ? '<div class="kv"><span>' + (mode === "admin" ? "Comisión gestora" : "Tu comisión") + '</span><span class="num">' + dollars(comm) + "</span></div>" : "") + "</div>"
-      + '<p class="t-xs muted">"Extra": producto de más que la clienta añadió en tienda; su comisión se reparte entre gestora, negocio y dependienta.</p>'
+      + '<p class="t-xs muted">Extra = lo que la clienta añadió en la tienda. La comisión se reparte.</p>'
       : '<p class="t-sm muted">Busca y toca los productos para añadirlos.</p>';
     form.querySelectorAll("[data-plus]").forEach(b => (b.onclick = () => { cart.get(b.dataset.plus).qty++; renderCart(); }));
     form.querySelectorAll("[data-minus]").forEach(b => (b.onclick = () => { const c = cart.get(b.dataset.minus); if (--c.qty < 1) cart.delete(b.dataset.minus); renderCart(); }));
@@ -1221,7 +1148,7 @@ async function loadWebGestoras() {
   $("#people").innerHTML = '<p class="muted">Cargando gestoras de la web…</p>';
   try {
     const [g, p] = await Promise.all([panelWeb({ action: "gestoras" }), panelWeb({ action: "payouts" })]);
-    webGestoras = g.gestoras;
+    webGestoras = g.gestoras.filter(x => !x.test);
     renderWebPayouts(p.payouts);
     const pending = webGestoras.filter(x => x.status === "pending").length;
     if (!pending && webGFilter === "pending") webGFilter = "approved";
@@ -1338,7 +1265,9 @@ function renderWebPayouts(list) {
       + '<span style="display:flex;gap:6px">' + (r.status === "requested" ? '<button type="button" class="btn btn-secondary" data-po="' + r.id + '" data-do="approve">Aprobar</button>' : '<button type="button" class="btn btn-primary" data-po="' + r.id + '" data-do="pay">Pagado</button>')
       + '<button type="button" class="btn btn-ghost" data-po="' + r.id + '" data-do="reject">Rechazar</button></span></div>').join("");
   box.querySelectorAll("[data-po]").forEach(b => (b.onclick = async () => {
-    const reference = b.dataset.do === "pay" ? (window.prompt("Referencia del pago (opcional):") ?? "") : "";
+    if (b.dataset.do === "reject" && !confirm("¿Rechazar este pago?")) return;
+    const reference = b.dataset.do === "pay" ? window.prompt("Referencia del pago (opcional). Toca Aceptar para marcarlo pagado:", "") : "";
+    if (reference === null) return;
     b.disabled = true;
     try { await panelWeb({ action: "payout_action", id: Number(b.dataset.po), do: b.dataset.do, reference }); toast("Hecho", "ok"); await loadWebGestoras(); }
     catch (e) { b.disabled = false; toast(e.message, "bad"); }
@@ -1369,9 +1298,11 @@ async function loadTeam() {
     + requests.map(r => '<div class="row-item"><button type="button" class="row-btn" data-payout="' + r.id + '"><span class="grow"><span class="title">' + esc(r.person) + '</span><span class="meta">Pidió el ' + esc(when(r.requestedAt)) + " · ≈ " + cup(Number(r.amountUsd) * Number(current?.rates?.CUP ?? 0)) + '</span></span><span class="price-tag">' + dollars(r.amountUsd) + "</span></button></div>").join("");
   box.querySelectorAll("[data-payout]").forEach(b => (b.onclick = () => payPayout(requests.find(r => r.id === b.dataset.payout))));
   renderPeople();
-  const base = location.origin + location.pathname + "?unirme=" + encodeURIComponent(bizId());
-  $("#join-links").innerHTML = '<h2 class="t-lg">Enlaces de registro</h2><p class="t-sm muted">Mándalos por WhatsApp. Cada persona crea su cuenta, pone sus datos de cobro y tú la apruebas aquí.</p>'
-    + [["gestora", "Gestoras"], ["dependienta", "Dependientas"]].map(([k, l]) => '<div class="row-item"><span class="grow"><span class="title">' + l + '</span><span class="meta">' + esc(base + "&como=" + k) + '</span></span><button type="button" class="btn btn-ghost btn-icon" data-copy-link="' + esc(base + "&como=" + k) + '" aria-label="Copiar">' + icon("copy", "sm") + "</button></div>").join("");
+  // Enlace para registrarse: las gestoras en la web; las dependientas aquí. Los mensajeros tienen el suyo en su pestaña.
+  const link = teamKind === "web" ? ["Para que se registre una gestora", "https://casaviva.company/registro-gestora/"]
+    : teamKind === "staff" ? ["Para que se registre una dependienta", location.origin + location.pathname + "?unirme=" + encodeURIComponent(bizId()) + "&como=dependienta"] : null;
+  $("#join-links").hidden = !link;
+  $("#join-links").innerHTML = link ? '<div class="row-item"><span class="grow"><span class="title">' + link[0] + '</span><span class="meta">' + esc(link[1]) + '</span></span><button type="button" class="btn btn-ghost btn-icon" data-copy-link="' + esc(link[1]) + '" aria-label="Copiar enlace">' + icon("copy", "sm") + "</button></div>" : "";
   document.querySelectorAll("[data-copy-link]").forEach(b => (b.onclick = async () => { await navigator.clipboard.writeText(b.dataset.copyLink); toast("Enlace copiado", "ok"); }));
 }
 
@@ -1725,7 +1656,7 @@ function breakdown(c, priceUsd) {
     ? '<p class="t-xs muted">Producto extra de clienta de gestora: gestora ' + dollars(c.comm * s.split_gestor_pct / 100) + " · negocio " + dollars(c.comm * s.split_business_pct / 100) + " · dependienta " + dollars(c.comm * s.split_staff_pct / 100) + "</p>" : "";
   return '<div class="breakdown">'
     + line("Compra", dollars(c.purchase)) + line("Flete", dollars(c.freight))
-    + line("Gastos fijos por unidad", dollars(c.fixed)) + line("Contingencia " + pct1(s.contingency_pct), dollars(c.contingency))
+    + line("Gastos fijos por unidad", dollars(c.fixed)) + line("Imprevistos " + pct1(s.contingency_pct), dollars(c.contingency))
     + line("Costo total", dollars(c.total), "strong")
     + line("Comisión gestora", dollars(c.comm))
     + (priceUsd != null ? line("Dependienta " + pct1(c.staff), dollars(c.staffUsd)) + line(s.other_label + " " + pct1(s.other_pct), dollars(c.otherUsd)) : "")
@@ -1747,7 +1678,7 @@ function costSection(p) {
     + '<div class="grid-2"><label class="field">Precio de compra<input name="amount" inputmode="decimal" required placeholder="0,00" value="' + esc(k?.purchaseAmount ?? "") + '"></label>'
     + '<label class="field">Moneda<select name="currency">' + COST_CURRENCIES.map(c => '<option' + ((k?.purchaseCurrency ?? "USD") === c ? " selected" : "") + ">" + c + "</option>").join("") + "</select></label></div>"
     + '<label class="field" data-rate-field>Tasa de la compra<input name="rate" inputmode="decimal" value="' + esc(k && k.purchaseCurrency !== "USD" ? k.purchaseRate : "") + '"></label>'
-    + '<div class="grid-2"><label class="field">Flete por unidad (USD)<input name="freight" inputmode="decimal" placeholder="0,00" value="' + esc(k?.freightUsd ?? "") + '"></label>'
+    + '<div class="grid-2"><label class="field">Transporte por unidad (USD)<input name="freight" inputmode="decimal" placeholder="0,00" value="' + esc(k?.freightUsd ?? "") + '"></label>'
     + '<label class="field">Comisión gestora (USD)<input name="commission" inputmode="decimal" placeholder="' + esc(defComm) + '" value="' + esc(k?.commissionUsd ?? "") + '"></label></div>'
     + '<label class="field">% para la dependienta<input name="staff" inputmode="decimal" placeholder="' + esc(pct1(s.staff_pct)) + ' (general)" value="' + esc(k?.staffPct ?? "") + '"></label>'
     + '<label class="field">Dueño de la mercancía<select name="owner" data-owner' + (k ? "" : " disabled") + '><option value="">Casa Viva</option></select></label>'
@@ -1755,7 +1686,7 @@ function costSection(p) {
     + '<div data-breakdown></div>'
     + '<p class="msg" data-cost-msg role="status"></p>'
     + '<button type="submit" class="btn btn-secondary btn-block">Guardar costo</button>'
-    + '<p class="t-xs muted">El precio de venta lo manda la web: cámbialo allí si quieres el sugerido.</p>'
+    + '<p class="t-xs muted">Para usar el precio sugerido, cámbialo arriba en «Precio USD» y guarda.</p>'
     + "</form>";
 }
 
@@ -1863,8 +1794,8 @@ let clients = [], cliTimer = null, cliGestoras = null;
 async function loadClients() {
   if (!cliGestoras) {
     try {
-      cliGestoras = (await panelWeb({ action: "gestoras" })).gestoras.filter(g => g.status === "approved");
-      $("#cli-owner").innerHTML = '<option value="">Todas las gestoras</option><option value="-1">Sin gestora (de la tienda)</option>'
+      cliGestoras = (await panelWeb({ action: "gestoras" })).gestoras.filter(g => g.status === "approved" && !g.test);
+      $("#cli-owner").innerHTML = '<option value="">Todas las gestoras</option><option value="-1">De la tienda (sin gestora)</option>'
         + cliGestoras.map(g => '<option value="' + g.id + '">' + esc(g.name) + "</option>").join("");
     } catch { cliGestoras = []; }
   }
@@ -1873,14 +1804,18 @@ async function loadClients() {
   catch (e) { $("#clients").innerHTML = '<p class="muted">No se pudo cargar: ' + esc(e.message) + "</p>"; return; }
   renderClients();
 }
-function renderClients() {
+function cliVisible() {
   const owner = $("#cli-owner").value;
-  const rows = clients.filter(c => !owner || (owner === "-1" ? !c.ownerId : String(c.ownerId) === owner));
-  $("#cli-note").textContent = rows.length + " clientes" + (owner ? "" : " · " + clients.filter(c => c.ownerId).length + " traídos por gestoras");
+  return clients.filter(c => !owner || (owner === "-1" ? !c.ownerId : String(c.ownerId) === owner));
+}
+function renderClients() {
+  const rows = cliVisible();
+  const byG = clients.filter(c => c.ownerId).length;
+  $("#cli-note").textContent = rows.length + " clientes" + (!$("#cli-owner").value && byG ? " · " + byG + " traídos por gestoras" : "");
   $("#clients").innerHTML = rows.length ? rows.slice(0, 300).map(c => {
     const wa = c.optOut ? null : waLink(c.phone, "Hola" + (c.name ? " " + c.name.split(" ")[0] : "") + ", te escribe Casa Viva. ");
     return '<div class="row-item"><button type="button" class="row-btn grow" data-cli="' + c.id + '"><span class="grow"><span class="title">' + esc(c.name || "Sin nombre") + '</span><span class="meta">'
-      + esc(c.phone) + " · " + (c.owner ? "de " + esc(c.owner) : "de la tienda") + " · " + (c.orders ? c.orders + " compra" + (c.orders > 1 ? "s" : "") + (c.spent ? " · $" + c.spent : "") : "sin compras") + (c.note ? " · " + esc(c.note) : "") + "</span></span></button>"
+      + esc(c.phone) + " · " + (c.owner ? "de " + esc(c.owner) : "de la tienda") + " · " + (c.orders ? c.orders + " compra" + (c.orders > 1 ? "s" : "") + (c.spent ? " · " + usd2(c.spent) : "") : "sin compras") + (c.note ? " · " + esc(c.note) : "") + "</span></span></button>"
       + (wa ? '<a class="btn btn-secondary" target="_blank" rel="noopener" href="' + esc(wa) + '">WhatsApp</a>' : '<span class="badge badge-calm">No escribir</span>') + "</div>";
   }).join("") + (rows.length > 300 ? '<p class="muted">Mostrando 300. Usa el buscador.</p>' : "") : '<p class="muted">Todavía no hay clientes. Se llenan solos con los pedidos de la web, o añádelos con “Añadir”.</p>';
   document.querySelectorAll("#clients [data-cli]").forEach(b => (b.onclick = () => editClient(clients.find(c => String(c.id) === b.dataset.cli))));
@@ -1912,7 +1847,7 @@ $("#cli-q").oninput = () => { clearTimeout(cliTimer); cliTimer = setTimeout(load
 $("#cli-csv").onclick = () => {
   const cell = v => '"' + String(v ?? "").replace(/"/g, '""') + '"';
   const rows = [["Nombre", "Teléfono", "Gestora", "Compras", "Gastado USD", "Última compra", "Nota", "No escribir"]]
-    .concat(clients.map(c => [c.name, c.phone, c.owner ?? "Tienda", c.orders, String(c.spent).replace(".", ","), c.lastOrderAt ?? "", c.note, c.optOut ? "sí" : ""]));
+    .concat(cliVisible().map(c => [c.name, c.phone, c.owner ?? "Tienda", c.orders, String(c.spent).replace(".", ","), c.lastOrderAt ?? "", c.note, c.optOut ? "sí" : ""]));
   const a = document.createElement("a");
   a.href = URL.createObjectURL(new Blob(["﻿" + rows.map(r => r.map(cell).join(";")).join("\r\n")], { type: "text/csv;charset=utf-8" }));
   a.download = "clientes-casa-viva.csv"; a.click();
@@ -1985,9 +1920,9 @@ function renderCostVars() {
     + '<div class="verdict"><div><span>Gastos fijos al mes</span><b class="num">' + dollars(sh.fixedUsd) + '</b></div><div><span>÷ unidades al mes</span><b class="num">' + n2(sh.units).replace(/,00$/, "") + '</b></div><div><span>= por unidad</span><b class="num">' + dollars(sh.fixedPerUnit) + "</b></div></div>"
     + '<form class="form" id="vars-form">'
     + '<div class="grid-2"><label class="field">Margen objetivo %<input name="target_margin_pct" inputmode="decimal" value="' + esc(s.target_margin_pct) + '"></label>'
-    + '<label class="field">Contingencia %<input name="contingency_pct" inputmode="decimal" value="' + esc(s.contingency_pct) + '"></label></div>'
-    + '<div class="grid-2"><label class="field">Nombre del cargo<input name="other_label" maxlength="40" value="' + esc(s.other_label) + '"></label>'
-    + '<label class="field">Cargo % del precio<input name="other_pct" inputmode="decimal" value="' + esc(s.other_pct) + '"></label></div>'
+    + '<label class="field">Imprevistos %<input name="contingency_pct" inputmode="decimal" value="' + esc(s.contingency_pct) + '"></label></div>'
+    + '<div class="grid-2"><label class="field">Otro gasto (nombre)<input name="other_label" maxlength="40" value="' + esc(s.other_label) + '"></label>'
+    + '<label class="field">Otro gasto, % del precio<input name="other_pct" inputmode="decimal" value="' + esc(s.other_pct) + '"></label></div>'
     + '<div class="field">Comisión de la gestora (si el producto no tiene la suya)' + seg("commission_mode", s.commission_mode, [["fixed", "Fija en USD"], ["percent", "% del precio"]])
     + '<input name="commission_value" inputmode="decimal" aria-label="Valor de la comisión" value="' + esc(s.commission_value) + '"></div>'
     + '<label class="field">% de la dependienta (general)<input name="staff_pct" inputmode="decimal" value="' + esc(s.staff_pct) + '"></label>'
@@ -1999,7 +1934,7 @@ function renderCostVars() {
     + '<div class="field">Unidades vendidas al mes' + seg("units_mode", s.units_mode, [["auto", "Según las ventas"], ["manual", "Fijo"]])
     + '<input name="manual_units" inputmode="numeric" aria-label="Unidades al mes" value="' + esc(s.manual_units) + '">'
     + '<span class="t-xs muted">' + (sh.unitsFromSales ? "Usando " + n2(sh.autoUnits) + " unidades/mes de las ventas reales." : "Las ventas reales se usan cuando haya 30 días de historial (hoy " + sh.salesDays + "). Mientras, se usa el número fijo.") + "</span></div>"
-    + '<label class="field">Redondear el sugerido a<select name="rounding">' + [0.01, 0.1, 0.25, 0.5, 1, 5].map(v => '<option value="' + v + '"' + (Number(s.rounding) === v ? " selected" : "") + ">$" + n2(v) + "</option>").join("") + "</select></label>"
+    + '<label class="field">Redondear el precio sugerido a<select name="rounding">' + [0.01, 0.1, 0.25, 0.5, 1, 5].map(v => '<option value="' + v + '"' + (Number(s.rounding) === v ? " selected" : "") + ">$" + n2(v) + "</option>").join("") + "</select></label>"
     + '<p class="msg" data-msg role="status"></p>'
     + '<button type="submit" class="btn btn-primary btn-block">Guardar variables</button>'
     + '<p class="t-xs muted">Se guarda quién cambió qué y cuándo. Al guardar, todas las fichas se recalculan solas.</p></form>';
@@ -2070,75 +2005,6 @@ function editFixedCost(g) {
   };
 }
 
-// ---------- Web: quién manda en el precio y publicar en casaviva.company ----------
-async function renderWebPanel() {
-  const box = $("#web-panel");
-  if (!isOwner()) { box.hidden = true; return; }
-  const { data, error } = await supabase.rpc("nexo_business_price_authority", { p_business: current.businessId });
-  if (error || data?.error) { box.hidden = true; return; }
-  box.hidden = false;
-  const nexo = data.priceAuthority === "nexo";
-  const last = data.lastPublish;
-  box.innerHTML = '<div class="kv"><h2 class="t-lg">Web · casaviva.company</h2>' + (last ? '<span class="t-xs muted">Publicado ' + esc(when(last.at)) + "</span>" : "") + "</div>"
-    + '<div class="field">Quién manda en el precio' + '<div class="seg" data-auth><button type="button" data-v="source" aria-pressed="' + !nexo + '">BizneCubano</button><button type="button" data-v="nexo" aria-pressed="' + nexo + '">Casa Viva Core</button></div></div>'
-    + '<p class="t-xs muted">' + (nexo ? "Los precios se cambian aquí en Core y se publican en la web. La importación ya no los toca." : "Hoy la importación de cada hora copia los precios de BizneCubano.") + "</p>"
-    + '<button type="button" class="btn btn-secondary btn-block" data-web-plan>' + icon("refresh", "sm") + "Ver cambios para la web</button>";
-  box.querySelectorAll("[data-auth] button").forEach(b => (b.onclick = async () => {
-    if ((b.dataset.v === "nexo") === nexo) return;
-    const text = b.dataset.v === "nexo"
-      ? "Desde ahora los precios mandan en Casa Viva Core. Los cambios de precio que se hagan en BizneCubano ya NO llegarán aquí. ¿Seguir?"
-      : "Los precios volverán a copiarse de BizneCubano cada hora y se perderán los que cambiaste en Core. ¿Seguir?";
-    if (!confirm(text)) return;
-    const { data: r, error: e } = await supabase.rpc("nexo_business_price_authority", { p_business: current.businessId, p_value: b.dataset.v });
-    if (e || r?.error) return toast("No se cambió: " + (e?.message ?? r.error), "bad");
-    toast(b.dataset.v === "nexo" ? "Ahora el precio lo manda Casa Viva Core" : "El precio vuelve a mandarlo BizneCubano", "ok");
-    void renderWebPanel();
-  }));
-  box.querySelector("[data-web-plan]").onclick = openWebPlan;
-}
-
-async function webCall(mode, body) {
-  const { data: { session } } = await supabase.auth.getSession();
-  const r = await fetch("https://viwwlriwlwodrfukbgbj.supabase.co/functions/v1/nexo-woo-sync?business=" + encodeURIComponent(current.businessId) + "&mode=" + mode,
-    { method: "POST", headers: { authorization: "Bearer " + (session?.access_token ?? ""), "content-type": "application/json" }, body: body ? JSON.stringify(body) : undefined });
-  const out = await r.json().catch(() => ({}));
-  if (!r.ok) throw new Error(out.detail ?? out.error ?? "HTTP " + r.status);
-  return out;
-}
-
-async function openWebPlan() {
-  const sheet = openSheet('<div class="sheet-head"><h2>Cambios para la web</h2><button type="button" class="btn btn-ghost" data-close>Cerrar</button></div><div data-body><p class="muted">Comparando Core con la web… puede tardar un minuto.</p></div>', "Cambios para la web");
-  const body = sheet.el.querySelector("[data-body]");
-  let plan;
-  try { plan = await webCall("plan"); } catch (e) { body.innerHTML = '<p class="msg" data-tone="bad">No se pudo leer la web: ' + esc(e.message) + "</p>"; return; }
-  if (!plan.changes.length) { body.innerHTML = '<p class="muted">La web ya coincide con Core en los ' + plan.matched + " productos enlazados.</p>"; return; }
-  const fmtP = v => v === "" || v == null ? "—" : "$" + n2(v);
-  body.innerHTML = '<p class="t-sm muted">' + plan.matched + " productos enlazados por SKU. Marca lo que quieres publicar.</p>"
-    + '<label class="check"><input type="checkbox" data-all checked> Todo (' + plan.changes.length + ")</label>"
-    + '<div class="web-list">' + plan.changes.map(c => '<label class="row-item web-change"><input type="checkbox" data-key="' + esc(c.key) + '" checked><span class="grow"><span class="title">' + esc(c.name) + '</span><span class="meta">'
-      + (c.price ? "Precio " + fmtP(c.price.from) + " → <b>" + fmtP(c.price.to) + "</b>" : "") + (c.price && c.stock ? " · " : "") + (c.stock ? "Stock " + (c.stock.from ?? "—") + " → <b>" + c.stock.to + "</b>" : "") + "</span></span></label>").join("") + "</div>"
-    + '<p class="msg" data-msg role="status"></p><button type="button" class="btn btn-primary btn-xl btn-block" data-publish>Publicar en la web</button>';
-  const boxes = () => [...body.querySelectorAll("[data-key]")];
-  body.querySelector("[data-all]").onchange = e => boxes().forEach(b => (b.checked = e.target.checked));
-  body.querySelector("[data-publish]").onclick = async () => {
-    const keys = boxes().filter(b => b.checked).map(b => b.dataset.key);
-    const msg = body.querySelector("[data-msg]");
-    if (!keys.length) { msg.textContent = "Marca al menos un cambio."; msg.dataset.tone = "bad"; return; }
-    if (!confirm("¿Publicar " + keys.length + " cambios en casaviva.company?")) return;
-    const btn = body.querySelector("[data-publish]");
-    btn.disabled = true; btn.textContent = "Publicando…";
-    try {
-      const r = await webCall("apply", { keys });
-      sheet.close();
-      toast("Web actualizada: " + r.updated + " de " + r.requested + (r.failed.length ? " · " + r.failed.length + " con error" : ""), r.failed.length ? "bad" : "ok");
-      void renderWebPanel();
-    } catch (e) {
-      msg.textContent = "No se publicó: " + e.message; msg.dataset.tone = "bad";
-      btn.disabled = false; btn.textContent = "Publicar en la web";
-    }
-  };
-}
-
 // ---------- Necesita tu atención: filas del Excel por confirmar ----------
 let review = null;
 async function loadAttention() {
@@ -2148,10 +2014,10 @@ async function loadAttention() {
   review = data;
   const pending = (data.items ?? []).filter(i => i.status === "needs_review").length;
   const missing = (data.items ?? []).filter(i => i.status === "not_found").length;
-  const html = pending || missing
-    ? '<button type="button" class="attention-btn" data-open-review><b>Necesita tu atención</b><span>' + (pending ? pending + " productos del Excel por confirmar" : "") + (pending && missing ? " · " : "") + (missing ? missing + " no están en la web" : "") + "</span>" + icon("chevron", "sm") + "</button>"
+  const html = pending
+    ? '<button type="button" class="attention-btn" data-open-review><b>Costos por revisar</b><span>' + pending + " de tu lista no sabemos de qué producto son</span>" + icon("chevron", "sm") + "</button>"
     : "";
-  for (const id of ["#attention-summary", "#attention-products"]) {
+  for (const id of ["#attention-products"]) {
     const box = $(id);
     box.hidden = !html;
     box.innerHTML = html;
@@ -2161,10 +2027,10 @@ async function loadAttention() {
 
 function openReview() {
   let tab = "needs_review";
-  const sheet = openSheet('<div class="sheet-head"><h2>Necesita tu atención</h2><button type="button" class="btn btn-ghost" data-close>Cerrar</button></div>'
-    + '<p class="t-sm muted">Costos del Excel que no se pudieron enlazar solos. Confirma el producto y su costo, su comisión y su dueña se guardan en la ficha.</p>'
-    + '<div class="seg" data-rtab><button type="button" data-v="needs_review" aria-pressed="true">Por confirmar</button><button type="button" data-v="not_found" aria-pressed="false">No están en la web</button></div>'
-    + '<div data-rlist></div>', "Necesita tu atención");
+  const sheet = openSheet('<div class="sheet-head"><h2>Costos por revisar</h2><button type="button" class="btn btn-ghost" data-close>Cerrar</button></div>'
+    + '<p class="t-sm muted">Estos costos venían de tu lista y no sabemos de qué producto son. Toca «Sí, es este», elige el producto, o «Ignorar» si ya no lo vendes.</p>'
+    + '<div class="seg" data-rtab><button type="button" data-v="needs_review" aria-pressed="true">Por revisar</button><button type="button" data-v="not_found" aria-pressed="false">No encontrados</button></div>'
+    + '<div data-rlist></div>', "Costos por revisar");
   const el = sheet.el;
   const products = (catalog ?? []).filter(p => p.active);
   const groupName = p => (p.name ?? "").split(" — ")[0];
@@ -2172,7 +2038,7 @@ function openReview() {
     const items = (review.items ?? []).filter(i => i.status === tab);
     el.querySelector("[data-rlist]").innerHTML = items.length ? items.map(i => '<div class="review-item" data-id="' + i.id + '">'
       + '<div class="kv"><span class="title">' + esc(i.excelName) + '</span><span class="price-tag">' + dollars(i.purchaseUsd) + "</span></div>"
-      + '<span class="meta">' + esc(i.reason ?? "") + (i.owner ? " · de " + esc(i.owner) : "") + (i.commissionUsd ? " · comisión " + dollars(i.commissionUsd) : "") + " · fila " + i.row + " del Excel</span>"
+      + '<span class="meta">' + esc(i.reason ?? "") + (i.owner ? " · de " + esc(i.owner) : "") + (i.commissionUsd ? " · comisión " + dollars(i.commissionUsd) : "") + "</span>"
       + (i.productName ? '<span class="meta">Sugerido: <b>' + esc(i.productName) + "</b></span>" : "")
       + '<div class="review-actions">' + (i.productId ? '<button type="button" class="btn btn-primary" data-ok>Sí, es este</button>' : "")
       + '<button type="button" class="btn btn-secondary" data-pick>Elegir producto</button><button type="button" class="btn btn-ghost" data-skip>Ignorar</button></div>'
@@ -2188,7 +2054,7 @@ function openReview() {
         render(); costSheet = null; void loadAttention();
       };
       row.querySelector("[data-ok]")?.addEventListener("click", () => resolve(item.productId));
-      row.querySelector("[data-skip]").onclick = () => resolve(null);
+      row.querySelector("[data-skip]").onclick = () => { if (confirm("¿Ignorar este costo? No se guardará en ningún producto.")) void resolve(null); };
       row.querySelector("[data-pick]").onclick = () => {
         const box = row.querySelector("[data-picker]");
         box.hidden = !box.hidden;
@@ -2233,6 +2099,27 @@ async function renderReceipts(box) {
   }));
 }
 
+const FN = "https://viwwlriwlwodrfukbgbj.supabase.co/functions/v1/";
+let curruReady = null; // se pregunta una vez a nexo-curru si la lectura de facturas está activada
+
+// Foto: dos botones grandes, cámara o galería (en Android, capture solo abre la cámara).
+const HIDE_INPUT = 'style="position:absolute;width:1px;height:1px;opacity:0;pointer-events:none"';
+function photoPicker(label, current = "") {
+  return '<div class="field"><span>' + esc(label) + '</span>'
+    + '<img class="receipt-photo" data-preview alt=""' + (current ? ' src="' + esc(current) + '"' : " hidden") + ' onerror="this.hidden=true">'
+    + '<div class="grid-2"><label class="btn btn-secondary">📷 Hacer foto<input type="file" accept="image/*" capture="environment" data-photo ' + HIDE_INPUT + '></label>'
+    + '<label class="btn btn-secondary">🖼️ Galería<input type="file" accept="image/*" data-photo ' + HIDE_INPUT + "></label></div></div>";
+}
+function wirePhotoPicker(form, onFile) {
+  form.querySelectorAll("[data-photo]").forEach(input => (input.onchange = async () => {
+    const f = input.files?.[0];
+    if (!f) return;
+    const ok = await onFile(f);
+    const prev = form.querySelector("[data-preview]");
+    if (ok && prev) { prev.src = URL.createObjectURL(f); prev.hidden = false; }
+  }));
+}
+
 // Shrinks a camera photo to a ~150 KB JPEG data URL.
 function shrinkPhoto(file) {
   return new Promise((resolve, reject) => {
@@ -2256,12 +2143,11 @@ async function receiveSheet(done) {
   const partners = mode === "admin" ? ((peopleCache ?? (await loadPeople())) ?? []).filter(p => p.kind === "partner" && p.status === "active") : [];
   const lines = [];
   let invoicePhoto = null, aiUsed = false;
+  if (curruReady === null) curruReady = await fetch(FN + "nexo-curru", { method: "POST", headers: { "content-type": "application/json" }, body: '{"check":true}' }).then(r => r.json()).then(r => r.configured === true).catch(() => false);
   const sheet = openSheet('<div class="sheet-head"><h2>Recibir mercancía</h2><button type="button" class="btn btn-ghost" data-close>Cerrar</button></div>'
     + '<form class="form">'
-    + '<label class="field">Foto de la factura<input type="file" accept="image/*" capture="environment" data-photo></label>'
-    + '<img class="receipt-photo" data-preview hidden alt="">'
-    + '<button type="button" class="btn btn-secondary btn-block" data-curru disabled>✨ Leer la factura con Curru</button>'
-    + '<p class="t-xs muted" data-curru-msg></p>'
+    + photoPicker("Foto de la factura (opcional)")
+    + (curruReady ? '<button type="button" class="btn btn-secondary btn-block" data-curru>✨ Que Curru lea la factura</button><p class="msg" data-curru-msg role="status"></p>' : "")
     + '<div class="grid-2"><label class="field">Proveedor<input name="supplier" required maxlength="80" placeholder="Dayra, Ensueño…"></label>'
     + (partners.length ? '<label class="field">Es mercancía de<select name="partner"><option value="">Casa Viva</option>' + partners.map(p => '<option value="' + p.id + '">' + esc(p.fullName) + "</option>").join("") + "</select></label>" : "<span></span>") + "</div>"
     + '<label class="search-field"><span>' + icon("search") + '</span><input data-q type="search" placeholder="Añadir producto a mano"></label>'
@@ -2279,7 +2165,7 @@ async function receiveSheet(done) {
       + (l.productId ? "" : '<select data-fix><option value="">— elegir —</option>' + items.filter(p => !l.readName || p.name.toLowerCase().includes(l.readName.split(" ")[0].toLowerCase())).slice(0, 30).map(p => '<option value="' + esc(p.productId) + '">' + esc(p.name) + "</option>").join("") + "</select>")
       + '<div class="grid-3"><label class="field t-sm">Cantidad<input data-qty inputmode="numeric" value="' + l.quantity + '"></label><label class="field t-sm">Costo c/u<input data-cost inputmode="decimal" value="' + esc(l.unitCost ?? "") + '"></label>'
       + '<label class="field t-sm">Moneda<select data-cur>' + ["USD", "CUP", "MLC"].map(c => "<option" + (l.currency === c ? " selected" : "") + ">" + c + "</option>").join("") + "</select></label></div></div>").join("")
-      + (Number.isFinite(usdTotal) ? '<div class="kv strong"><span>Total</span><span class="num">' + dollars(usdTotal) + "</span></div>" : "") + "</div>" : '<p class="t-sm muted">Haz la foto y pulsa «Leer con Curru», o añade los productos a mano.</p>';
+      + (Number.isFinite(usdTotal) ? '<div class="kv strong"><span>Total</span><span class="num">' + dollars(usdTotal) + "</span></div>" : "") + "</div>" : "";
     form.querySelectorAll(".recv-line").forEach(row => {
       const l = lines[Number(row.dataset.i)];
       row.querySelector("[data-del]").onclick = () => { lines.splice(lines.indexOf(l), 1); renderLines(); };
@@ -2295,27 +2181,28 @@ async function receiveSheet(done) {
     form.querySelectorAll("[data-add]").forEach(b => (b.onclick = () => { lines.push({ productId: b.dataset.add, quantity: 1, unitCost: null, currency: "USD" }); form.querySelector("[data-q]").value = ""; renderItems(); renderLines(); }));
   };
   form.querySelector("[data-q]").oninput = renderItems;
-  form.querySelector("[data-photo]").onchange = async e => {
-    const f = e.target.files?.[0];
-    if (!f) return;
-    invoicePhoto = await shrinkPhoto(f);
-    const prev = form.querySelector("[data-preview]");
-    prev.src = invoicePhoto; prev.hidden = false;
-    form.querySelector("[data-curru]").disabled = false;
-  };
-  form.querySelector("[data-curru]").onclick = async () => {
+  wirePhotoPicker(form, async f => {
+    try { invoicePhoto = await shrinkPhoto(f); return invoicePhoto; }
+    catch { invoicePhoto = null; toast("Esa foto no se pudo abrir. Prueba con otra o haz una nueva.", "bad"); return null; }
+  });
+  const curru = form.querySelector("[data-curru]");
+  if (curru) curru.onclick = async () => {
     const msg = form.querySelector("[data-curru-msg]");
-    msg.textContent = "Curru está leyendo la factura…";
-    const { data: { session } } = await supabase.auth.getSession();
-    const r = await fetch("https://viwwlriwlwodrfukbgbj.supabase.co/functions/v1/nexo-curru", { method: "POST",
-      headers: { authorization: "Bearer " + (session?.access_token ?? ""), "content-type": "application/json" }, body: JSON.stringify({ business: bizId(), image: invoicePhoto }) });
-    const out = await r.json().catch(() => ({}));
-    if (!r.ok) { msg.textContent = out.error === "ai_not_configured" ? "Curru aún no está activada en la app. Añade los productos a mano; la foto se guarda igual." : "Curru no pudo leerla. Añade los productos a mano."; return; }
-    aiUsed = true;
-    if (out.supplier && !form.elements.supplier.value) form.elements.supplier.value = out.supplier;
-    for (const l of out.lines) lines.push({ productId: l.productId, readName: l.name, quantity: l.quantity, unitCost: l.unitCost, currency: l.currency });
-    msg.textContent = "Curru leyó " + out.lines.length + " productos" + (out.total ? " · total de la factura " + out.total : "") + (out.notes ? " · " + out.notes : "") + ". Revisa antes de confirmar.";
-    renderLines();
+    if (!invoicePhoto) { msg.textContent = "Primero haz o elige la foto de la factura."; msg.dataset.tone = "bad"; return; }
+    curru.disabled = true; msg.textContent = "Curru está leyendo la factura…"; msg.dataset.tone = "";
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      const r = await fetch(FN + "nexo-curru", { method: "POST",
+        headers: { authorization: "Bearer " + (session?.access_token ?? ""), "content-type": "application/json" }, body: JSON.stringify({ business: bizId(), image: invoicePhoto }) });
+      const out = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error("no pudo");
+      aiUsed = true;
+      if (out.supplier && !form.elements.supplier.value) form.elements.supplier.value = out.supplier;
+      for (const l of out.lines) lines.push({ productId: l.productId, readName: l.name, quantity: l.quantity, unitCost: l.unitCost, currency: l.currency });
+      msg.textContent = "Curru leyó " + out.lines.length + " productos. Revísalos antes de confirmar.";
+      renderLines();
+    } catch { msg.textContent = "Curru no pudo leerla. Añade los productos a mano."; msg.dataset.tone = "bad"; }
+    finally { curru.disabled = false; }
   };
   renderLines();
   form.onsubmit = async e => {
@@ -2325,11 +2212,12 @@ async function receiveSheet(done) {
     if (!lines.length) return bad("Añade al menos un producto.");
     if (lines.some(l => !l.productId)) return bad("Hay productos sin elegir (en rojo).");
     if (lines.some(l => l.unitCost == null)) return bad("Falta el costo de algún producto.");
-    msg.textContent = "Guardando…"; msg.dataset.tone = "";
+    const submit = form.querySelector("[type=submit]");
+    submit.disabled = true; msg.textContent = "Guardando…"; msg.dataset.tone = "";
     const { data, error } = await supabase.rpc("nexo_business_receive_goods", { p_business: bizId(), p_receipt: {
       supplierName: form.elements.supplier.value.trim(), partnerId: form.elements.partner?.value || null, photo: invoicePhoto, aiUsed,
       note: form.elements.note.value.trim(), lines: lines.map(l => ({ productId: l.productId, quantity: l.quantity, unitCost: l.unitCost, currency: l.currency })) } });
-    if (error || data?.error) return bad("No se guardó: " + (error?.message ?? data.message ?? data.error));
+    if (error || data?.error) { submit.disabled = false; return bad("No se guardó: " + (error?.message ?? data.message ?? data.error)); }
     sheet.close();
     toast("Entrada #" + data.number + " guardada: stock y costos al día", "ok");
     shop = null; costSheet = null;
@@ -2392,7 +2280,7 @@ const RATES = [
   ["CUP", "CUP", "Efectivo y transferencia (Transfermóvil, EnZona)", "CUP por 1 USD"],
   ["MLC", "MLC", "Transferencia a tarjeta MLC", "MLC por 1 USD"],
   ["USDT", "USDT", "Cripto", "USDT por 1 USD"],
-  ["ZELLE", "Zelle", "Recargo: USD que se envían por cada USD de precio", "USD Zelle por 1 USD"],
+  ["ZELLE", "Zelle", "Ej.: 1,05 = se cobra 5 % más por Zelle", "USD Zelle por 1 USD"],
 ];
 async function loadRates() {
   const { data, error } = await supabase.rpc("nexo_business_rates", { p_business: current.businessId });
@@ -2405,7 +2293,7 @@ async function loadRates() {
       ${owner
         ? `<span class="rate-row"><label class="rate-input"><input name="rate" inputmode="decimal" required aria-label="${esc(unit)}" value="${esc(by[key]?.perUsd ?? "")}" placeholder="—"><small>${key === "ZELLE" ? "×" : esc(key)}</small></label><button type="submit" class="btn btn-primary">Guardar</button></span>`
         : `<span class="t-lg num">${by[key] ? esc(by[key].perUsd) : "—"}</span>`}
-      <span class="when">${by[key] ? `Vigente desde ${esc(when(by[key].setAt))}` : "Sin fijar: esta forma de pago no se ofrece en el POS"}</span>
+      <span class="when">${by[key] ? `Vigente desde ${esc(when(by[key].setAt))}` : "Sin fijar: no aparece en la caja"}</span>
     </form>`).join("");
   document.querySelectorAll("#rates [data-rate]").forEach(form => {
     form.onsubmit = async e => {
@@ -2414,7 +2302,7 @@ async function loadRates() {
       if (!Number.isFinite(value) || value <= 0) return toast("Escribe una tasa mayor que cero.", "bad");
       const { data: saved, error: err } = await supabase.rpc("nexo_business_set_rate", { p_business: current.businessId, p_currency: form.dataset.rate, p_per_usd: value });
       if (err || saved?.error) return toast(`No se guardó: ${err?.message ?? saved.error}`, "bad");
-      toast(`${form.dataset.rate === "ZELLE" ? "Zelle" : form.dataset.rate} = ${value}. Los equipos la reciben al sincronizar.`, "ok");
+      toast(`${form.dataset.rate === "ZELLE" ? "Zelle" : form.dataset.rate} = ${value}. Las cajas la usan en unos minutos.`, "ok");
       await loadRates();
     };
   });
@@ -2422,15 +2310,20 @@ async function loadRates() {
 
 // ---------- Equipos ----------
 // Virtual devices the cloud uses (e.g. the website import) are not switched off here.
-const system = d => d.deviceId.endsWith("-web");
+const system = d => d.deviceId.endsWith("-web") || d.deviceId.endsWith("-panel");
 function renderDevices() {
   const owner = isOwner();
-  $("#devices").innerHTML = current.devices.map(d => `
+  // Solo las cajas de verdad: las internas (web, panel) no se tocan aquí; primero las activas.
+  const all = current.devices.filter(d => !system(d));
+  const row = d => `
     <div class="row-item device"><span class="avatar">${icon("device", "sm")}</span>
-      <span class="grow"><span class="title">${esc(d.label ?? d.deviceId)}</span><span class="meta">${esc(d.deviceId)} · última conexión ${esc(when(d.lastSeenAt))}</span></span>
-      <span class="actions">${system(d) ? `<span class="badge badge-calm">Sistema</span>` : d.active === false ? `<span class="badge badge-out">Desactivado</span>` : `<span class="badge badge-ok">Activo</span>`}
+      <span class="grow"><span class="title">${esc(d.label ?? d.deviceId)}</span><span class="meta">${d.lastSeenAt ? "Conectada " + esc(when(d.lastSeenAt)) : "Nunca se ha conectado"}</span></span>
+      <span class="actions">${d.active === false ? `<span class="badge badge-out">Desactivada</span>` : ""}
       ${owner && !system(d) ? `<button type="button" class="btn ${d.active === false ? "btn-secondary" : "btn-danger"}" data-toggle="${esc(d.deviceId)}" data-active="${d.active === false}">${d.active === false ? "Reactivar" : "Desactivar"}</button>` : ""}</span>
-    </div>`).join("") || `<p class="muted">Sin equipos.</p>`;
+    </div>`;
+  const on = all.filter(d => d.active !== false), off = all.filter(d => d.active === false);
+  $("#devices").innerHTML = (on.map(row).join("") || `<p class="muted">Ninguna caja activa todavía.</p>`)
+    + (off.length ? `<details><summary class="t-sm">Desactivadas (${off.length})</summary>${off.map(row).join("")}</details>` : "");
   document.querySelectorAll("#devices [data-toggle]").forEach(btn => {
     btn.onclick = async () => {
       const active = btn.dataset.active === "true";
@@ -2445,12 +2338,12 @@ function renderDevices() {
 $("#new-device").onsubmit = async e => {
   e.preventDefault();
   const f = new FormData(e.target);
-  const { data, error } = await supabase.rpc("nexo_business_create_device", { p_business: current.businessId, p_device_id: f.get("device"), p_label: f.get("label") });
+  const { data, error } = await supabase.rpc("nexo_business_owner_enrollment", { p_business: current.businessId, p_label: f.get("label") });
   if (error || data?.error) return toast(`No se creó: ${error?.message ?? data.error}`, "bad");
-  $("#device-key").innerHTML = `<div class="notice ok" style="flex-direction:column;align-items:stretch"><b>Equipo ${esc(data.deviceId)} creado</b>Copia esta clave en el POS (Más → Sincronización → Clave del dispositivo). Solo se muestra ahora.<code class="key">${esc(data.token)}</code><button type="button" class="btn btn-secondary" data-copy-key>${icon("copy", "sm")}Copiar clave</button></div>`;
-  $("#device-key [data-copy-key]").onclick = async () => { await navigator.clipboard.writeText(data.token); toast("Clave copiada", "ok"); };
+  const text = "Código para tu caja de Casa Viva: " + data.code + ". Abre la caja, ve a Más → Sincronización y escríbelo. Vale 48 horas y una sola vez.";
+  $("#device-key").innerHTML = `<div class="notice ok" style="flex-direction:column;align-items:stretch"><b>Código para ${esc(data.label)}</b><code class="key" style="font-size:1.6em;letter-spacing:.2em">${esc(data.code)}</code><span class="t-sm">En la caja: Más → Sincronización → escribir el código. Vale 48 horas y una sola vez.</span><button type="button" class="btn btn-secondary" data-copy-key>${icon("copy", "sm")}Copiar mensaje para WhatsApp</button></div>`;
+  $("#device-key [data-copy-key]").onclick = async () => { await navigator.clipboard.writeText(text); toast("Mensaje copiado", "ok"); };
   e.target.reset();
-  await load();
 };
 
 // ---------- Session ----------
@@ -2618,9 +2511,15 @@ if (authReturn.error) {
 } else if (authReturn.type === "signup" || authReturn.type === "email") {
   setTimeout(() => toast("Correo verificado ✅ Ya estás dentro", "ok"), 600);
 }
-$("#refresh").onclick = async () => { catalog = null; costSheet = null; await load(); toast("Actualizado", "ok"); };
+// Actualizar = volver a leer todo y la pantalla en la que está.
+$("#refresh").onclick = async () => {
+  catalog = null; costSheet = null; shop = null; peopleCache = null; cliGestoras = null; curruReady = null;
+  await load();
+  if (page !== "resumen") go(page);
+  toast("Actualizado", "ok");
+};
 
-$("#logout").onclick = () => supabase.auth.signOut();
+$("#logout").onclick = () => { if (confirm("¿Salir del panel? Para volver a entrar te llega un enlace por WhatsApp.")) void supabase.auth.signOut(); };
 
 // Fires once on load (INITIAL_SESSION) and on every sign-in/out.
 supabase.auth.onAuthStateChange((_event, session) => { void show(session); });

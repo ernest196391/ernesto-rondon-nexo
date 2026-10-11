@@ -38,7 +38,7 @@ Deno.serve(async req => {
   const { data: state } = await admin.rpc("nexo_business_stock_checkpoint", { p_business: BUSINESS });
   if (!state?.from) return json(200, { off: true }); // puente apagado hasta el cambio
 
-  const report = { toWeb: 0, toWebSkipped: 0, fromWeb: 0, messengers: 0, customers: 0, errors: [] as string[] };
+  const report = { toWeb: 0, toWebSkipped: 0, fromWeb: 0, messengers: 0, customers: 0, gestoras: null as unknown, errors: [] as string[] };
 
   // A. caja/panel → web
   try {
@@ -83,6 +83,14 @@ Deno.serve(async req => {
       .map((m: { id: number; name: string; phone: string; status: string }) => ({ wooId: m.id, name: m.name, phone: m.phone, status: m.status }));
     report.messengers = (await admin.rpc("nexo_business_sync_messengers", { p_business: BUSINESS, p_items: items })).data ?? 0;
   } catch (e) { report.errors.push("C: " + (e as Error).message); }
+
+  // C2. Gestoras de la web → caja (una sola lista; aprobada = activa; sin cuentas de prueba).
+  try {
+    const { gestoras } = await core("GET", "panel/gestoras");
+    const items = (gestoras ?? []).filter((g: { test?: boolean }) => !g.test)
+      .map((g: { id: number; name: string; phone: string; status: string }) => ({ wooId: g.id, name: g.name, phone: g.phone, status: g.status }));
+    if (items.length) report.gestoras = (await admin.rpc("nexo_business_sync_gestoras", { p_business: BUSINESS, p_items: items })).data;
+  } catch (e) { report.errors.push("C2: " + (e as Error).message); }
 
   // D. Clientes de la caja y del bot → lista de clientes de la web (una fila por teléfono).
   try {

@@ -29,9 +29,11 @@ Deno.serve(async req => {
   if (req.method === "OPTIONS") return new Response(null, { status: 204, headers: cors });
   if (req.method !== "POST") return json(405, { error: "method" });
   const key = Deno.env.get("OPENAI_API_KEY") ?? "";
+  const body = await req.json().catch(() => ({})) as { business?: string; image?: string; check?: boolean };
+  // El panel pregunta antes de mostrar el botón: si Curru no está activada, no se ofrece.
+  if (body.check) return json(200, { configured: key.length > 0 });
   if (!key) return json(503, { error: "ai_not_configured" });
 
-  const body = await req.json().catch(() => ({})) as { business?: string; image?: string };
   const business = body.business ?? "casa-viva";
   const image = body.image ?? "";
   if (!/^data:image\/(jpeg|png|webp);base64,/.test(image) || image.length > 1_500_000) return json(400, { error: "invalid_image" });
