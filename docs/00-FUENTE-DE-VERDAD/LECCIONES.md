@@ -23,3 +23,5 @@ Lectura obligatoria para cualquier agente antes de decir "ya funciona". Añade u
 | 2026-10-10 | Comisión de gestora siempre 0 en la caja | D36 se cargó en la web (Core) y no en NEXO; regla general en 0 | 1 |
 | 2026-10-10 | Tras "Crear cuenta" no había forma clara de entrar | Se construyó el paso, no el recorrido completo | 5 |
 | 2026-10-10 | Lennys pudo añadir 14 toallas con 3 en stock | La caja no comprobaba existencias al añadir al carrito | 7 |
+| 2026-10-11 | El trabajo nocturno habría fallado en silencio (401) | La clave de Vault no es la misma que el secreto de la función; solo se vio al ejecutar el trabajo de verdad | 1 |
+| 2026-10-11 | Copiar comisiones en la ficha de costo habría puesto costo 0 a productos | La comisión vivía dentro de una tabla que exige precio de compra | 5 |

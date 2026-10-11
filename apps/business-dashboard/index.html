@@ -718,6 +718,22 @@ document.querySelectorAll("#order-filter .chip").forEach(c => (c.onclick = () =>
 }));
 $("#new-order").onclick = () => editOrder(null);
 
+// D37: la comisión se cambia aquí y se copia a la web para que cobre lo mismo que la caja.
+async function pushCommission(productId) {
+  try {
+    const { data: { session } } = await supabase.auth.getSession();
+    const res = await fetch("https://viwwlriwlwodrfukbgbj.supabase.co/functions/v1/nexo-commission-push", {
+      method: "POST",
+      headers: { "content-type": "application/json", authorization: "Bearer " + (session?.access_token ?? "") },
+      body: JSON.stringify({ products: [productId] }),
+    });
+    const data = await res.json();
+    if (!res.ok || data.failed?.length) toast("Guardado en la caja, pero la web no se actualizó. Se reintentará esta noche.", "bad");
+  } catch {
+    toast("Guardado en la caja, pero la web no se actualizó. Se reintentará esta noche.", "bad");
+  }
+}
+
 // ---------- Pedidos de la web (casaviva.company), vía nexo-panel-web ----------
 let ordersSrc = "web", webFilter = "open", webPage = 1, webSearchTimer = null, webOrders = [];
 async function panelWeb(body) {
@@ -1451,6 +1467,7 @@ function wireCostSection(sheetEl, p) {
       p_cost: { purchaseAmount: v.amount, purchaseCurrency: v.currency, purchaseRate: v.currency === "USD" ? 1 : v.rate,
         freightUsd: v.freight, commissionUsd: v.commission, staffPct: v.staffPct } });
     if (error || data?.error) return bad("No se guardó: " + (error?.message ?? data.message ?? data.error));
+    void pushCommission(p.product_id);
     await loadCostSheet();
     dirty = false; update();
     msg.textContent = "Costo guardado"; msg.dataset.tone = "ok";

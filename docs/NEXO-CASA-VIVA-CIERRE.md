@@ -95,3 +95,10 @@ Regla: no confundir compilación con funcionamiento real.
 - Probado por Claude: sin sesión → 401; con la sesión de Ernesto (entrada por enlace de WhatsApp, de punta a punta) → resumen real (13 pedidos en octubre: 0 concretados, 4 por atender 75 USD, 9 perdidos 399 USD), lista y detalle; vista móvil 375 px; sesión cerrada al terminar. Publicado en Hostinger y Vercel (`dpl_AabrhTPWTB5LR2YWaD2MntV9tLro`).
 - **Aviso operativo:** 4 pedidos web "En espera" sin atender: #2820 (8-oct), #2827 (9-oct), #2881 (10-oct) y #2677 (prueba de Lennys como gestora).
 - Siguiente del panel único: acciones sobre el pedido (completar / cancelar con las reglas de Core), gestoras (pagos, solicitudes, prueba), comisión por producto editable y la misma en caja, inventario y precios en masa.
+
+### Comisiones: una sola fuente, el panel (D37) — 2026-10-11 03:00 UTC
+- Tabla nueva `nexo_business.product_commissions` (migración `20261011020000`): única fuente. La caja (`line_commission`), la ficha de costo y la ganancia leen de ella. Un desvío (`product_costs_route_commission`) manda ahí cualquier comisión escrita en la ficha vieja (p. ej. la revisión del Excel).
+- Cargadas 184 de la web (D36) + 13 que solo estaban en la nube = 197. Conflicto: alfombra cv-2457, web 6 / nube 2 → 6 (BizneCubano).
+- Simulación revertida: 2 toallas → 2,00 (1 fijo c/u); cv-2457 → 6,00; desvío OK.
+- `nexo-commission-push`: copia la comisión del panel a la web (`_cvd_commission_type=fixed`, `_cvd_commission_value`), variantes por `products/{padre}/variations/{id}`, comprueba lo guardado. Panel: al guardar una comisión se copia al momento. Copia completa cada noche (`pg_cron` 03:15 UTC, clave en Vault). Probada: 193 copiadas, 0 fallos.
+- Pendiente: los 21 productos con comisión "percent" en la web (ocultos) no se tocaron.
