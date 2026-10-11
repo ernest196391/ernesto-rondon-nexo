@@ -1,6 +1,6 @@
 # ESTADO — dónde va cada proyecto
 
-**Última actualización:** 2026-10-10 (fase 1 Casa Viva: incidencia de sobreventa en la caja; corrección en revisión, sin desplegar) (reparto Casa Viva + gestoras + voz clonada + comunidad; relevo en `docs/nexo-business/HANDOFF_2026-10-08_MENSAJERIA.md`).
+**Última actualización:** 2026-10-11 (fin de BizneCubano, panel único; ver sección I al final).
 Regla: el agente que termine un bloque de trabajo actualiza **su fila** y la fecha de arriba.
 
 Estados: **FOCO** (se trabaja ahora) · **ACTIVO** (funciona, solo mantenimiento) · **ESPERA** (bloqueado por algo externo) · **PAUSADO** (no se toca hasta que se cumpla su condición) · **POR CLASIFICAR** (Ernesto debe decir qué es).
@@ -162,3 +162,10 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
 **2026-10-10 04:00 UTC:** Caja (apps/business-pos): el carrito ya no deja añadir más unidades que las existencias conocidas por el equipo (aviso "Solo quedan N"). Falta compilar el nuevo instalador Windows/APK (no hay build en CI; se hace en la laptop de Ernesto) y enviarlo a Lennys, Zaymi y Nana. Web 3.13.27 (mejora #23) publicada. Fotos de BizneCubano ya en la caja (importación 03:50).
 
 **2026-10-10 04:45 UTC — Prueba guiada caja PC (Lennys):** sincronizar ✅, existencias ✅, venta ✅, devolución ✅. Fallo encontrado y arreglado en caja 1.0.3 (reloj de la PC adelantado → "Agotado" con 1 en stock). Instalador Windows ahora se compila en GitHub (workflow `caja-windows.yml`, Releases `caja-vX.Y.Z`). **Decisión de Ernesto: todas las ventas en la caja son PRUEBAS hasta que él diga "ya estamos online"** (incluidas las 3 del equipo `ernesto-pc-1010-acaf` antes de la prueba: 8 toallas pequeñas con gestora, zapatera, 5 productos). Antes de salir en vivo: devolver/limpiar esas ventas de prueba y sus comisiones.
+
+## I. Relevo 2026-10-11 (Claude Code) — leer esto primero
+- **Casa Viva deja BizneCubano hoy (D38).** Manda la caja (nube NEXO). Puente de existencias caja ↔ web cada 2 min. Detalle técnico y pruebas: `docs/NEXO-CASA-VIVA-CIERRE.md` (checkpoint único). Errores aprendidos: `docs/00-FUENTE-DE-VERDAD/LECCIONES.md`.
+- **Panel único de Lennys:** `casaviva.company/panel/` (también `negocio.nexocuba.com`; Vercel se publica a mano con redeploy). Tiene: entrada por WhatsApp/correo, resumen web del mes, pedidos web con acciones, gestoras (aprobar, pagos, invitación y QR), comisiones (solo en el panel, D37), inventario y precios.
+- **Core (web):** versión 3.13.31; puerta `CVD_Panel_Bridge` (clave `CASAVIVA_PANEL_KEY`).
+- **Mapa para Ernesto:** `docs/nexo-business/mapa-casa-viva.html`. **Propuesta red de gestoras para Lennys:** `docs/nexo-business/propuesta-red-de-gestoras.html` (esperando sus 5 respuestas).
+- **Siguiente (en orden):** (0) por la mañana: vaciar datos de caja de Lennys/Zaymi/Nana y volver a dar de alta; comprobar el primer pedido web real en Inventario; (1) crear/editar productos desde el panel (y que lleguen a la caja); (2) precios de mensajería por zona en el panel; (3) inicio del mes con web + caja juntas; (4) pasada de diseño y textos del panel (skills ECC: click-path-audit, browser-qa, make-interfaces-feel-better, accessibility) con Ernesto conectado.
