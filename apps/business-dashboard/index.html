@@ -645,6 +645,7 @@ async function uploadPhoto(file) {
 // Crear o editar un producto. La caja lo recibe al sincronizar; si está en la web, el precio se copia allí.
 async function editProduct(p) {
   if (!catalog) { const { data } = await supabase.rpc("nexo_business_catalog_list", { p_business: bizId() }); if (Array.isArray(data)) catalog = data; }
+  if (canCost() && !costSheet) await loadCostSheet(); // comisión general y la de este producto
   const s = p ? stockOf(p.product_id) : null;
   const inv = p ? invRows.find(x => x.productId === p.product_id) : null;
   const onWeb = p?.external_refs?.["casaviva.company"]?.wooId;
@@ -665,6 +666,7 @@ async function editProduct(p) {
         <label class="field">Quedan<input name="qty" inputmode="numeric" placeholder="${p ? "" : "0"}" value="${s?.lastMovementAt ? s.quantity : ""}"></label>
       </div>
       <label class="field">Precio de oferta (opcional)<input name="offer" inputmode="decimal" placeholder="Sin oferta" value="${inv?.offerUsd ?? ""}"></label>
+      ${commissionField(p ? commOf(p.product_id) : "", group ? "Solo para este diseño. Vacía = la general (" + commDefault().text + ")." : null)}
       <label class="field">Categoría<input name="category" list="cat-list" value="${esc(p?.category ?? "")}" placeholder="Ej.: Baño"></label>
       <datalist id="cat-list">${cats.map(c => `<option value="${esc(c)}">`).join("")}</datalist>
       <details><summary class="t-sm">Más opciones</summary>
@@ -700,6 +702,8 @@ async function editProduct(p) {
     const qtyRaw = String(f.get("qty") ?? "").trim();
     const qty = qtyRaw === "" ? null : Number(qtyRaw);
     if (qty != null && (!Number.isInteger(qty) || qty < 0)) return fail("La cantidad debe ser un número entero");
+    const comm = readCommission(form);
+    if (Number.isNaN(comm)) return fail("La comisión debe ser un número en USD (0 o más)");
     form.querySelector("[type=submit]").disabled = true;
     try {
       let imageUrl = null;
@@ -730,6 +734,12 @@ async function editProduct(p) {
           if (e4 || ln?.error) notes.push("se creó en la web pero no quedó enlazado (" + (e4?.message ?? ln.error) + ")");
         }
       } catch (e3) { notes.push("no llegó a la web (" + e3.message + "); vuelve a guardar para reintentar"); }
+      // Comisión de la gestora (después de enlazar con la web, para que se copie allí también).
+      if (comm !== undefined) {
+        const before = p ? commOf(p.product_id) : null;
+        const target = comm ?? (p ? null : commDefault().usd);
+        if (p ? target !== before : target != null) { msg.textContent = "Guardando la comisión…"; const c = commNote(await saveCommissions([saved.productId], target)); if (c) notes.push(c); }
+      }
       // Precio normal y oferta (en la caja y en la web).
       try {
         const pr = await applyPrices([offer ? { productId: saved.productId, price, offer } : { productId: saved.productId, price, clearOffer: true }]);
@@ -949,7 +959,10 @@ function renderInventory() {
   $("#inv-filter-help").hidden = !help; $("#inv-filter-help").textContent = help ?? "";
   $("#bulk-btn").hidden = !items.length && !picking;
   updateBulkBar();
-  $("#inv-note").textContent = invFilter === "all" && !q ? liveCount + " productos a la venta" : items.length + " de " + liveCount;
+  // Productos a la venta sin comisión de gestora (Lennys creó 5 sin ella el día del lanzamiento).
+  const sinComm = invRows.filter(r => !r.variantOf && noComm(r)).length + new Set(invRows.filter(r => r.variantOf && noComm(r)).map(r => r.variantOf)).size; // productos, no diseños
+  $("#inv-note").textContent = (invFilter === "all" && !q ? liveCount + " productos a la venta" : items.length + " de " + liveCount)
+    + (sinComm ? " · ⚠️ " + sinComm + " sin comisión de gestora" : "");
   $("#inventory").innerHTML = items.length ? items.slice(0, 300).map(it => it.group ? groupRow(it.group) : oneRow(it.one)).join("")
     + (items.length > 300 ? '<p class="muted">Mostrando 300. Usa el buscador.</p>' : "") : '<p class="muted">Ningún producto aquí.</p>';
   wireInventory();
@@ -957,7 +970,8 @@ function renderInventory() {
 function oneRow(r) {
   const name = r.name;
   const state = (r.offerUsd != null && r.active ? '<span class="badge badge-info">Oferta ' + usd2(r.offerUsd) + "</span>" : "")
-    + (!r.active ? '<span class="badge badge-calm">Retirado</span>' : r.stock <= 0 ? '<span class="badge badge-out">Agotado</span>' : isLow(r) ? '<span class="badge badge-low">Pocas</span>' : "");
+    + (!r.active ? '<span class="badge badge-calm">Retirado</span>' : r.stock <= 0 ? '<span class="badge badge-out">Agotado</span>' : isLow(r) ? '<span class="badge badge-low">Pocas</span>' : "")
+    + (noComm(r) ? '<span class="badge badge-low" title="Ábrelo y escribe la comisión de la gestora">Sin comisión</span>' : "");
   if (picking) return '<label class="inv-row inv-pick"><input type="checkbox" data-pick="' + esc(r.productId) + '"' + (picked.has(r.productId) ? " checked" : "") + ">" + photo(r.imageUrl, name)
     + '<span class="grow"><span class="title">' + esc(name) + '</span><span class="meta">' + usd2(r.priceUsd) + " · quedan " + r.stock + "</span></span>" + state + "</label>";
   const head = '<button type="button" class="inv-head" data-open aria-label="Abrir ' + esc(name) + '">' + photo(r.imageUrl, name)
@@ -977,7 +991,8 @@ function groupRow(g) {
   const img = g.rows.find(r => r.imageUrl)?.imageUrl ?? null;
   const back = invFilter === "hidden";
   const total = g.live.reduce((s, r) => s + Math.max(0, r.stock), 0);
-  const state = back ? '<span class="badge badge-calm">Retirado</span>' : !total ? '<span class="badge badge-out">Agotado</span>' : g.shown.some(isLow) ? '<span class="badge badge-low">Pocas</span>' : "";
+  const state = (back ? '<span class="badge badge-calm">Retirado</span>' : !total ? '<span class="badge badge-out">Agotado</span>' : g.shown.some(isLow) ? '<span class="badge badge-low">Pocas</span>' : "")
+    + (!back && g.live.some(noComm) ? '<span class="badge badge-low" title="Ábrelo y escribe la comisión de la gestora">Sin comisión</span>' : "");
   const meta = back ? g.shown.length + (g.shown.length === 1 ? " diseño retirado" : " diseños retirados")
     : invFilter === "out" ? g.shown.length + " de " + g.live.length + (g.live.length === 1 ? " diseño agotado" : " diseños agotados")
     : g.live.length + (g.live.length === 1 ? " diseño" : " diseños") + " · quedan " + total + " en total";
@@ -1076,10 +1091,12 @@ function retireFlow(ids, retire, done) {
   if (!rows.length) return toast("No encontré ese producto. Pulsa actualizar.", "bad");
   const names = rows.map(r => r.name);
   const withStock = retire ? rows.filter(r => r.stock > 0) : [];
+  // Un diseño queda dentro de su producto, en «Diseños retirados»; un producto, en el filtro «Retirados».
+  const where = rows.every(r => r.variantOf) ? "Diseños retirados" : "Retirados";
   const sheet = openSheet('<div class="sheet-head"><h2>' + (retire ? "¿Dejar de vender?" : "¿Volver a vender?") + '</h2><button type="button" class="btn btn-ghost" data-close>Cerrar</button></div>'
     + '<ul class="confirm-list">' + names.slice(0, 8).map(n => "<li>" + esc(n) + "</li>").join("") + (names.length > 8 ? "<li>y " + (names.length - 8) + " más</li>" : "") + "</ul>"
     + (retire
-      ? "<p>Dejará" + (rows.length > 1 ? "n" : "") + " de verse en la web, en el buscador, en la tienda de las gestoras y en la caja.</p><p><strong>No se borra nada.</strong> " + (rows.length > 1 ? "Los encuentras en «Retirados» y puedes volver a venderlos" : "Lo encuentras en «Retirados» y puedes volver a venderlo") + " cuando quieras.</p>"
+      ? "<p>Dejará" + (rows.length > 1 ? "n" : "") + " de verse en la web, en el buscador, en la tienda de las gestoras y en la caja.</p><p><strong>No se borra nada.</strong> " + (rows.length > 1 ? "Los encuentras en «" + where + "» y puedes volver a venderlos" : "Lo encuentras en «" + where + "» y puedes volver a venderlo") + " cuando quieras.</p>"
       : "<p>Volverá" + (rows.length > 1 ? "n" : "") + " a verse en la web, en la tienda de las gestoras y en la caja, con las unidades que tenga" + (rows.length > 1 ? "n" : "") + ".</p>")
     + (withStock.length ? '<p class="note-box note-warn">Ojo: ' + withStock.slice(0, 3).map(r => "«" + esc(r.name) + "» todavía tiene " + r.stock).join(", ") + (withStock.length > 3 ? "…" : "") + ".</p>" : "")
     + '<p class="msg" data-msg role="status"></p>'
@@ -1107,6 +1124,7 @@ function retireFlow(ids, retire, done) {
 
 // ---------- Ficha de un producto con diseños: «Diseños y colores» ----------
 async function editGroup(key) {
+  if (canCost() && !costSheet) await loadCostSheet(); // comisión de cada diseño
   const rowsNow = () => invRows.filter(r => r.variantOf === key);
   const rowById = id => invRows.find(r => r.productId === id);
   const parentWooId = rowsNow().find(r => r.parentWooId)?.parentWooId ?? null;
@@ -1118,6 +1136,7 @@ async function editGroup(key) {
     + '<p class="t-sm muted">Cambia cuántas quedan con <strong>−</strong> y <strong>+</strong> (o escribe el número) y pulsa <strong>Guardar</strong>. Llega a la caja y a la web en unos minutos.</p>'
     + '<p class="t-sm" data-webnote hidden></p>'
     + '<div data-list></div>'
+    + '<div data-commbox></div>'
     + '<p class="msg" data-msg role="status"></p>'
     + '<button type="button" class="btn btn-primary btn-xl btn-block sticky-save" data-save hidden>Guardar</button>'
     + '<button type="button" class="btn btn-secondary btn-xl btn-block" data-add>＋ Añadir diseño o color</button>'
@@ -1157,7 +1176,10 @@ async function editGroup(key) {
         + '<button type="button" class="btn btn-secondary" data-minus aria-label="Una menos de ' + esc(label) + '">−</button>'
         + '<input class="input" inputmode="numeric" data-qty value="' + esc(d.qty ?? r.stock) + '" aria-label="Cuántas quedan de ' + esc(label) + '">'
         + '<button type="button" class="btn btn-secondary" data-plus aria-label="Una más de ' + esc(label) + '">+</button></div></div>'
-        + '<label class="field t-sm">Precio USD<input class="input" inputmode="decimal" data-price value="' + esc(d.priceRaw ?? r.priceUsd ?? "") + '"></label></div></div>';
+        + '<label class="field t-sm">Precio USD<input class="input" inputmode="decimal" data-price value="' + esc(d.priceRaw ?? r.priceUsd ?? "") + '"></label></div>'
+        // A la vista (Lennys, 11-oct): quitar UN diseño estaba escondido en «Más», y cada color necesita su foto real.
+        + '<div class="row-actions"><label class="btn btn-secondary" style="flex:1 1 150px" data-photo-btn><span data-ph>📷 Cambiar foto</span><input type="file" accept="image/*" data-dphoto aria-label="Cambiar la foto de ' + esc(label) + '" ' + HIDE_INPUT + "></label>"
+        + '<button type="button" class="btn btn-secondary btn-danger-text" style="flex:1 1 150px" data-quit>Quitar este diseño</button></div></div>';
     }).join("") : '<p class="muted">Este producto no tiene diseños a la venta. Añade uno abajo' + (gone.length ? " o vuelve a vender uno retirado" : "") + ".</p>";
     list.querySelectorAll("[data-pid]").forEach(el => {
       const id = el.dataset.pid;
@@ -1172,6 +1194,20 @@ async function editGroup(key) {
       };
       const price = el.querySelector("[data-price]");
       price.oninput = () => { const v = num(price.value); price.classList.toggle("bad", !(v > 0)); setDirty(id, v > 0 ? { price: v, priceRaw: price.value, badPrice: false } : { badPrice: true, priceRaw: price.value }); };
+      // Mismo camino que «Más → Dejar de vender este diseño»: confirma, no borra nada y queda en «Diseños retirados».
+      el.querySelector("[data-quit]").onclick = () => retireFlow([id], true, render);
+      el.querySelector("[data-dphoto]").onchange = async e => {
+        const f = e.target.files?.[0];
+        if (!f) return;
+        const ph = el.querySelector("[data-ph]"), btn = el.querySelector("[data-photo-btn]");
+        ph.textContent = "Subiendo foto…"; btn.style.pointerEvents = "none";
+        try {
+          const out = await changeDesignPhoto(rowById(id), f);
+          toast(out.webFail ? "Foto cambiada en la caja. Ojo: la web no respondió; vuelve a intentarlo." : "Foto cambiada. Se ve en la web y en la caja en unos minutos.", out.webFail ? "bad" : "ok");
+          await loadInventory();
+          if (out.webFail) render(); else await loadWeb();
+        } catch (err) { toast("No se cambió la foto: " + err.message, "bad"); ph.textContent = "📷 Cambiar foto"; btn.style.pointerEvents = ""; }
+      };
       el.querySelector("[data-more]").onclick = async () => {
         if (dirty.size && !confirm("Tienes cambios sin guardar. ¿Salir sin guardar?")) return;
         if (!catalog?.some(p => p.product_id === id)) { const { data } = await supabase.rpc("nexo_business_catalog_list", { p_business: bizId() }); if (Array.isArray(data)) catalog = data; }
@@ -1202,10 +1238,36 @@ async function editGroup(key) {
     saveBtn.hidden = !dirty.size;
   }
 
+  // Comisión de la gestora para todos los diseños de una vez (la lista avisa «Sin comisión»).
+  const commBox = $s("[data-commbox]");
+  const groupComm = () => { const vals = [...new Set(rowsNow().filter(r => r.active).map(r => commOf(r.productId)))]; return vals.length === 1 ? vals[0] : null; };
+  function renderComm() {
+    const live = rowsNow().filter(r => r.active);
+    if (!canCost() || !costSheet || !live.length) { commBox.innerHTML = ""; return; }
+    const different = new Set(live.map(r => commOf(r.productId))).size > 1;
+    const missing = live.filter(noComm).length;
+    commBox.innerHTML = '<form class="form note-box" data-comm>'
+      + commissionField(groupComm() ?? "", (missing ? "⚠️ " + missing + (missing === 1 ? " diseño no tiene" : " diseños no tienen") + " comisión. " : different ? "Ahora no todos los diseños tienen la misma. " : "")
+        + "Se guarda para todos los diseños. Vacía = la general (" + commDefault().text + ").")
+      + '<button type="submit" class="btn btn-secondary btn-block">Guardar comisión para todos los diseños</button></form>';
+    const f = commBox.querySelector("form");
+    f.onsubmit = async e => {
+      e.preventDefault();
+      const v = readCommission(f);
+      if (Number.isNaN(v)) return toast("La comisión debe ser un número en USD (0 o más)", "bad");
+      const ids = rowsNow().filter(r => r.active).map(r => r.productId);
+      f.querySelector("[type=submit]").disabled = true;
+      const c = commNote(await saveCommissions(ids, v));
+      toast(c ? "Ojo: " + c + "." : v == null ? "Listo: los diseños usan la comisión general." : "Comisión guardada para " + ids.length + (ids.length === 1 ? " diseño." : " diseños."), c ? "bad" : "ok");
+      renderComm();
+      if (page === "catalogo") renderInventory();
+    };
+  }
+
   async function loadWeb() {
     if (!parentWooId) {
       webNote.hidden = false; webNote.textContent = "Este producto no está en la web: aquí solo cambias la caja.";
-      addBtn.hidden = true; render(); return;
+      addBtn.hidden = true; render(); renderComm(); return;
     }
     try {
       web = await panelWeb({ action: "product_variations", wooId: parentWooId, group: key });
@@ -1216,6 +1278,7 @@ async function editGroup(key) {
       webNote.hidden = false; webNote.textContent = "No pude leer la web ahora (" + e.message + "). Puedes cambiar las cantidades igual.";
     }
     render();
+    renderComm();
   }
 
   saveBtn.onclick = async () => {
@@ -1253,6 +1316,7 @@ async function editGroup(key) {
       + '<div class="grid-2"><div class="field"><span>Cuántas hay</span><div class="stepper"><button type="button" class="btn btn-secondary" data-minus aria-label="Una menos">−</button>'
       + '<input class="input" name="qty" inputmode="numeric" required placeholder="0" aria-label="Cuántas hay"><button type="button" class="btn btn-secondary" data-plus aria-label="Una más">+</button></div></div>'
       + '<label class="field">Precio USD<input class="input" name="price" inputmode="decimal" required value="' + esc(def) + '"></label></div>'
+      + commissionField(groupComm() ?? "", groupComm() != null ? "La misma que los otros diseños; cámbiala si este es distinto." : null)
       + '<p class="msg" data-amsg role="status"></p>'
       + '<button type="submit" class="btn btn-primary btn-xl btn-block">Añadir</button>'
       + '<button type="button" class="btn btn-ghost btn-block" data-cancel>Cancelar</button></form>';
@@ -1275,6 +1339,8 @@ async function editGroup(key) {
       if (twin) return fail(twin.active ? "Ya hay un diseño «" + designLabel(twin) + "». Cambia su cantidad en la lista de arriba." : "«" + designLabel(twin) + "» ya existe pero está retirado: ábrelo en «Diseños retirados» y pulsa «Volver a vender».");
       if (!(price > 0)) return fail("Escribe un precio mayor que 0");
       if (qtyT === "" || !Number.isInteger(qty) || qty < 0) return fail("Escribe cuántas hay (0 o más)");
+      const comm = readCommission(form);
+      if (Number.isNaN(comm)) return fail("La comisión debe ser un número en USD (0 o más)");
       form.querySelector("[type=submit]").disabled = true;
       try {
         let imageUrl = "";
@@ -1289,6 +1355,9 @@ async function editGroup(key) {
           const { data: st, error: e2 } = await supabase.rpc("nexo_business_set_stock", { p_business: bizId(), p_product: out.productId, p_quantity: qty, p_reason: "Diseño nuevo desde el panel" });
           if (e2 || st?.error) note = " Ojo: la cantidad no se guardó; escríbela en la lista y pulsa Guardar.";
         }
+        // Comisión del diseño nuevo (vacía = la general fija de Ajustes, si la hay).
+        const commTarget = comm === undefined || out.existing ? null : comm ?? commDefault().usd;
+        if (commTarget != null) { const c = commNote(await saveCommissions([out.productId], commTarget)); if (c) note += (note ? " " : " Ojo: ") + c + "."; }
         toast("Añadido «" + label + "»." + (note || " Llega a la caja y a la web en unos minutos."), note.startsWith(" Ojo") ? "bad" : "ok");
         addForm.hidden = true; addForm.innerHTML = ""; addBtn.hidden = false;
         catalog = null; shop = null;
@@ -1305,6 +1374,33 @@ async function editGroup(key) {
 
   render();
   await loadWeb();
+}
+
+// «Cambiar foto» de un diseño: la misma subida que «Nuevo diseño o color» (uploadPhoto: máx. 900 px, WebP 0,82, a
+// nexo-product-photos). Luego la caja (image_url, con el resto de la fila igual) y la web: product_web_save con el
+// wooId de la variación → Core la descarga y la pone como imagen de esa variación (image_id). El precio no cambia.
+async function changeDesignPhoto(r, file) {
+  if (!r) throw new Error("no encontré ese diseño; pulsa actualizar");
+  let imageUrl;
+  try { imageUrl = await uploadPhoto(file); } catch { throw new Error("esa foto no se pudo usar. Prueba con otra"); }
+  if (!catalog?.some(x => x.product_id === r.productId)) { const { data } = await supabase.rpc("nexo_business_catalog_list", { p_business: bizId() }); if (Array.isArray(data)) catalog = data; }
+  const p = catalog?.find(x => x.product_id === r.productId);
+  if (!p) throw new Error("no encontré el diseño en la caja; pulsa actualizar");
+  const cajaPrice = p.prices?.USD != null ? p.prices.USD / 100 : Number(r.priceUsd);
+  const { data: saved, error } = await supabase.rpc("nexo_business_product_save", {
+    p_business: bizId(), p_product_id: p.product_id, p_name: p.name, p_sku: p.sku ?? "", p_barcodes: p.barcodes ?? [],
+    p_price_usd: cajaPrice, p_category: p.category ?? "", p_image_url: imageUrl, p_active: p.active !== false, p_min_stock: p.min_stock ?? null,
+  });
+  if (error || saved?.error) throw new Error(error?.message ?? (saved.error === "forbidden" ? "solo la dueña puede hacerlo" : saved.error));
+  let webFail = false;
+  if (r.wooId) {
+    try {
+      await panelWeb({ action: "product_web_save", wooId: Number(r.wooId), nexoId: p.product_id, name: p.name, price: Number(r.priceUsd ?? cajaPrice),
+        category: p.category ?? "", imageUrl, sku: p.sku ?? "", active: p.active !== false });
+    } catch { webFail = true; }
+  }
+  catalog = null; shop = null;
+  return { webFail, imageUrl };
 }
 
 // Un producto sin colores no se convierte (sus ventas, unidades, comisiones y costos son de ese producto y
@@ -1333,6 +1429,7 @@ function designsProductSheet(pre) {
     + '<div class="grid-2"><label class="field">Precio USD<input class="input" name="price" required inputmode="decimal" placeholder="0.00" value="' + esc(pre?.price ?? "") + '"></label>'
     + '<label class="field">Categoría<input class="input" name="category" list="cat-list-d" value="' + esc(pre?.category ?? "") + '" placeholder="Ej.: Baño"></label></div>'
     + '<datalist id="cat-list-d">' + cats.map(c => '<option value="' + esc(c) + '">').join("") + "</datalist>"
+    + commissionField("", "La misma para todos los diseños. Si la dejas vacía se usa la general (" + commDefault().text + ").")
     + photoPicker("Foto del producto (si tienes)")
     + '<h3 class="t-lg">Diseños o colores</h3><div data-designs></div>'
     + '<button type="button" class="btn btn-secondary btn-block" data-more>＋ Otro diseño</button>'
@@ -1371,6 +1468,8 @@ function designsProductSheet(pre) {
       designs.push({ label, qty, row });
     }
     if (!designs.length) return fail("Escribe al menos un diseño o color");
+    const comm = readCommission(form);
+    if (Number.isNaN(comm)) return fail("La comisión debe ser un número en USD (0 o más)");
     form.querySelector("[type=submit]").disabled = true;
     try {
       msg.textContent = "Subiendo fotos…"; msg.dataset.tone = "";
@@ -1381,16 +1480,20 @@ function designsProductSheet(pre) {
       const out = await panelWeb({ action: "product_variable_create", name, price, category: form.category.value.trim(), imageUrl, ref,
         designs: designs.map(d => ({ label: d.label, imageUrl: d.imageUrl })) });
       const pidByWoo = new Map((out.linked ?? []).map(l => [Number(l.wooId), l.productId]));
-      const notes = [];
+      const notes = [], pids = [];
       for (const d of designs) {
         const v = (out.variations ?? []).find(x => sameLabel(x.label, d.label));
         const pid = v ? pidByWoo.get(Number(v.id)) : null;
         if (!pid) { notes.push("«" + d.label + "» no quedó enlazado con la caja"); continue; }
+        pids.push(pid);
         if (d.qty > 0) { // cantidad absoluta: repetirla en un reintento no suma nada
           const { data: st, error: e2 } = await supabase.rpc("nexo_business_set_stock", { p_business: bizId(), p_product: pid, p_quantity: d.qty, p_reason: "Producto nuevo con diseños (panel)" });
           if (e2 || st?.error) notes.push("no se guardaron las unidades de «" + d.label + "»");
         }
       }
+      // Comisión de la gestora para todos los diseños (vacía = la general fija de Ajustes, si la hay).
+      const commTarget = comm === undefined ? null : comm ?? commDefault().usd;
+      if (commTarget != null && pids.length) { msg.textContent = "Guardando la comisión…"; const c = commNote(await saveCommissions(pids, commTarget)); if (c) notes.push(c); }
       sheet.close();
       toast("Creado «" + name + "» con " + designs.length + (designs.length === 1 ? " diseño" : " diseños") + "." + (notes.length ? " Ojo: " + notes.join("; ") + "." : " Llega a la caja y a la web en unos minutos."), notes.length ? "bad" : "ok");
       catalog = null; shop = null;
@@ -1401,20 +1504,63 @@ function designsProductSheet(pre) {
 }
 
 // D37: la comisión se cambia aquí y se copia a la web para que cobre lo mismo que la caja.
-async function pushCommission(productId) {
+// nexo-commission-push escribe en cada producto de WooCommerce _cvd_commission_type=fixed y _cvd_commission_value.
+// Devuelve false si la web no respondió (el trabajo de la noche lo reintenta).
+async function pushCommissions(productIds) {
   try {
     const { data: { session } } = await supabase.auth.getSession();
     const res = await fetch("https://viwwlriwlwodrfukbgbj.supabase.co/functions/v1/nexo-commission-push", {
       method: "POST",
       headers: { "content-type": "application/json", authorization: "Bearer " + (session?.access_token ?? "") },
-      body: JSON.stringify({ products: [productId] }),
+      body: JSON.stringify({ products: productIds }),
     });
     const data = await res.json();
-    if (!res.ok || data.failed?.length) toast("Guardado en la caja, pero la web no se actualizó. Se reintentará esta noche.", "bad");
-  } catch {
-    toast("Guardado en la caja, pero la web no se actualizó. Se reintentará esta noche.", "bad");
-  }
+    return res.ok && !data.failed?.length;
+  } catch { return false; }
 }
+
+// ---------- Comisión de la gestora al crear o editar productos (pedido de Lennys, 11-oct) ----------
+// Lennys creó 5 productos y ninguno tenía comisión: el campo solo estaba en la ficha de costo. Ahora está en
+// «Nuevo producto», «Editar producto», «Crear producto con diseños» y «＋ Añadir diseño o color».
+// Vacío al crear = la comisión general de Ajustes (si es fija en USD); vacío al editar = quitar la propia (usa la general).
+function commDefault() {
+  const s = costSheet?.settings;
+  if (!s) return { text: "la general de Ajustes", usd: null };
+  return s.commission_mode === "fixed"
+    ? { text: dollars(s.commission_value), usd: Number(s.commission_value) > 0 ? Number(s.commission_value) : null }
+    : { text: pct1(s.commission_value) + " del precio", usd: null };
+}
+const commOf = id => { const v = costOf(id)?.commissionUsd; return v == null ? null : Number(v); };
+// Sin comisión propia (solo se sabe con la ficha de costo cargada, es decir, dueña o economista).
+const noComm = r => Boolean(canCost() && costSheet && r.active && costOf(r.productId) && costOf(r.productId).commissionUsd == null);
+function commissionField(value, note) {
+  if (!canCost()) return ""; // solo dueña y economista pueden cambiar comisiones (la nube lo exige)
+  const d = commDefault();
+  return '<label class="field">Comisión de la gestora (USD por unidad)<input name="commission" inputmode="decimal" placeholder="General: ' + esc(d.text) + '" value="' + esc(value ?? "") + '"></label>'
+    + '<p class="t-xs muted">' + esc(note ?? "Si la dejas vacía se usa la general (" + d.text + ").") + "</p>";
+}
+// undefined = no hay campo; null = vacío; NaN = mal escrito; número = USD.
+function readCommission(form) {
+  const el = form?.querySelector("[name=commission]");
+  if (!el) return undefined;
+  const t = el.value.trim();
+  if (!t) return null;
+  const v = num(t);
+  return v == null ? NaN : v;
+}
+// Guarda la comisión en la nube (caja) y la copia a la web. usd null = quitar la propia.
+async function saveCommissions(ids, usd) {
+  const failed = [];
+  for (const id of ids) {
+    const { data, error } = await supabase.rpc("nexo_business_set_product_commission", { p_business: bizId(), p_product: id, p_usd: usd });
+    if (error || data?.error) failed.push(id);
+  }
+  const ok = ids.filter(id => !failed.includes(id));
+  const web = ok.length && usd != null ? await pushCommissions(ok) : true;
+  if (canCost()) await loadCostSheet();
+  return { failed, web };
+}
+const commNote = c => c.failed.length ? "la comisión no se guardó" : !c.web ? "la comisión no llegó a la web (se reintenta esta noche)" : "";
 
 // ---------- Pedidos de la web (casaviva.company), vía nexo-panel-web ----------
 let ordersSrc = "web", webFilter = "open", webPage = 1, webSearchTimer = null, webOrders = [];
@@ -2382,14 +2528,13 @@ function costSection(p) {
   const row = costOf(p.product_id);
   const k = row?.cost;
   const s = costSheet.settings;
-  const defComm = s.commission_mode === "fixed" ? dollars(s.commission_value) : pct1(s.commission_value) + " del precio";
   return '<form class="form cost-form" data-cost>'
     + '<div class="kv"><h3 class="t-lg">Costo y ganancia</h3>' + (row?.calc ? marginBadge(row.calc.marginPct) : '<span class="badge badge-calm">Sin costo</span>') + "</div>"
     + '<div class="grid-2"><label class="field">Precio de compra<input name="amount" inputmode="decimal" required placeholder="0,00" value="' + esc(k?.purchaseAmount ?? "") + '"></label>'
     + '<label class="field">Moneda<select name="currency">' + COST_CURRENCIES.map(c => '<option' + ((k?.purchaseCurrency ?? "USD") === c ? " selected" : "") + ">" + c + "</option>").join("") + "</select></label></div>"
     + '<label class="field" data-rate-field>Tasa de la compra<input name="rate" inputmode="decimal" value="' + esc(k && k.purchaseCurrency !== "USD" ? k.purchaseRate : "") + '"></label>'
-    + '<div class="grid-2"><label class="field">Transporte por unidad (USD)<input name="freight" inputmode="decimal" placeholder="0,00" value="' + esc(k?.freightUsd ?? "") + '"></label>'
-    + '<label class="field">Comisión gestora (USD)<input name="commission" inputmode="decimal" placeholder="' + esc(defComm) + '" value="' + esc(k?.commissionUsd ?? "") + '"></label></div>'
+    // La comisión ya no va aquí: un solo campo arriba («Comisión de la gestora»), que es el que se guarda.
+    + '<label class="field">Transporte por unidad (USD)<input name="freight" inputmode="decimal" placeholder="0,00" value="' + esc(k?.freightUsd ?? "") + '"></label>'
     + '<label class="field">% para la dependienta<input name="staff" inputmode="decimal" placeholder="' + esc(pct1(s.staff_pct)) + ' (general)" value="' + esc(k?.staffPct ?? "") + '"></label>'
     + '<label class="field">Dueño de la mercancía<select name="owner" data-owner' + (k ? "" : " disabled") + '><option value="">Casa Viva</option></select></label>'
     + '<div class="grid-2" data-prule hidden><label class="field">Regla para este producto<select name="prule"><option value="">La de la socia</option><option value="percent_of_profit">% de la ganancia</option><option value="percent_of_sale">% de la venta</option><option value="fixed_per_unit">Fijo USD por unidad</option><option value="supplier_price">Su precio de proveedor</option></select></label><label class="field">Valor<input name="pvalue" inputmode="decimal" placeholder="Ej. 50"></label></div>'
@@ -2407,8 +2552,10 @@ function wireCostSection(sheetEl, p) {
   const read = () => {
     const f = new FormData(form);
     const currency = f.get("currency");
+    // Comisión: la del campo de arriba (vacía o mal escrita = la general, como en la nube).
+    const c = readCommission(sheetEl.querySelector("form:not([data-cost])"));
     return { amount: num(f.get("amount")), currency, rate: currency === "USD" ? 1 : num(f.get("rate")),
-      freight: num(f.get("freight")) ?? 0, commission: num(f.get("commission")), staffPct: num(f.get("staff")) };
+      freight: num(f.get("freight")) ?? 0, commission: c === undefined || Number.isNaN(c) ? null : c, staffPct: num(f.get("staff")) };
   };
   let update = () => {
     const v = read();
@@ -2462,6 +2609,7 @@ function wireCostSection(sheetEl, p) {
     if (c) form.querySelector("[data-breakdown]").innerHTML = breakdown(c, priceUsd);
   };
   form.oninput = () => { dirty = true; update(); };
+  sheetEl.querySelector("form:not([data-cost]) [name=commission]")?.addEventListener("input", () => { dirty = true; update(); });
   update();
   form.onsubmit = async e => {
     e.preventDefault();
@@ -2470,7 +2618,7 @@ function wireCostSection(sheetEl, p) {
     const bad = t => { msg.textContent = t; msg.dataset.tone = "bad"; };
     if (v.amount == null) return bad("Precio de compra inválido");
     if (v.currency !== "USD" && !v.rate) return bad("Escribe la tasa de la compra");
-    for (const [field, label] of [["freight", "Flete"], ["commission", "Comisión"], ["staff", "% dependienta"]]) {
+    for (const [field, label] of [["freight", "Flete"], ["staff", "% dependienta"]]) {
       const raw = String(new FormData(form).get(field) ?? "").trim();
       if (raw && num(raw) == null) return bad(label + " inválido");
     }
@@ -2478,9 +2626,8 @@ function wireCostSection(sheetEl, p) {
     msg.textContent = "Guardando…"; msg.dataset.tone = "";
     const { data, error } = await supabase.rpc("nexo_business_set_product_cost", { p_business: current.businessId, p_product: p.product_id,
       p_cost: { purchaseAmount: v.amount, purchaseCurrency: v.currency, purchaseRate: v.currency === "USD" ? 1 : v.rate,
-        freightUsd: v.freight, commissionUsd: v.commission, staffPct: v.staffPct } });
+        freightUsd: v.freight, staffPct: v.staffPct } }); // sin commissionUsd: la comisión se guarda con «Guardar» de arriba
     if (error || data?.error) return bad("No se guardó: " + (error?.message ?? data.message ?? data.error));
-    void pushCommission(p.product_id);
     await loadCostSheet();
     dirty = false; update();
     msg.textContent = "Costo guardado"; msg.dataset.tone = "ok";
