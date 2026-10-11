@@ -7,7 +7,7 @@ import Database from "@tauri-apps/plugin-sql";
 import "./finance.css";
 import { mountBusinessSummary, mountSync, requestSync } from "./sync";
 import { icon, openSheet } from "./ui";
-import { messengerNames } from "./attribution";
+import { can, messengerNames } from "./attribution";
 
 const CURRENCIES = ["USD", "CUP", "MLC"] as const;
 const RAILS: Array<[string, string]> = [
@@ -486,6 +486,8 @@ async function renderReturnForm(saleId: string) {
   );
   form.onsubmit = e => {
     e.preventDefault();
+    const allowed = can("returns");
+    if (!allowed.ok) { alert(allowed.reason); return; }
     void run("Devolución registrada", async () => {
       const refundMinor = toMinor(field(form, "refund").value || "0");
       const lines = summary.lines.flatMap(l => {
@@ -592,6 +594,8 @@ async function renderLocations() {
   if (countForm) {
     countForm.onsubmit = e => {
       e.preventDefault();
+      const allowed = can("counts");
+      if (!allowed.ok) { alert(allowed.reason); return; }
       void (async () => {
         try {
         const result = await invoke<{ expectedQuantity: number; countedQuantity: number; differenceQuantity: number }>("inventory_count", {

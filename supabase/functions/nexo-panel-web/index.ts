@@ -257,6 +257,24 @@ Deno.serve(async req => {
       const one = (data.orders ?? []).find((o: { number: string }) => String(o.number) === String(body.number));
       return one ? json(200, one) : json(404, { error: "No encontré ese pedido entre los 50 más recientes." });
     }
+    // Editar un pedido abierto. Las diferencias de stock de líneas ya descontadas se aplican también en la caja.
+    if (body.action === "sale_detail") return json(200, await core("GET", `panel/sales/${Number(body.id)}/detail`));
+    if (body.action === "sale_edit") {
+      const id = Number(body.id);
+      const out = await core("POST", `panel/sales/${id}/edit`, {
+        lines: Array.isArray(body.lines) ? body.lines : [], add: Array.isArray(body.add) ? body.add : [],
+        phone: body.phone ?? "", address: body.address ?? "", note: typeof body.note === "string" ? body.note : undefined,
+      });
+      const stamp = Date.now();
+      for (const s of (out.stock ?? []) as Array<{ itemId: number; wooId: number; delta: number }>) {
+        if (!s.delta) continue;
+        // Si el puente aún no restó esta línea, la restará él con la cantidad nueva: no duplicar.
+        const { data: synced } = await admin.rpc("nexo_business_web_line_synced", { p_business: BUSINESS, p_order: id, p_item: s.itemId });
+        if (synced !== true) continue;
+        await admin.rpc("nexo_business_stock_from_web", { p_business: BUSINESS, p_key: `web:${id}:${s.itemId}:edit:${stamp}`, p_woo_id: s.wooId, p_delta: s.delta, p_order: String(id) });
+      }
+      return json(200, out);
+    }
     if (body.action === "sale_action") {
       const what = body.what === "return" ? "return" : "status";
       const params = (body.params && typeof body.params === "object") ? body.params : {};

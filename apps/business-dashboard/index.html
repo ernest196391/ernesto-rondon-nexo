@@ -1006,6 +1006,47 @@ const SALE_ACTION = {
   incident: ["Marcar incidencia", "btn-secondary"],
   cancelled: ["Cancelar pedido", "btn-danger"],
 };
+// Cambiar un pedido de la web que aún no se entregó: cantidades, quitar o añadir productos, teléfono, dirección, nota.
+async function editWebOrder(o) {
+  const sheet = openSheet('<div class="sheet-head"><h2>Cambiar pedido #' + esc(o.number) + '</h2><button type="button" class="btn btn-ghost" data-close>Cerrar</button></div><div data-body><p class="muted">Cargando…</p></div>', "Cambiar pedido");
+  const body = sheet.el.querySelector("[data-body]");
+  let d;
+  try { d = await panelWeb({ action: "sale_detail", id: o.id }); } catch (e) { body.innerHTML = '<p class="muted">' + esc(e.message) + "</p>"; return; }
+  if (!d.editable) { body.innerHTML = '<p class="muted">Este pedido ya no se puede cambiar (entregado o cancelado).</p>'; return; }
+  if (!invRows.length) await loadInventory();
+  const add = [];
+  body.innerHTML = '<form class="form">'
+    + d.lines.map(l => '<div class="kv"><span>' + esc(l.name) + '</span><label class="t-xs">Cantidad<input class="input" style="width:5em" inputmode="numeric" data-item="' + l.itemId + '" value="' + l.qty + '"></label></div>').join("")
+    + '<p class="t-xs muted">Pon 0 para quitar un producto.</p>'
+    + '<label class="search-field"><span>' + icon("search") + '</span><input data-q type="search" placeholder="Añadir otro producto"></label><div class="pick-list" data-items></div><div data-added></div>'
+    + '<label class="field">Teléfono<input name="phone" inputmode="tel" value="' + esc(d.phone ?? "") + '"></label>'
+    + '<label class="field">Dirección<input name="address" value="' + esc(d.address ?? "") + '"></label>'
+    + '<label class="field">Nota<input name="note" value="' + esc(d.note ?? "") + '"></label>'
+    + '<p class="msg" data-msg role="status"></p><button type="submit" class="btn btn-primary btn-xl btn-block">Guardar cambios</button></form>';
+  const form = body.querySelector("form");
+  const drawAdded = () => { form.querySelector("[data-added]").innerHTML = add.map((a, i) => '<div class="kv"><span>+ ' + a.qty + "× " + esc(a.name) + '</span><button type="button" class="btn btn-ghost" data-rm="' + i + '">✕</button></div>').join("");
+    form.querySelectorAll("[data-rm]").forEach(b => (b.onclick = () => { add.splice(Number(b.dataset.rm), 1); drawAdded(); })); };
+  form.querySelector("[data-q]").oninput = e => {
+    const q = e.target.value.trim().toLowerCase();
+    const box = form.querySelector("[data-items]");
+    box.innerHTML = q ? invRows.filter(r => r.active && r.wooId && r.name.toLowerCase().includes(q)).slice(0, 8).map(r => '<button type="button" class="pick" data-add="' + r.wooId + '">' + photo(r.imageUrl, r.name) + '<span class="grow"><span class="title">' + esc(r.name) + '</span><span class="meta">' + usd2(r.offerUsd ?? r.priceUsd) + " · quedan " + r.stock + "</span></span></button>").join("") : "";
+    box.querySelectorAll("[data-add]").forEach(b => (b.onclick = () => { const r = invRows.find(x => String(x.wooId) === b.dataset.add); add.push({ wooId: r.wooId, qty: 1, name: r.name }); e.target.value = ""; box.innerHTML = ""; drawAdded(); }));
+  };
+  form.onsubmit = async e => {
+    e.preventDefault();
+    const msg = form.querySelector("[data-msg]");
+    const lines = [...form.querySelectorAll("[data-item]")].map(i => ({ itemId: Number(i.dataset.item), qty: Math.max(0, parseInt(i.value, 10) || 0) }));
+    if (lines.every(l => l.qty === 0) && !add.length) { msg.textContent = "El pedido no puede quedar vacío. Si ya no lo quieren, cancélalo."; msg.dataset.tone = "bad"; return; }
+    const btn = form.querySelector("[type=submit]"); btn.disabled = true; msg.textContent = "Guardando…"; msg.dataset.tone = "";
+    try {
+      const r = await panelWeb({ action: "sale_edit", id: d.id, lines, add: add.map(a => ({ wooId: a.wooId, qty: a.qty })), phone: form.phone.value, address: form.address.value, note: form.note.value });
+      sheet.close();
+      toast(r.changes.length ? "Pedido cambiado. Nuevo total " + usd2(r.total) + "." : "Sin cambios.", "ok");
+      void loadWebOrders();
+    } catch (err) { btn.disabled = false; msg.textContent = "No se guardó: " + err.message; msg.dataset.tone = "bad"; }
+  };
+}
+
 async function loadSaleActions(sheet, o) {
   const box = sheet.querySelector("[data-actions]");
   try {
@@ -1015,8 +1056,10 @@ async function loadSaleActions(sheet, o) {
       + acts.map(a => '<button type="button" class="btn ' + SALE_ACTION[a][1] + ' btn-block" data-act="' + a + '">' + SALE_ACTION[a][0] + "</button>").join("")
       + (sale.canReturn ? '<button type="button" class="btn btn-secondary btn-block" data-act="return">Registrar devolución</button>' : "")
       + (!acts.length && !sale.canReturn ? '<p class="muted">Este pedido no tiene acciones pendientes.</p>' : "")
+      + (["pending", "processing", "on-hold"].includes(o.status) ? '<button type="button" class="btn btn-ghost btn-block" data-edit-order>Cambiar pedido (productos, teléfono o dirección)</button>' : "")
       + '<div data-form></div><p class="msg" data-amsg role="status"></p>';
     box.querySelectorAll("[data-act]").forEach(b => (b.onclick = () => saleActionForm(box, sale, b.dataset.act)));
+    box.querySelector("[data-edit-order]")?.addEventListener("click", () => editWebOrder(o));
   } catch (e) {
     box.innerHTML = '<p class="muted">' + esc(e.message) + "</p>";
   }
@@ -1442,6 +1485,10 @@ function editPerson(p) {
       + '<p class="t-xs muted">Sus productos se marcan en Productos → ficha → Dueño de la mercancía.</p>'
       + (p && !p.hasAccount ? '<div class="row-item"><span class="grow"><span class="title">Enlace de acceso a su panel</span><span class="meta">Solo sirve una vez</span></span><button type="button" class="btn btn-ghost btn-icon" data-partner-link aria-label="Copiar">' + icon("copy", "sm") + "</button></div>" : "") + "</div>"
     + (p ? '<label class="field">Nota interna<input name="note" maxlength="200" value="' + esc(p.note ?? "") + '"></label>' : "")
+    + (p?.kind === "staff" ? '<fieldset class="field" data-perms><legend>En la caja puede…</legend>'
+      + [["returns", "Hacer devoluciones"], ["receive", "Recibir mercancía"], ["counts", "Hacer conteos de inventario"], ["summary", "Ver el resumen de ventas"]]
+        .map(([k, l]) => '<label class="check"><input type="checkbox" data-perm="' + k + '"' + (p.permissions?.[k] === false ? "" : " checked") + "> " + l + "</label>").join("")
+      + '<p class="t-xs muted">Se aplica a quien esté en «Atiende» en la caja. Se guarda al momento.</p></fieldset>' : "")
     + '<p class="msg" data-msg role="status"></p>'
     + (p?.status === "pending" ? '<div class="grid-2"><button type="button" class="btn btn-primary" data-status="active">Aprobar</button><button type="button" class="btn btn-danger" data-status="rejected">Rechazar</button></div>' : "")
     + '<button type="submit" class="btn ' + (p?.status === "pending" ? "btn-secondary" : "btn-primary btn-xl") + ' btn-block">Guardar</button>'
@@ -1451,6 +1498,13 @@ function editPerson(p) {
     + (p && (p.status === "inactive" || p.status === "rejected") ? '<button type="button" class="btn btn-secondary btn-block" data-status="active">Activar</button>' : "")
     + "</form>", p ? p.fullName : "Añadir persona");
   const form = sheet.el.querySelector("form");
+  form.querySelectorAll("[data-perm]").forEach(cb => (cb.onchange = async () => {
+    const perms = Object.fromEntries([...form.querySelectorAll("[data-perm]")].map(x => [x.dataset.perm, x.checked]));
+    const { data, error } = await supabase.rpc("nexo_business_set_permissions", { p_business: bizId(), p_person: p.id, p_permissions: perms });
+    if (error || data?.error) { cb.checked = !cb.checked; return toast("No se guardó el permiso", "bad"); }
+    p.permissions = perms;
+    toast("Permiso guardado. La caja lo recibe en unos minutos.", "ok");
+  }));
   let kind = teamKind;
   const pf = form.querySelector("[data-partner-fields]");
   const syncRule = () => { form.querySelector("[data-pvalue]").hidden = form.elements.partnerRule.value === "supplier_price"; };

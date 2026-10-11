@@ -3,7 +3,21 @@
 // offline use; the cloud turns them into commissions when the sale syncs.
 import { escapeHtml } from "./ui";
 
-export type Person = { id: string; kind: "gestor" | "staff" | "messenger" | "partner"; name: string };
+export type Person = { id: string; kind: "gestor" | "staff" | "messenger" | "partner"; name: string; permissions?: Record<string, boolean> };
+export type Permission = "returns" | "receive" | "counts" | "summary";
+
+/**
+ * ¿Puede quien está en "Atiende" hacer esto? Lo decide la dueña en el panel (vacío = sí).
+ * Si alguna dependienta lo tiene quitado, hay que elegir quién atiende antes.
+ */
+export function can(perm: Permission): { ok: boolean; reason?: string } {
+  const staff = list.filter(p => p.kind === "staff");
+  const restricted = staff.some(p => p.permissions?.[perm] === false);
+  if (!restricted) return { ok: true };
+  const me = staff.find(p => p.id === attribution.staffId);
+  if (!me) return { ok: false, reason: "Primero elige quién atiende (en Vender, «Atiende»)." };
+  return me.permissions?.[perm] === false ? { ok: false, reason: `${me.name} no tiene permiso para esto. Pídeselo a la dueña.` } : { ok: true };
+}
 const KINDS = new Set(["gestor", "staff", "messenger", "partner"]);
 
 const PEOPLE_KEY = "nexo.people";

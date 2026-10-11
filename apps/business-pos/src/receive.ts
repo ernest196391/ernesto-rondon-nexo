@@ -2,7 +2,7 @@
 // Curru la lee si está activada, revisa los productos y confirma. Sube el stock y guarda el costo
 // en la nube (función nexo-device-receive). Necesita internet: si no hay, lo dice y no guarda nada.
 import type Database from "@tauri-apps/plugin-sql";
-import { attribution } from "./attribution";
+import { attribution, can } from "./attribution";
 import { DEFAULT_ENDPOINT, requestSync } from "./sync";
 import { escapeHtml as esc, icon, openSheet } from "./ui";
 
@@ -44,6 +44,8 @@ function shrink(file: File): Promise<string> {
 }
 
 export async function openReceive(db: Database) {
+  const allowed = can("receive");
+  if (!allowed.ok) { alert(allowed.reason); return; }
   if (!navigator.onLine) { alert("Para recibir mercancía hace falta internet. Conéctate y vuelve a intentarlo."); return; }
   if (!token()) { alert("Esta caja todavía no está conectada a la tienda (Más → Sincronización)."); return; }
   const products = await db.select<Product[]>("SELECT id,name FROM local_products WHERE active=1 ORDER BY name");

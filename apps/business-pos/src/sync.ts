@@ -9,6 +9,7 @@ import {
   type PushRequest,
 } from "../../../packages/business-domain/src/sync-contract";
 import { pullRates } from "./checkout";
+import { can } from "./attribution";
 
 type SyncState = { pending: number; failing: number; synced: number; oldestPendingAt: string | null; lastError: string | null };
 type OutboxEvent = PushEvent & { attempts: number };
@@ -329,6 +330,8 @@ export async function mountBusinessSummary(container: HTMLElement) {
     <div id="summary-body"></div>`;
   const body = container.querySelector<HTMLElement>("#summary-body")!;
   const load = async () => {
+    const allowed = can("summary");
+    if (!allowed.ok) { body.innerHTML = `<p class="t-sm muted">${allowed.reason}</p>`; return; }
     const endpoint = read(ENDPOINT_KEY, DEFAULT_ENDPOINT).trim();
     const token = read(TOKEN_KEY).trim();
     if (!endpoint || !token) {
