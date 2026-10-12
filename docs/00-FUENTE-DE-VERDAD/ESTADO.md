@@ -256,3 +256,6 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
 - Voz local OK: .env con clave ElevenLabs (puesto por Ernesto), voz.py probado (Whisper 100%).
 - Hecho: skill /kit-demo + scripts/kit_demo.py (probado con cliente ficticio: 0 restos de Yonar).
 - Vercel: NO publicar demos de Yonar hasta que Yonar diga que sí (decisión de Ernesto, 2026-10-11).
+
+### Herramientas para gestoras (2026-10-12)
+- Análisis SOLO LECTURA (chats, soporte, área de gestoras, docs NEXO) y plan: `docs/nexo-business/herramientas-gestoras.md` (qué piden, 10 cosas gratis, mapa gratis/pago con planes borrador Caja 10 · Con gestoras 15 · Pro 20 USD/mes, modelo de dinero, gestoras como afiliadas, pruebas en Casa Viva, hoja de ruta y medidas). **Siguiente:** Ernesto aprueba los planes y la semana 1 (FAQ 26 de pago de comisiones con Lennys, botón "cómo comprar", tarjeta "qué le digo al cliente").
