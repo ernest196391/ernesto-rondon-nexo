@@ -1,0 +1,133 @@
+[
+  {
+    "question": "¿Cómo funciona ahora el reparto? ¿Cómo sale una carrera? ¿Quién publica el vale?",
+    "answer": "Nadie publica el vale a mano ni lo pega en el grupo. La dependienta abre el pedido en *Pedidos* y, cuando está preparado, toca *Listo para salir* (es un solo botón). Si la gestora eligió mensajero, el vale le llega directo a él por privado y no sale al grupo. Si no eligió a nadie, la carrera sale sola en el grupo *Mensajerías CASA Viva* y se la lleva el primero que escribe *Yo*. La carrera y el vale dicen el día de entrega (hoy, mañana o tal día). La mensajería es 100 % del mensajero; el dinero de los productos se entrega en la tienda. Si el pedido es de una gestora, el bot avisa solo a la gestora, nunca al cliente.",
+    "audience": "todos",
+    "topic": "reparto",
+    "replaces_id": 117
+  },
+  {
+    "question": "¿Cómo van las mensajerías de mis pedidos? ¿Busco yo el mensajero? ¿Puedo elegir a mi mensajero de confianza?",
+    "answer": "Tienes dos opciones. 1) *Elegirlo tú:* al hacer el pedido escribe en la nota *mensajero: Nombre*, o después entra en tu área → *Ventas* → ese pedido → *Mensajero que lo lleva* → *Guardar*. Hazlo antes de que la tienda lo marque *Listo para salir*: así el vale le llega directo a él y no sale al grupo. Tu mensajero tiene que estar registrado y aprobado como mensajero en la web. 2) *No elegir a nadie:* la carrera sale en el grupo de mensajeros y la toma el primero que dice *Yo*. En los dos casos te aviso a ti quién lo lleva, a qué hora y su teléfono; al cliente no le escribimos. En el grupo General está el vídeo tutorial de 36 segundos.",
+    "audience": "gestora",
+    "topic": "reparto",
+    "replaces_id": 118
+  },
+  {
+    "question": "¿Ya no hay mensajerías asignadas? ¿Qué pasa con mi mensajero de siempre?",
+    "answer": "Sí siguen. Al hacer el pedido escribe en la nota *mensajero: Nombre* (o en tu área → *Ventas* → *Mensajero que lo lleva*). Cuando la tienda lo tenga listo, el vale le llega directo a ese mensajero y no sale al grupo. Solo tiene que estar registrado como mensajero en la web. Si no eliges a nadie, sale al grupo y el primero que dice *Yo* se lo lleva.",
+    "audience": "gestora",
+    "topic": "reparto",
+    "replaces_id": 135
+  },
+  {
+    "question": "Cogí una carrera y ya no puedo hacerla, ¿cómo la suelto? (por ejemplo, un escritorio que no cabe en la moto)",
+    "answer": "Antes de recogerla, escríbeme aquí *no puedo* (o *suelto*; si tienes varias, con el número: *no puedo #2898*), o borra tu *Yo* en el grupo. La carrera pasa sola al siguiente que dijo *Yo*. Los muebles grandes (escritorio y parecidos) no van en moto: si vas en moto, suéltala para que la lleve alguien en triciclo o carro.",
+    "audience": "mensajero",
+    "topic": "reparto"
+  },
+  {
+    "question": "¿Tengo que mandarle el vale al bot o ponerlo en algún enlace?",
+    "answer": "No. Las carreras salen solas en el grupo (escribes *Yo*) o te llegan directo si la gestora te eligió. El vale te llega por privado con la dirección, el teléfono, lo que cobras y el día de entrega. No hace falta mandar vales a nadie ni meterlos en ningún enlace: tú respondes a qué hora vas y, al terminar, escribes *entregado*.",
+    "audience": "mensajero",
+    "topic": "reparto"
+  },
+  {
+    "question": "¿Cómo marco que entregué? ¿Qué hago con el dinero?",
+    "answer": "Escríbeme solo *entregado*. Si cobraste distinto de lo que dice el vale, pon cuánto: *entregado 15 usd* o *entregado 9000 cup*. La mensajería es toda tuya. El dinero de los productos se entrega en la tienda antes de las 4:00 p. m.; si ya es tarde, al día siguiente por la mañana. En tu área (casaviva.company/area-mensajeros/) también puedes marcar cada paso.",
+    "audience": "mensajero",
+    "topic": "reparto"
+  },
+  {
+    "question": "¿Cómo cambian los estados de un pedido? Marqué Listo y no pasa a otro estado",
+    "answer": "En casaviva.company/casa-viva-app/ → *Pedidos*: 1) Pedido *Nuevo*: lo preparas y pulsas *Listo para salir* (la carrera sale sola, o va directa al mensajero que eligió la gestora). Se queda en *Listo* esperando mensajero. 2) Cuando un mensajero dice *Yo*, en el pedido aparece su nombre (eso lo cambia el sistema). 3) Cuando se lo das, pulsas *Entregado al mensajero*; si se te pasa, se marca solo cuando el mensajero escribe *entregado*. 4) Recogida en tienda: cuando el cliente viene y paga, *Lo recogió y pagó · cerrar* y eliges cómo pagó. Si no ves el cambio, toca *Actualizar* arriba.",
+    "audience": "dependienta",
+    "topic": "pedido_estado"
+  },
+  {
+    "question": "Al cerrar un pedido, ¿dónde apunto si pagó por transferencia, Zelle, USDT o una parte en efectivo?",
+    "answer": "Al cerrar (*Entregado · cobrar* o *Lo recogió y pagó · cerrar*) sale *Cómo pagó*: Efectivo USD, Efectivo CUP, Transferencia, Mixto u Otro, y pones lo que se recibió. Transferencia a tarjeta y Zelle → *Transferencia*; si fue a una tarjeta, eliges *a qué tarjeta* entró y pones el número de la transferencia (sale de la captura que manda el mensajero). USDT → *Otro*. Una parte en efectivo y otra por transferencia → *Mixto*. Lo que no es efectivo sale en el panel en *Dinero → Transferencias y otros cobros*.",
+    "audience": "dependienta",
+    "topic": "pago"
+  },
+  {
+    "question": "¿El número de pedido es consecutivo? ¿Se reinicia cada día, mes o año?",
+    "answer": "No se reinicia nunca. Tampoco va seguido: puede saltar números, porque la web usa la misma numeración para pedidos, productos y páginas (por ejemplo, del #2905 se pasó al #2916). El número no dice cuántos pedidos hubo; solo sirve para encontrar el pedido.",
+    "audience": "todos",
+    "topic": "pedido_estado"
+  },
+  {
+    "question": "Subí el precio (o un %) a mis productos, lo guardé, y en la tienda sigo viendo el precio viejo",
+    "answer": "Sí se guardó. Tu precio solo lo ven tus clientes cuando entran por *tu enlace* (el que lleva tu código ?ref=). Si abres la tienda normal, o con tu sesión de gestora abierta, ves el precio de Casa Viva. Para comprobarlo, abre tu enlace en otro teléfono o en una pestaña privada.",
+    "audience": "gestora",
+    "topic": "precio"
+  },
+  {
+    "question": "Me sale «Estás sin conexión» o a mis clientes no les abre el enlace",
+    "answer": "Eso pasa cuando el teléfono abre la web vieja (casavivadecuba.com), que ya no funciona. La de ahora es *casaviva.company*. Abre el enlace en Chrome (no dentro de WhatsApp) o escribe casaviva.company a mano. Si no carga nada, prueba con datos móviles en vez de wifi, o al revés. Si sigue, manda una captura de lo que sale.",
+    "audience": "todos",
+    "topic": "login"
+  },
+  {
+    "question": "¿Cómo hago una factura / un vale para mi cliente en la plataforma nueva?",
+    "answer": "Factura, vale y pedido son lo mismo. Dos formas: 1) Le mandas a tu cliente tu enlace (o el enlace del producto con tu código) y compra él solo: pone nombre, teléfono y dirección, y elige mensajería o recogida en tienda. 2) Lo haces tú por él: entra en tu área → *Vender*, pon los productos en el carrito y rellena los datos de tu cliente; en la nota escribe cómo paga (por ejemplo *Pago en CUP*). En los dos casos el pedido llega solo a la tienda y queda a tu nombre; ya no se manda a ningún grupo.",
+    "audience": "gestora",
+    "topic": "pedido_estado"
+  },
+  {
+    "question": "¿Los vales de recogida en tienda se siguen mandando al grupo de recogida?",
+    "answer": "No. En cuanto haces el pedido, a la tienda le aparece solo en su lista y lo prepara. A tu cliente pásale el horario y la página con fotos y mapa: casaviva.company/como-llegar/ . Cuando venga y pague, la tienda lo cierra.",
+    "audience": "gestora",
+    "topic": "pedido_estado"
+  },
+  {
+    "question": "¿Dónde está la tienda física? ¿Cómo llega mi cliente?",
+    "answer": "Calle Conill A esquina 45, #864, Nuevo Vedado (Plaza). Casa blanca; se entra por la reja verde del garaje. Referencia: Restaurante Alta Casa (Calle 47 #807). De 9 de la mañana a 5 de la tarde, con almuerzo de 1 a 1 y media. Fotos y mapa para tu cliente: casaviva.company/como-llegar/",
+    "audience": "gestora",
+    "topic": "entrega",
+    "replaces_id": 64
+  },
+  {
+    "question": "Mi clienta va a la tienda (con mi vale o sin él) y compra más cosas: ¿cómo sé que es mío? ¿Lo extra es mío?",
+    "answer": "Dile que en la tienda diga que va *de tu parte* (tu nombre y tu código). Si compra cosas además de tu vale, la tienda las apunta como *extra* a tu nombre y te llega un aviso. Lo tuyo es la *comisión* de ese extra, no el dinero entero, y se te paga junto con tus comisiones. El extra lo apunta la tienda, no tú.",
+    "audience": "gestora",
+    "topic": "comision",
+    "replaces_id": 80
+  },
+  {
+    "question": "¿A qué hora le llega el pedido a mi cliente?",
+    "answer": "La hora se sabe cuando un mensajero coge el pedido: en ese momento te aviso quién lo lleva, a qué hora va y su teléfono, y tú se lo dices a tu cliente. Antes de eso no hay hora, así que no le prometas una. Al hacer el pedido sí se puede elegir el día de entrega.",
+    "audience": "gestora",
+    "topic": "envio"
+  },
+  {
+    "question": "¿A quién le escribo ahora las dudas? ¿Usted es quien va a atender a partir de ahora?",
+    "answer": "Sí: escribe aquí, a este WhatsApp. Te contesta el asistente de Ernesto al momento y, si hace falta una persona, te atiende Ernesto. Las dudas de la web, de los pedidos o del sistema nuevo, escríbelas aquí (no a Lennys).",
+    "audience": "gestora",
+    "topic": "otro"
+  },
+  {
+    "question": "Quiero hacer un pedido de prueba para aprender",
+    "answer": "Hazlo, pero escribe *PRUEBA* en el nombre del cliente o en la nota del pedido: así queda marcado como prueba y no sale al reparto ni lo prepara la tienda. Después avisa por aquí para cancelarlo.",
+    "audience": "todos",
+    "topic": "pedido_estado"
+  },
+  {
+    "question": "¿Tengo que añadir a mi cliente en la sección Clientes para que pueda comprar?",
+    "answer": "No. Le pasas tu enlace y compra directo; la venta queda a tu nombre porque entró por tu enlace. La lista *Clientes* es para tener sus datos a mano y escribirle por WhatsApp.",
+    "audience": "gestora",
+    "topic": "link_referido"
+  },
+  {
+    "question": "¿Quién marca «Listo para salir»? ¿Dónde está en el panel?",
+    "answer": "Lo marca la dependienta (Nana o Zaymi) en *Pedidos* cuando el pedido está preparado; no es tarea de la administración. Si alguna vez hace falta desde el panel: casaviva.company/panel/ → *Pedidos* → abre el pedido → *Listo para salir* → *Confirmar* (es un solo botón).",
+    "audience": "admin",
+    "topic": "pedido_estado"
+  },
+  {
+    "question": "¿Cómo quito un producto o un diseño agotado que no va a volver? ¿Cómo cambio la foto de un diseño? ¿Dónde pongo la comisión?",
+    "answer": "Panel → *Productos* → toca el nombre o la foto del producto → *Diseños y colores*. En cada diseño tienes *Quitar este diseño* y *Cambiar foto*; para el producto entero, *Dejar de vender*. No se borra nada: queda guardado por si vuelve. Para añadir un diseño, abajo en *Nuevo diseño o color* (con *Hacer foto* o *Galería*). Al crear un producto nuevo, rellena el campo *comisión* (si no, sale el aviso «Sin comisión»). *Recibir mercancía* es solo para cuando llega mercancía nueva.",
+    "audience": "admin",
+    "topic": "producto"
+  }
+]
