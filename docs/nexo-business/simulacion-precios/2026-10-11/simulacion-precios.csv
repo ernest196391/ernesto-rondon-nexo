@@ -1,0 +1,154 @@
+﻿producto_id;woo_id;nombre;categoria;activo;perfil;compra_usd;costo_total_usd;precio_hoy_usd;precio_nube_usd;comision_hoy_usd;origen_comision_hoy;tienda_gana_hoy_usd;margen_hoy_pct;comision_regla_a_precio_hoy_usd;tienda_gana_regla_a_precio_hoy_usd;precio_sugerido_usd;diferencia_sugerido_menos_hoy_usd;comision_regla_sugerido_usd;tienda_gana_sugerido_usd;margen_sugerido_pct;suelo_usd;precio_sugerido_cup;pierde_dinero_lista_lennys;neto_lista_lennys_usd;costo_cruzado_posible;avisos
+bc-bc-98412;2784;Sobrecama lisa full — gris;Habitación;sí;tienda-casa-viva;28;29,88;36;36;2;producto fija;3,22;8,95;2;3,22;44;8;6;7,02;15,96;34;34400;no;6;;
+bc-bc-p-rbroa;;Relleno de cojín;;no;tienda-casa-viva;3;4,63;6;6;0,6;general 10 %;0,62;10,36;1;0,22;7;1;1;1,2;17,09;7;5500;no;2;;tienda gana menos de 2,5, bajo el suelo, comisión web ≠ nube
+cv-127;127;Cojín decorativo — Diseño 1 — rojo;Habitación;sí;tienda-casa-viva;5,63;7,28;11;11;1,1;general 10 %;2,34;21,27;1;2,44;12;1;1;3,42;28,46;9;9400;no;4,37;ALTA;tienda gana menos de 2,5, comisión web ≠ nube
+cv-129;129;Cojín decorativo — Diseño 1 — gris;Habitación;sí;tienda-casa-viva;5,63;7,28;11;11;1,1;general 10 %;2,34;21,27;1;2,44;12;1;1;3,42;28,46;9;9400;no;4,37;ALTA;tienda gana menos de 2,5, comisión web ≠ nube
+cv-131;131;Cojín decorativo — Diseño 1 — carmelita;Habitación;sí;tienda-casa-viva;5,63;7,28;11;11;1,1;general 10 %;2,34;21,27;1;2,44;12;1;1;3,42;28,46;9;9400;no;4,37;ALTA;tienda gana menos de 2,5, comisión web ≠ nube
+cv-133;133;Cojín decorativo — Diseño 1 — beige;Habitación;sí;tienda-casa-viva;5,63;7,28;11;11;1,1;general 10 %;2,34;21,27;1;2,44;12;1;1;3,42;28,46;9;9400;no;4,37;ALTA;tienda gana menos de 2,5, comisión web ≠ nube
+cv-135;135;Cojín decorativo — Diseño 1 — amarillo;Habitación;sí;tienda-casa-viva;5,63;7,28;11;11;1,1;general 10 %;2,34;21,27;1;2,44;12;1;1;3,42;28,46;9;9400;no;4,37;ALTA;tienda gana menos de 2,5, comisión web ≠ nube
+cv-141;141;Juego de ollas;Cocina;sí;tienda-casa-viva;30;31,9;50;50;7;producto fija;9,85;19,7;6;10,85;45;-5;5;6,98;15,5;36;35100;no;13;;
+cv-145;145;Cocina de Gas 2 quemadores;Cocina;sí;tienda-casa-viva;22;23,82;35;35;4;producto fija;6,31;18,02;5;5,31;34;-1;4;5,33;15,68;27;26600;no;9;;
+cv-210;210;Set de alfombras para baño (3 piezas) — gris;Baño;sí;tienda-casa-viva;10;11,7;15;15;2;producto padre fija;0,93;6,18;1;1,93;17;2;2;2,88;16,92;14;13300;no;3;;tienda gana menos de 2,5
+cv-212;212;Set de alfombras para baño (3 piezas) — carmelita;Baño;sí;tienda-casa-viva;10;11,7;15;15;2;producto padre fija;0,93;6,18;1;1,93;17;2;2;2,88;16,92;14;13300;no;3;;tienda gana menos de 2,5
+cv-214;214;Set de alfombras para baño (3 piezas) — beige;Baño;sí;tienda-casa-viva;10;11,7;15;15;2;producto padre fija;0,93;6,18;1;1,93;17;2;2;2,88;16,92;14;13300;no;3;;tienda gana menos de 2,5
+cv-216;216;Set de alfombras para baño (3 piezas) — gris-oscuro;Baño;sí;tienda-casa-viva;10;11,7;15;15;2;producto padre fija;0,93;6,18;1;1,93;17;2;2;2,88;16,92;14;13300;no;3;;tienda gana menos de 2,5
+cv-218;218;Set de alfombras para baño (3 piezas) — beige-oscuro;Baño;sí;tienda-casa-viva;10;11,7;15;15;2;producto padre fija;0,93;6,18;1;1,93;17;2;2;2,88;16,92;14;13300;no;3;;tienda gana menos de 2,5
+cv-220;220;Set de alfombras para baño (3 piezas) — carmelita-oscuro;Baño;sí;tienda-casa-viva;10;11,7;15;15;2;producto padre fija;0,93;6,18;1;1,93;17;2;2;2,88;16,92;14;13300;no;3;;tienda gana menos de 2,5
+cv-226;226;Balsamo facial de miel hidratante;Cuidado personal;sí;tienda-casa-viva;6;7,66;9;9;1;producto fija;0,12;1,29;1;0,12;12;3;1;3,04;25,34;10;9400;no;2;;tienda gana menos de 2,5, bajo el suelo
+cv-2369;2691;Alfombra antirresbalante — azul;Baño;sí;tienda-casa-viva;40;42;11;11;1;producto fija;-32,27;-293,4;1;-32,27;61;50;8;9,48;15,54;47;47600;sí;-34;ALTA;se vende por debajo del costo, pierde después de la comisión, ¿costo del paquete?, bajo el suelo, comisión web ≠ nube
+cv-2371;2692;Alfombra con piecitos — rojo;Baño;sí;tienda-casa-viva;10;11,7;14;14;1;producto fija;0,95;6,8;1;0,95;17;3;2;2,88;16,92;14;13300;no;3;;tienda gana menos de 2,5
+cv-2373;2697;Alfombra de entrada 40×60 cm — verde;Sala y muebles;sí;tienda-casa-viva;10;11,7;8;8;1;producto fija;-4,9;-61,23;1;-4,9;17;9;2;2,88;16,92;14;13300;sí;-3;ALTA;se vende por debajo del costo, pierde después de la comisión, ¿costo del paquete?, bajo el suelo
+cv-2375;2699;Alfombra peluche 40×60 cm — beige;Baño;sí;tienda-casa-viva;35;36,95;8;8;1;producto fija;-30,15;-376,86;1;-30,15;54;46;7;8,7;16,11;42;42200;sí;-32;ALTA;se vende por debajo del costo, pierde después de la comisión, ¿costo del paquete?, bajo el suelo, comisión web ≠ nube
+cv-2381;2381;Árbol de navidad (1,50 m);Navidad;sí;tienda-casa-viva;3,85;5,49;40;40;4;producto fija;29,51;73,78;5;28,51;8;-32;1;1,31;16,41;8;6300;no;35,15;MEDIA;costo muy bajo (¿seguro?), comisión web ≠ nube
+cv-2383;2383;Cable de carga multifuncional;Tecnología;sí;tienda-casa-viva;5;6,65;8;8;1;producto fija;0,15;1,89;1;0,15;10;2;1;2,1;21,01;9;7800;no;2;;tienda gana menos de 2,5, bajo el suelo
+cv-2387;2387;Capas de moto (talla L);Movilidad;sí;tienda-casa-viva;13,25;14,98;20;20;2;producto fija;2,52;12,59;2;2,52;22;2;3;3,47;15,77;18;17200;no;4,75;;
+cv-2389;2389;Aceite corporal;Cuidado personal;sí;tienda-casa-viva;10;11,7;16;16;2,98;producto fija;0,92;5,76;1;2,9;17;1;2;2,88;16,92;14;13300;no;3,02;;tienda gana menos de 2,5
+cv-2393;2393;Alfombra 120X180 cisne blanco (beige);Habitación;no;tienda-casa-viva;35;36,95;50;50;5;producto fija;6,8;13,6;5;6,8;54;4;7;8,7;16,11;42;42200;no;10;;
+cv-2403;2690;Alfombra rombo 40×60 cm — arena;Baño;sí;tienda-casa-viva;5;6,65;8;8;1;producto fija;0,15;1,89;1;0,15;10;2;1;2,1;21,01;9;7800;no;2;;tienda gana menos de 2,5, bajo el suelo
+cv-2409;2409;Cesto de basura encimera;Cocina;sí;tienda-casa-viva;10;11,7;6;6;1;producto fija;-6,85;-114,14;1;-6,85;17;11;2;2,88;16,92;14;13300;sí;-5;ALTA;se vende por debajo del costo, pierde después de la comisión, ¿costo del paquete?, bajo el suelo
+cv-2415;2415;Colgador de ropa;Organización;sí;tienda-casa-viva;30;31,9;43;43;4;producto fija;6,03;14,01;5;5,03;45;2;5;6,98;15,5;36;35100;no;9;;
+cv-2423;2423;Cintas de luces bluetooth con RGB (5m);Tecnología;sí;tienda-casa-viva;6,5;8,16;20;20;4;producto fija;7,34;36,68;3;8,34;13;-7;2;2,51;19,32;10;10200;no;9,5;;
+cv-2425;2425;Compresor portátil modelo 1;Movilidad;sí;tienda-casa-viva;35;36,95;50;50;4;producto fija;7,8;15,6;5;6,8;54;4;7;8,7;16,11;42;42200;no;11;;
+cv-2427;2427;Corral de bebé 11494;Habitación;sí;tienda-casa-viva;80;82,4;110;110;8;producto fija;16,85;15,32;12;12,85;121;11;15;20,58;17,01;100;94400;no;22;;
+cv-2429;2704;Cortina de baño 180×180 cm — rojo;Baño;sí;tienda-casa-viva;10;11,7;8;8;1;producto fija;-4,9;-61,23;1;-4,9;17;9;2;2,88;16,92;14;13300;sí;-4;ALTA;se vende por debajo del costo, pierde después de la comisión, ¿costo del paquete?, bajo el suelo, comisión web ≠ nube
+cv-243;243;Mantel cuadrado — verde;Cocina;sí;tienda-casa-viva;10;11,7;16;16;1,6;general 10 %;2,3;14,38;1;2,9;17;1;2;2,88;16,92;14;13300;no;4;;tienda gana menos de 2,5, comisión web ≠ nube
+cv-2431;2431;Cortina roller enrollable 140X280;Baño;sí;tienda-casa-viva;40;42;60;60;7;producto fija;9,5;15,84;8;8,5;61;1;8;9,48;15,54;47;47600;no;13;;
+cv-2433;2433;Cortina roller enrollable 172X280;Baño;sí;tienda-casa-viva;50;52,1;70;70;7;producto fija;9,15;13,07;8;8,15;75;5;9;12,03;16,04;58;58500;no;13;;
+cv-2441;2441;Edulcorante;Cocina;sí;tienda-casa-viva;5;6,65;8;8;1,49;producto fija;-0,34;-4,23;1;0,15;10;2;1;2,1;21,01;9;7800;no;1,51;;pierde después de la comisión, bajo el suelo
+cv-2443;2443;Espejo Led 50X70 CM;Baño;sí;tienda-casa-viva;40;42;55;55;5;producto fija;6,63;12,05;6;5,63;61;6;8;9,48;15,54;47;47600;no;10;;
+cv-245;245;Mantel cuadrado — amarillo;Cocina;sí;tienda-casa-viva;10;11,7;16;16;1,6;general 10 %;2,3;14,38;1;2,9;17;1;2;2,88;16,92;14;13300;no;4;;tienda gana menos de 2,5, comisión web ≠ nube
+cv-2451;2451;Cortina roller enrollable 100X160;Baño;sí;tienda-casa-viva;35;36,95;55;55;7;producto fija;9,68;17,59;7;9,68;54;-1;7;8,7;16,11;42;42200;no;13;;
+cv-2453;2453;Cortina roller enrollable 160X280;Baño;sí;tienda-casa-viva;45;47,05;65;65;7;producto fija;9,33;14,35;8;8,33;68;3;9;10,25;15,08;52;53100;no;13;;
+cv-2455;2705;Doyle Metalizado 45×30 cm — rosado;Cocina;sí;tienda-casa-viva;9;10,69;13;13;1;producto fija;0,99;7,59;1;0,99;16;3;2;2,91;18,2;13;12500;no;3;;tienda gana menos de 2,5
+cv-2457;2708;Edredón con juego de sabana (queen) — azul;Habitación;sí;tienda-casa-viva;30;31,9;50;50;6;producto fija;10,85;21,7;6;10,85;45;-5;5;6,98;15,5;36;35100;no;14;;
+cv-2459;2459;Espejo Led 60X80 CM;Baño;sí;tienda-casa-viva;45;47,05;60;60;5;producto fija;6,45;10,75;6;5,45;68;8;9;10,25;15,08;52;53100;no;10;;
+cv-2461;2461;Estante esquinero para baño;Baño;sí;tienda-casa-viva;18;19,78;26;26;3;producto fija;2,57;9,89;3;2,57;28;2;3;4,52;16,15;23;21900;no;5;MEDIA;
+cv-2465;2465;Fundas (2) blancas de almohadas;Habitación;sí;tienda-casa-viva;5;6,65;8;8;1;producto fija;0,15;1,89;1;0,15;10;2;1;2,1;21,01;9;7800;no;1;;tienda gana menos de 2,5, bajo el suelo, comisión web ≠ nube
+cv-2467;2467;Kit de skincare 3 piezas antimanchas;Cuidado personal;sí;tienda-casa-viva;10;11,7;15;15;1;producto fija;1,93;12,84;1;1,93;17;2;2;2,88;16,92;14;13300;no;4;;tienda gana menos de 2,5
+cv-2469;2469;Lámparas recargables con panel solar;Apagones y energía;sí;tienda-casa-viva;10;11,7;25;25;3;producto fija;9,68;38,71;3;9,68;17;-8;2;2,88;16,92;14;13300;no;13;ALTA;comisión web ≠ nube
+cv-247;247;Mantel cuadrado — blanco;Cocina;sí;tienda-casa-viva;10;11,7;16;16;1,6;general 10 %;2,3;14,38;1;2,9;17;1;2;2,88;16,92;14;13300;no;4;;tienda gana menos de 2,5, comisión web ≠ nube
+cv-2473;2473;Máquinas de pelar recargable;Cuidado personal;sí;tienda-casa-viva;17;18,77;25;25;2;producto fija;3,61;14,43;3;2,61;27;2;3;4,56;16,88;22;21100;no;6;;
+cv-2475;2475;Masajeador facial y cuello;Cuidado personal;sí;tienda-casa-viva;40;42;55;55;4;producto fija;7,63;13,87;6;5,63;61;6;8;9,48;15,54;47;47600;no;11;;
+cv-2477;2477;Mochila M- 8;Accesorios;sí;tienda-casa-viva;9;10,69;13;13;1;producto fija;0,99;7,59;1;0,99;16;3;2;2,91;18,2;13;12500;no;3;;tienda gana menos de 2,5
+cv-2485;2485;Organizador de 2 niveles;Baño;sí;tienda-casa-viva;6,5;8,16;11;11;1;producto fija;1,56;14,19;1;1,56;13;2;2;2,51;19,32;10;10200;no;3,5;;tienda gana menos de 2,5
+cv-2489;2489;Paragua infantil (55cm);Accesorios;sí;tienda-casa-viva;1,08;2,69;8;8;2;producto fija;3,11;38,88;1;4,11;5;-3;1;1,19;23,71;4;3900;no;4,92;;costo muy bajo (¿seguro?)
+cv-249;249;Mantel cuadrado — naranja;Cocina;sí;tienda-casa-viva;10;11,7;16;16;1,6;general 10 %;2,3;14,38;1;2,9;17;1;2;2,88;16,92;14;13300;no;4;;tienda gana menos de 2,5, comisión web ≠ nube
+cv-2493;2493;Kit de skincare 3 piezas aloe vera;Cuidado personal;sí;tienda-casa-viva;10;11,7;15;15;1;producto fija;1,93;12,84;1;1,93;17;2;2;2,88;16,92;14;13300;no;4;;tienda gana menos de 2,5
+cv-2495;2495;Kit de skincare 3 piezas vitamina C;Cuidado personal;sí;tienda-casa-viva;10;11,7;15;15;1;producto fija;1,93;12,84;1;1,93;17;2;2;2,88;16,92;14;13300;no;4;;tienda gana menos de 2,5
+cv-2501;2501;Masajeador corporal;Cuidado personal;sí;tienda-casa-viva;45;47,05;56;56;2;producto fija;5,55;9,91;5;2,55;68;12;9;10,25;15,08;52;53100;no;9;;
+cv-2503;2503;Mochila M- 1;Accesorios;sí;tienda-casa-viva;10,2;11,9;13;13;1;producto fija;-0,23;-1,74;1;-0,23;17;4;2;2,67;15,73;14;13300;no;0,8;ALTA;pierde después de la comisión, bajo el suelo, comisión web ≠ nube
+cv-2517;2517;Pesa electrónica corporal;Cuidado personal;sí;tienda-casa-viva;16,67;18,44;35;35;5;producto fija;10,69;30,54;5;10,69;26;-9;3;3,91;15,06;22;20300;no;13,33;;
+cv-2521;2521;Power bank con panel solar;Apagones y energía;sí;tienda-casa-viva;30;31,9;45;45;5;producto fija;6,98;15,5;5;6,98;45;0;5;6,98;15,5;36;35100;no;10;;
+cv-2523;2523;Protector de colchón king;Habitación;sí;tienda-casa-viva;30;31,9;38;38;3;producto fija;2,15;5,66;2;3,15;45;7;5;6,98;15,5;36;35100;no;5;;tienda gana menos de 2,5
+cv-2525;2525;Puerta de corredera (gris);Baño;sí;tienda-casa-viva;38;39,98;60;60;6;producto fija;12,52;20,87;8;10,52;57;-3;7;8,6;15,08;45;44500;no;16;;
+cv-2529;2790;Set de 2 alfombras para baño — rojo;Baño;sí;tienda-casa-viva;20;21,8;13;13;1;producto fija;-10,12;-77,87;1;-10,12;32;19;4;5,4;16,88;25;25000;sí;-10;ALTA;se vende por debajo del costo, pierde después de la comisión, ¿costo del paquete?, bajo el suelo, comisión web ≠ nube
+cv-2531;2531;Set de 2 alfombras para cocina 3D — diseño utensilios rojo y negro;Cocina;sí;tienda-casa-viva;12;13,72;18;18;1;producto fija;2,83;15,73;1;2,83;20;2;2;3,78;18,91;16;15600;no;5;;
+cv-2545;2545;Set de utensilios para cocina (5 piezas);Cocina;sí;tienda-casa-viva;6;7,66;8;8;2;producto fija;-1,86;-23,23;1;-0,86;12;4;1;3,04;25,34;10;9400;no;1;ALTA;pierde después de la comisión, bajo el suelo, comisión web ≠ nube
+cv-2555;2555;Puerta de corredera (blanca);Baño;sí;tienda-casa-viva;38;39,98;60;60;6;producto fija;12,52;20,87;8;10,52;57;-3;7;8,6;15,08;45;44500;no;16;;
+cv-2557;2776;Sabana camera 100% luxury home — gris;Habitación;sí;tienda-casa-viva;13;14,73;25;25;4;producto fija;5,65;22,59;3;6,65;22;-3;3;3,72;16,92;18;17200;no;8;;
+cv-2571;2571;Set de cuchillos 🔪 Con tabla;Cocina;sí;tienda-casa-viva;8,5;10,18;13;13;1;producto fija;1,49;11,47;1;1,49;15;2;1;3,44;22,94;13;11700;no;3,5;;tienda gana menos de 2,5
+cv-2577;2577;Silla de oficina SPC-9050;Otros;no;tienda-casa-viva;50;52,1;65;65;5;producto fija;6,28;9,66;7;4,28;75;10;9;12,03;16,04;58;58500;no;10;;
+cv-2579;2579;Sombrilla rectangular para interior de auto;Movilidad;sí;tienda-casa-viva;3,55;5,18;15;15;2;producto fija;7,44;49,61;2;7,44;8;-7;1;1,62;20,2;7;6300;no;9,45;;
+cv-2585;2585;Ventilador recargable F6 (naranja);Electrodomésticos;sí;tienda-casa-viva;60;62,2;70;70;4;producto fija;2,05;2,93;3;3,05;89;19;11;13,58;15,25;76;69500;no;6;;tienda gana menos de 2,5, bajo el suelo
+cv-2589;2589;Zapatera 5 niveles;Habitación;sí;tienda-casa-viva;23;24,83;35;35;4;producto fija;5,3;15,13;4;5,3;35;0;4;5,3;15,13;28;27300;no;8;ALTA;
+cv-2593;2593;Silla de oficina (23_222);Sala y muebles;sí;tienda-casa-viva;65;67,25;75;75;5;producto fija;0,88;1,17;3;2,88;97;22;12;15,33;15,8;83;75700;no;5;;tienda gana menos de 2,5, bajo el suelo
+cv-2595;2595;Soporte de TV 40″x80″;Cocina;sí;tienda-casa-viva;25;26,85;40;40;5;producto fija;7,15;17,88;5;7,15;39;-1;5;6,18;15,84;31;30500;no;10;;
+cv-268;268;Crema facial arcilla, vit. C y curcuma;Cuidado personal;sí;tienda-casa-viva;5;6,65;8;8;1;producto fija;0,15;1,89;1;0,15;10;2;1;2,1;21,01;9;7800;no;2;;tienda gana menos de 2,5, bajo el suelo
+cv-2693;2693;Alfombra con piecitos — azul;;sí;tienda-casa-viva;10;11,7;14;14;1;producto padre fija;0,95;6,8;1;0,95;17;3;2;2,88;16,92;14;13300;no;3;;tienda gana menos de 2,5
+cv-2694;2694;Alfombra con piecitos — gris;;sí;tienda-casa-viva;10;11,7;14;14;1;producto padre fija;0,95;6,8;1;0,95;17;3;2;2,88;16,92;14;13300;no;3;;tienda gana menos de 2,5
+cv-2695;2695;Alfombra con piecitos — gris-oscuro;;sí;tienda-casa-viva;10;11,7;14;14;1;producto padre fija;0,95;6,8;1;0,95;17;3;2;2,88;16,92;14;13300;no;3;;tienda gana menos de 2,5
+cv-2696;2696;Alfombra con piecitos — carmelita-oscuro;;sí;tienda-casa-viva;10;11,7;14;14;1;producto padre fija;0,95;6,8;1;0,95;17;3;2;2,88;16,92;14;13300;no;3;;tienda gana menos de 2,5
+cv-270;270;Shampo + Acondicionador Oggy de Romero;Cuidado personal;sí;tienda-casa-viva;4,5;6,14;7;7;1;producto fija;-0,32;-4,55;1;-0,32;9;2;1;1,63;18,13;8;7100;no;1,8;;pierde después de la comisión, bajo el suelo, comisión web ≠ nube
+cv-2716;2716;Juego de cortina tapa sol Royale — gris;Habitación;sí;tienda-casa-viva;18;19,78;27;27;3;producto fija;3,55;13,13;3;3,55;28;1;3;4,52;16,15;23;21900;no;5;;comisión web ≠ nube
+cv-2718;2718;Juego de Sábanas Majestic Imperial – TWIN — gris-oscuro;Habitación;sí;tienda-casa-viva;9,9;11,6;14;14;1;producto fija;1,05;7,52;1;1,05;17;3;2;2,98;17,51;14;13300;no;3,1;;tienda gana menos de 2,5
+cv-2742;2742;Juego de Sábanas Majestic King — azul;Habitación;sí;tienda-casa-viva;17;18,77;27;27;3;producto fija;4,56;16,88;3;4,56;27;0;3;4,56;16,88;22;21100;no;7;;
+cv-278;278;Bucaro blanco;Organización;sí;tienda-casa-viva;8;9,68;17;17;1,7;general 10 %;5,2;30,57;3;3,9;15;-2;2;2,95;19,64;12;11700;no;7;;comisión web ≠ nube
+cv-2798;2798;Set de alfombras para baño (3 piezas) — rojo;Baño;sí;tienda-casa-viva;10;11,7;15;15;2;producto fija;0,93;6,18;1;1,93;17;2;2;2,88;16,92;14;13300;no;3;;tienda gana menos de 2,5
+cv-293;293;Licuadora MLD 999;Cocina;sí;tienda-casa-viva;25;26,85;35;35;2;producto fija;5,28;15,08;4;3,28;39;4;5;6,18;15,84;31;30500;no;8;;
+cv-299;299;Rasuradora portatil recargable;Cuidado personal;sí;tienda-casa-viva;19,5;21,29;14;14;2;producto fija;-9,64;-68,88;1;-8,64;30;16;3;4,96;16,52;25;23400;sí;-8,5;ALTA;se vende por debajo del costo, pierde después de la comisión, ¿costo del paquete?, bajo el suelo, comisión web ≠ nube
+cv-316;316;Toalla 100% algodón 70×130 cm;Baño;sí;tienda-casa-viva;10;11,7;18;18;2;producto fija;3,85;21,4;2;3,85;17;-1;2;2,88;16,92;14;13300;no;6;;
+cv-326;326;Juego de cortina tapa sol Royale — verde;Habitación;sí;tienda-casa-viva;18;19,78;27;27;3;producto padre fija;3,55;13,13;3;3,55;28;1;3;4,52;16,15;23;21900;no;5;;comisión web ≠ nube
+cv-328;328;Juego de cortina tapa sol Royale — negro;Habitación;sí;tienda-casa-viva;18;19,78;27;27;3;producto padre fija;3,55;13,13;3;3,55;28;1;3;4,52;16,15;23;21900;no;5;;comisión web ≠ nube
+cv-330;330;Juego de cortina tapa sol Royale — carmelita;Habitación;sí;tienda-casa-viva;18;19,78;27;27;3;producto padre fija;3,55;13,13;3;3,55;28;1;3;4,52;16,15;23;21900;no;5;;comisión web ≠ nube
+cv-332;332;Juego de cortina tapa sol Royale — rosado;Habitación;sí;tienda-casa-viva;18;19,78;27;27;3;producto padre fija;3,55;13,13;3;3,55;28;1;3;4,52;16,15;23;21900;no;5;;comisión web ≠ nube
+cv-334;334;Juego de cortina tapa sol Royale — rosa-palo;Habitación;sí;tienda-casa-viva;18;19,78;27;27;3;producto padre fija;3,55;13,13;3;3,55;28;1;3;4,52;16,15;23;21900;no;5;;comisión web ≠ nube
+cv-336;336;Juego de cortina tapa sol Royale — azul-marino;Habitación;sí;tienda-casa-viva;18;19,78;27;27;3;producto padre fija;3,55;13,13;3;3,55;28;1;3;4,52;16,15;23;21900;no;5;;comisión web ≠ nube
+cv-338;338;Juego de cortina tapa sol Royale — carmelita-oscuro;Habitación;sí;tienda-casa-viva;18;19,78;27;27;3;producto padre fija;3,55;13,13;3;3,55;28;1;3;4,52;16,15;23;21900;no;5;;comisión web ≠ nube
+cv-344;344;Cortinero decorativo — Diseño 1 — negro;Habitación;sí;tienda-casa-viva;5;6,65;10;10;2;producto padre fija;1,1;11,01;1;2,1;10;0;1;2,1;21,01;9;7800;no;3;;tienda gana menos de 2,5
+cv-349;349;Cortinero decorativo — Diseño 1 — dorado;Habitación;sí;tienda-casa-viva;5;6,65;10;10;2;producto padre fija;1,1;11,01;1;2,1;10;0;1;2,1;21,01;9;7800;no;3;;tienda gana menos de 2,5
+cv-351;351;Cortinero decorativo — Diseño 1 — plateado;Habitación;sí;tienda-casa-viva;5;6,65;10;10;2;producto padre fija;1,1;11,01;1;2,1;10;0;1;2,1;21,01;9;7800;no;3;;tienda gana menos de 2,5
+cv-367;367;Soporte TV 14”-55”;Habitación;sí;tienda-casa-viva;13;14,73;20;20;3;producto fija;1,77;8,86;2;2,77;22;2;3;3,72;16,92;18;17200;no;4;;tienda gana menos de 2,5
+cv-377;377;Juego de Sábanas Majestic King — verde;Habitación;sí;tienda-casa-viva;17;18,77;27;27;3;producto padre fija;4,56;16,88;3;4,56;27;0;3;4,56;16,88;22;21100;no;7;;
+cv-379;379;Juego de Sábanas Majestic King — beige;Habitación;sí;tienda-casa-viva;17;18,77;27;27;3;producto padre fija;4,56;16,88;3;4,56;27;0;3;4,56;16,88;22;21100;no;7;;
+cv-381;381;Juego de Sábanas Majestic King — blanco;Habitación;sí;tienda-casa-viva;17;18,77;27;27;3;producto padre fija;4,56;16,88;3;4,56;27;0;3;4,56;16,88;22;21100;no;7;;
+cv-383;383;Juego de Sábanas Majestic King — azul-claro;Habitación;sí;tienda-casa-viva;17;18,77;27;27;3;producto padre fija;4,56;16,88;3;4,56;27;0;3;4,56;16,88;22;21100;no;7;;
+cv-385;385;Juego de Sábanas Majestic King — verde-azul;Habitación;sí;tienda-casa-viva;17;18,77;27;27;3;producto padre fija;4,56;16,88;3;4,56;27;0;3;4,56;16,88;22;21100;no;7;;
+cv-387;387;Juego de Sábanas Majestic King — beige-oscuro;Habitación;sí;tienda-casa-viva;17;18,77;27;27;3;producto padre fija;4,56;16,88;3;4,56;27;0;3;4,56;16,88;22;21100;no;7;;
+cv-389;389;Corral cuna de bebé — Diseño 2;Habitación;sí;tienda-casa-viva;130;132,9;170;170;10;producto fija;22,85;13,44;17;15,85;190;20;23;29,35;15,45;165;148200;no;30;;
+cv-391;391;Cortinero Expandible plateado;Baño;sí;tienda-casa-viva;4,5;6,14;7;7;1;producto fija;-0,32;-4,55;1;-0,32;9;2;1;1,63;18,13;8;7100;no;1,5;;pierde después de la comisión, bajo el suelo
+cv-410;410;Luminoliss;Cuidado personal;sí;tienda-casa-viva;12;13,72;12;12;1;producto fija;-3,02;-25,16;1;-3,02;20;8;2;3,78;18,91;16;15600;sí;-2;ALTA;pierde después de la comisión, bajo el suelo, comisión web ≠ nube
+cv-426;426;Organizador Colgante de Tela – 5 Niveles;Habitación;sí;tienda-casa-viva;9,5;11,19;15;15;2;producto fija;1,43;9,54;1;2,43;16;1;1;3,41;21,29;14;12500;no;3,5;;tienda gana menos de 2,5
+cv-477;477;Espumadera;Cocina;sí;tienda-casa-viva;3,4;5,03;6;6;1;producto fija;-0,18;-3,04;1;-0,18;8;2;1;1,77;22,09;7;6300;no;1,6;;pierde después de la comisión, bajo el suelo
+cv-491;491;Forro para 6 sillas + mesa rectangular — carmelita;Cocina;sí;tienda-casa-viva;40;42;65;65;7;producto padre fija;14,38;22,12;8;13,38;61;-4;8;9,48;15,54;47;47600;no;18;;
+cv-493;493;Forro para 6 sillas + mesa rectangular — beige;Cocina;sí;tienda-casa-viva;40;42;65;65;7;producto padre fija;14,38;22,12;8;13,38;61;-4;8;9,48;15,54;47;47600;no;18;;
+cv-504;504;Bata de baño — verde;Baño;sí;tienda-casa-viva;30;31,9;20;20;3;producto padre fija;-15,4;-76,99;1;-13,4;45;25;5;6,98;15,5;36;35100;sí;-12;;se vende por debajo del costo, pierde después de la comisión, ¿costo del paquete?, bajo el suelo, comisión web ≠ nube
+cv-506;506;Bata de baño — azul;Baño;sí;tienda-casa-viva;30;31,9;20;20;3;producto padre fija;-15,4;-76,99;1;-13,4;45;25;5;6,98;15,5;36;35100;sí;-12;;se vende por debajo del costo, pierde después de la comisión, ¿costo del paquete?, bajo el suelo, comisión web ≠ nube
+cv-508;508;Bata de baño — negro;Baño;sí;tienda-casa-viva;30;31,9;20;20;3;producto padre fija;-15,4;-76,99;1;-13,4;45;25;5;6,98;15,5;36;35100;sí;-12;;se vende por debajo del costo, pierde después de la comisión, ¿costo del paquete?, bajo el suelo, comisión web ≠ nube
+cv-510;510;Bata de baño — gris;Baño;sí;tienda-casa-viva;30;31,9;20;20;3;producto padre fija;-15,4;-76,99;1;-13,4;45;25;5;6,98;15,5;36;35100;sí;-12;;se vende por debajo del costo, pierde después de la comisión, ¿costo del paquete?, bajo el suelo, comisión web ≠ nube
+cv-512;512;Bata de baño — arena;Baño;sí;tienda-casa-viva;30;31,9;20;20;3;producto padre fija;-15,4;-76,99;1;-13,4;45;25;5;6,98;15,5;36;35100;sí;-12;;se vende por debajo del costo, pierde después de la comisión, ¿costo del paquete?, bajo el suelo, comisión web ≠ nube
+cv-570;570;Colcha navideña 180×220 — rojo;Habitación;sí;tienda-casa-viva;15;16,75;18;18;2;producto padre fija;-1,2;-6,66;1;-0,2;24;6;3;3,65;15,21;20;18800;no;0;;pierde después de la comisión, bajo el suelo, comisión web ≠ nube
+cv-572;572;Colcha navideña 180×220 — azul;Habitación;sí;tienda-casa-viva;15;16,75;18;18;2;producto padre fija;-1,2;-6,66;1;-0,2;24;6;3;3,65;15,21;20;18800;no;0;;pierde después de la comisión, bajo el suelo, comisión web ≠ nube
+cv-611;611;Alfombra Circular Decorativa – 180 cm — Diseño 3;Habitación;sí;tienda-casa-viva;40;42;60;60;5;producto fija;11,5;19,17;8;8,5;61;1;8;9,48;15,54;47;47600;no;15;;
+cv-643;643;Juego de Sábanas Majestic Imperial – TWIN — azul;Habitación;sí;tienda-casa-viva;9,9;11,6;14;14;1;producto padre fija;1,05;7,52;1;1,05;17;3;2;2,98;17,51;14;13300;no;3,1;;tienda gana menos de 2,5
+cv-645;645;Juego de Sábanas Majestic Imperial – TWIN — gris;Habitación;sí;tienda-casa-viva;9,9;11,6;14;14;1;producto padre fija;1,05;7,52;1;1,05;17;3;2;2,98;17,51;14;13300;no;3,1;;tienda gana menos de 2,5
+cv-647;647;Juego de Sábanas Majestic Imperial – TWIN — verde-azul;Habitación;sí;tienda-casa-viva;9,9;11,6;14;14;1;producto padre fija;1,05;7,52;1;1,05;17;3;2;2,98;17,51;14;13300;no;3,1;;tienda gana menos de 2,5
+cv-649;649;Juego de Sábanas Majestic Imperial – TWIN — beige-oscuro;Habitación;sí;tienda-casa-viva;9,9;11,6;14;14;1;producto padre fija;1,05;7,52;1;1,05;17;3;2;2,98;17,51;14;13300;no;3,1;;tienda gana menos de 2,5
+cv-651;651;Juego de Sábanas Majestic Imperial – TWIN — rosado-claro;Habitación;sí;tienda-casa-viva;9,9;11,6;14;14;1;producto padre fija;1,05;7,52;1;1,05;17;3;2;2,98;17,51;14;13300;no;3,1;;tienda gana menos de 2,5
+cv-653;653;Juego de Sábanas Majestic Imperial – TWIN — verde-claro;Habitación;sí;tienda-casa-viva;9,9;11,6;14;14;1;producto padre fija;1,05;7,52;1;1,05;17;3;2;2,98;17,51;14;13300;no;3,1;;tienda gana menos de 2,5
+cv-660;660;Sobrecama king — azul;Habitación;sí;tienda-casa-viva;31;32,91;43;43;4;producto fija;5,02;11,67;5;4,02;46;3;5;6,94;15,09;37;35900;no;8;;
+cv-662;662;Sobrecama king — gris;Habitación;sí;tienda-casa-viva;31;32,91;43;43;4;producto fija;5,02;11,67;5;4,02;46;3;5;6,94;15,09;37;35900;no;8;;
+cv-664;664;Sobrecama king — rosado;Habitación;sí;tienda-casa-viva;31;32,91;43;43;4;producto fija;5,02;11,67;5;4,02;46;3;5;6,94;15,09;37;35900;no;8;;
+cv-666;666;Sobrecama king — blanco;Habitación;sí;tienda-casa-viva;31;32,91;43;43;4;producto fija;5,02;11,67;5;4,02;46;3;5;6,94;15,09;37;35900;no;8;;
+cv-668;668;Sobrecama king — gris-oscuro;Habitación;sí;tienda-casa-viva;31;32,91;43;43;4;producto fija;5,02;11,67;5;4,02;46;3;5;6,94;15,09;37;35900;no;8;;
+cv-684;684;Toallas pequeña;Baño;sí;tienda-casa-viva;140;143;10;10;1;producto fija;-134,25;-1342,49;1;-134,25;205;195;25;31,88;15,55;175;159900;sí;-135;ALTA;se vende por debajo del costo, pierde después de la comisión, ¿CUP apuntado como USD?, bajo el suelo, comisión web ≠ nube
+cv-706;706;Cesta tipo mimbre rectangular;Organización;sí;tienda-casa-viva;5;6,65;10;10;1;general 10 %;2,1;21,01;1;2,1;10;0;1;2,1;21,01;9;7800;no;4;;tienda gana menos de 2,5
+cv-761;761;Toallas Cisne Blanco 40×70 — verde;Baño;sí;tienda-casa-viva;10;11,7;8;8;1;producto padre fija;-4,9;-61,23;1;-4,9;17;9;2;2,88;16,92;14;13300;sí;-4;;se vende por debajo del costo, pierde después de la comisión, ¿costo del paquete?, bajo el suelo, comisión web ≠ nube
+cv-763;763;Toallas Cisne Blanco 40×70 — azul;Baño;sí;tienda-casa-viva;10;11,7;8;8;1;producto padre fija;-4,9;-61,23;1;-4,9;17;9;2;2,88;16,92;14;13300;sí;-4;;se vende por debajo del costo, pierde después de la comisión, ¿costo del paquete?, bajo el suelo, comisión web ≠ nube
+cv-765;765;Toallas Cisne Blanco 40×70 — rosado;Baño;sí;tienda-casa-viva;10;11,7;8;8;1;producto padre fija;-4,9;-61,23;1;-4,9;17;9;2;2,88;16,92;14;13300;sí;-4;;se vende por debajo del costo, pierde después de la comisión, ¿costo del paquete?, bajo el suelo, comisión web ≠ nube
+cv-767;767;Toallas Cisne Blanco 40×70 — blanco;Baño;sí;tienda-casa-viva;10;11,7;8;8;1;producto padre fija;-4,9;-61,23;1;-4,9;17;9;2;2,88;16,92;14;13300;sí;-4;;se vende por debajo del costo, pierde después de la comisión, ¿costo del paquete?, bajo el suelo, comisión web ≠ nube
+cv-769;769;Toallas Cisne Blanco 40×70 — gris-oscuro;Baño;sí;tienda-casa-viva;10;11,7;8;8;1;producto padre fija;-4,9;-61,23;1;-4,9;17;9;2;2,88;16,92;14;13300;sí;-4;;se vende por debajo del costo, pierde después de la comisión, ¿costo del paquete?, bajo el suelo, comisión web ≠ nube
+cv-771;771;Toallas Cisne Blanco 40×70 — beige-oscuro;Baño;sí;tienda-casa-viva;10;11,7;8;8;1;producto padre fija;-4,9;-61,23;1;-4,9;17;9;2;2,88;16,92;14;13300;sí;-4;;se vende por debajo del costo, pierde después de la comisión, ¿costo del paquete?, bajo el suelo, comisión web ≠ nube
+cv-773;773;Colchón de resorte 180x200cm Dawang;Habitación;sí;tienda-casa-viva;214;217,74;320;320;20;producto fija;74,26;23,21;39;55,26;310;-10;38;46,51;15;265;241800;no;86;;
+cv-784;784;Sobrecama Queen — verde;Habitación;sí;tienda-casa-viva;29;30,89;38;38;3;producto fija;3,16;8,32;3;3,16;45;7;6;6,99;15,53;35;35100;no;6;;
+cv-786;786;Sobrecama Queen — beige;Habitación;sí;tienda-casa-viva;29;30,89;38;38;3;producto fija;3,16;8,32;3;3,16;45;7;6;6,99;15,53;35;35100;no;6;;
+cv-788;788;Sobrecama Queen — blanco;Habitación;sí;tienda-casa-viva;29;30,89;38;38;3;producto fija;3,16;8,32;3;3,16;45;7;6;6,99;15,53;35;35100;no;6;;
+cv-790;790;Sobrecama Queen — gris-oscuro;Habitación;sí;tienda-casa-viva;29;30,89;38;38;3;producto fija;3,16;8,32;3;3,16;45;7;6;6,99;15,53;35;35100;no;6;;
+cv-792;792;Sobrecama Queen — carmelita-oscuro;Habitación;sí;tienda-casa-viva;29;30,89;38;38;3;producto fija;3,16;8,32;3;3,16;45;7;6;6,99;15,53;35;35100;no;6;;
+cv-807;807;Utensilios de silicona con cuchillos — rosado;Cocina;sí;tienda-casa-viva;26;27,86;30;30;1;producto padre fija;0,39;1,3;1;0,39;40;10;5;6,14;15,35;32;31200;no;3;;tienda gana menos de 2,5, bajo el suelo
+cv-822;822;Soporte TV 14”-42”;Habitación;sí;tienda-casa-viva;7;8,67;12;12;2;producto fija;1,03;8,59;1;2,03;13;1;1;3,01;23,13;11;10200;no;3;;tienda gana menos de 2,5
+cv-834;834;Alfombra de chenilla — rosado;Baño;sí;tienda-casa-viva;4;5,64;10;10;2;producto padre fija;2,11;21,11;1;3,11;9;-1;1;2,14;23,74;8;7100;no;4;;tienda gana menos de 2,5
+cv-836;836;Alfombra de chenilla — amarillo;Baño;sí;tienda-casa-viva;4;5,64;10;10;2;producto padre fija;2,11;21,11;1;3,11;9;-1;1;2,14;23,74;8;7100;no;4;;tienda gana menos de 2,5
+cv-838;838;Alfombra de chenilla — blanco;Baño;sí;tienda-casa-viva;4;5,64;10;10;2;producto padre fija;2,11;21,11;1;3,11;9;-1;1;2,14;23,74;8;7100;no;4;;tienda gana menos de 2,5
+cv-840;840;Alfombra de chenilla — verde-menta;Baño;sí;tienda-casa-viva;4;5,64;10;10;2;producto padre fija;2,11;21,11;1;3,11;9;-1;1;2,14;23,74;8;7100;no;4;;tienda gana menos de 2,5
+cv-842;842;Alfombra de chenilla — bw-1;Baño;sí;tienda-casa-viva;4;5,64;10;10;2;producto padre fija;2,11;21,11;1;3,11;9;-1;1;2,14;23,74;8;7100;no;4;;tienda gana menos de 2,5
+wc-1013;1013;Aire acondicionado split Parker con unidad interior y exterior;;sí;nexo-bajo-pedido;351;351;380;;10;producto fija;19;5;11,6;17,4;385;5;13,6;20,4;5,3;370;300300;sí;-9;;

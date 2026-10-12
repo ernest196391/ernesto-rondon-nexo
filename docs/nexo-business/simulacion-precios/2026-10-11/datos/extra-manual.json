@@ -1,0 +1,18 @@
+{
+  "note": "Productos sin costo en la nube que se simulan con datos dados a mano. No se escribe nada en ningún sitio.",
+  "rows": [
+    {
+      "product_id": "wc-1013",
+      "woo_id": 1013,
+      "name": "Aire acondicionado split Parker con unidad interior y exterior",
+      "profile": "nexo-bajo-pedido",
+      "supplier": "Nexus",
+      "purchase_amount": 351,
+      "purchase_currency": "USD",
+      "purchase_rate": 1,
+      "freight_usd": 0,
+      "freight_note": "Transporte real aún sin saber (T). Se simula T = 0 y se calcula a partir de qué T se rompe el mínimo.",
+      "source": "Ernesto, 11-oct: costo 351 USD en la tienda del proveedor; precio web 380; comisión fija 10 USD en la web"
+    }
+  ]
+}

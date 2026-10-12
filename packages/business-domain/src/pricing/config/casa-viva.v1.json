@@ -1,0 +1,127 @@
+{
+  "policyId": "casa-viva",
+  "version": "1.0.0-borrador",
+  "status": "borrador",
+  "effectiveFrom": "2026-10-11",
+  "note": "Paso 1 del motor de precios (docs/nexo-business/motor-de-precios.md). Reglas de Lennys del 11-oct (22:37-22:47) y D43. BORRADOR: ningún número está aprobado; solo se usa para simular. Nunca se pisa: para cambiar algo se crea casa-viva.v2.json.",
+  "sources": [
+    "Lennys 11-oct 22:46: comisión = 10 % del precio o un poco más; si la tienda gana menos de 2-3 USD, el gestor recibe menos",
+    "Lennys 11-oct: margen normalmente por debajo del 20 %, menor en consignación (rotación)",
+    "Lennys 11-oct: en la página va el costo de compra; la ganancia se deriva",
+    "D43: margen fijo bajo pedido: primero el transporte, del resto 40 % gestor / 60 % NEXO; el recargo del gestor cuenta dentro de su 40 %",
+    "ECONOMY_AND_ROLES.md: costo_total = (compra/tasa + flete + fijo_unidad) x (1 + contingencia); otros cargos 2 % + dependienta 0,5 %",
+    "VivaBot catalog.js myPrice: +5/+10 USD por tamaño; más de 300 USD: +5 %; el gestor se lleva la mitad del margen"
+  ],
+  "rates": {
+    "currency": "CUP",
+    "staleHours": 36,
+    "note": "Una sola tasa: la de la web (cvd_daily_rates). La nube (exchange_rates) debe copiarla."
+  },
+  "fixedCosts": {
+    "monthlyCup": 407408.5,
+    "unitsPerMonth": 330,
+    "note": "Gastos fijos de la nube (fixed_costs, 16 conceptos) / unidades al mes (manual_units = 330). Se pasa a USD con la tasa del día."
+  },
+  "profiles": {
+    "tienda-casa-viva": {
+      "label": "Tienda Casa Viva (con existencias)",
+      "ownerLabel": "tienda",
+      "rules": {
+        "method": "target_margin",
+        "targetNetMarginPct": 15,
+        "minNetMarginPct": 5,
+        "includeFixedCosts": true,
+        "contingencyPct": 1,
+        "variablePct": 2.5,
+        "commission": {
+          "mode": "pct_of_price",
+          "pct": 10,
+          "roundUpToUsd": 1,
+          "minUsd": 1,
+          "balanceWithOwner": true,
+          "maxPct": 12
+        },
+        "minOwnerProfitUsd": 2.5,
+        "reduceCommissionToProtectOwner": true,
+        "raisePriceToMinOwnerProfit": false,
+        "gestoraMarkupMode": "suma",
+        "gestoraMarkupWarnPct": 30,
+        "rounding": {
+          "mode": "ceil",
+          "tiers": [
+            { "upToUsd": 100, "stepUsd": 1 },
+            { "upToUsd": 500, "stepUsd": 5 },
+            { "upToUsd": null, "stepUsd": 10 }
+          ],
+          "cupStep": 100
+        }
+      },
+      "consignacion": {
+        "targetNetMarginPct": 10,
+        "minNetMarginPct": 3
+      }
+    },
+    "nexo-bajo-pedido": {
+      "label": "NEXO bajo pedido, margen fijo (D43)",
+      "ownerLabel": "NEXO",
+      "rules": {
+        "method": "flat_or_pct",
+        "flatMarkupUsd": 30,
+        "markupPctOfCost": 9,
+        "includeFixedCosts": false,
+        "contingencyPct": 0,
+        "variablePct": 0,
+        "commission": {
+          "mode": "share_of_margin",
+          "sharePct": 40
+        },
+        "minOwnerProfitUsd": 10,
+        "reduceCommissionToProtectOwner": false,
+        "raisePriceToMinOwnerProfit": true,
+        "gestoraMarkupMode": "se-descuenta",
+        "gestoraMarkupWarnPct": 30,
+        "rounding": {
+          "mode": "ceil",
+          "tiers": [
+            { "upToUsd": 100, "stepUsd": 1 },
+            { "upToUsd": 500, "stepUsd": 5 },
+            { "upToUsd": null, "stepUsd": 10 }
+          ],
+          "cupStep": 100
+        }
+      }
+    },
+    "bolsa-bot": {
+      "label": "Bolsa del bot (artículos de proveedores en grupos)",
+      "ownerLabel": "NEXO",
+      "rules": {
+        "method": "flat_by_size",
+        "flatBySizeUsd": { "pequeno": 5, "grande": 10 },
+        "pctAboveUsd": 300,
+        "markupPctOfCost": 5,
+        "includeFixedCosts": false,
+        "contingencyPct": 0,
+        "variablePct": 0,
+        "commission": {
+          "mode": "share_of_margin",
+          "sharePct": 50
+        },
+        "minOwnerProfitUsd": 0,
+        "reduceCommissionToProtectOwner": false,
+        "raisePriceToMinOwnerProfit": false,
+        "gestoraMarkupMode": "suma",
+        "gestoraMarkupWarnPct": 30,
+        "rounding": {
+          "mode": "round",
+          "tiers": [{ "upToUsd": null, "stepUsd": 1 }],
+          "cupStep": 100
+        }
+      }
+    }
+  },
+  "layers": {
+    "category": {},
+    "supplier": {},
+    "product": {}
+  }
+}
