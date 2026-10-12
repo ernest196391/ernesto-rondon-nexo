@@ -43,6 +43,9 @@ Sustituye: el cambio de nombre a "Casa Viva Core" del 2026-10-04 como nombre de 
 Casa Viva se construye y se le deja a Lennys; ahí se prueban todas las herramientas. A las gestoras se les dan GRATIS todas las herramientas que les resuelvan problemas y las hagan sentir cómodas: publicar desde su panel, publicar fácil en Revolico y Facebook, buscar y comparar precios y proveedores, lead manager para su propia web, compartir fichas, etc. Las herramientas premium de NEXO cuestan más y el precio se fija por el valor que aportan y el cliente ideal (sin cifras fijadas aún). Los «1.000 negocios» se consiguen usando NEXO; las gestoras que vendan o ayuden ganan comisión (por definir). El «Cazador de clientes» es una herramienta INTERNA de Ernesto/NEXO (exchange para cazar clientes, gestores y productos), no de las gestoras; quizá se comercialice después.
 Sustituye: en `docs/nexo-business/herramientas-gestoras.md` (11-oct) los planes Caja/Con gestoras/Pro cobrados al comercio y la idea de quitar el «Cazador de clientes»: quedan como borrador hasta replantearlos con la gestora como cliente.
 
+**D43 · 2026-10-11 · Regla provisional para ventas NEXO de margen fijo (dropshipping de producto caro): primero el transporte real, y lo que queda del margen 40 % para la gestora o gestor y 60 % para NEXO (Ernesto).**
+Primer caso: split Parker de Harley (margen +25 USD sobre el proveedor; cliente paga en CUP). Si la gestora o el gestor sube el precio por su cuenta, ese extra es suyo y se descuenta de su 40 %. El cambio a CUP se calcula con la tasa del día. Vale hasta que el motor de precios (`docs/nexo-business/motor-de-precios.md`) tenga la regla definitiva.
+
 ## Negocio
 
 **D12 · 2026-10-05 · El modelo comercial de todo el ecosistema se construye con los tres libros de Alex Hormozi:** *$100M Offers* (oferta), *$100M Leads* (captación), *$100M Money Models* (modelo de dinero), más su método de cierre de ventas (CLOSER). Ver `NEGOCIO.md`.
