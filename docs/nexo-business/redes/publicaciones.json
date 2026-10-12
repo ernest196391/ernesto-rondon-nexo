@@ -1,0 +1,17 @@
+{
+  "nota": "Registro de cada publicación de Casa Viva en redes, para comparar horas y temas en la auditoría semanal. Hora de La Habana. Añadir una fila por publicación; las métricas las rellena la auditoría.",
+  "plan_de_horas": "Probar y rotar: reel a las 19:00 (antes del pico de 20-22 h de ETECSA), reel a las 6:00 (datos gratis de madrugada; el algoritmo lo indexa antes del día), reel a las 12:30 (almuerzo). Historias: 9:00 y 19:30. Mejores días según estudios: martes a jueves; peores: sábado y domingo.",
+  "publicaciones": [
+    {
+      "fecha": "2026-10-12", "hora": "15:25", "dia": "lunes", "red": "facebook", "tipo": "reel",
+      "pieza": "reel-apagon v1 «Se fue la corriente… otra vez»", "tema": "apagón / calor", "etiqueta_ia": true,
+      "texto": "3 trucos para el calor del apagón + pregunta a comentarios",
+      "metricas": null
+    },
+    {
+      "fecha": "2026-10-12", "hora": "15:28", "dia": "lunes", "red": "facebook", "tipo": "historias (5)",
+      "pieza": "historias 1-5 de Cúrru y Proskopellin", "tema": "día a día en la tienda", "etiqueta_ia": true,
+      "metricas": null
+    }
+  ]
+}
