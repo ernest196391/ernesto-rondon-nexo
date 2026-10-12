@@ -183,6 +183,42 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
 - **Pedidos:** #2943 cancelado (repetido del #2944, lo lleva Daiquel; comisión del #2944 = Joycy, sin registrar, nota en el pedido). Frank/Lázaro (…8195) debe registrarse en /registro-mensajero/.
 - **Errores míos:** duplicado a Max en el General (el supervisor ya había contestado); pregunta de Yudi enviada a un número equivocado (5352834147) con el nombre de su clienta. Memoria `look-up-phone-before-sending`.
 
+### L2. Lunes 12-oct, 10:45–12:25
+- **Reinicios:** el bot se reinició a las 10:46, así que el arreglo de teléfonos ya está en marcha. Ahora carga 44 números de gestoras/influencers (antes 9). El reparto al crear el pedido se probó con el #2946: aceptado en 1 minuto. Core **3.13.61**: pestañas Pendientes/Cerrados en ventas.
+- **Telegram conectado** (@curru360bot, `/root/supervisor/telegram.json`). Desde VivaBot `e1f977f`, audios, fotos y archivos para Ernesto se copian como archivo (`tgFile`). Las fotos de más de 10 MB van como documento (`0058dab`).
+- **Voz nueva de Ernesto:**
+  - **Clave:** ElevenLabs plan Starter. Guardada a ciegas con `/root/supervisor/clave-voz.sh`, que pide la clave sin mostrarla; queda en `/root/supervisor/elevenlabs.json` (permisos 600).
+  - **Voz:** `voz_id` = `kuc46PoM4O1qlIVI9eg6`.
+  - **Modelo elegido de oído:** `eleven_multilingual_v2` sin style, stability 0.5, velocidad 1.16 (`b7c77be`). v3 sonaba más lento.
+  - **Respuestas en audio:** `voz_respuestas` = sí.
+  - **Pruebas:** en `/root/archivos/pruebas-voz/`. Whisper las transcribió sin un error.
+- **Estilo del bot (Ernesto):**
+  - **Prompt:** corto, preciso y directo; calidez solo cuando hace falta; humor cubano con respeto; pregunta solo si falta un dato (`183614c`).
+  - **`withoutGenericClose`** (`preguntas-rules.js`, `fccc963`): quita «¿algo más?», «si necesitas otro dato, dime», «me avisas si…» y la presentación al final.
+  - **`isTrivial`:** «Okok», «Okis» y «Dale oki» ya no se contestan.
+- **Contacto corregido:** 5353474881 era «Ibelice» con línea personal; ahora «Fernando Santana (mensajero)», línea casaviva.
+- **Tienda (lo que pidió Nana):**
+  - **Existencias puestas en web:** batana HOEGOA 676 → 1; brazalete deportivo 553 → 1 y publicado (estaba privado por agotado); cesto de pedal negro 7 L 2411 → 1 (el pedido de recogida que ella recuerda no está en los últimos 80 de la web).
+  - **Paraguas 2828 / 2858:** no son repetidos (liso y estampado).
+  - **Protector King:** 38 USD en web y 39 en tienda; pregunta abierta a Lennys (`ptmsydito`).
+- **Pedidos y mensajeros:**
+  - **Recordatorios de liquidar:** Ely #2916 y Fernando #2896.
+  - **#2947 (Neisy):** el bot respondió con otro pedido; corregido a mano.
+  - **Lázaro:** aprobado como mensajero.
+  - **Nana:** se registró como gestora y se aprobó sola (modo TODAS). Su rol en el CRM pasó a gestora. **Falta que Ernesto decida** si queda así.
+- **Bolsa / marketplace** (informe en `docs/nexo-business/marketplace-2026-10-12.md`):
+  - **Lo que hay:** 525 artículos (Sergio 252, LJH 272) y 0 con FOTOS OK.
+  - **Arreglo:** `publishItem` no comprobaba FOTOS OK; arreglado en `4c0dbec`.
+  - **Top 10 propuesto:** todos de Sergio.
+  - **Revolico:** devuelve 403 (Cloudflare); no se insistió.
+  - **Fadiar:** el WhatsApp de Ernesto no está en ningún grupo suyo.
+  - **DIGITAL STORE:** 0 mensajes desde el 6-oct.
+- **Serie de Cúrru:**
+  - **Escenarios:** 9 hechos a partir de las 13 fotos de Nana, en `videos/curru-tienda/escenarios/`; en el VPS, `/root/archivos/curru-tienda/`.
+  - **Tomas:** 5 de Cúrru con Proskopellin, en `videos/curru-tienda/tomas/`.
+  - **Créditos:** Higgsfield `gpt_image_2_5`, 1 crédito por imagen; quedan 5.
+- **`cv enviar`:** ahora se niega a mandar a un número que no está en contactos (`--nuevo` para forzarlo) y muestra «Para: nombre». Motivo: un mensaje para Dayisel salió a 5358892739, que es un número equivocado (solo con su nombre e instrucciones). Copia de seguridad en `/root/supervisor/cv.mjs.bak-20261012`.
+
 ## K. Noche del 11-oct (03:45–05:00 Cuba, Claude Code mientras Ernesto dormía)
 **Hecho y comprobado:**
 - **VivaBot** (VPS en `72c51a5`, rama `ccr-f459b3eb-utyhix` = main): sin BizneCubano en textos y reglas. Arreglados: "me gustaría que me lo lleven…" de un cliente ya no se toma como "idea"; APRUEBA n ya no aprueba gestoras por error; campañas solo a clientes de 9 a 20 h (nunca familia ni pausados); las claves de cifrado ya no salen en los logs; mensajería sin caché vieja; reparto más seguro ("Yo" exacto, "Yo #N" por privado, "entregado #N", CUP/transferencia, ofertas cerradas no se toman, el WhatsApp del pedido no lo cambia otro número). **Probado sin mandar WhatsApp** (6 preguntas reales): ofrece faroles y lámparas solares para apagones, da la mensajería a Miramar en CUP, materiales de toallas, no MLC, árbol de Navidad, comisión de silla = 5 USD fijos.
