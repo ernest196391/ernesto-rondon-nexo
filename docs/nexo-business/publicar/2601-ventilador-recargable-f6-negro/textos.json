@@ -1,0 +1,59 @@
+{
+  "producto": {
+    "id": 2601,
+    "nombre": "Ventilador recargable F6 (negro)",
+    "link": "https://casaviva.company/producto/ventilador-recargable-f6-negro/?ref=EJEMPLO",
+    "ref": "CV-2601-EJEMPLO"
+  },
+  "revolico": {
+    "categoria": "Electrodomésticos › Ventiladores",
+    "titulo": "Ventilador recargable F6 negro nuevo",
+    "precio": 70,
+    "moneda": "USD",
+    "descripcion": "Ventilador recargable F6 color negro con luz LED: aire fresco y luz durante el apagón, sin depender de la corriente.\nEl ventilador recargable F6 (negro) es la solución práctica para el calor y los apagones en Cuba. Lo cargas cuando hay corriente y lo usas donde lo necesites: en el cuarto, la sala, el portal o de viaje.\n• Ventilador y lámpara en uno: su aro de luz LED te ilumina mientras te refresca.\n• Recargable: funciona con batería, sin cables mientras lo usas.\n• Portátil y estable: base firme con botones de control al frente, fácil de mover de un lugar a otro.\n• Diseño moderno en color negro.\nConsejo: cárgalo por completo antes del primer uso. La duración de la batería depende de la velocidad y de si usas la luz.\nEntrega en La Habana con mensajería a domicilio o recogida en la tienda de Nuevo Vedado.\nPrecio: 70 USD.\nPregunta por la referencia CV-2601-EJEMPLO.",
+    "telefono": "(pon tu número aquí, en el campo Teléfono)",
+    "fotos": 1,
+    "avisos": [
+      "Pégalo desde tu cuenta de Revolico. Un solo anuncio por producto: no lo dupliques.",
+      "No pongas enlaces ni tu número dentro del texto (Revolico lo borra y puede bloquear la cuenta). El número va en el campo Teléfono.",
+      "Renuévalo a mano como mucho una vez cada 24 horas."
+    ]
+  },
+  "facebook": {
+    "titulo": "Ventilador recargable F6 (negro)",
+    "precio": 70,
+    "texto": "Ventilador recargable F6 (negro) — 70 USD\nVentilador recargable F6 color negro con luz LED: aire fresco y luz durante el apagón, sin depender de la corriente.\n✔️ Ventilador y lámpara en uno: su aro de luz LED te ilumina mientras te refresca.\n✔️ Recargable: funciona con batería, sin cables mientras lo usas.\n✔️ Portátil y estable: base firme con botones de control al frente, fácil de mover de un lugar a otro.\n🚚 Entrega a domicilio en La Habana (mensajería aparte) o recogida acordada.\n📲 Escríbeme por WhatsApp.",
+    "primerComentario": "Aquí lo ves y lo pides: https://casaviva.company/producto/ventilador-recargable-f6-negro/?ref=EJEMPLO",
+    "avisos": [
+      "En grupos: el enlace mejor en el primer comentario (muchos grupos borran publicaciones con enlaces).",
+      "Lee las reglas de cada grupo. Máximo 3–5 grupos al día y con textos un poco distintos: el mismo texto en muchos grupos = spam para Facebook.",
+      "Marketplace no está abierto en todos los países (en Cuba puede no salir): si no lo ves, usa grupos."
+    ]
+  },
+  "estado": {
+    "texto": "Ventilador recargable F6 (negro) ✨\n70 USD · ¡queda 1!\nPídelo aquí 👉 https://casaviva.company/producto/ventilador-recargable-f6-negro/?ref=EJEMPLO",
+    "avisos": [
+      "1 o 2 estados al día. Si alguien responde al estado, contéstale tú (es tu cliente)."
+    ]
+  },
+  "imagenes": [
+    {
+      "archivo": "revolico-1x1.jpg",
+      "tamano": "1080×1080",
+      "lleva": "solo la foto, fondo claro; sin teléfono ni enlace (Revolico no lo permite)"
+    },
+    {
+      "archivo": "facebook-4x5.jpg",
+      "tamano": "1080×1350",
+      "lleva": "foto + nombre + precio + \"Escríbeme por WhatsApp\""
+    },
+    {
+      "archivo": "estado-9x16.jpg",
+      "tamano": "1080×1920",
+      "lleva": "foto + nombre + precio + código de la gestora (EJEMPLO)"
+    }
+  ],
+  "faltan": [
+    "teléfono de la gestora (va en el campo Teléfono de Revolico)"
+  ]
+}

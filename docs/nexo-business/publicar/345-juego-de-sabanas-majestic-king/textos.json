@@ -1,0 +1,59 @@
+{
+  "producto": {
+    "id": 345,
+    "nombre": "Juego de Sábanas Majestic King",
+    "link": "https://casaviva.company/producto/juego-de-sabanas-majestic-king/?ref=EJEMPLO",
+    "ref": "CV-345-EJEMPLO"
+  },
+  "revolico": {
+    "categoria": "Hogar › Artículos del Hogar",
+    "titulo": "Juego de Sábanas Majestic King nuevo",
+    "precio": 27,
+    "moneda": "USD",
+    "descripcion": "Juego de sábanas con textura suave, fresco y de alta durabilidad. Ideal para brindar confort y un acabado elegante a tu dormitorio.\nTamaño King Size\n• Sábana plana: 274 × 259 cm\n• Sábana ajustable: 198 × 203 cm, con 20 cm de altura\n• Fundas de almohada (2 piezas): 51 × 102 cm\nMaterial\nRespirable, suave al tacto.\nIncluye\nSábana superior\nSábana ajustable\nFundas para almohada\nColores / opciones: verde, beige, blanco, azul claro, verde azul, beige oscuro.\nPrecio: 27 USD.\nEntrega a domicilio en La Habana (mensajería aparte) o recogida acordada.\nPregunta por la referencia CV-345-EJEMPLO.",
+    "telefono": "(pon tu número aquí, en el campo Teléfono)",
+    "fotos": 1,
+    "avisos": [
+      "Pégalo desde tu cuenta de Revolico. Un solo anuncio por producto: no lo dupliques.",
+      "No pongas enlaces ni tu número dentro del texto (Revolico lo borra y puede bloquear la cuenta). El número va en el campo Teléfono.",
+      "Renuévalo a mano como mucho una vez cada 24 horas."
+    ]
+  },
+  "facebook": {
+    "titulo": "Juego de Sábanas Majestic King",
+    "precio": 27,
+    "texto": "Juego de Sábanas Majestic King — 27 USD\nJuego de sábanas con textura suave, fresco y de alta durabilidad. Ideal para brindar confort y un acabado elegante a tu dormitorio.\n✔️ Sábana plana: 274 × 259 cm\n✔️ Sábana ajustable: 198 × 203 cm, con 20 cm de altura\n✔️ Fundas de almohada (2 piezas): 51 × 102 cm\n🎨 verde, beige, blanco, azul claro, verde azul, beige oscuro\n🚚 Entrega a domicilio en La Habana (mensajería aparte) o recogida acordada.\n📲 Escríbeme por WhatsApp.",
+    "primerComentario": "Aquí lo ves y lo pides: https://casaviva.company/producto/juego-de-sabanas-majestic-king/?ref=EJEMPLO",
+    "avisos": [
+      "En grupos: el enlace mejor en el primer comentario (muchos grupos borran publicaciones con enlaces).",
+      "Lee las reglas de cada grupo. Máximo 3–5 grupos al día y con textos un poco distintos: el mismo texto en muchos grupos = spam para Facebook.",
+      "Marketplace no está abierto en todos los países (en Cuba puede no salir): si no lo ves, usa grupos."
+    ]
+  },
+  "estado": {
+    "texto": "Juego de Sábanas Majestic King ✨\n27 USD\nPídelo aquí 👉 https://casaviva.company/producto/juego-de-sabanas-majestic-king/?ref=EJEMPLO",
+    "avisos": [
+      "1 o 2 estados al día. Si alguien responde al estado, contéstale tú (es tu cliente)."
+    ]
+  },
+  "imagenes": [
+    {
+      "archivo": "revolico-1x1.jpg",
+      "tamano": "1080×1080",
+      "lleva": "solo la foto, fondo claro; sin teléfono ni enlace (Revolico no lo permite)"
+    },
+    {
+      "archivo": "facebook-4x5.jpg",
+      "tamano": "1080×1350",
+      "lleva": "foto + nombre + precio + \"Escríbeme por WhatsApp\""
+    },
+    {
+      "archivo": "estado-9x16.jpg",
+      "tamano": "1080×1920",
+      "lleva": "foto + nombre + precio + código de la gestora (EJEMPLO)"
+    }
+  ],
+  "faltan": [
+    "teléfono de la gestora (va en el campo Teléfono de Revolico)"
+  ]
+}
