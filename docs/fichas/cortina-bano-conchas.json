@@ -1,0 +1,160 @@
+{
+  "version": 1,
+  "slug": "cortina-bano-conchas",
+  "producto": {
+    "nombre": "Cortina de baño diseño de conchas",
+    "target_id": 2906,
+    "ean": null
+  },
+  "titulo": "Cortina de baño con diseño de conchas marinas",
+  "seo_title": "Cortina de baño impermeable con conchas | Casa Viva",
+  "meta_description": "Cortina de baño de nylon impermeable con conchas y corales, con anillas incluidas. En La Habana, con entrega a domicilio o recogida en tienda.",
+  "descripcion_corta": "<p>Conchas y corales en tonos suaves para darle a tu baño un aire de playa. De nylon impermeable y con sus anillas para colgarla.</p>",
+  "descripcion_larga": "<p>Un detalle sencillo que cambia el baño: conchas marinas y corales en negro, gris, naranja y rosa sobre fondo blanco, con un aire fresco de playa.</p><h3>Por qué te va a gustar</h3><ul><li>Renueva el baño en minutos, sin obras.</li><li>Nylon impermeable: el agua se queda dentro de la ducha.</li><li>Trae sus anillas para colgarla en la barra.</li></ul><h3>Características</h3><ul><li>Diseño: conchas marinas y corales en negro, gris, naranja y rosa sobre fondo blanco.</li><li>Material: nylon impermeable.</li><li>Huecos marcados en la parte de arriba: se abren al poner las anillas.</li><li>Incluye anillas de plástico.</li></ul><h3>Cuidados</h3><p>Después de ducharte, déjala extendida para que se seque bien.</p><h3>Cómo te llega</h3><p>Te lo llevamos a casa en La Habana o lo recoges en la tienda.</p>",
+  "bullets": [
+    "Renueva el baño en minutos, sin obras.",
+    "Nylon impermeable: el agua se queda dentro de la ducha.",
+    "Trae sus anillas para colgarla en la barra."
+  ],
+  "campos": [
+    {
+      "grupo": "general",
+      "campo": "Diseño y colores",
+      "valor": "Conchas marinas y corales; negro, gris, naranja y rosa sobre blanco",
+      "estado": "confirmado",
+      "fuente": "foto del producto (se ve el estampado)",
+      "observado": "",
+      "nota": ""
+    },
+    {
+      "grupo": "general",
+      "campo": "Incluye anillas",
+      "valor": "Sí, de plástico color crema",
+      "estado": "confirmado",
+      "fuente": "foto del producto (se ven en el paquete)",
+      "observado": "",
+      "nota": "Cuántas: falta."
+    },
+    {
+      "grupo": "general",
+      "campo": "Material",
+      "valor": "Nylon impermeable",
+      "estado": "sugerido",
+      "fuente": "foto del producto en la web (infografía del proveedor, subida al panel el 11-oct): https://casaviva.company/wp-content/uploads/2026/10/af160310-45d4-40d6-a026-eac8819f08c4.webp",
+      "observado": "Material de nylon impermeable",
+      "nota": "La tienda dijo el 11-oct «son de tela» (crm_knowledge 134); el nylon es una tela. No lo leímos en una etiqueta."
+    },
+    {
+      "grupo": "general",
+      "campo": "Huecos para las anillas",
+      "valor": "Pequeños huecos marcados arriba que se abren al instalar",
+      "estado": "sugerido",
+      "fuente": "foto del producto en la web (infografía del proveedor, subida al panel el 11-oct): https://casaviva.company/wp-content/uploads/2026/10/af160310-45d4-40d6-a026-eac8819f08c4.webp",
+      "observado": "Pequeño hueco para abrir al instalar / Se abre fácilmente por ser de nylon",
+      "nota": ""
+    },
+    {
+      "grupo": "general",
+      "campo": "Antimoho",
+      "valor": null,
+      "estado": "falta",
+      "fuente": "",
+      "observado": "",
+      "nota": "No está confirmado (crm_knowledge 134): no se dice."
+    },
+    {
+      "grupo": "medidas",
+      "campo": "Medidas (ancho × largo)",
+      "valor": null,
+      "estado": "falta",
+      "fuente": "",
+      "observado": "",
+      "nota": "Otra cortina del panel es 180×180 cm, pero de esta no hay prueba. Medirla."
+    },
+    {
+      "grupo": "general",
+      "campo": "Número de anillas",
+      "valor": null,
+      "estado": "falta",
+      "fuente": "",
+      "observado": "",
+      "nota": ""
+    },
+    {
+      "grupo": "general",
+      "campo": "Lavado",
+      "valor": null,
+      "estado": "falta",
+      "fuente": "",
+      "observado": "",
+      "nota": "No hay etiqueta de cuidados."
+    },
+    {
+      "grupo": "precio",
+      "campo": "Precio en la web",
+      "valor": "8 USD",
+      "estado": "confirmado",
+      "fuente": "web casaviva.company (no se cambia)",
+      "observado": "",
+      "nota": ""
+    },
+    {
+      "grupo": "precio",
+      "campo": "Costo de factura",
+      "valor": null,
+      "estado": "falta",
+      "fuente": "",
+      "observado": "",
+      "nota": "La entrada de mercancía de Lennys (proveedor Ensueño) no tiene costo puesto."
+    }
+  ],
+  "cuidados": "Dejarla extendida para que se seque.",
+  "precio": {
+    "costo_factura": null,
+    "moneda": null,
+    "precio_sugerido": "pendiente del motor de precios",
+    "precio_web_actual": 8
+  },
+  "envio": {
+    "largo_cm": null,
+    "ancho_cm": null,
+    "alto_cm": null,
+    "peso_kg": null
+  },
+  "fotos": [
+    {
+      "uso": "galeria",
+      "archivo": "/home/u824654880/fichas/cortina-bano-conchas/cortina-conchas-colgada.jpg",
+      "nombre": "cortina-bano-conchas-colgada.jpg",
+      "fuente": "https://casaviva.company/wp-content/uploads/2026/10/af160310-45d4-40d6-a026-eac8819f08c4.webp",
+      "alt": "Cortina de baño con conchas marinas y corales colgada en la ducha",
+      "nota": "Recorte gratis (sin IA) de la foto que ya tenía el producto: solo la cortina colgada, a 976 px."
+    }
+  ],
+  "evidencia": [],
+  "contradicciones": [],
+  "pedir_fotos": [
+    "Medir la cortina abierta: ancho y largo en cm (en la tienda).",
+    "Foto de la etiqueta o del paquete por detrás (material, medidas, lavado).",
+    "Contar las anillas que trae."
+  ],
+  "notas_revision": [
+    "Las otras 4 cortinas nuevas (2908 flores, 2910 rayas, 2912 cuadros, 2914 flores amarillas y rosa) son del mismo tipo: en cuanto se mida una, sus fichas salen casi iguales."
+  ],
+  "busqueda": {
+    "consultas": [
+      "cortina de baño nylon impermeable 180x180 cm 12 ganchos diseño conchas marinas"
+    ],
+    "fuentes": [
+      {
+        "url": "https://www.alkosto.com/cortina-bano-k-line-impermeable-nido-180-x-180-cm/p/7704512140058",
+        "titulo": "Cortina K-LINE impermeable 180×180",
+        "apoya": "Solo referencia: las cortinas de este tipo suelen ser 180×180 con 12 ganchos. No es nuestro producto: no se usa como dato."
+      }
+    ]
+  },
+  "generado": {
+    "por": "Claude /ficha",
+    "fecha": "2026-10-11 22:40 (Cuba)"
+  }
+}

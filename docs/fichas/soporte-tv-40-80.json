@@ -1,0 +1,224 @@
+{
+  "version": 1,
+  "slug": "soporte-tv-40-80",
+  "producto": {
+    "nombre": "Soporte de TV 40\"x80\"",
+    "target_id": 2595,
+    "ean": null
+  },
+  "titulo": "Soporte de pared articulado para TV de 40″ a 80″",
+  "seo_title": "Soporte de pared para TV 40″–80″ articulado | Casa Viva",
+  "meta_description": "Soporte de pared articulado para TV de 40 a 80 pulgadas, brazo de 500 mm y VESA hasta 400×600 mm. En La Habana, con entrega a domicilio o recogida.",
+  "descripcion_corta": "<p>Pon tu televisor donde mejor se ve: soporte de pared con brazo articulado de 500 mm para pantallas planas de 40 a 80 pulgadas.</p>",
+  "descripcion_larga": "<p>Un televisor bien colocado cambia la sala. Este soporte de pared articulado te deja acercarlo, girarlo e inclinarlo para verlo cómodo desde donde estés, y deja libre el mueble de abajo.</p><h3>Por qué te va a gustar</h3><ul><li>Brazo de 500 mm: acercas el televisor cuando lo necesitas y lo recoges después.</li><li>Sirve para la mayoría de pantallas planas de 40 a 80 pulgadas (LED, LCD y plasma).</li><li>Giras e inclinas la pantalla para evitar reflejos y verla bien desde el sofá o la mesa.</li></ul><h3>Características (según la caja)</h3><ul><li>Para televisores de pantalla plana de 40″ a 80″.</li><li>Agujeros VESA compatibles: 200×200, 200×400, 300×300, 400×400 y 400×600 mm.</li><li>Carga: la caja indica 55 lb (25 kg) y 110 lb (50 kg). Para ir seguros, recomendamos televisores de hasta 25 kg.</li><li>Inclinación arriba y abajo: 30°.</li><li>Giro a izquierda y derecha: 180° / 120°.</li><li>Rotación de la pantalla: 12°.</li><li>Largo del brazo: 500 mm.</li></ul><h3>Antes de elegirlo</h3><p>Mira detrás de tu televisor la distancia entre los agujeros (VESA) y su peso. Si nos escribes el modelo de tu TV, te ayudamos a comprobarlo.</p><h3>Cuidados</h3><p>Instálalo en una pared firme y revisa de vez en cuando que los tornillos sigan bien apretados. Para limpiarlo, un paño seco.</p><h3>Cómo te llega</h3><p>Te lo llevamos a casa en La Habana o lo recoges en la tienda.</p>",
+  "bullets": [
+    "Brazo de 500 mm: acercas el televisor cuando lo necesitas y lo recoges después.",
+    "Sirve para la mayoría de pantallas planas de 40 a 80 pulgadas (LED, LCD y plasma).",
+    "Giras e inclinas la pantalla para evitar reflejos y verla bien desde el sofá o la mesa."
+  ],
+  "campos": [
+    {
+      "grupo": "general",
+      "campo": "Tipo",
+      "valor": "Soporte de pared para TV de pantalla plana (LED, LCD, plasma)",
+      "estado": "confirmado",
+      "fuente": "foto de la caja (Nana, WhatsApp 11-oct 16:56)",
+      "observado": "LED LCD PDP flat panel tv wall mount",
+      "nota": ""
+    },
+    {
+      "grupo": "general",
+      "campo": "Tamaño de TV",
+      "valor": "40″ a 80″",
+      "estado": "confirmado",
+      "fuente": "foto de la caja (Nana, WhatsApp 11-oct 16:56)",
+      "observado": "SUITABLE FOR 40\"-80\" / Fits most 40\"-80\" flar panel TV",
+      "nota": ""
+    },
+    {
+      "grupo": "medidas",
+      "campo": "VESA",
+      "valor": "200×200, 200×400, 300×300, 400×400, 400×600 mm",
+      "estado": "confirmado",
+      "fuente": "foto de la caja (Nana, WhatsApp 11-oct 16:56)",
+      "observado": "VESA compiance:200×200,200×400mm 300×300mm,400×400mm,400×600mm",
+      "nota": ""
+    },
+    {
+      "grupo": "medidas",
+      "campo": "Carga",
+      "valor": "55 lb (25 kg) / 110 lb (50 kg)",
+      "estado": "confirmado",
+      "fuente": "foto de la caja (Nana, WhatsApp 11-oct 16:56)",
+      "observado": "Load capacity:55lbs(25kg)/110lbs(50kg)",
+      "nota": "La caja da dos cifras sin decir cuál es cuál. El bot ya dice 25 kg para ir seguros (crm_knowledge 125). El texto dice las dos y recomienda 25 kg."
+    },
+    {
+      "grupo": "medidas",
+      "campo": "Inclinación",
+      "valor": "30° arriba y abajo",
+      "estado": "confirmado",
+      "fuente": "foto de la caja (Nana, WhatsApp 11-oct 16:56)",
+      "observado": "Tilted angle: up and down30°",
+      "nota": "La descripción vieja decía «-15° a +15°» (puede ser lo mismo: 30° en total). Se usa lo de la caja."
+    },
+    {
+      "grupo": "medidas",
+      "campo": "Giro izquierda/derecha",
+      "valor": "180° / 120°",
+      "estado": "confirmado",
+      "fuente": "foto de la caja (Nana, WhatsApp 11-oct 16:56)",
+      "observado": "Left and right180°/120°",
+      "nota": ""
+    },
+    {
+      "grupo": "medidas",
+      "campo": "Rotación de la pantalla",
+      "valor": "12°",
+      "estado": "confirmado",
+      "fuente": "foto de la caja (Nana, WhatsApp 11-oct 16:56)",
+      "observado": "Plane rotation:12°",
+      "nota": ""
+    },
+    {
+      "grupo": "medidas",
+      "campo": "Largo del brazo",
+      "valor": "500 mm",
+      "estado": "confirmado",
+      "fuente": "foto de la caja (Nana, WhatsApp 11-oct 16:56)",
+      "observado": "Arm length:500mm",
+      "nota": ""
+    },
+    {
+      "grupo": "general",
+      "campo": "Modelo",
+      "valor": "CP502",
+      "estado": "sugerido",
+      "fuente": "descripción anterior de la web (BizneCubano) y crm_knowledge 125",
+      "observado": "",
+      "nota": "No se ve en la foto de la caja. Los anuncios de internet llamados «CP502» no coinciden entre sí. No se pone en el texto."
+    },
+    {
+      "grupo": "medidas",
+      "campo": "Separación de la pared con el brazo recogido",
+      "valor": null,
+      "estado": "falta",
+      "fuente": "",
+      "observado": "",
+      "nota": "Se le pidió a Nana el 11-oct (cliente de Harley). La caja no lo trae."
+    },
+    {
+      "grupo": "general",
+      "campo": "Qué trae la caja (tornillos, nivel)",
+      "valor": null,
+      "estado": "falta",
+      "fuente": "",
+      "observado": "",
+      "nota": "La descripción vieja dice «incluye nivel», sin prueba. No se pone."
+    },
+    {
+      "grupo": "medidas",
+      "campo": "Peso del soporte",
+      "valor": null,
+      "estado": "falta",
+      "fuente": "",
+      "observado": "",
+      "nota": ""
+    },
+    {
+      "grupo": "general",
+      "campo": "Color",
+      "valor": null,
+      "estado": "falta",
+      "fuente": "",
+      "observado": "",
+      "nota": "Ver en la tienda."
+    },
+    {
+      "grupo": "precio",
+      "campo": "Precio en la web",
+      "valor": "40 USD",
+      "estado": "confirmado",
+      "fuente": "web casaviva.company (no se cambia)",
+      "observado": "",
+      "nota": ""
+    },
+    {
+      "grupo": "precio",
+      "campo": "Costo de factura",
+      "valor": null,
+      "estado": "falta",
+      "fuente": "",
+      "observado": "",
+      "nota": "No hay foto de la factura."
+    }
+  ],
+  "cuidados": "Pared firme; revisar tornillos de vez en cuando; paño seco.",
+  "precio": {
+    "costo_factura": null,
+    "moneda": null,
+    "precio_sugerido": "pendiente del motor de precios",
+    "precio_web_actual": 40
+  },
+  "envio": {
+    "largo_cm": null,
+    "ancho_cm": null,
+    "alto_cm": null,
+    "peso_kg": null
+  },
+  "fotos": [
+    {
+      "uso": "evidencia",
+      "archivo": "/root/archivos/fichas/soporte-tv-40-80/caja-nana-2026-10-11-1656.jpg",
+      "fuente": "Nana (dependienta), WhatsApp",
+      "alt": "Caja del soporte"
+    }
+  ],
+  "evidencia": [
+    {
+      "tipo": "etiqueta",
+      "archivo": "VPS /root/archivos/fichas/soporte-tv-40-80/caja-nana-2026-10-11-1656.jpg",
+      "quien": "Nana",
+      "fecha": "2026-10-11 16:56"
+    }
+  ],
+  "contradicciones": [
+    "Descripción vieja: «Inclinación -15° a +15°» y «Giro lateral de hasta 120°». La caja: «up and down 30°» y «Left and right 180°/120°». Manda la caja.",
+    "Descripción vieja: «Capacidad máxima 50 kg». La caja: 25 kg / 50 kg. El bot usa 25 kg.",
+    "Internet: anuncios «CP502» distintos (zoommer.ge: 40 kg y ±15°; MK-Digital CP502 en satking.de: TV 32–70″ y 55 kg). No se usan."
+  ],
+  "pedir_fotos": [
+    "Medida con el brazo recogido del todo: placa de pared → placa del TV, en cm (ya pedida a Nana).",
+    "Foto de lo que trae la caja abierta (tornillos, nivel, instrucciones).",
+    "Foto de la etiqueta con el modelo o el código de barras."
+  ],
+  "notas_revision": [
+    "Categorías actuales: Cocina, Habitación, Sala y muebles. «Cocina» sobra: cámbialo a mano (aprobar no toca categorías ni precio)."
+  ],
+  "busqueda": {
+    "consultas": [
+      "CP502 TV wall mount 40-80 full motion 500mm arm 50kg VESA 600x400"
+    ],
+    "fuentes": [
+      {
+        "url": "https://zoommer.ge/en/tv-and-monitor-accessories/tv-wall-mount-cp502-full-motion-40-to-80-inches-black-p39903",
+        "titulo": "TV wall mount CP502 full motion 40 to 80 inches",
+        "apoya": "40–80″; dice 40 kg y ±15° (no coincide con la caja). Página leída por el buscador; la lectura directa dio 403."
+      },
+      {
+        "url": "https://www.satking.de/en/mk-digital-cp502-tv-wall-mount-black-for-32-70-inch-tvs",
+        "titulo": "MK-Digital CP502",
+        "apoya": "Otro CP502: 32–70″, 55 kg, VESA máx 600×400. Producto distinto."
+      },
+      {
+        "url": "https://www.saruk.co.ke/product/V-Star~CP602~Full~Motion~Swivel~Wall~Mount%2FBracket~Best~for~40%E2%80%B3~to~80%E2%80%B3~TV",
+        "titulo": "V-Star CP602",
+        "apoya": "Modelo parecido (40–80″, 50 kg, ±30°, 180°). No es el nuestro."
+      }
+    ]
+  },
+  "generado": {
+    "por": "Claude /ficha",
+    "fecha": "2026-10-11 22:40 (Cuba)"
+  }
+}

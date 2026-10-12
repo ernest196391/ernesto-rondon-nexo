@@ -1,0 +1,172 @@
+{
+  "version": 1,
+  "slug": "utensilios-silicona-cuchillos",
+  "producto": {
+    "nombre": "Utensilios de silicona con cuchillos",
+    "target_id": 747,
+    "ean": null
+  },
+  "titulo": "Set de utensilios de silicona con cuchillos y soporte",
+  "seo_title": "Set de utensilios de silicona con cuchillos | Casa Viva",
+  "meta_description": "Set de cocina con utensilios de silicona y mango de madera, cuchillos con funda y soporte para tenerlo todo a mano. En La Habana, entrega o recogida.",
+  "descripcion_corta": "<p>Todo lo de cocinar, junto y a mano: utensilios de silicona con mango de madera, cuchillos con funda y un soporte que ordena la encimera.</p>",
+  "descripcion_larga": "<p>Para quien disfruta cocinar y quiere la encimera en orden: utensilios de silicona con mango de madera, cuchillos y un soporte donde cada pieza tiene su sitio. En color rosado.</p><h3>Por qué te va a gustar</h3><ul><li>Todo en un solo soporte: utensilios y cuchillos siempre a mano y la encimera en orden.</li><li>Mangos de madera y detalles en tono cobre: bonito también a la vista.</li><li>Un regalo que se agradece para quien estrena casa.</li></ul><h3>Qué trae</h3><ul><li>Utensilios con cabeza de silicona y mango de madera: cucharones, espátulas, pincel y batidor de varillas.</li><li>Cuchillos con funda transparente.</li><li>Tijera de cocina.</li><li>Soporte con vaso para los utensilios y portacuchillos.</li></ul><h3>Cuidados</h3><p>Lava los cuchillos a mano y sécalos enseguida. No dejes los mangos de madera en remojo.</p><h3>Cómo te llega</h3><p>Te lo llevamos a casa en La Habana o lo recoges en la tienda.</p>",
+  "bullets": [
+    "Todo en un solo soporte: utensilios y cuchillos siempre a mano y la encimera en orden.",
+    "Mangos de madera y detalles en tono cobre: bonito también a la vista.",
+    "Un regalo que se agradece para quien estrena casa."
+  ],
+  "campos": [
+    {
+      "grupo": "general",
+      "campo": "Color",
+      "valor": "Rosado",
+      "estado": "confirmado",
+      "fuente": "variación que tiene la tienda en la web (#807)",
+      "observado": "",
+      "nota": ""
+    },
+    {
+      "grupo": "general",
+      "campo": "Utensilios de silicona con mango de madera",
+      "valor": "Cucharones, espátulas, pincel, batidor",
+      "estado": "sugerido",
+      "fuente": "foto del anuncio (BizneCubano, mejorada con IA el 5-oct): https://casaviva.company/wp-content/uploads/2026/08/hf_20261005_151455_9091a548-d543-41d6-8097-db3091d4d796.png",
+      "observado": "",
+      "nota": "Se ven en la foto del anuncio, no en una foto de la tienda."
+    },
+    {
+      "grupo": "general",
+      "campo": "Cuchillos con funda",
+      "valor": "Sí (unos 5–6 en la foto)",
+      "estado": "sugerido",
+      "fuente": "foto del anuncio (BizneCubano, mejorada con IA el 5-oct): https://casaviva.company/wp-content/uploads/2026/08/hf_20261005_151455_9091a548-d543-41d6-8097-db3091d4d796.png",
+      "observado": "",
+      "nota": "El número no se puede contar bien: no se pone."
+    },
+    {
+      "grupo": "general",
+      "campo": "Tijera",
+      "valor": "Sí",
+      "estado": "sugerido",
+      "fuente": "foto del anuncio (BizneCubano, mejorada con IA el 5-oct): https://casaviva.company/wp-content/uploads/2026/08/hf_20261005_151455_9091a548-d543-41d6-8097-db3091d4d796.png",
+      "observado": "",
+      "nota": ""
+    },
+    {
+      "grupo": "general",
+      "campo": "Soporte con vaso y portacuchillos",
+      "valor": "Sí",
+      "estado": "sugerido",
+      "fuente": "foto del anuncio (BizneCubano, mejorada con IA el 5-oct): https://casaviva.company/wp-content/uploads/2026/08/hf_20261005_151455_9091a548-d543-41d6-8097-db3091d4d796.png",
+      "observado": "",
+      "nota": ""
+    },
+    {
+      "grupo": "general",
+      "campo": "Número de piezas",
+      "valor": null,
+      "estado": "falta",
+      "fuente": "",
+      "observado": "",
+      "nota": "En internet hay sets parecidos de 19 piezas (Paris.cl, Sears, Fravega), pero no sabemos si es el mismo."
+    },
+    {
+      "grupo": "general",
+      "campo": "Silicona apta para alimentos / temperatura máxima",
+      "valor": null,
+      "estado": "falta",
+      "fuente": "",
+      "observado": "",
+      "nota": "Un set parecido en Paris.cl dice «grado alimenticio, hasta 230 °C». No es prueba de este: no se dice."
+    },
+    {
+      "grupo": "general",
+      "campo": "Material de los cuchillos",
+      "valor": null,
+      "estado": "falta",
+      "fuente": "",
+      "observado": "",
+      "nota": "Sets parecidos dicen acero inoxidable. Sin prueba."
+    },
+    {
+      "grupo": "medidas",
+      "campo": "Medidas del soporte",
+      "valor": null,
+      "estado": "falta",
+      "fuente": "",
+      "observado": "",
+      "nota": ""
+    },
+    {
+      "grupo": "precio",
+      "campo": "Precio en la web",
+      "valor": "30 USD",
+      "estado": "confirmado",
+      "fuente": "web casaviva.company (no se cambia)",
+      "observado": "",
+      "nota": ""
+    },
+    {
+      "grupo": "precio",
+      "campo": "Costo de factura",
+      "valor": null,
+      "estado": "falta",
+      "fuente": "",
+      "observado": "",
+      "nota": ""
+    }
+  ],
+  "cuidados": "Cuchillos a mano y secos; madera sin remojo.",
+  "precio": {
+    "costo_factura": null,
+    "moneda": null,
+    "precio_sugerido": "pendiente del motor de precios",
+    "precio_web_actual": 30
+  },
+  "envio": {
+    "largo_cm": null,
+    "ancho_cm": null,
+    "alto_cm": null,
+    "peso_kg": null
+  },
+  "fotos": [],
+  "evidencia": [],
+  "contradicciones": [
+    "La foto del anuncio enseña 3 colores (rosado, verde y blanco); en la web solo hay rosado."
+  ],
+  "pedir_fotos": [
+    "Foto del set rosado fuera de la caja, con todas las piezas (para contarlas).",
+    "Foto de la caja por detrás (piezas, material, temperatura).",
+    "Medir el soporte: alto y ancho en cm."
+  ],
+  "notas_revision": [
+    "Es un producto con variación (color). Aprobar solo cambia el texto; no toca el color, el precio ni el stock."
+  ],
+  "busqueda": {
+    "consultas": [
+      "set utensilios de cocina silicona con cuchillos y soporte mango de madera 19 piezas rosa verde"
+    ],
+    "fuentes": [
+      {
+        "url": "https://www.paris.cl/set-19-utensilios-juego-de-cocina-silicona-antiadherentes-rosado-MKCS8J42HR.html",
+        "titulo": "Set 19 utensilios silicona rosado (Zi Store)",
+        "apoya": "Set parecido: 19 piezas, 5 cuchillos, tijera, soporte, mangos de madera, silicona hasta 230 °C. No sabemos si es el mismo."
+      },
+      {
+        "url": "https://www.sears.com.mx/producto/3877424/set-de-utensilios-de-cocina-19-piezas-con-soporte",
+        "titulo": "Set de utensilios 19 piezas con soporte (Sears)",
+        "apoya": "Set parecido (negro)."
+      },
+      {
+        "url": "https://www.fravega.com/p/juego-de-utensilios-de-silicona-19-piezas-mango-de-madera-22960594/",
+        "titulo": "Juego de utensilios de silicona 19 piezas (Fravega)",
+        "apoya": "Set parecido: 5 cuchillos, 8 cucharones y espátulas, pincel, batidor, pinza, tijera, tabla y recipiente."
+      }
+    ]
+  },
+  "generado": {
+    "por": "Claude /ficha",
+    "fecha": "2026-10-11 22:40 (Cuba)"
+  }
+}

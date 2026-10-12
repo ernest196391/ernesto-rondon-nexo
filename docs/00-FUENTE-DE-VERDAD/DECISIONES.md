@@ -46,6 +46,8 @@ Sustituye: en `docs/nexo-business/herramientas-gestoras.md` (11-oct) los planes 
 **D43 · 2026-10-11 · Regla provisional para ventas NEXO de margen fijo (dropshipping de producto caro): primero el transporte real, y lo que queda del margen 40 % para la gestora o gestor y 60 % para NEXO (Ernesto).**
 Primer caso: split Parker de Harley (margen +25 USD sobre el proveedor; cliente paga en CUP). Si la gestora o el gestor sube el precio por su cuenta, ese extra es suyo y se descuenta de su 40 %. El cambio a CUP se calcula con la tasa del día. Vale hasta que el motor de precios (`docs/nexo-business/motor-de-precios.md`) tenga la regla definitiva.
 
+**D44 · 2026-10-11 · Fichas de producto: siempre borrador «[REVISAR]» y aprobación humana (interruptor encendido).** Ernesto (aprobar antes de publicar; Ernesto y Lennys revisan; Nataly de vacaciones; se pueden usar fotos de internet del mismo producto con su fuente) + Claude (cómo). La skill `/ficha` nunca publica: crea un producto en borrador; si el producto ya está en la web, es un borrador aparte «[REVISAR] …» con `_cvd_ficha_target` y el vivo no se toca hasta «Aprobar» (que guarda copia del texto viejo). Cada dato va marcado confirmado / sugerido / falta; el precio no lo decide la ficha. Paso 1: se revisa en wp-admin → Casa Viva → Fichas por revisar (Core 3.13.56); la lista en el panel es el paso 2. El interruptor `cvd_fichas_requiere_aprobacion` solo lo apaga Ernesto cuando el bot demuestre que lo hace bien.
+
 ## Negocio
 
 **D12 · 2026-10-05 · El modelo comercial de todo el ecosistema se construye con los tres libros de Alex Hormozi:** *$100M Offers* (oferta), *$100M Leads* (captación), *$100M Money Models* (modelo de dinero), más su método de cierre de ventas (CLOSER). Ver `NEGOCIO.md`.
