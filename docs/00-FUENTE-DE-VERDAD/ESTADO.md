@@ -288,3 +288,9 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
 
 ### Herramientas para gestoras (2026-10-12)
 - Análisis SOLO LECTURA (chats, soporte, área de gestoras, docs NEXO) y plan: `docs/nexo-business/herramientas-gestoras.md` (qué piden, 10 cosas gratis, mapa gratis/pago con planes borrador Caja 10 · Con gestoras 15 · Pro 20 USD/mes, modelo de dinero, gestoras como afiliadas, pruebas en Casa Viva, hoja de ruta y medidas). **Siguiente:** Ernesto aprueba los planes y la semana 1 (FAQ 26 de pago de comisiones con Lennys, botón "cómo comprar", tarjeta "qué le digo al cliente").
+
+### Buscador de negocios por ciudad y nicho (2026-10-11, etapa 1 de idea-a-producto)
+- Ficha: `docs/productos/buscador-negocios.md` · prompts de las 4 etapas: `docs/productos/buscador-negocios-prompts.md`. Solo investigación: no se construyó nada ni se mandó ningún mensaje.
+- Para **NEXO interno** (Ernesto) primero; para gestoras, ahora no (sus clientes son personas; "Buscar precios" ya cubre lo de competidores).
+- Fuente: **OpenStreetMap/Overpass** (gratis). Plaza de la Revolución: 1.316 negocios, 27 % con teléfono; 167 con teléfono y sin web ni redes en 3 nichos. **Google Places no** (Cuba está en los "Territorios prohibidos" de Google Maps Platform, más OFAC/D14). Revolico y Cubísima no permiten copiar datos.
+- **Siguiente:** Ernesto aprueba la etapa 2 (boceto de tarjetas) y la versión 0: un script que saque 50 fichas de Plaza, una lista en CSV y 10 contactos al día a mano. Supabase y el bot, solo si sale al menos 1 demo en 2 semanas.
