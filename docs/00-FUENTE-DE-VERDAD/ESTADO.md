@@ -56,6 +56,7 @@ Estados: **FOCO** (se trabaja ahora) · **ACTIVO** (funciona, solo mantenimiento
 | **Cuadre** | Contabilidad para operadores de remesas | PAUSADO | Repo `cuadre`, Vercel `cuadre`, Supabase `gestor-remesas` (**inactivo**) | Pausado hasta que haya un operador que pague. La lógica de caja y comisiones de NEXO Business puede servir de base |
 | **Luz Propia** (antes "NEXO Energía") | Diagnóstico, venta e instalación solar | PAUSADO | Vercel `nexo-energia` (`nexo-energia-seven.vercel.app`) | Nombre aceptado 2026-10-05. Vive en `luzpropia.nexocuba.com` (sin comprar dominio) |
 | **JRG Electronics** | Instalación solar y eléctrica (cliente; **negocio aparte de Luz Propia**) | ACTIVO | Vercel `jrg-electronics` | Mantener. Su catálogo de equipos y el de energía deben salir de un mismo catálogo |
+| **Abuela Nena** (influencer IA de Ernesto Padre) | Redes de bienestar para el negocio de afiliado de Ernesto Padre (Vital Health Global). Cada día 1 video y 5 historias, que Ernesto aprueba antes de publicar | EN CONSTRUCCIÓN (2026-10-12) | `docs/clientes/abuela-nena/` (FICHA, hoja, voz, banco-fotos). Higgsfield: hoja `6675bdc5…`, voz 1 `fad0032c…` | Hecho: ficha, cara (opción A) y voz 1 aprobadas, voz del día 1 lista (24 s, Whisper OK). **Siguiente:** hacer el banco de fotos (`banco-fotos/PROMPTS.md`) en la web de Higgsfield con el ilimitado de 7 días (solo funciona en la web, no por MCP) → plantilla HyperFrames de 1 video + 5 historias → botón diario + aprobación. **Reglas de Vital Health:** sin su nombre, logos ni fotos; sin curas ni ingresos; aviso "personaje IA". Ernesto Padre crea sus cuentas de IG/FB él mismo; su contraseña no se usa |
 
 ## D. Ideas en pausa
 
@@ -218,6 +219,48 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
   - **Tomas:** 5 de Cúrru con Proskopellin, en `videos/curru-tienda/tomas/`.
   - **Créditos:** Higgsfield `gpt_image_2_5`, 1 crédito por imagen; quedan 5.
 - **`cv enviar`:** ahora se niega a mandar a un número que no está en contactos (`--nuevo` para forzarlo) y muestra «Para: nombre». Motivo: un mensaje para Dayisel salió a 5358892739, que es un número equivocado (solo con su nombre e instrucciones). Copia de seguridad en `/root/supervisor/cv.mjs.bak-20261012`.
+
+### L3. Lunes 12-oct, 12:25–15:00
+- **Core en vivo:**
+  - **3.13.62:** selector «¿Tienes algún mensajero preferido?» en el checkout de gestoras y equipo. El vale va directo a ese mensajero; si no se elige, va al grupo. **Funcionó en uso real:** el #2967 lo eligió Rafael Codina → Ely.
+  - **3.13.63:** los pedidos del marketplace no se reparten solos.
+  - **3.13.64:** cada pedido guarda la tasa CUP del día de la venta, y la comisión en CUP sale con esa tasa.
+  - **`25a39cf`:** avatar del asistente = Cúrru sonriendo con su cara oficial (`assets/curru-avatar.webp`). Antes salía la ilustración del 2-oct.
+- **VivaBot en vivo:**
+  - **`ede7d43`:** precio de la bolsa en `src/market-price.js` (D45; lo barato, menos de 60 USD, lleva +40 % entre 5 y 17 USD).
+  - **`60b3080` / `a88bcba`:** flujo bajo pedido. Llega una alerta a Ernesto, el bot pregunta al proveedor y pasa la respuesta.
+  - **`21c48b8`:** menos relleno en las respuestas.
+- **VivaBot `fea7917` (en vivo desde 15:09, con el SÍ de Ernesto):**
+  - **Qué hace:** lo que la tienda no tiene se busca en la bolsa, se ofrece «bajo pedido» y se le pregunta solo al proveedor (caso Harley / módem ML8). También funciona en el grupo General.
+  - **Pruebas:** `npm run check` verde (dispatch: 51 pruebas).
+  - **Avisos a Ernesto:** en cada consulta, y otra vez si el proveedor no contesta en 1 h 30 min.
+  - **Mensajes del proveedor:** con una consulta abierta, lo que escriba ese proveedor le llega a Ernesto durante 24 h y el bot no le contesta.
+  - **Apagarlo:** `BOLSA_CONSULTAS=0`.
+  - **Falta:** probarlo con una gestora real.
+- **Aviso del mensajero preferido** enviado al General (#631, 15:10). Texto en `docs/nexo-business/tutoriales/tutorial-mensajero-preferido-mensaje-general.txt`.
+- **Tienda:**
+  - **Colores ocultos:** 8 productos arreglados a mano (meta `_product_attributes` directa; `$p->save()` no guardaba).
+  - **Pendiente de raíz:** «Diseños y colores» debe añadir la opción al padre.
+  - **Set de alfombras de baño (177):** color azul (variación 2965, 3 u, 15 USD). Se vendieron 2 en el #2966.
+- **Digital Store (Kevin):** catálogo de 682 artículos importado a la bolsa (`/root/archivos/digital-store-catalogo-2026-10-12.json`).
+- **Redes:**
+  - **Reel:** «Se fue la corriente» (`videos/curru-tienda/reel-apagon/casa-viva-reel-apagon.mp4`, unos 118 créditos).
+  - **Historias:** 5, rehechas con el manual de marca y sin tapar caras.
+  - **Logos:** oficiales (`redes/logo-*.svg`), con el perfil y la portada hechos a partir de ellos.
+  - **Skill:** `reel-casa-viva`. Guía en `redes/GUIA-REDES.md`.
+- **Página de Facebook «Casa Viva»** (ya existía: `facebook.com/profile.php?id=61582869072998`, 8 seguidores; Ernesto dijo usar esa):
+  - **Marca:** foto de perfil = isotipo crema sobre petróleo; portada = logo horizontal oficial + foto de la tienda.
+  - **Presentación nueva** (aporta valor, sin vender): «Soluciones para tu casa en La Habana…».
+  - **Enlace:** casaviva.company. Antes era casavivadecuba.com, que no responde.
+  - **Dirección corregida:** Calle 45 esq. a Conill A, #864.
+  - **Publicado el 12-oct ~15:25:** el reel «Se fue la corriente» (texto con 3 trucos para el calor del apagón, sin vender) y las 5 historias. Todo con **etiqueta de IA** (Cúrru es generada).
+  - **Falta (Ernesto):**
+    - el botón y el número de WhatsApp (Facebook manda un código a ese WhatsApp);
+    - el horario (pide primero «dirección comercial»);
+    - revisar el teléfono +1 913-388-5376 y el correo somos@casavivadecuba.com que siguen en la página;
+    - crear el Instagram y conectarlo.
+  - **Para subir videos:** el subidor del navegador acepta como mucho 10 MB, por eso se usó una copia comprimida: `reel-apagon/casa-viva-reel-apagon-fb.mp4`.
+- **Disco C:** se movió a D: Videos, Música y Descargas (lista en `D:\ERNESTO\movido-de-C-2026-10-12.txt`).
 
 ## K. Noche del 11-oct (03:45–05:00 Cuba, Claude Code mientras Ernesto dormía)
 **Hecho y comprobado:**

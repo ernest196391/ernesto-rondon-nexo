@@ -1,0 +1,12 @@
+📦 *Nuevo: elige tu mensajero al hacer el pedido*
+
+Al terminar un pedido en la web ahora sale:
+*¿Tienes algún mensajero preferido?*
+
+1️⃣ Abre la lista y elige al mensajero que quieras (salen los que están registrados).
+2️⃣ Termina el pedido como siempre.
+3️⃣ El vale le llega *directo a su WhatsApp*. No pasa por el grupo: ese pedido es suyo.
+
+¿No eliges ninguno? Entonces el vale va al grupo de mensajerías, como antes.
+
+Ya funciona: hoy Rafael eligió a Ely y el vale le llegó al momento 👍
