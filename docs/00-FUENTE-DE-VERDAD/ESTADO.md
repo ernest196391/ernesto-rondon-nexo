@@ -238,6 +238,9 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
   - **Apagarlo:** `BOLSA_CONSULTAS=0`.
   - **Falta:** probarlo con una gestora real.
 - **VivaBot `cc4549c` (15:38):** «Cualquier otra cosa que necesites, aquí estoy» se quita como relleno.
+- **VivaBot `f8d48e4` (16:00):** ahora cuentan como entregado frases como «Ya se lo entregué al cliente» o «Listo, entregado» (`isDelivered`).
+  - **Motivo:** Ely escribió así el #2967; no se registró y la IA le dijo que sí. Se le pidió que escriba *entregado*.
+  - **Rellenos quitados:** «Mientras tanto, si necesitas…» y «Aquí estaré si…».
 - **Core 3.13.65 (15:40):** en Pedidos de la tienda, la fila Mensajería dice quién lo lleva y si lo eligió la gestora. Lo pidió Nana. Copia de seguridad: `~/bak-20261012-cvd-3.13.64-antes-3.13.65`.
 - **Aviso del mensajero preferido** enviado al General (#631, 15:10). Texto en `docs/nexo-business/tutoriales/tutorial-mensajero-preferido-mensaje-general.txt`.
 - **Tienda:**
