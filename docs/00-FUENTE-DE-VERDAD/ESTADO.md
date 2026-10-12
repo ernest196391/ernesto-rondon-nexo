@@ -245,6 +245,8 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
        - `scripts/publicar-ejemplo.mjs` usa satori/resvg, que todavía están en el `package.json` sin confirmar de la sesión del cierre.
        - `test/publicar.test.js` y `test/suppliers.test.js` aún no están en `npm run check`.
 
+   - **2026-10-11 ~22:50 Cuba (Claude):** split Parker (producto 1013, privado): costo real en la tienda proveedora **351 USD**, precio web **365 → 380 USD**, comisión **fija 10 USD** (Ernesto). Venta de Harley a Anderson (291.593,75 CUP, entrega 12-oct por Ernesto; recordatorio 7:30 por cron del VPS). Lennys explicó su regla de precios (margen <20 %, comisión ~10 %, la tienda debe ganar ~lo mismo que la gestora; si gana <2–3 USD baja la comisión) → `motor-de-precios.md`; se le preguntó por 22 productos con costo raro (lista mañana). En marcha: paso 1 del motor de precios + simulador (sin tocar precios).
+
 ## I. Relevo 2026-10-11 (Claude Code) — detalle del día
 - **Casa Viva deja BizneCubano hoy (D38).** Manda la caja (nube NEXO). Puente de existencias caja ↔ web cada 2 min. Detalle técnico y pruebas: `docs/NEXO-CASA-VIVA-CIERRE.md` (checkpoint único). Errores aprendidos: `docs/00-FUENTE-DE-VERDAD/LECCIONES.md`.
 - **Panel único de Lennys:** `casaviva.company/panel/` (también `negocio.nexocuba.com`; Vercel se publica a mano con redeploy). Tiene: entrada por WhatsApp/correo, resumen web del mes, pedidos web con acciones, gestoras (aprobar, pagos, invitación y QR), comisiones (solo en el panel, D37), inventario y precios.
