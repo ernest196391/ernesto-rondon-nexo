@@ -242,6 +242,16 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
   - **Motivo:** Ely escribió así el #2967; no se registró y la IA le dijo que sí. Se le pidió que escriba *entregado*.
   - **Rellenos quitados:** «Mientras tanto, si necesitas…» y «Aquí estaré si…».
 - **Core 3.13.65 (15:40):** en Pedidos de la tienda, la fila Mensajería dice quién lo lleva y si lo eligió la gestora. Lo pidió Nana. Copia de seguridad: `~/bak-20261012-cvd-3.13.64-antes-3.13.65`.
+- **⚠️ Incidente, envío #7 (16:17–16:34):**
+  - **Qué pasó:** el mensaje que era para Lennys («Hola Lenny, necesito que me confirmes si la fórmula definitiva…») les llegó a 13 desconocidos que venden saldo. Raudel, Randy y Luis contestaron «número equivocado»; Ernesto ya les pidió disculpas.
+  - **Causa 1:** una nota de voz de Ernesto de las 14:01 («pregúntale a Lennys…, pregúntales a Daira, Marita y Nana…») se leyó como un envío a vendedores. Cogió la última búsqueda (saldo).
+  - **Causa 2:** un «sí» suelto en el chat «Tú» lo lanzó, probablemente contestando la pregunta de Claude de las 16:13.
+  - **Arreglo, VivaBot `7a980b7` (16:42):** un «sí» suelto solo vale para borradores de menos de 20 min (si no, hay que escribir «SI N»), y no se arma un envío si el texto nombra a gente del equipo. Memoria `no-yes-no-questions-in-tu-chat`.
+  - **Pendiente:** la nota de voz de Ernesto sigue sin hacerse (preguntar en privado a Daira, Maryta y Nana los «plus» por producto, y a Lennys la fórmula definitiva, para la herramienta de entrada de productos).
+- **⚠️ OpenAI sin saldo desde las 16:37** (`credit_balance_exhausted`, comprobado):
+  - **Efecto:** el bot no contesta con IA. Los avisos, los vales y el «entregado» siguen funcionando.
+  - **Qué hace falta:** que Ernesto recargue en platform.openai.com → Billing. Anthropic tampoco tiene saldo.
+- **VivaBot `88898b4` (16:39):** la foto que manda la tienda responde sola la pregunta abierta que pedía foto y sale en el General. Lo pidió Nana.
 - **Aviso del mensajero preferido** enviado al General (#631, 15:10). Texto en `docs/nexo-business/tutoriales/tutorial-mensajero-preferido-mensaje-general.txt`.
 - **Tienda:**
   - **Colores ocultos:** 8 productos arreglados a mano (meta `_product_attributes` directa; `$p->save()` no guardaba).
