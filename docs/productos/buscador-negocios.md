@@ -62,4 +62,10 @@
 - Supabase, pantallas y bot: solo si sale al menos 1 demo en 2 semanas.
 
 ## Etapa 2 — Diseño (11-oct, pendiente de aprobar)
-- Lienzo: https://claude.ai/artifact/CbeRkg4pvHfE3pKRM1pccK — sistema de diseño NEXO. 3 pantallas móviles: 1) Lista de hoy (50 fichas, filtros, meta 10 al día), 2) Ficha (puntuación y motivos, comprobar antes de escribir, mensaje listo, paso del embudo), 3) Cómo vamos (embudo fichas→revisadas→escritas→respondieron→demos→pagando, reglas para cuidar el número). Datos de ejemplo; teléfonos ocultos.
+- Lienzo: https://claude.ai/artifact/CbeRkg4pvHfE3pKRM1pccK — sistema de diseño NEXO. 3 pantallas móviles: 1) Lista de hoy (50 fichas, filtros, meta 10 al día), 2) Ficha (puntuación y motivos, comprobar antes de escribir, mensaje listo, paso del embudo), 3) Cómo vamos (embudo fichas→revisadas→escritas→respondieron→demos→pagando, reglas para cuidar el número). Datos de ejemplo; teléfonos ocultos. **Aprobado por Ernesto el 11-oct.**
+
+## Etapa 3 — Versión 0 construida (12-oct)
+- Script: `scripts/cazador/osm-negocios.mjs --fecha 2026-10-12` (OSM/Overpass, 1 consulta, caché 7 días, reintentos). Plantilla de la página: `scripts/cazador/plantilla-cazador.html`.
+- 721 negocios → 149 candidatos → 50 fichas (22 comida, 14 belleza, 14 móviles). CSV: `cazador/2026-10-12-plaza-vedado.csv`. Página: `cazador/cazador-v0.html` y Artifact privado https://claude.ai/artifact/64rj4EUFgC7oma1w8n5ghS (no compartir: lleva teléfonos).
+- Puntuación (prompt 1, ajustada): celular 30 (fijo 15) · sin web 20 · sin redes 15 · horario 10 (o dirección completa 5) · calle de paso hasta 10 (calle principal 6 + negocios cerca hasta 4) · encaje del nicho hasta 15 · sin calle −5.
+- Se quitan estatales (CIMEX, Caribe, Gaviota, Palmares, ETECSA y sus agentes, etc.) y clínicas. Aun así, cada ficha se revisa a mano antes de escribir.
