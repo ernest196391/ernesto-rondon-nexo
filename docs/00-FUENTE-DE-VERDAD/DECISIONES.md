@@ -48,6 +48,27 @@ Primer caso: split Parker de Harley (margen +25 USD sobre el proveedor; cliente 
 
 **D44 · 2026-10-11 · Fichas de producto: siempre borrador «[REVISAR]» y aprobación humana (interruptor encendido).** Ernesto (aprobar antes de publicar; Ernesto y Lennys revisan; Nataly de vacaciones; se pueden usar fotos de internet del mismo producto con su fuente) + Claude (cómo). La skill `/ficha` nunca publica: crea un producto en borrador; si el producto ya está en la web, es un borrador aparte «[REVISAR] …» con `_cvd_ficha_target` y el vivo no se toca hasta «Aprobar» (que guarda copia del texto viejo). Cada dato va marcado confirmado / sugerido / falta; el precio no lo decide la ficha. Paso 1: se revisa en wp-admin → Casa Viva → Fichas por revisar (Core 3.13.56); la lista en el panel es el paso 2. El interruptor `cvd_fichas_requiere_aprobacion` solo lo apaga Ernesto cuando el bot demuestre que lo hace bien.
 
+**D45 · 2026-10-12 · Marketplace «bajo pedido»: precio automático, sin permiso de fotos y confirmación con el proveedor antes de mandar mensajero.** Ernesto.
+
+**Precio** (la bolsa del bot y lo importado de Digital Store; `vivabot/src/market-price.js`):
+- Desde 60 USD: regla D43. Margen = **+17 USD como mínimo**; si cuesta más de 300 USD, **+10 %** cuando sale más. Se redondea hacia arriba a 5.
+- Por debajo de 60 USD: **+40 %**, con un mínimo de 5 USD y un máximo de 17 USD. Se redondea al dólar. Ejemplos: 10 → 15, 30 → 42, 50 → 67, 270 → 290, 600 → 660.
+- De la ganancia, el **40 % es para la gestora** y el 60 % para NEXO.
+- El transporte no se suma: lo paga el cliente con la mensajería.
+- Un precio fijado a mano (`PRECIO n`) manda sobre la regla.
+
+**Fotos y contactos:**
+- No hace falta pedir permiso al proveedor para usar sus fotos; `FOTOS OK` es opcional.
+- El bot puede escribir de parte de Ernesto a cualquier proveedor, también a LJH, con «tenemos un cliente interesado», solo cuando hay un pedido o una consulta real.
+
+**Pedidos:**
+- Un pedido con un producto bajo pedido **no sale solo al grupo de mensajeros** (Core 3.13.63).
+- El bot avisa a Ernesto con el costo, la ganancia y el proveedor.
+- El bot le pregunta al proveedor si lo tiene y le pasa la respuesta a Ernesto. Si no lo tiene, propone hasta 3 parecidos de la bolsa (VivaBot `60b3080`).
+- La web promete confirmar la disponibilidad en 1 hora antes de cobrar.
+
+**Sustituye:** el +5/+10 USD y +5 % de la bolsa (9-oct) y el «FOTOS OK obligatorio».
+
 ## Negocio
 
 **D12 · 2026-10-05 · El modelo comercial de todo el ecosistema se construye con los tres libros de Alex Hormozi:** *$100M Offers* (oferta), *$100M Leads* (captación), *$100M Money Models* (modelo de dinero), más su método de cierre de ventas (CLOSER). Ver `NEGOCIO.md`.
