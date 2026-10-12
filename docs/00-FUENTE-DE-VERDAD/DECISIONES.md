@@ -39,6 +39,10 @@ Sustituye: el cambio de nombre a "Casa Viva Core" del 2026-10-04 como nombre de 
 
 **D11 · 2026-10-05 · La IA conversa; los datos verificados deciden.** Ningún asistente da precio, stock, pedido, pago o comisión que no salga de la base de NEXO. Si no lo sabe, lo dice y escala a una persona.
 
+**D42 · 2026-10-11 · El cliente de NEXO es la GESTORA (la revendedora). Casa Viva es el negocio de Lennys y el banco de pruebas.**
+Casa Viva se construye y se le deja a Lennys; ahí se prueban todas las herramientas. A las gestoras se les dan GRATIS todas las herramientas que les resuelvan problemas y las hagan sentir cómodas: publicar desde su panel, publicar fácil en Revolico y Facebook, buscar y comparar precios y proveedores, lead manager para su propia web, compartir fichas, etc. Las herramientas premium de NEXO cuestan más y el precio se fija por el valor que aportan y el cliente ideal (sin cifras fijadas aún). Los «1.000 negocios» se consiguen usando NEXO; las gestoras que vendan o ayuden ganan comisión (por definir). El «Cazador de clientes» es una herramienta INTERNA de Ernesto/NEXO (exchange para cazar clientes, gestores y productos), no de las gestoras; quizá se comercialice después.
+Sustituye: en `docs/nexo-business/herramientas-gestoras.md` (11-oct) los planes Caja/Con gestoras/Pro cobrados al comercio y la idea de quitar el «Cazador de clientes»: quedan como borrador hasta replantearlos con la gestora como cliente.
+
 ## Negocio
 
 **D12 · 2026-10-05 · El modelo comercial de todo el ecosistema se construye con los tres libros de Alex Hormozi:** *$100M Offers* (oferta), *$100M Leads* (captación), *$100M Money Models* (modelo de dinero), más su método de cierre de ventas (CLOSER). Ver `NEGOCIO.md`.
