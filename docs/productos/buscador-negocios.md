@@ -60,3 +60,6 @@
 - Un CSV y una página de tarjetas para el móvil, cada ficha con su enlace de Maps para verificarla a mano.
 - Ernesto escribe a 10 al día con el gancho "tu tienda demo en 24 h", y se anota cada paso en la tabla.
 - Supabase, pantallas y bot: solo si sale al menos 1 demo en 2 semanas.
+
+## Etapa 2 — Diseño (11-oct, pendiente de aprobar)
+- Lienzo: https://claude.ai/artifact/CbeRkg4pvHfE3pKRM1pccK — sistema de diseño NEXO. 3 pantallas móviles: 1) Lista de hoy (50 fichas, filtros, meta 10 al día), 2) Ficha (puntuación y motivos, comprobar antes de escribir, mensaje listo, paso del embudo), 3) Cómo vamos (embudo fichas→revisadas→escritas→respondieron→demos→pagando, reglas para cuidar el número). Datos de ejemplo; teléfonos ocultos.
