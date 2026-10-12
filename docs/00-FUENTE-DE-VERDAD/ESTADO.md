@@ -260,5 +260,10 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
 - Hecho: skill /kit-demo + scripts/kit_demo.py (probado con cliente ficticio: 0 restos de Yonar).
 - Vercel: NO publicar demos de Yonar hasta que Yonar diga que sí (decisión de Ernesto, 2026-10-11).
 
+### Motor de precios (2026-10-11 noche, Claude, solo diseño)
+- Diseño en `docs/nexo-business/motor-de-precios.md`: capas (general → categoría → proveedor → producto), suelo de margen, redondeo, CUP con tasa del día, tope de gestora, ofertas, «recibo del precio», perfiles («Tienda Casa Viva», «NEXO bajo pedido» = D43, «Bolsa»), 3 opciones PROPUESTAS y caso Parker/Harley. Nada cambiado en código ni datos.
+- Hallazgos para revisar: 19 productos con precio < costo apuntado (¿costo por paquete o en CUP?); dos tasas CUP (web 780 / nube 775); orden de comisión distinto nube vs web; producto 1013 (Parker) sin comisión propia → por la web cobraría 10 % (36,50 USD) sobre un margen de 25; margen objetivo 30 % de Ajustes no coincide con los precios reales.
+- **Siguiente:** Ernesto responde las 5 preguntas del Parker y manda a Lennys las 11 preguntas (§6); con eso, paso 1 (función pura + simulador, 1–2 días).
+
 ### Herramientas para gestoras (2026-10-12)
 - Análisis SOLO LECTURA (chats, soporte, área de gestoras, docs NEXO) y plan: `docs/nexo-business/herramientas-gestoras.md` (qué piden, 10 cosas gratis, mapa gratis/pago con planes borrador Caja 10 · Con gestoras 15 · Pro 20 USD/mes, modelo de dinero, gestoras como afiliadas, pruebas en Casa Viva, hoja de ruta y medidas). **Siguiente:** Ernesto aprueba los planes y la semana 1 (FAQ 26 de pago de comisiones con Lennys, botón "cómo comprar", tarjeta "qué le digo al cliente").
