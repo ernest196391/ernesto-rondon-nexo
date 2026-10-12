@@ -252,6 +252,8 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
   - **Efecto:** el bot no contesta con IA. Los avisos, los vales y el «entregado» siguen funcionando.
   - **Qué hace falta:** que Ernesto recargue en platform.openai.com → Billing. Anthropic tampoco tiene saldo.
 - **VivaBot `88898b4` (16:39):** la foto que manda la tienda responde sola la pregunta abierta que pedía foto y sale en el General. Lo pidió Nana.
+- **Core 3.13.66 (17:32):** los apellidos de quien recibe son opcionales en el checkout. Lo pidió Dany. Copia de seguridad: `~/bak-20261012-cvd-3.13.65-antes-3.13.66`.
+- **Mensajero nuevo Albertico (5356695330):** se le mandó la bienvenida y el video. Falta que Ernesto lo meta en el grupo de Mensajerías y que él se registre.
 - **Aviso del mensajero preferido** enviado al General (#631, 15:10). Texto en `docs/nexo-business/tutoriales/tutorial-mensajero-preferido-mensaje-general.txt`.
 - **Tienda:**
   - **Colores ocultos:** 8 productos arreglados a mano (meta `_product_attributes` directa; `$p->save()` no guardaba).
