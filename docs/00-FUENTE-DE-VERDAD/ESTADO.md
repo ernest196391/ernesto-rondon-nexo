@@ -237,6 +237,8 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
   - **Mensajes del proveedor:** con una consulta abierta, lo que escriba ese proveedor le llega a Ernesto durante 24 h y el bot no le contesta.
   - **Apagarlo:** `BOLSA_CONSULTAS=0`.
   - **Falta:** probarlo con una gestora real.
+- **VivaBot `cc4549c` (15:38):** «Cualquier otra cosa que necesites, aquí estoy» se quita como relleno.
+- **Core 3.13.65 (15:40):** en Pedidos de la tienda, la fila Mensajería dice quién lo lleva y si lo eligió la gestora. Lo pidió Nana. Copia de seguridad: `~/bak-20261012-cvd-3.13.64-antes-3.13.65`.
 - **Aviso del mensajero preferido** enviado al General (#631, 15:10). Texto en `docs/nexo-business/tutoriales/tutorial-mensajero-preferido-mensaje-general.txt`.
 - **Tienda:**
   - **Colores ocultos:** 8 productos arreglados a mano (meta `_product_attributes` directa; `$p->save()` no guardaba).
