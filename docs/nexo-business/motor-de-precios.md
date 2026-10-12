@@ -430,3 +430,10 @@ Lo más probable es que **el costo esté mal apuntado** (¿10 USD es el paquete?
 - Auditoría, precios con fecha de vigencia y cascada de precio: [Zuora](https://docs.zuora.com/en/zuora-billing/set-up-zuora-billing/build-product-and-prices/dynamic-pricing/out-of-the-box-effective-dating-support), [Oracle Siebel](https://docs.oracle.com/cd/E58886_01/books/PriceAdm/PriceAdm_Overview4.html), [OSID](https://osid.org/specifications/osid/ordering/rules/package.html), [techinterview, motor de precios](https://www.techinterview.org/post/3233470062/lld-price-engine/).
 
 **Ojo:** muchas de estas cifras salen de blogs de empresas que venden software. Sirven como orientación, no como regla.
+
+## Respuestas de Lennys (11-oct, 22:37–22:45, notas de voz)
+- La **ficha de costo** del Excel de Maryta («AUTOMATIZACION OCTUBRE 2026», hoja F COSTO) tiene la fórmula; la tenemos analizada en `ECONOMY_AND_ROLES.md`.
+- En la página debe ir el **costo de compra**; la ganancia la saca ella después.
+- Comisión de la gestora: **en general un poco por encima del 10 %, o hasta el 10 %**.
+- Precio: miran el precio aproximado en las redes y ajustan. El margen suele quedar **por debajo del 20 %**, sobre todo en los productos en **consignación**, porque buscan **rotación** (vender rápido y traer más) antes que ganancia.
+- Consecuencia para el motor: el margen objetivo del 30 % de Ajustes no es el real. Perfil «Tienda Casa Viva»: margen por defecto ~15–20 %, comisión ~10 %, aviso de margen negativo después de la comisión, y opción «precio de mercado» (precio fijado a mano con el margen calculado y visible).
