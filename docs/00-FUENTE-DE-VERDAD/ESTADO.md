@@ -409,6 +409,14 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
   - **Bauta y Mariel** (Nadielys …2217 vive en Bauta y vende allí): no están en las tarifas. **Ernesto decide:** precio por confirmar, tarifa fija o seguir con la nota.
   - **Maryta empieza hoy el conteo al 100 % de la tienda, sin corriente.** Se le propuso anotar producto, color y cantidad, mandar foto solo de lo que no sepa identificar y mandar el Excel o la lista al terminar (#747).
   - ~~Departamentos (3.13.72): el agente sigue.~~ Hecho (ver arriba).
+  - **10:35–10:47:**
+    - **Armado:** salieron los avisos a General (#751) y Mensajerías (#752), con «ese dinero es para ti» (Ernesto) y cómo pasar una carrera.
+    - **Bauta y Mariel, 10 USD = 7 850 CUP** (Ernesto), en vivo con `save_rate`, más Bauta/Playa Baracoa a 4 500. Está en el CSV del Core (`7f68b7d`) y en el bot (`615c509`); en el bot, pendiente de `cv reiniciar`. Se le avisó a Nadielys (#754).
+    - **Lennys:** se le mandó la lista de decisiones de departamentos (#753) y lo de los colchones King (#750). De los EDSM A no hay medidas en la web: se le pidieron.
+    - **Conteo de Maryta:** su idea (foto por producto al bot) habría costado 6–9 USD de IA y sería lenta. Se le mandó un **Excel ya hecho**, `docs/nexo-business/conteo/conteo-tienda-2026-10-13.xlsx` (373 productos y colores de la tienda por departamento, con «en la web» y una columna amarilla «CUENTA REAL») (#755, #756). Ella aceptó. Cuando lo devuelva: comparar con la web y mandarle las diferencias.
+    - **Core 3.13.75** (`c4b3e4f`): «Ver la tienda» siempre visible en el área de la gestora (Rafael Codina no podía volver a la tienda). Se le avisó (#762).
+    - **Fotos por color:** 34 productos con 106 colores en existencia sin foto propia. Propuesta: la tienda hace las fotos y Claude las sube. **Ernesto decide.**
+    - **Los 3 productos nuevos de Maryta** (38/25/30 USD, comisión 3): ¿subirlos a mano ya o esperar a la entrada automática? **Ernesto decide.**
     - Tabla de los 250 «Bajo pedido» en `propuestas/bajo-pedido-departamentos-2026-10-13.csv` (Tecnología 142…).
     - Hay 18 productos «sin riesgo» que se pueden arreglar ya; el resto va **para Lennys** (mochilas, cortinas roller, puertas de corredera, soporte de TV, cojines…).
   - **VivaBot EN VIVO (agentes, 09:41–10:09, último código `6203294`):**
