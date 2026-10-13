@@ -379,6 +379,18 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
   - **Entrada de mercancía por el bot:** diseño en `entradas/FLUJO-ENTRADA-BOT.md` y prototipo en `entradas/prototipo/` (14/14 pruebas).
     - Fórmula que encaja con los 3 de Maryta, sin confirmar: costo + plus + comisión + máx(5 USD; 20 % del costo total), redondeado hacia arriba.
     - Hay 7 preguntas para Lennys.
+  - **Core EN VIVO (13-oct, mañana; agente web, empujado a `origin/main`):**
+    - **3.13.69** (`f687935`): teléfono opcional en la recogida en tienda (si se pone, 8 cifras).
+    - **3.13.70** (`bf1b01a`): armado por el mensajero en el checkout, solo a domicilio. No se suma al total. Se ve en el vale de WhatsApp, en Pedidos de la tienda, en «Tus ventas», en el área del mensajero y en `/bot/dispatch` (`assembly.notice`). **Falta:** que el bot lo imprima en la carrera del grupo (agente de carreras).
+    - **3.13.71** (`004d884`): los pedidos de prueba nunca salen al reparto.
+    - Copias: `~/bak-20261013-cvd-3.13.6x-antes-3.13.7x`.
+  - **Incidente #3548 (09:52):** el agente web creó un pedido de prueba sin querer (`calculate_totals()` lo guardó). Nana pulsó «Listo» y salió al grupo de Mensajerías con «0 CUP». La ampliación avisó a otros 19 por la web y por correo. Nadie la cogió.
+    - Félix contestó «Yo» y se le avisó (#737). Lennys preguntó y se le contestó (#738). Aviso en Mensajerías con el sí de Ernesto (#739).
+    - Lo arregla la 3.13.71.
+  - **Pregunta abierta vieja** (edredones de Nadielys, en cola desde las 17:50): salió a las 10:00 a Nana y Zaymi aunque Lennys ya lo había contestado. Se cerró y se les avisó (#740, #741).
+  - **Departamentos (3.13.72):** el agente sigue.
+    - Tabla de los 250 «Bajo pedido» en `propuestas/bajo-pedido-departamentos-2026-10-13.csv` (Tecnología 142…).
+    - Hay 18 productos «sin riesgo» que se pueden arreglar ya; el resto va **para Lennys** (mochilas, cortinas roller, puertas de corredera, soporte de TV, cojines…).
   - **Niurka:** dice que hay competencia nueva en Baracoa (una tienda virtual) y preguntó por la «vigencia de los pagos» si comparte el enlace en la Isla de la Juventud. Ernesto: «yo me encargo».
 - **Fotos de los 412 bloqueados de Kevin:** Ernesto pidió buscarlas en internet. Un agente hace un estudio y un piloto de 20, con tope de 3 USD y sin publicar. Informe en `fotos-productos/INFORME-FOTOS-INTERNET.md`.
 - **Digital Store (Kevin):** catálogo de 682 artículos importado a la bolsa (`/root/archivos/digital-store-catalogo-2026-10-12.json`).
