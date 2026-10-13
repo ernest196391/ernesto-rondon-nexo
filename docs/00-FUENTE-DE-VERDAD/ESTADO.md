@@ -1,6 +1,6 @@
 # ESTADO — dónde va cada proyecto
 
-**Última actualización:** 2026-10-13 14:35 (Core 3.13.80: el último enlace de gestora manda y no se pierde al buscar; fotos por color con Gemini; bienvenida corregida y apagada; ver sección L5). Antes: 2026-10-13 14:30 (Bajo pedido en 24 horas EN VIVO en VivaBot: proveedor, reloj, gestora, entrega y cuentas; ver sección L4). Antes: 2026-10-13 (Core 3.13.78: en Pedidos la tienda ve la gestora y el mensajero de cada pedido, con su WhatsApp; antes 3.13.77, pestaña «Aprende»; ver sección L3). Antes: 2026-10-11 (fin de BizneCubano, panel único; ver sección I al final).
+**Última actualización:** 2026-10-13 15:10 (Core 3.13.81: el pedido se guarda al precio de la gestora al finalizar; #3598 de Thaly corregido a 140; ver sección L5). Antes: 2026-10-13 14:35 (Core 3.13.80: el último enlace de gestora manda y no se pierde al buscar; fotos por color con Gemini; bienvenida corregida y apagada; ver sección L5). Antes: 2026-10-13 14:30 (Bajo pedido en 24 horas EN VIVO en VivaBot: proveedor, reloj, gestora, entrega y cuentas; ver sección L4). Antes: 2026-10-13 (Core 3.13.78: en Pedidos la tienda ve la gestora y el mensajero de cada pedido, con su WhatsApp; antes 3.13.77, pestaña «Aprende»; ver sección L3). Antes: 2026-10-11 (fin de BizneCubano, panel único; ver sección I al final).
 Regla: el agente que termine un bloque de trabajo actualiza **su fila** y la fecha de arriba.
 
 Estados: **FOCO** (se trabaja ahora) · **ACTIVO** (funciona, solo mantenimiento) · **ESPERA** (bloqueado por algo externo) · **PAUSADO** (no se toca hasta que se cumpla su condición) · **POR CLASIFICAR** (Ernesto debe decir qué es).
@@ -596,6 +596,16 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
 - **Arreglo 2:** `gestora-store.js` lo añade al hacer clic y al buscar.
 - **Probado** en un navegador limpio: buscar «organizador ruedas» → ficha a 35 → carrito a 35. Thaly lo confirmó a las 14:30 («Ya»).
 - **Para volver atrás:** copias en `~/bak-20261013-cvd-3.13.78-antes-3.13.79` y `~/bak-20261013-cvd-3.13.79-antes-3.13.80`.
+
+**Core 3.13.81 (en vivo 15:05, commit Casa-Viva `938f0ea`): el pedido se guarda al precio que se ve al pagar.**
+- **El problema (pedido #3598 de Thaly, 14:35):** la pantalla de pago decía 140 USD (4 × 35), pero el pedido se guardó a 120 (4 × 30).
+- **Causa 3:** al pulsar «Todo bien, finalizar», el formulario manda `_wp_http_referer`, una ruta sin dominio, y WordPress la usa antes que la cabecera Referer. La web la descartaba, así que no veía a la gestora y cobraba el precio de Casa Viva. Reproducido en el servidor con `wp eval-file`.
+- **Arreglo 3:** `referral_from_referer()` acepta rutas de esta web y, si no traen código, mira la cabecera Referer.
+- **Arreglo 4:** `relock_cart()`. Al entrar por el enlace de una gestora, lo que ya estaba en el carrito pasa a su precio (Thaly tenía los organizadores en el carrito desde antes, a 30). Usa la misma clave que al añadirlo desde su tienda, así que no salen líneas repetidas.
+- **Probado** en un navegador limpio: añadido sin enlace a 30 → carrito por su enlace a 35 → otra unidad desde su tienda, misma línea ×2 a 35 → pago 70. Sin pedido. Simulación del envío al finalizar: 35 con su enlace; otra web y tienda general, 30.
+- **#3598 corregido con el sí de Ernesto:** 140 USD, comisión de Thaly 32 USD (12 de base + 20 de subida), vale rehecho y nota en el pedido. Avisados Pedri (cobra 140 USD + 1.500 CUP), Nana, Zaymi (Ernesto no quería avisar a Zaymi, pero el mensaje ya había salido) y Thaly.
+- **Para volver atrás:** `~/bak-20261013-cvd-3.13.80-antes-3.13.81`.
+- **Dayra #3599 (15:04):** no estaba perdido. Salió al grupo de Mensajerías a las 14:50 y lo cogió Fernando Santana (…4881; en el grupo sale como «Ibelice»). Dayra no lo veía porque no está en ese grupo, y el bot no le avisa porque su contacto está en `ignorar`. Se le explicó y a Fernando se le recordó «antes de las 4».
 
 **Fotos por color, gratis con Gemini, desde el Chrome de Ernesto.**
 - AI Studio (Nano Banana) **no es gratis**: pide plan de pago. La app gemini.google.com **sí** edita fotos con la cuenta gratis.
