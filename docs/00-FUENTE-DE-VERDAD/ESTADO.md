@@ -281,7 +281,14 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
     - **Comisiones:** 15 USD aprobadas y 25 pendientes.
     - **Falta:** la ganancia por dueña, porque la nube solo tiene costo de 2 de 13 productos. Hay que usar el Excel «STOCK CIERRE 12 DE OCTUBRE» de Maryta, que solo está en el WhatsApp de Ernesto (el bot no guarda documentos).
   - **Para el 13-oct (lista de la noche):**
-    - **Formas de pago y vale: HECHO SIN SUBIR (Core `efc86be` = 3.13.67, VivaBot `36cc8e0`).**
+    - **VivaBot en vivo desde las 23:04 del 12-oct (`b8c8d61`, incluye `ba00ea3` y `36cc8e0`):**
+      - **Recorte:** el prompt pasa de unos 14.800 a unos 8.400 tokens de mediana; ahorra 1–1,25 USD/día.
+      - **Prueba:** 27 pares reales; ninguna respuesta peor y 6 mejores (ya no inventa ferretería ni culpables).
+      - **Medición:** `docs/nexo-business/bot-prompt-medicion.md`. Laboratorio de pruebas: `/root/prompt-lab/` (se puede borrar).
+      - **Comprobar en los logs del 13-oct:** `[ia] gpt-4.1 smart entrada≈7.500–9.000`.
+      - **Horario del conocimiento:** ahora 10:00–17:00.
+      - **El vale nuevo** (`36cc8e0`) se activa cuando suba Core 3.13.67; mientras tanto se comporta como antes.
+    - **Formas de pago y vale: Core SIN SUBIR (`efc86be` = 3.13.67); el bot ya está listo.**
       - **Qué hace:** «¿Cómo paga el cliente?» (7 formas), la cifra con las tasas del día (`cvd_daily_rates`) y el vale con qué cobrar exactamente. Con Zelle o PayPal: «NO cobres los productos».
       - **Subirlo el 13-oct temprano,** junto con el recorte del bot. Antes, `php -l` en el servidor (aquí no hay PHP). Primero el bot, luego Core, y probarlo con Dany.
       - **Por confirmar:** la Clásica se paga a la tarjeta de la tienda ·2690 (según la lista de Maryta) y los euros se apuntan en la observación de caja.
