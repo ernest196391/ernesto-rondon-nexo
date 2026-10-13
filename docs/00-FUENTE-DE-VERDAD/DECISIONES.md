@@ -155,3 +155,9 @@ Ampliación D30 (2026-10-07): el flujo de **Devolución** ya existe en `/ventas/
 - Las dependientas (Nana, Zaymi) ven en Pedidos el nombre y el WhatsApp de la gestora y del mensajero de cada pedido (Core 3.13.78). Antes la web les escondía la gestora.
 - La comisión de la gestora y el enlace de administración siguen escondidos para ellas.
 - Los avisos de pedido de la tienda abren el pedido en `/ventas/` (la página `/centro-pedido/` nunca se creó en la web).
+
+**D50 · 2026-10-13 · El último enlace de gestora manda (precio y venta); el cliente que ya compró sigue con su gestora.** Ernesto (14:21: «sí, haz lo que tengas que hacer»).
+- **Antes:** la web guardaba en el navegador, durante 400 días, la *primera* gestora por la que se entró, y esa ganaba a cualquier enlace posterior. Por eso Thaly veía su producto a 30 en vez de su precio de 35, y la venta se le habría apuntado a otra gestora.
+- **Ahora** (Core 3.13.79–3.13.80): el enlace que se abre manda en el precio y reescribe la marca guardada. Además, el `?ref=` ya no se pierde al buscar ni al tocar la barra de abajo.
+- **Lo que no cambia:** un cliente que ya compró sigue siendo de su gestora; lo decide su teléfono o su correo (propiedad permanente).
+- **Si alguna vez se quiere volver al primer enlace:** restaurar `includes/class-cvd-attribution.php` desde `~/bak-20261013-cvd-3.13.78-antes-3.13.79`.

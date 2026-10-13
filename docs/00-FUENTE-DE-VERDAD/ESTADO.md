@@ -1,6 +1,6 @@
 # ESTADO — dónde va cada proyecto
 
-**Última actualización:** 2026-10-13 14:30 (Bajo pedido en 24 horas EN VIVO en VivaBot: proveedor, reloj, gestora, entrega y cuentas; ver sección L4). Antes: 2026-10-13 (Core 3.13.78: en Pedidos la tienda ve la gestora y el mensajero de cada pedido, con su WhatsApp; antes 3.13.77, pestaña «Aprende»; ver sección L3). Antes: 2026-10-11 (fin de BizneCubano, panel único; ver sección I al final).
+**Última actualización:** 2026-10-13 14:35 (Core 3.13.80: el último enlace de gestora manda y no se pierde al buscar; fotos por color con Gemini; bienvenida corregida y apagada; ver sección L5). Antes: 2026-10-13 14:30 (Bajo pedido en 24 horas EN VIVO en VivaBot: proveedor, reloj, gestora, entrega y cuentas; ver sección L4). Antes: 2026-10-13 (Core 3.13.78: en Pedidos la tienda ve la gestora y el mensajero de cada pedido, con su WhatsApp; antes 3.13.77, pestaña «Aprende»; ver sección L3). Antes: 2026-10-11 (fin de BizneCubano, panel único; ver sección I al final).
 Regla: el agente que termine un bloque de trabajo actualiza **su fila** y la fecha de arriba.
 
 Estados: **FOCO** (se trabaja ahora) · **ACTIVO** (funciona, solo mantenimiento) · **ESPERA** (bloqueado por algo externo) · **PAUSADO** (no se toca hasta que se cumpla su condición) · **POR CLASIFICAR** (Ernesto debe decir qué es).
@@ -585,6 +585,50 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
 2. **Cerrar el pedido en la web:** el bot no lo marca como entregado en Core; queda abierto hasta que se cierre en Ventas cuando el proveedor pague. ¿Lo cierra Lennys, tú, o quieres que lo haga el bot con *PAGÓ*?
 3. **Horarios reales** de Kevin, Sergio, LJH y la TRD (puse 9:00–17:00 a todos). ¿Abren sábado y domingo? (el bot todavía no distingue días).
 4. **Sergio:** ¿se pactó ya que se quede todo y nos pague solo nuestra parte? (está así en su ficha como «se puede pactar»).
+
+### L5. Martes 13-oct tarde (Claude Code, sesión principal): enlaces de gestora, fotos por color y bienvenida corregida
+
+**Enlace de la gestora (Core 3.13.79 y 3.13.80, en vivo, commits `f207f7c` y `558f9a0`).**
+- **El problema:** Thaly abría su enlace y el organizador con ruedas salía a 30 en vez de su precio de 35.
+- **Causa 1:** la web guardaba en el navegador, durante 400 días, la primera gestora por la que se entró, y esa ganaba a cualquier enlace posterior. Pasaba en el teléfono de Thaly y en el de Ernesto.
+- **Arreglo 1 (D50):** ahora **manda el último enlace**, para el precio y para la venta. El cliente que ya compró sigue siendo de su gestora, porque eso lo decide su teléfono o su correo (`resolve_and_attach`).
+- **Causa 2:** al buscar, o al tocar «Inicio», «Comprar» o «Carrito» en la barra de abajo, se perdía el `?ref=`.
+- **Arreglo 2:** `gestora-store.js` lo añade al hacer clic y al buscar.
+- **Probado** en un navegador limpio: buscar «organizador ruedas» → ficha a 35 → carrito a 35. Thaly lo confirmó a las 14:30 («Ya»).
+- **Para volver atrás:** copias en `~/bak-20261013-cvd-3.13.78-antes-3.13.79` y `~/bak-20261013-cvd-3.13.79-antes-3.13.80`.
+
+**Fotos por color, gratis con Gemini, desde el Chrome de Ernesto.**
+- AI Studio (Nano Banana) **no es gratis**: pide plan de pago. La app gemini.google.com **sí** edita fotos con la cuenta gratis.
+- **Hecho:** las sábanas Majestic (2491) ya tienen foto propia en sus 9 colores (adjuntos 3589–3597). Al elegir el color en la web, cambia la foto. Los archivos están en `docs/nexo-business/fotos-productos/colores/`.
+- **Pendiente:** quedan 33 productos con 105 colores sin foto propia.
+  - Los lisos se hacen igual: fundas y mantas Majestic, alfombras y edredones.
+  - Los estampados necesitan foto real: el set de baño de 28 USD (2573) ya se le pidió a Nana y Zaymi con `cv preguntar`, para Thaly. También la manta estampada, el paraguas estampado y la cortina con diseño.
+- **De noche:** el camino gratis necesita la PC encendida. En el VPS haría falta OpenAI, a unos 0,01–0,04 USD por foto. Ernesto decide.
+
+**Bienvenida de nuevos (VivaBot).**
+- Se encendió a las 13:14 y Ernesto la mandó parar a las 13:22, porque era el mismo audio a 8 personas en 2 minutos, algunas ya activas. Está en `onboarding = no`.
+- **Corregido** (commit `c0a8306`):
+  - solo altas nuevas;
+  - nada a quien ya trabaja o recibió un mensaje del equipo en las últimas 48 h;
+  - una nota de voz con el nombre de cada persona, comprobada con Whisper;
+  - como mucho 1 cada 5 minutos;
+  - las órdenes («mi acceso»…) van siempre primero.
+- Ernesto la vuelve a encender después de ver *BIENVENIDA PRUEBA gestora 2*.
+
+**Bot (VivaBot, commits `74f0a92` y `ecd5402`).**
+- La tienda (dependientas) recibe la ficha real de cualquier pedido. Antes la IA se inventó dos veces la gestora en el chat de Nana.
+- A quien no tiene etiqueta de género le dice «gestor/a».
+
+**Otros:**
+- Se publicaron 5 productos de Kevin que pasaron la doble revisión automática.
+- El video «Tus dudas del primer día» ya está en `/root/archivos/tutoriales/`.
+- La guía 3 dice «hasta un 30 %», cuando la regla es «sin tope»: está fuera de la bienvenida hasta rehacer la imagen. No se encontró la fuente de las guías.
+
+**Tutoriales pendientes de hoy:** «Aprende» y «Tu precio». Ver `docs/nexo-business/tutoriales/pendientes-2026-10-13.md`.
+
+**Abierto:**
+- La capa de moto de Nadielys (#3566) está asignada a Alejandro, que no contesta desde las 12:08. Ernesto decide a qué mensajero pasarla.
+- La web dice «gestora» en todos lados (registro, área). Fernando preguntó si solo hay mujeres. Falta pasarlo a «gestor/a» en la web.
 
 ## K. Noche del 11-oct (03:45–05:00 Cuba, Claude Code mientras Ernesto dormía)
 **Hecho y comprobado:**
