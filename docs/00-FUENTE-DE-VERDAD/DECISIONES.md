@@ -144,3 +144,8 @@ Ampliación D30 (2026-10-07): el flujo de **Devolución** ya existe en `/ventas/
 - **Tienda que recoge Ernesto:** la TRD de 42 y 23 (Playa), de 9:00 a 17:00. Ernesto va con el dinero.
 - **Cómo debe funcionar.** Todo transparente y cada vez más automático: una ficha por proveedor (horario, si lo lleva, cómo cobra) y una cuenta clara de lo que cada proveedor cobró y nos debe. Cada tienda o e-commerce nuevo es solo una ficha más.
 - Diseño en `docs/productos/bajo-pedido-24h.md`.
+
+**D48 · 2026-10-13 · «Aprende»: lo que el bot ya mandó por WhatsApp cuenta como visto.** Claude, dentro del boceto que aprobó Ernesto (13-oct); Ernesto puede cambiarlo.
+- En la pestaña «Aprende» (Core 3.13.77), lo que VivaBot mandó por WhatsApp sale con «✓» y la nota «enviado por WhatsApp». Así el bot no repite lo que ya se vio en la web, y la web no pide lo que ya llegó por WhatsApp.
+- Si la persona lo desmarca en la web, manda ella: un envío más viejo del bot no lo vuelve a marcar.
+- Al terminar un vídeo o la nota de voz en la web, se marca solo. «Guías rápidas» marca a la vez las dos guías del bot (1-2 y 3-4).

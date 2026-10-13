@@ -1,6 +1,6 @@
 # ESTADO — dónde va cada proyecto
 
-**Última actualización:** 2026-10-11 (fin de BizneCubano, panel único; ver sección I al final).
+**Última actualización:** 2026-10-13 (Core 3.13.77: pestaña «Aprende» para gestoras y mensajeros; ver sección L3). Antes: 2026-10-11 (fin de BizneCubano, panel único; ver sección I al final).
 Regla: el agente que termine un bloque de trabajo actualiza **su fila** y la fecha de arriba.
 
 Estados: **FOCO** (se trabaja ahora) · **ACTIVO** (funciona, solo mantenimiento) · **ESPERA** (bloqueado por algo externo) · **PAUSADO** (no se toca hasta que se cumpla su condición) · **POR CLASIFICAR** (Ernesto debe decir qué es).
@@ -459,6 +459,39 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
     - **Google AI Studio** (la clave está en el `.env` del VPS como `GEMINI_API_KEY`): gratis da texto y visión (`gemini-3.1-flash-lite`). La búsqueda en Google y hacer imágenes no son gratis (429). La herramienta de fotos con OpenAI está en `scripts/fotos-bolsa/foto-ia.mjs`, con tope de 1 USD al día.
     - Tabla de los 250 «Bajo pedido» en `propuestas/bajo-pedido-departamentos-2026-10-13.csv` (Tecnología 142…).
     - Hay 18 productos «sin riesgo» que se pueden arreglar ya; el resto va **para Lennys** (mochilas, cortinas roller, puertas de corredera, soporte de TV, cojines…).
+  - **Core 3.13.77 EN VIVO (13-oct, ~13:40; agente web): pestaña «Aprende»** (tutoriales). Ernesto aprobó el boceto: «Me gusta el boceto, construye… en el área de la gestora». Ficha: `docs/productos/zona-de-tutoriales.md`.
+    - **Gestora** (`casaviva.company/area-gestoras/#aprende`): «Aprende» sale **justo debajo de Inicio**, con lo que lleva (por ejemplo «0/6»), mientras le falte algo. Cuando lo ve todo, baja al final de Herramientas. En «Para hoy» sale «Aprende: te faltan N de 6».
+    - **Mensajero** (`/area-mensajeros/#aprende`): una 5.ª pestaña abajo, «Aprende». Es la 2.ª mientras le falte algo.
+    - **La pantalla, igual que el boceto:**
+      - Arriba: «MI ÁREA DE GESTORA · Hola, nombre», APRENDE, la frase y «N de M vistos» con barra.
+      - Gestora, 6 pasos: 1 Tu primera venta · 2 Cómo compra tu cliente · 3 Fotos para publicar · 4 Tus dudas del primer día · 5 Cómo funcionan los pedidos (nota de voz de Ernesto) · 6 Guías rápidas (4 imágenes).
+      - Mensajero, 2 pasos: Cómo funciona una carrera · Guía rápida del mensajero (2 imágenes).
+      - Cada paso tiene ▶ (se ve ahí mismo) y «Marcar como visto» / «✓ Ya lo vi». El primero sin ver lleva «Te toca».
+      - Debajo: «Dudas rápidas» (en el mensajero, «Lo que escribes») con las respuestas del boceto y «Escríbele al asistente por WhatsApp».
+    - **Datos móviles:** nada se descarga hasta tocar ▶ (vídeos con `preload="none"`). Al terminar un vídeo o la nota de voz, se marca solo como visto.
+    - **Medios:** la nota de voz (ogg, y una copia mp3 porque el iPhone no abre ogg) y las 6 guías ya están en la biblioteca de medios: adjuntos 3581–3588, guardados en la opción `cvd_aprende_media`. Los 5 vídeos son los de /tutoriales/ (2937–2941).
+    - **Dónde se guarda lo visto:** en cada cuenta de la web, en la meta `_cvd_aprende`.
+    - **Puerta nueva para el bot (agente de VivaBot; VivaBot NO se tocó):**
+      - **Leer:** `GET https://casaviva.company/wp-json/casa-viva/v1/bot/aprende?phone=53XXXXXXXX` con la cabecera `X-VivaBot-Key` (la misma `CURRU_KEY` de siempre). Busca la cuenta de gestora o mensajero por los últimos 8 dígitos de su WhatsApp. Responde `{found, userId, programs, seen: {id: {at: ms, by: "web"|"whatsapp"}}, sent: {id: ms}, progress: {gestora: {done, total, next, cards}}}`. Si no la encuentra: `{found: false}`.
+      - **Avisar de lo mandado:** `POST` a la misma dirección con JSON `{"phone": "53…", "sent": {"tutorial-primera-venta": 1760371200000}}` (el mismo formato `sent` de la bienvenida) o `{"phone": "53…", "ids": ["guia-gestoras-1-2"], "at": ms}`. Devuelve lo mismo, más `ignored` (los id que no conoce). Como mucho 50 id por llamada.
+      - **Id válidos:** `bienvenida-voz`, `tutorial-primera-venta`, `tutorial-como-comprar`, `tutorial-fotos-para-publicar`, `tutorial-dudas-gestoras`, `audio-como-funciona-pedidos`, `guia-gestoras-1-2`, `guia-gestoras-3-4`, `tutorial-mensajero`, `guia-mensajeros`.
+      - **Regla (D48):** lo que el bot manda por WhatsApp **cuenta como visto**, y en la web sale «enviado por WhatsApp». Si la persona lo desmarca en la web después, un envío más viejo no lo vuelve a marcar; uno nuevo, sí. Antes de mandar el siguiente paso, el bot debe mirar `seen` (no solo `sent`) para no repetir lo que ya vio en la web. «Guías rápidas» de la web marca las dos guías del bot (`1-2` y `3-4`).
+    - **Probado por mí:**
+      - Home, /tienda/ y /tutoriales/ dan 200. Las áreas sin sesión siguen llevando a la entrada. `wp eval` sin errores.
+      - El área de una gestora real (Melany, solo lectura) sale con «Aprende» 2.ª en el menú, «0/6», 6 pasos y 5 dudas. La de un mensajero real (Hector, solo lectura) sale con sus 2 pasos.
+      - Marcar y desmarcar por la ruta de la web, como la gestora de prueba (46): bien. Sin sesión da 401 y con otra área, 403.
+      - La puerta del bot, desde el VPS con la clave real: lee, marca lo enviado y sin clave da 401.
+      - Las cuentas de prueba quedaron como estaban.
+      - En una vista previa de móvil con los estilos reales: ▶ abre el vídeo, la nota de voz y las guías, y pausa lo anterior. La barra y «Te toca» cambian.
+    - **Falta:**
+      - Que una gestora (Dany) lo pruebe en su móvil: tocar ▶ y «Marcar como visto». El guardado con la sesión real del navegador no lo pude probar yo; probé la misma ruta por dentro.
+      - Que el agente del bot use la puerta.
+      - Avisar al General cuando Ernesto diga.
+    - **Copia y código:** copia en Hostinger en `~/bak-20261013-cvd-3.13.76-antes-3.13.77`. Commit Core `370053f` en `Casa-Viva` main.
+    - **Deshacer (Hostinger):**
+      1. `cp -a ~/bak-20261013-cvd-3.13.76-antes-3.13.77/. ~/domains/casaviva.company/public_html/wp-content/plugins/casa-viva-dropship-core/`
+      2. `cd ~/domains/casaviva.company/public_html && wp litespeed-purge all`
+      3. Los 4 archivos nuevos (`class-cvd-aprende.php`, `aprende.css`, `aprende.js`, `figtree-latin-400.woff2`) se quedan sin uso y no molestan, igual que lo guardado en `_cvd_aprende` y los medios.
   - **VivaBot EN VIVO (agentes, 09:41–10:09, último código `6203294`):**
     - **`a15bddc`:**
       - Los documentos (xlsx/pdf) que llegan por privado se guardan en `entrantes/AAAA-MM-DD/<tel>-<id>.<ext>` y Ernesto recibe «📎 …». **Comprobarlo con el Excel de Maryta.**
