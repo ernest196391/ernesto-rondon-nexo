@@ -270,6 +270,16 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
     - **Marca:** fuentes y logo en `/root/archivos/marca/`. Dibuja con sharp porque en el VPS no está resvg.
     - **Ojo:** hay otro sistema de resumen sin subir (`scripts/cierre*`, 11-oct). Hay que quedarse con uno.
   - **Reel v2** (`videos/curru-tienda/reel-apagon/casa-viva-reel-apagon-v2.mp4`, 16,8 s; versión de menos de 10 MB `-v2-fb.mp4`): subtítulos en la zona segura (y≈1220), 7 planos con zoom y sin la escena promocional («En Casa Viva… Escríbenos»). Lo puede volver a hacer `v2.mjs`. Sigue sin publicar: va a Instagram por Meta Business Suite (propuesta: martes 19:00).
+  - **Zona horaria de la web corregida (21:14):** WordPress estaba en UTC, así que desde las 20:00 de Cuba la web creía que ya era el día siguiente. Dany lo vio: al hacer el vale de «mañana», le salía mié 14 en vez de mar 13.
+    - **Cambio:** ahora `timezone_string` = `America/Havana`. Valores anteriores en `~/bak-20261012-zona-horaria.txt` (Hostinger): vacío y +00:00.
+    - **Qué cambia:** las 31 piezas que usan `wp_timezone`/`current_time` pasan a la hora de Cuba. `class-cvd-delivery.php` y `messenger-cash` ya usaban la hora de La Habana. Las fechas de los pedidos se guardan en UTC, así que no se mueve ningún dato.
+    - **Vigilar el 13-oct:** la tasa del día, los cortes de «hoy» en informes y el reparto de las 22:00–7:30.
+  - **Contabilidad del 12-oct mandada a Lennys (20:59):**
+    - **Ventas:** 349 USD en la web; la caja solo tuvo una venta de prueba con su devolución.
+    - **Cobrado:** 111 USD en tienda (91 USD + 15.600 CUP).
+    - **Por cobrar:** 238 USD.
+    - **Comisiones:** 15 USD aprobadas y 25 pendientes.
+    - **Falta:** la ganancia por dueña, porque la nube solo tiene costo de 2 de 13 productos. Hay que usar el Excel «STOCK CIERRE 12 DE OCTUBRE» de Maryta, que solo está en el WhatsApp de Ernesto (el bot no guarda documentos).
   - **Para el 13-oct (lista de la noche):**
     - **Formas de pago** en el pedido: Clásica (se paga al momento), Zelle y PayPal (consulta previa y captura antes; el mensajero solo cobra la mensajería). Lo pidió Lennys; el bot ya lo sabe (conocimiento #167).
     - **Precio de armado por producto:** Lennys mandará la lista. El vale debe avisar al mensajero (herramientas y cuánto cobrar). Las respuestas #115 y #116 ya no dicen «3.000 CUP fijo»; ahora dicen que depende del mueble.
