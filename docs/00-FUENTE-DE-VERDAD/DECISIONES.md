@@ -144,6 +144,7 @@ Ampliación D30 (2026-10-07): el flujo de **Devolución** ya existe en `/ventas/
 - **Tienda que recoge Ernesto:** la TRD de 42 y 23 (Playa), de 9:00 a 17:00. Ernesto va con el dinero.
 - **Cómo debe funcionar.** Todo transparente y cada vez más automático: una ficha por proveedor (horario, si lo lleva, cómo cobra) y una cuenta clara de lo que cada proveedor cobró y nos debe. Cada tienda o e-commerce nuevo es solo una ficha más.
 - Diseño en `docs/productos/bajo-pedido-24h.md`.
+- **Construido y en vivo (13-oct, 14:24; VivaBot `483b9fb`, SQL 024).** Cómo se resolvió lo que D47 no decía (Claude): si el proveedor dice que no y otro tiene exactamente lo mismo, se le pregunta a ese antes de decirle «agotado» a la gestora; un pedido con productos de la tienda, de varios proveedores, de recogida en tienda o de un proveedor sin ficha se confirma igual, pero la entrega la coordina Ernesto; si el cliente ya pagó por Zelle/PayPal, el proveedor no cobra los productos y le debemos su costo. **Sin cambiar:** la regla de la comisión (entregado + dinero confirmado: aquí, cuando el proveedor nos paga) y el cierre del pedido en Ventas (a mano). Pregunta abierta para Ernesto (ESTADO L4).
 
 **D48 · 2026-10-13 · «Aprende»: lo que el bot ya mandó por WhatsApp cuenta como visto.** Claude, dentro del boceto que aprobó Ernesto (13-oct); Ernesto puede cambiarlo.
 - En la pestaña «Aprende» (Core 3.13.77), lo que VivaBot mandó por WhatsApp sale con «✓» y la nota «enviado por WhatsApp». Así el bot no repite lo que ya se vio en la web, y la web no pide lo que ya llegó por WhatsApp.

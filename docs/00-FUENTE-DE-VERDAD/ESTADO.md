@@ -1,6 +1,6 @@
 # ESTADO — dónde va cada proyecto
 
-**Última actualización:** 2026-10-13 (Core 3.13.78: en Pedidos la tienda ve la gestora y el mensajero de cada pedido, con su WhatsApp; antes 3.13.77, pestaña «Aprende»; ver sección L3). Antes: 2026-10-11 (fin de BizneCubano, panel único; ver sección I al final).
+**Última actualización:** 2026-10-13 14:30 (Bajo pedido en 24 horas EN VIVO en VivaBot: proveedor, reloj, gestora, entrega y cuentas; ver sección L4). Antes: 2026-10-13 (Core 3.13.78: en Pedidos la tienda ve la gestora y el mensajero de cada pedido, con su WhatsApp; antes 3.13.77, pestaña «Aprende»; ver sección L3). Antes: 2026-10-11 (fin de BizneCubano, panel único; ver sección I al final).
 Regla: el agente que termine un bloque de trabajo actualiza **su fila** y la fecha de arriba.
 
 Estados: **FOCO** (se trabaja ahora) · **ACTIVO** (funciona, solo mantenimiento) · **ESPERA** (bloqueado por algo externo) · **PAUSADO** (no se toca hasta que se cumpla su condición) · **POR CLASIFICAR** (Ernesto debe decir qué es).
@@ -546,6 +546,45 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
     - crear el Instagram y conectarlo.
   - **Para subir videos:** el subidor del navegador acepta como mucho 10 MB, por eso se usó una copia comprimida: `reel-apagon/casa-viva-reel-apagon-fb.mp4`.
 - **Disco C:** se movió a D: Videos, Música y Descargas (lista en `D:\ERNESTO\movido-de-C-2026-10-12.txt`).
+
+### L4. Martes 13-oct tarde — Bajo pedido en 24 horas (D47) EN VIVO
+**Qué es:** cuando entra un pedido de la web con un producto «bajo pedido», el bot hace solo todo el camino: pregunta al proveedor, lleva el reloj, le contesta a la gestora en menos de 1 hora, le pasa al proveedor los datos para entregar y apunta lo que el proveedor nos debe. Diseño: `docs/productos/bajo-pedido-24h.md`. Decisión: D47.
+
+- **En vivo desde las 14:24** (VivaBot `483b9fb` + `e136de1`, reiniciado con `cv reiniciar`). Interruptor `crm_settings bajo_pedido_auto` = **`si`**.
+- **SQL aplicado** en nexo-production (`vivabot/supabase/024_bajo_pedido_24h.sql`; incluye el 022 de la ficha, que nunca se había pegado). No hace falta que Ernesto pegue nada.
+- **Fichas rellenas** (FICHA … para verlas): Digital Store (Kevin) 5354410879, Sergio Hernández 5358474247 y LJH 5353847951 (= «Electro»): **lo llevan al cliente y cobran ellos**, horario 9:00–17:00. **TRD 42 y 23** (Calle 42 y 23, Playa, 9:00–17:00): sin WhatsApp, **se recoge** y paga Ernesto. Los productos de la TRD tienen que entrar en la bolsa con el vendedor «TRD 42 y 23» (o «TRD 23 y 42», «Tienda 23 y 42»…): así el bot sabe que es esa tienda.
+
+**Cómo funciona un pedido (lo hace el bot solo):**
+1. **Al proveedor, al momento**, si está en su horario: «¿Lo tienes disponible?». Si no tiene WhatsApp (TRD), te lo pregunta **a ti** y contestas *HAY #N* o *NO HAY #N*.
+2. **A la gestora:** «ya le pregunté al proveedor… te confirmo en menos de 1 hora». Fuera del horario del proveedor: «**te lo confirmamos mañana a las 9**». A gestoras y clientes solo de 9:00 a 20:00.
+3. **Reloj:** a los 20 min recordatorio al proveedor · a los 40 min pregunta a **otro proveedor que tenga el mismo artículo** (el más rápido y fiable primero) · a los 55 min a la gestora «seguimos confirmando» y a ti un aviso. Si no contesta en el día, al día siguiente a las 9 se le vuelve a preguntar.
+4. **Sí:** a la gestora «✅ confirmado: lo lleva <proveedor>, te avisamos cuando lo entregue» **con su comisión**. Al proveedor que lo lleva: nombre, teléfono y dirección del cliente, qué cobrar en USD y en CUP (tasa del día) y la mensajería (es suya); que conteste *entregado #N*. Si es de la TRD: va a **tu ruta**.
+5. **No:** si otro proveedor tiene lo mismo, se le pregunta antes; si no, a la gestora le llegan los parecidos y **el pedido espera lo que ella diga. Nunca se cancela solo.**
+6. **«entregado #N»** del proveedor: aviso a la gestora («tu comisión queda pendiente del cierre de caja»), la cuenta pasa a «nos debe» y te llega cuánto.
+- Avisos **solo a la gestora**; al cliente solo si compró directo en la web. **Nunca a grupos.** Pedidos de prueba de la web: no se escribe a nadie.
+- Pedidos con productos de la tienda, de varios proveedores, de recogida en tienda o de un proveedor sin ficha: el bot confirma, pero **la entrega la coordinas tú** (te lo dice).
+- Mientras un proveedor lleva un pedido nuestro, lo que escriba te llega a ti y la IA no le contesta (con proveedores solo disponibilidad y entrega).
+- El bot **aprende** cuánto tarda cada proveedor y cuántas veces dice que sí (se ve en su FICHA).
+
+**Órdenes en tu chat «Tú»** (*BAJO PEDIDO* las enseña todas):
+- *BAJO PEDIDO* → resumen (llega solo cada día a las **8:30**: «Hoy recoges en: TRD 42 y 23 · abre 9:00 · lleva X USD · pedidos #…», pedidos abiertos con su reloj y lo que debe cada proveedor). *BAJO PEDIDO #N* → un pedido.
+- *HAY #N* / *NO HAY #N* → contestas tú por el proveedor. *ENTREGÓ #N* → lo entregó el proveedor. *RECOGÍ #N* → ya lo recogiste en la tienda (luego, como siempre: «Listo» y sale al grupo de mensajeros).
+- *PAGÓ Sergio 85 USD* · *PAGÓ Sergio 3570* (sin moneda: si no cabe en lo que debe, son CUP a la tasa del día; el bot te dice cómo lo entendió) · *DESHAZ PAGO n*.
+- *CUENTAS PROVEEDORES* → quién nos debe. *CUENTA Sergio* → borrador del resumen para él (**no se manda solo**); *CUENTA Sergio MANDA* → se lo manda.
+- *FICHA 5358474247 horario: 9-17; lleva: sí; cobra: proveedor; acuerdo: …; dirección: …* · *FICHA TRD 42 y 23 horario: 9-16* · *FICHA NUEVA Tienda 4ta y 3ra; horario: 9-17; lleva: no; cobra: casa viva; dirección: …* → cada tienda nueva es solo una ficha.
+
+**Pruebas hechas (yo):** 22 pruebas nuevas en `npm run check` (local y en el VPS), con pedidos simulados de principio a fin: Sergio lo lleva (reloj 20/40/55, LJH como segundo proveedor, sí, entrega, cuenta, pago en CUP, deshacer); TRD de noche en modo prueba (a las 9 te pregunta, HAY, ruta, RECOGÍ); pedido a las 18:00 («mañana a las 9») y agotado con parecidos; cliente directo; pedido con productos de la tienda; pedido de prueba y pedido cancelado. Además, **simulación con los datos reales** en el VPS sin escribir a nadie (fichas, bolsa, tasa 785, WhatsApp de la gestora): `node scripts/bajo-pedido-simula.mjs --item 584 --reloj --responde si --entrega`. **Falta verlo con un pedido real** (hoy no hay ninguno abierto con productos bajo pedido).
+
+**Para deshacer:**
+- Pararlo: escribe *BAJO PEDIDO NO* (solo te avisa de cada pedido y tú escribes al proveedor) o *BAJO PEDIDO PRUEBA* (todo te llega a ti como vista previa). Sin reiniciar nada.
+- Apagar todo lo bajo pedido del bot: `BAJO_PEDIDO=0` en el `.env` del VPS + `cv reiniciar`.
+- Volver al código de antes (casi nunca hará falta: basta con *BAJO PEDIDO NO*): revertir en VivaBot los commits `483b9fb` y `e136de1`, empujar a `main` y `cv reiniciar`. Las tablas nuevas (`crm_supplier_ledger`, `crm_supplier_payments`, `crm_supplier_responses`) no molestan si no se usan.
+
+**Preguntas para Ernesto:**
+1. **Comisión de la gestora en pedidos que cobra el proveedor:** con la regla de hoy se aprueba con «entregado + dinero confirmado». Aquí el dinero llega cuando el proveedor nos paga nuestra parte, así que la comisión espera a ese pago (y a que alguien cierre el pedido en Ventas). **No lo cambié.** ¿Así, o se aprueba al entregar?
+2. **Cerrar el pedido en la web:** el bot no lo marca como entregado en Core; queda abierto hasta que se cierre en Ventas cuando el proveedor pague. ¿Lo cierra Lennys, tú, o quieres que lo haga el bot con *PAGÓ*?
+3. **Horarios reales** de Kevin, Sergio, LJH y la TRD (puse 9:00–17:00 a todos). ¿Abren sábado y domingo? (el bot todavía no distingue días).
+4. **Sergio:** ¿se pactó ya que se quede todo y nos pague solo nuestra parte? (está así en su ficha como «se puede pactar»).
 
 ## K. Noche del 11-oct (03:45–05:00 Cuba, Claude Code mientras Ernesto dormía)
 **Hecho y comprobado:**
