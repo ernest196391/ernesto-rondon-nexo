@@ -391,6 +391,23 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
   - **Departamentos (3.13.72):** el agente sigue.
     - Tabla de los 250 «Bajo pedido» en `propuestas/bajo-pedido-departamentos-2026-10-13.csv` (Tecnología 142…).
     - Hay 18 productos «sin riesgo» que se pueden arreglar ya; el resto va **para Lennys** (mochilas, cortinas roller, puertas de corredera, soporte de TV, cojines…).
+  - **VivaBot EN VIVO (agentes, 09:41–10:09, último código `6203294`):**
+    - **`a15bddc`:**
+      - Los documentos (xlsx/pdf) que llegan por privado se guardan en `entrantes/AAAA-MM-DD/<tel>-<id>.<ext>` y Ernesto recibe «📎 …». **Comprobarlo con el Excel de Maryta.**
+      - Las fotos entrantes se guardan ahora con el teléfono real (antes con el lid de WhatsApp) y con el día de Cuba.
+      - Las listas largas o con un título de departamento preguntan antes de mandar fotos, y «para» las corta de verdad.
+      - Ya no se contesta a mensajes que solo traen emojis o un sticker.
+    - **`c28f9e2`:** recogidas con una foto por producto (hasta 4), con la del color comprado si la tiene. A Dany se le pidió repetir la prueba con 2–3 artículos (#744).
+    - **`a1d45c1`:** regla de recogidas sin recoger: a las 24 h aviso a la gestora; a las 48 h se cancela (stock y comisión). Interruptor `recogidas_auto = prueba`, que solo le dice a Ernesto lo que haría; el primer aviso de prueba sale el 14-oct a las 10:00 (#2969). Para pasarlo a `si`, hay que comprobar que la clave REST de WooCommerce del bot sea de lectura y escritura (al agente le bloquearon la consulta).
+    - **`f1cfc56`, `a24d63a`, `6203294`:**
+      - Reglas para no inventar cosas del equipo, la tienda o el sistema, ni prometer plazos.
+      - Los colores y tallas que quedan se leen del stock de la web.
+      - La búsqueda encuentra plurales («edredones») y ya no la llenan los «Bajo pedido».
+    - **`7873a47`, `a3e3825`** (agente de carreras): Isabel y Elaine → Pedri, automático con `crm_settings mensajero_por`. Además, «pásasela a X» para cualquier mensajero y el aviso 🔧 de armado en la carrera del grupo y en el vale.
+    - El #2945, el #2946 y el #2947 ya estaban entregados y cobrados en el Core: se cerraron en `crm_dispatch` y se le avisó a Pedri (#743).
+  - **Stock que no cuadra:** según la web, del edredón camero quedan blanco 2 y gris 1 (rosado y azul agotados). Lennys dijo «full: azul, rosa y blanco». Ahora el bot contesta con lo que dice la web, así que **el stock de la web tiene que estar al día** (el cierre de Maryta).
+  - **Pendiente:** la cola de preguntas de las 10:00 tiene que comprobar si alguien del equipo ya contestó en el grupo.
+  - **Armado: mensajes para los grupos General y Mensajerías redactados, esperando el sí de Ernesto** y saber si el dinero del armado es para el mensajero.
   - **Niurka:** dice que hay competencia nueva en Baracoa (una tienda virtual) y preguntó por la «vigencia de los pagos» si comparte el enlace en la Isla de la Juventud. Ernesto: «yo me encargo».
 - **Fotos de los 412 bloqueados de Kevin:** Ernesto pidió buscarlas en internet. Un agente hace un estudio y un piloto de 20, con tope de 3 USD y sin publicar. Informe en `fotos-productos/INFORME-FOTOS-INTERNET.md`.
 - **Digital Store (Kevin):** catálogo de 682 artículos importado a la bolsa (`/root/archivos/digital-store-catalogo-2026-10-12.json`).
