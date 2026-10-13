@@ -416,7 +416,26 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
     - **Conteo de Maryta:** su idea (foto por producto al bot) habría costado 6–9 USD de IA y sería lenta. Se le mandó un **Excel ya hecho**, `docs/nexo-business/conteo/conteo-tienda-2026-10-13.xlsx` (373 productos y colores de la tienda por departamento, con «en la web» y una columna amarilla «CUENTA REAL») (#755, #756). Ella aceptó. Cuando lo devuelva: comparar con la web y mandarle las diferencias.
     - **Core 3.13.75** (`c4b3e4f`): «Ver la tienda» siempre visible en el área de la gestora (Rafael Codina no podía volver a la tienda). Se le avisó (#762).
     - **Fotos por color:** 34 productos con 106 colores en existencia sin foto propia. Propuesta: la tienda hace las fotos y Claude las sube. **Ernesto decide.**
-    - **Los 3 productos nuevos de Maryta** (38/25/30 USD, comisión 3): ¿subirlos a mano ya o esperar a la entrada automática? **Ernesto decide.**
+    - **Los 3 productos nuevos de Maryta** (Ernesto: «súbelos a mano»):
+      - **Estante 5 niveles EN LA WEB** (#3552, nx-18, 38 USD): 2 unidades (entrada 3 de Dayra y entrada 4 de Maryta, a 29), comisión de 3 USD. Se le avisó a Dayra, a Maryta y al General (#765–#767).
+      - **Organizador con ruedas EN LA WEB (11:45)** (#3556; variaciones 3558 rosa, 3560 negro y 3562 blanco; caja `cv-3558/60/62`, grupo `cv-3556`), 30 USD, comisión de 3 USD en cada color.
+        - Entrada 5 de Maryta: 5 blancos y 4 negros. Entrada 6 de Dayra: 5 rosas y 5 negros. Todo a 22 USD.
+        - En la web quedaron rosa 5, negro 9 y blanco 5.
+        - Fotos: el rosa es la foto real de Maryta con el fondo limpio (`gpt-image-1.5`, fidelidad alta). El negro y el blanco salen de esa foto, de referencia.
+        - Se hizo por el camino del panel: Core `create_variable` (`~/entrada-maryta/crear-variable.php`), `nexo_business_variant_link`, `receive_goods_as`, `product_commissions` + `run_commission_push`.
+        - Se le avisó a Maryta, a Dayra y al General (#770–#772). Maryta dijo 10 suyos y salen 9: se le preguntó.
+      - **Organizador de baño:** está en la caja (nx-19, 25 USD) con 0 unidades. **No está en la web: falta la foto.** Se le pidió a Maryta.
+    - **Permisos:** Ernesto cambió el modo a «Preguntar siempre» (el modo auto bloqueaba la web).
+    - **Gestoras nuevas hoy:** Tania Cedeño (CV85TANIACED) y Melany Torres López (CV86MELTLOPE). El bot repetía la misma pregunta a Melany; se le mandó el enlace de registro a mano.
+    - **Elegir entre 2 productos** (Nadielys): Lennys pidió una recomendación y se le mandó la propuesta (#773):
+      - un vale «ELEGIR 1 de 2»;
+      - lo que no se queda vuelve el mismo día y lo recibe la dependienta;
+      - mensajería más la mitad por el regreso;
+      - comisión solo por lo comprado;
+      - 2 o 3 opciones como mucho.
+
+      **Falta su sí** para ponerlo en el bot y en la web.
+    - **Google AI Studio** (la clave está en el `.env` del VPS como `GEMINI_API_KEY`): gratis da texto y visión (`gemini-3.1-flash-lite`). La búsqueda en Google y hacer imágenes no son gratis (429). La herramienta de fotos con OpenAI está en `scripts/fotos-bolsa/foto-ia.mjs`, con tope de 1 USD al día.
     - Tabla de los 250 «Bajo pedido» en `propuestas/bajo-pedido-departamentos-2026-10-13.csv` (Tecnología 142…).
     - Hay 18 productos «sin riesgo» que se pueden arreglar ya; el resto va **para Lennys** (mochilas, cortinas roller, puertas de corredera, soporte de TV, cojines…).
   - **VivaBot EN VIVO (agentes, 09:41–10:09, último código `6203294`):**
