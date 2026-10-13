@@ -313,10 +313,19 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
   - **Colores ocultos:** 8 productos arreglados a mano (meta `_product_attributes` directa; `$p->save()` no guardaba).
   - **Pendiente de raíz:** «Diseños y colores» debe añadir la opción al padre.
   - **Set de alfombras de baño (177):** color azul (variación 2965, 3 u, 15 USD). Se vendieron 2 en el #2966.
+- **Gestoras: peticiones de Cely Vega (…9935, 12-oct, 23:34–23:42):**
+  - **Recuadro de comisiones** en el panel (pendientes, listas, pagadas…), como el de BizneCubano.
+  - **Tienda por departamentos:** ahora los productos «salen regados»; mezcla las alfombras de baño con las de cocina.
+  - **Resumen en texto por departamento** para mandar a sus clientes.
+  - Un agente lo está construyendo sin subirlo: Core 3.13.68 local y la propuesta en `docs/nexo-business/propuestas/departamentos-web.md`.
+  - **Ernesto:** Lennys paga el saldo atrasado de las comisiones de BizneCubano. Hay que avisar a Cely y al General **el 13-oct después de las 10:00** (antes, Ernesto aprueba el texto).
+  - El bot tomó por pedido la lista de ejemplo de Baño y le mandó 12 fotos (fallo `parseProductList`). Ernesto lo paró: el bot queda en pausa con ella hasta el 13-oct a las 11:40.
 - **Digital Store (Kevin):** catálogo de 682 artículos importado a la bolsa (`/root/archivos/digital-store-catalogo-2026-10-12.json`).
   - **Fotos y fichas a escala (12-oct, 21:50–23:30, 2,40 USD de OpenAI):** 269 listos (fotos 1200×1200 blancas en Storage + título y descripción nuevos), 412 bloqueados por falta de foto. **Nada publicado.** Informe: `docs/nexo-business/fotos-productos/INFORME-ESCALA.md`.
   - **Revisión de Claude de las 13 hojas (23:50):** quité 13 por foto mala (texto o logo encima, collage, laptop vista por debajo, base en vez de consola, «Celular» que son gafas VR): 605, 610, 616, 686, 792, 810, 890, 904, 961, 991, 998, 1002, 1049. En Supabase quedan `photos_ok=false` con `photos_quality.bloqueado`. **Quedan 247 para aprobar.** 7 dudosos marcados para Ernesto (562, 530, 681, 685, 956, 637 y 968, la pistola de juguete realista). Lista: `fotos-productos/hojas/revision.json`.
-  - **Publicar:** cuando Ernesto diga «ok hoja N» en el chat de Claude → en el VPS `cd /root/vivabot && node scripts/fotos-bolsa/publicar-hoja.mjs --hoja N [--quitar a,b] --ok`. Hace lo mismo que APRUEBA en el «Tú», sin mensajes ni temporizadores. Sin `--ok` solo mira; se niega con lo que no esté en las hojas revisadas. Prueba en seco: 247 listos, 0 problemas. **Publica visible** en «Bajo pedido». Registro: `/root/archivos/fotos-bolsa/publicados.jsonl`.
+  - **PUBLICADOS los 247 (12-oct, 23:34–00:05, Ernesto: «ok todas», la pistola también):** 0 fallos. Están en «Bajo pedido» (https://casaviva.company/categoria-producto/bajo-pedido/, 250 productos en total). Comprobé 5 páginas al azar: 200, con foto y precio. Lista de enlaces: `docs/nexo-business/fotos-productos/publicados-2026-10-12.md`.
+  - **Pendiente:** los 9 posibles repetidos y los 412 bloqueados por foto (pedir fotos a Kevin); en los Samsung A17, saber si son 4G o 5G.
+  - **Cómo se publicó:** cuando Ernesto diga «ok hoja N» en el chat de Claude → en el VPS `cd /root/vivabot && node scripts/fotos-bolsa/publicar-hoja.mjs --hoja N [--quitar a,b] --ok`. Hace lo mismo que APRUEBA en el «Tú», sin mensajes ni temporizadores. Sin `--ok` solo mira; se niega con lo que no esté en las hojas revisadas. Prueba en seco: 247 listos, 0 problemas. **Publica visible** en «Bajo pedido». Registro: `/root/archivos/fotos-bolsa/publicados.jsonl`.
 - **Redes:**
   - **Reel:** «Se fue la corriente» (`videos/curru-tienda/reel-apagon/casa-viva-reel-apagon.mp4`, unos 118 créditos).
   - **Historias:** 5, rehechas con el manual de marca y sin tapar caras.
