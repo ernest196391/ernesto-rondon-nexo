@@ -352,6 +352,22 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
     3. **Entrada de mercancía por el bot:** diseño y prototipo, sin tocar nada en vivo, en `docs/nexo-business/entradas/FLUJO-ENTRADA-BOT.md`.
     4. **Fotos de internet de los 412 de Kevin:** piloto y, si sale bien, todos (tope de 15 USD). Las hojas las reviso yo antes de publicar.
 - ~~Avisos de las 10:00 (General y Cely) con tarea local~~ → pasaron al VPS a las 9:00 (ver arriba).
+- **Mañana del 13-oct:**
+  - **Avisos de las 9:00:** salieron los 9, del #722 al #730, entre las 9:00 y las 9:03.
+  - **Agentes de la madrugada:** se cortaron sin terminar al cerrarse la sesión. Se reanudaron a las 9:20.
+  - **Playa Baracoa, 4 500 CUP** (Ernesto, por Niurka …3588): en vivo con `save_rate` (Playa → Playa Baracoa; el quote da 4500 oficial). En el bot, `localities.json` (`485bbe3`). En el CSV del Core, `725c197` (sin subir; no hace falta). Se le avisó a Niurka (#732).
+  - **Recogidas al grupo: la prueba de Dany no salía.** El bot salta los pedidos con «PRUEBA» en el nombre.
+    - Arreglo `0d0c5d4`: en modo `prueba:` sí salen, con «🧪 PEDIDO DE PRUEBA · NO PREPARAR».
+    - En vivo a las 9:18. El #3535 salió al grupo a las 9:19 y se le avisó a Dany (#731).
+    - **Falta:** que Dany diga que está bien → poner `recogidas_grupo` a `si`, cancelar el #3535 (Ernesto ya dijo que sí) y anunciarlo.
+  - **Lennys:**
+    - Preguntó quién ha pedido comisiones en la web nueva: nadie (`cvd_payouts` vacía).
+    - Preguntó qué es «53 productos del Excel por confirmar · 128 no están en la web»: es la revisión de costos del Excel en el panel.
+    - Se quejó de que el bot dejara para «mañana a las 10» los colores de edredón a Nadielys: el agente del bot lo arregla.
+    - Se le contestó todo (#733).
+    - **Sin aclarar:** «¿Está activado el botón?».
+  - **Pedri:** Isabel es su esposa y Elaine su comadre; las dos son gestoras. **Ernesto decide** cómo se reparten las carreras y si se hace «pasar carrera».
+  - **Niurka:** dice que hay competencia nueva en Baracoa (una tienda virtual) y preguntó por la «vigencia de los pagos» si comparte el enlace en la Isla de la Juventud. Ernesto: «yo me encargo».
 - **Fotos de los 412 bloqueados de Kevin:** Ernesto pidió buscarlas en internet. Un agente hace un estudio y un piloto de 20, con tope de 3 USD y sin publicar. Informe en `fotos-productos/INFORME-FOTOS-INTERNET.md`.
 - **Digital Store (Kevin):** catálogo de 682 artículos importado a la bolsa (`/root/archivos/digital-store-catalogo-2026-10-12.json`).
   - **Fotos y fichas a escala (12-oct, 21:50–23:30, 2,40 USD de OpenAI):** 269 listos (fotos 1200×1200 blancas en Storage + título y descripción nuevos), 412 bloqueados por falta de foto. **Nada publicado.** Informe: `docs/nexo-business/fotos-productos/INFORME-ESCALA.md`.
