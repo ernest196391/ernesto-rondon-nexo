@@ -330,7 +330,28 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
      - Lo de fondo, por departamentos, está en `propuestas/departamentos-web.md`. Lennys quiere los nombres de BizneCubano.
   2. **Probar la entrada de mercancía nueva solo con el bot.** Que haga solo la fórmula de precio y comisión (costo + plus), la foto de calidad y la publicación, sin que nadie lo haga a mano. Pendiente para el 13-oct.
   3. **BizneCubano en mantenimiento** para que todos los vales salgan por la web nueva. El bot ya lo sabe (`crm_knowledge` #173; la #60 ya decía que no se usa desde el 11-oct).
-- **Avisos de las 10:00 (General y Cely):** Ernesto los aprobó («si mandalo mañana a las 10 am»). Tarea programada `aviso-ideas-cely-13oct` (solo corre con la app abierta).
+- **Noche del 13-oct (00:30–00:45), con permisos de Ernesto:**
+  - **Core 3.13.68 EN VIVO (00:35):** formas de pago en el checkout + vale con la cifra exacta (3.13.67) y recuadro «Tus comisiones» (3.13.68).
+    - Sin cambios ajenos en el servidor (md5), `php -l` ok, y la portada y la Tienda dan 200.
+    - Copia: `~/bak-20261013-cvd-3.13.66-antes-3.13.68`. Empujado a `origin/main` (`4169be2`).
+    - **Probarlo con Dany hoy** (se le pide a las 9:00).
+  - **Agotados ocultos:** `woocommerce_hide_out_of_stock_items = yes`. Eran 13; vuelven a salir solos cuando se repongan. Lennys estaba preocupada por los «no disponibles».
+  - **«Privado» que veía Lennys:** solo los ve el administrador. Para un visitante, un producto privado da 404 (probado con el #2811) y el mapa de la web solo tiene los 457 publicados.
+  - **Armado (Ernesto):** 10 USD los productos grandes y 5 USD los pequeños. Lo arma el mensajero como servicio adicional al cliente. Ya está en el conocimiento #115 y #116.
+  - **Aprobado por Ernesto:**
+    - regla de recogidas (aviso a las 24 h y cancelación sola a las 48 h);
+    - teléfono opcional en las recogidas;
+    - si hay una forma buena de sacar las fotos de Kevin, publicarlas sin preguntar (las reviso yo).
+  - **Avisos de las 9:00, programados en el VPS** con `systemd-run`: unidad `avisos-20261013.timer`, carpeta `/root/supervisor/tareas/avisos-20261013/` (registro en `salida.log`).
+    - **A los grupos:** General (ideas de Cely), General (armado), Mensajerías (armado).
+    - **En privado:** Cely, Lennys (tienda, «Privado», agotados, BizneCubano, formas de pago, mercancía nueva), Daymee (#2926 cancelado), Nana (#2926), Pedri (cómo repartirse las carreras y quiénes son Isabel y Elaine) y Dany (pedirle que pruebe las formas de pago y el recuadro).
+    - Se borró la tarea local de las 10:00.
+  - **Agentes trabajando (13-oct, madrugada):**
+    1. **Bot:** guardar documentos (el Excel de Maryta), las fotos de Maryta que no se guardaron, no tomar listas por pedido, no contestar a emojis, no inventar ni prometer «apartar», y la regla de recogidas con el interruptor `recogidas_auto`. Se sube con `cv reiniciar`.
+    2. **Web 3.13.69:** que los «Bajo pedido» conserven su departamento y entren con `menu_order` 10, repartir los 250 por departamentos (nombres de BizneCubano), la Tienda con los departamentos siempre a la vista, el teléfono opcional en las recogidas y los 16 productos mal puestos si D37 lo permite.
+    3. **Entrada de mercancía por el bot:** diseño y prototipo, sin tocar nada en vivo, en `docs/nexo-business/entradas/FLUJO-ENTRADA-BOT.md`.
+    4. **Fotos de internet de los 412 de Kevin:** piloto y, si sale bien, todos (tope de 15 USD). Las hojas las reviso yo antes de publicar.
+- ~~Avisos de las 10:00 (General y Cely) con tarea local~~ → pasaron al VPS a las 9:00 (ver arriba).
 - **Fotos de los 412 bloqueados de Kevin:** Ernesto pidió buscarlas en internet. Un agente hace un estudio y un piloto de 20, con tope de 3 USD y sin publicar. Informe en `fotos-productos/INFORME-FOTOS-INTERNET.md`.
 - **Digital Store (Kevin):** catálogo de 682 artículos importado a la bolsa (`/root/archivos/digital-store-catalogo-2026-10-12.json`).
   - **Fotos y fichas a escala (12-oct, 21:50–23:30, 2,40 USD de OpenAI):** 269 listos (fotos 1200×1200 blancas en Storage + título y descripción nuevos), 412 bloqueados por falta de foto. **Nada publicado.** Informe: `docs/nexo-business/fotos-productos/INFORME-ESCALA.md`.
