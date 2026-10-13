@@ -690,6 +690,26 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
   - «Últimas unidades» sale en 1 de cada 3 tarjetas: ¿se deja así o solo cuando queda 1?
   - El soporte de TV y la puerta de corredera están en Cocina: lo decide quien revise las categorías.
 
+**Reel del día 13-oct «¿Tus sábanas huelen a guardado?»** (subagente de Claude Code, ~18:05 Cuba). LISTO, SIN PUBLICAR: lo programa la sesión principal para las 20:00 en Business Suite.
+- **La idea:** un truco de abuela que se manda a la familia. Cúrru guarda el juego de sábanas dentro de su propia funda con un jaboncito de olor. Proskopellin la abraza: «¡Huele a casa de abuela!». No vende nada. Ernesto pidió a las 17:20 que salieran Cúrru y Proskopellin y aprobó gastar créditos de Higgsfield.
+- **Archivos** (en `videos/curru-tienda/reel-funda/`):
+  - `casa-viva-reel-funda.mp4`: 12,0 s, 1080×1920, 30 fps, −14 LUFS, 10,6 MB;
+  - `casa-viva-reel-funda-fb.mp4`: 6,6 MB, para subir desde el navegador;
+  - `portada.jpg`: la portada;
+  - `pie.txt`: el texto para publicar;
+  - scripts: `montaje.mjs` + `config.json` y `limpiar-broche.mjs`.
+- **Créditos:** 55 (imagen de arranque 1 + Seedance 2.0 de 12 s 54). Quedan unos 978. Trabajos: arranque `22f75749-b5f5-4151-8583-e749cc8e3aef`, escena `1aeb6cfb-17c4-4fa1-8045-dedb07a9ae2c`. Salió bien a la primera.
+- **Revisado:**
+  - Whisper sobre el archivo final dice el guion exacto;
+  - fotogramas cada 1,5 s: caras iguales y manos bien.
+- **Arreglado:** Seedance le puso a Cúrru un broche con letras en la blusa. Se borró fotograma a fotograma con `limpiar-broche.mjs`; en el último plano se recorta con el zoom.
+- **Reglas nuevas de Ernesto:**
+  - texto gancho desde el fotograma 0;
+  - portada propia en cada reel, con lo importante dentro del 3:4.
+  - Están en `videos/curru-tienda/redes/GUIA-REDES.md`, junto con las mejores prácticas 2026 con fuentes y el plan «Cómo moverlo sin hacer spam», y en las Lecciones de la skill `reel-casa-viva`.
+  - Herramienta para la portada: `redes/portada.mjs`.
+- **Portada del reel de ayer:** `videos/curru-tienda/reel-apagon/portada-v2.jpg`, con «¿Cuántas horas sin corriente llevas hoy?».
+
 **Abierto:**
 - La capa de moto de Nadielys (#3566) está asignada a Alejandro, que no contesta desde las 12:08. Ernesto decide a qué mensajero pasarla.
 
