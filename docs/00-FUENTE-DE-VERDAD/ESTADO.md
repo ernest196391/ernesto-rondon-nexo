@@ -434,7 +434,13 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
       - comisión solo por lo comprado;
       - 2 o 3 opciones como mucho.
 
-      **Falta su sí** para ponerlo en el bot y en la web.
+      **DECIDIDO (11:51; Ernesto y Lennys de acuerdo):**
+      - el cliente paga el producto que se queda más la **mensajería normal**, sin nada extra por el regreso;
+      - **la dependienta, al recibir el pago, marca con cuál se quedó**.
+
+      Ya está en el conocimiento #38, #47 y #42 (caso 1). Se le avisó a Nadielys (#775) y se cerró la pregunta `ptmur1lil`.
+
+      **Falta en la web:** que el vale tenga la casilla «ELEGIR 1 de 2» y que la dependienta pueda marcar cuál se quedó. Hoy se pone en la nota.
     - **Google AI Studio** (la clave está en el `.env` del VPS como `GEMINI_API_KEY`): gratis da texto y visión (`gemini-3.1-flash-lite`). La búsqueda en Google y hacer imágenes no son gratis (429). La herramienta de fotos con OpenAI está en `scripts/fotos-bolsa/foto-ia.mjs`, con tope de 1 USD al día.
     - Tabla de los 250 «Bajo pedido» en `propuestas/bajo-pedido-departamentos-2026-10-13.csv` (Tecnología 142…).
     - Hay 18 productos «sin riesgo» que se pueden arreglar ya; el resto va **para Lennys** (mochilas, cortinas roller, puertas de corredera, soporte de TV, cojines…).
