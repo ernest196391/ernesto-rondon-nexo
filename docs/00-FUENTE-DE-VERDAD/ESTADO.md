@@ -388,7 +388,27 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
     - Félix contestó «Yo» y se le avisó (#737). Lennys preguntó y se le contestó (#738). Aviso en Mensajerías con el sí de Ernesto (#739).
     - Lo arregla la 3.13.71.
   - **Pregunta abierta vieja** (edredones de Nadielys, en cola desde las 17:50): salió a las 10:00 a Nana y Zaymi aunque Lennys ya lo había contestado. Se cerró y se les avisó (#740, #741).
-  - **Departamentos (3.13.72):** el agente sigue.
+  - **Core 3.13.72–3.13.74 EN VIVO** (agente web; copias en `~/bak-20261013-cvd-…`):
+    - **3.13.72/73** (`1552bdd`, `9033592`): fichas de departamentos siempre a la vista (Tienda, departamentos, portada). En «Todo», los productos van agrupados por departamento: primero los de la tienda, luego un separador «Bajo pedido». Lo comprobé en el móvil: la Tienda enseña las fichas y los títulos por departamento.
+    - **Mercado:** los bajo pedido entran con `menu_order` 10 y su departamento. **256 bajo pedido repartidos** (Tecnología 147, Accesorios 29, Apagones 22…) y **18 productos de la tienda arreglados**. Para deshacerlo: `wp eval-file ~/bak-20261013-restaurar-categorias.php`.
+    - **3.13.74** (`d1e5abb`): «¿Cómo paga el cliente?» también en la recogida (opcional), con el importe a la tasa del día.
+  - **VivaBot `51bfbdd`:** el aviso del grupo de recogidas dice «💳 Paga en la tienda: *11.775 CUP* (15 USD × 785) · Efectivo CUP».
+  - **Departamentos para Lennys** (en su panel):
+    - las 9 mochilas, que irían a Accesorios;
+    - las cortinas roller y las puertas de corredera;
+    - el soporte de TV;
+    - el brazalete;
+    - los cojines;
+    - los cables fotovoltaicos;
+    - el búcaro, la maceta y los girasoles;
+    - los ventiladores F6 en dos departamentos;
+    - el orden de las fichas;
+    - los juguetes y patines en Accesorios;
+    - las tarjetas de cumpleaños (#3514).
+  - **Recogidas al grupo:** la prueba 2 de Dany (#3549, 3 productos, una foto por producto) salió perfecta y se canceló. **Falta el sí de Ernesto** para poner `recogidas_grupo` a `si` y avisar al General.
+  - **Bauta y Mariel** (Nadielys …2217 vive en Bauta y vende allí): no están en las tarifas. **Ernesto decide:** precio por confirmar, tarifa fija o seguir con la nota.
+  - **Maryta empieza hoy el conteo al 100 % de la tienda, sin corriente.** Se le propuso anotar producto, color y cantidad, mandar foto solo de lo que no sepa identificar y mandar el Excel o la lista al terminar (#747).
+  - ~~Departamentos (3.13.72): el agente sigue.~~ Hecho (ver arriba).
     - Tabla de los 250 «Bajo pedido» en `propuestas/bajo-pedido-departamentos-2026-10-13.csv` (Tecnología 142…).
     - Hay 18 productos «sin riesgo» que se pueden arreglar ya; el resto va **para Lennys** (mochilas, cortinas roller, puertas de corredera, soporte de TV, cojines…).
   - **VivaBot EN VIVO (agentes, 09:41–10:09, último código `6203294`):**
