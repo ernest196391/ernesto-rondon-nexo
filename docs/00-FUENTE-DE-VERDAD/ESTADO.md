@@ -710,6 +710,25 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
   - Herramienta para la portada: `redes/portada.mjs`.
 - **Portada del reel de ayer:** `videos/curru-tienda/reel-apagon/portada-v2.jpg`, con «¿Cuántas horas sin corriente llevas hoy?».
 
+**Cúrru ya no tapa la web y auditoría de cliente en el teléfono (Core 3.13.84–86, en vivo 17:59–18:12, commit Casa-Viva `b0849ee`).**
+- **Por qué:** Ernesto, 17:22: «Cúrru está metida en el medio en muchas pantallas, corregir eso y auditar lo que no funcione para el cliente».
+- **Cúrru:** ahora es un solo botón pequeño «Ayuda» (cara + palabra), abajo a la derecha. En el móvil ya no está el círculo verde de WhatsApp: WhatsApp va dentro de Ayuda, con la gestora si se entró por su enlace.
+  - En la ficha no sale hasta pasar los botones de compra.
+  - Se aparta al bajar, al escribir y cuando taparía un botón o un precio.
+- **Ficha:** nombre más pequeño; foto, precio y «Añadir al carrito» en la primera pantalla. Barra de compra opaca (se acabó el texto fantasma).
+- **Comprar ahora:** sin color elegido lleva a elegirlo; antes recargaba con error.
+- **Tienda y búsqueda:**
+  - los precios se ven sin bajar;
+  - los nombres ya no salen en MAYÚSCULAS;
+  - la ventana de ofertas ya no se abre sola en el teléfono (robaba el toque).
+- **Solo presentación:** no cambió precios, existencias, comisiones ni pedidos.
+- **Informe** con 23 problemas, capturas de antes y después, y 11 propuestas: `docs/productos/auditoria-cliente-2026-10-13.md`. Las más importantes:
+  - errores 500 cuando entran varios a la vez;
+  - el WhatsApp de la ficha, del pie y del inicio no va a la gestora en su tienda;
+  - páginas de ~1,5 MB.
+- **Para volver atrás:** `~/bak-20261013-cvd-3.13.83-antes-3.13.84`.
+- **No hecho:** «Últimas unidades» solo con 1 unidad en la portada (`LOW_STOCK` de 2 a 1 en `class-cvd-home-rails.php`, línea 33). El permiso se denegó al tocar ese archivo y falta el sí de Ernesto en el chat.
+
 **Abierto:**
 - La capa de moto de Nadielys (#3566) está asignada a Alejandro, que no contesta desde las 12:08. Ernesto decide a qué mensajero pasarla.
 
