@@ -149,3 +149,8 @@ Ampliación D30 (2026-10-07): el flujo de **Devolución** ya existe en `/ventas/
 - En la pestaña «Aprende» (Core 3.13.77), lo que VivaBot mandó por WhatsApp sale con «✓» y la nota «enviado por WhatsApp». Así el bot no repite lo que ya se vio en la web, y la web no pide lo que ya llegó por WhatsApp.
 - Si la persona lo desmarca en la web, manda ella: un envío más viejo del bot no lo vuelve a marcar.
 - Al terminar un vídeo o la nota de voz en la web, se marca solo. «Guías rápidas» marca a la vez las dos guías del bot (1-2 y 3-4).
+
+**D49 · 2026-10-13 · La tienda ve quién vendió y quién lleva cada pedido web; no ve la comisión.** Claude, a pedido de Nana y con la orden de Ernesto («pon un agente a resolver el problema que tiene Nana de los gestores»). Ernesto puede cambiarlo.
+- Las dependientas (Nana, Zaymi) ven en Pedidos el nombre y el WhatsApp de la gestora y del mensajero de cada pedido (Core 3.13.78). Antes la web les escondía la gestora.
+- La comisión de la gestora y el enlace de administración siguen escondidos para ellas.
+- Los avisos de pedido de la tienda abren el pedido en `/ventas/` (la página `/centro-pedido/` nunca se creó en la web).

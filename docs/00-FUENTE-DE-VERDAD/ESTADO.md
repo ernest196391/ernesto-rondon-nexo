@@ -1,6 +1,6 @@
 # ESTADO — dónde va cada proyecto
 
-**Última actualización:** 2026-10-13 (Core 3.13.77: pestaña «Aprende» para gestoras y mensajeros; ver sección L3). Antes: 2026-10-11 (fin de BizneCubano, panel único; ver sección I al final).
+**Última actualización:** 2026-10-13 (Core 3.13.78: en Pedidos la tienda ve la gestora y el mensajero de cada pedido, con su WhatsApp; antes 3.13.77, pestaña «Aprende»; ver sección L3). Antes: 2026-10-11 (fin de BizneCubano, panel único; ver sección I al final).
 Regla: el agente que termine un bloque de trabajo actualiza **su fila** y la fecha de arriba.
 
 Estados: **FOCO** (se trabaja ahora) · **ACTIVO** (funciona, solo mantenimiento) · **ESPERA** (bloqueado por algo externo) · **PAUSADO** (no se toca hasta que se cumpla su condición) · **POR CLASIFICAR** (Ernesto debe decir qué es).
@@ -492,6 +492,17 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
       1. `cp -a ~/bak-20261013-cvd-3.13.76-antes-3.13.77/. ~/domains/casaviva.company/public_html/wp-content/plugins/casa-viva-dropship-core/`
       2. `cd ~/domains/casaviva.company/public_html && wp litespeed-purge all`
       3. Los 4 archivos nuevos (`class-cvd-aprende.php`, `aprende.css`, `aprende.js`, `figtree-latin-400.woff2`) se quedan sin uso y no molestan, igual que lo guardado en `_cvd_aprende` y los medios.
+  - **Core 3.13.78 EN VIVO (13-oct, ~14:00; agente web): la tienda ve la gestora y el mensajero de cada pedido.** Lo pidió Nana (dos veces el 12-oct y otra el 13-oct: «no me sale quién es el gestor que hizo la venta… en tienda debemos hacer esas anotaciones») y Ernesto dijo «pon un agente a resolverlo».
+    - **Por qué no salía:** la web escondía a propósito la gestora a las dependientas (filtro de privacidad). Ahora la ven; lo que sigue escondido es la comisión.
+    - **Dónde sale:**
+      - **Pedidos** (`casaviva.company/ventas/`, la pantalla de Nana y Zaymi): en cada pedido, justo debajo de «Cliente», dos líneas nuevas: «Gestor/a: nombre · WhatsApp» (o «Venta directa (sin gestora)») y «Mensajero: nombre · WhatsApp» (o «Sin mensajero todavía», «Sin mensajero todavía · la gestora pidió a X», «Recogida en tienda»). El número abre su WhatsApp. En el buscador se puede escribir el nombre de la gestora.
+      - **Mensajería** (`/mensajeria/`) y el centro del pedido: las mismas dos líneas.
+      - **Avisos de pedido** (las alertas del teléfono de la tienda): antes abrían `/centro-pedido/`, una página que **nunca se creó** (daba error 404). Ahora abren el pedido en `/ventas/?cvd_order=N`. Solo los avisos nuevos; no lo probé con una alerta real en el teléfono.
+      - **La caja (app)** no tiene pestaña de pedidos web, así que no hizo falta APK/EXE nuevo. **El panel de Lennys** ya enseñaba la gestora; el mensajero no sale ahí (no se tocó).
+    - **Probado por mí:** como Nana (por dentro del servidor), #3567 da «Oliuska García Terry · +53 5818 3737» y «Pedri · +53 5386 5601»; #3551 da «Daymee Aguilera Varona · +53 5367 9634» y «Recogida en tienda»; sin comisión. Con el `sales.js` y los estilos reales (vista de móvil) la tarjeta del #3567 se ve bien. Las 12 últimas órdenes salen bien. Home, /tienda/, /ventas/ y /mensajeria/ dan 200. No se cambió ningún pedido, precio ni comisión.
+    - **Avisada Nana** (14:06, #836 texto y #837 foto del #3567, sin preguntas de sí/no). Falta que ella lo confirme en su teléfono.
+    - **Copia y código:** copia en Hostinger `~/bak-20261013-cvd-3.13.77-antes-3.13.78`. Commit Core `0d7eb81` en `Casa-Viva` main. Archivos: `class-cvd-sales.php`, `class-cvd-staff-privacy.php`, `class-cvd-order-center.php`, `class-cvd-delivery.php`, `class-cvd-web-push.php`, `sales.js`, `order-center.js` y la versión.
+    - **Deshacer:** `cp -a ~/bak-20261013-cvd-3.13.77-antes-3.13.78/. ~/domains/casaviva.company/public_html/wp-content/plugins/casa-viva-dropship-core/` y `wp litespeed-purge all`.
   - **VivaBot EN VIVO (agentes, 09:41–10:09, último código `6203294`):**
     - **`a15bddc`:**
       - Los documentos (xlsx/pdf) que llegan por privado se guardan en `entrantes/AAAA-MM-DD/<tel>-<id>.<ext>` y Ernesto recibe «📎 …». **Comprobarlo con el Excel de Maryta.**
