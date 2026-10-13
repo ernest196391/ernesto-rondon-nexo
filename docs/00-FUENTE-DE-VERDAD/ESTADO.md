@@ -636,9 +636,21 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
 
 **Tutoriales pendientes de hoy:** «Aprende» y «Tu precio». Ver `docs/nexo-business/tutoriales/pendientes-2026-10-13.md`.
 
+**La web ya no dice solo «gestora» (Core 3.13.82, en vivo, commit Casa-Viva `a93f043`).**
+- **Por qué:** Fernando preguntó «¿no hay gestores o solo son mujeres?». Ernesto: «Gest@r o algo así».
+- **Ahora dice:** «gestor/a» para una persona y «gestores» para varias. Donde se lee mejor, «quien vendió» (por ejemplo, en Pedidos de la tienda: «quien vendió pidió a Pedri»).
+- **Dónde:** títulos de páginas («Registro de gestores», «Gestores», «Gestores · Acceso»), registro, «Mi cuenta» (pestaña «Gestores»), el área («MI ÁREA DE GESTOR/A», «Invitar gestores»), «Aprende», Pedidos y Ventas de la tienda, correos, notas de los pedidos y administración. También `/tutoriales/` («Para gestores») y `/ayuda/` («🧑‍💼 Gestores»).
+- **No cambió nada de dentro:** las direcciones siguen igual (`/registro-gestora/`, `/area-gestoras/`), y el bot y el panel funcionan como antes.
+- **El tema** (`casa-viva-storefront`, solo existe en el servidor) también se tocó: 3 textos de «Mi cuenta».
+- **Comprobado:** las páginas dan 200 y en el texto visible ya no sale «gestora» (solo queda dentro de la dirección `registro-gestora`).
+- **Para volver atrás:**
+  - Core: `~/bak-20261013-cvd-3.13.81-antes-3.13.82`.
+  - Tema: `~/bak-20261013-tema-functions-antes-gestores.php`.
+  - Páginas: `~/bak-20261013-pagina-2942.html` y `~/bak-20261013-pagina-2815.html`.
+- **Falta (no se tocó):** el panel de Lennys (`/panel/`) todavía dice «gestoras». Y `/ayuda/` sigue diciendo «hasta un 30 %», cuando la regla es «sin tope»; no se cambió porque es una regla de comisión.
+
 **Abierto:**
 - La capa de moto de Nadielys (#3566) está asignada a Alejandro, que no contesta desde las 12:08. Ernesto decide a qué mensajero pasarla.
-- La web dice «gestora» en todos lados (registro, área). Fernando preguntó si solo hay mujeres. Falta pasarlo a «gestor/a» en la web.
 
 ## K. Noche del 11-oct (03:45–05:00 Cuba, Claude Code mientras Ernesto dormía)
 **Hecho y comprobado:**
