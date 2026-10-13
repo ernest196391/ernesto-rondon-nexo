@@ -270,7 +270,21 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
     - **Marca:** fuentes y logo en `/root/archivos/marca/`. Dibuja con sharp porque en el VPS no está resvg.
     - **Ojo:** hay otro sistema de resumen sin subir (`scripts/cierre*`, 11-oct). Hay que quedarse con uno.
   - **Reel v2** (`videos/curru-tienda/reel-apagon/casa-viva-reel-apagon-v2.mp4`, 16,8 s; versión de menos de 10 MB `-v2-fb.mp4`): subtítulos en la zona segura (y≈1220), 7 planos con zoom y sin la escena promocional («En Casa Viva… Escríbenos»). Lo puede volver a hacer `v2.mjs`. Sigue sin publicar: va a Instagram por Meta Business Suite (propuesta: martes 19:00).
-  - **Fotos de productos de la bolsa:** NO se suben a la web hasta que las fotos estén bien (Ernesto). Piloto de 12 productos de Digital Store en marcha (`docs/nexo-business/fotos-productos/`).
+  - **Para el 13-oct (lista de la noche):**
+    - **Formas de pago** en el pedido: Clásica (se paga al momento), Zelle y PayPal (consulta previa y captura antes; el mensajero solo cobra la mensajería). Lo pidió Lennys; el bot ya lo sabe (conocimiento #167).
+    - **Precio de armado por producto:** Lennys mandará la lista. El vale debe avisar al mensajero (herramientas y cuánto cobrar). Las respuestas #115 y #116 ya no dicen «3.000 CUP fijo»; ahora dicen que depende del mueble.
+    - **Recogidas sin recoger:**
+      - **#2936:** tendedero rosa, venta directa, desde el 11-oct. Cancelarlo necesita el SÍ de Ernesto o de Lennys.
+      - **#2926:** árbol de navidad, gestora Daymee. Se le preguntó a ella.
+      - **Regla propuesta:** aviso a las 24 h y cancelación sola a las 48 h. Es idea de Nana; falta el SÍ.
+    - **Teléfono opcional en las recogidas:** idea de Dany. Ojo, el teléfono sirve para saber de qué gestora es el cliente.
+    - **Arreglos del bot:**
+      - Inventó productos de ferretería (martillos, tornillos…) y prometió fotos que no existen (PastorJDC; se le corrigió a mano). Hay que buscar también por categoría y no rellenar.
+      - Contestó a un mensaje que solo tenía emojis.
+      - Le dijo a Dany que las fotos de la recogida no salían (sí sale la del primer producto).
+    - **Maryta:** 3 productos con su «plus» (`docs/nexo-business/entradas/2026-10-12-maryta.md`). Falta confirmar el alto del organizador (¿72 o 78 cm?) y las unidades (9 o 10).
+    - **Mensaje para Patry** que Lennys mandó por error al chat del bot: esperar a que diga si se reenvía.
+  - **Fotos de productos de la bolsa:** NO se suben a la web hasta que las fotos estén bien (Ernesto). **Piloto hecho (12 productos de Digital Store, en local, nada publicado):** 9 listos (6 con fotos del proveedor, 3 con fotos oficiales de internet: Samsung, Logitech, PS4) y 3 bloqueados (cafetera, lámpara y power bank: genéricos o sin foto oficial). Solo sirvió 1 de cada 3 fotos del proveedor; la Farberware trae fotos de una Ninja. Finales 1200×1200 fondo blanco, sin logo. Hoja `docs/nexo-business/fotos-productos/piloto/hoja-piloto.jpg`, informe `piloto/informe.md`, propuesta para los ~680 en `fotos-productos/PROCESO.md` (IA gpt-4.1-mini ≈2–5 USD todo el catálogo + ≈2 h de aprobar hojas de 20). **Siguiente:** que Ernesto apruebe reglas (blanco, sin logo, nota ≥7) y el proceso; luego construir el script en el VPS.
 - **Core 3.13.66 (17:32):** los apellidos de quien recibe son opcionales en el checkout. Lo pidió Dany. Copia de seguridad: `~/bak-20261012-cvd-3.13.65-antes-3.13.66`.
 - **Mensajero nuevo Albertico (5356695330):** se le mandó la bienvenida y el video. Falta que Ernesto lo meta en el grupo de Mensajerías y que él se registre.
 - **Aviso del mensajero preferido** enviado al General (#631, 15:10). Texto en `docs/nexo-business/tutoriales/tutorial-mensajero-preferido-mensaje-general.txt`.
