@@ -425,6 +425,21 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
         - Se hizo por el camino del panel: Core `create_variable` (`~/entrada-maryta/crear-variable.php`), `nexo_business_variant_link`, `receive_goods_as`, `product_commissions` + `run_commission_push`.
         - Se le avisó a Maryta, a Dayra y al General (#770–#772). Maryta dijo 10 suyos y salen 9: se le preguntó.
       - **Organizador de baño:** está en la caja (nx-19, 25 USD) con 0 unidades. **No está en la web: falta la foto.** Se le pidió a Maryta.
+    - **Organizador de baño (#3564):** se publicó con una foto hecha con IA a partir de un anuncio que mandó Maryta. **Lennys: «no se parece al real»** → retirado (privado) a las 12:03. Nana dice que falta el «estante de lavadora»: puede que sea este mismo producto. Hace falta la foto real.
+    - **Decisión de Ernesto y Lennys (12:06–12:13):**
+      - Claude sube y Lennys revisa DESPUÉS («esto está mal, corrígelo»): se arregla y se busca que no se repita, **sin parar el trabajo**.
+      - Lo nuevo que pida Lennys queda pendiente «para Ernesto» y él lo ve antes de construirlo. Al agente del bot se le pidió que guarde esas notas.
+      - En cada aviso de producto nuevo va la comisión.
+    - **Cortina blackout (#158):** estaba privada por la sincronización vieja de BizneCubano (`_cvd_sync_hidden_from`) y tiene 4 unidades → **vuelve a la venta** (Lennys).
+      - **Hay 82 productos más escondidos igual y con stock en la web** (p. ej. «Juego de Edredón 5 piezas Full», BLUETTI AC70, mesita de café, sartén).
+      - Plan: cruzarlos con el conteo de Maryta y devolver a la venta los que existan.
+    - **Peticiones de Lennys para Ernesto:**
+      - varias fotos por producto (reales y promocionales);
+      - «elegir 1 de 2» explicado en la web.
+
+      Al agente web se le pidió hacer solo el **QR de «Mi tienda»**, que Niurka dice que no se lee; las otras dos esperan a que Ernesto las vea.
+    - **Bot:** a Nana le mandó 12 fotos de productos cuando solo estaba contestando. Al agente del bot se le pidió arreglarlo.
+    - **Idea de Ernesto, «Estudio de historias» y herramientas gratis en el centro de control:** ficha en `docs/productos/estudio-de-historias.md`, boceto enseñado. Espera el visto bueno.
     - **Permisos:** Ernesto cambió el modo a «Preguntar siempre» (el modo auto bloqueaba la web).
     - **Gestoras nuevas hoy:** Tania Cedeño (CV85TANIACED) y Melany Torres López (CV86MELTLOPE). El bot repetía la misma pregunta a Melany; se le mandó el enlace de registro a mano.
     - **Elegir entre 2 productos** (Nadielys): Lennys pidió una recomendación y se le mandó la propuesta (#773):
