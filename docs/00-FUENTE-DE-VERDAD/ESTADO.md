@@ -324,6 +324,14 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
     - Ninguna comisión de ventas de la web se ha pagado por fuera; lo que se paga ahora es lo atrasado de BizneCubano. Así que el recuadro (3.13.68) muestra bien «Listas para cobrar».
     - Le parece bien quitar «Por cobrar» de Inicio.
   - El bot tomó por pedido la lista de ejemplo de Baño y le mandó 12 fotos (fallo `parseProductList`). Ernesto lo paró: el bot queda en pausa con ella hasta el 13-oct a las 11:40.
+- **Lennys (13-oct, 00:06–00:08, notas de voz):**
+  1. **La web, por categorías como en BizneCubano.** Los 247 «Bajo pedido» salen mezclados con todo.
+     - Arreglo rápido que preparé: poner `menu_order=10` a los 250 «Bajo pedido». La Tienda ordena por `menu_order` y después por nombre, así los de la tienda salen primero. Se deshace volviendo a 0. **Lo bloqueó el permiso; espera el visto bueno de Ernesto.**
+     - Lo de fondo, por departamentos, está en `propuestas/departamentos-web.md`. Lennys quiere los nombres de BizneCubano.
+  2. **Probar la entrada de mercancía nueva solo con el bot.** Que haga solo la fórmula de precio y comisión (costo + plus), la foto de calidad y la publicación, sin que nadie lo haga a mano. Pendiente para el 13-oct.
+  3. **BizneCubano en mantenimiento** para que todos los vales salgan por la web nueva. El bot ya lo sabe (`crm_knowledge` #173; la #60 ya decía que no se usa desde el 11-oct).
+- **Avisos de las 10:00 (General y Cely):** Ernesto los aprobó («si mandalo mañana a las 10 am»). Tarea programada `aviso-ideas-cely-13oct` (solo corre con la app abierta).
+- **Fotos de los 412 bloqueados de Kevin:** Ernesto pidió buscarlas en internet. Un agente hace un estudio y un piloto de 20, con tope de 3 USD y sin publicar. Informe en `fotos-productos/INFORME-FOTOS-INTERNET.md`.
 - **Digital Store (Kevin):** catálogo de 682 artículos importado a la bolsa (`/root/archivos/digital-store-catalogo-2026-10-12.json`).
   - **Fotos y fichas a escala (12-oct, 21:50–23:30, 2,40 USD de OpenAI):** 269 listos (fotos 1200×1200 blancas en Storage + título y descripción nuevos), 412 bloqueados por falta de foto. **Nada publicado.** Informe: `docs/nexo-business/fotos-productos/INFORME-ESCALA.md`.
   - **Revisión de Claude de las 13 hojas (23:50):** quité 13 por foto mala (texto o logo encima, collage, laptop vista por debajo, base en vez de consola, «Celular» que son gafas VR): 605, 610, 616, 686, 792, 810, 890, 904, 961, 991, 998, 1002, 1049. En Supabase quedan `photos_ok=false` con `photos_quality.bloqueado`. **Quedan 247 para aprobar.** 7 dudosos marcados para Ernesto (562, 530, 681, 685, 956, 637 y 968, la pistola de juguete realista). Lista: `fotos-productos/hojas/revision.json`.
