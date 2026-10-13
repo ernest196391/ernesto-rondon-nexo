@@ -1,0 +1,9 @@
+{
+  "name": "entrada-bot-prototipo",
+  "private": true,
+  "type": "module",
+  "description": "Prototipo de la entrada de mercancía por el bot (Casa Viva). Puro: no toca la web, la nube ni WhatsApp.",
+  "scripts": {
+    "test": "node --test"
+  }
+}

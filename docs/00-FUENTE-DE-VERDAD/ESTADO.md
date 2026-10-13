@@ -367,6 +367,18 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
     - Se le contestó todo (#733).
     - **Sin aclarar:** «¿Está activado el botón?».
   - **Pedri:** Isabel es su esposa y Elaine su comadre; las dos son gestoras. **Ernesto decide** cómo se reparten las carreras y si se hace «pasar carrera».
+  - **Pedri, carreras (Ernesto: «lo mejor para él»):** si Isabel o Elaine cogen una carrera, el bot se la pasa sola a Pedri (`crm_settings mensajero_por`). Además habrá un «pasar carrera» a mano para todos, y el #2945 y el #2946 pasan a su nombre. Un agente lo está construyendo; a Pedri se le avisó (#735).
+  - **Armado (Ernesto, 09:45):**
+    - Cuando el cliente lo pide, va en el checkout: «No / Sí pequeño 5 USD / Sí grande 10 USD», en `_cvd_assembly` y `_cvd_assembly_usd`. No se suma al total; lo cobra el mensajero.
+    - El anuncio de la carrera lo dice **antes de cogerla**. Si el mensajero no quiere armar, no la coge; si nadie lo arma, lo arma la clienta.
+    - En construcción: Core 3.13.69 (agente web) y `dispatch.js` (agente de carreras).
+    - Pedri, preocupado por dejar la moto en la calle, ya está avisado (#736). **Falta:** cuando esté en vivo, avisar al General y a Mensajerías (texto para que lo apruebe Ernesto).
+  - **Fotos de internet de Kevin:** del piloto pasaron 6 de 20, y se gastaron 0,69 USD. Informe en `fotos-productos/INFORME-FOTOS-INTERNET.md`.
+    - **Publicados los 6 a las 9:46** con el permiso de Ernesto: 542 PECRON, 807 iPad 9, 786 Samsung A27, 695 Lenovo V15, 553 Air Mouse y 892 JBL PartyBox. Se publicaron con `publicar-hoja.mjs --revision …/revision-web.json` y se les puso `menu_order` 10.
+    - Los 152 con marca (unos 5,30 USD, se salvarían unos 65–70): **Ernesto lo está pensando.** Los genéricos (1 de 10): Google Cloud Vision (Ernesto está creando la cuenta) o fotos de Kevin.
+  - **Entrada de mercancía por el bot:** diseño en `entradas/FLUJO-ENTRADA-BOT.md` y prototipo en `entradas/prototipo/` (14/14 pruebas).
+    - Fórmula que encaja con los 3 de Maryta, sin confirmar: costo + plus + comisión + máx(5 USD; 20 % del costo total), redondeado hacia arriba.
+    - Hay 7 preguntas para Lennys.
   - **Niurka:** dice que hay competencia nueva en Baracoa (una tienda virtual) y preguntó por la «vigencia de los pagos» si comparte el enlace en la Isla de la Juventud. Ernesto: «yo me encargo».
 - **Fotos de los 412 bloqueados de Kevin:** Ernesto pidió buscarlas en internet. Un agente hace un estudio y un piloto de 20, con tope de 3 USD y sin publicar. Informe en `fotos-productos/INFORME-FOTOS-INTERNET.md`.
 - **Digital Store (Kevin):** catálogo de 682 artículos importado a la bolsa (`/root/archivos/digital-store-catalogo-2026-10-12.json`).

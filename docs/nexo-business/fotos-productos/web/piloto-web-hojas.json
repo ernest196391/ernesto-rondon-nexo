@@ -1,0 +1,77 @@
+{
+ "generado": "2026-10-13T13:33:57.462Z",
+ "total_hojas": 1,
+ "productos": 6,
+ "hojas": [
+  {
+   "hoja": 1,
+   "archivo": "piloto-web-01.jpg",
+   "ids": [
+    542,
+    807,
+    786,
+    695,
+    553,
+    892
+   ],
+   "productos": [
+    {
+     "n": 1,
+     "id": 542,
+     "titulo": "PECRON E300LFP – Estación de Energía Portátil 288Wh",
+     "precio_usd": 465,
+     "nota": 9,
+     "fuente": "web",
+     "avisos": []
+    },
+    {
+     "n": 2,
+     "id": 807,
+     "titulo": "Apple iPad 9.ª Generación – Wi-Fi 64GB",
+     "precio_usd": 310,
+     "nota": 8,
+     "fuente": "web",
+     "avisos": []
+    },
+    {
+     "n": 3,
+     "id": 786,
+     "titulo": "Samsung A27 6/128",
+     "precio_usd": 290,
+     "nota": 9,
+     "fuente": "web",
+     "avisos": []
+    },
+    {
+     "n": 4,
+     "id": 695,
+     "titulo": "Laptop Lenovo V15 G6 ARP – Ryzen 5 8GB/256GB",
+     "precio_usd": 595,
+     "nota": 8,
+     "fuente": "web",
+     "avisos": []
+    },
+    {
+     "n": 5,
+     "id": 553,
+     "titulo": "Pilot Air Mouse G10 Smart TV Box (X9)",
+     "precio_usd": 55,
+     "nota": 9,
+     "fuente": "web",
+     "avisos": []
+    },
+    {
+     "n": 6,
+     "id": 892,
+     "titulo": "JBL PartyBox Encore Essential – Altavoz Port. Fiestas",
+     "precio_usd": 365,
+     "nota": 9,
+     "fuente": "web",
+     "avisos": []
+    }
+   ],
+   "ojo": "NO usar APRUEBA en el «Tú» con estos números hasta que estén subidos (photos_clean): el bot puliría las fotos del proveedor con el método viejo"
+  }
+ ],
+ "duplicados_fuera_de_las_hojas": []
+}

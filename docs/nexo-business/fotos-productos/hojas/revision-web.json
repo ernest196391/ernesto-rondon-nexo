@@ -1,0 +1,30 @@
+{
+ "aviso": "Fotos de INTERNET (piloto del 13-oct-2026). Estos números AÚN NO tienen photos_clean en Supabase: primero «textos» + «subir» con --ids (ver INFORME-FOTOS-INTERNET.md). No usar APRUEBA en el «Tú» antes: el bot puliría las fotos del proveedor con el método viejo. publicar-hoja.mjs solo lee revision.json, no esta lista.",
+ "fuera": {
+  "577": "la foto oficial que queda es la versión europea (enchufes Schuko); la de eBay trae el logo «ECOFLOW» añadido encima",
+  "759": "la verificación ve el módulo de luces de la cámara apagado (seguramente es el mismo móvil, pero no se pudo confirmar); fuente: web de reseñas, no tienda",
+  "555": "todas las fotos enseñan la caja del producto",
+  "1190": "es otro ventilador (3 aspas en vez de 5); la primera revisión de la IA lo dio por bueno",
+  "964": "sale un televisor que no viene y el adorno de la consola es distinto"
+ },
+ "dudas": {
+  "695": "la foto principal toca el borde: revisada a ojo, la laptop sale entera"
+ },
+ "hojas": [
+  {
+   "hoja": 1,
+   "archivo": "piloto-web-01.jpg",
+   "ok": [542, 807, 786, 695, 553, 892],
+   "f": [],
+   "d": ["la 4 (#695): toca el borde; revisada a ojo, sale entera"],
+   "fuentes": {
+    "542": "pecron.com (fabricante)",
+    "807": "pigu.lt (tienda grande)",
+    "786": "galaxus.fr (tienda grande)",
+    "695": "idealo.de (comparador de precios)",
+    "553": "walmart.com (tienda grande)",
+    "892": "de.jbl.com (fabricante)"
+   }
+  }
+ ]
+}

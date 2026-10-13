@@ -13,7 +13,7 @@ import { gestoraShare } from '../../src/market-price.js';
 
 const BIZ = '8771c6ed-9dbf-497d-b3df-be6697ba2693';
 const BUCKET = 'mercado';
-const REVISION = '/root/archivos/fotos-bolsa/hojas/revision.json';
+const REVISION = process.argv.includes('--revision') ? process.argv[process.argv.indexOf('--revision') + 1] : '/root/archivos/fotos-bolsa/hojas/revision.json';
 const LOG = '/root/archivos/fotos-bolsa/publicados.jsonl';
 const WEB = (process.env.WOO_URL || '').replace(/\/$/, '');
 const BOT_KEY = process.env.CURRU_KEY || '';
