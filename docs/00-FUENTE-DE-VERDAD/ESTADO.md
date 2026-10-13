@@ -1,6 +1,6 @@
 # ESTADO — dónde va cada proyecto
 
-**Última actualización:** 2026-10-13 15:10 (Core 3.13.81: el pedido se guarda al precio de la gestora al finalizar; #3598 de Thaly corregido a 140; ver sección L5). Antes: 2026-10-13 14:35 (Core 3.13.80: el último enlace de gestora manda y no se pierde al buscar; fotos por color con Gemini; bienvenida corregida y apagada; ver sección L5). Antes: 2026-10-13 14:30 (Bajo pedido en 24 horas EN VIVO en VivaBot: proveedor, reloj, gestora, entrega y cuentas; ver sección L4). Antes: 2026-10-13 (Core 3.13.78: en Pedidos la tienda ve la gestora y el mensajero de cada pedido, con su WhatsApp; antes 3.13.77, pestaña «Aprende»; ver sección L3). Antes: 2026-10-11 (fin de BizneCubano, panel único; ver sección I al final).
+**Última actualización:** 2026-10-13 17:10 (fotos de BizneCubano: 57 fotos más en 33 galerías y 4 colores con foto propia; ver sección L5). Antes: 2026-10-13 15:10 (Core 3.13.81: el pedido se guarda al precio de la gestora al finalizar; #3598 de Thaly corregido a 140; ver sección L5). Antes: 2026-10-13 14:35 (Core 3.13.80: el último enlace de gestora manda y no se pierde al buscar; fotos por color con Gemini; bienvenida corregida y apagada; ver sección L5). Antes: 2026-10-13 14:30 (Bajo pedido en 24 horas EN VIVO en VivaBot: proveedor, reloj, gestora, entrega y cuentas; ver sección L4). Antes: 2026-10-13 (Core 3.13.78: en Pedidos la tienda ve la gestora y el mensajero de cada pedido, con su WhatsApp; antes 3.13.77, pestaña «Aprende»; ver sección L3). Antes: 2026-10-11 (fin de BizneCubano, panel único; ver sección I al final).
 Regla: el agente que termine un bloque de trabajo actualiza **su fila** y la fecha de arriba.
 
 Estados: **FOCO** (se trabaja ahora) · **ACTIVO** (funciona, solo mantenimiento) · **ESPERA** (bloqueado por algo externo) · **PAUSADO** (no se toca hasta que se cumpla su condición) · **POR CLASIFICAR** (Ernesto debe decir qué es).
@@ -648,6 +648,23 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
   - Tema: `~/bak-20261013-tema-functions-antes-gestores.php`.
   - Páginas: `~/bak-20261013-pagina-2942.html` y `~/bak-20261013-pagina-2815.html`.
 - **Falta (no se tocó):** el panel de Lennys (`/panel/`) todavía dice «gestoras». Y `/ayuda/` sigue diciendo «hasta un 30 %», cuando la regla es «sin tope»; no se cambió porque es una regla de comisión.
+
+**Fotos de BizneCubano (en vivo 17:05, Claude, con el sí de Ernesto: «sigue con lo de BizneCubano»).**
+- **Qué se hizo:** las fotos de galería que había en BizneCubano y nunca se copiaron a la web ya están en la galería de su producto. **57 fotos en 33 productos** (adjuntos 3611–3667).
+- **Colores:** 4 variaciones tienen ahora su propia foto. Manta 180×200 lisa (#2497): gris, salmón y carmelita. Manta 240×260 lisa (#2499): rojo.
+- **Cómo se eligieron:**
+  - De 242 fotos, 129 ya estaban en la web (a veces recortadas): no se repitieron.
+  - Las demás las revisó Gemini 3.1 flash-lite (gratis): que sea el producto, nota 7 o más, sin texto, precio, teléfono, logo, captura ni collage.
+  - 19 fotos tenían solo un texto o un círculo en una esquina: se recortó esa parte (sin IA de imagen) y se revisaron otra vez. Pasaron 14.
+  - Se dejaron a 1200×1200 sobre blanco, sin inventar nada.
+  - Un color solo se puso cuando no había duda. Las mantas estampadas (#2471) tienen varios «rosado», y en #2497 hay 2 azules: eso lo decide Lennys.
+- **No se publicaron 56 fotos:** texto o medidas encima, collage, foto de la caja o del manual, nota baja, 3 con precio, una repetida y una pequeña. El motivo de cada una sale en la hoja de dudosas.
+- **Para que Lennys lo revise (después de publicar, como pidió Ernesto):**
+  - `docs/nexo-business/fotos-productos/biznecubano/publicadas-2026-10-13.jpg`.
+  - `docs/nexo-business/fotos-productos/biznecubano/dudosas-2026-10-13.jpg`.
+- **Comprobado:** en las 33 páginas públicas salen las 57 fotos y las 4 fotos de variación.
+- **No se tocó:** precios, existencias, textos, ni las fotos principales. Tampoco la sobrecama 118 ni las sábanas 2491.
+- **Para volver atrás:** `docs/nexo-business/fotos-productos/biznecubano/cambios-2026-10-13.json` guarda la galería y la foto de cada variación de antes. Los adjuntos llevan la marca `_cvd_bc_src`. Borrarlos solo con el sí de Ernesto.
 
 **Abierto:**
 - La capa de moto de Nadielys (#3566) está asignada a Alejandro, que no contesta desde las 12:08. Ernesto decide a qué mensajero pasarla.

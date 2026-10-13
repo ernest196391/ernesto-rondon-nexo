@@ -1,0 +1,3045 @@
+{
+ "aprobadas": [
+  {
+   "key": "85503_8VE-1000505440",
+   "wp": 2445,
+   "bc": "85503",
+   "file": "8VE-1000505440.png",
+   "name": "Estante Organizador",
+   "nota": 10,
+   "motivo_ia": "Excelente foto de catálogo que muestra el producto en su entorno de uso real.",
+   "cortado": false,
+   "fondo": "escena",
+   "recorte": {
+    "left": 0,
+    "top": 135,
+    "width": 776,
+    "height": 1164,
+    "producto_conservado": 100
+   },
+   "color": null,
+   "avisoColor": null,
+   "alt": "Estante Organizador",
+   "archivo": "estante-organizador-8ve-1000505440.jpg",
+   "variaciones": []
+  },
+  {
+   "key": "91182_GVU-1001899102",
+   "wp": 2591,
+   "bc": "91182",
+   "file": "GVU-1001899102.jpg",
+   "name": "🎄 Casas en Miniatura – 8 cm c- 89045",
+   "nota": 10,
+   "motivo_ia": "Foto clara y bien enfocada del producto, ideal para catálogo.",
+   "cortado": false,
+   "fondo": "claro_liso",
+   "recorte": null,
+   "color": null,
+   "avisoColor": null,
+   "alt": "Casas en Miniatura – 8 cm c- 89045",
+   "archivo": "casas-en-miniatura-8-cm-c-89045-gvu-1001899102.jpg",
+   "variaciones": []
+  },
+  {
+   "key": "105359_JSC-1002660415",
+   "wp": 2483,
+   "bc": "105359",
+   "file": "JSC-1002660415.jpg",
+   "name": "Olla con tapa",
+   "nota": 9,
+   "motivo_ia": "Buena foto del producto mostrando la olla y su tapa por separado.",
+   "cortado": false,
+   "fondo": "claro_liso",
+   "recorte": null,
+   "color": null,
+   "avisoColor": null,
+   "alt": "Olla con tapa",
+   "archivo": "olla-con-tapa-jsc-1002660415.jpg",
+   "variaciones": []
+  },
+  {
+   "key": "116968_lm0-1003117428",
+   "wp": 2823,
+   "bc": "116968",
+   "file": "lm0-1003117428.jpg",
+   "name": "Depiladora portatil de cejas",
+   "nota": 9,
+   "motivo_ia": "Buena foto del producto real con su caja y accesorios.",
+   "cortado": false,
+   "fondo": "claro_liso",
+   "recorte": null,
+   "color": null,
+   "avisoColor": null,
+   "alt": "Depiladora portatil de cejas",
+   "archivo": "depiladora-portatil-de-cejas-lm0-1003117428.jpg",
+   "variaciones": []
+  },
+  {
+   "key": "116975_XFN-1003117425",
+   "wp": 2825,
+   "bc": "116975",
+   "file": "XFN-1003117425.jpg",
+   "name": "Rasuradora portátil facial",
+   "nota": 9,
+   "motivo_ia": "Foto real del producto y sus accesorios sobre fondo claro.",
+   "cortado": false,
+   "fondo": "claro_liso",
+   "recorte": null,
+   "color": null,
+   "avisoColor": null,
+   "alt": "Rasuradora portátil facial",
+   "archivo": "rasuradora-portatil-facial-xfn-1003117425.jpg",
+   "variaciones": []
+  },
+  {
+   "key": "117441_7rM-1000620077",
+   "wp": 2373,
+   "bc": "117441",
+   "file": "7rM-1000620077.jpg",
+   "name": "Alfombra de entrada 40x60 cm",
+   "nota": 8,
+   "motivo_ia": "Muestra el detalle de la textura y el relieve de la alfombra verde.",
+   "cortado": true,
+   "fondo": "color",
+   "recorte": null,
+   "color": null,
+   "avisoColor": "sale cortada: no va a la variación",
+   "alt": "Alfombra de entrada 40x60 cm",
+   "archivo": "alfombra-de-entrada-40x60-cm-7rm-1000620077.jpg",
+   "variaciones": []
+  },
+  {
+   "key": "117441_IA9-1000620068",
+   "wp": 2373,
+   "bc": "117441",
+   "file": "IA9-1000620068.jpg",
+   "name": "Alfombra de entrada 40x60 cm",
+   "nota": 7,
+   "motivo_ia": "El producto está cortado y el color marrón no figura en las variaciones disponibles.",
+   "cortado": true,
+   "fondo": "claro_liso",
+   "recorte": null,
+   "color": null,
+   "avisoColor": "color sin variación clara (marrón)",
+   "alt": "Alfombra de entrada 40x60 cm",
+   "archivo": "alfombra-de-entrada-40x60-cm-ia9-1000620068.jpg",
+   "variaciones": []
+  },
+  {
+   "key": "117518_G9x-1000623483",
+   "wp": 2465,
+   "bc": "117518",
+   "file": "G9x-1000623483.png",
+   "name": "Fundas (2) blancas de almohadas",
+   "nota": 10,
+   "motivo_ia": "Excelente foto de producto, limpia y profesional, ideal para catálogo.",
+   "cortado": false,
+   "fondo": "claro_liso",
+   "recorte": null,
+   "color": null,
+   "avisoColor": null,
+   "alt": "Fundas (2) blancas de almohadas",
+   "archivo": "fundas-2-blancas-de-almohadas-g9x-1000623483.jpg",
+   "variaciones": []
+  },
+  {
+   "key": "117518_wcb-1000623487",
+   "wp": 2465,
+   "bc": "117518",
+   "file": "wcb-1000623487.png",
+   "name": "Fundas (2) blancas de almohadas",
+   "nota": 10,
+   "motivo_ia": "Excelente foto de catálogo, limpia y profesional, muestra el producto claramente.",
+   "cortado": false,
+   "fondo": "escena",
+   "recorte": {
+    "left": 553,
+    "top": 0,
+    "width": 983,
+    "height": 1024,
+    "producto_conservado": 97
+   },
+   "color": null,
+   "avisoColor": null,
+   "alt": "Fundas (2) blancas de almohadas",
+   "archivo": "fundas-2-blancas-de-almohadas-wcb-1000623487.jpg",
+   "variaciones": []
+  },
+  {
+   "key": "117675_iy1-1000626254",
+   "wp": 2485,
+   "bc": "117675",
+   "file": "iy1-1000626254.jpg",
+   "name": "Organizador de 2 niveles",
+   "nota": 7,
+   "motivo_ia": "Buena foto real del producto en uso, aunque el entorno es poco estético.",
+   "cortado": false,
+   "fondo": "escena",
+   "recorte": null,
+   "color": null,
+   "avisoColor": null,
+   "alt": "Organizador de 2 niveles",
+   "archivo": "organizador-de-2-niveles-iy1-1000626254.jpg",
+   "variaciones": []
+  },
+  {
+   "key": "117675_f9N-1000626258",
+   "wp": 2485,
+   "bc": "117675",
+   "file": "f9N-1000626258.jpg",
+   "name": "Organizador de 2 niveles",
+   "nota": 7,
+   "motivo_ia": "Muestra el producto desmontado con una cinta métrica para indicar sus dimensiones reales.",
+   "cortado": false,
+   "fondo": "claro_liso",
+   "recorte": null,
+   "color": null,
+   "avisoColor": null,
+   "alt": "Organizador de 2 niveles",
+   "archivo": "organizador-de-2-niveles-f9n-1000626258.jpg",
+   "variaciones": []
+  },
+  {
+   "key": "117675_P94-1000626259",
+   "wp": 2485,
+   "bc": "117675",
+   "file": "P94-1000626259.jpg",
+   "name": "Organizador de 2 niveles",
+   "nota": 7,
+   "motivo_ia": "Muestra el producto en su empaque original, útil para verificar componentes.",
+   "cortado": false,
+   "fondo": "escena",
+   "recorte": null,
+   "color": null,
+   "avisoColor": null,
+   "alt": "Organizador de 2 niveles",
+   "archivo": "organizador-de-2-niveles-p94-1000626259.jpg",
+   "variaciones": []
+  },
+  {
+   "key": "119004_1rb-Screenshot_20260830-105820_Google",
+   "wp": 2571,
+   "bc": "119004",
+   "file": "1rb-Screenshot_20260830-105820_Google.jpg",
+   "name": "Set de cuchillos 🔪 Con tabla",
+   "nota": 8,
+   "motivo_ia": "Buena foto del producto, muestra claramente el set completo de cuchillos y tabla.",
+   "cortado": false,
+   "fondo": "blanco",
+   "recorte": null,
+   "color": null,
+   "avisoColor": null,
+   "alt": "Set de cuchillos Con tabla",
+   "archivo": "set-de-cuchillos-con-tabla-1rb-screenshot-20260830-105820-google.jpg",
+   "variaciones": []
+  },
+  {
+   "key": "119823_DAl-1003372859",
+   "wp": 2575,
+   "bc": "119823",
+   "file": "DAl-1003372859.jpg",
+   "name": "Shampoo 2 en 1",
+   "nota": 9,
+   "motivo_ia": "Foto clara y limpia del producto sobre fondo blanco, ideal para catálogo.",
+   "cortado": false,
+   "fondo": "blanco",
+   "recorte": null,
+   "color": null,
+   "avisoColor": null,
+   "alt": "Shampoo 2 en 1",
+   "archivo": "shampoo-2-en-1-dal-1003372859.jpg",
+   "variaciones": []
+  },
+  {
+   "key": "120608_hx2-1000706304",
+   "wp": 2425,
+   "bc": "120608",
+   "file": "hx2-1000706304.png",
+   "name": "Compresor portátil modelo 1",
+   "nota": 9,
+   "motivo_ia": "Buena foto de producto mostrando el compresor y sus accesorios sobre fondo blanco.",
+   "cortado": false,
+   "fondo": "blanco",
+   "recorte": null,
+   "color": null,
+   "avisoColor": null,
+   "alt": "Compresor portátil modelo 1",
+   "archivo": "compresor-portatil-modelo-1-hx2-1000706304.jpg",
+   "variaciones": []
+  },
+  {
+   "key": "120608_RI2-1000706309",
+   "wp": 2425,
+   "bc": "120608",
+   "file": "RI2-1000706309.jpg",
+   "name": "Compresor portátil modelo 1",
+   "nota": 8,
+   "motivo_ia": "Foto real del producto y sus accesorios sobre fondo claro, buena calidad.",
+   "cortado": false,
+   "fondo": "claro_liso",
+   "recorte": null,
+   "color": null,
+   "avisoColor": null,
+   "alt": "Compresor portátil modelo 1",
+   "archivo": "compresor-portatil-modelo-1-ri2-1000706309.jpg",
+   "variaciones": []
+  },
+  {
+   "key": "120618_cJ3-1000686598",
+   "wp": 2521,
+   "bc": "120618",
+   "file": "cJ3-1000686598.jpg",
+   "name": "Power bank con panel solar",
+   "nota": 9,
+   "motivo_ia": "Muestra el producto en uso cargando varios teléfonos simultáneamente.",
+   "cortado": false,
+   "fondo": "escena",
+   "recorte": null,
+   "color": null,
+   "avisoColor": null,
+   "alt": "Power bank con panel solar",
+   "archivo": "power-bank-con-panel-solar-cj3-1000686598.jpg",
+   "variaciones": []
+  },
+  {
+   "key": "120777_xEI-1000719581",
+   "wp": 2497,
+   "bc": "120777",
+   "file": "xEI-1000719581.png",
+   "name": "Manta 180x200 cm (lisa)",
+   "nota": 10,
+   "motivo_ia": "Foto de alta calidad que muestra el producto en color azul con fondo blanco.",
+   "cortado": false,
+   "fondo": "blanco",
+   "recorte": null,
+   "color": null,
+   "avisoColor": "2 fotos dicen «azul»: falta decidir cuál",
+   "alt": "Manta 180x200 cm (lisa)",
+   "archivo": "manta-180x200-cm-lisa-xei-1000719581.jpg",
+   "variaciones": []
+  },
+  {
+   "key": "120777_vrp-1000719582",
+   "wp": 2497,
+   "bc": "120777",
+   "file": "vrp-1000719582.png",
+   "name": "Manta 180x200 cm (lisa)",
+   "nota": 10,
+   "motivo_ia": "Foto de alta calidad que muestra el producto en color rojo.",
+   "cortado": false,
+   "fondo": "blanco",
+   "recorte": null,
+   "color": null,
+   "avisoColor": "color sin variación clara (rojo)",
+   "alt": "Manta 180x200 cm (lisa)",
+   "archivo": "manta-180x200-cm-lisa-vrp-1000719582.jpg",
+   "variaciones": []
+  },
+  {
+   "key": "120777_2ai-1000719583",
+   "wp": 2497,
+   "bc": "120777",
+   "file": "2ai-1000719583.png",
+   "name": "Manta 180x200 cm (lisa)",
+   "nota": 10,
+   "motivo_ia": "Foto de catálogo perfecta que muestra el producto en color gris.",
+   "cortado": false,
+   "fondo": "blanco",
+   "recorte": null,
+   "color": "gris",
+   "avisoColor": null,
+   "alt": "Manta 180x200 cm (lisa) — color gris",
+   "archivo": "manta-180x200-cm-lisa-gris-2ai-1000719583.jpg",
+   "variaciones": [
+    2747
+   ]
+  },
+  {
+   "key": "120777_kmv-1000719584",
+   "wp": 2497,
+   "bc": "120777",
+   "file": "kmv-1000719584.png",
+   "name": "Manta 180x200 cm (lisa)",
+   "nota": 10,
+   "motivo_ia": "Foto de catálogo profesional que muestra el producto en color salmón.",
+   "cortado": false,
+   "fondo": "blanco",
+   "recorte": null,
+   "color": "salmon",
+   "avisoColor": null,
+   "alt": "Manta 180x200 cm (lisa) — color salmón",
+   "archivo": "manta-180x200-cm-lisa-salmon-kmv-1000719584.jpg",
+   "variaciones": [
+    2749
+   ]
+  },
+  {
+   "key": "120777_S0g-1000719585",
+   "wp": 2497,
+   "bc": "120777",
+   "file": "S0g-1000719585.png",
+   "name": "Manta 180x200 cm (lisa)",
+   "nota": 9,
+   "motivo_ia": "Foto de catálogo de alta calidad mostrando el producto en color azul.",
+   "cortado": false,
+   "fondo": "blanco",
+   "recorte": null,
+   "color": null,
+   "avisoColor": "2 fotos dicen «azul»: falta decidir cuál",
+   "alt": "Manta 180x200 cm (lisa)",
+   "archivo": "manta-180x200-cm-lisa-s0g-1000719585.jpg",
+   "variaciones": []
+  },
+  {
+   "key": "120777_Frj-1000719586",
+   "wp": 2497,
+   "bc": "120777",
+   "file": "Frj-1000719586.png",
+   "name": "Manta 180x200 cm (lisa)",
+   "nota": 10,
+   "motivo_ia": "Foto de alta calidad que muestra el producto en color carmelita con fondo blanco.",
+   "cortado": false,
+   "fondo": "blanco",
+   "recorte": null,
+   "color": "carmelita",
+   "avisoColor": null,
+   "alt": "Manta 180x200 cm (lisa) — color carmelita",
+   "archivo": "manta-180x200-cm-lisa-carmelita-frj-1000719586.jpg",
+   "variaciones": [
+    2748
+   ]
+  },
+  {
+   "key": "120778_JdM-1000719251",
+   "wp": 2471,
+   "bc": "120778",
+   "file": "JdM-1000719251.png",
+   "name": "Manta 180X220 cm (estampada)",
+   "nota": 10,
+   "motivo_ia": "Foto de alta calidad que muestra el producto individualmente con fondo blanco.",
+   "cortado": false,
+   "fondo": "blanco",
+   "recorte": null,
+   "color": null,
+   "avisoColor": "4 fotos dicen «rosado»: falta decidir cuál",
+   "alt": "Manta 180X220 cm (estampada)",
+   "archivo": "manta-180x220-cm-estampada-jdm-1000719251.jpg",
+   "variaciones": []
+  },
+  {
+   "key": "120778_Ppi-1000719266",
+   "wp": 2471,
+   "bc": "120778",
+   "file": "Ppi-1000719266.png",
+   "name": "Manta 180X220 cm (estampada)",
+   "nota": 10,
+   "motivo_ia": "Foto de alta calidad que muestra el producto en un solo color.",
+   "cortado": false,
+   "fondo": "blanco",
+   "recorte": null,
+   "color": null,
+   "avisoColor": "4 fotos dicen «rosado»: falta decidir cuál",
+   "alt": "Manta 180X220 cm (estampada)",
+   "archivo": "manta-180x220-cm-estampada-ppi-1000719266.jpg",
+   "variaciones": []
+  },
+  {
+   "key": "120778_tZr-1000719268",
+   "wp": 2471,
+   "bc": "120778",
+   "file": "tZr-1000719268.png",
+   "name": "Manta 180X220 cm (estampada)",
+   "nota": 10,
+   "motivo_ia": "Excelente foto de catálogo que muestra el producto y sus variantes de diseño.",
+   "cortado": false,
+   "fondo": "blanco",
+   "recorte": null,
+   "color": null,
+   "avisoColor": null,
+   "alt": "Manta 180X220 cm (estampada)",
+   "archivo": "manta-180x220-cm-estampada-tzr-1000719268.jpg",
+   "variaciones": []
+  },
+  {
+   "key": "120778_Oi3-1000719269",
+   "wp": 2471,
+   "bc": "120778",
+   "file": "Oi3-1000719269.png",
+   "name": "Manta 180X220 cm (estampada)",
+   "nota": 10,
+   "motivo_ia": "Foto de catálogo de alta calidad mostrando el producto en color gris oscuro.",
+   "cortado": false,
+   "fondo": "blanco",
+   "recorte": null,
+   "color": null,
+   "avisoColor": "¿gris o gris oscuro? falta decidir",
+   "alt": "Manta 180X220 cm (estampada)",
+   "archivo": "manta-180x220-cm-estampada-oi3-1000719269.jpg",
+   "variaciones": []
+  },
+  {
+   "key": "120778_Cl4-1000719267",
+   "wp": 2471,
+   "bc": "120778",
+   "file": "Cl4-1000719267.png",
+   "name": "Manta 180X220 cm (estampada)",
+   "nota": 9,
+   "motivo_ia": "Foto de alta calidad que muestra una variante de color del producto.",
+   "cortado": false,
+   "fondo": "blanco",
+   "recorte": null,
+   "color": null,
+   "avisoColor": "4 fotos dicen «rosado»: falta decidir cuál",
+   "alt": "Manta 180X220 cm (estampada)",
+   "archivo": "manta-180x220-cm-estampada-cl4-1000719267.jpg",
+   "variaciones": []
+  },
+  {
+   "key": "120778_25r-1000719278",
+   "wp": 2471,
+   "bc": "120778",
+   "file": "25r-1000719278.png",
+   "name": "Manta 180X220 cm (estampada)",
+   "nota": 8,
+   "motivo_ia": "Muestra el producto en varios colores y diseños, útil para catálogo.",
+   "cortado": false,
+   "fondo": "escena",
+   "recorte": {
+    "left": 0,
+    "top": 191,
+    "width": 670,
+    "height": 1004,
+    "producto_conservado": 85
+   },
+   "color": null,
+   "avisoColor": null,
+   "alt": "Manta 180X220 cm (estampada)",
+   "archivo": "manta-180x220-cm-estampada-25r-1000719278.jpg",
+   "variaciones": []
+  },
+  {
+   "key": "120778_AUp-1000719340",
+   "wp": 2471,
+   "bc": "120778",
+   "file": "AUp-1000719340.png",
+   "name": "Manta 180X220 cm (estampada)",
+   "nota": 10,
+   "motivo_ia": "Foto de alta calidad que muestra claramente el producto y su textura.",
+   "cortado": false,
+   "fondo": "escena",
+   "recorte": {
+    "left": 0,
+    "top": 146,
+    "width": 668,
+    "height": 1001,
+    "producto_conservado": 86
+   },
+   "color": null,
+   "avisoColor": "4 fotos dicen «rosado»: falta decidir cuál",
+   "alt": "Manta 180X220 cm (estampada)",
+   "archivo": "manta-180x220-cm-estampada-aup-1000719340.jpg",
+   "variaciones": []
+  },
+  {
+   "key": "120778_2J6-1000719341",
+   "wp": 2471,
+   "bc": "120778",
+   "file": "2J6-1000719341.png",
+   "name": "Manta 180X220 cm (estampada)",
+   "nota": 8,
+   "motivo_ia": "Muestra una manta rosada con estampado, aunque el producto aparece ligeramente cortado por arriba.",
+   "cortado": true,
+   "fondo": "escena",
+   "recorte": {
+    "left": 0,
+    "top": 151,
+    "width": 673,
+    "height": 1009,
+    "producto_conservado": 80
+   },
+   "color": null,
+   "avisoColor": "color sin variación clara (rosado)",
+   "alt": "Manta 180X220 cm (estampada)",
+   "archivo": "manta-180x220-cm-estampada-2j6-1000719341.jpg",
+   "variaciones": []
+  },
+  {
+   "key": "120779_sJu-1000716939",
+   "wp": 2499,
+   "bc": "120779",
+   "file": "sJu-1000716939.png",
+   "name": "Manta 240X260 cm (lisa)",
+   "nota": 10,
+   "motivo_ia": "Excelente foto de estilo de vida mostrando el producto en uso.",
+   "cortado": false,
+   "fondo": "escena",
+   "recorte": {
+    "left": 0,
+    "top": 0,
+    "width": 869,
+    "height": 899,
+    "producto_conservado": 70
+   },
+   "color": null,
+   "avisoColor": "color sin variación clara (negro)",
+   "alt": "Manta 240X260 cm (lisa)",
+   "archivo": "manta-240x260-cm-lisa-sju-1000716939.jpg",
+   "variaciones": []
+  },
+  {
+   "key": "120779_R9M-1000716926",
+   "wp": 2499,
+   "bc": "120779",
+   "file": "R9M-1000716926.png",
+   "name": "Manta 240X260 cm (lisa)",
+   "nota": 9,
+   "motivo_ia": "Excelente foto de estilo de vida que muestra el producto en uso.",
+   "cortado": false,
+   "fondo": "escena",
+   "recorte": {
+    "left": 0,
+    "top": 0,
+    "width": 853,
+    "height": 884,
+    "producto_conservado": 72
+   },
+   "color": null,
+   "avisoColor": "color sin variación clara (azul)",
+   "alt": "Manta 240X260 cm (lisa)",
+   "archivo": "manta-240x260-cm-lisa-r9m-1000716926.jpg",
+   "variaciones": []
+  },
+  {
+   "key": "120779_efG-1000716925",
+   "wp": 2499,
+   "bc": "120779",
+   "file": "efG-1000716925.png",
+   "name": "Manta 240X260 cm (lisa)",
+   "nota": 10,
+   "motivo_ia": "Excelente foto de estilo de vida mostrando el producto en uso.",
+   "cortado": false,
+   "fondo": "escena",
+   "recorte": {
+    "left": 0,
+    "top": 0,
+    "width": 823,
+    "height": 919,
+    "producto_conservado": 67
+   },
+   "color": null,
+   "avisoColor": "color sin variación clara (morado)",
+   "alt": "Manta 240X260 cm (lisa)",
+   "archivo": "manta-240x260-cm-lisa-efg-1000716925.jpg",
+   "variaciones": []
+  },
+  {
+   "key": "120779_2te-1000716895",
+   "wp": 2499,
+   "bc": "120779",
+   "file": "2te-1000716895.png",
+   "name": "Manta 240X260 cm (lisa)",
+   "nota": 10,
+   "motivo_ia": "Excelente foto de catálogo mostrando el producto en un ambiente acogedor.",
+   "cortado": false,
+   "fondo": "escena",
+   "recorte": {
+    "left": 0,
+    "top": 0,
+    "width": 715,
+    "height": 878,
+    "producto_conservado": 66
+   },
+   "color": null,
+   "avisoColor": "color sin variación clara (morado)",
+   "alt": "Manta 240X260 cm (lisa)",
+   "archivo": "manta-240x260-cm-lisa-2te-1000716895.jpg",
+   "variaciones": []
+  },
+  {
+   "key": "120779_mY6-1000716894",
+   "wp": 2499,
+   "bc": "120779",
+   "file": "mY6-1000716894.png",
+   "name": "Manta 240X260 cm (lisa)",
+   "nota": 10,
+   "motivo_ia": "Foto de alta calidad que muestra el producto en color rojo.",
+   "cortado": false,
+   "fondo": "escena",
+   "recorte": {
+    "left": 0,
+    "top": 0,
+    "width": 715,
+    "height": 874,
+    "producto_conservado": 66
+   },
+   "color": "rojo",
+   "avisoColor": null,
+   "alt": "Manta 240X260 cm (lisa) — color rojo",
+   "archivo": "manta-240x260-cm-lisa-rojo-my6-1000716894.jpg",
+   "variaciones": [
+    2750
+   ]
+  },
+  {
+   "key": "120779_Jzb-1000716892",
+   "wp": 2499,
+   "bc": "120779",
+   "file": "Jzb-1000716892.png",
+   "name": "Manta 240X260 cm (lisa)",
+   "nota": 10,
+   "motivo_ia": "Foto de alta calidad que muestra el producto en un entorno real.",
+   "cortado": false,
+   "fondo": "escena",
+   "recorte": {
+    "left": 0,
+    "top": 0,
+    "width": 723,
+    "height": 879,
+    "producto_conservado": 67
+   },
+   "color": null,
+   "avisoColor": "color sin variación clara (caramelo)",
+   "alt": "Manta 240X260 cm (lisa)",
+   "archivo": "manta-240x260-cm-lisa-jzb-1000716892.jpg",
+   "variaciones": []
+  },
+  {
+   "key": "120839_dtC-1003372228",
+   "wp": 2391,
+   "bc": "120839",
+   "file": "dtC-1003372228.jpg",
+   "name": "Albornoz (talla L) beige",
+   "nota": 8,
+   "motivo_ia": "Muestra el albornoz beige doblado con su etiqueta original de fabricante.",
+   "cortado": false,
+   "fondo": "claro_liso",
+   "recorte": null,
+   "color": null,
+   "avisoColor": null,
+   "alt": "Albornoz (talla L) beige",
+   "archivo": "albornoz-talla-l-beige-dtc-1003372228.jpg",
+   "variaciones": []
+  },
+  {
+   "key": "120840_JLh-1003372231",
+   "wp": 2365,
+   "bc": "120840",
+   "file": "JLh-1003372231.jpg",
+   "name": "Albornoz (talla L) beige oscuro",
+   "nota": 7,
+   "motivo_ia": "Muestra el albornoz doblado con su empaque original, útil para ver la presentación.",
+   "cortado": false,
+   "fondo": "claro_liso",
+   "recorte": null,
+   "color": null,
+   "avisoColor": null,
+   "alt": "Albornoz (talla L) beige oscuro",
+   "archivo": "albornoz-talla-l-beige-oscuro-jlh-1003372231.jpg",
+   "variaciones": []
+  },
+  {
+   "key": "120842_Yzk-1003372230",
+   "wp": 2363,
+   "bc": "120842",
+   "file": "Yzk-1003372230.jpg",
+   "name": "Albornoz (talla L) azul",
+   "nota": 7,
+   "motivo_ia": "Muestra el albornoz plegado con su etiqueta original, útil para ver el empaquetado.",
+   "cortado": false,
+   "fondo": "claro_liso",
+   "recorte": null,
+   "color": null,
+   "avisoColor": null,
+   "alt": "Albornoz (talla L) azul",
+   "archivo": "albornoz-talla-l-azul-yzk-1003372230.jpg",
+   "variaciones": []
+  },
+  {
+   "key": "120943_UVQ-1000694389",
+   "wp": 2729,
+   "bc": "120943",
+   "file": "UVQ-1000694389.jpg",
+   "name": "Escritorio de oficina",
+   "nota": 8,
+   "motivo_ia": "Buena foto real del producto en tienda, muestra el escritorio completo y funcional.",
+   "cortado": false,
+   "fondo": "escena",
+   "recorte": null,
+   "color": null,
+   "avisoColor": null,
+   "alt": "Escritorio de oficina",
+   "archivo": "escritorio-de-oficina-uvq-1000694389.jpg",
+   "variaciones": []
+  },
+  {
+   "key": "120945_R8j-1003372163",
+   "wp": 2421,
+   "bc": "120945",
+   "file": "R8j-1003372163.jpg",
+   "name": "Cesto de pedal negro (15 litros)",
+   "nota": 8,
+   "motivo_ia": "Buena foto del producto real, aunque el fondo es mejorable.",
+   "cortado": false,
+   "fondo": "claro_liso",
+   "recorte": null,
+   "color": null,
+   "avisoColor": null,
+   "alt": "Cesto de pedal negro (15 litros)",
+   "archivo": "cesto-de-pedal-negro-15-litros-r8j-1003372163.jpg",
+   "variaciones": []
+  },
+  {
+   "key": "120945_bl4-1003372164",
+   "wp": 2421,
+   "bc": "120945",
+   "file": "bl4-1003372164.jpg",
+   "name": "Cesto de pedal negro (15 litros)",
+   "nota": 7,
+   "motivo_ia": "Buena foto del producto abierto, aunque aparece una mano sosteniendo la tapa.",
+   "cortado": false,
+   "fondo": "blanco",
+   "recorte": null,
+   "color": null,
+   "avisoColor": null,
+   "alt": "Cesto de pedal negro (15 litros)",
+   "archivo": "cesto-de-pedal-negro-15-litros-bl4-1003372164.jpg",
+   "variaciones": []
+  },
+  {
+   "key": "120946_Mjj-1003372211",
+   "wp": 2411,
+   "bc": "120946",
+   "file": "Mjj-1003372211.png",
+   "name": "Cesto de pedal negro (7 litros)",
+   "nota": 10,
+   "motivo_ia": "Foto de estudio profesional, limpia y clara, ideal para catálogo.",
+   "cortado": false,
+   "fondo": "blanco",
+   "recorte": {
+    "left": 150,
+    "top": 146,
+    "width": 623,
+    "height": 935,
+    "producto_conservado": 84
+   },
+   "color": null,
+   "avisoColor": null,
+   "alt": "Cesto de pedal negro (7 litros)",
+   "archivo": "cesto-de-pedal-negro-7-litros-mjj-1003372211.jpg",
+   "variaciones": []
+  },
+  {
+   "key": "120946_wTq-1003372161",
+   "wp": 2411,
+   "bc": "120946",
+   "file": "wTq-1003372161.jpg",
+   "name": "Cesto de pedal negro (7 litros)",
+   "nota": 8,
+   "motivo_ia": "Buena foto del producto real, aunque el fondo de tela arrugada resta profesionalidad.",
+   "cortado": false,
+   "fondo": "claro_liso",
+   "recorte": null,
+   "color": null,
+   "avisoColor": null,
+   "alt": "Cesto de pedal negro (7 litros)",
+   "archivo": "cesto-de-pedal-negro-7-litros-wtq-1003372161.jpg",
+   "variaciones": []
+  },
+  {
+   "key": "120948_Y46-1000694412",
+   "wp": 2593,
+   "bc": "120948",
+   "file": "Y46-1000694412.png",
+   "name": "Silla de oficina (23_222)",
+   "nota": 9,
+   "motivo_ia": "Foto clara y limpia del producto en un entorno de oficina.",
+   "cortado": false,
+   "fondo": "escena",
+   "recorte": null,
+   "color": null,
+   "avisoColor": null,
+   "alt": "Silla de oficina (23_222)",
+   "archivo": "silla-de-oficina-23-222-y46-1000694412.jpg",
+   "variaciones": []
+  },
+  {
+   "key": "121735_Fln-1003333224",
+   "wp": 2423,
+   "bc": "121735",
+   "file": "Fln-1003333224.jpg",
+   "name": "Cintas de luces bluetooth con RGB (5m)",
+   "nota": 10,
+   "motivo_ia": "Foto limpia y profesional del producto sobre fondo blanco, ideal para catálogo.",
+   "cortado": false,
+   "fondo": "blanco",
+   "recorte": null,
+   "color": null,
+   "avisoColor": null,
+   "alt": "Cintas de luces bluetooth con RGB (5m)",
+   "archivo": "cintas-de-luces-bluetooth-con-rgb-5m-fln-1003333224.jpg",
+   "variaciones": []
+  },
+  {
+   "key": "121918_lZT-1003333671",
+   "wp": 2503,
+   "bc": "121918",
+   "file": "lZT-1003333671.jpg",
+   "name": "Mochila M- 1",
+   "nota": 7,
+   "motivo_ia": "Foto real del producto, aunque el fondo es un poco desordenado.",
+   "cortado": false,
+   "fondo": "escena",
+   "recorte": {
+    "left": 0,
+    "top": 0,
+    "width": 917,
+    "height": 1280,
+    "producto_conservado": 96
+   },
+   "color": null,
+   "avisoColor": null,
+   "alt": "Mochila M- 1",
+   "archivo": "mochila-m-1-lzt-1003333671.jpg",
+   "variaciones": []
+  },
+  {
+   "key": "121919_4by-1003333678",
+   "wp": 2477,
+   "bc": "121919",
+   "file": "4by-1003333678.jpg",
+   "name": "Mochila M- 8",
+   "nota": 7,
+   "motivo_ia": "Foto real del producto, aunque el fondo es algo desordenado.",
+   "cortado": false,
+   "fondo": "escena",
+   "recorte": {
+    "left": 0,
+    "top": 302,
+    "width": 930,
+    "height": 978,
+    "producto_conservado": 76
+   },
+   "color": null,
+   "avisoColor": null,
+   "alt": "Mochila M- 8",
+   "archivo": "mochila-m-8-4by-1003333678.jpg",
+   "variaciones": []
+  },
+  {
+   "key": "122358_bem-1003369376",
+   "wp": 2770,
+   "bc": "122358",
+   "file": "bem-1003369376.jpg",
+   "name": "MOCHILA M-2",
+   "nota": 7,
+   "motivo_ia": "Buena foto del producto real, aunque el fondo de tela no es profesional.",
+   "cortado": false,
+   "fondo": "claro_liso",
+   "recorte": null,
+   "color": null,
+   "avisoColor": null,
+   "alt": "MOCHILA M-2",
+   "archivo": "mochila-m-2-bem-1003369376.jpg",
+   "variaciones": []
+  },
+  {
+   "key": "122361_4QB-1003369344",
+   "wp": 2772,
+   "bc": "122361",
+   "file": "4QB-1003369344.jpg",
+   "name": "MOCHILA M-4",
+   "nota": 8,
+   "motivo_ia": "Buena foto del producto sobre fondo neutro, muestra claramente el diseño y color.",
+   "cortado": false,
+   "fondo": "claro_liso",
+   "recorte": null,
+   "color": null,
+   "avisoColor": null,
+   "alt": "MOCHILA M-4",
+   "archivo": "mochila-m-4-4qb-1003369344.jpg",
+   "variaciones": []
+  },
+  {
+   "key": "122362_IOJ-1003369341",
+   "wp": 2759,
+   "bc": "122362",
+   "file": "IOJ-1003369341.jpg",
+   "name": "MOCHILA M-5",
+   "nota": 8,
+   "motivo_ia": "Buena foto del producto sobre fondo neutro, muestra claramente el diseño y estado.",
+   "cortado": false,
+   "fondo": "claro_liso",
+   "recorte": null,
+   "color": null,
+   "avisoColor": null,
+   "alt": "MOCHILA M-5",
+   "archivo": "mochila-m-5-ioj-1003369341.jpg",
+   "variaciones": []
+  },
+  {
+   "key": "122363_GXm-1003369338",
+   "wp": 2774,
+   "bc": "122363",
+   "file": "GXm-1003369338.jpg",
+   "name": "MOCHILA M-6",
+   "nota": 9,
+   "motivo_ia": "Foto clara y limpia del producto real sobre fondo neutro.",
+   "cortado": false,
+   "fondo": "claro_liso",
+   "recorte": null,
+   "color": null,
+   "avisoColor": null,
+   "alt": "MOCHILA M-6",
+   "archivo": "mochila-m-6-gxm-1003369338.jpg",
+   "variaciones": []
+  },
+  {
+   "key": "122364_UBJ-1003369335",
+   "wp": 2766,
+   "bc": "122364",
+   "file": "UBJ-1003369335.jpg",
+   "name": "MOCHILA M-10",
+   "nota": 8,
+   "motivo_ia": "Buena foto del producto, clara y sin elementos distractores.",
+   "cortado": false,
+   "fondo": "claro_liso",
+   "recorte": null,
+   "color": null,
+   "avisoColor": null,
+   "alt": "MOCHILA M-10",
+   "archivo": "mochila-m-10-ubj-1003369335.jpg",
+   "variaciones": []
+  },
+  {
+   "key": "122365_PbF-1003369330",
+   "wp": 2768,
+   "bc": "122365",
+   "file": "PbF-1003369330.jpg",
+   "name": "MOCHILA M-14",
+   "nota": 9,
+   "motivo_ia": "Foto clara y limpia del producto real sobre fondo neutro.",
+   "cortado": false,
+   "fondo": "claro_liso",
+   "recorte": null,
+   "color": null,
+   "avisoColor": null,
+   "alt": "MOCHILA M-14",
+   "archivo": "mochila-m-14-pbf-1003369330.jpg",
+   "variaciones": []
+  },
+  {
+   "key": "122367_QNW-1003369315",
+   "wp": 2755,
+   "bc": "122367",
+   "file": "QNW-1003369315.jpg",
+   "name": "MOCHILA M-15",
+   "nota": 9,
+   "motivo_ia": "Foto real del producto con buena iluminación y fondo neutro.",
+   "cortado": false,
+   "fondo": "claro_liso",
+   "recorte": null,
+   "color": null,
+   "avisoColor": null,
+   "alt": "MOCHILA M-15",
+   "archivo": "mochila-m-15-qnw-1003369315.jpg",
+   "variaciones": []
+  },
+  {
+   "key": "122454_tJ7-1003363015",
+   "wp": 2701,
+   "bc": "122454",
+   "file": "tJ7-1003363015.jpg",
+   "name": "Cojin decorativo",
+   "nota": 8,
+   "motivo_ia": "Foto clara y real del cojín, muestra bien la textura y el color.",
+   "cortado": false,
+   "fondo": "escena",
+   "recorte": null,
+   "color": null,
+   "avisoColor": null,
+   "alt": "Cojin decorativo",
+   "archivo": "cojin-decorativo-tj7-1003363015.jpg",
+   "variaciones": []
+  }
+ ],
+ "dudosas": [
+  {
+   "key": "68677_ekD-1000639184",
+   "wp": 2461,
+   "bc": "68677",
+   "file": "ekD-1000639184.jpg",
+   "name": "Estante esquinero para baño",
+   "nota": 5,
+   "motivo_ia": "Es una infografía técnica con texto añadido, no es una foto de producto limpia.",
+   "cortado": false,
+   "fondo": "blanco",
+   "recorte": null,
+   "motivos": [
+    "texto encima",
+    "collage o muestrario",
+    "nota 5"
+   ],
+   "color_ia": null
+  },
+  {
+   "key": "85503_3y5-1000505441",
+   "wp": 2445,
+   "bc": "85503",
+   "file": "3y5-1000505441.png",
+   "name": "Estante Organizador",
+   "nota": 7,
+   "motivo_ia": "Es una infografía con medidas, útil pero con texto añadido sobre la imagen.",
+   "cortado": false,
+   "fondo": "escena",
+   "recorte": null,
+   "motivos": [
+    "texto encima",
+    "collage o muestrario"
+   ],
+   "color_ia": null
+  },
+  {
+   "key": "85503_YZ1-1000505439",
+   "wp": 2445,
+   "bc": "85503",
+   "file": "YZ1-1000505439.png",
+   "name": "Estante Organizador",
+   "nota": 6,
+   "motivo_ia": "Es una infografía con medidas añadidas, útil pero no es una foto de producto limpia.",
+   "cortado": false,
+   "fondo": "escena",
+   "recorte": null,
+   "motivos": [
+    "texto encima",
+    "collage o muestrario",
+    "nota 6"
+   ],
+   "color_ia": null
+  },
+  {
+   "key": "91182_G91-1001899101",
+   "wp": 2591,
+   "bc": "91182",
+   "file": "G91-1001899101.jpg",
+   "name": "🎄 Casas en Miniatura – 8 cm c- 89045",
+   "nota": 6,
+   "motivo_ia": "La foto incluye una cinta métrica que distrae y no es profesional para catálogo.",
+   "cortado": false,
+   "fondo": "claro_liso",
+   "recorte": null,
+   "motivos": [
+    "nota 6"
+   ],
+   "color_ia": null
+  },
+  {
+   "key": "91182_YK1-1001899100",
+   "wp": 2591,
+   "bc": "91182",
+   "file": "YK1-1001899100.jpg",
+   "name": "🎄 Casas en Miniatura – 8 cm c- 89045",
+   "nota": 6,
+   "motivo_ia": "La foto incluye una cinta métrica, lo cual no es ideal para una tienda online.",
+   "cortado": false,
+   "fondo": "claro_liso",
+   "recorte": null,
+   "motivos": [
+    "nota 6"
+   ],
+   "color_ia": null
+  },
+  {
+   "key": "117400_vyl-1000621381",
+   "wp": 2603,
+   "bc": "117400",
+   "file": "vyl-1000621381.png",
+   "name": "Zapatera 4 niveles",
+   "nota": 6,
+   "motivo_ia": "La foto incluye texto, medidas y gráficos añadidos, lo cual no es ideal para catálogo.",
+   "cortado": false,
+   "fondo": "blanco",
+   "recorte": null,
+   "motivos": [
+    "texto encima",
+    "collage o muestrario",
+    "nota 6"
+   ],
+   "color_ia": null
+  },
+  {
+   "key": "117400_T5S-1000619942",
+   "wp": 2603,
+   "bc": "117400",
+   "file": "T5S-1000619942.jpg",
+   "name": "Zapatera 4 niveles",
+   "nota": 6,
+   "motivo_ia": "Es una foto del producto real, pero tiene texto añadido en la parte inferior.",
+   "cortado": false,
+   "fondo": "escena",
+   "recorte": null,
+   "motivos": [
+    "texto encima",
+    "nota 6"
+   ],
+   "color_ia": null
+  },
+  {
+   "key": "117400_zm8-1000619943",
+   "wp": 2603,
+   "bc": "117400",
+   "file": "zm8-1000619943.jpg",
+   "name": "Zapatera 4 niveles",
+   "nota": 5,
+   "motivo_ia": "Es una foto de las instrucciones de montaje, no una foto del producto montado.",
+   "cortado": false,
+   "fondo": "claro_liso",
+   "recorte": null,
+   "motivos": [
+    "texto encima",
+    "collage o muestrario",
+    "nota 5"
+   ],
+   "color_ia": null
+  },
+  {
+   "key": "117400_auT-1000619944",
+   "wp": 2603,
+   "bc": "117400",
+   "file": "auT-1000619944.jpg",
+   "name": "Zapatera 4 niveles",
+   "nota": 4,
+   "motivo_ia": "Es una foto de la caja del producto, no una foto de catálogo limpia.",
+   "cortado": false,
+   "fondo": "claro_liso",
+   "recorte": null,
+   "motivos": [
+    "texto encima",
+    "collage o muestrario",
+    "nota 4"
+   ],
+   "color_ia": null
+  },
+  {
+   "key": "117402_aDj-1000621553",
+   "wp": 2429,
+   "bc": "117402",
+   "file": "aDj-1000621553.png",
+   "name": "Cortina de baño 180x180 cm",
+   "nota": 6,
+   "motivo_ia": "Es una infografía con texto añadido, no es una foto limpia de producto.",
+   "cortado": false,
+   "fondo": "escena",
+   "recorte": null,
+   "motivos": [
+    "texto encima",
+    "collage o muestrario",
+    "nota 6"
+   ],
+   "color_ia": null
+  },
+  {
+   "key": "117402_bqC-1000621552",
+   "wp": 2429,
+   "bc": "117402",
+   "file": "bqC-1000621552.png",
+   "name": "Cortina de baño 180x180 cm",
+   "nota": 6,
+   "motivo_ia": "Es una infografía con texto añadido sobre el producto, no una foto de catálogo limpia.",
+   "cortado": false,
+   "fondo": "escena",
+   "recorte": null,
+   "motivos": [
+    "texto encima",
+    "collage o muestrario",
+    "nota 6"
+   ],
+   "color_ia": null
+  },
+  {
+   "key": "117402_HD2-1000621549",
+   "wp": 2429,
+   "bc": "117402",
+   "file": "HD2-1000621549.png",
+   "name": "Cortina de baño 180x180 cm",
+   "nota": 6,
+   "motivo_ia": "Es una infografía con texto añadido sobre el producto, no una foto de catálogo limpia.",
+   "cortado": false,
+   "fondo": "escena",
+   "recorte": null,
+   "motivos": [
+    "texto encima",
+    "collage o muestrario",
+    "nota 6"
+   ],
+   "color_ia": null
+  },
+  {
+   "key": "117402_ldD-1000621473",
+   "wp": 2429,
+   "bc": "117402",
+   "file": "ldD-1000621473.png",
+   "name": "Cortina de baño 180x180 cm",
+   "nota": 6,
+   "motivo_ia": "Es una infografía con texto añadido y diseño de cortina de baño.",
+   "cortado": false,
+   "fondo": "escena",
+   "recorte": null,
+   "motivos": [
+    "texto encima",
+    "collage o muestrario",
+    "nota 6"
+   ],
+   "color_ia": null
+  },
+  {
+   "key": "117402_6uS-1000621448",
+   "wp": 2429,
+   "bc": "117402",
+   "file": "6uS-1000621448.png",
+   "name": "Cortina de baño 180x180 cm",
+   "nota": 6,
+   "motivo_ia": "Es un collage de los empaques del producto, no muestra el producto desplegado.",
+   "cortado": false,
+   "fondo": "blanco",
+   "recorte": null,
+   "motivos": [
+    "texto encima",
+    "collage o muestrario",
+    "nota 6"
+   ],
+   "color_ia": null
+  },
+  {
+   "key": "117441_Cdp-1000620082",
+   "wp": 2373,
+   "bc": "117441",
+   "file": "Cdp-1000620082.jpg",
+   "name": "Alfombra de entrada 40x60 cm",
+   "nota": 5,
+   "motivo_ia": "Es un collage de varios colores, no muestra solo el producto solicitado.",
+   "cortado": false,
+   "fondo": "claro_liso",
+   "recorte": null,
+   "motivos": [
+    "texto encima",
+    "collage o muestrario",
+    "nota 5"
+   ],
+   "color_ia": null
+  },
+  {
+   "key": "117441_qJd-1000620081",
+   "wp": 2373,
+   "bc": "117441",
+   "file": "qJd-1000620081.jpg",
+   "name": "Alfombra de entrada 40x60 cm",
+   "nota": 6,
+   "motivo_ia": "Es un primer plano del producto, pero está demasiado cortado y no muestra el diseño completo.",
+   "cortado": true,
+   "fondo": "color",
+   "recorte": null,
+   "motivos": [
+    "nota 6"
+   ],
+   "color_ia": null
+  },
+  {
+   "key": "117441_FBC-1000620079",
+   "wp": 2373,
+   "bc": "117441",
+   "file": "FBC-1000620079.jpg",
+   "name": "Alfombra de entrada 40x60 cm",
+   "nota": 6,
+   "motivo_ia": "Es un primer plano del producto, pero está demasiado cortado y no muestra el diseño completo.",
+   "cortado": true,
+   "fondo": "color",
+   "recorte": null,
+   "motivos": [
+    "nota 6"
+   ],
+   "color_ia": null
+  },
+  {
+   "key": "117441_9AB-1000620055",
+   "wp": 2373,
+   "bc": "117441",
+   "file": "9AB-1000620055.jpg",
+   "name": "Alfombra de entrada 40x60 cm",
+   "nota": 5,
+   "motivo_ia": "El producto está muy cortado y no se aprecia el diseño completo.",
+   "cortado": true,
+   "fondo": "color",
+   "recorte": null,
+   "motivos": [
+    "nota 5"
+   ],
+   "color_ia": null
+  },
+  {
+   "key": "117516_ItS-1000619946",
+   "wp": 2589,
+   "bc": "117516",
+   "file": "ItS-1000619946.jpg",
+   "name": "Zapatera 5 niveles",
+   "nota": 5,
+   "motivo_ia": "Es una foto de la caja del producto, no del producto montado.",
+   "cortado": false,
+   "fondo": "color",
+   "recorte": null,
+   "motivos": [
+    "nota 5"
+   ],
+   "color_ia": null
+  },
+  {
+   "key": "117516_fb0-1000619947",
+   "wp": 2589,
+   "bc": "117516",
+   "file": "fb0-1000619947.jpg",
+   "name": "Zapatera 5 niveles",
+   "nota": 6,
+   "motivo_ia": "Muestra las piezas del producto desmontado dentro de su caja original.",
+   "cortado": false,
+   "fondo": "escena",
+   "recorte": null,
+   "motivos": [
+    "nota 6"
+   ],
+   "color_ia": null
+  },
+  {
+   "key": "117518_bhe-1000619978",
+   "wp": 2465,
+   "bc": "117518",
+   "file": "bhe-1000619978.jpg",
+   "name": "Fundas (2) blancas de almohadas",
+   "nota": 6,
+   "motivo_ia": "Foto aceptable pero con sombras de rejilla que afectan la calidad visual.",
+   "cortado": false,
+   "fondo": "claro_liso",
+   "recorte": null,
+   "motivos": [
+    "nota 6"
+   ],
+   "color_ia": null
+  },
+  {
+   "key": "117518_MC3-1000619977",
+   "wp": 2465,
+   "bc": "117518",
+   "file": "MC3-1000619977.jpg",
+   "name": "Fundas (2) blancas de almohadas",
+   "nota": 6,
+   "motivo_ia": "Foto casera con dedos visibles, muestra detalle de costura pero no el producto completo.",
+   "cortado": true,
+   "fondo": "escena",
+   "recorte": null,
+   "motivos": [
+    "nota 6"
+   ],
+   "color_ia": null
+  },
+  {
+   "key": "117675_6gA-1000626255",
+   "wp": 2485,
+   "bc": "117675",
+   "file": "6gA-1000626255.jpg",
+   "name": "Organizador de 2 niveles",
+   "nota": 6,
+   "motivo_ia": "Muestra el producto desmontado con una cinta métrica, útil para ver dimensiones reales.",
+   "cortado": true,
+   "fondo": "claro_liso",
+   "recorte": null,
+   "motivos": [
+    "nota 6"
+   ],
+   "color_ia": null
+  },
+  {
+   "key": "117675_vWq-1000626256",
+   "wp": 2485,
+   "bc": "117675",
+   "file": "vWq-1000626256.jpg",
+   "name": "Organizador de 2 niveles",
+   "nota": 7,
+   "motivo_ia": "Muestra el producto desmontado junto a su caja original con texto impreso.",
+   "cortado": false,
+   "fondo": "claro_liso",
+   "recorte": null,
+   "motivos": [
+    "texto encima"
+   ],
+   "color_ia": null
+  },
+  {
+   "key": "117675_Q0M-1000626257",
+   "wp": 2485,
+   "bc": "117675",
+   "file": "Q0M-1000626257.jpg",
+   "name": "Organizador de 2 niveles",
+   "nota": 5,
+   "motivo_ia": "Muestra las piezas del producto, pero es una foto poco profesional y mal encuadrada.",
+   "cortado": true,
+   "fondo": "escena",
+   "recorte": null,
+   "motivos": [
+    "nota 5"
+   ],
+   "color_ia": null
+  },
+  {
+   "key": "117675_1VY-1000626260",
+   "wp": 2485,
+   "bc": "117675",
+   "file": "1VY-1000626260.jpg",
+   "name": "Organizador de 2 niveles",
+   "nota": 3,
+   "motivo_ia": "Es una infografía de instrucciones de montaje, no una foto del producto real.",
+   "cortado": false,
+   "fondo": "blanco",
+   "recorte": null,
+   "motivos": [
+    "texto encima",
+    "collage o muestrario",
+    "nota 3"
+   ],
+   "color_ia": null
+  },
+  {
+   "key": "118805_XOa-1000648645",
+   "wp": 2427,
+   "bc": "118805",
+   "file": "XOa-1000648645.jpg",
+   "name": "Corral de bebé 11494",
+   "nota": 5,
+   "motivo_ia": "Es una foto de la caja del producto, no del producto montado.",
+   "cortado": false,
+   "fondo": "color",
+   "recorte": null,
+   "motivos": [
+    "nota 5"
+   ],
+   "color_ia": null
+  },
+  {
+   "key": "119723_7jJ-IMG-20260909-WA0102",
+   "wp": 2583,
+   "bc": "119723",
+   "file": "7jJ-IMG-20260909-WA0102.jpg",
+   "name": "Toalla Cisne Blanco 70x140 cm (rosada)",
+   "nota": 5,
+   "motivo_ia": "Es una foto de estantería con muchos colores, no es una foto de catálogo.",
+   "cortado": false,
+   "fondo": "escena",
+   "recorte": null,
+   "motivos": [
+    "texto encima",
+    "precio",
+    "nota 5"
+   ],
+   "color_ia": null
+  },
+  {
+   "key": "120484_blA-1000682561",
+   "wp": 2463,
+   "bc": "120484",
+   "file": "blA-1000682561.png",
+   "name": "Farol solar",
+   "nota": 5,
+   "motivo_ia": "Es una infografía publicitaria con mucho texto añadido, no una foto de producto limpia.",
+   "cortado": false,
+   "fondo": "escena",
+   "recorte": null,
+   "motivos": [
+    "texto encima",
+    "collage o muestrario",
+    "nota 5"
+   ],
+   "color_ia": null
+  },
+  {
+   "key": "120484_yFj-1000682538",
+   "wp": 2463,
+   "bc": "120484",
+   "file": "yFj-1000682538.jpg",
+   "name": "Farol solar",
+   "nota": 5,
+   "motivo_ia": "Es una foto de la caja del producto, no una foto de catálogo limpia.",
+   "cortado": false,
+   "fondo": "escena",
+   "recorte": null,
+   "motivos": [
+    "texto encima",
+    "nota 5"
+   ],
+   "color_ia": null
+  },
+  {
+   "key": "120484_pAD-1000682541",
+   "wp": 2463,
+   "bc": "120484",
+   "file": "pAD-1000682541.jpg",
+   "name": "Farol solar",
+   "nota": 4,
+   "motivo_ia": "Es una foto de la caja del producto, no una foto de catálogo limpia.",
+   "cortado": false,
+   "fondo": "escena",
+   "recorte": null,
+   "motivos": [
+    "texto encima",
+    "collage o muestrario",
+    "nota 4"
+   ],
+   "color_ia": null
+  },
+  {
+   "key": "120586_De2-1000706292",
+   "wp": 2383,
+   "bc": "120586",
+   "file": "De2-1000706292.png",
+   "name": "Cable de carga multifuncional",
+   "nota": 6,
+   "motivo_ia": "Es una infografía con texto añadido, no es una foto de producto limpia.",
+   "cortado": false,
+   "fondo": "claro_liso",
+   "recorte": null,
+   "motivos": [
+    "texto encima",
+    "collage o muestrario",
+    "nota 6"
+   ],
+   "color_ia": null
+  },
+  {
+   "key": "120586_mkI-1000706260",
+   "wp": 2383,
+   "bc": "120586",
+   "file": "mkI-1000706260.png",
+   "name": "Cable de carga multifuncional",
+   "nota": 6,
+   "motivo_ia": "Foto real del producto, pero con iluminación deficiente y sombras marcadas.",
+   "cortado": false,
+   "fondo": "blanco",
+   "recorte": null,
+   "motivos": [
+    "nota 6"
+   ],
+   "color_ia": null
+  },
+  {
+   "key": "120606_sde-1000686617",
+   "wp": 2501,
+   "bc": "120606",
+   "file": "sde-1000686617.jpg",
+   "name": "Masajeador corporal",
+   "nota": 4,
+   "motivo_ia": "Es una captura de pantalla con texto añadido y formato de collage publicitario.",
+   "cortado": false,
+   "fondo": "blanco",
+   "recorte": null,
+   "motivos": [
+    "texto encima",
+    "captura de pantalla",
+    "collage o muestrario",
+    "nota 4"
+   ],
+   "color_ia": null
+  },
+  {
+   "key": "120606_SuL-1000686623",
+   "wp": 2501,
+   "bc": "120606",
+   "file": "SuL-1000686623.jpg",
+   "name": "Masajeador corporal",
+   "nota": 3,
+   "motivo_ia": "Es una captura de pantalla con texto añadido y elementos de interfaz de usuario.",
+   "cortado": false,
+   "fondo": "blanco",
+   "recorte": null,
+   "motivos": [
+    "texto encima",
+    "captura de pantalla",
+    "nota 3"
+   ],
+   "color_ia": null
+  },
+  {
+   "key": "120608_KUo-1000706308",
+   "wp": 2425,
+   "bc": "120608",
+   "file": "KUo-1000706308.jpg",
+   "name": "Compresor portátil modelo 1",
+   "nota": 5,
+   "motivo_ia": "Es una foto de la caja del producto, útil para ver especificaciones técnicas.",
+   "cortado": false,
+   "fondo": "claro_liso",
+   "recorte": null,
+   "motivos": [
+    "nota 5"
+   ],
+   "color_ia": null
+  },
+  {
+   "key": "120653_L6x-1000688774",
+   "wp": 2557,
+   "bc": "120653",
+   "file": "L6x-1000688774.png",
+   "name": "Sabana camera 100% luxury home",
+   "nota": 6,
+   "motivo_ia": "Es un collage publicitario con texto añadido, útil pero no es una foto de catálogo.",
+   "cortado": false,
+   "fondo": "escena",
+   "recorte": null,
+   "motivos": [
+    "texto encima",
+    "precio",
+    "collage o muestrario",
+    "nota 6"
+   ],
+   "color_ia": null
+  },
+  {
+   "key": "120774_Jg1-1000688705",
+   "wp": 2415,
+   "bc": "120774",
+   "file": "Jg1-1000688705.jpg",
+   "name": "Colgador de ropa",
+   "nota": 5,
+   "motivo_ia": "Es una foto de la caja del producto, no del producto montado.",
+   "cortado": true,
+   "fondo": "claro_liso",
+   "recorte": null,
+   "motivos": [
+    "texto encima",
+    "nota 5"
+   ],
+   "color_ia": null
+  },
+  {
+   "key": "120774_my3-1000688704",
+   "wp": 2415,
+   "bc": "120774",
+   "file": "my3-1000688704.jpg",
+   "name": "Colgador de ropa",
+   "nota": 6,
+   "motivo_ia": "Muestra las piezas del producto desmontadas, útil para verificar el contenido del paquete.",
+   "cortado": false,
+   "fondo": "claro_liso",
+   "recorte": null,
+   "motivos": [
+    "nota 6"
+   ],
+   "color_ia": null
+  },
+  {
+   "key": "120774_3e9-1000688707",
+   "wp": 2415,
+   "bc": "120774",
+   "file": "3e9-1000688707.jpg",
+   "name": "Colgador de ropa",
+   "nota": 5,
+   "motivo_ia": "Es una foto de la caja del producto, no una foto del producto montado.",
+   "cortado": false,
+   "fondo": "blanco",
+   "recorte": null,
+   "motivos": [
+    "nota 5"
+   ],
+   "color_ia": null
+  },
+  {
+   "key": "120776_k3H-1000688617",
+   "wp": 2529,
+   "bc": "120776",
+   "file": "k3H-1000688617.jpg",
+   "name": "Set de 2 alfombras para baño",
+   "nota": 5,
+   "motivo_ia": "Muestra la parte trasera antideslizante de la alfombra, útil pero poco estética.",
+   "cortado": false,
+   "fondo": "escena",
+   "recorte": null,
+   "motivos": [
+    "nota 5"
+   ],
+   "color_ia": "negro"
+  },
+  {
+   "key": "120779_ZUX-1000716924",
+   "wp": 2499,
+   "bc": "120779",
+   "file": "ZUX-1000716924.png",
+   "name": "Manta 240X260 cm (lisa)",
+   "nota": 4,
+   "motivo_ia": "Es un collage con texto añadido y medidas, no apto para foto de catálogo.",
+   "cortado": false,
+   "fondo": "escena",
+   "recorte": null,
+   "motivos": [
+    "texto encima",
+    "collage o muestrario",
+    "nota 4"
+   ],
+   "color_ia": null
+  },
+  {
+   "key": "120779_VSi-1000716913",
+   "wp": 2499,
+   "bc": "120779",
+   "file": "VSi-1000716913.png",
+   "name": "Manta 240X260 cm (lisa)",
+   "nota": 6,
+   "motivo_ia": "La imagen es un collage con texto añadido sobre las medidas del producto.",
+   "cortado": false,
+   "fondo": "escena",
+   "recorte": null,
+   "motivos": [
+    "texto encima",
+    "collage o muestrario",
+    "nota 6",
+    "recortada tampoco: es la misma foto que la principal"
+   ],
+   "color_ia": null
+  },
+  {
+   "key": "120779_twl-1000716910",
+   "wp": 2499,
+   "bc": "120779",
+   "file": "twl-1000716910.png",
+   "name": "Manta 240X260 cm (lisa)",
+   "nota": 6,
+   "motivo_ia": "La foto tiene texto y un círculo insertado con información añadida digitalmente.",
+   "cortado": false,
+   "fondo": "escena",
+   "recorte": null,
+   "motivos": [
+    "texto encima",
+    "collage o muestrario",
+    "nota 6",
+    "recortada tampoco: es la misma foto que la principal"
+   ],
+   "color_ia": null
+  },
+  {
+   "key": "120779_8f1-1000716904",
+   "wp": 2499,
+   "bc": "120779",
+   "file": "8f1-1000716904.png",
+   "name": "Manta 240X260 cm (lisa)",
+   "nota": 7,
+   "motivo_ia": "La foto es buena pero tiene texto añadido con medidas y un círculo de detalle.",
+   "cortado": false,
+   "fondo": "escena",
+   "recorte": null,
+   "motivos": [
+    "texto encima",
+    "recortada tampoco: es la misma foto que la principal"
+   ],
+   "color_ia": null
+  },
+  {
+   "key": "120779_laW-1000716881",
+   "wp": 2499,
+   "bc": "120779",
+   "file": "laW-1000716881.png",
+   "name": "Manta 240X260 cm (lisa)",
+   "nota": 7,
+   "motivo_ia": "La foto tiene texto añadido y un círculo con detalle de la textura.",
+   "cortado": false,
+   "fondo": "escena",
+   "recorte": null,
+   "motivos": [
+    "texto encima",
+    "recortada tampoco: es la misma foto que la principal"
+   ],
+   "color_ia": null
+  },
+  {
+   "key": "120781_TvJ-1000688582",
+   "wp": 2597,
+   "bc": "120781",
+   "file": "TvJ-1000688582.jpg",
+   "name": "Tendedero multifuncional plegable de acero",
+   "nota": 5,
+   "motivo_ia": "Es una foto del manual de instrucciones del producto, útil pero no es foto comercial.",
+   "cortado": false,
+   "fondo": "claro_liso",
+   "recorte": null,
+   "motivos": [
+    "texto encima",
+    "nota 5"
+   ],
+   "color_ia": null
+  },
+  {
+   "key": "120781_UZr-1000688581",
+   "wp": 2597,
+   "bc": "120781",
+   "file": "UZr-1000688581.jpg",
+   "name": "Tendedero multifuncional plegable de acero",
+   "nota": 5,
+   "motivo_ia": "Es una foto del empaque mostrando diagramas técnicos, no es una foto del producto real.",
+   "cortado": false,
+   "fondo": "color",
+   "recorte": null,
+   "motivos": [
+    "texto encima",
+    "collage o muestrario",
+    "nota 5"
+   ],
+   "color_ia": null
+  },
+  {
+   "key": "120781_ocB-1000688583",
+   "wp": 2597,
+   "bc": "120781",
+   "file": "ocB-1000688583.jpg",
+   "name": "Tendedero multifuncional plegable de acero",
+   "nota": 5,
+   "motivo_ia": "Es una foto de la caja del producto, no del producto montado.",
+   "cortado": false,
+   "fondo": "claro_liso",
+   "recorte": null,
+   "motivos": [
+    "nota 5"
+   ],
+   "color_ia": null
+  },
+  {
+   "key": "120945_EUA-1003372225",
+   "wp": 2421,
+   "bc": "120945",
+   "file": "EUA-1003372225.png",
+   "name": "Cesto de pedal negro (15 litros)",
+   "nota": 6,
+   "motivo_ia": "Es una infografía con medidas, útil pero no es una foto de producto limpia.",
+   "cortado": false,
+   "fondo": "blanco",
+   "recorte": null,
+   "motivos": [
+    "texto encima",
+    "collage o muestrario",
+    "nota 6",
+    "recortada tampoco: texto encima"
+   ],
+   "color_ia": null
+  },
+  {
+   "key": "121733_D89-1003333201",
+   "wp": 2579,
+   "bc": "121733",
+   "file": "D89-1003333201.jpg",
+   "name": "Sombrilla rectangular para interior de auto",
+   "nota": 6,
+   "motivo_ia": "Es un collage con texto añadido, útil pero menos profesional que una foto de catálogo.",
+   "cortado": false,
+   "fondo": "blanco",
+   "recorte": null,
+   "motivos": [
+    "texto encima",
+    "collage o muestrario",
+    "nota 6"
+   ],
+   "color_ia": null
+  },
+  {
+   "key": "121746_Spv-1003369388",
+   "wp": 2381,
+   "bc": "121746",
+   "file": "Spv-1003369388.jpg",
+   "name": "Árbol de navidad (1,50 m)",
+   "nota": 6,
+   "motivo_ia": "Foto real del producto en tienda, pero el fondo está muy cargado y desordenado.",
+   "cortado": false,
+   "fondo": "escena",
+   "recorte": null,
+   "motivos": [
+    "nota 6"
+   ],
+   "color_ia": null
+  },
+  {
+   "key": "122270_6Oy-1003371980",
+   "wp": 2807,
+   "bc": "122270",
+   "file": "6Oy-1003371980.jpg",
+   "name": "Tabla de planchar con soporte para plancha — estampado floral",
+   "nota": 5,
+   "motivo_ia": "El producto es correcto pero tiene una etiqueta publicitaria pegada que distrae.",
+   "cortado": false,
+   "fondo": "claro_liso",
+   "recorte": null,
+   "motivos": [
+    "texto encima",
+    "nota 5"
+   ],
+   "color_ia": null
+  },
+  {
+   "key": "122359_Y3D-1003369352",
+   "wp": 2757,
+   "bc": "122359",
+   "file": "Y3D-1003369352.jpg",
+   "name": "MOCHILA M-3",
+   "nota": 8,
+   "motivo_ia": "Buena foto real del producto, aunque tiene una etiqueta de precio colgando.",
+   "cortado": false,
+   "fondo": "escena",
+   "recorte": null,
+   "motivos": [
+    "precio (etiqueta)"
+   ],
+   "color_ia": null
+  }
+ ],
+ "fuera": [
+  {
+   "key": "73346_ORU-IMG-20250205-WA1342",
+   "wp": 801,
+   "bc": "73346",
+   "file": "ORU-IMG-20250205-WA1342.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 828)"
+  },
+  {
+   "key": "73346_tdX-Screenshot_20250607_140644_Chrome",
+   "wp": 801,
+   "bc": "73346",
+   "file": "tdX-Screenshot_20250607_140644_Chrome.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 829)"
+  },
+  {
+   "key": "73346_gXF-Screenshot_20250607_140803_Chrome",
+   "wp": 801,
+   "bc": "73346",
+   "file": "gXF-Screenshot_20250607_140803_Chrome.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 837)"
+  },
+  {
+   "key": "73346_oUu-Screenshot_20250503_004034_Google",
+   "wp": 801,
+   "bc": "73346",
+   "file": "oUu-Screenshot_20250503_004034_Google.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 831)"
+  },
+  {
+   "key": "73346_J3n-Screenshot_20250607_140321_Chrome",
+   "wp": 801,
+   "bc": "73346",
+   "file": "J3n-Screenshot_20250607_140321_Chrome.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 832)"
+  },
+  {
+   "key": "85096_ua4-1001516483",
+   "wp": 577,
+   "bc": "85096",
+   "file": "ua4-1001516483.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 639)"
+  },
+  {
+   "key": "85096_iwi-1001516487",
+   "wp": 577,
+   "bc": "85096",
+   "file": "iwi-1001516487.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 640)"
+  },
+  {
+   "key": "85096_cze-1001516416",
+   "wp": 577,
+   "bc": "85096",
+   "file": "cze-1001516416.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 641)"
+  },
+  {
+   "key": "89044_SzM-1000580150",
+   "wp": 43,
+   "bc": "89044",
+   "file": "SzM-1000580150.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 44)"
+  },
+  {
+   "key": "89044_JW8-1000580149",
+   "wp": 43,
+   "bc": "89044",
+   "file": "JW8-1000580149.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 45)"
+  },
+  {
+   "key": "89044_Jif-1000580148",
+   "wp": 43,
+   "bc": "89044",
+   "file": "Jif-1000580148.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 46)"
+  },
+  {
+   "key": "89044_nAH-1000580147",
+   "wp": 43,
+   "bc": "89044",
+   "file": "nAH-1000580147.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 47)"
+  },
+  {
+   "key": "89044_7AJ-1000580146",
+   "wp": 43,
+   "bc": "89044",
+   "file": "7AJ-1000580146.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 48)"
+  },
+  {
+   "key": "91182_sXh-1001899099",
+   "wp": 2591,
+   "bc": "91182",
+   "file": "sXh-1001899099.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 2592)"
+  },
+  {
+   "key": "91182_mNh-1001899099",
+   "wp": 2591,
+   "bc": "91182",
+   "file": "mNh-1001899099.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 2592)"
+  },
+  {
+   "key": "98586_29O-1002377544",
+   "wp": 684,
+   "bc": "98586",
+   "file": "29O-1002377544.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 685)"
+  },
+  {
+   "key": "98586_Ijq-1002377547",
+   "wp": 684,
+   "bc": "98586",
+   "file": "Ijq-1002377547.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 686)"
+  },
+  {
+   "key": "98586_oT4-1002377538",
+   "wp": 684,
+   "bc": "98586",
+   "file": "oT4-1002377538.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 687)"
+  },
+  {
+   "key": "98586_Jps-1002377593",
+   "wp": 684,
+   "bc": "98586",
+   "file": "Jps-1002377593.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 688)"
+  },
+  {
+   "key": "98586_6As-1002377594",
+   "wp": 684,
+   "bc": "98586",
+   "file": "6As-1002377594.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 689)"
+  },
+  {
+   "key": "98586_1GJ-1002377547",
+   "wp": 684,
+   "bc": "98586",
+   "file": "1GJ-1002377547.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 686)"
+  },
+  {
+   "key": "98586_ttK-1002377544",
+   "wp": 684,
+   "bc": "98586",
+   "file": "ttK-1002377544.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 685)"
+  },
+  {
+   "key": "100628_tmk-1002490156",
+   "wp": 463,
+   "bc": "100628",
+   "file": "tmk-1002490156.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 495)"
+  },
+  {
+   "key": "100628_gVu-1002490155",
+   "wp": 463,
+   "bc": "100628",
+   "file": "gVu-1002490155.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 507)"
+  },
+  {
+   "key": "100628_4ZF-1002490154",
+   "wp": 463,
+   "bc": "100628",
+   "file": "4ZF-1002490154.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 497)"
+  },
+  {
+   "key": "100628_0jY-1002490152",
+   "wp": 463,
+   "bc": "100628",
+   "file": "0jY-1002490152.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 498)"
+  },
+  {
+   "key": "100628_sZu-1002490153",
+   "wp": 463,
+   "bc": "100628",
+   "file": "sZu-1002490153.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 499)"
+  },
+  {
+   "key": "100628_KOq-1002489631",
+   "wp": 463,
+   "bc": "100628",
+   "file": "KOq-1002489631.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 500)"
+  },
+  {
+   "key": "100628_1My-1002489621",
+   "wp": 463,
+   "bc": "100628",
+   "file": "1My-1002489621.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 501)"
+  },
+  {
+   "key": "100628_TZO-1002489625",
+   "wp": 463,
+   "bc": "100628",
+   "file": "TZO-1002489625.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 502)"
+  },
+  {
+   "key": "100764_645-1002503376",
+   "wp": 515,
+   "bc": "100764",
+   "file": "645-1002503376.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 569)"
+  },
+  {
+   "key": "100764_nDF-1002503375",
+   "wp": 515,
+   "bc": "100764",
+   "file": "nDF-1002503375.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 571)"
+  },
+  {
+   "key": "100779_QT3-1000486961",
+   "wp": 290,
+   "bc": "100779",
+   "file": "QT3-1000486961.png",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 321)"
+  },
+  {
+   "key": "100779_zl8-1000486967",
+   "wp": 290,
+   "bc": "100779",
+   "file": "zl8-1000486967.png",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 322)"
+  },
+  {
+   "key": "100779_uXh-1000486977",
+   "wp": 290,
+   "bc": "100779",
+   "file": "uXh-1000486977.png",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 323)"
+  },
+  {
+   "key": "100779_4W1-1000486982",
+   "wp": 290,
+   "bc": "100779",
+   "file": "4W1-1000486982.png",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 324)"
+  },
+  {
+   "key": "105181_1k0-1000387553",
+   "wp": 233,
+   "bc": "105181",
+   "file": "1k0-1000387553.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 306)"
+  },
+  {
+   "key": "107259_uk4-1000429699",
+   "wp": 278,
+   "bc": "107259",
+   "file": "uk4-1000429699.png",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 279)"
+  },
+  {
+   "key": "107259_6Sc-1000429909",
+   "wp": 278,
+   "bc": "107259",
+   "file": "6Sc-1000429909.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 280)"
+  },
+  {
+   "key": "107259_Wg0-1000429910",
+   "wp": 278,
+   "bc": "107259",
+   "file": "Wg0-1000429910.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 281)"
+  },
+  {
+   "key": "107259_FYw-1000429907",
+   "wp": 278,
+   "bc": "107259",
+   "file": "FYw-1000429907.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 282)"
+  },
+  {
+   "key": "107259_ek2-1000429908",
+   "wp": 278,
+   "bc": "107259",
+   "file": "ek2-1000429908.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 283)"
+  },
+  {
+   "key": "107264_FHw-1000429893",
+   "wp": 746,
+   "bc": "107264",
+   "file": "FHw-1000429893.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 797)"
+  },
+  {
+   "key": "107264_AJ3-1000429898",
+   "wp": 746,
+   "bc": "107264",
+   "file": "AJ3-1000429898.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 798)"
+  },
+  {
+   "key": "107265_5oA-1000430168",
+   "wp": 406,
+   "bc": "107265",
+   "file": "5oA-1000430168.png",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 488)"
+  },
+  {
+   "key": "107265_jhX-1000430170",
+   "wp": 406,
+   "bc": "107265",
+   "file": "jhX-1000430170.png",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 489)"
+  },
+  {
+   "key": "107266_toI-1000430147",
+   "wp": 178,
+   "bc": "107266",
+   "file": "toI-1000430147.png",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 238)"
+  },
+  {
+   "key": "107266_3vR-1000430148",
+   "wp": 178,
+   "bc": "107266",
+   "file": "3vR-1000430148.png",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 239)"
+  },
+  {
+   "key": "107266_IPh-1000430149",
+   "wp": 178,
+   "bc": "107266",
+   "file": "IPh-1000430149.png",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 240)"
+  },
+  {
+   "key": "107266_92y-1000430150",
+   "wp": 178,
+   "bc": "107266",
+   "file": "92y-1000430150.png",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 241)"
+  },
+  {
+   "key": "107267_noL-1000430159",
+   "wp": 514,
+   "bc": "107267",
+   "file": "noL-1000430159.png",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 558)"
+  },
+  {
+   "key": "107267_qGO-1000430157",
+   "wp": 514,
+   "bc": "107267",
+   "file": "qGO-1000430157.png",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 559)"
+  },
+  {
+   "key": "107268_ifu-1000429704",
+   "wp": 692,
+   "bc": "107268",
+   "file": "ifu-1000429704.png",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 714)"
+  },
+  {
+   "key": "107268_XXo-1000429703",
+   "wp": 692,
+   "bc": "107268",
+   "file": "XXo-1000429703.png",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 715)"
+  },
+  {
+   "key": "107268_ICl-1000429848",
+   "wp": 692,
+   "bc": "107268",
+   "file": "ICl-1000429848.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 716)"
+  },
+  {
+   "key": "107268_o6Q-1000429846",
+   "wp": 692,
+   "bc": "107268",
+   "file": "o6Q-1000429846.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 717)"
+  },
+  {
+   "key": "107268_eXh-1000429844",
+   "wp": 692,
+   "bc": "107268",
+   "file": "eXh-1000429844.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 718)"
+  },
+  {
+   "key": "107268_AU2-1000430117",
+   "wp": 692,
+   "bc": "107268",
+   "file": "AU2-1000430117.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 719)"
+  },
+  {
+   "key": "107269_dw9-1000607929",
+   "wp": 117,
+   "bc": "107269",
+   "file": "dw9-1000607929.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 122)"
+  },
+  {
+   "key": "107269_brT-1000615604",
+   "wp": 117,
+   "bc": "107269",
+   "file": "brT-1000615604.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 128)"
+  },
+  {
+   "key": "107269_xpJ-1000615606",
+   "wp": 117,
+   "bc": "107269",
+   "file": "xpJ-1000615606.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 132)"
+  },
+  {
+   "key": "107269_7oh-1000615608",
+   "wp": 117,
+   "bc": "107269",
+   "file": "7oh-1000615608.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 125)"
+  },
+  {
+   "key": "107355_uWr-1000429774",
+   "wp": 706,
+   "bc": "107355",
+   "file": "uWr-1000429774.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 707)"
+  },
+  {
+   "key": "107355_Yby-1000429775",
+   "wp": 706,
+   "bc": "107355",
+   "file": "Yby-1000429775.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 708)"
+  },
+  {
+   "key": "107355_c8o-1000429773",
+   "wp": 706,
+   "bc": "107355",
+   "file": "c8o-1000429773.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 709)"
+  },
+  {
+   "key": "107355_227-1000429771",
+   "wp": 706,
+   "bc": "107355",
+   "file": "227-1000429771.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 710)"
+  },
+  {
+   "key": "109862_c15-1000481272",
+   "wp": 611,
+   "bc": "109862",
+   "file": "c15-1000481272.png",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 612)"
+  },
+  {
+   "key": "109862_tRY-1000480538",
+   "wp": 611,
+   "bc": "109862",
+   "file": "tRY-1000480538.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 613)"
+  },
+  {
+   "key": "109866_m3s-1000480539",
+   "wp": 813,
+   "bc": "109866",
+   "file": "m3s-1000480539.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 814)"
+  },
+  {
+   "key": "109876_FVh-1000481780",
+   "wp": 177,
+   "bc": "109876",
+   "file": "FVh-1000481780.png",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 205)"
+  },
+  {
+   "key": "109876_XX1-1000481684",
+   "wp": 177,
+   "bc": "109876",
+   "file": "XX1-1000481684.png",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 206)"
+  },
+  {
+   "key": "109876_pMl-1000481663",
+   "wp": 177,
+   "bc": "109876",
+   "file": "pMl-1000481663.png",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 207)"
+  },
+  {
+   "key": "109876_gJ2-1000481782",
+   "wp": 177,
+   "bc": "109876",
+   "file": "gJ2-1000481782.png",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 208)"
+  },
+  {
+   "key": "111554_AW9-1000502738",
+   "wp": 291,
+   "bc": "111554",
+   "file": "AW9-1000502738.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 342)"
+  },
+  {
+   "key": "111555_CTF-1000502743",
+   "wp": 405,
+   "bc": "111555",
+   "file": "CTF-1000502743.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 436)"
+  },
+  {
+   "key": "111556_yB6-1000502749",
+   "wp": 693,
+   "bc": "111556",
+   "file": "yB6-1000502749.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 734)"
+  },
+  {
+   "key": "112434_U0v-1000521707",
+   "wp": 293,
+   "bc": "112434",
+   "file": "U0v-1000521707.png",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 294)"
+  },
+  {
+   "key": "112434_Iea-1000521533",
+   "wp": 293,
+   "bc": "112434",
+   "file": "Iea-1000521533.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 295)"
+  },
+  {
+   "key": "112434_NDk-1000521534",
+   "wp": 293,
+   "bc": "112434",
+   "file": "NDk-1000521534.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 296)"
+  },
+  {
+   "key": "112434_Vyo-1000521532",
+   "wp": 293,
+   "bc": "112434",
+   "file": "Vyo-1000521532.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 297)"
+  },
+  {
+   "key": "112438_xeY-1000521780",
+   "wp": 260,
+   "bc": "112438",
+   "file": "xeY-1000521780.png",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 261)"
+  },
+  {
+   "key": "112438_cEL-1000521773",
+   "wp": 260,
+   "bc": "112438",
+   "file": "cEL-1000521773.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 262)"
+  },
+  {
+   "key": "112438_A3T-1000521776",
+   "wp": 260,
+   "bc": "112438",
+   "file": "A3T-1000521776.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 263)"
+  },
+  {
+   "key": "112438_TY3-1000521777",
+   "wp": 260,
+   "bc": "112438",
+   "file": "TY3-1000521777.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 264)"
+  },
+  {
+   "key": "112438_Uqw-1000521688",
+   "wp": 260,
+   "bc": "112438",
+   "file": "Uqw-1000521688.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 265)"
+  },
+  {
+   "key": "112438_eNz-1000521691",
+   "wp": 260,
+   "bc": "112438",
+   "file": "eNz-1000521691.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 266)"
+  },
+  {
+   "key": "112531_gUQ-1000524230",
+   "wp": 477,
+   "bc": "112531",
+   "file": "gUQ-1000524230.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 478)"
+  },
+  {
+   "key": "112531_NKY-1000524228",
+   "wp": 477,
+   "bc": "112531",
+   "file": "NKY-1000524228.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 479)"
+  },
+  {
+   "key": "112531_aKu-1000524229",
+   "wp": 477,
+   "bc": "112531",
+   "file": "aKu-1000524229.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 480)"
+  },
+  {
+   "key": "112533_a6E-1000524209",
+   "wp": 141,
+   "bc": "112533",
+   "file": "a6E-1000524209.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 142)"
+  },
+  {
+   "key": "112533_zbh-1000524210",
+   "wp": 141,
+   "bc": "112533",
+   "file": "zbh-1000524210.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 143)"
+  },
+  {
+   "key": "112637_6Fn-1002948211",
+   "wp": 629,
+   "bc": "112637",
+   "file": "6Fn-1002948211.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 630)"
+  },
+  {
+   "key": "112710_Tdy-1002948018",
+   "wp": 775,
+   "bc": "112710",
+   "file": "Tdy-1002948018.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 776)"
+  },
+  {
+   "key": "112710_wlj-1002948019",
+   "wp": 775,
+   "bc": "112710",
+   "file": "wlj-1002948019.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 777)"
+  },
+  {
+   "key": "112711_V9u-1002948005",
+   "wp": 538,
+   "bc": "112711",
+   "file": "V9u-1002948005.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 539)"
+  },
+  {
+   "key": "112711_XiX-1002948006",
+   "wp": 538,
+   "bc": "112711",
+   "file": "XiX-1002948006.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 540)"
+  },
+  {
+   "key": "112711_6kp-1002948007",
+   "wp": 538,
+   "bc": "112711",
+   "file": "6kp-1002948007.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 541)"
+  },
+  {
+   "key": "113690_Xzz-1000548370",
+   "wp": 145,
+   "bc": "113690",
+   "file": "Xzz-1000548370.png",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 146)"
+  },
+  {
+   "key": "113690_JHU-1000548296",
+   "wp": 145,
+   "bc": "113690",
+   "file": "JHU-1000548296.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 147)"
+  },
+  {
+   "key": "113934_ZqZ-1000552812",
+   "wp": 695,
+   "bc": "113934",
+   "file": "ZqZ-1000552812.png",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 751)"
+  },
+  {
+   "key": "113934_eER-1000552825",
+   "wp": 695,
+   "bc": "113934",
+   "file": "eER-1000552825.png",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 752)"
+  },
+  {
+   "key": "113934_cw4-1000552816",
+   "wp": 695,
+   "bc": "113934",
+   "file": "cw4-1000552816.png",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 753)"
+  },
+  {
+   "key": "113934_IoH-1000552818",
+   "wp": 695,
+   "bc": "113934",
+   "file": "IoH-1000552818.png",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 754)"
+  },
+  {
+   "key": "113934_Hrw-1000552815",
+   "wp": 695,
+   "bc": "113934",
+   "file": "Hrw-1000552815.png",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 755)"
+  },
+  {
+   "key": "113934_Xa8-1000552817",
+   "wp": 695,
+   "bc": "113934",
+   "file": "Xa8-1000552817.png",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 756)"
+  },
+  {
+   "key": "113934_13m-1000552814",
+   "wp": 695,
+   "bc": "113934",
+   "file": "13m-1000552814.png",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 757)"
+  },
+  {
+   "key": "113934_qSv-1000552813",
+   "wp": 695,
+   "bc": "113934",
+   "file": "qSv-1000552813.png",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 758)"
+  },
+  {
+   "key": "113934_dAJ-1000552811",
+   "wp": 695,
+   "bc": "113934",
+   "file": "dAJ-1000552811.png",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 759)"
+  },
+  {
+   "key": "114041_5gR-1003007144",
+   "wp": 794,
+   "bc": "114041",
+   "file": "5gR-1003007144.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 795)"
+  },
+  {
+   "key": "114280_NH2-1000560832",
+   "wp": 67,
+   "bc": "114280",
+   "file": "NH2-1000560832.png",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 68)"
+  },
+  {
+   "key": "114280_fRF-1000560824",
+   "wp": 67,
+   "bc": "114280",
+   "file": "fRF-1000560824.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 69)"
+  },
+  {
+   "key": "114280_qoi-1000560825",
+   "wp": 67,
+   "bc": "114280",
+   "file": "qoi-1000560825.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 70)"
+  },
+  {
+   "key": "114280_XrR-1000560826",
+   "wp": 67,
+   "bc": "114280",
+   "file": "XrR-1000560826.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 71)"
+  },
+  {
+   "key": "114280_tTu-1000560827",
+   "wp": 67,
+   "bc": "114280",
+   "file": "tTu-1000560827.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 72)"
+  },
+  {
+   "key": "114280_gPd-1000560828",
+   "wp": 67,
+   "bc": "114280",
+   "file": "gPd-1000560828.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 73)"
+  },
+  {
+   "key": "115479_sdW-1000580172",
+   "wp": 822,
+   "bc": "115479",
+   "file": "sdW-1000580172.png",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 823)"
+  },
+  {
+   "key": "115479_PVh-1000580171",
+   "wp": 822,
+   "bc": "115479",
+   "file": "PVh-1000580171.png",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 824)"
+  },
+  {
+   "key": "115479_d5H-1000580154",
+   "wp": 822,
+   "bc": "115479",
+   "file": "d5H-1000580154.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 825)"
+  },
+  {
+   "key": "115479_w53-1000580153",
+   "wp": 822,
+   "bc": "115479",
+   "file": "w53-1000580153.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 826)"
+  },
+  {
+   "key": "115480_MAp-1000580183",
+   "wp": 367,
+   "bc": "115480",
+   "file": "MAp-1000580183.png",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 368)"
+  },
+  {
+   "key": "115480_AH2-1000580152",
+   "wp": 367,
+   "bc": "115480",
+   "file": "AH2-1000580152.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 369)"
+  },
+  {
+   "key": "115480_0RA-1000580151",
+   "wp": 367,
+   "bc": "115480",
+   "file": "0RA-1000580151.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 370)"
+  },
+  {
+   "key": "116443_oBu-1000598685",
+   "wp": 731,
+   "bc": "116443",
+   "file": "oBu-1000598685.png",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 732)"
+  },
+  {
+   "key": "116949_QR5-1003117412",
+   "wp": 299,
+   "bc": "116949",
+   "file": "QR5-1003117412.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 300)"
+  },
+  {
+   "key": "116978_da8-1003117430",
+   "wp": 678,
+   "bc": "116978",
+   "file": "da8-1003117430.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 679)"
+  },
+  {
+   "key": "116978_Aig-1003117420",
+   "wp": 678,
+   "bc": "116978",
+   "file": "Aig-1003117420.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 680)"
+  },
+  {
+   "key": "116979_JXw-1003117422",
+   "wp": 727,
+   "bc": "116979",
+   "file": "JXw-1003117422.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 728)"
+  },
+  {
+   "key": "116979_J9O-1003117383",
+   "wp": 727,
+   "bc": "116979",
+   "file": "J9O-1003117383.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 729)"
+  },
+  {
+   "key": "117400_74e-1000621381",
+   "wp": 2603,
+   "bc": "117400",
+   "file": "74e-1000621381.png",
+   "estado": "repetida",
+   "motivo": "misma foto que 117400/vyl-1000621381.png"
+  },
+  {
+   "key": "119004_65d-Screenshot_20260830-105838_Google",
+   "wp": 2571,
+   "bc": "119004",
+   "file": "65d-Screenshot_20260830-105838_Google.jpg",
+   "estado": "ya_en_web",
+   "motivo": "ya está en la web (adjunto 2572)"
+  },
+  {
+   "key": "122274_bAc-1003371982",
+   "wp": 2813,
+   "bc": "122274",
+   "file": "bAc-1003371982.jpg",
+   "estado": "pequena",
+   "motivo": "foto pequeña (346×960), lado corto < 400 px"
+  }
+ ],
+ "sinRevisar": []
+}
