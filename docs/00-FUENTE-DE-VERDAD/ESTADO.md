@@ -666,6 +666,30 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
 - **No se tocó:** precios, existencias, textos, ni las fotos principales. Tampoco la sobrecama 118 ni las sábanas 2491.
 - **Para volver atrás:** `docs/nexo-business/fotos-productos/biznecubano/cambios-2026-10-13.json` guarda la galería y la foto de cada variación de antes. Los adjuntos llevan la marca `_cvd_bc_src`. Borrarlos solo con el sí de Ernesto.
 
+**La portada vende, como Temu (Core 3.13.83, en vivo ~17:45, commit Casa-Viva `c58c32f`; D51).**
+- **Por qué:** Ernesto, 17:10, con 2 capturas: «Esto está de más… no lleva a ninguna compra… como en Amazon o Temu, Shein».
+- **Se quitó de la portada:** la caja «¿Vives fuera de Cuba?» de 3 pasos, las 3 tarjetas grandes (entrega, pago, WhatsApp) y los círculos de categorías. Las páginas a las que llevaban siguen igual.
+- **Ahora sale, en este orden:**
+  - fichas de departamentos y buscador;
+  - «Lo más vendido» de esta semana, por pedidos reales;
+  - una franja fina de una línea: entrega en 24 h, efectivo/Zelle/transferencia y WhatsApp;
+  - «Recién llegados»;
+  - «Regala a tu familia», en una línea;
+  - «A buen precio»: rebajas y lo de 15 USD o menos;
+  - una fila por departamento con «Ver todo».
+- **Cada tarjeta:** foto, precio en USD y en CUP con la tasa del día, «Últimas unidades» si quedan 1 o 2, «Bajo pedido · llega en 24 h» y botón «Añadir» o «Elegir». Los agotados no salen.
+- **El pie** ya tiene el logo en crema y se lee bien, en toda la web.
+- **Tienda de gestor o gestora:** con `?ref=` sale su precio. Probado: el organizador con ruedas sale a 35 en la tienda de Thaly y a 30 en la de Casa Viva. Esa página no se guarda en caché, igual que `/tienda/?ref=`.
+- **Probado en un navegador:** «Añadir» abre el carrito con el precio correcto. El artículo de prueba se quitó del carrito.
+- **Se mide con un contador sin datos personales:** `wp option get cvd_home_stats --format=json` (visitas, toques, «Añadir» y «Ver todo» por fila).
+- **Capturas** antes y después, a 390 px: `docs/productos/home-que-vende/`. Ficha: `docs/productos/home-que-vende.md`.
+- **Para volver atrás:**
+  - al momento: `wp option update cvd_home_rails no` + `wp litespeed-purge all` (probado);
+  - todo Core: `~/bak-20261013-cvd-3.13.82-antes-3.13.83`.
+- **Para Ernesto:**
+  - «Últimas unidades» sale en 1 de cada 3 tarjetas: ¿se deja así o solo cuando queda 1?
+  - El soporte de TV y la puerta de corredera están en Cocina: lo decide quien revise las categorías.
+
 **Abierto:**
 - La capa de moto de Nadielys (#3566) está asignada a Alejandro, que no contesta desde las 12:08. Ernesto decide a qué mensajero pasarla.
 

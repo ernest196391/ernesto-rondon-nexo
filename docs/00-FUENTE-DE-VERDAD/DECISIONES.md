@@ -161,3 +161,10 @@ Ampliación D30 (2026-10-07): el flujo de **Devolución** ya existe en `/ventas/
 - **Ahora** (Core 3.13.79–3.13.80): el enlace que se abre manda en el precio y reescribe la marca guardada. Además, el `?ref=` ya no se pierde al buscar ni al tocar la barra de abajo.
 - **Lo que no cambia:** un cliente que ya compró sigue siendo de su gestora; lo decide su teléfono o su correo (propiedad permanente).
 - **Si alguna vez se quiere volver al primer enlace:** restaurar `includes/class-cvd-attribution.php` desde `~/bak-20261013-cvd-3.13.78-antes-3.13.79`.
+
+**D51 · 2026-10-13 · La portada de Casa Viva es para comprar: filas de productos; la confianza va en una franja fina.** Ernesto («buscar cómo sustituir como en Amazon o Temu, Shein y poner productos y decisiones de compra»). Los detalles los decidió Claude; Ernesto puede cambiarlos.
+- En la portada solo va lo que lleva a un producto: departamentos, buscador y filas (lo más vendido de la semana, recién llegados, a buen precio y una por departamento). Nada de tarjetas grandes ni cajas de pasos. La entrega, el pago y WhatsApp van en una línea con enlaces.
+- «Lo más vendido» sale de pedidos reales: en espera, en preparación y completados. No cuenta pruebas, cancelados ni pendientes de pago.
+- En la portada, todo el mundo ve el precio en CUP con la tasa del día, debajo del USD. Si la tasa tiene más de 36 h, el CUP no sale. El precio de cobro sigue siendo el USD.
+- Con el enlace de un gestor o una gestora se ve su precio, y esa página no se guarda en caché (como `/tienda/?ref=`).
+- Interruptor: `cvd_home_rails = no` vuelve a la portada anterior. Ficha: `docs/productos/home-que-vende.md`.
