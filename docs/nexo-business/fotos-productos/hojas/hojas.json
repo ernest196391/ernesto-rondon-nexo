@@ -1,0 +1,3129 @@
+{
+ "generado": "2026-10-13T03:21:59.385Z",
+ "total_hojas": 13,
+ "productos": 260,
+ "hojas": [
+  {
+   "hoja": 1,
+   "archivo": "hoja-01.jpg",
+   "ids": [
+    563,
+    572,
+    533,
+    528,
+    539,
+    578,
+    531,
+    556,
+    579,
+    561,
+    576,
+    562,
+    558,
+    543,
+    1175,
+    573,
+    538,
+    1122,
+    1111,
+    565
+   ],
+   "productos": [
+    {
+     "n": 1,
+     "id": 563,
+     "titulo": "Estación de energía Bluetti Apex 300 batería LiFePO₄ 2764.8Wh",
+     "precio_usd": 2850,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "la foto principal toca el borde (mirar si está cortado)"
+     ]
+    },
+    {
+     "n": 2,
+     "id": 572,
+     "titulo": "Estación de energía portátil EF ECOFLOW DELTA Pro 3600Wh batería LiFePO4",
+     "precio_usd": 2850,
+     "nota": 9,
+     "fuente": "web",
+     "avisos": [
+      "web: Foto 6 muestra panel solar no incluido en descripción"
+     ]
+    },
+    {
+     "n": 3,
+     "id": 533,
+     "titulo": "Estación de energía EcoFlow DELTA 3 Ultra 3,072 Wh y 3,600 W",
+     "precio_usd": 2090,
+     "nota": 10,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 4,
+     "id": 528,
+     "titulo": "Estación de energía portátil AFERIY P210 2400W 2048Wh",
+     "precio_usd": 1090,
+     "nota": 8,
+     "fuente": "web",
+     "avisos": [
+      "Foto 3 no muestra el producto, solo infografía",
+      "Fotos 2 y 4 son de ambiente con personas y texto",
+      "web: Foto 6 no es foto del producto, es infografía"
+     ]
+    },
+    {
+     "n": 5,
+     "id": 539,
+     "titulo": "Generador eléctrico BLUETTI Elite 100 V2 1024Wh y 1800W",
+     "precio_usd": 760,
+     "nota": 10,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 6,
+     "id": 578,
+     "titulo": "Estación de energía portátil Anker SOLIX C1000X 1056 Wh 1800 W",
+     "precio_usd": 760,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 7,
+     "id": 531,
+     "titulo": "Estación de energía AFERIY 1024Wh LiFePO4 1800W con UPS y carga solar",
+     "precio_usd": 715,
+     "nota": 10,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 8,
+     "id": 556,
+     "titulo": "Generador eléctrico Bluetti Elite 100 Mini 1004.8 Wh capacidad",
+     "precio_usd": 715,
+     "nota": 10,
+     "fuente": "web",
+     "avisos": [
+      "Fotos 3 y 5 son de ambiente con personas y extras no incluidos",
+      "Foto 4 muestra extras no incluidos (laptop, cámara)"
+     ]
+    },
+    {
+     "n": 9,
+     "id": 579,
+     "titulo": "Estación de energía Bluetti AC70 768Wh portátil con USB-C 100W",
+     "precio_usd": 595,
+     "nota": 10,
+     "fuente": "proveedor",
+     "avisos": [
+      "la foto principal toca el borde (mirar si está cortado)"
+     ]
+    },
+    {
+     "n": 10,
+     "id": 561,
+     "titulo": "Estación de energía DARAN NEOK2 600W 288Wh LiFePO4 portátil",
+     "precio_usd": 465,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "la foto principal toca el borde (mirar si está cortado)"
+     ]
+    },
+    {
+     "n": 11,
+     "id": 576,
+     "titulo": "Inversor Solar Híbrido SUMRY 4000W 24V con controlador MPPT",
+     "precio_usd": 410,
+     "nota": 10,
+     "fuente": "proveedor",
+     "avisos": [
+      "la foto principal toca el borde (mirar si está cortado)"
+     ]
+    },
+    {
+     "n": 12,
+     "id": 562,
+     "titulo": "Estación de energía Daran NEO300L 300W 288Wh portátil",
+     "precio_usd": 385,
+     "nota": 10,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 13,
+     "id": 558,
+     "titulo": "Panel Solar Portátil EcoFlow 160 W plegable y resistente",
+     "precio_usd": 375,
+     "nota": 9,
+     "fuente": "web",
+     "avisos": [
+      "web: Fotos 7 a 11 muestran otro modelo con más paneles y funda diferente"
+     ]
+    },
+    {
+     "n": 14,
+     "id": 543,
+     "titulo": "Panel Solar Portátil AFERIY 200W AF-S200A1 con celdas monocristalinas",
+     "precio_usd": 355,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 15,
+     "id": 1175,
+     "titulo": "Frigorífico Congelador Iceshare 6 Puertas",
+     "precio_usd": 4140,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 16,
+     "id": 573,
+     "titulo": "Batidora NutriBullet Blender 1000W con ciclo automático inteligente",
+     "precio_usd": 270,
+     "nota": 10,
+     "fuente": "proveedor",
+     "avisos": [
+      "la foto principal toca el borde (mirar si está cortado)"
+     ]
+    },
+    {
+     "n": 17,
+     "id": 538,
+     "titulo": "Batidora FARBERWARE 800W con frasco de vidrio 20 onzas",
+     "precio_usd": 170,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "Fotos 2 y 5 muestran producto diferente Ninja",
+      "Foto 4 cortada por borde"
+     ]
+    },
+    {
+     "n": 18,
+     "id": 1122,
+     "titulo": "Ventilador de Pared 20 pulgadas 100W motor cobre",
+     "precio_usd": 150,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "Foto 2 muestra piezas adicionales no indicadas en la descripción"
+     ]
+    },
+    {
+     "n": 19,
+     "id": 1111,
+     "titulo": "Ventilador de Piso 18\" 120W 3 velocidades",
+     "precio_usd": 120,
+     "nota": 8,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 20,
+     "id": 565,
+     "titulo": "Licuadora de Inmersión Cuisinart 400W con procesador 4 tazas",
+     "precio_usd": 100,
+     "nota": 7,
+     "fuente": "proveedor",
+     "avisos": [
+      "Foto 4 cortada por borde",
+      "Foto 2 incluye extras no mencionados en descripción"
+     ]
+    }
+   ],
+   "aprueba": "APRUEBA 563,572,533,528,539,578,531,556,579,561,576,562,558,543,1175,573,538,1122,1111,565"
+  },
+  {
+   "hoja": 2,
+   "archivo": "hoja-02.jpg",
+   "ids": [
+    1125,
+    1123,
+    1180,
+    1189,
+    532,
+    793,
+    751,
+    794,
+    771,
+    865,
+    705,
+    894,
+    731,
+    1210,
+    1200,
+    1167,
+    544,
+    1133,
+    540,
+    749
+   ],
+   "productos": [
+    {
+     "n": 1,
+     "id": 1125,
+     "titulo": "Ventilador de Pie Tornado 18\" 75W 110V",
+     "precio_usd": 85,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 2,
+     "id": 1123,
+     "titulo": "Ventilador pequeño 12 pulgadas motor rápido 70W",
+     "precio_usd": 56,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 3,
+     "id": 1180,
+     "titulo": "Olla Arrocera Vaporera 1.8L con función de vapor",
+     "precio_usd": 42,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 4,
+     "id": 1189,
+     "titulo": "Olla Arrocera 1.8L cocción automática",
+     "precio_usd": 42,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "Foto 1 muestra accesorios no indicados en descripción"
+     ]
+    },
+    {
+     "n": 5,
+     "id": 532,
+     "titulo": "Protector de Voltaje 12A para refrigeradores y congeladores",
+     "precio_usd": 26,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "foto principal ampliada 1.81×"
+     ]
+    },
+    {
+     "n": 6,
+     "id": 793,
+     "titulo": "Tablet Samsung Galaxy Tab S11+ 5G 6GB RAM 128GB pantalla 11\"",
+     "precio_usd": 375,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 7,
+     "id": 751,
+     "titulo": "Celular Motorola Edge 60 Fusion 8GB RAM 256GB almacenamiento",
+     "precio_usd": 300,
+     "nota": 9,
+     "fuente": "web",
+     "avisos": [
+      "web: Fotos 1,2 y 4 muestran colores distintos al anunciado"
+     ]
+    },
+    {
+     "n": 8,
+     "id": 794,
+     "titulo": "Celular Motorola Moto G17 4GB RAM 128GB almacenamiento pantalla 6.72\"",
+     "precio_usd": 215,
+     "nota": 10,
+     "fuente": "proveedor",
+     "avisos": [
+      "Fotos 3,4,5 muestran modelo Moto G17 Power, no Moto G17"
+     ]
+    },
+    {
+     "n": 9,
+     "id": 771,
+     "titulo": "Celular Honor Choice T10 4GB RAM 64GB almacenamiento pantalla 6.75\"",
+     "precio_usd": 150,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 10,
+     "id": 865,
+     "titulo": "Tablet Android 10.1\" 32GB 3GB+5GB RAM Azul pantalla HD",
+     "precio_usd": 140,
+     "nota": 10,
+     "fuente": "proveedor",
+     "avisos": [
+      "Foto 2 muestra caja genérica, no confirma modelo ni color azul"
+     ]
+    },
+    {
+     "n": 11,
+     "id": 705,
+     "titulo": "Tablet Android 10.1\" 32GB 3GB RAM Rosada pantalla HD",
+     "precio_usd": 130,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 12,
+     "id": 894,
+     "titulo": "Localizador Bluetooth Samsung Galaxy SmartTag2 4 Pack para objetos",
+     "precio_usd": 120,
+     "nota": 10,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 13,
+     "id": 731,
+     "titulo": "Funda Magnetic Slim-Fit para iPhone 17 Pro Max 6.9\" roja",
+     "precio_usd": 28,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 14,
+     "id": 1210,
+     "titulo": "Mesa de Trabajo Refrigerada Iceshare 368L -18°C con control digital",
+     "precio_usd": 2530,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "Foto 4 no es imagen real del producto, es infografía"
+     ]
+    },
+    {
+     "n": 15,
+     "id": 1200,
+     "titulo": "Mesa de Trabajo Refrigerada Iceshare 470L 10°C mantenimiento",
+     "precio_usd": 2395,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "Fotos 2 y 3 no muestran el producto real, son infografías o imágenes promocionales"
+     ]
+    },
+    {
+     "n": 16,
+     "id": 1167,
+     "titulo": "Calentador de Agua Eléctrico 40L",
+     "precio_usd": 150,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 17,
+     "id": 544,
+     "titulo": "Mini Procesador de Alimentos 300W con set de 9 piezas",
+     "precio_usd": 41,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "Foto 1 muestra producto con frutas, no corresponde a producto nuevo"
+     ]
+    },
+    {
+     "n": 18,
+     "id": 1133,
+     "titulo": "Secadora de Pelo doméstica varias velocidades aire caliente frío",
+     "precio_usd": 34,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "Foto 1 muestra mano no mencionada en descripción"
+     ]
+    },
+    {
+     "n": 19,
+     "id": 540,
+     "titulo": "Filtros recargables Reusable para Keurig pack de 4",
+     "precio_usd": 27,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "Foto 2 muestra cafetera, no solo cápsulas",
+      "la foto principal toca el borde (mirar si está cortado)"
+     ]
+    },
+    {
+     "n": 20,
+     "id": 749,
+     "titulo": "Auriculares Inalámbricos KVIDIO Bluetooth 6.0 con 65 horas de batería",
+     "precio_usd": 45,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "Fotos muestran varios colores, descripción no especifica variantes"
+     ]
+    }
+   ],
+   "aprueba": "APRUEBA 1125,1123,1180,1189,532,793,751,794,771,865,705,894,731,1210,1200,1167,544,1133,540,749"
+  },
+  {
+   "hoja": 3,
+   "archivo": "hoja-03.jpg",
+   "ids": [
+    860,
+    890,
+    761,
+    1068,
+    717,
+    689,
+    616,
+    692,
+    623,
+    686,
+    605,
+    649,
+    627,
+    641,
+    691,
+    668,
+    640,
+    645,
+    904,
+    1002
+   ],
+   "productos": [
+    {
+     "n": 1,
+     "id": 860,
+     "titulo": "Batería portátil Pure Gear magnética 10000mAh 20W carga rápida",
+     "precio_usd": 41,
+     "nota": 10,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 2,
+     "id": 890,
+     "titulo": "Power Bank QUIKCELL PowerFuel 20K 20000mAh carga rápida",
+     "precio_usd": 40,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "Foto 1 incluye caja, no se menciona en descripción",
+      "Foto 5 muestra smartphone, no incluido"
+     ]
+    },
+    {
+     "n": 3,
+     "id": 761,
+     "titulo": "Power Bank PowerLab 10,000mAh con Power Delivery y carga rápida",
+     "precio_usd": 27,
+     "nota": 7,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 4,
+     "id": 1068,
+     "titulo": "Probador Digital de Baterías ANENG BT189 con pantalla LCD",
+     "precio_usd": 24,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "foto principal ampliada 1.99×"
+     ]
+    },
+    {
+     "n": 5,
+     "id": 717,
+     "titulo": "Power bank PureGear PureJuice 5000 mAh carga magnética 10W",
+     "precio_usd": 23,
+     "nota": 8,
+     "fuente": "proveedor",
+     "avisos": [
+      "Foto 2 no corresponde al producto descrito"
+     ]
+    },
+    {
+     "n": 6,
+     "id": 689,
+     "titulo": "Laptop Gigabyte Gaming A16 VH i7 32GB RAM 1TB SSD",
+     "precio_usd": 2080,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "la foto principal toca el borde (mirar si está cortado)"
+     ]
+    },
+    {
+     "n": 7,
+     "id": 616,
+     "titulo": "Laptop Lenovo Legion 5 15AHP11 AMD Ryzen 7 16GB RAM 1TB SSD",
+     "precio_usd": 1860,
+     "nota": 8,
+     "fuente": "proveedor",
+     "avisos": [
+      "No se muestra el mouse inalámbrico incluido",
+      "la foto principal toca el borde (mirar si está cortado)"
+     ]
+    },
+    {
+     "n": 8,
+     "id": 692,
+     "titulo": "Laptop Gigabyte AERO X16 AMD Ryzen 7 16GB RAM 1TB SSD",
+     "precio_usd": 1860,
+     "nota": 8,
+     "fuente": "proveedor",
+     "avisos": [
+      "la foto principal toca el borde (mirar si está cortado)"
+     ]
+    },
+    {
+     "n": 9,
+     "id": 623,
+     "titulo": "Laptop MSi Cyborg 15 B2RWFKG Intel 16GB RAM 1TB SSD 15.6\"",
+     "precio_usd": 1730,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "la foto principal toca el borde (mirar si está cortado)"
+     ]
+    },
+    {
+     "n": 10,
+     "id": 686,
+     "titulo": "Laptop Gigabyte Gaming A16 i7 16GB RAM 1TB SSD 16\" FHD+",
+     "precio_usd": 1420,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "Foto 6 muestra 512GB SSD, descripción dice 1TB",
+      "Incluye mouse inalámbrico no visible en fotos",
+      "la foto principal toca el borde (mirar si está cortado)"
+     ]
+    },
+    {
+     "n": 11,
+     "id": 605,
+     "titulo": "Laptop MSI Cyborg 15 C13WE i5 16GB RAM 512GB SSD 15.6\"",
+     "precio_usd": 1320,
+     "nota": 8,
+     "fuente": "proveedor",
+     "avisos": [
+      "Color exacto no confirmado en fotos",
+      "Incluye mouse pero no aparece en fotos"
+     ]
+    },
+    {
+     "n": 12,
+     "id": 649,
+     "titulo": "Laptop Asus ZenBook UM3406G AMD Ryzen 16GB RAM 1TB SSD",
+     "precio_usd": 980,
+     "nota": 10,
+     "fuente": "proveedor",
+     "avisos": [
+      "foto principal ampliada 1.95×"
+     ]
+    },
+    {
+     "n": 13,
+     "id": 627,
+     "titulo": "Laptop Hp 15-fd2050wm 15.6\" Intel 8GB RAM 512GB SSD",
+     "precio_usd": 730,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "Foto 4 muestra producto diferente, no coincide con descripción"
+     ]
+    },
+    {
+     "n": 14,
+     "id": 641,
+     "titulo": "Laptop Lenovo IdeaPad 5 2 en 1 14\" TouchScreen 8GB RAM 512GB SSD",
+     "precio_usd": 705,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 15,
+     "id": 691,
+     "titulo": "Laptop Asus E1504F 15.6\" Ryzen 5 8GB 512GB SSD",
+     "precio_usd": 705,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "la foto principal toca el borde (mirar si está cortado)"
+     ]
+    },
+    {
+     "n": 16,
+     "id": 668,
+     "titulo": "Laptop Acer Aspire 3 A514-54-501Z 14\" FHD Core i5 8GB RAM",
+     "precio_usd": 410,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 17,
+     "id": 640,
+     "titulo": "Laptop Dell Latitude 7280 i5 8GB RAM 256GB SSD 12.5\" HD",
+     "precio_usd": 375,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 18,
+     "id": 645,
+     "titulo": "Laptop Dell Latitude 7300 i5 8GB RAM 256GB SSD pantalla 13.3\"",
+     "precio_usd": 375,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 19,
+     "id": 904,
+     "titulo": "Consola Nintendo Switch 2 con pantalla táctil 7.9\" y 256 GB",
+     "precio_usd": 715,
+     "nota": 8,
+     "fuente": "proveedor",
+     "avisos": [
+      "Fotos 1 y 2 no muestran producto solo caja e infografía"
+     ]
+    },
+    {
+     "n": 20,
+     "id": 1002,
+     "titulo": "Celular Meta Quest 3S 128GB con alta resolución y 8 GB RAM",
+     "precio_usd": 530,
+     "nota": 7,
+     "fuente": "proveedor",
+     "avisos": [
+      "Foto 1 incluye mandos que no se mencionan en descripción",
+      "la foto principal toca el borde (mirar si está cortado)"
+     ]
+    }
+   ],
+   "aprueba": "APRUEBA 860,890,761,1068,717,689,616,692,623,686,605,649,627,641,691,668,640,645,904,1002"
+  },
+  {
+   "hoja": 4,
+   "archivo": "hoja-04.jpg",
+   "ids": [
+    940,
+    948,
+    957,
+    552,
+    534,
+    530,
+    569,
+    567,
+    1192,
+    1107,
+    1165,
+    1201,
+    1143,
+    1126,
+    1100,
+    1124,
+    1150,
+    1155,
+    1156,
+    1103
+   ],
+   "productos": [
+    {
+     "n": 1,
+     "id": 940,
+     "titulo": "Consola Nintendo Switch OLED Blanco 64GB pantalla 7 pulgadas",
+     "precio_usd": 400,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 2,
+     "id": 948,
+     "titulo": "Consola PlayStation 4 Versión Uncharted 4 500GB",
+     "precio_usd": 365,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "Foto 1 muestra caja y juego no mencionados en descripción",
+      "la foto principal toca el borde (mirar si está cortado)"
+     ]
+    },
+    {
+     "n": 3,
+     "id": 957,
+     "titulo": "Gabinete Gaming Montech King 95 PRO ATX con doble cámara y 6 ventiladores",
+     "precio_usd": 240,
+     "nota": 9,
+     "fuente": "web",
+     "avisos": []
+    },
+    {
+     "n": 4,
+     "id": 552,
+     "titulo": "Linterna Frontal Swiss Tech Kumpel Pack 2 400 lúmenes recargable",
+     "precio_usd": 66,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "Faltan fotos del pack completo (2 unidades)",
+      "foto principal ampliada 1.84×"
+     ]
+    },
+    {
+     "n": 5,
+     "id": 534,
+     "titulo": "Timbre Inteligente LUMIVAULT X3PRO con cámara HD y audio bidireccional",
+     "precio_usd": 56,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "Foto 3 muestra producto diferente color y es collage"
+     ]
+    },
+    {
+     "n": 6,
+     "id": 530,
+     "titulo": "Hub inteligente Aqara Smart Hub M100 con Wi-Fi y Zigbee",
+     "precio_usd": 55,
+     "nota": 10,
+     "fuente": "web",
+     "avisos": [
+      "Fotos 3,4,5 son imágenes promocionales no foto catálogo"
+     ]
+    },
+    {
+     "n": 7,
+     "id": 569,
+     "titulo": "Álbum de Fotos Fujifilm Instax Square para fotos SQ1, SQ6, SQ10",
+     "precio_usd": 35,
+     "nota": 10,
+     "fuente": "proveedor",
+     "avisos": [
+      "foto principal ampliada 1.88×"
+     ]
+    },
+    {
+     "n": 8,
+     "id": 567,
+     "titulo": "Iluminación exterior inteligente y eficiente con sensor y energía solar",
+     "precio_usd": 15,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 9,
+     "id": 1192,
+     "titulo": "Paraguas doble capa con diseño resistente al viento",
+     "precio_usd": 14,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 10,
+     "id": 1107,
+     "titulo": "Lámpara de Mesa cuerpo de cristal elegante y translúcido",
+     "precio_usd": 95,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 11,
+     "id": 1165,
+     "titulo": "Lámpara de Mesa Lite Source 9W con luz cálida y fría",
+     "precio_usd": 85,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "la foto principal toca el borde (mirar si está cortado)"
+     ]
+    },
+    {
+     "n": 12,
+     "id": 1201,
+     "titulo": "Lámpara de Techo Estilo Nórdico diseño minimalista",
+     "precio_usd": 80,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 13,
+     "id": 1143,
+     "titulo": "Lámpara de Techo Cerámica Gris con acabado decorativo",
+     "precio_usd": 48,
+     "nota": 8,
+     "fuente": "proveedor",
+     "avisos": [
+      "Foto 1 color parece diferente, más blanco que gris"
+     ]
+    },
+    {
+     "n": 14,
+     "id": 1126,
+     "titulo": "Lámpara de techo 4 focos diseño moderno",
+     "precio_usd": 47,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "foto 1 no muestra el producto con fondo adecuado ni sin extras",
+      "la foto principal toca el borde (mirar si está cortado)"
+     ]
+    },
+    {
+     "n": 15,
+     "id": 1100,
+     "titulo": "Lámpara de techo 5 focos diseño moderno para iluminación",
+     "precio_usd": 45,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 16,
+     "id": 1124,
+     "titulo": "Lámpara de techo oro rosa diseño moderno para salas y comedores",
+     "precio_usd": 45,
+     "nota": 10,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 17,
+     "id": 1150,
+     "titulo": "Lámpara de Mesa Vintage gris para escritorio o mesa de noche",
+     "precio_usd": 45,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "la foto principal toca el borde (mirar si está cortado)"
+     ]
+    },
+    {
+     "n": 18,
+     "id": 1155,
+     "titulo": "Lámpara de Piso Estilo Art Decó con diseño geométrico",
+     "precio_usd": 45,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 19,
+     "id": 1156,
+     "titulo": "Lámpara de Mesa estilo Art Deco con diseño geométrico",
+     "precio_usd": 45,
+     "nota": 8,
+     "fuente": "proveedor",
+     "avisos": [
+      "Descripción no especifica color ni modelo exacto"
+     ]
+    },
+    {
+     "n": 20,
+     "id": 1103,
+     "titulo": "Lámpara de Mesa Animal Print con pantalla y base estampada",
+     "precio_usd": 44,
+     "nota": 10,
+     "fuente": "proveedor",
+     "avisos": []
+    }
+   ],
+   "aprueba": "APRUEBA 940,948,957,552,534,530,569,567,1192,1107,1165,1201,1143,1126,1100,1124,1150,1155,1156,1103"
+  },
+  {
+   "hoja": 5,
+   "archivo": "hoja-05.jpg",
+   "ids": [
+    1104,
+    1129,
+    1163,
+    604,
+    643,
+    681,
+    696,
+    685,
+    674,
+    626,
+    694,
+    608,
+    610,
+    612,
+    631,
+    598,
+    607,
+    629,
+    646,
+    660
+   ],
+   "productos": [
+    {
+     "n": 1,
+     "id": 1104,
+     "titulo": "Lámpara de Mesa estilo cobre lustrado para ambientes cálidos",
+     "precio_usd": 41,
+     "nota": 10,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 2,
+     "id": 1129,
+     "titulo": "Lámpara de techo material ratán estilo natural boho",
+     "precio_usd": 41,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "Foto 3 tiene texto encima que puede distraer",
+      "la foto principal toca el borde (mirar si está cortado)"
+     ]
+    },
+    {
+     "n": 3,
+     "id": 1163,
+     "titulo": "Lámpara de Techo color limón para decoración",
+     "precio_usd": 40,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "la foto principal toca el borde (mirar si está cortado)"
+     ]
+    },
+    {
+     "n": 4,
+     "id": 604,
+     "titulo": "Mini PC MINISFORUM UM890 Pro AMD Ryzen 9 32GB RAM 1TB SSD",
+     "precio_usd": 1090,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "Incluye kit mouse y teclado no visible en fotos",
+      "la foto principal toca el borde (mirar si está cortado)"
+     ]
+    },
+    {
+     "n": 5,
+     "id": 643,
+     "titulo": "iMac 2015 21.5 pulgadas 8GB RAM 1TB HDD",
+     "precio_usd": 825,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "Fotos 2 y 4 muestran solo la caja, no el producto",
+      "Fotos 2 y 4 están borrosas",
+      "la foto principal toca el borde (mirar si está cortado)"
+     ]
+    },
+    {
+     "n": 6,
+     "id": 681,
+     "titulo": "Monitor Alienware AW2725DF 27\" QD-OLED 360 Hz QHD",
+     "precio_usd": 660,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 7,
+     "id": 696,
+     "titulo": "Tarjeta gráfica ASUS Dual Radeon RX 9060 XT 16GB GDDR6",
+     "precio_usd": 540,
+     "nota": 10,
+     "fuente": "web",
+     "avisos": []
+    },
+    {
+     "n": 8,
+     "id": 685,
+     "titulo": "Monitor Dell 27 Plus S2725HSM 27\" Full HD 144 Hz",
+     "precio_usd": 260,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 9,
+     "id": 674,
+     "titulo": "Monitor Samsung S40GD 27\" Full HD IPS 100 Hz",
+     "precio_usd": 230,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "foto principal ampliada 1.9×"
+     ]
+    },
+    {
+     "n": 10,
+     "id": 626,
+     "titulo": "Mini PC Dell Optiplex 3040M i5 16GB RAM SSD 120GB Windows 11",
+     "precio_usd": 200,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "la foto principal toca el borde (mirar si está cortado)"
+     ]
+    },
+    {
+     "n": 11,
+     "id": 694,
+     "titulo": "Monitor Acer V6 Series V206HQL 19.5\" HD+ 1600x900 60 Hz",
+     "precio_usd": 150,
+     "nota": 10,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 12,
+     "id": 608,
+     "titulo": "Fuente GigaByte P750GM Gold 80 Plus 750 W con ventilador 120 mm",
+     "precio_usd": 140,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "Foto 1 incluye caja que no viene con el producto",
+      "la foto principal toca el borde (mirar si está cortado)"
+     ]
+    },
+    {
+     "n": 13,
+     "id": 610,
+     "titulo": "Monitor HP EliteDisplay E243 23.8\" Full HD IPS grado A Plus",
+     "precio_usd": 140,
+     "nota": 8,
+     "fuente": "proveedor",
+     "avisos": [
+      "la foto principal toca el borde (mirar si está cortado)"
+     ]
+    },
+    {
+     "n": 14,
+     "id": 612,
+     "titulo": "Monitor HP 23es 23\" Full HD LED IPS 1920x1080",
+     "precio_usd": 140,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "la foto principal toca el borde (mirar si está cortado)"
+     ]
+    },
+    {
+     "n": 15,
+     "id": 631,
+     "titulo": "Combo inalámbrico Logitech MK270 teclado y mouse inalámbricos",
+     "precio_usd": 67,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "la foto principal toca el borde (mirar si está cortado)"
+     ]
+    },
+    {
+     "n": 16,
+     "id": 598,
+     "titulo": "Soundbar Periphio RGB 2.0 Channel con Bluetooth y AUX 3.5 mm",
+     "precio_usd": 55,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 17,
+     "id": 607,
+     "titulo": "Extensión PCIe 5.1 EZDIY-FAB Shield para GPU 12V-2x6 90°",
+     "precio_usd": 55,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 18,
+     "id": 629,
+     "titulo": "Combo teclado y mouse inalámbrico Incipio Translucent Slim 2.4 GHz",
+     "precio_usd": 42,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "Foto 1 muestra caja, no producto real"
+     ]
+    },
+    {
+     "n": 19,
+     "id": 646,
+     "titulo": "Teclado Bluetooth Mini Keyboard portátil ultra delgado 10 pulgadas",
+     "precio_usd": 28,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "Fotos con texto encima, no hay marca ni modelo específico"
+     ]
+    },
+    {
+     "n": 20,
+     "id": 660,
+     "titulo": "Mini Keyboard i8 Teclado y Mouse inalámbrico 2 en 1 USB 2.0",
+     "precio_usd": 28,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    }
+   ],
+   "aprueba": "APRUEBA 1104,1129,1163,604,643,681,696,685,674,626,694,608,610,612,631,598,607,629,646,660"
+  },
+  {
+   "hoja": 6,
+   "archivo": "hoja-06.jpg",
+   "ids": [
+    891,
+    737,
+    755,
+    765,
+    895,
+    877,
+    893,
+    896,
+    878,
+    710,
+    723,
+    797,
+    880,
+    810,
+    897,
+    898,
+    899,
+    744,
+    724,
+    787
+   ],
+   "productos": [
+    {
+     "n": 1,
+     "id": 891,
+     "titulo": "Smartwatch Samsung Galaxy Watch 7 40mm BT con IA y monitoreo",
+     "precio_usd": 230,
+     "nota": 10,
+     "fuente": "proveedor",
+     "avisos": [
+      "Fotos 3,4,5 no muestran el producto correcto ni color verde"
+     ]
+    },
+    {
+     "n": 2,
+     "id": 737,
+     "titulo": "Smartwatch Samsung Watch 7 40mm pantalla 1.3\" batería 300 mAh",
+     "precio_usd": 220,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "la foto principal toca el borde (mirar si está cortado)"
+     ]
+    },
+    {
+     "n": 3,
+     "id": 755,
+     "titulo": "Bocina portátil JBL Boombox 3 Negro con sonido masivo y resistente al agua",
+     "precio_usd": 495,
+     "nota": 10,
+     "fuente": "proveedor",
+     "avisos": [
+      "foto principal ampliada 1.92×"
+     ]
+    },
+    {
+     "n": 4,
+     "id": 765,
+     "titulo": "Bocina portátil JBL Charge 6 Bluetooth 28 h reproducción roja",
+     "precio_usd": 210,
+     "nota": 10,
+     "fuente": "proveedor",
+     "avisos": [
+      "la foto principal toca el borde (mirar si está cortado)"
+     ]
+    },
+    {
+     "n": 5,
+     "id": 895,
+     "titulo": "Bocina portátil JBL Charge 6 Bluetooth con powerbank y 28 h reproducción",
+     "precio_usd": 210,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 6,
+     "id": 877,
+     "titulo": "Bocina JBL Flip 7 con sonido potente y hasta 16 horas de reproducción",
+     "precio_usd": 170,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "Fotos con accesorios no indicados en descripción",
+      "Colores en fotos no coinciden con descripción",
+      "la foto principal toca el borde (mirar si está cortado)"
+     ]
+    },
+    {
+     "n": 7,
+     "id": 893,
+     "titulo": "Audífonos inalámbricos Samsung Galaxy Buds 3 FE con ANC y Bluetooth",
+     "precio_usd": 150,
+     "nota": 10,
+     "fuente": "proveedor",
+     "avisos": [
+      "Varias fotos muestran color blanco, no negro como en descripción",
+      "Foto 5 muestra estuche no mencionado en descripción"
+     ]
+    },
+    {
+     "n": 8,
+     "id": 896,
+     "titulo": "Audífonos inalámbricos JBL Tune 670NC con cancelación de ruido y 70h batería",
+     "precio_usd": 140,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "Foto 3 muestra color incorrecto y persona, no es el producto",
+      "la foto principal toca el borde (mirar si está cortado)"
+     ]
+    },
+    {
+     "n": 9,
+     "id": 878,
+     "titulo": "Bocina Bluetooth JBL Grip Portable 16W resistente y portátil",
+     "precio_usd": 120,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "Fotos 4 y 5 muestran color y ambiente diferente al producto"
+     ]
+    },
+    {
+     "n": 10,
+     "id": 710,
+     "titulo": "Bocina JBL CLIP 5 azul con sonido JBL Pro y mosquetón integrado",
+     "precio_usd": 90,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "Foto 5 muestra color diferente al azul descrito",
+      "la foto principal toca el borde (mirar si está cortado)"
+     ]
+    },
+    {
+     "n": 11,
+     "id": 723,
+     "titulo": "Bocina JBL CLIP 5 roja portátil con sonido JBL Pro y mosquetón",
+     "precio_usd": 90,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "Foto 2 color y modelo incorrecto",
+      "la foto principal toca el borde (mirar si está cortado)"
+     ]
+    },
+    {
+     "n": 12,
+     "id": 797,
+     "titulo": "Bocina Bluetooth Bosbos VIBE con luces LED y sonido potente",
+     "precio_usd": 90,
+     "nota": 10,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 13,
+     "id": 880,
+     "titulo": "Bocina JBL CLIP 5 portátil con sonido JBL Pro y mosquetón",
+     "precio_usd": 90,
+     "nota": 10,
+     "fuente": "web",
+     "avisos": [
+      "Foto 1 muestra caja no incluida en descripción",
+      "Foto 4 ambiente con personas y bocina camuflada",
+      "la foto principal toca el borde (mirar si está cortado)"
+     ]
+    },
+    {
+     "n": 14,
+     "id": 810,
+     "titulo": "Bocina Bluetooth Gemtones Infinity Max 25W, 15 horas batería",
+     "precio_usd": 85,
+     "nota": 10,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 15,
+     "id": 897,
+     "titulo": "Bocina Bluetooth JBL Go 4 púrpura, portátil e impermeable",
+     "precio_usd": 66,
+     "nota": 10,
+     "fuente": "proveedor",
+     "avisos": [
+      "Foto 2 es de producto diferente, descartar.",
+      "la foto principal toca el borde (mirar si está cortado)"
+     ]
+    },
+    {
+     "n": 16,
+     "id": 898,
+     "titulo": "Bocina Bluetooth JBL Go 4 Negra con 7 horas de batería",
+     "precio_usd": 66,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "la foto principal toca el borde (mirar si está cortado)"
+     ]
+    },
+    {
+     "n": 17,
+     "id": 899,
+     "titulo": "Bocina Bluetooth JBL Go 4 Roja con 7 horas de batería",
+     "precio_usd": 66,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "la foto principal toca el borde (mirar si está cortado)"
+     ]
+    },
+    {
+     "n": 18,
+     "id": 744,
+     "titulo": "Audífonos Bluetooth PureGear PureBoom inalámbricos y plegables",
+     "precio_usd": 56,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 19,
+     "id": 724,
+     "titulo": "Bocinas para computadora con subwoofer y luces RGB USB",
+     "precio_usd": 55,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "la foto principal toca el borde (mirar si está cortado)"
+     ]
+    },
+    {
+     "n": 20,
+     "id": 787,
+     "titulo": "Auriculares Inalámbricos H6 RGB Hi-Res Audio con Bluetooth y micrófono",
+     "precio_usd": 55,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "Foto 3 muestra accesorios no incluidos en descripción"
+     ]
+    }
+   ],
+   "aprueba": "APRUEBA 891,737,755,765,895,877,893,896,878,710,723,797,880,810,897,898,899,744,724,787"
+  },
+  {
+   "hoja": 7,
+   "archivo": "hoja-07.jpg",
+   "ids": [
+    839,
+    752,
+    800,
+    812,
+    845,
+    707,
+    811,
+    1081,
+    1080,
+    672,
+    720,
+    779,
+    805,
+    856,
+    778,
+    742,
+    803,
+    704,
+    713,
+    725
+   ],
+   "productos": [
+    {
+     "n": 1,
+     "id": 839,
+     "titulo": "Bocinas Multimedia BUSP-HYY E-1062 con iluminación LED y conexión USB",
+     "precio_usd": 41,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "Foto 2 muestra extras no incluidos en la descripción",
+      "la foto principal toca el borde (mirar si está cortado)"
+     ]
+    },
+    {
+     "n": 2,
+     "id": 752,
+     "titulo": "Audífonos Bluetooth JLab GO Pods ANC con cancelación activa de ruido",
+     "precio_usd": 38,
+     "nota": 10,
+     "fuente": "web",
+     "avisos": [
+      "Foto 1 muestra solo la caja, no el producto directamente",
+      "web: Fotos con color diferente no coinciden con descripción"
+     ]
+    },
+    {
+     "n": 3,
+     "id": 800,
+     "titulo": "Audífonos Bluetooth JLab GO Pop ANC con cancelación activa de ruido",
+     "precio_usd": 35,
+     "nota": 9,
+     "fuente": "web",
+     "avisos": [
+      "No hay foto de producto con fondo blanco liso y sin texto"
+     ]
+    },
+    {
+     "n": 4,
+     "id": 812,
+     "titulo": "Bocina inalámbrica PureGear PureBoom con sonido estéreo y Bluetooth",
+     "precio_usd": 35,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "Foto 1 muestra caja, no producto solo",
+      "la foto principal toca el borde (mirar si está cortado)"
+     ]
+    },
+    {
+     "n": 5,
+     "id": 845,
+     "titulo": "Auriculares inalámbricos ZIZO Tempo Z2 con Bluetooth 5.4 y cancelación de ruido",
+     "precio_usd": 35,
+     "nota": 10,
+     "fuente": "proveedor",
+     "avisos": [
+      "foto principal ampliada 2×"
+     ]
+    },
+    {
+     "n": 6,
+     "id": 707,
+     "titulo": "Audífonos Bluetooth JLab GO Pop+ con 35+ horas de autonomía",
+     "precio_usd": 33,
+     "nota": 10,
+     "fuente": "web",
+     "avisos": [
+      "Foto 1 es solo la caja, no muestra el producto real",
+      "web: Fotos 8 a 12 muestran color azul no descrito ni vendido"
+     ]
+    },
+    {
+     "n": 7,
+     "id": 811,
+     "titulo": "Audífonos Bluetooth Speck Gemtones Play 28 h batería",
+     "precio_usd": 27,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "Foto 2 muestra accesorios no indicados en la descripción"
+     ]
+    },
+    {
+     "n": 8,
+     "id": 1081,
+     "titulo": "Bicicleta de Equilibrio para Niños 11\" sin pedales, ajustable",
+     "precio_usd": 140,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "Fotos 1 y 4 muestran modelos diferentes de bicicleta de equilibrio",
+      "la foto principal toca el borde (mirar si está cortado)"
+     ]
+    },
+    {
+     "n": 9,
+     "id": 1080,
+     "titulo": "Pistola de calor Genesis con boquillas y temperatura hasta 538 °C",
+     "precio_usd": 76,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "la foto principal toca el borde (mirar si está cortado)"
+     ]
+    },
+    {
+     "n": 10,
+     "id": 672,
+     "titulo": "Impresora 3D Bambulab A1 Combo Multicolor con calibración automática",
+     "precio_usd": 1210,
+     "nota": 8,
+     "fuente": "proveedor",
+     "avisos": [
+      "Foto 1 muestra extras no incluidos en descripción",
+      "la foto principal toca el borde (mirar si está cortado)"
+     ]
+    },
+    {
+     "n": 11,
+     "id": 720,
+     "titulo": "Cargador EcoFlow RAPID 65W GaN con 3 puertos y cable 100W",
+     "precio_usd": 85,
+     "nota": 9,
+     "fuente": "web",
+     "avisos": [
+      "la foto principal toca el borde (mirar si está cortado)"
+     ]
+    },
+    {
+     "n": 12,
+     "id": 779,
+     "titulo": "Correa Resin Band para Apple Watch 38/40/41/42 mm resistente y cómoda",
+     "precio_usd": 27,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "Fotos con texto encima y collage no aptas para principal",
+      "Foto ambiente con persona no es ideal para principal",
+      "foto principal ampliada 1.89×"
+     ]
+    },
+    {
+     "n": 13,
+     "id": 805,
+     "titulo": "Funda para iPhone 17 con soporte y MagSafe, protección militar",
+     "precio_usd": 27,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 14,
+     "id": 856,
+     "titulo": "Funda BURGA para iPhone 16 Pro con protección híbrida doble capa",
+     "precio_usd": 27,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 15,
+     "id": 778,
+     "titulo": "Funda onn Slim Rugged para Tablet onn 11\" Pro 2024, protección alta",
+     "precio_usd": 24,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 16,
+     "id": 742,
+     "titulo": "Funda Speck Balance Folio para TCL Tab 8 LE con protección antimicrobiana",
+     "precio_usd": 21,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 17,
+     "id": 803,
+     "titulo": "Funda TPU iPhone 12 Pro Max diseño mármol con brillos",
+     "precio_usd": 21,
+     "nota": 10,
+     "fuente": "proveedor",
+     "avisos": [
+      "foto principal ampliada 1.89×"
+     ]
+    },
+    {
+     "n": 18,
+     "id": 704,
+     "titulo": "Funda de silicona líquida para iPhone 13 Pro Rosa Tiza",
+     "precio_usd": 20,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 19,
+     "id": 713,
+     "titulo": "Funda resistente Onn Rugged para Samsung Galaxy A14 5G",
+     "precio_usd": 20,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 20,
+     "id": 725,
+     "titulo": "Funda para iPhone 17 Pro Max Deep Blue con MagSafe y protección reforzada",
+     "precio_usd": 20,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    }
+   ],
+   "aprueba": "APRUEBA 839,752,800,812,845,707,811,1081,1080,672,720,779,805,856,778,742,803,704,713,725"
+  },
+  {
+   "hoja": 8,
+   "archivo": "hoja-08.jpg",
+   "ids": [
+    748,
+    798,
+    809,
+    883,
+    788,
+    727,
+    818,
+    820,
+    840,
+    885,
+    554,
+    715,
+    722,
+    741,
+    614,
+    658,
+    638,
+    624,
+    600,
+    1031
+   ],
+   "productos": [
+    {
+     "n": 1,
+     "id": 748,
+     "titulo": "Funda Magnética para iPhone 15 Pro Max compatible MagSafe",
+     "precio_usd": 20,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "Foto 2 muestra cargador no incluido en descripción",
+      "foto principal ampliada 1.91×"
+     ]
+    },
+    {
+     "n": 2,
+     "id": 798,
+     "titulo": "Funda magnética Samsung Galaxy S24 Ultra con protección y MagSafe",
+     "precio_usd": 20,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 3,
+     "id": 809,
+     "titulo": "Correa de malla metálica MARGE PLUS para Apple Watch compatible varias series",
+     "precio_usd": 20,
+     "nota": 10,
+     "fuente": "proveedor",
+     "avisos": [
+      "Foto 4 no muestra la correa, confunde al cliente"
+     ]
+    },
+    {
+     "n": 4,
+     "id": 883,
+     "titulo": "Funda de silicona Oakxco para Samsung Galaxy Z Fold 5 color burdeos",
+     "precio_usd": 20,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "la foto principal toca el borde (mirar si está cortado)"
+     ]
+    },
+    {
+     "n": 5,
+     "id": 788,
+     "titulo": "Organizador de cables adhesivo para escritorio 24 clips negro",
+     "precio_usd": 16,
+     "nota": 10,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 6,
+     "id": 727,
+     "titulo": "Funda de silicona LOVE 3000 para iPhone 13 Pro Max 6.7\"",
+     "precio_usd": 15,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 7,
+     "id": 818,
+     "titulo": "Funda para iPhone 17 Pro Hot Pink con protección completa",
+     "precio_usd": 15,
+     "nota": 10,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 8,
+     "id": 820,
+     "titulo": "Funda para iPhone 12 Asuwish morado compatible 6.1 pulgadas",
+     "precio_usd": 15,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 9,
+     "id": 840,
+     "titulo": "Funda Transparente para Tecno Spark 20 / 20C 6.6 pulgadas",
+     "precio_usd": 15,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "Foto 1 muestra caja, no funda transparente"
+     ]
+    },
+    {
+     "n": 10,
+     "id": 885,
+     "titulo": "Funda Magnética para iPhone 13 Pro 6.1\" roja con protección",
+     "precio_usd": 15,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 11,
+     "id": 554,
+     "titulo": "Funda GVIEWIN para iPhone 13 Pro 6.1\" diseño floral",
+     "precio_usd": 14,
+     "nota": 10,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 12,
+     "id": 715,
+     "titulo": "Funda magnética Samsung Galaxy S21 FE 5G Blue protección completa",
+     "precio_usd": 14,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "Foto 5 muestra accesorios no incluidos en descripción"
+     ]
+    },
+    {
+     "n": 13,
+     "id": 722,
+     "titulo": "Funda Retro para iPhone 14 Pro Max diseño Lunares Otoño",
+     "precio_usd": 14,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 14,
+     "id": 741,
+     "titulo": "Correa de silicona MobyFox Midnight Flora para smartwatch cómoda y resistente",
+     "precio_usd": 14,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 15,
+     "id": 614,
+     "titulo": "Disco duro interno 3.5\" 18TB SATA III 7,200 RPM",
+     "precio_usd": 420,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 16,
+     "id": 658,
+     "titulo": "SSD Externo Kingston XS1000 2TB USB 3.2 Gen 2 velocidad alta",
+     "precio_usd": 270,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "Foto 4 muestra caja, no solo SSD externo",
+      "la foto principal toca el borde (mirar si está cortado)"
+     ]
+    },
+    {
+     "n": 17,
+     "id": 638,
+     "titulo": "Disco Interno Seagate V5 HDD 6TB 3.5 pulgadas SATA 7200 RPM",
+     "precio_usd": 200,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 18,
+     "id": 624,
+     "titulo": "Disco Interno Timetec M.2 256GB NVMe PCIe Gen3x4",
+     "precio_usd": 55,
+     "nota": 8,
+     "fuente": "proveedor",
+     "avisos": [
+      "la foto principal toca el borde (mirar si está cortado)"
+     ]
+    },
+    {
+     "n": 19,
+     "id": 600,
+     "titulo": "Memoria USB Kingston ExodiaM 128GB USB-A 3.2 Gen 1",
+     "precio_usd": 27,
+     "nota": 10,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 20,
+     "id": 1031,
+     "titulo": "Reloj LouisPoems Green Submariner con esfera verde y bisel giratorio",
+     "precio_usd": 90,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    }
+   ],
+   "aprueba": "APRUEBA 748,798,809,883,788,727,818,820,840,885,554,715,722,741,614,658,638,624,600,1031"
+  },
+  {
+   "hoja": 9,
+   "archivo": "hoja-09.jpg",
+   "ids": [
+    1062,
+    1020,
+    1055,
+    1027,
+    1047,
+    1049,
+    1057,
+    1030,
+    1042,
+    1033,
+    1023,
+    1037,
+    1029,
+    1017,
+    1028,
+    992,
+    910,
+    1000,
+    1007,
+    634
+   ],
+   "productos": [
+    {
+     "n": 1,
+     "id": 1062,
+     "titulo": "Mochila para Hombre moderna y multifuncional color gris",
+     "precio_usd": 49,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "Foto 2 y 5 no coinciden con color gris descrito"
+     ]
+    },
+    {
+     "n": 2,
+     "id": 1020,
+     "titulo": "Riñonera Táctica Multifuncional con Bolsillos Verde Olivo",
+     "precio_usd": 42,
+     "nota": 8,
+     "fuente": "proveedor",
+     "avisos": [
+      "Botella en foto 1 no incluida en descripción"
+     ]
+    },
+    {
+     "n": 3,
+     "id": 1055,
+     "titulo": "Taladro eléctrico para uñas profesional recargable USB 2000mAh",
+     "precio_usd": 42,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "Fotos 2 y 6 muestran color diferente al descrito",
+      "Fotos 1, 2, 5 y 6 tienen texto encima y extras no incluidos"
+     ]
+    },
+    {
+     "n": 4,
+     "id": 1027,
+     "titulo": "Riñonera Táctica Unisex MOLLE USA para deportes y actividades outdoor",
+     "precio_usd": 40,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 5,
+     "id": 1047,
+     "titulo": "Riñonera Táctica Multifuncional Verde Militar con múltiples compartimentos",
+     "precio_usd": 40,
+     "nota": 10,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 6,
+     "id": 1049,
+     "titulo": "Riñonera de lona multifuncional con gran capacidad y cierre seguro",
+     "precio_usd": 40,
+     "nota": 8,
+     "fuente": "proveedor",
+     "avisos": [
+      "Fotos incluyen riñoneras en otros colores que no son caqui",
+      "Texto encima en varias fotos",
+      "Fondo con escena en fotos de modelo"
+     ]
+    },
+    {
+     "n": 7,
+     "id": 1057,
+     "titulo": "Bolsa Deportiva de Gimnasio gran capacidad color negro",
+     "precio_usd": 40,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "Fotos 3,4,5 muestran color blanco, no negro como en descripción"
+     ]
+    },
+    {
+     "n": 8,
+     "id": 1030,
+     "titulo": "Bolso para Laptop 14\" gris, liviano y moderno",
+     "precio_usd": 35,
+     "nota": 10,
+     "fuente": "proveedor",
+     "avisos": [
+      "Foto 5 muestra objetos no incluidos en la descripción"
+     ]
+    },
+    {
+     "n": 9,
+     "id": 1042,
+     "titulo": "Mochila de Gran Capacidad con partición para portátil",
+     "precio_usd": 35,
+     "nota": 8,
+     "fuente": "proveedor",
+     "avisos": [
+      "Fotos muestran objetos no incluidos en la mochila"
+     ]
+    },
+    {
+     "n": 10,
+     "id": 1033,
+     "titulo": "Bolso deportivo compacto con correa ajustable y bolsillo frontal",
+     "precio_usd": 30,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 11,
+     "id": 1023,
+     "titulo": "Reloj Oxygen Dual Time con doble huso horario y correa de silicona",
+     "precio_usd": 23,
+     "nota": 8,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 12,
+     "id": 1037,
+     "titulo": "Masajeador Facial Portátil para cuello y cara",
+     "precio_usd": 23,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "Foto 6 muestra color negro no descrito en nombre o descripción"
+     ]
+    },
+    {
+     "n": 13,
+     "id": 1029,
+     "titulo": "Armadura de espejuelos Dana Buchman modelo 2 con piedras decorativas",
+     "precio_usd": 17,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "Foto 4 muestra otros modelos, no corresponde al producto",
+      "la foto principal toca el borde (mirar si está cortado)"
+     ]
+    },
+    {
+     "n": 14,
+     "id": 1017,
+     "titulo": "Set de joyería Phantasya collar y aretes con cristales brillantes",
+     "precio_usd": 14,
+     "nota": 8,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 15,
+     "id": 1028,
+     "titulo": "Gafas de Sol para Niñas y Niños con protección UV",
+     "precio_usd": 9,
+     "nota": 8,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 16,
+     "id": 992,
+     "titulo": "Cámara de acción Insta360 X3 360° 5.7K con estabilización",
+     "precio_usd": 355,
+     "nota": 10,
+     "fuente": "proveedor",
+     "avisos": [
+      "Solo una foto muestra el producto, las demás son promocionales con texto",
+      "la foto principal toca el borde (mirar si está cortado)"
+     ]
+    },
+    {
+     "n": 17,
+     "id": 910,
+     "titulo": "Micrófono inalámbrico DJI Mic Mini con estuche y 48 horas uso",
+     "precio_usd": 200,
+     "nota": 10,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 18,
+     "id": 1000,
+     "titulo": "Violín acústico 4/4 acabado premium celeste azul y verde",
+     "precio_usd": 170,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "Foto 5 y 6 muestran estuche y arco incluidos, no detallados en descripción"
+     ]
+    },
+    {
+     "n": 19,
+     "id": 1007,
+     "titulo": "Transmisor inalámbrico DJI Mic 3 para iPhone, Android y cámaras",
+     "precio_usd": 120,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 20,
+     "id": 634,
+     "titulo": "Memoria para Laptop 16GB DDR4 velocidad 2400MHz - 3200MHz",
+     "precio_usd": 110,
+     "nota": 10,
+     "fuente": "proveedor",
+     "avisos": []
+    }
+   ],
+   "aprueba": "APRUEBA 1062,1020,1055,1027,1047,1049,1057,1030,1042,1033,1023,1037,1029,1017,1028,992,910,1000,1007,634"
+  },
+  {
+   "hoja": 10,
+   "archivo": "hoja-10.jpg",
+   "ids": [
+    915,
+    938,
+    1009,
+    1013,
+    909,
+    954,
+    982,
+    1010,
+    1012,
+    946,
+    965,
+    986,
+    912,
+    975,
+    1004,
+    956,
+    967,
+    976,
+    925,
+    688
+   ],
+   "productos": [
+    {
+     "n": 1,
+     "id": 915,
+     "titulo": "Micrófono inalámbrico DJI Mic Mini 1 TX + 1 RX, transmisión 400 m",
+     "precio_usd": 110,
+     "nota": 10,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 2,
+     "id": 938,
+     "titulo": "Patines Ajustables para Niños Talla M con ruedas LED multicolor",
+     "precio_usd": 105,
+     "nota": 10,
+     "fuente": "proveedor",
+     "avisos": [
+      "Foto 4 no muestra el producto, solo tabla de tallas"
+     ]
+    },
+    {
+     "n": 3,
+     "id": 1009,
+     "titulo": "Patines ajustables para niños y niñas blanco y rosa talla S 31-34",
+     "precio_usd": 105,
+     "nota": 10,
+     "fuente": "proveedor",
+     "avisos": [
+      "la foto principal toca el borde (mirar si está cortado)"
+     ]
+    },
+    {
+     "n": 4,
+     "id": 1013,
+     "titulo": "Patines ajustables Nattork para niños talla 19-21.5 cm rosado",
+     "precio_usd": 105,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "Foto 5 muestra otros modelos y tallas, no es este producto",
+      "la foto principal toca el borde (mirar si está cortado)"
+     ]
+    },
+    {
+     "n": 5,
+     "id": 909,
+     "titulo": "Control inalámbrico DualSense para PlayStation 5 púrpura galáctico",
+     "precio_usd": 100,
+     "nota": 10,
+     "fuente": "proveedor",
+     "avisos": [
+      "Foto 4 muestra caja no mencionada en descripción"
+     ]
+    },
+    {
+     "n": 6,
+     "id": 954,
+     "titulo": "Patines Ajustables para Niños Talla L 23-26 cm con cobertura total",
+     "precio_usd": 100,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "Foto 4 muestra producto diferente y debe descartarse"
+     ]
+    },
+    {
+     "n": 7,
+     "id": 982,
+     "titulo": "Control Inalámbrico DualSense para PlayStation 5 Midnight Black",
+     "precio_usd": 100,
+     "nota": 10,
+     "fuente": "proveedor",
+     "avisos": [
+      "Foto 4 muestra caja no incluida en descripción"
+     ]
+    },
+    {
+     "n": 8,
+     "id": 1010,
+     "titulo": "Patines en Línea Ajustables Niños Negros y Verdes Talla L 23-26 cm",
+     "precio_usd": 100,
+     "nota": 10,
+     "fuente": "proveedor",
+     "avisos": [
+      "la foto principal toca el borde (mirar si está cortado)"
+     ]
+    },
+    {
+     "n": 9,
+     "id": 1012,
+     "titulo": "Patines en línea Xino Sports ajustables para niños talla M 21 cm",
+     "precio_usd": 100,
+     "nota": 10,
+     "fuente": "proveedor",
+     "avisos": [
+      "la foto principal toca el borde (mirar si está cortado)"
+     ]
+    },
+    {
+     "n": 10,
+     "id": 946,
+     "titulo": "Control Xbox Series X/S Verde inalámbrico con Bluetooth y botón captura",
+     "precio_usd": 90,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 11,
+     "id": 965,
+     "titulo": "Control Xbox Series X/S inalámbrico Blanco con Bluetooth y botón captura",
+     "precio_usd": 90,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "la foto principal toca el borde (mirar si está cortado)"
+     ]
+    },
+    {
+     "n": 12,
+     "id": 986,
+     "titulo": "Control Xbox Series X/S negro inalámbrico con Bluetooth y botón captura",
+     "precio_usd": 90,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "la foto principal toca el borde (mirar si está cortado)"
+     ]
+    },
+    {
+     "n": 13,
+     "id": 912,
+     "titulo": "Teclado Electrónico Multifunción 61 Teclas con Micrófono negro",
+     "precio_usd": 72,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 14,
+     "id": 975,
+     "titulo": "Estación de carga PowerA para Xbox con 2 baterías 1100 mAh",
+     "precio_usd": 71,
+     "nota": 8,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 15,
+     "id": 1004,
+     "titulo": "Estación de carga PowerA para 2 controles Xbox Series X|S y One",
+     "precio_usd": 71,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 16,
+     "id": 956,
+     "titulo": "Pistola de agua eléctrica roja para niños y adultos",
+     "precio_usd": 67,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "la foto principal toca el borde (mirar si está cortado)"
+     ]
+    },
+    {
+     "n": 17,
+     "id": 967,
+     "titulo": "Soporte y estación de refrigeración para PS5 con cargador y ventilador",
+     "precio_usd": 67,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "Foto 5 color negro no coincide con descripción que indica blanco y negro",
+      "Fotos con texto encima no aptas para principal",
+      "Foto 3 muestra extras no incluidos"
+     ]
+    },
+    {
+     "n": 18,
+     "id": 976,
+     "titulo": "Auto a control remoto modelos realistas con ruedas de alto rendimiento",
+     "precio_usd": 67,
+     "nota": 8,
+     "fuente": "proveedor",
+     "avisos": [
+      "foto 1 no muestra producto único ni fondo adecuado",
+      "la foto principal toca el borde (mirar si está cortado)"
+     ]
+    },
+    {
+     "n": 19,
+     "id": 925,
+     "titulo": "Control inalámbrico Turtle Beach Rematch para Nintendo Switch con batería 40h",
+     "precio_usd": 66,
+     "nota": 8,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 20,
+     "id": 688,
+     "titulo": "Cargador de portátil USB-C 96W con protección multiseguridad",
+     "precio_usd": 56,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "la foto principal toca el borde (mirar si está cortado)"
+     ]
+    }
+   ],
+   "aprueba": "APRUEBA 915,938,1009,1013,909,954,982,1010,1012,946,965,986,912,975,1004,956,967,976,925,688"
+  },
+  {
+   "hoja": 11,
+   "archivo": "hoja-11.jpg",
+   "ids": [
+    599,
+    606,
+    943,
+    1005,
+    955,
+    953,
+    996,
+    998,
+    636,
+    1162,
+    1166,
+    700,
+    952,
+    990,
+    993,
+    603,
+    743,
+    828,
+    960,
+    1092
+   ],
+   "productos": [
+    {
+     "n": 1,
+     "id": 599,
+     "titulo": "Adaptador USB-C a Dual HDMI Selore&S-Global 4K@60Hz",
+     "precio_usd": 55,
+     "nota": 10,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 2,
+     "id": 606,
+     "titulo": "Adaptador de corriente Dell OptiPlex 90W/130W para PC",
+     "precio_usd": 55,
+     "nota": 8,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 3,
+     "id": 943,
+     "titulo": "Excavadora RC Die-Cast 1:24 para niños con control remoto 6 canales",
+     "precio_usd": 55,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 4,
+     "id": 1005,
+     "titulo": "Casco de bicicleta para niños Scamp II talla XS 45-49 cm",
+     "precio_usd": 55,
+     "nota": 10,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 5,
+     "id": 955,
+     "titulo": "Palo Selfie Inalámbrico plegable con trípode y luz LED 6\"",
+     "precio_usd": 48,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "Caja incluida no mencionada en descripción"
+     ]
+    },
+    {
+     "n": 6,
+     "id": 953,
+     "titulo": "Kit de carga y juego para controles Xbox con indicador LED",
+     "precio_usd": 41,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "la foto principal toca el borde (mirar si está cortado)"
+     ]
+    },
+    {
+     "n": 7,
+     "id": 996,
+     "titulo": "Juego de Pesca Eléctrico con Música giratoria para niños y niñas",
+     "precio_usd": 41,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "Foto 3 muestra producto diferente en tamaño y forma"
+     ]
+    },
+    {
+     "n": 8,
+     "id": 998,
+     "titulo": "Suplemento Force Factor Creatine Monohydrate Gummies 150 gomitas 5g",
+     "precio_usd": 35,
+     "nota": 8,
+     "fuente": "proveedor",
+     "avisos": [
+      "la foto principal toca el borde (mirar si está cortado)"
+     ]
+    },
+    {
+     "n": 9,
+     "id": 636,
+     "titulo": "Cable XLR Macho a 6.35 mm TRS paquete de 2, 1.8 m cada uno",
+     "precio_usd": 34,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "foto principal ampliada 1.95×"
+     ]
+    },
+    {
+     "n": 10,
+     "id": 1162,
+     "titulo": "Casco para moto semi-integral color gris",
+     "precio_usd": 33,
+     "nota": 10,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 11,
+     "id": 1166,
+     "titulo": "Casco de moto negro para protección básica",
+     "precio_usd": 33,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "Foto 2 muestra extras no incluidos en descripción"
+     ]
+    },
+    {
+     "n": 12,
+     "id": 700,
+     "titulo": "Extensión de enchufe 10 en 1 con protector de sobretensiones",
+     "precio_usd": 31,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "Foto 1 no muestra el producto frontal",
+      "Fotos 2 y 5 incluyen cables y dispositivos no indicados",
+      "la foto principal toca el borde (mirar si está cortado)"
+     ]
+    },
+    {
+     "n": 13,
+     "id": 952,
+     "titulo": "Pre-entrenamiento RAW Essential Hard To Kill 200 mg cafeína 20 servicios",
+     "precio_usd": 28,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 14,
+     "id": 990,
+     "titulo": "Base de carga para mandos PS5 carga rápida para 2 controles",
+     "precio_usd": 28,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "Foto 5 muestra mandos no incluidos en descripción"
+     ]
+    },
+    {
+     "n": 15,
+     "id": 993,
+     "titulo": "Micrófonos inalámbricos profesionales con reducción de ruido, alcance 200 m",
+     "precio_usd": 28,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 16,
+     "id": 603,
+     "titulo": "Adaptador 12VHPWR 90° para GPU RTX y fuentes Corsair modulares",
+     "precio_usd": 27,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "la foto principal toca el borde (mirar si está cortado)"
+     ]
+    },
+    {
+     "n": 17,
+     "id": 743,
+     "titulo": "Enchufe múltiple 14 en 1 con protección contra sobrecarga",
+     "precio_usd": 27,
+     "nota": 10,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 18,
+     "id": 828,
+     "titulo": "Audífonos para Dormir Tipo Diadema con Sonido HD y Calentador",
+     "precio_usd": 27,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "la foto principal toca el borde (mirar si está cortado)"
+     ]
+    },
+    {
+     "n": 19,
+     "id": 960,
+     "titulo": "Creatina Micronizada Optimum Nutrition 100 cápsulas 2.5 g por porción",
+     "precio_usd": 27,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "Fotos 3 y 4 muestran envase y etiqueta de 200 cápsulas, no 100 como indica descripción",
+      "foto principal ampliada 1.9×"
+     ]
+    },
+    {
+     "n": 20,
+     "id": 1092,
+     "titulo": "Soporte para Auto MagSafe Speck ClickLock para iPhone 12 y posteriores",
+     "precio_usd": 27,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "Foto 3 muestra cable no incluido en descripción"
+     ]
+    }
+   ],
+   "aprueba": "APRUEBA 599,606,943,1005,955,953,996,998,636,1162,1166,700,952,990,993,603,743,828,960,1092"
+  },
+  {
+   "hoja": 12,
+   "archivo": "hoja-12.jpg",
+   "ids": [
+    1117,
+    1169,
+    621,
+    850,
+    611,
+    671,
+    773,
+    775,
+    900,
+    924,
+    968,
+    637,
+    670,
+    792,
+    961,
+    735,
+    866,
+    615,
+    736,
+    1076
+   ],
+   "productos": [
+    {
+     "n": 1,
+     "id": 1117,
+     "titulo": "Casco para bicicleta o moto protección segura",
+     "precio_usd": 27,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 2,
+     "id": 1169,
+     "titulo": "Casco deportivo para protección personal",
+     "precio_usd": 27,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 3,
+     "id": 621,
+     "titulo": "Adaptador Resistente Multifuncional 4 en 1 tipo C para PC y móviles",
+     "precio_usd": 24,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "Fotos con texto y objetos no incluidos en la descripción"
+     ]
+    },
+    {
+     "n": 4,
+     "id": 850,
+     "titulo": "Extensor USB 3.0 Hub 4 Puertos alta velocidad 5 Gbps",
+     "precio_usd": 24,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "Foto 2 muestra accesorios no incluidos en la descripción"
+     ]
+    },
+    {
+     "n": 5,
+     "id": 611,
+     "titulo": "Cable USB-C a DisplayPort 1.4 UANTIN 1.8 m compatible 8K 60 Hz",
+     "precio_usd": 21,
+     "nota": 10,
+     "fuente": "proveedor",
+     "avisos": [
+      "la foto principal toca el borde (mirar si está cortado)"
+     ]
+    },
+    {
+     "n": 6,
+     "id": 671,
+     "titulo": "Cable Divisor JOLGOO XLR Macho a 2 RCA Macho 1 metro",
+     "precio_usd": 21,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 7,
+     "id": 773,
+     "titulo": "Hub USB 3.0 7 Puertos con Switch Blanco alta velocidad",
+     "precio_usd": 21,
+     "nota": 10,
+     "fuente": "proveedor",
+     "avisos": [
+      "Fotos muestran versión negra no incluida en descripción",
+      "Foto con producto en bolsa plástica no es ideal para principal"
+     ]
+    },
+    {
+     "n": 8,
+     "id": 775,
+     "titulo": "Cargador inalámbrico PowerLab 10W Qi para móviles y accesorios",
+     "precio_usd": 21,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "la foto principal toca el borde (mirar si está cortado)"
+     ]
+    },
+    {
+     "n": 9,
+     "id": 900,
+     "titulo": "Set de Pequeños Militares Articulados con armas intercambiables",
+     "precio_usd": 21,
+     "nota": 8,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 10,
+     "id": 924,
+     "titulo": "Figura articulada Dummy 13 con armamento 130x100x20 mm",
+     "precio_usd": 21,
+     "nota": 8,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 11,
+     "id": 968,
+     "titulo": "Pistola de Juguete Tipo Glock diseño realista 12 cm",
+     "precio_usd": 21,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 12,
+     "id": 637,
+     "titulo": "Cable Conector SSD o HDD para PC y laptops, 12 cm",
+     "precio_usd": 20,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "la foto principal toca el borde (mirar si está cortado)"
+     ]
+    },
+    {
+     "n": 13,
+     "id": 670,
+     "titulo": "Adaptador USB-C a HDMI Highwings 4K@60Hz para video y audio",
+     "precio_usd": 20,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 14,
+     "id": 792,
+     "titulo": "Cable USB 2.0 A Macho a Mini USB ángulo recto 3.5 m",
+     "precio_usd": 20,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 15,
+     "id": 961,
+     "titulo": "Lanzador de Aviones con Pistola Catapulta para Niños, 6 aviones",
+     "precio_usd": 20,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "Fotos muestran colores diferentes al descrito",
+      "Incluyen extras no mencionados en descripción"
+     ]
+    },
+    {
+     "n": 16,
+     "id": 735,
+     "titulo": "Hub USB Splitter Adaptador 3 Puertos USB velocidad 480 Mbps",
+     "precio_usd": 17,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "Fotos con texto encima y logo en producto",
+      "Fondo no siempre blanco liso"
+     ]
+    },
+    {
+     "n": 17,
+     "id": 866,
+     "titulo": "Cargador Auto PowerLab 32W USB-C + USB-A con Power Delivery",
+     "precio_usd": 14,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 18,
+     "id": 615,
+     "titulo": "Adaptador OTG para sincronizar datos y conectar periféricos",
+     "precio_usd": 11,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "Foto 2 muestra adaptador blanco no incluido"
+     ]
+    },
+    {
+     "n": 19,
+     "id": 736,
+     "titulo": "Cable de carga y datos USB-C a USB-C 1 metro",
+     "precio_usd": 10,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 20,
+     "id": 1076,
+     "titulo": "Cámara de Seguridad Solar TP-Link Tapo C615F 2K con panel solar",
+     "precio_usd": 180,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "foto principal ampliada 1.85×"
+     ]
+    }
+   ],
+   "aprueba": "APRUEBA 1117,1169,621,850,611,671,773,775,900,924,968,637,670,792,961,735,866,615,736,1076"
+  },
+  {
+   "hoja": 13,
+   "archivo": "hoja-13.jpg",
+   "ids": [
+    1096,
+    1138,
+    780,
+    796,
+    1093,
+    657,
+    991,
+    1215,
+    1137,
+    667,
+    665,
+    1174,
+    1118,
+    1198,
+    1211,
+    1187,
+    1121,
+    1194,
+    1183,
+    1188
+   ],
+   "productos": [
+    {
+     "n": 1,
+     "id": 1096,
+     "titulo": "Bomba de Agua Sumergible QDX3-24-0.75 0.75 kW 24 m elevación",
+     "precio_usd": 180,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 2,
+     "id": 1138,
+     "titulo": "Bomba de Agua Autocebante 125W 34 L/min 110V",
+     "precio_usd": 175,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 3,
+     "id": 780,
+     "titulo": "Audífonos JBL Live Beam 3 con cancelación de ruido y 48 h batería",
+     "precio_usd": 160,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "la foto principal toca el borde (mirar si está cortado)"
+     ]
+    },
+    {
+     "n": 4,
+     "id": 796,
+     "titulo": "Altavoz portátil JBL Go 4 con sonido JBL Pro y batería de 7 horas",
+     "precio_usd": 66,
+     "nota": 8,
+     "fuente": "proveedor",
+     "avisos": [
+      "Foto 1 muestra caja, no altavoz",
+      "Fotos 4 y 5 tienen logo tienda encima",
+      "Fotos 4 y 5 no son color negro",
+      "la foto principal toca el borde (mirar si está cortado)"
+     ]
+    },
+    {
+     "n": 5,
+     "id": 1093,
+     "titulo": "Cámara de Seguridad Tapo 2K 3MP para interiores y exteriores",
+     "precio_usd": 66,
+     "nota": 10,
+     "fuente": "proveedor",
+     "avisos": [
+      "Varias fotos muestran texto y elementos no incluidos en la descripción",
+      "Fotos 4,6,7,8 muestran personas o escenas no del producto",
+      "la foto principal toca el borde (mirar si está cortado)"
+     ]
+    },
+    {
+     "n": 6,
+     "id": 657,
+     "titulo": "Caja Digital KONKA HD para TV con salida HDMI y USB 2.0",
+     "precio_usd": 62,
+     "nota": 10,
+     "fuente": "proveedor",
+     "avisos": [
+      "Fotos 2,3,4 muestran extras no incluidos y texto encima"
+     ]
+    },
+    {
+     "n": 7,
+     "id": 991,
+     "titulo": "Soporte Organizador DOBE para Juegos PS5 y Xbox, almacena 12 juegos",
+     "precio_usd": 42,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "Fotos 4 y 5 muestran juegos no incluidos en el producto"
+     ]
+    },
+    {
+     "n": 8,
+     "id": 1215,
+     "titulo": "Audífonos Bluetooth Mixora estilo premium con micrófono y batería larga",
+     "precio_usd": 21,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 9,
+     "id": 1137,
+     "titulo": "Audífonos Bluetooth Excelente Sonido conexión inalámbrica cómoda",
+     "precio_usd": 20,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 10,
+     "id": 667,
+     "titulo": "Cable de alimentación IEC C13 a NEMA 5-15P 1.8 metros",
+     "precio_usd": 8,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 11,
+     "id": 665,
+     "titulo": "Tarjetas de cumpleaños con sobres y pegatina tamaño 4x6 pulgadas",
+     "precio_usd": 7,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "Foto 1 incluye caja no mencionada en descripción"
+     ]
+    },
+    {
+     "n": 12,
+     "id": 1174,
+     "titulo": "Mueble 3 Plazas sofá tapizado cómodo y resistente",
+     "precio_usd": 950,
+     "nota": 10,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 13,
+     "id": 1118,
+     "titulo": "Sofá 2 Plazas Mueble tapizado cómodo y resistente",
+     "precio_usd": 785,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 14,
+     "id": 1198,
+     "titulo": "Butaca Azul Estilo Gordo diseño amplio y mullido",
+     "precio_usd": 655,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": [
+      "Foto 1 con fondo y objetos, no ideal para principal",
+      "foto principal ampliada 1.86×"
+     ]
+    },
+    {
+     "n": 15,
+     "id": 1211,
+     "titulo": "Sofá Modelo 7310 con espuma de alta densidad y estructura reforzada",
+     "precio_usd": 585,
+     "nota": 10,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 16,
+     "id": 1187,
+     "titulo": "Estantes para Tiendas Góndola Doble Central 1.90 m x 90 cm",
+     "precio_usd": 190,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 17,
+     "id": 1121,
+     "titulo": "Ganchos para Estantes 25 cm",
+     "precio_usd": 10,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 18,
+     "id": 1194,
+     "titulo": "Absorbente grueso para batidos 100 unidades",
+     "precio_usd": 9,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 19,
+     "id": 1183,
+     "titulo": "Vasos desechables 8oz 50 unidades para bebidas frías o calientes",
+     "precio_usd": 8,
+     "nota": 9,
+     "fuente": "proveedor",
+     "avisos": []
+    },
+    {
+     "n": 20,
+     "id": 1188,
+     "titulo": "Absorbente flexible de colores 100 unidades",
+     "precio_usd": 8,
+     "nota": 10,
+     "fuente": "proveedor",
+     "avisos": []
+    }
+   ],
+   "aprueba": "APRUEBA 1096,1138,780,796,1093,657,991,1215,1137,667,665,1174,1118,1198,1211,1187,1121,1194,1183,1188"
+  }
+ ],
+ "duplicados_fuera_de_las_hojas": [
+  {
+   "id": 570,
+   "titulo": "Estación de Energía Portátil AFERIY P210 2400W 2048Wh batería LiFePO4",
+   "duplicado_de": 528
+  },
+  {
+   "id": 1184,
+   "titulo": "Lámpara de Mesa estilo Art Decó con diseño geométrico",
+   "duplicado_de": 1156
+  },
+  {
+   "id": 632,
+   "titulo": "Gabinete Gaming Montech King 95 PRO ATX doble cámara con 6 ventiladores ARGB",
+   "duplicado_de": 957
+  },
+  {
+   "id": 661,
+   "titulo": "Mini Keyboard i8 Teclado y Mouse Inalámbrico 2 en 1 USB 2.0",
+   "duplicado_de": 660
+  },
+  {
+   "id": 1063,
+   "titulo": "Mochila para hombre moderna y multifuncional color azul",
+   "duplicado_de": 1062
+  },
+  {
+   "id": 1058,
+   "titulo": "Riñonera Táctica Multifuncional Verde Militar con múltiples compartimentos",
+   "duplicado_de": 1047
+  },
+  {
+   "id": 709,
+   "titulo": "Cargador de portátil USB-C 96W con salidas múltiples y protección",
+   "duplicado_de": 688
+  },
+  {
+   "id": 1097,
+   "titulo": "Bomba de Agua Sumergible QDX3-24-0.75 0.75 kW 24 m elevación",
+   "duplicado_de": 1096
+  },
+  {
+   "id": 1212,
+   "titulo": "Audífonos Bluetooth Excelente Sonido conexión inalámbrica cómoda",
+   "duplicado_de": 1137
+  }
+ ]
+}

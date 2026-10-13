@@ -1,0 +1,398 @@
+{
+ "fuera": {
+  "605": "la laptop sale por debajo (la tapa de abajo)",
+  "610": "foto rara: el monitor sale visto desde arriba, montado",
+  "616": "la laptop sale de canto, casi no se ve",
+  "686": "la laptop sale por debajo (la tapa de abajo)",
+  "792": "collage con rótulos en inglés (Right Angel / left angle / Straight)",
+  "810": "la foto trae el logo «speck» añadido encima",
+  "890": "la foto trae texto en inglés añadido («Travel Friendly…»)",
+  "904": "la foto principal es la base (dock), no la consola",
+  "961": "la foto trae medidas escritas encima",
+  "991": "collage con 3 dibujos pequeños de montaje",
+  "998": "la foto es la etiqueta de ingredientes, no el producto",
+  "1002": "el título dice «Celular» y son gafas de realidad virtual; la foto es un dibujo por dentro",
+  "1049": "la foto es un collage con texto («Color a elegir») y medidas"
+ },
+ "dudas": {
+  "530": "aparato blanco sobre fondo blanco: casi no se ve",
+  "562": "encima del aparato sale una lámpara que quizá no viene",
+  "637": "la foto es muy pobre (un cable pequeño)",
+  "681": "el monitor sale por detrás",
+  "685": "los monitores salen de lado",
+  "956": "trae un circulito con otra foto dentro",
+  "968": "pistola de juguete muy realista: ¿se vende en Cuba sin problema?"
+ },
+ "hojas": [
+  {
+   "hoja": 1,
+   "ok": [
+    563,
+    572,
+    533,
+    528,
+    539,
+    578,
+    531,
+    556,
+    579,
+    561,
+    576,
+    562,
+    558,
+    543,
+    1175,
+    573,
+    538,
+    1122,
+    1111,
+    565
+   ],
+   "f": [],
+   "d": [
+    "la 12 (#562): encima del aparato sale una lámpara que quizá no viene"
+   ]
+  },
+  {
+   "hoja": 2,
+   "ok": [
+    1125,
+    1123,
+    1180,
+    1189,
+    532,
+    793,
+    751,
+    794,
+    771,
+    865,
+    705,
+    894,
+    731,
+    1210,
+    1200,
+    1167,
+    544,
+    1133,
+    540,
+    749
+   ],
+   "f": [],
+   "d": []
+  },
+  {
+   "hoja": 3,
+   "ok": [
+    860,
+    761,
+    1068,
+    717,
+    689,
+    692,
+    623,
+    649,
+    627,
+    641,
+    691,
+    668,
+    640,
+    645
+   ],
+   "f": [
+    "la 2 (#890)",
+    "la 7 (#616)",
+    "la 10 (#686)",
+    "la 11 (#605)",
+    "la 19 (#904)",
+    "la 20 (#1002)"
+   ],
+   "d": []
+  },
+  {
+   "hoja": 4,
+   "ok": [
+    940,
+    948,
+    957,
+    552,
+    534,
+    530,
+    569,
+    567,
+    1192,
+    1107,
+    1165,
+    1201,
+    1143,
+    1126,
+    1100,
+    1124,
+    1150,
+    1155,
+    1156,
+    1103
+   ],
+   "f": [],
+   "d": [
+    "la 6 (#530): aparato blanco sobre fondo blanco: casi no se ve"
+   ]
+  },
+  {
+   "hoja": 5,
+   "ok": [
+    1104,
+    1129,
+    1163,
+    604,
+    643,
+    681,
+    696,
+    685,
+    674,
+    626,
+    694,
+    608,
+    612,
+    631,
+    598,
+    607,
+    629,
+    646,
+    660
+   ],
+   "f": [
+    "la 13 (#610)"
+   ],
+   "d": [
+    "la 6 (#681): el monitor sale por detrás",
+    "la 8 (#685): los monitores salen de lado"
+   ]
+  },
+  {
+   "hoja": 6,
+   "ok": [
+    891,
+    737,
+    755,
+    765,
+    895,
+    877,
+    893,
+    896,
+    878,
+    710,
+    723,
+    797,
+    880,
+    897,
+    898,
+    899,
+    744,
+    724,
+    787
+   ],
+   "f": [
+    "la 14 (#810)"
+   ],
+   "d": []
+  },
+  {
+   "hoja": 7,
+   "ok": [
+    839,
+    752,
+    800,
+    812,
+    845,
+    707,
+    811,
+    1081,
+    1080,
+    672,
+    720,
+    779,
+    805,
+    856,
+    778,
+    742,
+    803,
+    704,
+    713,
+    725
+   ],
+   "f": [],
+   "d": []
+  },
+  {
+   "hoja": 8,
+   "ok": [
+    748,
+    798,
+    809,
+    883,
+    788,
+    727,
+    818,
+    820,
+    840,
+    885,
+    554,
+    715,
+    722,
+    741,
+    614,
+    658,
+    638,
+    624,
+    600,
+    1031
+   ],
+   "f": [],
+   "d": []
+  },
+  {
+   "hoja": 9,
+   "ok": [
+    1062,
+    1020,
+    1055,
+    1027,
+    1047,
+    1057,
+    1030,
+    1042,
+    1033,
+    1023,
+    1037,
+    1029,
+    1017,
+    1028,
+    992,
+    910,
+    1000,
+    1007,
+    634
+   ],
+   "f": [
+    "la 6 (#1049)"
+   ],
+   "d": []
+  },
+  {
+   "hoja": 10,
+   "ok": [
+    915,
+    938,
+    1009,
+    1013,
+    909,
+    954,
+    982,
+    1010,
+    1012,
+    946,
+    965,
+    986,
+    912,
+    975,
+    1004,
+    956,
+    967,
+    976,
+    925,
+    688
+   ],
+   "f": [],
+   "d": [
+    "la 16 (#956): trae un circulito con otra foto dentro"
+   ]
+  },
+  {
+   "hoja": 11,
+   "ok": [
+    599,
+    606,
+    943,
+    1005,
+    955,
+    953,
+    996,
+    636,
+    1162,
+    1166,
+    700,
+    952,
+    990,
+    993,
+    603,
+    743,
+    828,
+    960,
+    1092
+   ],
+   "f": [
+    "la 8 (#998)"
+   ],
+   "d": []
+  },
+  {
+   "hoja": 12,
+   "ok": [
+    1117,
+    1169,
+    621,
+    850,
+    611,
+    671,
+    773,
+    775,
+    900,
+    924,
+    968,
+    637,
+    670,
+    735,
+    866,
+    615,
+    736,
+    1076
+   ],
+   "f": [
+    "la 14 (#792)",
+    "la 15 (#961)"
+   ],
+   "d": [
+    "la 11 (#968): pistola de juguete muy realista: ¿se vende en Cuba sin problema?",
+    "la 12 (#637): la foto es muy pobre (un cable pequeño)"
+   ]
+  },
+  {
+   "hoja": 13,
+   "ok": [
+    1096,
+    1138,
+    780,
+    796,
+    1093,
+    657,
+    1215,
+    1137,
+    667,
+    665,
+    1174,
+    1118,
+    1198,
+    1211,
+    1187,
+    1121,
+    1194,
+    1183,
+    1188
+   ],
+   "f": [
+    "la 7 (#991)"
+   ],
+   "d": []
+  }
+ ]
+}

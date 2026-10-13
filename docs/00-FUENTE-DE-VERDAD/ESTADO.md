@@ -314,6 +314,9 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
   - **Pendiente de raíz:** «Diseños y colores» debe añadir la opción al padre.
   - **Set de alfombras de baño (177):** color azul (variación 2965, 3 u, 15 USD). Se vendieron 2 en el #2966.
 - **Digital Store (Kevin):** catálogo de 682 artículos importado a la bolsa (`/root/archivos/digital-store-catalogo-2026-10-12.json`).
+  - **Fotos y fichas a escala (12-oct, 21:50–23:30, 2,40 USD de OpenAI):** 269 listos (fotos 1200×1200 blancas en Storage + título y descripción nuevos), 412 bloqueados por falta de foto. **Nada publicado.** Informe: `docs/nexo-business/fotos-productos/INFORME-ESCALA.md`.
+  - **Revisión de Claude de las 13 hojas (23:50):** quité 13 por foto mala (texto o logo encima, collage, laptop vista por debajo, base en vez de consola, «Celular» que son gafas VR): 605, 610, 616, 686, 792, 810, 890, 904, 961, 991, 998, 1002, 1049. En Supabase quedan `photos_ok=false` con `photos_quality.bloqueado`. **Quedan 247 para aprobar.** 7 dudosos marcados para Ernesto (562, 530, 681, 685, 956, 637 y 968, la pistola de juguete realista). Lista: `fotos-productos/hojas/revision.json`.
+  - **Publicar:** cuando Ernesto diga «ok hoja N» en el chat de Claude → en el VPS `cd /root/vivabot && node scripts/fotos-bolsa/publicar-hoja.mjs --hoja N [--quitar a,b] --ok`. Hace lo mismo que APRUEBA en el «Tú», sin mensajes ni temporizadores. Sin `--ok` solo mira; se niega con lo que no esté en las hojas revisadas. Prueba en seco: 247 listos, 0 problemas. **Publica visible** en «Bajo pedido». Registro: `/root/archivos/fotos-bolsa/publicados.jsonl`.
 - **Redes:**
   - **Reel:** «Se fue la corriente» (`videos/curru-tienda/reel-apagon/casa-viva-reel-apagon.mp4`, unos 118 créditos).
   - **Historias:** 5, rehechas con el manual de marca y sin tapar caras.
