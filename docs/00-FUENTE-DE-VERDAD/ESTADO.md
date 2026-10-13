@@ -709,6 +709,14 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
   - Están en `videos/curru-tienda/redes/GUIA-REDES.md`, junto con las mejores prácticas 2026 con fuentes y el plan «Cómo moverlo sin hacer spam», y en las Lecciones de la skill `reel-casa-viva`.
   - Herramienta para la portada: `redes/portada.mjs`.
 - **Portada del reel de ayer:** `videos/curru-tienda/reel-apagon/portada-v2.jpg`, con «¿Cuántas horas sin corriente llevas hoy?».
+- **v2 del reel, 18:33.** A Ernesto le gustó la v1 y pidió más movimiento, música y efectos sin gastar. Costó 0 créditos.
+  - **Archivos:** `casa-viva-reel-funda-v2.mp4` (12,0 s, 12,7 MB) y `-v2-fb.mp4` (6,5 MB).
+  - **Movimiento:** 2 acercamientos rápidos a la cara en los primeros 2,5 s, hechos con HyperFrames (proyecto `reel-funda/hf/`). Destello crema suave en los 4 cortes.
+  - **Música:** son cubano propio, sintetizado con `musica.mjs`. Va unos 19 dB por debajo de la voz y baja más cuando hablan.
+  - **Efectos:** pop, click y whoosh de la biblioteca de Pixabay, de uso comercial libre.
+  - **Revisado:** Whisper exacto, −14 LUFS y fotogramas.
+  - El servicio de música de pago tiene 0 créditos y Higgsfield no hace música suelta: por eso la música es propia.
+- **Regla de Ernesto, 18:35:** ningún aviso de IA en el texto ni en pantalla. Está en GUIA-REDES y en la skill.
 
 **Cúrru ya no tapa la web y auditoría de cliente en el teléfono (Core 3.13.84–86, en vivo 17:59–18:12, commit Casa-Viva `b0849ee`).**
 - **Por qué:** Ernesto, 17:22: «Cúrru está metida en el medio en muchas pantallas, corregir eso y auditar lo que no funcione para el cliente».
