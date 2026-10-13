@@ -295,8 +295,8 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
       - Lo pidió Lennys; el bot ya lo sabe (conocimiento #167, y #172 para la transferencia en CUP a la tarjeta del mensajero).
     - **Precio de armado por producto:** Lennys mandará la lista. El vale debe avisar al mensajero (herramientas y cuánto cobrar). Las respuestas #115 y #116 ya no dicen «3.000 CUP fijo»; ahora dicen que depende del mueble.
     - **Recogidas sin recoger:**
-      - **#2936:** tendedero rosa, venta directa, desde el 11-oct. Cancelarlo necesita el SÍ de Ernesto o de Lennys.
-      - **#2926:** árbol de navidad, gestora Daymee. Se le preguntó a ella.
+      - **#2936:** CANCELADO (21:49, SÍ de Ernesto); el tendedero rosa vuelve al stock (2).
+      - **#2926:** CANCELADO (23:07, lo pidió Daymee y Ernesto dio el SÍ); árbol de navidad, el stock vuelve a 20 y la comisión queda anulada. **El 13-oct temprano avisar a Daymee y a Nana** (no se les escribió de noche).
       - **Regla propuesta:** aviso a las 24 h y cancelación sola a las 48 h. Es idea de Nana; falta el SÍ.
     - **Teléfono opcional en las recogidas:** idea de Dany. Ojo, el teléfono sirve para saber de qué gestora es el cliente.
     - **Arreglos del bot:**
