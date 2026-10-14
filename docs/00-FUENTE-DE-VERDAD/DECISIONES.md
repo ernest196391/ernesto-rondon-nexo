@@ -269,3 +269,19 @@ Ampliación D30 (2026-10-07): el flujo de **Devolución** ya existe en `/ventas/
 - **Reparto de la ganancia** (45 − 32 = 13 USD, menos los 1.000 CUP del proveedor): comisión de la gestora (Nadielys 5,20 USD); **500 CUP para la dependienta por cada artículo vendido así**; **2.500 CUP para la tienda Casa Viva**; **el resto, para Ernesto**, apuntado como **«comisión de gestor especial»**.
 - Por qué no lo lleva el mensajero del proveedor directo al cliente: sus tarifas a zonas lejanas (Bauta) son más caras que las nuestras.
 - **Pendiente (Ernesto quiere automatizarlo):** que el bot haga el vale en la app del proveedor, lea sus tarifas por local y avise a la dependienta y al mensajero sin que Ernesto entre a la app. Hoy el motor de bajo pedido (D47) da por hecho que el proveedor lo lleva al cliente («lleva»): falta el modo «pasa por la tienda».
+
+**D67 · 2026-10-14 · La dirección de la tienda, solo en la web principal; en la tienda de la gestora, nada de Casa Viva que le salte (Ernesto 12:50; motivo de Thaly). Core 3.14.9 EN VIVO.**
+- Con el enlace de una gestora, su cliente no ve la dirección de Casa Viva, ni horario, ni mapa, ni el WhatsApp de Casa Viva, ni «Vende con nosotros». La web sin enlace sigue con todo.
+- La recogida sigue existiendo: «Recogida: <gestora> te dice dónde y cuándo recogerlo». No se inventa otra dirección.
+- La gestora mirando su propia tienda (con su sesión) sigue viéndolo todo. Lo dudoso (pestañas del equipo en Mi cuenta, páginas sueltas, textos del bot) queda para Ernesto (ESTADO 14-oct).
+- **Ampliado (Ernesto dijo SÍ, 14-oct ~13:00; Core 3.14.10/3.14.11 + VivaBot `e98481d`):** con enlace de gestora, Mi cuenta sin pestañas del equipo y el menú sin «Entrar»; «Cómo llegar a la tienda» → «Cómo recoger tu pedido». La marca Casa Viva se queda. En el bot, los pedidos de gestora dicen «Listo para recoger: tu gestora te dice dónde» y «A pagar al recogerlo» (los mensajes internos siguen con la dirección). Si el cliente de una gestora escribe directo a Casa Viva, el bot le atiende amable, sin dirección ni precios, y le pasa con su gestora (nombre + WhatsApp).
+
+
+**D68 · 2026-10-14 · Regla de precio de Casa Viva: costo × 1,5 con mínimo, redondeado al dólar entero (Lennys 13:41, «la 2, la del medio»; Ernesto SÍ para programarla y publicarla). Panel EN VIVO.**
+- **Precio sugerido** = costo (compra + transporte) × 1,5, **nunca por debajo del mínimo** = costo + gastos fijos por unidad + comisión + máx(10 % del precio, 1 USD) (D59), **redondeado hacia arriba al dólar entero** (59,50 → 60; 21,75 → 22).
+- **Comisión** (si el producto no tiene una propia): regla de Lennys, < 10 USD → 10 % o 1 USD, máx. 2; desde 10 USD → 10 % redondeado al entero (21→2, 45→5, 48→5).
+- **Aviso en la ficha:** rojo «Pierde dinero» (queda < 0 tras costo, comisión y gastos fijos) · ámbar «Bajo el mínimo» (no pierde, pero no llega al mínimo) · verde «✓ Bien». «Bajo el mínimo» no es «pierde».
+- **Nada cambia solo:** el panel sugiere; Lennys pone el precio en «Precio USD» y guarda.
+- **Ejemplos comprobados:** Topper gel 32 → 48 · Almohada 14 → 21 · Almohada 14,50 → 22 · Edulcorante 5 (com. 1) → 9 · Kit skincare 10 → 15.
+- **La fórmula del 10-oct (margen 30 %)** sigue en el código: `settings.pricing_rule = "formula"` la vuelve a usar. El aviso diario de la web (D64) no cambia.
+- **Elegida tras la prueba:** su Excel cumple × 1,5 de media (mediana 1,52 en 72 productos con costo real; solo 17 exactos, 24 por debajo, 31 por encima). En lo barato el × 1,5 no paga los gastos fijos (edulcorante a 7,50 perdería): por eso «con mínimo».

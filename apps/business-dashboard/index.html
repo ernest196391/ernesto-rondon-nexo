@@ -2504,9 +2504,34 @@ function previewCost({ amount, rate, freight, commission, staffPct }, priceUsd) 
   const step = Number(s.rounding);
   const suggested = divisor > 0 ? Math.ceil((total + comm) / divisor / step - 1e-9) * step : null;
   const profit = priceUsd != null ? priceUsd - total - comm - priceUsd * pct / 100 : null;
-  return { purchase, freight, fixed, contingency: total - landed - fixed, total, comm, staff,
+  const out = { purchase, freight, fixed, contingency: total - landed - fixed, total, comm, staff,
     staffUsd: (priceUsd ?? 0) * staff / 100, otherUsd: (priceUsd ?? 0) * Number(s.other_pct) / 100,
     suggested, profit, margin: priceUsd ? 100 * profit / priceUsd : null };
+  if (pricingRule() !== "x1_5") return out;
+  // D68 (Lennys, 14-oct): costo × 1,5, nunca por debajo del mínimo, redondeado arriba al dólar entero.
+  const sug = lennysPrice(landed, fixed, commission);
+  const commNow = commission ?? lennysCommission(priceUsd ?? sug.price);
+  const clean = priceUsd != null ? priceUsd - landed - commNow - fixed : null;
+  return { ...out, rule: "x1_5", landed, suggested: sug.price, suggestedComm: sug.comm, min: sug.min, comm: commNow, clean };
+}
+
+// Regla de precio: «x1_5» (D68, por defecto) o «formula» (la del 10-oct: margen objetivo). Volver: settings.pricing_rule = "formula".
+const pricingRule = () => costSheet?.settings?.pricing_rule || "x1_5";
+// Comisión de Lennys (D64): < 10 USD → 10 % o 1 USD, como mucho 2; desde 10 USD → 10 % redondeado al entero (21→2, 45→5).
+function lennysCommission(price) {
+  if (!(price > 0)) return 0;
+  return price < 10 ? Math.min(2, Math.max(1, price * 0.1)) : Math.max(1, Math.round(price * 0.1));
+}
+// Mínimo = costo + gastos fijos por unidad + comisión + máx(10 % del precio, 1 USD) (D59). Precio en dólares enteros.
+function lennysPrice(landed, fixed, commission) {
+  let price = Math.ceil(landed * 1.5 - 1e-9), comm = 0, min = 0;
+  for (let i = 0; i < 5; i++) {
+    comm = commission ?? lennysCommission(price);
+    min = landed + fixed + comm + Math.max(price * 0.1, 1);
+    if (price >= min - 1e-9) break;
+    price = Math.ceil(min - 1e-9);
+  }
+  return { price, comm, min };
 }
 
 function marginBadge(m) {
@@ -2520,6 +2545,19 @@ function breakdown(c, priceUsd) {
   const line = (label, value, cls = "") => '<div class="kv ' + cls + '"><span>' + esc(label) + '</span><span class="num">' + value + "</span></div>";
   const split = s.split_gestor_pct != null && c.comm > 0
     ? '<p class="t-xs muted">Producto extra de clienta de gestora: gestora ' + dollars(c.comm * s.split_gestor_pct / 100) + " · negocio " + dollars(c.comm * s.split_business_pct / 100) + " · dependienta " + dollars(c.comm * s.split_staff_pct / 100) + "</p>" : "";
+  if (c.rule === "x1_5") {
+    // D68: lo que queda limpio = precio − costo − comisión − gastos fijos por unidad. «Bajo el mínimo» no es «pierde».
+    return '<div class="breakdown">'
+      + line("Costo (compra + transporte)", dollars(c.landed))
+      + line("Gastos fijos por unidad", dollars(c.fixed))
+      + line("Comisión gestora", dollars(c.comm))
+      + line("Mínimo (no vender por debajo)", dollars(c.min))
+      + '<div class="verdict">'
+      + '<div><span>Sugerido (costo × 1,5, con mínimo)</span><b class="num">' + dollars(c.suggested) + "</b></div>"
+      + '<div><span>Precio actual</span><b class="num">' + dollars(priceUsd) + "</b></div>"
+      + (priceUsd != null ? '<div><span>Queda limpio por unidad</span><b class="num">' + dollars(c.clean) + "</b>" + priceVerdict(c, priceUsd) + "</div>" : "")
+      + "</div>" + split + "</div>";
+  }
   return '<div class="breakdown">'
     + line("Compra", dollars(c.purchase)) + line("Flete", dollars(c.freight))
     + line("Gastos fijos por unidad", dollars(c.fixed)) + line("Imprevistos " + pct1(s.contingency_pct), dollars(c.contingency))
@@ -2533,13 +2571,30 @@ function breakdown(c, priceUsd) {
     + "</div>" + split + "</div>";
 }
 
+// Etiqueta de la ficha: con la regla D68, «No pierde» / «Pierde dinero»; con la fórmula, el margen de siempre.
+function costBadge(p, row) {
+  if (pricingRule() !== "x1_5" || !row.cost) return marginBadge(row.calc.marginPct);
+  const k = row.cost, own = commOf(p.product_id);
+  const price = p.prices?.USD != null ? p.prices.USD / 100 : null;
+  const c = previewCost({ amount: Number(k.purchaseAmount), rate: k.purchaseCurrency === "USD" ? 1 : Number(k.purchaseRate), freight: Number(k.freightUsd) || 0,
+    commission: own === "" || own == null ? null : Number(own), staffPct: null }, price);
+  return c.clean == null ? "" : priceVerdict(c, price);
+}
+// Rojo = pierde de verdad (queda < 0) · ámbar = no pierde pero está bajo el mínimo · verde = bien.
+function priceVerdict(c, price) {
+  if (c.clean < 0) return '<span class="badge badge-out">Pierde dinero</span>';
+  const minAtPrice = c.landed + c.fixed + c.comm + Math.max(price * 0.1, 1); // mínimo con el precio de hoy (D59)
+  if (price < minAtPrice - 0.005) return '<span class="badge badge-low">Bajo el mínimo</span>';
+  return '<span class="badge badge-ok">✓ Bien</span>';
+}
+
 // Cost part of the product sheet: its own form, saved apart from the catalog.
 function costSection(p) {
   const row = costOf(p.product_id);
   const k = row?.cost;
   const s = costSheet.settings;
   return '<form class="form cost-form" data-cost>'
-    + '<div class="kv"><h3 class="t-lg">Costo y ganancia</h3>' + (row?.calc ? marginBadge(row.calc.marginPct) : '<span class="badge badge-calm">Sin costo</span>') + "</div>"
+    + '<div class="kv"><h3 class="t-lg">Costo y ganancia</h3>' + (row?.calc ? costBadge(p, row) : '<span class="badge badge-calm">Sin costo</span>') + "</div>"
     + '<div class="grid-2"><label class="field">Precio de compra<input name="amount" inputmode="decimal" required placeholder="0,00" value="' + esc(k?.purchaseAmount ?? "") + '"></label>'
     + '<label class="field">Moneda<select name="currency">' + COST_CURRENCIES.map(c => '<option' + ((k?.purchaseCurrency ?? "USD") === c ? " selected" : "") + ">" + c + "</option>").join("") + "</select></label></div>"
     + '<label class="field" data-rate-field>Tasa de la compra<input name="rate" inputmode="decimal" value="' + esc(k && k.purchaseCurrency !== "USD" ? k.purchaseRate : "") + '"></label>'
@@ -2615,7 +2670,8 @@ function wireCostSection(sheetEl, p) {
   const render = update;
   update = () => {
     render();
-    const c = !dirty && saved(costOf(p.product_id));
+    // Con la regla D68 manda la cuenta de aquí (la de la nube es la fórmula del 10-oct).
+    const c = !dirty && pricingRule() !== "x1_5" && saved(costOf(p.product_id));
     if (c) form.querySelector("[data-breakdown]").innerHTML = breakdown(c, priceUsd);
   };
   form.oninput = () => { dirty = true; update(); };
