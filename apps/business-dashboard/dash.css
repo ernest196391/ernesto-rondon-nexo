@@ -138,7 +138,7 @@ body { background: #F6F1E6; }
 .nx .verdict > div { background: var(--nx-surface); border-radius: var(--nx-r-sm, 8px); padding: var(--nx-s2); display: flex; flex-direction: column; gap: 2px; min-width: 0; }
 .nx .verdict span { font-size: var(--nx-fs-xs, 12px); color: var(--nx-text-2); }
 .nx .verdict b { font-size: var(--nx-fs-lg); color: var(--nx-accent); }
-.nx .verdict .badge { align-self: flex-start; }
+.nx .verdict .badge { align-self: flex-start; white-space: normal; max-width: 100%; } /* «Bajo el mínimo» no se sale del recuadro en el móvil (D68) */
 .nx .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--nx-s2); }
 .nx .grid-3 input { min-width: 0; }
 .nx .row-item.dim { opacity: .55; }
