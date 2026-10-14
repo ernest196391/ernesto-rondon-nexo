@@ -98,3 +98,19 @@ Lo pidió Ernesto el 13-oct a las 22:20: «pensar en todos los errores que comet
 - El resumen pone «Pedidos de la web» aparte de la caja y quita las líneas internas.
 - Armado según lo que decidió Lennys, y productos movidos a su departamento.
 - Hoja de conteo de los 153 escondidos y propuesta de «tienda o proveedor» para los 471 publicados.
+
+## 6. Para Lennys (de la noche del 13-oct, Core 3.13.96)
+- **Confirmar precios del armado:**
+  - soporte de TV a 5 USD (el aviso de llevar taladro ya sale en el vale);
+  - árbol a 3 USD;
+  - puerta corredera a 10 USD.
+- **Departamentos con duda,** en `docs/productos/departamentos-dudosos-2026-10-13.md`:
+  - puerta corredera en Ferretería;
+  - tablas de planchar;
+  - azulejo;
+  - carretón;
+  - ventiladores F6;
+  - secadora de pelo;
+  - ¿crear un departamento de Juguetes?
+- Se movieron 18 productos. La lista para deshacer está en `docs/productos/departamentos-movidos-2026-10-13.csv`.
+- **Ojo:** el panel de la caja guarda una sola categoría por producto. Hay que cambiarla también allí; si no, al guardar desde el panel vuelve la vieja.
