@@ -47,6 +47,15 @@ Ernesto le pidió probarla a las 14:01; Claude la sigue y la guía como si fuera
 12. **16:05–16:11 — Lennys (user 14, admin + gestora aprobada) lo prueba** (Ernesto lo pidió; `cvd_estudio_usuarios` = «18,33,14»). Guía de 5 pasos + 3 trucos (VPN solo para Gemini, elegir producto antes, lo lento es subir). **Lo hizo SOLA de punta a punta**: instrucción 16:07, subida 16:11 (627 KB, 200), «Poner en mi tienda» 16:11 → Alfombra de Sala estilo Persa con su foto en su tienda. Al principio mandó el enlace del chat de Gemini en vez de la foto → la guía debe decir «descarga la FOTO, no compartas el chat».
 13. **Dato (16:15) para Dany:** en la web, 31 productos con colores tienen colores sin foto propia (97 de 220; 86 con existencias). Peores: Set de 2 alfombras (8), Alfombra Bienvenido (7), Fundas Majestic (6), Alfombra con piecitos (5).
 
+14. **18:40 — Core 3.14.16 EN VIVO** (Casa-Viva `11e99f7`, copia `~/bak-20261014-cvd-3.14.14-antes-3.14.16/`; se saltó 3.14.15 porque otra sesión la tiene preparada en `cv-errores`). Arregla lo visto hoy:
+   - **Recuerda el producto, la idea, el color y el texto** en el móvil (7 días, por gestora). Al ir a Gemini el móvil suele recargar la página: al volver todo sigue elegido y «Subir mi foto de Gemini» la guarda con su producto (causa probable del «sin producto» de Dany).
+   - **«Elegir producto» en las fotos sin producto de la galería** (y «Cambiar producto» en las demás), sin volver a subirla; ruta nueva `POST gestora/estudio/foto-producto`. Si se sube sin producto, el buscador se abre solo en esa foto y sugiere el último producto elegido.
+   - **Textos:** paso 3 «Gemini en Cuba necesita VPN. Enciéndela solo para Gemini.»; encima de «Subir mi foto de Gemini»: «descarga la FOTO (no compartas el chat ni el enlace)» y «Gemini en Cuba necesita VPN; apágala para subir aquí».
+   - Probado: la ruta nueva en el servidor con la cuenta de prueba 45 (producto bueno, producto malo, foto inexistente, color que no existe; galería dejada como estaba); la pantalla nueva pintada como la cuenta 45 y probada en el navegador integrado con el servidor simulado (elegir producto en una foto, recordar tras recargar, subir con y sin producto, ancho de móvil); en vivo: versión 3.14.16, ruta registrada (401 sin sesión), home/tienda 200, textos nuevos en la pantalla de Dany. **Falta verla usada por una gestora** (DESARROLLADO + INSTALADO, no VERIFICADO EN OPERACIÓN).
+   - **El registro temporal `wp-content/mu-plugins/cvd-estudio-log.php` SIGUE PUESTO** (Dayra prueba mañana). Quitarlo cuando acabe su prueba.
+
 ## Pendiente
+- **Quitar `wp-content/mu-plugins/cvd-estudio-log.php`** (y `wp-content/uploads/cvd-estudio-log/`) después de la prueba de Dayra del 15-oct.
+- Ver a Dany o Dayra usar «Elegir producto» y el producto recordado (3.14.16).
 - Resultado de Dany con VPN (¿abre?, ¿deja adjuntar la foto y pegar la instrucción?, ¿la foto sale fiel?, ¿se sube bien con «Subir mi foto de Gemini»?).
 - Fotos de Nana → a Dany y a las variaciones 2798/2799/2965 en la web.
