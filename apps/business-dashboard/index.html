@@ -172,7 +172,7 @@
       <div class="seg" id="team-seg" role="group" aria-label="Personas">
         <button type="button" data-kind="web" aria-pressed="true">Gestoras</button>
         <button type="button" data-kind="messenger" aria-pressed="false">Mensajeros</button>
-        
+        <button type="button" data-kind="programa" aria-pressed="false">Programa</button>
         <button type="button" data-kind="staff" aria-pressed="false">Dependientas</button>
         <button type="button" data-kind="partner" aria-pressed="false">Socios</button>
       </div>
@@ -2448,6 +2448,60 @@ function renderWebPayouts(list) {
     catch (e) { b.disabled = false; toast(e.message, "bad"); }
   }));
 }
+// ---------- Programa de gestoras (D53–D58): red 2 % + 1 %, piedras por ganancia, fondo del 15 % ----------
+// Lo calcula Core (CVD_Programa) cada noche; aquí solo se lee el último cálculo del libro y se puede recalcular.
+const PROG_MODE = { sombra: ["En prueba: no se paga", "badge-low"], si: ["Activo: se paga", "badge-ok"], no: ["Apagado", "badge-calm"] };
+const PROG_STONE = { bronce: "Bronce", plata: "Plata", oro: "Oro", platino: "Platino", zafiro: "Zafiro", rubi: "Rubí", esmeralda: "Esmeralda", diamante: "Diamante", "doble-diamante": "Doble Diamante", corona: "Corona" };
+const PROG_ALERT = { autocompra: "Autocompra", concentracion: "Una persona con más del 60 %", sin_costo: "Producto sin costo", pierde: "Se vende perdiendo", devolucion: "Devolución", red_negativa: "Red en negativo" };
+const progCup = n => Number(n ?? 0).toLocaleString("es", { maximumFractionDigits: 0 }) + " CUP";
+const progPts = n => Number(n ?? 0).toLocaleString("es", { maximumFractionDigits: 1 });
+async function loadPrograma(recalc = false) {
+  $("#people").innerHTML = '<p class="muted">' + (recalc ? "Calculando con las ventas de este mes…" : "Cargando el programa…") + "</p>";
+  try {
+    const r = await panelWeb({ action: recalc ? "programa_calcular" : "programa" });
+    if (teamKind !== "programa" || page !== "equipo") return;
+    renderPrograma(r);
+  } catch (e) { if (teamKind === "programa") $("#people").innerHTML = '<p class="muted">' + esc(e.message) + "</p>"; }
+}
+function renderPrograma(r) {
+  const [modeLabel, modeCls] = PROG_MODE[r.mode] ?? [r.mode, ""];
+  const names = Object.fromEntries((r.people ?? []).map(p => [p.id, p.name]));
+  const t = r.totals;
+  const head = '<div class="kv"><h2 class="t-lg">Programa de gestoras</h2><span class="badge ' + modeCls + '">' + esc(modeLabel) + "</span></div>"
+    + '<p class="t-sm muted">Red 2 % + 1 %, piedras por la ganancia que dejan y bonos del fondo del 15 %. Se calcula cada noche; el interruptor está en la web (Casa Viva → Programa gestoras).</p>';
+  if (!r.run || !t) {
+    $("#people").innerHTML = head + '<p class="muted">Todavía no hay ningún cálculo.</p><button type="button" class="btn btn-primary btn-block" data-prog-calc>Calcular ahora</button>';
+  } else {
+    const alerts = r.alerts ?? [];
+    $("#people").innerHTML = head
+      + '<div class="kpis two"><div class="kpi"><span class="label">Fondo del mes (15 %)</span><span class="value num" style="font-size:var(--nx-fs-lg)">' + usd2(t.pool_usd) + '</span><span class="sub">de ' + usd2(t.profit_usd) + " de ganancia limpia</span></div>"
+      + '<div class="kpi"><span class="label">' + (r.mode === "si" ? "Se debe pagar" : "Se pagaría") + '</span><span class="value num" style="font-size:var(--nx-fs-lg)">' + usd2(t.pay_usd) + '</span><span class="sub">red ' + usd2(t.red_usd) + " · bonos " + progCup(t.bonus_cup) + (t.factor_bonus < 0.999 ? " (" + Math.round(100 * t.factor_bonus) + " % cubierto)" : "") + "</span></div></div>"
+      + '<p class="t-xs muted">' + esc(r.run.period + " · cálculo " + r.run.kind + " · " + when(r.run.computedAt) + " · ventas que cuentan " + usd2(t.sales_usd) + " · " + t.people_with_stone + " con piedra este mes") + "</p>"
+      + (alerts.length ? '<h3 class="t-sm" style="margin-top:12px">Alertas (' + alerts.length + ")</h3>" + alerts.slice(0, 30).map(a => '<div class="row-item"><span class="grow"><span class="title">' + esc(PROG_ALERT[a.type] ?? a.type) + '</span><span class="meta">' + esc(a.text) + "</span></span></div>").join("") : "")
+      + '<h3 class="t-sm" style="margin-top:12px">Gestoras</h3>'
+      + ((r.people ?? []).length ? r.people.map(p => '<div class="row-item"><button type="button" class="row-btn" data-progid="' + p.id + '"><span class="grow">'
+        + '<span class="title">' + esc(p.name) + "</span>"
+        + '<span class="meta">' + esc((PROG_STONE[p.stone] ?? "Sin piedra este mes") + (p.title && p.title !== p.stone ? " · título " + (PROG_STONE[p.title] ?? p.title) : "") + " · " + progPts(p.teamPoints) + " puntos del equipo" + (p.inviter ? " · invitada por " + (names[p.inviter] ?? "#" + p.inviter) : "")) + "</span>"
+        + '<span class="meta">Red ' + usd2(p.redPay) + " · Bono " + progCup(p.bonusPayCup) + (p.redLost ? " · pierde " + usd2(p.redLost) : "") + "</span></span>"
+        + (p.level1 ? '<span class="badge badge-calm">' + p.level1 + (p.level1 === 1 ? " invitada" : " invitadas") + "</span>" : "") + "</button></div>").join("") : '<p class="muted">Nadie con ventas cobradas este mes.</p>')
+      + '<button type="button" class="btn btn-secondary btn-block" style="margin-top:12px" data-prog-calc>Recalcular ahora</button>'
+      + '<p class="t-xs muted">Libro: cada cálculo queda guardado con su huella ' + esc((r.run.sha256 ?? "").slice(0, 12)) + "… Los cierres de mes no se rehacen.</p>";
+    document.querySelectorAll("#people [data-progid]").forEach(b => (b.onclick = () => showProgPerson(r.people.find(x => String(x.id) === b.dataset.progid), names, r.mode)));
+  }
+  document.querySelectorAll("#people [data-prog-calc]").forEach(b => (b.onclick = () => loadPrograma(true)));
+}
+function showProgPerson(p, names, mode) {
+  const kv = (k, v) => '<div class="kv"><span>' + esc(k) + "</span><span>" + esc(v) + "</span></div>";
+  openSheet('<div class="sheet-head"><h2>' + esc(p.name) + '</h2><button type="button" class="btn btn-ghost" data-close>Cerrar</button></div>'
+    + (mode === "si" ? "" : '<p class="t-sm muted">En prueba: así se calcularía; todavía no se paga.</p>')
+    + kv("Piedra este mes", PROG_STONE[p.stone] ?? "Sin piedra") + kv("Título", PROG_STONE[p.title] ?? "—")
+    + kv("Puntos propios", progPts(p.ownPoints) + " (" + usd2(p.ownSales) + ", " + p.ownOrders + " pedidos)") + kv("Puntos del equipo", progPts(p.teamPoints))
+    + kv("Invitada por", p.inviter ? (names[p.inviter] ?? "#" + p.inviter) : "—") + kv("Invitadas", p.level1 + " (+ " + p.level2 + " de 2.º nivel)")
+    + kv("Red ganada", usd2(p.red)) + (p.redLost ? kv("Red que pierde", usd2(p.redLost) + " · " + p.redLostReason) : "")
+    + kv("Fondo de su equipo (15 %)", usd2(p.fund)) + kv("Red a pagar", usd2(p.redPay))
+    + kv("Bono", progCup(p.bonusPayCup) + (p.bonusCup && p.coverage < 0.999 ? " de " + progCup(p.bonusCup) + " (" + Math.round(100 * p.coverage) + " %)" : "")),
+    "Programa · " + p.name);
+}
 async function loadPeople() {
   const { data, error } = await supabase.rpc("nexo_business_people", { p_business: bizId() });
   if (error || data?.error) { toast("No se pudo cargar el equipo", "bad"); return null; }
@@ -2483,7 +2537,8 @@ async function loadTeam() {
 
 function renderPeople() {
   // Las gestoras se registran en la web: allí no se añaden a mano.
-  $("#new-person").hidden = teamKind === "web" || teamKind === "messenger";
+  $("#new-person").hidden = teamKind === "web" || teamKind === "messenger" || teamKind === "programa";
+  if (teamKind === "programa") return void loadPrograma();
   if (teamKind === "web") return void loadWebGestoras();
   if (teamKind === "messenger") return void loadMessengers();
   const list = (peopleCache ?? []).filter(p => p.kind === teamKind);
