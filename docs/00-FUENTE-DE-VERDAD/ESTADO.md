@@ -56,7 +56,7 @@ Estados: **FOCO** (se trabaja ahora) · **ACTIVO** (funciona, solo mantenimiento
 | **Cuadre** | Contabilidad para operadores de remesas | PAUSADO | Repo `cuadre`, Vercel `cuadre`, Supabase `gestor-remesas` (**inactivo**) | Pausado hasta que haya un operador que pague. La lógica de caja y comisiones de NEXO Business puede servir de base |
 | **Luz Propia** (antes "NEXO Energía") | Diagnóstico, venta e instalación solar | PAUSADO | Vercel `nexo-energia` (`nexo-energia-seven.vercel.app`) | Nombre aceptado 2026-10-05. Vive en `luzpropia.nexocuba.com` (sin comprar dominio) |
 | **JRG Electronics** | Instalación solar y eléctrica (cliente; **negocio aparte de Luz Propia**) | ACTIVO | Vercel `jrg-electronics` | Mantener. Su catálogo de equipos y el de energía deben salir de un mismo catálogo |
-| **Abuela Nena** (influencer IA de Ernesto Padre) | Redes de bienestar para el negocio de afiliado de Ernesto Padre (Vital Health Global). Cada día 1 video y 5 historias, que Ernesto aprueba antes de publicar | EN MARCHA (2026-10-12) | `docs/clientes/abuela-nena/` (FICHA, banco-fotos, voz, videos, **fabrica/**). Skill `/nena-hoy`. Tarea programada "Abuela Nena · contenido del día" (todos los días 6:11, botón "Ejecutar ahora"). Higgsfield: hoja `6675bdc5…`, voz 1 `fad0032c…` | Hecho (12-oct): ficha, cara, voz, banco de 22 fotos, **día 1** (video + 5 historias) entregado; **fábrica** `fabrica.py N` (subtítulos palabra a palabra con Whisper local, una foto por frase, música y silbato, check de HyperFrames, MP4 ligeros) + `verificar_voz.py` + `calendario.json` días 2–8 (una costumbre por día) + `estado.json`. Coste por día ~4–5 créditos (foto 2 + voz 2,3). **Prueba de punta a punta OK con el día 2** (foto N18 + voz 98 % Whisper + fábrica + `enviar.py` → WhatsApp "Tú" #708–#714 aceptados; 4,2 créditos exactos; saldo 1.035,4). Falta que Ernesto confirme que le llegaron como video. Decisión de Ernesto: sin "personaje IA" ni "Escríbele a Ernesto" en pantalla (CTA en la descripción); aviso de IA en la bio + etiqueta de Meta. **Siguiente:** que Ernesto pulse "Ejecutar ahora" una vez para aprobar permisos; que Ernesto Padre cree sus cuentas IG/FB (no las crea Claude) → luego publicación automática con la app de Meta. Publicar al padre: `/nena-hoy publica N`. |
+| **Abuela Nena** (influencer IA de Ernesto Padre) | Redes de bienestar para el negocio de afiliado de Ernesto Padre (Vital Health Global). Cada día 1 video y 5 historias, que Ernesto aprueba antes de publicar | **EN PAUSA (2026-10-13, Ernesto: hasta que dé dinero o sea casi gratis)**. Tarea programada desactivada. Día 1 enviado a Ernesto Padre (#885–#891) + datos del casillero Panavana (#892) | `docs/clientes/abuela-nena/` (FICHA, banco-fotos, voz, videos, **fabrica/**). Skill `/nena-hoy`. Tarea programada "Abuela Nena · contenido del día" (todos los días 6:11, botón "Ejecutar ahora"). Higgsfield: hoja `6675bdc5…`, voz 1 `fad0032c…` | Hecho (12-oct): ficha, cara, voz, banco de 22 fotos, **día 1** (video + 5 historias) entregado; **fábrica** `fabrica.py N` (subtítulos palabra a palabra con Whisper local, una foto por frase, música y silbato, check de HyperFrames, MP4 ligeros) + `verificar_voz.py` + `calendario.json` días 2–8 (una costumbre por día) + `estado.json`. Coste por día ~4–5 créditos (foto 2 + voz 2,3). **Prueba de punta a punta OK con el día 2** (foto N18 + voz 98 % Whisper + fábrica + `enviar.py` → WhatsApp "Tú" #708–#714 aceptados; 4,2 créditos exactos; saldo 1.035,4). Falta que Ernesto confirme que le llegaron como video. Decisión de Ernesto: sin "personaje IA" ni "Escríbele a Ernesto" en pantalla (CTA en la descripción); aviso de IA en la bio + etiqueta de Meta. **Siguiente:** que Ernesto pulse "Ejecutar ahora" una vez para aprobar permisos; que Ernesto Padre cree sus cuentas IG/FB (no las crea Claude) → luego publicación automática con la app de Meta. Publicar al padre: `/nena-hoy publica N`. |
 
 ## D. Ideas en pausa
 
@@ -587,6 +587,26 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
 4. **Sergio:** ¿se pactó ya que se quede todo y nos pague solo nuestra parte? (está así en su ficha como «se puede pactar»).
 
 ### L5. Martes 13-oct tarde (Claude Code, sesión principal): enlaces de gestora, fotos por color y bienvenida corregida
+
+**Noche 13-oct (18:40–20:30), lo último:**
+- **Redes:**
+  - El reel del apagón v2 salió en Instagram a las 19:01 **sin** la línea de IA.
+  - El reel de las sábanas v2 salió a las **20:17** en Facebook e Instagram (enlaces en `redes/publicaciones.json`). Lo de las 20:00 no se pudo, porque la pestaña de Meta estaba detrás de otra.
+  - **Salió sin pie de foto:** Business Suite lo borra al volver al paso 1 con la pestaña en segundo plano. Ernesto lo pone desde el teléfono.
+  - **Al General**, ya como costumbre (GUIA-REDES 4b): #893 a las 19:06 y #899 a las 20:24.
+- **Resumen de las 20:00:**
+  - **Notas del día** en `/root/archivos/resumenes/notas-AAAA-MM-DD.json`. Las usa `resumen-noche.sh` si existen (copia `.bak-20261013`).
+  - **Orden de las secciones:** las nuevas van antes de «Mañana» (VivaBot `d0c1ba6`).
+  - **Envíos:** #895–#897.
+- **Auditoría (agente):** Core 3.13.88–3.13.94, ver D52 y `docs/productos/auditoria-cliente-2026-10-13.md`.
+  - **Probado por mí:** v3.13.94; `/tienda/` lleva a wa.me/5354056173 y con `?ref=CV36THALYHG0` a Thaly (5358412987); `/seguimiento/` responde 200.
+- **Estudio de historias:** boceto para el móvil en https://claude.ai/artifact/39iqtUztgVVoVJRCdVA1DC. Espera el sí de Ernesto.
+- **Lecciones de Business Suite con la pestaña en segundo plano:**
+  - Escribir con el teclado no llega al cuadro de texto.
+  - Pegar con un evento `paste` sí funciona.
+  - Al volver a un paso anterior se pierde el pie.
+  - «Recargar» no recarga si hay un borrador: primero hay que hacer «Cancelar» y «Descartar cambios».
+  - La miniatura no carga.
 
 **Enlace de la gestora (Core 3.13.79 y 3.13.80, en vivo, commits `f207f7c` y `558f9a0`).**
 - **El problema:** Thaly abría su enlace y el organizador con ruedas salía a 30 en vez de su precio de 35.

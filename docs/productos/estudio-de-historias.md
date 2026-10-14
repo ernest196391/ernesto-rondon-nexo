@@ -1,6 +1,6 @@
 # Estudio de historias (y herramientas gratis en el centro de control)
 
-**Idea de Ernesto, 13-oct-2026 11:55.** Etapa 1 hecha. Etapa 2: boceto en el chat, esperando su visto bueno.
+**Idea de Ernesto, 13-oct-2026 11:55.** Etapa 1 hecha. Etapa 2: boceto para el móvil en https://claude.ai/artifact/39iqtUztgVVoVJRCdVA1DC (13-oct 19:20: crear historia, la historia que sale y la lista de herramientas gratis y premium), esperando su visto bueno.
 
 | | |
 |---|---|

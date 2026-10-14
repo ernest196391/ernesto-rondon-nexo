@@ -1,17 +1,87 @@
 {
-  "nota": "Registro de cada publicación de Casa Viva en redes, para comparar horas y temas en la auditoría semanal. Hora de La Habana. Añadir una fila por publicación; las métricas las rellena la auditoría.",
-  "plan_de_horas": "Probar y rotar: reel a las 19:00 (antes del pico de 20-22 h de ETECSA), reel a las 6:00 (datos gratis de madrugada; el algoritmo lo indexa antes del día), reel a las 12:30 (almuerzo). Historias: 9:00 y 19:30. Mejores días según estudios: martes a jueves; peores: sábado y domingo.",
-  "publicaciones": [
-    {
-      "fecha": "2026-10-12", "hora": "15:25", "dia": "lunes", "red": "facebook", "tipo": "reel",
-      "pieza": "reel-apagon v1 «Se fue la corriente… otra vez»", "tema": "apagón / calor", "etiqueta_ia": true,
-      "texto": "3 trucos para el calor del apagón + pregunta a comentarios",
-      "metricas": null
+ "nota": "Registro de cada publicación de Casa Viva en redes, para comparar horas y temas en la auditoría semanal. Hora de La Habana. Añadir una fila por publicación; las métricas las rellena la auditoría.",
+ "plan_de_horas": "Probar y rotar: reel a las 19:00 (antes del pico de 20-22 h de ETECSA), reel a las 6:00 (datos gratis de madrugada; el algoritmo lo indexa antes del día), reel a las 12:30 (almuerzo). Historias: 9:00 y 19:30. Mejores días según estudios: martes a jueves; peores: sábado y domingo.",
+ "publicaciones": [
+  {
+   "fecha": "2026-10-12",
+   "hora": "15:25",
+   "dia": "lunes",
+   "red": "facebook",
+   "tipo": "reel",
+   "pieza": "reel-apagon v1 «Se fue la corriente… otra vez»",
+   "tema": "apagón / calor",
+   "etiqueta_ia": true,
+   "texto": "3 trucos para el calor del apagón + pregunta a comentarios",
+   "metricas": {
+    "leido": "2026-10-13 17:18 (captura de Ernesto, Facebook)",
+    "visualizaciones": 171,
+    "visualizaciones_3s": 72,
+    "retencion": {
+     "5s": "~75%",
+     "10s": "~60%",
+     "15s": "~55%",
+     "20s": "~30%",
+     "final": "~8%"
     },
-    {
-      "fecha": "2026-10-12", "hora": "15:28", "dia": "lunes", "red": "facebook", "tipo": "historias (5)",
-      "pieza": "historias 1-5 de Cúrru y Proskopellin", "tema": "día a día en la tienda", "etiqueta_ia": true,
-      "metricas": null
-    }
-  ]
+    "reacciones": 1,
+    "comentarios": 0,
+    "compartido": 0,
+    "guardado": 0,
+    "clics": 0,
+    "no_seguidores": "99%",
+    "publico": {
+     "mujeres": "66%",
+     "hombres": "33%",
+     "55-64": "30.8%",
+     "35-44": "22.9%",
+     "45-54": "20.5%",
+     "otro": "25.8%"
+    },
+    "leccion": "Solo el 42% pasó de 3 s: el gancho del primer segundo no basta. Hora mala (15:25). Público: mujeres de 35 a 64. Sin guardados ni compartidos: falta un premio que se quiera mandar a la familia."
+   }
+  },
+  {
+   "fecha": "2026-10-12",
+   "hora": "15:28",
+   "dia": "lunes",
+   "red": "facebook",
+   "tipo": "historias (5)",
+   "pieza": "historias 1-5 de Cúrru y Proskopellin",
+   "tema": "día a día en la tienda",
+   "etiqueta_ia": true,
+   "metricas": null
+  },
+  {
+   "fecha": "2026-10-13",
+   "hora": "19:01",
+   "dia": "martes",
+   "red": "instagram",
+   "tipo": "reel",
+   "pieza": "reel-apagon v2 con pregunta en pantalla (casa-viva-reel-apagon-v2-ig.mp4)",
+   "tema": "apagón / calor",
+   "etiqueta_ia": false,
+   "texto": "truco ventanas enfrentadas + ¿cuántas horas llevas sin corriente?",
+   "programado_por": "Claude en Meta Business Suite 18:22",
+   "metricas": null,
+   "nota": "Línea «creados con IA» quitada antes de publicar (regla de Ernesto 18:35). Al General: #893 19:06 (enlaces de perfil)."
+  },
+  {
+   "fecha": "2026-10-13",
+   "hora": "20:17",
+   "dia": "martes",
+   "red": "facebook+instagram (publicación cruzada)",
+   "tipo": "reel",
+   "pieza": "reel-funda v2 «¿Tus sábanas huelen a guardado?» (casa-viva-reel-funda-v2-fb.mp4: punch-in, música y efectos propios)",
+   "tema": "guardar sábanas / olor a guardado",
+   "etiqueta_ia": false,
+   "enlaces": {
+    "facebook": "https://www.facebook.com/reel/1658350709277141/",
+    "instagram": "https://www.instagram.com/reel/DedE-IXCPcB/"
+   },
+   "texto": "SALIÓ SIN PIE: Business Suite lo borró al volver al paso 1 con la pestaña en segundo plano; Ernesto lo pone desde el teléfono (texto en reel-funda/pie.txt). Sin portada propia (la miniatura no cargaba en segundo plano).",
+   "programado_por": "Claude, Business Suite, Compartir ahora 20:17 (la de las 20:00 no se pudo: pestaña detrás de otra)",
+   "al_general": "#899 20:24",
+   "metricas": null
+  }
+ ]
 }
