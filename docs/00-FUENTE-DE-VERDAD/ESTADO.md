@@ -588,6 +588,13 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
 
 ### L5. Martes 13-oct tarde (Claude Code, sesión principal): enlaces de gestora, fotos por color y bienvenida corregida
 
+**Resumen diario arreglado (VivaBot `db3eb59`, en el VPS):**
+- Dice «Pedidos de la web», con la línea «El dinero del día es el cierre de caja de la tienda».
+- Pruebas y cancelados fuera.
+- «Incidencias» y «Para decidir»: solo lo abierto de las últimas 48 h, como mucho 3 y en frases limpias.
+- Lennys solo ve decisiones y quejas.
+- **Pendiente:** cerrar las escalaciones viejas que siguen abiertas: #71 de Nana (gestor de los pedidos), fotos del catálogo y armado (ya los decidió Lennys), #2926 de Daymee y #79.
+
 **Inventario para el 14-oct (agente, commit `a1964f4`):** hoja `docs/nexo-business/entradas/conteos/conteo-escondidos-2026-10-14.xlsx` con los 153 escondidos (137 con existencias arriba; copia en el VPS en `/root/archivos/conteos/`), origen propuesto en `origen-propuesto-2026-10-14.csv` (201 de tienda, 261 de proveedor con categoría «Bajo pedido» y SKU `MK-`, 9 dudosos: colchones EDSM y Dawang) y `LEEME-2026-10-14.md` con 3 preguntas para Maryta. No se ha mandado nada a nadie. El cambio de existencias de 583 y 412 a las 21:59 fue la cancelación del #3668.
 
 **Noche 13-oct, 22:00–22:45:** pedido de prueba de Lennys #3668 cancelado (marcado como prueba; volvieron las existencias). **Core 3.13.95** (commit Casa-Viva `4e65fdc`): los productos «Privado» no salen en la web ni para administradores; probado como administrador: 471 publicados y 0 privados. Organizador de 2 niveles (2485) sin existencias porque está roto según el conteo de Maryta. Plan para empezar limpio, con los errores del día, el inventario y lo pendiente: `docs/nexo-business/plan-2026-10-14-empezar-limpio.md`.
