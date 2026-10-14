@@ -2452,7 +2452,7 @@ function renderWebPayouts(list) {
 // Lo calcula Core (CVD_Programa) cada noche; aquí solo se lee el último cálculo del libro y se puede recalcular.
 const PROG_MODE = { sombra: ["En prueba: no se paga", "badge-low"], si: ["Activo: se paga", "badge-ok"], no: ["Apagado", "badge-calm"] };
 const PROG_STONE = { bronce: "Bronce", plata: "Plata", oro: "Oro", platino: "Platino", zafiro: "Zafiro", rubi: "Rubí", esmeralda: "Esmeralda", diamante: "Diamante", "doble-diamante": "Doble Diamante", corona: "Corona" };
-const PROG_ALERT = { autocompra: "Autocompra", concentracion: "Una persona con más del 60 %", sin_costo: "Producto sin costo", pierde: "Se vende perdiendo", devolucion: "Devolución", red_negativa: "Red en negativo" };
+const PROG_ALERT = { autocompra: "Autocompra (no cuenta)", concentracion: "Una persona con más del 60 %", sin_costo: "Producto sin costo", pierde: "Se vende perdiendo", devolucion: "Devolución", red_negativa: "Red en negativo", revisar: "Su teléfono con otro cliente (cuenta)" };
 const progCup = n => Number(n ?? 0).toLocaleString("es", { maximumFractionDigits: 0 }) + " CUP";
 const progPts = n => Number(n ?? 0).toLocaleString("es", { maximumFractionDigits: 1 });
 async function loadPrograma(recalc = false) {
@@ -2477,7 +2477,7 @@ function renderPrograma(r) {
       + '<div class="kpis two"><div class="kpi"><span class="label">Fondo del mes (15 %)</span><span class="value num" style="font-size:var(--nx-fs-lg)">' + usd2(t.pool_usd) + '</span><span class="sub">de ' + usd2(t.profit_usd) + " de ganancia limpia</span></div>"
       + '<div class="kpi"><span class="label">' + (r.mode === "si" ? "Se debe pagar" : "Se pagaría") + '</span><span class="value num" style="font-size:var(--nx-fs-lg)">' + usd2(t.pay_usd) + '</span><span class="sub">red ' + usd2(t.red_usd) + " · bonos " + progCup(t.bonus_cup) + (t.factor_bonus < 0.999 ? " (" + Math.round(100 * t.factor_bonus) + " % cubierto)" : "") + "</span></div></div>"
       + '<p class="t-xs muted">' + esc(r.run.period + " · cálculo " + r.run.kind + " · " + when(r.run.computedAt) + " · ventas que cuentan " + usd2(t.sales_usd) + " · " + t.people_with_stone + " con piedra este mes") + "</p>"
-      + (alerts.length ? '<h3 class="t-sm" style="margin-top:12px">Alertas (' + alerts.length + ")</h3>" + alerts.slice(0, 30).map(a => '<div class="row-item"><span class="grow"><span class="title">' + esc(PROG_ALERT[a.type] ?? a.type) + '</span><span class="meta">' + esc(a.text) + "</span></span></div>").join("") : "")
+      + (alerts.length ? '<h3 class="t-sm" style="margin-top:12px">Alertas (' + alerts.length + ")</h3>" + '<p class="t-xs muted">' + esc(Object.entries(r.alertCounts ?? {}).map(([k, v]) => (PROG_ALERT[k] ?? k) + ": " + v).join(" · ")) + "</p>" + alerts.slice(0, 30).map(a => '<div class="row-item"><span class="grow"><span class="title">' + esc(PROG_ALERT[a.type] ?? a.type) + '</span><span class="meta">' + esc(a.text) + "</span></span></div>").join("") : "")
       + '<h3 class="t-sm" style="margin-top:12px">Gestoras</h3>'
       + ((r.people ?? []).length ? r.people.map(p => '<div class="row-item"><button type="button" class="row-btn" data-progid="' + p.id + '"><span class="grow">'
         + '<span class="title">' + esc(p.name) + "</span>"
