@@ -92,3 +92,12 @@ Solo lo que sirve a una tienda pequeña de La Habana con pocos seguidores. Lo ma
 - **Efectos suaves que ayudan a retener:** un «pop» en cada punch-in, un «fuu» corto (whoosh) que llega justo en cada corte, un destello crema muy suave (opacidad ≤ 0,3, 0,2 s) en los cortes de escena y un brillito en el guiño final. Nada de glitch ni golpes fuertes. Archivos: biblioteca de Pixabay de la skill `media-use` (`audio/assets/sfx/`, uso comercial libre).
 - **Primeros 2–3 s:** dos punch-in rápidos sobre la cara (×1,32 y ×1,12, 4 fotogramas cada uno) para que el gancho se mueva aunque la escena sea un solo plano.
 - Herramientas pagadas de música: el servicio de música conectado tiene 0 créditos (plan gratis) y Higgsfield no permite música suelta; por eso se hace propia.
+
+## Videos hablados: un plano por frase (13-oct)
+Referencia que mandó Ernesto: el reel de @produccioneslideres «¿Tu video se ve bien pero la gente se va antes de la mitad?». Un plano fijo de principio a fin hace que la gente siga bajando; hay que cambiar de plano o mover la cámara **en cada frase**, más o menos cada 1,5–2,5 s:
+- Se empieza entrando a cámara.
+- Se alterna plano general, medio y primer plano, y otro ángulo.
+- La frase clave sale en una caja en pantalla.
+- Subtítulos de 1–3 palabras, con la palabra clave resaltada.
+
+La receta completa, con el prompt de Seedance y lo que se hace en el montaje, está en la skill `reel-casa-viva`, sección «Videos hablados con Cúrru».
