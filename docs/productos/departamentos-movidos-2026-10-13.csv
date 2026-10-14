@@ -1,0 +1,19 @@
+id,nombre,categorias_antes,categorias_despues,motivo
+2753,MOCHILA ESTILO BOLSITA,Habitación,Accesorios,Mochila: las demás mochilas están en Accesorios
+2766,MOCHILA M-10,Habitación,Accesorios,Mochila: las demás mochilas están en Accesorios
+2768,MOCHILA M-14,Habitación,Accesorios,Mochila: las demás mochilas están en Accesorios
+2755,MOCHILA M-15,Habitación,Accesorios,Mochila: las demás mochilas están en Accesorios
+2770,MOCHILA M-2,Habitación,Accesorios,Mochila: las demás mochilas están en Accesorios
+2757,MOCHILA M-3,Habitación,Accesorios,Mochila: las demás mochilas están en Accesorios
+2772,MOCHILA M-4,Habitación,Accesorios,Mochila: las demás mochilas están en Accesorios
+2759,MOCHILA M-5,Habitación,Accesorios,Mochila: las demás mochilas están en Accesorios
+2774,MOCHILA M-6,Habitación,Accesorios,Mochila: las demás mochilas están en Accesorios
+2595,"Soporte de TV 40""x80""",Cocina|Habitación|Sala y muebles,Habitación|Sala y muebles,Soporte de TV estaba en Cocina (auditoría); queda como los otros dos soportes de TV
+2555,Puerta de corredera (blanca),Baño|Cocina|Habitación|Sala y muebles,Baño|Habitación|Sala y muebles,"Puerta corredera estaba en Cocina (auditoría); su ficha dice dormitorios, clósets, baños y pasillos"
+2525,Puerta de corredera (gris),Baño|Cocina|Habitación|Sala y muebles,Baño|Habitación|Sala y muebles,"Puerta corredera estaba en Cocina (auditoría); su ficha dice dormitorios, clósets, baños y pasillos"
+117,Cojín decorativo — Diseño 1,Habitación|Organización|Sala y muebles,Habitación|Sala y muebles,Cojín en Organización; los otros cojines están en Habitación y Sala
+692,Cojín decorativo — Diseño 2,Habitación|Organización|Sala y muebles,Habitación|Sala y muebles,Cojín en Organización; los otros cojines están en Habitación y Sala
+278,Bucaro blanco,Organización|Sala y muebles,Sala y muebles,"Decoración (búcaro, maceta, flores), no es de organizar"
+119,Maceta con suculenta,Organización|Sala y muebles,Sala y muebles,"Decoración (búcaro, maceta, flores), no es de organizar"
+534,Ramo de girasoles,Organización|Sala y muebles,Sala y muebles,"Decoración (búcaro, maceta, flores), no es de organizar"
+553,Brazalete deportivo para celular,Cuidado personal|Organización,Accesorios,"Brazalete para el celular: es un accesorio, no de organizar ni de cuidado personal"

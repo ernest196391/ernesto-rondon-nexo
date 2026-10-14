@@ -118,6 +118,45 @@ Antes y después:
 - **Medido** en un Chrome de teléfono (390 px, perfil limpio): ficha ~400–500 KB y tienda ~500 KB sin carrito. Varía con los productos de «Completa tu compra». Con algo en el carrito ya no se suman los ~627 KB.
 - **Plan de Hostinger:** sin tocar (pendiente, como dijo Ernesto).
 
+## Tercera tanda: Core 3.13.96 y departamentos (22:40–23:00, en vivo)
+
+**Pedido por:** Lennys, 22:01. Ella es la administradora: su pedido cuenta como aprobado. Ernesto pidió hacerlo esa misma noche. Lo hizo un agente de Claude Code. No se tocaron precios de productos, comisiones ni pedidos, y no se mandó ningún mensaje.
+
+**Armado (Core 3.13.96, commit Casa-Viva `a400222`).** Lo que dijo Lennys:
+- «Ofrece armado en soporte de TV (el mensajero tiene que llevar taladro)».
+- «Las puertas correderas también… está en las ofertas más altas».
+- «Arbolitos de Navidad… de 2 a 4 USD».
+
+| Producto | En el pago sale | Precio | Nota |
+|---|---|---|---|
+| Soporte de TV (los 3: 2595, 822, 367) | «Sí, instalar el soporte en la pared (5 USD)» | 5 USD (la opción baja) | **Taladro:** sale en la nota del pedido, el vale de WhatsApp, la carrera del mensajero (portal y «Nueva carrera») y el aviso de VivaBot: «lleva TALADRO para abrir los huecos del soporte de TV» |
+| Puerta de corredera (2555, 2525) | «Sí, instalar la puerta (10 USD)» | 10 USD, la más alta | Solo esa opción |
+| Árbol de Navidad (2381) | «Sí, armar el árbol (3 USD)» | **3 USD**, una opción nueva, «armado sencillo» | Las otras opciones son 5 y 10 USD, así que ni 2 ni 4 encajaban mejor: se usó el punto medio |
+
+- Todo lo demás sigue igual: los 20 muebles de antes con 5 o 10 USD, y la sombrilla sin armado.
+- Las gestoras y la tienda siguen viendo todas las opciones.
+- Si en el carrito hay varias cosas, salen las opciones de todas.
+- **Dato nuevo por producto:** `_cvd_assembly_kind` = `simple`, `small` o `large`, para fijar el precio de armado de un producto.
+- **El soporte de TV a 5 USD es deducción:** Lennys dijo que la puerta «es un poco más complicada», y por eso el soporte va en la opción baja. Que lo confirme.
+- **Comprobado** en el pago real, como visitante, con curl y con Chrome sin pantalla a 390 px:
+  - con los 3 productos juntos salen las 3 opciones y la nota del taladro;
+  - el total se queda en 140 USD, porque el armado no se suma;
+  - cada producto solo enseña su opción;
+  - la sombrilla, sin campo;
+  - la zapatera, con 5 y 10 USD.
+  - Los carritos de prueba se vaciaron.
+- El aviso de VivaBot se probó con su propio código (`assemblyLine`): no hizo falta cambiar el bot.
+- **Para volver atrás:** `~/bak-20261013-cvd-3.13.95-antes-3.13.96`.
+
+**Departamentos: 18 productos movidos.** Solo cambió la categoría (precio, existencias, nombre, foto y estado comprobados sin cambio):
+- 9 mochilas de Habitación a Accesorios, donde ya estaban las otras;
+- soporte de TV 40"x80" y las 2 puertas correderas: fuera de Cocina (punto 5 de las propuestas);
+- 2 cojines: fuera de Organización;
+- búcaro, maceta con suculenta y ramo de girasoles: de Organización a solo Sala y muebles;
+- brazalete deportivo para celular: a Accesorios.
+
+Lista para deshacerlo: `departamentos-movidos-2026-10-13.csv` (y en el servidor, `~/bak-20261013-departamentos-movidos.csv`). Lo que tiene duda queda para Lennys en `departamentos-dudosos-2026-10-13.md`: juguetes, patines, tabla de planchar, azulejo… y el aviso de que el panel guarda su propia categoría.
+
 ## Fotos para el agente de fotos (punto 10, no se editó ninguna)
 
 Revisadas a mano. Id del producto · nombre · foto (id del adjunto) · qué tiene:
@@ -163,7 +202,7 @@ Gravedad: **Alta** = puede hacer perder la venta · **Media** = molesta o confun
 | 16 | «Entre calles, apartamento o piso» no tenía etiqueta visible: solo se veía el ejemplo dentro del campo. | Pago | Baja | **Sí** | antes-10 |
 | 17 | En el pago dice «¿Cómo paga el cliente?», pero quien llena es el propio cliente. | Pago | Media | **No: lo decide Lennys** (ella pidió ese texto el 12-oct) | antes-11 |
 | 18 | «Pedidos» en la barra de abajo lleva a entrar con usuario y contraseña. Quien compró sin cuenta no puede ver cómo va su pedido. | Barra de abajo, Mi cuenta | Media | **Sí (3.13.89, 3.13.93)**: «Mi pedido» con número + teléfono, sin cuenta | antes-13 |
-| 19 | «Armado por el mensajero (5 o 10 USD)» sale con cualquier producto, también con una sombrilla. | Pago | Baja | **Sí (3.13.89)**: solo si el carrito trae algo que se arma; el equipo lo ve siempre | antes-11 |
+| 19 | «Armado por el mensajero (5 o 10 USD)» sale con cualquier producto, también con una sombrilla. | Pago | Baja | **Sí (3.13.89)**: solo si el carrito trae algo que se arma; el equipo lo ve siempre. **3.13.96 (Lennys):** soporte de TV 5 USD con taladro, puerta corredera 10 USD, árbol 3 USD | antes-11 |
 | 20 | La franja grande «Regala a tu familia en La Habana» sale en cada ficha entre los botones y la descripción. La descripción y las medidas quedan escondidas en «Características y descripción». | Ficha | Baja | **Sí (3.13.89)**: una línea debajo de la descripción. Las medidas cerca del precio quedan como idea | antes-04 |
 | 21 | Datos de producto con fallos: «Paragua» (es «Paraguas»), «Juego de sabanas» sin tilde, «Casas en Miniatura – 8 cm c- 89045» con el código del proveedor en el nombre. | Inicio, búsqueda | Baja | **No: datos del catálogo**, se cambian en el panel (D37/D39) | — |
 | 22 | En el inicio nuevo, «Recién llegados» son casi todo electrónica bajo pedido (móviles, fundas, laptop de 595 USD). Para una tienda del hogar, eso confunde. | Inicio (portada nueva 3.13.83) | Baja | **No: lo decide quien lleva la portada** (D51) | despues-01 |
@@ -197,12 +236,12 @@ Gravedad: **Alta** = puede hacer perder la venta · **Media** = molesta o confun
 2. **«¿Cómo paga el cliente?»** (punto 17). Propuesta: «¿Cómo vas a pagar?» cuando llena un cliente. Lo decide Lennys, porque lo pidió ella.
 3. **Portada, «Recién llegados»** (punto 22): casi todo es electrónica bajo pedido. Lo decide quien lleva la portada (D51).
 4. **Nombres de producto** (punto 21): «Paragua» → «Paraguas» (2489, 2828, 2858), «Juego de sabanas» → «sábanas», quitar «c- 89045» de «Casas en Miniatura». Se corrigen en el panel (D37/D39), no en la web.
-5. **Mover productos de departamento en bloque** (por ejemplo, el soporte de TV y la puerta de corredera, que están en Cocina). Lo decide quien revise las categorías.
+5. **Mover productos de departamento en bloque** (por ejemplo, el soporte de TV y la puerta de corredera, que están en Cocina). **Hecho en parte (Lennys, 22:01):** 18 casos claros movidos; las dudas, en `departamentos-dudosos-2026-10-13.md`.
 6. **Medidas cerca del precio en la ficha** (resto del punto 20). Hoy siguen dentro de «Características y descripción».
 7. **Elegir el color tocando su foto.** Es una idea de Ernesto; hoy es una lista desplegable.
 8. **Letra «Inter» de Google.** Pesa 48 KB, más una consulta a Google que frena la carga, en tienda, fichas y carrito. La carga el plugin NEXO Marketplace y el tema la usa para el texto; la marca usa «Figtree». Quitarla cambia un poco la letra de algunos textos: decisión de diseño.
 9. **Origen de los pedidos de WooCommerce** (dos scripts, ~15 KB, en cada página). Se puede apagar en Ajustes de WooCommerce si nadie mira «Origen» en los pedidos. Es un ajuste: no se tocó.
-10. **Armado:** la regla por nombre deja fuera el soporte de TV, la puerta de corredera, el árbol de Navidad y la bicicleta de equilibrio (son de instalar, no de armar). Si alguno debe ofrecer armado: dato `_cvd_needs_assembly = yes` en el producto.
+10. **Armado:** la regla por nombre deja fuera el soporte de TV, la puerta de corredera, el árbol de Navidad y la bicicleta de equilibrio (son de instalar, no de armar). Si alguno debe ofrecer armado: dato `_cvd_needs_assembly = yes` en el producto. **Hecho (3.13.96, Lennys):** soporte de TV, puerta y árbol ya lo ofrecen (ver «Tercera tanda»). La bicicleta de equilibrio sigue sin armado: Lennys no la nombró.
 
 ## «Últimas unidades» en la portada
 

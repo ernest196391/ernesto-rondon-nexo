@@ -588,6 +588,20 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
 
 ### L5. Martes 13-oct tarde (Claude Code, sesión principal): enlaces de gestora, fotos por color y bienvenida corregida
 
+**Noche 13-oct (22:40–23:00): decisiones de Lennys de las 22:01, Core 3.13.96 en vivo (commit Casa-Viva `a400222`).**
+- **Armado en el pago:**
+  - soporte de TV: «instalar el soporte en la pared», 5 USD; el mensajero lleva taladro;
+  - puerta corredera: 10 USD, la opción más alta;
+  - árbol de Navidad: 3 USD, una opción nueva («armado sencillo»).
+- **Dónde sale el taladro:** en la nota del pedido, el vale, la carrera del mensajero y el aviso de VivaBot. El bot no se tocó.
+- **Lo demás, igual:** el resto de muebles sigue con 5 o 10 USD.
+- **Probado** en el pago real como visitante: total sin armado; carritos vaciados.
+- **Departamentos:** 18 productos movidos, solo los claros. Para deshacerlo: `docs/productos/departamentos-movidos-2026-10-13.csv`. Las dudas, para Lennys: `docs/productos/departamentos-dudosos-2026-10-13.md`.
+- **Ojo:** el panel guarda su propia categoría y, si alguien guarda desde el panel uno de esos productos, la web vuelve a la vieja.
+- **Detalle:** `docs/productos/auditoria-cliente-2026-10-13.md` («Tercera tanda»).
+- **Para volver atrás:** `~/bak-20261013-cvd-3.13.95-antes-3.13.96`.
+- **Lennys confirma:** el soporte de TV a 5 USD (sale de que dijo que la puerta «es más complicada») y el árbol a 3 USD.
+
 **Resumen diario arreglado (VivaBot `db3eb59`, en el VPS):**
 - Dice «Pedidos de la web», con la línea «El dinero del día es el cierre de caja de la tienda».
 - Pruebas y cancelados fuera.
