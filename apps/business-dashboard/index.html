@@ -2640,6 +2640,15 @@ function wireCostSection(sheetEl, p) {
     await loadCostSheet();
     dirty = false; update();
     msg.textContent = "Costo guardado"; msg.dataset.tone = "ok";
+    // Core 3.14.0: el costo también va a la web (_cvd_cost_usd) y la web dice si el precio llega al mínimo.
+    const wooId = Number(p.external_refs?.["casaviva.company"]?.wooId);
+    if (wooId > 0) {
+      try {
+        const w = await panelWeb({ action: "product_web_cost", wooId, costUsd: Math.round((v.amount / (v.currency === "USD" ? 1 : v.rate) + (v.freight ?? 0)) * 100) / 100 });
+        msg.textContent = "Costo guardado · en la web: " + (w.status === "bajo" ? "⚠️ por debajo del mínimo (" + dollars(w.floor) + ")" : w.status === "ok" ? "precio bien (mínimo " + dollars(w.floor) + ")" : "guardado");
+        if (w.status === "bajo") msg.dataset.tone = "bad";
+      } catch (err) { msg.textContent = "Costo guardado (en la web no: " + err.message + ")"; }
+    }
     renderCatalog();
   };
 }

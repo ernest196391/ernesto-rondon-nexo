@@ -211,6 +211,13 @@ Deno.serve(async req => {
       return json(200, await core("POST", "panel/products/prices", { items }));
     }
 
+    // Costo de compra (USD por unidad) → Core 3.14.0 (_cvd_cost_usd, origen manual). Devuelve el mínimo y si el precio llega.
+    if (body.action === "product_web_cost") {
+      const costUsd = Number(body.costUsd);
+      if (!(Number(body.wooId) > 0) || !(costUsd >= 0)) return json(400, { error: "Producto o costo no válido." });
+      return json(200, await core("POST", "panel/products/cost", { wooId: Number(body.wooId), costUsd, source: "manual" }));
+    }
+
     // Producto: crear en la web (sin wooId) o copiar cambios (con wooId). D39.
     if (body.action === "product_web_save") {
       const price = Number(body.price);

@@ -1,0 +1,51 @@
+﻿tipo;woo_id;producto;costo_usd;precio_hoy;comision_hoy_usd;minimo_usd;recomendacion;costo_propuesto;minimo_con_costo_propuesto;precio_hoy_alcanza;evidencia
+bajo el mínimo;769;Toallas Cisne Blanco 40x70 - gris-oscuro;5;8;2;9,58;subir a 9 USD y comisión fija a 1 USD (regla de Lennys: 10 %);;;;
+bajo el mínimo;771;Toallas Cisne Blanco 40x70 - beige-oscuro;5;8;2;9,58;subir a 9 USD y comisión fija a 1 USD (regla de Lennys: 10 %);;;;
+bajo el mínimo;765;Toallas Cisne Blanco 40x70 - rosado;5;8;2;9,58;subir a 9 USD y comisión fija a 1 USD (regla de Lennys: 10 %);;;;
+bajo el mínimo;767;Toallas Cisne Blanco 40x70 - blanco;5;8;2;9,58;subir a 9 USD y comisión fija a 1 USD (regla de Lennys: 10 %);;;;
+bajo el mínimo;763;Toallas Cisne Blanco 40x70 - azul;5;8;2;9,58;subir a 9 USD y comisión fija a 1 USD (regla de Lennys: 10 %);;;;
+bajo el mínimo;761;Toallas Cisne Blanco 40x70 - verde;5;8;2;9,58;subir a 9 USD y comisión fija a 1 USD (regla de Lennys: 10 %);;;;
+bajo el mínimo;572;Colcha navideña 180x220 - azul;15;18;3;21,76;subir a 22 USD;;;;
+bajo el mínimo;570;Colcha navideña 180x220 - rojo;15;18;3;21,76;subir a 22 USD;;;;
+bajo el mínimo;2699;Alfombra peluche 40x60 cm - beige;5;8;5;12,87;subir a 9 USD y comisión fija a 1 USD (regla de Lennys: 10 %) (comisión de 5 USD en un producto de 8: ¿error al apuntarla?);;;;
+bajo el mínimo;2593;Silla de oficina (23_222);65;75;5;79,54;subir a 80 USD;;;;
+bajo el mínimo;2704;Cortina de baño 180x180 cm - rojo;8,5;8;1;12,32;liquidar y no reponer (necesitaría 13 USD);;;;
+bajo el mínimo;2585;Ventilador recargable F6 (naranja);60;70;4;72,87;subir a 73 USD;;;;
+bajo el mínimo;684;Toallas pequeña;5;10;5;12,87;bajar comisión fija a 1 USD (regla de Lennys: 10 %) (comisión de 5 USD en un producto de 10: ¿error al apuntarla?);;;;
+bajo el mínimo;807;Utensilios de silicona con cuchillos - rosado;26;30;1;31,76;subir a 32 USD;;;;
+bajo el mínimo;2465;Fundas (2) blancas de almohadas;5;8;2;9,58;subir a 9 USD y comisión fija a 1 USD (regla de Lennys: 10 %);;;;
+bajo el mínimo;2409;Cesto de basura encimera;3,5;6;1;7,08;subir a 8 USD;;;;
+bajo el mínimo;391;Cortinero Expandible plateado;4,5;7;1;8,08;subir a 9 USD;;;;
+bajo el mínimo;2441;Edulcorante;5;8;1,49;9,07;subir a 9 USD y comisión fija a 1 USD (regla de Lennys: 10 %);;;;
+bajo el mínimo;2790;Set de 2 alfombras para baño - rojo;8;13;3;13,98;subir a 14 USD;;;;
+bajo el mínimo;477;Espumadera;3,4;6;1;6,98;subir a 7 USD;;;;
+bajo el mínimo;270;Shampo + Acondicionador Oggy de Romero;4,5;7;0,7;7,78;subir a 8 USD;;;;
+bajo el mínimo;2463;Farol solar;7;11;2;11,76;subir a 12 USD;;;;
+bajo el mínimo;2798;Set de alfombras para baño (3 piezas) - rojo;10;15;2;15,09;subir a 16 USD;;;;
+bajo el mínimo;218;Set de alfombras para baño (3 piezas) - beige-oscuro;10;15;2;15,09;subir a 16 USD;;;;
+bajo el mínimo;220;Set de alfombras para baño (3 piezas) - carmelita-oscuro;10;15;2;15,09;subir a 16 USD;;;;
+bajo el mínimo;214;Set de alfombras para baño (3 piezas) - beige;10;15;2;15,09;subir a 16 USD;;;;
+bajo el mínimo;216;Set de alfombras para baño (3 piezas) - gris-oscuro;10;15;2;15,09;subir a 16 USD;;;;
+bajo el mínimo;212;Set de alfombras para baño (3 piezas) - carmelita;10;15;2;15,09;subir a 16 USD;;;;
+bajo el mínimo;210;Set de alfombras para baño (3 piezas) - gris;10;15;2;15,09;subir a 16 USD;;;;
+bajo el mínimo;2697;Alfombra de entrada 40x60 cm - verde;5;8;1;8,58;subir a 9 USD;;;;
+bajo el mínimo;2690;Alfombra rombo 40x60 cm - arena;5;8;1;8,58;subir a 9 USD;;;;
+bajo el mínimo;2383;Cable de carga multifuncional;5;8;1;8,58;subir a 9 USD;;;;
+bajo el mínimo;268;Crema facial arcilla, vit. C y curcuma;5;8;1;8,58;subir a 9 USD;;;;
+bajo el mínimo;226;Balsamo facial de miel hidratante;6;9;1;9,58;subir a 10 USD;;;;
+bajo el mínimo;2389;Aceite corporal;10;16;2,98;16,18;subir a 17 USD;;;;
+bajo el mínimo;2703;Cojin forma de flor - naranja;19;25;2;25,09;subir a 26 USD;;;;
+costo dudoso (no cargado);127;Cojín decorativo — Diseño 1 - rojo;5,63;11;1;;;7;10,65;sí;hoy tiene el costo de la fila 6 «arbolito decorativo» (5,63). Los cojines del Excel son forro + relleno: fila 108 «FORRO COJIN PELUCHE 24-2» = 4 USD (comisión 1) + fila 116 «RELLENO COJIN» = 3 USD (comisión 1) → 7 con relleno (4 si es solo el forro)
+costo dudoso (no cargado);129;Cojín decorativo — Diseño 1 - gris;5,63;11;1;;;7;10,65;sí;hoy tiene el costo de la fila 6 «arbolito decorativo» (5,63). Los cojines del Excel son forro + relleno: fila 108 «FORRO COJIN PELUCHE 24-2» = 4 USD (comisión 1) + fila 116 «RELLENO COJIN» = 3 USD (comisión 1) → 7 con relleno (4 si es solo el forro)
+costo dudoso (no cargado);131;Cojín decorativo — Diseño 1 - carmelita;5,63;11;1;;;7;10,65;sí;hoy tiene el costo de la fila 6 «arbolito decorativo» (5,63). Los cojines del Excel son forro + relleno: fila 108 «FORRO COJIN PELUCHE 24-2» = 4 USD (comisión 1) + fila 116 «RELLENO COJIN» = 3 USD (comisión 1) → 7 con relleno (4 si es solo el forro)
+costo dudoso (no cargado);133;Cojín decorativo — Diseño 1 - beige;5,63;11;1;;;7;10,65;sí;hoy tiene el costo de la fila 6 «arbolito decorativo» (5,63). Los cojines del Excel son forro + relleno: fila 108 «FORRO COJIN PELUCHE 24-2» = 4 USD (comisión 1) + fila 116 «RELLENO COJIN» = 3 USD (comisión 1) → 7 con relleno (4 si es solo el forro)
+costo dudoso (no cargado);135;Cojín decorativo — Diseño 1 - amarillo;5,63;11;1;;;7;10,65;sí;hoy tiene el costo de la fila 6 «arbolito decorativo» (5,63). Los cojines del Excel son forro + relleno: fila 108 «FORRO COJIN PELUCHE 24-2» = 4 USD (comisión 1) + fila 116 «RELLENO COJIN» = 3 USD (comisión 1) → 7 con relleno (4 si es solo el forro)
+costo dudoso (no cargado);2381;Árbol de navidad (1,50 m);3,85;40;1;;;17,85;22,7;sí;hoy tiene la fila 9 «adorno de navidad arbol cartel» (3,85). Misma medida: fila 56 «ARBOL DE NAVIDAD PVC 1.50 MTS» = 17,85 USD (comisión 4)
+costo dudoso (no cargado);2461;Estante esquinero para baño;18;26;3;;;18;25,09;sí;dos filas posibles: fila 176 «ESQUINERO DE BAÑO ENSUEÑO» = 18 USD (comisión 3) y fila 44 «ESQUINERO DE BAÑO» = 10 USD (comisión 2). La web paga 3 USD de comisión, como la de 18 → se queda en 18 salvo que Lennys diga otra cosa
+costo dudoso (no cargado);2469;Lámparas recargables con panel solar;10;25;2;;;15;20,65;sí;hoy tiene la fila 77 «lampara recargable con base» (10). Mismo nombre: fila 231 «LAMPARA RECARGABLE CON PANEL SOLAR» = 15 USD (comisión 3)
+costo dudoso (no cargado);2503;Mochila M- 1;10,2;13;2;;;9;13,98;no;hoy tiene la fila 105 «TERMO 1 L» (10,2). Las mochilas Gorder (filas 50-54) cuestan todas 9 USD, p. ej. fila 50 «MOCHILAS GORDER SENCILLAS» = 9 USD (comisión 3)
+costo dudoso (no cargado);2545;Set de utensilios para cocina (5 piezas);6;8;1;;;1,68;5,26;sí;hoy tiene la fila 126 «SET POZUELO DE 5 PIEZAS-JAGUAR» (6). Mismo producto: fila 47 «SET DE UTENCILIOS DE COCINA 5 PZA» = 1,68 USD (comisión 2)
+costo dudoso (no cargado);2589;Zapatera 5 niveles;23;35;4;;;;;;hoy tiene la fila 43 «MUEBLE ZAPATERA DE 10 NIVELES» (23). En el Excel no hay zapatera de 5 niveles, lo más parecido: fila 279 «ORGANIZADOR DE 5 NIVELES DE TELA DAYRA» = 9,50 USD (comisión 2) y fila 296 «ZAPATERO MULTIFUNCIONAL CON CORTINA MARYTA» = 16 USD (comisión 2). Lo dice Lennys
+costo dudoso (no cargado);278;Bucaro blanco;48;17;2;;;8;12,87;sí;el 13-oct se enlazó por error con las filas 268/269 «GAVETERO BLANCO DAYRA» (53/48). Su fila: fila 100 «BUCARO DE CERAMICA BLANCO» = 8 USD (comisión 2)
+costo dudoso (no cargado);299;Rasuradora portatil recargable;19,5;14;3;;;8;13,98;sí;hoy tiene la fila 76 «Lampara recargable PORTATIL redonda» (19,5). Su fila: fila 208 «RASURADORA PORTATL DE HOMBRE» = 8 USD (comisión 2) (la facial es la 212, 6 USD)
+costo dudoso (no cargado);410;Luminoliss;12;12;2;;;8;12,87;no;hoy 12 = fila 190 «TRATAMIENTO ALISADO LUMINOLISS» = 12 USD (comisión 2), igual que el precio. Otras filas: fila 221 «CREMA CORRECTORA LUMINOLISS» = 8 USD (comisión 1) y fila 195 «% LUMINOLIS» = 5 USD (comisión 1). El 11-oct quedó apuntado «Luminoliss costo ¿8?»

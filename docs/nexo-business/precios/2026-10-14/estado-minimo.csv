@@ -1,0 +1,641 @@
+﻿woo_id;padre;sku;producto;tipo;costo_usd;origen_costo;precio_hoy;comision_usd;comision;minimo_usd;estado;costo_dudoso;vendidas_90d
+3578;;MK-799;Case para Samsung Galaxy S26 Plus Fantasy Butterfly diseño floral y protección;bajo pedido;19;proveedor;27;3,2;fija 3,20 USD (producto);23,2;OK;;0
+3576;;MK-795;Protector para Samsung Galaxy S25 Ailun 3+3 Pack cristal templado;bajo pedido;10;proveedor;15;2;fija 2 USD (producto);13;OK;;0
+3574;;MK-784;Celular Samsung Galaxy A37 5G 8GB RAM 256GB almacenamiento;bajo pedido;349;proveedor;385;14,4;fija 14,40 USD (producto);372,72;OK;;0
+3572;;MK-756;Funda de silicona kwmobile para EarFun Air 2 negra;bajo pedido;10;proveedor;15;2;fija 2 USD (producto);13;OK;;0
+3570;;MK-712;Funda TAURI para iPhone 17 Pro compatible MagSafe blanca;bajo pedido;14;proveedor;20;2,4;fija 2,40 USD (producto);17,4;OK;;0
+3564;;nx-19;Organizador de baño de metal, 3 niveles;tienda;17;manual;25;3;fija 3 USD (producto);23,98;OK;;0
+3562;3556;;Organizador multifuncional con ruedas, 3 cestas - Blanco;tienda;22;manual;30;3;fija 3 USD (producto);29,54;OK;;0
+3560;3556;;Organizador multifuncional con ruedas, 3 cestas - Negro;tienda;22;manual;30;3;fija 3 USD (producto);29,54;OK;;2
+3558;3556;;Organizador multifuncional con ruedas, 3 cestas - Rosa;tienda;22;manual;30;3;fija 3 USD (producto);29,54;OK;;2
+3552;;nx-18;Estante organizador multiusos de metal y madera, 5 niveles;tienda;29;manual;38;3;fija 3 USD (producto);37,32;OK;;0
+3546;;MK-892;Altavoz portátil JBL PartyBox Encore Essential con sonido potente;bajo pedido;329;proveedor;365;14,4;fija 14,40 USD (producto);352,21;OK;;0
+3544;;MK-553;Control remoto Air Mouse Pilot G10 con micrófono y conexión 2.4 GHz;bajo pedido;39;proveedor;55;6,4;fija 6,40 USD (producto);46,57;OK;;0
+3542;;MK-695;Laptop Lenovo V15 G6 ARP Ryzen 5 8GB RAM 256GB SSD 15.6";bajo pedido;540;proveedor;595;22;fija 22 USD (producto);576,42;OK;;0
+3540;;MK-786;Celular Samsung A27 6/128 pantalla 6.66" Super AMOLED;bajo pedido;270;proveedor;290;8;fija 8 USD (producto);285,13;OK;;0
+3538;;MK-807;Tablet Apple iPad 9.ª Generación Wi-Fi 64GB pantalla 10.2";bajo pedido;290;proveedor;310;8;fija 8 USD (producto);305,65;OK;;0
+3536;;MK-542;Estación de energía PECRON E300LFP 288Wh portátil con pantalla digital;bajo pedido;420;proveedor;465;18;fija 18 USD (producto);449,24;OK;;0
+3533;;MK-1188;Absorbente flexible de colores 100 unidades;bajo pedido;2,2;proveedor;8;2,32;fija 2,32 USD (producto);5,52;OK;;0
+3531;;MK-1183;Vasos desechables 8oz 50 unidades para bebidas frías o calientes;bajo pedido;2,48;proveedor;8;2,21;fija 2,21 USD (producto);5,69;OK;;0
+3529;;MK-1194;Absorbente grueso para batidos 100 unidades;bajo pedido;4;proveedor;9;2;fija 2 USD (producto);7;OK;;0
+3527;;MK-1121;Ganchos para Estantes 25 cm;bajo pedido;4,2;proveedor;10;2,32;fija 2,32 USD (producto);7,52;OK;;0
+3525;;MK-1187;Estantes para Tiendas Góndola Doble Central 1.90 m x 90 cm;bajo pedido;170;proveedor;190;8;fija 8 USD (producto);182,57;OK;;0
+3522;;MK-1211;Sofá Modelo 7310 con espuma de alta densidad y estructura reforzada;bajo pedido;530;proveedor;585;22;fija 22 USD (producto);566,16;OK;;0
+3520;;MK-1198;Butaca Azul Estilo Gordo diseño amplio y mullido;bajo pedido;593,1;proveedor;655;24,76;fija 24,76 USD (producto);633,71;OK;;0
+3518;;MK-1118;Sofá 2 Plazas Mueble tapizado cómodo y resistente;bajo pedido;710,5;proveedor;785;29,8;fija 29,80 USD (producto);759,29;OK;;0
+3516;;MK-1174;Mueble 3 Plazas sofá tapizado cómodo y resistente;bajo pedido;860,5;proveedor;950;35,8;fija 35,80 USD (producto);919,29;OK;;0
+3514;;MK-665;Tarjetas de cumpleaños con sobres y pegatina tamaño 4x6 pulgadas;bajo pedido;1,5;proveedor;7;2,2;fija 2,20 USD (producto);4,7;OK;;0
+3512;;MK-667;Cable de alimentación IEC C13 a NEMA 5-15P 1.8 metros;bajo pedido;3;proveedor;8;2;fija 2 USD (producto);6;OK;;0
+3510;;MK-1137;Audífonos Bluetooth Excelente Sonido conexión inalámbrica cómoda;bajo pedido;14;proveedor;20;2,4;fija 2,40 USD (producto);17,4;OK;;0
+3507;;MK-1215;Audífonos Bluetooth Mixora estilo premium con micrófono y batería larga;bajo pedido;15;proveedor;21;2,4;fija 2,40 USD (producto);18,4;OK;;0
+3505;;MK-657;Caja Digital KONKA HD para TV con salida HDMI y USB 2.0;bajo pedido;45;proveedor;62;6,8;fija 6,80 USD (producto);53,13;OK;;0
+3503;;MK-1093;Cámara de Seguridad Tapo 2K 3MP para interiores y exteriores;bajo pedido;49;proveedor;66;6,8;fija 6,80 USD (producto);57,24;OK;;0
+3501;;MK-796;Altavoz portátil JBL Go 4 con sonido JBL Pro y batería de 7 horas;bajo pedido;49;proveedor;66;6,8;fija 6,80 USD (producto);57,24;OK;;0
+3499;;MK-780;Audífonos JBL Live Beam 3 con cancelación de ruido y 48 h batería;bajo pedido;140;proveedor;160;8;fija 8 USD (producto);151,8;OK;;0
+3496;;MK-1138;Bomba de Agua Autocebante 125W 34 L/min 110V;bajo pedido;155;proveedor;175;8;fija 8 USD (producto);167,18;OK;;0
+3494;;MK-1096;Bomba de Agua Sumergible QDX3-24-0.75 0.75 kW 24 m elevación;bajo pedido;160,56;proveedor;180;7,78;fija 7,78 USD (producto);172,66;OK;;0
+3492;;MK-1076;Cámara de Seguridad Solar TP-Link Tapo C615F 2K con panel solar;bajo pedido;159;proveedor;180;8,4;fija 8,40 USD (producto);171,7;OK;;0
+3489;;MK-736;Cable de carga y datos USB-C a USB-C 1 metro;bajo pedido;5;proveedor;10;2;fija 2 USD (producto);8;OK;;0
+3487;;MK-615;Adaptador OTG para sincronizar datos y conectar periféricos;bajo pedido;6;proveedor;11;2;fija 2 USD (producto);9;OK;;0
+3483;;MK-866;Cargador Auto PowerLab 32W USB-C + USB-A con Power Delivery;bajo pedido;9;proveedor;14;2;fija 2 USD (producto);12;OK;;0
+3481;;MK-735;Hub USB Splitter Adaptador 3 Puertos USB velocidad 480 Mbps;bajo pedido;12;proveedor;17;2;fija 2 USD (producto);15;OK;;0
+3479;;MK-670;Adaptador USB-C a HDMI Highwings 4K@60Hz para video y audio;bajo pedido;14;proveedor;20;2,4;fija 2,40 USD (producto);17,4;OK;;0
+3477;;MK-637;Cable Conector SSD o HDD para PC y laptops, 12 cm;bajo pedido;14;proveedor;20;2,4;fija 2,40 USD (producto);17,4;OK;;0
+3475;;MK-968;Pistola de Juguete Tipo Glock diseño realista 12 cm;bajo pedido;15;proveedor;21;2,4;fija 2,40 USD (producto);18,4;OK;;0
+3473;;MK-924;Figura articulada Dummy 13 con armamento 130x100x20 mm;bajo pedido;15;proveedor;21;2,4;fija 2,40 USD (producto);18,4;OK;;0
+3471;;MK-900;Set de Pequeños Militares Articulados con armas intercambiables;bajo pedido;15;proveedor;21;2,4;fija 2,40 USD (producto);18,4;OK;;0
+3469;;MK-775;Cargador inalámbrico PowerLab 10W Qi para móviles y accesorios;bajo pedido;15;proveedor;21;2,4;fija 2,40 USD (producto);18,4;OK;;0
+3467;;MK-773;Hub USB 3.0 7 Puertos con Switch Blanco alta velocidad;bajo pedido;15;proveedor;21;2,4;fija 2,40 USD (producto);18,4;OK;;0
+3465;;MK-671;Cable Divisor JOLGOO XLR Macho a 2 RCA Macho 1 metro;bajo pedido;15;proveedor;21;2,4;fija 2,40 USD (producto);18,4;OK;;0
+3463;;MK-611;Cable USB-C a DisplayPort 1.4 UANTIN 1.8 m compatible 8K 60 Hz;bajo pedido;15;proveedor;21;2,4;fija 2,40 USD (producto);18,4;OK;;0
+3460;;MK-850;Extensor USB 3.0 Hub 4 Puertos alta velocidad 5 Gbps;bajo pedido;17;proveedor;24;2,8;fija 2,80 USD (producto);20,8;OK;;0
+3458;;MK-621;Adaptador Resistente Multifuncional 4 en 1 tipo C para PC y móviles;bajo pedido;17;proveedor;24;2,8;fija 2,80 USD (producto);20,8;OK;;0
+3456;;MK-1169;Casco deportivo para protección personal;bajo pedido;19;proveedor;27;3,2;fija 3,20 USD (producto);23,2;OK;;0
+3454;;MK-1117;Casco para bicicleta o moto protección segura;bajo pedido;19;proveedor;27;3,2;fija 3,20 USD (producto);23,2;OK;;0
+3451;;MK-1092;Soporte para Auto MagSafe Speck ClickLock para iPhone 12 y posteriores;bajo pedido;19;proveedor;27;3,2;fija 3,20 USD (producto);23,2;OK;;0
+3449;;MK-960;Creatina Micronizada Optimum Nutrition 100 cápsulas 2.5 g por porción;bajo pedido;19;proveedor;27;3,2;fija 3,20 USD (producto);23,2;OK;;0
+3447;;MK-828;Audífonos para Dormir Tipo Diadema con Sonido HD y Calentador;bajo pedido;19;proveedor;27;3,2;fija 3,20 USD (producto);23,2;OK;;0
+3445;;MK-743;Enchufe múltiple 14 en 1 con protección contra sobrecarga;bajo pedido;19;proveedor;27;3,2;fija 3,20 USD (producto);23,2;OK;;0
+3443;;MK-603;Adaptador 12VHPWR 90° para GPU RTX y fuentes Corsair modulares;bajo pedido;19;proveedor;27;3,2;fija 3,20 USD (producto);23,2;OK;;0
+3441;;MK-993;Micrófonos inalámbricos profesionales con reducción de ruido, alcance 200 m;bajo pedido;20;proveedor;28;3,2;fija 3,20 USD (producto);24,2;OK;;0
+3437;;MK-990;Base de carga para mandos PS5 carga rápida para 2 controles;bajo pedido;20;proveedor;28;3,2;fija 3,20 USD (producto);24,2;OK;;0
+3432;;MK-952;Pre-entrenamiento RAW Essential Hard To Kill 200 mg cafeína 20 servicios;bajo pedido;20;proveedor;28;3,2;fija 3,20 USD (producto);24,2;OK;;0
+3430;;MK-700;Extensión de enchufe 10 en 1 con protector de sobretensiones;bajo pedido;22;proveedor;31;3,6;fija 3,60 USD (producto);26,6;OK;;0
+3428;;MK-1166;Casco de moto negro para protección básica;bajo pedido;23;proveedor;33;4;fija 4 USD (producto);28;OK;;0
+3426;;MK-1162;Casco para moto semi-integral color gris;bajo pedido;23;proveedor;33;4;fija 4 USD (producto);28;OK;;0
+3424;;MK-636;Cable XLR Macho a 6.35 mm TRS paquete de 2, 1.8 m cada uno;bajo pedido;24;proveedor;34;4;fija 4 USD (producto);29;OK;;0
+3422;;MK-996;Juego de Pesca Eléctrico con Música giratoria para niños y niñas;bajo pedido;29;proveedor;41;4,8;fija 4,80 USD (producto);34,8;OK;;0
+3420;;MK-953;Kit de carga y juego para controles Xbox con indicador LED;bajo pedido;29;proveedor;41;4,8;fija 4,80 USD (producto);34,8;OK;;0
+3418;;MK-955;Palo Selfie Inalámbrico plegable con trípode y luz LED 6";bajo pedido;34;proveedor;48;5,6;fija 5,60 USD (producto);40,62;OK;;0
+3414;;MK-1005;Casco de bicicleta para niños Scamp II talla XS 45-49 cm;bajo pedido;39;proveedor;55;6,4;fija 6,40 USD (producto);46,57;OK;;0
+3412;;MK-943;Excavadora RC Die-Cast 1:24 para niños con control remoto 6 canales;bajo pedido;39;proveedor;55;6,4;fija 6,40 USD (producto);46,57;OK;;0
+3410;;MK-606;Adaptador de corriente Dell OptiPlex 90W/130W para PC;bajo pedido;39;proveedor;55;6,4;fija 6,40 USD (producto);46,57;OK;;0
+3408;;MK-599;Adaptador USB-C a Dual HDMI Selore&amp,S-Global 4K@60Hz;bajo pedido;39;proveedor;55;6,4;fija 6,40 USD (producto);46,57;OK;;0
+3406;;MK-688;Cargador de portátil USB-C 96W con protección multiseguridad;bajo pedido;40;proveedor;56;6,4;fija 6,40 USD (producto);47,59;OK;;0
+3403;;MK-925;Control inalámbrico Turtle Beach Rematch para Nintendo Switch con batería 40h;bajo pedido;49;proveedor;66;6,8;fija 6,80 USD (producto);57,24;OK;;0
+3401;;MK-976;Auto a control remoto modelos realistas con ruedas de alto rendimiento;bajo pedido;50;proveedor;67;6,8;fija 6,80 USD (producto);58,26;OK;;0
+3399;;MK-967;Soporte y estación de refrigeración para PS5 con cargador y ventilador;bajo pedido;50;proveedor;67;6,8;fija 6,80 USD (producto);58,26;OK;;0
+3397;;MK-956;Pistola de agua eléctrica roja para niños y adultos;bajo pedido;50;proveedor;67;6,8;fija 6,80 USD (producto);58,26;OK;;0
+3395;;MK-1004;Estación de carga PowerA para 2 controles Xbox Series X|S y One;bajo pedido;54;proveedor;71;6,8;fija 6,80 USD (producto);62,36;OK;;0
+3393;;MK-975;Estación de carga PowerA para Xbox con 2 baterías 1100 mAh;bajo pedido;54;proveedor;71;6,8;fija 6,80 USD (producto);62,36;OK;;0
+3390;;MK-912;Teclado Electrónico Multifunción 61 Teclas con Micrófono negro;bajo pedido;55;proveedor;72;6,8;fija 6,80 USD (producto);63,39;OK;;0
+3388;;MK-986;Control Xbox Series X/S negro inalámbrico con Bluetooth y botón captura;bajo pedido;70;proveedor;90;8;fija 8 USD (producto);80;OK;;0
+3386;;MK-965;Control Xbox Series X/S inalámbrico Blanco con Bluetooth y botón captura;bajo pedido;70;proveedor;90;8;fija 8 USD (producto);80;OK;;0
+3384;;MK-946;Control Xbox Series X/S Verde inalámbrico con Bluetooth y botón captura;bajo pedido;70;proveedor;90;8;fija 8 USD (producto);80;OK;;0
+3382;;MK-1012;Patines en línea Xino Sports ajustables para niños talla M 21 cm;bajo pedido;79;proveedor;100;8,4;fija 8,40 USD (producto);89,65;OK;;0
+3380;;MK-1010;Patines en Línea Ajustables Niños Negros y Verdes Talla L 23-26 cm;bajo pedido;79;proveedor;100;8,4;fija 8,40 USD (producto);89,65;OK;;0
+3378;;MK-982;Control Inalámbrico DualSense para PlayStation 5 Midnight Black;bajo pedido;80;proveedor;100;8;fija 8 USD (producto);90,26;OK;;0
+3376;;MK-954;Patines Ajustables para Niños Talla L 23-26 cm con cobertura total;bajo pedido;79;proveedor;100;8,4;fija 8,40 USD (producto);89,65;OK;;0
+3371;;MK-909;Control inalámbrico DualSense para PlayStation 5 púrpura galáctico;bajo pedido;80;proveedor;100;8;fija 8 USD (producto);90,26;OK;;0
+3369;;MK-1013;Patines ajustables Nattork para niños talla 19-21.5 cm rosado;bajo pedido;84;proveedor;105;8,4;fija 8,40 USD (producto);94,77;OK;;0
+3367;;MK-1009;Patines ajustables para niños y niñas blanco y rosa talla S 31-34;bajo pedido;84;proveedor;105;8,4;fija 8,40 USD (producto);94,77;OK;;0
+3365;;MK-938;Patines Ajustables para Niños Talla M con ruedas LED multicolor;bajo pedido;84;proveedor;105;8,4;fija 8,40 USD (producto);94,77;OK;;0
+3363;;MK-915;Micrófono inalámbrico DJI Mic Mini 1 TX + 1 RX, transmisión 400 m;bajo pedido;89;proveedor;110;8,4;fija 8,40 USD (producto);99,9;OK;;0
+3361;;MK-634;Memoria para Laptop 16GB DDR4 velocidad 2400MHz - 3200MHz;bajo pedido;90;proveedor;110;8;fija 8 USD (producto);100,52;OK;;0
+3359;;MK-1007;Transmisor inalámbrico DJI Mic 3 para iPhone, Android y cámaras;bajo pedido;99;proveedor;120;8,4;fija 8,40 USD (producto);110,16;OK;;0
+3357;;MK-1000;Violín acústico 4/4 acabado premium celeste azul y verde;bajo pedido;150;proveedor;170;8;fija 8 USD (producto);162,06;OK;;0
+3355;;MK-910;Micrófono inalámbrico DJI Mic Mini con estuche y 48 horas uso;bajo pedido;179;proveedor;200;8,4;fija 8,40 USD (producto);192,21;OK;;0
+3353;;MK-992;Cámara de acción Insta360 X3 360° 5.7K con estabilización;bajo pedido;320;proveedor;355;14;fija 14 USD (producto);342,57;OK;;0
+3350;;MK-1028;Gafas de Sol para Niñas y Niños con protección UV;bajo pedido;4;proveedor;9;2;fija 2 USD (producto);7;OK;;0
+3348;;MK-1017;Set de joyería Phantasya collar y aretes con cristales brillantes;bajo pedido;9;proveedor;14;2;fija 2 USD (producto);12;OK;;0
+3346;;MK-1029;Armadura de espejuelos Dana Buchman modelo 2 con piedras decorativas;bajo pedido;12;proveedor;17;2;fija 2 USD (producto);15;OK;;0
+3344;;MK-1037;Masajeador Facial Portátil para cuello y cara;bajo pedido;16;proveedor;23;2,8;fija 2,80 USD (producto);19,8;OK;;0
+3342;;MK-1023;Reloj Oxygen Dual Time con doble huso horario y correa de silicona;bajo pedido;16;proveedor;23;2,8;fija 2,80 USD (producto);19,8;OK;;0
+3339;;MK-1033;Bolso deportivo compacto con correa ajustable y bolsillo frontal;bajo pedido;21;proveedor;30;3,6;fija 3,60 USD (producto);25,6;OK;;0
+3337;;MK-1042;Mochila de Gran Capacidad con partición para portátil;bajo pedido;25;proveedor;35;4;fija 4 USD (producto);30;OK;;0
+3334;;MK-1030;Bolso para Laptop 14" gris, liviano y moderno;bajo pedido;25;proveedor;35;4;fija 4 USD (producto);30;OK;;0
+3332;;MK-1057;Bolsa Deportiva de Gimnasio gran capacidad color negro;bajo pedido;28;proveedor;40;4,8;fija 4,80 USD (producto);33,8;OK;;0
+3330;;MK-1047;Riñonera Táctica Multifuncional Verde Militar con múltiples compartimentos;bajo pedido;28;proveedor;40;4,8;fija 4,80 USD (producto);33,8;OK;;0
+3328;;MK-1027;Riñonera Táctica Unisex MOLLE USA para deportes y actividades outdoor;bajo pedido;28;proveedor;40;4,8;fija 4,80 USD (producto);33,8;OK;;0
+3326;;MK-1055;Taladro eléctrico para uñas profesional recargable USB 2000mAh;bajo pedido;30;proveedor;42;4,8;fija 4,80 USD (producto);35,8;OK;;0
+3324;;MK-1020;Riñonera Táctica Multifuncional con Bolsillos Verde Olivo;bajo pedido;30;proveedor;42;4,8;fija 4,80 USD (producto);35,8;OK;;0
+3322;;MK-1062;Mochila para Hombre moderna y multifuncional color gris;bajo pedido;35;proveedor;49;5,6;fija 5,60 USD (producto);41,65;OK;;0
+3320;;MK-1031;Reloj LouisPoems Green Submariner con esfera verde y bisel giratorio;bajo pedido;69;proveedor;90;8,4;fija 8,40 USD (producto);79,39;OK;;0
+3318;;MK-600;Memoria USB Kingston ExodiaM 128GB USB-A 3.2 Gen 1;bajo pedido;19;proveedor;27;3,2;fija 3,20 USD (producto);23,2;OK;;0
+3316;;MK-624;Disco Interno Timetec M.2 256GB NVMe PCIe Gen3x4;bajo pedido;39;proveedor;55;6,4;fija 6,40 USD (producto);46,57;OK;;0
+3314;;MK-638;Disco Interno Seagate V5 HDD 6TB 3.5 pulgadas SATA 7200 RPM;bajo pedido;180;proveedor;200;8;fija 8 USD (producto);192,83;OK;;0
+3312;;MK-658;SSD Externo Kingston XS1000 2TB USB 3.2 Gen 2 velocidad alta;bajo pedido;249;proveedor;270;8,4;fija 8,40 USD (producto);264;OK;;0
+3310;;MK-614;Disco duro interno 3.5" 18TB SATA III 7,200 RPM;bajo pedido;380;proveedor;420;16;fija 16 USD (producto);406,16;OK;;0
+3307;;MK-741;Correa de silicona MobyFox Midnight Flora para smartwatch cómoda y resistente;bajo pedido;9;proveedor;14;2;fija 2 USD (producto);12;OK;;0
+3305;;MK-722;Funda Retro para iPhone 14 Pro Max diseño Lunares Otoño;bajo pedido;9;proveedor;14;2;fija 2 USD (producto);12;OK;;0
+3303;;MK-715;Funda magnética Samsung Galaxy S21 FE 5G Blue protección completa;bajo pedido;9;proveedor;14;2;fija 2 USD (producto);12;OK;;0
+3301;;MK-554;Funda GVIEWIN para iPhone 13 Pro 6.1" diseño floral;bajo pedido;9;proveedor;14;2;fija 2 USD (producto);12;OK;;0
+3299;;MK-885;Funda Magnética para iPhone 13 Pro 6.1" roja con protección;bajo pedido;10;proveedor;15;2;fija 2 USD (producto);13;OK;;0
+3296;;MK-840;Funda Transparente para Tecno Spark 20 / 20C 6.6 pulgadas;bajo pedido;10;proveedor;15;2;fija 2 USD (producto);13;OK;;0
+3294;;MK-820;Funda para iPhone 12 Asuwish morado compatible 6.1 pulgadas;bajo pedido;10;proveedor;15;2;fija 2 USD (producto);13;OK;;0
+3292;;MK-818;Funda para iPhone 17 Pro Hot Pink con protección completa;bajo pedido;10;proveedor;15;2;fija 2 USD (producto);13;OK;;0
+3290;;MK-727;Funda de silicona LOVE 3000 para iPhone 13 Pro Max 6.7";bajo pedido;10;proveedor;15;2;fija 2 USD (producto);13;OK;;0
+3288;;MK-788;Organizador de cables adhesivo para escritorio 24 clips negro;bajo pedido;10,2;proveedor;16;2,32;fija 2,32 USD (producto);13,52;OK;;0
+3286;;MK-883;Funda de silicona Oakxco para Samsung Galaxy Z Fold 5 color burdeos;bajo pedido;14;proveedor;20;2,4;fija 2,40 USD (producto);17,4;OK;;0
+3284;;MK-809;Correa de malla metálica MARGE PLUS para Apple Watch compatible varias series;bajo pedido;14;proveedor;20;2,4;fija 2,40 USD (producto);17,4;OK;;0
+3282;;MK-798;Funda magnética Samsung Galaxy S24 Ultra con protección y MagSafe;bajo pedido;14;proveedor;20;2,4;fija 2,40 USD (producto);17,4;OK;;0
+3280;;MK-748;Funda Magnética para iPhone 15 Pro Max compatible MagSafe;bajo pedido;14;proveedor;20;2,4;fija 2,40 USD (producto);17,4;OK;;0
+3278;;MK-725;Funda para iPhone 17 Pro Max Deep Blue con MagSafe y protección reforzada;bajo pedido;14;proveedor;20;2,4;fija 2,40 USD (producto);17,4;OK;;0
+3276;;MK-713;Funda resistente Onn Rugged para Samsung Galaxy A14 5G;bajo pedido;14;proveedor;20;2,4;fija 2,40 USD (producto);17,4;OK;;0
+3274;;MK-704;Funda de silicona líquida para iPhone 13 Pro Rosa Tiza;bajo pedido;14;proveedor;20;2,4;fija 2,40 USD (producto);17,4;OK;;0
+3272;;MK-803;Funda TPU iPhone 12 Pro Max diseño mármol con brillos;bajo pedido;15;proveedor;21;2,4;fija 2,40 USD (producto);18,4;OK;;0
+3267;;MK-742;Funda Speck Balance Folio para TCL Tab 8 LE con protección antimicrobiana;bajo pedido;15;proveedor;21;2,4;fija 2,40 USD (producto);18,4;OK;;0
+3265;;MK-778;Funda onn Slim Rugged para Tablet onn 11" Pro 2024, protección alta;bajo pedido;17;proveedor;24;2,8;fija 2,80 USD (producto);20,8;OK;;0
+3263;;MK-856;Funda BURGA para iPhone 16 Pro con protección híbrida doble capa;bajo pedido;19;proveedor;27;3,2;fija 3,20 USD (producto);23,2;OK;;0
+3261;;MK-805;Funda para iPhone 17 con soporte y MagSafe, protección militar;bajo pedido;19;proveedor;27;3,2;fija 3,20 USD (producto);23,2;OK;;0
+3259;;MK-779;Correa Resin Band para Apple Watch 38/40/41/42 mm resistente y cómoda;bajo pedido;19;proveedor;27;3,2;fija 3,20 USD (producto);23,2;OK;;0
+3257;;MK-720;Cargador EcoFlow RAPID 65W GaN con 3 puertos y cable 100W;bajo pedido;64;proveedor;85;8,4;fija 8,40 USD (producto);74,26;OK;;0
+3255;;MK-672;Impresora 3D Bambulab A1 Combo Multicolor con calibración automática;bajo pedido;1100;proveedor;1210;44;fija 44 USD (producto);1173,34;OK;;0
+3253;;MK-1080;Pistola de calor Genesis con boquillas y temperatura hasta 538 °C;bajo pedido;59;proveedor;76;6,8;fija 6,80 USD (producto);67,49;OK;;0
+3251;;MK-1081;Bicicleta de Equilibrio para Niños 11" sin pedales, ajustable;bajo pedido;120;proveedor;140;8;fija 8 USD (producto);131,29;OK;;0
+3249;;MK-811;Audífonos Bluetooth Speck Gemtones Play 28 h batería;bajo pedido;19;proveedor;27;3,2;fija 3,20 USD (producto);23,2;OK;;0
+3247;;MK-707;Audífonos Bluetooth JLab GO Pop+ con 35+ horas de autonomía;bajo pedido;23;proveedor;33;4;fija 4 USD (producto);28;OK;;0
+3245;;MK-845;Auriculares inalámbricos ZIZO Tempo Z2 con Bluetooth 5.4 y cancelación de ruido;bajo pedido;25;proveedor;35;4;fija 4 USD (producto);30;OK;;0
+3243;;MK-812;Bocina inalámbrica PureGear PureBoom con sonido estéreo y Bluetooth;bajo pedido;25;proveedor;35;4;fija 4 USD (producto);30;OK;;0
+3241;;MK-800;Audífonos Bluetooth JLab GO Pop ANC con cancelación activa de ruido;bajo pedido;25;proveedor;35;4;fija 4 USD (producto);30;OK;;0
+3239;;MK-752;Audífonos Bluetooth JLab GO Pods ANC con cancelación activa de ruido;bajo pedido;27;proveedor;38;4,4;fija 4,40 USD (producto);32,4;OK;;0
+3237;;MK-839;Bocinas Multimedia BUSP-HYY E-1062 con iluminación LED y conexión USB;bajo pedido;29;proveedor;41;4,8;fija 4,80 USD (producto);34,8;OK;;0
+3235;;MK-787;Auriculares Inalámbricos H6 RGB Hi-Res Audio con Bluetooth y micrófono;bajo pedido;39;proveedor;55;6,4;fija 6,40 USD (producto);46,57;OK;;0
+3233;;MK-724;Bocinas para computadora con subwoofer y luces RGB USB;bajo pedido;39;proveedor;55;6,4;fija 6,40 USD (producto);46,57;OK;;0
+3231;;MK-744;Audífonos Bluetooth PureGear PureBoom inalámbricos y plegables;bajo pedido;40;proveedor;56;6,4;fija 6,40 USD (producto);47,59;OK;;0
+3229;;MK-899;Bocina Bluetooth JBL Go 4 Roja con 7 horas de batería;bajo pedido;49;proveedor;66;6,8;fija 6,80 USD (producto);57,24;OK;;0
+3227;;MK-898;Bocina Bluetooth JBL Go 4 Negra con 7 horas de batería;bajo pedido;49;proveedor;66;6,8;fija 6,80 USD (producto);57,24;OK;;0
+3225;;MK-897;Bocina Bluetooth JBL Go 4 púrpura, portátil e impermeable;bajo pedido;49;proveedor;66;6,8;fija 6,80 USD (producto);57,24;OK;;0
+3223;;MK-880;Bocina JBL CLIP 5 portátil con sonido JBL Pro y mosquetón;bajo pedido;69;proveedor;90;8,4;fija 8,40 USD (producto);79,39;OK;;0
+3221;;MK-797;Bocina Bluetooth Bosbos VIBE con luces LED y sonido potente;bajo pedido;69;proveedor;90;8,4;fija 8,40 USD (producto);79,39;OK;;0
+3219;;MK-723;Bocina JBL CLIP 5 roja portátil con sonido JBL Pro y mosquetón;bajo pedido;69;proveedor;90;8,4;fija 8,40 USD (producto);79,39;OK;;0
+3217;;MK-710;Bocina JBL CLIP 5 azul con sonido JBL Pro y mosquetón integrado;bajo pedido;69;proveedor;90;8,4;fija 8,40 USD (producto);79,39;OK;;0
+3215;;MK-878;Bocina Bluetooth JBL Grip Portable 16W resistente y portátil;bajo pedido;100;proveedor;120;8;fija 8 USD (producto);110,77;OK;;0
+3213;;MK-896;Audífonos inalámbricos JBL Tune 670NC con cancelación de ruido y 70h batería;bajo pedido;119;proveedor;140;8,4;fija 8,40 USD (producto);130,67;OK;;0
+3211;;MK-893;Audífonos inalámbricos Samsung Galaxy Buds 3 FE con ANC y Bluetooth;bajo pedido;130;proveedor;150;8;fija 8 USD (producto);141,54;OK;;0
+3209;;MK-877;Bocina JBL Flip 7 con sonido potente y hasta 16 horas de reproducción;bajo pedido;150;proveedor;170;8;fija 8 USD (producto);162,06;OK;;0
+3206;;MK-895;Bocina portátil JBL Charge 6 Bluetooth con powerbank y 28 h reproducción;bajo pedido;190;proveedor;210;8;fija 8 USD (producto);203,08;OK;;0
+3204;;MK-765;Bocina portátil JBL Charge 6 Bluetooth 28 h reproducción roja;bajo pedido;190;proveedor;210;8;fija 8 USD (producto);203,08;OK;;0
+3202;;MK-755;Bocina portátil JBL Boombox 3 Negro con sonido masivo y resistente al agua;bajo pedido;450;proveedor;495;18;fija 18 USD (producto);480;OK;;0
+3200;;MK-737;Smartwatch Samsung Watch 7 40mm pantalla 1.3" batería 300 mAh;bajo pedido;200;proveedor;220;8;fija 8 USD (producto);213,34;OK;;0
+3198;;MK-891;Smartwatch Samsung Galaxy Watch 7 40mm BT con IA y monitoreo;bajo pedido;210;proveedor;230;8;fija 8 USD (producto);223,59;OK;;0
+3196;;MK-660;Mini Keyboard i8 Teclado y Mouse inalámbrico 2 en 1 USB 2.0;bajo pedido;20;proveedor;28;3,2;fija 3,20 USD (producto);24,2;OK;;0
+3195;;MK-646;Teclado Bluetooth Mini Keyboard portátil ultra delgado 10 pulgadas;bajo pedido;20;proveedor;28;3,2;fija 3,20 USD (producto);24,2;OK;;0
+3193;;MK-629;Combo teclado y mouse inalámbrico Incipio Translucent Slim 2.4 GHz;bajo pedido;30;proveedor;42;4,8;fija 4,80 USD (producto);35,8;OK;;0
+3191;;MK-607;Extensión PCIe 5.1 EZDIY-FAB Shield para GPU 12V-2x6 90°;bajo pedido;39;proveedor;55;6,4;fija 6,40 USD (producto);46,57;OK;;0
+3188;;MK-598;Soundbar Periphio RGB 2.0 Channel con Bluetooth y AUX 3.5 mm;bajo pedido;39;proveedor;55;6,4;fija 6,40 USD (producto);46,57;OK;;0
+3186;;MK-631;Combo inalámbrico Logitech MK270 teclado y mouse inalámbricos;bajo pedido;50;proveedor;67;6,8;fija 6,80 USD (producto);58,26;OK;;0
+3184;;MK-612;Monitor HP 23es 23" Full HD LED IPS 1920x1080;bajo pedido;119;proveedor;140;8,4;fija 8,40 USD (producto);130,67;OK;;0
+3182;;MK-608;Fuente GigaByte P750GM Gold 80 Plus 750 W con ventilador 120 mm;bajo pedido;120;proveedor;140;8;fija 8 USD (producto);131,29;OK;;0
+3177;;MK-694;Monitor Acer V6 Series V206HQL 19.5" HD+ 1600x900 60 Hz;bajo pedido;129;proveedor;150;8,4;fija 8,40 USD (producto);140,93;OK;;0
+3175;;MK-626;Mini PC Dell Optiplex 3040M i5 16GB RAM SSD 120GB Windows 11;bajo pedido;180;proveedor;200;8;fija 8 USD (producto);192,83;OK;;0
+3173;;MK-674;Monitor Samsung S40GD 27" Full HD IPS 100 Hz;bajo pedido;210;proveedor;230;8;fija 8 USD (producto);223,59;OK;;0
+3170;;MK-685;Monitor Dell 27 Plus S2725HSM 27" Full HD 144 Hz;bajo pedido;240;proveedor;260;8;fija 8 USD (producto);254,36;OK;;0
+3165;;MK-696;Tarjeta gráfica ASUS Dual Radeon RX 9060 XT 16GB GDDR6;bajo pedido;490;proveedor;540;20;fija 20 USD (producto);523,08;OK;;0
+3163;;MK-681;Monitor Alienware AW2725DF 27" QD-OLED 360 Hz QHD;bajo pedido;599;proveedor;660;24,4;fija 24,40 USD (producto);639,39;OK;;0
+3161;;MK-643;iMac 2015 21.5 pulgadas 8GB RAM 1TB HDD;bajo pedido;750;proveedor;825;30;fija 30 USD (producto);800;OK;;0
+3159;;MK-604;Mini PC MINISFORUM UM890 Pro AMD Ryzen 9 32GB RAM 1TB SSD;bajo pedido;990;proveedor;1090;40;fija 40 USD (producto);1056,42;OK;;0
+3157;;MK-1163;Lámpara de Techo color limón para decoración;bajo pedido;28;proveedor;40;4,8;fija 4,80 USD (producto);33,8;OK;;0
+3155;;MK-1129;Lámpara de techo material ratán estilo natural boho;bajo pedido;29;proveedor;41;4,8;fija 4,80 USD (producto);34,8;OK;;0
+3153;;MK-1104;Lámpara de Mesa estilo cobre lustrado para ambientes cálidos;bajo pedido;29;proveedor;41;4,8;fija 4,80 USD (producto);34,8;OK;;0
+3151;;MK-1103;Lámpara de Mesa Animal Print con pantalla y base estampada;bajo pedido;30,73;proveedor;44;5,31;fija 5,31 USD (producto);37,04;OK;;0
+3149;;MK-1156;Lámpara de Mesa estilo Art Deco con diseño geométrico;bajo pedido;32;proveedor;45;5,2;fija 5,20 USD (producto);38,2;OK;;0
+3147;;MK-1155;Lámpara de Piso Estilo Art Decó con diseño geométrico;bajo pedido;32;proveedor;45;5,2;fija 5,20 USD (producto);38,2;OK;;0
+3145;;MK-1150;Lámpara de Mesa Vintage gris para escritorio o mesa de noche;bajo pedido;32;proveedor;45;5,2;fija 5,20 USD (producto);38,2;OK;;0
+3143;;MK-1124;Lámpara de techo oro rosa diseño moderno para salas y comedores;bajo pedido;32;proveedor;45;5,2;fija 5,20 USD (producto);38,2;OK;;0
+3141;;MK-1100;Lámpara de techo 5 focos diseño moderno para iluminación;bajo pedido;32;proveedor;45;5,2;fija 5,20 USD (producto);38,2;OK;;0
+3139;;MK-1126;Lámpara de techo 4 focos diseño moderno;bajo pedido;33;proveedor;47;5,6;fija 5,60 USD (producto);39,6;OK;;0
+3137;;MK-1143;Lámpara de Techo Cerámica Gris con acabado decorativo;bajo pedido;34;proveedor;48;5,6;fija 5,60 USD (producto);40,62;OK;;0
+3135;;MK-1201;Lámpara de Techo Estilo Nórdico diseño minimalista;bajo pedido;60,33;proveedor;80;7,87;fija 7,87 USD (producto);69,95;OK;;0
+3133;;MK-1165;Lámpara de Mesa Lite Source 9W con luz cálida y fría;bajo pedido;65,19;proveedor;85;7,92;fija 7,92 USD (producto);74,99;OK;;0
+3130;;MK-1107;Lámpara de Mesa cuerpo de cristal elegante y translúcido;bajo pedido;75;proveedor;95;8;fija 8 USD (producto);85,13;OK;;0
+3128;;MK-1192;Paraguas doble capa con diseño resistente al viento;bajo pedido;8,2;proveedor;14;2,32;fija 2,32 USD (producto);11,52;OK;;0
+3126;;MK-567;Iluminación exterior inteligente y eficiente con sensor y energía solar;bajo pedido;10;proveedor;15;2;fija 2 USD (producto);13;OK;;0
+3124;;MK-569;Álbum de Fotos Fujifilm Instax Square para fotos SQ1, SQ6, SQ10;bajo pedido;25;proveedor;35;4;fija 4 USD (producto);30;OK;;0
+3122;;MK-530;Hub inteligente Aqara Smart Hub M100 con Wi-Fi y Zigbee;bajo pedido;39;proveedor;55;6,4;fija 6,40 USD (producto);46,57;OK;;0
+3120;;MK-534;Timbre Inteligente LUMIVAULT X3PRO con cámara HD y audio bidireccional;bajo pedido;40;proveedor;56;6,4;fija 6,40 USD (producto);47,59;OK;;0
+3118;;MK-552;Linterna Frontal Swiss Tech Kumpel Pack 2 400 lúmenes recargable;bajo pedido;49;proveedor;66;6,8;fija 6,80 USD (producto);57,24;OK;;0
+3116;;MK-957;Gabinete Gaming Montech King 95 PRO ATX con doble cámara y 6 ventiladores;bajo pedido;220;proveedor;240;8;fija 8 USD (producto);233,85;OK;;0
+3114;;MK-948;Consola PlayStation 4 Versión Uncharted 4 500GB;bajo pedido;330;proveedor;365;14;fija 14 USD (producto);352,83;OK;;0
+3111;;MK-940;Consola Nintendo Switch OLED Blanco 64GB pantalla 7 pulgadas;bajo pedido;360;proveedor;400;16;fija 16 USD (producto);385,65;OK;;0
+3109;;MK-645;Laptop Dell Latitude 7300 i5 8GB RAM 256GB SSD pantalla 13.3";bajo pedido;340;proveedor;375;14;fija 14 USD (producto);363,08;OK;;0
+3107;;MK-640;Laptop Dell Latitude 7280 i5 8GB RAM 256GB SSD 12.5" HD;bajo pedido;340;proveedor;375;14;fija 14 USD (producto);363,08;OK;;0
+3104;;MK-668;Laptop Acer Aspire 3 A514-54-501Z 14" FHD Core i5 8GB RAM;bajo pedido;370;proveedor;410;16;fija 16 USD (producto);395,9;OK;;0
+3102;;MK-691;Laptop Asus E1504F 15.6" Ryzen 5 8GB 512GB SSD;bajo pedido;640;proveedor;705;26;fija 26 USD (producto);683,08;OK;;0
+3099;;MK-641;Laptop Lenovo IdeaPad 5 2 en 1 14" TouchScreen 8GB RAM 512GB SSD;bajo pedido;640;proveedor;705;26;fija 26 USD (producto);683,08;OK;;0
+3096;;MK-627;Laptop Hp 15-fd2050wm 15.6" Intel 8GB RAM 512GB SSD;bajo pedido;660;proveedor;730;28;fija 28 USD (producto);705,65;OK;;0
+3092;;MK-649;Laptop Asus ZenBook UM3406G AMD Ryzen 16GB RAM 1TB SSD;bajo pedido;890;proveedor;980;36;fija 36 USD (producto);949,75;OK;;0
+3090;;MK-623;Laptop MSi Cyborg 15 B2RWFKG Intel 16GB RAM 1TB SSD 15.6";bajo pedido;1570;proveedor;1730;64;fija 64 USD (producto);1675,9;OK;;0
+3088;;MK-692;Laptop Gigabyte AERO X16 AMD Ryzen 7 16GB RAM 1TB SSD;bajo pedido;1690;proveedor;1860;68;fija 68 USD (producto);1803,08;OK;;0
+3086;;MK-689;Laptop Gigabyte Gaming A16 VH i7 32GB RAM 1TB SSD;bajo pedido;1890;proveedor;2080;76;fija 76 USD (producto);2016,42;OK;;0
+3084;;MK-717;Power bank PureGear PureJuice 5000 mAh carga magnética 10W;bajo pedido;16;proveedor;23;2,8;fija 2,80 USD (producto);19,8;OK;;0
+3082;;MK-1068;Probador Digital de Baterías ANENG BT189 con pantalla LCD;bajo pedido;17;proveedor;24;2,8;fija 2,80 USD (producto);20,8;OK;;0
+3079;;MK-761;Power Bank PowerLab 10,000mAh con Power Delivery y carga rápida;bajo pedido;19;proveedor;27;3,2;fija 3,20 USD (producto);23,2;OK;;0
+3075;;MK-860;Batería portátil Pure Gear magnética 10000mAh 20W carga rápida;bajo pedido;29;proveedor;41;4,8;fija 4,80 USD (producto);34,8;OK;;0
+3073;;MK-749;Auriculares Inalámbricos KVIDIO Bluetooth 6.0 con 65 horas de batería;bajo pedido;32;proveedor;45;5,2;fija 5,20 USD (producto);38,2;OK;;0
+3071;;MK-540;Filtros recargables Reusable para Keurig pack de 4;bajo pedido;19;proveedor;27;3,2;fija 3,20 USD (producto);23,2;OK;;0
+3069;;MK-1133;Secadora de Pelo doméstica varias velocidades aire caliente frío;bajo pedido;24;proveedor;34;4;fija 4 USD (producto);29;OK;;0
+3067;;MK-544;Mini Procesador de Alimentos 300W con set de 9 piezas;bajo pedido;29;proveedor;41;4,8;fija 4,80 USD (producto);34,8;OK;;0
+3065;;MK-1167;Calentador de Agua Eléctrico 40L;bajo pedido;130;proveedor;150;8;fija 8 USD (producto);141,54;OK;;0
+3063;;MK-1200;Mesa de Trabajo Refrigerada Iceshare 470L 10°C mantenimiento;bajo pedido;2175;proveedor;2395;88;fija 88 USD (producto);2321,03;OK;;0
+3061;;MK-1210;Mesa de Trabajo Refrigerada Iceshare 368L -18°C con control digital;bajo pedido;2300;proveedor;2530;92;fija 92 USD (producto);2453,34;OK;;0
+3059;;MK-731;Funda Magnetic Slim-Fit para iPhone 17 Pro Max 6.9" roja;bajo pedido;20;proveedor;28;3,2;fija 3,20 USD (producto);24,2;OK;;0
+3057;;MK-894;Localizador Bluetooth Samsung Galaxy SmartTag2 4 Pack para objetos;bajo pedido;99;proveedor;120;8,4;fija 8,40 USD (producto);110,16;OK;;0
+3052;;MK-705;Tablet Android 10.1" 32GB 3GB RAM Rosada pantalla HD;bajo pedido;109;proveedor;130;8,4;fija 8,40 USD (producto);120,42;OK;;0
+3049;;MK-865;Tablet Android 10.1" 32GB 3GB+5GB RAM Azul pantalla HD;bajo pedido;119;proveedor;140;8,4;fija 8,40 USD (producto);130,67;OK;;0
+3044;;MK-771;Celular Honor Choice T10 4GB RAM 64GB almacenamiento pantalla 6.75";bajo pedido;130;proveedor;150;8;fija 8 USD (producto);141,54;OK;;0
+3041;;MK-794;Celular Motorola Moto G17 4GB RAM 128GB almacenamiento pantalla 6.72";bajo pedido;195;proveedor;215;8;fija 8 USD (producto);208,21;OK;;0
+3039;;MK-751;Celular Motorola Edge 60 Fusion 8GB RAM 256GB almacenamiento;bajo pedido;279;proveedor;300;8,4;fija 8,40 USD (producto);294,77;OK;;0
+3037;;MK-793;Tablet Samsung Galaxy Tab S11+ 5G 6GB RAM 128GB pantalla 11";bajo pedido;340;proveedor;375;14;fija 14 USD (producto);363,08;OK;;0
+3035;;MK-532;Protector de Voltaje 12A para refrigeradores y congeladores;bajo pedido;18;proveedor;26;3,2;fija 3,20 USD (producto);22,2;OK;;0
+3033;;MK-1189;Olla Arrocera 1.8L cocción automática;bajo pedido;30;proveedor;42;4,8;fija 4,80 USD (producto);35,8;OK;;0
+3031;;MK-1180;Olla Arrocera Vaporera 1.8L con función de vapor;bajo pedido;30;proveedor;42;4,8;fija 4,80 USD (producto);35,8;OK;;0
+3029;;MK-1123;Ventilador pequeño 12 pulgadas motor rápido 70W;bajo pedido;40;proveedor;56;6,4;fija 6,40 USD (producto);47,59;OK;;0
+3027;;MK-1125;Ventilador de Pie Tornado 18" 75W 110V;bajo pedido;65,5;proveedor;85;7,8;fija 7,80 USD (producto);75,18;OK;;0
+3024;;MK-565;Licuadora de Inmersión Cuisinart 400W con procesador 4 tazas;bajo pedido;80;proveedor;100;8;fija 8 USD (producto);90,26;OK;;0
+3022;;MK-1111;Ventilador de Piso 18" 120W 3 velocidades;bajo pedido;100;proveedor;120;8;fija 8 USD (producto);110,77;OK;;0
+3019;;MK-1122;Ventilador de Pared 20 pulgadas 100W motor cobre;bajo pedido;130;proveedor;150;8;fija 8 USD (producto);141,54;OK;;0
+3017;;MK-538;Batidora FARBERWARE 800W con frasco de vidrio 20 onzas;bajo pedido;149;proveedor;170;8,4;fija 8,40 USD (producto);161,44;OK;;0
+3015;;MK-573;Batidora NutriBullet Blender 1000W con ciclo automático inteligente;bajo pedido;249;proveedor;270;8,4;fija 8,40 USD (producto);264;OK;;0
+3013;;MK-1175;Frigorífico Congelador Iceshare 6 Puertas;bajo pedido;3760;proveedor;4140;152;fija 152 USD (producto);4012,31;OK;;0
+3009;;MK-543;Panel Solar Portátil AFERIY 200W AF-S200A1 con celdas monocristalinas;bajo pedido;320;proveedor;355;14;fija 14 USD (producto);342,57;OK;;0
+3004;;MK-558;Panel Solar Portátil EcoFlow 160 W plegable y resistente;bajo pedido;340;proveedor;375;14;fija 14 USD (producto);363,08;OK;;0
+3002;;MK-562;Estación de energía Daran NEO300L 300W 288Wh portátil;bajo pedido;350;proveedor;385;14;fija 14 USD (producto);373,34;OK;;0
+3000;;MK-576;Inversor Solar Híbrido SUMRY 4000W 24V con controlador MPPT;bajo pedido;369;proveedor;410;16,4;fija 16,40 USD (producto);395,29;OK;;0
+2998;;MK-561;Estación de energía DARAN NEOK2 600W 288Wh LiFePO4 portátil;bajo pedido;420;proveedor;465;18;fija 18 USD (producto);449,24;OK;;0
+2996;;MK-579;Estación de energía Bluetti AC70 768Wh portátil con USB-C 100W;bajo pedido;540;proveedor;595;22;fija 22 USD (producto);576,42;OK;;0
+2991;;MK-556;Generador eléctrico Bluetti Elite 100 Mini 1004.8 Wh capacidad;bajo pedido;650;proveedor;715;26;fija 26 USD (producto);693,34;OK;;0
+2989;;MK-531;Estación de energía AFERIY 1024Wh LiFePO4 1800W con UPS y carga solar;bajo pedido;650;proveedor;715;26;fija 26 USD (producto);693,34;OK;;0
+2987;;MK-578;Estación de energía portátil Anker SOLIX C1000X 1056 Wh 1800 W;bajo pedido;690;proveedor;760;28;fija 28 USD (producto);736,42;OK;;0
+2985;;MK-539;Generador eléctrico BLUETTI Elite 100 V2 1024Wh y 1800W;bajo pedido;690;proveedor;760;28;fija 28 USD (producto);736,42;OK;;0
+2983;;MK-528;Estación de energía portátil AFERIY P210 2400W 2048Wh;bajo pedido;990;proveedor;1090;40;fija 40 USD (producto);1056,42;OK;;0
+2981;;MK-533;Estación de energía EcoFlow DELTA 3 Ultra 3,072 Wh y 3,600 W;bajo pedido;1900;proveedor;2090;76;fija 76 USD (producto);2026,67;OK;;0
+2977;;MK-572;Estación de energía portátil EF ECOFLOW DELTA Pro 3600Wh batería LiFePO4;bajo pedido;2590;proveedor;2850;104;fija 104 USD (producto);2763,08;OK;;0
+2975;;MK-563;Estación de energía Bluetti Apex 300 batería LiFePO₄ 2764.8Wh;bajo pedido;2590;proveedor;2850;104;fija 104 USD (producto);2763,08;OK;;0
+2965;177;BC-109876;Set de alfombras para baño (3 piezas) - azul;tienda;;;15;2;fija 2 USD (padre);;sin costo;;2
+2958;;MK-205;Nevera Royal 5.5 pies;bajo pedido;270;proveedor;290;8;fija 8 USD (producto);285,13;OK;;0
+2953;;MK-172;Ventilador recargable 20000 mAh;bajo pedido;58;proveedor;75;6,8;fija 6,80 USD (producto);66,47;OK;;0
+2948;;MK-131;Split Milexus 1 tonelada;bajo pedido;280;proveedor;300;8;fija 8 USD (producto);295,39;OK;;0
+2914;;nx-7;Cortina de baño flores amarillas y rosa;tienda;;;8;1;fija 1 USD (producto);;sin costo;;0
+2912;;nx-6;Cortina de baño diseño de cuadros;tienda;;;8;1;fija 1 USD (producto);;sin costo;;0
+2910;;nx-5;Cortina de baño a rayas;tienda;;;8;1;fija 1 USD (producto);;sin costo;;1
+2908;;nx-4;Cortina de baño diseño de flores;tienda;;;8;1;fija 1 USD (producto);;sin costo;;0
+2906;;nx-3;Cortina de baño diseño de conchas;tienda;;;8;1;fija 1 USD (producto);;sin costo;;0
+2861;2858;BC-122554;Paragua inverso estampado 8 varillas - rosado;tienda;;;15;1,5;10 % (general);;sin costo;;0
+2859;2858;BC-122554;Paragua inverso estampado 8 varillas - negro;tienda;;;15;1,5;10 % (general);;sin costo;;0
+2860;2858;BC-122554;Paragua inverso estampado 8 varillas - morado;tienda;;;15;1,5;10 % (general);;sin costo;;0
+2832;2828;BC-122536;Paragua inverso 8 varillas - rosado-claro;tienda;;;15;1,5;10 % (general);;sin costo;;0
+2831;2828;BC-122536;Paragua inverso 8 varillas - rosado;tienda;;;15;1,5;10 % (general);;sin costo;;0
+2830;2828;BC-122536;Paragua inverso 8 varillas - azul;tienda;;;15;1,5;10 % (general);;sin costo;;0
+2829;2828;BC-122536;Paragua inverso 8 varillas - verde;tienda;;;15;1,5;10 % (general);;sin costo;;1
+2825;;BC-116975;Rasuradora portátil facial;tienda;;;12;1,2;10 % (general);;sin costo;;0
+2823;;BC-116968;Depiladora portatil de cejas;tienda;;;12;1,2;10 % (general);;sin costo;;1
+2821;;BC-122478;Cápsulas para el cabello con vitamina A,C y E;tienda;;;8;0,8;10 % (general);;sin costo;;0
+2813;;BC-122274;Tabla de planchar con soporte para plancha — rayas de colores;tienda;;;45;5;fija 5 USD (producto);;sin costo;;0
+2797;2529;BC-120776;Set de 2 alfombras para baño - gris-oscuro;tienda;;;13;1;fija 1 USD (padre);;sin costo;;0
+2796;2529;BC-120776;Set de 2 alfombras para baño - azul-marino;tienda;;;13;1;fija 1 USD (padre);;sin costo;;0
+2795;2529;BC-120776;Set de 2 alfombras para baño - beige;tienda;;;13;1;fija 1 USD (padre);;sin costo;;0
+2794;2529;BC-120776;Set de 2 alfombras para baño - carmelita;tienda;;;13;1;fija 1 USD (padre);;sin costo;;0
+2793;2529;BC-120776;Set de 2 alfombras para baño - gris;tienda;;;13;1;fija 1 USD (padre);;sin costo;;0
+2792;2529;BC-120776;Set de 2 alfombras para baño - negro;tienda;;;13;1;fija 1 USD (padre);;sin costo;;0
+2791;2529;BC-120776;Set de 2 alfombras para baño - azul;tienda;;;13;1;fija 1 USD (padre);;sin costo;;0
+2790;2529;BC-120776;Set de 2 alfombras para baño - rojo;tienda;8;manual;13;3;fija 3 USD (producto);13,98;bajo el mínimo;;0
+2798;177;BC-109876;Set de alfombras para baño (3 piezas) - rojo;tienda;10;bizne;15;2;fija 2 USD (producto);15,09;bajo el mínimo;;0
+2799;177;BC-109876;Set de alfombras para baño (3 piezas) - rosado;tienda;;;15;2;fija 2 USD (padre);;sin costo;;0
+2806;745;BC-98568;Sobrecama Queen - gris;tienda;;;38;3;fija 3 USD (producto);;sin costo;;0
+2805;634;BC-98583;Sobrecama king - beige;tienda;;;43;4;fija 4 USD (producto);;sin costo;;0
+2804;2573;BC-120658;Set para baño 3 piezas, alfombra cesta y cortina - azul-marino;tienda;;;28;3;fija 3 USD (padre);;sin costo;;0
+2803;2573;BC-120658;Set para baño 3 piezas, alfombra cesta y cortina - rojo-vino;tienda;;;28;3;fija 3 USD (padre);;sin costo;;0
+2802;2573;BC-120658;Set para baño 3 piezas, alfombra cesta y cortina - turquesa-oscuro;tienda;;;28;3;fija 3 USD (padre);;sin costo;;0
+2801;2573;BC-120658;Set para baño 3 piezas, alfombra cesta y cortina - rosado;tienda;;;28;3;fija 3 USD (padre);;sin costo;;0
+2807;;BC-122270;Tabla de planchar con soporte para plancha — estampado floral;tienda;;;45;5;fija 5 USD (producto);;sin costo;;0
+2800;2573;BC-120658;Set para baño 3 piezas, alfombra cesta y cortina - carmelita;tienda;;;28;3;fija 3 USD (producto);;sin costo;;0
+2789;2527;BC-121734;Riñonera - gris;tienda;;;10;2;fija 2 USD (padre);;sin costo;;0
+2782;2543;BC-120780;Set de cortina de baño + alfombra - rosado;tienda;;;16;2;fija 2 USD (padre);;sin costo;;0
+2776;2557;BC-120653;Sabana camera 100% luxury home - gris;tienda;13;bizne;25;4;fija 4 USD (producto);20,65;OK;;0
+2777;2557;BC-120653;Sabana camera 100% luxury home - beige;tienda;;;25;4;fija 4 USD (padre);;sin costo;;0
+2778;2557;BC-120653;Sabana camera 100% luxury home - rosado;tienda;;;25;4;fija 4 USD (padre);;sin costo;;0
+2779;2557;BC-120653;Sabana camera 100% luxury home - blanco;tienda;;;25;4;fija 4 USD (padre);;sin costo;;0
+2780;2543;BC-120780;Set de cortina de baño + alfombra - gris;tienda;;;16;2;fija 2 USD (producto);;sin costo;;0
+2781;2543;BC-120780;Set de cortina de baño + alfombra - morado;tienda;;;16;2;fija 2 USD (padre);;sin costo;;0
+2788;2527;BC-121734;Riñonera - verde;tienda;;;10;2;fija 2 USD (producto);;sin costo;;0
+2783;2543;BC-120780;Set de cortina de baño + alfombra - amarillo;tienda;;;16;2;fija 2 USD (padre);;sin costo;;0
+2784;118;BC-98412;Sobrecama lisa full - gris;tienda;28;bizne;36;2;fija 2 USD (producto);35,09;OK;;0
+2785;118;BC-98412;Sobrecama lisa full - carmelita;tienda;;;36;2;fija 2 USD (padre);;sin costo;;0
+2786;118;BC-98412;Sobrecama lisa full - beige;tienda;;;36;2;fija 2 USD (padre);;sin costo;;0
+2787;118;BC-98412;Sobrecama lisa full - salmon;tienda;;;36;2;fija 2 USD (padre);;sin costo;;0
+2772;;BC-122361;MOCHILA M-4;tienda;;;30;3;fija 3 USD (producto);;sin costo;;0
+2774;;BC-122363;MOCHILA M-6;tienda;;;30;3;fija 3 USD (producto);;sin costo;;0
+2768;;BC-122365;MOCHILA M-14;tienda;;;25;3;fija 3 USD (producto);;sin costo;;0
+2770;;BC-122358;MOCHILA M-2;tienda;;;30;3;fija 3 USD (producto);;sin costo;;0
+2766;;BC-122364;MOCHILA M-10;tienda;;;30;3;fija 3 USD (producto);;sin costo;;0
+2761;2471;BC-120778;Manta 180X220 cm (estampada) - gris;tienda;;;23;3;fija 3 USD (producto);;sin costo;;0
+2763;2471;BC-120778;Manta 180X220 cm (estampada) - rosa-palo;tienda;;;23;3;fija 3 USD (padre);;sin costo;;0
+2759;;BC-122362;MOCHILA M-5;tienda;;;30;3;fija 3 USD (producto);;sin costo;;0
+2765;2471;BC-120778;Manta 180X220 cm (estampada) - rosado-claro;tienda;;;23;3;fija 3 USD (padre);;sin costo;;0
+2762;2471;BC-120778;Manta 180X220 cm (estampada) - rosado;tienda;;;23;3;fija 3 USD (padre);;sin costo;;0
+2764;2471;BC-120778;Manta 180X220 cm (estampada) - gris-oscuro;tienda;;;23;3;fija 3 USD (padre);;sin costo;;2
+2757;;BC-122359;MOCHILA M-3;tienda;;;30;3;fija 3 USD (producto);;sin costo;;0
+2755;;BC-122367;MOCHILA M-15;tienda;;;25;3;fija 3 USD (producto);;sin costo;;0
+2751;2499;BC-120779;Manta 240X260 cm (lisa) - azul;tienda;;;26;2;fija 2 USD (padre);;sin costo;;0
+2753;;BC-122369;MOCHILA ESTILO BOLSITA;tienda;;;13;1;fija 1 USD (producto);;sin costo;;0
+2752;2499;BC-120779;Manta 240X260 cm (lisa) - amarillo;tienda;;;26;2;fija 2 USD (padre);;sin costo;;1
+2745;2497;BC-120777;Manta 180x200 cm (lisa) - azul;tienda;;;21;2;fija 2 USD (producto);;sin costo;;0
+2750;2499;BC-120779;Manta 240X260 cm (lisa) - rojo;tienda;;;26;2;fija 2 USD (producto);;sin costo;;0
+2749;2497;BC-120777;Manta 180x200 cm (lisa) - salmon;tienda;;;21;2;fija 2 USD (padre);;sin costo;;0
+2748;2497;BC-120777;Manta 180x200 cm (lisa) - carmelita;tienda;;;21;2;fija 2 USD (padre);;sin costo;;0
+2743;345;BC-82194;Juego de Sábanas Majestic King - rosado;tienda;;;27;3;fija 3 USD (padre);;sin costo;;0
+2744;345;BC-82194;Juego de Sábanas Majestic King - gris-oscuro;tienda;;;27;3;fija 3 USD (padre);;sin costo;;0
+2747;2497;BC-120777;Manta 180x200 cm (lisa) - gris;tienda;;;21;2;fija 2 USD (padre);;sin costo;;0
+2746;2497;BC-120777;Manta 180x200 cm (lisa) - negro;tienda;;;21;2;fija 2 USD (padre);;sin costo;;0
+2732;466;BC-100780;Juego de cortina tapa sol Royale con diseño - bw-2;tienda;;;30;3;fija 3 USD (padre);;sin costo;;0
+2735;2491;BC-120773;Juego de sabanas Camera Majestic imperial - gris;tienda;;;23;2,3;10 % (general);;sin costo;;0
+2731;466;BC-100780;Juego de cortina tapa sol Royale con diseño - bw-1;tienda;;;30;3;fija 3 USD (producto);;sin costo;;0
+2733;2491;BC-120773;Juego de sabanas Camera Majestic imperial - verde;tienda;;;23;2,3;10 % (general);;sin costo;;0
+2734;2491;BC-120773;Juego de sabanas Camera Majestic imperial - azul;tienda;;;23;2,3;10 % (general);;sin costo;;0
+2729;;BC-120943;Escritorio de oficina;tienda;;;230;10;fija 10 USD (producto);;sin costo;;1
+2742;345;BC-82194;Juego de Sábanas Majestic King - azul;tienda;17;bizne;27;3;fija 3 USD (producto);23,98;OK;;0
+2741;2491;BC-120773;Juego de sabanas Camera Majestic imperial - beige-oscuro;tienda;;;23;2,3;10 % (general);;sin costo;;0
+2740;2491;BC-120773;Juego de sabanas Camera Majestic imperial - gris-oscuro;tienda;;;23;2,3;10 % (general);;sin costo;;0
+2739;2491;BC-120773;Juego de sabanas Camera Majestic imperial - verde-azul;tienda;;;23;2,3;10 % (general);;sin costo;;0
+2738;2491;BC-120773;Juego de sabanas Camera Majestic imperial - azul-claro;tienda;;;23;2,3;10 % (general);;sin costo;;0
+2737;2491;BC-120773;Juego de sabanas Camera Majestic imperial - rosado;tienda;;;23;2,3;10 % (general);;sin costo;;0
+2736;2491;BC-120773;Juego de sabanas Camera Majestic imperial - beige;tienda;;;23;2,3;10 % (general);;sin costo;;0
+2720;465;BC-82193;Juego de sabanas Queen Majestic imperial - arena;tienda;;;25;3;fija 3 USD (padre);;sin costo;;1
+2719;465;BC-82193;Juego de sabanas Queen Majestic imperial - beige-oscuro;tienda;;;25;3;fija 3 USD (producto);;sin costo;;0
+2718;577;BC-85096;Juego de Sábanas Majestic Imperial – TWIN - gris-oscuro;tienda;9,9;bizne;14;1;fija 1 USD (producto);13,87;OK;;0
+2717;290;BC-100779;Juego de cortina tapa sol Royale - blanco;tienda;;;27;3;fija 3 USD (padre);;sin costo;;4
+2716;290;BC-100779;Juego de cortina tapa sol Royale - gris;tienda;18;bizne;27;4;fija 4 USD (producto);26,2;OK;;0
+2715;2449;BC-120768;Fundas Majestic Imperial - blanco;tienda;;;10;2;fija 2 USD (padre);;sin costo;;0
+2721;2437;BC-120693;Doyle matizado 6 piezas 45x30 cm - azul;tienda;;;13;1;fija 1 USD (producto);;sin costo;;0
+2722;2437;BC-120693;Doyle matizado 6 piezas 45x30 cm - gris;tienda;;;13;1;fija 1 USD (padre);;sin costo;;0
+2723;2437;BC-120693;Doyle matizado 6 piezas 45x30 cm - beige;tienda;;;13;1;fija 1 USD (padre);;sin costo;;0
+2728;2439;BC-120695;Edredón con juego de sabana (camero) - blanco;tienda;;;40;5;fija 5 USD (padre);;sin costo;;1
+2727;2439;BC-120695;Edredón con juego de sabana (camero) - rosado;tienda;;;40;5;fija 5 USD (padre);;sin costo;;2
+2726;2439;BC-120695;Edredón con juego de sabana (camero) - gris;tienda;;;40;5;fija 5 USD (padre);;sin costo;;1
+2725;2439;BC-120695;Edredón con juego de sabana (camero) - azul;tienda;;;40;5;fija 5 USD (producto);;sin costo;;1
+2724;2437;BC-120693;Doyle matizado 6 piezas 45x30 cm - naranja;tienda;;;13;1;fija 1 USD (padre);;sin costo;;0
+2703;2413;BC-119819;Cojin forma de flor - naranja;tienda;19;manual;25;2;fija 2 USD (producto);25,09;bajo el mínimo;;0
+2704;2429;BC-117402;Cortina de baño 180x180 cm - rojo;tienda;8,5;manual;8;1;fija 1 USD (producto);12,32;bajo el mínimo;;0
+2705;2455;BC-120694;Doyle Metalizado 45x30 cm - rosado;tienda;9;bizne;13;1;fija 1 USD (producto);12,87;OK;;0
+2706;2455;BC-120694;Doyle Metalizado 45x30 cm - dorado;tienda;;;13;1;fija 1 USD (padre);;sin costo;;0
+2708;2457;BC-120696;Edredón con juego de sabana (queen) - azul;tienda;30;bizne;50;6;fija 6 USD (producto);41,76;OK;;0
+2709;2457;BC-120696;Edredón con juego de sabana (queen) - blanco;tienda;;;50;6;fija 6 USD (padre);;sin costo;;1
+2710;2449;BC-120768;Fundas Majestic Imperial - azul;tienda;;;10;2;fija 2 USD (producto);;sin costo;;0
+2707;2455;BC-120694;Doyle Metalizado 45x30 cm - plateado;tienda;;;13;1;fija 1 USD (padre);;sin costo;;0
+2711;2449;BC-120768;Fundas Majestic Imperial - negro;tienda;;;10;2;fija 2 USD (padre);;sin costo;;1
+2712;2449;BC-120768;Fundas Majestic Imperial - gris;tienda;;;10;2;fija 2 USD (padre);;sin costo;;0
+2713;2449;BC-120768;Fundas Majestic Imperial - beige;tienda;;;10;2;fija 2 USD (padre);;sin costo;;0
+2714;2449;BC-120768;Fundas Majestic Imperial - rosado;tienda;;;10;2;fija 2 USD (padre);;sin costo;;0
+2694;2371;BC-120775;Alfombra con piecitos - gris;tienda;10;bizne;14;1;fija 1 USD (producto);13,98;OK;;0
+2693;2371;BC-120775;Alfombra con piecitos - azul;tienda;10;bizne;14;1;fija 1 USD (producto);13,98;OK;;0
+2692;2371;BC-120775;Alfombra con piecitos - rojo;tienda;10;bizne;14;1;fija 1 USD (producto);13,98;OK;;0
+2697;2373;BC-117441;Alfombra de entrada 40x60 cm - verde;tienda;5;manual;8;1;fija 1 USD (producto);8,58;bajo el mínimo;;0
+2695;2371;BC-120775;Alfombra con piecitos - gris-oscuro;tienda;10;bizne;14;1;fija 1 USD (producto);13,98;OK;;0
+2696;2371;BC-120775;Alfombra con piecitos - carmelita-oscuro;tienda;10;bizne;14;1;fija 1 USD (producto);13,98;OK;;1
+2701;;BC-122454;Cojin decorativo;tienda;;;12;1,2;10 % (general);;sin costo;;0
+2698;2373;BC-117441;Alfombra de entrada 40x60 cm - azul-marino;tienda;;;8;1;fija 1 USD (padre);;sin costo;;0
+2699;2375;BC-117515;Alfombra peluche 40x60 cm - beige;tienda;5;manual;8;5;fija 5 USD (producto);12,87;bajo el mínimo;;0
+2700;2375;BC-117515;Alfombra peluche 40x60 cm - rosado;tienda;;;8;1;fija 1 USD (padre);;sin costo;;0
+2687;2401;BC-117517;Alfombra peluche 50×80 cm — diseño arcos - carmelita;tienda;;;10;1;fija 1 USD (producto);;sin costo;;0
+2688;2401;BC-117517;Alfombra peluche 50×80 cm — diseño arcos - beige;tienda;;;10;1;fija 1 USD (padre);;sin costo;;0
+2689;2401;BC-117517;Alfombra peluche 50×80 cm — diseño arcos - rosado;tienda;;;10;1;fija 1 USD (padre);;sin costo;;0
+2690;2403;BC-117445;Alfombra rombo 40x60 cm - arena;tienda;5;bizne;8;1;fija 1 USD (producto);8,58;bajo el mínimo;;0
+2691;2369;BC-119003;Alfombra antirresbalante - azul;tienda;7;manual;11;1;fija 1 USD (producto);10,65;OK;;0
+2686;2397;BC-120689;Alfombra Bienvenido 45x75 cm - carmelita-oscuro;tienda;;;15;1;fija 1 USD (padre);;sin costo;;0
+2683;2397;BC-120689;Alfombra Bienvenido 45x75 cm - carmelita;tienda;;;15;1;fija 1 USD (padre);;sin costo;;0
+2680;2397;BC-120689;Alfombra Bienvenido 45x75 cm - azul;tienda;;;15;1;fija 1 USD (producto);;sin costo;;0
+2681;2397;BC-120689;Alfombra Bienvenido 45x75 cm - negro;tienda;;;15;1;fija 1 USD (padre);;sin costo;;0
+2682;2397;BC-120689;Alfombra Bienvenido 45x75 cm - gris;tienda;;;15;1;fija 1 USD (padre);;sin costo;;0
+2685;2397;BC-120689;Alfombra Bienvenido 45x75 cm - gris-oscuro;tienda;;;15;1;fija 1 USD (padre);;sin costo;;0
+2684;2397;BC-120689;Alfombra Bienvenido 45x75 cm - rojo-vino;tienda;;;15;1;fija 1 USD (padre);;sin costo;;0
+2612;;BC-122010;Bolas Navideñas blanco verde rojo;tienda;;;8;0,8;10 % (general);;sin costo;;0
+2610;;BC-122011;Bolas Navideñas rosado metálico;tienda;;;8;0,8;10 % (general);;sin costo;;0
+2603;;BC-117400;Zapatera 4 niveles;tienda;;;23;2;fija 2 USD (producto);;sin costo;;0
+2601;;BC-118804;Ventilador recargable F6 (negro);tienda;;;70;4;fija 4 USD (producto);;sin costo;;0
+2595;;BC-120947;Soporte de TV 40"x80";tienda;25;bizne;40;5;fija 5 USD (producto);35,09;OK;;1
+2597;;BC-120781;Tendedero multifuncional plegable de acero;tienda;;;55;5;fija 5 USD (producto);;sin costo;;0
+2591;;BC-91182;🎄 Casas en Miniatura – 8 cm c- 89045;tienda;;;5;0,5;10 % (general);;sin costo;;0
+2593;;BC-120948;Silla de oficina (23_222);tienda;65;bizne;75;5;fija 5 USD (producto);79,54;bajo el mínimo;;1
+2589;;BC-117516;Zapatera 5 niveles;tienda;;;35;4;fija 4 USD (producto);;sin costo;cruzado-alta;0
+2587;;BC-118803;Ventilador recargable F6 (verde);tienda;;;70;4;fija 4 USD (producto);;sin costo;;0
+2585;;BC-118802;Ventilador recargable F6 (naranja);tienda;60;bizne;70;4;fija 4 USD (producto);72,87;bajo el mínimo;;0
+2583;;BC-119723;Toalla Cisne Blanco 70x140 cm (rosada);tienda;;;18;2;fija 2 USD (producto);;sin costo;;0
+2581;;BC-119730;Toalla Cisne Blanco 70x140 cm (azul);tienda;;;18;2;fija 2 USD (producto);;sin costo;;0
+2579;;BC-121733;Sombrilla rectangular para interior de auto;tienda;3,55;bizne;15;2;fija 2 USD (producto);8,13;OK;;1
+2575;;BC-119823;Shampoo 2 en 1;tienda;;;6;1;fija 1 USD (producto);;sin costo;;0
+2571;;BC-119004;Set de cuchillos 🔪 Con tabla;tienda;8,5;bizne;13;1;fija 1 USD (producto);12,32;OK;;0
+2567;;BC-120769;Set de 2 alfombras para cocina 3D — diseño Kitchen Rules;tienda;;;18;1;fija 1 USD (producto);;sin costo;;0
+2563;;BC-120764;Set de 2 alfombras para cocina 3D — diseño girasoles;tienda;;;18;1;fija 1 USD (producto);;sin costo;;0
+2565;;BC-120766;Set de 2 alfombras para cocina 3D — diseño chef;tienda;;;18;1;fija 1 USD (producto);;sin costo;;1
+2561;;BC-120762;Set de 2 alfombras para cocina 3D — diseño sushi;tienda;;;18;1;fija 1 USD (producto);;sin costo;;0
+2559;;BC-120760;Set de 2 alfombras para cocina 3D — diseño café y rosa;tienda;;;18;1;fija 1 USD (producto);;sin costo;;0
+2555;;BC-121245;Puerta de corredera (blanca);tienda;38;bizne;60;6;fija 6 USD (producto);50,65;OK;;1
+2551;;BC-120617;Power bank;tienda;;;30;3;fija 3 USD (producto);;sin costo;;0
+2547;;BC-108838;Perchero Multifuncional 160x36x173cm;tienda;23;manual;33;3;fija 3 USD (producto);30,65;OK;;2
+2545;;BC-121736;Set de utensilios para cocina (5 piezas);tienda;;;8;1;fija 1 USD (producto);;sin costo;cruzado-alta;0
+2541;;BC-120772;Set de 2 alfombras para cocina 3D — diseño limones;tienda;;;18;1;fija 1 USD (producto);;sin costo;;0
+2539;;BC-120770;Set de 2 alfombras para cocina 3D — diseño cupcakes rosa;tienda;;;18;1;fija 1 USD (producto);;sin costo;;0
+2537;;BC-120767;Set de 2 alfombras para cocina 3D — diseño dulces;tienda;;;18;1;fija 1 USD (producto);;sin costo;;0
+2533;;BC-120763;Set de 2 alfombras para cocina 3D — diseño café;tienda;;;18;1;fija 1 USD (producto);;sin costo;;0
+2535;;BC-120765;Set de 2 alfombras para cocina 3D — diseño Fresh Kitchen;tienda;;;18;1;fija 1 USD (producto);;sin costo;;0
+2531;;BC-120761;Set de 2 alfombras para cocina 3D — diseño utensilios rojo y negro;tienda;12;bizne;18;1;fija 1 USD (producto);16,2;OK;;0
+2525;;BC-121268;Puerta de corredera (gris);tienda;38;bizne;60;6;fija 6 USD (producto);50,65;OK;;0
+2523;;BC-109792;Protector de colchón king;tienda;30;bizne;39;3;fija 3 USD (producto);38,43;OK;;0
+2521;;BC-120618;Power bank con panel solar;tienda;30;bizne;45;5;fija 5 USD (producto);40,65;OK;;0
+2517;;BC-121737;Pesa electrónica corporal;tienda;16,67;bizne;35;5;fija 5 USD (producto);25,84;OK;;3
+2515;;BC-119820;Percha Doble con Zapatera 150x110x40cm;tienda;25;manual;35;3;fija 3 USD (producto);32,87;OK;;1
+2513;;BC-120379;Panel Solar Bifacial SKYMAX 620W N-TOPCon;tienda;;;230;15;fija 15 USD (producto);;sin costo;;0
+2511;;BC-119023;Organizador de Baño blanco;tienda;;;28;2;fija 2 USD (producto);;sin costo;;0
+2509;;BC-121914;Mochila M-9;tienda;;;30;3;fija 3 USD (producto);;sin costo;;0
+2501;;BC-120606;Masajeador corporal;tienda;45;bizne;56;2;fija 2 USD (producto);53,98;OK;;0
+2503;;BC-121918;Mochila M- 1;tienda;;;13;2;fija 2 USD (producto);;sin costo;cruzado-alta;0
+2495;;BC-120621;Kit de skincare 3 piezas vitamina C;tienda;10;bizne;15;1;fija 1 USD (producto);13,98;OK;;1
+2493;;BC-120622;Kit de skincare 3 piezas aloe vera;tienda;10;bizne;15;1;fija 1 USD (producto);13,98;OK;;0
+2487;;BC-119020;Organizador de Baño negro;tienda;;;28;2;fija 2 USD (producto);;sin costo;;0
+2489;;BC-121745;Paragua infantil (55cm);tienda;1,08;bizne;8;2;fija 2 USD (producto);5,66;OK;;1
+2485;;BC-117675;Organizador de 2 niveles;tienda;6,5;bizne;11;1;fija 1 USD (producto);10,09;OK;;0
+2483;;BC-105359;Olla con tapa;tienda;;;38;2;fija 2 USD (producto);;sin costo;;0
+2479;;BC-121943;Mochila M-12;tienda;;;20;2;fija 2 USD (producto);;sin costo;;0
+2477;;BC-121919;Mochila M- 8;tienda;9;bizne;13;1;fija 1 USD (producto);12,87;OK;;1
+2475;;BC-120607;Masajeador facial y cuello;tienda;40;bizne;55;4;fija 4 USD (producto);50,65;OK;;1
+2473;;BC-120615;Máquinas de pelar recargable;tienda;17;bizne;25;2;fija 2 USD (producto);22,87;OK;;0
+2467;;BC-120620;Kit de skincare 3 piezas antimanchas;tienda;10;bizne;15;1;fija 1 USD (producto);13,98;OK;;0
+2469;;BC-120619;Lámparas recargables con panel solar;tienda;;;25;2;fija 2 USD (producto);;sin costo;cruzado-alta;0
+2463;;BC-120484;Farol solar;tienda;7;manual;11;2;fija 2 USD (producto);11,76;bajo el mínimo;;2
+2465;;BC-117518;Fundas (2) blancas de almohadas;tienda;5;bizne;8;2;fija 2 USD (producto);9,58;bajo el mínimo;;0
+2459;;BC-121243;Espejo Led 60X80 CM;tienda;45;bizne;60;5;fija 5 USD (producto);57,32;OK;;0
+2461;;BC-68677;Estante esquinero para baño;tienda;;;26;3;fija 3 USD (producto);;sin costo;cruzado-media;0
+2453;;BC-120835;Cortina roller enrollable 160X280;tienda;45;bizne;65;7;fija 7 USD (producto);59,54;OK;;0
+2451;;BC-120838;Cortina roller enrollable 100X160;tienda;35;bizne;55;7;fija 7 USD (producto);48,43;OK;;0
+2447;;BC-P-s1wqr;Faja reductora (talla S);tienda;;;16;1,6;10 % (general);;sin costo;;0
+2445;;BC-85503;Estante Organizador;tienda;15;manual;21;2;fija 2 USD (producto);20,65;OK;;0
+2441;;BC-119347;Edulcorante;tienda;5;bizne;8;1,49;fija 1,49 USD (producto);9,07;bajo el mínimo;;0
+2443;;BC-121242;Espejo Led 50X70 CM;tienda;40;bizne;55;5;fija 5 USD (producto);51,76;OK;;0
+2433;;BC-120836;Cortina roller enrollable 172X280;tienda;50;bizne;70;7;fija 7 USD (producto);65,09;OK;;0
+2431;;BC-120837;Cortina roller enrollable 140X280;tienda;40;bizne;60;7;fija 7 USD (producto);53,98;OK;;0
+2423;;BC-121735;Cintas de luces bluetooth con RGB (5m);tienda;6,5;bizne;20;4;fija 4 USD (producto);13,43;OK;;3
+2425;;BC-120608;Compresor portátil modelo 1;tienda;35;bizne;50;4;fija 4 USD (producto);45,09;OK;;0
+2427;;BC-118805;Corral de bebé 11494;tienda;80;bizne;110;8;fija 8 USD (producto);99,54;OK;;0
+2421;;BC-120945;Cesto de pedal negro (15 litros);tienda;;;19;1;fija 1 USD (producto);;sin costo;;0
+2415;;BC-120774;Colgador de ropa;tienda;30;bizne;43;4;fija 4 USD (producto);39,54;OK;;0
+2417;;BC-120612;Cepillos alisadores recargables;tienda;;;35;2;fija 2 USD (producto);;sin costo;;0
+2411;;BC-120946;Cesto de pedal negro (7 litros);tienda;;;12;1;fija 1 USD (producto);;sin costo;;0
+2407;;BC-121294;Cama plegable portátil;tienda;;;60;5;fija 5 USD (producto);;sin costo;;5
+2409;;BC-119824;Cesto de basura encimera;tienda;3,5;manual;6;1;fija 1 USD (producto);7,08;bajo el mínimo;;0
+2405;;BC-120949;Cable fotovoltaico negro;tienda;;;140;10;fija 10 USD (producto);;sin costo;;0
+2399;;BC-119022;Alfombra de Sala estilo Persa;tienda;40;manual;55;4;fija 4 USD (producto);50,65;OK;;0
+2391;;BC-120839;Albornoz (talla L) beige;tienda;;;38;2;fija 2 USD (producto);;sin costo;;0
+2389;;BC-119346;Aceite corporal;tienda;10;bizne;16;2,98;fija 2,98 USD (producto);16,18;bajo el mínimo;;0
+2387;;BC-121747;Capas de moto (talla L);tienda;13,25;bizne;20;2;fija 2 USD (producto);18,7;OK;;1
+2385;;BC-120950;Cable fotovoltaico rojo;tienda;;;140;10;fija 10 USD (producto);;sin costo;;0
+2383;;BC-120586;Cable de carga multifuncional;tienda;5;bizne;8;1;fija 1 USD (producto);8,58;bajo el mínimo;;0
+2381;;BC-121746;Árbol de navidad (1,50 m);tienda;;;40;1;fija 1 USD (producto);;sin costo;cruzado-media muy-bajo;0
+2377;;BC-117674;Alfombra peluche lisa 50×80 cm — crema;tienda;;;10;1;fija 1 USD (producto);;sin costo;;0
+2363;;BC-120842;Albornoz (talla L) azul;tienda;;;38;2;fija 2 USD (producto);;sin costo;;0
+2365;;BC-120840;Albornoz (talla L) beige oscuro;tienda;;;38;2;fija 2 USD (producto);;sin costo;;0
+842;801;BC-73346-bw-1;Alfombra de chenilla - bw-1;tienda;4;bizne;10;2;fija 2 USD (producto);8,58;OK;;0
+838;801;BC-73346-blanco;Alfombra de chenilla - blanco;tienda;4;bizne;10;2;fija 2 USD (producto);8,58;OK;;0
+840;801;BC-73346-verde-menta;Alfombra de chenilla - verde-menta;tienda;4;bizne;10;2;fija 2 USD (producto);8,58;OK;;0
+834;801;BC-73346-rosado;Alfombra de chenilla - rosado;tienda;4;bizne;10;2;fija 2 USD (producto);8,58;OK;;0
+836;801;BC-73346-amarillo;Alfombra de chenilla - amarillo;tienda;4;bizne;10;2;fija 2 USD (producto);8,58;OK;;0
+822;;BC-115479;Soporte TV 14”-42”;tienda;7;bizne;12;2;fija 2 USD (producto);11,76;OK;;0
+813;;BC-109866;Alfombra Circular Decorativa – 180 cm — Diseño 4;tienda;;;60;5;fija 5 USD (producto);;sin costo;;0
+807;747;BC-104720-rosado;Utensilios de silicona con cuchillos - rosado;tienda;26;bizne;30;1;fija 1 USD (producto);31,76;bajo el mínimo;;0
+809;;BC-116502;Carrito de Mandado Plegable Azul oscuro;tienda;;;25;2;fija 2 USD (producto);;sin costo;;0
+804;746;BC-107264-azul;Termo térmico 1L - azul;tienda;;;17;1,7;10 % (general);;sin costo;;0
+800;746;BC-107264-rojo;Termo térmico 1L - rojo;tienda;;;17;1,7;10 % (general);;sin costo;;0
+794;;BC-114041;Carretón negro;tienda;;;80;5;fija 5 USD (producto);;sin costo;;0
+792;745;BC-98568-carmelita-oscuro;Sobrecama Queen - carmelita-oscuro;tienda;29;bizne;38;3;fija 3 USD (producto);37,32;OK;;0
+790;745;BC-98568-gris-oscuro;Sobrecama Queen - gris-oscuro;tienda;29;bizne;38;3;fija 3 USD (producto);37,32;OK;;0
+788;745;BC-98568-blanco;Sobrecama Queen - blanco;tienda;29;bizne;38;3;fija 3 USD (producto);37,32;OK;;0
+786;745;BC-98568-beige;Sobrecama Queen - beige;tienda;29;bizne;38;3;fija 3 USD (producto);37,32;OK;;0
+784;745;BC-98568-verde;Sobrecama Queen - verde;tienda;29;bizne;38;3;fija 3 USD (producto);37,32;OK;;0
+775;;BC-112710;Válvula de paso mini HH 1/2 " GPLP83 (hembra);tienda;;;4;1;fija 1 USD (producto);;sin costo;;0
+773;;BC-105154;Colchón de resorte 180x200cm Dawang;tienda;214;bizne;320;20;fija 20 USD (producto);261,76;OK;;0
+769;695;BC-113934-gris-oscuro;Toallas Cisne Blanco 40x70 - gris-oscuro;tienda;5;manual;8;2;fija 2 USD (producto);9,58;bajo el mínimo;;0
+771;695;BC-113934-beige-oscuro;Toallas Cisne Blanco 40x70 - beige-oscuro;tienda;5;manual;8;2;fija 2 USD (producto);9,58;bajo el mínimo;;1
+765;695;BC-113934-rosado;Toallas Cisne Blanco 40x70 - rosado;tienda;5;manual;8;2;fija 2 USD (producto);9,58;bajo el mínimo;;0
+767;695;BC-113934-blanco;Toallas Cisne Blanco 40x70 - blanco;tienda;5;manual;8;2;fija 2 USD (producto);9,58;bajo el mínimo;;0
+763;695;BC-113934-azul;Toallas Cisne Blanco 40x70 - azul;tienda;5;manual;8;2;fija 2 USD (producto);9,58;bajo el mínimo;;0
+761;695;BC-113934-verde;Toallas Cisne Blanco 40x70 - verde;tienda;5;manual;8;2;fija 2 USD (producto);9,58;bajo el mínimo;;0
+738;693;BC-111556-dorado;Cortinero decorativo — Diseño 3 - dorado;tienda;;;10;2;fija 2 USD (padre);;sin costo;;0
+740;693;BC-111556-plateado;Cortinero decorativo — Diseño 3 - plateado;tienda;;;10;2;fija 2 USD (padre);;sin costo;;0
+736;693;BC-111556-negro;Cortinero decorativo — Diseño 3 - negro;tienda;;;10;2;fija 2 USD (padre);;sin costo;;0
+731;;BC-116443;Tendedero Plegable Rosa;tienda;15;manual;23;3;fija 3 USD (producto);21,76;OK;;0
+727;;BC-116979;Faja reductora;tienda;;;16;2;fija 2 USD (producto);;sin costo;;0
+723;692;BC-107268-verde;Cojín decorativo — Diseño 2 - verde;tienda;;;11;1,1;10 % (general);;sin costo;;0
+725;692;BC-107268-carmelita;Cojín decorativo — Diseño 2 - carmelita;tienda;;;11;1,1;10 % (general);;sin costo;;0
+721;692;BC-107268-rojo;Cojín decorativo — Diseño 2 - rojo;tienda;;;11;1,1;10 % (general);;sin costo;;0
+712;;BC-108761;Colchón King + Almohada - EDSM A;tienda;;;365;20;fija 20 USD (producto);;sin costo;;0
+706;;BC-107355;Cesta tipo mimbre rectangular;tienda;5;bizne;10;1;fija 1 USD (producto);8,58;OK;;0
+704;;BC-108755;Colchón - EDSM A - Camero;tienda;;;290;20;fija 20 USD (producto);;sin costo;;0
+684;;BC-98586;Toallas pequeña;tienda;5;manual;10;5;fija 5 USD (producto);12,87;bajo el mínimo;;0
+678;;BC-116978;Escamadora de pescado;tienda;;;6;1;fija 1 USD (producto);;sin costo;;0
+674;;BC-111684;Cesto de 12L — Diseño 3;tienda;;;7;1;fija 1 USD (producto);;sin costo;;0
+676;;BC-116315;Aceite capilar de batana HOEGOA;tienda;;;11;1;fija 1 USD (producto);;sin costo;;1
+666;634;BC-98583-blanco;Sobrecama king - blanco;tienda;31;bizne;43;4;fija 4 USD (producto);40,65;OK;;0
+668;634;BC-98583-gris-oscuro;Sobrecama king - gris-oscuro;tienda;31;bizne;43;4;fija 4 USD (producto);40,65;OK;;0
+662;634;BC-98583-gris;Sobrecama king - gris;tienda;31;bizne;43;4;fija 4 USD (producto);40,65;OK;;0
+664;634;BC-98583-rosado;Sobrecama king - rosado;tienda;31;bizne;43;4;fija 4 USD (producto);40,65;OK;;0
+660;634;BC-98583-azul;Sobrecama king - azul;tienda;31;bizne;43;4;fija 4 USD (producto);40,65;OK;;0
+653;577;BC-85096-verde-claro;Juego de Sábanas Majestic Imperial – TWIN - verde-claro;tienda;9,9;bizne;14;1;fija 1 USD (producto);13,87;OK;;0
+647;577;BC-85096-verde-azul;Juego de Sábanas Majestic Imperial – TWIN - verde-azul;tienda;9,9;bizne;14;1;fija 1 USD (producto);13,87;OK;;0
+649;577;BC-85096-beige-oscuro;Juego de Sábanas Majestic Imperial – TWIN - beige-oscuro;tienda;9,9;bizne;14;1;fija 1 USD (producto);13,87;OK;;0
+651;577;BC-85096-rosado-claro;Juego de Sábanas Majestic Imperial – TWIN - rosado-claro;tienda;9,9;bizne;14;1;fija 1 USD (producto);13,87;OK;;0
+645;577;BC-85096-gris;Juego de Sábanas Majestic Imperial – TWIN - gris;tienda;9,9;bizne;14;1;fija 1 USD (producto);13,87;OK;;0
+643;577;BC-85096-azul;Juego de Sábanas Majestic Imperial – TWIN - azul;tienda;9,9;bizne;14;1;fija 1 USD (producto);13,87;OK;;0
+629;;BC-112637;Grifo para fregadero doble GP 1311;tienda;;;14;2;fija 2 USD (producto);;sin costo;;1
+611;;BC-109862;Alfombra Circular Decorativa – 180 cm — Diseño 3;tienda;40;bizne;60;5;fija 5 USD (producto);51,76;OK;;0
+609;;BC-111682;Cesto de 12L — Diseño 2;tienda;;;7;1;fija 1 USD (producto);;sin costo;;1
+574;;BC-108756;Colchón - EDSM A - Queen;tienda;;;310;20;fija 20 USD (producto);;sin costo;;0
+572;515;BC-100764-azul;Colcha navideña 180x220 - azul;tienda;15;bizne;18;3;fija 3 USD (producto);21,76;bajo el mínimo;;0
+570;515;BC-100764-rojo;Colcha navideña 180x220 - rojo;tienda;15;bizne;18;3;fija 3 USD (producto);21,76;bajo el mínimo;;0
+565;514;BC-107267-naranja;Mantel circular - naranja;tienda;;;16;1,6;10 % (general);;sin costo;;0
+563;514;BC-107267-amarillo;Mantel circular - amarillo;tienda;;;16;1,6;10 % (general);;sin costo;;0
+561;514;BC-107267-verde;Mantel circular - verde;tienda;;;16;1,6;10 % (general);;sin costo;;0
+553;;BC-116980;Brazalete deportivo para celular;tienda;;;7;1;fija 1 USD (producto);;sin costo;;1
+543;;BC-108760;Colchón Queen + Almohada - EDSM A;tienda;;;330;20;fija 20 USD (producto);;sin costo;;0
+538;;BC-112711;Válvula de paso miniHH 1/2" GPLP83 (hembra-macho));tienda;;;4;0,4;10 % (general);;sin costo;;0
+536;466;BC-100780-carmelita;Juego de cortina tapa sol Royale con diseño - carmelita;tienda;;;31;3;fija 3 USD (padre);;sin costo;;0
+534;;BC-105173;Ramo de girasoles;tienda;;;8;0,8;10 % (general);;sin costo;;0
+530;465;BC-82193-blanco;Juego de sabanas Queen Majestic imperial - blanco;tienda;;;25;3;fija 3 USD (padre);;sin costo;;0
+532;465;BC-82193-verde-azul;Juego de sabanas Queen Majestic imperial - verde-azul;tienda;;;25;3;fija 3 USD (padre);;sin costo;;0
+526;465;BC-82193-beige;Juego de sabanas Queen Majestic imperial - beige;tienda;;;25;3;fija 3 USD (padre);;sin costo;;0
+528;465;BC-82193-rosado;Juego de sabanas Queen Majestic imperial - rosado;tienda;;;25;3;fija 3 USD (padre);;sin costo;;0
+524;465;BC-82193-azul;Juego de sabanas Queen Majestic imperial - azul;tienda;;;25;3;fija 3 USD (padre);;sin costo;;1
+522;465;BC-82193-verde;Juego de sabanas Queen Majestic imperial - verde;tienda;;;25;3;fija 3 USD (padre);;sin costo;;0
+512;463;BC-100628-arena;Bata de baño - arena;tienda;13,2;manual;20;2;fija 2 USD (producto);18,65;OK;;0
+510;463;BC-100628-gris;Bata de baño - gris;tienda;13,2;manual;20;2;fija 2 USD (producto);18,65;OK;;0
+508;463;BC-100628-negro;Bata de baño - negro;tienda;13,2;manual;20;2;fija 2 USD (producto);18,65;OK;;0
+504;463;BC-100628-verde;Bata de baño - verde;tienda;13,2;manual;20;2;fija 2 USD (producto);18,65;OK;;0
+506;463;BC-100628-azul;Bata de baño - azul;tienda;13,2;manual;20;2;fija 2 USD (producto);18,65;OK;;0
+493;406;BC-107265-beige;Forro para 6 sillas + mesa rectangular - beige;tienda;40;bizne;65;7;fija 7 USD (producto);53,98;OK;;0
+491;406;BC-107265-carmelita;Forro para 6 sillas + mesa rectangular - carmelita;tienda;40;bizne;65;7;fija 7 USD (producto);53,98;OK;;0
+477;;BC-112531;Espumadera;tienda;3,4;bizne;6;1;fija 1 USD (producto);6,98;bajo el mínimo;;0
+440;405;BC-111555-dorado;Cortinero decorativo — Diseño 2 - dorado;tienda;;;10;2;fija 2 USD (padre);;sin costo;;0
+442;405;BC-111555-plateado;Cortinero decorativo — Diseño 2 - plateado;tienda;;;10;2;fija 2 USD (padre);;sin costo;;0
+438;405;BC-111555-negro;Cortinero decorativo — Diseño 2 - negro;tienda;;;10;2;fija 2 USD (padre);;sin costo;;0
+431;;BC-108754;Colchón - EDSM A - 3/4;tienda;;;275;15;fija 15 USD (producto);;sin costo;;0
+426;;BC-116750;Organizador Colgante de Tela – 5 Niveles;tienda;9,5;bizne;15;2;fija 2 USD (producto);14,54;OK;;0
+408;;BC-108759;Colchón Camero + Almohada - EDSM A;tienda;;;310;20;fija 20 USD (producto);;sin costo;;0
+410;;BC-116983;Luminoliss;tienda;;;12;2;fija 2 USD (producto);;sin costo;cruzado-alta;0
+400;346;BC-98927-azul-marino;Doyle Elegante Rectangular (6 piezas) - azul-marino;tienda;;;10;1;10 % (general);;sin costo;;0
+398;346;BC-98927-blanco;Doyle Elegante Rectangular (6 piezas) - blanco;tienda;;;10;1;10 % (general);;sin costo;;0
+396;346;BC-98927-beige;Doyle Elegante Rectangular (6 piezas) - beige;tienda;;;10;1;10 % (general);;sin costo;;0
+394;346;BC-98927-azul;Doyle Elegante Rectangular (6 piezas) - azul;tienda;;;10;1;10 % (general);;sin costo;;0
+391;;BC-100508;Cortinero Expandible plateado;tienda;4,5;bizne;7;1;fija 1 USD (producto);8,08;bajo el mínimo;;0
+389;;BC-116018;Corral cuna de bebé — Diseño 2;tienda;130;bizne;170;10;fija 10 USD (producto);157,32;OK;;0
+387;345;BC-82194-beige-oscuro;Juego de Sábanas Majestic King - beige-oscuro;tienda;17;bizne;27;3;fija 3 USD (producto);23,98;OK;;0
+385;345;BC-82194-verde-azul;Juego de Sábanas Majestic King - verde-azul;tienda;17;bizne;27;3;fija 3 USD (producto);23,98;OK;;1
+381;345;BC-82194-blanco;Juego de Sábanas Majestic King - blanco;tienda;17;bizne;27;3;fija 3 USD (producto);23,98;OK;;0
+383;345;BC-82194-azul-claro;Juego de Sábanas Majestic King - azul-claro;tienda;17;bizne;27;3;fija 3 USD (producto);23,98;OK;;0
+379;345;BC-82194-beige;Juego de Sábanas Majestic King - beige;tienda;17;bizne;27;3;fija 3 USD (producto);23,98;OK;;1
+377;345;BC-82194-verde;Juego de Sábanas Majestic King - verde;tienda;17;bizne;27;3;fija 3 USD (producto);23,98;OK;;0
+367;;BC-115480;Soporte TV 14”-55”;tienda;13;bizne;20;3;fija 3 USD (producto);19,54;OK;;0
+362;;BC-108757;Colchón - EDSM A - King;tienda;;;340;20;fija 20 USD (producto);;sin costo;;0
+351;291;BC-111554-plateado;Cortinero decorativo — Diseño 1 - plateado;tienda;5;bizne;10;2;fija 2 USD (producto);9,58;OK;;0
+349;291;BC-111554-dorado;Cortinero decorativo — Diseño 1 - dorado;tienda;5;bizne;10;2;fija 2 USD (producto);9,58;OK;;0
+344;291;BC-111554-negro;Cortinero decorativo — Diseño 1 - negro;tienda;5;bizne;10;2;fija 2 USD (producto);9,58;OK;;0
+340;;BC-116327;Crema HOYGY vit.C curcuma y 5% hialuronico;tienda;;;9;1;fija 1 USD (producto);;sin costo;;0
+334;290;BC-100779-rosa-palo;Juego de cortina tapa sol Royale - rosa-palo;tienda;18;bizne;27;4;fija 4 USD (producto);26,2;OK;;0
+336;290;BC-100779-azul-marino;Juego de cortina tapa sol Royale - azul-marino;tienda;18;bizne;27;4;fija 4 USD (producto);26,2;OK;;0
+338;290;BC-100779-carmelita-oscuro;Juego de cortina tapa sol Royale - carmelita-oscuro;tienda;18;bizne;27;4;fija 4 USD (producto);26,2;OK;;0
+332;290;BC-100779-rosado;Juego de cortina tapa sol Royale - rosado;tienda;18;bizne;27;4;fija 4 USD (producto);26,2;OK;;0
+330;290;BC-100779-carmelita;Juego de cortina tapa sol Royale - carmelita;tienda;18;bizne;27;4;fija 4 USD (producto);26,2;OK;;0
+326;290;BC-100779-verde;Juego de cortina tapa sol Royale - verde;tienda;18;bizne;27;4;fija 4 USD (producto);26,2;OK;;0
+328;290;BC-100779-negro;Juego de cortina tapa sol Royale - negro;tienda;18;bizne;27;4;fija 4 USD (producto);26,2;OK;;0
+316;;BC-115753;Toalla 100% algodón 70x130 cm;tienda;10;bizne;18;2;fija 2 USD (producto);15,09;OK;;0
+314;233;BC-105181-naranja;Rallador - naranja;tienda;;;8;0,8;10 % (general);;sin costo;;0
+310;233;BC-105181-morado;Rallador - morado;tienda;;;8;0,8;10 % (general);;sin costo;;0
+312;233;BC-105181-rosado;Rallador - rosado;tienda;;;8;0,8;10 % (general);;sin costo;;0
+308;233;BC-105181-azul;Rallador - azul;tienda;;;8;0,8;10 % (general);;sin costo;;0
+302;;BC-109793;Protector de colchón Queen;tienda;;;36;4;fija 4 USD (producto);;sin costo;;0
+299;;BC-116949;Rasuradora portatil recargable;tienda;;;14;3;fija 3 USD (producto);;sin costo;cruzado-alta paquete precio-menor-que-costo;0
+293;;BC-112434;Licuadora MLD 999;tienda;25;bizne;35;2;fija 2 USD (producto);31,76;OK;;0
+278;;BC-107259;Bucaro blanco;tienda;;;17;2;fija 2 USD (producto);;sin costo;precio-menor-que-costo;0
+276;;BC-108758;Colchón 3/4 + Almohada - EDSM A;tienda;;;290;15;fija 15 USD (producto);;sin costo;;0
+274;;BC-107505;Colchón 180x200cm Dawang + 2 almohadas hoteleras;tienda;;;340;20;fija 20 USD (producto);;sin costo;;0
+270;;BC-108063;Shampo + Acondicionador Oggy de Romero;tienda;4,5;bizne;7;0,7;fija 0,70 USD (producto);7,78;bajo el mínimo;;0
+268;;BC-116321;Crema facial arcilla, vit. C y curcuma;tienda;5;bizne;8;1;fija 1 USD (producto);8,58;bajo el mínimo;;0
+260;;BC-112438;Azulejo INCEFRA;tienda;;;35;3;fija 3 USD (producto);;sin costo;;0
+249;178;BC-107266-naranja;Mantel cuadrado - naranja;tienda;10;bizne;16;2;fija 2 USD (producto);15,09;OK;;0
+247;178;BC-107266-blanco;Mantel cuadrado - blanco;tienda;10;bizne;16;2;fija 2 USD (producto);15,09;OK;;0
+245;178;BC-107266-amarillo;Mantel cuadrado - amarillo;tienda;10;bizne;16;2;fija 2 USD (producto);15,09;OK;;0
+243;178;BC-107266-verde;Mantel cuadrado - verde;tienda;10;bizne;16;2;fija 2 USD (producto);15,09;OK;;0
+226;;BC-116316;Balsamo facial de miel hidratante;tienda;6;bizne;9;1;fija 1 USD (producto);9,58;bajo el mínimo;;0
+218;177;BC-109876-beige-oscuro;Set de alfombras para baño (3 piezas) - beige-oscuro;tienda;10;bizne;15;2;fija 2 USD (producto);15,09;bajo el mínimo;;0
+220;177;BC-109876-carmelita-oscuro;Set de alfombras para baño (3 piezas) - carmelita-oscuro;tienda;10;bizne;15;2;fija 2 USD (producto);15,09;bajo el mínimo;;0
+214;177;BC-109876-beige;Set de alfombras para baño (3 piezas) - beige;tienda;10;bizne;15;2;fija 2 USD (producto);15,09;bajo el mínimo;;0
+216;177;BC-109876-gris-oscuro;Set de alfombras para baño (3 piezas) - gris-oscuro;tienda;10;bizne;15;2;fija 2 USD (producto);15,09;bajo el mínimo;;0
+212;177;BC-109876-carmelita;Set de alfombras para baño (3 piezas) - carmelita;tienda;10;bizne;15;2;fija 2 USD (producto);15,09;bajo el mínimo;;0
+210;177;BC-109876-gris;Set de alfombras para baño (3 piezas) - gris;tienda;10;bizne;15;2;fija 2 USD (producto);15,09;bajo el mínimo;;0
+182;119;BC-107285-naranja;Maceta con suculenta - naranja;tienda;;;15;1,5;10 % (general);;sin costo;;0
+180;119;BC-107285-verde-menta;Maceta con suculenta - verde-menta;tienda;;;15;1,5;10 % (general);;sin costo;;0
+176;119;BC-107285-turquesa-oscuro;Maceta con suculenta - turquesa-oscuro;tienda;;;15;1,5;10 % (general);;sin costo;;0
+174;119;BC-107285-rosado;Maceta con suculenta - rosado;tienda;;;15;1,5;10 % (general);;sin costo;;0
+172;119;BC-107285-morado;Maceta con suculenta - morado;tienda;;;15;1,5;10 % (general);;sin costo;;0
+170;119;BC-107285-verde;Maceta con suculenta - verde;tienda;;;15;1,5;10 % (general);;sin costo;;0
+161;;BC-111683;Cesto de 12L — Diseño 1;tienda;;;7;1;fija 1 USD (producto);;sin costo;;0
+150;118;BC-98412-morado;Sobrecama lisa full - morado;tienda;;;36;2;fija 2 USD (padre);;sin costo;;1
+145;;BC-113690;Cocina de Gas 2 quemadores;tienda;22;bizne;35;4;fija 4 USD (producto);30,65;OK;;0
+141;;BC-112533;Juego de ollas;tienda;30;bizne;50;7;fija 7 USD (producto);42,87;OK;;0
+135;117;BC-107269-amarillo;Cojín decorativo — Diseño 1 - amarillo;tienda;;;11;1;fija 1 USD (producto);;sin costo;cruzado-alta;0
+131;117;BC-107269-carmelita;Cojín decorativo — Diseño 1 - carmelita;tienda;;;11;1;fija 1 USD (producto);;sin costo;cruzado-alta;0
+133;117;BC-107269-beige;Cojín decorativo — Diseño 1 - beige;tienda;;;11;1;fija 1 USD (producto);;sin costo;cruzado-alta;0
+129;117;BC-107269-gris;Cojín decorativo — Diseño 1 - gris;tienda;;;11;1;fija 1 USD (producto);;sin costo;cruzado-alta;0
+127;117;BC-107269-rojo;Cojín decorativo — Diseño 1 - rojo;tienda;;;11;1;fija 1 USD (producto);;sin costo;cruzado-alta;0
+158;;BC-109873;Cortina blackout moderna (2 paneles);tienda;;;36;4;fija 4 USD (producto);;sin costo;;0
+67;;BC-114280;Base para electrodomésticos;tienda;15;manual;23;3;fija 3 USD (producto);21,76;OK;;1
+52;;BC-116498;Carrito de Mandado Plegable Azul;tienda;16;manual;25;2;fija 2 USD (producto);21,76;OK;;0
+43;;BC-89044;Asiento de Inodoro;tienda;;;15;1;fija 1 USD (producto);;sin costo;;1
