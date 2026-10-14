@@ -187,3 +187,85 @@ Ampliación D30 (2026-10-07): el flujo de **Devolución** ya existe en `/ventas/
 - **Para volver atrás:** `~/bak-20261013-cvd-3.13.87-antes-3.13.88`, `~/bak-20261013-tema-footer-antes-3.13.88.php` y `~/bak-20261013-marca-antes-3.13.88.php`.
 
 **D47 · 2026-10-13 · Abuela Nena en pausa.** Ernesto. Se pausa el contenido diario de la Abuela Nena (tarea programada desactivada) hasta que el negocio de Ernesto Padre dé dinero o exista un modo casi gratis. Gasto total de Nena hasta la pausa: unos 71 créditos de Higgsfield (≈4 al día en marcha); lo caro de la cuenta son los videos Seedance de Cúrru (27–67,5 cada uno). Para reactivar: activar la tarea "Abuela Nena · contenido del día" o `/nena-hoy`.
+
+**D53 · 2026-10-14 · Programa de gestoras y clientes (decidido por Ernesto, SIN programar todavía).** Propuesta: `docs/nexo-business/propuestas/programa-gestoras-y-clientes-2026-10-14.md`.
+- **Madrinas (invitar gestoras):** 1 % de las ventas de la invitada y 0,5 % de segundo nivel, 12 meses desde que entra, solo ventas entregadas y pagadas. Lo paga Casa Viva; la invitada cobra su comisión completa. Base: precio de Casa Viva, sin el aumento de la gestora ni la mensajería. Para cobrar de su red: 1 venta propia entregada en el mes; para el 0,5 %, además ser Anfitriona. (Sustituye la propuesta del 2 % de un nivel enviada a Lennys el 11-oct.)
+- **Cliente de por vida:** el cliente es de su gestora mientras ella venda al menos cada 90 días; a los 6 meses sin vender (con aviso antes) vuelve a Casa Viva. Si compra en la tienda física dando su teléfono: 5 % más adelante, cuando la caja pida el teléfono.
+- **Rangos** (Vecina, Anfitriona, Casa Llena, Embajadora): al principio solo reconocimiento; dinero extra (+1–2 %) a los 3 meses con datos.
+- **Amigas Casa Viva (clientes):** «tú 3, ella 3», a los 30 días, empezando por clientes de Dany.
+- **Fallos a arreglar ya:** el cliente queda unido a la gestora solo con pedido entregado y pagado; los clientes apuntados a mano quedan protegidos 30 días.
+- **Antes de programar:** sí de Lennys (se le manda un resumen corto que Ernesto ve antes) y prueba en «modo sombra» con Dany 2 semanas.
+
+**D54 · 2026-10-14 · Rangos con bono mensual (Ernesto; cambia la parte de rangos de D53).** Detalle: `docs/nexo-business/propuestas/rangos-2026-10-14.md`.
+- **10 rangos con nombres de piedras:** Bronce, Plata, Oro, Platino, Zafiro, Rubí, Esmeralda, Diamante, Doble Diamante, Corona.
+- **Punto = 1 USD vendido y entregado** (precio Casa Viva, sin aumento ni mensajería), propio + equipo (2 niveles). El título se gana acumulando y no se pierde; el **bono** se cobra solo el mes en que se mantiene el rango (ventas del equipo de ese mes + mínimo propio).
+- **Tabla aprobada:** 300 USD del equipo/mes → 5.000 CUP; 600 → 10.000; 1.000 → 15.000; 1.800 → 25.000; 3.000 → 40.000; 5.000 → 60.000; 8.000 → 90.000; 12.000 → 130.000; 18.000 → 180.000; 25.000 → 250.000. Coste: 1,3–2,1 % de las ventas del equipo.
+- **Bono fijo en CUP** (se revisa cada 3 meses con la tasa). **Se paga desde el lanzamiento**, después de las 2 semanas de prueba con Dany (que no paga).
+- Frenos: ninguna persona del equipo aporta más del 60 % de los puntos; autocompras y pruebas no cuentan; devoluciones restan; comisión + red + rango ≤ 40 % de la ganancia del pedido.
+
+**D55 · 2026-10-14 · Los bonos de rango y la red salen de la ganancia, no de la caja (Ernesto; ajusta D53/D54).**
+- **Ganancia de cada venta** = precio Casa Viva − costo del producto − comisión de la gestora. Costo: tienda = archivo de BizneCubano (CCV/costo); bajo pedido = `supplier_price` de la bolsa.
+- **Fondo de líderes = 15 % de la ganancia** generada en el mes. De ahí salen el 1 % y el 0,5 % de la red y los bonos de las piedras (tabla D54).
+- **Si el fondo no alcanza**, todos cobran el mismo % de su bono (reparto proporcional). Casa Viva nunca pone más que ese 15 %.
+- **0,5 % de segundo nivel:** hace falta ser **Plata** (equipo con 600 USD en el mes).
+
+**D56 · 2026-10-14 · Programa de gestoras: se prueba y se lanza ajustando sobre la marcha (Ernesto).** Rangos pagados con la ganancia (propuesta `docs/nexo-business/propuestas/rangos-por-ganancia-2026-10-14.md`: punto = USD de ganancia limpia, fondo 15 %, 5 red + 10 bonos). Antes de programarlo: costos reales y precio mínimo (`escalar-marketplace-2026-10-14.md`).
+
+**D57 · 2026-10-14 · Bot y grupos (Ernesto).** Stickers de Cúrru para todos, sin límite de horas (4 mensajes entre uno y otro, nunca en temas serios, tope 300/día); los de Ernesto cuando responde él. Sin la marca 🤖 ni la firma (BOT_TAG vacío). Mensajes diarios automáticos sin borrador en General y Mensajerías: 9:00 orden del día, 17:00 resumen con ranking, 19:00 videos e historias (solo General). Bienvenida de gestora versión B con «precio de mensajería».
+
+**D58 · 2026-10-14 · Red 2 % + 1 % y forma de decidir (Ernesto).**
+- **Red:** 2 % de lo que vende la invitada (1.er nivel) y 1 % del 2.º nivel, sobre el precio de Casa Viva de ventas entregadas y cobradas, 12 meses. Sustituye el 1 % + 0,5 % de D53. Para el 1 % de 2.º nivel hace falta ser Plata (D55).
+- **Tope de seguridad (Claude, best practice):** red + bonos salen del fondo del 15 % de la ganancia del equipo (D55). La red se paga primero; los bonos de piedra, con lo que quede; si no alcanza, reparto proporcional. Casa Viva nunca pone más del 15 % de la ganancia que genera ese equipo.
+- **Quién decide:** Ernesto decide casi todo (Lennys tiene poco tiempo). Claude siempre le propone la mejor práctica con una recomendación; en lo operativo y reversible, Claude decide y lo apunta; se corrige en la práctica.
+- **Orden:** primero costos y precios; luego programar el programa (prueba con Dany sin pagar, 2 semanas).
+
+**D59 · 2026-10-14 · Costo de cada producto y precio mínimo (Claude, técnico y reversible; D58).**
+- **Dónde vive el costo:** en Core, meta `_cvd_cost_usd` (compra + flete por unidad, USD), `_cvd_cost_source` (bizne | proveedor | manual | formula) y `_cvd_cost_updated_at`, en producto y variación (la variación hereda el del padre). Nombre fijo: lo usa el programa de gestoras. Solo lo ve la administración.
+- **De dónde sale:** tienda = ficha de costos de la nube (BizneCubano/Excel + correcciones de Lennys + entradas de mercancía); el panel lo copia a la web al guardar. Bajo pedido = `supplier_price`, copiado cada mañana a las 8:50. Un costo dudoso (cruzado con otra fila, ¿paquete?, precio menor que el costo) no se carga hasta que lo confirme Lennys o Ernesto.
+- **Precio mínimo:** tienda = costo + 1,58 USD de gastos fijos + comisión + máx(10 % del precio, 1 USD). Bajo pedido = costo + comisión + máx(2,5 % del precio, 1 USD), sin gastos fijos (no ocupa almacén ni dependienta; el 2,5 % cubre cobros). Comisión = la fija del producto o el 10 % general. Números en opciones `cvd_cost_*` de la web.
+- **Qué hace la web:** recalcula al guardar y marca `_cvd_under_floor`; NO cambia precios ni comisiones sola. Ernesto decide cada caso (subir, bajar comisión o liquidar). Aviso diario en el resumen de las 9:00: «N productos bajo el mínimo · M sin costo».
+
+**D60 · 2026-10-14 · Programa de gestoras: cómo se programó (Claude, técnico y reversible; D58). Core 3.14.1, SIN desplegar.** Detalle: `docs/nexo-business/programa-gestoras/DISENO.md` §6.
+- **Libro en WordPress** (`wp_cvd_programa_runs/people/lines`, JSON + SHA-256, solo se añade, un cierre por mes), no en Supabase: misma base y transacción que pedidos y pagos; el panel lo lee por el puente.
+- **Doble tope del 15 %:** por equipo y del mes entero (cada venta una vez), porque los equipos se solapan; sin el del mes podría pagarse hasta el 45 % de la ganancia de una venta.
+- **60 %:** cada miembro del equipo cuenta como mucho el 60 % del umbral de la piedra; las ventas propias, enteras. **Mínimo propio:** 1 venta entregada + los USD de la tabla D54. **Plata para el 1 %:** la piedra de ese mes. **12 meses:** solo para la red. **Mes de la venta:** cuando se confirmó el dinero.
+- **Red perdida** (sin venta propia o sin Plata) no se guarda. **Devolución** de un mes cerrado resta en el siguiente; red negativa = alerta y revisión a mano.
+- **Autocompra por nombre** (quien compra o recibe se llama como la gestora); la marca `self_order` de Core sola solo avisa («revisar»): salía en 19 de 24 pedidos reales de octubre.
+- **Sin costo = 0 puntos** y sin insignia en la tienda; **sombra no da títulos** ni se paga; interruptor `cvd_programa_gestoras` (sombra por defecto) y `cvd_programa_ver`.
+
+**D61 · 2026-10-14 · «Mi estudio de fotos» y «Mi contabilidad»: cómo se programó (Claude, técnico y reversible). Core 3.14.1, EN VIVO pero apagado para las gestoras.**
+- **La clave de Google es de cada gestora** y la paga ella (Ernesto, 14-oct). Se guarda cifrada (sodium; secreto sacado de AUTH_KEY+SECURE_AUTH_KEY o `CVD_ESTUDIO_SECRET`); si cambian esas claves de wp-config, las gestoras tienen que volver a conectarla (la web lo dice).
+- **Encendido por persona:** opción `cvd_estudio_acceso` (prueba | all) + `cvd_estudio_usuarios` (IDs). Primero Dany y Dayra (regla «probar con Dany primero»).
+- **Modelos:** foto `gemini-nano-banana-2.1` (el 2.5-flash-image se apagó el 2-oct-2026), texto `gemini-flash-lite-latest`. Google NO tiene capa gratis para crear imágenes: sin facturación activada en la cuenta de la gestora no sale ninguna foto (comprobado con la clave del VPS).
+- **No inventar colores:** solo los del atributo «Color»/variaciones; un color que no existe bloquea la foto con aviso. Las reglas fijas (producto fiel, sin texto ni marcas) se añaden siempre al final, aunque la gestora edite la instrucción.
+- **Su foto en su tienda** solo con su `?ref=` (filtro `woocommerce_product_get_image_id`); la tienda general no cambia. Esas fotos no salen en la Biblioteca de medios.
+- **Versión:** el programa de gestoras (D60) decía «3.14.1, sin desplegar»: al subirlo tiene que ser **3.14.3** o más (3.14.2 ya la usó el agente de costos) y rebasarse sobre `main` (cambian `casa-viva-dropship-core.php`, `class-cvd-gestora-app.php` y `gestora-app.js`).
+
+**D62 · 2026-10-14 · Precios aplicados y costos provisionales (Ernesto aprobó la propuesta; detalles técnicos Claude, reversibles). Core 3.14.2 EN VIVO.**
+- **Ernesto (SÍ):** toda la propuesta `precios/propuesta-2026-10-14.md` (22 suben, comisión fija 1 USD en Toallas Cisne Blanco, Alfombra peluche, Fundas, Edulcorante y Toallas pequeña, Cortina roja = liquidación sin reponer); los 13 costos dudosos cargados como **«por confirmar»**; los 216 sin costo con **costo provisional = precio ÷ 1,5** («fórmula», regla de Lennys). La zapatera sigue sin costo.
+- **Claude:** (1) un color sin costo del mismo producto sube igual que el color de la propuesta (no dos precios en el mismo producto): 11 colores más. (2) Precio propio de una gestora **por debajo** del nuevo precio → nuevo precio + su aumento de antes; si queda **igual**, no se toca y se le avisa. (3) «formula» y «por_confirmar» son provisionales: cualquier costo real los sustituye (panel «Guardar costo», carga del bot, también con `only_empty`). (4) La caja (nube NEXO, D38) recibe el mismo precio y la misma comisión (`catalog_products` + `product_commissions`, con `cost_audit`).
+- **Versión:** Core 3.14.2 = esto. El programa de gestoras (D60) tiene que salir como **3.14.3** o más.
+
+**D63 · 2026-10-14 · «Mi estudio de fotos» en modo Gemini gratis (Ernesto pidió que sea gratis para las gestoras sin que pague Casa Viva; detalles técnicos Claude, reversibles). Cambia D61. Core 3.14.4 EN VIVO, encendido solo para Dany (18) y Dayra (33).**
+- **Por qué:** la API de imágenes de Google no tiene capa gratis (429 de facturación) y Cuba no está en sus regiones; en cambio la app/web de Gemini sí la usan gratis en Cuba. Investigación con fuentes: `docs/nexo-business/estudio-fotos/opciones-gratis-2026-10-14.md`.
+- **Modo principal = manual asistido:** la web arma la instrucción (en **español**, para que la gestora entienda la respuesta de la app; mismas reglas fijas: producto fiel, color real o uno que existe, sin textos ni marcas), da la foto base (`GET estudio/base`, la del color si tiene foto propia) y abre Gemini; la gestora hace la foto en SU cuenta y la sube (`POST estudio/subir`, mismos límites: 40 fotos, 80 MB, 20 al día; el móvil la achica a 1600 px antes de subir). La clave de Google pasa a «Opción avanzada»; si su clave da 429 de facturación, salen solos los 3 pasos gratis.
+- **Nunca** automatizar la web/app de Gemini con cookies o librerías no oficiales (prohibido por Google). Nada de quitar marcas de agua con herramientas de terceros: solo el ajuste oficial de Gemini («Media watermark»).
+- **Pendiente de decidir con datos:** español vs inglés en la instrucción (comparar 5 y 5 con Dany); Plan B gratis automático (Cloudflare FLUX.2 klein, peor fidelidad) o Plan C de pago (una clave de Casa Viva, ~3,40 USD/100 fotos).
+- **Versión:** Core 3.14.4 = esto (3.14.3 fue el logo). El programa de gestoras (D60) tiene que salir como **3.14.5** o más.
+
+**D64 · 2026-10-14 · Unir filas del Excel sin pisar y aviso solo de pérdidas (Ernesto 11:35; detalles Claude, reversibles). Core 3.14.5 EN VIVO.**
+- **Unir una fila del Excel con un producto NO cambia costo ni comisión** salvo que se marque la casilla; el panel enseña Excel vs producto y avisa en rojo si no encaja (nombre, medida, compra/precio, comisión fuera de regla).
+- **Regla de comisión de Lennys** (para avisos y correcciones): < 10 USD → 10 % o 1 USD, como mucho 2; desde 10 USD → ~10 % (redondeado arriba). La comisión de una fila del Excel solo se carga si cumple la regla.
+- **Aviso de precios (9:00):** hasta que Lennys confirme gastos fijos y ganancia mínima, solo se marca lo que pierde: precio − costo − comisión < 0,50 USD; los de costo provisional, aparte; también cuántas comisiones están fuera de la regla. Volver a D59: `cvd_cost_floor_mode = completo`.
+
+**D65 · 2026-10-14 · La tienda de la gestora es «pegajosa» (Claude, buena práctica de tiendas de revendedoras; Ernesto pidió arreglarlo tras el video de Thaly). Core 3.14.6 EN VIVO.**
+- Quien llega por el enlace de una gestora ve en toda la web sus precios, su marca y su WhatsApp, aunque navegue sin `?ref=`. El último enlace manda (D50). Sin interruptor: «mi tienda con mis precios» es lo normal.
+- En la tienda de una gestora todos los contactos llevan a ella (D52); solo quedan de Casa Viva «Entrar con WhatsApp» (acceso a la cuenta) y la guía del equipo `/ayuda/`.
+- Las páginas con gestora nunca se guardan en caché (LiteSpeed + caché de Hostinger): un visitante sin enlace nunca ve precios de una gestora.
+
+**D66 · 2026-10-14 · Venta de producto de proveedor que pasa por la tienda (Ernesto, 12:15; primera vez: lámpara MK-1155 de Digital Store/Kevin, pedido #3693 de Nadielys).**
+- **Ruta:** Ernesto hace el vale en la app del proveedor (Digital Store: `digitalstoreapp.github.io/Digital-Store-Fase1`, cuenta de Ernesto) al **precio del proveedor** (lámpara 32 USD, comisión 0), tipo **mensajería hasta Casa Viva** (Conill A esq. 45 #864, Nuevo Vedado). Tarifa del 2.º local de Kevin a Vedado/Nuevo Vedado: **1.000 CUP** en moto.
+- **En la tienda:** la dependienta recibe el producto y paga al mensajero del proveedor **precio del proveedor + su mensajería** (32 USD + 1.000 CUP). Después sale con **nuestro** mensajero como un pedido normal: cobra al cliente el precio de la web (45 USD) + nuestra mensajería (Bauta 5.500 CUP, suya) y trae el dinero a la tienda.
+- **Reparto de la ganancia** (45 − 32 = 13 USD, menos los 1.000 CUP del proveedor): comisión de la gestora (Nadielys 5,20 USD); **500 CUP para la dependienta por cada artículo vendido así**; **2.500 CUP para la tienda Casa Viva**; **el resto, para Ernesto**, apuntado como **«comisión de gestor especial»**.
+- Por qué no lo lleva el mensajero del proveedor directo al cliente: sus tarifas a zonas lejanas (Bauta) son más caras que las nuestras.
+- **Pendiente (Ernesto quiere automatizarlo):** que el bot haga el vale en la app del proveedor, lea sus tarifas por local y avise a la dependienta y al mensajero sin que Ernesto entre a la app. Hoy el motor de bajo pedido (D47) da por hecho que el proveedor lo lleva al cliente («lleva»): falta el modo «pasa por la tienda».
