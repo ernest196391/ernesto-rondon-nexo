@@ -306,3 +306,10 @@ Ampliación D30 (2026-10-07): el flujo de **Devolución** ya existe en `/ventas/
 - **El bot las usa:** si una gestora pide fotos (reales) de un producto, por privado o en el General, la IA ve «FOTOS REALES GUARDADAS [f1…]» y reenvía hasta 5, cada una con «📸 Foto real de … · la hizo Maryta hoy 15:27». Si no hay, todo sigue como antes (fotos de la web o pregunta a la tienda).
 - **Base:** la tabla `crm_fotos_reales` es solo una copia (para el panel y la fase 2); el disco manda. SQL en `vivabot/supabase/025_fotos_reales.sql` **pendiente de pegar** por Ernesto; después `cv fotos sincronizar`.
 - **Fase 2 (apuntada, NO hecha):** «poner en la web con un toque» desde el panel (campo `web` / `web_status`, hoy vacío). No se sube nada a la web todavía.
+
+**D71 · 2026-10-14 · Balance diario de gastos de herramientas, medido por función, y correo a Ernesto a las 21:00 (Ernesto 17:50). VivaBot `07c1b5e` EN VIVO.**
+- **Se mide todo lo que el bot gasta en IA, llamada por llamada y por función** (chats con gestoras/clientes, preguntas del General, fotos del equipo, notas de voz, voz…), con el coste estimado según los **precios oficiales** guardados en un solo sitio (`vivabot/src/ai-prices.js`, consultados el 14-oct). El disco del VPS (`/root/archivos/gastos/`) manda; `crm_ai_usage` es copia (SQL 026 pendiente de pegar). Lo que no se sabe sale como «sin dato»: nunca se inventa un precio.
+- **Ernesto recibe cada día a las 21:00 un correo** (tarea programada en el PC, Gmail) con total, por herramienta, lo que más consume, saldos, tendencia, alertas y 3–5 formas de abaratar calculadas con los datos. `cv gastos` da lo mismo en el momento.
+- **Sin saldo = aviso en «Tú» una vez cada 2 h** con la hora en que empezó y dónde recargar (antes cada 3 h).
+- **Las sugerencias son propuestas, no cambios:** cambiar de modelo, recortar el prompt o poner topes lo decide Ernesto (cambiar el modelo de los chats se prueba antes un día con Dany).
+- Higgsfield se lee solo desde la sesión de Claude (MCP), no desde el VPS. El Claude del supervisor se muestra como «uso equivalente»: va por la suscripción y no se paga aparte.
