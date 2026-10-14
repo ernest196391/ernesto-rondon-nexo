@@ -168,3 +168,22 @@ Ampliación D30 (2026-10-07): el flujo de **Devolución** ya existe en `/ventas/
 - En la portada, todo el mundo ve el precio en CUP con la tasa del día, debajo del USD. Si la tasa tiene más de 36 h, el CUP no sale. El precio de cobro sigue siendo el USD.
 - Con el enlace de un gestor o una gestora se ve su precio, y esa página no se guarda en caché (como `/tienda/?ref=`).
 - Interruptor: `cvd_home_rails = no` vuelve a la portada anterior. Ficha: `docs/productos/home-que-vende.md`.
+
+**D52 · 2026-10-13 · En la tienda de una gestora, todo WhatsApp va a ella.** Ernesto (18:40: «usamos el wp de la gestora en toda su tienda»). Los detalles los decidió Claude; Ernesto puede cambiarlos.
+- **Quién entra en la tienda de una gestora:** quien abre su enlace (`?ref=`), o lo abrió antes en ese teléfono. Es la misma gestora que se queda la venta (D50).
+- **Todos los WhatsApp van a ella:**
+  - el pie;
+  - el botón verde;
+  - «Pedir por WhatsApp» y «Avísame» de la ficha;
+  - Ayuda (Cúrru);
+  - Atención al cliente, Formas de pago, Condiciones de mensajería y `/contacto/`;
+  - «Corrige tu pedido» del pedido recibido.
+- En la ficha, el texto ya escrito nombra el producto con el precio de ella.
+- **Sin gestora:** Casa Viva (5405 6173). Un cliente con cuenta, sin enlace, va a su gestora de siempre.
+- **Nunca** sale el número de otra gestora.
+- **El equipo** (gestoras, mensajeros, tienda) habla con Casa Viva. La gestora que abre su propia tienda ve su número, como sus clientes.
+- **No cambia:** «mi acceso» (entrar con WhatsApp) sigue yendo al bot de Casa Viva. El vale del pedido sigue yendo a la gestora del pedido, como antes.
+- Código: Core 3.13.88 (`CVD_Gestora_Store::contact()`). El pie del tema y el plugin de marca (solo en el servidor) llaman a esa función.
+- **Para volver atrás:** `~/bak-20261013-cvd-3.13.87-antes-3.13.88`, `~/bak-20261013-tema-footer-antes-3.13.88.php` y `~/bak-20261013-marca-antes-3.13.88.php`.
+
+**D47 · 2026-10-13 · Abuela Nena en pausa.** Ernesto. Se pausa el contenido diario de la Abuela Nena (tarea programada desactivada) hasta que el negocio de Ernesto Padre dé dinero o exista un modo casi gratis. Gasto total de Nena hasta la pausa: unos 71 créditos de Higgsfield (≈4 al día en marcha); lo caro de la cuenta son los videos Seedance de Cúrru (27–67,5 cada uno). Para reactivar: activar la tarea "Abuela Nena · contenido del día" o `/nena-hoy`.

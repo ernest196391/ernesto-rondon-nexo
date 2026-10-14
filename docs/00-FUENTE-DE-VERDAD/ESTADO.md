@@ -737,6 +737,51 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
 - **Para volver atrás:** `~/bak-20261013-cvd-3.13.83-antes-3.13.84`.
 - **No hecho:** «Últimas unidades» solo con 1 unidad en la portada (`LOW_STOCK` de 2 a 1 en `class-cvd-home-rails.php`, línea 33). El permiso se denegó al tocar ese archivo y falta el sí de Ernesto en el chat.
 
+**Auditoría de cliente, segunda tanda (Core 3.13.88 → 3.13.94, en vivo 18:50–20:05; agente de Claude Code; D52).**
+- **Por qué:** Ernesto, 18:40: «usamos el wp de la gestora en toda su tienda, arregla todo lo de la auditoría en segundo plano también… lo del plan de Hostinger lo vemos pendiente».
+- **3.13.88 (`3fc0d0e`), D52:** en la tienda de una gestora, todo WhatsApp va a ella:
+  - pie, botón verde, «Pedir por WhatsApp» de la ficha, Ayuda;
+  - Atención al cliente, Formas de pago, Condiciones de mensajería, `/contacto/`;
+  - «Corrige tu pedido».
+  - En la ficha, el texto nombra el producto con su precio. Sin gestora, Casa Viva.
+  - **Tocado fuera del repo** (solo en el servidor): `footer.php` del tema y `casa-viva-marca.php`.
+- **3.13.89 (`83a6cc7`):**
+  - ver el pedido sin cuenta: `/seguimiento/` con número + teléfono, «Ver mi pedido» al terminar la compra, «Pedidos» de la barra de abajo;
+  - «Armado por el mensajero» solo si el carrito trae algo que se arma (20 productos hoy; el equipo lo ve siempre);
+  - «Regala a tu familia» en una línea debajo de la descripción (cambio en `casa-viva-marca.php`);
+  - `/ayuda/` dice «puedes subir tu precio lo que quieras» en vez de «hasta un 30 %» (página 2815).
+- **3.13.90 (`75af109`), fallo de privacidad encontrado al probar:** LiteSpeed guardaba la API del carrito y daba el carrito de una persona a otra (el panel lateral del carrito la usa). Ya no se guarda.
+- **3.13.91 (`aaefcb2`) y 3.13.92 (`208a9f5`):** la caché guardaba páginas pintadas con carrito. Todos veían el contador en 1 y bajaban ~627 KB del carrito de WooCommerce en cada visita. Arreglado, y además:
+  - el contador del carrito ya no pregunta al servidor en cada página;
+  - sin lupa en el teléfono;
+  - galería en diferido;
+  - fotos de tarjeta de media pantalla.
+  - Interruptor: `cvd_data_saver`.
+- **3.13.93 (`73df935`) y 3.13.94 (`bb77220`):** Mi cuenta enseña «¿Compraste sin cuenta? Ver mi pedido» y la tarjeta ya no tiene el hueco de arriba.
+- **Comprobado:**
+  - curl y un Chrome sin pantalla a 390 px;
+  - WhatsApp con y sin el enlace de Thaly (`CV36THALYHG0` → 5358412987);
+  - con el enlace guardado y con otro visitante (la caché no mezcla);
+  - el armado en el pago real con la sombrilla (no sale) y la zapatera (sí);
+  - la búsqueda del pedido con 3 pedidos de prueba;
+  - la API del carrito sin caché.
+  - Los carritos de prueba se vaciaron.
+- **No comprobado:** la página de pedido recibido con un pedido real (no se hizo ninguno) y las vistas con sesión iniciada (gestora en su tienda, cliente con cuenta).
+- **Para volver atrás:**
+  - Core: `~/bak-20261013-cvd-3.13.87-antes-3.13.88` … `~/bak-20261013-cvd-3.13.93-antes-3.13.94`, una copia por versión;
+  - tema: `~/bak-20261013-tema-footer-antes-3.13.88.php`;
+  - marca: `~/bak-20261013-marca-antes-3.13.88.php` y `…-3.13.89.php`;
+  - `/ayuda/`: `~/bak-20261013-pagina-2815-antes-3.13.89.html`.
+- **Informe completo, lista de fotos con letreros y lo que queda para Ernesto:** `docs/productos/auditoria-cliente-2026-10-13.md`.
+- **Queda para Ernesto o Lennys:**
+  - plan de Hostinger (errores 500);
+  - «¿Cómo paga el cliente?» (Lennys);
+  - «Recién llegados» de la portada;
+  - nombres de producto en el panel;
+  - mover productos de departamento;
+  - letra «Inter» de Google (48 KB);
+  - «Origen» de pedidos de WooCommerce.
+
 **Abierto:**
 - La capa de moto de Nadielys (#3566) está asignada a Alejandro, que no contesta desde las 12:08. Ernesto decide a qué mensajero pasarla.
 
