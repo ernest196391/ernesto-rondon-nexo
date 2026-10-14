@@ -1,0 +1,17 @@
+Para Lennys, Zaymi y Nana (borrador, SIN MANDAR; Ernesto decide cuándo y cómo):
+
+Hola 🙏 Desde hoy pueden cancelar y cambiar pedidos de la web ustedes mismas.
+
+📱 Zaymi y Nana: en Pedidos (casaviva.company/ventas/), en la tarjeta de cada pedido:
+• «Cambiar pedido»: nombre, teléfono, dirección, día y hora de entrega, nota y productos (cambiar cantidad, poner 0 para quitar, o añadir otro). Las existencias y el total se arreglan solos.
+• «Cancelar pedido»: les pide el motivo (una frase corta) y lo confirman. Vuelven las existencias y se anula la comisión de quien vendió.
+
+💻 Lennys: lo mismo en el panel (casaviva.company/panel) → Pedidos → abre el pedido → «Cambiar pedido» o «Cancelar pedido» (también con motivo). Y en Pedidos de la web si entras como administradora.
+
+Importante:
+• Cambiar, solo mientras el paquete sigue en la tienda (antes de «Entregado al mensajero»).
+• Si el mensajero ya lo tiene en la mano, la dependienta no lo cancela: que lo devuelva a la tienda y lo cancela Lennys.
+• Lo ya entregado no se cancela: se usa «Devolución».
+• Si el pedido ya tenía mensajero, avísenle ustedes del cambio o de la cancelación (todavía no le llega aviso automático).
+• Si cambia el municipio o el reparto, mejor cancelarlo y hacerlo de nuevo (cambia la mensajería).
+• Cada cambio y cada cancelación queda anotado en el pedido con su nombre y el motivo.

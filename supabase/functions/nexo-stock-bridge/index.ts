@@ -60,6 +60,24 @@ Deno.serve(async req => {
   try {
     const since = state.checkpoint ?? state.from;
     const data = await core("GET", `panel/stock/web-sales?since=${encodeURIComponent(since)}`);
+    // B0. Cambios de productos hechos en /ventas/ (Core 3.13.97, «edits»), ANTES de las líneas:
+    //  - línea ya restada en la caja (:out de una vuelta anterior) → se aplica la diferencia (clave única);
+    //  - línea aún sin restar → se descarta: el :out de abajo ya usa la cantidad nueva.
+    // Core los marca hechos; si eso falla, no se toca ninguna línea en esta vuelta (se repite entera).
+    const editsDone: { order: number; key: string; result: string }[] = [];
+    for (const o of data.orders ?? []) {
+      for (const e of (o.edits ?? []) as { key: string; itemId: number; wooId: number; delta: number }[]) {
+        const s = await admin.rpc("nexo_business_web_line_synced", { p_business: BUSINESS, p_order: o.id, p_item: e.itemId });
+        if (s.error) throw new Error(s.error.message);
+        if (s.data === true && e.delta) {
+          const r = await admin.rpc("nexo_business_stock_from_web", { p_business: BUSINESS, p_key: e.key, p_woo_id: e.wooId, p_delta: e.delta, p_order: String(o.number) });
+          if (r.error) throw new Error(r.error.message);
+          if (r.data === "ok") report.fromWeb++;
+          editsDone.push({ order: o.id, key: e.key, result: "applied" });
+        } else editsDone.push({ order: o.id, key: e.key, result: "skipped" });
+      }
+    }
+    if (editsDone.length) await core("POST", "panel/stock/edits-done", { items: editsDone });
     for (const o of data.orders ?? []) {
       for (const l of o.lines ?? []) {
         let r = "";

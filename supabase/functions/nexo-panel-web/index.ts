@@ -365,6 +365,10 @@ Deno.serve(async req => {
       const out = await core("POST", `panel/sales/${id}/edit`, {
         lines: Array.isArray(body.lines) ? body.lines : [], add: Array.isArray(body.add) ? body.add : [],
         phone: body.phone ?? "", address: body.address ?? "", note: typeof body.note === "string" ? body.note : undefined,
+        // Core 3.13.97: nombre, día y franja de entrega; «by» = quién lo pulsó (va en la nota del pedido).
+        firstName: typeof body.firstName === "string" ? body.firstName : undefined, lastName: typeof body.lastName === "string" ? body.lastName : undefined,
+        deliveryDate: typeof body.deliveryDate === "string" ? body.deliveryDate : undefined, deliveryWindow: typeof body.deliveryWindow === "string" ? body.deliveryWindow : undefined,
+        by,
       });
       const stamp = Date.now();
       for (const s of (out.stock ?? []) as Array<{ itemId: number; wooId: number; delta: number }>) {
@@ -379,7 +383,7 @@ Deno.serve(async req => {
     if (body.action === "sale_action") {
       const what = body.what === "return" ? "return" : "status";
       const params = (body.params && typeof body.params === "object") ? body.params : {};
-      return json(200, await core("POST", `panel/sales/${Number(body.id)}/${what}`, params));
+      return json(200, await core("POST", `panel/sales/${Number(body.id)}/${what}`, { ...params, by }));
     }
 
     return json(400, { error: "Acción desconocida." });

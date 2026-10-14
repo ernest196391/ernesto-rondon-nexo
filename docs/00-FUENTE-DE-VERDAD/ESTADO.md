@@ -602,6 +602,25 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
 - **Para volver atrás:** `~/bak-20261013-cvd-3.13.95-antes-3.13.96`.
 - **Lennys confirma:** el soporte de TV a 5 USD (sale de que dijo que la puerta «es más complicada») y el árbol a 3 USD.
 
+**Mañana del 14-oct (8:05–8:40, sesión de chats):**
+- **7:35 comprobado:** salieron Pedri (#902), Rafael (#903) y Maryta (#904). Sin respuesta todavía.
+- **#79 cerrada:** al organizador de baño 3564 se le pusieron las 4 fotos de Lennys (comercial 3678 de principal; real 3679, medidas 3680 y detalles 3681) y se publicó (25 USD, 10 uds). Comprobado en la web. La foto vieja (3565) se quitó del producto, no se borró.
+- **#3671 duplicado:** Zaymi lo rehízo a las 00:06 con su cuenta de gestora como **#3674** (Félix, comisión 5 USD pendiente). Lennys (23:48) y Zaymi (00:17) piden cancelar el #3671. **No se canceló:** el modo automático no dejó; lo hace Ernesto o lo autoriza.
+- **Respuesta para Lennys (sin mandar):** la comisión sale «pendiente» en cuanto se hace el pedido por el enlace de la gestora; se aprueba en el cierre tras la entrega y se paga en la liquidación (`class-cvd-commissions.php`). En el #3671 no le salía a Zaymi porque se hizo desde la tienda general (venta directa).
+- **Nana (13-oct 19:55):** «abro el enlace y no me salen las operaciones». Pista: si su número también es de gestora, «mi acceso» le da el enlace de gestora y no el de Operaciones (`vivabot/src/gestoras.js:240`). Sin comprobar sus roles.
+- **Tutoriales «Tu precio» y «Aprende»:** dos agentes los están haciendo (`videos/tutorial-tu-precio`, `videos/tutorial-aprende`). Sin mandar nada.
+- **Cancelar y cambiar pedidos (Core 3.13.97, Casa-Viva `6f21e64` en `main`, ~12:50 UTC):**
+  - **Quién:** Lennys (administradora), Zaymi y Nana (dependientas), también operador y shop_manager. Permiso y nonce comprobados en el servidor.
+  - **Dónde:** dependientas en `/ventas/` → tarjeta del pedido → **«Cambiar pedido»** y **«Cancelar pedido»**. Lennys: panel → Pedidos → abrir pedido → los mismos botones (o `/ventas/`).
+  - **Cancelar:** pide motivo (obligatorio); usa la cascada de siempre (`CVD_Order_Transition_Service::cancel`: existencias de vuelta, comisión anulada, carrera y ganancia del mensajero anuladas). Nota en el pedido con quién y por qué (`_cvd_cancel_reason`). No se cancela lo entregado (eso es «Devolución»). La dependienta no cancela si el mensajero ya tiene el paquete; Lennys sí.
+  - **Cambiar:** nombre, teléfono, dirección, día y franja, nota y productos (cantidad, quitar, añadir). Solo antes de «Entregado al mensajero». Recalcula total, existencias y comisión. Nota con todos los cambios.
+  - **Caja:** un cambio de productos hecho en `/ventas/` queda en `_cvd_caja_edits` y lo aplica `nexo-stock-bridge` (desplegado de nuevo); los del panel, `nexo-panel-web` (desplegado: ahora también nombre, día, franja y «quién»).
+  - **Arreglado de paso:** al cambiar cantidades, el total del pedido sumaba la cantidad vieja (también pasaba en el panel desde 3.13.39).
+  - **Probado de verdad** con el pedido de PRUEBA **#3682** (sin gestora ni mensajero, nunca salió al reparto): como Nana por HTTP con su sesión y nonce (sin sesión → 401), cambiar datos + 2→3 + añadir, quitar línea, panel (apellido y franja), cancelar sin motivo → negado, cancelar → bien. Existencias: Capas 2387 44→42→41→44; Base 67 11→10→11. Caja: −3/+3 y −1/+1 (claves `web:3682:*`). #3682 queda cancelado (no se borró). Se envió el correo automático «Pedido cancelado» a administración.
+  - **Copias:** `~/bak-20261014-cvd-3.13.96-antes-3.13.97` y `~/bak-20261014-panel-index-antes-cancelar.html`.
+  - **Pendiente:** aviso automático al mensajero que ya tenía el pedido cuando se cancela o cambia (hoy la pantalla dice «avísale» y el bot no manda nada); probarlo con un pedido con gestora (comisión anulada) y mirar el panel en el teléfono de Lennys. El #3671 sigue sin cancelar: ya pueden hacerlo ellas.
+  - **Mensaje para el equipo (sin mandar):** `docs/nexo-business/tutoriales/cancelar-editar-pedidos-mensaje.txt`.
+
 **Chats revisados, 13-oct 23:30** (esta sesión lleva ahora los chats; la otra se traspasó):
 - **#3598:** el cobro estaba apuntado en 120 USD por el vale viejo; ahora pone 140, que es el total del pedido y lo que confirmó Pedri.
 - **Escalaciones cerradas sin mandar mensaje:** #41, #58, #67, #70 y #71.
