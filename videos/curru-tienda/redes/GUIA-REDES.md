@@ -10,6 +10,7 @@ Todo lo que necesitas está en esta carpeta (`videos/curru-tienda/redes/`) y en 
 | 5 historias | `historias/historia-1.jpg` … `historia-5.jpg` |
 | Portada del reel del apagón (13-oct) | `reel-apagon/portada-v2.jpg` |
 | Reel del 13-oct «¿Tus sábanas huelen a guardado?» | `reel-funda/casa-viva-reel-funda.mp4` (`-fb.mp4` < 10 MB), portada `reel-funda/portada.jpg`, texto `reel-funda/pie.txt` |
+| Reel del 14-oct «Súper Prosko» (cama plegable) | `reel-cama-plegable/casa-viva-reel-cama-plegable.mp4` (`-fb.mp4` 7,9 MB), portada `reel-cama-plegable/portada.jpg`, texto `reel-cama-plegable/pie.txt`, 5 historias `reel-cama-plegable/historias/` |
 
 ## Datos de la tienda (copiar y pegar)
 - **Nombre:** Casa Viva
