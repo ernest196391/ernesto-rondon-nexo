@@ -82,3 +82,19 @@ Lo pidió Ernesto el 13-oct a las 22:20: «pensar en todos los errores que comet
 - Pie de foto del reel de las sábanas.
 - Fotos de 42 y 23.
 - Reel de la cama plegable.
+
+## 5. Orden de trabajo desde el 14-oct (Ernesto, 13-oct 22:50)
+
+1. **Corregir los errores de hoy** (tabla del punto 1).
+2. **Lo pendiente de Casa Viva:** inventario, catálogo y lo que esperan Lennys y las gestoras.
+3. **Las apps propias, primero como ficha** (skill `idea-a-producto`), sin programarlas todavía. Se elige una cuando Casa Viva esté estable.
+   - Una app propia con las claves de Google, OpenAI y Claude, que use lo mejor de cada plataforma.
+   - Una app de mensajería propia para emprendimientos.
+   - Un chat propio de Casa Viva que también se pueda vender.
+
+**Regla que pidió Ernesto:** si se dispersa, Claude se lo dice directo: «Ernesto, enfoquémonos: ahora lo más urgente es X». Se trabaja en **un solo chat**.
+
+**Lo que corre la noche del 13-oct, solo programación:**
+- El resumen pone «Pedidos de la web» aparte de la caja y quita las líneas internas.
+- Armado según lo que decidió Lennys, y productos movidos a su departamento.
+- Hoja de conteo de los 153 escondidos y propuesta de «tienda o proveedor» para los 471 publicados.
