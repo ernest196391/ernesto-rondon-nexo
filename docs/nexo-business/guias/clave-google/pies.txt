@@ -1,0 +1,5 @@
+Paso 1 de 5: toca Mi estudio de fotos en el menú.
+Paso 2 de 5: con la VPN, toca el enlace de Google.
+Paso 3 de 5: en Google, toca Create API key y copia la clave.
+Paso 4 de 5: pega la clave en Tu clave de Google.
+Paso 5 de 5: toca Comprobar y guardar.

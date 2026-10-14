@@ -1,0 +1,4 @@
+Hola, {nombre} 👋 Ya tienes «Mi estudio de fotos» en tu área de gestora: eliges un producto, dices cómo quieres la foto y Google te la hace bonita.
+Para usarlo, conecta una vez tu clave de Google. Te lo explico en 5 pasos 👇
+Necesitas la VPN puesta y tu Gmail. Google cobra unos 3 centavos de USD por foto a tu cuenta.
+Si algo no sale, escríbeme.
