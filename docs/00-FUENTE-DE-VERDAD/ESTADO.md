@@ -588,6 +588,8 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
 
 ### L5. Martes 13-oct tarde (Claude Code, sesión principal): enlaces de gestora, fotos por color y bienvenida corregida
 
+**Noche 13-oct, 22:00–22:45:** pedido de prueba de Lennys #3668 cancelado (marcado como prueba; volvieron las existencias). **Core 3.13.95** (commit Casa-Viva `4e65fdc`): los productos «Privado» no salen en la web ni para administradores; probado como administrador: 471 publicados y 0 privados. Organizador de 2 niveles (2485) sin existencias porque está roto según el conteo de Maryta. Plan para empezar limpio, con los errores del día, el inventario y lo pendiente: `docs/nexo-business/plan-2026-10-14-empezar-limpio.md`.
+
 **Noche 13-oct (18:40–20:30), lo último:**
 - **Redes:**
   - El reel del apagón v2 salió en Instagram a las 19:01 **sin** la línea de IA.
