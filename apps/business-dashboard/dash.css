@@ -267,3 +267,20 @@ body { background: #F6F1E6; }
 /* Textos largos en botones de la ficha: que bajen de línea en el móvil en vez de salirse. */
 .nx .designs .btn, .nx .btn-danger-text, .nx .note-box .btn, .nx .row-actions .btn, .nx .retired-box .btn { white-space: normal; text-align: center; line-height: 1.25; }
 .nx .retired-box .row-item .btn { flex: none; max-width: 48%; }
+/* Reparto de la venta de proveedor (Core 3.14.14, D69): recuadro en el pedido y lista del mes. */
+.nx .split-box { border: 1px solid var(--nx-line); border-radius: var(--nx-r-md); padding: 12px; display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
+.nx .split-box h3 { margin: 0; font-size: var(--nx-fs-lg); }
+.nx .split-box .field { margin: 0; min-width: 0; }
+.nx .split-box .field input, .nx .split-box .field select { width: 100%; box-sizing: border-box; min-width: 0; }
+.nx .split-box .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; align-items: end; }
+.nx .split-box .kv span:last-child { text-align: right; white-space: nowrap; }
+.nx .split-box .kv span:first-child { min-width: 0; text-wrap: pretty; }
+.nx .split-warn { border-radius: var(--nx-r-md); padding: 10px 12px; font-size: var(--nx-fs-sm); font-weight: 700; text-wrap: pretty; }
+.nx .split-warn.bad { background: #fde8e6; color: var(--nx-danger); }
+.nx .split-warn.ok { background: var(--nx-ok-soft); color: var(--nx-ok); }
+.nx .split-row { border-top: 1px solid var(--nx-line); padding: 10px 0; display: flex; flex-direction: column; gap: 4px; font-size: var(--nx-fs-sm); }
+.nx .split-row:first-child { border-top: 0; }
+.nx .split-row .split-top { display: flex; justify-content: space-between; gap: 8px; align-items: flex-start; }
+.nx .split-row .split-top b { min-width: 0; text-wrap: pretty; }
+.nx [data-actions] .btn { white-space: normal; text-align: center; line-height: 1.25; }
+.nx .split-row .parts { color: var(--nx-text-2); font-size: var(--nx-fs-xs); text-wrap: pretty; }

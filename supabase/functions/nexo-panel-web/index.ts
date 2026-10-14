@@ -4,6 +4,7 @@
 //   POST { action: "summary", from?, to? }          → resumen del periodo (por defecto, este mes)
 //   POST { action: "orders", status?, search?, page? } → lista de pedidos (20 por página)
 //   Productos (Core 3.13.52): product_variations, variation_add, product_variable_create, products_visibility
+//   Venta de proveedor (Core 3.14.14, D69): supplier_split, supplier_split_save, supplier_sales
 // Deploy: npx.cmd supabase functions deploy nexo-panel-web --project-ref viwwlriwlwodrfukbgbj --no-verify-jwt --use-api
 import { createClient } from "jsr:@supabase/supabase-js@2";
 
@@ -34,7 +35,7 @@ type WooOrder = {
   id: number; number: string; status: string; date_created: string; total: string; currency: string;
   billing: { first_name: string; last_name: string; phone: string };
   shipping: { address_1: string; city: string; state: string };
-  line_items: { name: string; quantity: number; total: string; meta_data: { display_key?: string; display_value?: unknown }[] }[];
+  line_items: { name: string; quantity: number; total: string; sku?: string; meta_data: { display_key?: string; display_value?: unknown }[] }[];
   meta_data: { key: string; value: unknown }[];
   customer_note: string;
 };
@@ -91,6 +92,8 @@ function row(o: WooOrder, people: Record<number, string>) {
     gestora: ownerType === "gestora" && ownerId ? (people[ownerId] ?? `#${ownerId}`) : null,
     commission: Number(meta(o, "_cvd_commission_amount") ?? 0) || null,
     note: o.customer_note || null,
+    // Venta de proveedor (bajo pedido, SKU MK-): el panel enseña el recuadro del reparto (Core 3.14.14, D69).
+    supplier: o.line_items.some(l => /^MK-/i.test(l.sku ?? "")),
     items: o.line_items.map(l => ({
       name: l.name, qty: l.quantity, total: money(l.total),
       variant: l.meta_data.filter(m => m.display_key && !m.display_key.startsWith("_") && typeof m.display_value === "string")
@@ -386,6 +389,20 @@ Deno.serve(async req => {
         await admin.rpc("nexo_business_stock_from_web", { p_business: BUSINESS, p_key: `web:${id}:${s.itemId}:edit:${stamp}`, p_woo_id: s.wooId, p_delta: s.delta, p_order: String(id) });
       }
       return json(200, out);
+    }
+    // Venta de proveedor (Core 3.14.14, D69): reparto del margen apuntado en el pedido. Es información: no mueve dinero.
+    if (body.action === "supplier_split") return json(200, await core("GET", `panel/supplier-split/${Number(body.id)}`));
+    if (body.action === "supplier_split_save") {
+      const pick = (k: string) => body[k] === undefined || body[k] === null ? "" : String(body[k]);
+      return json(200, await core("POST", `panel/supplier-split/${Number(body.id)}`, {
+        supplier: pick("supplier"), costUsd: pick("costUsd"), route: pick("route"), vehicle: pick("vehicle"),
+        messengerCup: pick("messengerCup"), messengerName: pick("messengerName"), clerkCup: pick("clerkCup"), clerkName: pick("clerkName"),
+        storeCup: pick("storeCup"), by,
+      }));
+    }
+    if (body.action === "supplier_sales") {
+      const month = typeof body.month === "string" && /^\d{4}-\d{2}$/.test(body.month) ? body.month : "";
+      return json(200, await core("GET", `panel/supplier-sales?month=${month}`));
     }
     if (body.action === "sale_action") {
       const what = body.what === "return" ? "return" : "status";

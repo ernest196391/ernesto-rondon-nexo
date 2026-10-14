@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Figtree:wght@400;600;700&display=swap">
 <link rel="stylesheet" href="nexo.css">
 <link rel="stylesheet" href="casaviva.css">
-<link rel="stylesheet" href="dash.css?v=20261014a">
+<link rel="stylesheet" href="dash.css?v=20261014b">
 </head>
 <body>
 <div class="nx dash" data-theme="casaviva" id="root">
@@ -144,6 +144,7 @@
         <input class="input" id="web-search" type="search" placeholder="Buscar por número, cliente o teléfono" style="margin:8px 0">
         <section class="panel" id="web-orders"><p class="muted">Cargando…</p></section>
         <div style="display:flex;justify-content:center;gap:8px" id="web-pager"></div>
+        <button type="button" class="btn btn-secondary btn-block" id="supplier-sales-btn" style="margin-top:8px">Ventas de proveedor del mes (reparto para pagar)</button>
       </div>
       <div id="panel-orders-box">
       <div class="chips" id="order-filter" role="group" aria-label="Estado">
@@ -1630,11 +1631,139 @@ function showWebOrder(o) {
     + (o.pickup ? "" : '<div class="kv"><span>Día de entrega</span><span><b>📅 ' + esc(deliveryDay(o).label) + "</b></span></div>")
     + '<div class="kv"><span>Gestora</span><span>' + (o.gestora ? esc(o.gestora) + (o.commission ? " · comisión " + usd2(o.commission) : "") : "Sin gestora") + "</span></div>"
     + (o.note ? '<p class="t-sm"><b>Nota:</b> ' + esc(o.note) + "</p>" : "")
+    + (o.supplier ? '<section class="split-box" data-split aria-label="Reparto de la venta de proveedor"><h3>Reparto de la venta de proveedor</h3><p class="muted">Cargando…</p></section>' : "")
     + '<div style="display:flex;flex-direction:column;gap:8px;margin-top:12px">'
     + (wa ? '<a class="btn btn-primary btn-block" target="_blank" rel="noopener" href="' + esc(wa) + '">Escribir al cliente por WhatsApp</a>' : "")
     + '<div data-actions style="display:flex;flex-direction:column;gap:8px"><p class="muted">Cargando…</p></div></div>',
     "Pedido web " + o.number);
   void loadSaleActions(sheet.el, o);
+  if (o.supplier) void loadSupplierSplit(sheet.el.querySelector("[data-split]"), o);
+}
+
+// ---------- Venta de proveedor (Core 3.14.14, D66 + D69): reparto del margen apuntado en el pedido ----------
+// Todo sale del margen (precio web − precio del proveedor): comisión de la gestora, mensajero, dependienta,
+// tienda (la tienda siempre gana) y el resto para el gestor especial (Ernesto). Es información: no mueve dinero.
+const SPLIT_ROUTES = [["A", "A · El proveedor lo trae a la tienda"], ["B", "B · Nuestro mensajero lo recoge"], ["C", "C · El proveedor lo lleva al cliente"]];
+const SPLIT_VEHICLES = [["moto", "Moto"], ["triciclo", "Triciclo"], ["ninguno", "Sin vehículo"]];
+// «4.108 CUP» con punto de miles también en números de 4 cifras (toLocaleString("es") no lo pone).
+const cupT = n => (n < 0 ? "−" : "") + String(Math.abs(Math.round(Number(n) || 0))).replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " CUP";
+const cupInt = v => { const n = parseInt(String(v ?? "").replace(/[.\s]/g, ""), 10); return Number.isFinite(n) ? n : NaN; };
+// Las mismas cuentas que Core (CVD_Supplier_Split::compute), para verlas al momento mientras se escribe.
+function splitMath(s, f) {
+  const cost = Number(String(f.costUsd ?? "").replace(",", "."));
+  const marginUsd = Math.round((s.webUsd - (Number.isFinite(cost) ? cost : s.costUsd)) * 100) / 100;
+  const marginCup = Math.round(marginUsd * s.rate);
+  const fund = (cupInt(f.messengerCup) || 0) + (cupInt(f.clerkCup) || 0) + (cupInt(f.storeCup) || 0);
+  const special = marginCup - s.gestoraCup - fund;
+  const oneUsd = Math.round(s.rate);
+  const warning = !(s.rate > 0) ? "Este pedido no tiene la tasa del día: no se puede pasar a CUP."
+    : special < 0 ? "No llega: faltan " + cupT(-special) + " para pagar a todos. Sube el precio web, baja el fondo o no aceptes la venta."
+    : special < oneUsd ? "No llega al mínimo: a Ernesto le quedan " + cupT(special) + " y el mínimo es 1 USD (" + cupT(oneUsd) + "). Sube el precio web, baja el fondo o no aceptes la venta."
+    : "";
+  return { marginUsd, marginCup, fund, special, warning };
+}
+function splitSummary(s, m) {
+  return '<div class="breakdown">'
+    + '<div class="kv"><span>Precio web (lo paga el cliente)</span><span class="num">' + usd2(s.webUsd) + "</span></div>"
+    + '<div class="kv"><span>Precio del proveedor' + (s.supplier ? " (" + esc(s.supplier) + ")" : "") + '</span><span class="num">− ' + usd2(m.costUsd ?? s.costUsd) + "</span></div>"
+    + '<div class="kv strong"><span>Lo que se reparte</span><span class="num">' + usd2(m.marginUsd) + " = " + cupT(m.marginCup) + "</span></div>"
+    + '<div class="kv"><span>' + (s.gestora ? esc(s.gestora) + " (gestora)" : "Gestora (no hay)") + '</span><span class="num">' + cupT(s.gestoraCup) + "</span></div>"
+    + '<div class="kv"><span>Mensajero' + (m.messengerName ? " · " + esc(m.messengerName) : "") + '</span><span class="num">' + cupT(m.messengerCup) + "</span></div>"
+    + '<div class="kv"><span>Dependienta' + (m.clerkName ? " · " + esc(m.clerkName) : "") + '</span><span class="num">' + cupT(m.clerkCup) + "</span></div>"
+    + '<div class="kv"><span>Tienda Casa Viva</span><span class="num">' + cupT(m.storeCup) + "</span></div>"
+    + '<div class="kv strong"><span>Ernesto (gestor especial, el resto)</span><span class="num">' + cupT(m.special) + "</span></div>"
+    + "</div>"
+    + '<p class="t-xs muted">Tasa ' + esc(String(s.rate)) + (s.rateSource === "pedido" ? " (la del día del pedido" + (s.rateDay ? ", " + esc(s.rateDay) : "") + ")" : " (la de hoy: el pedido no la guardó)") + ". La comisión de la gestora no se cambia aquí.</p>"
+    + (m.warning ? '<p class="split-warn bad">' + esc(m.warning) + "</p>" : '<p class="split-warn ok">✓ Llega al mínimo: a Ernesto le queda 1 USD o más.</p>');
+}
+async function loadSupplierSplit(box, o) {
+  if (!box) return;
+  let s;
+  try { s = await panelWeb({ action: "supplier_split", id: o.id }); }
+  catch (e) { box.innerHTML = '<h3>Reparto de la venta de proveedor</h3><p class="muted">' + esc(e.message) + "</p>"; return; }
+  if (!s.applies) { box.remove(); return; }
+  const products = s.lines.map(l => (l.qty > 1 ? l.qty + "× " : "") + esc(l.name)).join(", ");
+  if (s.closed) {
+    box.innerHTML = '<h3>Reparto de la venta de proveedor</h3><p class="t-sm"><span class="badge badge-ok">Cerrado</span> ' + esc(when(s.closedAt)) + " · " + products + "</p>"
+      + splitSummary(s, { costUsd: s.costUsd, marginUsd: s.marginUsd, marginCup: s.marginCup, messengerCup: s.messengerCup, messengerName: s.messengerName, clerkCup: s.clerkCup, clerkName: s.clerkName, storeCup: s.storeCup, special: s.specialCup, warning: s.warning })
+      + '<p class="t-xs muted">Se selló al cerrar el pedido (entregado y dinero recibido). Ya no se cambia.</p>';
+    return;
+  }
+  const opt = (list, cur) => list.map(([v, l]) => '<option value="' + v + '"' + (v === cur ? " selected" : "") + ">" + l + "</option>").join("");
+  box.innerHTML = '<h3>Reparto de la venta de proveedor</h3>'
+    + '<p class="t-sm">' + products + ' · <span class="badge ' + (s.saved ? "badge-ok" : "badge-info") + '">' + (s.saved ? "Guardado" : "Sugerencia sin guardar") + "</span>"
+    + (s.saved && s.savedBy ? '<br><span class="t-xs muted">Por ' + esc(s.savedBy) + " · " + esc(when(s.savedAt)) + "</span>" : "") + "</p>"
+    + '<form class="form" data-split-form>'
+    + '<div class="grid-2"><label class="field">Proveedor<input name="supplier" maxlength="80" value="' + esc(s.supplier) + '" placeholder="Ej.: Digital Store (Kevin)"></label>'
+    + '<label class="field">Precio del proveedor (USD)<input name="costUsd" inputmode="decimal" value="' + esc(String(s.costUsd)) + '"></label></div>'
+    + '<label class="field">Cómo llega<select name="route">' + opt(SPLIT_ROUTES, s.route) + "</select></label>"
+    + '<div class="grid-2"><label class="field">Vehículo<select name="vehicle">' + opt(SPLIT_VEHICLES, s.vehicle) + "</select></label>"
+    + '<label class="field">Mensajero (CUP)<input name="messengerCup" inputmode="numeric" value="' + s.messengerCup + '"></label></div>'
+    + '<div class="grid-2"><label class="field">Nombre del mensajero<input name="messengerName" maxlength="80" value="' + esc(s.messengerName) + '"></label>'
+    + '<label class="field">Dependienta (CUP)<input name="clerkCup" inputmode="numeric" value="' + s.clerkCup + '"></label></div>'
+    + '<div class="grid-2"><label class="field">Nombre de la dependienta<input name="clerkName" maxlength="80" value="' + esc(s.clerkName) + '" placeholder="Nana o Zaymi"></label>'
+    + '<label class="field">Tienda Casa Viva (CUP)<input name="storeCup" inputmode="numeric" value="' + s.storeCup + '" min="' + s.defaults.storeMin + '"></label></div>'
+    + '<p class="t-xs muted">Sugerido: mensajero en moto ' + cupT(s.defaults.moto) + ", en triciclo " + cupT(s.defaults.triciclo) + ", si lo lleva el proveedor 0 · dependienta " + cupT(s.defaults.clerkPerItem) + " por artículo · tienda " + cupT(s.defaults.store) + " (nunca menos de " + cupT(s.defaults.storeMin) + ").</p>"
+    + "<div data-split-sum></div>"
+    + '<p class="msg" data-msg role="status"></p><button type="submit" class="btn btn-primary btn-block">Guardar reparto</button></form>';
+  const form = box.querySelector("form");
+  const values = () => Object.fromEntries(["supplier", "costUsd", "route", "vehicle", "messengerCup", "messengerName", "clerkCup", "clerkName", "storeCup"].map(k => [k, form.elements[k].value]));
+  const draw = () => {
+    const f = values();
+    const m = splitMath(s, f);
+    form.querySelector("[data-split-sum]").innerHTML = splitSummary({ ...s, supplier: f.supplier }, { ...m, costUsd: Number(String(f.costUsd).replace(",", ".")) || 0,
+      messengerCup: cupInt(f.messengerCup) || 0, messengerName: f.messengerName, clerkCup: cupInt(f.clerkCup) || 0, clerkName: f.clerkName, storeCup: cupInt(f.storeCup) || 0 });
+  };
+  // Al cambiar la ruta o el vehículo, el mensajero toma la tarifa sugerida (se puede cambiar a mano después).
+  const suggestMessenger = () => {
+    const r = form.elements.route.value, v = form.elements.vehicle.value;
+    form.elements.messengerCup.value = r === "C" || v === "ninguno" ? 0 : v === "triciclo" ? s.defaults.triciclo : s.defaults.moto;
+    draw();
+  };
+  form.elements.route.onchange = () => { if (form.elements.route.value === "C") form.elements.vehicle.value = "ninguno"; else if (form.elements.vehicle.value === "ninguno") form.elements.vehicle.value = "moto"; suggestMessenger(); };
+  form.elements.vehicle.onchange = suggestMessenger;
+  form.oninput = draw;
+  draw();
+  form.onsubmit = async e => {
+    e.preventDefault();
+    const msg = form.querySelector("[data-msg]");
+    const f = values();
+    for (const [k, label] of [["messengerCup", "el mensajero"], ["clerkCup", "la dependienta"], ["storeCup", "la tienda"]]) {
+      if (!(cupInt(f[k]) >= 0)) { msg.textContent = "Escribe lo de " + label + " en CUP (0 o más, sin decimales)."; msg.dataset.tone = "bad"; return; }
+    }
+    if (cupInt(f.storeCup) < s.defaults.storeMin) { msg.textContent = "La tienda siempre gana: pon al menos " + cupT(s.defaults.storeMin) + "."; msg.dataset.tone = "bad"; return; }
+    const btn = form.querySelector("[type=submit]"); btn.disabled = true; msg.textContent = "Guardando…"; msg.dataset.tone = "";
+    try {
+      await panelWeb({ action: "supplier_split_save", id: o.id, ...f });
+      toast("Reparto guardado en el pedido #" + o.number, "ok");
+      void loadSupplierSplit(box, o);
+    } catch (err) { btn.disabled = false; msg.textContent = "No se guardó: " + err.message; msg.dataset.tone = "bad"; }
+  };
+}
+
+// Lista del mes «Ventas de proveedor»: cada venta con sus partes y lo que toca a cada persona (para pagar).
+const SPLIT_STATE = { abierto: ["Abierto", "badge-info"], cerrado: ["Cerrado", "badge-ok"], cancelado: ["Cancelado", "badge-out"] };
+async function showSupplierSales(month = "") {
+  const sheet = openSheet('<div class="sheet-head"><h2>Ventas de proveedor</h2><button type="button" class="btn btn-ghost" data-close>Cerrar</button></div><div data-body><p class="muted">Cargando…</p></div>', "Ventas de proveedor");
+  const body = sheet.el.querySelector("[data-body]");
+  let d;
+  try { d = await panelWeb({ action: "supplier_sales", month }); } catch (e) { body.innerHTML = '<p class="muted">' + esc(e.message) + "</p>"; return; }
+  const [y, mo] = d.month.split("-").map(Number);
+  const MONTHS = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+  const label = MONTHS[mo - 1] + " de " + y;
+  const shift = n => { const t = new Date(Date.UTC(y, mo - 1 + n, 15)); return t.toISOString().slice(0, 7); };
+  const people = d.people.map(p => '<div class="kv"><span>' + esc(p.role) + " · " + esc(p.name) + (p.orders > 1 ? ' <span class="t-xs muted">(' + p.orders + " ventas)</span>" : "") + '</span><span class="num">'
+    + (p.role === "Proveedor" ? usd2(p.usd) : cupT(p.cup)) + "</span></div>").join("");
+  body.innerHTML = '<div class="kv"><button type="button" class="btn btn-ghost" data-m="-1">‹</button><b>' + esc(label) + '</b><button type="button" class="btn btn-ghost" data-m="1">›</button></div>'
+    + (d.orders.length ? '<h3 class="t-lg">A quién le toca (sin cancelados)</h3><div class="breakdown">' + people
+      + '<div class="kv strong"><span>Margen repartido</span><span class="num">' + cupT(d.totals.marginCup) + "</span></div></div>"
+      + '<p class="t-xs muted">«Abierto» = aún no se entregó o no se recibió el dinero; las cifras pueden cambiar. «Cerrado» = ya se puede pagar.</p>'
+      + '<h3 class="t-lg">Ventas</h3><div>' + d.orders.map(r => '<div class="split-row"><div class="split-top"><b>#' + esc(r.number) + " · " + esc(r.products) + '</b><span class="badge ' + SPLIT_STATE[r.state][1] + '">' + SPLIT_STATE[r.state][0] + "</span></div>"
+        + '<span class="t-xs muted">' + esc(when(r.date)) + " · " + (r.gestora ? "Gestora " + esc(r.gestora) : "Sin gestora") + " · " + esc(r.supplier || "proveedor sin nombre") + (r.saved ? "" : " · sugerido") + "</span>"
+        + '<span class="parts">Margen ' + usd2(r.marginUsd) + " = " + cupT(r.marginCup) + " · gestora " + cupT(r.gestoraCup) + " · mensajero " + cupT(r.messengerCup) + " · dependienta " + cupT(r.clerkCup) + " · tienda " + cupT(r.storeCup) + " · <b>Ernesto " + cupT(r.specialCup) + "</b></span>"
+        + (r.warning && r.state !== "cancelado" ? '<span class="t-xs" style="color:var(--nx-danger)">' + esc(r.warning) + "</span>" : "") + "</div>").join("") + "</div>"
+      : '<p class="muted">No hubo ventas de proveedor este mes.</p>');
+  body.querySelectorAll("[data-m]").forEach(b => (b.onclick = () => { sheet.close(); void showSupplierSales(shift(Number(b.dataset.m))); }));
 }
 
 // Acciones del pedido: las decide Core según su estado (las mismas que en /ventas/).
@@ -1809,6 +1938,7 @@ document.querySelectorAll("#orders-src [data-src]").forEach(b => (b.onclick = ()
   document.querySelectorAll("#orders-src [data-src]").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
   void loadOrders();
 }));
+$("#supplier-sales-btn").onclick = () => void showSupplierSales();
 document.querySelectorAll("#web-filter [data-w]").forEach(b => (b.onclick = () => {
   webFilter = b.dataset.w; webPage = 1;
   document.querySelectorAll("#web-filter [data-w]").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
