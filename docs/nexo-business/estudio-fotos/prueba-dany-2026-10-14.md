@@ -44,6 +44,9 @@ Ernesto le pidió probarla a las 14:01; Claude la sigue y la guía como si fuera
    - **Fricción nueva:** sale «Foto sin producto» (product 0): al cerrar y abrir el estudio se pierde el producto elegido, y sin producto no hay «Poner en mi tienda». La pantalla dice «elige primero el producto arriba y súbela otra vez». 15:05: se le guió (elegir producto → subir otra vez → Poner en mi tienda).
    - **Mejora a programar:** recordar el producto elegido (localStorage) y/o «Elegir producto» desde una foto de la galería, sin volver a subirla.
 
+12. **16:05–16:11 — Lennys (user 14, admin + gestora aprobada) lo prueba** (Ernesto lo pidió; `cvd_estudio_usuarios` = «18,33,14»). Guía de 5 pasos + 3 trucos (VPN solo para Gemini, elegir producto antes, lo lento es subir). **Lo hizo SOLA de punta a punta**: instrucción 16:07, subida 16:11 (627 KB, 200), «Poner en mi tienda» 16:11 → Alfombra de Sala estilo Persa con su foto en su tienda. Al principio mandó el enlace del chat de Gemini en vez de la foto → la guía debe decir «descarga la FOTO, no compartas el chat».
+13. **Dato (16:15) para Dany:** en la web, 31 productos con colores tienen colores sin foto propia (97 de 220; 86 con existencias). Peores: Set de 2 alfombras (8), Alfombra Bienvenido (7), Fundas Majestic (6), Alfombra con piecitos (5).
+
 ## Pendiente
 - Resultado de Dany con VPN (¿abre?, ¿deja adjuntar la foto y pegar la instrucción?, ¿la foto sale fiel?, ¿se sube bien con «Subir mi foto de Gemini»?).
 - Fotos de Nana → a Dany y a las variaciones 2798/2799/2965 en la web.
