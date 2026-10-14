@@ -38,7 +38,8 @@ try {
     sync = `proveedor: ${r.changed} cambiados, ${r.same} iguales, ${r.missing.length} no encontrados`;
   }
   const s = await web('GET', '/bot/costs/summary');
-  const line = `💰 Precios: ${s.counts.bajo} productos bajo el mínimo · ${s.counts.sin_costo} sin costo`;
+  // Core 3.14.5: la línea la arma Core (pierden / con costo provisional / sin costo / comisiones fuera de la regla).
+  const line = s.line ? `💰 Precios: ${s.line}` : `💰 Precios: ${s.counts.bajo} productos bajo el mínimo · ${s.counts.sin_costo} sin costo`;
   writeFileSync(OUT, `${hoy}\n${line}\n`);
   console.log(new Date().toISOString(), line, sync ? `· ${sync}` : '');
 } catch (e) {

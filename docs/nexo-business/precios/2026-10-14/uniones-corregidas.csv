@@ -1,0 +1,24 @@
+﻿producto;fila_quitada;fila_buena;costo_antes;costo_ahora;comision_antes;comision_ahora;nota_para_lennys
+Toallas pequeña;138 «BOCINA PEQUEÑA» (140) y 125 «TOALLA MAGESTIC COLORES» (10);— (¿141 o 142 «TOALLA DE MANO 40x75», 5?);5;5;1;1;Elegir su fila
+Alfombra peluche 40x60;157 «ALFOMBRA 120x180 PELUCHE» (35) y 74 «Alfombra de peluche 80x50» (6);66 «Alfombra de peluche 40x60» (5);5;5;1;1;
+Toallas Cisne Blanco 40x70;118 «TOALLA DE COLORES CISNE BLANCO» (10);— (¿141 «TOALLA DE MANO COLORES 40x75», 5?);5;5;1;1;¿La fila 118 es la toalla 70x140 de 18 USD?
+Fundas (2) blancas;171 «FUNDAS MAGESTIC (PAR)» (5);84 «FUNDAS DE ALMOHADAS BLANCAS» (5);5;5;1;1;
+Colcha navideña 180x220;167 «COLCHA 180x220 LUMINARIAS» (15);62 «Colcha full Queen 180x220» (12);15;12;2;2;El Excel dice comisión 1; se deja 2 (≈10 % de 18). Confirmar que la navideña es la fila 62
+Set de 2 alfombras rojo;179 «SET DE BAÑO 15 PC CESTICA» (20);174 «ALFOMBRA DE BAÑO 2 PIEZAS» (8);8;8;3;1;¿La fila 179 es el «Set para baño 3 piezas» de 28 USD?
+Rasuradora portátil;76 «Lámpara recargable portátil redonda» (19,50);— (¿208 hombre 8 o 212 facial 6?);8 (web, por confirmar);8;3;3;Elegir fila; la comisión 3 no cumple la regla (máx. 2)
+Cortina tapasol Royale (8 colores);96 «CORTINA TAPASOL TEKKO» (18);78 «Cortina tapasol royale LISAS» (18);18;18;4;3;La fila 79 «Royale DORADO» (21) sigue unida y no hay color dorado
+Juego de ollas;134 «JUEGO DE OLLAS DE INDUCCIÓN» (30);— (¿36 «JUEGO DE OLLAS DEFECT» 30?);30;30;7;7;Comisión 7 no cumple la regla (máx. 5)
+Edredón con sábana queen;164 «EDREDÓN QUEEN 5PC MAGESTIC» (30) y 64 «Sábana Queen» (14);119 «EDREDÓN QUEEN ENTERO + JUEGO DE SÁBANAS» (30);30;30;6;6;El Excel dice 2; la regla dice máx. 5
+Mochila M-1;105 «TERMO 1 L» (10,20);— (Gorder filas 50-54, 9);9 (web, por confirmar);9;2;2;En la nube sigue 10,20: poner el real en el panel
+Set utensilios cocina 5 pzs;126 «SET POZUELO 5 PIEZAS» (6);47 «SET DE UTENSILIOS DE COCINA 5 PZA» (1,68);1,68 (por confirmar);1,68;1;1;El Excel dice comisión 2
+Alfombra antirresbalante;123 «ALFOMBRA 180x200» (40);302 «ALFOMBRA ANTIRRESBALANTE DE DUCHA» (7);7;7;1;1;
+Búcaro blanco;269 «GAVETERO BLANCO DEFECTO» (48) (+ sugerencia 268 quitada);100 «BÚCARO DE CERÁMICA BLANCO» (8);8 (por confirmar);8;2;2;
+Cesto de basura encimera;89 «CESTO BASURA 10 LTS REDONDO» (10);219 «CESTOS DE BASURA ENCIMERA» (3,50);3,5;3,5;1;1;
+Árbol de navidad 1,50 m;9 «adorno de navidad árbol cartel» (3,85);56 «ÁRBOL DE NAVIDAD PVC 1,50 MTS» (17,85);17,85 (por confirmar);17,85;1;4;Comisión de la fila buena (10 %)
+Lámparas recargables panel solar;77 «lámpara recargable con base» (10);231 «LÁMPARA RECARGABLE CON PANEL SOLAR» (15);15 (por confirmar);15;2;3;Comisión de la fila buena
+Bata de baño;170 «BATA DE BAÑO NUEVAS» (30);17 «Bata de Baño Lisa» (13,20);13,2;13,2;2;2;
+Alfombra de entrada 40x60;175 «ALFOMBRA DE ENTRADA (45x75)» (10);299 «ALFOMBRA DE ENTRADA MARYTA» (5);5;5;1;1;
+Cortina de baño 180x180;177 «CORTINA DE BAÑO CON TAPETE» (10);301 «CORTINA BAÑO TEFLÓN MARYTA» (8,50);8,5;8,5;1;1;Siguen unidas 121 «AB0669» (5) y 122 «A-03H» (4,10): ¿son esta cortina?
+Cojín decorativo diseño 1;6 «arbolito decorativo» (5,63);— (forro 108 = 4 + relleno 116 = 3);7 (web, por confirmar);7;1;1;En la nube sigue 5,63
+Zapatera 5 niveles;43 «MUEBLE ZAPATERA DE 10 NIVELES» (23);—;sin costo (web);sin costo;4;4;En la nube sigue 23
+Paraguas infantil;— (no se tocó);45 «PARAGUAS DE NIÑA 55CM» (1,08);1,08;1,08;2;2;Compra 1,08 muy baja para 8 USD: confirmar

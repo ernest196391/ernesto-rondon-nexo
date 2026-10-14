@@ -1,0 +1,92 @@
+﻿woo_id;producto;precio;minimo_usd;costo_usd;origen_costo;comision
+210;Set de alfombras para baño (3 piezas) - gris;15.00;15.09;10;bizne;fixed:2
+212;Set de alfombras para baño (3 piezas) - carmelita;15.00;15.09;10;bizne;fixed:2
+214;Set de alfombras para baño (3 piezas) - beige;15.00;15.09;10;bizne;fixed:2
+216;Set de alfombras para baño (3 piezas) - gris-oscuro;15.00;15.09;10;bizne;fixed:2
+218;Set de alfombras para baño (3 piezas) - beige-oscuro;15.00;15.09;10;bizne;fixed:2
+220;Set de alfombras para baño (3 piezas) - carmelita-oscuro;15.00;15.09;10;bizne;fixed:2
+226;Balsamo facial de miel hidratante;9.00;9.58;6;bizne;fixed:1
+268;Crema facial arcilla, vit. C y curcuma;8.00;8.58;5;bizne;fixed:1
+270;Shampo + Acondicionador Oggy de Romero;7.00;7.78;4.5;bizne;fixed:0.7
+391;Cortinero Expandible plateado;7.00;8.08;4.5;bizne;fixed:1
+477;Espumadera;6.00;6.98;3.4;bizne;fixed:1
+572;Colcha navideña 180x220 - azul;18.00;20.65;15;bizne;fixed:2
+570;Colcha navideña 180x220 - rojo;18.00;20.65;15;bizne;fixed:2
+807;Utensilios de silicona con cuchillos - rosado;30.00;31.76;26;bizne;fixed:1
+2383;Cable de carga multifuncional;8.00;8.58;5;bizne;fixed:1
+2389;Aceite corporal;16.00;16.18;10;bizne;fixed:2.98
+2441;Edulcorante;8.00;8.58;5;bizne;fixed:1
+2465;Fundas (2) blancas de almohadas;8.00;8.58;5;bizne;fixed:1
+2585;Ventilador recargable F6 (naranja);70.00;72.87;60;bizne;fixed:4
+2593;Silla de oficina (23_222);75.00;79.54;65;bizne;fixed:5
+2690;Alfombra rombo 40x60 cm - arena;8.00;8.58;5;bizne;fixed:1
+2798;Set de alfombras para baño (3 piezas) - rojo;15.00;15.09;10;bizne;fixed:2
+161;Cesto de 12L — Diseño 1;7.00;8.25;4.67;formula;fixed:1
+308;Rallador - azul;8.00;8.79;5.33;formula;percent:10
+310;Rallador - morado;8.00;8.79;5.33;formula;percent:10
+312;Rallador - rosado;8.00;8.79;5.33;formula;percent:10
+314;Rallador - naranja;8.00;8.79;5.33;formula;percent:10
+340;Crema HOYGY vit.C curcuma y 5% hialuronico;9.00;9.58;6;formula;fixed:1
+394;Doyle Elegante Rectangular (6 piezas) - azul;10.00;10.32;6.67;formula;percent:10
+396;Doyle Elegante Rectangular (6 piezas) - beige;10.00;10.32;6.67;formula;percent:10
+398;Doyle Elegante Rectangular (6 piezas) - blanco;10.00;10.32;6.67;formula;percent:10
+400;Doyle Elegante Rectangular (6 piezas) - azul-marino;10.00;10.32;6.67;formula;percent:10
+438;Cortinero decorativo — Diseño 2 - negro;10.00;11.39;6.67;formula;fixed:2
+440;Cortinero decorativo — Diseño 2 - dorado;10.00;11.39;6.67;formula;fixed:2
+442;Cortinero decorativo — Diseño 2 - plateado;10.00;11.39;6.67;formula;fixed:2
+534;Ramo de girasoles;8.00;8.79;5.33;formula;percent:10
+538;Válvula de paso miniHH 1/2" GPLP83 (hembra-macho));4.00;5.84;2.67;formula;percent:10
+553;Brazalete deportivo para celular;7.00;8.25;4.67;formula;fixed:1
+609;Cesto de 12L — Diseño 2;7.00;8.25;4.67;formula;fixed:1
+629;Grifo para fregadero doble GP 1311;14.00;14.35;9.33;formula;fixed:2
+676;Aceite capilar de batana HOEGOA;11.00;11.02;7.33;formula;fixed:1
+674;Cesto de 12L — Diseño 3;7.00;8.25;4.67;formula;fixed:1
+678;Escamadora de pescado;6.00;7.58;4;formula;fixed:1
+725;Cojín decorativo — Diseño 2 - carmelita;11.00;11.14;7.33;formula;percent:10
+723;Cojín decorativo — Diseño 2 - verde;11.00;11.14;7.33;formula;percent:10
+721;Cojín decorativo — Diseño 2 - rojo;11.00;11.14;7.33;formula;percent:10
+736;Cortinero decorativo — Diseño 3 - negro;10.00;11.39;6.67;formula;fixed:2
+740;Cortinero decorativo — Diseño 3 - plateado;10.00;11.39;6.67;formula;fixed:2
+738;Cortinero decorativo — Diseño 3 - dorado;10.00;11.39;6.67;formula;fixed:2
+775;Válvula de paso mini HH 1/2 " GPLP83 (hembra);4.00;6.25;2.67;formula;fixed:1
+2377;Alfombra peluche lisa 50×80 cm — crema;10.00;10.28;6.67;formula;fixed:1
+2575;Shampoo 2 en 1;6.00;7.58;4;formula;fixed:1
+2591;🎄 Casas en Miniatura – 8 cm c- 89045;5.00;6.57;3.33;formula;percent:10
+2610;Bolas Navideñas rosado metálico;8.00;8.79;5.33;formula;percent:10
+2612;Bolas Navideñas blanco verde rojo;8.00;8.79;5.33;formula;percent:10
+2689;Alfombra peluche 50×80 cm — diseño arcos - rosado;10.00;10.28;6.67;formula;fixed:1
+2688;Alfombra peluche 50×80 cm — diseño arcos - beige;10.00;10.28;6.67;formula;fixed:1
+2687;Alfombra peluche 50×80 cm — diseño arcos - carmelita;10.00;10.28;6.67;formula;fixed:1
+2700;Alfombra peluche 40x60 cm - rosado;8.00;8.91;5.33;formula;fixed:1
+2698;Alfombra de entrada 40x60 cm - azul-marino;8.00;8.91;5.33;formula;fixed:1
+2710;Fundas Majestic Imperial - azul;10.00;11.39;6.67;formula;fixed:2
+2711;Fundas Majestic Imperial - negro;10.00;11.39;6.67;formula;fixed:2
+2712;Fundas Majestic Imperial - gris;10.00;11.39;6.67;formula;fixed:2
+2713;Fundas Majestic Imperial - beige;10.00;11.39;6.67;formula;fixed:2
+2714;Fundas Majestic Imperial - rosado;10.00;11.39;6.67;formula;fixed:2
+2715;Fundas Majestic Imperial - blanco;10.00;11.39;6.67;formula;fixed:2
+2788;Riñonera - verde;10.00;11.39;6.67;formula;fixed:2
+2799;Set de alfombras para baño (3 piezas) - rosado;15.00;15.09;10;formula;fixed:2
+2789;Riñonera - gris;10.00;11.39;6.67;formula;fixed:2
+2821;Cápsulas para el cabello con vitamina A,C y E;8.00;8.79;5.33;formula;percent:10
+2906;Cortina de baño diseño de conchas;8.00;8.91;5.33;formula;fixed:1
+2908;Cortina de baño diseño de flores;8.00;8.91;5.33;formula;fixed:1
+2910;Cortina de baño a rayas;8.00;8.91;5.33;formula;fixed:1
+2912;Cortina de baño diseño de cuadros;8.00;8.91;5.33;formula;fixed:1
+2914;Cortina de baño flores amarillas y rosa;8.00;8.91;5.33;formula;fixed:1
+2965;Set de alfombras para baño (3 piezas) - azul;15.00;15.09;10;formula;fixed:2
+761;Toallas Cisne Blanco 40x70 - verde;8.00;8.58;5;manual;fixed:1
+765;Toallas Cisne Blanco 40x70 - rosado;8.00;8.58;5;manual;fixed:1
+767;Toallas Cisne Blanco 40x70 - blanco;8.00;8.58;5;manual;fixed:1
+763;Toallas Cisne Blanco 40x70 - azul;8.00;8.58;5;manual;fixed:1
+769;Toallas Cisne Blanco 40x70 - gris-oscuro;8.00;8.58;5;manual;fixed:1
+771;Toallas Cisne Blanco 40x70 - beige-oscuro;8.00;8.58;5;manual;fixed:1
+2409;Cesto de basura encimera;6.00;7.08;3.5;manual;fixed:1
+2463;Farol solar;11.00;11.76;7;manual;fixed:2
+2699;Alfombra peluche 40x60 cm - beige;8.00;8.58;5;manual;fixed:1
+2697;Alfombra de entrada 40x60 cm - verde;8.00;8.58;5;manual;fixed:1
+2703;Cojin forma de flor - naranja;25.00;25.09;19;manual;fixed:2
+2704;Cortina de baño 180x180 cm - rojo;8.00;12.32;8.5;manual;fixed:1
+2790;Set de 2 alfombras para baño - rojo;13.00;13.98;8;manual;fixed:3
+410;Luminoliss;12.00;12.87;8;por_confirmar;fixed:2
+2503;Mochila M- 1;13.00;13.98;9;por_confirmar;fixed:2

@@ -2918,6 +2918,19 @@ function editFixedCost(g) {
 
 // ---------- Necesita tu atención: filas del Excel por confirmar ----------
 let review = null;
+// Parecido de nombres para avisar antes de unir (14-oct: «BOCINA PEQUEÑA» se unió a «Toallas pequeña»).
+const JOIN_STOP = new Set("de del la el los las con para y en por a al un una cm mts m x pc pcs pza pzas piezas pieza nuevo nuevas nuevos dayra maryta nana joyce ensueno magestic majestic day defect defecto colores color".split(" "));
+const joinNorm = s => String(s ?? "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
+const joinWords = s => joinNorm(s).replace(/[^a-z0-9 ]/g, " ").split(/\s+/).filter(w => w && !JOIN_STOP.has(w) && !/^\d+$/.test(w)).map(w => w.replace(/(es|s)$/, "").slice(0, 6));
+function joinSimilarity(a, b) {
+  const A = new Set(joinWords(a)), B = new Set(joinWords(b));
+  let common = 0; for (const w of A) if (B.has(w)) common++;
+  // La primera palabra suele decir qué es (bocina, toalla, termo, mochila…): si ninguna de las dos está en el otro nombre, no es el mismo.
+  const a0 = joinWords(a)[0], b0 = joinWords(b)[0];
+  const sameKind = !a0 || !b0 || B.has(a0) || A.has(b0);
+  return { common, score: !sameKind ? 0 : A.size && B.size ? common / Math.min(A.size, B.size) : 0 };
+}
+const joinMeasures = s => [...joinNorm(s).matchAll(/(\d+(?:[.,]\d+)?)\s*x\s*(\d+(?:[.,]\d+)?)/g)].map(m => [m[1], m[2]].map(v => parseFloat(v.replace(",", "."))).sort((a, b) => a - b).join("×"));
 async function loadAttention() {
   if (!canCost()) return;
   const { data, error } = await supabase.rpc("nexo_business_import_review", { p_business: current.businessId });
@@ -2953,18 +2966,58 @@ function openReview() {
       + (i.productName ? '<span class="meta">Sugerido: <b>' + esc(i.productName) + "</b></span>" : "")
       + '<div class="review-actions">' + (i.productId ? '<button type="button" class="btn btn-primary" data-ok>Sí, es este</button>' : "")
       + '<button type="button" class="btn btn-secondary" data-pick>Elegir producto</button><button type="button" class="btn btn-ghost" data-skip>Ignorar</button></div>'
-      + '<div data-picker hidden><input class="input" data-pq placeholder="Buscar producto"><div class="pick-list" data-plist></div></div></div>').join("")
+      + '<div data-picker hidden><input class="input" data-pq placeholder="Buscar producto"><div class="pick-list" data-plist></div></div><div data-join hidden></div></div>').join("")
       : '<p class="muted">Nada pendiente aquí.</p>';
     el.querySelectorAll(".review-item").forEach(row => {
       const item = review.items.find(x => String(x.id) === row.dataset.id);
-      const resolve = async product => {
-        const { data, error } = await supabase.rpc("nexo_business_import_resolve", { p_business: current.businessId, p_id: item.id, p_product: product });
+      const resolve = async (product, takeCost = false, takeCommission = false) => {
+        const { data, error } = await supabase.rpc("nexo_business_import_resolve", { p_business: current.businessId, p_id: item.id, p_product: product,
+          p_take_cost: takeCost, p_take_commission: takeCommission });
         if (error || data?.error) return toast("No se guardó: " + (error?.message ?? data.message ?? data.error), "bad");
         item.status = product ? "resolved" : "ignored";
-        toast(product ? "Costo guardado" + (data.variants > 1 ? " en " + data.variants + " variantes" : "") : "Fila ignorada", "ok");
+        const what = [data.cost ? "costo" : "", data.commission ? "comisión" : ""].filter(Boolean).join(" y ");
+        toast(product ? "Unida" + (what ? ": " + what + " guardado" : " (sin cambiar costo ni comisión)") + (data.variants > 1 ? " en " + data.variants + " variantes" : "") : "Fila ignorada", "ok");
         render(); costSheet = null; void loadAttention();
       };
-      row.querySelector("[data-ok]")?.addEventListener("click", () => resolve(item.productId));
+      // 14-oct (Ernesto): antes de unir, comparar la fila del Excel con el producto. Costo y comisión solo cambian si se marca la casilla.
+      const join = async product => {
+        const box = row.querySelector("[data-join]");
+        box.hidden = false;
+        box.innerHTML = '<p class="meta">Comparando…</p>';
+        const { data, error } = await supabase.rpc("nexo_business_import_preview", { p_business: current.businessId, p_id: item.id, p_product: product });
+        if (error || data?.error) { box.innerHTML = '<p class="msg" data-tone="bad">No se pudo comparar: ' + esc(error?.message ?? data.error) + "</p>"; return; }
+        const x = data.excel, vs = data.variants ?? [];
+        const pname = (vs[0]?.name ?? "").split(" — ")[0];
+        const prices = vs.map(v => Number(v.priceUsd)).filter(v => v > 0);
+        const price = prices.length ? Math.min(...prices) : null;
+        const costs = [...new Set(vs.map(v => v.costUsd).filter(v => v != null).map(Number))];
+        const coms = [...new Set(vs.map(v => v.commissionUsd).filter(v => v != null).map(Number))];
+        const unit = Number(x.purchaseUsd ?? 0) + Number(x.freightUsd ?? 0);
+        const alerts = [];
+        const s = joinSimilarity(x.name, pname);
+        if (s.score < 0.5) alerts.push("El nombre no se parece: «" + x.name + "» y «" + pname + "» (" + s.common + " palabra" + (s.common === 1 ? "" : "s") + " en común).");
+        const mx = joinMeasures(x.name), mp = joinMeasures(vs.map(v => v.name).join(" "));
+        if (mx.length && mp.length && !mx.some(m => mp.includes(m))) alerts.push("Medidas distintas: " + mx.join(", ") + " en el Excel y " + mp.join(", ") + " en el producto.");
+        if (price && unit > price) alerts.push("La compra (" + dollars(unit) + ") es mayor que el precio de venta (" + dollars(price) + ").");
+        else if (price && unit && unit < price * 0.15) alerts.push("La compra (" + dollars(unit) + ") es muy baja para un precio de " + dollars(price) + ".");
+        if (price && costs.length && unit && Math.abs(unit - costs[0]) > Math.max(1, costs[0] * 0.5)) alerts.push("El costo de hoy es " + dollars(costs[0]) + " y el Excel dice " + dollars(unit) + ".");
+        const cap = price == null ? null : (price < 10 ? 2 : Math.max(1, Math.ceil(price * 0.1 - 1e-9)));
+        const comBad = x.commissionUsd != null && cap != null && Number(x.commissionUsd) > cap + 0.001;
+        const comTxt = coms.length ? coms.map(dollars).join(" / ") : "la general (10 %)";
+        const costTxt = costs.length ? costs.map(dollars).join(" / ") : "sin costo";
+        box.innerHTML = '<div class="join-compare">'
+          + '<p class="meta"><b>Fila ' + esc(x.row) + ' del Excel:</b> «' + esc(x.name) + "» · compra " + dollars(unit) + " · comisión " + dollars(x.commissionUsd) + "</p>"
+          + '<p class="meta"><b>Producto:</b> «' + esc(pname) + "»" + (vs.length > 1 ? " (" + vs.length + " colores)" : "") + " · precio " + dollars(price) + " · costo hoy " + costTxt + " · comisión hoy " + comTxt + "</p>"
+          + (data.others?.length ? '<p class="meta">Ya unido a: ' + data.others.map(o => "fila " + esc(o.row) + " «" + esc(o.name) + "» (" + dollars(o.purchaseUsd) + ")").join(", ") + "</p>" : "")
+          + alerts.map(a => '<p class="join-alert">⚠️ ' + esc(a) + "</p>").join("")
+          + '<label class="check"><input type="checkbox" data-take-cost' + (!costs.length && !alerts.length ? " checked" : "") + "> Poner el costo del Excel: compra " + dollars(unit) + " (hoy: " + costTxt + ")</label>"
+          + (x.commissionUsd != null ? '<label class="check"><input type="checkbox" data-take-com' + (!coms.length && !alerts.length && !comBad ? " checked" : "") + "> Poner la comisión del Excel: " + dollars(x.commissionUsd) + " (hoy: " + comTxt + ")"
+            + "</label>" + (comBad ? '<p class="join-alert">⚠️ Esa comisión no cumple la regla de Lennys (para ' + dollars(price) + ", como mucho " + dollars(cap) + ").</p>" : "") : "")
+          + '<div class="review-actions"><button type="button" class="btn ' + (alerts.length ? "btn-secondary" : "btn-primary") + '" data-join-ok>' + (alerts.length ? "Unir de todos modos" : "Unir") + '</button><button type="button" class="btn btn-ghost" data-join-cancel>Cancelar</button></div></div>';
+        box.querySelector("[data-join-cancel]").onclick = () => { box.hidden = true; box.innerHTML = ""; };
+        box.querySelector("[data-join-ok]").onclick = () => resolve(product, !!box.querySelector("[data-take-cost]")?.checked, !!box.querySelector("[data-take-com]")?.checked);
+      };
+      row.querySelector("[data-ok]")?.addEventListener("click", () => join(item.productId));
       row.querySelector("[data-skip]").onclick = () => { if (confirm("¿Ignorar este costo? No se guardará en ningún producto.")) void resolve(null); };
       row.querySelector("[data-pick]").onclick = () => {
         const box = row.querySelector("[data-picker]");
@@ -2974,7 +3027,7 @@ function openReview() {
           const seen = new Set();
           const list = products.filter(p => { const k = p.variant_of ?? p.product_id; if (seen.has(k)) return false; seen.add(k); return !q || p.name.toLowerCase().includes(q); }).slice(0, 15);
           box.querySelector("[data-plist]").innerHTML = list.map(p => '<button type="button" class="pick" data-choose="' + esc(p.variant_of ?? p.product_id) + '">' + photo(p.image_url, p.name) + '<span class="grow"><span class="title">' + esc(p.variant_of ? groupName(p) : p.name) + "</span></span></button>").join("");
-          box.querySelectorAll("[data-choose]").forEach(b => (b.onclick = () => resolve(b.dataset.choose)));
+          box.querySelectorAll("[data-choose]").forEach(b => (b.onclick = () => { box.hidden = true; void join(b.dataset.choose); }));
         };
         box.querySelector("[data-pq]").oninput = draw;
         box.querySelector("[data-pq]").value = item.excelName.split(" ").slice(0, 2).join(" ").toLowerCase();

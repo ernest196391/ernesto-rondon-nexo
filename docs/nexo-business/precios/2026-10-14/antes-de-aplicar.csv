@@ -1,0 +1,266 @@
+﻿woo_id;padre;sku;producto;precio;precio_normal;precio_oferta;comision_tipo;comision_valor;costo_usd;costo_origen;estado_minimo;minimo_usd;cambio
+43;;BC-89044;Asiento de Inodoro;15.00;15.00;;fixed;1.00;;;sin_costo;;costo formula 10
+127;117;BC-107269-rojo;Cojín decorativo — Diseño 1 - rojo;11.00;11.00;;fixed;1.00;;;sin_costo;;costo por_confirmar 7
+129;117;BC-107269-gris;Cojín decorativo — Diseño 1 - gris;11.00;11.00;;fixed;1.00;;;sin_costo;;costo por_confirmar 7
+131;117;BC-107269-carmelita;Cojín decorativo — Diseño 1 - carmelita;11.00;11.00;;fixed;1.00;;;sin_costo;;costo por_confirmar 7
+133;117;BC-107269-beige;Cojín decorativo — Diseño 1 - beige;11.00;11.00;;fixed;1.00;;;sin_costo;;costo por_confirmar 7
+135;117;BC-107269-amarillo;Cojín decorativo — Diseño 1 - amarillo;11.00;11.00;;fixed;1.00;;;sin_costo;;costo por_confirmar 7
+150;118;BC-98412-morado;Sobrecama lisa full - morado;36.00;36.00;;;;;;sin_costo;;costo formula 24
+158;;BC-109873;Cortina blackout moderna (2 paneles);36.00;36.00;;fixed;4.00;;;sin_costo;;costo formula 24
+161;;BC-111683;Cesto de 12L — Diseño 1;7.00;7.00;;fixed;1.00;;;sin_costo;;costo formula 4.67
+170;119;BC-107285-verde;Maceta con suculenta - verde;15.00;15.00;;;;;;sin_costo;;costo formula 10
+172;119;BC-107285-morado;Maceta con suculenta - morado;15.00;15.00;;;;;;sin_costo;;costo formula 10
+174;119;BC-107285-rosado;Maceta con suculenta - rosado;15.00;15.00;;;;;;sin_costo;;costo formula 10
+176;119;BC-107285-turquesa-oscuro;Maceta con suculenta - turquesa-oscuro;15.00;15.00;;;;;;sin_costo;;costo formula 10
+180;119;BC-107285-verde-menta;Maceta con suculenta - verde-menta;15.00;15.00;;;;;;sin_costo;;costo formula 10
+182;119;BC-107285-naranja;Maceta con suculenta - naranja;15.00;15.00;;;;;;sin_costo;;costo formula 10
+210;177;BC-109876-gris;Set de alfombras para baño (3 piezas) - gris;15.00;15.00;;fixed;2.00;10.00;bizne;bajo;15.09;precio 16
+212;177;BC-109876-carmelita;Set de alfombras para baño (3 piezas) - carmelita;15.00;15.00;;fixed;2.00;10.00;bizne;bajo;15.09;precio 16
+214;177;BC-109876-beige;Set de alfombras para baño (3 piezas) - beige;15.00;15.00;;fixed;2.00;10.00;bizne;bajo;15.09;precio 16
+216;177;BC-109876-gris-oscuro;Set de alfombras para baño (3 piezas) - gris-oscuro;15.00;15.00;;fixed;2.00;10.00;bizne;bajo;15.09;precio 16
+218;177;BC-109876-beige-oscuro;Set de alfombras para baño (3 piezas) - beige-oscuro;15.00;15.00;;fixed;2.00;10.00;bizne;bajo;15.09;precio 16
+220;177;BC-109876-carmelita-oscuro;Set de alfombras para baño (3 piezas) - carmelita-oscuro;15.00;15.00;;fixed;2.00;10.00;bizne;bajo;15.09;precio 16
+226;;BC-116316;Balsamo facial de miel hidratante;9.00;9.00;;fixed;1.00;6.00;bizne;bajo;9.58;precio 10
+260;;BC-112438;Azulejo INCEFRA;35.00;35.00;;fixed;3.00;;;sin_costo;;costo formula 23.33
+268;;BC-116321;Crema facial arcilla, vit. C y curcuma;8.00;10.00;8.00;fixed;1.00;5.00;bizne;bajo;8.58;precio 9
+270;;BC-108063;Shampo + Acondicionador Oggy de Romero;7.00;7.00;;fixed;0.70;4.50;bizne;bajo;7.78;precio 8
+274;;BC-107505;Colchón 180x200cm Dawang + 2 almohadas hoteleras;340.00;340.00;;fixed;20.00;;;sin_costo;;costo formula 226.67
+276;;BC-108758;Colchón 3/4 + Almohada - EDSM A;290.00;290.00;;fixed;15.00;;;sin_costo;;costo formula 193.33
+278;;BC-107259;Bucaro blanco;17.00;17.00;;fixed;2.00;;;sin_costo;;costo por_confirmar 8
+299;;BC-116949;Rasuradora portatil recargable;14.00;16.00;14.00;fixed;3.00;;;sin_costo;;costo por_confirmar 8
+302;;BC-109793;Protector de colchón Queen;36.00;36.00;;fixed;4.00;;;sin_costo;;costo formula 24
+308;233;BC-105181-azul;Rallador - azul;8.00;8.00;;;;;;sin_costo;;costo formula 5.33
+310;233;BC-105181-morado;Rallador - morado;8.00;8.00;;;;;;sin_costo;;costo formula 5.33
+312;233;BC-105181-rosado;Rallador - rosado;8.00;8.00;;;;;;sin_costo;;costo formula 5.33
+314;233;BC-105181-naranja;Rallador - naranja;8.00;8.00;;;;;;sin_costo;;costo formula 5.33
+340;;BC-116327;Crema HOYGY vit.C curcuma y 5% hialuronico;9.00;9.00;;fixed;1.00;;;sin_costo;;costo formula 6
+362;;BC-108757;Colchón - EDSM A - King;340.00;340.00;;fixed;20.00;;;sin_costo;;costo formula 226.67
+391;;BC-100508;Cortinero Expandible plateado;7.00;10.00;7.00;fixed;1.00;4.50;bizne;bajo;8.08;precio 9
+394;346;BC-98927-azul;Doyle Elegante Rectangular (6 piezas) - azul;10.00;10.00;;;;;;sin_costo;;costo formula 6.67
+396;346;BC-98927-beige;Doyle Elegante Rectangular (6 piezas) - beige;10.00;10.00;;;;;;sin_costo;;costo formula 6.67
+398;346;BC-98927-blanco;Doyle Elegante Rectangular (6 piezas) - blanco;10.00;10.00;;;;;;sin_costo;;costo formula 6.67
+400;346;BC-98927-azul-marino;Doyle Elegante Rectangular (6 piezas) - azul-marino;10.00;10.00;;;;;;sin_costo;;costo formula 6.67
+408;;BC-108759;Colchón Camero + Almohada - EDSM A;310.00;310.00;;fixed;20.00;;;sin_costo;;costo formula 206.67
+410;;BC-116983;Luminoliss;12.00;12.00;;fixed;2.00;;;sin_costo;;costo por_confirmar 8
+431;;BC-108754;Colchón - EDSM A - 3/4;275.00;275.00;;fixed;15.00;;;sin_costo;;costo formula 183.33
+438;405;BC-111555-negro;Cortinero decorativo — Diseño 2 - negro;10.00;10.00;;;;;;sin_costo;;costo formula 6.67
+440;405;BC-111555-dorado;Cortinero decorativo — Diseño 2 - dorado;10.00;10.00;;;;;;sin_costo;;costo formula 6.67
+442;405;BC-111555-plateado;Cortinero decorativo — Diseño 2 - plateado;10.00;10.00;;;;;;sin_costo;;costo formula 6.67
+477;;BC-112531;Espumadera;6.00;6.00;;fixed;1.00;3.40;bizne;bajo;6.98;precio 7
+522;465;BC-82193-verde;Juego de sabanas Queen Majestic imperial - verde;25.00;25.00;;;;;;sin_costo;;costo formula 16.67
+524;465;BC-82193-azul;Juego de sabanas Queen Majestic imperial - azul;25.00;25.00;;;;;;sin_costo;;costo formula 16.67
+526;465;BC-82193-beige;Juego de sabanas Queen Majestic imperial - beige;25.00;25.00;;;;;;sin_costo;;costo formula 16.67
+528;465;BC-82193-rosado;Juego de sabanas Queen Majestic imperial - rosado;25.00;25.00;;;;;;sin_costo;;costo formula 16.67
+530;465;BC-82193-blanco;Juego de sabanas Queen Majestic imperial - blanco;25.00;25.00;;;;;;sin_costo;;costo formula 16.67
+532;465;BC-82193-verde-azul;Juego de sabanas Queen Majestic imperial - verde-azul;25.00;25.00;;;;;;sin_costo;;costo formula 16.67
+534;;BC-105173;Ramo de girasoles;8.00;8.00;;;;;;sin_costo;;costo formula 5.33
+536;466;BC-100780-carmelita;Juego de cortina tapa sol Royale con diseño - carmelita;31.00;31.00;;;;;;sin_costo;;costo formula 20.67
+538;;BC-112711;"Válvula de paso miniHH 1/2"" GPLP83 (hembra-macho))";4.00;4.00;;;;;;sin_costo;;costo formula 2.67
+543;;BC-108760;Colchón Queen + Almohada - EDSM A;330.00;330.00;;fixed;20.00;;;sin_costo;;costo formula 220
+553;;BC-116980;Brazalete deportivo para celular;7.00;7.00;;fixed;1.00;;;sin_costo;;costo formula 4.67
+561;514;BC-107267-verde;Mantel circular - verde;16.00;16.00;;;;;;sin_costo;;costo formula 10.67
+563;514;BC-107267-amarillo;Mantel circular - amarillo;16.00;16.00;;;;;;sin_costo;;costo formula 10.67
+565;514;BC-107267-naranja;Mantel circular - naranja;16.00;16.00;;;;;;sin_costo;;costo formula 10.67
+570;515;BC-100764-rojo;Colcha navideña 180x220 - rojo;18.00;18.00;;fixed;3.00;15.00;bizne;bajo;21.76;precio 22
+572;515;BC-100764-azul;Colcha navideña 180x220 - azul;18.00;18.00;;fixed;3.00;15.00;bizne;bajo;21.76;precio 22
+574;;BC-108756;Colchón - EDSM A - Queen;310.00;310.00;;fixed;20.00;;;sin_costo;;costo formula 206.67
+609;;BC-111682;Cesto de 12L — Diseño 2;7.00;7.00;;fixed;1.00;;;sin_costo;;costo formula 4.67
+629;;BC-112637;Grifo para fregadero doble GP 1311;14.00;14.00;;fixed;2.00;;;sin_costo;;costo formula 9.33
+674;;BC-111684;Cesto de 12L — Diseño 3;7.00;7.00;;fixed;1.00;;;sin_costo;;costo formula 4.67
+676;;BC-116315;Aceite capilar de batana HOEGOA;11.00;13.00;11.00;fixed;1.00;;;sin_costo;;costo formula 7.33
+678;;BC-116978;Escamadora de pescado;6.00;6.00;;fixed;1.00;;;sin_costo;;costo formula 4
+684;;BC-98586;Toallas pequeña;10.00;10.00;;fixed;5.00;5.00;manual;bajo;12.87;comision fija 1
+704;;BC-108755;Colchón - EDSM A - Camero;290.00;290.00;;fixed;20.00;;;sin_costo;;costo formula 193.33
+712;;BC-108761;Colchón King + Almohada - EDSM A;365.00;365.00;;fixed;20.00;;;sin_costo;;costo formula 243.33
+721;692;BC-107268-rojo;Cojín decorativo — Diseño 2 - rojo;11.00;11.00;;;;;;sin_costo;;costo formula 7.33
+723;692;BC-107268-verde;Cojín decorativo — Diseño 2 - verde;11.00;11.00;;;;;;sin_costo;;costo formula 7.33
+725;692;BC-107268-carmelita;Cojín decorativo — Diseño 2 - carmelita;11.00;11.00;;;;;;sin_costo;;costo formula 7.33
+727;;BC-116979;Faja reductora;16.00;16.00;;fixed;2.00;;;sin_costo;;costo formula 10.67
+736;693;BC-111556-negro;Cortinero decorativo — Diseño 3 - negro;10.00;10.00;;;;;;sin_costo;;costo formula 6.67
+738;693;BC-111556-dorado;Cortinero decorativo — Diseño 3 - dorado;10.00;10.00;;;;;;sin_costo;;costo formula 6.67
+740;693;BC-111556-plateado;Cortinero decorativo — Diseño 3 - plateado;10.00;10.00;;;;;;sin_costo;;costo formula 6.67
+761;695;BC-113934-verde;Toallas Cisne Blanco 40x70 - verde;8.00;8.00;;fixed;2.00;5.00;manual;bajo;9.58;precio 9 + comision fija 1
+763;695;BC-113934-azul;Toallas Cisne Blanco 40x70 - azul;8.00;8.00;;fixed;2.00;5.00;manual;bajo;9.58;precio 9 + comision fija 1
+765;695;BC-113934-rosado;Toallas Cisne Blanco 40x70 - rosado;8.00;8.00;;fixed;2.00;5.00;manual;bajo;9.58;precio 9 + comision fija 1
+767;695;BC-113934-blanco;Toallas Cisne Blanco 40x70 - blanco;8.00;8.00;;fixed;2.00;5.00;manual;bajo;9.58;precio 9 + comision fija 1
+769;695;BC-113934-gris-oscuro;Toallas Cisne Blanco 40x70 - gris-oscuro;8.00;8.00;;fixed;2.00;5.00;manual;bajo;9.58;precio 9 + comision fija 1
+771;695;BC-113934-beige-oscuro;Toallas Cisne Blanco 40x70 - beige-oscuro;8.00;8.00;;fixed;2.00;5.00;manual;bajo;9.58;precio 9 + comision fija 1
+775;;BC-112710;"Válvula de paso mini HH 1/2 "" GPLP83 (hembra)";4.00;4.00;;fixed;1.00;;;sin_costo;;costo formula 2.67
+794;;BC-114041;Carretón negro;80.00;80.00;;fixed;5.00;;;sin_costo;;costo formula 53.33
+800;746;BC-107264-rojo;Termo térmico 1L - rojo;17.00;17.00;;;;;;sin_costo;;costo formula 11.33
+804;746;BC-107264-azul;Termo térmico 1L - azul;17.00;17.00;;;;;;sin_costo;;costo formula 11.33
+807;747;BC-104720-rosado;Utensilios de silicona con cuchillos - rosado;30.00;40.00;30.00;fixed;1.00;26.00;bizne;bajo;31.76;precio 32
+809;;BC-116502;Carrito de Mandado Plegable Azul oscuro;25.00;25.00;;fixed;2.00;;;sin_costo;;costo formula 16.67
+813;;BC-109866;Alfombra Circular Decorativa – 180 cm — Diseño 4;60.00;60.00;;fixed;5.00;;;sin_costo;;costo formula 40
+2363;;BC-120842;Albornoz (talla L) azul;38.00;38.00;;fixed;2.00;;;sin_costo;;costo formula 25.33
+2365;;BC-120840;Albornoz (talla L) beige oscuro;38.00;38.00;;fixed;2.00;;;sin_costo;;costo formula 25.33
+2377;;BC-117674;Alfombra peluche lisa 50×80 cm — crema;10.00;10.00;;fixed;1.00;;;sin_costo;;costo formula 6.67
+2381;;BC-121746;Árbol de navidad (1,50 m);40.00;40.00;;fixed;1.00;;;sin_costo;;costo por_confirmar 17.85
+2383;;BC-120586;Cable de carga multifuncional;8.00;8.00;;fixed;1.00;5.00;bizne;bajo;8.58;precio 9
+2385;;BC-120950;Cable fotovoltaico rojo;140.00;140.00;;fixed;10.00;;;sin_costo;;costo formula 93.33
+2389;;BC-119346;Aceite corporal;16.00;16.00;;fixed;2.98;10.00;bizne;bajo;16.18;precio 17
+2391;;BC-120839;Albornoz (talla L) beige;38.00;38.00;;fixed;2.00;;;sin_costo;;costo formula 25.33
+2405;;BC-120949;Cable fotovoltaico negro;140.00;140.00;;fixed;10.00;;;sin_costo;;costo formula 93.33
+2407;;BC-121294;Cama plegable portátil;60.00;60.00;;fixed;5.00;;;sin_costo;;costo formula 40
+2409;;BC-119824;Cesto de basura encimera;6.00;6.00;;fixed;1.00;3.50;manual;bajo;7.08;precio 8
+2411;;BC-120946;Cesto de pedal negro (7 litros);12.00;12.00;;fixed;1.00;;;sin_costo;;costo formula 8
+2417;;BC-120612;Cepillos alisadores recargables;35.00;35.00;;fixed;2.00;;;sin_costo;;costo formula 23.33
+2421;;BC-120945;Cesto de pedal negro (15 litros);19.00;19.00;;fixed;1.00;;;sin_costo;;costo formula 12.67
+2441;;BC-119347;Edulcorante;8.00;8.00;;fixed;1.49;5.00;bizne;bajo;9.07;precio 9 + comision fija 1
+2447;;BC-P-s1wqr;Faja reductora (talla S);16.00;16.00;;;;;;sin_costo;;costo formula 10.67
+2461;;BC-68677;Estante esquinero para baño;26.00;26.00;;fixed;3.00;;;sin_costo;;costo por_confirmar 18
+2463;;BC-120484;Farol solar;11.00;11.00;;fixed;2.00;7.00;manual;bajo;11.76;precio 12
+2465;;BC-117518;Fundas (2) blancas de almohadas;8.00;8.00;;fixed;2.00;5.00;bizne;bajo;9.58;precio 9 + comision fija 1
+2469;;BC-120619;Lámparas recargables con panel solar;25.00;25.00;;fixed;2.00;;;sin_costo;;costo por_confirmar 15
+2479;;BC-121943;Mochila M-12;20.00;20.00;;fixed;2.00;;;sin_costo;;costo formula 13.33
+2483;;BC-105359;Olla con tapa;38.00;38.00;;fixed;2.00;;;sin_costo;;costo formula 25.33
+2487;;BC-119020;Organizador de Baño negro;28.00;28.00;;fixed;2.00;;;sin_costo;;costo formula 18.67
+2503;;BC-121918;Mochila M- 1;13.00;13.00;;fixed;2.00;;;sin_costo;;costo por_confirmar 9
+2509;;BC-121914;Mochila M-9;30.00;30.00;;fixed;3.00;;;sin_costo;;costo formula 20
+2511;;BC-119023;Organizador de Baño blanco;28.00;28.00;;fixed;2.00;;;sin_costo;;costo formula 18.67
+2513;;BC-120379;Panel Solar Bifacial SKYMAX 620W N-TOPCon;230.00;230.00;;fixed;15.00;;;sin_costo;;costo formula 153.33
+2533;;BC-120763;Set de 2 alfombras para cocina 3D — diseño café;18.00;18.00;;fixed;1.00;;;sin_costo;;costo formula 12
+2535;;BC-120765;Set de 2 alfombras para cocina 3D — diseño Fresh Kitchen;18.00;18.00;;fixed;1.00;;;sin_costo;;costo formula 12
+2537;;BC-120767;Set de 2 alfombras para cocina 3D — diseño dulces;18.00;18.00;;fixed;1.00;;;sin_costo;;costo formula 12
+2539;;BC-120770;Set de 2 alfombras para cocina 3D — diseño cupcakes rosa;18.00;18.00;;fixed;1.00;;;sin_costo;;costo formula 12
+2541;;BC-120772;Set de 2 alfombras para cocina 3D — diseño limones;18.00;18.00;;fixed;1.00;;;sin_costo;;costo formula 12
+2545;;BC-121736;Set de utensilios para cocina (5 piezas);8.00;8.00;;fixed;1.00;;;sin_costo;;costo por_confirmar 1.68
+2551;;BC-120617;Power bank;30.00;30.00;;fixed;3.00;;;sin_costo;;costo formula 20
+2559;;BC-120760;Set de 2 alfombras para cocina 3D — diseño café y rosa;18.00;18.00;;fixed;1.00;;;sin_costo;;costo formula 12
+2561;;BC-120762;Set de 2 alfombras para cocina 3D — diseño sushi;18.00;18.00;;fixed;1.00;;;sin_costo;;costo formula 12
+2563;;BC-120764;Set de 2 alfombras para cocina 3D — diseño girasoles;18.00;18.00;;fixed;1.00;;;sin_costo;;costo formula 12
+2565;;BC-120766;Set de 2 alfombras para cocina 3D — diseño chef;18.00;18.00;;fixed;1.00;;;sin_costo;;costo formula 12
+2567;;BC-120769;Set de 2 alfombras para cocina 3D — diseño Kitchen Rules;18.00;18.00;;fixed;1.00;;;sin_costo;;costo formula 12
+2575;;BC-119823;Shampoo 2 en 1;6.00;6.00;;fixed;1.00;;;sin_costo;;costo formula 4
+2581;;BC-119730;Toalla Cisne Blanco 70x140 cm (azul);18.00;18.00;;fixed;2.00;;;sin_costo;;costo formula 12
+2583;;BC-119723;Toalla Cisne Blanco 70x140 cm (rosada);18.00;18.00;;fixed;2.00;;;sin_costo;;costo formula 12
+2585;;BC-118802;Ventilador recargable F6 (naranja);70.00;70.00;;fixed;4.00;60.00;bizne;bajo;72.87;precio 73
+2587;;BC-118803;Ventilador recargable F6 (verde);70.00;70.00;;fixed;4.00;;;sin_costo;;costo formula 46.67
+2591;;BC-91182;🎄 Casas en Miniatura – 8 cm c- 89045;5.00;7.00;5.00;;;;;sin_costo;;costo formula 3.33
+2593;;BC-120948;Silla de oficina (23_222);75.00;75.00;;fixed;5.00;65.00;bizne;bajo;79.54;precio 80
+2597;;BC-120781;Tendedero multifuncional plegable de acero;55.00;55.00;;fixed;5.00;;;sin_costo;;costo formula 36.67
+2601;;BC-118804;Ventilador recargable F6 (negro);70.00;70.00;;fixed;4.00;;;sin_costo;;costo formula 46.67
+2603;;BC-117400;Zapatera 4 niveles;23.00;23.00;;fixed;2.00;;;sin_costo;;costo formula 15.33
+2610;;BC-122011;Bolas Navideñas rosado metálico;8.00;8.00;;;;;;sin_costo;;costo formula 5.33
+2612;;BC-122010;Bolas Navideñas blanco verde rojo;8.00;8.00;;;;;;sin_costo;;costo formula 5.33
+2680;2397;BC-120689;Alfombra Bienvenido 45x75 cm - azul;15.00;15.00;;fixed;1.00;;;sin_costo;;costo formula 10
+2681;2397;BC-120689;Alfombra Bienvenido 45x75 cm - negro;15.00;15.00;;;;;;sin_costo;;costo formula 10
+2682;2397;BC-120689;Alfombra Bienvenido 45x75 cm - gris;15.00;15.00;;;;;;sin_costo;;costo formula 10
+2683;2397;BC-120689;Alfombra Bienvenido 45x75 cm - carmelita;15.00;15.00;;;;;;sin_costo;;costo formula 10
+2684;2397;BC-120689;Alfombra Bienvenido 45x75 cm - rojo-vino;15.00;15.00;;;;;;sin_costo;;costo formula 10
+2685;2397;BC-120689;Alfombra Bienvenido 45x75 cm - gris-oscuro;15.00;15.00;;;;;;sin_costo;;costo formula 10
+2686;2397;BC-120689;Alfombra Bienvenido 45x75 cm - carmelita-oscuro;15.00;15.00;;;;;;sin_costo;;costo formula 10
+2687;2401;BC-117517;Alfombra peluche 50×80 cm — diseño arcos - carmelita;10.00;10.00;;fixed;1.00;;;sin_costo;;costo formula 6.67
+2688;2401;BC-117517;Alfombra peluche 50×80 cm — diseño arcos - beige;10.00;10.00;;;;;;sin_costo;;costo formula 6.67
+2689;2401;BC-117517;Alfombra peluche 50×80 cm — diseño arcos - rosado;10.00;10.00;;;;;;sin_costo;;costo formula 6.67
+2690;2403;BC-117445;Alfombra rombo 40x60 cm - arena;8.00;8.00;;fixed;1.00;5.00;bizne;bajo;8.58;precio 9
+2697;2373;BC-117441;Alfombra de entrada 40x60 cm - verde;8.00;8.00;;fixed;1.00;5.00;manual;bajo;8.58;precio 9
+2698;2373;BC-117441;Alfombra de entrada 40x60 cm - azul-marino;8.00;8.00;;;;;;sin_costo;;precio 9 (mismo producto que el color de la propuesta) + costo formula 6
+2699;2375;BC-117515;Alfombra peluche 40x60 cm - beige;8.00;8.00;;fixed;5.00;5.00;manual;bajo;12.87;precio 9 + comision fija 1
+2700;2375;BC-117515;Alfombra peluche 40x60 cm - rosado;8.00;8.00;;;;;;sin_costo;;precio 9 (mismo producto que el color de la propuesta) + costo formula 6
+2701;;BC-122454;Cojin decorativo;12.00;12.00;;;;;;sin_costo;;costo formula 8
+2703;2413;BC-119819;Cojin forma de flor - naranja;25.00;25.00;;fixed;2.00;19.00;manual;bajo;25.09;precio 26
+2704;2429;BC-117402;Cortina de baño 180x180 cm - rojo;8.00;8.00;;fixed;1.00;8.50;manual;bajo;12.32;no reponer
+2706;2455;BC-120694;Doyle Metalizado 45x30 cm - dorado;13.00;13.00;;;;;;sin_costo;;costo formula 8.67
+2707;2455;BC-120694;Doyle Metalizado 45x30 cm - plateado;13.00;13.00;;;;;;sin_costo;;costo formula 8.67
+2709;2457;BC-120696;Edredón con juego de sabana (queen) - blanco;50.00;50.00;;;;;;sin_costo;;costo formula 33.33
+2710;2449;BC-120768;Fundas Majestic Imperial - azul;10.00;10.00;;fixed;2.00;;;sin_costo;;costo formula 6.67
+2711;2449;BC-120768;Fundas Majestic Imperial - negro;10.00;10.00;;;;;;sin_costo;;costo formula 6.67
+2712;2449;BC-120768;Fundas Majestic Imperial - gris;10.00;10.00;;;;;;sin_costo;;costo formula 6.67
+2713;2449;BC-120768;Fundas Majestic Imperial - beige;10.00;10.00;;;;;;sin_costo;;costo formula 6.67
+2714;2449;BC-120768;Fundas Majestic Imperial - rosado;10.00;10.00;;;;;;sin_costo;;costo formula 6.67
+2715;2449;BC-120768;Fundas Majestic Imperial - blanco;10.00;10.00;;;;;;sin_costo;;costo formula 6.67
+2717;290;BC-100779;Juego de cortina tapa sol Royale - blanco;27.00;27.00;;;;;;sin_costo;;costo formula 18
+2719;465;BC-82193;Juego de sabanas Queen Majestic imperial - beige-oscuro;25.00;25.00;;fixed;3.00;;;sin_costo;;costo formula 16.67
+2720;465;BC-82193;Juego de sabanas Queen Majestic imperial - arena;25.00;25.00;;;;;;sin_costo;;costo formula 16.67
+2721;2437;BC-120693;Doyle matizado 6 piezas 45x30 cm - azul;13.00;13.00;;fixed;1.00;;;sin_costo;;costo formula 8.67
+2722;2437;BC-120693;Doyle matizado 6 piezas 45x30 cm - gris;13.00;13.00;;;;;;sin_costo;;costo formula 8.67
+2723;2437;BC-120693;Doyle matizado 6 piezas 45x30 cm - beige;13.00;13.00;;;;;;sin_costo;;costo formula 8.67
+2724;2437;BC-120693;Doyle matizado 6 piezas 45x30 cm - naranja;13.00;13.00;;;;;;sin_costo;;costo formula 8.67
+2725;2439;BC-120695;Edredón con juego de sabana (camero) - azul;40.00;40.00;;fixed;5.00;;;sin_costo;;costo formula 26.67
+2726;2439;BC-120695;Edredón con juego de sabana (camero) - gris;40.00;40.00;;;;;;sin_costo;;costo formula 26.67
+2727;2439;BC-120695;Edredón con juego de sabana (camero) - rosado;40.00;40.00;;;;;;sin_costo;;costo formula 26.67
+2728;2439;BC-120695;Edredón con juego de sabana (camero) - blanco;40.00;40.00;;;;;;sin_costo;;costo formula 26.67
+2729;;BC-120943;Escritorio de oficina;230.00;230.00;;fixed;10.00;;;sin_costo;;costo formula 153.33
+2731;466;BC-100780;Juego de cortina tapa sol Royale con diseño - bw-1;30.00;30.00;;fixed;3.00;;;sin_costo;;costo formula 20
+2732;466;BC-100780;Juego de cortina tapa sol Royale con diseño - bw-2;30.00;30.00;;;;;;sin_costo;;costo formula 20
+2733;2491;BC-120773;Juego de sabanas Camera Majestic imperial - verde;23.00;23.00;;;;;;sin_costo;;costo formula 15.33
+2734;2491;BC-120773;Juego de sabanas Camera Majestic imperial - azul;23.00;23.00;;;;;;sin_costo;;costo formula 15.33
+2735;2491;BC-120773;Juego de sabanas Camera Majestic imperial - gris;23.00;23.00;;;;;;sin_costo;;costo formula 15.33
+2736;2491;BC-120773;Juego de sabanas Camera Majestic imperial - beige;23.00;23.00;;;;;;sin_costo;;costo formula 15.33
+2737;2491;BC-120773;Juego de sabanas Camera Majestic imperial - rosado;23.00;23.00;;;;;;sin_costo;;costo formula 15.33
+2738;2491;BC-120773;Juego de sabanas Camera Majestic imperial - azul-claro;23.00;23.00;;;;;;sin_costo;;costo formula 15.33
+2739;2491;BC-120773;Juego de sabanas Camera Majestic imperial - verde-azul;23.00;23.00;;;;;;sin_costo;;costo formula 15.33
+2740;2491;BC-120773;Juego de sabanas Camera Majestic imperial - gris-oscuro;23.00;23.00;;;;;;sin_costo;;costo formula 15.33
+2741;2491;BC-120773;Juego de sabanas Camera Majestic imperial - beige-oscuro;23.00;23.00;;;;;;sin_costo;;costo formula 15.33
+2743;345;BC-82194;Juego de Sábanas Majestic King - rosado;27.00;27.00;;;;;;sin_costo;;costo formula 18
+2744;345;BC-82194;Juego de Sábanas Majestic King - gris-oscuro;27.00;27.00;;;;;;sin_costo;;costo formula 18
+2745;2497;BC-120777;Manta 180x200 cm (lisa) - azul;21.00;21.00;;fixed;2.00;;;sin_costo;;costo formula 14
+2746;2497;BC-120777;Manta 180x200 cm (lisa) - negro;21.00;21.00;;;;;;sin_costo;;costo formula 14
+2747;2497;BC-120777;Manta 180x200 cm (lisa) - gris;21.00;21.00;;;;;;sin_costo;;costo formula 14
+2748;2497;BC-120777;Manta 180x200 cm (lisa) - carmelita;21.00;21.00;;;;;;sin_costo;;costo formula 14
+2749;2497;BC-120777;Manta 180x200 cm (lisa) - salmon;21.00;21.00;;;;;;sin_costo;;costo formula 14
+2750;2499;BC-120779;Manta 240X260 cm (lisa) - rojo;26.00;26.00;;fixed;2.00;;;sin_costo;;costo formula 17.33
+2751;2499;BC-120779;Manta 240X260 cm (lisa) - azul;26.00;26.00;;;;;;sin_costo;;costo formula 17.33
+2752;2499;BC-120779;Manta 240X260 cm (lisa) - amarillo;26.00;26.00;;;;;;sin_costo;;costo formula 17.33
+2753;;BC-122369;MOCHILA ESTILO BOLSITA;13.00;13.00;;fixed;1.00;;;sin_costo;;costo formula 8.67
+2755;;BC-122367;MOCHILA M-15;25.00;25.00;;fixed;3.00;;;sin_costo;;costo formula 16.67
+2757;;BC-122359;MOCHILA M-3;30.00;30.00;;fixed;3.00;;;sin_costo;;costo formula 20
+2759;;BC-122362;MOCHILA M-5;30.00;30.00;;fixed;3.00;;;sin_costo;;costo formula 20
+2761;2471;BC-120778;Manta 180X220 cm (estampada) - gris;23.00;23.00;;fixed;3.00;;;sin_costo;;costo formula 15.33
+2762;2471;BC-120778;Manta 180X220 cm (estampada) - rosado;23.00;23.00;;;;;;sin_costo;;costo formula 15.33
+2763;2471;BC-120778;Manta 180X220 cm (estampada) - rosa-palo;23.00;23.00;;;;;;sin_costo;;costo formula 15.33
+2764;2471;BC-120778;Manta 180X220 cm (estampada) - gris-oscuro;23.00;23.00;;;;;;sin_costo;;costo formula 15.33
+2765;2471;BC-120778;Manta 180X220 cm (estampada) - rosado-claro;23.00;23.00;;;;;;sin_costo;;costo formula 15.33
+2766;;BC-122364;MOCHILA M-10;30.00;30.00;;fixed;3.00;;;sin_costo;;costo formula 20
+2768;;BC-122365;MOCHILA M-14;25.00;25.00;;fixed;3.00;;;sin_costo;;costo formula 16.67
+2770;;BC-122358;MOCHILA M-2;30.00;30.00;;fixed;3.00;;;sin_costo;;costo formula 20
+2772;;BC-122361;MOCHILA M-4;30.00;30.00;;fixed;3.00;;;sin_costo;;costo formula 20
+2774;;BC-122363;MOCHILA M-6;30.00;30.00;;fixed;3.00;;;sin_costo;;costo formula 20
+2777;2557;BC-120653;Sabana camera 100% luxury home - beige;25.00;25.00;;;;;;sin_costo;;costo formula 16.67
+2778;2557;BC-120653;Sabana camera 100% luxury home - rosado;25.00;25.00;;;;;;sin_costo;;costo formula 16.67
+2779;2557;BC-120653;Sabana camera 100% luxury home - blanco;25.00;25.00;;;;;;sin_costo;;costo formula 16.67
+2780;2543;BC-120780;Set de cortina de baño + alfombra - gris;16.00;16.00;;fixed;2.00;;;sin_costo;;costo formula 10.67
+2781;2543;BC-120780;Set de cortina de baño + alfombra - morado;16.00;16.00;;;;;;sin_costo;;costo formula 10.67
+2782;2543;BC-120780;Set de cortina de baño + alfombra - rosado;16.00;16.00;;;;;;sin_costo;;costo formula 10.67
+2783;2543;BC-120780;Set de cortina de baño + alfombra - amarillo;16.00;16.00;;;;;;sin_costo;;costo formula 10.67
+2785;118;BC-98412;Sobrecama lisa full - carmelita;36.00;36.00;;;;;;sin_costo;;costo formula 24
+2786;118;BC-98412;Sobrecama lisa full - beige;36.00;36.00;;;;;;sin_costo;;costo formula 24
+2787;118;BC-98412;Sobrecama lisa full - salmon;36.00;36.00;;;;;;sin_costo;;costo formula 24
+2788;2527;BC-121734;Riñonera - verde;10.00;10.00;;fixed;2.00;;;sin_costo;;costo formula 6.67
+2789;2527;BC-121734;Riñonera - gris;10.00;10.00;;;;;;sin_costo;;costo formula 6.67
+2790;2529;BC-120776;Set de 2 alfombras para baño - rojo;13.00;13.00;;fixed;3.00;8.00;manual;bajo;13.98;precio 14
+2791;2529;BC-120776;Set de 2 alfombras para baño - azul;13.00;13.00;;;;;;sin_costo;;precio 14 (mismo producto que el color de la propuesta) + costo formula 9.33
+2792;2529;BC-120776;Set de 2 alfombras para baño - negro;13.00;13.00;;;;;;sin_costo;;precio 14 (mismo producto que el color de la propuesta) + costo formula 9.33
+2793;2529;BC-120776;Set de 2 alfombras para baño - gris;13.00;13.00;;;;;;sin_costo;;precio 14 (mismo producto que el color de la propuesta) + costo formula 9.33
+2794;2529;BC-120776;Set de 2 alfombras para baño - carmelita;13.00;13.00;;;;;;sin_costo;;precio 14 (mismo producto que el color de la propuesta) + costo formula 9.33
+2795;2529;BC-120776;Set de 2 alfombras para baño - beige;13.00;13.00;;;;;;sin_costo;;precio 14 (mismo producto que el color de la propuesta) + costo formula 9.33
+2796;2529;BC-120776;Set de 2 alfombras para baño - azul-marino;13.00;13.00;;;;;;sin_costo;;precio 14 (mismo producto que el color de la propuesta) + costo formula 9.33
+2797;2529;BC-120776;Set de 2 alfombras para baño - gris-oscuro;13.00;13.00;;;;;;sin_costo;;precio 14 (mismo producto que el color de la propuesta) + costo formula 9.33
+2798;177;BC-109876;Set de alfombras para baño (3 piezas) - rojo;15.00;15.00;;fixed;2.00;10.00;bizne;bajo;15.09;precio 16
+2799;177;BC-109876;Set de alfombras para baño (3 piezas) - rosado;15.00;15.00;;;;;;sin_costo;;precio 16 (mismo producto que el color de la propuesta) + costo formula 10.67
+2800;2573;BC-120658;Set para baño 3 piezas, alfombra cesta y cortina - carmelita;28.00;28.00;;fixed;3.00;;;sin_costo;;costo formula 18.67
+2801;2573;BC-120658;Set para baño 3 piezas, alfombra cesta y cortina - rosado;28.00;28.00;;;;;;sin_costo;;costo formula 18.67
+2802;2573;BC-120658;Set para baño 3 piezas, alfombra cesta y cortina - turquesa-oscuro;28.00;28.00;;;;;;sin_costo;;costo formula 18.67
+2803;2573;BC-120658;Set para baño 3 piezas, alfombra cesta y cortina - rojo-vino;28.00;28.00;;;;;;sin_costo;;costo formula 18.67
+2804;2573;BC-120658;Set para baño 3 piezas, alfombra cesta y cortina - azul-marino;28.00;28.00;;;;;;sin_costo;;costo formula 18.67
+2805;634;BC-98583;Sobrecama king - beige;43.00;43.00;;fixed;4.00;;;sin_costo;;costo formula 28.67
+2806;745;BC-98568;Sobrecama Queen - gris;38.00;38.00;;fixed;3.00;;;sin_costo;;costo formula 25.33
+2807;;BC-122270;Tabla de planchar con soporte para plancha — estampado floral;45.00;45.00;;fixed;5.00;;;sin_costo;;costo formula 30
+2813;;BC-122274;Tabla de planchar con soporte para plancha — rayas de colores;45.00;45.00;;fixed;5.00;;;sin_costo;;costo formula 30
+2821;;BC-122478;Cápsulas para el cabello con vitamina A,C y E;8.00;8.00;;;;;;sin_costo;;costo formula 5.33
+2823;;BC-116968;Depiladora portatil de cejas;12.00;12.00;;;;;;sin_costo;;costo formula 8
+2825;;BC-116975;Rasuradora portátil facial;12.00;12.00;;;;;;sin_costo;;costo formula 8
+2829;2828;BC-122536;Paragua inverso 8 varillas - verde;15.00;15.00;;;;;;sin_costo;;costo formula 10
+2830;2828;BC-122536;Paragua inverso 8 varillas - azul;15.00;15.00;;;;;;sin_costo;;costo formula 10
+2831;2828;BC-122536;Paragua inverso 8 varillas - rosado;15.00;15.00;;;;;;sin_costo;;costo formula 10
+2832;2828;BC-122536;Paragua inverso 8 varillas - rosado-claro;15.00;15.00;;;;;;sin_costo;;costo formula 10
+2859;2858;BC-122554;Paragua inverso estampado 8 varillas - negro;15.00;15.00;;;;;;sin_costo;;costo formula 10
+2860;2858;BC-122554;Paragua inverso estampado 8 varillas - morado;15.00;15.00;;;;;;sin_costo;;costo formula 10
+2861;2858;BC-122554;Paragua inverso estampado 8 varillas - rosado;15.00;15.00;;;;;;sin_costo;;costo formula 10
+2906;;nx-3;Cortina de baño diseño de conchas;8.00;8.00;;fixed;1.00;;;sin_costo;;costo formula 5.33
+2908;;nx-4;Cortina de baño diseño de flores;8.00;8.00;;fixed;1.00;;;sin_costo;;costo formula 5.33
+2910;;nx-5;Cortina de baño a rayas;8.00;8.00;;fixed;1.00;;;sin_costo;;costo formula 5.33
+2912;;nx-6;Cortina de baño diseño de cuadros;8.00;8.00;;fixed;1.00;;;sin_costo;;costo formula 5.33
+2914;;nx-7;Cortina de baño flores amarillas y rosa;8.00;8.00;;fixed;1.00;;;sin_costo;;costo formula 5.33
+2965;177;BC-109876;Set de alfombras para baño (3 piezas) - azul;15.00;15.00;;;;;;sin_costo;;precio 16 (mismo producto que el color de la propuesta) + costo formula 10.67
