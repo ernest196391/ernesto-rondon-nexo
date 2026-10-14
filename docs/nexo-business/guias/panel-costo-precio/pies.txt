@@ -1,0 +1,5 @@
+Paso 1 de 5: en Productos, toca el producto.
+Paso 2 de 5: escribe lo que costó en Precio de compra.
+Paso 3 de 5: toca Guardar costo.
+Paso 4 de 5: mira el Sugerido y la etiqueta (verde bien, ámbar bajo el mínimo, roja pierde).
+Paso 5 de 5: escribe el sugerido en Precio USD y toca Guardar.

@@ -1,0 +1,50 @@
+{
+  "titulo": "Costo y precio",
+  "formato": "1080x1350",
+  "para": "Lennys (administradora), en casaviva.company/panel (vista de móvil). Capturas: código publicado del panel (commit 005c157, D68 costo × 1,5) con datos de EJEMPLO inyectados (sin sesión ni datos reales); producto «Topper de colchón (ejemplo)», precio 40, comisión 4, compra 32 → sugerido 48.",
+  "mensaje": "Hola, Lennys. Ya puedes poner el costo de la mercancía nueva desde el panel y ver el precio que te sugiere: costo × 1,5, como decidiste.\nTe sirve para poner precios sin hacer cuentas y saber al momento si un producto pierde dinero.\nTe dejo los pasos 👇\nSi algo no sale, escríbeme.",
+  "pasos": [
+    {
+      "texto": "En **Productos**, toca el producto.",
+      "resultado": "Se abre su ficha. Baja hasta **Costo y ganancia**.",
+      "captura": "capturas/1-producto.png",
+      "flecha": "arriba",
+      "zoom": 1.1,
+      "pie": "Paso 1 de 5: en Productos, toca el producto."
+    },
+    {
+      "texto": "Escribe lo que costó en **Precio de compra**.",
+      "resultado": "Abajo sale la cuenta con el precio **Sugerido**.",
+      "ojo": "¿Pagaste en CUP o hubo transporte? Cambia **Moneda** o llena **Transporte por unidad (USD)**.",
+      "captura": "capturas/2-precio-compra.png",
+      "flecha": "abajo",
+      "zoom": 1.1,
+      "pie": "Paso 2 de 5: escribe lo que costó en Precio de compra."
+    },
+    {
+      "texto": "Toca **Guardar costo**.",
+      "resultado": "Sale **Costo guardado**. El precio de venta todavía no cambia.",
+      "captura": "capturas/3-guardar-costo.png",
+      "flecha": "abajo",
+      "zoom": 1.1,
+      "pie": "Paso 3 de 5: toca Guardar costo."
+    },
+    {
+      "texto": "Mira el **Sugerido (costo × 1,5, con mínimo)**.",
+      "resultado": "Verde **✓ Bien**: está bien. Ámbar **Bajo el mínimo** o rojo **Pierde dinero**: sube el precio.",
+      "captura": "capturas/4-sugerido.png",
+      "flecha": "abajo",
+      "zoom": 1.1,
+      "pie": "Paso 4 de 5: mira el Sugerido y la etiqueta (verde bien, ámbar bajo el mínimo, roja pierde)."
+    },
+    {
+      "texto": "Escribe el sugerido arriba, en **Precio USD**.",
+      "resultado": "Toca **Guardar**. Llega a la caja y a la web en unos minutos.",
+      "ojo": "El panel no cambia el precio solo: si no tocas **Guardar**, queda el de antes.",
+      "captura": "capturas/5-precio-usd.png",
+      "flecha": "abajo",
+      "zoom": 1.1,
+      "pie": "Paso 5 de 5: escribe el sugerido en Precio USD y toca Guardar."
+    }
+  ]
+}
