@@ -602,6 +602,19 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
 - **Para volver atrás:** `~/bak-20261013-cvd-3.13.95-antes-3.13.96`.
 - **Lennys confirma:** el soporte de TV a 5 USD (sale de que dijo que la puerta «es más complicada») y el árbol a 3 USD.
 
+**Chats revisados, 13-oct 23:30** (esta sesión lleva ahora los chats; la otra se traspasó):
+- **#3598:** el cobro estaba apuntado en 120 USD por el vale viejo; ahora pone 140, que es el total del pedido y lo que confirmó Pedri.
+- **Escalaciones cerradas sin mandar mensaje:** #41, #58, #67, #70 y #71.
+- **A la tienda, en cola para las 10:00:**
+  - fotos de cada color del set de baño (ptmvodm77, para Thaly);
+  - medidas de los colchones EDSM para el cliente de Rafael;
+  - foto de la caja del estante y fotos de las sábanas King para Dayana.
+- **Programado para las 7:35** con systemd-run (`cv-manana-*`, textos y `envios.log` en `/root/archivos/salientes/2026-10-14/`):
+  - Pedri: son 140 USD;
+  - Maryta: gracias por el conteo, las existencias de lo nuevo y las 3 dudas;
+  - Rafael: el colchón.
+- **Siguen abiertas:** #35, #37, #39 y #40 (del 11-oct), y #79 (la foto del estante de Lennys para el 3564).
+
 **Resumen diario arreglado (VivaBot `db3eb59`, en el VPS):**
 - Dice «Pedidos de la web», con la línea «El dinero del día es el cierre de caja de la tienda».
 - Pruebas y cancelados fuera.
