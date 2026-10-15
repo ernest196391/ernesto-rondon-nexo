@@ -1112,6 +1112,10 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
 - Abierto: #3698 Frank sin marcar entregado; #3683 Ibelice sin marcar.
 - 20:07 Frank (…1675) había escrito «Está hecho» a las 18:35 y el bot no lo entendió: su contacto era nuevo y con rol «cliente» → cambiado a **mensajero** («Frank Ernesto»). Preguntado si cobró 15.650 CUP + transferencia de 12.000 antes de marcar #3698 entregado.
 - 20:13 **Puertas plegables 2555 (blanca) y 2525 (gris):** la caja (foto de Lennys en el General) dice 100 × 203 cm → la web decía «2,3 m de alto»; corregido a «2,03 m de alto x 1 m de ancho» y la gris decía «Color: blanco» → «gris». Copia: `~/bak-20261014-puertas/`. Katia corregida (#1132; a las 20:00 se le había dicho 2,30 m), Lennys avisada (#1133).
+- 20:27 **Lennys quiere probar ya la mercancía nueva** (tiene precios y fotos). Se le explicó (#1135): un producto cada vez (foto + etiqueta + nombre/costo/cantidad) → Claude arma las fichas con la skill `ficha` en BORRADOR «[REVISAR]» → ella aprueba en wp-admin → Casa Viva → Fichas por revisar. Ernesto avisado (#1136).
+- 20:31 **zhu (…9028): «no me deja añadir al carrito» el Escritorio #2729 (última unidad).** En el servidor sí se añade; ningún pedido abierto lo tiene. Causa de la confusión: con 1 en stock WooCommerce oculta el campo y el tema enseñaba «Cantidad − +» SIN número. El bot le había inventado «alguien lo está reservando». Arreglos:
+  - Tema `casa-viva-storefront/assets/product.js` (SOLO en el servidor, no está en ningún repo) **0.5.2**: (1) si la cantidad está oculta, enseña «1» y desactiva − y +; (2) con enlace de gestora (`?ref=`) el script se caía (`querySelector` con la dirección completa del href de las pestañas) y no armaba la descripción ni la cantidad → ahora usa solo el `#`. Copia: `~/bak-20261014-tema-cantidad/`. Probado en el navegador con ancho de móvil (escritorio con ref de Thaly: «− 1 +» en gris y descripción; puerta gris: + sube a 2).
+  - Conocimiento #205 (gestora): qué significa «Última unidad» y no inventar reservas. zhu contestada (#1137).
 
 ## K. Noche del 11-oct (03:45–05:00 Cuba, Claude Code mientras Ernesto dormía)
 **Hecho y comprobado:**
