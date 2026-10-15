@@ -1125,6 +1125,7 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
   - **#3734 Zapatera abierta de 4 niveles (12 pares)** 65 × 18 × 64: costo 6,57; Lennys 13/2; 6 uds. Distinta de la #2603 (con cortina, 23 USD). General #1156.
   - **#3739 Cortinero decorativo en espiral 66–120 cm** (variable: Redondo 12, Alargado 12): costo 8,57; Lennys 15/2. General #1159.
   - Falta: darlos de alta en la caja (NEXO) si la tienda los vende en mostrador. Scripts y fotos en Hostinger `~/fichas/<slug>/`; evidencia en el VPS `/root/archivos/fichas/<slug>/`.
+- 22:20 **Félix (…5320) se quejó: «yo lo puse primero» y la #3754 (capas de moto, Vedado, jueves) se la dieron a Ely.** Causa (capturas de Félix + eventos de `crm_dispatch`): escribió **«Y0» con cero**; `CLAIM_RE` solo aceptaba «yo» con letra → no contó ni como reserva; Ely «Yo» 21:50:33, reservas Frank 21:50:47 y Pedri 21:51:09. Su número está bien. **Arreglado: VivaBot `f870465`** («Y0» cuenta como «Yo»; «Y0 no puedo» y números sueltos no), pruebas 31/31 en el VPS, desplegado 22:24. La #3754 sigue con Ely (Ernesto: «ya no puedo darle para atrás»). Respuesta para Félix redactada; **la manda Ernesto o con su sí, mañana después de las 7:30.**
 
 ## K. Noche del 11-oct (03:45–05:00 Cuba, Claude Code mientras Ernesto dormía)
 **Hecho y comprobado:**
