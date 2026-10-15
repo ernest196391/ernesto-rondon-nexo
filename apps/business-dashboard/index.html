@@ -978,7 +978,7 @@ function oneRow(r) {
   const head = '<button type="button" class="inv-head" data-open aria-label="Abrir ' + esc(name) + '">' + photo(r.imageUrl, name)
     + '<span class="grow"><span class="title">' + esc(name) + "</span>"
     + (webLeft(r) ? '<span class="meta" style="color:var(--nx-danger)">Todavía se ve en la web</span>'
-      : isDiff(r) ? '<span class="meta" style="color:var(--nx-danger)">En la web: ' + r.web.stock + " · se iguala sola en 2 min</span>" : !r.wooId ? '<span class="meta">No está en la web</span>' : "")
+      : isDiff(r) ? '<span class="meta" style="color:var(--nx-danger)">En la web: ' + r.web.stock + " · no coincide: avisa a Ernesto para igualarla</span>" : !r.wooId ? '<span class="meta">No está en la web</span>' : "")
     + "</span>" + state + "</button>";
   if (!r.active) return '<div class="inv-row" data-inv="' + esc(r.productId) + '">' + head + '<div class="row-actions">'
     + (webLeft(r) ? '<button type="button" class="btn btn-secondary" data-webhide>Quitar de la web</button>' : "")
