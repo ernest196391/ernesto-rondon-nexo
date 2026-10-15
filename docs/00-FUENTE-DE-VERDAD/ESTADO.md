@@ -1139,6 +1139,11 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
 - SQL 025 + 026 juntos: el índice `crm_ai_usage_dia` chocaba con la vista del mismo nombre → `crm_ai_usage_por_dia` (`aae5a75`, probado con rollback). Ernesto lo pega en nexo-production.
 - 09:10 **D72: bot solo con gpt-4.1-mini** (reinicio 135). Lennys avisada del gasto real (≈1,5 USD/día → ≈0,5).
 - Agente preparando (sin desplegar) que el conteo «Quedan» del panel ponga el número exacto en la web.
+- 09:15 SQL 025+026 pegados por Ernesto (Success): `cv fotos sincronizar` 542 fotos, `cv gastos sincronizar` 1.429 filas; el bot ya escribe solo en `crm_ai_usage` (gpt-4.1-mini, tier smart, 0,002–0,004 USD por respuesta).
+- 09:25 Gastos fijos de Ernesto en `/root/supervisor/gastos-fijos.json` (copia `.bak-20261015`): Claude 100, Higgsfield 80, Hostinger 13, ElevenLabs 5 USD/mes, casaviva.company 7 USD/año → 198,58 USD/mes + IA ≈ 15. OpenAI: 35 USD recargados en total. Fondo: 120 + 160 USD.
+- 09:22 Lennys: total IA 11–15 oct = 7,62 USD (#1196). 09:27 Lennys: la mercancía nueva es de **Casa Viva**; cesto 7 L hay 1 (web→0, conteo en caja 0→1 cargado como el del panel, el puente dejó la web en 1 a las 09:30: iguales); Organizador 2 niveles (2485) con defecto → **privado** en la web.
+- 09:32 **Sesión «NEXO-servidor»** (Claude Code con `--remote-control` en tmux `nexo`, carpeta `/root/nexo-movil`, la arrancó Ernesto): CLAUDE.md propio (está dentro del servidor; convivencia con el supervisor), copia de la fuente de verdad, memoria (28 archivos) y skills de Casa Viva en `/root/.claude/skills`. Apunta en `/root/nexo-movil/NOTAS-SERVIDOR.md` → al volver al PC se pasa aquí.
+- Agente del conteo «Quedan»: listo y probado (31/31), SIN desplegar; rama `worktree-agent-a3de9b821a2b90995` commit `4b2fd15`; orden: Core → migración `20261015090000` → `nexo-stock-bridge` → panel. Espera el SÍ de Ernesto.
 
 ## K. Noche del 11-oct (03:45–05:00 Cuba, Claude Code mientras Ernesto dormía)
 **Hecho y comprobado:**
