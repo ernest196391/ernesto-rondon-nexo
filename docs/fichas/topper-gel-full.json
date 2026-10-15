@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "slug": "topper-gel-full",
+  "producto": { "nombre": "Topper de espuma con gel refrescante Full", "target_id": 0, "ean": null },
+  "titulo": "Topper de espuma con gel refrescante 4 cm (Full)",
+  "seo_title": "Topper con gel refrescante 4 cm, cama Full | Casa Viva",
+  "meta_description": "Topper de espuma con gel refrescante de 4 cm para cama Full (135 × 190 cm): más fresco y cómodo. En La Habana, con entrega a domicilio o recogida.",
+  "descripcion_corta": "<p>Un colchón más fresco y cómodo sin cambiarlo: topper de espuma con gel refrescante de 4 cm para cama Full (135 × 190 cm).</p>",
+  "descripcion_larga": "<p>Si tu colchón está duro o te da calor por la noche, este topper le da una capa nueva de comodidad. Es de espuma con gel refrescante, de 4 cm de alto, y se pone encima del colchón, debajo de la sábana.</p><h3>Por qué te va a gustar</h3><ul><li>El gel ayuda a que la cama se sienta más fresca: ideal para el calor de La Habana.</li><li>Su superficie en relieve, por zonas, deja pasar el aire y reparte mejor el peso del cuerpo.</li><li>Renueva un colchón cansado sin el gasto de uno nuevo.</li></ul><h3>Características</h3><ul><li>Talla: Full, 135 × 190 cm.</li><li>Alto: 4 cm.</li><li>Material: espuma con gel refrescante, color azul.</li><li>Viene enrollado y empacado al vacío.</li></ul><h3>Cuidados</h3><p>Al abrirlo, déjalo extendido unas horas para que recupere su forma. Úsalo con sábana o funda encima y ventílalo de vez en cuando.</p><h3>Cómo te llega</h3><p>Te lo llevamos a casa en La Habana o lo recoges en la tienda.</p>",
+  "bullets": [
+    "El gel ayuda a que la cama se sienta más fresca: ideal para el calor de La Habana.",
+    "Su superficie en relieve, por zonas, deja pasar el aire y reparte mejor el peso del cuerpo.",
+    "Renueva un colchón cansado sin el gasto de uno nuevo."
+  ],
+  "categorias": [16],
+  "campos": [
+    { "grupo": "general", "campo": "Tipo", "valor": "Topper (cubre colchón) de espuma con gel refrescante", "estado": "confirmado", "fuente": "Lennys 14-oct 20:31 «Topper gel» + foto comercial del proveedor", "nota": "" },
+    { "grupo": "medidas", "campo": "Talla", "valor": "Full 135 × 190 cm", "estado": "confirmado", "fuente": "Lennys: «talla solo full»; medida Full de la foto comercial (tabla de tallas)", "nota": "La otra foto comercial dice «medida estándar 99 × 190» (Twin): NO se usa." },
+    { "grupo": "medidas", "campo": "Alto", "valor": "4 cm (1,5″)", "estado": "sugerido", "fuente": "foto comercial del proveedor", "nota": "No hay etiqueta propia." },
+    { "grupo": "general", "campo": "Empaque", "valor": "Enrollado y al vacío", "estado": "confirmado", "fuente": "foto real de Lennys + su mensaje «empacada al vacío»", "nota": "" },
+    { "grupo": "general", "campo": "Color", "valor": "Azul", "estado": "confirmado", "fuente": "foto real de Lennys", "nota": "" },
+    { "grupo": "dinero", "campo": "Costo", "valor": "32,065 USD", "estado": "confirmado", "fuente": "Lennys 20:31", "nota": "" },
+    { "grupo": "dinero", "campo": "Cantidad", "valor": "24", "estado": "confirmado", "fuente": "Lennys 20:31", "nota": "" },
+    { "grupo": "dinero", "campo": "Precio", "valor": "49 USD (costo × 1,5 redondeado, regla D68); comisión gestora 5 USD", "estado": "sugerido", "fuente": "regla de Lennys D68", "nota": "Lo decide Lennys al aprobar." },
+    { "grupo": "general", "campo": "Marca / modelo", "valor": null, "estado": "falta", "fuente": "", "nota": "No hay etiqueta en las fotos." }
+  ],
+  "fotos": [
+    { "uso": "galeria", "archivo": "/home/u824654880/fichas/topper-gel-full/tallas.jpg", "nombre": "topper-gel-refrescante-full.jpg", "alt": "Topper de espuma con gel refrescante de 4 cm sobre una cama", "fuente": "Foto comercial del proveedor (Lennys, 14-oct)" },
+    { "uso": "galeria", "archivo": "/home/u824654880/fichas/topper-gel-full/real.jpg", "nombre": "topper-gel-full-empacado.jpg", "alt": "Topper con gel refrescante enrollado y empacado al vacío", "fuente": "Foto real de la tienda (Lennys, 14-oct)" }
+  ],
+  "pedir_fotos": ["Etiqueta del topper (marca, material, medidas) si la tiene."],
+  "contradicciones": ["Una foto comercial dice «medida estándar 99 × 190 × 4 cm» (Twin); Lennys dice que solo hay Full. Esa foto no se usa."]
+}
