@@ -24,7 +24,7 @@ create table if not exists crm_ai_usage (
   ok boolean not null default true,
   error text                            -- «sin saldo (429)», «error 500»…
 );
-create index if not exists crm_ai_usage_dia on crm_ai_usage (day desc, fn);
+create index if not exists crm_ai_usage_por_dia on crm_ai_usage (day desc, fn);
 create index if not exists crm_ai_usage_negocio on crm_ai_usage (business_id, created_at desc);
 alter table crm_ai_usage enable row level security;
 revoke all on crm_ai_usage from anon, authenticated;
