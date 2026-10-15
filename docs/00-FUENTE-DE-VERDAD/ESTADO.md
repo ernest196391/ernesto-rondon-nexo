@@ -1110,6 +1110,8 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
 - **Para que mañana salga sola:** Ernesto pulsa una vez «Ejecutar ahora» en las tareas programadas *resúmenes* y *gastos* y aprueba los permisos.
 - Katia (General 19:59): puerta plegable 2,3 m = 2,30 m (contestado); accesorios → pregunta a la tienda en cola (`ptmx9d9e0`, 10:00).
 - Abierto: #3698 Frank sin marcar entregado; #3683 Ibelice sin marcar.
+- 20:07 Frank (…1675) había escrito «Está hecho» a las 18:35 y el bot no lo entendió: su contacto era nuevo y con rol «cliente» → cambiado a **mensajero** («Frank Ernesto»). Preguntado si cobró 15.650 CUP + transferencia de 12.000 antes de marcar #3698 entregado.
+- 20:13 **Puertas plegables 2555 (blanca) y 2525 (gris):** la caja (foto de Lennys en el General) dice 100 × 203 cm → la web decía «2,3 m de alto»; corregido a «2,03 m de alto x 1 m de ancho» y la gris decía «Color: blanco» → «gris». Copia: `~/bak-20261014-puertas/`. Katia corregida (#1132; a las 20:00 se le había dicho 2,30 m), Lennys avisada (#1133).
 
 ## K. Noche del 11-oct (03:45–05:00 Cuba, Claude Code mientras Ernesto dormía)
 **Hecho y comprobado:**
