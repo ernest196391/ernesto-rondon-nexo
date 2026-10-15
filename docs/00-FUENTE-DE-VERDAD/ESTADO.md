@@ -1119,7 +1119,12 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
 - 20:40–21:00 **Mercancía nueva con Lennys (Ernesto: «asístela en todo momento hasta terminar»).** Ella manda foto + texto (nombre, costo, cantidad); Claude recomienda precio (regla D68 + comparación con la web), ella decide, Claude publica y lo anuncia en el General (pedido de Lennys 20:52: «a medida que subimos, publicar en el grupo»). Lección: a las 20:36 marqué «vistos» 15 min de mensajes sin leerlos y se perdió 9 min su primer producto → nunca marcar vistos sin leer.
   - **#3702 Topper con gel refrescante 4 cm (Full 135 × 190)**: costo 32,065; Lennys 60 USD / comisión 7; 24 uds; Habitación. Ficha `docs/fichas/topper-gel-full.json` (borrador con `CVD_Fichas`, aprobado con su «súbele a 60 con 7»). General #1142.
   - **#3705 Alfombra decorativa de pelo alto 160 × 230** (variable: gris oscuro 2, gris claro 2): costo 30,07; recomendé 50/5 (regla 46, Persa 55, Circular 60); Lennys «aprobado». Creada con `~/fichas/alfombra-160x230/crear.php`. General #1143.
-  - Falta: darlos de alta en la caja (NEXO) si la tienda los vende en mostrador.
+  - **#3714 Almohada ortopédica cervical Ceasar Palace 45 × 70**: costo 14,57 (Lennys luego escribió 15,07 para la otra); recomendé 25/3, Lennys 22 (comisión 2 por su regla). 25 uds. General #1147.
+  - **#3720 Almohada viscoelástica Ceasar Palace 40 × 65** (memory foam, funda con cremallera): costo 15,07; 25/3 aprobado; Lennys corrigió la marca («Ceasar», no «Cedar»). 25 uds. General #1149.
+  - **#3726 Juego de 2 cortinas blackout Ceasar Palace 140 × 240** (variable: gris oscuro 12, gris claro 12, beige 10 juegos): costo 18,07 por juego; Lennys 31/3. General #1152.
+  - **#3734 Zapatera abierta de 4 niveles (12 pares)** 65 × 18 × 64: costo 6,57; Lennys 13/2; 6 uds. Distinta de la #2603 (con cortina, 23 USD). General #1156.
+  - **#3739 Cortinero decorativo en espiral 66–120 cm** (variable: Redondo 12, Alargado 12): costo 8,57; Lennys 15/2. General #1159.
+  - Falta: darlos de alta en la caja (NEXO) si la tienda los vende en mostrador. Scripts y fotos en Hostinger `~/fichas/<slug>/`; evidencia en el VPS `/root/archivos/fichas/<slug>/`.
 
 ## K. Noche del 11-oct (03:45–05:00 Cuba, Claude Code mientras Ernesto dormía)
 **Hecho y comprobado:**

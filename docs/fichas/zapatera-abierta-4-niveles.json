@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "slug": "zapatera-abierta-4-niveles",
+  "producto": { "nombre": "Zapatera abierta de 4 niveles (12 pares)", "target_id": 0, "ean": null },
+  "titulo": "Zapatera abierta de 4 niveles (12 pares)",
+  "seo_title": "Zapatera abierta de 4 niveles para 12 pares | Casa Viva",
+  "meta_description": "Zapatera abierta de 4 niveles, 65 × 18 × 64 cm, para unos 12 pares de zapatos. Ligera y fácil de armar. En La Habana, entrega a domicilio o recogida.",
+  "descripcion_corta": "<p>Los zapatos ordenados y a la vista: zapatera abierta de 4 niveles para unos 12 pares, estrecha (18 cm) para que quepa en cualquier rincón.</p>",
+  "descripcion_larga": "<p>Se acabaron los zapatos regados por la casa. Esta zapatera de 4 niveles es estrecha, ligera y se arma sin herramientas: cabe detrás de la puerta, en el pasillo o dentro del clóset.</p><h3>Por qué te va a gustar</h3><ul><li>4 niveles para unos 12 pares de zapatos.</li><li>Solo 18 cm de fondo: aprovecha los espacios estrechos.</li><li>Ligera y fácil de armar y de mover.</li></ul><h3>Características</h3><ul><li>Medidas: 65 cm de largo × 18 cm de fondo × 64 cm de alto (en la caja: 25″ × 7,9″ × 25″).</li><li>Laterales de plástico negro y barras de metal ligero.</li><li>Viene desarmada en su caja.</li></ul><h3>Cuidados</h3><p>Límpiala con un paño húmedo. No la sobrecargues con objetos pesados: está pensada para zapatos.</p><h3>Cómo te llega</h3><p>Te la llevamos a casa en La Habana o la recoges en la tienda.</p>",
+  "bullets": ["4 niveles para unos 12 pares de zapatos.", "Solo 18 cm de fondo: aprovecha los espacios estrechos.", "Ligera y fácil de armar y de mover."],
+  "categorias": [20],
+  "campos": [
+    { "grupo": "medidas", "campo": "Medidas", "valor": "65 × 18 × 64 cm (25″W × 7,9″D × 25″H)", "estado": "confirmado", "fuente": "caja (foto real) + foto comercial", "nota": "" },
+    { "grupo": "general", "campo": "Material", "valor": "Laterales de plástico, tubos de metal ligero", "estado": "confirmado", "fuente": "Lennys 21:22", "nota": "" },
+    { "grupo": "general", "campo": "Capacidad", "valor": "unos 12 pares", "estado": "sugerido", "fuente": "foto comercial", "nota": "" },
+    { "grupo": "dinero", "campo": "Costo", "valor": "6,57 USD", "estado": "confirmado", "fuente": "Lennys 21:22", "nota": "" },
+    { "grupo": "dinero", "campo": "Cantidad", "valor": "6", "estado": "confirmado", "fuente": "Lennys 21:22", "nota": "" }
+  ],
+  "fotos": [
+    { "uso": "galeria", "archivo": "/home/u824654880/fichas/zapatera-abierta/principal.jpg", "nombre": "zapatera-abierta-4-niveles.jpg", "alt": "Zapatera abierta de 4 niveles con zapatos", "fuente": "Foto comercial del proveedor (Lennys, 14-oct)" },
+    { "uso": "galeria", "archivo": "/home/u824654880/fichas/zapatera-abierta/medidas.jpg", "nombre": "zapatera-abierta-medidas.jpg", "alt": "Medidas de la zapatera: 65 × 18 × 64 cm", "fuente": "Foto comercial del proveedor (Lennys, 14-oct)" },
+    { "uso": "galeria", "archivo": "/home/u824654880/fichas/zapatera-abierta/real.jpg", "nombre": "zapatera-abierta-real.jpg", "alt": "Zapatera abierta de 4 niveles armada, foto real", "fuente": "Foto real de la tienda (Lennys, 14-oct)" },
+    { "uso": "galeria", "archivo": "/home/u824654880/fichas/zapatera-abierta/caja.jpg", "nombre": "zapatera-abierta-caja.jpg", "alt": "Caja de la zapatera de 4 niveles", "fuente": "Foto real de la tienda (Lennys, 14-oct)" }
+  ]
+}

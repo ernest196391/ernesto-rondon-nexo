@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "slug": "almohada-viscoelastica-cedar-palace",
+  "producto": { "nombre": "Almohada de espuma viscoelástica Ceasar Palace 40 × 65", "target_id": 0, "ean": null },
+  "titulo": "Almohada de espuma viscoelástica Ceasar Palace 40 × 65 cm",
+  "seo_title": "Almohada viscoelástica memory foam 40 × 65 cm | Casa Viva",
+  "meta_description": "Almohada ortopédica de espuma viscoelástica Ceasar Palace, 40 × 65 cm, con funda de cremallera lavable. En La Habana, con entrega a domicilio o recogida.",
+  "descripcion_corta": "<p>Espuma viscoelástica que se adapta a ti: almohada ortopédica de 40 × 65 cm, de 10 a 12 cm de alto, con funda de cremallera que se quita y se lava.</p>",
+  "descripcion_larga": "<p>La espuma viscoelástica (memory foam) se amolda a la forma de tu cabeza y cuello y vuelve a su sitio cuando te levantas. Esta almohada tiene un lado más alto y otro más bajo, y los bordes curvos para apoyar el hombro cuando duermes de lado.</p><h3>Por qué te va a gustar</h3><ul><li>Espuma viscoelástica: firme y suave a la vez, se adapta a ti.</li><li>Sirve para dormir de lado, boca arriba o boca abajo (según el empaque).</li><li>Funda con cremallera que se quita y se lava.</li></ul><h3>Características</h3><ul><li>Medidas: 40 × 65 cm.</li><li>Alto: 12 cm en el lado alto y 10 cm en el bajo.</li><li>Relleno de espuma viscoelástica (memory foam).</li><li>Funda acolchada blanca con borde gris, con cremallera.</li></ul><h3>Cuidados</h3><p>Lava solo la funda. La espuma no se moja: si hace falta, sácala al aire a la sombra.</p><h3>Cómo te llega</h3><p>Te la llevamos a casa en La Habana o la recoges en la tienda.</p>",
+  "bullets": ["Espuma viscoelástica: firme y suave a la vez, se adapta a ti.", "Sirve para dormir de lado, boca arriba o boca abajo (según el empaque).", "Funda con cremallera que se quita y se lava."],
+  "categorias": [16],
+  "campos": [
+    { "grupo": "general", "campo": "Marca / modelo", "valor": "Ceasar Palace, PLW-218", "estado": "confirmado", "fuente": "empaque (foto real) y foto comercial", "nota": "" },
+    { "grupo": "medidas", "campo": "Medidas", "valor": "40 × 65 cm", "estado": "confirmado", "fuente": "empaque («40 cm x 65 cm»)", "nota": "" },
+    { "grupo": "medidas", "campo": "Alto", "valor": "12 cm máx / 10 cm mín", "estado": "sugerido", "fuente": "foto comercial", "nota": "" },
+    { "grupo": "general", "campo": "Material", "valor": "Espuma viscoelástica (memory foam)", "estado": "confirmado", "fuente": "empaque «memory foam pillow»", "nota": "" },
+    { "grupo": "general", "campo": "Funda", "valor": "Con cremallera, extraíble y lavable", "estado": "confirmado", "fuente": "foto real de la cremallera + foto comercial", "nota": "" },
+    { "grupo": "dinero", "campo": "Costo", "valor": "15,07 USD", "estado": "confirmado", "fuente": "Lennys 21:04", "nota": "" },
+    { "grupo": "dinero", "campo": "Cantidad", "valor": "25", "estado": "confirmado", "fuente": "Lennys 21:04", "nota": "" }
+  ],
+  "fotos": [
+    { "uso": "galeria", "archivo": "/home/u824654880/fichas/almohada-cedar/principal.jpg", "nombre": "almohada-viscoelastica-40x65.jpg", "alt": "Almohada de espuma viscoelástica Ceasar Palace", "fuente": "Foto comercial del proveedor (Lennys, 14-oct)" },
+    { "uso": "galeria", "archivo": "/home/u824654880/fichas/almohada-cedar/medidas.jpg", "nombre": "almohada-viscoelastica-medidas.jpg", "alt": "Medidas: 65 × 40 cm, de 10 a 12 cm de alto", "fuente": "Foto comercial del proveedor (Lennys, 14-oct)" },
+    { "uso": "galeria", "archivo": "/home/u824654880/fichas/almohada-cedar/real.jpg", "nombre": "almohada-viscoelastica-real.jpg", "alt": "Almohada viscoelástica, foto real", "fuente": "Foto real de la tienda (Lennys, 14-oct)" },
+    { "uso": "galeria", "archivo": "/home/u824654880/fichas/almohada-cedar/cremallera.jpg", "nombre": "almohada-viscoelastica-funda-cremallera.jpg", "alt": "Funda con cremallera", "fuente": "Foto real de la tienda (Lennys, 14-oct)" },
+    { "uso": "galeria", "archivo": "/home/u824654880/fichas/almohada-cedar/empaque.jpg", "nombre": "almohada-viscoelastica-empaque.jpg", "alt": "Almohada viscoelástica en su empaque", "fuente": "Foto real de la tienda (Lennys, 14-oct)" }
+  ]
+}

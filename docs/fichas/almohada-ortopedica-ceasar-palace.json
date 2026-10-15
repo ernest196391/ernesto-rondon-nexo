@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "slug": "almohada-ortopedica-ceasar-palace",
+  "producto": { "nombre": "Almohada ortopédica cervical Ceasar Palace 45 × 70", "target_id": 0, "ean": null },
+  "titulo": "Almohada ortopédica cervical Ceasar Palace 45 × 70 cm",
+  "seo_title": "Almohada ortopédica cervical 45 × 70 cm | Casa Viva",
+  "meta_description": "Almohada ortopédica cervical Ceasar Palace de 45 × 70 cm, con forma que acompaña el cuello. Lavable. En La Habana, con entrega a domicilio o recogida.",
+  "descripcion_corta": "<p>Duerme con el cuello bien apoyado: almohada ortopédica cervical de 45 × 70 cm, con forma contorneada y tela transpirable.</p>",
+  "descripcion_larga": "<p>Una buena almohada se nota al despertar. Esta tiene forma cervical: más baja en el centro para la cabeza y con los bordes más firmes para acompañar el cuello, tanto si duermes boca arriba como de lado.</p><h3>Por qué te va a gustar</h3><ul><li>Forma contorneada que acompaña la curva natural del cuello.</li><li>Tela suave y transpirable, en blanco y gris.</li><li>Se lava a máquina en agua fría.</li></ul><h3>Características (según la etiqueta)</h3><ul><li>Medidas: 45 × 70 cm (±2 cm), tamaño estándar.</li><li>Tela: 100 % poliéster. Relleno: 100 % poliéster.</li><li>Viene sellada al vacío: al abrirla crece hasta unos 10 cm de alto.</li></ul><h3>Cuidados</h3><p>Lavar a máquina en agua fría, sin lejía, y secar colgada. Planchar a baja temperatura si hace falta; no lavar en seco. Al sacarla del empaque, déjala unas horas para que tome su forma.</p><h3>Cómo te llega</h3><p>Te la llevamos a casa en La Habana o la recoges en la tienda.</p>",
+  "bullets": ["Forma contorneada que acompaña la curva natural del cuello.", "Tela suave y transpirable, en blanco y gris.", "Se lava a máquina en agua fría."],
+  "categorias": [16],
+  "campos": [
+    { "grupo": "general", "campo": "Marca", "valor": "Ceasar Palace by Edcorró", "estado": "confirmado", "fuente": "empaque (foto real de Lennys)", "nota": "" },
+    { "grupo": "medidas", "campo": "Medidas", "valor": "45 × 70 cm ±2", "estado": "confirmado", "fuente": "etiqueta cosida", "nota": "" },
+    { "grupo": "general", "campo": "Material", "valor": "Tela y relleno 100 % poliéster", "estado": "confirmado", "fuente": "etiqueta cosida", "nota": "" },
+    { "grupo": "general", "campo": "Cuidados", "valor": "Lavar en frío, sin lejía, secar colgada, planchado bajo, no lavar en seco", "estado": "confirmado", "fuente": "etiqueta cosida", "nota": "" },
+    { "grupo": "medidas", "campo": "Alto", "valor": "unos 10 cm tras sacarla del vacío", "estado": "confirmado", "fuente": "Lennys midió («Creció 10 cm»)", "nota": "" },
+    { "grupo": "dinero", "campo": "Costo", "valor": "14,57 USD", "estado": "confirmado", "fuente": "Lennys 21:01", "nota": "" },
+    { "grupo": "dinero", "campo": "Cantidad", "valor": "25", "estado": "confirmado", "fuente": "Lennys 21:01", "nota": "" },
+    { "grupo": "general", "campo": "Beneficios de salud", "valor": null, "estado": "falta", "fuente": "", "nota": "Las fotos comerciales dicen «alivia el dolor de cuello»: no se pone como promesa médica." }
+  ],
+  "fotos": [
+    { "uso": "galeria", "archivo": "/home/u824654880/fichas/almohada-ceasar/principal.jpg", "nombre": "almohada-ortopedica-cervical-45x70.jpg", "alt": "Almohada ortopédica cervical Ceasar Palace 45 × 70 cm", "fuente": "Foto comercial del proveedor (Lennys, 14-oct)" },
+    { "uso": "galeria", "archivo": "/home/u824654880/fichas/almohada-ceasar/medidas.jpg", "nombre": "almohada-ortopedica-medidas.jpg", "alt": "Medidas de la almohada ortopédica: 70 × 45 cm", "fuente": "Foto comercial del proveedor (Lennys, 14-oct)" },
+    { "uso": "galeria", "archivo": "/home/u824654880/fichas/almohada-ceasar/real.jpg", "nombre": "almohada-ortopedica-real.jpg", "alt": "Almohada ortopédica, foto real", "fuente": "Foto real de la tienda (Lennys, 14-oct)" },
+    { "uso": "galeria", "archivo": "/home/u824654880/fichas/almohada-ceasar/empaque.jpg", "nombre": "almohada-ortopedica-empaque.jpg", "alt": "Almohada ortopédica en su empaque", "fuente": "Foto real de la tienda (Lennys, 14-oct)" },
+    { "uso": "galeria", "archivo": "/home/u824654880/fichas/almohada-ceasar/alto.jpg", "nombre": "almohada-ortopedica-alto-10cm.jpg", "alt": "La almohada mide unos 10 cm de alto al sacarla", "fuente": "Foto real de la tienda (Lennys, 14-oct)" }
+  ]
+}
