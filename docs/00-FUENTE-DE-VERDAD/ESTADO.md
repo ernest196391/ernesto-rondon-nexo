@@ -1133,6 +1133,13 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
   - Panel: el texto falso «se iguala sola en 2 min» → «no coincide: avisa a Ernesto» (`a46fb48`, casaviva.company/panel + Vercel `dpl_Ebeh2unVfeJ2mjntbrrXqFg7iPrb`, copia `~/bak-20261014-panel-index-antes-texto-web.html`).
   - #3747 Cortinero 122–213 cm publicado a 14/2 (Lennys 21:42; se había quedado en borrador por el corte). Aviso al General: mañana a primera hora.
 
+### L13. Jueves 15-oct mañana (Ernesto en el móvil; vigilancia cada 30 s)
+- 08:50 Frank (#3698, cobro), Niurka (el resumen solo cuenta entregados), Thaly (pago de 32 USD pendiente de aprobar), General (cortinero 122–213). 08:57 resumen de pendientes a Lennys con cómo aprobar comisiones (Equipo → «Pagos de la web por atender» → Aprobar → Marcar pagado), recomendación «que cada gestora pida cuando quiera» y pregunta de cuándo las libera (Thaly 32, Patricia 15, Yudileidis 1 USD). 08:58 Caridad y Ely: elegir el mensajero en la web («¿Tienes algún mensajero preferido?») + enlace a Aprende. La #3754 se queda con Félix (Ernesto).
+- #3754: Caridad NO eligió mensajero en la web (sin `_cvd_preferred_messenger_user_id`); mandó el vale a Ely por WhatsApp → salió al grupo correctamente.
+- SQL 025 + 026 juntos: el índice `crm_ai_usage_dia` chocaba con la vista del mismo nombre → `crm_ai_usage_por_dia` (`aae5a75`, probado con rollback). Ernesto lo pega en nexo-production.
+- 09:10 **D72: bot solo con gpt-4.1-mini** (reinicio 135). Lennys avisada del gasto real (≈1,5 USD/día → ≈0,5).
+- Agente preparando (sin desplegar) que el conteo «Quedan» del panel ponga el número exacto en la web.
+
 ## K. Noche del 11-oct (03:45–05:00 Cuba, Claude Code mientras Ernesto dormía)
 **Hecho y comprobado:**
 - **VivaBot** (VPS en `72c51a5`, rama `ccr-f459b3eb-utyhix` = main): sin BizneCubano en textos y reglas. Arreglados: "me gustaría que me lo lleven…" de un cliente ya no se toma como "idea"; APRUEBA n ya no aprueba gestoras por error; campañas solo a clientes de 9 a 20 h (nunca familia ni pausados); las claves de cifrado ya no salen en los logs; mensajería sin caché vieja; reparto más seguro ("Yo" exacto, "Yo #N" por privado, "entregado #N", CUP/transferencia, ofertas cerradas no se toman, el WhatsApp del pedido no lo cambia otro número). **Probado sin mandar WhatsApp** (6 preguntas reales): ofrece faroles y lámparas solares para apagones, da la mensajería a Miramar en CUP, materiales de toallas, no MLC, árbol de Navidad, comisión de silla = 5 USD fijos.

@@ -313,3 +313,6 @@ Ampliación D30 (2026-10-07): el flujo de **Devolución** ya existe en `/ventas/
 - **Sin saldo = aviso en «Tú» una vez cada 2 h** con la hora en que empezó y dónde recargar (antes cada 3 h).
 - **Las sugerencias son propuestas, no cambios:** cambiar de modelo, recortar el prompt o poner topes lo decide Ernesto (cambiar el modelo de los chats se prueba antes un día con Dany).
 - Higgsfield se lee solo desde la sesión de Claude (MCP), no desde el VPS. El Claude del supervisor se muestra como «uso equivalente»: va por la suscripción y no se paga aparte.
+
+**D72 · 2026-10-15 · El bot usa solo el modelo económico de la IA.** Ernesto: «pásalo al módulo barato… no le podemos poner recargas automáticas porque no tiene dinero la tarjeta». `OPENAI_MODEL_SMART` = `gpt-4.1-mini` (antes `gpt-4.1`, que era el 93 % del gasto: 7,08 de 7,61 USD en 7 días). Objetivo ≈ 0,50 USD/día (≈ 15 USD/mes). Sin recarga automática de OpenAI. Copia del ajuste: VPS `/root/vivabot/.env.bak-20261015-modelo-barato`. Si las respuestas a gestoras/equipo empeoran, se vuelve atrás solo para esas funciones. Lennys avisada (#1194).
+
