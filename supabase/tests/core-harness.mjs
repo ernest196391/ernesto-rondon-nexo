@@ -32,10 +32,19 @@ CREATE SCHEMA IF NOT EXISTS vault;
 CREATE TABLE IF NOT EXISTS vault.secrets (id uuid DEFAULT gen_random_uuid(), name text, secret text);
 CREATE OR REPLACE VIEW vault.decrypted_secrets AS SELECT id, name, secret AS decrypted_secret FROM vault.secrets;
 CREATE OR REPLACE FUNCTION vault.create_secret(s text, n text DEFAULT NULL, d text DEFAULT NULL) RETURNS uuid LANGUAGE sql AS $$ INSERT INTO vault.secrets (name, secret) VALUES (n, s) RETURNING id $$;
+-- Buzón de VivaBot (vive en el mismo Supabase; lo usa el acceso con WhatsApp del panel).
+CREATE TABLE IF NOT EXISTS public.crm_outbox (id bigserial PRIMARY KEY, business_id uuid, to_phone text, to_group text, body text,
+  status text, created_by text, kind text, created_at timestamptz NOT NULL DEFAULT now());
+CREATE TABLE IF NOT EXISTS public.crm_contacts (id bigserial PRIMARY KEY, business_id uuid, phone text, jid text, name text, role text,
+  opt_in_marketing boolean, last_message_at timestamptz, created_at timestamptz NOT NULL DEFAULT now());
+CREATE SCHEMA IF NOT EXISTS storage;
+CREATE TABLE IF NOT EXISTS storage.buckets (id text PRIMARY KEY, name text, public boolean, file_size_limit bigint, allowed_mime_types text[]);
+CREATE TABLE IF NOT EXISTS storage.objects (id uuid PRIMARY KEY DEFAULT gen_random_uuid(), bucket_id text, name text, owner uuid);
 `;
 
 // Extensiones que PGlite no trae: se quitan de la migración (los stubs las sustituyen).
-const strip = (sql) => sql.replace(/CREATE EXTENSION IF NOT EXISTS (pg_cron|pg_net)[^;]*;/g, "");
+// También se quita la marca BOM que dejan algunos editores de Windows al principio del archivo.
+const strip = (sql) => sql.replace(/^﻿/, "").replace(/CREATE EXTENSION IF NOT EXISTS (pg_cron|pg_net)[^;]*;/g, "");
 
 export async function startCore() {
   const db = new PGlite({ extensions: { pgcrypto } });

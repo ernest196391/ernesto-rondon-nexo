@@ -950,6 +950,7 @@ function oneMatches(r) {
 const FILTER_HELP = {
   out: "Aquí salen los productos y diseños sin unidades. Si no vas a volver a tenerlos, toca «Marcar agotados para dejar de vender». No se borra nada.",
   hidden: "Retirados: no se venden en la caja ni en la web. No se borró nada. Ábrelos (o márcalos) para volver a venderlos.",
+  diff: "La web tiene otra cantidad. Cuenta lo que hay, ponlo en «Quedan» (aunque sea el mismo número) y toca Guardar: en unos 2 minutos la web queda igual que la caja.",
 };
 let pickGroups = new Map(); // grupo → ids marcables con el filtro actual
 function renderInventory() {
@@ -999,7 +1000,7 @@ function oneRow(r) {
   const head = '<button type="button" class="inv-head" data-open aria-label="Abrir ' + esc(name) + '">' + photo(r.imageUrl, name)
     + '<span class="grow"><span class="title">' + esc(name) + "</span>"
     + (webLeft(r) ? '<span class="meta" style="color:var(--nx-danger)">Todavía se ve en la web</span>'
-      : isDiff(r) ? '<span class="meta" style="color:var(--nx-danger)">En la web: ' + r.web.stock + " · no coincide: avisa a Ernesto para igualarla</span>" : !r.wooId ? '<span class="meta">No está en la web</span>' : "")
+      : isDiff(r) ? '<span class="meta" style="color:var(--nx-danger)">En la web: ' + r.web.stock + " · pon en «Quedan» lo que hay y toca Guardar: la web se iguala en unos 2 minutos</span>" : !r.wooId ? '<span class="meta">No está en la web</span>' : "")
     + (commTxt ? '<span class="meta">Comisión' + esc(commTxt.replace(" · gestora", " de la gestora:")) + "</span>" : "")
     + "</span>" + state + "</button>";
   if (!r.active) return '<div class="inv-row" data-inv="' + esc(r.productId) + '">' + head + '<div class="row-actions">'
@@ -1008,7 +1009,7 @@ function oneRow(r) {
   return '<div class="inv-row" data-inv="' + esc(r.productId) + '">' + head
     + '<div class="inv-edit"><label class="field t-sm">Precio USD<input class="input" inputmode="decimal" data-price value="' + esc(r.priceUsd ?? "") + '"></label>'
     + '<label class="field t-sm">Quedan<input class="input" inputmode="numeric" data-stock value="' + esc(r.stock) + '"></label>'
-    + '<button type="button" class="btn btn-primary" data-save hidden>Guardar</button></div></div>';
+    + '<button type="button" class="btn btn-primary" data-save' + (isDiff(r) ? "" : " hidden") + ">Guardar</button></div></div>';
 }
 function groupRow(g) {
   const img = g.rows.find(r => r.imageUrl)?.imageUrl ?? null;
@@ -1065,7 +1066,8 @@ function wireInventory() {
           if (res.webFail) problems.push("el precio no llegó a la web (vuelve a guardar)");
         } catch { problems.push("el precio no se guardó"); }
       }
-      if (stock !== r.stock) {
+      // Con la misma cifra también se manda si la web no coincide: la nube fija la web a esa cifra (15-oct).
+      if (stock !== r.stock || isDiff(r)) {
         const { data, error } = await supabase.rpc("nexo_business_set_stock", { p_business: bizId(), p_product: r.productId, p_quantity: stock, p_reason: "Conteo desde el panel" });
         if (error || data?.error) problems.push("la cantidad no se guardó"); else r.stock = stock;
       }
