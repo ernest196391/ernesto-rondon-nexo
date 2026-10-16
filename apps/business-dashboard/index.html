@@ -2908,10 +2908,10 @@ function previewCost({ amount, rate, freight, commission, staffPct }, priceUsd) 
 
 // Regla de precio: «x1_5» (D68, por defecto) o «formula» (la del 10-oct: margen objetivo). Volver: settings.pricing_rule = "formula".
 const pricingRule = () => costSheet?.settings?.pricing_rule || "x1_5";
-// Comisión de Lennys (D64): < 10 USD → 10 % o 1 USD, como mucho 2; desde 10 USD → 10 % redondeado al entero (21→2, 45→5).
+// Comisión de Lennys (D64): < 10 USD → 10 % o 1 USD, como mucho 2; desde 10 USD → 10 % redondeado SIEMPRE hacia arriba (21→3, 45→5), igual que Core (Ernesto 16-oct).
 function lennysCommission(price) {
   if (!(price > 0)) return 0;
-  return price < 10 ? Math.min(2, Math.max(1, price * 0.1)) : Math.max(1, Math.round(price * 0.1));
+  return price < 10 ? Math.min(2, Math.max(1, price * 0.1)) : Math.max(1, Math.ceil(price * 0.1 - 1e-9));
 }
 // Mínimo (D59) = el precio más bajo que deja, después de costo + gastos fijos + comisión, al menos el 10 % del
 // precio o 1 USD: máx(K + comisión + 1, (K + comisión) ÷ 0,9), K = costo + gastos fijos, redondeado arriba al
