@@ -1,15 +1,30 @@
 # Programa de gestoras · plan para subirlo (Core 3.14.29 + panel)
 
-Estado (16-oct-2026, tarde): **nada subido. Se sube solo con el SÍ de Ernesto.**
-- Core: rama `programa-gestoras-1016` en `ernest196391/Casa-Viva` (carpeta `C:\Users\Ernesto\Casa-Viva-programa`), versión **3.14.29**, encima de `main` 3.14.25.
-- Panel: rama `programa-gestoras-1016-panel` en `ernesto-rondon-nexo` (carpeta `C:\Users\Ernesto\nexo-programa`), encima de `main`.
-- Diseño y datos reales: `DISENO.md` (§10 encaje con lo nuevo, §11 números del 16-oct).
+## Estado: EN VIVO desde el 16-oct-2026 ~14:20 Cuba (Core 3.14.29), modo sombra, solo Dany
 
-> **Ojo con la versión:** en la web ya va la **3.14.26** («va junto con el #N», subida desde el móvil, todavía no está en GitHub) y hoy sale **3.14.28** (NEXO Busca). Cuando se escribió esto, `main` seguía en 3.14.25. **Rebasar sobre `main` con la 3.14.28 antes de subir** (paso 1).
+Ernesto dijo SÍ el 16-oct a las 14:20 y aceptó todas las recomendaciones (**D75** en `DECISIONES.md`).
+- **Core 3.14.29** en casaviva.company. Casa-Viva `main` = `ba3ff03`, encima de 3.14.28 (NEXO Busca) y 3.14.26 («va junto con el #N»).
+  - Antes de subir, la web era idéntica a `main`: los 173 archivos del plugin tenían el mismo md5.
+  - Copia: `~/bak-20261016-cvd-3.14.28-antes-3.14.29`.
+- **Interruptores:** `cvd_programa_gestoras = sombra`, `cvd_programa_ver = 18` (Dany), `cvd_programa_gastos_fijos = no`. Comprobado: de todas las gestoras, solo 1 lo ve (Dany). Las cuentas de prueba 45 y 46 están **suspendidas**, así que hoy no lo ven.
+- **Lo que ya está programado de D75:**
+  - la red y el bono salen en «Pedir mi pago» como un renglón más (solo los cierres en «sí»; en sombra nada);
+  - a las ventas de proveedor se les resta el fondo de la operación;
+  - los gastos fijos no se restan.
+- **Primer cálculo** (16-oct 14:22, run 1): 3.192 USD cuentan → 643 puntos, fondo 96,50 USD, 1 Bronce. Alertas: 1 autocompra, 57 «revisar», 18 «costo provisional».
+- **Pruebas:** 91 + 33 OK y 49 de las cuentas de pagos.
+- **Capturas** de lo que ve Dany: `docs/nexo-business/capturas/2026-10-16-multinivel/`.
+- **Cómo apagarlo:** `wp option update cvd_programa_gestoras no && wp litespeed-purge all`. Nadie ve nada y no calcula. Para quitarlo del todo, ver el paso 8.
+- **Panel de Lennys** (pestaña Programa): ver el paso 4 y `ESTADO.md` L17.
+
+<details><summary>Lo de antes (cuando estaba sin subir)</summary>
+
+Estado (16-oct-2026, tarde): nada subido. Core: rama `programa-gestoras-1016` (carpeta `C:\Users\Ernesto\Casa-Viva-programa`). Panel: rama `programa-gestoras-1016-panel` (carpeta `C:\Users\Ernesto\nexo-programa`). Diseño y datos reales: `DISENO.md` §10 y §11.
+</details>
 
 ---
 
-## Lo que Ernesto y Lennys tienen que decidir antes
+## Lo que Ernesto y Lennys tenían que decidir antes (DECIDIDO el 16-oct, D75: todas las recomendaciones)
 
 ### Cómo funciona, en 4 líneas
 1. Cada venta entregada y cobrada da **puntos** a quien la vendió: 1 punto = 1 USD que le queda a Casa Viva (precio − lo que costó − la comisión de la gestora).
@@ -48,9 +63,9 @@ Supongamos que cada venta deja como la media real de octubre (el 20 % del precio
    - **Recomiendo (a)** para la prueba (Casa Viva no arriesga nada) y decidir con los números reales de 2 semanas. Hay que explicárselo muy claro a Dany: «el bono depende de lo que gane el equipo».
 4. **Cómo se paga la red y el bono** cuando el programa pase a «sí».
    - Hoy: a mano, en wp-admin → Programa gestoras → «Pagado» con la referencia.
-   - **Recomiendo:** que salgan en **«Pedir mi pago»** como un renglón más (la red en USD, el bono en CUP sin tasa), con el mismo aviso a Lennys y la misma página «Pagar a…». Está sin programar; hace falta antes del primer mes que se pague, no para la prueba.
+   - **Recomiendo:** que salgan en **«Pedir mi pago»** como un renglón más (la red en USD, el bono en CUP sin tasa), con el mismo aviso a Lennys y la misma página «Pagar a…». **Programado en 3.14.29.**
 5. **Ventas de proveedor (bajo pedido).** De su margen ya sale un fondo de ~3.000 CUP (mensajero, dependienta, tienda) y el resto es del gestor especial. Hoy el programa no lo resta, así que esas ventas dan más puntos de lo que de verdad le queda a Casa Viva.
-   - **Recomiendo: restarlo** (se programa en un rato, cuando digas).
+   - **Recomiendo: restarlo.** **Programado en 3.14.29.**
 6. **Costos provisionales** (30 productos: precio ÷ 1,5 o «por confirmar»). **Recomiendo:** que cuenten, con la alerta «Costo provisional» para Lennys. Ya está programado así.
 7. **Quién lo ve primero:** la cuenta de prueba y **Dany**. Le escribe Ernesto (o con su sí), con amabilidad y preguntando si tiene tiempo. **Recomiendo** que también invite a 1 o 2 gestoras: hoy solo 2 de 71 tienen madrina y la red no se puede probar sin invitadas.
 
@@ -80,24 +95,24 @@ git rebase origin/main
 ```
 Conflicto esperado solo en las líneas de versión de `casa-viva-dropship-core.php` (`Version:` y `CVD_VERSION`): **dejar 3.14.29**. Si alguien ya usó la 3.14.29, poner la siguiente libre y cambiarla en todos los sitios: `grep -rn "3\.14\.29" wordpress/casa-viva-dropship-core artifacts/tests`. Todo lo demás de `main` se queda como está (los `require_once` y `register()` del programa van después de `CVD_Supplier_Split`). Después: `git add` y `git rebase --continue`.
 
-## 2. Pruebas (deben salir 84 y 28 OK)
+## 2. Pruebas (deben salir 91 y 33 OK)
 
 No hay PHP en el PC y **no se usa Docker** (llenó el disco C). Carpeta temporal del servidor, **fuera de la web**, y se borra:
 ```bash
 cd /c/Users/Ernesto/Casa-Viva-programa
 tar cf - artifacts/tests/test-programa-gestoras*.php wordpress/casa-viva-dropship-core | $SSH_WEB 'rm -rf ~/tmp-cvd-tests && mkdir ~/tmp-cvd-tests && cd ~/tmp-cvd-tests && tar xf - && for f in wordpress/casa-viva-dropship-core/includes/class-cvd-programa*.php wordpress/casa-viva-dropship-core/includes/class-cvd-gestora-app.php wordpress/casa-viva-dropship-core/casa-viva-dropship-core.php; do php -l $f; done && php artifacts/tests/test-programa-gestoras.php && php artifacts/tests/test-programa-gestoras-wp.php; cd ~; rm -rf ~/tmp-cvd-tests'
 ```
-(77 + 23 son las de la 3.14.1; la 3.14.29 añade 7 + 5.)
+(77 + 23 son las de la 3.14.1; la 3.14.29 añade 14 + 10: gastos fijos, extra en tienda, costo provisional, fondo de proveedor y «Pedir mi pago». Las cuentas de pagos: `php integration/tests/unit/payout-math-test.php` → 49 OK.)
 
 ## 3. Subir Core 3.14.29 a la web
 
 Archivos (todos dentro de `wordpress/casa-viva-dropship-core/`):
 - **nuevos:** `includes/class-cvd-programa-calc.php`, `includes/class-cvd-programa.php`
-- **cambiados:** `casa-viva-dropship-core.php`, `includes/class-cvd-gestora-app.php`, `assets/gestora-app.css`, `assets/gestora-app.js`
+- **cambiados:** `casa-viva-dropship-core.php`, `includes/class-cvd-gestora-app.php`, `includes/class-cvd-payouts.php` («Pedir mi pago»), `assets/gestora-app.css`, `assets/gestora-app.js`
 
 1. **Nadie más cambió esos archivos en la web.** Comparar el servidor con `origin/main` (no con la rama):
    ```bash
-   for f in casa-viva-dropship-core.php includes/class-cvd-gestora-app.php assets/gestora-app.css assets/gestora-app.js; do
+   for f in casa-viva-dropship-core.php includes/class-cvd-gestora-app.php includes/class-cvd-payouts.php assets/gestora-app.css assets/gestora-app.js; do
      echo "$f  main=$(git show origin/main:wordpress/casa-viva-dropship-core/$f | tr -d '\r' | md5sum | cut -c1-8)  web=$($SSH_WEB "tr -d '\r' < $PLUG/$f | md5sum | cut -c1-8")"
    done
    ```
@@ -111,7 +126,7 @@ Archivos (todos dentro de `wordpress/casa-viva-dropship-core/`):
 4. **Copiar** los 6 archivos:
    ```bash
    cd /c/Users/Ernesto/Casa-Viva-programa/wordpress/casa-viva-dropship-core
-   tar cf - includes/class-cvd-programa-calc.php includes/class-cvd-programa.php casa-viva-dropship-core.php includes/class-cvd-gestora-app.php assets/gestora-app.css assets/gestora-app.js | $SSH_WEB "cd $PLUG && tar xf - && for f in includes/class-cvd-programa*.php includes/class-cvd-gestora-app.php casa-viva-dropship-core.php; do php -l \$f; done"
+   tar cf - includes/class-cvd-programa-calc.php includes/class-cvd-programa.php casa-viva-dropship-core.php includes/class-cvd-gestora-app.php includes/class-cvd-payouts.php assets/gestora-app.css assets/gestora-app.js | $SSH_WEB "cd $PLUG && tar xf - && for f in includes/class-cvd-programa*.php includes/class-cvd-gestora-app.php casa-viva-dropship-core.php; do php -l \$f; done"
    ```
 5. `$SSH_WEB "cd $WP && wp litespeed-purge all"`.
 6. **Comprobar:**

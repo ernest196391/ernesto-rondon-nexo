@@ -1247,7 +1247,15 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
   - **Para que la web diga el mismo mínimo que el panel** falta solo la decisión de Ernesto: `wp option update cvd_cost_floor_mode completo` (el aviso de las 9:00 pasa de «pierden dinero» a «bajo el mínimo»). Mientras, el panel enseña el mínimo completo que calcula Core (`floorFull`).
 - **Sin probar en real:** guardar un costo de diseño (no se escribió ningún costo de prueba en productos reales; la función se probó con rollback). Capturas: `docs/nexo-business/capturas/2026-10-16-panel-costos/`.
 
-### L17. Viernes 16-oct tarde — Programa de gestoras listo para subir como Core 3.14.29 (agente de Claude), SIN DESPLEGAR
+### L17. Viernes 16-oct tarde — Programa de gestoras (multinivel) Core 3.14.29 EN VIVO en sombra, solo Dany (D75)
+- **EN VIVO ~14:20 Cuba** (Ernesto SÍ 14:20, D75). Casa-Viva `main` = `ba3ff03`, encima de 3.14.28 y 3.14.26 (antes de subir, la web = `main`, 173 archivos iguales). Copia `~/bak-20261016-cvd-3.14.28-antes-3.14.29`.
+- **Interruptores:** `cvd_programa_gestoras = sombra`, `cvd_programa_ver = 18` (solo Dany; comprobado: 1 gestora lo ve), `cvd_programa_gastos_fijos = no`. Las cuentas de prueba 45 y 46 están suspendidas: no lo ven.
+- **Nuevo en 3.14.29 (D75):** red y bono por «Pedir mi pago» (solo cierres en «sí»); fondo de proveedor restado de los puntos. Tablas `wp_cvd_programa_*` creadas (esquema 2), tarea de la noche `cvd_programa_diario` a las 03:30. Primer cálculo: 3.192 USD → 643 puntos, 1 Bronce.
+- **Comprobado:** `/`, `/tienda/`, `/ventas/`, `/casa-viva-app/` 200; «Cobrar» de Dany carga (6 pedidos, 0 renglones del programa); sin errores nuevos en `error_log`.
+- **Pruebas:** 91 + 33 OK + 49 de pagos. Capturas de lo que ve Dany: `docs/nexo-business/capturas/2026-10-16-multinivel/`.
+- **Apagar:** `wp option update cvd_programa_gestoras no && wp litespeed-purge all`. Deshacer del todo: PLAN-DESPLIEGUE paso 8.
+- **Falta:** Ernesto le escribe a Dany. Panel de Lennys (pestaña «Programa»): ver la línea de abajo.
+- Lo de antes (rama, sin desplegar):
 - **Core:** rama `programa-gestoras-1016` (`ernest196391/Casa-Viva`, carpeta `C:\Users\Ernesto\Casa-Viva-programa`), encima de `main` 3.14.25 (`93c5525`). Conflictos resueltos dejando lo vivo (reparto de proveedor, estudio de fotos, contabilidad). Pruebas 84 + 28 OK (las 77 + 23 de antes + 12 nuevas), `php -l` OK, en carpeta temporal de Hostinger ya borrada.
 - **Encaje con lo nuevo** (DISENO §10): costo provisional cuenta con alerta; gastos fijos solo si `cvd_programa_gastos_fijos = si` (por defecto `no`, D55); premio de la dependienta del «extra en tienda» se resta si un día es > 0; comisiones `approved`/`paid` sin cambios; pagos de red y bono por «Pedir mi pago» = propuesta sin programar.
 - **Panel:** rama `programa-gestoras-1016-panel` (empujada; `node --check` OK). Docs `DISENO.md` y `PLAN-DESPLIEGUE.md` en `docs/nexo-business/programa-gestoras/` de esa rama.
