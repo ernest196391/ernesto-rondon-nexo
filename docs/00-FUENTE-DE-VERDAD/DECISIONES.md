@@ -331,3 +331,9 @@ Ampliación D30 (2026-10-07): el flujo de **Devolución** ya existe en `/ventas/
 4. **Ventas de proveedor (bajo pedido):** el fondo de la operación del reparto (mensajero + dependienta + tienda, ~3.000 CUP, D69) se resta de los puntos de esas líneas.
 5. **Se sube hoy, encendido solo para Dany (user 18)** en modo sombra (`cvd_programa_ver = 18`): calcula y enseña «En prueba», no paga. Le escribe Ernesto. Las 2 cuentas de prueba (45 y 46) están **suspendidas**: no lo ven hasta que alguien las vuelva a aprobar.
 - Además (Claude, técnico y reversible): un costo provisional cuenta con alerta; el premio de la dependienta del «extra en tienda» se resta si un día es > 0.
+
+**D76 · 2026-10-16 · «Queda limpio» y lo que se paga a fin de mes (Lennys, pedido en su chat; Claude lo aplicó)**
+- «Queda limpio por unidad» = precio − costo − gastos fijos − comisión − % dependienta (0,5 %) − % Nati (1,5 %). El **mínimo no cambia** (regla de Core y de la web).
+- El 2 % «Otros cargos» de Ajustes era el valor de fábrica: pasa a **1,5 % «Nati»** (con el 0,5 % de la dependienta suman el 2 % que dijo Lennys).
+- «A pagar este mes» (solo lectura): la dependienta de un pedido web es la que recibió el dinero (si no, la que lo entregó o preparó). La caja no guarda quién vendió: va aparte como «sin saber quién».
+- Stock: cuando la caja y la web no coinciden, manda el último «Quedan» que puso Lennys; si no puso ninguno y la caja restó dos veces un pedido web anterior al alta, manda la web (es la cuenta correcta).
