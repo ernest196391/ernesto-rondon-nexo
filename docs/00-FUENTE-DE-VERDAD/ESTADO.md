@@ -931,6 +931,20 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
   - Higgsfield rechaza escenas con camiseta de tirantes y sudor, y no cobra. Mejor camiseta ancha.
   - Las capas PNG necesitan `-loop 1`. Si no, solo salen en un fotograma.
   - Las capas que empiezan en 0 van sin fundido, para que el gancho se vea en el fotograma 0.
+- **Ernesto, 16-oct:** «Vamos a dar este sí». Se publica tal cual.
+  - Fallos que vio: dijo «suedas» en vez de «sudes» y pronunció mal «poliéster»; el CTA no regala nada; el gancho y las escenas se pueden mejorar. Los cortes, mejor.
+- **Auditoría propia del reel**, para el próximo:
+  1. **Pronunciación:** Whisper la tapa. Revisar la probabilidad de cada palabra y usar palabras simples.
+  2. **Gancho:** «POV: 2 AM» describe la escena pero no crea tensión. Mejor:
+     - una prueba en el segundo 0, como el móvil con «31 °C · 2:07 AM» o la mano sobre el colchón caliente;
+     - una frase que choque: «Si sudas de noche, la culpa no es del calor: es tu colchón».
+  3. **Duración:** 28,5 s es mucho; los datos dicen 12 a 18 s. Hay que quitar el «¿Y esto?» y desenrollar el topper más rápido.
+  4. **Truco 3 = el producto:** rompe la regla de «valor gratis» y se siente como un anuncio. Mejor tres trucos gratis y el topper como «lo definitivo».
+  5. **CTA:** que pregunte por su caso y regale algo concreto que ya exista. Ejemplos:
+     - «¿Cuántas horas se te va la luz de noche? Comenta tus horas y te digo qué truco te aguanta toda la noche»;
+     - una guía en imagen con 7 trucos.
+     - Además hay que decidir quién contesta los comentarios.
+  6. **Escenas:** todas son de noche, oscuras y parecidas, y en el móvil se pierden. Hace falta más luz (luna y linterna) y un contraste visual entre el colchón caliente y el topper fresco.
 - **Disco C lleno (16-oct ~00:20):** C llegó a 0 GB y el montaje fallaba. Con el permiso de Ernesto («mueve los archivos grandes a D»), pasé a `D:\Movido-desde-C\` estas cosas:
   - `Escritorio\`: tres firmwares Samsung `.tar.md5`, unos 8 GB.
   - `Documentos\Chat Gpt codex\`: una copia vieja de NEXO con sus 4 repos, 6,2 GB, del 10-oct. La copia está completa; en C quedaron solo carpetas vacías.
