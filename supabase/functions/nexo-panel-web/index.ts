@@ -244,7 +244,7 @@ Deno.serve(async req => {
       return json(200, await core("POST", `panel/payouts/${Number(body.id)}`, { action: act, reference: String(body.reference ?? "") }));
     }
 
-    // Programa de gestoras (Core 3.14.1, D53–D58): último cálculo del libro y «Recalcular ahora». Solo lectura de dinero: no paga nada.
+    // Programa de gestoras (Core 3.14.29, D53–D60): último cálculo del libro y «Recalcular ahora». Solo lectura de dinero: no paga nada.
     if (body.action === "programa") return json(200, await core("GET", "panel/programa"));
     if (body.action === "programa_calcular") return json(200, await core("POST", "panel/programa/calcular", {}));
 
