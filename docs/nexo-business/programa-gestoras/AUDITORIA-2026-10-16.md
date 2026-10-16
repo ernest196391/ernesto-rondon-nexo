@@ -267,7 +267,7 @@ Cómo se hicieron:
 3. **Lo que no cuadra (no hace perder dinero, pero sí promesas):** en cuanto hay equipos de 2 niveles, **la red se come casi todo el fondo y los bonos de piedra se cobran a medias o a cero** (R2 45 %, R3 33 %, S2 17 %, S9 17 %, S11 1 %, S6 0 %).
    - **Por qué:** con un 20 % de ganancia, el 2 % + 1 % del precio es el 10 % + 5 % de la ganancia = **el 15 % entero**.
    - La propuesta aprobada (D56) era 5 para la red + 10 para bonos. D58 subió la red al 2 % + 1 % del precio, y la cuenta ya no da.
-   - Con red **1 % + 0,5 %** (D53), los mismos escenarios cobran los bonos al: R2 87 %, R3 68 %, S2 48 %, S9 47 % y S11 50 % (`variante-red-1-y-medio.json`).
+   - Con red **1 % + 0,5 %** (D53), los mismos escenarios cobran los bonos al: R2 87 %, R3 68 %, S2 48 %, S9 47 % y S11 50 % (`resultado-3.14.30.json`; con la versión final: R2 87 %, R3 68 %, S2 48 %, S9 47 %, S11 50 %, ver §0.1).
    - **Decide Ernesto** (§5.1).
 4. **Una red grande que vende poco no es un peligro para la tienda** (S4: paga el 15 % de una ganancia real). Pero es lo que hay que vigilar éticamente:
    - la madrina, con 60 USD vendidos, llega a Oro y cobra ~44 USD, contra los 6 de su propia comisión;
