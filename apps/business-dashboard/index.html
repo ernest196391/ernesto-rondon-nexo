@@ -3607,6 +3607,10 @@ async function receiveSheet(done) {
   const partners = mode === "admin" ? ((peopleCache ?? (await loadPeople())) ?? []).filter(p => p.kind === "partner" && p.status === "active") : [];
   const lines = [];
   let invoicePhoto = null, aiUsed = false;
+  // 16-oct (Lennys): productos de la factura que no están en el catálogo → «➕ Producto nuevo con este nombre».
+  // Se crean al confirmar (como «Nuevo producto»: caja + web), con el costo de la factura y el dueño elegido arriba.
+  const canNew = mode === "admin" && canCost();
+  if (canNew && !costSheet) await loadCostSheet();
   if (curruReady === null) curruReady = await fetch(FN + "nexo-curru", { method: "POST", headers: { "content-type": "application/json" }, body: '{"check":true}' }).then(r => r.json()).then(r => r.configured === true).catch(() => false);
   const sheet = openSheet('<div class="sheet-head"><h2>Recibir mercancía</h2><button type="button" class="btn btn-ghost" data-close>Cerrar</button></div>'
     + '<form class="form">'
@@ -3621,19 +3625,39 @@ async function receiveSheet(done) {
     + '<p class="msg" data-msg role="status"></p><button type="submit" class="btn btn-primary btn-xl btn-block">Confirmar entrada</button></form>', "Recibir mercancía");
   const form = sheet.el.querySelector("form");
   const byId = id => items.find(p => p.productId === id);
+  const rateOf = cur => cur === "USD" ? 1 : Number(current?.rates?.[cur] ?? rateNow(cur) ?? NaN);
+  const usdOf = l => l.unitCost == null ? null : Number(l.unitCost) / rateOf(l.currency);
+  // Precio sugerido (D68: costo × 1,5, nunca bajo el mínimo) para un producto nuevo.
+  const suggestOf = l => { const c = usdOf(l); return c != null && Number.isFinite(c) && costSheet ? lennysPrice(c, fixedFor(c), null).price : null; };
   const renderLines = () => {
-    const usdTotal = lines.reduce((t, l) => t + (l.productId ? l.quantity * (Number(l.unitCost) || 0) / (l.currency === "USD" ? 1 : Number(current?.rates?.[l.currency] ?? NaN)) : 0), 0);
+    const usdTotal = lines.reduce((t, l) => t + (l.productId || l.isNew ? l.quantity * (usdOf(l) ?? 0) : 0), 0);
     form.querySelector("[data-lines]").innerHTML = lines.length ? '<div class="breakdown">' + lines.map((l, i) => '<div class="recv-line" data-i="' + i + '">'
-      + '<div class="kv"><span class="title">' + (l.productId ? esc(byId(l.productId)?.name ?? l.productId) : '<span style="color:var(--nx-danger)">Elige el producto: «' + esc(l.readName) + "»</span>") + '</span><button type="button" class="btn btn-ghost btn-icon" data-del aria-label="Quitar">✕</button></div>'
-      + (l.readName && l.productId ? '<span class="meta">En la factura: ' + esc(l.readName) + "</span>" : "")
-      + (l.productId ? "" : '<select data-fix><option value="">— elegir —</option>' + items.filter(p => !l.readName || p.name.toLowerCase().includes(l.readName.split(" ")[0].toLowerCase())).slice(0, 30).map(p => '<option value="' + esc(p.productId) + '">' + esc(p.name) + "</option>").join("") + "</select>")
+      + '<div class="kv"><span class="title">' + (l.productId ? esc(byId(l.productId)?.name ?? l.newName ?? l.productId) : l.isNew ? "➕ Producto nuevo" : '<span style="color:var(--nx-danger)">Elige el producto: «' + esc(l.readName) + "»</span>") + '</span><button type="button" class="btn btn-ghost btn-icon" data-del aria-label="Quitar">✕</button></div>'
+      + (l.readName && (l.productId || l.isNew) ? '<span class="meta">En la factura: ' + esc(l.readName) + "</span>" : "")
+      + (l.productId || l.isNew ? "" : '<select data-fix><option value="">— elegir —</option>' + (canNew ? '<option value="__new">➕ Producto nuevo con este nombre</option>' : "") + items.filter(p => !l.readName || p.name.toLowerCase().includes(l.readName.split(" ")[0].toLowerCase())).slice(0, 30).map(p => '<option value="' + esc(p.productId) + '">' + esc(p.name) + "</option>").join("") + "</select>"
+        + (canNew ? '<p class="t-xs muted">¿No está en la lista? Elige «➕ Producto nuevo con este nombre»: se crea al confirmar la entrada.</p>' : ""))
+      + (l.isNew && !l.productId ? '<label class="field t-sm">Nombre del producto nuevo<input data-nname maxlength="120" value="' + esc(l.newName ?? "") + '"></label>'
+        + '<div class="grid-2"><label class="field t-sm">Precio de venta USD<input data-nprice inputmode="decimal" placeholder="' + esc(suggestOf(l) ?? "") + '" value="' + esc(l.newPrice ?? "") + '"></label>'
+        + '<label class="field t-sm">¿Se vende ya?<select data-nactive><option value="1"' + (l.newActive !== false ? " selected" : "") + '>Sí, a la venta</option><option value="0"' + (l.newActive === false ? " selected" : "") + ">No, borrador</option></select></label></div>"
+        + '<p class="t-xs muted">' + (suggestOf(l) != null ? "Sugerido " + dollars(suggestOf(l)) + " (costo × 1,5, nunca bajo el mínimo). Vacío = el sugerido. " : "") + "Borrador = se crea pero no se vende en la caja ni en la web hasta que lo pongas a la venta.</p>"
+        + '<button type="button" class="btn btn-ghost btn-block t-sm" data-unnew>Mejor elegir uno que ya existe</button>' : "")
       + '<div class="grid-3"><label class="field t-sm">Cantidad<input data-qty inputmode="numeric" value="' + l.quantity + '"></label><label class="field t-sm">Costo c/u<input data-cost inputmode="decimal" value="' + esc(l.unitCost ?? "") + '"></label>'
-      + '<label class="field t-sm">Moneda<select data-cur>' + ["USD", "CUP", "MLC"].map(c => "<option" + (l.currency === c ? " selected" : "") + ">" + c + "</option>").join("") + "</select></label></div></div>").join("")
+      + '<label class="field t-sm">Moneda<select data-cur>' + ["USD", "CUP", "MLC"].map(c => "<option" + (l.currency === c ? " selected" : "") + ">" + c + "</option>").join("") + "</select></label></div>"
+      + (l.currency !== "USD" && l.unitCost != null ? '<span class="meta">' + (Number.isFinite(usdOf(l)) ? "≈ " + dollars(usdOf(l)) + " c/u (tasa de hoy " + rateOf(l.currency) + " " + l.currency + ")" : "Falta la tasa de hoy del " + l.currency + " (Ajustes → Tasas)") + "</span>" : "")
+      + "</div>").join("")
       + (Number.isFinite(usdTotal) ? '<div class="kv strong"><span>Total</span><span class="num">' + dollars(usdTotal) + "</span></div>" : "") + "</div>" : "";
     form.querySelectorAll(".recv-line").forEach(row => {
       const l = lines[Number(row.dataset.i)];
       row.querySelector("[data-del]").onclick = () => { lines.splice(lines.indexOf(l), 1); renderLines(); };
-      row.querySelector("[data-fix]")?.addEventListener("change", e => { l.productId = e.target.value || null; renderLines(); });
+      row.querySelector("[data-fix]")?.addEventListener("change", e => {
+        if (e.target.value === "__new") { l.isNew = true; l.newName = l.newName ?? l.readName ?? ""; l.productId = null; }
+        else l.productId = e.target.value || null;
+        renderLines();
+      });
+      row.querySelector("[data-unnew]")?.addEventListener("click", () => { l.isNew = false; renderLines(); });
+      row.querySelector("[data-nname]")?.addEventListener("change", e => { l.newName = e.target.value.trim(); });
+      row.querySelector("[data-nprice]")?.addEventListener("change", e => { l.newPrice = e.target.value.trim(); });
+      row.querySelector("[data-nactive]")?.addEventListener("change", e => { l.newActive = e.target.value === "1"; });
       row.querySelector("[data-qty]").onchange = e => { l.quantity = Math.max(1, parseInt(e.target.value, 10) || 1); renderLines(); };
       row.querySelector("[data-cost]").onchange = e => { l.unitCost = num(e.target.value); renderLines(); };
       row.querySelector("[data-cur]").onchange = e => { l.currency = e.target.value; renderLines(); };
@@ -3674,16 +3698,35 @@ async function receiveSheet(done) {
     const msg = form.querySelector("[data-msg]");
     const bad = t => { msg.textContent = t; msg.dataset.tone = "bad"; };
     if (!lines.length) return bad("Añade al menos un producto.");
-    if (lines.some(l => !l.productId)) return bad("Hay productos sin elegir (en rojo).");
+    if (lines.some(l => !l.productId && !l.isNew)) return bad("Hay productos sin elegir (en rojo).");
     if (lines.some(l => l.unitCost == null)) return bad("Falta el costo de algún producto.");
+    if (lines.some(l => !l.productId && l.isNew && !String(l.newName ?? "").trim())) return bad("Escribe el nombre del producto nuevo.");
+    if (lines.some(l => !l.productId && l.isNew && !(num(l.newPrice) > 0) && !(suggestOf(l) > 0))) return bad("Escribe el precio de venta del producto nuevo.");
     const submit = form.querySelector("[type=submit]");
     submit.disabled = true; msg.textContent = "Guardando…"; msg.dataset.tone = "";
+    // Primero se crean los productos nuevos (caja + web). Si algo falla después, ya quedan creados y no se repiten.
+    const webNotes = [];
+    for (const l of lines.filter(x => x.isNew && !x.productId)) {
+      const price = num(l.newPrice) > 0 ? num(l.newPrice) : suggestOf(l);
+      const active = l.newActive !== false;
+      msg.textContent = "Creando «" + l.newName + "»…";
+      const { data: saved, error } = await supabase.rpc("nexo_business_product_save", {
+        p_business: bizId(), p_product_id: null, p_name: l.newName, p_sku: "", p_barcodes: [], p_price_usd: price,
+        p_category: "", p_image_url: null, p_active: active, p_min_stock: null });
+      if (error || saved?.error) { submit.disabled = false; return bad("No se creó «" + l.newName + "»: " + (error?.message ?? saved.error)); }
+      l.productId = saved.productId;
+      try {
+        const w = await panelWeb({ action: "product_web_save", wooId: null, nexoId: saved.productId, name: l.newName, price, category: "", imageUrl: "", sku: saved.sku, active, galleryUrls: [] });
+        if (w.wooId) await supabase.rpc("nexo_business_product_link_web", { p_business: bizId(), p_product: saved.productId, p_woo_id: w.wooId });
+      } catch { webNotes.push(l.newName); }
+    }
+    msg.textContent = "Guardando la entrada…";
     const { data, error } = await supabase.rpc("nexo_business_receive_goods", { p_business: bizId(), p_receipt: {
       supplierName: form.elements.supplier.value.trim(), partnerId: form.elements.partner?.value || null, photo: invoicePhoto, aiUsed,
       note: form.elements.note.value.trim(), lines: lines.map(l => ({ productId: l.productId, quantity: l.quantity, unitCost: l.unitCost, currency: l.currency })) } });
     if (error || data?.error) { submit.disabled = false; return bad("No se guardó: " + (error?.message ?? data.message ?? data.error)); }
     sheet.close();
-    toast("Entrada #" + data.number + " guardada: stock y costos al día", "ok");
+    toast("Entrada #" + data.number + " guardada: stock y costos al día" + (webNotes.length ? ". Ojo: no llegó a la web: " + webNotes.join(", ") + " (ábrelo y guarda otra vez)" : ""), webNotes.length ? "bad" : "ok");
     shop = null; costSheet = null;
     done?.();
   };
