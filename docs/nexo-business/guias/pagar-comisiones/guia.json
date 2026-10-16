@@ -1,0 +1,85 @@
+{
+  "titulo": "Pagar comisión",
+  "formato": "1080x1350",
+  "para": "Lennys",
+  "mensaje": "Buenos días, Lennys 🌸 Ya está lista la forma nueva de pagar las comisiones, sin chat y sin grupo:\n\n• *La gestora pide su pago* cuando quiera, desde su área: todo o una parte, por transferencia o en efectivo. Si debe algo a la tienda, se le descuenta solo.\n• *A ti te llega un WhatsApp* «Fulana pide su comisión» con un enlace. Ahí ves cuánto es en CUP (con la tasa del día de cada venta) y el detalle por pedido.\n• *Copias* la tarjeta, el teléfono y el importe, haces la transferencia en Transfermóvil, *subes la captura* y tocas *Ya pagué*. A la gestora le llega el aviso y ve la captura en su área.\n• *Si es en efectivo*, se le avisa a Zaymi; la gestora lo recoge en la tienda y toca *Recibido*.\n\nAntes de avisar a las gestoras queremos probarlo contigo, unos 15 minutos. ¿A qué hora te viene bien hoy?\n\nTe dejo los pasos en las fotos 👇 Si algo no sale, escríbeme.",
+  "pasos": [
+    {
+      "texto": "Toca **Copiar tarjeta**.",
+      "resultado": "El botón dice **Copiado**. Pégala en Transfermóvil, en la tarjeta de destino.",
+      "ojo": "Abre primero el enlace del WhatsApp «… pide su comisión».",
+      "captura": "capturas/pagar-a.png",
+      "marca": {
+        "x": 486,
+        "y": 514,
+        "w": 230,
+        "h": 84
+      },
+      "flecha": "arriba",
+      "zoom": 1.1,
+      "foco_alto": 0.4,
+      "pie": "Paso 1 de 5: toca Copiar tarjeta y pégala en Transfermóvil."
+    },
+    {
+      "texto": "Toca **Copiar teléfono**.",
+      "resultado": "Pégalo en Transfermóvil, en «Móvil a confirmar».",
+      "captura": "capturas/pagar-a.png",
+      "marca": {
+        "x": 462,
+        "y": 652,
+        "w": 254,
+        "h": 86
+      },
+      "flecha": "no",
+      "zoom": 1.1,
+      "foco_alto": 0.4,
+      "pie": "Paso 2 de 5: toca Copiar teléfono."
+    },
+    {
+      "texto": "Toca **Copiar importe**.",
+      "resultado": "Pégalo en el importe y haz la transferencia.",
+      "captura": "capturas/pagar-a.png",
+      "marca": {
+        "x": 466,
+        "y": 792,
+        "w": 251,
+        "h": 86
+      },
+      "flecha": "no",
+      "zoom": 1.1,
+      "foco_alto": 0.4,
+      "pie": "Paso 3 de 5: toca Copiar importe y haz la transferencia."
+    },
+    {
+      "texto": "Toca **Seleccionar archivo** y elige la captura.",
+      "resultado": "Queda puesta la captura de Transfermóvil.",
+      "ojo": "Si no tienes captura, escribe el número de la transacción.",
+      "captura": "capturas/pagar-a.png",
+      "marca": {
+        "x": 86,
+        "y": 1840,
+        "w": 312,
+        "h": 52
+      },
+      "flecha": "der",
+      "zoom": 1.1,
+      "foco_alto": 0.5,
+      "pie": "Paso 4 de 5: sube la captura de la transferencia."
+    },
+    {
+      "texto": "Toca **Ya pagué**.",
+      "resultado": "A la gestora le llega el aviso y ve la captura en su área.",
+      "captura": "capturas/pagar-a.png",
+      "marca": {
+        "x": 62,
+        "y": 2126,
+        "w": 654,
+        "h": 110
+      },
+      "flecha": "abajo",
+      "zoom": 1.1,
+      "foco_alto": 0.6,
+      "pie": "Paso 5 de 5: toca Ya pagué. Listo."
+    }
+  ]
+}

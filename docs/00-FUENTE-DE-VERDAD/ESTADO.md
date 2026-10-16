@@ -923,7 +923,18 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
   - «Últimas unidades» sale en 1 de cada 3 tarjetas: ¿se deja así o solo cuando queda 1?
   - El soporte de TV y la puerta de corredera están en Cocina: lo decide quien revise las categorías.
 
-**Pagos de comisiones sin chat (D73) — Core 3.14.23 HECHO, SIN DESPLEGAR (16-oct 01:00).**
+**Pagos de comisiones sin chat (D73) — Core 3.14.23 EN VIVO desde el 16-oct 01:20 (Ernesto: «súbelo»).**
+- **Despliegue:**
+  - copia en Hostinger `~/bak-20261016-cvd-3.14.22-antes-3.14.23` (plugin + `tablas-pagos.json`; `wp db export` falla en Hostinger);
+  - archivos subidos, `maybe_upgrade` (tabla `wp_cvd_payout_avisos` creada) y caché purgada;
+  - comprobado: la web da 200, el enlace de pago falso da 403 y no hay errores nuevos.
+  - Casa-Viva main = `f8fce6c`.
+  - **Para deshacer:** volver a subir la carpeta del plugin de la copia y `wp litespeed-purge all`.
+- **Bot:** `src/avisos-pago.js` instalado en el VPS (commit `5dd8449`, solo en el VPS: allí no hay permiso para push a GitHub; copia `/root/index.js.bak-20261016-antes-avisos-pago`). `crm_settings avisos_pago = prueba` (todo a Ernesto). `GET /bot/payout-avisos` responde.
+- **Prueba con Lennys:**
+  - la guía (`docs/nexo-business/guias/pagar-comisiones/`, 5 pasos) sale a las **8:30** por cron único `tareas/lennys-pagos-0830.sh`;
+  - el supervisor del VPS tiene en su CLAUDE.md una sección para vigilar el chat de Lennys, poner `avisos_pago = si` a la hora de la prueba y avisar a Ernesto (copia `CLAUDE.md.bak-20261016-pagos`);
+  - cuando Lennys apruebe: tutoriales para las gestoras en HyperFrames y subirlos a «Aprende». Las gestoras todavía no están avisadas.
 - **Dónde está:** rama `pagos-comisiones-1015`, commit `f8fce6c` (Casa-Viva), worktree `C:\Users\Ernesto\cv-pagos`. Capturas en `artifacts/pagos-1015/`. El módulo del bot está en `artifacts/pagos-1015/bot/avisos-pago.js`, sin instalar.
 - **Qué hace:**
   - La gestora pide su pago cuando quiere, todo o una parte, por transferencia o en efectivo.
