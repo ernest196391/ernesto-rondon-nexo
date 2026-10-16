@@ -923,6 +923,23 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
   - «Últimas unidades» sale en 1 de cada 3 tarjetas: ¿se deja así o solo cuando queda 1?
   - El soporte de TV y la puerta de corredera están en Cocina: lo decide quien revise las categorías.
 
+**Pagos de comisiones sin chat (D73) — Core 3.14.23 HECHO, SIN DESPLEGAR (16-oct 01:00).**
+- **Dónde está:** rama `pagos-comisiones-1015`, commit `f8fce6c` (Casa-Viva), worktree `C:\Users\Ernesto\cv-pagos`. Capturas en `artifacts/pagos-1015/`. El módulo del bot está en `artifacts/pagos-1015/bot/avisos-pago.js`, sin instalar.
+- **Qué hace:**
+  - La gestora pide su pago cuando quiere, todo o una parte, por transferencia o en efectivo.
+  - A Lennys le llega por WhatsApp un enlace «Pagar a…» con la tarjeta, el teléfono y el importe en CUP, con la tasa del día de cada venta. Tiene botones para copiar cada dato.
+  - Lennys sube la captura y toca «Ya pagué». La gestora recibe el aviso y ve la captura en su área.
+  - Si es en efectivo: avisa a la dependienta, la gestora lo recoge en la tienda y toca «Recibido».
+  - Las deudas con la tienda se descuentan al cobrar.
+- **Pruebas:** pasan las 49 de las cuentas, la de WordPress local `payouts-1015.php` y la 4C vieja. La 4A falla desde antes (regla anterior a la 3.13.79); la 4B no se corrió.
+- **Ojo con Docker:** la suite en Docker llenó el disco C esa noche.
+- **Sin probar todavía:**
+  - el servidor real (LiteSpeed, el `.htaccess` de las capturas);
+  - que los avisos lleguen de verdad por WhatsApp;
+  - los botones de copiar en un móvil real con Transfermóvil.
+- **Prueba de Transfermóvil:** página https://claude.ai/artifact/5bTSDov2Cgzdp1PSnJLmz4 con los mismos botones; el importe sale de tres formas para ver cuál acepta. Transfermóvil no tiene un enlace conocido que abra la app con los datos ya puestos.
+- **Para desplegar:** seguir el informe del agente, con el sí de Ernesto. Copia de seguridad, subir el plugin, `wp eval 'CVD_Plugin::maybe_upgrade();'`, purgar la caché, `avisos_pago=prueba`, instalar el módulo del bot y probar con Dany.
+
 **Reel 15/16-oct «POV: 2 AM sin corriente» (topper con gel)** (skill nueva `videos-virales` + `reel-casa-viva`, 16-oct ~00:30 Cuba). LISTO, SIN PUBLICAR; entregado a Ernesto en el chat.
 - **Archivos** (`videos/curru-tienda/reel-topper-gel/`): `casa-viva-reel-topper-gel.mp4` (28,5 s, 23 MB) y `-fb.mp4` (8,7 MB). Música: «Casa Viva Song (1)», de 0 a 28,5 s, a −11 dB. Gancho A en caja petróleo desde el fotograma 0, 21 subtítulos, frase ámbar «El colchón guarda el calor del día», «Comenta CALOR» y logo al final. Para rehacerlo: `node capas.mjs && node mezcla.mjs`.
 - **Higgsfield:** dos escenas Seedance 2.0 de 15 s (`26c83d23…`, `07bd74a2…`) más las imágenes de arranque (`edf56cf3…`, `2e46e94c…`). Unos **139 créditos**. Whisper confirma el guion.
