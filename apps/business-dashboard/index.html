@@ -2448,11 +2448,11 @@ function renderWebPayouts(list) {
     catch (e) { b.disabled = false; toast(e.message, "bad"); }
   }));
 }
-// ---------- Programa de gestoras (D53–D60, Core 3.14.29): red 2 % + 1 %, piedras por ganancia, fondo del 15 % ----------
+// ---------- Programa de gestoras (D53–D60, D77; Core 3.14.30): red 1 % + 0,5 %, piedras por ganancia, fondo del 15 % de la ganancia neta ----------
 // Lo calcula Core (CVD_Programa) cada noche; aquí solo se lee el último cálculo del libro y se puede recalcular.
 const PROG_MODE = { sombra: ["En prueba: no se paga", "badge-low"], si: ["Activo: se paga", "badge-ok"], no: ["Apagado", "badge-calm"] };
 const PROG_STONE = { bronce: "Bronce", plata: "Plata", oro: "Oro", platino: "Platino", zafiro: "Zafiro", rubi: "Rubí", esmeralda: "Esmeralda", diamante: "Diamante", "doble-diamante": "Doble Diamante", corona: "Corona" };
-const PROG_ALERT = { autocompra: "Autocompra (no cuenta)", concentracion: "Una persona con más del 60 %", sin_costo: "Producto sin costo", pierde: "Se vende perdiendo", devolucion: "Devolución", red_negativa: "Red en negativo", revisar: "Su teléfono con otro cliente (cuenta)", provisional: "Costo provisional (cuenta)" };
+const PROG_ALERT = { autocompra: "Autocompra (no cuenta)", concentracion: "Una persona con más del 60 %", sin_costo: "Producto sin costo", pierde: "Se vende perdiendo", devolucion: "Devolución", red_negativa: "Red en negativo", revisar: "Su teléfono con otro cliente (cuenta)", provisional: "Costo provisional (cuenta)", autocompra_red: "La madrina compra por su invitada (sin red)", ganancia_alta: "Ganancia muy alta: revisar el costo" };
 const progCup = n => Number(n ?? 0).toLocaleString("es", { maximumFractionDigits: 0 }) + " CUP";
 const progPts = n => Number(n ?? 0).toLocaleString("es", { maximumFractionDigits: 1 });
 async function loadPrograma(recalc = false) {
@@ -2468,7 +2468,7 @@ function renderPrograma(r) {
   const names = Object.fromEntries((r.people ?? []).map(p => [p.id, p.name]));
   const t = r.totals;
   const head = '<div class="kv"><h2 class="t-lg">Programa de gestoras</h2><span class="badge ' + modeCls + '">' + esc(modeLabel) + "</span></div>"
-    + '<p class="t-sm muted">Red 2 % + 1 %, piedras por la ganancia que dejan y bonos del fondo del 15 %. Se calcula cada noche; el interruptor está en la web (Casa Viva → Programa gestoras).'
+    + '<p class="t-sm muted">Red 1 % + 0,5 %, piedras por la ganancia que dejan y bonos del fondo del 15 % de la ganancia neta (las ventas que pierden restan; las devoluciones que no caben pasan al mes siguiente). Se calcula cada noche; el interruptor está en la web (Casa Viva → Programa gestoras).'
     + (r.fixedCosts ? " Los puntos restan también los gastos fijos de cada producto." : " Los puntos no restan los gastos fijos (precio − costo − comisión).") + "</p>";
   if (!r.run || !t) {
     $("#people").innerHTML = head + '<p class="muted">Todavía no hay ningún cálculo.</p><button type="button" class="btn btn-primary btn-block" data-prog-calc>Calcular ahora</button>';
@@ -2477,6 +2477,7 @@ function renderPrograma(r) {
     $("#people").innerHTML = head
       + '<div class="kpis two"><div class="kpi"><span class="label">Fondo del mes (15 %)</span><span class="value num" style="font-size:var(--nx-fs-lg)">' + usd2(t.pool_usd) + '</span><span class="sub">de ' + usd2(t.profit_usd) + " de ganancia limpia</span></div>"
       + '<div class="kpi"><span class="label">' + (r.mode === "si" ? "Se debe pagar" : "Se pagaría") + '</span><span class="value num" style="font-size:var(--nx-fs-lg)">' + usd2(t.pay_usd) + '</span><span class="sub">red ' + usd2(t.red_usd) + " · bonos " + progCup(t.bonus_cup) + (t.factor_bonus < 0.999 ? " (" + Math.round(100 * t.factor_bonus) + " % cubierto)" : "") + "</span></div></div>"
+      + (t.carry_out_usd > 0 || t.carry_in_usd > 0 ? '<p class="t-sm">' + esc((t.carry_in_usd > 0 ? "Este mes se descuentan " + usd2(t.carry_in_usd) + " de devoluciones de meses anteriores. " : "") + (t.carry_out_usd > 0 ? "Quedan " + usd2(t.carry_out_usd) + " de devoluciones por descontar el mes que viene." : "")) + "</p>" : "")
       + '<p class="t-xs muted">' + esc(r.run.period + " · cálculo " + r.run.kind + " · " + when(r.run.computedAt) + " · ventas que cuentan " + usd2(t.sales_usd) + " · " + t.people_with_stone + " con piedra este mes") + "</p>"
       + (alerts.length ? '<h3 class="t-sm" style="margin-top:12px">Alertas (' + alerts.length + ")</h3>" + '<p class="t-xs muted">' + esc(Object.entries(r.alertCounts ?? {}).map(([k, v]) => (PROG_ALERT[k] ?? k) + ": " + v).join(" · ")) + "</p>" + alerts.slice(0, 30).map(a => '<div class="row-item"><span class="grow"><span class="title">' + esc(PROG_ALERT[a.type] ?? a.type) + '</span><span class="meta">' + esc(a.text) + "</span></span></div>").join("") : "")
       + '<h3 class="t-sm" style="margin-top:12px">Gestoras</h3>'
