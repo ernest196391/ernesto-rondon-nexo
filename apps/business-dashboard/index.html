@@ -703,8 +703,8 @@ async function editProduct(p) {
     const qtyRaw = String(f.get("qty") ?? "").trim();
     const qty = qtyRaw === "" ? null : Number(qtyRaw);
     if (qty != null && (!Number.isInteger(qty) || qty < 0)) return fail("La cantidad debe ser un número entero");
-    const comm = readCommission(form);
-    if (Number.isNaN(comm)) return fail("La comisión debe ser un número en USD (0 o más)");
+    const comm = readCommission(form, price);
+    if (Number.isNaN(comm)) return fail("La comisión debe ser un número en USD (0 o más) o un % del precio, por ejemplo 10%");
     form.querySelector("[type=submit]").disabled = true;
     try {
       let imageUrl = null;
@@ -852,15 +852,29 @@ function bulkSheet() {
   const sheet = openSheet('<div class="sheet-head"><h2>Cambiar ' + picked.size + " productos</h2><button type=\"button\" class=\"btn btn-ghost\" data-close>Cerrar</button></div>"
     + '<form class="form"><label class="field">¿Qué quieres hacer?<select name="mode">'
     + '<option value="offer">Poner en oferta (% de descuento)</option><option value="clear">Quitar la oferta</option>'
-    + '<option value="up">Subir el precio (%)</option><option value="down">Bajar el precio (%)</option><option value="set">Poner el mismo precio a todos (USD)</option></select></label>'
+    + '<option value="up">Subir el precio (%)</option><option value="down">Bajar el precio (%)</option><option value="set">Poner el mismo precio a todos (USD)</option>'
+    // Comisión de la gestora a varios (Lennys, 15-oct): % del precio de cada uno, USD fijos o la regla de Lennys.
+    + (canCost() ? '<option value="comm_pct">Comisión de la gestora: % del precio de cada uno</option><option value="comm_usd">Comisión de la gestora: USD fijos a todos</option>'
+      + '<option value="comm_rule">Comisión de la gestora: regla de Lennys (10 %, mín. 1 y máx. 2 si cuesta menos de 10)</option>' : "")
+    + '</select></label>'
     + '<label class="field" data-val>Cantidad<input name="value" inputmode="decimal" placeholder="Ej.: 10"></label>'
     + '<p class="msg" data-msg role="status"></p><button type="submit" class="btn btn-primary btn-xl btn-block">Aplicar</button></form>', "Cambiar varios");
   const form = sheet.el.querySelector("form");
   const msg = form.querySelector("[data-msg]");
-  form.mode.onchange = () => { form.querySelector("[data-val]").hidden = form.mode.value === "clear"; };
+  form.mode.onchange = () => { form.querySelector("[data-val]").hidden = ["clear", "comm_rule"].includes(form.mode.value); };
   form.onsubmit = async e => {
     e.preventDefault();
     const mode = form.mode.value, v = num(form.value.value);
+    if (mode.startsWith("comm_")) {
+      if ((mode === "comm_pct" && !(v >= 0 && v < 100)) || (mode === "comm_usd" && !(v >= 0))) { msg.textContent = "Escribe una cantidad válida"; msg.dataset.tone = "bad"; return; }
+      const usdOf = r => mode === "comm_usd" ? v : mode === "comm_rule" ? lennysCommission(r.priceUsd) : Math.round(r.priceUsd * v) / 100;
+      const rows = [...picked].map(id => invRows.find(x => x.productId === id)).filter(Boolean);
+      form.querySelector("[type=submit]").disabled = true; msg.textContent = "Guardando la comisión de " + rows.length + " productos…"; msg.dataset.tone = "";
+      const c = commNote(await saveCommissionsEach(Object.fromEntries(rows.map(r => [r.productId, Math.round(usdOf(r) * 100) / 100]))));
+      sheet.close(); setPicking(false); renderInventory();
+      toast(c ? "Ojo: " + c + "." : "Listo: comisión cambiada en " + rows.length + " productos (también en la web).", c ? "bad" : "ok");
+      return;
+    }
     if (mode !== "clear" && !(v > 0) || (["offer", "down"].includes(mode) && v >= 100)) { msg.textContent = "Escribe una cantidad válida"; msg.dataset.tone = "bad"; return; }
     const round = x => Math.round(x * 100) / 100;
     const items = [...picked].map(id => {
@@ -973,12 +987,16 @@ function oneRow(r) {
   const state = (r.offerUsd != null && r.active ? '<span class="badge badge-info">Oferta ' + usd2(r.offerUsd) + "</span>" : "")
     + (!r.active ? '<span class="badge badge-calm">Retirado</span>' : r.stock <= 0 ? '<span class="badge badge-out">Agotado</span>' : isLow(r) ? '<span class="badge badge-low">Pocas</span>' : "")
     + (noComm(r) ? '<span class="badge badge-low" title="Ábrelo y escribe la comisión de la gestora">Sin comisión</span>' : "");
+  // Comisión de la gestora a la vista (Lennys, 15-oct): «gestora 2 USD (20 %)». Solo dueña/economista.
+  const cm = canCost() && costSheet ? commOf(r.productId) : null;
+  const commTxt = cm != null ? " · gestora " + usd2(cm) + (r.priceUsd > 0 ? " (" + Math.round(cm / r.priceUsd * 100) + " %)" : "") : "";
   if (picking) return '<label class="inv-row inv-pick"><input type="checkbox" data-pick="' + esc(r.productId) + '"' + (picked.has(r.productId) ? " checked" : "") + ">" + photo(r.imageUrl, name)
-    + '<span class="grow"><span class="title">' + esc(name) + '</span><span class="meta">' + usd2(r.priceUsd) + " · quedan " + r.stock + "</span></span>" + state + "</label>";
+    + '<span class="grow"><span class="title">' + esc(name) + '</span><span class="meta">' + usd2(r.priceUsd) + " · quedan " + r.stock + commTxt + "</span></span>" + state + "</label>";
   const head = '<button type="button" class="inv-head" data-open aria-label="Abrir ' + esc(name) + '">' + photo(r.imageUrl, name)
     + '<span class="grow"><span class="title">' + esc(name) + "</span>"
     + (webLeft(r) ? '<span class="meta" style="color:var(--nx-danger)">Todavía se ve en la web</span>'
       : isDiff(r) ? '<span class="meta" style="color:var(--nx-danger)">En la web: ' + r.web.stock + " · no coincide: avisa a Ernesto para igualarla</span>" : !r.wooId ? '<span class="meta">No está en la web</span>' : "")
+    + (commTxt ? '<span class="meta">Comisión' + esc(commTxt.replace(" · gestora", " de la gestora:")) + "</span>" : "")
     + "</span>" + state + "</button>";
   if (!r.active) return '<div class="inv-row" data-inv="' + esc(r.productId) + '">' + head + '<div class="row-actions">'
     + (webLeft(r) ? '<button type="button" class="btn btn-secondary" data-webhide>Quitar de la web</button>' : "")
@@ -1254,11 +1272,15 @@ async function editGroup(key) {
     const f = commBox.querySelector("form");
     f.onsubmit = async e => {
       e.preventDefault();
-      const v = readCommission(f);
-      if (Number.isNaN(v)) return toast("La comisión debe ser un número en USD (0 o más)", "bad");
-      const ids = rowsNow().filter(r => r.active).map(r => r.productId);
+      const active = rowsNow().filter(r => r.active);
+      const ids = active.map(r => r.productId);
+      // «10%»: cada diseño con su precio (pueden costar distinto).
+      const pct = String(f.querySelector("[name=commission]")?.value ?? "").includes("%");
+      const map = pct ? Object.fromEntries(active.map(r => [r.productId, readCommission(f, r.priceUsd)])) : null;
+      const v = pct ? 0 : readCommission(f);
+      if (Number.isNaN(v) || (map && Object.values(map).some(Number.isNaN))) return toast("La comisión debe ser un número en USD (0 o más) o un % del precio, por ejemplo 10%", "bad");
       f.querySelector("[type=submit]").disabled = true;
-      const c = commNote(await saveCommissions(ids, v));
+      const c = commNote(map ? await saveCommissionsEach(map) : await saveCommissions(ids, v));
       toast(c ? "Ojo: " + c + "." : v == null ? "Listo: los diseños usan la comisión general." : "Comisión guardada para " + ids.length + (ids.length === 1 ? " diseño." : " diseños."), c ? "bad" : "ok");
       renderComm();
       if (page === "catalogo") renderInventory();
@@ -1340,8 +1362,8 @@ async function editGroup(key) {
       if (twin) return fail(twin.active ? "Ya hay un diseño «" + designLabel(twin) + "». Cambia su cantidad en la lista de arriba." : "«" + designLabel(twin) + "» ya existe pero está retirado: ábrelo en «Diseños retirados» y pulsa «Volver a vender».");
       if (!(price > 0)) return fail("Escribe un precio mayor que 0");
       if (qtyT === "" || !Number.isInteger(qty) || qty < 0) return fail("Escribe cuántas hay (0 o más)");
-      const comm = readCommission(form);
-      if (Number.isNaN(comm)) return fail("La comisión debe ser un número en USD (0 o más)");
+      const comm = readCommission(form, price);
+      if (Number.isNaN(comm)) return fail("La comisión debe ser un número en USD (0 o más) o un % del precio, por ejemplo 10%");
       form.querySelector("[type=submit]").disabled = true;
       try {
         let imageUrl = "";
@@ -1469,8 +1491,8 @@ function designsProductSheet(pre) {
       designs.push({ label, qty, row });
     }
     if (!designs.length) return fail("Escribe al menos un diseño o color");
-    const comm = readCommission(form);
-    if (Number.isNaN(comm)) return fail("La comisión debe ser un número en USD (0 o más)");
+    const comm = readCommission(form, price);
+    if (Number.isNaN(comm)) return fail("La comisión debe ser un número en USD (0 o más) o un % del precio, por ejemplo 10%");
     form.querySelector("[type=submit]").disabled = true;
     try {
       msg.textContent = "Subiendo fotos…"; msg.dataset.tone = "";
@@ -1537,17 +1559,35 @@ const noComm = r => Boolean(canCost() && costSheet && r.active && costOf(r.produ
 function commissionField(value, note) {
   if (!canCost()) return ""; // solo dueña y economista pueden cambiar comisiones (la nube lo exige)
   const d = commDefault();
-  return '<label class="field">Comisión de la gestora (USD por unidad)<input name="commission" inputmode="decimal" placeholder="General: ' + esc(d.text) + '" value="' + esc(value ?? "") + '"></label>'
+  return '<label class="field">Comisión de la gestora (USD por unidad, o % del precio: «10%»)<input name="commission" inputmode="decimal" placeholder="General: ' + esc(d.text) + '" value="' + esc(value ?? "") + '"></label>'
     + '<p class="t-xs muted">' + esc(note ?? "Si la dejas vacía se usa la general (" + d.text + ").") + "</p>";
 }
 // undefined = no hay campo; null = vacío; NaN = mal escrito; número = USD.
-function readCommission(form) {
+// «10%» (Lennys, 15-oct): % del precio de ese producto, guardado en USD. Sin precio conocido → NaN.
+function readCommission(form, priceUsd) {
   const el = form?.querySelector("[name=commission]");
   if (!el) return undefined;
   const t = el.value.trim();
   if (!t) return null;
+  if (t.includes("%")) {
+    const p = num(t.replace("%", ""));
+    return p != null && p >= 0 && p < 100 && priceUsd > 0 ? Math.round(priceUsd * p) / 100 : NaN;
+  }
   const v = num(t);
   return v == null ? NaN : v;
+}
+// Comisión distinta por producto ({productId: usd}): la guarda en la nube y la copia a la web de una vez.
+async function saveCommissionsEach(map) {
+  const failed = [];
+  for (const [id, usd] of Object.entries(map)) {
+    const { data, error } = await supabase.rpc("nexo_business_set_product_commission", { p_business: bizId(), p_product: id, p_usd: usd });
+    if (error || data?.error) failed.push(id);
+  }
+  const ok = Object.keys(map).filter(id => !failed.includes(id));
+  let web = true;
+  for (let k = 0; k < ok.length; k += 50) web = (await pushCommissions(ok.slice(k, k + 50))) && web;
+  if (canCost()) await loadCostSheet();
+  return { failed, web };
 }
 // Guarda la comisión en la nube (caja) y la copia a la web. usd null = quitar la propia.
 async function saveCommissions(ids, usd) {
