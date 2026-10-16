@@ -23,6 +23,10 @@ foreach ( $sc as $s ) {
 		}
 		$r2 = CVD_Programa_Calc::compute( $s['month2']['period'], $members, $s['month2']['sales'], array_values( $rev ), $params );
 		$res['m2'] = slim( $r2 );
+		if ( ! empty( $s['month2']['month3'] ) ) {
+			$r3 = CVD_Programa_Calc::compute( $s['month2']['month3']['period'], $members, $s['month2']['month3']['sales'], array(), array( 'carry_usd' => (float) ( $r2['totals']['carry_out_usd'] ?? 0 ) ) + $params );
+			$res['m3'] = slim( $r3 );
+		}
 	}
 	$out[] = $res;
 }

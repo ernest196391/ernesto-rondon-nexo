@@ -337,3 +337,10 @@ Ampliación D30 (2026-10-07): el flujo de **Devolución** ya existe en `/ventas/
 - El 2 % «Otros cargos» de Ajustes era el valor de fábrica: pasa a **1,5 % «Nati»** (con el 0,5 % de la dependienta suman el 2 % que dijo Lennys).
 - «A pagar este mes» (solo lectura): la dependienta de un pedido web es la que recibió el dinero (si no, la que lo entregó o preparó). La caja no guarda quién vendió: va aparte como «sin saber quién».
 - Stock: cuando la caja y la web no coinciden, manda el último «Quedan» que puso Lennys; si no puso ninguno y la caja restó dos veces un pedido web anterior al alta, manda la web (es la cuenta correcta).
+
+**D77 · 2026-10-16 15:40 · Programa de gestoras: red 1 % + 0,5 % y los arreglos de la auditoría (Ernesto; cambia la red de D58). Core 3.14.30 EN VIVO, en sombra, solo Dany.** Detalle: `docs/nexo-business/programa-gestoras/AUDITORIA-2026-10-16.md` §0.
+- **Red:** 1 % de lo que vende la invitada (1.er nivel) y 0,5 % del 2.º nivel (desde Plata), 12 meses, sobre el precio Casa Viva. Motivo: con un 20 % de ganancia, el 2 % + 1 % del precio era el 15 % entero del fondo y los bonos de piedra se cobraban al 1–45 % en cuanto hubiera equipos. Con 1 % + 0,5 % se cobran al 47–87 % (D56 ya decía «5 red + 10 bonos»).
+- **Fondo sobre la ganancia neta:** las líneas que se venden perdiendo restan del fondo (los puntos de la gestora no bajan de 0 por línea).
+- **Arrastre:** si las devoluciones de meses ya pagados dejan un mes en negativo, ese 15 % se descuenta del fondo de los meses siguientes hasta cubrirse. Así la tienda nunca paga dos veces por lo devuelto.
+- **Además (Claude, técnico y reversible):** reembolsos parciales restan; cierre del mes con bloqueo y sin quedar a medias; la madrina que compra a través de su invitada no cobra red de ese pedido (alerta `autocompra_red`); alerta `ganancia_alta` (línea de 10 USD o más que gana > 55 % del precio = revisar costo); red y bonos redondeados hacia abajo.
+- **Pendiente:** alerta de cuentas que comparten teléfono, tarjeta o dirección con su madrina; subir el mínimo propio de Plata/Oro/Platino (hoy 50 USD) lo decide Ernesto.

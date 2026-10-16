@@ -1,6 +1,6 @@
 # Programa de gestoras · plan para subirlo (Core 3.14.29 + panel)
 
-## Estado: EN VIVO desde el 16-oct-2026 ~14:20 Cuba (Core 3.14.29), modo sombra, solo Dany
+## Estado: EN VIVO desde el 16-oct-2026 ~14:20 Cuba, modo sombra, solo Dany. **Ahora Core 3.14.30** (16-oct tarde, D77: red 1 % + 0,5 %, fondo sobre la ganancia neta, arrastre de devoluciones, reembolsos parciales, cierre con bloqueo; ver `AUDITORIA-2026-10-16.md` §0). Copia: `~/bak-20261016-cvd-3.14.29-antes-3.14.30`.
 
 Ernesto dijo SÍ el 16-oct a las 14:20 y aceptó todas las recomendaciones (**D75** en `DECISIONES.md`).
 - **Core 3.14.29** en casaviva.company. Casa-Viva `main` = `ba3ff03`, encima de 3.14.28 (NEXO Busca) y 3.14.26 («va junto con el #N»).
@@ -29,7 +29,7 @@ Estado (16-oct-2026, tarde): nada subido. Core: rama `programa-gestoras-1016` (c
 ### Cómo funciona, en 4 líneas
 1. Cada venta entregada y cobrada da **puntos** a quien la vendió: 1 punto = 1 USD que le queda a Casa Viva (precio − lo que costó − la comisión de la gestora).
 2. Con los puntos del mes de su equipo (ella + sus invitadas + las invitadas de ellas) llega a una **piedra** (Bronce 65 puntos, Plata 130, Oro 195…) y cobra su **bono en CUP** ese mes (Bronce 5.000, Plata 10.000, Oro 15.000…).
-3. La que invita (la **madrina**) gana además el **2 %** de lo que vende su invitada durante 12 meses (y el 1 % del segundo nivel si es Plata).
+3. La que invita (la **madrina**) gana además el **1 %** de lo que vende su invitada durante 12 meses (y el 0,5 % del segundo nivel si es Plata). D77: antes 2 % + 1 %.
 4. Todo eso sale de un **fondo del 15 % de la ganancia** del mes. Primero la red; los bonos, con lo que quede. Casa Viva nunca pone más.
 
 ### Ejemplo: María invita a Ana
@@ -40,13 +40,13 @@ Supongamos que cada venta deja como la media real de octubre (el 20 % del precio
 | Comisión normal (10 %) | 40 USD | 30 USD |
 | Puntos | 80 propios | 60 propios + 78 de Ana (Ana cuenta como mucho el 60 % de lo que pide Plata) = 138 |
 | Piedra del mes | **Bronce** | **Plata** |
-| Red (2 % de lo que vende Ana) | — | **8 USD** |
+| Red (1 % de lo que vende Ana) | — | **4 USD** |
 | Bono de la tabla | 5.000 CUP | 10.000 CUP |
-| Bono que cobra (el fondo no llega entero) | **3.467 CUP** (69 %) | **6.933 CUP** (69 %) |
-| Total del mes | 40 USD + 3.467 CUP | 30 USD + 8 USD + 6.933 CUP |
+| Bono que cobra (el fondo cubre el 91 %; tasa 800) | **4.533 CUP** (91 %) | **9.066 CUP** (91 %) |
+| Total del mes | 40 USD + 4.533 CUP | 30 USD + 4 USD + 9.066 CUP |
 
-- **Casa Viva:** esas ventas le dejan 140 USD; paga 21 USD del fondo (el 15 %): 8 de red y 13 en bonos. Le quedan 119.
-- **Si vendieran el doble** (María 600, Ana 800): Ana Plata y María Oro; red 16 USD; los bonos se cubren al 83 %.
+- **Casa Viva:** esas ventas le dejan 140 USD; paga 20,99 USD del fondo (el 15 %): 4 de red y 16,99 en bonos. Le quedan 119,01. (Con la red vieja de 2 % + 1 %: 8 de red y bonos al 69 %.)
+- **Si vendieran el doble** (María 600, Ana 800): Ana Plata (10.000 CUP enteros) y María Oro (15.000 enteros); red 8 USD; Casa Viva gana 280 y paga 39,25 (14 %).
 - **Si los puntos restan también los gastos fijos** (decisión 1), con las mismas ventas de 300 y 400: Ana se queda sin piedra (59 puntos), María llega a Bronce y cobra sus 5.000 CUP enteros; Casa Viva paga 14 USD.
 
 ### Las decisiones (con mi recomendación)
@@ -157,7 +157,7 @@ Archivos (todos dentro de `wordpress/casa-viva-dropship-core/`):
 
 1. Con una **cuenta de prueba** (`_cvd_test_account = 1`, la ve siempre): `/area-gestoras/#equipo` y `#piedra`; en la tienda con su `?ref=` debe salir «⭐ N puntos» y el aviso «En prueba».
 2. Con una gestora real **que no esté** en la lista: no ve nada nuevo (ni menú, ni ⭐).
-3. Comparar 2–3 pedidos a mano con su fila en wp-admin: red = base × 2 %; puntos = precio − costo − comisión (− gastos fijos si la decisión 1 es «sí»).
+3. Comparar 2–3 pedidos a mano con su fila en wp-admin: red = base × 1 % (0,5 % el 2.º nivel; D77); puntos = precio − costo − comisión (− gastos fijos si la decisión 1 es «sí»).
 
 ## 6. Abrírselo a Dany (modo sombra, 2 semanas)
 

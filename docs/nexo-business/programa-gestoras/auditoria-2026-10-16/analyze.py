@@ -2,8 +2,8 @@
 import json, os, csv
 HERE = os.path.dirname(os.path.abspath(__file__))
 sc = {s['id']: s for s in json.load(open(os.path.join(HERE, 'escenarios.json'), encoding='utf-8'))}
-main = {r['id']: r for r in json.load(open(os.path.join(HERE, 'main.json')))}
-new = {r['id']: r for r in json.load(open(os.path.join(HERE, 'nuevo.json')))}
+main = {r['id']: r for r in json.load(open(os.path.join(HERE, 'antes.json')))}   # 3.14.29: red 2 % + 1 %
+new = {r['id']: r for r in json.load(open(os.path.join(HERE, 'nuevo.json')))}    # 3.14.30: red 1 % + 0,5 %, neto, arrastre
 RATE = 800
 FIXED_PCT_COST = 0.0787   # gastos fijos por producto (D74): 176,10 USD sobre 2.236,90 de costo en octubre
 STAFF_PCT = 0.02          # dependienta 0,5 % + Nati 1,5 % (D76)
@@ -18,7 +18,7 @@ def real_money(real, returned=()):
 rows = []
 fx = [0.0]
 for sid, s in sc.items():
-    for ver, res in (('actual', main[sid]), ('arreglado', new[sid])):
+    for ver, res in (('3.14.29', main[sid]), ('3.14.30', new[sid])):
         t = res['m1']['totals']
         fx[0] = 0.0; v, c, k = real_money(s['real'])
         paid = t['pay_usd']; red = t['red_usd']; bon = t['bonus_usd']
@@ -28,6 +28,9 @@ for sid, s in sc.items():
             v2, c2, k2 = real_money(s['month2']['real'])
             v, c, k = v1 + v2, c1 + c2, k1 + k2
             t2 = res['m2']['totals']; paid += t2['pay_usd']; red += t2['red_usd']; bon += t2['bonus_usd']
+            if res.get('m3'):
+                v3, c3, k3 = real_money(s['month2']['month3']['real']); v += v3; c += c3; k += k3
+                t3 = res['m3']['totals']; paid += t3['pay_usd']; red += t3['red_usd']; bon += t3['bonus_usd']
         gross = v - c - k                       # ganancia real: precio − costo real − comisión (− fondo de proveedor)
         fixed = FIXED_PCT_COST * fx[0] + STAFF_PCT * v  # bajo pedido sin gastos fijos (D59)
         rows.append({
@@ -42,6 +45,7 @@ for sid, s in sc.items():
             'queda_limpio_tras_gastos_fijos_usd': round(gross - fixed - paid, 2),
             'paga_mas_de_lo_que_gana': paid > gross + 0.01,
             'paga_mas_del_15pct_real': paid > 0.15 * max(gross, 0) + 0.05,
+            'deuda_que_pasa_al_mes_siguiente_usd': (res.get('m3') or res.get('m2') or res['m1'])['totals'].get('carry_out_usd', 0),
         })
 
 with open(os.path.join(HERE, 'escenarios-resultado.csv'), 'w', newline='', encoding='utf-8') as f:
@@ -51,7 +55,7 @@ for r in rows:
 
 # ------------------- Binario sano -------------------
 def binary(sid, pct=0.10, cap_usd=60.0, fund_pct=0.15, classic=False, on_sales=False):
-    s = sc[sid]; res = main[sid]['m1']
+    s = sc[sid]; res = new[sid]['m1']
     people = {int(k): v for k, v in res['people'].items()}
     mem = {int(k): v for k, v in s['members'].items()}
     own = {i: people.get(i, {}).get('sales' if on_sales else 'own', 0.0) for i in mem}
@@ -100,15 +104,15 @@ def binary(sid, pct=0.10, cap_usd=60.0, fund_pct=0.15, classic=False, on_sales=F
             'bonos_usd': round(bon_demand * fb, 2), 'cobertura_bonos_pct': round(100 * fb), 'total_usd': round(sum(paid_bin.values()) + bon_demand * fb, 2),
             'cobran_binario': len(paid_bin), 'la_que_mas_cobra_usd': round(top, 2), 'fondo_usd': round(pool, 2)}
 
-def current_summary(sid):
-    res = main[sid]['m1']; people = res['people']
+def current_summary(sid, src=None):
+    res = (src or new)[sid]['m1']; people = res['people']
     reds = [p['red'] for p in people.values() if p['red'] > 0]
     return {'red_usd': res['totals']['red_usd'], 'bonos_usd': res['totals']['bonus_usd'], 'cobertura_bonos_pct': round(100 * res['totals']['factor_bonus']),
             'total_usd': res['totals']['pay_usd'], 'cobran_red': len(reds), 'la_que_mas_cobra_red_usd': max(reds) if reds else 0, 'fondo_usd': res['totals']['pool_usd']}
 
 comp = []
 for sid in ('R1', 'R2', 'R3', 'S2', 'S4', 'S9', 'S11'):
-    a = current_summary(sid); bsano = binary(sid); bcl = binary(sid, classic=True); bvol = binary(sid, classic=True, on_sales=True)
-    comp.append({'escenario': sid, 'actual': a, 'binario_sano_10pct_tope60': bsano, 'binario_clasico_10pct_sin_tope': bcl, 'binario_clasico_10pct_de_ventas': bvol})
-    print(sid, 'ACTUAL', a); print('   SANO', bsano); print('   CLASICO', bcl, 'sobre ventas', bvol)
+    a = current_summary(sid); a_old = current_summary(sid, main); bsano = binary(sid); bcl = binary(sid, classic=True); bvol = binary(sid, classic=True, on_sales=True)
+    comp.append({'escenario': sid, 'antes_3_14_29_red_2_y_1': a_old, 'ahora_3_14_30_red_1_y_medio': a, 'binario_sano_10pct_tope60': bsano, 'binario_clasico_10pct_sin_tope': bcl, 'binario_clasico_10pct_de_ventas': bvol})
+    print(sid, 'ANTES', a_old); print('   AHORA', a); print('   SANO', bsano); print('   CLASICO', bcl, 'sobre ventas', bvol)
 json.dump(comp, open(os.path.join(HERE, 'binario-comparacion.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)

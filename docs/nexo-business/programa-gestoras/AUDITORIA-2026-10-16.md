@@ -1,16 +1,132 @@
 # Programa de gestoras (multinivel) · segunda pasada y auditoría (16-oct-2026)
 
-Para: Ernesto (y para preparar la charla con Lennys) · Hecho por: Claude · Todo **solo lectura** en la web y en Supabase. Nada desplegado.
+Para: Ernesto (y para preparar la charla con Lennys) · Hecho por: Claude.
+
+> **Actualización 16-oct, 15:40 — Ernesto decidió (D77) y ya está EN VIVO como Core 3.14.30, en sombra y solo para Dany.**
+> La red pasa a **1 % + 0,5 %**. Se subieron todos los arreglos de esta auditoría:
+> - el fondo se calcula sobre la ganancia neta;
+> - la madrina que compra a través de su invitada no cobra red de ese pedido;
+> - alerta «ganancia muy alta»;
+> - **arrastre de devoluciones**;
+> - reembolsos parciales;
+> - cierre del mes con bloqueo y que no se guarda a medias;
+> - redondeo hacia abajo.
+>
+> Mira **§0** (lo que quedó y la tabla de escenarios rehecha). Lo de abajo (§7, §1–§6) es la auditoría tal como se hizo antes de decidir: los números de «red 2 % + 1 %» son de entonces.
 
 - **Código revisado:** Core 3.14.29 en vivo = `main` de `ernest196391/Casa-Viva` (`ba3ff03` + `4915f1e`). Los dos archivos del programa en la web son idénticos a `main` (mismo md5).
 - **Pruebas que ya había:** 91 + 33 + 49 OK (PHP 8.2 en una carpeta temporal de Hostinger fuera de la web, ya borrada).
-- **Arreglos pequeños propuestos (SIN desplegar):** rama `programa-auditoria-1016` del repo Casa-Viva, commit `5779174`. Pruebas 104 + 33 + 49 OK. Ver §5.4.
+- **Arreglos:** primero quedaron en la rama `programa-auditoria-1016` (`5779174`, §5.4). **Desde el 16-oct están en vivo** con todo lo de D77 (Core 3.14.30, `main` `f470f7d`, §0).
 - **Simulaciones:** carpeta `auditoria-2026-10-16/` al lado de este archivo. El resultado de cada escenario está en `escenarios-resultado.csv` y la comparación con el binario en `binario-comparacion.json`. También están los guiones para repetirlo. Se usó **el cálculo de verdad** de la web (`CVD_Programa_Calc::compute`), no una copia.
 - Las gestoras salen como «gestora A, B…» (el repo es público).
 
 ---
 
+## 0 · Lo que quedó EN VIVO el 16-oct (Core 3.14.30, D77)
+
+**Qué se subió** (Casa-Viva `main` = `f470f7d`):
+
+| Cambio | Qué hace |
+|---|---|
+| **Red 1 % + 0,5 %** | La madrina gana el 1 % de lo que vende su invitada y el 0,5 % del 2.º nivel (desde Plata), 12 meses. Antes era 2 % + 1 %, que se comía todo el fondo. Los textos de la gestora, el recibo, wp-admin y el panel ya dicen 1 % y 0,5 % |
+| **Fondo sobre la ganancia neta** | Las ventas que pierden (liquidaciones) restan del fondo. Los puntos de cada gestora no bajan de 0 |
+| **Arrastre de devoluciones** | Si un mes queda en negativo por devoluciones de meses ya pagados, ese 15 % que faltó restar se descuenta del fondo de los meses siguientes, hasta cubrirse. En el panel sale «Quedan X de devoluciones por descontar» |
+| **Reembolsos parciales** | Si se reembolsa 1 de 3 artículos sin anular el pedido: ese mes no cuenta; después del cierre, se resta esa parte |
+| **La madrina compra por su invitada** | No cobra red de ese pedido; alerta «La madrina compra por su invitada (sin red)» |
+| **Ganancia muy alta** | Alerta si una línea de 10 USD o más gana más del 55 % del precio: revisar el costo. Hoy salta 1 vez (sombrilla de 15 USD con costo 3,55) |
+| **Cierre del mes seguro** | Bloqueo para que la tarea de la noche y «Cerrar ahora» no creen dos cierres; si falla una fila, no se guarda nada |
+| **Redondeo hacia abajo** | La suma de red y bonos nunca pasa del fondo, ni por un céntimo |
+
+**Comprobado en vivo:**
+- antes de subir, los archivos de la web eran iguales a `main`;
+- copia de seguridad: `~/bak-20261016-cvd-3.14.29-antes-3.14.30`;
+- `php -l` sin errores; `/`, `/tienda/`, `/ventas/` y `/casa-viva-app/` dan 200; `/area-gestoras/` lleva a la entrada de gestoras;
+- `wp eval` devuelve 3.14.30 y la red 0,01 + 0,005;
+- sin errores nuevos en `error_log`.
+
+**Interruptores:**
+- `cvd_programa_gestoras = sombra` y `cvd_programa_ver = 18`: solo Dany lo ve (comprobado: 1 gestora);
+- tarea de la noche: 17-oct 03:30.
+
+**Pantallas de Dany:** «Te dan el 1 %» y «0,5 %», con el aviso «En prueba».
+
+**Mes recalculado** (run 3, 16-oct ~20:00 UTC): 3.207 USD → 647,34 puntos, ganancia neta 647,34, fondo 97,10, deuda 0, 1 Bronce, se pagaría 6,25 USD (igual que antes: todavía no hay red). Alertas: 1 autocompra, 1 «ganancia alta», 58 «revisar», 18 «costo provisional».
+
+**Panel:**
+- casaviva.company/panel (copia `~/bak-20261016-panel-index-antes-3.14.30.html`);
+- Vercel `negocio.nexocuba.com` = `dpl_NP1YNPzFUxhzzjS3y9cdVpvj56En` (antes `dpl_AoN71Cn9HVLJKRgynd5TB2xD6RBe`);
+- `nexo-panel-web` no cambió: sigue con las acciones `programa` y `programa_calcular`.
+
+**Pruebas:** 118 + 35 + 49 OK. Con tolerancia 0, en 400 rondas al azar nunca se paga más que el fondo.
+
+**Cómo apagarlo:**
+- **Rápido:** `wp option update cvd_programa_gestoras no && wp litespeed-purge all` (o wp-admin → Casa Viva → Programa gestoras → «no»). Nadie ve nada y no calcula.
+- **Volver a 3.14.29:** copiar `~/bak-20261016-cvd-3.14.29-antes-3.14.30` sobre el plugin y `wp litespeed-purge all`.
+- **Panel:** copiar `~/bak-20261016-panel-index-antes-3.14.30.html` a `panel/index.html` y, en Vercel, el deployment anterior.
+
+### 0.1 Escenarios rehechos con 3.14.30 (red 1 % + 0,5 %)
+
+Mismos 20 escenarios de §2.2, más el ejemplo María/Ana. Se usó el cálculo de verdad, 3.14.29 contra 3.14.30. Valores en USD; «bonos al» = cuánto del bono de la tabla se cobra.
+
+| # | Escenario | Ventas | Ganancia real | Antes (3.14.29) pagaba | **Ahora (3.14.30) paga** | % de la ganancia | Bonos al | Le queda a la tienda | ¿Pierde? |
+|---|---|---|---|---|---|---|---|---|---|
+| R1 | Octubre real (1–16) | 3.207 | 647 | 6,25 | **6,25** | 1,0 % | 100 % | 641 | No |
+| R2 | Octubre real en 3 equipos | 3.207 | 647 | 97,09 (bonos al 45 %) | **97,05** (red 31,72 + bonos 65,33) | 15 % | **87 %** | 550 | No |
+| R3 | Octubre completo estimado, en equipos | 6.414 | 1.295 | 194,19 (33 %) | **194,15** (red 66 + bonos 128) | 15 % | **68 %** | 1.101 | No |
+| S1 | Mes flojo | 1.020 | 204 | 30,20 | **21,35** | 10,5 % | 100 % | 183 | No |
+| S2 | Mes muy bueno (80 gestoras) | 32.940 | 6.588 | 988,18 (17 %) | **988,03** (red 389 + bonos 599) | 15 % | **48 %** | 5.600 | No |
+| S3 | Gestora estrella (Rubí sola) | 5.000 | 1.000 | 75 | **75** | 7,5 % | 100 % | 925 | No |
+| S4 | Red grande que vende poco | 1.460 | 292 | 43,80 | **32,75** | 11,2 % | 100 % | 259 | No |
+| S5a | 20 % devuelto, mes siguiente normal (2 meses) | 13.596 | 2.719 | 407,89 (30 %) | **407,71** | 15 % | 62 % | 2.311 | No |
+| S5b | Mucho devuelto y el mes siguiente casi vacío (2 meses) | 1.660 | 332 | 84,01 | **83,97** y **quedan 34,20 de deuda** que se descuentan del mes siguiente | 25 % (bajará al 15 % al cubrir la deuda) | 51 % | 248 | No |
+| S5c | TODO el mes devuelto, el siguiente vacío y el tercero normal (3 meses) | 2.800 | 560 | **168,02** (antes no se arrastraba) | **83,97** (el 3.er mes paga 0: cubre la deuda de 84) | **15 %** | 51 % | 476 | No |
+| S6 | Solo productos de proveedor | 3.735 | 336 | 50,42 (bonos 0 %) | **49,35** | 14,7 % | **100 %** | 287 | No |
+| S7 | Liquidaciones que pierden | 5.880 | 336 | 126 (37,5 %) | **50,40** | **15 %** | 0 % | 286 | No |
+| S8a | Costos provisionales demasiado bajos | 5.855 | 794 | 191,40 | **191,26** | 24 % | 60 % | 603 | No (pero pasa del 15 %: costo mal puesto) |
+| S8b | Costo tecleado 3,20 en vez de 22 | 1.440 | 315 | 174,14 | **174,12** | 55 % | 74 % | 141 | No (alerta «ganancia alta») |
+| **S8c** | **Costo tecleado 3,20 en vez de 28** | 1.440 | 45 | 174,14 | **174,12** | 387 % | 74 % | **−129** | **SÍ**, si nadie mira la alerta «ganancia alta» antes del cierre |
+| S9 | Cadena de 6 en la misma piedra | 2.400 | 480 | 72 (17 %) | **71,99** | 15 % | **47 %** | 408 | No |
+| S10a | Honrada, 650 sola (Plata) | 650 | 130 | 12,50 | **12,50** | 9,6 % | 100 % | 117,50 | No |
+| S10b | Tramposa con «invitada» falsa | 650 | 130 | 19,50 | **19,49** | 15 % | 87 % | 110,51 | No (pero cobra 7 más que la honrada) |
+| S10c | La madrina compra por su invitada | 360 | 72 | 6,00 | **0** | 0 % | — | 72 | No |
+| S11 | Red grande y profunda (127) | 12.700 | 2.540 | 380,96 (bonos al **1 %**) | **380,82** (red 188 + bonos 193) | 15 % | **50 %** | 2.159 | No |
+
+**En resumen:**
+- Con la red a 1 % + 0,5 %, los bonos se cobran al **47–87 %** cuando hay equipos (antes, al 1–45 %).
+- Las devoluciones ya no dejan pérdida: se cobran de los meses siguientes.
+- El único caso en que la tienda puede perder es un **costo muy mal puesto** que nadie revisa. Para eso está la alerta «ganancia muy alta» y la revisión de 5 minutos antes de cada cierre (§4).
+
+### 0.2 El ejemplo para Lennys: María invita a Ana (con 1 % + 0,5 %)
+
+Cada venta deja como la media real de octubre: el 20 % del precio después de pagar el producto y la comisión. Tasa 800. Un mes, **María vende 300 USD y Ana 400 USD**, todo entregado y cobrado.
+
+| | Ana (la invitada) | María (la madrina) |
+|---|---|---|
+| Comisión normal (10 %) | 40 USD | 30 USD |
+| Puntos | 80 propios | 60 propios + 78 de Ana (Ana cuenta como mucho el 60 % de lo que pide Plata) = 138 |
+| Piedra del mes | **Bronce** | **Plata** |
+| Red (1 % de lo que vende Ana) | — | **4 USD** |
+| Bono de la tabla | 5.000 CUP | 10.000 CUP |
+| Bono que cobra (el fondo cubre el 91 %) | **4.533 CUP** | **9.066 CUP** |
+| Total del mes | 40 USD + 4.533 CUP | 30 USD + 4 USD + 9.066 CUP |
+
+**Casa Viva:**
+- esas ventas le dejan **140 USD** de ganancia;
+- paga **20,99 USD** del fondo (el 15 %): 4 de red y 16,99 en bonos;
+- **le quedan 119,01 USD**.
+- Antes, con 2 % + 1 %, la red se llevaba 8 USD y los bonos se cobraban al 69 %.
+
+**Si vendieran el doble** (María 600, Ana 800):
+- Ana llega a **Plata** y cobra 10.000 CUP **enteros**;
+- María llega a **Oro** y cobra 15.000 CUP **enteros**;
+- red 8 USD;
+- Casa Viva gana 280 y paga 39,25 (el 14 %). Le quedan **240,75**.
+
+---
+
 ## 7 · Resumen para Ernesto en 10 líneas (va primero)
+
+> Escrito antes de D77. Desde entonces los puntos 6, 7 y 8 están hechos y en vivo, salvo la alerta de cuentas que comparten teléfono o tarjeta, que sigue pendiente (§0).
 
 1. **Lo que hay que decirle a Lennys:** el programa **solo reparte un trozo de la ganancia de ventas ya entregadas y cobradas**: como mucho 15 de cada 100 USD de ganancia, que son unos 3 de cada 100 USD vendidos. No se cobra por entrar, no hay compra obligatoria y no se paga nada por traer gente.
 2. **Con los datos reales de octubre (del 1 al 16)**, las gestoras vendieron 3.207 USD y dejaron 647 USD de ganancia. Hoy el programa pagaría **6,25 USD** (1 bono Bronce). El tope sería 97 USD.

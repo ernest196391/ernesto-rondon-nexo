@@ -128,8 +128,10 @@ m = {}; b = B(); ids, n = team(m, 1, 'F', 3, 1, 2)
 for uid in sorted(m): b.normal(uid, 400)
 ret = [s['order_id'] for s in b.sales]
 b2 = B(); b2.order = 5000
-add('S5c', 'Caso extremo: TODO el mes se devuelve después de pagar y el mes siguiente no se vende nada', m, b,
-    month2={'period': '2026-12', 'returned': ret, 'sales': b2.sales, 'real': b2.real})
+b3 = B(); b3.order = 7000
+for uid in sorted(m): b3.normal(uid, 400, at='2027-01-10 12:00:00')
+add('S5c', 'Caso extremo: TODO el mes se devuelve después de pagar, el siguiente no se vende nada y el tercero es normal', m, b,
+    month2={'period': '2026-12', 'returned': ret, 'sales': b2.sales, 'real': b2.real, 'month3': {'period': '2027-01', 'sales': b3.sales, 'real': b3.real}})
 
 # ---------- S6: productos de proveedor con poco margen ----------
 m = {}; b = B(); n = 1
@@ -196,6 +198,12 @@ m = {}; b = B()
 for i in range(1, 128):
     m[i] = member('H%d' % i, i // 2 if i > 1 else 0); b.normal(i, 100)
 add('S11', 'Red grande y profunda: 127 gestoras, cada una invita a 2, todas venden 100 USD', m, b)
+
+# ---------- Ejemplo de PLAN-DESPLIEGUE: María invita a Ana ----------
+for sid, (mu, au) in (('MA', (300, 400)), ('MA2', (600, 800))):
+    m = {1: member('María'), 2: member('Ana', 1)}; b = B()
+    b.sale(1, [(mu, round(mu * 0.7, 2), mu * 0.1, 1, 0, None, False)]); b.sale(2, [(au, round(au * 0.7, 2), au * 0.1, 1, 0, None, False)])
+    add(sid, f'Ejemplo: María vende {mu} y su invitada Ana {au}', m, b)
 
 json.dump(sc, open(os.path.join(HERE, 'escenarios.json'), 'w', encoding='utf-8'), ensure_ascii=False)
 print(len(sc), 'escenarios')

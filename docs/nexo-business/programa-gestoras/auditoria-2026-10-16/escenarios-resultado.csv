@@ -1,41 +1,45 @@
-escenario,calculo,titulo,ventas_usd,ganancia_real_usd,puntos,fondo_usd,red_usd,bonos_usd,paga_programa_usd,pct_de_ganancia_real,cobertura_bonos_pct,con_piedra,queda_tienda_usd,queda_limpio_tras_gastos_fijos_usd,paga_mas_de_lo_que_gana,paga_mas_del_15pct_real
-R1,actual,"Octubre real (1–16), tal cual",3207.0,647.34,647.34,97.1,0,6.25,6.25,1.0,100,1,641.09,403.42,False,False
-R1,arreglado,"Octubre real (1–16), tal cual",3207.0,647.34,647.34,97.1,0,6.25,6.25,1.0,100,1,641.09,403.42,False,False
-R2,actual,Octubre real (1–16) con equipos simulados,3207.0,647.34,647.34,97.1,63.46,33.63,97.09,15.0,45,6,550.25,312.58,False,False
-R2,arreglado,Octubre real (1–16) con equipos simulados,3207.0,647.34,647.34,97.1,63.46,33.63,97.09,15.0,45,6,550.25,312.58,False,False
-R3,actual,Octubre completo estimado (×2) con equipos simulados,6414.0,1294.67,1294.67,194.2,132.42,61.77,194.19,15.0,33,10,1100.48,625.15,False,False
-R3,arreglado,Octubre completo estimado (×2) con equipos simulados,6414.0,1294.67,1294.67,194.2,132.42,61.77,194.19,15.0,33,10,1100.48,625.15,False,False
-S1,actual,"Mes flojo (≈1.000 USD, 2 equipos pequeños)",1020.0,204.0,204,30.6,17.7,12.5,30.2,14.8,100,1,173.8,97.21,False,False
-S1,arreglado,"Mes flojo (≈1.000 USD, 2 equipos pequeños)",1020.0,204.0,204,30.6,17.7,12.5,30.2,14.8,100,1,173.8,97.21,False,False
-S2,actual,"Mes muy bueno (8 equipos de 10, ≈30.000 USD)",32940.0,6588.0,6588,988.2,778.4,209.78,988.18,15.0,17,57,5599.82,3126.36,False,False
-S2,arreglado,"Mes muy bueno (8 equipos de 10, ≈30.000 USD)",32940.0,6588.0,6588,988.2,778.4,209.78,988.18,15.0,17,57,5599.82,3126.36,False,False
-S3,actual,Gestora estrella (vende 4.000 USD sola),5000.0,1000.0,1000,150,0,75,75,7.5,100,1,925.0,549.55,False,False
-S3,arreglado,Gestora estrella (vende 4.000 USD sola),5000.0,1000.0,1000,150,0,75,75,7.5,100,1,925.0,549.55,False,False
-S4,actual,Red grande que vende poco (40 invitadas × 35 USD),1460.0,292.0,292,43.8,28,15.8,43.8,15.0,100,1,248.2,138.57,False,False
-S4,arreglado,Red grande que vende poco (40 invitadas × 35 USD),1460.0,292.0,292,43.8,28,15.8,43.8,15.0,100,1,248.2,138.57,False,False
-S5a,actual,Devoluciones después de pagar: 20 % de los pedidos vuelven y el mes siguiente es normal,13596.0,2719.2,2719.2,407.88,292.12,115.77,407.89,15.0,30,15,2311.31,1290.39,False,False
-S5a,arreglado,Devoluciones después de pagar: 20 % de los pedidos vuelven y el mes siguiente es normal,13596.0,2719.2,2719.2,407.88,292.12,115.77,407.89,15.0,30,15,2311.31,1290.39,False,False
-S5b,actual,"Devolución grande (3 de 7 gestoras, todo devuelto) y el mes siguiente casi no se vende",1660.0,332.0,332,84,60,24.01,84.01,25.3,23,7,247.99,123.34,False,True
-S5b,arreglado,"Devolución grande (3 de 7 gestoras, todo devuelto) y el mes siguiente casi no se vende",1660.0,332.0,332,84,60,24.01,84.01,25.3,23,7,247.99,123.34,False,True
-S5c,actual,Caso extremo: TODO el mes se devuelve después de pagar y el mes siguiente no se vende nada,0.0,0.0,0,84,60,24.01,84.01,,23,7,-84.01,-84.01,True,True
-S5c,arreglado,Caso extremo: TODO el mes se devuelve después de pagar y el mes siguiente no se vende nada,0.0,0.0,0,84,60,24.01,84.01,,23,7,-84.01,-84.01,True,True
-S6,actual,Solo productos de proveedor (bajo pedido) con poco margen,3285.0,295.65,295.65,44.35,44.35,0,44.35,15.0,0,3,251.3,185.6,False,False
-S6,arreglado,Solo productos de proveedor (bajo pedido) con poco margen,3285.0,295.65,295.65,44.35,44.35,0,44.35,15.0,0,3,251.3,185.6,False,False
-S7,actual,Liquidaciones que se venden perdiendo (35 % de las líneas),5880.0,336.0,840,126,126,0,126,37.5,0,8,210.0,-297.64,False,True
-S7,arreglado,Liquidaciones que se venden perdiendo (35 % de las líneas),5880.0,336.0,840,50.4,50.4,0,50.4,15.0,0,8,285.6,-222.04,False,False
-S8a,actual,"Costos provisionales demasiado bajos (la mitad de las líneas: real 82 %, cargado 67 %)",5780.0,807.4,1252.9,187.94,123,64.94,187.94,23.3,31,14,619.46,158.0,False,True
-S8a,arreglado,"Costos provisionales demasiado bajos (la mitad de las líneas: real 82 %, cargado 67 %)",5780.0,807.4,1252.9,187.94,123,64.94,187.94,23.3,31,14,619.46,158.0,False,True
-S8b,actual,"Costo mal tecleado (3,20 en vez de 22) en un producto que vende todo el equipo",1440.0,315.0,1161,174.15,32,142.14,174.14,55.3,67,9,140.86,34.15,False,True
-S8b,arreglado,"Costo mal tecleado (3,20 en vez de 22) en un producto que vende todo el equipo",1440.0,315.0,1161,174.15,32,142.14,174.14,55.3,67,9,140.86,34.15,False,True
-S8c,actual,"Costo mal tecleado (3,20 en vez de 28) en un producto casi sin margen",1440.0,45.0,1161,174.15,32,142.14,174.14,387.0,67,9,-129.14,-257.1,True,True
-S8c,arreglado,"Costo mal tecleado (3,20 en vez de 28) en un producto casi sin margen",1440.0,45.0,1161,174.15,32,142.14,174.14,387.0,67,9,-129.14,-257.1,True,True
-S9,actual,Muchas en la misma piedra: cadena de 6 que venden 400 USD cada una,2400.0,480.0,480,72,56,16,72,15.0,17,6,408.0,227.78,False,False
-S9,arreglado,Muchas en la misma piedra: cadena de 6 que venden 400 USD cada una,2400.0,480.0,480,72,56,16,72,15.0,17,6,408.0,227.78,False,False
-S10a,actual,Honrada: vende 650 USD sola,650.0,130.0,130,19.5,0,12.5,12.5,9.6,100,1,117.5,68.69,False,False
-S10a,arreglado,Honrada: vende 650 USD sola,650.0,130.0,130,19.5,0,12.5,12.5,9.6,100,1,117.5,68.69,False,False
-S10b,actual,Tramposa: las mismas 650 USD repartidas con una «invitada» falsa,650.0,130.0,130,19.5,6.5,13,19.5,15.0,69,2,110.5,61.69,False,False
-S10b,arreglado,Tramposa: las mismas 650 USD repartidas con una «invitada» falsa,650.0,130.0,130,19.5,6.5,13,19.5,15.0,69,2,110.5,61.69,False,False
-S10c,actual,La madrina compra 300 USD para ella a través de su invitada,360.0,72.0,72,10.8,6,0,6,8.3,100,0,66.0,38.97,False,False
-S10c,arreglado,La madrina compra 300 USD para ella a través de su invitada,360.0,72.0,72,10.8,0,0,0,0.0,100,0,72.0,44.97,False,False
-S11,actual,"Red grande y profunda: 127 gestoras, cada una invita a 2, todas venden 100 USD",12700.0,2540.0,2540,381,376,4.96,380.96,15.0,1,31,2159.04,1205.4,False,False
-S11,arreglado,"Red grande y profunda: 127 gestoras, cada una invita a 2, todas venden 100 USD",12700.0,2540.0,2540,381,376,4.96,380.96,15.0,1,31,2159.04,1205.4,False,False
+escenario,calculo,titulo,ventas_usd,ganancia_real_usd,puntos,fondo_usd,red_usd,bonos_usd,paga_programa_usd,pct_de_ganancia_real,cobertura_bonos_pct,con_piedra,queda_tienda_usd,queda_limpio_tras_gastos_fijos_usd,paga_mas_de_lo_que_gana,paga_mas_del_15pct_real,deuda_que_pasa_al_mes_siguiente_usd
+R1,3.14.29,"Octubre real (1–16), tal cual",3207.0,647.34,647.34,97.1,0,6.25,6.25,1.0,100,1,641.09,403.42,False,False,0
+R1,3.14.30,"Octubre real (1–16), tal cual",3207.0,647.34,647.34,97.1,0,6.25,6.25,1.0,100,1,641.09,403.42,False,False,0
+R2,3.14.29,Octubre real (1–16) con equipos simulados,3207.0,647.34,647.34,97.1,63.46,33.63,97.09,15.0,45,6,550.25,312.58,False,False,0
+R2,3.14.30,Octubre real (1–16) con equipos simulados,3207.0,647.34,647.34,97.1,31.72,65.33,97.05,15.0,87,6,550.29,312.62,False,False,0
+R3,3.14.29,Octubre completo estimado (×2) con equipos simulados,6414.0,1294.67,1294.67,194.2,132.42,61.77,194.19,15.0,33,10,1100.48,625.15,False,False,0
+R3,3.14.30,Octubre completo estimado (×2) con equipos simulados,6414.0,1294.67,1294.67,194.2,66.21,127.94,194.15,15.0,68,10,1100.52,625.19,False,False,0
+S1,3.14.29,"Mes flojo (≈1.000 USD, 2 equipos pequeños)",1020.0,204.0,204,30.6,17.7,12.5,30.2,14.8,100,1,173.8,97.21,False,False,0
+S1,3.14.30,"Mes flojo (≈1.000 USD, 2 equipos pequeños)",1020.0,204.0,204,30.6,8.85,12.5,21.35,10.5,100,1,182.65,106.06,False,False,0
+S2,3.14.29,"Mes muy bueno (8 equipos de 10, ≈30.000 USD)",32940.0,6588.0,6588,988.2,778.4,209.78,988.18,15.0,17,57,5599.82,3126.36,False,False,0
+S2,3.14.30,"Mes muy bueno (8 equipos de 10, ≈30.000 USD)",32940.0,6588.0,6588,988.2,389.2,598.83,988.03,15.0,48,57,5599.97,3126.51,False,False,0
+S3,3.14.29,Gestora estrella (vende 4.000 USD sola),5000.0,1000.0,1000,150,0,75,75,7.5,100,1,925.0,549.55,False,False,0
+S3,3.14.30,Gestora estrella (vende 4.000 USD sola),5000.0,1000.0,1000,150,0,75,75,7.5,100,1,925.0,549.55,False,False,0
+S4,3.14.29,Red grande que vende poco (40 invitadas × 35 USD),1460.0,292.0,292,43.8,28,15.8,43.8,15.0,100,1,248.2,138.57,False,False,0
+S4,3.14.30,Red grande que vende poco (40 invitadas × 35 USD),1460.0,292.0,292,43.8,14,18.75,32.75,11.2,100,1,259.25,149.62,False,False,0
+S5a,3.14.29,Devoluciones después de pagar: 20 % de los pedidos vuelven y el mes siguiente es normal,13596.0,2719.2,2719.2,407.88,292.12,115.77,407.89,15.0,30,15,2311.31,1290.39,False,False,0
+S5a,3.14.30,Devoluciones después de pagar: 20 % de los pedidos vuelven y el mes siguiente es normal,13596.0,2719.2,2719.2,407.88,146.05,261.66,407.71,15.0,62,15,2311.49,1290.57,False,False,0
+S5b,3.14.29,"Devolución grande (3 de 7 gestoras, todo devuelto) y el mes siguiente casi no se vende",1660.0,332.0,332,84,60,24.01,84.01,25.3,23,7,247.99,123.34,False,True,0
+S5b,3.14.30,"Devolución grande (3 de 7 gestoras, todo devuelto) y el mes siguiente casi no se vende",1660.0,332.0,332,84,30,53.97,83.97,25.3,51,7,248.03,123.38,False,True,34.2
+S5c,3.14.29,"Caso extremo: TODO el mes se devuelve después de pagar, el siguiente no se vende nada y el tercero es normal",2800.0,560.0,0,84,120,48.02,168.02,30.0,23,7,391.98,181.73,False,True,0
+S5c,3.14.30,"Caso extremo: TODO el mes se devuelve después de pagar, el siguiente no se vende nada y el tercero es normal",2800.0,560.0,0,84,30,53.97,83.97,15.0,51,7,476.03,265.78,False,False,0
+S6,3.14.29,Solo productos de proveedor (bajo pedido) con poco margen,3735.0,336.15,336.15,50.42,50.42,0,50.42,15.0,0,3,285.73,211.03,False,False,0
+S6,3.14.30,Solo productos de proveedor (bajo pedido) con poco margen,3735.0,336.15,336.15,50.42,30.6,18.75,49.35,14.7,100,3,286.8,212.1,False,False,0
+S7,3.14.29,Liquidaciones que se venden perdiendo (35 % de las líneas),5880.0,336.0,840,126,126,0,126,37.5,0,8,210.0,-297.64,False,True,0
+S7,3.14.30,Liquidaciones que se venden perdiendo (35 % de las líneas),5880.0,336.0,840,50.4,50.4,0,50.4,15.0,0,8,285.6,-222.04,False,False,0
+S8a,3.14.29,"Costos provisionales demasiado bajos (la mitad de las líneas: real 82 %, cargado 67 %)",5855.0,794.2,1275.74,191.36,125.8,65.6,191.4,24.1,31,14,602.8,133.49,False,True,0
+S8a,3.14.30,"Costos provisionales demasiado bajos (la mitad de las líneas: real 82 %, cargado 67 %)",5855.0,794.2,1275.74,191.36,62.9,128.36,191.26,24.1,60,14,602.94,133.63,False,True,0
+S8b,3.14.29,"Costo mal tecleado (3,20 en vez de 22) en un producto que vende todo el equipo",1440.0,315.0,1161,174.15,32,142.14,174.14,55.3,67,9,140.86,34.15,False,True,0
+S8b,3.14.30,"Costo mal tecleado (3,20 en vez de 22) en un producto que vende todo el equipo",1440.0,315.0,1161,174.15,16,158.12,174.12,55.3,74,9,140.88,34.17,False,True,0
+S8c,3.14.29,"Costo mal tecleado (3,20 en vez de 28) en un producto casi sin margen",1440.0,45.0,1161,174.15,32,142.14,174.14,387.0,67,9,-129.14,-257.1,True,True,0
+S8c,3.14.30,"Costo mal tecleado (3,20 en vez de 28) en un producto casi sin margen",1440.0,45.0,1161,174.15,16,158.12,174.12,386.9,74,9,-129.12,-257.08,True,True,0
+S9,3.14.29,Muchas en la misma piedra: cadena de 6 que venden 400 USD cada una,2400.0,480.0,480,72,56,16,72,15.0,17,6,408.0,227.78,False,False,0
+S9,3.14.30,Muchas en la misma piedra: cadena de 6 que venden 400 USD cada una,2400.0,480.0,480,72,28,43.99,71.99,15.0,47,6,408.01,227.79,False,False,0
+S10a,3.14.29,Honrada: vende 650 USD sola,650.0,130.0,130,19.5,0,12.5,12.5,9.6,100,1,117.5,68.69,False,False,0
+S10a,3.14.30,Honrada: vende 650 USD sola,650.0,130.0,130,19.5,0,12.5,12.5,9.6,100,1,117.5,68.69,False,False,0
+S10b,3.14.29,Tramposa: las mismas 650 USD repartidas con una «invitada» falsa,650.0,130.0,130,19.5,6.5,13,19.5,15.0,69,2,110.5,61.69,False,False,0
+S10b,3.14.30,Tramposa: las mismas 650 USD repartidas con una «invitada» falsa,650.0,130.0,130,19.5,3.25,16.24,19.49,15.0,87,2,110.51,61.7,False,False,0
+S10c,3.14.29,La madrina compra 300 USD para ella a través de su invitada,360.0,72.0,72,10.8,6,0,6,8.3,100,0,66.0,38.97,False,False,0
+S10c,3.14.30,La madrina compra 300 USD para ella a través de su invitada,360.0,72.0,72,10.8,0,0,0,0.0,100,0,72.0,44.97,False,False,0
+S11,3.14.29,"Red grande y profunda: 127 gestoras, cada una invita a 2, todas venden 100 USD",12700.0,2540.0,2540,381,376,4.96,380.96,15.0,1,31,2159.04,1205.4,False,False,0
+S11,3.14.30,"Red grande y profunda: 127 gestoras, cada una invita a 2, todas venden 100 USD",12700.0,2540.0,2540,381,188,192.82,380.82,15.0,50,31,2159.18,1205.54,False,False,0
+MA,3.14.29,Ejemplo: María vende 300 y su invitada Ana 400,700.0,140.0,140,21,8,13,21,15.0,69,2,119.0,66.44,False,False,0
+MA,3.14.30,Ejemplo: María vende 300 y su invitada Ana 400,700.0,140.0,140,21,4,16.99,20.99,15.0,91,2,119.01,66.45,False,False,0
+MA2,3.14.29,Ejemplo: María vende 600 y su invitada Ana 800,1400.0,280.0,280,42,16,26,42,15.0,83,2,238.0,132.87,False,False,0
+MA2,3.14.30,Ejemplo: María vende 600 y su invitada Ana 800,1400.0,280.0,280,42,8,31.25,39.25,14.0,100,2,240.75,135.62,False,False,0

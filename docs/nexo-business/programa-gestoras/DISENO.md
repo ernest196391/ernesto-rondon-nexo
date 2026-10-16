@@ -1,6 +1,6 @@
 # Programa de gestoras · diseño (14-oct-2026)
 
-Para: Ernesto · Hecho por: Claude · Estado: **programado y probado, SIN desplegar** (modo sombra listo para la prueba de 2 semanas con Dany). **16-oct:** puesto encima de lo que está en vivo como Core 3.14.29 (§10 y §11).
+Para: Ernesto · Hecho por: Claude · Estado: **programado y probado, SIN desplegar** (modo sombra listo para la prueba de 2 semanas con Dany). **16-oct:** puesto encima de lo que está en vivo como Core 3.14.29 (§10 y §11). **16-oct tarde: EN VIVO como Core 3.14.30 (D77)** — red 1 % + 0,5 %, fondo sobre la ganancia neta, arrastre de devoluciones, reembolsos parciales, cierre con bloqueo, alertas «autocompra_red» y «ganancia_alta» (§12 y `AUDITORIA-2026-10-16.md` §0).
 Reglas: D53–D58 en `docs/00-FUENTE-DE-VERDAD/DECISIONES.md` y las propuestas de `docs/nexo-business/propuestas/*-2026-10-14.md`.
 
 **Dónde está el código (actualizado 16-oct)**
@@ -15,7 +15,7 @@ Reglas: D53–D58 en `docs/00-FUENTE-DE-VERDAD/DECISIONES.md` y las propuestas d
 
 1. **Cada venta entregada y cobrada da puntos a quien la vendió.** 1 punto = 1 USD de ganancia limpia: precio de Casa Viva − lo que costó el producto − la comisión de la gestora. Si el producto no tiene costo cargado o se vende perdiendo, da 0 puntos.
 2. **Piedras.** Con los puntos del mes de su equipo (ella + sus invitadas + las invitadas de ellas) llega a Bronce, Plata, Oro… hasta Corona. El **título** (la mejor piedra que tuvo) no se pierde. El **bono** en CUP se cobra solo el mes en que mantiene la piedra.
-3. **Red.** La madrina gana el **2 %** de lo que vende su invitada y el **1 %** de lo que venden las invitadas de su invitada, sobre el precio de Casa Viva, durante 12 meses desde que entró la invitada. Para cobrarlo tiene que haber entregado al menos 1 venta suya ese mes; para el 1 % tiene que ser Plata ese mes.
+3. **Red.** La madrina gana el **1 %** de lo que vende su invitada y el **0,5 %** de lo que venden las invitadas de su invitada (D77; antes 2 % + 1 %), sobre el precio de Casa Viva, durante 12 meses desde que entró la invitada. Para cobrarlo tiene que haber entregado al menos 1 venta suya ese mes; para el 0,5 % tiene que ser Plata ese mes.
 4. **Fondo de seguridad.** Todo eso sale del **15 % de la ganancia** que trajo el equipo ese mes. Primero se paga la red; los bonos, con lo que quede. Si no alcanza, todas cobran el mismo %. Casa Viva nunca pone más.
 5. **Modo sombra.** Calcula todo cada noche y lo enseña con el aviso «En prueba: así se calcularía; todavía no se paga». No paga nada.
 6. **Libro.** Cada cálculo queda guardado con su huella (SHA-256), y el cierre de cada mes no se puede rehacer. Cuando se pague, se anota quién, cuándo y con qué referencia, con su recibo.
@@ -50,7 +50,7 @@ Archivo `includes/class-cvd-programa-calc.php`. No toca la base de datos: recibe
    - puntos que cuentan ≥ umbral, donde **cada miembro del equipo cuenta como mucho el 60 % del umbral** (sus ventas propias cuentan enteras);
    - al menos 1 venta propia entregada y el **mínimo propio** de la tabla D54 en USD vendidos (Bronce 0 · Plata/Oro/Platino 50 · Zafiro/Rubí/Esmeralda 100 · Diamante/Doble 150 · Corona 200).
 5. **Título:** la mejor piedra entre los meses cerrados de verdad y la de este mes. Los meses en sombra no dan título.
-6. **Red:** 2 % y 1 % del precio Casa Viva de cada venta de la invitada dentro de sus 12 meses. Si la madrina no vendió ese mes, o no es Plata para el 1 %, esa red **se pierde** (no se acumula) y se enseña como «pierde».
+6. **Red:** 1 % y 0,5 % (D77; antes 2 % y 1 %) del precio Casa Viva de cada venta de la invitada dentro de sus 12 meses. Si la madrina no vendió ese mes, o no es Plata para el 1 %, esa red **se pierde** (no se acumula) y se enseña como «pierde».
 7. **Fondo:**
    - por equipo: `fondo = 15 % × puntos del equipo`. La red se paga hasta ese tope; el bono, con lo que quede;
    - del mes: `15 % × toda la ganancia` (cada venta una sola vez). Si la suma pasa de ahí, se recorta a todas por igual (primero la red, después los bonos).
@@ -59,8 +59,8 @@ Archivo `includes/class-cvd-programa-calc.php`. No toca la base de datos: recibe
 **Tabla (D56, tasa 785):** Bronce 65 → 5.000 CUP · Plata 130 → 10.000 · Oro 195 → 15.000 · Platino 320 → 25.000 · Zafiro 510 → 40.000 · Rubí 765 → 60.000 · Esmeralda 1.150 → 90.000 · Diamante 1.660 → 130.000 · Doble Diamante 2.300 → 180.000 · Corona 3.190 → 250.000.
 
 **Ejemplo de las pruebas (inventado):** Marta invitó a Ana; Ana invitó a Rosa. Rosa vende 390 USD cobrados (87 puntos), Ana 175 USD (35 puntos, una cortina sin costo da 0), Marta 60 USD (14 puntos).
-- Ana: 2 % de 390 = **7,80 USD**; equipo 122 puntos → Bronce.
-- Marta: 2 % de 175 = **3,50 USD**; el 1 % de Rosa (3,90) lo pierde porque no es Plata; equipo 136 puntos, pero con el tope del 60 % cuentan 14 + 35 + 39 = 88 → Bronce; le faltan 3 puntos para Plata.
+- Ana: 1 % de 390 = **3,90 USD** (con la red vieja de 2 %: 7,80); equipo 122 puntos → Bronce.
+- Marta: 1 % de 175 = **1,75 USD**; el 0,5 % de Rosa (1,95) lo pierde porque no es Plata; equipo 136 puntos, pero con el tope del 60 % cuentan 14 + 35 + 39 = 88 → Bronce; le faltan 3 puntos para Plata.
 - Fondo del mes: 15 % de 136 = 20,40 USD. La red (11,30) va primero; los bonos se cubren al 48 % (Marta cobraría 2.381 de 5.000 CUP).
 
 ---
@@ -185,3 +185,22 @@ Se ejecutó el cálculo 3.14.29 contra la web (Core 3.14.26) desde una carpeta t
 - **Alertas:** 1 autocompra, 56 «revisar» (pedido con el teléfono de la gestora y otro nombre de cliente: es lo normal, no excluye) y 18 «costo provisional».
 - **Conclusión:** el miedo del 14-oct («los puntos salen muy bajos») ya no vale: con los costos cargados la ganancia limpia es ~20 % de lo vendido, y Bronce (65 puntos) pide unos **325 USD cobrados del equipo al mes** (unos 440 si se restan los gastos fijos). Lo que limita ahora es el **fondo del 15 %**: con 2 piedras en el mismo equipo los bonos ya no se cubren enteros (ver el ejemplo de PLAN-DESPLIEGUE).
 
+## 12. Core 3.14.30 EN VIVO (16-oct tarde, D77; Ernesto 15:40)
+
+Tras la auditoría (`AUDITORIA-2026-10-16.md`), Ernesto decidió:
+
+| Cambio | Detalle técnico |
+|---|---|
+| Red 1 % + 0,5 % | `DEFAULTS red1_pct = 0.01`, `red2_pct = 0.005`. Los textos salen de `CVD_Programa_Calc::pct()` |
+| Fondo sobre la ganancia neta | `pool = 15 % × min(puntos, ganancia neta)`; `totals.net_profit_usd` |
+| Arrastre de devoluciones | `totals.carry_out_usd` del último cierre «cerrado» → `carry_usd` del mes siguiente (`CVD_Programa::carry_in`) |
+| Reembolsos parciales | `refunded_qty()` por artículo en el mes; `refund_share()` para los meses ya cerrados (una vez por pedido) |
+| Cierre seguro | `GET_LOCK` por mes + `ROLLBACK` si falla cualquier fila (`run_locked`) |
+| Madrina compradora | `buyer_names` → alerta `autocompra_red` y sin red de ese pedido |
+| Costo sospechoso | Alerta `ganancia_alta` (> 55 % del precio en líneas de 10 USD o más) |
+| Redondeo | Hacia abajo (céntimos y CUP): la suma nunca pasa del fondo |
+
+- **Pruebas:** 118 + 35 + 49 OK.
+- **Mes recalculado:** 647,34 puntos, fondo 97,10, se pagaría 6,25.
+- **Escenarios rehechos:** con equipos, los bonos se cobran al 47–87 % (antes al 1–45 %). Detalle en `AUDITORIA-2026-10-16.md` §0.1.
+- **Copia:** `~/bak-20261016-cvd-3.14.29-antes-3.14.30`.
