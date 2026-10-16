@@ -353,3 +353,9 @@ Ampliación D30 (2026-10-07): el flujo de **Devolución** ya existe en `/ventas/
   2. **recomendada:** +1, +2 o +3 USD según el precio (≈ 3 %, ≈ +160 USD por quincena; tope del programa ≈ 97);
   3. sin subir precios, el fondo solo de la ganancia por encima de octubre (hay que programarlo).
   Lennys decide, y aprueba los precios producto por producto.
+
+**D79 · 2026-10-16 noche · Programa de gestoras: alerta de cuentas que comparten datos con su madrina, «revisar» en resumen y el cierre espera (encargo de Ernesto tras la auditoría; Claude, técnico y reversible). Core 3.14.32 EN VIVO, en sombra, solo Dany.**
+- **`cuenta_compartida`** (grave): una invitada (o la de 2.º nivel) comparte con su madrina el teléfono (8 últimas cifras), la tarjeta o cuenta de cobro (perfil, pagos nuevos y viejos) o la dirección de entrega de sus pedidos (calle con número + municipio). **Solo avisa; no bloquea nada. Lennys decide.** Es el freno de cuentas falsas que pedía D53.
+- **«revisar»** (su teléfono en el pedido de otra clienta) es lo normal: van en una línea de resumen; sueltas solo si se repite con la misma clienta 3 veces o más.
+- **El cierre automático del mes espera** mientras haya `ganancia_alta` o `cuenta_compartida` sin marcar «Revisada» (panel o wp-admin). «Cerrar ahora» no espera.
+- No cambia ningún número del programa (red 1 % + 0,5 %, piedras, fondo 15 %). Detalle: `ESTADO.md` L24.

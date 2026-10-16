@@ -12,6 +12,8 @@ Para: Ernesto (y para preparar la charla con Lennys) · Hecho por: Claude.
 > - cierre del mes con bloqueo y que no se guarda a medias;
 > - redondeo hacia abajo.
 >
+> **Hecho 16-oct noche (Core 3.14.32, D79):** alerta `cuenta_compartida` (teléfono, tarjeta o dirección compartidos con la madrina; solo avisa), «revisar» agrupadas en un resumen (sueltas solo con la misma clienta 3 veces o más) y el cierre automático espera a las alertas `ganancia_alta`/`cuenta_compartida` sin marcar «Revisada». Con datos reales: 0 cuentas compartidas, 58 «revisar» en 1 línea. Ver `ESTADO.md` L24.
+>
 > Mira **§0** (lo que quedó y la tabla de escenarios rehecha). Lo de abajo (§7, §1–§6) es la auditoría tal como se hizo antes de decidir: los números de «red 2 % + 1 %» son de entonces.
 
 - **Código revisado:** Core 3.14.29 en vivo = `main` de `ernest196391/Casa-Viva` (`ba3ff03` + `4915f1e`). Los dos archivos del programa en la web son idénticos a `main` (mismo md5).
