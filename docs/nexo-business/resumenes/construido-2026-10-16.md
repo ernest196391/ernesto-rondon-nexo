@@ -23,7 +23,7 @@
 - **Regla fija:** los electrodomésticos del grupo de Sergio se le preguntan a **Ricardo**.
 
 ## Redes
-- Reel del topper con gel publicado a las 19:00 (sin sorteo, con la pregunta de los trucos).
+- Reel del topper con gel programado para hoy a las 19:00 (sin sorteo, con la pregunta de los trucos). A las 19:10, los enlaces al grupo General.
 
 ## Pendiente
 1. **Tutorial de NEXO Busca** (HyperFrames): en marcha. Primero lo ve Ernesto, después Dany y después el grupo General.
