@@ -88,35 +88,56 @@ Deno.serve(async req => {
   } catch (e) { report.errors.push("B: " + (e as Error).message); }
 
   // A. caja/panel → web
-  //  - conteo del panel (set_to no nulo): la web queda con esa cifra exacta → {key, wooId, set}
+  //  - conteo del panel (set_to no nulo): la web queda con esa cifra exacta. El Core en vivo solo sabe
+  //    sumar/restar, así que se leen las existencias de la web (panel/stock/levels) y se manda
+  //    la diferencia «cifra − web» (16-oct: así no hace falta tocar Core).
   //  - lo demás (ventas, devoluciones, entradas…): diferencia, como siempre → {key, wooId, delta}
-  // Nunca se manda «delta» junto a «set»: un Core viejo ignora el item (no lo aplica ni lo marca) en vez de sumarlo.
   try {
     type Row = { stock_key: string; product_id: string; woo_id: number; delta: number; set_to: number | null; kind: string };
     const { data, error } = await admin.rpc("nexo_business_stock_to_web", { p_business: BUSINESS, p_limit: 200 });
     if (error) throw new Error(error.message);
-    // Si B falló, el conteo espera a la próxima vuelta, y con él todo lo posterior de ese producto
-    // (si no, una diferencia posterior se aplicaría antes y luego la cifra fijada la pisaría).
+    // Un conteo espera a la próxima vuelta (y con él todo lo posterior de ese producto) si:
+    //  - B falló (los pedidos web aún no están en la caja), o
+    //  - en esta misma vuelta va antes otra diferencia del mismo producto (la lectura de la web aún no la incluye).
     const held = new Set<string>();
+    const seen = new Set<string>();
     const rows = ((data ?? []) as Row[]).filter(r => {
       if (held.has(r.product_id)) return false;
-      if (r.set_to != null && !webSalesOk) { held.add(r.product_id); return false; }
+      if (r.set_to != null && (!webSalesOk || seen.has(r.product_id))) { held.add(r.product_id); return false; }
+      seen.add(r.product_id);
       return true;
     });
     report.toWebHeld = (data?.length ?? 0) - rows.length;
-    if (rows.length) {
-      const items = rows.map(r => r.set_to != null
-        ? { key: r.stock_key, wooId: r.woo_id, set: Number(r.set_to) }
-        : { key: r.stock_key, wooId: r.woo_id, delta: Number(r.delta) });
-      const result = await core("POST", "panel/stock/adjust", { items });
-      const applied = new Set((result.applied ?? []).map((a: { key: string }) => a.key));
-      const sent = rows.filter(r => applied.has(r.stock_key))
-        .map(r => ({ key: r.stock_key, productId: r.product_id, delta: r.delta }));
-      await admin.rpc("nexo_business_stock_mark_sent", { p_business: BUSINESS, p_items: sent });
-      report.toWeb = sent.length;
-      report.toWebSet = rows.filter(r => r.set_to != null && applied.has(r.stock_key)).length;
-      report.toWebSkipped = (result.applied ?? []).filter((a: { skipped?: string }) => a.skipped).length;
+    let levels = new Map<number, number | null>();
+    if (rows.some(r => r.set_to != null)) {
+      const lv = await core("GET", "panel/stock/levels");
+      levels = new Map((lv.products ?? []).map((p: { wooId: number; stock: number | null }) => [Number(p.wooId), p.stock == null ? null : Number(p.stock)]));
     }
+    const noop: Row[] = []; // conteos que no cambian nada en la web (ya está igual, o la web no lleva stock de ese producto)
+    const items: { key: string; wooId: number; delta: number }[] = [];
+    const deltaOf = new Map<string, number>();
+    for (const r of rows) {
+      let d = Number(r.delta);
+      if (r.set_to != null) {
+        const w = levels.get(Number(r.woo_id));
+        if (w == null) { noop.push(r); report.toWebSkipped++; continue; }
+        d = Number(r.set_to) - w;
+        if (d === 0) { noop.push(r); report.toWebSet++; continue; }
+        report.toWebSet++;
+      }
+      deltaOf.set(r.stock_key, d);
+      items.push({ key: r.stock_key, wooId: r.woo_id, delta: d });
+    }
+    let applied = new Set<string>();
+    if (items.length) {
+      const result = await core("POST", "panel/stock/adjust", { items });
+      applied = new Set((result.applied ?? []).map((a: { key: string }) => a.key));
+      report.toWebSkipped += (result.applied ?? []).filter((a: { skipped?: string }) => a.skipped).length;
+    }
+    const sent = [...noop.map(r => ({ key: r.stock_key, productId: r.product_id, delta: 0 })),
+      ...rows.filter(r => applied.has(r.stock_key)).map(r => ({ key: r.stock_key, productId: r.product_id, delta: deltaOf.get(r.stock_key) ?? Number(r.delta) }))];
+    if (sent.length) await admin.rpc("nexo_business_stock_mark_sent", { p_business: BUSINESS, p_items: sent });
+    report.toWeb = sent.length;
   } catch (e) { report.errors.push("A: " + (e as Error).message); }
 
   // C. Mensajeros de la web → caja (people.kind='messenger'; aprobado = activo).

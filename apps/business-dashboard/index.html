@@ -108,6 +108,7 @@
     <main class="page" data-page="resumen">
       <div class="page-head"><h1>Resumen</h1></div>
       <div id="web-month"></div>
+      <div id="staff-pay"></div>
       <div class="kv" style="margin-top:16px"><h2 class="t-lg">La tienda</h2><span class="t-sm muted" id="period-label"></span></div>
       <div class="chips" id="period" role="group" aria-label="Periodo">
         <button type="button" class="chip" data-p="hoy" aria-pressed="true">Hoy</button>
@@ -485,6 +486,53 @@ async function loadWebMonth() {
     box.innerHTML = '<div class="panel muted">No se pudo leer la web: ' + esc(e.message) + "</div>";
   }
 }
+// «A pagar este mes» (Lennys 16-oct): el % de la dependienta y el % de Nati sobre lo vendido, por mes.
+// Solo lectura: no crea pagos. Ventas = pedidos completados de la web (solo productos, sin envío) + ventas de la caja.
+// Dependienta de cada pedido web = la que recibió el dinero, o si no la que lo entregó o lo empezó a preparar
+// (Core lo apunta en el pedido). La caja solo guarda el teléfono, no quién vendió: eso va en «sin saber quién».
+async function loadStaffPay() {
+  const box = $("#staff-pay");
+  if (!box) return;
+  if (!box.innerHTML) box.innerHTML = '<div class="panel muted">Cargando lo que hay que pagar…</div>';
+  if (!costSheet) await loadCostSheet();
+  if (!costSheet) { box.innerHTML = ""; return; }
+  const s = costSheet.settings, staffPct = Number(s.staff_pct) || 0, natiPct = Number(s.other_pct) || 0;
+  let web;
+  try { web = await panelWeb({ action: "staff_pay", months: 2 }); }
+  catch (e) { box.innerHTML = '<section class="panel"><h2 class="t-lg">A pagar este mes</h2><p class="t-sm muted">No se pudo leer la web: ' + esc(e.message) + "</p></section>"; return; }
+  const people = peopleCache ?? await loadPeople().catch(() => []);
+  const staff = (people ?? []).filter(p => p.kind === "staff");
+  // «Nana» en la web = «Daniela (Nana)» en el panel.
+  const nameOf = n => { const w = String(n).toLowerCase().split(/\s+/).filter(x => x.length > 2);
+    return staff.find(p => w.some(x => p.fullName.toLowerCase().includes(x)))?.fullName ?? [...new Set(String(n).split(/\s+/))].join(" "); };
+  const cup = rateNow("CUP");
+  const money = v => usd2(v) + (cup ? ' <span class="t-xs muted">≈ ' + Math.round(v * cup).toLocaleString("es") + " CUP</span>" : "");
+  const MONTHS = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
+  const blocks = await Promise.all(web.months.map(async (m, i) => {
+    const [y, mo] = m.month.split("-").map(Number);
+    const from = m.month + "-01", last = new Date(Date.UTC(y, mo, 0)).getUTCDate();
+    const to = i === 0 ? isoDay(new Date()) : m.month + "-" + String(last).padStart(2, "0");
+    const shop = await supabase.rpc("nexo_business_report", { p_business: bizId(), p_from: from, p_to: to }).then(r => r.error || r.data?.error ? null : r.data);
+    const shopUsd = shop ? Math.max(0, (shop.totals.usdMinor - (shop.totals.refundsMinor ?? 0)) / 100) : 0;
+    const base = m.sales + shopUsd;
+    const pay = v => Math.round(v * staffPct) / 100;
+    const unknown = m.unknown.sales + shopUsd;
+    const staffTotal = pay(base), nati = Math.round(base * natiPct) / 100;
+    const line = (label, value, sub) => '<div class="kv"><span>' + label + (sub ? '<br><span class="t-xs muted">' + sub + "</span>" : "") + '</span><span class="num">' + value + "</span></div>";
+    return '<div class="row-item" style="display:block">'
+      + '<div class="kv"><span class="title">' + (i === 0 ? "Este mes" : "Mes pasado") + " · " + MONTHS[mo - 1] + '</span><span class="t-sm muted">vendido ' + usd2(base) + "</span></div>"
+      + m.clerks.map(c => line("Pagar a " + esc(nameOf(c.name)) + " (" + pct1(staffPct) + ")", money(pay(c.sales)), "de " + usd2(c.sales) + " · " + c.orders + (c.orders === 1 ? " pedido" : " pedidos"))).join("")
+      + (unknown > 0 ? line("Dependientas, sin saber quién (" + pct1(staffPct) + ")", money(pay(unknown)), "de " + usd2(unknown) + (m.unknown.orders ? " · " + m.unknown.orders + " pedidos web que cerró otra persona" : "") + (shopUsd ? (m.unknown.orders ? " + " : " · ") + "caja " + usd2(shopUsd) : "")) : "")
+      + line("Pagar a " + esc(s.other_label) + " (" + pct1(natiPct) + ")", money(nati), "de " + usd2(base))
+      + '<div class="kv strong" style="border-top:1px solid var(--nx-border);margin-top:4px;padding-top:4px"><span><b>Total a pagar</b></span><span class="num"><b>' + money(staffTotal + nati) + "</b></span></div>"
+      + "</div>";
+  }));
+  box.innerHTML = '<section class="panel" style="margin-top:12px"><h2 class="t-lg">A pagar este mes</h2>'
+    + blocks.join("")
+    + '<p class="t-xs muted" style="margin-top:8px">Solo para saber cuánto pagar: aquí no se paga nada. Cuenta los pedidos completados de la web (solo productos, sin envío) y las ventas de la caja. '
+    + "Cada pedido web es de la dependienta que recibió el dinero (si no, la que lo entregó). La caja no guarda quién vendió, por eso va en «sin saber quién». "
+    + "Los % se cambian en Ajustes → Costos.</p></section>";
+}
 // Historial por meses (como BizneCubano): web + tienda, número de ventas y promedio por venta.
 async function openHistory() {
   const sheet = openSheet('<div class="sheet-head"><h2>Meses anteriores</h2><button type="button" class="btn btn-ghost" data-close>Cerrar</button></div><div data-hist><p class="muted">Cargando…</p></div>', "Meses anteriores");
@@ -510,6 +558,7 @@ async function openHistory() {
 
 function renderSummary() {
   if (isOwner()) setTimeout(loadWebMonth, 0);
+  if (isOwner() && canCost()) setTimeout(loadStaffPay, 0);
   const b = current;
   const fiado = b.receivables.map(r => money(r.balanceMinor, r.currency)).join(" · ") || "Nada";
   const fiadoN = b.receivables.reduce((n, r) => n + (r.openCount ?? 0), 0);
@@ -780,6 +829,9 @@ let person = null; // { businessId, kind, status, fullName } in person mode
 const bizId = () => mode === "admin" ? current?.businessId : person?.businessId;
 const KIND = { gestor: "Gestora", staff: "Dependienta", partner: "Socio" };
 const PARTNER_TYPE = { consignment: "Consignación", investor: "Inversor" };
+// Opciones del selector «Dueño de la mercancía»: Casa Viva + socias activas (con su tipo y su regla).
+const ownerOptions = (partners, mine) => '<option value="">Casa Viva</option>' + partners.map(x => '<option value="' + x.id + '"' + (x.id === mine ? " selected" : "") + ">"
+  + esc(x.fullName) + " · " + esc((PARTNER_TYPE[x.partnerType] ? PARTNER_TYPE[x.partnerType] + ", " : "") + ruleText(x)) + "</option>").join("");
 const PARTNER_RULE = { supplier_price: "Su precio de proveedor por unidad", percent_of_sale: "% de la venta", fixed_per_unit: "Fijo USD por unidad", percent_of_profit: "% de la ganancia" };
 const ruleText = p => p.partnerRule ? (p.partnerRule === "supplier_price" ? PARTNER_RULE.supplier_price : p.partnerRule === "fixed_per_unit" ? dollars(p.partnerValue ?? 0) + " por unidad" : pct1(p.partnerValue ?? 0) + (p.partnerRule === "percent_of_sale" ? " de la venta" : " de la ganancia")) : "Sin regla";
 function setMode(next) {
@@ -1009,7 +1061,7 @@ function oneRow(r) {
   return '<div class="inv-row" data-inv="' + esc(r.productId) + '">' + head
     + '<div class="inv-edit"><label class="field t-sm">Precio USD<input class="input" inputmode="decimal" data-price value="' + esc(r.priceUsd ?? "") + '"></label>'
     + '<label class="field t-sm">Quedan<input class="input" inputmode="numeric" data-stock value="' + esc(r.stock) + '"></label>'
-    + '<button type="button" class="btn btn-primary" data-save' + (isDiff(r) ? "" : " hidden") + ">Guardar</button></div></div>';
+    + '<button type="button" class="btn btn-primary" data-save' + (isDiff(r) ? "" : " hidden") + '>Guardar</button></div></div>';
 }
 function groupRow(g) {
   const img = g.rows.find(r => r.imageUrl)?.imageUrl ?? null;
@@ -1163,6 +1215,7 @@ async function editGroup(key) {
     + '<div data-list></div>'
     + '<div data-commbox></div>'
     + '<div data-costbox></div>'
+    + '<div data-ownerbox></div>'
     + '<p class="msg" data-msg role="status"></p>'
     + '<button type="button" class="btn btn-primary btn-xl btn-block sticky-save" data-save hidden>Guardar</button>'
     + '<button type="button" class="btn btn-secondary btn-xl btn-block" data-add>＋ Añadir diseño o color</button>'
@@ -1328,10 +1381,35 @@ async function editGroup(key) {
     };
   }
 
+  // Dueño de la mercancía para todos los diseños (Lennys 16-oct: «muchos están en Casa Viva sin poder modificar»).
+  const ownerBox = $s("[data-ownerbox]");
+  async function renderOwnerAll() {
+    const live = rowsNow().filter(r => r.active);
+    if (!withCosts() || !live.length) { ownerBox.innerHTML = ""; return; }
+    const [people, owners] = await Promise.all([peopleCache ?? loadPeople(), supabase.rpc("nexo_business_product_partners", { p_business: bizId() })]);
+    const partners = (people ?? []).filter(x => x.kind === "partner" && x.status === "active");
+    const now = [...new Set(live.map(r => owners.data?.[r.productId] ?? ""))];
+    ownerBox.innerHTML = '<form class="form note-box" data-ownerall>'
+      + '<label class="field">Dueño de la mercancía (todos los diseños)<select name="owner">' + ownerOptions(partners, now.length === 1 ? now[0] : "__") + "</select></label>"
+      + '<p class="t-xs muted">' + (now.length > 1 ? "Ahora los diseños tienen dueños distintos. " : "") + "Se cambia en todos los diseños de este producto.</p></form>";
+    const sel = ownerBox.querySelector("select");
+    if (now.length > 1) { sel.insertAdjacentHTML("afterbegin", '<option value="__" selected disabled>Varios dueños</option>'); }
+    sel.onchange = async () => {
+      sel.disabled = true;
+      let bad = 0;
+      for (const r of live) {
+        const { data, error } = await supabase.rpc("nexo_business_set_product_partner", { p_business: bizId(), p_product: r.productId, p_partner: sel.value || null });
+        if (error || data?.error) bad++;
+      }
+      sel.disabled = false;
+      toast(bad ? "No se cambió en " + bad + (bad === 1 ? " diseño" : " diseños") : "Listo: " + live.length + (live.length === 1 ? " diseño de " : " diseños de ") + sel.selectedOptions[0].text.split(" · ")[0], bad ? "bad" : "ok");
+    };
+  }
+
   async function loadWeb() {
     if (!parentWooId) {
       webNote.hidden = false; webNote.textContent = "Este producto no está en la web: aquí solo cambias la caja.";
-      addBtn.hidden = true; render(); renderComm(); renderCostAll(); return;
+      addBtn.hidden = true; render(); renderComm(); renderCostAll(); void renderOwnerAll(); return;
     }
     try {
       web = await panelWeb({ action: "product_variations", wooId: parentWooId, group: key });
@@ -1344,6 +1422,7 @@ async function editGroup(key) {
     render();
     renderComm();
     renderCostAll();
+    void renderOwnerAll();
   }
 
   saveBtn.onclick = async () => {
@@ -2761,7 +2840,10 @@ function previewCost({ amount, rate, freight, commission, staffPct }, priceUsd) 
   // D68 (Lennys, 14-oct): costo × 1,5, nunca por debajo del mínimo, redondeado arriba al dólar entero.
   const sug = lennysPrice(landed, fixed, commission);
   const commNow = commission ?? lennysCommission(priceUsd ?? sug.price);
-  const clean = priceUsd != null ? priceUsd - landed - commNow - fixed : null;
+  // 16-oct (Lennys): «queda limpio» también descuenta el % de la dependienta y el % de Nati (Ajustes → Costos:
+  // «% para la dependienta» y «Otro gasto»), sobre el precio. El MÍNIMO no cambia (es la regla de Core y de la web).
+  const pctUsd = priceUsd != null ? priceUsd * (staff + Number(s.other_pct)) / 100 : 0;
+  const clean = priceUsd != null ? priceUsd - landed - commNow - fixed - pctUsd : null;
   // Mínimo con la comisión de hoy (la misma cuenta que la web); sin precio, el del sugerido.
   const min = priceUsd != null ? floorFor(landed, fixed, commNow) : sug.min;
   return { ...out, rule: "x1_5", landed, suggested: sug.price, suggestedComm: sug.comm, min, comm: commNow, clean };
@@ -2807,11 +2889,13 @@ function breakdown(c, priceUsd) {
   const split = c.comm > 0
     ? '<p class="t-xs muted">Producto extra de clienta de gestora: la gestora cobra su comisión normal (' + dollars(c.comm) + "). Premio de la dependienta: en espera.</p>" : "";
   if (c.rule === "x1_5") {
-    // D68: lo que queda limpio = precio − costo − comisión − gastos fijos. «Bajo el mínimo» no es «pierde».
+    // D68: lo que queda limpio = precio − costo − comisión − gastos fijos − % dependienta − % Nati (16-oct).
+    // «Bajo el mínimo» no es «pierde».
     return '<div class="breakdown">'
       + line("Costo (compra + transporte)", dollars(c.landed))
       + line(fixedLabel(), dollars(c.fixed))
       + line("Comisión gestora", dollars(c.comm))
+      + (priceUsd != null ? line("Dependienta " + pct1(c.staff) + " · " + s.other_label + " " + pct1(s.other_pct), dollars(c.staffUsd + c.otherUsd)) : "")
       + line("Mínimo (no vender por debajo)", dollars(c.min))
       + '<div class="verdict">'
       + '<div><span>Sugerido (costo × 1,5, con mínimo)</span><b class="num">' + dollars(c.suggested) + "</b></div>"
@@ -2874,7 +2958,9 @@ function costSection(p) {
     // La comisión ya no va aquí: un solo campo arriba («Comisión de la gestora»), que es el que se guarda.
     + '<label class="field">Transporte por unidad (USD)<input name="freight" inputmode="decimal" placeholder="0,00" value="' + esc(k?.freightUsd ?? "") + '"></label>'
     + '<label class="field">% para la dependienta<input name="staff" inputmode="decimal" placeholder="' + esc(pct1(s.staff_pct)) + ' (general)" value="' + esc(k?.staffPct ?? "") + '"></label>'
-    + '<label class="field">Dueño de la mercancía<select name="owner" data-owner' + (k ? "" : " disabled") + '><option value="">Casa Viva</option></select></label>'
+    // 16-oct (Lennys): el dueño se puede cambiar siempre, tenga costo o no (antes sin costo quedaba bloqueado en Casa Viva).
+    + '<label class="field">Dueño de la mercancía (proveedor o socia)<select name="owner" data-owner><option value="">Casa Viva</option></select></label>'
+    + (k ? "" : '<p class="t-xs muted" data-owner-note>Se guarda ya. Para el reparto con la dueña hace falta además el costo de compra.</p>')
     + '<div class="grid-2" data-prule hidden><label class="field">Regla para este producto<select name="prule"><option value="">La de la socia</option><option value="percent_of_profit">% de la ganancia</option><option value="percent_of_sale">% de la venta</option><option value="fixed_per_unit">Fijo USD por unidad</option><option value="supplier_price">Su precio de proveedor</option></select></label><label class="field">Valor<input name="pvalue" inputmode="decimal" placeholder="Ej. 50"></label></div>'
     + '<div data-breakdown></div>'
     + '<p class="msg" data-cost-msg role="status"></p>'
@@ -2911,7 +2997,7 @@ function wireCostSection(sheetEl, p) {
     const sel = form.querySelector("[data-owner]");
     const partners = (people ?? []).filter(x => x.kind === "partner" && x.status === "active");
     const mine = owners.data?.[p.product_id] ?? "";
-    sel.innerHTML = '<option value="">Casa Viva</option>' + partners.map(x => '<option value="' + x.id + '"' + (x.id === mine ? " selected" : "") + ">" + esc(x.fullName) + " · " + esc(ruleText(x)) + "</option>").join("");
+    sel.innerHTML = ownerOptions(partners, mine);
     const pr = form.querySelector("[data-prule]");
     const rules = owners.data?._rules?.[p.product_id];
     form.elements.prule.value = rules?.rule ?? "";
@@ -2931,7 +3017,8 @@ function wireCostSection(sheetEl, p) {
       pr.hidden = !sel.value;
       const { data, error } = await supabase.rpc("nexo_business_set_product_partner", { p_business: current.businessId, p_product: p.product_id, p_partner: sel.value || null });
       if (error || data?.error) { toast("No se cambió: " + (error?.message ?? data.message ?? data.error), "bad"); sel.value = mine; return; }
-      toast(sel.value ? "Producto de " + sel.selectedOptions[0].text.split(" · ")[0] : "Producto de Casa Viva", "ok");
+      toast((sel.value ? "Producto de " + sel.selectedOptions[0].text.split(" · ")[0] : "Producto de Casa Viva")
+        + (data?.hasCost === false && sel.value ? ". Falta su costo para el reparto." : ""), "ok");
     };
   })();
   form.elements.currency.onchange = () => { dirty = true; form.elements.rate.value = ""; update(); };
