@@ -43,6 +43,12 @@ Deno.serve(async req => {
   const business = who.businessId as string;
   const body = await req.json().catch(() => ({})) as { action?: string; image?: string; receipt?: Record<string, unknown> };
 
+  // 16-oct (Lennys + Ernesto): la mercancía que llega solo la registran Lennys y Ernesto desde el panel.
+  // Desde la caja (teléfonos de las dependientas) queda cerrado. Para reabrir: secreto NEXO_RECEIVE_FROM_DEVICES=si.
+  if ((Deno.env.get("NEXO_RECEIVE_FROM_DEVICES") ?? "no") !== "si" && (body.action === "read" || body.action === "save")) {
+    return json(403, { error: "closed", message: "La mercancía que llega ahora la registran Lennys o Ernesto desde el panel. Avísales y guarda la factura." });
+  }
+
   if (body.action === "check") {
     const s = await core("GET", "panel/curru/status").catch(() => ({ enabled: false }));
     return json(200, { curru: s.enabled === true });
