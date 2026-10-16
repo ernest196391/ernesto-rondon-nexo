@@ -931,6 +931,12 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
   - Higgsfield rechaza escenas con camiseta de tirantes y sudor, y no cobra. Mejor camiseta ancha.
   - Las capas PNG necesitan `-loop 1`. Si no, solo salen en un fotograma.
   - Las capas que empiezan en 0 van sin fundido, para que el gancho se vea en el fotograma 0.
+- **PROGRAMADO (16-oct 00:50):** queda en Business Suite para publicarse el **16-oct a las 19:00** en Facebook e Instagram. Lleva la copia `-fb.mp4`, la portada `portada.jpg` («¿Sudas a las 2 AM? Sorteamos 1 topper») y los subtítulos automáticos de Meta apagados, porque el video ya lleva los suyos.
+  - El texto está en `pie.txt`. Es el CTA nuevo que eligió Ernesto: **sorteo de 1 topper** (comentar un truco, etiquetar a alguien y seguirnos). Se sortea el **viernes 23 a las 19:00 en directo**, solo La Habana.
+  - Pendiente:
+    - avisar a Lennys y pedir a Zaymi que aparte 1 topper (al mandarlos, me lo bloqueó el control de permisos);
+    - mandar al General los enlaces a las 19:10;
+    - preparar el sorteo en directo del 23.
 - **Ernesto, 16-oct:** «Vamos a dar este sí». Se publica tal cual.
   - Fallos que vio: dijo «suedas» en vez de «sudes» y pronunció mal «poliéster»; el CTA no regala nada; el gancho y las escenas se pueden mejorar. Los cortes, mejor.
 - **Auditoría propia del reel**, para el próximo:
