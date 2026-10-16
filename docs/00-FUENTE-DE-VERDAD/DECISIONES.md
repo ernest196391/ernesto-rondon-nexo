@@ -232,6 +232,7 @@ Ampliación D30 (2026-10-07): el flujo de **Devolución** ya existe en `/ventas/
 - **Red perdida** (sin venta propia o sin Plata) no se guarda. **Devolución** de un mes cerrado resta en el siguiente; red negativa = alerta y revisión a mano.
 - **Autocompra por nombre** (quien compra o recibe se llama como la gestora); la marca `self_order` de Core sola solo avisa («revisar»): salía en 19 de 24 pedidos reales de octubre.
 - **Sin costo = 0 puntos** y sin insignia en la tienda; **sombra no da títulos** ni se paga; interruptor `cvd_programa_gestoras` (sombra por defecto) y `cvd_programa_ver`.
+- **16-oct, al ponerlo encima de lo vivo (Core 3.14.29; Claude, técnico y reversible):** un costo provisional (fórmula o por confirmar) cuenta, con alerta; los gastos fijos por producto (D74) NO se restan salvo `cvd_programa_gastos_fijos = si` (lo decide Ernesto); el premio de la dependienta de un «extra en tienda» (regla del 15-oct) se resta de la ganancia si es > 0. Detalle: `docs/nexo-business/programa-gestoras/DISENO.md` §10.
 
 **D61 · 2026-10-14 · «Mi estudio de fotos» y «Mi contabilidad»: cómo se programó (Claude, técnico y reversible). Core 3.14.1, EN VIVO pero apagado para las gestoras.**
 - **La clave de Google es de cada gestora** y la paga ella (Ernesto, 14-oct). Se guarda cifrada (sodium; secreto sacado de AUTH_KEY+SECURE_AUTH_KEY o `CVD_ESTUDIO_SECRET`); si cambian esas claves de wp-config, las gestoras tienen que volver a conectarla (la web lo dice).
