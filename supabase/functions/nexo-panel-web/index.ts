@@ -3,6 +3,7 @@
 // La clave de WooCommerce (WOO_URL, WOO_CK, WOO_CS) nunca sale del servidor.
 //   POST { action: "summary", from?, to? }          → resumen del periodo (por defecto, este mes)
 //   POST { action: "orders", status?, search?, page? } → lista de pedidos (20 por página)
+//   POST { action: "staff_pay", months? }            → ventas del mes por dependienta («A pagar este mes»)
 //   Productos (Core 3.13.52): product_variations, variation_add, product_variable_create, products_visibility
 //   Venta de proveedor (Core 3.14.14, D69): supplier_split, supplier_split_save, supplier_sales
 // Deploy: npx.cmd supabase functions deploy nexo-panel-web --project-ref viwwlriwlwodrfukbgbj --no-verify-jwt --use-api
@@ -172,6 +173,48 @@ Deno.serve(async req => {
       return json(200, { months: by });
     }
 
+    // «A pagar este mes» (Lennys 16-oct): ventas concretadas de la web por mes (solo productos, sin envío) y
+    // quién de las dependientas atendió cada pedido. Solo lectura: no crea pagos. Sin tocar Core.
+    // Dependienta de un pedido = la primera que sea dependienta (rol cvd_clerk) de: quien recibió el dinero
+    // (_cvd_collection_received_by), quien lo entregó (_cvd_handed_over_by), quien empezó a prepararlo (_cvd_operation_history).
+    if (body.action === "staff_pay") {
+      const n = Math.min(3, Math.max(1, Number(body.months) || 2));
+      const { data: clerkRows } = await woo("customers", { role: "cvd_clerk", per_page: "100" });
+      const clerks: Record<number, string> = {};
+      for (const c of clerkRows as { id: number; first_name: string; last_name: string; username: string }[]) {
+        clerks[c.id] = `${c.first_name ?? ""} ${c.last_name ?? ""}`.trim() || c.username;
+      }
+      const now = new Date(Date.now() - 4 * 3600_000); // hora de Cuba (UTC−4)
+      const pad = (x: number) => String(x).padStart(2, "0");
+      const out = [];
+      for (let k = 0; k < n; k++) {
+        const y = now.getUTCFullYear(), m0 = now.getUTCMonth() - k;
+        const start = new Date(Date.UTC(y, m0, 1)), end = new Date(Date.UTC(y, m0 + 1, 1));
+        const month = `${start.getUTCFullYear()}-${pad(start.getUTCMonth() + 1)}`;
+        const after = `${month}-01T00:00:00`, before = `${end.getUTCFullYear()}-${pad(end.getUTCMonth() + 1)}-01T00:00:00`;
+        const by: Record<string, { name: string; orders: number; sales: number }> = {};
+        let total = 0, orders = 0;
+        for (let page = 1; page <= 30; page++) {
+          const { data, pages } = await woo("orders", { after, before, status: "completed", per_page: "100", page: String(page) });
+          for (const o of data as WooOrder[]) {
+            const sales = Math.round(o.line_items.reduce((t, l) => t + Number(l.total || 0), 0) * 100) / 100;
+            const hist = meta(o, "_cvd_operation_history");
+            const firstOp = Array.isArray(hist) && hist.length ? Number((hist[0] as { user_id?: number }).user_id ?? 0) : 0;
+            const who = [meta(o, "_cvd_collection_received_by"), meta(o, "_cvd_handed_over_by"), firstOp].map(Number).find(id => id && clerks[id]) ?? 0;
+            const key = who ? String(who) : "unknown";
+            by[key] ??= { name: who ? clerks[who] : "", orders: 0, sales: 0 };
+            by[key].orders++; by[key].sales = Math.round((by[key].sales + sales) * 100) / 100;
+            total += sales; orders++;
+          }
+          if (page >= pages) break;
+        }
+        out.push({ month, orders, sales: Math.round(total * 100) / 100,
+          clerks: Object.entries(by).filter(([k]) => k !== "unknown").map(([id, v]) => ({ id: Number(id), ...v })).sort((a, b) => b.sales - a.sales),
+          unknown: by.unknown ?? { name: "", orders: 0, sales: 0 } });
+      }
+      return json(200, { months: out });
+    }
+
     if (body.action === "orders") {
       const params: Record<string, string> = { per_page: "20", page: String(Math.max(1, Number(body.page) || 1)), status: "any" };
       if (typeof body.status === "string" && body.status) params.status = body.status;
@@ -200,6 +243,10 @@ Deno.serve(async req => {
       if (!["approve", "pay", "reject"].includes(act)) return json(400, { error: "Acción no válida." });
       return json(200, await core("POST", `panel/payouts/${Number(body.id)}`, { action: act, reference: String(body.reference ?? "") }));
     }
+
+    // Programa de gestoras (Core 3.14.29, D53–D60): último cálculo del libro y «Recalcular ahora». Solo lectura de dinero: no paga nada.
+    if (body.action === "programa") return json(200, await core("GET", "panel/programa"));
+    if (body.action === "programa_calcular") return json(200, await core("POST", "panel/programa/calcular", {}));
 
     // Inventario: existencias de la web para comparar, y copiar a la web un precio cambiado en el panel.
     if (body.action === "web_levels") return json(200, await core("GET", "panel/stock/levels"));

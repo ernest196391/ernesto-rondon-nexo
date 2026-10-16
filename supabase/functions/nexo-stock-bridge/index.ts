@@ -1,7 +1,8 @@
 // D37 fase 2: un solo stock para la caja (NEXO) y la web (WooCommerce / Casa Viva Core).
-// Cada 2 minutos (pg_cron) mueve MOVIMIENTOS con clave única, nunca totales:
-//   A. caja/panel → web: ventas, devoluciones y entradas de la caja restan/suman en la web.
+// Cada 2 minutos (pg_cron) mueve MOVIMIENTOS con clave única:
 //   B. web → caja: cada línea de pedido web que descontó stock resta en la caja; si se cancela, vuelve.
+//   A. caja/panel → web: ventas, devoluciones y entradas de la caja restan/suman en la web.
+//      Excepción (15-oct): un conteo de «Quedan» en el panel FIJA la web a la cifra de la caja (set).
 // Autorización: la clave interna (Vault del trabajo programado o NEXO_IMPORT_KEY).
 // Deploy: npx.cmd supabase functions deploy nexo-stock-bridge --project-ref viwwlriwlwodrfukbgbj --no-verify-jwt --use-api
 import { createClient } from "jsr:@supabase/supabase-js@2";
@@ -38,23 +39,11 @@ Deno.serve(async req => {
   const { data: state } = await admin.rpc("nexo_business_stock_checkpoint", { p_business: BUSINESS });
   if (!state?.from) return json(200, { off: true }); // puente apagado hasta el cambio
 
-  const report = { toWeb: 0, toWebSkipped: 0, fromWeb: 0, messengers: 0, customers: 0, gestoras: null as unknown, errors: [] as string[] };
+  const report = { toWeb: 0, toWebSet: 0, toWebHeld: 0, toWebSkipped: 0, fromWeb: 0, messengers: 0, customers: 0, gestoras: null as unknown, errors: [] as string[] };
 
-  // A. caja/panel → web
-  try {
-    const { data: rows, error } = await admin.rpc("nexo_business_stock_to_web", { p_business: BUSINESS, p_limit: 200 });
-    if (error) throw new Error(error.message);
-    if (rows?.length) {
-      const items = rows.map((r: { stock_key: string; woo_id: number; delta: number }) => ({ key: r.stock_key, wooId: r.woo_id, delta: Number(r.delta) }));
-      const result = await core("POST", "panel/stock/adjust", { items });
-      const applied = new Set((result.applied ?? []).map((a: { key: string }) => a.key));
-      const sent = rows.filter((r: { stock_key: string }) => applied.has(r.stock_key))
-        .map((r: { stock_key: string; product_id: string; delta: number }) => ({ key: r.stock_key, productId: r.product_id, delta: r.delta }));
-      await admin.rpc("nexo_business_stock_mark_sent", { p_business: BUSINESS, p_items: sent });
-      report.toWeb = sent.length;
-      report.toWebSkipped = (result.applied ?? []).filter((a: { skipped?: string }) => a.skipped).length;
-    }
-  } catch (e) { report.errors.push("A: " + (e as Error).message); }
+  // B va ANTES que A (15-oct): así los pedidos web ya están en la caja cuando A fija la web tras un conteo
+  // del panel, y la cifra fijada ya los descuenta. Si B falla, A no fija ninguna cifra en esta vuelta.
+  let webSalesOk = false;
 
   // B. web → caja
   try {
@@ -95,7 +84,61 @@ Deno.serve(async req => {
     // Se vuelve a leer con 5 minutos de solape: las claves evitan cualquier doble aplicación.
     const next = new Date(Date.parse(data.now) - 5 * 60_000).toISOString();
     await admin.rpc("nexo_business_stock_checkpoint", { p_business: BUSINESS, p_value: next });
+    webSalesOk = true;
   } catch (e) { report.errors.push("B: " + (e as Error).message); }
+
+  // A. caja/panel → web
+  //  - conteo del panel (set_to no nulo): la web queda con esa cifra exacta. El Core en vivo solo sabe
+  //    sumar/restar, así que se leen las existencias de la web (panel/stock/levels) y se manda
+  //    la diferencia «cifra − web» (16-oct: así no hace falta tocar Core).
+  //  - lo demás (ventas, devoluciones, entradas…): diferencia, como siempre → {key, wooId, delta}
+  try {
+    type Row = { stock_key: string; product_id: string; woo_id: number; delta: number; set_to: number | null; kind: string };
+    const { data, error } = await admin.rpc("nexo_business_stock_to_web", { p_business: BUSINESS, p_limit: 200 });
+    if (error) throw new Error(error.message);
+    // Un conteo espera a la próxima vuelta (y con él todo lo posterior de ese producto) si:
+    //  - B falló (los pedidos web aún no están en la caja), o
+    //  - en esta misma vuelta va antes otra diferencia del mismo producto (la lectura de la web aún no la incluye).
+    const held = new Set<string>();
+    const seen = new Set<string>();
+    const rows = ((data ?? []) as Row[]).filter(r => {
+      if (held.has(r.product_id)) return false;
+      if (r.set_to != null && (!webSalesOk || seen.has(r.product_id))) { held.add(r.product_id); return false; }
+      seen.add(r.product_id);
+      return true;
+    });
+    report.toWebHeld = (data?.length ?? 0) - rows.length;
+    let levels = new Map<number, number | null>();
+    if (rows.some(r => r.set_to != null)) {
+      const lv = await core("GET", "panel/stock/levels");
+      levels = new Map((lv.products ?? []).map((p: { wooId: number; stock: number | null }) => [Number(p.wooId), p.stock == null ? null : Number(p.stock)]));
+    }
+    const noop: Row[] = []; // conteos que no cambian nada en la web (ya está igual, o la web no lleva stock de ese producto)
+    const items: { key: string; wooId: number; delta: number }[] = [];
+    const deltaOf = new Map<string, number>();
+    for (const r of rows) {
+      let d = Number(r.delta);
+      if (r.set_to != null) {
+        const w = levels.get(Number(r.woo_id));
+        if (w == null) { noop.push(r); report.toWebSkipped++; continue; }
+        d = Number(r.set_to) - w;
+        if (d === 0) { noop.push(r); report.toWebSet++; continue; }
+        report.toWebSet++;
+      }
+      deltaOf.set(r.stock_key, d);
+      items.push({ key: r.stock_key, wooId: r.woo_id, delta: d });
+    }
+    let applied = new Set<string>();
+    if (items.length) {
+      const result = await core("POST", "panel/stock/adjust", { items });
+      applied = new Set((result.applied ?? []).map((a: { key: string }) => a.key));
+      report.toWebSkipped += (result.applied ?? []).filter((a: { skipped?: string }) => a.skipped).length;
+    }
+    const sent = [...noop.map(r => ({ key: r.stock_key, productId: r.product_id, delta: 0 })),
+      ...rows.filter(r => applied.has(r.stock_key)).map(r => ({ key: r.stock_key, productId: r.product_id, delta: deltaOf.get(r.stock_key) ?? Number(r.delta) }))];
+    if (sent.length) await admin.rpc("nexo_business_stock_mark_sent", { p_business: BUSINESS, p_items: sent });
+    report.toWeb = sent.length;
+  } catch (e) { report.errors.push("A: " + (e as Error).message); }
 
   // C. Mensajeros de la web → caja (people.kind='messenger'; aprobado = activo).
   try {

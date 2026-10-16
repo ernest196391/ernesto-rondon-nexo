@@ -108,6 +108,7 @@
     <main class="page" data-page="resumen">
       <div class="page-head"><h1>Resumen</h1></div>
       <div id="web-month"></div>
+      <div id="staff-pay"></div>
       <div class="kv" style="margin-top:16px"><h2 class="t-lg">La tienda</h2><span class="t-sm muted" id="period-label"></span></div>
       <div class="chips" id="period" role="group" aria-label="Periodo">
         <button type="button" class="chip" data-p="hoy" aria-pressed="true">Hoy</button>
@@ -171,7 +172,7 @@
       <div class="seg" id="team-seg" role="group" aria-label="Personas">
         <button type="button" data-kind="web" aria-pressed="true">Gestoras</button>
         <button type="button" data-kind="messenger" aria-pressed="false">Mensajeros</button>
-        
+        <button type="button" data-kind="programa" aria-pressed="false">Programa</button>
         <button type="button" data-kind="staff" aria-pressed="false">Dependientas</button>
         <button type="button" data-kind="partner" aria-pressed="false">Socios</button>
       </div>
@@ -485,6 +486,53 @@ async function loadWebMonth() {
     box.innerHTML = '<div class="panel muted">No se pudo leer la web: ' + esc(e.message) + "</div>";
   }
 }
+// «A pagar este mes» (Lennys 16-oct): el % de la dependienta y el % de Nati sobre lo vendido, por mes.
+// Solo lectura: no crea pagos. Ventas = pedidos completados de la web (solo productos, sin envío) + ventas de la caja.
+// Dependienta de cada pedido web = la que recibió el dinero, o si no la que lo entregó o lo empezó a preparar
+// (Core lo apunta en el pedido). La caja solo guarda el teléfono, no quién vendió: eso va en «sin saber quién».
+async function loadStaffPay() {
+  const box = $("#staff-pay");
+  if (!box) return;
+  if (!box.innerHTML) box.innerHTML = '<div class="panel muted">Cargando lo que hay que pagar…</div>';
+  if (!costSheet) await loadCostSheet();
+  if (!costSheet) { box.innerHTML = ""; return; }
+  const s = costSheet.settings, staffPct = Number(s.staff_pct) || 0, natiPct = Number(s.other_pct) || 0;
+  let web;
+  try { web = await panelWeb({ action: "staff_pay", months: 2 }); }
+  catch (e) { box.innerHTML = '<section class="panel"><h2 class="t-lg">A pagar este mes</h2><p class="t-sm muted">No se pudo leer la web: ' + esc(e.message) + "</p></section>"; return; }
+  const people = peopleCache ?? await loadPeople().catch(() => []);
+  const staff = (people ?? []).filter(p => p.kind === "staff");
+  // «Nana» en la web = «Daniela (Nana)» en el panel.
+  const nameOf = n => { const w = String(n).toLowerCase().split(/\s+/).filter(x => x.length > 2);
+    return staff.find(p => w.some(x => p.fullName.toLowerCase().includes(x)))?.fullName ?? [...new Set(String(n).split(/\s+/))].join(" "); };
+  const cup = rateNow("CUP");
+  const money = v => usd2(v) + (cup ? ' <span class="t-xs muted">≈ ' + Math.round(v * cup).toLocaleString("es") + " CUP</span>" : "");
+  const MONTHS = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
+  const blocks = await Promise.all(web.months.map(async (m, i) => {
+    const [y, mo] = m.month.split("-").map(Number);
+    const from = m.month + "-01", last = new Date(Date.UTC(y, mo, 0)).getUTCDate();
+    const to = i === 0 ? isoDay(new Date()) : m.month + "-" + String(last).padStart(2, "0");
+    const shop = await supabase.rpc("nexo_business_report", { p_business: bizId(), p_from: from, p_to: to }).then(r => r.error || r.data?.error ? null : r.data);
+    const shopUsd = shop ? Math.max(0, (shop.totals.usdMinor - (shop.totals.refundsMinor ?? 0)) / 100) : 0;
+    const base = m.sales + shopUsd;
+    const pay = v => Math.round(v * staffPct) / 100;
+    const unknown = m.unknown.sales + shopUsd;
+    const staffTotal = pay(base), nati = Math.round(base * natiPct) / 100;
+    const line = (label, value, sub) => '<div class="kv"><span>' + label + (sub ? '<br><span class="t-xs muted">' + sub + "</span>" : "") + '</span><span class="num">' + value + "</span></div>";
+    return '<div class="row-item" style="display:block">'
+      + '<div class="kv"><span class="title">' + (i === 0 ? "Este mes" : "Mes pasado") + " · " + MONTHS[mo - 1] + '</span><span class="t-sm muted">vendido ' + usd2(base) + "</span></div>"
+      + m.clerks.map(c => line("Pagar a " + esc(nameOf(c.name)) + " (" + pct1(staffPct) + ")", money(pay(c.sales)), "de " + usd2(c.sales) + " · " + c.orders + (c.orders === 1 ? " pedido" : " pedidos"))).join("")
+      + (unknown > 0 ? line("Dependientas, sin saber quién (" + pct1(staffPct) + ")", money(pay(unknown)), "de " + usd2(unknown) + (m.unknown.orders ? " · " + m.unknown.orders + " pedidos web que cerró otra persona" : "") + (shopUsd ? (m.unknown.orders ? " + " : " · ") + "caja " + usd2(shopUsd) : "")) : "")
+      + line("Pagar a " + esc(s.other_label) + " (" + pct1(natiPct) + ")", money(nati), "de " + usd2(base))
+      + '<div class="kv strong" style="border-top:1px solid var(--nx-border);margin-top:4px;padding-top:4px"><span><b>Total a pagar</b></span><span class="num"><b>' + money(staffTotal + nati) + "</b></span></div>"
+      + "</div>";
+  }));
+  box.innerHTML = '<section class="panel" style="margin-top:12px"><h2 class="t-lg">A pagar este mes</h2>'
+    + blocks.join("")
+    + '<p class="t-xs muted" style="margin-top:8px">Solo para saber cuánto pagar: aquí no se paga nada. Cuenta los pedidos completados de la web (solo productos, sin envío) y las ventas de la caja. '
+    + "Cada pedido web es de la dependienta que recibió el dinero (si no, la que lo entregó). La caja no guarda quién vendió, por eso va en «sin saber quién». "
+    + "Los % se cambian en Ajustes → Costos.</p></section>";
+}
 // Historial por meses (como BizneCubano): web + tienda, número de ventas y promedio por venta.
 async function openHistory() {
   const sheet = openSheet('<div class="sheet-head"><h2>Meses anteriores</h2><button type="button" class="btn btn-ghost" data-close>Cerrar</button></div><div data-hist><p class="muted">Cargando…</p></div>', "Meses anteriores");
@@ -510,6 +558,7 @@ async function openHistory() {
 
 function renderSummary() {
   if (isOwner()) setTimeout(loadWebMonth, 0);
+  if (isOwner() && canCost()) setTimeout(loadStaffPay, 0);
   const b = current;
   const fiado = b.receivables.map(r => money(r.balanceMinor, r.currency)).join(" · ") || "Nada";
   const fiadoN = b.receivables.reduce((n, r) => n + (r.openCount ?? 0), 0);
@@ -780,6 +829,9 @@ let person = null; // { businessId, kind, status, fullName } in person mode
 const bizId = () => mode === "admin" ? current?.businessId : person?.businessId;
 const KIND = { gestor: "Gestora", staff: "Dependienta", partner: "Socio" };
 const PARTNER_TYPE = { consignment: "Consignación", investor: "Inversor" };
+// Opciones del selector «Dueño de la mercancía»: Casa Viva + socias activas (con su tipo y su regla).
+const ownerOptions = (partners, mine) => '<option value="">Casa Viva</option>' + partners.map(x => '<option value="' + x.id + '"' + (x.id === mine ? " selected" : "") + ">"
+  + esc(x.fullName) + " · " + esc((PARTNER_TYPE[x.partnerType] ? PARTNER_TYPE[x.partnerType] + ", " : "") + ruleText(x)) + "</option>").join("");
 const PARTNER_RULE = { supplier_price: "Su precio de proveedor por unidad", percent_of_sale: "% de la venta", fixed_per_unit: "Fijo USD por unidad", percent_of_profit: "% de la ganancia" };
 const ruleText = p => p.partnerRule ? (p.partnerRule === "supplier_price" ? PARTNER_RULE.supplier_price : p.partnerRule === "fixed_per_unit" ? dollars(p.partnerValue ?? 0) + " por unidad" : pct1(p.partnerValue ?? 0) + (p.partnerRule === "percent_of_sale" ? " de la venta" : " de la ganancia")) : "Sin regla";
 function setMode(next) {
@@ -950,6 +1002,7 @@ function oneMatches(r) {
 const FILTER_HELP = {
   out: "Aquí salen los productos y diseños sin unidades. Si no vas a volver a tenerlos, toca «Marcar agotados para dejar de vender». No se borra nada.",
   hidden: "Retirados: no se venden en la caja ni en la web. No se borró nada. Ábrelos (o márcalos) para volver a venderlos.",
+  diff: "La web tiene otra cantidad. Cuenta lo que hay, ponlo en «Quedan» (aunque sea el mismo número) y toca Guardar: en unos 2 minutos la web queda igual que la caja.",
 };
 let pickGroups = new Map(); // grupo → ids marcables con el filtro actual
 function renderInventory() {
@@ -999,7 +1052,7 @@ function oneRow(r) {
   const head = '<button type="button" class="inv-head" data-open aria-label="Abrir ' + esc(name) + '">' + photo(r.imageUrl, name)
     + '<span class="grow"><span class="title">' + esc(name) + "</span>"
     + (webLeft(r) ? '<span class="meta" style="color:var(--nx-danger)">Todavía se ve en la web</span>'
-      : isDiff(r) ? '<span class="meta" style="color:var(--nx-danger)">En la web: ' + r.web.stock + " · no coincide: avisa a Ernesto para igualarla</span>" : !r.wooId ? '<span class="meta">No está en la web</span>' : "")
+      : isDiff(r) ? '<span class="meta" style="color:var(--nx-danger)">En la web: ' + r.web.stock + " · pon en «Quedan» lo que hay y toca Guardar: la web se iguala en unos 2 minutos</span>" : !r.wooId ? '<span class="meta">No está en la web</span>' : "")
     + (commTxt ? '<span class="meta">Comisión' + esc(commTxt.replace(" · gestora", " de la gestora:")) + "</span>" : "")
     + "</span>" + state + "</button>";
   if (!r.active) return '<div class="inv-row" data-inv="' + esc(r.productId) + '">' + head + '<div class="row-actions">'
@@ -1008,7 +1061,7 @@ function oneRow(r) {
   return '<div class="inv-row" data-inv="' + esc(r.productId) + '">' + head
     + '<div class="inv-edit"><label class="field t-sm">Precio USD<input class="input" inputmode="decimal" data-price value="' + esc(r.priceUsd ?? "") + '"></label>'
     + '<label class="field t-sm">Quedan<input class="input" inputmode="numeric" data-stock value="' + esc(r.stock) + '"></label>'
-    + '<button type="button" class="btn btn-primary" data-save hidden>Guardar</button></div></div>';
+    + '<button type="button" class="btn btn-primary" data-save' + (isDiff(r) ? "" : " hidden") + '>Guardar</button></div></div>';
 }
 function groupRow(g) {
   const img = g.rows.find(r => r.imageUrl)?.imageUrl ?? null;
@@ -1065,7 +1118,8 @@ function wireInventory() {
           if (res.webFail) problems.push("el precio no llegó a la web (vuelve a guardar)");
         } catch { problems.push("el precio no se guardó"); }
       }
-      if (stock !== r.stock) {
+      // Con la misma cifra también se manda si la web no coincide: la nube fija la web a esa cifra (15-oct).
+      if (stock !== r.stock || isDiff(r)) {
         const { data, error } = await supabase.rpc("nexo_business_set_stock", { p_business: bizId(), p_product: r.productId, p_quantity: stock, p_reason: "Conteo desde el panel" });
         if (error || data?.error) problems.push("la cantidad no se guardó"); else r.stock = stock;
       }
@@ -1161,6 +1215,7 @@ async function editGroup(key) {
     + '<div data-list></div>'
     + '<div data-commbox></div>'
     + '<div data-costbox></div>'
+    + '<div data-ownerbox></div>'
     + '<p class="msg" data-msg role="status"></p>'
     + '<button type="button" class="btn btn-primary btn-xl btn-block sticky-save" data-save hidden>Guardar</button>'
     + '<button type="button" class="btn btn-secondary btn-xl btn-block" data-add>＋ Añadir diseño o color</button>'
@@ -1326,10 +1381,35 @@ async function editGroup(key) {
     };
   }
 
+  // Dueño de la mercancía para todos los diseños (Lennys 16-oct: «muchos están en Casa Viva sin poder modificar»).
+  const ownerBox = $s("[data-ownerbox]");
+  async function renderOwnerAll() {
+    const live = rowsNow().filter(r => r.active);
+    if (!withCosts() || !live.length) { ownerBox.innerHTML = ""; return; }
+    const [people, owners] = await Promise.all([peopleCache ?? loadPeople(), supabase.rpc("nexo_business_product_partners", { p_business: bizId() })]);
+    const partners = (people ?? []).filter(x => x.kind === "partner" && x.status === "active");
+    const now = [...new Set(live.map(r => owners.data?.[r.productId] ?? ""))];
+    ownerBox.innerHTML = '<form class="form note-box" data-ownerall>'
+      + '<label class="field">Dueño de la mercancía (todos los diseños)<select name="owner">' + ownerOptions(partners, now.length === 1 ? now[0] : "__") + "</select></label>"
+      + '<p class="t-xs muted">' + (now.length > 1 ? "Ahora los diseños tienen dueños distintos. " : "") + "Se cambia en todos los diseños de este producto.</p></form>";
+    const sel = ownerBox.querySelector("select");
+    if (now.length > 1) { sel.insertAdjacentHTML("afterbegin", '<option value="__" selected disabled>Varios dueños</option>'); }
+    sel.onchange = async () => {
+      sel.disabled = true;
+      let bad = 0;
+      for (const r of live) {
+        const { data, error } = await supabase.rpc("nexo_business_set_product_partner", { p_business: bizId(), p_product: r.productId, p_partner: sel.value || null });
+        if (error || data?.error) bad++;
+      }
+      sel.disabled = false;
+      toast(bad ? "No se cambió en " + bad + (bad === 1 ? " diseño" : " diseños") : "Listo: " + live.length + (live.length === 1 ? " diseño de " : " diseños de ") + sel.selectedOptions[0].text.split(" · ")[0], bad ? "bad" : "ok");
+    };
+  }
+
   async function loadWeb() {
     if (!parentWooId) {
       webNote.hidden = false; webNote.textContent = "Este producto no está en la web: aquí solo cambias la caja.";
-      addBtn.hidden = true; render(); renderComm(); renderCostAll(); return;
+      addBtn.hidden = true; render(); renderComm(); renderCostAll(); void renderOwnerAll(); return;
     }
     try {
       web = await panelWeb({ action: "product_variations", wooId: parentWooId, group: key });
@@ -1342,6 +1422,7 @@ async function editGroup(key) {
     render();
     renderComm();
     renderCostAll();
+    void renderOwnerAll();
   }
 
   saveBtn.onclick = async () => {
@@ -2367,6 +2448,61 @@ function renderWebPayouts(list) {
     catch (e) { b.disabled = false; toast(e.message, "bad"); }
   }));
 }
+// ---------- Programa de gestoras (D53–D60, Core 3.14.29): red 2 % + 1 %, piedras por ganancia, fondo del 15 % ----------
+// Lo calcula Core (CVD_Programa) cada noche; aquí solo se lee el último cálculo del libro y se puede recalcular.
+const PROG_MODE = { sombra: ["En prueba: no se paga", "badge-low"], si: ["Activo: se paga", "badge-ok"], no: ["Apagado", "badge-calm"] };
+const PROG_STONE = { bronce: "Bronce", plata: "Plata", oro: "Oro", platino: "Platino", zafiro: "Zafiro", rubi: "Rubí", esmeralda: "Esmeralda", diamante: "Diamante", "doble-diamante": "Doble Diamante", corona: "Corona" };
+const PROG_ALERT = { autocompra: "Autocompra (no cuenta)", concentracion: "Una persona con más del 60 %", sin_costo: "Producto sin costo", pierde: "Se vende perdiendo", devolucion: "Devolución", red_negativa: "Red en negativo", revisar: "Su teléfono con otro cliente (cuenta)", provisional: "Costo provisional (cuenta)" };
+const progCup = n => Number(n ?? 0).toLocaleString("es", { maximumFractionDigits: 0 }) + " CUP";
+const progPts = n => Number(n ?? 0).toLocaleString("es", { maximumFractionDigits: 1 });
+async function loadPrograma(recalc = false) {
+  $("#people").innerHTML = '<p class="muted">' + (recalc ? "Calculando con las ventas de este mes…" : "Cargando el programa…") + "</p>";
+  try {
+    const r = await panelWeb({ action: recalc ? "programa_calcular" : "programa" });
+    if (teamKind !== "programa" || page !== "equipo") return;
+    renderPrograma(r);
+  } catch (e) { if (teamKind === "programa") $("#people").innerHTML = '<p class="muted">' + esc(e.message) + "</p>"; }
+}
+function renderPrograma(r) {
+  const [modeLabel, modeCls] = PROG_MODE[r.mode] ?? [r.mode, ""];
+  const names = Object.fromEntries((r.people ?? []).map(p => [p.id, p.name]));
+  const t = r.totals;
+  const head = '<div class="kv"><h2 class="t-lg">Programa de gestoras</h2><span class="badge ' + modeCls + '">' + esc(modeLabel) + "</span></div>"
+    + '<p class="t-sm muted">Red 2 % + 1 %, piedras por la ganancia que dejan y bonos del fondo del 15 %. Se calcula cada noche; el interruptor está en la web (Casa Viva → Programa gestoras).'
+    + (r.fixedCosts ? " Los puntos restan también los gastos fijos de cada producto." : " Los puntos no restan los gastos fijos (precio − costo − comisión).") + "</p>";
+  if (!r.run || !t) {
+    $("#people").innerHTML = head + '<p class="muted">Todavía no hay ningún cálculo.</p><button type="button" class="btn btn-primary btn-block" data-prog-calc>Calcular ahora</button>';
+  } else {
+    const alerts = r.alerts ?? [];
+    $("#people").innerHTML = head
+      + '<div class="kpis two"><div class="kpi"><span class="label">Fondo del mes (15 %)</span><span class="value num" style="font-size:var(--nx-fs-lg)">' + usd2(t.pool_usd) + '</span><span class="sub">de ' + usd2(t.profit_usd) + " de ganancia limpia</span></div>"
+      + '<div class="kpi"><span class="label">' + (r.mode === "si" ? "Se debe pagar" : "Se pagaría") + '</span><span class="value num" style="font-size:var(--nx-fs-lg)">' + usd2(t.pay_usd) + '</span><span class="sub">red ' + usd2(t.red_usd) + " · bonos " + progCup(t.bonus_cup) + (t.factor_bonus < 0.999 ? " (" + Math.round(100 * t.factor_bonus) + " % cubierto)" : "") + "</span></div></div>"
+      + '<p class="t-xs muted">' + esc(r.run.period + " · cálculo " + r.run.kind + " · " + when(r.run.computedAt) + " · ventas que cuentan " + usd2(t.sales_usd) + " · " + t.people_with_stone + " con piedra este mes") + "</p>"
+      + (alerts.length ? '<h3 class="t-sm" style="margin-top:12px">Alertas (' + alerts.length + ")</h3>" + '<p class="t-xs muted">' + esc(Object.entries(r.alertCounts ?? {}).map(([k, v]) => (PROG_ALERT[k] ?? k) + ": " + v).join(" · ")) + "</p>" + alerts.slice(0, 30).map(a => '<div class="row-item"><span class="grow"><span class="title">' + esc(PROG_ALERT[a.type] ?? a.type) + '</span><span class="meta">' + esc(a.text) + "</span></span></div>").join("") : "")
+      + '<h3 class="t-sm" style="margin-top:12px">Gestoras</h3>'
+      + ((r.people ?? []).length ? r.people.map(p => '<div class="row-item"><button type="button" class="row-btn" data-progid="' + p.id + '"><span class="grow">'
+        + '<span class="title">' + esc(p.name) + "</span>"
+        + '<span class="meta">' + esc((PROG_STONE[p.stone] ?? "Sin piedra este mes") + (p.title && p.title !== p.stone ? " · título " + (PROG_STONE[p.title] ?? p.title) : "") + " · " + progPts(p.teamPoints) + " puntos del equipo" + (p.inviter ? " · invitada por " + (names[p.inviter] ?? "#" + p.inviter) : "")) + "</span>"
+        + '<span class="meta">Red ' + usd2(p.redPay) + " · Bono " + progCup(p.bonusPayCup) + (p.redLost ? " · pierde " + usd2(p.redLost) : "") + "</span></span>"
+        + (p.level1 ? '<span class="badge badge-calm">' + p.level1 + (p.level1 === 1 ? " invitada" : " invitadas") + "</span>" : "") + "</button></div>").join("") : '<p class="muted">Nadie con ventas cobradas este mes.</p>')
+      + '<button type="button" class="btn btn-secondary btn-block" style="margin-top:12px" data-prog-calc>Recalcular ahora</button>'
+      + '<p class="t-xs muted">Libro: cada cálculo queda guardado con su huella ' + esc((r.run.sha256 ?? "").slice(0, 12)) + "… Los cierres de mes no se rehacen.</p>";
+    document.querySelectorAll("#people [data-progid]").forEach(b => (b.onclick = () => showProgPerson(r.people.find(x => String(x.id) === b.dataset.progid), names, r.mode)));
+  }
+  document.querySelectorAll("#people [data-prog-calc]").forEach(b => (b.onclick = () => loadPrograma(true)));
+}
+function showProgPerson(p, names, mode) {
+  const kv = (k, v) => '<div class="kv"><span>' + esc(k) + "</span><span>" + esc(v) + "</span></div>";
+  openSheet('<div class="sheet-head"><h2>' + esc(p.name) + '</h2><button type="button" class="btn btn-ghost" data-close>Cerrar</button></div>'
+    + (mode === "si" ? "" : '<p class="t-sm muted">En prueba: así se calcularía; todavía no se paga.</p>')
+    + kv("Piedra este mes", PROG_STONE[p.stone] ?? "Sin piedra") + kv("Título", PROG_STONE[p.title] ?? "—")
+    + kv("Puntos propios", progPts(p.ownPoints) + " (" + usd2(p.ownSales) + ", " + p.ownOrders + " pedidos)") + kv("Puntos del equipo", progPts(p.teamPoints))
+    + kv("Invitada por", p.inviter ? (names[p.inviter] ?? "#" + p.inviter) : "—") + kv("Invitadas", p.level1 + " (+ " + p.level2 + " de 2.º nivel)")
+    + kv("Red ganada", usd2(p.red)) + (p.redLost ? kv("Red que pierde", usd2(p.redLost) + " · " + p.redLostReason) : "")
+    + kv("Fondo de su equipo (15 %)", usd2(p.fund)) + kv("Red a pagar", usd2(p.redPay))
+    + kv("Bono", progCup(p.bonusPayCup) + (p.bonusCup && p.coverage < 0.999 ? " de " + progCup(p.bonusCup) + " (" + Math.round(100 * p.coverage) + " %)" : "")),
+    "Programa · " + p.name);
+}
 async function loadPeople() {
   const { data, error } = await supabase.rpc("nexo_business_people", { p_business: bizId() });
   if (error || data?.error) { toast("No se pudo cargar el equipo", "bad"); return null; }
@@ -2402,7 +2538,8 @@ async function loadTeam() {
 
 function renderPeople() {
   // Las gestoras se registran en la web: allí no se añaden a mano.
-  $("#new-person").hidden = teamKind === "web" || teamKind === "messenger";
+  $("#new-person").hidden = teamKind === "web" || teamKind === "messenger" || teamKind === "programa";
+  if (teamKind === "programa") return void loadPrograma();
   if (teamKind === "web") return void loadWebGestoras();
   if (teamKind === "messenger") return void loadMessengers();
   const list = (peopleCache ?? []).filter(p => p.kind === teamKind);
@@ -2759,7 +2896,10 @@ function previewCost({ amount, rate, freight, commission, staffPct }, priceUsd) 
   // D68 (Lennys, 14-oct): costo × 1,5, nunca por debajo del mínimo, redondeado arriba al dólar entero.
   const sug = lennysPrice(landed, fixed, commission);
   const commNow = commission ?? lennysCommission(priceUsd ?? sug.price);
-  const clean = priceUsd != null ? priceUsd - landed - commNow - fixed : null;
+  // 16-oct (Lennys): «queda limpio» también descuenta el % de la dependienta y el % de Nati (Ajustes → Costos:
+  // «% para la dependienta» y «Otro gasto»), sobre el precio. El MÍNIMO no cambia (es la regla de Core y de la web).
+  const pctUsd = priceUsd != null ? priceUsd * (staff + Number(s.other_pct)) / 100 : 0;
+  const clean = priceUsd != null ? priceUsd - landed - commNow - fixed - pctUsd : null;
   // Mínimo con la comisión de hoy (la misma cuenta que la web); sin precio, el del sugerido.
   const min = priceUsd != null ? floorFor(landed, fixed, commNow) : sug.min;
   return { ...out, rule: "x1_5", landed, suggested: sug.price, suggestedComm: sug.comm, min, comm: commNow, clean };
@@ -2805,11 +2945,13 @@ function breakdown(c, priceUsd) {
   const split = c.comm > 0
     ? '<p class="t-xs muted">Producto extra de clienta de gestora: la gestora cobra su comisión normal (' + dollars(c.comm) + "). Premio de la dependienta: en espera.</p>" : "";
   if (c.rule === "x1_5") {
-    // D68: lo que queda limpio = precio − costo − comisión − gastos fijos. «Bajo el mínimo» no es «pierde».
+    // D68: lo que queda limpio = precio − costo − comisión − gastos fijos − % dependienta − % Nati (16-oct).
+    // «Bajo el mínimo» no es «pierde».
     return '<div class="breakdown">'
       + line("Costo (compra + transporte)", dollars(c.landed))
       + line(fixedLabel(), dollars(c.fixed))
       + line("Comisión gestora", dollars(c.comm))
+      + (priceUsd != null ? line("Dependienta " + pct1(c.staff) + " · " + s.other_label + " " + pct1(s.other_pct), dollars(c.staffUsd + c.otherUsd)) : "")
       + line("Mínimo (no vender por debajo)", dollars(c.min))
       + '<div class="verdict">'
       + '<div><span>Sugerido (costo × 1,5, con mínimo)</span><b class="num">' + dollars(c.suggested) + "</b></div>"
@@ -2872,7 +3014,9 @@ function costSection(p) {
     // La comisión ya no va aquí: un solo campo arriba («Comisión de la gestora»), que es el que se guarda.
     + '<label class="field">Transporte por unidad (USD)<input name="freight" inputmode="decimal" placeholder="0,00" value="' + esc(k?.freightUsd ?? "") + '"></label>'
     + '<label class="field">% para la dependienta<input name="staff" inputmode="decimal" placeholder="' + esc(pct1(s.staff_pct)) + ' (general)" value="' + esc(k?.staffPct ?? "") + '"></label>'
-    + '<label class="field">Dueño de la mercancía<select name="owner" data-owner' + (k ? "" : " disabled") + '><option value="">Casa Viva</option></select></label>'
+    // 16-oct (Lennys): el dueño se puede cambiar siempre, tenga costo o no (antes sin costo quedaba bloqueado en Casa Viva).
+    + '<label class="field">Dueño de la mercancía (proveedor o socia)<select name="owner" data-owner><option value="">Casa Viva</option></select></label>'
+    + (k ? "" : '<p class="t-xs muted" data-owner-note>Se guarda ya. Para el reparto con la dueña hace falta además el costo de compra.</p>')
     + '<div class="grid-2" data-prule hidden><label class="field">Regla para este producto<select name="prule"><option value="">La de la socia</option><option value="percent_of_profit">% de la ganancia</option><option value="percent_of_sale">% de la venta</option><option value="fixed_per_unit">Fijo USD por unidad</option><option value="supplier_price">Su precio de proveedor</option></select></label><label class="field">Valor<input name="pvalue" inputmode="decimal" placeholder="Ej. 50"></label></div>'
     + '<div data-breakdown></div>'
     + '<p class="msg" data-cost-msg role="status"></p>'
@@ -2909,7 +3053,7 @@ function wireCostSection(sheetEl, p) {
     const sel = form.querySelector("[data-owner]");
     const partners = (people ?? []).filter(x => x.kind === "partner" && x.status === "active");
     const mine = owners.data?.[p.product_id] ?? "";
-    sel.innerHTML = '<option value="">Casa Viva</option>' + partners.map(x => '<option value="' + x.id + '"' + (x.id === mine ? " selected" : "") + ">" + esc(x.fullName) + " · " + esc(ruleText(x)) + "</option>").join("");
+    sel.innerHTML = ownerOptions(partners, mine);
     const pr = form.querySelector("[data-prule]");
     const rules = owners.data?._rules?.[p.product_id];
     form.elements.prule.value = rules?.rule ?? "";
@@ -2929,7 +3073,8 @@ function wireCostSection(sheetEl, p) {
       pr.hidden = !sel.value;
       const { data, error } = await supabase.rpc("nexo_business_set_product_partner", { p_business: current.businessId, p_product: p.product_id, p_partner: sel.value || null });
       if (error || data?.error) { toast("No se cambió: " + (error?.message ?? data.message ?? data.error), "bad"); sel.value = mine; return; }
-      toast(sel.value ? "Producto de " + sel.selectedOptions[0].text.split(" · ")[0] : "Producto de Casa Viva", "ok");
+      toast((sel.value ? "Producto de " + sel.selectedOptions[0].text.split(" · ")[0] : "Producto de Casa Viva")
+        + (data?.hasCost === false && sel.value ? ". Falta su costo para el reparto." : ""), "ok");
     };
   })();
   form.elements.currency.onchange = () => { dirty = true; form.elements.rate.value = ""; update(); };
@@ -3462,6 +3607,10 @@ async function receiveSheet(done) {
   const partners = mode === "admin" ? ((peopleCache ?? (await loadPeople())) ?? []).filter(p => p.kind === "partner" && p.status === "active") : [];
   const lines = [];
   let invoicePhoto = null, aiUsed = false;
+  // 16-oct (Lennys): productos de la factura que no están en el catálogo → «➕ Producto nuevo con este nombre».
+  // Se crean al confirmar (como «Nuevo producto»: caja + web), con el costo de la factura y el dueño elegido arriba.
+  const canNew = mode === "admin" && canCost();
+  if (canNew && !costSheet) await loadCostSheet();
   if (curruReady === null) curruReady = await fetch(FN + "nexo-curru", { method: "POST", headers: { "content-type": "application/json" }, body: '{"check":true}' }).then(r => r.json()).then(r => r.configured === true).catch(() => false);
   const sheet = openSheet('<div class="sheet-head"><h2>Recibir mercancía</h2><button type="button" class="btn btn-ghost" data-close>Cerrar</button></div>'
     + '<form class="form">'
@@ -3476,19 +3625,39 @@ async function receiveSheet(done) {
     + '<p class="msg" data-msg role="status"></p><button type="submit" class="btn btn-primary btn-xl btn-block">Confirmar entrada</button></form>', "Recibir mercancía");
   const form = sheet.el.querySelector("form");
   const byId = id => items.find(p => p.productId === id);
+  const rateOf = cur => cur === "USD" ? 1 : Number(current?.rates?.[cur] ?? rateNow(cur) ?? NaN);
+  const usdOf = l => l.unitCost == null ? null : Number(l.unitCost) / rateOf(l.currency);
+  // Precio sugerido (D68: costo × 1,5, nunca bajo el mínimo) para un producto nuevo.
+  const suggestOf = l => { const c = usdOf(l); return c != null && Number.isFinite(c) && costSheet ? lennysPrice(c, fixedFor(c), null).price : null; };
   const renderLines = () => {
-    const usdTotal = lines.reduce((t, l) => t + (l.productId ? l.quantity * (Number(l.unitCost) || 0) / (l.currency === "USD" ? 1 : Number(current?.rates?.[l.currency] ?? NaN)) : 0), 0);
+    const usdTotal = lines.reduce((t, l) => t + (l.productId || l.isNew ? l.quantity * (usdOf(l) ?? 0) : 0), 0);
     form.querySelector("[data-lines]").innerHTML = lines.length ? '<div class="breakdown">' + lines.map((l, i) => '<div class="recv-line" data-i="' + i + '">'
-      + '<div class="kv"><span class="title">' + (l.productId ? esc(byId(l.productId)?.name ?? l.productId) : '<span style="color:var(--nx-danger)">Elige el producto: «' + esc(l.readName) + "»</span>") + '</span><button type="button" class="btn btn-ghost btn-icon" data-del aria-label="Quitar">✕</button></div>'
-      + (l.readName && l.productId ? '<span class="meta">En la factura: ' + esc(l.readName) + "</span>" : "")
-      + (l.productId ? "" : '<select data-fix><option value="">— elegir —</option>' + items.filter(p => !l.readName || p.name.toLowerCase().includes(l.readName.split(" ")[0].toLowerCase())).slice(0, 30).map(p => '<option value="' + esc(p.productId) + '">' + esc(p.name) + "</option>").join("") + "</select>")
+      + '<div class="kv"><span class="title">' + (l.productId ? esc(byId(l.productId)?.name ?? l.newName ?? l.productId) : l.isNew ? "➕ Producto nuevo" : '<span style="color:var(--nx-danger)">Elige el producto: «' + esc(l.readName) + "»</span>") + '</span><button type="button" class="btn btn-ghost btn-icon" data-del aria-label="Quitar">✕</button></div>'
+      + (l.readName && (l.productId || l.isNew) ? '<span class="meta">En la factura: ' + esc(l.readName) + "</span>" : "")
+      + (l.productId || l.isNew ? "" : '<select data-fix><option value="">— elegir —</option>' + (canNew ? '<option value="__new">➕ Producto nuevo con este nombre</option>' : "") + items.filter(p => !l.readName || p.name.toLowerCase().includes(l.readName.split(" ")[0].toLowerCase())).slice(0, 30).map(p => '<option value="' + esc(p.productId) + '">' + esc(p.name) + "</option>").join("") + "</select>"
+        + (canNew ? '<p class="t-xs muted">¿No está en la lista? Elige «➕ Producto nuevo con este nombre»: se crea al confirmar la entrada.</p>' : ""))
+      + (l.isNew && !l.productId ? '<label class="field t-sm">Nombre del producto nuevo<input data-nname maxlength="120" value="' + esc(l.newName ?? "") + '"></label>'
+        + '<div class="grid-2"><label class="field t-sm">Precio de venta USD<input data-nprice inputmode="decimal" placeholder="' + esc(suggestOf(l) ?? "") + '" value="' + esc(l.newPrice ?? "") + '"></label>'
+        + '<label class="field t-sm">¿Se vende ya?<select data-nactive><option value="1"' + (l.newActive !== false ? " selected" : "") + '>Sí, a la venta</option><option value="0"' + (l.newActive === false ? " selected" : "") + ">No, borrador</option></select></label></div>"
+        + '<p class="t-xs muted">' + (suggestOf(l) != null ? "Sugerido " + dollars(suggestOf(l)) + " (costo × 1,5, nunca bajo el mínimo). Vacío = el sugerido. " : "") + "Borrador = se crea pero no se vende en la caja ni en la web hasta que lo pongas a la venta.</p>"
+        + '<button type="button" class="btn btn-ghost btn-block t-sm" data-unnew>Mejor elegir uno que ya existe</button>' : "")
       + '<div class="grid-3"><label class="field t-sm">Cantidad<input data-qty inputmode="numeric" value="' + l.quantity + '"></label><label class="field t-sm">Costo c/u<input data-cost inputmode="decimal" value="' + esc(l.unitCost ?? "") + '"></label>'
-      + '<label class="field t-sm">Moneda<select data-cur>' + ["USD", "CUP", "MLC"].map(c => "<option" + (l.currency === c ? " selected" : "") + ">" + c + "</option>").join("") + "</select></label></div></div>").join("")
+      + '<label class="field t-sm">Moneda<select data-cur>' + ["USD", "CUP", "MLC"].map(c => "<option" + (l.currency === c ? " selected" : "") + ">" + c + "</option>").join("") + "</select></label></div>"
+      + (l.currency !== "USD" && l.unitCost != null ? '<span class="meta">' + (Number.isFinite(usdOf(l)) ? "≈ " + dollars(usdOf(l)) + " c/u (tasa de hoy " + rateOf(l.currency) + " " + l.currency + ")" : "Falta la tasa de hoy del " + l.currency + " (Ajustes → Tasas)") + "</span>" : "")
+      + "</div>").join("")
       + (Number.isFinite(usdTotal) ? '<div class="kv strong"><span>Total</span><span class="num">' + dollars(usdTotal) + "</span></div>" : "") + "</div>" : "";
     form.querySelectorAll(".recv-line").forEach(row => {
       const l = lines[Number(row.dataset.i)];
       row.querySelector("[data-del]").onclick = () => { lines.splice(lines.indexOf(l), 1); renderLines(); };
-      row.querySelector("[data-fix]")?.addEventListener("change", e => { l.productId = e.target.value || null; renderLines(); });
+      row.querySelector("[data-fix]")?.addEventListener("change", e => {
+        if (e.target.value === "__new") { l.isNew = true; l.newName = l.newName ?? l.readName ?? ""; l.productId = null; }
+        else l.productId = e.target.value || null;
+        renderLines();
+      });
+      row.querySelector("[data-unnew]")?.addEventListener("click", () => { l.isNew = false; renderLines(); });
+      row.querySelector("[data-nname]")?.addEventListener("change", e => { l.newName = e.target.value.trim(); });
+      row.querySelector("[data-nprice]")?.addEventListener("change", e => { l.newPrice = e.target.value.trim(); });
+      row.querySelector("[data-nactive]")?.addEventListener("change", e => { l.newActive = e.target.value === "1"; });
       row.querySelector("[data-qty]").onchange = e => { l.quantity = Math.max(1, parseInt(e.target.value, 10) || 1); renderLines(); };
       row.querySelector("[data-cost]").onchange = e => { l.unitCost = num(e.target.value); renderLines(); };
       row.querySelector("[data-cur]").onchange = e => { l.currency = e.target.value; renderLines(); };
@@ -3529,16 +3698,35 @@ async function receiveSheet(done) {
     const msg = form.querySelector("[data-msg]");
     const bad = t => { msg.textContent = t; msg.dataset.tone = "bad"; };
     if (!lines.length) return bad("Añade al menos un producto.");
-    if (lines.some(l => !l.productId)) return bad("Hay productos sin elegir (en rojo).");
+    if (lines.some(l => !l.productId && !l.isNew)) return bad("Hay productos sin elegir (en rojo).");
     if (lines.some(l => l.unitCost == null)) return bad("Falta el costo de algún producto.");
+    if (lines.some(l => !l.productId && l.isNew && !String(l.newName ?? "").trim())) return bad("Escribe el nombre del producto nuevo.");
+    if (lines.some(l => !l.productId && l.isNew && !(num(l.newPrice) > 0) && !(suggestOf(l) > 0))) return bad("Escribe el precio de venta del producto nuevo.");
     const submit = form.querySelector("[type=submit]");
     submit.disabled = true; msg.textContent = "Guardando…"; msg.dataset.tone = "";
+    // Primero se crean los productos nuevos (caja + web). Si algo falla después, ya quedan creados y no se repiten.
+    const webNotes = [];
+    for (const l of lines.filter(x => x.isNew && !x.productId)) {
+      const price = num(l.newPrice) > 0 ? num(l.newPrice) : suggestOf(l);
+      const active = l.newActive !== false;
+      msg.textContent = "Creando «" + l.newName + "»…";
+      const { data: saved, error } = await supabase.rpc("nexo_business_product_save", {
+        p_business: bizId(), p_product_id: null, p_name: l.newName, p_sku: "", p_barcodes: [], p_price_usd: price,
+        p_category: "", p_image_url: null, p_active: active, p_min_stock: null });
+      if (error || saved?.error) { submit.disabled = false; return bad("No se creó «" + l.newName + "»: " + (error?.message ?? saved.error)); }
+      l.productId = saved.productId;
+      try {
+        const w = await panelWeb({ action: "product_web_save", wooId: null, nexoId: saved.productId, name: l.newName, price, category: "", imageUrl: "", sku: saved.sku, active, galleryUrls: [] });
+        if (w.wooId) await supabase.rpc("nexo_business_product_link_web", { p_business: bizId(), p_product: saved.productId, p_woo_id: w.wooId });
+      } catch { webNotes.push(l.newName); }
+    }
+    msg.textContent = "Guardando la entrada…";
     const { data, error } = await supabase.rpc("nexo_business_receive_goods", { p_business: bizId(), p_receipt: {
       supplierName: form.elements.supplier.value.trim(), partnerId: form.elements.partner?.value || null, photo: invoicePhoto, aiUsed,
       note: form.elements.note.value.trim(), lines: lines.map(l => ({ productId: l.productId, quantity: l.quantity, unitCost: l.unitCost, currency: l.currency })) } });
     if (error || data?.error) { submit.disabled = false; return bad("No se guardó: " + (error?.message ?? data.message ?? data.error)); }
     sheet.close();
-    toast("Entrada #" + data.number + " guardada: stock y costos al día", "ok");
+    toast("Entrada #" + data.number + " guardada: stock y costos al día" + (webNotes.length ? ". Ojo: no llegó a la web: " + webNotes.join(", ") + " (ábrelo y guarda otra vez)" : ""), webNotes.length ? "bad" : "ok");
     shop = null; costSheet = null;
     done?.();
   };
