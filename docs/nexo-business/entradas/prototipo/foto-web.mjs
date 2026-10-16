@@ -38,16 +38,66 @@ async function bordeBlanco(buf) {
   return claros / total >= 0.9;
 }
 
-// Recorte con el modelo abierto (igual que studio.js `cutout`, pero devolviendo también la caja).
+// Huecos dentro del producto:
+// - Los diminutos (< 0,05 % de la foto) son ruido del modelo y se rellenan siempre.
+// - Un brillo sobre una balda que el modelo tomó por pared (estante de Maryta, 13-oct: la 4.ª balda salía
+//   con una mancha blanca) NO se puede distinguir solo de un hueco de verdad (entre baldas o alambres).
+//   Se arregla a mano, como haría una persona: RELLENAR="x0,y0,x1,y1[;…]" (fracciones de la foto) vuelve a
+//   poner la foto original dentro de esa zona. En el bot sería la orden «FOTO E12 RETOCA» con una zona.
+const ZONAS = String(process.env.RELLENAR || '').split(';').map((z) => z.split(',').map(Number)).filter((z) => z.length === 4 && z.every((n) => n >= 0 && n <= 1));
+
+function rellenarHuecos(data, w, h) {
+  const fuera = new Uint8Array(w * h); // 1 = fondo unido al borde
+  const cola = new Int32Array(w * h);
+  let ini = 0, fin = 0;
+  const empujar = (p) => { if (!fuera[p] && data[p * 4 + 3] === 0) { fuera[p] = 1; cola[fin++] = p; } };
+  for (let x = 0; x < w; x++) { empujar(x); empujar((h - 1) * w + x); }
+  for (let y = 0; y < h; y++) { empujar(y * w); empujar(y * w + w - 1); }
+  while (ini < fin) {
+    const p = cola[ini++]; const x = p % w;
+    if (x > 0) empujar(p - 1); if (x < w - 1) empujar(p + 1); if (p >= w) empujar(p - w); if (p < (h - 1) * w) empujar(p + w);
+  }
+  const visto = new Uint8Array(w * h);
+  for (let s = 0; s < w * h; s++) {
+    if (fuera[s] || visto[s] || data[s * 4 + 3] !== 0) continue;
+    const comp = [s]; visto[s] = 1;
+    for (let k = 0; k < comp.length; k++) {
+      const p = comp[k]; const x = p % w;
+      for (const q of [x > 0 ? p - 1 : -1, x < w - 1 ? p + 1 : -1, p - w, p + w]) {
+        if (q >= 0 && q < w * h && !visto[q] && !fuera[q] && data[q * 4 + 3] === 0) { visto[q] = 1; comp.push(q); }
+      }
+    }
+    if (comp.length < 0.0005 * w * h) for (const p of comp) data[p * 4 + 3] = 255;
+  }
+  const rellenos = [];
+  for (const [x0, y0, x1, y1] of ZONAS) {
+    let n = 0;
+    for (let y = Math.floor(y0 * h); y < Math.ceil(y1 * h); y++) {
+      for (let x = Math.floor(x0 * w); x < Math.ceil(x1 * w); x++) { const i = (y * w + x) * 4 + 3; if (data[i] < 255) { data[i] = 255; n++; } }
+    }
+    rellenos.push(+(n / (w * h) * 100).toFixed(2));
+  }
+  return rellenos;
+}
+
+// Recorte con el modelo abierto (como studio.js `cutout`): la máscara sale del modelo y los colores de la
+// foto original, así un hueco rellenado enseña el producto de verdad.
 async function recortar(jpeg) {
   const { removeBackground } = await import(pathToFileURL(IMGLY_FROM).href);
   const blob = await removeBackground(new Blob([jpeg], { type: 'image/jpeg' }), { model: 'medium', publicPath: pathToFileURL(dirname(IMGLY_FROM)).href + '/', output: { format: 'image/png' } });
-  const { data, info } = await sharp(Buffer.from(await blob.arrayBuffer())).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+  const corte = await sharp(Buffer.from(await blob.arrayBuffer())).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+  const info = corte.info;
+  const rgb = await sharp(jpeg).resize(info.width, info.height, { fit: 'fill' }).removeAlpha().raw().toBuffer();
+  const data = Buffer.alloc(info.width * info.height * 4);
+  for (let p = 0; p < info.width * info.height; p++) {
+    data[p * 4] = rgb[p * 3]; data[p * 4 + 1] = rgb[p * 3 + 1]; data[p * 4 + 2] = rgb[p * 3 + 2];
+    const a = corte.data[p * 4 + 3];
+    data[p * 4 + 3] = a < 140 ? 0 : a < 200 ? Math.round(((a - 140) * 255) / 60) : 255;
+  }
+  const rellenos = rellenarHuecos(data, info.width, info.height);
   let solidos = 0;
   let minX = info.width, minY = info.height, maxX = -1, maxY = -1;
   for (let p = 0, i = 3; i < data.length; i += 4, p++) {
-    const a = data[i];
-    data[i] = a < 140 ? 0 : a < 200 ? Math.round(((a - 140) * 255) / 60) : 255;
     if (data[i] > 0) {
       const x = p % info.width;
       const y = (p / info.width) | 0;
@@ -59,7 +109,7 @@ async function recortar(jpeg) {
   if (parte < 0.04 || parte > 0.97) return null;
   const tocaBorde = minX <= 2 || minY <= 2 || maxX >= info.width - 3 || maxY >= info.height - 3;
   const png = await sharp(data, { raw: info }).png().trim().toBuffer();
-  return { png, tocaBorde, parte };
+  return { png, tocaBorde, parte, rellenos };
 }
 
 export async function fotoWeb(input) {
@@ -83,6 +133,7 @@ export async function fotoWeb(input) {
     }
     if (r.tocaBorde) avisos.push('El producto toca el borde de la foto: puede salir cortado.');
     producto = r.png;
+    if (r.rellenos.length) avisos.push(`Retoque a mano en ${r.rellenos.length} zona(s) (${r.rellenos.join(', ')} % de la foto): mirar que se vea bien.`);
   }
 
   const caja = Math.round(S * (1 - 2 * MARGEN));

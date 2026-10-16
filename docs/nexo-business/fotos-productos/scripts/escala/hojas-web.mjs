@@ -7,7 +7,7 @@ import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
 const sharp = require('C:/Users/Ernesto/ernesto-rondon-nexo/node_modules/sharp');
 
-const [base, salida, PREFIJO = 'web'] = process.argv.slice(2);
+const [base, salida, PREFIJO = 'web', TITULO = 'FOTOS DE INTERNET para aprobar (Digital Store)'] = process.argv.slice(2);
 const datos = JSON.parse(fs.readFileSync(path.join(base, 'hojas-datos.json'), 'utf8'));
 const C = { crema: '#F6F1E6', marron: '#2B2420', petroleo: '#0D3B45', ambar: '#A35A1F', rojo: '#C62828', verde: '#2E7D32', gris: '#8a8178' };
 const POR_HOJA = 20, COLS = 4, TW = 600, TH = 650, HEAD = 150, FOOT = 80, W = COLS * TW;
@@ -37,8 +37,9 @@ async function tile(d, n) {
   if (d.borde) avisos.push('toca el borde: mirar si está cortado');
   if (d.ampliada) avisos.push('foto ampliada');
   if (d.fuente === 'web') avisos.push(`foto de internet: ${d.dominio || '?'} (${d.tipo_fuente || '?'})`);
-  const extra = (d.avisos || []).filter((a) => !/toca el borde|ampliada/.test(a)).slice(0, 1).map((a) => 'IA: ' + a);
-  const lineasAviso = [...avisos, ...extra].flatMap((a) => partir(a, 52, 1)).slice(0, 2);
+  if (d.regla === 'marca-13oct') avisos.push('foto de Kevin con texto del fabricante');
+  const extra = (d.avisos || []).filter((a) => !/toca el borde|ampliada/.test(a)).slice(0, 2).map((a) => (PREFIJO.startsWith('dudosos') ? 'por qué: ' : 'IA: ') + a);
+  const lineasAviso = (PREFIJO.startsWith('dudosos') ? [...extra, ...avisos] : [...avisos, ...extra]).flatMap((a) => partir(a, 52, 1)).slice(0, 2);
   const titulo = partir(d.titulo, 40, 2);
   const svg = `<svg width="${TW}" height="${TH}">
     <rect x="3" y="3" width="${TW - 6}" height="${TH - 6}" fill="none" stroke="${avisos.length && (d.borde || d.ampliada) ? C.ambar : '#d8cfbd'}" stroke-width="${avisos.length && (d.borde || d.ampliada) ? 5 : 2}"/>
@@ -67,8 +68,8 @@ for (let h = 0; h < total; h++) {
   const H = HEAD + filas * TH + FOOT;
   const comps = [{ input: Buffer.from(`<svg width="${W}" height="${HEAD}">
     <rect width="${W}" height="${HEAD}" fill="${C.petroleo}"/>
-    <text x="40" y="62" font-family="Georgia, serif" font-size="44" font-weight="bold" fill="${C.crema}">Casa Viva · ${PREFIJO} ${String(h + 1).padStart(2, '0')} de ${total} · FOTOS DE INTERNET para aprobar (Digital Store)</text>
-    <text x="40" y="112" font-family="Arial" font-size="27" fill="${C.crema}">${grupo.length} productos · foto encontrada en internet, comparada con la del proveedor · contesta «todo bien» o «mal la 3» · nada está publicado</text>
+    <text x="40" y="62" font-family="Georgia, serif" font-size="44" font-weight="bold" fill="${C.crema}">Casa Viva · ${PREFIJO} ${String(h + 1).padStart(2, '0')} de ${total} · ${esc(TITULO)}</text>
+    <text x="40" y="112" font-family="Arial" font-size="27" fill="${C.crema}">${grupo.length} productos · ${PREFIJO.startsWith('dudosos') ? 'NO se publicaron solos: el motivo sale en cada casilla («por qué») · di «publica la 3» o «fuera la 5»' : 'foto encontrada en internet, comparada con la del proveedor · contesta «todo bien» o «mal la 3» · nada está publicado'}</text>
   </svg>`), left: 0, top: 0 }];
   for (const [k, d] of grupo.entries()) comps.push({ input: await tile(d, k + 1), left: (k % COLS) * TW, top: HEAD + Math.floor(k / COLS) * TH });
   const ids = grupo.map((d) => d.id);

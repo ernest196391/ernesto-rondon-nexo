@@ -114,3 +114,22 @@ Lo pidió Ernesto el 13-oct a las 22:20: «pensar en todos los errores que comet
   - ¿crear un departamento de Juguetes?
 - Se movieron 18 productos. La lista para deshacer está en `docs/productos/departamentos-movidos-2026-10-13.csv`.
 - **Ojo:** el panel de la caja guarda una sola categoría por producto. Hay que cambiarla también allí; si no, al guardar desde el panel vuelve la vieja.
+
+## 7. Plan del día (8:45, después de leer los chats del 13-oct)
+
+**En marcha con agentes:** videos «Tu precio» y «Aprende» (al General cuando estén, con el sí de Ernesto); cancelar y editar pedidos desde Ventas y el panel; skill `guia-paso-a-paso-casa-viva`; tarea nocturna `catalogo-casa-viva-noche` (títulos SEO, descripciones, medidas, auditoría de la web).
+
+**Hoy, en orden:**
+1. Respuestas de la tienda (10:00): medidas EDSM → Rafael; colores del set de baño → Thaly; fotos de sábanas King y caja del estante → Dayana; colores de la sobrecama Lisa Full → Dayana.
+2. Errores que contaron las gestoras:
+   - Edredón Full: al elegir color sigue la foto gris (Rafael) → foto por color y «elegir color tocando su foto».
+   - «Mis pedidos» enseña la foto de anuncio, no la del color comprado (Dany).
+   - En la app, tras copiar el enlace no se puede volver atrás (Rafael).
+   - QR que no se lee (gestora de Boracos).
+   - Entrar con usuario y contraseña falla (Tania). Nana no ve Operaciones.
+3. Editar pedidos ya hechos: subir precio (Thaly), cambiar color (Oliuska). Lo cubre el agente de cancelar/editar.
+4. Lennys: en la web, explicar lo de elegir entre dos productos (se paga el retorno del que no se queda); la comisión en cada anuncio de producto nuevo; que el bot sepa lo de la tienda sin esperar a las 10.
+5. Gestoras: subir un % a todos sus precios de una vez; ver los dos precios (Rafael); pagar en CUP al recoger (Dany); mensajería a sitios lejos, Bauta y Mariel (Nadielys); invitar amiga con 2 % (Niurka); acumular comisiones (Yanet).
+6. Altas: Héctor (mensajero), Kamila y Fernando (gestoras).
+7. Inventario: hoja de los escondidos a Maryta o Nana (sí de Ernesto) y origen de cada producto.
+8. Ernesto decide: pedidos sin confirmar por WhatsApp, Hostinger y correos, escalaciones #35/#37/#39/#40, reel de la cama plegable, bienvenida.
