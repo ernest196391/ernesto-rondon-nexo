@@ -344,3 +344,12 @@ Ampliación D30 (2026-10-07): el flujo de **Devolución** ya existe en `/ventas/
 - **Arrastre:** si las devoluciones de meses ya pagados dejan un mes en negativo, ese 15 % se descuenta del fondo de los meses siguientes hasta cubrirse. Así la tienda nunca paga dos veces por lo devuelto.
 - **Además (Claude, técnico y reversible):** reembolsos parciales restan; cierre del mes con bloqueo y sin quedar a medias; la madrina que compra a través de su invitada no cobra red de ese pedido (alerta `autocompra_red`); alerta `ganancia_alta` (línea de 10 USD o más que gana > 55 % del precio = revisar costo); red y bonos redondeados hacia abajo.
 - **Pendiente:** alerta de cuentas que comparten teléfono, tarjeta o dirección con su madrina; subir el mínimo propio de Plata/Oro/Platino (hoy 50 USD) lo decide Ernesto.
+
+**D78 · 2026-10-16 · Comisión siempre hacia arriba, Dayra sigue como inversora y cómo financiar el programa (Ernesto).**
+- **Comisión de Lennys (D64):** desde 10 USD, el 10 % se redondea **siempre hacia arriba**, en el panel y en la web (antes el panel redondeaba al más cercano). Panel `4a66af3`, en vivo en casaviva.company/panel y en Vercel.
+- **Dayra** se queda como dueña tipo **«inversora»**, como ya estaba. No se cambia a consignación.
+- **Cómo pagar el programa de gestoras** sin bajar el «queda limpio»: se le proponen a Lennys 3 opciones en la página https://claude.ai/artifact/WQBGVtsZz7qc7FucmRX4pj:
+  1. +1 USD a todo (≈ +105 USD por quincena);
+  2. **recomendada:** +1, +2 o +3 USD según el precio (≈ 3 %, ≈ +160 USD por quincena; tope del programa ≈ 97);
+  3. sin subir precios, el fondo solo de la ganancia por encima de octubre (hay que programarlo).
+  Lennys decide, y aprueba los precios producto por producto.
