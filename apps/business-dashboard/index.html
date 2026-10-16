@@ -659,7 +659,8 @@ async function editProduct(p) {
     ${group ? `<div class="note-box"><p>Es un diseño de <strong>${esc(groupName(group))}</strong>.</p><button type="button" class="btn btn-secondary btn-block" data-group-open>Ver todos sus diseños y colores</button></div>` : ""}
     ${!p ? `<div class="note-box"><p>¿Viene en varios colores o diseños (por ejemplo, cortinas)?</p><button type="button" class="btn btn-secondary btn-block" data-new-designs>Crear producto con diseños</button></div>` : ""}
     <form class="form">
-      ${photoPicker("Foto", p?.image_url ?? "")}
+      ${photoPicker(group ? "Foto" : "Foto principal", p?.image_url ?? "")}
+      ${group ? "" : galleryPicker(p ? "Añadir más fotos (opcional)" : "Más fotos (opcional)")}
       <input type="hidden" name="sku" value="${esc(p?.sku ?? "")}">
       <label class="field">Nombre<input name="name" required value="${esc(p?.name ?? "")}" placeholder="Ej.: Toalla grande azul"></label>
       <div class="grid-2">
@@ -692,6 +693,7 @@ async function editProduct(p) {
   const msg = form.querySelector("[data-msg]");
   let photoFile = null;
   wirePhotoPicker(form, async f => { photoFile = f; return true; });
+  const galleryFiles = wireGallery(form);
   const fail = text => { msg.textContent = text; msg.dataset.tone = "bad"; form.querySelector("[type=submit]").disabled = false; };
   form.onsubmit = async e => {
     e.preventDefault();
@@ -712,6 +714,7 @@ async function editProduct(p) {
         msg.textContent = "Subiendo foto…"; msg.dataset.tone = "";
         try { imageUrl = await uploadPhoto(photoFile); } catch { throw new Error("esa foto no se pudo usar. Prueba con otra o haz una nueva"); }
       }
+      const galleryUrls = await uploadGallery(galleryFiles(), msg);
       msg.textContent = "Guardando…"; msg.dataset.tone = "";
       const { data: saved, error } = await supabase.rpc("nexo_business_product_save", {
         p_business: bizId(), p_product_id: p?.product_id ?? null, p_name: f.get("name"), p_sku: f.get("sku"),
@@ -729,7 +732,8 @@ async function editProduct(p) {
       msg.textContent = "Guardando en la web…";
       try {
         const w = await panelWeb({ action: "product_web_save", wooId: saved.wooId ?? null, nexoId: saved.productId, name: f.get("name"), price,
-          category: f.get("category"), imageUrl: imageUrl ?? (saved.wooId ? "" : (p?.image_url ?? "")), sku: saved.sku, active: p ? p.active !== false : true });
+          category: f.get("category"), imageUrl: imageUrl ?? (saved.wooId ? "" : (p?.image_url ?? "")), sku: saved.sku, active: p ? p.active !== false : true, galleryUrls });
+        if (galleryUrls.length && w.gallery == null) notes.push("las fotos de más no llegaron a la galería de la web (falta actualizar la web a Core 3.14.24)");
         if (!saved.wooId && w.wooId) {
           const { data: ln, error: e4 } = await supabase.rpc("nexo_business_product_link_web", { p_business: bizId(), p_product: saved.productId, p_woo_id: w.wooId });
           if (e4 || ln?.error) notes.push("se creó en la web pero no quedó enlazado (" + (e4?.message ?? ln.error) + ")");
@@ -1503,20 +1507,22 @@ function designsProductSheet(pre) {
     + '<label class="field">Categoría<input class="input" name="category" list="cat-list-d" value="' + esc(pre?.category ?? "") + '" placeholder="Ej.: Baño"></label></div>'
     + '<datalist id="cat-list-d">' + cats.map(c => '<option value="' + esc(c) + '">').join("") + "</datalist>"
     + commissionField("", "La misma para todos los diseños. Si la dejas vacía se usa la general (" + commDefault().text + ").")
-    + photoPicker("Foto del producto (si tienes)")
-    + '<h3 class="t-lg">Diseños o colores</h3><div data-designs></div>'
+    + photoPicker("Foto comercial del producto (la principal de la web)")
+    + galleryPicker("Más fotos comerciales (opcional)")
+    + '<h3 class="t-lg">Diseños o colores</h3><p class="t-xs muted">En cada color, pon su <strong>foto real</strong>: es la que ve el cliente al elegir ese color.</p><div data-designs></div>'
     + '<button type="button" class="btn btn-secondary btn-block" data-more>＋ Otro diseño</button>'
     + '<p class="msg" data-msg role="status"></p><button type="submit" class="btn btn-primary btn-xl btn-block">Crear producto</button></form>', "Producto con diseños");
   const form = sheet.el.querySelector("form"), msg = form.querySelector("[data-msg]"), box = form.querySelector("[data-designs]");
   let mainFile = null;
   const files = new Map();
   wirePhotoPicker(form, async f => { mainFile = f; return true; });
+  const galleryFiles = wireGallery(form);
   const addRow = () => {
     const row = document.createElement("div");
     row.className = "design-new";
     row.innerHTML = '<label class="field">Diseño o color<input class="input" data-label maxlength="60" placeholder="Ej.: rojo" autocomplete="off"></label>'
       + '<div class="grid-2"><label class="field">Cuántas hay<input class="input" data-qty inputmode="numeric" placeholder="0"></label>'
-      + '<label class="btn btn-secondary photo-mini"><span data-ph>📷 Foto</span><input type="file" accept="image/*" data-dphoto ' + HIDE_INPUT + "></label></div>"
+      + '<label class="btn btn-secondary photo-mini"><span data-ph>📷 Foto real</span><input type="file" accept="image/*" data-dphoto ' + HIDE_INPUT + "></label></div>"
       + '<button type="button" class="btn btn-ghost" data-remove>Quitar este diseño</button>';
     row.querySelector("[data-dphoto]").onchange = e => { const f = e.target.files?.[0]; if (f) { files.set(row, f); row.querySelector("[data-ph]").textContent = "✓ Foto lista"; } };
     row.querySelector("[data-remove]").onclick = () => { if (box.children.length > 1) { files.delete(row); row.remove(); } };
@@ -1549,8 +1555,9 @@ function designsProductSheet(pre) {
       const up = async f => { if (!f) return ""; try { return await uploadPhoto(f); } catch { throw new Error("una foto no se pudo usar. Prueba con otra o sin foto"); } };
       const imageUrl = await up(mainFile);
       for (const d of designs) d.imageUrl = await up(files.get(d.row));
+      const galleryUrls = await uploadGallery(galleryFiles(), msg);
       msg.textContent = "Creando el producto en la web y en la caja…";
-      const out = await panelWeb({ action: "product_variable_create", name, price, category: form.category.value.trim(), imageUrl, ref,
+      const out = await panelWeb({ action: "product_variable_create", name, price, category: form.category.value.trim(), imageUrl, ref, galleryUrls,
         designs: designs.map(d => ({ label: d.label, imageUrl: d.imageUrl })) });
       const pidByWoo = new Map((out.linked ?? []).map(l => [Number(l.wooId), l.productId]));
       const notes = [], pids = [];
@@ -2844,6 +2851,9 @@ function priceVerdict(c, price) {
 // ganancia mínima. Hasta que Core use el mismo mínimo (rama core-minimo-panel), no se llama «mínimo» a ese número.
 function webCostNote(w, mine) {
   if (!w || w.floor == null) return "en la web: guardado";
+  // Core 3.14.24 manda también el mínimo completo (floorFull) con los gastos fijos de este producto.
+  if (mine && w.mode === "perdida" && w.floorFull != null && Math.abs(Number(w.floorFull) - mine.min) < 0.011)
+    return "en la web: " + (w.status === "bajo" ? "⚠️ con este precio se pierde dinero" : "✓ mismo mínimo (" + dollars(w.floorFull) + ")");
   if (mine && Math.abs(Number(w.floor) - mine.min) < 0.011) return "en la web: " + (w.status === "bajo" ? "⚠️ por debajo del mínimo (" + dollars(w.floor) + ")" : "✓ mismo mínimo (" + dollars(w.floor) + ")");
   return "en la web: " + (w.status === "bajo" ? "⚠️ con este precio se pierde dinero" : "✓ no pierde dinero")
     + " (la web todavía solo mira si se pierde: no bajar de " + dollars(w.floor) + ". El mínimo que vale es el de arriba)";
@@ -3392,6 +3402,32 @@ function photoPicker(label, current = "") {
     + '<img class="receipt-photo" data-preview alt=""' + (current ? ' src="' + esc(current) + '"' : " hidden") + ' onerror="this.hidden=true">'
     + '<div class="grid-2"><label class="btn btn-secondary">📷 Hacer foto<input type="file" accept="image/*" capture="environment" data-photo ' + HIDE_INPUT + '></label>'
     + '<label class="btn btn-secondary">🖼️ Galería<input type="file" accept="image/*" data-photo ' + HIDE_INPUT + "></label></div></div>";
+}
+// Más fotos para la galería de la web (Lennys 16-oct; Core 3.14.24). Se añaden a la galería, nunca se quitan.
+function galleryPicker(label) {
+  return '<div class="field"><span>' + esc(label) + '</span>'
+    + '<label class="btn btn-secondary btn-block">🖼️ Elegir varias fotos<input type="file" accept="image/*" multiple data-gallery ' + HIDE_INPUT + "></label>"
+    + '<div data-gallery-thumbs style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px"></div>'
+    + '<span class="t-xs muted" data-gallery-note>Hasta 8. Salen en la web debajo de la foto principal.</span></div>';
+}
+function wireGallery(form) {
+  let files = [];
+  const input = form.querySelector("[data-gallery]");
+  if (!input) return () => [];
+  input.onchange = () => {
+    files = [...(input.files ?? [])].slice(0, 8);
+    form.querySelector("[data-gallery-thumbs]").innerHTML = files.map(f => '<img alt="" style="width:56px;height:56px;object-fit:cover;border-radius:8px" src="' + URL.createObjectURL(f) + '">').join("");
+    form.querySelector("[data-gallery-note]").textContent = files.length ? files.length + (files.length === 1 ? " foto elegida" : " fotos elegidas") + " (se suben al guardar)." : "Hasta 8. Salen en la web debajo de la foto principal.";
+  };
+  return () => files;
+}
+async function uploadGallery(files, msg) {
+  const urls = [];
+  for (const [i, f] of files.entries()) {
+    if (msg) msg.textContent = "Subiendo fotos de la galería (" + (i + 1) + " de " + files.length + ")…";
+    try { urls.push(await uploadPhoto(f)); } catch { throw new Error("la foto " + (i + 1) + " de la galería no se pudo usar. Quítala y prueba otra vez"); }
+  }
+  return urls;
 }
 function wirePhotoPicker(form, onFile) {
   form.querySelectorAll("[data-photo]").forEach(input => (input.onchange = async () => {

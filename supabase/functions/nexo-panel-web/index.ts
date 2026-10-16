@@ -18,6 +18,8 @@ const json = (status: number, body: unknown) =>
   new Response(JSON.stringify(body), { status, headers: { ...cors, "content-type": "application/json" } });
 
 const base = () => (Deno.env.get("WOO_URL") ?? "").replace(/\/$/, "");
+// Fotos que el panel sube a su almacén (las únicas que se mandan a la galería de la web).
+const GALLERY_PREFIX = (Deno.env.get("SUPABASE_URL") ?? "").replace(/\/$/, "") + "/storage/v1/object/public/nexo-product-photos/";
 const auth = () => "Basic " + btoa(`${Deno.env.get("WOO_CK") ?? ""}:${Deno.env.get("WOO_CS") ?? ""}`);
 
 // Grupos como en BizneCubano: concretado, pendiente, perdido.
@@ -218,8 +220,14 @@ Deno.serve(async req => {
     if (body.action === "product_web_cost") {
       const costUsd = Number(body.costUsd);
       if (!(Number(body.wooId) > 0) || !(costUsd >= 0)) return json(400, { error: "Producto o costo no válido." });
-      return json(200, await core("POST", "panel/products/cost", { wooId: Number(body.wooId), costUsd, source: "manual" }));
+      return json(200, await core("POST", "panel/products/cost", { wooId: Number(body.wooId), costUsd, source: "manual",
+        // Core 3.14.24: gastos fijos de este producto (proporcionales a su costo) para que la web use el mismo mínimo que el panel.
+        fixedUsd: body.fixedUsd != null && body.fixedUsd !== "" && Number(body.fixedUsd) >= 0 ? Number(body.fixedUsd) : undefined }));
     }
+
+    // Fotos de la galería (Core 3.14.24): solo URLs de las fotos subidas por el panel a nexo-product-photos, máx. 8.
+    const galleryOf = (b: Record<string, unknown>) => (Array.isArray(b.galleryUrls) ? b.galleryUrls : [])
+      .map(u => String(u ?? "")).filter(u => u.startsWith(GALLERY_PREFIX)).slice(0, 8);
 
     // Producto: crear en la web (sin wooId) o copiar cambios (con wooId). D39.
     if (body.action === "product_web_save") {
@@ -229,6 +237,7 @@ Deno.serve(async req => {
       return json(200, await core("POST", "panel/products/save", {
         wooId: Number(body.wooId) > 0 ? Number(body.wooId) : undefined, nexoId: String(body.nexoId ?? ""), name, price,
         category: String(body.category ?? ""), imageUrl: String(body.imageUrl ?? ""), sku: String(body.sku ?? ""), active: body.active !== false,
+        galleryUrls: galleryOf(body), // Core 3.14.24: más fotos (galería de la web)
       }));
     }
 
@@ -285,7 +294,7 @@ Deno.serve(async req => {
       if (!String(body.name ?? "").trim() || !(price > 0) || !designs.length) return json(400, { error: "Falta el nombre, el precio o un diseño." });
       const out = await core("POST", "panel/products/variable", {
         name: String(body.name).trim(), price, category: String(body.category ?? ""), imageUrl: String(body.imageUrl ?? ""),
-        designs, ref: String(body.ref ?? ""), by,
+        designs, ref: String(body.ref ?? ""), by, galleryUrls: galleryOf(body),
       });
       const vars = (out.variations as (WebVariation & { existing: boolean })[]).map(v => ({ ...v, stock: v.existing ? v.stock : 0 }));
       const linked = await linkVariants(`cv-${out.parentId}`, { id: out.parentId, name: out.name }, vars, { category: String(body.category ?? "") });
