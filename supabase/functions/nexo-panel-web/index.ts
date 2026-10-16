@@ -247,6 +247,12 @@ Deno.serve(async req => {
     // Programa de gestoras (Core 3.14.29, D53–D60): último cálculo del libro y «Recalcular ahora». Solo lectura de dinero: no paga nada.
     if (body.action === "programa") return json(200, await core("GET", "panel/programa"));
     if (body.action === "programa_calcular") return json(200, await core("POST", "panel/programa/calcular", {}));
+    // Core 3.14.32 (D79): marcar «Revisada» una alerta «ganancia_alta» o «cuenta_compartida» (el cierre del mes espera por ellas).
+    if (body.action === "programa_revisar") {
+      const key = String(body.key ?? "");
+      if (!/^(ganancia_alta|cuenta_compartida):[0-9a-z_:,]{1,120}$/.test(key)) return json(400, { error: "Alerta no válida." });
+      return json(200, await core("POST", "panel/programa/revisar", { key }));
+    }
 
     // Inventario: existencias de la web para comparar, y copiar a la web un precio cambiado en el panel.
     if (body.action === "web_levels") return json(200, await core("GET", "panel/stock/levels"));

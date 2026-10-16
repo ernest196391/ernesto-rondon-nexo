@@ -2452,7 +2452,19 @@ function renderWebPayouts(list) {
 // Lo calcula Core (CVD_Programa) cada noche; aquí solo se lee el último cálculo del libro y se puede recalcular.
 const PROG_MODE = { sombra: ["En prueba: no se paga", "badge-low"], si: ["Activo: se paga", "badge-ok"], no: ["Apagado", "badge-calm"] };
 const PROG_STONE = { bronce: "Bronce", plata: "Plata", oro: "Oro", platino: "Platino", zafiro: "Zafiro", rubi: "Rubí", esmeralda: "Esmeralda", diamante: "Diamante", "doble-diamante": "Doble Diamante", corona: "Corona" };
-const PROG_ALERT = { autocompra: "Autocompra (no cuenta)", concentracion: "Una persona con más del 60 %", sin_costo: "Producto sin costo", pierde: "Se vende perdiendo", devolucion: "Devolución", red_negativa: "Red en negativo", revisar: "Su teléfono con otro cliente (cuenta)", provisional: "Costo provisional (cuenta)", autocompra_red: "La madrina compra por su invitada (sin red)", ganancia_alta: "Ganancia muy alta: revisar el costo" };
+const PROG_ALERT = { autocompra: "Autocompra (no cuenta)", concentracion: "Una persona con más del 60 %", sin_costo: "Producto sin costo", pierde: "Se vende perdiendo", devolucion: "Devolución", red_negativa: "Red en negativo", revisar: "Su teléfono, 3 veces o más con la misma clienta", revisar_resumen: "Su teléfono con otro cliente (normal)", provisional: "Costo provisional (cuenta)", autocompra_red: "La madrina compra por su invitada (sin red)", ganancia_alta: "Ganancia muy alta: revisar el costo", cuenta_compartida: "Comparte teléfono, tarjeta o dirección con su madrina" };
+// Core 3.14.32 (D79): «ganancia_alta» y «cuenta_compartida» hacen esperar al cierre automático del mes hasta que Lennys toca «Revisada».
+function progAlertRow(a) {
+  const tag = a.reviewed ? '<span class="badge badge-ok">Revisada</span>'
+    : a.canReview ? '<button type="button" class="btn btn-secondary" data-prog-rev="' + esc(a.key) + '">Revisada</button>' : "";
+  return '<div class="row-item"><span class="grow"><span class="title">' + esc(PROG_ALERT[a.type] ?? a.type) + '</span><span class="meta">' + esc(a.text) + "</span></span>" + tag + "</div>";
+}
+async function progReview(btn) {
+  if (!confirm("¿Ya lo revisaste? La alerta queda como «Revisada» y el cierre del mes deja de esperar por ella.")) return;
+  btn.disabled = true;
+  try { const r = await panelWeb({ action: "programa_revisar", key: btn.dataset.progRev }); toast("Marcada como revisada", "ok"); if (teamKind === "programa" && page === "equipo") renderPrograma(r); }
+  catch (e) { btn.disabled = false; toast(e.message, "bad"); }
+}
 const progCup = n => Number(n ?? 0).toLocaleString("es", { maximumFractionDigits: 0 }) + " CUP";
 const progPts = n => Number(n ?? 0).toLocaleString("es", { maximumFractionDigits: 1 });
 async function loadPrograma(recalc = false) {
@@ -2479,7 +2491,9 @@ function renderPrograma(r) {
       + '<div class="kpi"><span class="label">' + (r.mode === "si" ? "Se debe pagar" : "Se pagaría") + '</span><span class="value num" style="font-size:var(--nx-fs-lg)">' + usd2(t.pay_usd) + '</span><span class="sub">red ' + usd2(t.red_usd) + " · bonos " + progCup(t.bonus_cup) + (t.factor_bonus < 0.999 ? " (" + Math.round(100 * t.factor_bonus) + " % cubierto)" : "") + "</span></div></div>"
       + (t.carry_out_usd > 0 || t.carry_in_usd > 0 ? '<p class="t-sm">' + esc((t.carry_in_usd > 0 ? "Este mes se descuentan " + usd2(t.carry_in_usd) + " de devoluciones de meses anteriores. " : "") + (t.carry_out_usd > 0 ? "Quedan " + usd2(t.carry_out_usd) + " de devoluciones por descontar el mes que viene." : "")) + "</p>" : "")
       + '<p class="t-xs muted">' + esc(r.run.period + " · cálculo " + r.run.kind + " · " + when(r.run.computedAt) + " · ventas que cuentan " + usd2(t.sales_usd) + " · " + t.people_with_stone + " con piedra este mes") + "</p>"
-      + (alerts.length ? '<h3 class="t-sm" style="margin-top:12px">Alertas (' + alerts.length + ")</h3>" + '<p class="t-xs muted">' + esc(Object.entries(r.alertCounts ?? {}).map(([k, v]) => (PROG_ALERT[k] ?? k) + ": " + v).join(" · ")) + "</p>" + alerts.slice(0, 30).map(a => '<div class="row-item"><span class="grow"><span class="title">' + esc(PROG_ALERT[a.type] ?? a.type) + '</span><span class="meta">' + esc(a.text) + "</span></span></div>").join("") : "")
+      + (alerts.length ? '<h3 class="t-sm" style="margin-top:12px">Alertas (' + alerts.length + ")</h3>" + '<p class="t-xs muted">' + esc(Object.entries(r.alertCounts ?? {}).map(([k, v]) => (PROG_ALERT[k] ?? k) + ": " + v).join(" · ")) + "</p>"
+        + (r.pendingReview ? '<p class="t-sm"><b>' + esc(r.pendingReview + (r.pendingReview === 1 ? " alerta sin revisar" : " alertas sin revisar")) + "</b>" + esc(": el cierre automático del mes espera hasta que toques «Revisada»." + (r.closeWaiting ? " Ahora espera el cierre de " + r.closeWaiting + "." : "")) + "</p>" : "")
+        + alerts.slice(0, 30).map(progAlertRow).join("") : "")
       + '<h3 class="t-sm" style="margin-top:12px">Gestoras</h3>'
       + ((r.people ?? []).length ? r.people.map(p => '<div class="row-item"><button type="button" class="row-btn" data-progid="' + p.id + '"><span class="grow">'
         + '<span class="title">' + esc(p.name) + "</span>"
@@ -2489,6 +2503,7 @@ function renderPrograma(r) {
       + '<button type="button" class="btn btn-secondary btn-block" style="margin-top:12px" data-prog-calc>Recalcular ahora</button>'
       + '<p class="t-xs muted">Libro: cada cálculo queda guardado con su huella ' + esc((r.run.sha256 ?? "").slice(0, 12)) + "… Los cierres de mes no se rehacen.</p>";
     document.querySelectorAll("#people [data-progid]").forEach(b => (b.onclick = () => showProgPerson(r.people.find(x => String(x.id) === b.dataset.progid), names, r.mode)));
+    document.querySelectorAll("#people [data-prog-rev]").forEach(b => (b.onclick = () => progReview(b)));
   }
   document.querySelectorAll("#people [data-prog-calc]").forEach(b => (b.onclick = () => loadPrograma(true)));
 }
