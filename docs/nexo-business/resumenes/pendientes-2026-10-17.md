@@ -69,3 +69,9 @@ Hoy Ernesto solo tiene el usuario **1 (administrador)** en la web, con su teléf
       - **El mismo número** (no tiene otro). Buscar la forma: (a) que el usuario 1 tenga también el papel de gestor (WordPress permite varios papeles en una cuenta), o (b) entrar con el correo. Comprobar primero qué hace Core con un administrador que también es gestor: «mi acceso», el área y las comisiones.
       - **Ventas que se le asignan:** la **mesita** que vendió con Nayelis (¿Nadielys? confirmar el pedido) y los **patines #3845** (16-oct).
       - **Las del split NO:** ya las cobró.
+    - **Lo que se encontró (16-oct, noche):**
+      - Nadielys es la usuaria 29.
+      - Los **patines #3845** (105 USD, en espera) están **a nombre de Nadielys** como gestora.
+      - La **mesita** no sale en ningún pedido de la web de octubre: ni en los de Nadielys ni buscando «mesit».
+      - Ernesto dice que el vale de la mesita «está arriba» (el mensaje se cortó): seguramente en el chat de Nadielys o en el suyo.
+    - **Preguntar a Ernesto:** las dos ventas son con Nadielys, ¿la comisión se reparte? ¿Cómo? ¿O es toda de Ernesto? No tocar la comisión de Nadielys sin su respuesta.
