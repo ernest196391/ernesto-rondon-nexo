@@ -1488,3 +1488,19 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
 - **Comprobado:** `npm run check` (local y VPS, con 10 pruebas nuevas en `test/errores-1016.test.js` con los textos reales); bot online, conectado, recibe (grupo y chat a las 22:40), reparto cerró las 9 carreras sin errores; Core `php -l`, purga, `/` y `/tienda/` 200, `CVD_VERSION` 3.14.34, `/bot/orders/3865` responde. Nadie recibió mensajes de prueba.
 - **Copias / deshacer:** VPS `/root/vivabot/<archivo>.bak-20261016-errores` (`git -C /root/vivabot reset --hard 1412fb8` + `cv reiniciar`); Hostinger `~/bak-20261016-cvd-3.14.33-antes-3.14.34/` (copiar los 3 archivos de vuelta + `wp litespeed-purge all`).
 ### L29. Viernes 16-oct ~23:00 — Video tutorial «Las piedras» (programa de gestoras) LISTO, SIN enviar (agente de Claude): 64 s, voz B con subtítulos, capturas de la cuenta de prueba 45 con un cálculo de ejemplo (nada guardado), cifras D77 (1 % + 0,5 %); `videos/tutorial-piedras/tutorial-piedras.mp4` y en el VPS `/root/archivos/tutoriales/tutorial-piedras.mp4`; texto del General en `videos/tutorial-piedras/mensaje-general.txt`. **Siguiente:** que lo apruebe Lennys (y no mandarlo al General antes de abrir el programa a todas).
+
+### L30. Sábado 17-oct mañana — chats y lo que pidió Lennys
+- **Conexión:** con Starlink sin VPN, las conexiones a Hostinger y al VPS se cortan. Con la VPN de todo el ordenador vuelven a funcionar. La extensión de Chrome no basta.
+- **Bot:** la respuesta 61 (precio de la mensajería) decía «dime la zona y te digo el precio», y por eso el bot le dijo a Day Aguilera «350 CUP a Marianao». Ahora nunca da una cifra: manda a /tarifas-mensajeria/ y al precio del vale. `comunidad_enlace` = enlace del grupo General (Ernesto): se mandó a Damarys, Lena, Zulien, Daniela Piñero, Nayeli y Leya Hogar.
+- **Productos de Dayra:**
+  - las fotos comerciales aprobadas son ahora la principal (las reales siguen en la galería; copia `~/bak-20261017-dayra-fotos-antes.json`);
+  - banqueta 3880 publicada a 24 USD con comisión 3 y 15 unidades, en la web y en la caja (`catalog_products` activa, 2400);
+  - medidas como atributo «Medidas» en la banqueta y la lámpara;
+  - faltan las medidas de la mesita y del platero.
+- **Grupo diario** (vivabot `fd5ed40`): las fotos de productos van a «Actualización de productos» (`120363283827702479@g.us`), no al General. 11 pruebas OK. El bot se reinició.
+- **#2903:** se añadió 1 perchero 2547 con `CVD_Order_Edit::edit` (total 73; la caja se entera por el puente). Lo completa Zaymi en Ventas.
+- **`recogidas_auto` = si** (antes «prueba»): aviso a las 24 h de «Listo» y cancelación a las 48 h. Hoy solo le afecta el #3774 (primero recibe el aviso).
+- **Mensajes pedidos:**
+  - Daiquel: #2944, #3772, #3773 y #3916 recogidos sin cerrar;
+  - Melany: #3864;
+  - Fernando: captura del #3845.
