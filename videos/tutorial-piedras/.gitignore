@@ -1,0 +1,6 @@
+_work/tmp/
+renders/
+.hyperframes/
+assets/audio/tomas/
+assets/audio/*.wav
+render.log

@@ -1,0 +1,12 @@
+== ANTES DE MANDARLO ==
+Primero lo aprueba Lennys. No se manda hasta su sí (y el de Ernesto).
+El programa hoy está en modo sombra (en prueba) y solo lo ven Dany y sus invitadas. Si se manda al General antes de abrirlo a todas
+(cvd_programa_gestoras = si, o cvd_programa_ver = todas), las demás no verán «Mi equipo» ni «Mi piedra» en el menú.
+Video en el VPS: /root/archivos/tutoriales/tutorial-piedras.mp4
+
+== MENSAJE PARA EL GENERAL (va con el video) ==
+💎 *Nuevo: las piedras* (menú → Mi equipo y Mi piedra)
+Cada venta tuya entregada y cobrada te da puntos. Con los puntos de tu equipo subes de piedra y cobras un bono cada mes: Bronce 5.000 CUP, Plata 10.000, Oro 15.000…
+Y si invitas a otra gestora, ganas el 1 % de lo que venda durante 12 meses (y el 0,5 % del segundo nivel si eres Plata). Tus invitadas cobran su comisión completa.
+El bono depende de lo que gane el equipo: sale de un fondo del 15 % de la ganancia y, si no alcanza, ese mes se paga una parte. Se cobra en «Pedir mi pago».
+Está en prueba: dinos qué no entiendes 👆

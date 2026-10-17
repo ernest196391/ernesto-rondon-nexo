@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+
+        @font-face { font-family: "Cinzel"; src: url("assets/fonts/cinzel-600.woff2") format("woff2"); font-weight: 600; font-style: normal; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-400.woff2") format("woff2"); font-weight: 400; font-style: normal; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-500.woff2") format("woff2"); font-weight: 500; font-style: normal; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-600.woff2") format("woff2"); font-weight: 600; font-style: normal; }
+        #s08-cierre-root { position: absolute; inset: 0; }
+
+        #s10-title { position: absolute; left: 60px; right: 60px; top: 180px; text-align: center; font-family: "Cinzel", Georgia, serif; font-weight: 600; font-size: 84px; letter-spacing: 0.08em; color: #2B2420; }
+        #s10-grid { position: absolute; left: 90px; right: 90px; top: 320px; display: flex; flex-direction: column; gap: 18px; }
+        .s10-c { display: flex; align-items: center; gap: 22px; padding: 20px 28px; border-radius: 22px; background: #0D3B45; color: #F6F1E6; font-weight: 600; font-size: 40px; }
+        .s10-n { display: inline-flex; width: 58px; height: 58px; flex: 0 0 auto; border-radius: 50%; align-items: center; justify-content: center; background: #F6F1E6; color: #0D3B45; font-size: 32px; }
+        #s10-free { position: absolute; left: 110px; right: 110px; top: 720px; padding: 20px 30px; border-radius: 999px; background: #A35A1F; color: #F6F1E6; font-weight: 600; font-size: 42px; text-align: center; white-space: nowrap; }
+        #s10-logo { position: absolute; left: 50%; top: 880px; width: 400px; margin-left: -200px; display: block; }
+        #s10-q { position: absolute; left: 60px; right: 60px; top: 1200px; text-align: center; font-weight: 600; font-size: 72px; color: #0D3B45; }
+        #s10-url { position: absolute; left: 60px; right: 60px; top: 1300px; text-align: center; font-weight: 500; font-size: 46px; color: #2B2420; }
+      </style>
+      <div id="s08-cierre-root" data-composition-id="s08-cierre" data-width="1080" data-height="1920">
+
+        <div id="s10-title">ASÍ DE FÁCIL</div>
+        <div id="s10-grid"><div class="s10-c" id="s10-c1"><span class="s10-n">1</span>Vende: cada venta da puntos</div><div class="s10-c" id="s10-c2"><span class="s10-n">2</span>Tu equipo sube de piedra</div><div class="s10-c" id="s10-c3"><span class="s10-n">3</span>Invita: 1 % durante 12 meses</div></div>
+        <div id="s10-free">En prueba · dinos qué no entiendes</div>
+        <img id="s10-logo" src="assets/logo/casa-viva-vertical-marron.svg" alt="Casa Viva" />
+        <div id="s10-q">¿Dudas? Escríbeme.</div>
+        <div id="s10-url">casaviva.company</div>
+      </div>
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          
+          tl.fromTo("#s10-title", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.45, ease: "power4.out" }, 0.05);
+          tl.fromTo("#s10-c1", { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: 0.38, ease: "back.out(1.6)" }, 0.22);
+          tl.fromTo("#s10-c2", { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: 0.38, ease: "back.out(1.6)" }, 0.34);
+          tl.fromTo("#s10-c3", { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: 0.38, ease: "back.out(1.6)" }, 0.46);
+          tl.fromTo("#s10-free", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(1.8)" }, 0.4);
+          tl.fromTo("#s10-logo", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.55, ease: "power3.out" }, 1.2);
+          tl.fromTo("#s10-q", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.42, ease: "back.out(1.4)" }, 1.6);
+          tl.fromTo("#s10-url", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power1.out" }, 1.9);
+          window.__timelines["s08-cierre"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

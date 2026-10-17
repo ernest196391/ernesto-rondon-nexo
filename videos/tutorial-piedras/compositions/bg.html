@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #bg-root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #f6f1e6;
+        }
+        #bg-dots {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 0;
+          height: 2000px;
+          background-image: radial-gradient(rgba(13, 59, 69, 0.16) 2px, transparent 2.5px);
+          background-size: 44px 44px;
+          opacity: 0.5;
+        }
+        #bg-glow-a {
+          position: absolute;
+          width: 1100px;
+          height: 1100px;
+          right: -520px;
+          top: -420px;
+          border-radius: 50%;
+          background: radial-gradient(circle, rgba(13, 59, 69, 0.2) 0%, rgba(13, 59, 69, 0) 65%);
+        }
+        #bg-glow-b {
+          position: absolute;
+          width: 1000px;
+          height: 1000px;
+          left: -500px;
+          bottom: -420px;
+          border-radius: 50%;
+          background: radial-gradient(circle, rgba(13, 59, 69, 0.08) 0%, rgba(13, 59, 69, 0) 65%);
+        }
+        #brandbar {
+          position: absolute;
+          left: 60px;
+          right: 60px;
+          top: 52px;
+          height: 64px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+        #brand {
+          display: flex;
+          align-items: center;
+        }
+        #brand img {
+          display: block;
+          width: 64px;
+          height: 65px;
+          opacity: 0.7;
+        }
+        #brand-tag {
+          font-weight: 500;
+          font-size: 28px;
+          color: #2B2420;
+          padding: 10px 22px;
+          border-radius: 999px;
+          border: 2px solid rgba(13, 59, 69, 0.18);
+          background: rgba(255, 253, 249, 0.7);
+        }
+        #progress {
+          position: absolute;
+          left: 60px;
+          right: 60px;
+          bottom: 44px;
+          height: 10px;
+          border-radius: 999px;
+          background: rgba(13, 59, 69, 0.12);
+          overflow: hidden;
+        }
+        #progress-fill {
+          display: block;
+          width: 100%;
+          height: 100%;
+          border-radius: 999px;
+          background: #0D3B45;
+          transform-origin: left center;
+        }
+      </style>
+      <div id="bg-root" data-composition-id="bg-layer" data-width="1080" data-height="1920">
+        <div id="bg-glow-a" data-layout-allow-overflow></div>
+        <div id="bg-glow-b" data-layout-allow-overflow></div>
+        <div id="bg-dots" data-layout-allow-overflow></div>
+        <div id="brandbar">
+          <div id="brand"><img src="assets/logo/casa-viva-isotipo-marron.svg" alt="" /></div>
+          <div id="brand-tag">Gestoras · Las piedras</div>
+        </div>
+        <div id="progress"><span id="progress-fill"></span></div>
+      </div>
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          tl.fromTo("#bg-glow-a", { scale: 0.92, x: 0 }, { scale: 1.08, x: -60, duration: 9, ease: "sine.inOut", yoyo: true, repeat: 8 }, 0);
+          tl.fromTo("#bg-glow-b", { scale: 1.06, y: 0 }, { scale: 0.94, y: -50, duration: 12, ease: "sine.inOut", yoyo: true, repeat: 6 }, 0);
+          tl.fromTo("#bg-dots", { y: 0 }, { y: -44, duration: 63.69, ease: "none" }, 0);
+          tl.fromTo("#brandbar", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power1.out" }, 3.19);
+          tl.fromTo("#brandbar", { opacity: 1 }, { opacity: 0, duration: 0.3, ease: "power1.in", immediateRender: false }, 63.19);
+          tl.fromTo("#progress-fill", { scaleX: 0 }, { scaleX: 1, duration: 63.69, ease: "none" }, 0);
+          window.__timelines["bg-layer"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+
+        @font-face { font-family: "Cinzel"; src: url("assets/fonts/cinzel-600.woff2") format("woff2"); font-weight: 600; font-style: normal; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-400.woff2") format("woff2"); font-weight: 400; font-style: normal; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-500.woff2") format("woff2"); font-weight: 500; font-style: normal; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-600.woff2") format("woff2"); font-weight: 600; font-style: normal; }
+        #s07-honesto-root { position: absolute; inset: 0; }
+
+        .lcard { padding: 26px 26px; }
+        .lc-rows { display: flex; flex-direction: column; gap: 18px; width: 100%; }
+        .lc-row { display: flex; align-items: center; gap: 18px; font-size: 34px; line-height: 1.25; font-weight: 500; }
+        .lc-row b { font-weight: 600; }
+        .lc-ic { flex: 0 0 auto; min-width: 108px; height: 64px; padding: 0 14px; border-radius: 32px; background: #A35A1F; color: #F6F1E6; display: inline-flex; align-items: center; justify-content: center; font-weight: 600; font-size: 34px; }
+        .lc-ic.soft { background: #F6F1E6; color: #0D3B45; }
+      </style>
+      <div id="s07-honesto-root" data-composition-id="s07-honesto" data-width="1080" data-height="1920">
+<div class="eyebrow" id="s07-honesto-eb"><span class="eb-n">6</span>Claro y honesto</div>
+<div class="cap" id="s07-honesto-c0"><span class="ci">El bono depende <span class="k">del equipo</span></span></div>
+<div class="cap" id="s07-honesto-c1"><span class="ci">Sale del <span class="k">15 %</span> de la ganancia</span></div>
+<div class="cap" id="s07-honesto-c2"><span class="ci">Si no alcanza: <span class="k">una parte</span></span></div>
+<div class="cap" id="s07-honesto-c3"><span class="ci">Se cobra en <span class="k">Pedir mi pago</span></span></div>
+<div class="scr" id="s07-honesto-scr"><div class="sb" id="s07-honesto-sb"><span>10:24</span><span class="sb-icons"><span class="sb-bar" style="height:9px"></span><span class="sb-bar" style="height:13px"></span><span class="sb-bar" style="height:17px"></span><span class="sb-batt"></span></span></div>
+<img class="shot" id="s07-honesto-s0" src="assets/screens/pi-oro.jpg" alt="" />
+<img class="shot" id="s07-honesto-s1" src="assets/screens/pi-menu.jpg" alt="" />
+<div class="hl" data-layout-allow-overflow id="s07-honesto-h0" style="left:52px;top:689px;width:516px;height:76px"></div>
+<div class="hl" data-layout-allow-overflow id="s07-honesto-h1" style="left:52px;top:689px;width:516px;height:184px"></div>
+<div class="hl" data-layout-allow-overflow id="s07-honesto-h2" style="left:11px;top:735px;width:474px;height:78px"></div>
+
+          <div class="card lcard" id="s07-card" style="top:130px"><div class="lc-rows"><div class="lc-row" id="s07-card-r0"><span class="lc-ic">15 %</span><span class="lc-t">de la ganancia del equipo es el <b>fondo</b> del mes</span></div><div class="lc-row" id="s07-card-r1"><span class="lc-ic">Parte</span><span class="lc-t">Si no alcanza, ese mes se paga <b>una parte</b>, igual para todas</span></div></div></div>
+          <div class="card lcard" id="s07-card2" style="top:130px"><div class="lc-rows"><div class="lc-row" id="s07-card2-r0"><span class="lc-ic">→</span><span class="lc-t">En <b>Cobrar</b>, toca <b>Pedir mi pago</b></span></div></div></div></div>
+      </div>
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          tl.fromTo("#s07-honesto-scr", { opacity: 0 }, { opacity: 1, duration: 0.2, ease: "power1.out" }, 0);
+          tl.fromTo("#s07-honesto-eb", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.4, ease: "power3.out" }, 0.05);
+          tl.fromTo("#s07-honesto-eb", { opacity: 1 }, { opacity: 0, duration: 0.22, ease: "power1.in", immediateRender: false }, 11.525);
+          tl.fromTo("#s07-honesto-c0", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 0.1);
+          tl.fromTo("#s07-honesto-c0", { opacity: 1 }, { opacity: 0, duration: 0.22, ease: "power2.in", immediateRender: false }, 3.55);
+          tl.fromTo("#s07-honesto-c0 .k", { backgroundSize: "0% 100%" }, { backgroundSize: "100% 100%", duration: 0.45, ease: "power2.out" }, 0.45);
+          tl.fromTo("#s07-honesto-c1", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 3.65);
+          tl.fromTo("#s07-honesto-c1", { opacity: 1 }, { opacity: 0, duration: 0.22, ease: "power2.in", immediateRender: false }, 6.6);
+          tl.fromTo("#s07-honesto-c1 .k", { backgroundSize: "0% 100%" }, { backgroundSize: "100% 100%", duration: 0.45, ease: "power2.out" }, 4);
+          tl.fromTo("#s07-honesto-c2", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 6.7);
+          tl.fromTo("#s07-honesto-c2", { opacity: 1 }, { opacity: 0, duration: 0.22, ease: "power2.in", immediateRender: false }, 8.95);
+          tl.fromTo("#s07-honesto-c2 .k", { backgroundSize: "0% 100%" }, { backgroundSize: "100% 100%", duration: 0.45, ease: "power2.out" }, 7.05);
+          tl.fromTo("#s07-honesto-c3", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 9.05);
+          tl.fromTo("#s07-honesto-c3", { opacity: 1 }, { opacity: 0, duration: 0.22, ease: "power2.in", immediateRender: false }, 11.545);
+          tl.fromTo("#s07-honesto-c3 .k", { backgroundSize: "0% 100%" }, { backgroundSize: "100% 100%", duration: 0.45, ease: "power2.out" }, 9.4);
+          tl.fromTo("#s07-honesto-s0", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, 0);
+          tl.fromTo("#s07-honesto-s1", { opacity: 0 }, { opacity: 1, duration: 0.25, ease: "power1.out" }, 8.95);
+          tl.fromTo("#s07-honesto-h0", { opacity: 0, scale: 1.08 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }, 1.2);
+          tl.fromTo("#s07-honesto-h0", { opacity: 1 }, { opacity: 0, duration: 0.25, ease: "power1.in", immediateRender: false }, 3.6);
+          tl.fromTo("#s07-honesto-h1", { opacity: 0, scale: 1.08 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }, 6.7);
+          tl.fromTo("#s07-honesto-h1", { opacity: 1 }, { opacity: 0, duration: 0.25, ease: "power1.in", immediateRender: false }, 8.9);
+          tl.fromTo("#s07-honesto-h2", { opacity: 0, scale: 1.08 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }, 9.3);
+          tl.fromTo("#s07-honesto-h2", { opacity: 1 }, { opacity: 0, duration: 0.25, ease: "power1.in", immediateRender: false }, 11.525);
+          tl.fromTo("#s07-honesto-scr", { opacity: 1, y: 0 }, { opacity: 0, y: 110, duration: 0.42, ease: "power2.in", immediateRender: false }, 11.405);
+          
+          tl.fromTo("#s07-card", { opacity: 0, y: 40, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "back.out(1.5)" }, 3.7);
+          tl.fromTo("#s07-card-r0", { opacity: 0.16 }, { opacity: 1, duration: 0.35, ease: "power2.out" }, 3.85);
+          tl.fromTo("#s07-card-r1", { opacity: 0.16 }, { opacity: 1, duration: 0.35, ease: "power2.out" }, 6.75);
+          tl.fromTo("#s07-card", { opacity: 1 }, { opacity: 0, duration: 0.2, ease: "power1.in", immediateRender: false }, 8.85);
+          tl.fromTo("#s07-card2", { opacity: 0, y: 40, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "back.out(1.5)" }, 9.5);
+          window.__timelines["s07-honesto"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>
