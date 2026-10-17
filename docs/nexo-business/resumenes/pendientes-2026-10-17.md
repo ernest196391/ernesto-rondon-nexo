@@ -30,3 +30,22 @@
 2. **Aprender de los errores todos los días, solo, a las 22:00, por áreas** (gestoras, mensajeros, tienda, administración, bot, web): «Hoy hay que mejorar esto, esto y esto, y lo que vamos a hacer es esto». Que lo genere el supervisor del VPS (Claude) y se lo mande a Ernesto. Aprovechar `crm_supervisor`, las escalaciones y los errores del bot.
 3. **Quitar los cuellos de botella** de `docs/nexo-business/mejoras/CUELLOS-DE-BOTELLA-2026-10-16.md`.
 4. Forma de trabajar mañana: Claude repasa los pendientes uno a uno y confirma cada cosa; Ernesto dice cuáles van primero.
+
+## Multinivel: estar preparados (Ernesto, 16-oct al cerrar) · lanzar un agente el 17-oct
+5. **Todas las preguntas posibles y cómo explicarlas fácil**, y metidas en el bot para que sepa contestarlas: respuestas aprobadas en la base de conocimiento, más la regla «si no sabe, te lo confirmo».
+   - Base: `AUDITORIA-2026-10-16.md` §3 (preguntas de Lennys), las 15 preguntas de la presentación, el video de las piedras (`videos/tutorial-piedras/guion.txt`) y las dudas reales de Dany del 16-oct.
+   - Una versión para gestoras (sin costos ni márgenes) y otra para administración. Ernesto también tiene que poder explicarlo: una hoja corta para él.
+6. **Investigar la mejor forma de llevarlo** (buenas prácticas de programas de referidos y venta directa) y **alertas de riesgo de pérdida**:
+   - el fondo se acerca al tope;
+   - un mes con más bono que ganancia;
+   - muchas devoluciones;
+   - crecimiento raro de un equipo.
+7. **Panel de administración del multinivel**, con gráficas y estadísticas:
+   - quién entra cada semana;
+   - cuánto aporta cada gestora y cada equipo;
+   - fondo usado contra el tope;
+   - lo que gana Casa Viva contra lo que paga el programa;
+   - las piedras de cada mes;
+   - la evolución.
+   Hoy ya existe la pestaña «Programa» en el panel de Lennys (último cálculo, alertas y ficha de cada gestora): hay que ampliarla con las gráficas.
+Nota: con los créditos justos hasta el martes, el 17-oct se empieza por el punto 5 (lo que más urge: las preguntas que llegarán), y los puntos 6 y 7 en cuanto haya créditos.
