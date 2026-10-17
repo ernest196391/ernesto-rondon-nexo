@@ -6,8 +6,8 @@
 
 ## Para Ernesto (decidir o dar)
 1. **Encuesta anónima:** verla (`docs/nexo-business/encuesta/`) y decir SÍ para abrirla y mandarla al General, a Mensajerías y a la tienda. Plazo de 4 días. Luego se analiza y se publica «lo que nos dijeron y lo que haremos».
-2. **El enlace de la comunidad**, para la bienvenida y para mandárselo a Damarys, Lena, Zulien, Daniela Piñero y Nayeli.
-3. **Revisar el dispositivo vinculado nuevo en su WhatsApp** (apareció el 16-oct a las 14:20).
+2. **El enlace de la comunidad** (Ernesto espera a que lo hagan administrador de la comunidad), para la bienvenida y para mandárselo a Damarys, Lena, Zulien, Daniela Piñero y Nayeli.
+3. ~~Dispositivo vinculado nuevo~~: era el PC de Ernesto (16-oct). Resuelto.
 4. **Leer `docs/nexo-business/mejoras/CUELLOS-DE-BOTELLA-2026-10-16.md`** y elegir qué se quita primero. Recomendado: productos de la web a la caja solos, aviso de chats en pausa sin respuesta, tarifa de mensajería en el bot.
 5. **Video de las piedras:** verlo antes que Lennys.
 6. **Reconectar el conector de Supabase** en Claude.
@@ -19,3 +19,14 @@
 - Prueba con personas: Dany y 4 invitadas, hasta el 30-oct (`LANZAMIENTO.md`).
 - Prueba técnica B6 (cierre de prueba con «Pedir mi pago»): de día y avisando a Lennys antes.
 - La encuesta mide si se entiende (preguntas 12a y 12b).
+
+## Sugerencias de Ernesto (16-oct, al cerrar) · EMPEZAR AQUÍ el 17-oct, comprobando paso a paso
+**Créditos:** queda ~15 % hasta el martes 20-oct. Hasta entonces, solo arreglos y chat. Lo grande (todo lo de abajo) se diseña ahora y se construye cuando se renueve, salvo que Ernesto diga otra cosa.
+1. **Resúmenes más representativos, que se vean «premium», escalables y que mejoran cada día:**
+   - **Gestoras:** ranking con copa para la 1.ª, plata la 2.ª, bronce la 3.ª… y así en todo lo que se compare (mensajeros, productos).
+   - **Panel de administración:** gráficas de crecimiento (día, semana, mes contra el anterior), y gráficas por producto (ventas, margen, tendencia).
+   - Ese tipo de comparación en **cada cosa nueva** que se haga.
+   - Mejorar también el prompt y la plantilla de los resúmenes con esa idea.
+2. **Aprender de los errores todos los días, solo, a las 22:00, por áreas** (gestoras, mensajeros, tienda, administración, bot, web): «Hoy hay que mejorar esto, esto y esto, y lo que vamos a hacer es esto». Que lo genere el supervisor del VPS (Claude) y se lo mande a Ernesto. Aprovechar `crm_supervisor`, las escalaciones y los errores del bot.
+3. **Quitar los cuellos de botella** de `docs/nexo-business/mejoras/CUELLOS-DE-BOTELLA-2026-10-16.md`.
+4. Forma de trabajar mañana: Claude repasa los pendientes uno a uno y confirma cada cosa; Ernesto dice cuáles van primero.
