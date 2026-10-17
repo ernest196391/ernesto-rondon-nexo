@@ -55,3 +55,13 @@ Nota: con los créditos justos hasta el martes, el 17-oct se empieza por el punt
 8. Añadir esos videos y **ordenar por secciones**: Empezar · Vender · Herramientas (NEXO Busca, Estudio de fotos, Fotos para publicar) · Cobrar (Pedir mi pago) · Programa (Piedras: solo quien ve el programa).
 9. **Que lo aprobado se suba solo:** cuando Lennys diga «aprobado» de un tutorial, el supervisor lo sube a la web (medios + `cvd_aprende_media`) y aparece en su sección; avisa a Ernesto. La lista de tutoriales pasa a ser editable (una opción), sin tocar el código cada vez.
 Es un cambio pequeño en Core: se puede hacer dentro del límite de créditos. El de NEXO Busca y el del Estudio (que sale el 17 a las 9:00 en el General) primero.
+
+## Acceso de Ernesto a todo, desde el móvil (Ernesto, 16-oct al cerrar)
+Hoy Ernesto solo tiene el usuario **1 (administrador)** en la web, con su teléfono 5354056173. Lennys es el usuario 14 (administradora). No tiene cuenta de gestor.
+10. **Cuenta de gestor especial para Ernesto:** para ver sus ganancias de lo que vende y probar el onboarding de las gestoras en el móvil (registro, bienvenida, mi acceso, Aprende, Mi piedra).
+    - Decidir: ¿con otro número de teléfono o con el mismo? El acceso por WhatsApp usa el teléfono y ya lo tiene el usuario 1.
+    - ¿Sus ventas pasadas se le asignan?
+    - Contraseña: la pone él con el enlace de un solo uso. Claude nunca la ve.
+11. **«Ver como» para administradores:** desde su usuario, en el móvil, poder ver lo que ve Lennys (panel), una gestora (área y tienda con su enlace), un mensajero (área de mensajeros) y una dependienta (/ventas/ y la caja). Solo para mirar, sin entrar en la cuenta de nadie: es más seguro que compartir contraseñas.
+    - Primero mirar qué existe ya en Core.
+    - Es una construcción mediana: hacerla después del martes si los créditos no alcanzan. La cuenta del punto 10 sí cabe mañana.
