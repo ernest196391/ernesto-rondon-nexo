@@ -65,3 +65,7 @@ Hoy Ernesto solo tiene el usuario **1 (administrador)** en la web, con su teléf
 11. **«Ver como» para administradores:** desde su usuario, en el móvil, poder ver lo que ve Lennys (panel), una gestora (área y tienda con su enlace), un mensajero (área de mensajeros) y una dependienta (/ventas/ y la caja). Solo para mirar, sin entrar en la cuenta de nadie: es más seguro que compartir contraseñas.
     - Primero mirar qué existe ya en Core.
     - Es una construcción mediana: hacerla después del martes si los créditos no alcanzan. La cuenta del punto 10 sí cabe mañana.
+    - **Decidido por Ernesto (16-oct):**
+      - **El mismo número** (no tiene otro). Buscar la forma: (a) que el usuario 1 tenga también el papel de gestor (WordPress permite varios papeles en una cuenta), o (b) entrar con el correo. Comprobar primero qué hace Core con un administrador que también es gestor: «mi acceso», el área y las comisiones.
+      - **Ventas que se le asignan:** la **mesita** que vendió con Nayelis (¿Nadielys? confirmar el pedido) y los **patines #3845** (16-oct).
+      - **Las del split NO:** ya las cobró.
