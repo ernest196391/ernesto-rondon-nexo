@@ -49,3 +49,9 @@
    - la evolución.
    Hoy ya existe la pestaña «Programa» en el panel de Lennys (último cálculo, alertas y ficha de cada gestora): hay que ampliarla con las gráficas.
 Nota: con los créditos justos hasta el martes, el 17-oct se empieza por el punto 5 (lo que más urge: las preguntas que llegarán), y los puntos 6 y 7 en cuanto haya créditos.
+
+## Tutoriales organizados en «Aprende» (Ernesto, 16-oct al cerrar)
+**Hoy NO está hecho.** «Aprende» (Core `class-cvd-aprende.php`) tiene una lista fija de 6 cosas: primera venta, cómo compra tu cliente, fotos para publicar, dudas del primer día, nota de voz y guías. Faltan los videos nuevos: NEXO Busca, Estudio de fotos y Piedras.
+8. Añadir esos videos y **ordenar por secciones**: Empezar · Vender · Herramientas (NEXO Busca, Estudio de fotos, Fotos para publicar) · Cobrar (Pedir mi pago) · Programa (Piedras: solo quien ve el programa).
+9. **Que lo aprobado se suba solo:** cuando Lennys diga «aprobado» de un tutorial, el supervisor lo sube a la web (medios + `cvd_aprende_media`) y aparece en su sección; avisa a Ernesto. La lista de tutoriales pasa a ser editable (una opción), sin tocar el código cada vez.
+Es un cambio pequeño en Core: se puede hacer dentro del límite de créditos. El de NEXO Busca y el del Estudio (que sale el 17 a las 9:00 en el General) primero.
