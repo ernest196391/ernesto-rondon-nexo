@@ -7,7 +7,7 @@
 - Algunos no tienen conexión para confirmarle al bot.
 - El pedido se paga en la tienda, pero el mensajero no lo confirmó: no cuadra, y la gestora no se entera de que se entregó.
 
-**Propuesta (de más a menos importante):**
+**APROBADO por Ernesto (18-oct 08:40): construirlo.** Propuesta (de más a menos importante):
 1. **Cuando la tienda recibe el dinero, el pedido queda entregado solo y se avisa a la gestora.** Si la dependienta marca el cobro en Ventas, ya no hace falta que el mensajero escriba nada. Es lo que más arregla. Cambio en Core, pequeño o mediano.
 2. **Un botón «Entregado» en el vale:** un enlace al área del mensajero con el pedido ya abierto. Un toque, sin escribirle al bot.
 3. **Menos mensajes del bot a los mensajeros:** el vale y un solo recordatorio de la hora. Nada de noche (ya está) ni repetidos.
