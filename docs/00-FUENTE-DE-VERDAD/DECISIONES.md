@@ -359,3 +359,9 @@ Ampliación D30 (2026-10-07): el flujo de **Devolución** ya existe en `/ventas/
 - **«revisar»** (su teléfono en el pedido de otra clienta) es lo normal: van en una línea de resumen; sueltas solo si se repite con la misma clienta 3 veces o más.
 - **El cierre automático del mes espera** mientras haya `ganancia_alta` o `cuenta_compartida` sin marcar «Revisada» (panel o wp-admin). «Cerrar ahora» no espera.
 - No cambia ningún número del programa (red 1 % + 0,5 %, piedras, fondo 15 %). Detalle: `ESTADO.md` L24.
+
+**D80 · 2026-10-18 · Ventas de mostrador (clientes sin gestora): 2 % para la dependienta que atiende.** Ernesto.
+- Lennys (18-oct): las dependientas hacen vales de clientes que llegan sin gestora (unos 4 al día) y no se sabía para quién era la comisión.
+- **Decisión:** la venta queda a nombre de la **tienda** («venta de mostrador»). La dependienta que lo atiende gana el **2 %**; es suyo, no va al bote del 0,5 %. La tienda se queda el resto.
+- **Protección de las gestoras:** antes de hacer la venta, la dependienta pregunta «¿te mandó alguien?». Si el cliente dice una gestora, la venta es de esa gestora.
+- **Por construir:** un botón «Venta de mostrador» en Ventas, con «atendió: Nana / Zaymi», sin salir de su perfil ni usar una cuenta de gestora. Hasta entonces, anotarlo en la nota del vale.
