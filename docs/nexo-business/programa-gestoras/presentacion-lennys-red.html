@@ -1,0 +1,379 @@
+<title>La red de Casa Viva</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Figtree:wght@400;500;600;700;800&display=swap">
+<style>
+/* Carta de decisión para la dueña: portada con la cifra del año, la oferta, la garantía, y en el centro su negocio simulado mes a mes con datos reales de octubre */
+:root{
+  --crema:#F6F1E6; --papel:#FFFDF8; --tinta:#2B2420; --suave:#6B5E52; --linea:#E3D8C6;
+  --petroleo:#0D3B45; --sobre:#F6F1E6; --sobre-suave:#C9D6D6; --ambar:#A35A1F; --ambar-vivo:#F0C9A2; --ambar-suave:#F3E3D2;
+  --bien:#2F6B47; --bien-suave:#E2EFE6; --ojo:#9A3B26; --ojo-suave:#F6E1DA; --barra:#0D3B45; --barra2:#A35A1F;
+  --f-titulo:'Cinzel','Times New Roman',serif;
+  --f:'Figtree',system-ui,-apple-system,'Segoe UI',sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --crema:#16120F; --papel:#211C18; --tinta:#F1EADF; --suave:#BFB2A3; --linea:#3A322B;
+  --petroleo:#0F4652; --sobre:#F6F1E6; --sobre-suave:#B9CACB; --ambar:#E09A5C; --ambar-vivo:#F0C9A2; --ambar-suave:#3A2A1C;
+  --bien:#7CC79A; --bien-suave:#1E3327; --ojo:#EE9A84; --ojo-suave:#3B231D; --barra:#7FB3BE; --barra2:#E09A5C; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --crema:#16120F; --papel:#211C18; --tinta:#F1EADF; --suave:#BFB2A3; --linea:#3A322B;
+  --petroleo:#0F4652; --sobre:#F6F1E6; --sobre-suave:#B9CACB; --ambar:#E09A5C; --ambar-vivo:#F0C9A2; --ambar-suave:#3A2A1C;
+  --bien:#7CC79A; --bien-suave:#1E3327; --ojo:#EE9A84; --ojo-suave:#3B231D; --barra:#7FB3BE; --barra2:#E09A5C; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--crema);color:var(--tinta);font-family:var(--f);font-size:17px;line-height:1.55;margin:0}
+.ancho{max-width:760px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+main.ancho{padding-block:40px 64px;display:grid;gap:56px}
+h1,h2{font-family:var(--f-titulo);font-weight:700;letter-spacing:.02em;text-wrap:balance;margin:0}
+h2{font-size:clamp(23px,5vw,30px);line-height:1.2}
+h3{font-size:18px;margin:0}
+p{margin:0}
+.num{font-variant-numeric:tabular-nums}
+.ceja{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--ambar);font-weight:700}
+section{display:grid;gap:16px;min-width:0}
+.suave{color:var(--suave)} .chico{font-size:15px}
+.nota{border-left:4px solid var(--ambar);background:var(--ambar-suave);padding:14px 16px;border-radius:0 12px 12px 0;font-size:15px}
+.nota.ojo{border-left-color:var(--ojo);background:var(--ojo-suave)}
+
+.portada{background:var(--petroleo);color:var(--sobre)}
+.portada .ancho{padding-block:36px 40px;display:grid;gap:18px}
+.portada .ceja{color:var(--ambar-vivo)}
+.portada h1{font-size:clamp(28px,7vw,44px);line-height:1.12}
+.cifra{font-family:var(--f-titulo);font-size:clamp(40px,12vw,78px);line-height:1;color:var(--ambar-vivo)}
+.cifra small{display:block;font-family:var(--f);font-size:16px;color:var(--sobre-suave);margin-top:8px;font-weight:500}
+.portada .lead{font-size:19px;color:var(--sobre-suave);max-width:60ch}
+.boton{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 20px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;background:var(--ambar-vivo);color:#2B2420;justify-self:start}
+.boton:focus-visible{outline:3px solid var(--ambar-vivo);outline-offset:3px}
+
+.datos{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.dato{background:var(--papel);border:1px solid var(--linea);border-radius:14px;padding:14px;display:grid;gap:2px;align-content:start}
+.dato b{font-family:var(--f-titulo);font-size:28px;line-height:1.1;color:var(--petroleo)}
+:root[data-theme="dark"] .dato b{color:var(--ambar-vivo)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .dato b{color:var(--ambar-vivo)}}
+.dato span{font-size:14px;color:var(--suave)}
+
+.pila{background:var(--papel);border:2px solid var(--petroleo);border-radius:20px;overflow:hidden}
+.pila ol{list-style:none;margin:0;padding:0}
+.pila li{display:grid;grid-template-columns:1fr auto;gap:4px 14px;padding:15px 18px;border-bottom:1px solid var(--linea);align-items:baseline}
+.pila li p{grid-column:1/-1;font-size:15px;color:var(--suave)}
+.pila .val{font-weight:800;color:var(--ambar);text-align:right;white-space:nowrap}
+.pila .precio{background:var(--petroleo);color:var(--sobre);padding:16px 18px;display:grid;gap:4px}
+.pila .precio b{font-family:var(--f-titulo);font-size:24px;color:var(--ambar-vivo)}
+.pila .precio span{color:var(--sobre-suave);font-size:15px}
+
+.garantia{background:var(--bien-suave);border-radius:20px;padding:20px;display:grid;gap:12px}
+.garantia h2{color:var(--bien)}
+.garantia ol{margin:0;padding-left:22px;display:grid;gap:8px}
+
+/* simulador */
+.sim{background:var(--papel);border:2px solid var(--petroleo);border-radius:20px;padding:18px;display:grid;gap:18px;min-width:0}
+.presets{display:flex;flex-wrap:wrap;gap:8px}
+.presets button{font:inherit;font-size:14px;font-weight:700;min-height:40px;padding:0 14px;border-radius:999px;border:1.5px solid var(--linea);background:var(--crema);color:var(--tinta);cursor:pointer}
+.presets button[aria-pressed="true"]{background:var(--petroleo);border-color:var(--petroleo);color:var(--sobre)}
+.presets button:focus-visible{outline:2px solid var(--ambar);outline-offset:3px}
+.controles{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.control{display:grid;gap:4px;min-width:0}
+.control .fila{display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap}
+.control label{font-weight:600;font-size:16px}
+.control small{color:var(--suave);font-size:13px}
+.control output{font-size:19px;font-weight:800;color:var(--petroleo)}
+:root[data-theme="dark"] .control output{color:var(--ambar-vivo)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .control output{color:var(--ambar-vivo)}}
+input[type=range]{width:100%;accent-color:var(--ambar);min-height:30px}
+input[type=range]:focus-visible,input[type=checkbox]:focus-visible{outline:2px solid var(--ambar);outline-offset:4px}
+.check{display:flex;gap:10px;align-items:flex-start;font-weight:600}
+.check input{width:22px;height:22px;accent-color:var(--ambar);margin-top:2px;flex:none}
+.comparar{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.caja{border-radius:14px;padding:14px;display:grid;gap:6px;background:var(--crema)}
+.caja.con{background:var(--petroleo);color:var(--sobre)}
+.caja h3{font-size:15px;font-weight:700}
+.caja.con h3{color:var(--ambar-vivo)}
+.caja .l{display:flex;justify-content:space-between;gap:10px;font-size:15px}
+.caja.con .l span:first-child{color:var(--sobre-suave)}
+.caja .t{border-top:1px solid var(--linea);padding-top:8px;margin-top:2px;font-weight:800;font-size:17px}
+.caja.con .t{border-top-color:rgba(246,241,230,.25)}
+.caja.con .t span:last-child{color:var(--ambar-vivo)}
+.ano{background:var(--bien-suave);border-radius:14px;padding:16px;display:grid;gap:6px}
+.ano .grande{font-family:var(--f-titulo);font-size:clamp(28px,7vw,40px);color:var(--bien);line-height:1.1}
+.sello{display:inline-flex;gap:6px;align-items:center;font-size:14px;font-weight:700;padding:4px 10px;border-radius:999px;background:var(--bien-suave);color:var(--bien);justify-self:start}
+.sello.no{background:var(--ojo-suave);color:var(--ojo)}
+.grafico{display:grid;gap:6px}
+.barras{display:grid;grid-template-columns:repeat(12,1fr);gap:4px;align-items:end;height:150px;border-bottom:1px solid var(--linea);padding-top:6px}
+.barras div{display:flex;flex-direction:column;justify-content:flex-end;height:100%;min-width:0}
+.barras i{display:block;border-radius:4px 4px 0 0;background:var(--barra);min-height:2px}
+.barras i.neg{background:var(--ojo)}
+.meses{display:grid;grid-template-columns:repeat(12,1fr);gap:4px;font-size:11px;color:var(--suave);text-align:center}
+.tabla{overflow-x:auto;border:1px solid var(--linea);border-radius:14px;background:var(--papel)}
+table{border-collapse:collapse;width:100%;font-size:15px;min-width:540px}
+th,td{padding:9px 12px;text-align:left;border-bottom:1px solid var(--linea);vertical-align:top}
+th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--suave);font-weight:700}
+tr:last-child td{border-bottom:0}
+td.r,th.r{text-align:right}
+
+.riesgos{display:grid;gap:10px}
+.riesgo{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;background:var(--papel);border:1px solid var(--linea);border-radius:14px;padding:14px}
+.riesgo .nivel{grid-row:span 2;font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:999px;align-self:start}
+.nivel.bajo{background:var(--bien-suave);color:var(--bien)}
+.nivel.medio{background:var(--ambar-suave);color:var(--ambar)}
+.riesgo p{font-size:15px;color:var(--suave)}
+
+.preguntas{display:grid;gap:10px}
+details{background:var(--papel);border:1px solid var(--linea);border-radius:12px;padding:12px 16px}
+summary{cursor:pointer;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:12px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--ambar);font-size:22px;line-height:1}
+details[open] summary::after{content:"–"}
+summary:focus-visible{outline:2px solid var(--ambar);outline-offset:4px;border-radius:4px}
+details p{margin-top:10px}
+ol.pasos{margin:0;padding-left:22px;display:grid;gap:8px}
+.pie{font-size:13px;color:var(--suave);border-top:1px solid var(--linea);padding-top:16px}
+</style>
+
+<header class="portada">
+  <div class="ancho">
+    <span class="ceja">Casa Viva · para Lennys</span>
+    <h1>Más gestoras vendiendo, sin que tú las busques, y pagando solo cuando ya ganaste</h1>
+    <div class="cifra num" id="portada-cifra">+0 USD<small id="portada-sub">de ganancia de más en un año, con el escenario «Esperado» de la calculadora</small></div>
+    <p class="lead">Así funcionaría la red de gestoras en tu negocio. Los números salen de las ventas reales del 1 al 17 de octubre. Cambia la calculadora y mira tu tienda mes a mes.</p>
+    <a class="boton" href="#simula">Ver mi negocio simulado</a>
+  </div>
+</header>
+
+<main class="ancho">
+
+<section aria-labelledby="t-hoy">
+  <span class="ceja">Dónde estamos hoy</span>
+  <h2 id="t-hoy">Tienes 80 gestoras, pero vende menos de la mitad</h2>
+  <div class="datos num">
+    <div class="dato"><b>80</b><span>gestoras registradas</span></div>
+    <div class="dato"><b>32</b><span>vendieron algo del 1 al 17 de octubre</span></div>
+    <div class="dato"><b>4.420</b><span>USD que vendieron (entregado y cobrado)</span></div>
+    <div class="dato"><b>4</b><span>vendieron más de 300 USD</span></div>
+  </div>
+  <p>Hoy la tienda crece solo si tú o Ernesto buscan gestoras nuevas. Y una gestora que vende bien un mes no tiene ningún motivo para enseñar a otra ni para vender un poco más el siguiente.</p>
+</section>
+
+<section aria-labelledby="t-oferta">
+  <span class="ceja">La oferta</span>
+  <h2 id="t-oferta">Lo que recibe Casa Viva con la red</h2>
+  <div class="pila">
+    <ol>
+      <li><b>Gestoras que buscan gestoras</b><span class="val">sin buscar tú</span><p>Cada gestora gana el 1 % de lo que vendan las que ella traiga. Dany trajo 4 en una sola tarde, desde sus estados de WhatsApp.</p></li>
+      <li><b>Una meta cada mes</b><span class="val">10 piedras</span><p>De Bronce a Corona. Cuando su equipo llega a una piedra, la gestora cobra un bono en CUP. Es un motivo para vender un poco más y para ayudar a sus invitadas.</p></li>
+      <li><b>Solo se paga con ganancia</b><span class="val num">máx. 15 %</span><p>Todo sale de un fondo del 15 % de la ganancia que trajeron esas mismas ventas. Si un mes no se vende, no se paga nada.</p></li>
+      <li><b>Lo calcula solo</b><span class="val">cada noche</span><p>Puntos, piedras, red, fondo y alertas. Tú lo ves en el panel, en Equipo → Programa. La gestora lo cobra por «Pedir mi pago», igual que su comisión.</p></li>
+      <li><b>Se apaga en un minuto</b><span class="val">tú mandas</span><p>Si algo no te gusta, se pone en «no» y deja de calcular y de verse. Lo pagado queda apuntado.</p></li>
+    </ol>
+    <div class="precio num"><span>Lo que cuesta</span><b>3 USD de cada 100 vendidos, como máximo</b><span>Y con la subida de 1, 2 o 3 USD por producto (opción 2) entra más que eso: el programa se paga solo.</span></div>
+  </div>
+</section>
+
+<section class="garantia" aria-labelledby="t-garantia">
+  <span class="ceja" style="color:var(--bien)">La garantía</span>
+  <h2 id="t-garantia">Cinco seguros para que la tienda no pierda</h2>
+  <ol>
+    <li><b>Tope fijo:</b> el programa nunca paga más del 15 % de la ganancia que trajeron esas ventas. Si muchas llegan a la vez a una piedra, cobran todas a medias; la tienda no pone más.</li>
+    <li><b>Sin ventas, cero:</b> no se paga por entrar ni por invitar, solo por ventas entregadas y cobradas.</li>
+    <li><b>Los precios lo cubren:</b> con la opción 2 entran unos 4,4 USD de cada 100 vendidos, ya quitada la comisión. El programa, como mucho, se lleva 3,1. Tu «queda limpio» de hoy no baja.</li>
+    <li><b>Prueba sin pagar:</b> lo que queda de octubre y noviembre, como tú dijiste. Calcula todo y tú miras los números reales antes del primer pago.</li>
+    <li><b>Interruptor:</b> se apaga en un minuto, cuando quieras.</li>
+  </ol>
+</section>
+
+<section aria-labelledby="t-bonos">
+  <span class="ceja">Ya hecho para ti</span>
+  <h2 id="t-bonos">Los bonos: todo listo, sin trabajo tuyo</h2>
+  <div class="datos">
+    <div class="dato"><span><b style="font-size:20px">Video de las piedras</b><br>Explica el programa a las gestoras en 1 minuto.</span></div>
+    <div class="dato"><span><b style="font-size:20px">Página para gestoras</b><br>Con su calculadora: «¿cuánto ganaría yo?».</span></div>
+    <div class="dato"><span><b style="font-size:20px">El bot ya sabe</b><br>Contesta las 12 preguntas del programa a cualquier gestora.</span></div>
+    <div class="dato"><span><b style="font-size:20px">Alertas solas</b><br>Autocompra, cuentas que comparten teléfono o tarjeta, costo mal puesto.</span></div>
+    <div class="dato"><span><b style="font-size:20px">Libro y recibos</b><br>Cada cálculo guardado con su huella; cada pago, con su referencia.</span></div>
+  </div>
+</section>
+
+<section id="simula" aria-labelledby="t-simula">
+  <span class="ceja">Tu negocio, mes a mes</span>
+  <h2 id="t-simula">Pruébalo con tus números</h2>
+  <p class="suave chico">Parte de lo real: las 32 gestoras que vendieron del 1 al 17 de octubre, cada una con su venta y sus puntos de verdad, llevadas a un mes de 30 días. Encima se aplica la regla real: piedras, tope del 60 %, red del 1 % y fondo del 15 %.</p>
+  <div class="sim">
+    <div class="presets" role="group" aria-label="Escenarios">
+      <button type="button" data-p="hoy">Como hoy</button>
+      <button type="button" data-p="prudente">Prudente</button>
+      <button type="button" data-p="esperado" aria-pressed="true">Esperado</button>
+      <button type="button" data-p="bueno">Muy bueno</button>
+      <button type="button" data-p="malo">Mes malo</button>
+    </div>
+    <div class="controles">
+      <div class="control">
+        <div class="fila"><label for="nu">Gestoras nuevas que venden, cada mes</label><output id="onu" for="nu" class="num"></output></div>
+        <input id="nu" type="range" min="0" max="20" step="1" value="4">
+        <small>Traídas por otras con su enlace. Se queda el 70 %.</small>
+      </div>
+      <div class="control">
+        <div class="fila"><label for="mo">Cambio en lo que venden las de hoy</label><output id="omo" for="mo" class="num"></output></div>
+        <input id="mo" type="range" min="-50" max="40" step="5" value="10">
+        <small>Por tener una meta cada mes. Negativo = un mes flojo.</small>
+      </div>
+      <div class="control">
+        <div class="fila"><label for="me">Ver el mes número</label><output id="ome" for="me" class="num"></output></div>
+        <input id="me" type="range" min="1" max="12" step="1" value="6">
+        <small>Las nuevas se van sumando mes a mes.</small>
+      </div>
+      <label class="check" for="pr"><input id="pr" type="checkbox" checked><span>Subir precios con la opción 2 (+1, +2 o +3 USD)<br><small class="suave" style="font-weight:500">Unos 1,50 USD más por unidad, de media.</small></span></label>
+    </div>
+
+    <div class="comparar num" aria-live="polite">
+      <div class="caja">
+        <h3>Hoy, un mes normal</h3>
+        <div class="l"><span>Ventas de gestoras</span><b id="h-v"></b></div>
+        <div class="l"><span>Ganancia (puntos)</span><b id="h-g"></b></div>
+        <div class="l"><span>Programa</span><b>0 USD</b></div>
+        <div class="l t"><span>Te queda</span><span id="h-t"></span></div>
+      </div>
+      <div class="caja con">
+        <h3 id="c-tit">Con la red, mes 6</h3>
+        <div class="l"><span>Ventas de gestoras</span><b id="c-v"></b></div>
+        <div class="l"><span>Ganancia (puntos)</span><b id="c-g"></b></div>
+        <div class="l"><span>Entra por la subida de precios</span><b id="c-p"></b></div>
+        <div class="l"><span>Paga el programa</span><b id="c-pa"></b></div>
+        <div class="l"><span>Piedras ese mes</span><b id="c-pi"></b></div>
+        <div class="l t"><span>Te queda</span><span id="c-t"></span></div>
+      </div>
+    </div>
+    <span class="sello" id="sello"></span>
+
+    <div class="ano num">
+      <span class="ceja" style="color:var(--bien)">En un año</span>
+      <div class="grande" id="a-extra"></div>
+      <p id="a-det" class="chico"></p>
+    </div>
+
+    <div class="grafico">
+      <h3>Lo que ganas de más cada mes</h3>
+      <div class="barras" id="barras" role="img" aria-label="Ganancia de más cada mes durante un año"></div>
+      <div class="meses num"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span></div>
+    </div>
+
+    <div class="tabla"><table class="num"><thead><tr><th>Mes</th><th class="r">Ventas</th><th class="r">Ganancia</th><th class="r">Programa</th><th class="r">% de la ganancia</th><th class="r">De más</th></tr></thead><tbody id="tabla"></tbody></table></div>
+    <p class="suave chico">Simulación: no es una promesa. «Ganancia» son los puntos: precio − costo − comisión, antes de gastos fijos. Las nuevas venden lo que vende una gestora típica de octubre (unos 106 USD al mes) y su madrina cobra su 1 %. No cuenta el 0,5 % del segundo nivel ni que algunas clientas compren menos por la subida.</p>
+  </div>
+</section>
+
+<section aria-labelledby="t-riesgos">
+  <span class="ceja">Riesgos, sin esconder ninguno</span>
+  <h2 id="t-riesgos">Qué puede salir mal y qué lo frena</h2>
+  <div class="riesgos">
+    <div class="riesgo"><span class="nivel medio">Medio</span><b>Un costo mal puesto</b><p>Si un producto tiene un costo muy bajo por error, el sistema cree que ganamos más y paga de más. Es el único caso en que la tienda podría perder. Freno: la alerta «Ganancia muy alta» y tu revisión de 5 minutos antes del cierre. Hoy hay 1 (la sombrilla de 15 USD con costo 3,55) y 24 costos provisionales por confirmar.</p></div>
+    <div class="riesgo"><span class="nivel medio">Medio</span><b>Vender un poco menos por subir precios</b><p>+1 a +3 USD es poco, pero alguna clienta lo puede notar. Freno: tú eliges qué productos suben y cuáles no.</p></div>
+    <div class="riesgo"><span class="nivel bajo">Bajo</span><b>Trampas: autocompras o cuentas falsas</b><p>Solo cuentan ventas entregadas por nuestro mensajero y cobradas. Comprarse a sí misma le cuesta dinero. Alertas «Autocompra» y «Cuenta compartida» (mismo teléfono, tarjeta o dirección que la madrina). Hoy: 1 autocompra detectada.</p></div>
+    <div class="riesgo"><span class="nivel bajo">Bajo</span><b>Gestoras molestas si el bono sale a medias</b><p>Pasa si muchas llegan a la vez y el fondo no alcanza. Freno: se ve en «Mi piedra» antes de cobrar, y la página y el bot ya lo explican.</p></div>
+    <div class="riesgo"><span class="nivel bajo">Bajo</span><b>Devoluciones después de pagar</b><p>Se descuentan solas en los meses siguientes, también si es solo una parte del pedido.</p></div>
+    <div class="riesgo"><span class="nivel bajo">Bajo</span><b>Que parezca una pirámide</b><p>No se cobra por entrar ni por invitar. Si nadie vende, nadie cobra. Todo sale de ventas reales a clientas.</p></div>
+  </div>
+</section>
+
+<section aria-labelledby="t-preguntas">
+  <span class="ceja">Tus dudas</span>
+  <h2 id="t-preguntas">Lo que seguro te preguntas</h2>
+  <div class="preguntas">
+    <details><summary>¿Cuánto me cuesta de verdad este mes?</summary><p>Con las ventas del 1 al 17 de octubre, el programa pagaría 31,25 USD: 1 Plata y 3 Bronce. Eso es el 3,4 % de la ganancia. El tope era 138,74 USD.</p></details>
+    <details><summary>¿Puedo perder dinero?</summary><p>Con los costos bien puestos, no. El programa nunca pasa del 15 % de la ganancia de esas ventas, y con la opción 2 los precios traen más que ese máximo. El único peligro es un costo muy mal escrito, y para eso está la alerta.</p></details>
+    <details><summary>¿Cuánto trabajo me da?</summary><p>5 minutos al mes, del 1 al 5: miras las alertas en el panel, corriges un costo si está mal y pagas lo que pidan por «Pedir mi pago», como las comisiones.</p></details>
+    <details><summary>¿Cambia la comisión normal o lo de las dependientas y mensajeros?</summary><p>No. La gestora sigue con su 10 % (o la fija del producto). Dependientas y mensajeros, igual que hoy.</p></details>
+    <details><summary>¿Quién paga y cuándo?</summary><p>Casa Viva, del 1 al 5 del mes siguiente, del fondo del 15 %. El 1 % de la red va en USD y el bono de la piedra en CUP fijo.</p></details>
+    <details><summary>¿Y si cambia la tasa del CUP?</summary><p>El bono es fijo en CUP. Si el CUP baja, te cuesta menos en dólares. Si sube, el tope del 15 % no deja pasarse.</p></details>
+    <details><summary>¿Qué pasa si una gestora trae a muchas que no venden?</summary><p>Nada: las que no venden no cuentan ni cobran. Y cada invitada cuenta como mucho el 60 % de lo que pide una piedra, así nadie sube solo con el trabajo de otra.</p></details>
+    <details><summary>¿Por qué no el sistema «binario» de dos patas?</summary><p>Paga por cómo te colocaron en el árbol y no por lo que vendiste, empuja a reclutar, y solo cuadra si sigue entrando gente. Lo volvemos a mirar dentro de 3 a 6 meses, siempre dentro del mismo 15 %.</p></details>
+    <details><summary>¿Y los productos de proveedor o sin costo?</summary><p>Sin costo dan 0 puntos. Los de proveedor dan menos, porque se resta lo que cuesta la operación (mensajero, dependienta, tienda).</p></details>
+    <details><summary>¿Puedo quitar productos de la subida?</summary><p>Sí. Te mando la lista con costo, ganancia y precio de cada uno y tú dices cuáles suben 1, 2 o 3 USD y cuáles no.</p></details>
+    <details><summary>¿Y si no me convence?</summary><p>Se apaga en un minuto. Durante la prueba no se paga nada, así que probarlo no cuesta nada.</p></details>
+  </div>
+</section>
+
+<section aria-labelledby="t-pasos">
+  <span class="ceja">Lo que toca ahora</span>
+  <h2 id="t-pasos">Tres decisiones tuyas</h2>
+  <ol class="pasos">
+    <li><b>Elegir los precios:</b> te llega la lista para copiar y pegar; marcas qué sube y cuánto.</li>
+    <li><b>Revisar 2 alertas:</b> la sombrilla (costo 3,55) y los costos provisionales.</li>
+    <li><b>Fecha para abrirlo a todas:</b> la prueba sigue lo que queda de octubre y noviembre; tú y Ernesto deciden el día.</li>
+  </ol>
+</section>
+
+<footer class="pie">Hecho por Ernesto y Claude con el cálculo real de la web del 18-oct-2026 (ventas del 1 al 17 de octubre, programa en prueba, red 1 % + 0,5 %, fondo del 15 % de la ganancia, tasa 800).</footer>
+</main>
+
+<script>
+(function(){
+  // Ventas y puntos reales de cada gestora que vendió del 1 al 17 de octubre (sin nombres), cálculo de la web del 18-oct.
+  var OCT=[[885,164.04],[450,111.59],[314,73.8],[305,25],[299,65.93],[234,63.86],[230,50.33],[191,52.52],[148,32.89],[142,25.43],[120,20],[103,18.99],[100,20],[99,26.98],[75,5],[73,12],[60,10],[60,20.93],[60,14.4],[60,10],[60,16],[55,13],[54,14],[44,10.86],[41,9.98],[41,10.43],[33,7],[27,6],[22,4],[18,5],[10,3],[7,2]];
+  var MES=30/17, TASA=800, FONDO=0.15, RED=0.01, TOPE=0.6, QUEDA=0.7, MADRINAS=8;
+  var SUBIDA=0.0489*0.9; // opción 2: +160 USD sobre 3.271 vendidos (16-oct), menos el 10 % de comisión
+  var P=[["Bronce",65,5000,0],["Plata",130,10000,50],["Oro",195,15000,50],["Platino",320,25000,50],["Zafiro",510,40000,100],["Rubí",765,60000,100],["Esmeralda",1150,90000,100],["Diamante",1660,130000,150],["Doble Diamante",2300,180000,150],["Corona",3190,250000,200]];
+  var ventasMes=OCT.map(function(x){return x[0]*MES}).sort(function(a,b){return a-b});
+  var MEDIANA=ventasMes[Math.floor(ventasMes.length/2)]; // ≈106 USD
+  var RATIO=OCT.reduce(function(s,x){return s+x[1]},0)/OCT.reduce(function(s,x){return s+x[0]},0);
+  var ESC={hoy:[0,0,false],prudente:[2,5,true],esperado:[4,10,true],bueno:[10,25,true],malo:[1,-40,true]};
+  var $=function(id){return document.getElementById(id)};
+  // Siempre con punto de miles (es-ES no lo pone en 4 cifras: «7800» → «7.800») y coma decimal.
+  var f=function(n,d){d=d||0;var s=Math.abs(n).toFixed(d).split('.');return (n<0&&Math.abs(n)>=Math.pow(10,-d)/2?'-':'')+s[0].replace(/\B(?=(\d{3})+(?!\d))/g,'.')+(d?','+s[1]:'');};
+  var usd=function(n){return f(n)+' USD'};
+
+  function piedra(propVentas,propPts,miembros){
+    var mejor=null;
+    for(var i=0;i<P.length;i++){var p=P[i]; if(propVentas<=0||propVentas<p[3])continue;
+      var eq=propPts; miembros.forEach(function(m){eq+=Math.min(m,TOPE*p[1])}); if(eq>=p[1])mejor=p;}
+    return mejor;
+  }
+  // Un mes con la red: las de hoy (con el cambio de ventas) + las nuevas acumuladas, repartidas entre las que más venden.
+  function mes(m,nuevas,cambio,precios){
+    var k=1+cambio/100, gente=OCT.map(function(x){return {v:x[0]*MES*k,p:x[1]*MES*k,inv:[]}});
+    var nInv=Math.round(nuevas*m*QUEDA), red=0, invs=[];
+    for(var j=0;j<nInv;j++){var inv={v:MEDIANA,p:MEDIANA*RATIO}; gente[j%MADRINAS].inv.push(inv); invs.push(inv);}
+    var ventas=0, pts=0, bonoCUP=0, piedras={};
+    gente.forEach(function(g){ventas+=g.v;pts+=g.p;
+      g.inv.forEach(function(i){if(g.v>0)red+=i.v*RED});
+      var s=piedra(g.v,g.p,g.inv.map(function(i){return i.p})); if(s){bonoCUP+=s[2];piedras[s[0]]=(piedras[s[0]]||0)+1;}});
+    invs.forEach(function(i){ventas+=i.v;pts+=i.p; var s=piedra(i.v,i.p,[]); if(s){bonoCUP+=s[2];piedras[s[0]]=(piedras[s[0]]||0)+1;}});
+    var fondo=pts*FONDO, redPaga=Math.min(red,fondo), bonoUSD=bonoCUP/TASA;
+    var cubre=bonoUSD>0?Math.min(1,(fondo-redPaga)/bonoUSD):1, paga=redPaga+bonoUSD*cubre;
+    var subida=precios?ventas*SUBIDA:0;
+    return {ventas:ventas,pts:pts,paga:paga,subida:subida,queda:pts+subida-paga,cubre:cubre,piedras:piedras,fondo:fondo};
+  }
+  var BASE=mes(1,0,0,false);
+
+  function pinta(){
+    var nu=+$('nu').value, mo=+$('mo').value, me=+$('me').value, pr=$('pr').checked;
+    $('onu').textContent=nu; $('omo').textContent=(mo>0?'+':'')+mo+' %'; $('ome').textContent=me;
+    $('h-v').textContent=usd(BASE.ventas); $('h-g').textContent=usd(BASE.pts); $('h-t').textContent=usd(BASE.pts);
+    var r=mes(me,nu,mo,pr);
+    $('c-tit').textContent='Con la red, mes '+me;
+    $('c-v').textContent=usd(r.ventas); $('c-g').textContent=usd(r.pts); $('c-p').textContent=pr?'+'+usd(r.subida):'—';
+    $('c-pa').textContent='−'+usd(r.paga)+(r.cubre<1?' (bonos al '+f(r.cubre*100)+' %)':'');
+    var pi=Object.keys(r.piedras).map(function(k){return r.piedras[k]+' '+k}).join(', ');
+    $('c-pi').textContent=pi||'ninguna';
+    $('c-t').textContent=usd(r.queda)+' ('+(r.queda>=BASE.pts?'+':'')+usd(r.queda-BASE.pts)+')';
+    var pct=r.pts>0?r.paga/r.pts*100:0, cubreTodo=r.subida>=r.paga;
+    var pierde=r.queda<BASE.pts, sello=$('sello'); sello.className='sello'+(pierde?' no':'');
+    sello.textContent=(pierde?'⚠ Este mes te queda menos que hoy. ':'✓ ')+'El programa se lleva el '+f(pct,1)+' % de la ganancia (tope 15 %)'+(pr?(cubreTodo?' y la subida de precios lo paga entero':' y la subida paga el '+f(r.subida/r.paga*100)+' %'):'');
+    var tot={extra:0,paga:0,ventas:0,sub:0}, filas='', vals=[];
+    for(var m=1;m<=12;m++){var x=mes(m,nu,mo,pr), extra=x.queda-BASE.pts; vals.push(extra);
+      tot.extra+=extra; tot.paga+=x.paga; tot.ventas+=x.ventas-BASE.ventas; tot.sub+=x.subida;
+      filas+='<tr><td>'+m+'</td><td class="r">'+f(x.ventas)+'</td><td class="r">'+f(x.pts)+'</td><td class="r">'+f(x.paga)+'</td><td class="r">'+f(x.pts>0?x.paga/x.pts*100:0,1)+' %</td><td class="r"><b>'+(extra>=0?'+':'')+f(extra)+'</b></td></tr>';}
+    $('tabla').innerHTML=filas;
+    $('a-extra').textContent=(tot.extra>=0?'+':'')+usd(tot.extra);
+    $('a-det').textContent='de ganancia de más que hoy. Vendes '+(tot.ventas>=0?'+':'')+usd(tot.ventas)+' más en el año, la subida de precios trae '+usd(tot.sub)+' y el programa paga '+usd(tot.paga)+' en total (unos '+usd(tot.paga/12)+' al mes).';
+    var max=Math.max.apply(null,vals.map(Math.abs).concat([1]));
+    $('barras').innerHTML=vals.map(function(v){return '<div><i class="'+(v<0?'neg':'')+'" style="height:'+Math.max(2,Math.abs(v)/max*100)+'%" title="'+f(v)+' USD"></i></div>'}).join('');
+  }
+  function preset(k){var e=ESC[k]; $('nu').value=e[0]; $('mo').value=e[1]; $('pr').checked=e[2];
+    document.querySelectorAll('.presets button').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.p===k?'true':'false')}); pinta();}
+  document.querySelectorAll('.presets button').forEach(function(b){b.addEventListener('click',function(){preset(b.dataset.p)})});
+  ['nu','mo','me','pr'].forEach(function(id){$(id).addEventListener('input',function(){document.querySelectorAll('.presets button').forEach(function(b){b.setAttribute('aria-pressed','false')});pinta();})});
+  // Portada: el año del escenario «Esperado», calculado con la misma cuenta.
+  (function(){var e=ESC.esperado, t=0; for(var m=1;m<=12;m++){t+=mes(m,e[0],e[1],e[2]).queda-BASE.pts;} $('portada-cifra').firstChild.nodeValue='+'+usd(t);})();
+  preset('esperado');
+})();
+</script>
