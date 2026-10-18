@@ -1504,3 +1504,22 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
   - Daiquel: #2944, #3772, #3773 y #3916 recogidos sin cerrar;
   - Melany: #3864;
   - Fernando: captura del #3845.
+
+### L31. Domingo 18-oct mañana — bloque urgente y bloque 2 (sesión del PC)
+- **Pedidos:**
+  - #4183 (Day): 6 → 2 camas, con `CVD_Order_Edit::edit`;
+  - #3871 (Nadielys): de recogida a domicilio (Versalles, La Lisa, 2.000 CUP), publicado con `CVD_Delivery::dispatch_ready` → lo cogió Ale;
+  - #2903: la incidencia del 11-oct se quitó a mano (no se podía resolver desde «new») y pasó new→preparing→ready;
+  - #3934 cancelado el 17-oct (repetido del #3933).
+  - Copias `~/bak-20261018-pedido-*.json`.
+- **Core 3.14.37 EN VIVO** (PR #161 de la sesión de la nube): foto y color de cada producto en la tarjeta de /ventas/. 15 pruebas OK; copia `~/bak-20261018-cvd-3.14.36-antes-3.14.37`; main `f6410eb`.
+- **Bot:**
+  - «mi comisión» solo si es la pregunta entera (Thaly) y respuesta aprobada 244 (comisión por producto);
+  - búsquedas en internet ENCENDIDAS (`WEB_SEARCH=on`, tope 1 USD/día, AUTO=prueba; prueba ≈0,017 USD);
+  - subidos a GitHub los commits del servidor (96e563a, 862c2a4, 1857e5f, e6953c0).
+- **Resumen de Lennys a las 20:00** (resumen-noche: equipo, ernesto y lennys); el de las 10:00 queda solo para las dependientas.
+- **Bici de Alberto:** web 4184 a 550 USD (Ernesto), consignación con costo 450 y comisión 10, anunciada en «Actualización de productos»; caja `cv-4184` con dueño nuevo «Alberto Llamo Sobrino» y 1 unidad.
+- **Supervisor:**
+  - sección «Preguntas de Lennys sobre el PROGRAMA»;
+  - tareas aprobadas 601 (proveedores para Day y Nadielys) y 602 (cola de fotos por color).
+- **Decisión D80** (2 % de mostrador). Mensajeros: aprobado construir el cierre automático al cobrar (docs/nexo-business/lennys/pedidos-lennys-2026-10-18.md).
