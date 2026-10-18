@@ -1550,3 +1550,9 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
 - **Botón «Entregado» en el vale:** en construcción por un agente en segundo plano (ramas `entregado-vale-1018` en Casa-Viva y VivaBot), SIN desplegar.
 - **Tareas del servidor traídas al repo:** `docs/nexo-business/servidor/PENDIENTES-18-OCT-servidor.md` (y `mejoras/CUELLOS-DE-BOTELLA-2026-10-16.md`, igual al del repo).
 - **Regla nueva (Ernesto):** antes de un resumen diario o una presentación, preguntarle si va estilo Alex Hormozi.
+
+### L36. Domingo 18-oct ~10:55 — chats en pausa (cuello de botella n.º 2) EN VIVO
+- **VivaBot `88d6953`:** `src/pausa-vigia.js` + reglas `src/pausa-vigia-rules.js` (6 pruebas, `npm run test:pausa`, en `check`). Cada minuto: chat con el bot en pausa y la última palabra de la persona sin contestar → **15 min: aviso a Ernesto en «Tú»**; **30 min: el bot quita la pausa y contesta** lo pendiente (`handleClient(..., { replay: true })`). Solo línea casaviva; nunca `ignorar` ni línea personal ni mensajeros; clientes y solo fotos: solo aviso; nada de 22:00 a 7:30; nada más viejo de 3 h; «ok/gracias/emojis» no cuentan. Interruptor `crm_settings.pausa_vigia` = si | aviso | no; estado en `pausa_vigia_estado`. Prueba en seco con datos reales: 12 chats en pausa, 1 aviso (Ricardo, proveedor).
+- **Dany** dio permiso para usar su frase («Como lo prefieras», 10:50) y dice «Yo entendí todo».
+- `mensajero_por` funciona: Lennys dijo «Yo» en el #4191 → Daiquel en reserva.
+- Ojo: un reinicio con un 🔔 en curso lo mandó dos veces a Ale (#4191, 10:51); el registro tiene uno solo. Carrera de reinicio, no de la regla.
