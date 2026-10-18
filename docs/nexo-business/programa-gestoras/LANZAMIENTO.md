@@ -30,7 +30,7 @@ Plan técnico y cómo volver atrás: `PLAN-DESPLIEGUE.md`. Números y auditoría
 |---|---|---|
 | C1 | Video tutorial (HyperFrames): qué son las piedras, cómo invitar, de dónde salen los puntos. Primero lo aprueba Lennys | En marcha (16-oct noche) |
 | C2 | Guía paso a paso «Cómo invitar a una gestora», con 3-5 capturas | Falta |
-| C3 | Imagen con la tabla de piedras y bonos para compartir; foto para captar gestoras (la pidió Dany) | Falta |
+| C3 | Imagen con la tabla de piedras y bonos para compartir; foto para captar gestoras (la pidió Dany) | Presentación para gestoras HECHA (18-oct): Artifact 1a78WT3R4eDJcH23Yt756J, copia `presentacion-gestoras.html`; falta la foto |
 | C4 | Texto del General con la comisión clara | Falta (con el SÍ de Ernesto) |
 
 ## D · Calendario propuesto

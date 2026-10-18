@@ -1523,3 +1523,9 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
   - sección «Preguntas de Lennys sobre el PROGRAMA»;
   - tareas aprobadas 601 (proveedores para Day y Nadielys) y 602 (cola de fotos por color).
 - **Decisión D80** (2 % de mostrador). Mensajeros: aprobado construir el cierre automático al cobrar (docs/nexo-business/lennys/pedidos-lennys-2026-10-18.md).
+
+### L32. Domingo 18-oct — presentación del programa para gestoras (estilo Hormozi)
+- **Hecha y publicada como Artifact privado:** https://claude.ai/artifact/1a78WT3R4eDJcH23Yt756J («Piedras Casa Viva»). Copia en `docs/nexo-business/programa-gestoras/presentacion-gestoras.html`.
+- **Qué lleva:** portada «hasta 250.000 CUP al mes», el problema de hoy, la oferta apilada (6 cosas, 0 CUP), escalera de las 10 piedras con bono, calculadora (tú + N amigas), caso de Dany, 3 pasos para empezar, «riesgo cero», 10 preguntas y botón a «Mi equipo».
+- **No dice** costos, márgenes ni la subida de precios (eso es solo para Lennys, en la página vieja). No pone fecha de apertura (A2 sin decidir) ni inventa regalos.
+- **Falta (Ernesto):** 1) pedir permiso a Dany para usar su frase; 2) cómo compartirla: «Compartir» del Artifact o subirla oculta a casaviva.company como la de Lennys; 3) mandarla cuando se abra a todas.

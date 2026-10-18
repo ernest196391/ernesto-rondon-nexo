@@ -1,0 +1,360 @@
+<title>Piedras Casa Viva</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Figtree:wght@400;500;600;700;800&display=swap">
+<style>
+/* Una carta de venta para el móvil: portada petróleo con la cifra grande, la oferta apilada, la escalera de piedras, el simulador y el «empieza hoy» */
+:root{
+  --crema:#F6F1E6; --papel:#FFFDF8; --tinta:#2B2420; --suave:#6B5E52; --linea:#E3D8C6;
+  --petroleo:#0D3B45; --sobre:#F6F1E6; --sobre-suave:#C9D6D6; --ambar:#A35A1F; --ambar-vivo:#F0C9A2; --ambar-suave:#F3E3D2;
+  --bien:#2F6B47; --bien-suave:#E2EFE6;
+  --f-titulo:'Cinzel','Times New Roman',serif;
+  --f:'Figtree',system-ui,-apple-system,'Segoe UI',sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --crema:#16120F; --papel:#211C18; --tinta:#F1EADF; --suave:#BFB2A3; --linea:#3A322B;
+  --petroleo:#0F4652; --sobre:#F6F1E6; --sobre-suave:#B9CACB; --ambar:#E09A5C; --ambar-vivo:#F0C9A2; --ambar-suave:#3A2A1C;
+  --bien:#7CC79A; --bien-suave:#1E3327; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --crema:#16120F; --papel:#211C18; --tinta:#F1EADF; --suave:#BFB2A3; --linea:#3A322B;
+  --petroleo:#0F4652; --sobre:#F6F1E6; --sobre-suave:#B9CACB; --ambar:#E09A5C; --ambar-vivo:#F0C9A2; --ambar-suave:#3A2A1C;
+  --bien:#7CC79A; --bien-suave:#1E3327; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--crema);color:var(--tinta);font-family:var(--f);font-size:17px;line-height:1.55;margin:0}
+.ancho{max-width:720px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+main.ancho{padding-block:40px 72px;display:grid;gap:56px}
+h1,h2{font-family:var(--f-titulo);font-weight:700;letter-spacing:.02em;text-wrap:balance;margin:0}
+h2{font-size:clamp(23px,5vw,30px);line-height:1.2}
+h3{font-size:18px;margin:0}
+p{margin:0}
+.num{font-variant-numeric:tabular-nums}
+.ceja{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--ambar);font-weight:700}
+section{display:grid;gap:16px}
+.suave{color:var(--suave)}
+.chico{font-size:15px}
+
+/* portada */
+.portada{background:var(--petroleo);color:var(--sobre)}
+.portada .ancho{padding-block:36px 40px;display:grid;gap:18px}
+.portada .ceja{color:var(--ambar-vivo)}
+.portada h1{font-size:clamp(30px,7.5vw,48px);line-height:1.1}
+.cifra{font-family:var(--f-titulo);font-size:clamp(44px,13vw,84px);line-height:1;color:var(--ambar-vivo);letter-spacing:.01em}
+.cifra small{display:block;font-family:var(--f);font-size:16px;color:var(--sobre-suave);letter-spacing:0;margin-top:8px;font-weight:500}
+.portada .lead{font-size:19px;color:var(--sobre-suave);max-width:58ch}
+.botones{display:flex;flex-wrap:wrap;gap:10px}
+.boton{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 20px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px}
+.boton.lleno{background:var(--ambar-vivo);color:#2B2420}
+.boton.borde{border:1.5px solid var(--sobre-suave);color:var(--sobre)}
+.boton:focus-visible{outline:3px solid var(--ambar-vivo);outline-offset:3px}
+.prueba{font-size:14px;color:var(--sobre-suave);border-top:1px solid rgba(246,241,230,.18);padding-top:14px}
+
+/* problema */
+.contraste{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.lado{border-radius:16px;padding:18px;display:grid;gap:8px;align-content:start}
+.lado.hoy{background:var(--papel);border:1px solid var(--linea)}
+.lado.con{background:var(--bien-suave)}
+.lado ul{margin:0;padding-left:20px;display:grid;gap:4px}
+
+/* la oferta apilada */
+.pila{background:var(--papel);border:2px solid var(--petroleo);border-radius:20px;overflow:hidden}
+.pila ol{list-style:none;margin:0;padding:0}
+.pila li{display:grid;grid-template-columns:1fr auto;gap:4px 14px;padding:16px 18px;border-bottom:1px solid var(--linea);align-items:baseline}
+.pila li p{grid-column:1/-1;font-size:15px;color:var(--suave)}
+.pila li b{font-size:17px}
+.pila .val{font-weight:800;color:var(--ambar);text-align:right;white-space:nowrap}
+.pila .precio{background:var(--petroleo);color:var(--sobre);padding:18px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.pila .precio b{font-family:var(--f-titulo);font-size:30px;color:var(--ambar-vivo)}
+
+/* escalera de piedras */
+.escalera{list-style:none;margin:0;padding:0;display:grid;gap:0}
+.escalera li{display:grid;grid-template-columns:44px 1fr auto;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--linea);min-width:0}
+.escalera li:last-child{border-bottom:0}
+.gema{width:26px;height:26px;transform:rotate(45deg);border-radius:5px;margin-left:9px;background:var(--g);box-shadow:inset -5px -5px 0 rgba(0,0,0,.18),inset 4px 4px 0 rgba(255,255,255,.35)}
+.gema.doble{box-shadow:inset -5px -5px 0 rgba(0,0,0,.18),inset 4px 4px 0 rgba(255,255,255,.35),5px 5px 0 -1px var(--g)}
+.esc-nombre b{display:block;font-size:17px}
+.esc-nombre span{font-size:14px;color:var(--suave)}
+.esc-bono{text-align:right;font-weight:800;white-space:nowrap}
+.esc-bono span{display:block;font-size:13px;font-weight:500;color:var(--suave)}
+.nota{border-left:4px solid var(--ambar);background:var(--ambar-suave);padding:14px 16px;border-radius:0 12px 12px 0;font-size:15px}
+
+/* simulador */
+.sim{background:var(--papel);border:1px solid var(--linea);border-radius:20px;padding:20px;display:grid;gap:18px}
+.controles{display:grid;gap:16px}
+.control{display:grid;gap:4px}
+.control .fila{display:flex;justify-content:space-between;gap:12px;align-items:baseline;flex-wrap:wrap}
+.control label{font-weight:600}
+.control output{font-size:20px;font-weight:800;color:var(--petroleo)}
+:root[data-theme="dark"] .control output{color:var(--ambar-vivo)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .control output{color:var(--ambar-vivo)}}
+input[type=range]{width:100%;accent-color:var(--ambar);min-height:32px}
+input[type=range]:focus-visible{outline:2px solid var(--ambar);outline-offset:4px}
+.resultado{background:var(--petroleo);color:var(--sobre);border-radius:16px;padding:18px;display:grid;gap:8px}
+.resultado .linea{display:flex;justify-content:space-between;gap:12px;font-size:16px}
+.resultado .linea span:first-child{color:var(--sobre-suave)}
+.resultado .total{border-top:1px solid rgba(246,241,230,.25);padding-top:10px;margin-top:4px;font-size:18px;font-weight:800}
+.resultado .total span:last-child{color:var(--ambar-vivo);text-align:right}
+.resultado .piedra-sim{font-family:var(--f-titulo);font-size:24px;color:var(--ambar-vivo)}
+.falta{font-size:15px;color:var(--sobre-suave)}
+
+/* caso real */
+.cita{font-family:var(--f-titulo);font-size:clamp(20px,4.6vw,25px);line-height:1.35;margin:0;border-left:4px solid var(--ambar);padding-left:16px}
+.cita footer{font-family:var(--f);font-size:15px;color:var(--suave);margin-top:8px}
+.hechos{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.hecho{background:var(--papel);border:1px solid var(--linea);border-radius:14px;padding:14px;display:grid;gap:2px}
+.hecho b{font-family:var(--f-titulo);font-size:30px;color:var(--petroleo);line-height:1.1}
+:root[data-theme="dark"] .hecho b{color:var(--ambar-vivo)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .hecho b{color:var(--ambar-vivo)}}
+
+/* pasos */
+.pasos{list-style:none;margin:0;padding:0;display:grid;gap:12px;counter-reset:paso}
+.pasos li{display:grid;grid-template-columns:40px 1fr;gap:12px;align-items:start;counter-increment:paso}
+.pasos li::before{content:counter(paso);width:40px;height:40px;border-radius:50%;background:var(--petroleo);color:var(--sobre);display:grid;place-items:center;font-weight:800;font-size:18px}
+.pasos li div{display:grid;gap:2px;padding-top:7px}
+
+/* sin riesgo */
+.sello{background:var(--bien-suave);border-radius:20px;padding:20px;display:grid;gap:12px}
+.sello h2{color:var(--bien)}
+.sello ul{margin:0;padding-left:20px;display:grid;gap:6px}
+
+/* preguntas */
+.preguntas{display:grid;gap:10px}
+details{background:var(--papel);border:1px solid var(--linea);border-radius:12px;padding:12px 16px}
+summary{cursor:pointer;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:12px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--ambar);font-size:22px;line-height:1}
+details[open] summary::after{content:"–"}
+summary:focus-visible{outline:2px solid var(--ambar);outline-offset:4px;border-radius:4px}
+details p{margin-top:10px}
+
+/* cierre */
+.cierre{background:var(--petroleo);color:var(--sobre)}
+.cierre .ancho{padding-block:40px 48px;display:grid;gap:16px}
+.cierre .ceja{color:var(--ambar-vivo)}
+.cierre p{color:var(--sobre-suave);font-size:18px}
+.pie{font-size:13px;color:var(--sobre-suave);opacity:.85}
+</style>
+
+<header class="portada">
+  <div class="ancho">
+    <span class="ceja">Programa de gestoras · Casa Viva</span>
+    <h1>Tu comisión de siempre, y además un bono cada mes</h1>
+    <div class="cifra num">hasta 250.000 CUP<small>de bono al mes, más el 1 % de lo que vendan las gestoras que tú invites</small></div>
+    <p class="lead">Sin pagar nada para entrar. Sin comprar mercancía. Vendes como ya vendes, invitas a tus amigas con un enlace y el sistema te cuenta los puntos solo, cada noche.</p>
+    <div class="botones">
+      <a class="boton lleno" href="#calcula">Calcula lo que ganarías</a>
+      <a class="boton borde" href="#empieza">Cómo empiezo</a>
+    </div>
+    <p class="prueba">Ahora está en prueba con un grupo pequeño de gestoras. Muy pronto se abre a todas.</p>
+  </div>
+</header>
+
+<main class="ancho">
+
+<section aria-labelledby="t-problema">
+  <span class="ceja">Lo que pasa hoy</span>
+  <h2 id="t-problema">Vendes, cobras tu 10 % y el mes siguiente empiezas de cero</h2>
+  <div class="contraste">
+    <div class="lado hoy">
+      <h3>Hoy</h3>
+      <ul>
+        <li>Solo ganas por lo que vendes tú.</li>
+        <li>Si le enseñas a una amiga a vender, no te llevas nada.</li>
+        <li>Vender mucho un mes no te deja nada para el siguiente.</li>
+      </ul>
+    </div>
+    <div class="lado con">
+      <h3>Con el programa</h3>
+      <ul>
+        <li>Sigues cobrando tu comisión igual.</li>
+        <li>Ganas el 1 % de todo lo que vendan tus invitadas, 12 meses.</li>
+        <li>Cada mes que tu equipo llega a una piedra, cobras un bono en CUP.</li>
+        <li>Tu título de piedra no se pierde nunca.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="t-oferta">
+  <span class="ceja">Todo lo que recibes</span>
+  <h2 id="t-oferta">Seis cosas, y no pagas ninguna</h2>
+  <div class="pila">
+    <ol>
+      <li><b>Tu comisión de siempre</b><span class="val num">10 %</span><p>O la fija que diga el producto. El programa no la toca: va aparte y encima.</p></li>
+      <li><b>El 1 % de tus invitadas</b><span class="val num">12 meses</span><p>De todo lo que venda cada gestora que entre con tu enlace, durante 12 meses desde que entra.</p></li>
+      <li><b>El 0,5 % de las invitadas de ellas</b><span class="val num">desde Plata</span><p>Si tu invitada trae a otra, también te deja algo. Lo cobras los meses en que eres Plata o más.</p></li>
+      <li><b>Un bono en CUP cada mes</b><span class="val num">5.000 a 250.000</span><p>El mes en que tu equipo junta los puntos de una piedra, cobras su bono. Diez piedras, de Bronce a Corona.</p></li>
+      <li><b>Un título que no se pierde</b><span class="val">para siempre</span><p>La mejor piedra que hayas tenido se queda en tu perfil, aunque un mes no vendas.</p></li>
+      <li><b>Todo calculado solo</b><span class="val">cada noche</span><p>En tu área ves «Mi equipo» y «Mi piedra»: tus puntos vale por vale, lo que te falta para la próxima piedra y tu enlace para invitar. Cada producto de la tienda te dice cuántos ⭐ puntos da.</p></li>
+    </ol>
+    <div class="precio"><span>Lo que pagas para entrar</span><b class="num">0 CUP</b></div>
+  </div>
+</section>
+
+<section aria-labelledby="t-piedras">
+  <span class="ceja">Las 10 piedras</span>
+  <h2 id="t-piedras">Cuánto vende tu equipo al mes y qué cobras</h2>
+  <p class="suave chico">Tu equipo eres tú, tus invitadas y las invitadas de ellas. Los USD son aproximados: cada producto da sus propios puntos.</p>
+  <ol class="escalera num">
+    <li><span class="gema" style="--g:#B07A4A"></span><span class="esc-nombre"><b>Bronce</b><span>65 puntos · unos 325 USD vendidos</span></span><span class="esc-bono">5.000 CUP</span></li>
+    <li><span class="gema" style="--g:#AEB6BC"></span><span class="esc-nombre"><b>Plata</b><span>130 puntos · unos 650 USD</span></span><span class="esc-bono">10.000 CUP</span></li>
+    <li><span class="gema" style="--g:#D4A73A"></span><span class="esc-nombre"><b>Oro</b><span>195 puntos · unos 975 USD</span></span><span class="esc-bono">15.000 CUP</span></li>
+    <li><span class="gema" style="--g:#C9D3D6"></span><span class="esc-nombre"><b>Platino</b><span>320 puntos · unos 1.600 USD</span></span><span class="esc-bono">25.000 CUP</span></li>
+    <li><span class="gema" style="--g:#2A5DB0"></span><span class="esc-nombre"><b>Zafiro</b><span>510 puntos · unos 2.550 USD</span></span><span class="esc-bono">40.000 CUP</span></li>
+    <li><span class="gema" style="--g:#B3263A"></span><span class="esc-nombre"><b>Rubí</b><span>765 puntos · unos 3.825 USD</span></span><span class="esc-bono">60.000 CUP</span></li>
+    <li><span class="gema" style="--g:#2E8B5B"></span><span class="esc-nombre"><b>Esmeralda</b><span>1.150 puntos · unos 5.750 USD</span></span><span class="esc-bono">90.000 CUP</span></li>
+    <li><span class="gema" style="--g:#8FD0E8"></span><span class="esc-nombre"><b>Diamante</b><span>1.660 puntos · unos 8.300 USD</span></span><span class="esc-bono">130.000 CUP</span></li>
+    <li><span class="gema doble" style="--g:#6FB8DD"></span><span class="esc-nombre"><b>Doble Diamante</b><span>2.300 puntos · unos 11.500 USD</span></span><span class="esc-bono">180.000 CUP</span></li>
+    <li><span class="gema" style="--g:#C9962C"></span><span class="esc-nombre"><b>Corona</b><span>3.190 puntos · unos 15.950 USD</span></span><span class="esc-bono">250.000 CUP</span></li>
+  </ol>
+  <div class="nota"><b>Las dos reglas para cobrar:</b> 1) vende tú al menos 1 cosa entregada ese mes (desde Plata, al menos 50 USD; desde Zafiro, 100; desde Diamante, 150; Corona, 200). 2) Cada invitada cuenta como mucho el 60 % de los puntos de la piedra. Así nadie llega solo con el trabajo de otra.</div>
+</section>
+
+<section id="calcula" aria-labelledby="t-calcula">
+  <span class="ceja">Pruébalo con tus números</span>
+  <h2 id="t-calcula">¿Cuánto ganarías en un mes?</h2>
+  <div class="sim">
+    <div class="controles">
+      <div class="control">
+        <div class="fila"><label for="vt">Lo que vendes tú</label><output id="ovt" for="vt" class="num">200 USD</output></div>
+        <input id="vt" type="range" min="0" max="1500" step="25" value="200">
+      </div>
+      <div class="control">
+        <div class="fila"><label for="ni">Amigas que invitas</label><output id="oni" for="ni" class="num">3</output></div>
+        <input id="ni" type="range" min="0" max="10" step="1" value="3">
+      </div>
+      <div class="control">
+        <div class="fila"><label for="vi">Lo que vende cada una</label><output id="ovi" for="vi" class="num">150 USD</output></div>
+        <input id="vi" type="range" min="0" max="1000" step="25" value="150">
+      </div>
+    </div>
+    <div class="resultado num" aria-live="polite">
+      <div class="linea"><span>Tu piedra este mes</span><span class="piedra-sim" id="rp">Plata</span></div>
+      <div class="linea"><span>Tu comisión (10 %)</span><span id="rc">20 USD</span></div>
+      <div class="linea"><span>Lo que te dejan tus invitadas (1 %)</span><span id="rr">4,50 USD</span></div>
+      <div class="linea"><span>Bono de tu piedra</span><span id="rb">10.000 CUP</span></div>
+      <div class="linea total"><span>En total</span><span id="rt">24,50 USD + 10.000 CUP</span></div>
+      <p class="falta" id="rf"></p>
+    </div>
+    <p class="suave chico">Cuenta aproximada: 1 punto por cada 5 USD vendidos, que es lo normal en Casa Viva. El sistema de verdad cuenta producto por producto, y solo ventas entregadas y cobradas. Si en un mes llegan a la vez muchas gestoras a una piedra, el bono se reparte y puede salir a medias (lo verás en «Mi piedra»).</p>
+  </div>
+</section>
+
+<section aria-labelledby="t-dany">
+  <span class="ceja">Caso real · 16 de octubre</span>
+  <h2 id="t-dany">Dany lo probó una tarde</h2>
+  <blockquote class="cita">«Me parece súper atractivo y motivador. Ya vi lo de las piedras y entendí todo.»<footer>Dany, gestora de Casa Viva, a los 6 minutos de verlo</footer></blockquote>
+  <div class="hechos num">
+    <div class="hecho"><b>4</b><span>gestoras invitó esa misma tarde, de sus estados de WhatsApp</span></div>
+    <div class="hecho"><b>7</b><span>vales de octubre ya le daban puntos</span></div>
+    <div class="hecho"><b>1 noche</b><span>tardamos en ponerle lo que pidió: ver los puntos vale por vale</span></div>
+  </div>
+</section>
+
+<section id="empieza" aria-labelledby="t-empieza">
+  <span class="ceja">Empieza hoy</span>
+  <h2 id="t-empieza">Tres pasos, cinco minutos</h2>
+  <ol class="pasos">
+    <li><div><b>Entra en tu área y abre «Mi equipo».</b><span class="suave chico">Ahí está tu enlace para invitar, con botón de copiar y de WhatsApp.</span></div></li>
+    <li><div><b>Mándaselo a 3 amigas que venden o quieren vender.</b><span class="suave chico">Por WhatsApp o en tus estados. Casa Viva las aprueba y quedan en tu equipo.</span></div></li>
+    <li><div><b>Vende tú al menos 1 cosa al mes.</b><span class="suave chico">Con eso cobras tu 1 % y tu piedra. Lo demás lo cuenta el sistema cada noche.</span></div></li>
+  </ol>
+  <div class="nota"><b>Por qué hoy y no después:</b> la amiga que tú no invites la puede invitar otra gestora. Su madrina es quien la trae primero.</div>
+</section>
+
+<section class="sello" aria-labelledby="t-riesgo">
+  <span class="ceja" style="color:var(--bien)">Riesgo cero</span>
+  <h2 id="t-riesgo">No tienes nada que perder</h2>
+  <ul>
+    <li>No pagas nada para entrar, ni cuotas, ni nada al mes.</li>
+    <li>No compras mercancía. Vendes lo de la tienda, como siempre.</li>
+    <li>Tu comisión no baja ni un centavo.</li>
+    <li>Si un mes no puedes vender, no pasa nada: tu título se queda.</li>
+    <li>Se cobra del 1 al 5 del mes siguiente, por «Pedir mi pago», como tus comisiones.</li>
+  </ul>
+</section>
+
+<section aria-labelledby="t-preguntas">
+  <span class="ceja">Dudas</span>
+  <h2 id="t-preguntas">Lo que te van a preguntar</h2>
+  <div class="preguntas">
+    <details><summary>¿Qué es un punto?</summary><p>Es lo que gana Casa Viva con tu venta, después de pagar el producto y tu comisión: 1 punto = 1 USD de esa ganancia. Por eso cada producto da distinto. En la tienda, cada uno te dice sus ⭐ puntos.</p></details>
+    <details><summary>¿Dónde veo mis puntos?</summary><p>En tu área de gestora, en «Mi piedra». Se actualiza cada noche y te dice cuánto te falta para la próxima piedra.</p></details>
+    <details><summary>¿Cuándo cobro?</summary><p>Del 1 al 5 del mes siguiente, por «Pedir mi pago», igual que tus comisiones. El 1 % va en USD y el bono en CUP.</p></details>
+    <details><summary>¿Cambia mi comisión?</summary><p>No. Sigues cobrando tu 10 % (o la fija del producto) igual que hoy. Lo del programa va aparte y encima.</p></details>
+    <details><summary>¿Tengo que comprar algo o pagar para entrar?</summary><p>No. No hay que comprar nada ni pagar nada, nunca.</p></details>
+    <details><summary>¿Es una pirámide?</summary><p>No. No se paga por entrar ni por invitar. Todo sale de ventas reales a clientes. Si nadie vende, nadie cobra. Una pirámide vive del dinero de las que entran nuevas; aquí solo cuenta lo que se vende y se cobra.</p></details>
+    <details><summary>¿Y si mi invitada no vende?</summary><p>No pasa nada, ni a ti ni a ella. Solo te deja su 1 % los meses en que venda.</p></details>
+    <details><summary>¿Por qué mi bono puede salir a medias?</summary><p>Los bonos salen de una parte de la ganancia del mes. Si muchas gestoras llegan a una piedra a la vez y no alcanza, todas cobran el mismo porcentaje de su bono. Lo ves claro en «Mi piedra» antes de cobrar.</p></details>
+    <details><summary>¿Cuentan las compras para mí misma?</summary><p>No. Solo cuentan ventas a clientes, entregadas por nuestro mensajero y con el dinero confirmado. Si una venta se devuelve, se descuenta.</p></details>
+    <details><summary>¿Y si pierdo la piedra un mes?</summary><p>Ese mes no cobras su bono, pero tu título (la mejor piedra que tuviste) no se pierde. El mes siguiente vuelves a empezar a sumar.</p></details>
+  </div>
+</section>
+
+</main>
+
+<section class="cierre" aria-labelledby="t-cierre">
+  <div class="ancho">
+    <span class="ceja">Tu primera piedra</span>
+    <h2 id="t-cierre">Bronce está a unos 325 USD de tu equipo</h2>
+    <p>Tú y 3 amigas vendiendo un poco cada una ya llegan. Copia tu enlace en «Mi equipo» y manda tu primera invitación hoy.</p>
+    <div class="botones">
+      <a class="boton lleno" href="https://casaviva.company/area-gestoras/#equipo">Abrir «Mi equipo»</a>
+      <a class="boton borde" href="#calcula">Volver a calcular</a>
+    </div>
+    <p class="pie">¿Dudas? Pregúntale al asistente de Casa Viva por WhatsApp: ya sabe todo del programa. Programa en prueba; las cifras son las de octubre de 2026 y pueden ajustarse antes de abrirlo a todas.</p>
+  </div>
+</section>
+
+<script>
+(function(){
+  // Tabla de piedras: nombre, puntos del equipo, bono CUP, mínimo propio en USD
+  var P=[["Bronce",65,5000,0],["Plata",130,10000,50],["Oro",195,15000,50],["Platino",320,25000,50],["Zafiro",510,40000,100],["Rubí",765,60000,100],["Esmeralda",1150,90000,100],["Diamante",1660,130000,150],["Doble Diamante",2300,180000,150],["Corona",3190,250000,200]];
+  var MARGEN=0.20, TASA=800, FONDO=0.15;
+  var $=function(id){return document.getElementById(id)};
+  var f=function(n,d){return n.toLocaleString('es-ES',{minimumFractionDigits:d||0,maximumFractionDigits:d||0})};
+  var usd=function(n){return f(n,n%1?2:0)+' USD'};
+
+  function piedra(propias,ventas,miembros){
+    var mejor=null, idx=-1;
+    for(var i=0;i<P.length;i++){
+      var p=P[i]; if(ventas<=0||ventas<p[3])continue;
+      var eq=propias; miembros.forEach(function(m){eq+=Math.min(m,0.6*p[1])});
+      if(eq>=p[1]){mejor=p;idx=i}
+    }
+    return {p:mejor,i:idx};
+  }
+  function faltan(propias,ventas,miembros,i){
+    var sig=P[i+1]; if(!sig)return '';
+    var eq=propias; miembros.forEach(function(m){eq+=Math.min(m,0.6*sig[1])});
+    var pts=Math.max(0,Math.ceil(sig[1]-eq));
+    var txt='Para '+sig[0]+' te faltan '+f(pts)+' puntos';
+    if(ventas<sig[3])txt+=' y vender tú al menos '+f(sig[3])+' USD';
+    else if(ventas<=0)txt+=' y vender tú al menos 1 cosa';
+    return txt+'.';
+  }
+  function calc(){
+    var vt=+$('vt').value, ni=+$('ni').value, vi=+$('vi').value;
+    $('ovt').textContent=f(vt)+' USD'; $('oni').textContent=f(ni); $('ovi').textContent=f(vi)+' USD';
+    var pt=Math.round(vt*MARGEN*100)/100, pi=Math.round(vi*MARGEN*100)/100, miembros=[];
+    for(var k=0;k<ni;k++)miembros.push(pi);
+    var yo=piedra(pt,vt,miembros), ella=piedra(pi,vi,[]);
+    var red=vt>0?ni*vi*0.01:0;
+    // Fondo del mes: 15 % de los puntos; primero la red, luego los bonos (los tuyos y los de tus invitadas)
+    var fondo=(pt+ni*pi)*FONDO;
+    var bonosCUP=(yo.p?yo.p[2]:0)+(ella.p?ni*ella.p[2]:0);
+    var cubre=bonosCUP>0?Math.min(1,Math.max(0,fondo-red)/(bonosCUP/TASA)):1;
+    var bono=yo.p?Math.floor(yo.p[2]*cubre/100)*100:0;
+    $('rp').textContent=yo.p?yo.p[0]:'Todavía no';
+    $('rc').textContent=usd(vt*0.10);
+    $('rr').textContent=vt>0?usd(red):(ni*vi>0?'0 USD (vende tú al menos 1)':'0 USD');
+    $('rb').textContent=yo.p?f(bono)+' CUP'+(cubre<1?' (al '+f(Math.floor(cubre*100))+' %)':''):'—';
+    var tot=vt*0.10+red;
+    $('rt').textContent=usd(tot)+(bono?' + '+f(bono)+' CUP':'');
+    $('rf').textContent=faltan(pt,vt,miembros,yo.i);
+  }
+  ['vt','ni','vi'].forEach(function(id){$(id).addEventListener('input',calc)});
+  calc();
+})();
+</script>
