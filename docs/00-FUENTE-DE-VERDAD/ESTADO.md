@@ -1556,3 +1556,10 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
 - **Dany** dio permiso para usar su frase («Como lo prefieras», 10:50) y dice «Yo entendí todo».
 - `mensajero_por` funciona: Lennys dijo «Yo» en el #4191 → Daiquel en reserva.
 - Ojo: un reinicio con un 🔔 en curso lo mandó dos veces a Ale (#4191, 10:51); el registro tiene uno solo. Carrera de reinicio, no de la regla.
+
+### L37. Domingo 18-oct ~11:15 — botón «Entregado» en el vale EN VIVO
+- **Core 3.14.39 EN VIVO** (Casa-Viva main `1247e40`): `includes/class-cvd-messenger-delivered-link.php` (enlace firmado `?cvd_entregado=ID&t=…`, 7 días, solo ese pedido y ese mensajero; abrir no cambia nada, solo el botón), `CVD_Bot_Bridge::mark_delivered_by_messenger` (la misma lógica que «entregado» por WhatsApp) y `deliveredUrl` en el vale. Copia `~/bak-20261018-cvd-3.14.38-antes-3.14.39`. Comprobado: home y /tienda/ 200, enlace falso 403, la página del #4188 abre sin cambiar nada. Pruebas: 49 nuevas + 60 de transiciones.
+- **VivaBot `1860a30` EN VIVO** (11:12): el vale lleva «✅ Cuando entregues, toca aquí: <enlace>». 116/116 de reparto.
+- **Aviso al grupo de Mensajerías** #1714 (11:15, con el SÍ de Ernesto).
+- Ojo: con el enlace, a la gestora le llega su aviso de «pedido terminado», pero no sale «✅ #N entregado por X» a la tienda (igual que hoy desde el área web).
+- **OpenAI SIN CRÉDITO desde las 10:59** (429 «no credits remaining»). Ernesto busca cómo recargar; mientras, la sesión del PC atiende los chats a mano (vigilancia cada minuto).
