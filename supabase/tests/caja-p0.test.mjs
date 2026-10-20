@@ -217,7 +217,7 @@ describe("vueltos (Lennys 20-oct)", () => {
 
 describe("¿A cómo estamos? y salidas que aprueba Lennys", () => {
   it("recargos 10 % y 20 % por defecto, la dueña los cambia y la caja los recibe", async () => {
-    expect((await call("public.nexo_business_device_rates", TOKEN_A)).markups).toEqual({ cashPct: 10, transferPct: 20 });
+    expect((await call("public.nexo_business_device_rates", TOKEN_A)).markups).toEqual({ cashPct: 0, transferPct: 20 });
     expect((await rpcAs(db, u.stranger, "public.nexo_business_set_markups", { p_business: BIZ, p_cash: 5, p_transfer: 5 })).error).toBe("forbidden");
     expect((await rpcAs(db, u.owner, "public.nexo_business_set_markups", { p_business: BIZ, p_cash: 12, p_transfer: 150 })).error).toBe("invalid");
     await rpcAs(db, u.owner, "public.nexo_business_set_markups", { p_business: BIZ, p_cash: 12, p_transfer: 22.5 });

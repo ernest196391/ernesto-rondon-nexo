@@ -1,7 +1,7 @@
 // Datos de la tienda que la caja guarda para usarlos sin internet (Lennys 20-oct 18:00):
 // * las tarjetas de la tienda (las mismas de la web: nombre + últimos 4) para «¿A qué tarjeta entró?»;
 // * la tasa del día de la web (FORMAS DE PAGO / panel) y los recargos de efectivo y transferencia,
-//   para «¿A cómo estamos?»: CUP efectivo = USD × tasa × (1 + 10 %), transferencia = × (1 + 20 %).
+//   para «¿A cómo estamos?» (Ernesto 20-oct): tasa base = elToque + 10 CUP = efectivo (+0 %), transferencia = efectivo × 1,20 (+20 %).
 import { invoke } from "@tauri-apps/api/core";
 import { deviceCall, deviceToken, onEverySync } from "./sync";
 import { escapeHtml, openSheet } from "./ui";
@@ -34,7 +34,7 @@ export const payAccounts = (): PayAccount[] => load<PayAccount[]>(ACCOUNTS_KEY, 
 export const accountLabel = (a: PayAccount) => `${a.label}${a.last4 ? ` ${a.last4}` : ""}`;
 export function markups(): Markups {
   const m = load<Partial<Markups>>(MARKUPS_KEY, {});
-  return { cashPct: Number.isFinite(Number(m.cashPct)) ? Number(m.cashPct) : 10, transferPct: Number.isFinite(Number(m.transferPct)) ? Number(m.transferPct) : 20 };
+  return { cashPct: Number.isFinite(Number(m.cashPct)) ? Number(m.cashPct) : 0, transferPct: Number.isFinite(Number(m.transferPct)) ? Number(m.transferPct) : 20 };
 }
 
 /** CUP que paga el cliente por un precio en USD (al CUP entero, hacia arriba). */

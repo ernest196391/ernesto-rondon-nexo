@@ -595,7 +595,7 @@ GRANT EXECUTE ON FUNCTION public.nexo_business_device_person(TEXT, TEXT) TO serv
 -- Precio en CUP desde la tasa base: efectivo = USD × tasa × (1 + cash_markup_pct/100),
 -- transferencia = USD × tasa × (1 + transfer_markup_pct/100). Se cambian en el panel (Ajustes → Tasas).
 ALTER TABLE nexo_business.cost_settings
-  ADD COLUMN IF NOT EXISTS cash_markup_pct NUMERIC(5, 2) NOT NULL DEFAULT 10,
+  ADD COLUMN IF NOT EXISTS cash_markup_pct NUMERIC(5, 2) NOT NULL DEFAULT 0, -- 20-oct (Ernesto): la tasa base ya es la del efectivo (elToque + 10 CUP)
   ADD COLUMN IF NOT EXISTS transfer_markup_pct NUMERIC(5, 2) NOT NULL DEFAULT 20;
 DO $$ BEGIN
   ALTER TABLE nexo_business.cost_settings ADD CONSTRAINT cost_settings_markups_check
@@ -619,7 +619,7 @@ GRANT EXECUTE ON FUNCTION public.nexo_business_set_markups(TEXT, NUMERIC, NUMERI
 
 CREATE OR REPLACE FUNCTION nexo_business.markups(p_business TEXT)
 RETURNS JSONB LANGUAGE sql STABLE SECURITY DEFINER SET search_path = '' AS $$
-  SELECT jsonb_build_object('cashPct', coalesce((SELECT cash_markup_pct FROM nexo_business.cost_settings WHERE business_id = p_business), 10),
+  SELECT jsonb_build_object('cashPct', coalesce((SELECT cash_markup_pct FROM nexo_business.cost_settings WHERE business_id = p_business), 0),
                             'transferPct', coalesce((SELECT transfer_markup_pct FROM nexo_business.cost_settings WHERE business_id = p_business), 20));
 $$;
 REVOKE ALL ON FUNCTION nexo_business.markups(TEXT) FROM PUBLIC, anon, authenticated;
