@@ -6,6 +6,9 @@ A. *Un solo cajón:* la primera que llega abre el turno en *Caja* y cuenta el di
 B. *Pedidos web:* pestaña *Pedidos*. Salen los de recogida («Listo para recoger») y los que trae el mensajero. Toca *Cobrar*, elige cómo pagó (la misma pantalla de siempre) y *Confirmar cobro*. La web cierra el pedido con tu nombre. Sin internet se guarda y se envía solo. Si ya se cobró en Ventas, la caja no deja cobrarlo dos veces.
 C. *Al cerrar el día:* *Caja → Contar y cerrar turno*. Con internet la caja calcula lo que debería haber en TODA la tienda (todos los teléfonos y lo cobrado en Ventas). Sin internet avisa que solo cuenta tu teléfono. Cuando una cierra, en los otros teléfonos el turno se cierra solo.
 E. *Vueltos:* en *Pedidos*, toca *Vuelto* en el pedido y *Darle el vuelto del fondo* cuando el mensajero sale. Si la gestora dijo «sin vuelto» y el cliente lo necesita, cámbialo ahí mismo (o en Ventas → *Vuelto*). Al cobrar el pedido cobra SOLO el pedido: el vuelto vuelve al fondo solo. Si el pedido no se entregó, *Devolvió el vuelto*. Al cerrar, salen aparte «Vuelto en la calle» y «Vuelto devuelto», el desglose de billetes y las transferencias con los 4 últimos números.
+F. *Inicio:* la caja empieza en 4 botones: *Cobrar pedido*, *Venta rápida*, *Cerrar el día* y *¿A cómo estamos?* (la tasa de hoy y la calculadora: escribe el precio en USD y sale el CUP en efectivo y por transferencia).
+G. *Salidas del cajón:* *Caja → Salida*, elige el tipo y quién saca el dinero. «Remesa de Ernesto» u «Otro» le llegan a Lennys por WhatsApp para aprobarlas.
+H. *Transferencias:* al cobrar o al cerrar, elige a qué tarjeta de la tienda entró (o «Otra» y los 4 últimos números).
 D. *Sincronizar ahora* envía todo enseguida. Si algo falla se reintenta solo en menos de 5 minutos. Arriba: «Al día», «Enviando 3», «Sin internet · 3 por enviar», «No se pudo enviar» o «Falta bajar existencias».
 
 

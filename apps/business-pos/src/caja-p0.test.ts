@@ -27,3 +27,13 @@ describe("día del turno (hora de Cuba)", () => {
     expect(isToday("2026-10-11T20:09:00Z")).toBe(false);
   });
 });
+
+import { cupPrices } from "./store-info";
+
+describe("¿A cómo estamos? (Lennys 20-oct)", () => {
+  it("efectivo = USD × tasa × 1,10 y transferencia = × 1,20, al CUP entero hacia arriba", () => {
+    expect(cupPrices(1, 400, { cashPct: 10, transferPct: 20 })).toEqual({ cash: 440, transfer: 480 });
+    expect(cupPrices(15, 395, { cashPct: 10, transferPct: 20 })).toEqual({ cash: 6518, transfer: 7110 });
+    expect(cupPrices(10, 400, { cashPct: 12, transferPct: 22.5 })).toEqual({ cash: 4480, transfer: 4900 });
+  });
+});

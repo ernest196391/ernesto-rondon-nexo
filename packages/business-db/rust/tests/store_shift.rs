@@ -179,6 +179,7 @@ fn charge_input(id: &str, order: i64, payments: Vec<WebPayment>) -> ChargeWebOrd
         staff_name: Some("Nana".into()),
         note: None,
         occurred_at: "2026-10-20T11:00:00Z".into(),
+        collection_account: Some("bpa".into()),
     }
 }
 

@@ -17,7 +17,20 @@ export type PaymentInput = {
   exchangeRate: string | null;
   provider: string | null;
   externalRef: string | null;
+  /** Tarjeta de la tienda donde entró la transferencia (id de la web), si se eligió. */
+  accountId?: string | null;
 };
+
+type PayAccount = { id: string; label: string; last4: string };
+/** Tarjetas de la tienda guardadas por store-info.ts (las de la web). Se leen aquí sin importar ese módulo. */
+function storeAccounts(): PayAccount[] {
+  try {
+    const list = JSON.parse(localStorage.getItem("nexo.payAccounts") ?? "[]");
+    return Array.isArray(list) ? list : [];
+  } catch {
+    return [];
+  }
+}
 
 type Rate = { currency: string; perUsd: string; setAt: string };
 
@@ -46,7 +59,7 @@ const METHODS: MethodDef[] = [
 
 const MAX_PAYMENTS = 3;
 
-type Row = { id: string; def: MethodDef; amountMinor: number; provider: string; ref: string };
+type Row = { id: string; def: MethodDef; amountMinor: number; provider: string; ref: string; accountId: string };
 
 const escapeHtml = (s: unknown) =>
   String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!);
@@ -78,6 +91,12 @@ function ago(iso: string) {
   return hours < 48 ? `hace ${hours} h` : `hace ${Math.round(hours / 24)} días`;
 }
 
+/** «Transfermóvil · BPA 2690»: la tarjeta queda escrita con el pago. */
+function withAccount(provider: string | null, accountId: string) {
+  const a = storeAccounts().find(x => x.id === accountId);
+  return a ? [provider, `${a.label} ${a.last4}`.trim()].filter(Boolean).join(" · ") : provider;
+}
+
 /** Converts the rows to payments; change comes off the last cash row. */
 function settle(rows: Row[], totalMinor: number, rates: Map<string, Rate>) {
   const payments: PaymentInput[] = rows.map(row => {
@@ -89,8 +108,9 @@ function settle(rows: Row[], totalMinor: number, rates: Map<string, Rate>) {
       amountMinor: row.amountMinor,
       usdMinor: Math.round(row.amountMinor / rate),
       exchangeRate: keyOf(row.def) === "USD" ? null : rateText(rates, keyOf(row.def)),
-      provider: row.def.providers ? row.provider : row.def.provider ?? null,
+      provider: withAccount(row.def.providers ? row.provider : row.def.provider ?? null, row.accountId),
       externalRef: row.ref.trim() || null,
+      accountId: row.accountId && row.accountId !== "otra" ? row.accountId : null,
     };
   });
   let paid = payments.reduce((sum, p) => sum + p.usdMinor, 0);
@@ -188,6 +208,7 @@ export async function openCheckout(totalMinor: number, opts: CheckoutOptions = {
         <label class="amount"><input class="checkout-amount num" inputmode="decimal" aria-label="Importe en ${row.def.currency}" value="${(row.amountMinor / 100).toFixed(2)}" style="width: 96px; border: 0; background: transparent; font: inherit; text-align: right"><small>${row.def.currency}</small></label>
         ${usd ? `<span class="t-xs muted" style="grid-column: 1 / -1; margin-top: -6px">${usd}</span>` : ""}
         ${row.def.providers ? `<label class="field" style="grid-column: 1 / -1">Vía<select class="input checkout-provider">${row.def.providers.map(p => `<option ${p === row.provider ? "selected" : ""}>${p}</option>`).join("")}</select></label>` : ""}
+        ${row.def.method === "transfer" && storeAccounts().length ? `<label class="field" style="grid-column: 1 / -1">¿A qué tarjeta entró?<select class="input checkout-account"><option value="">— Elige —</option>${storeAccounts().map(a => `<option value="${escapeHtml(a.id)}" ${a.id === row.accountId ? "selected" : ""}>${escapeHtml(`${a.label} ${a.last4}`)}</option>`).join("")}<option value="otra" ${row.accountId === "otra" ? "selected" : ""}>Otra</option></select></label>` : ""}
         ${row.def.needsRef ? `<label class="ref${missingRef ? " is-missing" : ""}">${icon(missingRef ? "alert" : "check", "sm")}<input class="checkout-ref" autocomplete="off" value="${escapeHtml(row.ref)}" placeholder="Referencia de la transacción" style="flex: 1; border: 0; background: transparent; font: inherit; color: inherit; min-height: 40px"></label>` : ""}
       </div>`;
     }).join("");
@@ -210,6 +231,8 @@ export async function openCheckout(totalMinor: number, opts: CheckoutOptions = {
       }
       const provider = el.querySelector<HTMLSelectElement>(".checkout-provider");
       if (provider) provider.onchange = () => (row.provider = provider.value);
+      const account = el.querySelector<HTMLSelectElement>(".checkout-account");
+      if (account) account.onchange = () => (row.accountId = account.value);
     });
 
     const balance = $(".checkout-balance");
@@ -246,6 +269,7 @@ export async function openCheckout(totalMinor: number, opts: CheckoutOptions = {
       amountMinor: keyOf(def) === "USD" ? remaining : Math.ceil(remaining * rate),
       provider: def.providers?.[0] ?? "",
       ref: "",
+      accountId: "",
     });
     render();
     sheet.querySelectorAll<HTMLInputElement>(".checkout-amount").item(rows.length - 1)?.select();
@@ -289,8 +313,10 @@ export function describePayments(payments: PaymentInput[]) {
 export async function pullRates(endpoint: string, deviceToken: string) {
   const response = await fetch(endpoint.replace(/nexo-sync-push\/?$/, "nexo-rates-pull"), { headers: { "x-nexo-device-token": deviceToken } });
   if (!response.ok) throw new Error(`Tasas: HTTP ${response.status}`);
-  const { rates, people } = (await response.json()) as { rates: Array<{ currency: string; perUsd: number | string; setAt: string }>; people?: unknown };
+  const { rates, people, markups } = (await response.json()) as { rates: Array<{ currency: string; perUsd: number | string; setAt: string }>; people?: unknown; markups?: unknown };
   savePeople(people);
+  // Recargos de «¿A cómo estamos?» (Ajustes → Tasas); los lee store-info.ts.
+  if (markups && typeof markups === "object") { try { localStorage.setItem("nexo.markups", JSON.stringify(markups)); } catch { /* sin almacenamiento */ } }
   if (!Array.isArray(rates)) return;
   await invoke("rates_replace", {
     rates: rates.map(r => ({ currency: r.currency, perUsd: String(r.perUsd), setAt: r.setAt })),

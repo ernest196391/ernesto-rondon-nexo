@@ -12,6 +12,7 @@ import "./themes/casaviva.css";
 import "./app.css";
 import { mountFinance, refreshFinance, startCloseDay } from "./finance";
 import { mountWebOrders, refreshWebOrders } from "./weborders";
+import { openRatesSheet } from "./store-info";
 import { lastMissing, type DeviceIdentity } from "./sync";
 import { openCheckout, describePayments, type PaymentInput } from "./checkout";
 import { icon, ISOTIPO, escapeHtml, openSheet } from "./ui";
@@ -38,11 +39,11 @@ let BUSINESS_ID = "casa-viva";
 const PILOT_BUSINESS = "casa-viva";
 const businessName = () => (BUSINESS_ID === PILOT_BUSINESS ? "Casa Viva" : BUSINESS_ID);
 const NO_CATEGORY = "Sin categoría";
-// «3 botones» (propuesta 20-oct, si Lennys la aprueba): una pantalla de inicio con
-// «Cobrar pedido», «Venta rápida» y «Cerrar el día»; lo demás sigue en las pestañas.
-// Se enciende por teléfono en Más → Este equipo (apagada por defecto).
+// «3 botones» (Lennys la aprobó el 20-oct 17:57): la pantalla de inicio es «Cobrar pedido», «Venta rápida»,
+// «Cerrar el día» y «¿A cómo estamos?»; lo demás sigue en las pestañas. Por defecto encendida; en
+// Más → Este equipo se vuelve a la caja de antes (empieza en Vender).
 const HOME_KEY = "nexo.home";
-const home3 = (() => { try { return localStorage.getItem(HOME_KEY) === "3botones"; } catch { return false; } })();
+const home3 = (() => { try { return localStorage.getItem(HOME_KEY) !== "pestañas"; } catch { return true; } })();
 const VIEWS = [
   ["inicio", "Inicio", "grid"],
   ["vender", "Vender", "tag"],
@@ -68,6 +69,7 @@ app.innerHTML = `
         <button type="button" class="btn btn-primary btn-xl btn-block" data-go="web" style="min-height: 96px; font-size: 1.3em">${icon("receipt")}Cobrar pedido</button>
         <button type="button" class="btn btn-primary btn-xl btn-block" data-go="vender" style="min-height: 96px; font-size: 1.3em">${icon("tag")}Venta rápida</button>
         <button type="button" class="btn btn-secondary btn-xl btn-block" data-go="cerrar" style="min-height: 96px; font-size: 1.3em">${icon("wallet")}Cerrar el día</button>
+        <button type="button" class="btn btn-secondary btn-block" data-go="tasas" style="min-height: 64px">${icon("cash")}¿A cómo estamos?</button>
         <p class="t-sm muted">Lo demás (devoluciones, inventario, sincronización…) está abajo en las pestañas y en «Más».</p>
       </div></div>
     </section>
@@ -116,7 +118,7 @@ app.innerHTML = `
         <details class="panel"><summary>Consignación a clientes</summary><div id="fin-consignment" class="nx-form"></div></details>
         <details class="panel"><summary>Resumen del negocio</summary><div id="fin-summary"></div></details>
         <details class="panel"><summary>Sincronización</summary><div id="fin-sync"></div></details>
-        <details class="panel"><summary>Este equipo</summary><p class="t-sm" id="device-label"></p><label class="t-sm" style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="home3"> Pantalla de inicio con 3 botones (prueba)</label><p class="t-sm muted" id="history"></p><p class="t-sm muted" id="audit">Auditoría local pendiente…</p></details>
+        <details class="panel"><summary>Este equipo</summary><p class="t-sm" id="device-label"></p><label class="t-sm" style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="home3"> Empezar en la pantalla de 3 botones</label><p class="t-sm muted" id="history"></p><p class="t-sm muted" id="audit">Auditoría local pendiente…</p></details>
       </div></div>
     </section>
   </div>
@@ -962,7 +964,7 @@ async function init() {
   mountWebOrders($("#web-orders"));
   document.querySelectorAll<HTMLButtonElement>("[data-go]").forEach(b => (b.onclick = () => {
     const go = b.dataset.go!;
-    if (go === "cerrar") { showView("caja"); void startCloseDay(); } else showView(go as View);
+    if (go === "cerrar") { showView("caja"); void startCloseDay(); } else if (go === "tasas") void openRatesSheet(); else showView(go as View);
   }));
   const homeBox = $<HTMLInputElement>("#home3");
   homeBox.checked = home3;

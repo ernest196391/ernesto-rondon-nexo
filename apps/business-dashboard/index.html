@@ -236,6 +236,7 @@
         <p class="t-sm muted">Los precios están en dólares. La caja usa estas tasas para cobrar en CUP, MLC o Zelle.</p>
         <div id="rates"><p class="muted">Cargando…</p></div>
         <div id="web-rates"></div>
+        <div id="markups"></div>
       </section>
       <section class="panel" data-sub="tarjetas" hidden>
         <h2 class="t-lg">Tarjetas de la tienda</h2>
@@ -634,6 +635,13 @@ async function loadReport() {
             + (x.status === "closed" ? "cerró " + esc(x.closedBy ?? "—") + " " + esc(when(x.closedAt)) + (x.expectedSource === "local" ? " · cuenta solo de un teléfono (sin internet)" : "") + (x.counts ? " · " + (diff || "cuadró") : "") : "<b>abierto</b>")
             + " · " + esc((x.devices ?? [x.device]).join(", ")) + "</span></span></div>";
         }).join("") + "</section>" : "");
+  void (async () => {
+    const { data: exits } = await supabase.rpc("nexo_business_fund_exits", { p_business: current.businessId, p_from: r.from, p_to: r.to });
+    if (!Array.isArray(exits) || !exits.length || seq !== reportSeq) return;
+    const label = { pending: "pendiente de Lennys", approved: "aprobada", rejected: "RECHAZADA" };
+    box.insertAdjacentHTML("beforeend", '<section class="panel"><div class="kv"><h2 class="t-lg">Salidas del cajón que aprueba Lennys</h2><span class="badge badge-info">' + exits.length + "</span></div>"
+      + exits.map(x => '<div class="row-item"><span class="grow"><span class="title">#' + x.id + " · " + esc(x.reason || x.category) + '</span><span class="meta">' + esc(when(x.at)) + (x.operator ? " · " + esc(x.operator) : "") + " · " + esc(label[x.status] ?? x.status) + '</span></span><span class="price-tag">' + money(x.amountMinor, x.currency) + "</span></div>").join("") + "</section>");
+  })();
   $("#dl-csv").onclick = downloadCsv;
   $("#dl-pdf").onclick = printReport;
 }
@@ -3938,7 +3946,28 @@ const WEB_RATES = [
   ["cup", "CUP", "1 USD = … CUP", "CUP"], ["eur", "Euro", "1 = 1:1 (7 USD = 7 EUR)", "×"],
   ["clasica", "Tarjeta clásica", "Ej.: 1,15 = 15 % más", "×"], ["zelle", "Zelle", "Ej.: 1,04 = 4 % más", "×"], ["paypalPct", "PayPal", "Porcentaje que se suma", "%"],
 ];
+// «¿A cómo estamos?» de la caja (Lennys 20-oct): CUP efectivo = USD × tasa × (1 + %), transferencia igual con su %.
+async function loadMarkups() {
+  const box = $("#markups");
+  if (!box) return;
+  const { data, error } = await supabase.rpc("nexo_business_get_markups", { p_business: current.businessId });
+  if (error || data?.error) { box.innerHTML = '<p class="t-sm muted">Recargos: no se pudieron cargar (falta la migración caja P0).</p>'; return; }
+  box.innerHTML = '<h3 class="t-lg" style="margin-top:18px">«¿A cómo estamos?» en la caja</h3>'
+    + '<p class="t-sm muted">La caja calcula el precio en CUP con la tasa del día: efectivo = USD × tasa × (1 + recargo); transferencia igual con el suyo.</p>'
+    + '<form id="markups-form" class="nx-form"><div class="grid-2"><label class="field">Recargo efectivo CUP (%)<input name="cash" inputmode="decimal" value="' + esc(data.cashPct) + '"></label>'
+    + '<label class="field">Recargo transferencia CUP (%)<input name="transfer" inputmode="decimal" value="' + esc(data.transferPct) + '"></label></div>'
+    + '<button type="submit" class="btn btn-primary btn-block">Guardar recargos</button></form>';
+  $("#markups-form").onsubmit = async e => {
+    e.preventDefault();
+    const f = new FormData(e.target), num = k => Number(String(f.get(k) ?? "").replace(",", "."));
+    const r = await supabase.rpc("nexo_business_set_markups", { p_business: current.businessId, p_cash: num("cash"), p_transfer: num("transfer") });
+    if (r.error || r.data?.error) return toast("No se guardó: " + (r.data?.message ?? r.error?.message ?? r.data.error), "bad");
+    toast("Recargos guardados: las cajas los reciben al sincronizar.", "ok");
+  };
+}
+
 async function loadWebRates() {
+  void loadMarkups();
   const box = $("#web-rates");
   if (!box) return;
   let data;

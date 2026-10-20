@@ -214,3 +214,33 @@ describe("vueltos (Lennys 20-oct)", () => {
     expect(report.shifts.find(s => s.shiftId === V).details.transfers[0].last4).toBe("2690");
   });
 });
+
+describe("¿A cómo estamos? y salidas que aprueba Lennys", () => {
+  it("recargos 10 % y 20 % por defecto, la dueña los cambia y la caja los recibe", async () => {
+    expect((await call("public.nexo_business_device_rates", TOKEN_A)).markups).toEqual({ cashPct: 10, transferPct: 20 });
+    expect((await rpcAs(db, u.stranger, "public.nexo_business_set_markups", { p_business: BIZ, p_cash: 5, p_transfer: 5 })).error).toBe("forbidden");
+    expect((await rpcAs(db, u.owner, "public.nexo_business_set_markups", { p_business: BIZ, p_cash: 12, p_transfer: 150 })).error).toBe("invalid");
+    await rpcAs(db, u.owner, "public.nexo_business_set_markups", { p_business: BIZ, p_cash: 12, p_transfer: 22.5 });
+    expect((await call("public.nexo_business_device_rates", TOKEN_A)).markups).toEqual({ cashPct: 12, transferPct: 22.5 });
+    expect(await rpcAs(db, u.owner, "public.nexo_business_get_markups", { p_business: BIZ })).toEqual({ cashPct: 12, transferPct: 22.5 });
+  });
+
+  it("remesa y otro quedan pendientes, el bot avisa una vez y Lennys decide una vez", async () => {
+    const out = (id, category, amt) => push("caja-nana", "cash_movement.recorded", id,
+      { movement_id: id, shift_id: "x", kind: "cash_out", direction: "out", currency: "USD", amount_minor: amt, category, reason: "Salida " + category, operator_id: nana });
+    await out("s1", "remesa", 10000);
+    await out("s2", "pago_gestora", 9000); // no necesita aprobación
+    await out("s3", "otro", 1500);
+    const first = await call("public.nexo_business_fund_exits_to_notify", BIZ);
+    expect(first.map(x => x.category)).toEqual(["remesa", "otro"]);
+    expect(first[0]).toMatchObject({ amountMinor: 10000, operator: "Daniela (Nana)", device: "Caja Nana" });
+    expect(await call("public.nexo_business_fund_exits_to_notify", BIZ)).toEqual([]);
+    const yes = await call("public.nexo_business_fund_exit_decide", BIZ, first[0].id, true, "Lennys");
+    expect(yes).toMatchObject({ ok: true, status: "approved" });
+    expect((await call("public.nexo_business_fund_exit_decide", BIZ, first[0].id, false, "Lennys")).already).toBe("approved");
+    await call("public.nexo_business_fund_exit_decide", BIZ, first[1].id, false, "Lennys");
+    const today = new Date(Date.now() - 4 * 3600_000).toISOString().slice(0, 10);
+    const list = await rpcAs(db, u.owner, "public.nexo_business_fund_exits", { p_business: BIZ, p_from: "2026-01-01", p_to: today });
+    expect(list.map(x => x.status).sort()).toEqual(["approved", "rejected"]);
+  });
+});

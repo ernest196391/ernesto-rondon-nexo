@@ -590,3 +590,164 @@ RETURNS JSONB LANGUAGE sql STABLE SECURITY DEFINER SET search_path = '' AS $$
 $$;
 REVOKE ALL ON FUNCTION public.nexo_business_device_person(TEXT, TEXT) FROM PUBLIC, anon, authenticated;
 GRANT EXECUTE ON FUNCTION public.nexo_business_device_person(TEXT, TEXT) TO service_role;
+
+-- ---------- 6. «¿A cómo estamos?» (Lennys 20-oct 18:00) ----------
+-- Precio en CUP desde la tasa base: efectivo = USD × tasa × (1 + cash_markup_pct/100),
+-- transferencia = USD × tasa × (1 + transfer_markup_pct/100). Se cambian en el panel (Ajustes → Tasas).
+ALTER TABLE nexo_business.cost_settings
+  ADD COLUMN IF NOT EXISTS cash_markup_pct NUMERIC(5, 2) NOT NULL DEFAULT 10,
+  ADD COLUMN IF NOT EXISTS transfer_markup_pct NUMERIC(5, 2) NOT NULL DEFAULT 20;
+DO $$ BEGIN
+  ALTER TABLE nexo_business.cost_settings ADD CONSTRAINT cost_settings_markups_check
+    CHECK (cash_markup_pct BETWEEN 0 AND 100 AND transfer_markup_pct BETWEEN 0 AND 100);
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
+
+CREATE OR REPLACE FUNCTION public.nexo_business_set_markups(p_business TEXT, p_cash NUMERIC, p_transfer NUMERIC)
+RETURNS JSONB LANGUAGE plpgsql SECURITY DEFINER SET search_path = '' AS $$
+BEGIN
+  IF coalesce(nexo_business.role_of(p_business), '') <> 'owner' THEN RETURN jsonb_build_object('error', 'forbidden'); END IF;
+  IF p_cash IS NULL OR p_transfer IS NULL OR p_cash < 0 OR p_cash > 100 OR p_transfer < 0 OR p_transfer > 100 THEN
+    RETURN jsonb_build_object('error', 'invalid', 'message', 'Los porcentajes van de 0 a 100.');
+  END IF;
+  INSERT INTO nexo_business.cost_settings (business_id, cash_markup_pct, transfer_markup_pct) VALUES (p_business, p_cash, p_transfer)
+  ON CONFLICT (business_id) DO UPDATE SET cash_markup_pct = EXCLUDED.cash_markup_pct, transfer_markup_pct = EXCLUDED.transfer_markup_pct, updated_at = now();
+  RETURN jsonb_build_object('ok', true, 'cashPct', p_cash, 'transferPct', p_transfer);
+END;
+$$;
+REVOKE ALL ON FUNCTION public.nexo_business_set_markups(TEXT, NUMERIC, NUMERIC) FROM PUBLIC, anon;
+GRANT EXECUTE ON FUNCTION public.nexo_business_set_markups(TEXT, NUMERIC, NUMERIC) TO authenticated;
+
+CREATE OR REPLACE FUNCTION nexo_business.markups(p_business TEXT)
+RETURNS JSONB LANGUAGE sql STABLE SECURITY DEFINER SET search_path = '' AS $$
+  SELECT jsonb_build_object('cashPct', coalesce((SELECT cash_markup_pct FROM nexo_business.cost_settings WHERE business_id = p_business), 10),
+                            'transferPct', coalesce((SELECT transfer_markup_pct FROM nexo_business.cost_settings WHERE business_id = p_business), 20));
+$$;
+REVOKE ALL ON FUNCTION nexo_business.markups(TEXT) FROM PUBLIC, anon, authenticated;
+
+-- El panel los lee para Ajustes → Tasas.
+CREATE OR REPLACE FUNCTION public.nexo_business_get_markups(p_business TEXT)
+RETURNS JSONB LANGUAGE plpgsql SECURITY DEFINER SET search_path = '' STABLE AS $$
+BEGIN
+  IF nexo_business.role_of(p_business) IS NULL THEN RETURN jsonb_build_object('error', 'forbidden'); END IF;
+  RETURN nexo_business.markups(p_business);
+END;
+$$;
+REVOKE ALL ON FUNCTION public.nexo_business_get_markups(TEXT) FROM PUBLIC, anon;
+GRANT EXECUTE ON FUNCTION public.nexo_business_get_markups(TEXT) TO authenticated;
+
+-- La caja recibe tasas, personas (con permisos) y ahora también los recargos.
+CREATE OR REPLACE FUNCTION public.nexo_business_device_rates(p_token text)
+RETURNS jsonb LANGUAGE plpgsql STABLE SECURITY DEFINER SET search_path TO '' AS $function$
+DECLARE v_business TEXT;
+BEGIN
+  IF coalesce(length(p_token), 0) < 32 THEN RETURN jsonb_build_object('error', 'unauthorized'); END IF;
+  SELECT business_id INTO v_business FROM nexo_business.devices
+   WHERE token_hash = encode(extensions.digest(p_token, 'sha256'), 'hex') AND active;
+  IF v_business IS NULL THEN RETURN jsonb_build_object('error', 'unauthorized'); END IF;
+  RETURN jsonb_build_object(
+    'rates', nexo_business.current_rates(v_business),
+    'people', coalesce((SELECT jsonb_agg(jsonb_build_object('id', id, 'kind', kind, 'name', full_name, 'permissions', permissions) ORDER BY full_name)
+                          FROM nexo_business.people WHERE business_id = v_business AND status = 'active'), '[]'::jsonb),
+    'markups', nexo_business.markups(v_business));
+END;
+$function$;
+
+-- ---------- 7. Salidas del fondo que aprueba Lennys (Lennys 20-oct 18:00) ----------
+-- Nana, Zaymi, Lennys y Daiquel apuntan las salidas del cajón por tipo (vuelto, pago a gestora, proveedor,
+-- mensajero, gasto, remesa, otro). «Remesa» y «otro» necesitan el SÍ de Lennys: el dinero ya salió (se
+-- apunta tal cual) y aquí queda pendiente; VivaBot le escribe «¿apruebas esta salida? SALIDA SI n / SALIDA NO n».
+-- Rechazada = no se borra nada: sale en el panel para que Lennys lo arregle con quien la sacó.
+CREATE TABLE IF NOT EXISTS nexo_business.fund_exit_approvals (
+  id BIGSERIAL PRIMARY KEY,
+  business_id TEXT NOT NULL,
+  movement_id TEXT NOT NULL UNIQUE,
+  device_id TEXT NOT NULL,
+  shift_id TEXT,
+  category TEXT NOT NULL,
+  currency TEXT NOT NULL,
+  amount_minor BIGINT NOT NULL,
+  reason TEXT,
+  operator_id TEXT,
+  occurred_at TIMESTAMPTZ NOT NULL,
+  status TEXT NOT NULL DEFAULT 'pending' CHECK (status IN ('pending', 'approved', 'rejected')),
+  notified_at TIMESTAMPTZ,
+  decided_at TIMESTAMPTZ,
+  decided_by TEXT,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+CREATE INDEX IF NOT EXISTS fund_exit_approvals_pending_idx ON nexo_business.fund_exit_approvals (business_id, status, notified_at);
+ALTER TABLE nexo_business.fund_exit_approvals ENABLE ROW LEVEL SECURITY;
+REVOKE ALL ON nexo_business.fund_exit_approvals FROM PUBLIC, anon, authenticated;
+GRANT SELECT, INSERT, UPDATE ON nexo_business.fund_exit_approvals TO service_role;
+
+CREATE OR REPLACE FUNCTION nexo_business.track_fund_exit() RETURNS trigger
+LANGUAGE plpgsql SECURITY DEFINER SET search_path = '' AS $$
+DECLARE p JSONB := NEW.envelope->'payload';
+BEGIN
+  IF p->>'direction' = 'out' AND coalesce(p->>'category', '') IN ('remesa', 'otro') THEN
+    INSERT INTO nexo_business.fund_exit_approvals (business_id, movement_id, device_id, shift_id, category, currency, amount_minor, reason, operator_id, occurred_at)
+    VALUES (NEW.business_id, coalesce(p->>'movement_id', NEW.entity_id), NEW.device_id, p->>'shift_id', p->>'category', upper(coalesce(p->>'currency', 'USD')),
+            (p->>'amount_minor')::BIGINT, p->>'reason', nullif(p->>'operator_id', ''), coalesce(NEW.occurred_at::timestamptz, now()))
+    ON CONFLICT (movement_id) DO NOTHING;
+  END IF;
+  RETURN NEW;
+END;
+$$;
+DROP TRIGGER IF EXISTS sync_events_fund_exit ON nexo_business.sync_events;
+CREATE TRIGGER sync_events_fund_exit AFTER INSERT ON nexo_business.sync_events
+  FOR EACH ROW WHEN (NEW.operation_type = 'cash_movement.recorded')
+  EXECUTE FUNCTION nexo_business.track_fund_exit();
+
+-- VivaBot: salidas pendientes que aún no se avisaron (y las marca avisadas: nunca salen dos veces).
+CREATE OR REPLACE FUNCTION public.nexo_business_fund_exits_to_notify(p_business TEXT DEFAULT 'casa-viva')
+RETURNS JSONB LANGUAGE plpgsql SECURITY DEFINER SET search_path = '' AS $$
+DECLARE v JSONB;
+BEGIN
+  WITH due AS (
+    UPDATE nexo_business.fund_exit_approvals a SET notified_at = now()
+     WHERE a.business_id = p_business AND a.status = 'pending' AND a.notified_at IS NULL
+    RETURNING a.*)
+  SELECT coalesce(jsonb_agg(jsonb_build_object('id', d.id, 'category', d.category, 'currency', d.currency, 'amountMinor', d.amount_minor,
+           'reason', d.reason, 'operator', coalesce(nexo_business.person_name(p_business, d.operator_id), d.operator_id), 'device', coalesce(dv.label, d.device_id),
+           'occurredAt', d.occurred_at) ORDER BY d.id), '[]'::jsonb) INTO v
+    FROM due d LEFT JOIN nexo_business.devices dv ON dv.business_id = d.business_id AND dv.device_id = d.device_id;
+  RETURN v;
+END;
+$$;
+REVOKE ALL ON FUNCTION public.nexo_business_fund_exits_to_notify(TEXT) FROM PUBLIC, anon, authenticated;
+GRANT EXECUTE ON FUNCTION public.nexo_business_fund_exits_to_notify(TEXT) TO service_role;
+
+-- VivaBot: la respuesta de Lennys («SALIDA SI 12» / «SALIDA NO 12»). Solo pendientes; repetir no cambia nada.
+CREATE OR REPLACE FUNCTION public.nexo_business_fund_exit_decide(p_business TEXT, p_id BIGINT, p_approve BOOLEAN, p_by TEXT DEFAULT 'Lennys')
+RETURNS JSONB LANGUAGE plpgsql SECURITY DEFINER SET search_path = '' AS $$
+DECLARE a nexo_business.fund_exit_approvals;
+BEGIN
+  UPDATE nexo_business.fund_exit_approvals SET status = CASE WHEN p_approve THEN 'approved' ELSE 'rejected' END,
+         decided_at = now(), decided_by = left(coalesce(p_by, 'Lennys'), 80)
+   WHERE business_id = p_business AND id = p_id AND status = 'pending'
+  RETURNING * INTO a;
+  IF NOT FOUND THEN
+    SELECT * INTO a FROM nexo_business.fund_exit_approvals WHERE business_id = p_business AND id = p_id;
+    IF NOT FOUND THEN RETURN jsonb_build_object('error', 'not_found'); END IF;
+    RETURN jsonb_build_object('ok', true, 'already', a.status, 'id', a.id);
+  END IF;
+  RETURN jsonb_build_object('ok', true, 'status', a.status, 'id', a.id, 'currency', a.currency, 'amountMinor', a.amount_minor, 'reason', a.reason);
+END;
+$$;
+REVOKE ALL ON FUNCTION public.nexo_business_fund_exit_decide(TEXT, BIGINT, BOOLEAN, TEXT) FROM PUBLIC, anon, authenticated;
+GRANT EXECUTE ON FUNCTION public.nexo_business_fund_exit_decide(TEXT, BIGINT, BOOLEAN, TEXT) TO service_role;
+
+-- Panel: salidas que piden aprobación (las del periodo, con su estado).
+CREATE OR REPLACE FUNCTION public.nexo_business_fund_exits(p_business TEXT, p_from DATE, p_to DATE)
+RETURNS JSONB LANGUAGE plpgsql SECURITY DEFINER SET search_path = '' STABLE AS $$
+BEGIN
+  IF nexo_business.role_of(p_business) IS NULL OR nexo_business.role_of(p_business) = 'partner' THEN RETURN jsonb_build_object('error', 'forbidden'); END IF;
+  RETURN coalesce((SELECT jsonb_agg(jsonb_build_object('id', a.id, 'category', a.category, 'currency', a.currency, 'amountMinor', a.amount_minor,
+           'reason', a.reason, 'operator', coalesce(nexo_business.person_name(p_business, a.operator_id), a.operator_id), 'at', a.occurred_at, 'status', a.status,
+           'decidedAt', a.decided_at, 'decidedBy', a.decided_by) ORDER BY a.occurred_at DESC)
+    FROM nexo_business.fund_exit_approvals a
+   WHERE a.business_id = p_business AND (a.occurred_at AT TIME ZONE 'America/Havana')::date BETWEEN p_from AND p_to), '[]'::jsonb);
+END;
+$$;
+REVOKE ALL ON FUNCTION public.nexo_business_fund_exits(TEXT, DATE, DATE) FROM PUBLIC, anon;
+GRANT EXECUTE ON FUNCTION public.nexo_business_fund_exits(TEXT, DATE, DATE) TO authenticated;

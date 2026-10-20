@@ -9,6 +9,7 @@ import { mountBusinessSummary, mountSync, requestSync, syncOnce } from "./sync";
 import { cachedOpen, claimOpen, cloudExpected, fetchStatus, isToday, online, type CloudExpected, type StoreShiftInfo } from "./shift";
 import { icon, openSheet } from "./ui";
 import { attribution, can, messengerNames, personName, setStaff, staffList, staffSelectHtml } from "./attribution";
+import { accountLabel, openRatesSheet, payAccounts } from "./store-info";
 
 const CURRENCIES = ["USD", "CUP", "MLC"] as const;
 const RAILS: Array<[string, string]> = [
@@ -232,6 +233,23 @@ async function openShiftForm(box: HTMLElement) {
   };
 }
 
+/** Tipos de salida del fondo (Lennys 20-oct). Los que dicen «aprueba Lennys» le llegan por WhatsApp para su SÍ/NO. */
+const EXIT_TYPES: Array<[string, string, boolean]> = [
+  ["pago_gestora", "Pago a una gestora", false],
+  ["proveedor", "Costo de productos (Kevin u otro proveedor)", false],
+  ["mensajero", "Pago a un mensajero", false],
+  ["vuelto", "Vuelto (sin pedido)", false],
+  ["remesa", "Remesa de Ernesto · la aprueba Lennys", true],
+  ["otro", "Otro · lo aprueba Lennys", true],
+];
+
+/** Quién saca el dinero: las dependientas, los mensajeros (Daiquel…) y Lennys. */
+function whoTakesHtml() {
+  const people = [...staffList(), ...messengerNames().map(name => ({ id: `mensajero:${name}`, name }))];
+  return `<label class="field">¿Quién saca el dinero?<select class="input" name="who"><option value="">— Elige —</option>${people
+    .map(p => `<option value="${esc(p.id)}"${p.id === attribution.staffId ? " selected" : ""}>${esc(p.name)}</option>`).join("")}<option value="lennys">Lennys</option></select></label>`;
+}
+
 function movementSheet(shift: ShiftSummary, kind: "cash_in" | "cash_out" | "expense") {
   const title = kind === "cash_in" ? "Entrada de dinero" : kind === "cash_out" ? "Salida de dinero" : "Gasto";
   const sheet = openSheet(`
@@ -241,6 +259,7 @@ function movementSheet(shift: ShiftSummary, kind: "cash_in" | "cash_out" | "expe
       <label class="field">Importe<input class="input" name="amount" inputmode="decimal" required placeholder="0,00" style="font-size: var(--nx-fs-xl); font-weight: 700"></label>
       <label class="field">Motivo<input class="input" name="reason" required maxlength="280" placeholder="${kind === "cash_in" ? "Cambio traído del banco" : kind === "expense" ? "Transporte" : "Pago a mensajero"}"></label>
       ${kind === "expense" ? `<label class="field">Categoría<input class="input" name="category" placeholder="transporte, mensajería…"></label>` : ""}
+      ${kind === "cash_out" ? `<label class="field">Tipo de salida<select class="input" name="type">${EXIT_TYPES.map(([v, l]) => `<option value="${v}">${esc(l)}</option>`).join("")}</select></label>${whoTakesHtml()}` : ""}
       <button type="submit" class="btn btn-primary btn-xl btn-block">Registrar</button>
     </form>`, title);
   let currency = shiftCurrency;
@@ -252,7 +271,11 @@ function movementSheet(shift: ShiftSummary, kind: "cash_in" | "cash_out" | "expe
   const form = sheet.el.querySelector<HTMLFormElement>("form")!;
   form.onsubmit = e => {
     e.preventDefault();
-    void run(`${title} registrada`, async () => {
+    const type = kind === "cash_out" ? field<HTMLSelectElement>(form, "type").value : "";
+    const who = kind === "cash_out" ? field<HTMLSelectElement>(form, "who").value : "";
+    if (kind === "cash_out" && !who) return say("Elige quién saca el dinero", "error");
+    const needsOk = EXIT_TYPES.find(([v]) => v === type)?.[2] ?? false;
+    void run(needsOk ? `${title} registrada · Lennys recibe un WhatsApp para aprobarla` : `${title} registrada`, async () => {
       await invoke("cash_shift_record_movement", {
         input: {
           movementId: id(),
@@ -263,11 +286,12 @@ function movementSheet(shift: ShiftSummary, kind: "cash_in" | "cash_out" | "expe
           currency,
           amountMinor: toMinor(field(form, "amount").value),
           reason: field(form, "reason").value,
-          category: kind === "expense" ? field(form, "category").value || null : null,
+          category: kind === "expense" ? field(form, "category").value || null : kind === "cash_out" ? type : null,
           sourceType: null,
           sourceId: null,
           correctsMovementId: null,
-          operatorId: attribution.staffId,
+          // Las dependientas van por su id; mensajeros y Lennys por nombre (salen así en el aviso y el informe).
+          operatorId: kind === "cash_out" ? (who.startsWith("mensajero:") ? who.slice(10) : who === "lennys" ? "Lennys" : who) : attribution.staffId,
           occurredAt: now(),
         },
       });
@@ -424,7 +448,13 @@ async function closeSheet(shift: ShiftSummary) {
     row.dataset.transfer = "";
     row.innerHTML = `<label class="field">Tipo<select class="input" data-t-type>${TRANSFER_TYPES.map(([v, l]) => `<option value="${v}">${l}</option>`).join("")}</select></label>
       <label class="field">Importe<input class="input" data-t-amount inputmode="decimal" placeholder="0,00"></label>
-      <label class="field">Últimos 4<input class="input" data-t-last4 inputmode="numeric" maxlength="4" placeholder="2690"></label>`;
+      <label class="field">Últimos 4<input class="input" data-t-last4 inputmode="numeric" maxlength="4" placeholder="2690"></label>
+      ${payAccounts().length ? `<label class="field" style="grid-column: 1 / -1">Tarjeta<select class="input" data-t-account><option value="">— Elige —</option>${payAccounts().map(a => `<option value="${esc(a.id)}">${esc(accountLabel(a))}</option>`).join("")}<option value="otra">Otra (escribe los 4 números)</option></select></label>` : ""}`;
+    const pick = row.querySelector<HTMLSelectElement>("[data-t-account]");
+    if (pick) pick.onchange = () => {
+      const a = payAccounts().find(x => x.id === pick.value);
+      if (a) row.querySelector<HTMLInputElement>("[data-t-last4]")!.value = a.last4;
+    };
     transferBox.append(row);
   };
   form.querySelector<HTMLButtonElement>("[data-add-transfer]")!.onclick = addTransfer;
@@ -443,7 +473,8 @@ async function closeSheet(shift: ShiftSummary) {
       const last4 = r.querySelector<HTMLInputElement>("[data-t-last4]")!.value.replace(/\D/g, "");
       if (last4.length !== 4) throw new Error("En cada transferencia pon los últimos 4 números de la tarjeta");
       const type = r.querySelector<HTMLSelectElement>("[data-t-type]")!.value;
-      return [{ type, currency: type === "usd" ? "USD" : "CUP", amountMinor: toMinor(raw), last4 }];
+      const account = r.querySelector<HTMLSelectElement>("[data-t-account]")?.value || null;
+      return [{ type, currency: type === "usd" ? "USD" : "CUP", amountMinor: toMinor(raw), last4, account: account === "otra" ? null : account }];
     });
     return Object.keys(bills).length || transfers.length ? { bills, transfers } : null;
   };
@@ -519,6 +550,7 @@ async function renderShift() {
       <button type="button" class="btn btn-secondary" data-move="expense">${icon("receipt", "sm")}Gasto</button>
     </div>
     <button type="button" class="btn btn-primary btn-xl btn-block" data-close-shift>Contar y cerrar turno</button>
+    <button type="button" class="btn btn-secondary btn-block" data-rates>¿A cómo estamos?</button>
     <p class="t-xs muted" style="font-weight: 700">MOVIMIENTOS DEL TURNO</p>
     <div class="panel" style="padding: 4px 16px; gap: 0">${moves.length ? moves.map(m => {
       const out = m.direction === "out";
@@ -529,6 +561,7 @@ async function renderShift() {
   box.querySelectorAll<HTMLButtonElement>("[data-cur]").forEach(b => (b.onclick = () => { shiftCurrency = b.dataset.cur!; void renderShift(); }));
   box.querySelectorAll<HTMLButtonElement>("[data-move]").forEach(b => (b.onclick = () => movementSheet(shift, b.dataset.move as "cash_in" | "cash_out" | "expense")));
   box.querySelector<HTMLButtonElement>("[data-close-shift]")!.onclick = () => void closeSheet(shift);
+  box.querySelector<HTMLButtonElement>("[data-rates]")!.onclick = () => void openRatesSheet();
 }
 
 /** Opens Caja on the close sheet directly (home button «Cerrar el día»). */

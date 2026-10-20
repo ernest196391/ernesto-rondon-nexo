@@ -54,6 +54,7 @@ CREATE TABLE IF NOT EXISTS local_web_order_charges (
   cash_cup_minor INTEGER NOT NULL DEFAULT 0 CHECK(cash_cup_minor >= 0),
   payments_json TEXT NOT NULL DEFAULT '[]',
   reference TEXT,
+  collection_account TEXT,
   note TEXT,
   staff_id TEXT,
   staff_name TEXT,

@@ -147,6 +147,9 @@ pub struct ChargeWebOrderInput {
     pub staff_name: Option<String>,
     pub note: Option<String>,
     pub occurred_at: String,
+    /// Card of the store the transfer went to (Core pay-account id), for «¿A qué tarjeta entró?».
+    #[serde(default)]
+    pub collection_account: Option<String>,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize)]
@@ -163,6 +166,7 @@ pub struct WebOrderCharge {
     pub cash_usd_minor: i64,
     pub cash_cup_minor: i64,
     pub reference: Option<String>,
+    pub collection_account: Option<String>,
     pub note: Option<String>,
     pub staff_id: Option<String>,
     pub staff_name: Option<String>,
@@ -248,10 +252,11 @@ fn row_to_charge(row: &rusqlite::Row) -> rusqlite::Result<WebOrderCharge> {
         core_message: row.get(16)?,
         created_at: row.get(17)?,
         done_at: row.get(18)?,
+        collection_account: row.get(19)?,
     })
 }
 
-const COLUMNS: &str = "id,order_id,order_number,shift_id,method,usd_minor,cup_minor,cash_usd_minor,cash_cup_minor,reference,note,staff_id,staff_name,status,attempts,last_error,core_message,created_at,done_at";
+const COLUMNS: &str = "id,order_id,order_number,shift_id,method,usd_minor,cup_minor,cash_usd_minor,cash_cup_minor,reference,note,staff_id,staff_name,status,attempts,last_error,core_message,created_at,done_at,collection_account";
 
 pub fn charge(conn: &Connection, charge_id: &str) -> CashResult<WebOrderCharge> {
     conn.query_row(&format!("SELECT {COLUMNS} FROM local_web_order_charges WHERE id=?1"), [charge_id], row_to_charge)
@@ -371,8 +376,8 @@ pub fn record_charge(conn: &mut Connection, scope: &ShiftScope, input: &ChargeWe
 
     let payments_json = serde_json::to_string(&input.payments).map_err(|e| CashError::Db(e.to_string()))?;
     tx.execute(
-        "INSERT INTO local_web_order_charges (id,business_id,device_id,order_id,order_number,shift_id,method,usd_minor,cup_minor,cash_usd_minor,cash_cup_minor,payments_json,reference,note,staff_id,staff_name,status,created_at)
-         VALUES (?1,?2,?3,?4,?5,?6,?7,?8,?9,?10,?11,?12,?13,?14,?15,?16,'queued',?17)",
+        "INSERT INTO local_web_order_charges (id,business_id,device_id,order_id,order_number,shift_id,method,usd_minor,cup_minor,cash_usd_minor,cash_cup_minor,payments_json,reference,note,staff_id,staff_name,status,created_at,collection_account)
+         VALUES (?1,?2,?3,?4,?5,?6,?7,?8,?9,?10,?11,?12,?13,?14,?15,?16,'queued',?17,?18)",
         params![
             input.charge_id,
             scope.business_id,
@@ -390,7 +395,8 @@ pub fn record_charge(conn: &mut Connection, scope: &ShiftScope, input: &ChargeWe
             note,
             operator,
             non_empty(&input.staff_name),
-            input.occurred_at
+            input.occurred_at,
+            non_empty(&input.collection_account)
         ],
     )?;
     enqueue_outbox(

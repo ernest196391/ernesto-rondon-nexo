@@ -2,6 +2,7 @@
 // las gestoras (recogida «Listo para recoger» y a domicilio con el efectivo del mensajero).
 // Solo lectura y cobro. La caja se identifica con su clave (x-nexo-device-token).
 //   POST {action:"list"}  → pedidos que se pueden cobrar (Core /panel/caja/web-orders)
+//   POST {action:"info"}  → tarjetas de la tienda (pay-accounts) y tasa del día de la web (daily-rates)
 //   POST {action:"charge", orderId, chargeId, staffId, collectionMethod, collectedUsd, collectedCup,
 //         collectionReference?, collectionNote?}
 //        → Core cierra el pedido con las reglas de Ventas, firmado por la dependienta de «Atiende».
@@ -51,6 +52,15 @@ Deno.serve(async req => {
   if (!who || who.error) return json(401, { error: "unauthorized" });
 
   try {
+    // Tarjetas de la tienda (las de la web, «¿A qué tarjeta entró?») y la tasa del día de la web (Lennys 20-oct).
+    if (body.action === "info") {
+      const [acc, rates] = await Promise.all([core("GET", "panel/pay-accounts"), core("GET", "panel/daily-rates")]);
+      const accounts = ((acc.data.accounts ?? []) as Array<{ id: string; label?: string; last4?: string; active?: boolean }>)
+        .filter(a => a.active !== false).map(a => ({ id: String(a.id), label: String(a.label ?? ""), last4: String(a.last4 ?? "") }));
+      const daily = (rates.data.rates ?? null) as { cup?: number; updatedAt?: string; stale?: boolean; source?: string } | null;
+      return json(200, { accounts, daily: daily ? { cup: daily.cup ?? null, updatedAt: daily.updatedAt ?? null, stale: !!daily.stale, source: daily.source ?? null } : null });
+    }
+
     if (body.action === "list") {
       const r = await core("GET", "panel/caja/web-orders");
       if (r.status === 404) return json(501, { error: "core_old", message: "La web todavía no tiene esta función (falta Core 3.14.42). Cobra en Ventas como siempre." });
@@ -69,6 +79,7 @@ Deno.serve(async req => {
         chargeId, collectionMethod: method,
         collectedUsd: money(body.collectedUsd), collectedCup: money(body.collectedCup),
         collectionReference: String(body.collectionReference ?? "").slice(0, 60),
+        collectionAccount: String(body.collectionAccount ?? "").slice(0, 40),
         collectionNote: String(body.collectionNote ?? "").slice(0, 280),
         clerkName: person.name, clerkPhone: person.phone ?? "", clerkWooId: person.wooUserId ?? 0, device: who.label ?? who.deviceId,
       });

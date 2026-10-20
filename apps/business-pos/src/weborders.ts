@@ -47,6 +47,7 @@ type Charge = {
   cashUsdMinor: number;
   cashCupMinor: number;
   reference: string | null;
+  collectionAccount?: string | null;
   note: string | null;
   staffId: string | null;
   staffName: string | null;
@@ -85,6 +86,7 @@ export async function sendQueued(): Promise<void> {
           collectedUsd: c.usdMinor / 100,
           collectedCup: c.cupMinor / 100,
           collectionReference: c.reference ?? "",
+          collectionAccount: c.collectionAccount ?? "",
           collectionNote: c.note ?? "",
         });
         await invoke("web_order_mark_done", { chargeId: c.chargeId, message: out.message ?? null, now: new Date().toISOString() });
@@ -240,6 +242,7 @@ async function charge(orderId: number) {
         staffName: personName(staffId),
         note: null,
         occurredAt: new Date().toISOString(),
+        collectionAccount: payments.find(p => p.accountId)?.accountId ?? null,
       },
     });
     say(`✓ Cobrado el pedido #${order.number}. ${navigator.onLine ? "Cerrándolo en la web…" : "Sin internet: se cierra en la web al volver la red."}`);
