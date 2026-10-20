@@ -365,3 +365,9 @@ Ampliación D30 (2026-10-07): el flujo de **Devolución** ya existe en `/ventas/
 - **Decisión:** la venta queda a nombre de la **tienda** («venta de mostrador»). La dependienta que lo atiende gana el **2 %**; es suyo, no va al bote del 0,5 %. La tienda se queda el resto.
 - **Protección de las gestoras:** antes de hacer la venta, la dependienta pregunta «¿te mandó alguien?». Si el cliente dice una gestora, la venta es de esa gestora.
 - **Por construir:** un botón «Venta de mostrador» en Ventas, con «atendió: Nana / Zaymi», sin salir de su perfil ni usar una cuenta de gestora. Hasta entonces, anotarlo en la nota del vale.
+
+**D81 · 2026-10-20 · Fichas de producto: a la tienda solo se le pregunta cuando hace falta, y a una sola dependienta.** Ernesto («no quiero enviar mensajes por gusto»).
+- **Cuándo:** solo cuando un producto con faltas **se vende** (la dependienta lo está preparando o ya está listo) o cuando **una gestora o un cliente pregunta por él**. Nada de preguntas sobre productos que nadie ha pedido.
+- **A quién:** a **una** dependienta, la de turno: la que preparó el pedido; si no, la que escribió hoy al bot; si no, la última que contestó una ficha. Nunca a Lennys (es admin).
+- **El resto:** se completa solo por internet, y solo si sale el mismo modelo (marca y modelo), sin escribir a nadie.
+- Sigue valiendo: una pregunta por producto (una segunda, la última, a los 3 días), como mucho 8 al día, de 10:00 a 16:30 y con el interruptor `fichas_auto`.
