@@ -26,6 +26,98 @@ use serde::{Deserialize, Serialize};
 pub const SOURCE_SYSTEM: &str = "woocommerce";
 pub const SOURCE_TYPE: &str = "web_order";
 pub const CATEGORY: &str = "web_order";
+/// «Vuelto en la calle»: change the messenger takes from the FUND (cash_out).
+pub const VUELTO_OUT: &str = "vuelto";
+/// «Vuelto devuelto»: that change comes back to the fund (cash_in). Never a sale.
+pub const VUELTO_BACK: &str = "vuelto_devuelto";
+pub const VUELTO_SOURCE: &str = "web_order_change";
+
+/// Change of one order still in the street (given − returned), per currency, on this phone.
+pub fn outstanding_vuelto(conn: &Connection, business_id: &str, order_id: i64) -> CashResult<Vec<(String, i64)>> {
+    let mut stmt = conn.prepare(
+        "SELECT currency,
+                SUM(CASE WHEN category=?3 AND direction='out' THEN amount_minor ELSE 0 END)
+              - SUM(CASE WHEN category=?4 AND direction='in' THEN amount_minor ELSE 0 END)
+           FROM local_cash_movements
+          WHERE business_id=?1 AND source_type=?5 AND source_id=?2
+          GROUP BY currency ORDER BY currency",
+    )?;
+    let rows = stmt.query_map(params![business_id, order_id.to_string(), VUELTO_OUT, VUELTO_BACK, VUELTO_SOURCE], |r| {
+        Ok((r.get::<_, String>(0)?, r.get::<_, i64>(1)?))
+    })?;
+    Ok(rows.collect::<Result<Vec<_>, _>>()?)
+}
+
+#[derive(Debug, Clone, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct VueltoInput {
+    pub movement_id: String,
+    pub outbox_id: String,
+    pub shift_id: String,
+    pub order_id: i64,
+    pub order_number: String,
+    /// Who takes it (messenger name), for the reason line.
+    #[serde(default)]
+    pub messenger: Option<String>,
+    pub currency: String,
+    pub amount_minor: i64,
+    pub staff_id: Option<String>,
+    pub occurred_at: String,
+}
+
+/// «Vuelto en la calle» (out = true): the change leaves the fund with the messenger.
+/// «Vuelto devuelto» (out = false): it comes back without a charge (order failed…),
+/// never more than what is still in the street. Linked to the order number.
+pub fn record_vuelto(conn: &mut Connection, scope: &ShiftScope, input: &VueltoInput, out: bool) -> CashResult<()> {
+    if input.order_id <= 0 || input.order_number.trim().is_empty() {
+        return Err(CashError::Validation("Falta el pedido del vuelto".into()));
+    }
+    let tx = conn.transaction()?;
+    let currency = crate::cash_shift::normalize_currency(&input.currency)?;
+    if !out {
+        let still = outstanding_vuelto(&tx, &scope.business_id, input.order_id)?
+            .into_iter()
+            .find(|(c, _)| *c == currency)
+            .map(|(_, v)| v)
+            .unwrap_or(0);
+        if input.amount_minor > still {
+            return Err(CashError::Validation(format!(
+                "Ese vuelto no está en la calle: del pedido #{} quedan {:.2} {currency}",
+                input.order_number.trim(),
+                still as f64 / 100.0
+            )));
+        }
+    }
+    let who = non_empty(&input.messenger).map(|m| format!(" · {m}")).unwrap_or_default();
+    let reason = if out {
+        format!("Vuelto en la calle · pedido #{}{who}", input.order_number.trim())
+    } else {
+        format!("Vuelve el vuelto · pedido #{}{who}", input.order_number.trim())
+    };
+    record_movement_in(
+        &tx,
+        scope,
+        &RecordMovementInput {
+            movement_id: input.movement_id.clone(),
+            outbox_id: input.outbox_id.clone(),
+            shift_id: input.shift_id.clone(),
+            kind: if out { MovementKind::CashOut } else { MovementKind::CashIn },
+            direction: Some(if out { Direction::Out } else { Direction::In }),
+            currency,
+            amount_minor: input.amount_minor,
+            reason: normalize_reason(&reason)?,
+            category: Some(if out { VUELTO_OUT } else { VUELTO_BACK }.into()),
+            source_system: Some(SOURCE_SYSTEM.into()),
+            source_type: Some(VUELTO_SOURCE.into()),
+            source_id: Some(input.order_id.to_string()),
+            corrects_movement_id: None,
+            operator_id: non_empty(&input.staff_id),
+            occurred_at: input.occurred_at.clone(),
+        },
+    )?;
+    tx.commit()?;
+    Ok(())
+}
 
 /// One payment of the web order, as entered in the payment screen.
 #[derive(Debug, Clone, Deserialize, Serialize)]
@@ -240,6 +332,35 @@ pub fn record_charge(conn: &mut Connection, scope: &ShiftScope, input: &ChargeWe
                 category: Some(CATEGORY.into()),
                 source_system: Some(SOURCE_SYSTEM.into()),
                 source_type: Some(SOURCE_TYPE.into()),
+                source_id: Some(input.order_id.to_string()),
+                corrects_movement_id: None,
+                operator_id: operator.clone(),
+                occurred_at: input.occurred_at.clone(),
+            },
+        )?;
+    }
+
+    // Vueltos (Lennys 20-oct): the change this phone gave the messenger for this order
+    // comes back to the fund with the charge. It is not a sale.
+    for (currency, outstanding) in outstanding_vuelto(&tx, &scope.business_id, input.order_id)? {
+        if outstanding <= 0 {
+            continue;
+        }
+        record_movement_in(
+            &tx,
+            scope,
+            &RecordMovementInput {
+                movement_id: format!("{}-vb-{}", input.charge_id, currency.to_lowercase()),
+                outbox_id: format!("{}-vb-{}", input.outbox_id, currency.to_lowercase()),
+                shift_id: input.shift_id.clone(),
+                kind: MovementKind::CashIn,
+                direction: Some(Direction::In),
+                currency: currency.clone(),
+                amount_minor: outstanding,
+                reason: normalize_reason(&format!("Vuelve el vuelto · pedido #{number}"))?,
+                category: Some(VUELTO_BACK.into()),
+                source_system: Some(SOURCE_SYSTEM.into()),
+                source_type: Some(VUELTO_SOURCE.into()),
                 source_id: Some(input.order_id.to_string()),
                 corrects_movement_id: None,
                 operator_id: operator.clone(),

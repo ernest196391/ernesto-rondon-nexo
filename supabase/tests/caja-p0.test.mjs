@@ -178,3 +178,39 @@ describe("turno viejo sin cerrar", () => {
     expect(await call("public.nexo_business_on_duty", BIZ)).toMatchObject({ open: false }); // aún sin evento (solo reservado)
   });
 });
+
+describe("vueltos (Lennys 20-oct)", () => {
+  const V = "nuevo-hoy"; // reservado por la caja de Zaymi en la prueba anterior
+  it("salen del fondo, vuelven con el cobro (caja o Ventas) y van aparte en el cierre", async () => {
+    await push("caja-zaymi", "cash_shift.opened", V, { shift_id: V, operator_id: zaymi, store_role: "opener", opening_floats: [{ currency: "USD", amount_minor: 25700 }] });
+    const mv = (id, dir, cat, st, sid, amt) => push("caja-zaymi", "cash_movement.recorded", id,
+      { shift_id: V, kind: dir === "in" ? "cash_in" : "cash_out", direction: dir, currency: "USD", amount_minor: amt, category: cat, source_type: st, source_id: sid });
+    // #4300: vuelto 5 en la calle; se cobra en la caja (15) y la caja devuelve el vuelto.
+    await mv("v1", "out", "vuelto", "web_order_change", "4300", 500);
+    await mv("w1", "in", "web_order", "web_order", "4300", 1500);
+    await mv("vb1", "in", "vuelto_devuelto", "web_order_change", "4300", 500);
+    // #4301: vuelto 3 dado en ESTE teléfono pero el pedido se cobró en otro (la caja de Nana): vuelve solo.
+    await mv("v2", "out", "vuelto", "web_order_change", "4301", 300);
+    await push("caja-nana", "cash_movement.recorded", "w2", { shift_id: V, kind: "order_cash", direction: "in", currency: "USD", amount_minor: 2000, source_type: "web_order", source_id: "4301" });
+    // #4302: vuelto 2 y el pedido se cerró en Ventas (web): vuelve solo.
+    await mv("v3", "out", "vuelto", "web_order_change", "4302", 200);
+    // #4303: vuelto 4 todavía en la calle (sin cobrar): falta en el cajón.
+    await mv("v4", "out", "vuelto", "web_order_change", "4303", 400);
+    // A mano, como hoy: Salida «Vuelto #4304 con Ely» y Entrada «Vuelve el vuelto #4304».
+    await mv("m1", "out", "", "", null, 100);
+    await mv("m2", "in", "", "", null, 100);
+    const r = await call("public.nexo_business_device_shift", TOKEN_B, "expected", { shiftId: V, web: [{ currency: "USD", amountMinor: 1800 }], closedOrders: ["4302"] });
+    const usd = r.currencies.find(c => c.currency === "USD");
+    expect(usd).toMatchObject({ openingFloatMinor: 25700, webInCajaMinor: 3500, webInVentasMinor: 1800, vueltoOutMinor: 1400, vueltoBackMinor: 1000, otherInMinor: 100, outMinor: 100 });
+    expect(usd.salesCashMinor).toBe(0);
+    // 257 + 35 + 18 − 14 + 10 + 1 − 1 = 306: falta solo el vuelto de #4303 (4 USD), que sigue en la calle.
+    expect(usd.expectedMinor).toBe(30600);
+  });
+  it("el cierre guarda el desglose de billetes y las transferencias", async () => {
+    await push("caja-zaymi", "cash_shift.closed", V, { shift_id: V, closed_by: zaymi, expected_source: "cloud", counts: [],
+      details: { bills: { USD: { 100: 3 } }, transfers: [{ type: "cup", amountMinor: 1215000, last4: "2690" }] } });
+    const today = new Date(Date.now() - 4 * 3600_000).toISOString().slice(0, 10);
+    const report = await rpcAs(db, u.owner, "public.nexo_business_report", { p_business: BIZ, p_from: "2026-01-01", p_to: today });
+    expect(report.shifts.find(s => s.shiftId === V).details.transfers[0].last4).toBe("2690");
+  });
+});

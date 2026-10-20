@@ -26,12 +26,15 @@ export type CloudCurrency = {
   webInVentasMinor: number;
   otherInMinor: number;
   outMinor: number;
+  /** Vuelto que salió del fondo con el mensajero / que volvió (Lennys 20-oct). */
+  vueltoOutMinor?: number;
+  vueltoBackMinor?: number;
   expectedMinor: number;
 };
 export type CloudExpected = {
   shift: StoreShiftInfo;
   currencies: CloudCurrency[];
-  webOrders: Array<{ number: string; at: string; method: string; cash: Array<{ amount: number; currency: string }> }>;
+  webOrders: Array<{ id?: number; number: string; at: string; method: string; cash: Array<{ amount: number; currency: string }> }>;
   webMissing: boolean;
 };
 type LocalShift = { shiftId: string; status: string; storeRole: string | null; closedRemote: boolean } | null;

@@ -10,7 +10,7 @@ import { invoke } from "@tauri-apps/api/core";
 import { attribution, personName, setStaff, staffSelectHtml, staffList } from "./attribution";
 import { openCheckout, type PaymentInput } from "./checkout";
 import { deviceCall, deviceToken, onEverySync } from "./sync";
-import { escapeHtml, icon } from "./ui";
+import { escapeHtml, icon, openSheet } from "./ui";
 
 type WebOrder = {
   id: number;
@@ -30,7 +30,12 @@ type WebOrder = {
   products: Array<{ name: string; qty: number; sku: string }>;
   supplier: boolean;
   test: boolean;
+  /** false = aún no se cobra (sale en la lista para darle el vuelto al mensajero). */
+  chargeable?: boolean;
+  /** Vuelto que lleva el mensajero (Lennys 20-oct). */
+  change?: Array<{ amount: number; currency: string }>;
 };
+type Street = Array<[string, number]>;
 type Charge = {
   chargeId: string;
   orderId: number;
@@ -120,7 +125,11 @@ async function load() {
   await render();
 }
 
-function orderCard(o: WebOrder, local: Charge | undefined) {
+const changeText = (list: Array<{ amount: number; currency: string }> | undefined) =>
+  (list ?? []).filter(c => c.amount > 0).map(c => `${c.amount.toLocaleString("es")} ${c.currency}`).join(" + ");
+
+function orderCard(o: WebOrder, local: Charge | undefined, street: Street) {
+  const inStreet = street.filter(([, m]) => m > 0);
   const items = o.products.map(p => `${p.qty > 1 ? `${p.qty}× ` : ""}${escapeHtml(p.name)}`).join(", ");
   const badges = [
     o.kind === "pickup" ? `<span class="badge badge-info">Recogida en tienda</span>` : `<span class="badge badge-low">${escapeHtml(o.statusLabel)}</span>`,
@@ -140,7 +149,12 @@ function orderCard(o: WebOrder, local: Charge | undefined) {
     <div class="t-xs muted">${who}</div>
     ${o.payment?.text ? `<div class="t-xs">Cómo paga: ${escapeHtml(o.payment.text)}</div>` : ""}
     ${declared}
-    <div style="display: flex; justify-content: flex-end">${state}</div>
+    ${o.kind !== "pickup" ? `<div class="t-xs">Vuelto que lleva: <b>${escapeHtml(changeText(o.change) || "sin vuelto")}</b>${inStreet.length ? ` · en la calle (del fondo): <b>${inStreet.map(([c, m]) => minor(m, c)).join(" + ")}</b>` : ""}</div>` : ""}
+    <div style="display: flex; justify-content: flex-end; gap: 8px; flex-wrap: wrap">
+      ${o.kind !== "pickup" && !local ? `<button type="button" class="btn btn-secondary" data-vuelto="${o.id}">Vuelto</button>` : ""}
+      ${inStreet.length && !local ? `<button type="button" class="btn btn-secondary" data-vuelto-back="${o.id}">Devolvió el vuelto</button>` : ""}
+      ${o.chargeable === false ? `<span class="badge">Aún no se cobra</span>` : state}
+    </div>
   </div>`;
 }
 
@@ -150,12 +164,19 @@ async function render() {
   const byOrder = new Map(recent.map(c => [c.orderId, c]));
   const queued = recent.filter(c => c.status === "queued");
   const list = root.querySelector<HTMLElement>("[data-list]")!;
+  const streets = new Map<number, Street>();
+  for (const o of orders) {
+    if (o.kind === "pickup") continue;
+    streets.set(o.id, await invoke<Street>("web_order_vuelto_outstanding", { orderId: o.id }).catch(() => []));
+  }
   list.innerHTML = loadError
     ? `<div class="notice warn">${icon("alert")}<div><b>No se pudo cargar</b>${escapeHtml(loadError)}</div></div>`
     : orders.length
-      ? orders.map(o => orderCard(o, byOrder.get(o.id))).join("")
+      ? orders.map(o => orderCard(o, byOrder.get(o.id), streets.get(o.id) ?? [])).join("")
       : `<p class="t-sm muted">${loadedAt ? "No hay pedidos web para cobrar ahora." : "Toca «Actualizar» para ver los pedidos."}</p>`;
   list.querySelectorAll<HTMLButtonElement>("[data-charge]").forEach(b => (b.onclick = () => void charge(Number(b.dataset.charge))));
+  list.querySelectorAll<HTMLButtonElement>("[data-vuelto]").forEach(b => (b.onclick = () => void vueltoSheet(Number(b.dataset.vuelto))));
+  list.querySelectorAll<HTMLButtonElement>("[data-vuelto-back]").forEach(b => (b.onclick = () => void vueltoBack(Number(b.dataset.vueltoBack), streets.get(Number(b.dataset.vueltoBack)) ?? [])));
   root.querySelector<HTMLElement>("[data-recent]")!.innerHTML = recent.length
     ? `${queued.length ? `<p class="t-sm"><b>${queued.length}</b> cobro(s) guardado(s) esperando internet para cerrarse en la web.</p>` : ""}
        ${recent.map(c => `<div class="kv t-sm"><span>#${escapeHtml(c.orderNumber)} · ${escapeHtml(new Date(c.createdAt).toLocaleString([], { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" }))}${c.staffName ? ` · ${escapeHtml(c.staffName)}` : ""}</span>
@@ -186,7 +207,7 @@ function askStaff(): Promise<string | null> {
 let charging = false;
 async function charge(orderId: number) {
   const order = orders.find(o => o.id === orderId);
-  if (!order || charging) return;
+  if (!order || charging || order.chargeable === false) return;
   charging = true;
   try {
     const shift = await invoke<{ shiftId: string } | null>("cash_shift_current");
@@ -200,7 +221,9 @@ async function charge(orderId: number) {
     if (order.payment?.factor && order.payment.currency === "CUP") overrides.CUP = String(order.payment.factor);
     const payments: PaymentInput[] | null = await openCheckout(totalMinor, {
       title: `Cobrar pedido #${order.number}`,
-      hint: order.prepaid ? "Pagado por adelantado (Zelle/PayPal): cobra solo lo que falte." : order.payment?.text ?? "",
+      hint: [order.prepaid ? "Pagado por adelantado (Zelle/PayPal): cobra solo lo que falte." : order.payment?.text ?? "",
+        (await invoke<Street>("web_order_vuelto_outstanding", { orderId: order.id }).catch(() => [] as Street)).filter(([, m]) => m > 0).length
+          ? "Cobra solo el pedido: el vuelto que trae el mensajero vuelve solo al fondo." : ""].filter(Boolean).join(" · "),
       confirmLabel: "Confirmar cobro",
       rateOverrides: overrides,
     });
@@ -226,6 +249,107 @@ async function charge(orderId: number) {
     say(`Pedido #${order.number}: ${e instanceof Error ? e.message : String(e)}`, "error");
   } finally {
     charging = false;
+  }
+}
+
+// ---------- Vueltos (Lennys 20-oct) ----------
+// El vuelto que se lleva el mensajero sale del FONDO («vuelto en la calle»). Al cobrar el pedido (aquí
+// o en Ventas) vuelve solo al fondo; no es venta. Si el pedido no se entrega, «Devolvió el vuelto».
+// Lo de antes (Caja → Salida / Entrada a mano) sigue valiendo.
+
+async function vueltoSheet(orderId: number) {
+  const order = orders.find(o => o.id === orderId);
+  if (!order) return;
+  const shift = await invoke<{ shiftId: string } | null>("cash_shift_current");
+  const now = order.change?.find(c => c.amount > 0);
+  const sheet = openSheet(`
+    <div class="sheet-head"><h2>Vuelto · pedido #${escapeHtml(order.number)}</h2><button type="button" class="btn btn-ghost" data-close>Cerrar</button></div>
+    <form class="nx-form">
+      <p class="t-sm">Ahora en el pedido: <b>${escapeHtml(changeText(order.change) || "sin vuelto")}</b>${order.messenger ? ` · lo lleva ${escapeHtml(order.messenger)}` : ""}</p>
+      <div class="grid-3">
+        <label class="field">Importe<input class="input" name="amount" inputmode="decimal" placeholder="0,00" value="${now ? String(now.amount) : ""}" style="font-size: var(--nx-fs-xl); font-weight: 700"></label>
+        <label class="field">Moneda<select class="input" name="currency">${["USD", "CUP"].map(c => `<option${(now?.currency ?? "USD") === c ? " selected" : ""}>${c}</option>`).join("")}</select></label>
+      </div>
+      <p class="t-xs muted">Sale del fondo de la caja y vuelve cuando se cobra el pedido. No es venta.</p>
+      <button type="submit" class="btn btn-primary btn-xl btn-block" data-give>Darle el vuelto del fondo</button>
+      <button type="button" class="btn btn-secondary btn-block" data-only>Solo cambiar el vuelto en el pedido (aún no se lo lleva)</button>
+      <p class="t-sm" data-msg style="color: var(--nx-danger); font-weight: 700"></p>
+    </form>`, "Vuelto");
+  sheet.el.querySelector<HTMLButtonElement>("[data-close]")!.onclick = sheet.close;
+  const form = sheet.el.querySelector<HTMLFormElement>("form")!;
+  const msg = sheet.el.querySelector<HTMLElement>("[data-msg]")!;
+  const read = () => {
+    const amount = Number(form.querySelector<HTMLInputElement>("[name=amount]")!.value.replace(",", "."));
+    const currency = form.querySelector<HTMLSelectElement>("[name=currency]")!.value;
+    return { amount: Number.isFinite(amount) && amount > 0 ? Math.round(amount * 100) / 100 : 0, currency };
+  };
+  /** Avisa a la web (Ventas y el vale del mensajero). Sin internet no se puede: se dice claro. */
+  const saveInOrder = async (amount: number, currency: string) => {
+    if (!navigator.onLine) return "Sin internet: el vuelto NO se cambió en la web; avísale al mensajero y cámbialo luego en Ventas.";
+    try {
+      const out = await deviceCall<{ message?: string }>("nexo-device-web-orders", {
+        action: "change", orderId: order.id, staffId: attribution.staffId, changeRequired: amount > 0 ? [{ amount, currency }] : [],
+      });
+      order.change = amount > 0 ? [{ amount, currency }] : [];
+      return out.message ?? "Vuelto guardado en el pedido.";
+    } catch (e) {
+      return `La web no guardó el vuelto: ${e instanceof Error ? e.message : String(e)}`;
+    }
+  };
+  sheet.el.querySelector<HTMLButtonElement>("[data-only]")!.onclick = () => void (async () => {
+    const { amount, currency } = read();
+    const text = await saveInOrder(amount, currency);
+    sheet.close();
+    say(text, text.startsWith("Sin internet") || text.startsWith("La web no") ? "error" : "ok");
+    await render();
+  })();
+  form.onsubmit = e => {
+    e.preventDefault();
+    void (async () => {
+      const { amount, currency } = read();
+      if (!amount) return void (msg.textContent = "Escribe cuánto vuelto se lleva.");
+      if (!shift) return void (msg.textContent = "Primero abre el turno (o únete) en Caja: el vuelto sale del cajón.");
+      try {
+        await invoke("web_order_vuelto", {
+          out: true,
+          input: {
+            movementId: crypto.randomUUID(), outboxId: crypto.randomUUID(), shiftId: shift.shiftId, orderId: order.id, orderNumber: order.number,
+            messenger: order.messenger || null, currency, amountMinor: Math.round(amount * 100), staffId: attribution.staffId, occurredAt: new Date().toISOString(),
+          },
+        });
+      } catch (err) {
+        return void (msg.textContent = String(err));
+      }
+      const same = order.change?.some(c => c.currency === currency && Math.abs(c.amount - amount) < 0.005);
+      const text = same ? "" : await saveInOrder(amount, currency);
+      sheet.close();
+      say(`✓ Vuelto ${minor(Math.round(amount * 100), currency)} en la calle (pedido #${order.number}). Vuelve al cajón al cobrar el pedido. ${text}`.trim(), text.startsWith("Sin internet") || text.startsWith("La web no") ? "error" : "ok");
+      window.dispatchEvent(new Event("nexo:shift-changed"));
+      await render();
+    })();
+  };
+}
+
+/** El mensajero devolvió el vuelto sin cobrar el pedido (no se entregó, el cliente pagó exacto…). */
+async function vueltoBack(orderId: number, street: Street) {
+  const order = orders.find(o => o.id === orderId);
+  const shift = await invoke<{ shiftId: string } | null>("cash_shift_current");
+  if (!order || !shift) return say("Primero abre el turno (o únete) en Caja.", "error");
+  const parts = street.filter(([, m]) => m > 0);
+  if (!confirm(`¿El mensajero devolvió ${parts.map(([c, m]) => minor(m, c)).join(" + ")} del pedido #${order.number}? Vuelve al fondo.`)) return;
+  try {
+    for (const [currency, amountMinor] of parts) {
+      await invoke("web_order_vuelto", {
+        out: false,
+        input: { movementId: crypto.randomUUID(), outboxId: crypto.randomUUID(), shiftId: shift.shiftId, orderId: order.id, orderNumber: order.number,
+          messenger: order.messenger || null, currency, amountMinor, staffId: attribution.staffId, occurredAt: new Date().toISOString() },
+      });
+    }
+    say(`✓ Vuelto devuelto al fondo (pedido #${order.number})`);
+    window.dispatchEvent(new Event("nexo:shift-changed"));
+    await render();
+  } catch (e) {
+    say(String(e), "error");
   }
 }
 

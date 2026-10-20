@@ -65,7 +65,9 @@ Deno.serve(async req => {
         console.warn("cash-collections", (e as Error).message);
         webMissing = true;
       }
-      const out = await rpc("expected", { shiftId, web });
+      // Pedidos cerrados en Ventas: su vuelto (si salió de la caja) vuelve solo al fondo (Lennys 20-oct).
+      const closedOrders = (webOrders as Array<{ id?: number }>).map(o => String(o.id ?? "")).filter(Boolean);
+      const out = await rpc("expected", { shiftId, web, closedOrders });
       return json(out.error ? 409 : 200, { ...out, webOrders, webMissing });
     }
     return json(400, { error: "unknown_action" });

@@ -223,6 +223,11 @@ pub struct CloseShiftInput {
     /// marked `expected_source = "local"`.
     #[serde(default)]
     pub expected: Option<Vec<ExpectedInput>>,
+    /// Paper close of the store (Lennys 20-oct): bill breakdown per currency
+    /// ({"USD": {"100": 2, …}, "CUP": {…}}) and transfers by type with the last
+    /// 4 digits of the card. Stored as given in the close event.
+    #[serde(default)]
+    pub details: Option<serde_json::Value>,
 }
 
 #[derive(Debug, Clone, Default, PartialEq, Eq, Serialize)]
@@ -1077,6 +1082,7 @@ pub fn close_shift(
             // "cloud" = store-wide (all phones + web); "local" = only this phone (no internet).
             "expected_source": if cloud.is_some() { "cloud" } else { "local" },
             "local_expected": local_expected,
+            "details": input.details,
         }),
     )?;
 

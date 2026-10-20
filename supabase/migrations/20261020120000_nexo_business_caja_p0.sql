@@ -127,10 +127,12 @@ CREATE TABLE IF NOT EXISTS nexo_business.store_shifts (
   closed_device TEXT,
   counts JSONB,
   expected_source TEXT,
+  details JSONB,
   note TEXT,
   updated_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   PRIMARY KEY (shift_id, device_id)
 );
+ALTER TABLE nexo_business.store_shifts ADD COLUMN IF NOT EXISTS details JSONB; -- desglose de billetes y transferencias del cierre
 CREATE INDEX IF NOT EXISTS store_shifts_open_idx ON nexo_business.store_shifts (business_id, status, opened_at DESC);
 CREATE INDEX IF NOT EXISTS store_shifts_session_idx ON nexo_business.store_shifts (business_id, store_shift_id);
 CREATE INDEX IF NOT EXISTS sync_events_shift_idx ON nexo_business.sync_events (business_id, ((envelope->'payload'->>'shift_id')))
@@ -196,7 +198,7 @@ BEGIN
     SELECT store_shift_id INTO v_session FROM nexo_business.store_shifts WHERE shift_id = v_shift AND device_id = p_device;
     v_session := coalesce(v_session, v_shift);
     UPDATE nexo_business.store_shifts
-       SET counts = p->'counts', expected_source = p->>'expected_source', note = p->>'note'
+       SET counts = p->'counts', expected_source = p->>'expected_source', note = p->>'note', details = p->'details'
      WHERE shift_id = v_shift AND device_id = p_device;
     UPDATE nexo_business.store_shifts
        SET status = 'closed', closed_at = v_at, closed_by = nullif(p->>'closed_by', ''), closed_device = p_device, updated_at = now()
@@ -259,13 +261,18 @@ $$;
 REVOKE ALL ON FUNCTION nexo_business.store_shift_json(TEXT, TEXT) FROM PUBLIC, anon, authenticated;
 
 -- «Debería haber» de todo el cajón: fondo (de quien abrió) + efectivo de las
--- ventas de TODAS las cajas del turno + entradas (también los pedidos web
--- cobrados en la caja) − salidas − reembolsos en efectivo + p_web (efectivo de
--- pedidos web cobrados en Ventas/Core que no pasaron por la caja; lo trae la
--- función nexo-device-shift desde Core). Fuente única del dinero de los
--- mensajeros: Core («Registrar dinero recibido»); el «Efectivo de mensajeros»
--- de la caja no se usa para pedidos web.
-CREATE OR REPLACE FUNCTION nexo_business.store_shift_expected(p_business TEXT, p_session TEXT, p_web JSONB DEFAULT '[]'::jsonb)
+-- ventas de TODAS las cajas del turno + pedidos web cobrados en la caja + p_web
+-- (efectivo de pedidos web cobrados en Ventas/Core que no pasaron por la caja; lo
+-- trae la función nexo-device-shift desde Core) + otras entradas − salidas −
+-- reembolsos en efectivo. Fuente única del dinero de los mensajeros: Core
+-- («Registrar dinero recibido»); el «Efectivo de mensajeros» de la caja no se usa
+-- para pedidos web.
+-- Vueltos (Lennys 20-oct): el vuelto que se lleva el mensajero SALE DEL FONDO
+-- («vuelto en la calle») y VUELVE al fondo («vuelto devuelto»): nunca es venta. Se
+-- devuelve a mano o solo al cobrar el pedido (en la caja o en Ventas: p_closed_orders,
+-- ids de pedidos cerrados en Ventas); van en líneas aparte.
+CREATE OR REPLACE FUNCTION nexo_business.store_shift_expected(p_business TEXT, p_session TEXT, p_web JSONB DEFAULT '[]'::jsonb,
+  p_closed_orders JSONB DEFAULT '[]'::jsonb)
 RETURNS JSONB LANGUAGE plpgsql STABLE SECURITY DEFINER SET search_path = '' AS $$
 DECLARE v JSONB;
 BEGIN
@@ -284,12 +291,26 @@ BEGIN
       FROM ev, jsonb_array_elements(coalesce(ev.p->'payments', '[]'::jsonb)) pe
      WHERE ev.op = 'sale.completed' AND (pe->>'rail' = 'cash' OR (pe->>'rail' IS NULL AND pe->>'method' = 'cash'))
      GROUP BY 1),
+  mv_rows AS (
+    SELECT upper(p->>'currency') AS currency, p->>'direction' AS dir, coalesce(p->>'category', '') AS cat,
+           coalesce(p->>'source_type', '') AS st, p->>'source_id' AS sid, (p->>'amount_minor')::BIGINT AS amt
+      FROM ev WHERE op = 'cash_movement.recorded'),
   moves AS (
-    SELECT upper(p->>'currency') AS currency,
-           sum(CASE WHEN p->>'direction' = 'in' AND coalesce(p->>'source_type', '') <> 'web_order' THEN (p->>'amount_minor')::BIGINT ELSE 0 END) AS m_in,
-           sum(CASE WHEN p->>'direction' = 'in' AND p->>'source_type' = 'web_order' THEN (p->>'amount_minor')::BIGINT ELSE 0 END) AS m_web,
-           sum(CASE WHEN p->>'direction' = 'out' THEN (p->>'amount_minor')::BIGINT ELSE 0 END) AS m_out
-      FROM ev WHERE op = 'cash_movement.recorded' GROUP BY 1),
+    SELECT currency,
+           sum(CASE WHEN dir = 'in' AND st NOT IN ('web_order', 'web_order_change') THEN amt ELSE 0 END) AS m_in,
+           sum(CASE WHEN dir = 'in' AND st = 'web_order' THEN amt ELSE 0 END) AS m_web,
+           sum(CASE WHEN dir = 'out' AND st <> 'web_order_change' THEN amt ELSE 0 END) AS m_out,
+           sum(CASE WHEN dir = 'out' AND st = 'web_order_change' THEN amt ELSE 0 END) AS v_out,
+           sum(CASE WHEN dir = 'in' AND st = 'web_order_change' THEN amt ELSE 0 END) AS v_back
+      FROM mv_rows GROUP BY 1),
+  charged AS (
+    SELECT sid FROM mv_rows WHERE st = 'web_order' AND dir = 'in'
+    UNION SELECT x #>> '{}' FROM jsonb_array_elements(CASE WHEN jsonb_typeof(p_closed_orders) = 'array' THEN p_closed_orders ELSE '[]'::jsonb END) x),
+  -- Vuelto aún en la calle de pedidos ya cobrados: vuelve solo al fondo.
+  v_auto AS (
+    SELECT currency, sum(greatest(left_minor, 0)) AS m FROM (
+      SELECT currency, sid, sum(CASE WHEN dir = 'out' THEN amt ELSE -amt END) AS left_minor
+        FROM mv_rows WHERE st = 'web_order_change' AND sid IN (SELECT sid FROM charged) GROUP BY 1, 2) t GROUP BY 1),
   refunds AS (
     SELECT upper(coalesce(p->>'currency', 'USD')) AS currency, sum((p->>'refund_minor')::BIGINT) AS m
       FROM ev WHERE op = 'sale.returned' AND p->>'refund_rail' = 'cash' GROUP BY 1),
@@ -303,15 +324,17 @@ BEGIN
       'openingFloatMinor', coalesce(f.m, 0), 'salesCashMinor', coalesce(s.m, 0),
       'webInCajaMinor', coalesce(mv.m_web, 0), 'webInVentasMinor', coalesce(w.m, 0),
       'otherInMinor', coalesce(mv.m_in, 0), 'outMinor', coalesce(mv.m_out, 0) + coalesce(r.m, 0),
+      'vueltoOutMinor', coalesce(mv.v_out, 0), 'vueltoBackMinor', coalesce(mv.v_back, 0) + coalesce(va.m, 0),
       'expectedMinor', coalesce(f.m, 0) + coalesce(s.m, 0) + coalesce(mv.m_web, 0) + coalesce(w.m, 0) + coalesce(mv.m_in, 0)
-                       - coalesce(mv.m_out, 0) - coalesce(r.m, 0)) ORDER BY c.currency), '[]'::jsonb)
+                       - coalesce(mv.m_out, 0) - coalesce(r.m, 0)
+                       - coalesce(mv.v_out, 0) + coalesce(mv.v_back, 0) + coalesce(va.m, 0)) ORDER BY c.currency), '[]'::jsonb)
     INTO v
     FROM cur c LEFT JOIN floats f USING (currency) LEFT JOIN sales s USING (currency) LEFT JOIN moves mv USING (currency)
-    LEFT JOIN refunds r USING (currency) LEFT JOIN web w USING (currency);
+    LEFT JOIN refunds r USING (currency) LEFT JOIN web w USING (currency) LEFT JOIN v_auto va USING (currency);
   RETURN v;
 END;
 $$;
-REVOKE ALL ON FUNCTION nexo_business.store_shift_expected(TEXT, TEXT, JSONB) FROM PUBLIC, anon, authenticated;
+REVOKE ALL ON FUNCTION nexo_business.store_shift_expected(TEXT, TEXT, JSONB, JSONB) FROM PUBLIC, anon, authenticated;
 
 -- Entrada de las cajas (función nexo-device-shift, con la clave del equipo):
 --   status   {shiftId?}            → turno abierto de la tienda y, si se pasa, el estado de ese turno
@@ -367,7 +390,7 @@ BEGIN
       RETURN jsonb_build_object('error', 'unknown_shift', 'message', 'La nube aún no tiene este turno: sincroniza y prueba otra vez.');
     END IF;
     RETURN jsonb_build_object('shift', nexo_business.store_shift_json(d.business_id, v_session),
-      'currencies', nexo_business.store_shift_expected(d.business_id, v_session, coalesce(p_data->'web', '[]'::jsonb)),
+      'currencies', nexo_business.store_shift_expected(d.business_id, v_session, coalesce(p_data->'web', '[]'::jsonb), coalesce(p_data->'closedOrders', '[]'::jsonb)),
       'generatedAt', now());
   END IF;
   RETURN jsonb_build_object('error', 'unknown_action');
@@ -528,6 +551,8 @@ BEGIN
                     'counts', (SELECT m.counts FROM nexo_business.store_shifts m WHERE m.business_id = p_business AND m.store_shift_id = s.store_shift_id
                                   AND m.counts IS NOT NULL ORDER BY m.updated_at DESC LIMIT 1),
                     'expectedSource', (SELECT m.expected_source FROM nexo_business.store_shifts m WHERE m.business_id = p_business AND m.store_shift_id = s.store_shift_id
+                                  AND m.counts IS NOT NULL ORDER BY m.updated_at DESC LIMIT 1),
+                    'details', (SELECT m.details FROM nexo_business.store_shifts m WHERE m.business_id = p_business AND m.store_shift_id = s.store_shift_id
                                   AND m.counts IS NOT NULL ORDER BY m.updated_at DESC LIMIT 1))
                     ORDER BY s.opened_at DESC)
                   FROM shifts s LEFT JOIN nexo_business.devices d ON d.business_id = p_business AND d.device_id = s.device_id), '[]'::jsonb),

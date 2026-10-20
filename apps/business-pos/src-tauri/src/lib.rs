@@ -443,6 +443,22 @@ fn web_order_mark_failure(app: tauri::AppHandle, charge_id: String, error: Strin
     web_orders::record_attempt_failure(&conn, &charge_id, &error).map_err(|e| e.to_string())
 }
 
+/// «Vuelto en la calle» (out = true) or «Vuelto devuelto» (out = false) of a web order.
+#[tauri::command]
+fn web_order_vuelto(app: tauri::AppHandle, input: web_orders::VueltoInput, out: bool) -> Result<(), String> {
+    let mut conn = open_local_db(&app)?;
+    let scope = device_scope(&conn)?;
+    web_orders::record_vuelto(&mut conn, &scope, &input, out).map_err(|e| e.to_string())
+}
+
+/// Change of an order still in the street on this phone: [[currency, minor], …].
+#[tauri::command]
+fn web_order_vuelto_outstanding(app: tauri::AppHandle, order_id: i64) -> Result<Vec<(String, i64)>, String> {
+    let conn = open_local_db(&app)?;
+    let business_id = device_scope(&conn)?.business_id;
+    web_orders::outstanding_vuelto(&conn, &business_id, order_id).map_err(|e| e.to_string())
+}
+
 #[derive(Serialize)]
 #[serde(rename_all = "camelCase")]
 struct RefusedCharge {
@@ -632,6 +648,8 @@ pub fn run() {
             web_order_mark_done,
             web_order_mark_failure,
             web_order_mark_refused,
+            web_order_vuelto,
+            web_order_vuelto_outstanding,
             catalog_checkpoint,
             catalog_apply,
             device_identity,

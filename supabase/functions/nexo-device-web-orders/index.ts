@@ -6,6 +6,7 @@
 //         collectionReference?, collectionNote?}
 //        → Core cierra el pedido con las reglas de Ventas, firmado por la dependienta de «Atiende».
 //          409 already_charged = ya se cobró en Ventas (la caja lo devuelve del cajón).
+//   POST {action:"change", orderId, changeRequired:[{amount, currency}], staffId} → vuelto que lleva el mensajero.
 // Los productos de proveedor (SKU MK-) salen aquí como pedidos web: no se importan al catálogo.
 // Core: 3.14.42 (CVD_Caja_Bridge). Deploy:
 // npx.cmd supabase functions deploy nexo-device-web-orders --project-ref viwwlriwlwodrfukbgbj --no-verify-jwt --use-api
@@ -77,6 +78,19 @@ Deno.serve(async req => {
       if (code === "cvd_already_charged") return json(409, { error: "already_charged", message });
       if (code === "cvd_not_chargeable" || code === "cvd_caja_order") return json(409, { error: "not_chargeable", message });
       if (r.status >= 400) return json(r.status >= 500 ? 502 : 422, { error: "core", message: message || "La web no aceptó el cobro." });
+      return json(200, r.data);
+    }
+    // Vuelto que lleva el mensajero (Lennys 20-oct): {action:"change", orderId, changeRequired:[{amount, currency}], staffId}.
+    if (body.action === "change") {
+      const orderId = Number(body.orderId);
+      if (!Number.isInteger(orderId) || orderId <= 0 || !Array.isArray(body.changeRequired)) return json(400, { error: "invalid", message: "Faltan datos del vuelto." });
+      const person = who.person as { name: string } | null;
+      const r = await core("POST", `panel/caja/web-orders/${orderId}/change`, {
+        changeRequired: (body.changeRequired as Array<{ amount?: unknown; currency?: unknown }>).slice(0, 3).map(c => ({ amount: money(c.amount), currency: String(c.currency ?? "").toUpperCase() })),
+        clerkName: person?.name ?? "", device: who.label ?? who.deviceId,
+      });
+      if (r.status === 404 && String(r.data.code ?? "") === "rest_no_route") return json(501, { error: "core_old", message: "La web todavía no tiene esta función (falta Core 3.14.42)." });
+      if (r.status >= 400) return json(r.status >= 500 ? 502 : 422, { error: "core", message: String(r.data.message ?? "La web no aceptó el vuelto.") });
       return json(200, r.data);
     }
     return json(400, { error: "unknown_action" });

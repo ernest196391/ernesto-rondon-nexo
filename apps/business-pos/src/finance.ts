@@ -6,7 +6,7 @@ import { invoke } from "@tauri-apps/api/core";
 import Database from "@tauri-apps/plugin-sql";
 import "./finance.css";
 import { mountBusinessSummary, mountSync, requestSync, syncOnce } from "./sync";
-import { cachedOpen, claimOpen, cloudExpected, fetchStatus, isToday, online, type StoreShiftInfo } from "./shift";
+import { cachedOpen, claimOpen, cloudExpected, fetchStatus, isToday, online, type CloudExpected, type StoreShiftInfo } from "./shift";
 import { icon, openSheet } from "./ui";
 import { attribution, can, messengerNames, personName, setStaff, staffList, staffSelectHtml } from "./attribution";
 
@@ -280,17 +280,35 @@ function movementSheet(shift: ShiftSummary, kind: "cash_in" | "cash_out" | "expe
 
 type Expected = { currency: string; expectedMinor: number; lines: Array<[string, number]> };
 
+/** Billetes de la hoja «CIERRE DE VENTAS DIARIO» (Lennys 20-oct). */
+const BILLS: Record<string, number[]> = {
+  USD: [100, 50, 20, 10, 5, 3, 1],
+  CUP: [5000, 2000, 1000, 500, 200, 100, 50, 20, 10, 1],
+};
+/** Transferencias como en la hoja: CUP, saldo (CEL), tarjeta clásica (y Zelle/USD por si acaso). */
+const TRANSFER_TYPES: Array<[string, string]> = [["cup", "Transferencia CUP"], ["saldo", "Saldo (CEL)"], ["clasica", "Clásica"], ["usd", "USD / Zelle"]];
+
 /** «Debería haber»: de la nube (todo el cajón) o, sin internet, solo de este teléfono. */
-async function expectedFor(shift: ShiftSummary): Promise<{ list: Expected[]; cloud: boolean; note: string }> {
+async function expectedFor(shift: ShiftSummary): Promise<{ list: Expected[]; cloud: boolean; note: string; webOrders: CloudExpected["webOrders"] }> {
+  // Vueltos (Lennys 20-oct): salen del fondo y vuelven; van en líneas aparte, nunca como venta.
+  const vueltos = await db.select<Array<{ currency: string; category: string; total: number }>>(
+    `SELECT currency, category, SUM(amount_minor) AS total FROM local_cash_movements
+     WHERE shift_id=$1 AND category IN ('vuelto','vuelto_devuelto') GROUP BY currency, category`, [shift.shiftId]).catch(() => []);
+  const v = (currency: string, category: string) => Number(vueltos.find(x => x.currency === currency && x.category === category)?.total ?? 0);
   const local = (): Expected[] => shift.currencies.map(c => ({
     currency: c.currency,
     expectedMinor: c.expectedMinor,
-    lines: [["Fondo inicial", c.openingFloatMinor], ["Ventas en efectivo (este teléfono)", c.salesCashMinor], ["Entradas", c.otherInMinor], ["Salidas y gastos", -c.otherOutMinor]],
+    lines: [
+      ["Fondo inicial", c.openingFloatMinor], ["Ventas en efectivo (este teléfono)", c.salesCashMinor],
+      ["Vuelto en la calle", -v(c.currency, "vuelto")], ["Vuelto devuelto", v(c.currency, "vuelto_devuelto")],
+      ["Entradas", c.otherInMinor - v(c.currency, "vuelto_devuelto")], ["Salidas y gastos", -(c.otherOutMinor - v(c.currency, "vuelto"))],
+    ],
   }));
   if (!online() || !shift.storeRole) {
     return {
       list: local(),
       cloud: false,
+      webOrders: [],
       note: !shift.storeRole
         ? "Turno de antes del cambio: solo cuenta este teléfono."
         : "SIN INTERNET: esto es solo lo de este teléfono. Falta lo de los otros teléfonos y lo cobrado en Ventas (web). Cierra con internet si puedes.",
@@ -312,14 +330,16 @@ async function expectedFor(shift: ShiftSummary): Promise<{ list: Expected[]; clo
         lines: [
           ["Fondo inicial", c.openingFloatMinor], ["Ventas en efectivo (todos los teléfonos)", c.salesCashMinor],
           ["Pedidos web cobrados en la caja", c.webInCajaMinor], ["Pedidos web cobrados en Ventas", c.webInVentasMinor],
+          ["Vuelto en la calle", -(c.vueltoOutMinor ?? 0)], ["Vuelto devuelto", c.vueltoBackMinor ?? 0],
           ["Otras entradas", c.otherInMinor], ["Salidas, gastos y devoluciones", -c.outMinor],
         ],
       })),
       cloud: true,
+      webOrders: cloud.webOrders ?? [],
       note: notes.join(" "),
     };
   } catch (e) {
-    return { list: local(), cloud: false, note: `No se pudo calcular con la nube (${String(e instanceof Error ? e.message : e)}). Esto es solo lo de este teléfono; falta lo de los otros y lo de Ventas.` };
+    return { list: local(), cloud: false, webOrders: [], note: `No se pudo calcular con la nube (${String(e instanceof Error ? e.message : e)}). Esto es solo lo de este teléfono; falta lo de los otros y lo de Ventas.` };
   }
 }
 
@@ -338,6 +358,18 @@ async function closeSheet(shift: ShiftSummary) {
           <td class="num muted" data-diff="${esc(c.currency)}">—</td></tr>`).join("")}
       </tbody></table>
       <details class="t-sm"><summary>De dónde sale «debería haber»</summary>${rows.map(c => `<p style="font-weight:700;margin:6px 0 2px">${esc(c.currency)}</p>${c.lines.filter(([, v]) => v).map(([label, v]) => `<div class="kv"><span class="muted">${esc(label)}</span><span class="num">${v < 0 ? "−" : "+"} ${fmt(Math.abs(v), c.currency)}</span></div>`).join("")}`).join("")}</details>
+      <details class="t-sm" data-bills><summary><b>Desglose de billetes</b> (como la hoja de cierre)</summary>
+        ${Object.entries(BILLS).map(([cur, list]) => `<p style="font-weight:700;margin:8px 0 2px">${esc(cur === "CUP" ? "MN (CUP)" : cur)}</p>
+          <div class="grid-3">${list.map(b => `<label class="field">${b}<input class="input" data-bill="${cur}:${b}" inputmode="numeric" placeholder="0"></label>`).join("")}</div>
+          <p class="t-xs muted" data-bill-total="${cur}"></p>`).join("")}
+        <p class="t-xs muted">Al escribir billetes, «Contado» se llena solo con la suma.</p>
+      </details>
+      <details class="t-sm" data-transfers open><summary><b>Transferencias del día</b> (no van en el cajón)</summary>
+        <div data-transfer-rows></div>
+        <button type="button" class="btn btn-ghost btn-block" data-add-transfer>+ Añadir transferencia</button>
+        <p class="t-xs muted">Tipo, importe y los últimos 4 números de la tarjeta donde entró.</p>
+      </details>
+      ${exp.webOrders.length ? `<details class="t-sm"><summary>Cobros de pedidos web en Ventas (${exp.webOrders.length})</summary>${exp.webOrders.map(o => `<div class="kv"><span>#${esc(o.number)}</span><span class="num">${o.cash.map(c => fmt(Math.round(c.amount * 100), c.currency)).join(" + ")}</span></div>`).join("")}</details>` : ""}
       <p class="t-xs muted">Transferencias, Zelle y cripto no se cuentan en caja: van con su referencia.</p>
       <div data-warn></div>
       ${staffSelectHtml("staff", "¿Quién cuenta y cierra?")}
@@ -369,6 +401,52 @@ async function closeSheet(shift: ShiftSummary) {
       : "";
   };
   form.querySelectorAll("input[data-expected]").forEach(i => i.addEventListener("input", paint));
+  // Desglose: la suma de billetes llena «Contado».
+  const billTotals = () => Object.fromEntries(Object.entries(BILLS).map(([cur, list]) => [cur, list.reduce((t, b) => {
+    const n = Number(form.querySelector<HTMLInputElement>(`[data-bill="${cur}:${b}"]`)?.value || 0);
+    return t + (Number.isFinite(n) && n > 0 ? Math.floor(n) * b * 100 : 0);
+  }, 0)]));
+  form.querySelectorAll<HTMLInputElement>("[data-bill]").forEach(i => i.addEventListener("input", () => {
+    const totals = billTotals();
+    for (const [cur, minor] of Object.entries(totals)) {
+      const label = form.querySelector<HTMLElement>(`[data-bill-total="${cur}"]`);
+      if (label) label.textContent = minor ? `Suma: ${fmt(minor, cur)}` : "";
+      const count = form.querySelector<HTMLInputElement>(`[name="count-${cur}"]`);
+      if (count && minor) count.value = (minor / 100).toFixed(2);
+    }
+    paint();
+  }));
+  // Transferencias por tipo + últimos 4 números.
+  const transferBox = form.querySelector<HTMLElement>("[data-transfer-rows]")!;
+  const addTransfer = () => {
+    const row = document.createElement("div");
+    row.className = "grid-3";
+    row.dataset.transfer = "";
+    row.innerHTML = `<label class="field">Tipo<select class="input" data-t-type>${TRANSFER_TYPES.map(([v, l]) => `<option value="${v}">${l}</option>`).join("")}</select></label>
+      <label class="field">Importe<input class="input" data-t-amount inputmode="decimal" placeholder="0,00"></label>
+      <label class="field">Últimos 4<input class="input" data-t-last4 inputmode="numeric" maxlength="4" placeholder="2690"></label>`;
+    transferBox.append(row);
+  };
+  form.querySelector<HTMLButtonElement>("[data-add-transfer]")!.onclick = addTransfer;
+  addTransfer();
+  const details = () => {
+    const bills: Record<string, Record<string, number>> = {};
+    for (const [cur, list] of Object.entries(BILLS)) {
+      for (const b of list) {
+        const n = Math.floor(Number(form.querySelector<HTMLInputElement>(`[data-bill="${cur}:${b}"]`)?.value || 0));
+        if (n > 0) (bills[cur] ??= {})[String(b)] = n;
+      }
+    }
+    const transfers = Array.from(transferBox.querySelectorAll<HTMLElement>("[data-transfer]")).flatMap(r => {
+      const raw = r.querySelector<HTMLInputElement>("[data-t-amount]")!.value;
+      if (!raw.trim()) return [];
+      const last4 = r.querySelector<HTMLInputElement>("[data-t-last4]")!.value.replace(/\D/g, "");
+      if (last4.length !== 4) throw new Error("En cada transferencia pon los últimos 4 números de la tarjeta");
+      const type = r.querySelector<HTMLSelectElement>("[data-t-type]")!.value;
+      return [{ type, currency: type === "usd" ? "USD" : "CUP", amountMinor: toMinor(raw), last4 }];
+    });
+    return Object.keys(bills).length || transfers.length ? { bills, transfers } : null;
+  };
   form.onsubmit = e => {
     e.preventDefault();
     const off = diffs().some(d => d.diff);
@@ -389,6 +467,7 @@ async function closeSheet(shift: ShiftSummary) {
             note: field(form, "note").value || null,
             closedAt: now(),
             expected: exp.cloud ? exp.list.map(c => ({ currency: c.currency, expectedMinor: c.expectedMinor })) : null,
+            details: details(),
           },
         });
         sheet.close();

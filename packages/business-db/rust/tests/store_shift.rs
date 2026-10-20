@@ -40,6 +40,7 @@ fn close(id: &str, counts: &[(&str, i64)], expected: Option<Vec<ExpectedInput>>)
         note: None,
         closed_at: "2026-10-20T18:00:00Z".into(),
         expected,
+        details: None,
     }
 }
 
@@ -229,4 +230,86 @@ fn an_order_already_charged_in_ventas_is_taken_back_out_of_the_drawer() {
     // Calling it again changes nothing.
     let (_, again) = mark_refused(&mut conn, &s, "W1", "x", "2026-10-20T12:01:00Z", "W1-refused-2").unwrap();
     assert!(!again);
+}
+
+fn vuelto(id: &str, order: i64, currency: &str, amount: i64) -> VueltoInput {
+    VueltoInput {
+        movement_id: id.into(),
+        outbox_id: format!("{id}-out"),
+        shift_id: "S1".into(),
+        order_id: order,
+        order_number: order.to_string(),
+        messenger: Some("Daiquel".into()),
+        currency: currency.into(),
+        amount_minor: amount,
+        staff_id: Some("staff-nana".into()),
+        occurred_at: "2026-10-20T10:00:00Z".into(),
+    }
+}
+
+fn usd(conn: &Connection) -> CurrencySummary {
+    shift_summary(conn, "S1").unwrap().currencies.into_iter().find(|c| c.currency == "USD").unwrap()
+}
+
+#[test]
+fn the_change_leaves_the_fund_and_comes_back_with_the_charge_not_as_a_sale() {
+    // Lennys: sale 15, the messenger takes 5 of change from the fund, brings 20: 15 sale + 5 back to the fund.
+    let mut conn = db();
+    let s = scope("nana");
+    open_shift(&mut conn, &s, &open("S1", Some("opener"), &[("USD", 25_700)])).unwrap();
+    record_vuelto(&mut conn, &s, &vuelto("V1", 4300, "USD", 500), true).unwrap();
+    assert_eq!(usd(&conn).expected_minor, 25_200, "the fund lends the change");
+    assert_eq!(outstanding_vuelto(&conn, "casa-viva", 4300).unwrap(), vec![("USD".to_string(), 500)]);
+    // More change later (the customer needed it after all).
+    record_vuelto(&mut conn, &s, &vuelto("V2", 4300, "USD", 200), true).unwrap();
+
+    record_charge(&mut conn, &s, &charge_input("W1", 4300, vec![cash("cash", "USD", 1_500)])).unwrap();
+    let after = usd(&conn);
+    assert_eq!(after.sales_cash_minor, 0, "neither the order nor the change is a caja sale");
+    assert_eq!(after.expected_minor, 25_700 + 1_500, "fund back whole + the order money");
+    assert_eq!(outstanding_vuelto(&conn, "casa-viva", 4300).unwrap(), vec![("USD".to_string(), 0)]);
+    let backs = outbox(&conn, "cash_movement.recorded").into_iter().filter(|m| m["category"] == "vuelto_devuelto").collect::<Vec<_>>();
+    assert_eq!(backs.len(), 1);
+    assert_eq!((backs[0]["amount_minor"].as_i64(), backs[0]["source_id"].as_str()), (Some(700), Some("4300")));
+}
+
+#[test]
+fn change_can_come_back_without_a_charge_but_never_more_than_was_given() {
+    let mut conn = db();
+    let s = scope("nana");
+    open_shift(&mut conn, &s, &open("S1", Some("opener"), &[("CUP", 100_000)])).unwrap();
+    record_vuelto(&mut conn, &s, &vuelto("V1", 4400, "CUP", 50_000), true).unwrap();
+    let err = record_vuelto(&mut conn, &s, &vuelto("B1", 4400, "CUP", 60_000), false).unwrap_err();
+    assert!(err.to_string().contains("no está en la calle"));
+    record_vuelto(&mut conn, &s, &vuelto("B2", 4400, "CUP", 50_000), false).unwrap();
+    let cup = shift_summary(&conn, "S1").unwrap().currencies.into_iter().find(|c| c.currency == "CUP").unwrap();
+    assert_eq!(cup.expected_minor, 100_000);
+    // The old manual way (Caja → Salida / Entrada) keeps working.
+    let mut manual = RecordMovementInput {
+        movement_id: "M1".into(), outbox_id: "M1-out".into(), shift_id: "S1".into(), kind: MovementKind::CashOut, direction: None,
+        currency: "CUP".into(), amount_minor: 10_000, reason: "Vuelto #4401 con Ely".into(), category: None, source_system: None,
+        source_type: None, source_id: None, corrects_movement_id: None, operator_id: None, occurred_at: "2026-10-20T11:00:00Z".into(),
+    };
+    record_movement(&mut conn, &s, &manual).unwrap();
+    manual.movement_id = "M2".into();
+    manual.outbox_id = "M2-out".into();
+    manual.kind = MovementKind::CashIn;
+    manual.reason = "Vuelve el vuelto #4401".into();
+    let back = record_movement(&mut conn, &s, &manual).unwrap();
+    assert_eq!(back.currencies.iter().find(|c| c.currency == "CUP").unwrap().expected_minor, 100_000);
+}
+
+#[test]
+fn the_close_keeps_the_paper_details() {
+    let mut conn = db();
+    open_shift(&mut conn, &scope("nana"), &open("S1", Some("opener"), &[("USD", 25_700)])).unwrap();
+    let mut input = close("S1", &[("USD", 25_700)], None);
+    input.details = Some(serde_json::json!({
+        "bills": { "USD": { "100": 2, "50": 1, "5": 1, "1": 2 } },
+        "transfers": [{ "type": "cup", "amountMinor": 1_215_000, "last4": "2690" }]
+    }));
+    close_shift(&mut conn, &scope("nana"), &input).unwrap();
+    let payload = &outbox(&conn, "cash_shift.closed")[0];
+    assert_eq!(payload["details"]["bills"]["USD"]["100"], 2);
+    assert_eq!(payload["details"]["transfers"][0]["last4"], "2690");
 }

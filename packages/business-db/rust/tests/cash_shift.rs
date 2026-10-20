@@ -81,6 +81,7 @@ fn close_input(shift: &str, counts: Vec<CountInput>) -> CloseShiftInput {
         note: None,
         closed_at: "2026-10-02T18:00:00Z".into(),
         expected: None,
+        details: None,
     }
 }
 
