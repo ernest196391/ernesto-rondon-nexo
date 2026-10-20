@@ -7,6 +7,8 @@
 // POST {equipo, billete: {id, moneda, valor, patriota, pruebas}, imagen: "data:image/jpeg;base64,..."}
 // Equipos: tabla billete_seguro_equipos (un código por negocio; activo y tope por hora).
 // Cada revisión queda en billete_seguro_revisiones (sin fotos).
+// Además: POST {equipo, accion: "telefono", telefono} → ¿está en crm_sospechosos?
+//         POST {equipo, accion: "reportar", telefono, motivo} → entra como «sospechoso» (VivaBot avisa a Ernesto).
 // Secrets: OPENAI_API_KEY / CURRU_MODEL / CURRU_BASE_URL, o WOO_URL + CASAVIVA_PANEL_KEY.
 // Deploy: npx.cmd supabase functions deploy billete-seguro-revisa --project-ref viwwlriwlwodrfukbgbj --no-verify-jwt --use-api
 import { createClient } from "jsr:@supabase/supabase-js@2";
@@ -42,13 +44,45 @@ Deno.serve(async req => {
   const body = await req.json().catch(() => ({})) as {
     equipo?: string; imagen?: string;
     billete?: { id?: string; moneda?: string; valor?: number; patriota?: string; pruebas?: unknown };
+    accion?: string; telefono?: string; motivo?: string;
   };
 
   const equipo = String(body.equipo ?? "").trim().slice(0, 64);
   if (equipo.length < 8) return json(401, { error: "equipo" });
   const admin = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!, { auth: { persistSession: false } });
-  const { data: eq } = await admin.from("billete_seguro_equipos").select("codigo, activo, tope_hora").eq("codigo", equipo).maybeSingle();
+  const { data: eq } = await admin.from("billete_seguro_equipos").select("codigo, nombre, activo, tope_hora").eq("codigo", equipo).maybeSingle();
   if (!eq || !eq.activo) return json(401, { error: "equipo" });
+
+  // Lista de números sospechosos (crm_sospechosos, 20-oct): consultar un teléfono o reportarlo.
+  // Mismas reglas que VivaBot (src/sospechosos-rules.js, normTel): de Cuba, los 8 últimos dígitos.
+  if (body.accion === "telefono" || body.accion === "reportar") {
+    let tel = String(body.telefono ?? "").replace(/\D/g, "");
+    if (tel.startsWith("00")) tel = tel.slice(2);
+    if (tel.length === 10 && tel.startsWith("53")) tel = tel.slice(2);
+    if (tel.length < 6 || tel.length > 15) return json(400, { error: "telefono" });
+    const claves = [...new Set([tel, tel.slice(-8)])];
+    const { data: filas, error: e1 } = await admin.from("crm_sospechosos").select("telefono, estado, motivo, creado, veces, historial").in("telefono", claves);
+    if (e1) { console.error("sospechosos", e1.message); return json(502, { error: "lista" }); }
+    const fila = (filas ?? []).find(f => f.estado !== "descartado") ?? null;
+    if (body.accion === "telefono") {
+      return json(200, fila
+        ? { encontrado: true, estado: fila.estado, motivo: String(fila.motivo ?? "").slice(0, 120), desde: fila.creado }
+        : { encontrado: false });
+    }
+    const motivo = String(body.motivo ?? "Reportado desde Billete Seguro").slice(0, 280);
+    const evento = { at: new Date().toISOString(), estado: "sospechoso", motivo, fuente: `Billete Seguro · ${eq.nombre}`, por: eq.nombre };
+    const previa = (filas ?? []).find(f => f.telefono === tel);
+    if (previa) {
+      // Ya estaba (también si Ernesto lo descartó): solo cuenta un aviso más; no se cambia lo que decidió Ernesto.
+      const { error } = await admin.from("crm_sospechosos").update({ veces: (previa.veces ?? 1) + 1, historial: [...(previa.historial ?? []), evento].slice(-30), actualizado: evento.at }).eq("telefono", tel);
+      if (error) { console.error("sospechosos", error.message); return json(502, { error: "lista" }); }
+      return json(200, { ok: true, nuevo: false });
+    }
+    const { error } = await admin.from("crm_sospechosos").insert({ telefono: tel, estado: "sospechoso", motivo, fuente: `Billete Seguro · ${eq.nombre}`, reportado_por: eq.nombre, avisado: false, historial: [evento] });
+    if (error) { console.error("sospechosos", error.message); return json(502, { error: "lista" }); }
+    return json(200, { ok: true, nuevo: true }); // VivaBot le avisa a Ernesto (avisado=false)
+  }
+
   const ahora = Date.now();
   const { count } = await admin.from("billete_seguro_revisiones").select("id", { count: "exact", head: true })
     .eq("codigo", equipo).gte("creado", new Date(ahora - 3_600_000).toISOString());

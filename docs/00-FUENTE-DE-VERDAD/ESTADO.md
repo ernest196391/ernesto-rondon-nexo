@@ -1617,3 +1617,21 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
 - **Pedidos del día:** #4220 (bici) CANCELADO por estafa, la bici vuelve a web y caja; #4203 devolución parcial (25 USD, comisión 5); #4226 anulado (Lennys); #4223 mensajero corregido a Daiquel; #4244 publicado. Alerta de estafadores (56280375, 51249823, 52579138) enviada a General y Mensajerías con el SÍ de Ernesto.
 - **Pendiente de Lennys (después de la caja):** Equipo → Gestoras con todos los datos del pago, estadística de lo pagado por gestora desde el 1-oct, buscador y filtros (pidió / no pidió / acumula en USD), y pantalla «Hoy».
 - Registro del día: `docs/nexo-business/incidencias/2026-10-20.md`.
+
+### L43. Martes 20-oct ~17:10 — lista de números sospechosos de estafa EN VIVO (D83)
+- **Tabla `crm_sospechosos`** (migración `20261020210000_crm_sospechosos.sql`, aplicada) con 20 números: 5 confirmados por el equipo (56280375, 51249823, 52579138, 59495089, 50738208) y 15 sospechosos de la lista del grupo de gestores (Dario, 15-oct), con sus direcciones.
+- **VivaBot `0cb1c32` EN VIVO** (en el VPS, unido a la rama de Codex de las decisiones de Lennys: merge `98f4818`).
+  - Un número de la lista escribe → aviso a Ernesto una vez al día, y la IA no promete entregas.
+  - Sale en un pedido de la web → aviso a Ernesto por pedido.
+  - Aviso de estafa con teléfono en un grupo o en un privado del equipo → entra solo como «sospechoso».
+  - Comandos en «Tú»: *SOSPECHOSO*, *NO SOSPECHOSO* y *SOSPECHOSOS*.
+- **Billete Seguro EN VIVO** (`sw` bs-3): campo «Teléfono del cliente» que se consulta en la lista, y «Reportar este número» en «No lo aceptes» o «Dudoso». La función `billete-seguro-revisa` tiene las acciones `telefono` y `reportar`; un reporte entra con avisado=false y el bot avisa a Ernesto.
+- **Búsqueda diaria:** tarea programada `sospechosos-busqueda-diaria` a las 9:00 (web pública + grupos), sin entrar con cuenta en Facebook.
+- **Probado yo:**
+  - En el VPS, el módulo con números de prueba: añadir, ver, descartar, captura de un aviso (el teléfono de Dany, que es del equipo, no entra) y un «sí» suelto que no es comando.
+  - La función: 56280375 → confirmado; reportar 50000003 → nuevo; un código malo → 401.
+  - La app en el navegador: 56280375 → «No lo aceptes · en la lista de estafadores», y «Reportar» → «Número reportado».
+  - El bot en vivo avisó del reporte de prueba (avisado → true).
+  - Los números de prueba están borrados y los archivos del servidor son iguales a los del repo (sha1).
+- **Pendiente aparte:** el test `catalog-commission` («Woo → búsqueda → contexto conserva la comisión») falla cuando se carga el `.env` real. Por eso `cv reiniciar` se niega a reiniciar; hoy se reinició con `--sin-check` después de pasar `npm run check` limpio 6 veces. Ese test hay que aislarlo de la red.
+- **Falta que lo vea Ernesto:** el primer aviso de verdad en «Tú», y darle a «Ejecutar ahora» una vez a la tarea diaria para aprobar sus permisos.

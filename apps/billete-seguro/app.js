@@ -28,6 +28,9 @@
     fotos: {},
     serie: "",
     pedido: "",
+    telefono: "",   // del cliente (opcional): se mira en la lista de sospechosos del equipo
+    tel: null,      // respuesta de la lista: { encontrado, estado, motivo, desde } | { error }
+    reportado: null, // "ok" | "error" tras «Reportar este número»
     ia: null,
     iaPromesa: null,
     pila: [],
@@ -66,7 +69,7 @@
     pintar();
   }
   function reiniciar() {
-    Object.assign(S, { pantalla: "inicio", billete: null, paso: 0, resp: {}, fotos: {}, serie: "", pedido: "", ia: null, iaPromesa: null, pila: [] });
+    Object.assign(S, { pantalla: "inicio", billete: null, paso: 0, resp: {}, fotos: {}, serie: "", pedido: "", telefono: "", tel: null, reportado: null, ia: null, iaPromesa: null, pila: [] });
     pintar();
   }
   const pasosTotales = () => PRUEBAS.length;
@@ -183,7 +186,11 @@
         <label for="pedido">Pedido o cliente <span class="muted" style="font-weight:400">(si quieres)</span></label>
         <input id="pedido" type="text" autocomplete="off" placeholder="Ej.: pedido 4223" value="${esc(S.pedido)}">
       </div>
-      <div class="nota" role="note"><b>Lo comparamos con</b> las series reportadas como falsas y con los billetes que ya se revisaron en este teléfono.</div>
+      <div class="campo">
+        <label for="telefono">Teléfono del cliente <span class="muted" style="font-weight:400">(si quieres)</span></label>
+        <input id="telefono" type="tel" inputmode="tel" autocomplete="off" placeholder="Ej.: 5X XXX XXX" value="${esc(S.telefono)}">
+      </div>
+      <div class="nota" role="note"><b>Lo comparamos con</b> las series reportadas como falsas, con la lista de números sospechosos del equipo y con los billetes que ya se revisaron en este teléfono.</div>
       <div class="bottom">
         <button class="btn btn-primary" type="button" data-a="resultado">Ver el resultado</button>
         <button class="btn btn-link" type="button" data-a="sinserie">No lo encuentro o no se lee</button>
@@ -231,6 +238,21 @@
       }
     }
     filas.push(filaSerie);
+
+    // Teléfono del cliente en la lista de sospechosos del equipo (crm_sospechosos, 20-oct).
+    if (S.telefono) {
+      const t = { ...(S.tel || {}) };
+      if (t.motivo) t.motivo = String(t.motivo).replace(/[.\s]+$/, "");
+      const tel = S.telefono.replace(/\s+/g, " ").trim();
+      if (t.error) filas.push(["Teléfono del cliente", "No se pudo mirar", "duda"]);
+      else if (t.encontrado && t.estado === "confirmado") {
+        subir("no"); motivos.push(`El teléfono ${tel} está en la lista de estafadores del equipo${t.motivo ? ` (${t.motivo})` : ""}.`);
+        filas.push(["Teléfono del cliente", "En la lista de estafadores", "no"]);
+      } else if (t.encontrado) {
+        subir("duda"); motivos.push(`El teléfono ${tel} fue reportado como sospechoso${t.desde ? ` el ${new Date(t.desde).toLocaleDateString("es")}` : ""}${t.motivo ? ` (${t.motivo})` : ""}.`);
+        filas.push(["Teléfono del cliente", "Reportado como sospechoso", "duda"]);
+      } else filas.push(["Teléfono del cliente", "No está en la lista", "ok"]);
+    }
     return { nivel, motivos, filas, notas, serie };
   }
 
@@ -253,6 +275,7 @@
         <div class="paso"><span>2</span><span>No se lo pases a nadie. Si ya lo aceptaste, llévalo al banco.</span></div>
         <div class="paso"><span>3</span><span>Avisa al equipo, para que nadie más lo reciba.</span></div></div>`
       : r.nivel === "ok" ? '<div class="nota" role="note">Ninguna app lo asegura al 100 %. Si el cliente es nuevo y el pago es grande, pide que otra persona del equipo también lo mire.</div>' : ""}
+      ${r.nivel !== "ok" && equipo() ? pReportar() : ""}
       <div class="bottom">
         ${r.nivel === "ok"
           ? `<button class="btn btn-primary" type="button" data-a="otro">Revisar otro billete</button><button class="btn btn-soft" type="button" data-a="compartir">${I.wa}Compartir el resultado</button>`
@@ -260,10 +283,48 @@
       </div>`;
   }
 
+  // «Reportar este número»: el teléfono entra en la lista del equipo como sospechoso y Ernesto recibe el aviso.
+  function pReportar() {
+    if (S.reportado === "ok") return `<div class="nota" role="note"><b>Número reportado.</b> Queda en la lista del equipo como sospechoso; si escribe o pide algo, se avisa.</div>`;
+    if (S.tel?.encontrado) return `<div class="nota" role="note">Su teléfono ya está en la lista del equipo.</div>`;
+    return `<div class="stack">
+      <div class="label">¿Quién te dio el billete?</div>
+      <div class="campo">
+        <label for="telefono-r">Su teléfono</label>
+        <input id="telefono-r" type="tel" inputmode="tel" autocomplete="off" placeholder="Ej.: 5X XXX XXX" value="${esc(S.telefono)}">
+      </div>
+      ${S.reportado === "error" ? '<p class="small" style="color:#9B2C2C">No se pudo reportar. Revisa el número y que tengas internet, y prueba otra vez.</p>' : ""}
+      <button class="btn btn-outline" type="button" data-a="reportar">Reportar este número</button>
+    </div>`;
+  }
+
+  async function api(body, ms = 15_000) {
+    const ctl = new AbortController();
+    const t = setTimeout(() => ctl.abort(), ms);
+    try {
+      const r = await fetch(API, { method: "POST", signal: ctl.signal, headers: { "content-type": "application/json" }, body: JSON.stringify({ equipo: equipo(), ...body }) });
+      const d = await r.json().catch(() => ({}));
+      return r.ok ? d : { error: d.error || r.status };
+    } catch (e) {
+      return { error: e.name };
+    } finally { clearTimeout(t); }
+  }
+
+  async function reportarTelefono() {
+    const i = document.getElementById("telefono-r");
+    S.telefono = (i ? i.value : S.telefono).trim();
+    if (S.telefono.replace(/\D/g, "").length < 7) { S.reportado = "error"; return pintar(); }
+    const b = S.billete, r = S.decision;
+    const motivo = `${r.nivel === "no" ? "Billete falso" : "Billete dudoso"} de ${nombre(b)}${r.serie ? `, serie ${r.serie}` : ""}${r.motivos[0] ? `: ${r.motivos[0]}` : ""}`;
+    const d = await api({ accion: "reportar", telefono: S.telefono, motivo: motivo.slice(0, 240) });
+    S.reportado = d.error ? "error" : "ok";
+    pintar();
+  }
+
   function textoCompartir() {
     const b = S.billete, r = S.decision;
     const t = { ok: "✅ Billete sin señales de falso", duda: "⚠️ Billete dudoso", no: "⛔ Billete falso: no lo acepten" }[r.nivel];
-    return [t, `${nombre(b)}${r.serie ? ` · serie ${r.serie}` : ""}${S.pedido ? ` · ${S.pedido}` : ""}`,
+    return [t, `${nombre(b)}${r.serie ? ` · serie ${r.serie}` : ""}${S.pedido ? ` · ${S.pedido}` : ""}${S.telefono ? ` · tel. ${S.telefono}` : ""}`,
       ...r.motivos.slice(0, 3).map(m => `- ${m}`), "Revisado con Billete Seguro (Casa Viva)"].join("\n");
   }
 
@@ -337,7 +398,13 @@
   async function verResultado() {
     const s = document.getElementById("serie"); if (s) S.serie = s.value.trim();
     const p = document.getElementById("pedido"); if (p) S.pedido = p.value.trim();
+    const tf = document.getElementById("telefono"); if (tf) S.telefono = tf.value.trim();
+    // El teléfono se mira en la lista del equipo (necesita internet y el enlace del equipo).
+    const telPromesa = S.telefono && equipo() && navigator.onLine
+      ? api({ accion: "telefono", telefono: S.telefono }, 10_000)
+      : Promise.resolve(S.telefono ? { error: "sin_red" } : null);
     if (S.modo === "ia" && S.iaPromesa && !S.ia) { ir("analizando"); await S.iaPromesa; S.pila.pop(); }
+    S.tel = await telPromesa;
     S.decision = decidir();
     const hist = leer("bs_historial", []);
     hist.unshift({ fecha: Date.now(), billete: S.billete.id, serie: S.decision.serie, nivel: S.decision.nivel });
@@ -365,7 +432,7 @@
     if (el.dataset.moneda) { S.moneda = el.dataset.moneda; guardar("bs_moneda", S.moneda); return pintar(); }
     if (el.dataset.billete) {
       S.billete = BILLETES.find(b => b.id === el.dataset.billete);
-      Object.assign(S, { resp: {}, fotos: {}, serie: "", pedido: "", ia: null, iaPromesa: null, decision: null });
+      Object.assign(S, { resp: {}, fotos: {}, serie: "", pedido: "", telefono: "", tel: null, reportado: null, ia: null, iaPromesa: null, decision: null });
       return S.modo === "ia" ? ir("frente") : ir("prueba", { paso: 0 });
     }
     if (el.dataset.resp) {
@@ -379,6 +446,7 @@
     if (a === "resultado") return verResultado();
     if (a === "sinserie") { const s = document.getElementById("serie"); if (s) s.value = ""; return verResultado(); }
     if (a === "otro") return reiniciar();
+    if (a === "reportar") { el.disabled = true; return reportarTelefono(); }
     if (a === "compartir") return window.open(`https://wa.me/?text=${encodeURIComponent(textoCompartir())}`, "_blank", "noopener");
   });
 
@@ -394,6 +462,7 @@
   $app.addEventListener("input", e => {
     if (e.target.id === "serie") S.serie = e.target.value;
     if (e.target.id === "pedido") S.pedido = e.target.value;
+    if (e.target.id === "telefono" || e.target.id === "telefono-r") S.telefono = e.target.value;
   });
   window.addEventListener("online", () => S.pantalla === "inicio" && pintar());
   window.addEventListener("offline", () => { if (S.pantalla === "inicio") { S.modo = "guia"; pintar(); } });

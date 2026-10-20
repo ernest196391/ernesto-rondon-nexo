@@ -1,6 +1,6 @@
 // Billete Seguro: guarda la app en el teléfono para que la guía funcione sin internet.
 // Al cambiar cualquier archivo, sube VERSION para que los teléfonos bajen la nueva.
-const VERSION = "bs-2";
+const VERSION = "bs-3";
 const APP = ["./", "index.html", "styles.css", "app.js", "billetes.js", "logo-casa-viva.svg", "icon.svg", "manifest.webmanifest"];
 
 self.addEventListener("install", e => {
