@@ -5,9 +5,10 @@
 import { invoke } from "@tauri-apps/api/core";
 import Database from "@tauri-apps/plugin-sql";
 import "./finance.css";
-import { mountBusinessSummary, mountSync, requestSync } from "./sync";
+import { mountBusinessSummary, mountSync, requestSync, syncOnce } from "./sync";
+import { cachedOpen, claimOpen, cloudExpected, fetchStatus, isToday, online, type StoreShiftInfo } from "./shift";
 import { icon, openSheet } from "./ui";
-import { can, messengerNames } from "./attribution";
+import { attribution, can, messengerNames, personName, setStaff, staffList, staffSelectHtml } from "./attribution";
 
 const CURRENCIES = ["USD", "CUP", "MLC"] as const;
 const RAILS: Array<[string, string]> = [
@@ -34,6 +35,10 @@ type ShiftSummary = {
   openedAt: string;
   currencies: CurrencySummary[];
   counts: CountResult[];
+  storeRole: "opener" | "joiner" | null;
+  openedBy: string | null;
+  closedBy: string | null;
+  closedRemote: boolean;
 };
 type ReceivableBalance = {
   receivableId: string;
@@ -109,36 +114,121 @@ async function shiftMovements(shiftId: string) {
   );
 }
 
-function openShiftForm(box: HTMLElement) {
+const hhmm = (iso: string) => new Date(iso).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+const dayLabel = (iso: string) => new Date(iso).toLocaleDateString([], { day: "2-digit", month: "2-digit" });
+
+function staffOrSay(form: HTMLFormElement, name: string): string | null {
+  const select = form.querySelector<HTMLSelectElement>(`[name="${name}"]`);
+  if (!select) return attribution.staffId;
+  if (!select.value) {
+    say("Elige quién eres (la dependienta que abre o cierra)", "error");
+    return null;
+  }
+  setStaff(select.value);
+  return select.value;
+}
+
+async function openLocal(shiftId: string, role: "opener" | "joiner", operatorId: string | null, primary: string, openingFloats: unknown[]) {
+  await invoke("cash_shift_open", {
+    input: { shiftId, outboxId: id(), operatorId, primaryCurrency: primary, openingFloats, openedAt: now(), storeRole: role },
+  });
+  requestSync();
+}
+
+async function joinShift(shift: StoreShiftInfo, operatorId: string | null) {
+  await openLocal(shift.storeShiftId, "joiner", operatorId, "USD", []);
+  say(`✓ Te uniste al turno que abrió ${shift.openedBy ?? "tu compañera"} a las ${hhmm(shift.openedAt)}`);
+  await renderShift();
+}
+
+/** No open shift on this phone: join the store's shift of today, or open it (count the drawer). */
+async function openShiftForm(box: HTMLElement) {
+  box.innerHTML = `<div class="notice calm">${icon("clock")}<div><b>No hay turno abierto en este teléfono</b>Para vender hay que abrir el turno de la tienda o unirse al de tu compañera.</div></div><p class="t-sm muted" data-cloud>Mirando si la tienda ya abrió hoy…</p>`;
+  let open: StoreShiftInfo | null = null;
+  let stale: StoreShiftInfo[] = [];
+  let checked = false;
+  if (online()) {
+    try {
+      const st = await fetchStatus();
+      open = st.open;
+      stale = st.stale ?? [];
+      checked = true;
+    } catch {
+      checked = false;
+    }
+  }
+  const cached = !checked ? cachedOpen() : null;
+  const today = open ?? cached;
+  const cloudNote = checked
+    ? today ? "" : "La tienda todavía no abrió el turno hoy: ábrelo tú contando el dinero del cajón."
+    : `Sin internet no se puede saber si tu compañera ya abrió.${cached ? "" : " Si ya abrió, únete cuando vuelva la red; si eres la primera, ábrelo."}`;
   box.innerHTML = `
-    <div class="notice calm">${icon("clock")}<div><b>No hay turno abierto</b>Las ventas se guardan igual, pero no entran en ningún cajón.</div></div>
-    <form id="fin-open" class="panel nx-form">
-      <h2 class="t-lg">Abrir turno</h2>
+    <div class="notice calm">${icon("clock")}<div><b>No hay turno abierto en este teléfono</b>Para vender hay que abrir el turno de la tienda o unirse al de tu compañera. Hay un solo cajón.</div></div>
+    ${stale.length ? `<div class="notice warn">${icon("alert")}<div><b>Turno viejo sin cerrar</b>${stale.map(s => `Del ${esc(dayLabel(s.openedAt))} en ${esc(s.openedDevice)}${s.openedBy ? ` (abrió ${esc(s.openedBy)})` : ""}`).join(" · ")}. Hay que contarlo y cerrarlo en ese teléfono. No se mezcla con el de hoy.</div></div>` : ""}
+    ${today ? `<form id="fin-join" class="panel nx-form">
+      <h2 class="t-lg">Unirme al turno de hoy</h2>
+      <p class="t-sm">Abrió <b>${esc(today.openedBy ?? "tu compañera")}</b> a las ${esc(hhmm(today.openedAt))} en ${esc(today.openedDevice)}. El dinero ya lo contó ella: tú no cuentas nada.${cached ? " (Dato guardado: sin internet.)" : ""}</p>
+      ${staffSelectHtml("staff", "¿Quién eres?")}
+      <button type="submit" class="btn btn-primary btn-xl btn-block">Unirme al turno</button>
+    </form>` : ""}
+    ${cloudNote ? `<p class="t-sm muted">${esc(cloudNote)}</p>` : ""}
+    <form id="fin-open" class="panel nx-form" ${today ? 'style="display:none"' : ""}>
+      <h2 class="t-lg">Abrir el turno de la tienda</h2>
+      ${staffSelectHtml("staff", "¿Quién abre? (queda como dependienta de turno)")}
       <label class="field">Moneda principal<select class="input" name="primary">${currencyOptions()}</select></label>
-      <p class="t-sm muted">Fondo inicial en el cajón (deja vacío lo que no tengas):</p>
+      <p class="t-sm muted">Cuenta el dinero del cajón (deja vacío lo que no haya):</p>
       <div class="grid-3">${CURRENCIES.map(c => `<label class="field">${c}<input class="input" name="float-${c}" inputmode="decimal" placeholder="0,00"></label>`).join("")}</div>
       <button type="submit" class="btn btn-primary btn-xl btn-block">Abrir turno</button>
-    </form>`;
-  box.querySelector<HTMLFormElement>("#fin-open")!.onsubmit = e => {
+    </form>
+    ${today ? `<button type="button" class="btn btn-ghost btn-block t-sm" data-show-open>Mi compañera NO abrió: abrir el turno yo</button>` : ""}`;
+  box.querySelector<HTMLButtonElement>("[data-show-open]")?.addEventListener("click", () => {
+    if (!confirm("Solo hay un cajón. ¿Seguro que nadie abrió el turno hoy?")) return;
+    box.querySelector<HTMLFormElement>("#fin-open")!.style.display = "";
+  });
+  const join = box.querySelector<HTMLFormElement>("#fin-join");
+  if (join && today) {
+    join.onsubmit = e => {
+      e.preventDefault();
+      const staff = staffOrSay(join, "staff");
+      if (staffList().length && !staff) return;
+      void run("Turno", () => joinShift(today, staff));
+    };
+  }
+  const form = box.querySelector<HTMLFormElement>("#fin-open")!;
+  form.onsubmit = e => {
     e.preventDefault();
-    const form = e.target as HTMLFormElement;
-    void run("Turno abierto", async () => {
-      const openingFloats = CURRENCIES.flatMap(c => {
-        const raw = field(form, `float-${c}`).value;
-        return raw.trim() ? [{ movementId: id(), currency: c, amountMinor: toMinor(raw) }] : [];
-      });
-      await invoke("cash_shift_open", {
-        input: {
-          shiftId: id(),
-          outboxId: id(),
-          operatorId: null,
-          primaryCurrency: field<HTMLSelectElement>(form, "primary").value,
-          openingFloats,
-          openedAt: now(),
-        },
-      });
-      await renderShift();
-    });
+    const staff = staffOrSay(form, "staff");
+    if (staffList().length && !staff) return;
+    void (async () => {
+      try {
+        const openingFloats = CURRENCIES.flatMap(c => {
+          const raw = field(form, `float-${c}`).value;
+          return raw.trim() ? [{ movementId: id(), currency: c, amountMinor: toMinor(raw) }] : [];
+        });
+        const shiftId = id();
+        const primary = field<HTMLSelectElement>(form, "primary").value;
+        if (online()) {
+          // La nube decide: si otra ya abrió hoy, te unes a su turno (un solo cajón).
+          let claim: Awaited<ReturnType<typeof claimOpen>> | null = null;
+          try {
+            claim = await claimOpen(shiftId, staff);
+          } catch {
+            claim = null;
+          }
+          if (claim?.action === "join") {
+            await joinShift(claim.shift, staff);
+            say(`${claim.shift.openedBy ?? "Tu compañera"} ya había abierto el turno: te uniste y no se contó el dinero dos veces.`);
+            return;
+          }
+          if (!claim) say("No se pudo avisar a la nube: el turno se abre aquí y se avisa al sincronizar.", "error");
+        }
+        await openLocal(shiftId, "opener", staff, primary, openingFloats);
+        say(`✓ Turno abierto${personName(staff) ? ` · ${personName(staff)} es la dependienta de turno` : ""}`);
+        await renderShift();
+      } catch (err) {
+        say(`Turno: ${String(err)}`, "error");
+      }
+    })();
   };
 }
 
@@ -177,33 +267,86 @@ function movementSheet(shift: ShiftSummary, kind: "cash_in" | "cash_out" | "expe
           sourceType: null,
           sourceId: null,
           correctsMovementId: null,
-          operatorId: null,
+          operatorId: attribution.staffId,
           occurredAt: now(),
         },
       });
       sheet.close();
+      requestSync();
       await renderShift();
     });
   };
 }
 
-function closeSheet(shift: ShiftSummary) {
-  const sheet = openSheet(`
+type Expected = { currency: string; expectedMinor: number; lines: Array<[string, number]> };
+
+/** «Debería haber»: de la nube (todo el cajón) o, sin internet, solo de este teléfono. */
+async function expectedFor(shift: ShiftSummary): Promise<{ list: Expected[]; cloud: boolean; note: string }> {
+  const local = (): Expected[] => shift.currencies.map(c => ({
+    currency: c.currency,
+    expectedMinor: c.expectedMinor,
+    lines: [["Fondo inicial", c.openingFloatMinor], ["Ventas en efectivo (este teléfono)", c.salesCashMinor], ["Entradas", c.otherInMinor], ["Salidas y gastos", -c.otherOutMinor]],
+  }));
+  if (!online() || !shift.storeRole) {
+    return {
+      list: local(),
+      cloud: false,
+      note: !shift.storeRole
+        ? "Turno de antes del cambio: solo cuenta este teléfono."
+        : "SIN INTERNET: esto es solo lo de este teléfono. Falta lo de los otros teléfonos y lo cobrado en Ventas (web). Cierra con internet si puedes.",
+    };
+  }
+  try {
+    await syncOnce(true).catch(() => undefined); // que la nube tenga todo lo de este teléfono
+    const cloud = await cloudExpected(shift.shiftId);
+    const missingPhones = (cloud.shift.devices ?? []).filter(d => d.lastSeenAt && Date.now() - new Date(d.lastSeenAt).getTime() > 30 * 60_000);
+    const notes = [
+      "Toda la tienda: los teléfonos del turno + lo cobrado en Ventas (web) en efectivo.",
+      cloud.webMissing ? "OJO: no se pudo leer lo cobrado en Ventas (web): falta esa parte." : "",
+      missingPhones.length ? `OJO: ${missingPhones.map(d => d.label).join(", ")} no se conecta desde hace más de 30 min; sus ventas pueden faltar.` : "",
+    ].filter(Boolean);
+    return {
+      list: cloud.currencies.map(c => ({
+        currency: c.currency,
+        expectedMinor: c.expectedMinor,
+        lines: [
+          ["Fondo inicial", c.openingFloatMinor], ["Ventas en efectivo (todos los teléfonos)", c.salesCashMinor],
+          ["Pedidos web cobrados en la caja", c.webInCajaMinor], ["Pedidos web cobrados en Ventas", c.webInVentasMinor],
+          ["Otras entradas", c.otherInMinor], ["Salidas, gastos y devoluciones", -c.outMinor],
+        ],
+      })),
+      cloud: true,
+      note: notes.join(" "),
+    };
+  } catch (e) {
+    return { list: local(), cloud: false, note: `No se pudo calcular con la nube (${String(e instanceof Error ? e.message : e)}). Esto es solo lo de este teléfono; falta lo de los otros y lo de Ventas.` };
+  }
+}
+
+async function closeSheet(shift: ShiftSummary) {
+  const sheet = openSheet(`<div class="sheet-head"><h2>Contar y cerrar turno</h2><button type="button" class="btn btn-ghost" data-close>Volver</button></div><p class="t-sm muted">Calculando lo que debería haber en el cajón…</p>`, "Cerrar turno");
+  sheet.el.querySelector<HTMLButtonElement>("[data-close]")!.onclick = sheet.close;
+  const exp = await expectedFor(shift);
+  const rows = exp.list.filter(e => e.expectedMinor !== 0 || shift.currencies.some(c => c.currency === e.currency));
+  sheet.el.innerHTML = `
     <div class="sheet-head"><h2>Contar y cerrar turno</h2><button type="button" class="btn btn-ghost" data-close>Volver</button></div>
     <form class="nx-form">
-      <table class="tbl"><thead><tr><th>Efectivo</th><th>Debe haber</th><th>Contado</th><th>Dif.</th></tr></thead><tbody>
-        ${shift.currencies.map(c => `<tr><td style="font-weight: 700">${esc(c.currency)}</td><td class="num">${(c.expectedMinor / 100).toFixed(2)}</td>
+      <div class="notice ${exp.cloud ? "ok" : "warn"}">${icon(exp.cloud ? "check" : "alert")}<div><b>${exp.cloud ? "Cuenta de toda la tienda" : "Cuenta solo de este teléfono"}</b>${esc(exp.note)}</div></div>
+      <table class="tbl"><thead><tr><th>Efectivo</th><th>Debería haber</th><th>Contado</th><th>Dif.</th></tr></thead><tbody>
+        ${rows.map(c => `<tr><td style="font-weight: 700">${esc(c.currency)}</td><td class="num">${(c.expectedMinor / 100).toFixed(2)}</td>
           <td><input class="input" name="count-${esc(c.currency)}" data-expected="${c.expectedMinor}" inputmode="decimal" required placeholder="0,00" style="width: 88px; text-align: right"></td>
           <td class="num muted" data-diff="${esc(c.currency)}">—</td></tr>`).join("")}
       </tbody></table>
-      <p class="t-xs muted">Transferencias, Zelle y cripto no se cuentan en caja: van con su referencia en cada venta.</p>
+      <details class="t-sm"><summary>De dónde sale «debería haber»</summary>${rows.map(c => `<p style="font-weight:700;margin:6px 0 2px">${esc(c.currency)}</p>${c.lines.filter(([, v]) => v).map(([label, v]) => `<div class="kv"><span class="muted">${esc(label)}</span><span class="num">${v < 0 ? "−" : "+"} ${fmt(Math.abs(v), c.currency)}</span></div>`).join("")}`).join("")}</details>
+      <p class="t-xs muted">Transferencias, Zelle y cripto no se cuentan en caja: van con su referencia.</p>
       <div data-warn></div>
+      ${staffSelectHtml("staff", "¿Quién cuenta y cierra?")}
       <label class="field">Motivo de la diferencia<input class="input" name="note" placeholder="Ej.: vuelto mal dado"></label>
       <button type="submit" class="btn btn-primary btn-xl btn-block">Cerrar turno</button>
-    </form>`, "Cerrar turno");
+    </form>`;
   sheet.el.querySelector<HTMLButtonElement>("[data-close]")!.onclick = sheet.close;
   const form = sheet.el.querySelector<HTMLFormElement>("form")!;
-  const diffs = () => shift.currencies.map(c => {
+  const diffs = () => rows.map(c => {
     const raw = field(form, `count-${c.currency}`).value;
     let counted: number | null = null;
     try {
@@ -233,24 +376,28 @@ function closeSheet(shift: ShiftSummary) {
       say("Escribe el motivo de la diferencia para cerrar", "error");
       return;
     }
+    const staff = staffOrSay(form, "staff");
+    if (staffList().length && !staff) return;
     void (async () => {
       try {
         const closed = await invoke<ShiftSummary>("cash_shift_close", {
           input: {
             shiftId: shift.shiftId,
             outboxId: id(),
-            counts: shift.currencies.map(c => ({ countId: id(), currency: c.currency, countedMinor: toMinor(field(form, `count-${c.currency}`).value) })),
-            closedBy: null,
+            counts: rows.map(c => ({ countId: id(), currency: c.currency, countedMinor: toMinor(field(form, `count-${c.currency}`).value) })),
+            closedBy: staff,
             note: field(form, "note").value || null,
             closedAt: now(),
+            expected: exp.cloud ? exp.list.map(c => ({ currency: c.currency, expectedMinor: c.expectedMinor })) : null,
           },
         });
         sheet.close();
+        requestSync();
         const lines = closed.counts
           .map(c => `${c.currency} ${c.differenceMinor === 0 ? "cuadra" : `${c.differenceMinor > 0 ? "sobran" : "faltan"} ${fmt(Math.abs(c.differenceMinor), c.currency)}`}`)
           .join(" · ");
         await renderShift();
-        say(`✓ Turno cerrado · ${lines}`);
+        say(`✓ Turno cerrado${exp.cloud ? " (toda la tienda)" : " (solo este teléfono)"} · ${lines}`);
       } catch (err) {
         say(`Cierre de turno: ${String(err)}`, "error");
       }
@@ -267,17 +414,25 @@ async function renderShift() {
   const cur = shift.currencies.find(c => c.currency === shiftCurrency) ?? shift.currencies[0];
   const opened = new Date(shift.openedAt);
   const floats = shift.currencies.filter(c => c.openingFloatMinor).map(c => fmt(c.openingFloatMinor, c.currency)).join(" y ") || "sin fondo";
+  const who = personName(shift.openedBy);
+  const old = !isToday(shift.openedAt);
+  const role = shift.storeRole === "joiner"
+    ? `Te uniste al turno de la tienda${who ? ` (${esc(who)})` : ""}: el fondo lo contó quien abrió. Aquí ves solo lo de este teléfono.`
+    : shift.storeRole === "opener"
+      ? `Turno de la tienda${who ? ` · abrió ${esc(who)}, dependienta de turno` : ""} · abrió con ${floats}`
+      : `Desde ${esc(opened.toLocaleDateString())} · abrió con ${floats}`;
   const moves = await shiftMovements(shift.shiftId);
   box.innerHTML = `
-    <div class="notice ok">${icon("clock")}<div><b>Turno abierto · ${esc(opened.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }))}</b>Desde ${esc(opened.toLocaleDateString())} · abrió con ${floats}</div></div>
+    <div class="notice ${old ? "warn" : "ok"}">${icon(old ? "alert" : "clock")}<div><b>Turno abierto · ${esc(old ? `${dayLabel(shift.openedAt)} ` : "")}${esc(opened.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }))}</b>${old ? "Este turno es de otro día: cuéntalo y ciérralo antes de seguir vendiendo. " : ""}${role}</div></div>
     ${shift.currencies.length > 1 ? `<div class="seg" role="group" aria-label="Moneda">${shift.currencies.map(c => `<button type="button" data-cur="${esc(c.currency)}" aria-pressed="${c.currency === cur.currency}">${esc(c.currency)}</button>`).join("")}</div>` : ""}
     <div class="panel" style="gap: 8px">
       <div class="kv"><span class="muted">Fondo inicial</span><span class="num">${fmt(cur.openingFloatMinor, cur.currency)}</span></div>
       <div class="kv"><span class="muted">Ventas en efectivo</span><span class="num pos">${signed(cur.salesCashMinor, cur.currency, "+")}</span></div>
-      <div class="kv"><span class="muted">Entradas</span><span class="num pos">${signed(cur.otherInMinor, cur.currency, "+")}</span></div>
+      <div class="kv"><span class="muted">Entradas (también pedidos web)</span><span class="num pos">${signed(cur.otherInMinor, cur.currency, "+")}</span></div>
       <div class="kv"><span class="muted">Salidas y gastos</span><span class="num neg">${signed(cur.otherOutMinor, cur.currency, "−")}</span></div>
       <div class="hr"></div>
-      <div class="kv" style="font-weight: 700"><span>Debe haber</span><span class="t-lg num">${fmt(cur.expectedMinor, cur.currency)}</span></div>
+      <div class="kv" style="font-weight: 700"><span>${shift.storeRole ? "En este teléfono" : "Debe haber"}</span><span class="t-lg num">${fmt(cur.expectedMinor, cur.currency)}</span></div>
+      ${shift.storeRole ? `<p class="t-xs muted">Al cerrar, la nube suma todos los teléfonos y lo cobrado en Ventas.</p>` : ""}
     </div>
     <div class="grid-3">
       <button type="button" class="btn btn-secondary" data-move="cash_in">${icon("arrowDown", "sm")}Entrada</button>
@@ -294,8 +449,19 @@ async function renderShift() {
     }).join("") : `<p class="muted" style="padding: 12px 0">Sin entradas ni salidas todavía.</p>`}</div>`;
   box.querySelectorAll<HTMLButtonElement>("[data-cur]").forEach(b => (b.onclick = () => { shiftCurrency = b.dataset.cur!; void renderShift(); }));
   box.querySelectorAll<HTMLButtonElement>("[data-move]").forEach(b => (b.onclick = () => movementSheet(shift, b.dataset.move as "cash_in" | "cash_out" | "expense")));
-  box.querySelector<HTMLButtonElement>("[data-close-shift]")!.onclick = () => closeSheet(shift);
+  box.querySelector<HTMLButtonElement>("[data-close-shift]")!.onclick = () => void closeSheet(shift);
 }
+
+/** Opens Caja on the close sheet directly (home button «Cerrar el día»). */
+export async function startCloseDay() {
+  const shift = await invoke<ShiftSummary | null>("cash_shift_current");
+  if (!shift) {
+    say("No hay turno abierto en este teléfono.", "error");
+    return;
+  }
+  await closeSheet(shift);
+}
+window.addEventListener("nexo:shift-changed", () => void renderShift());
 
 // ---------- Fiado / receivables ----------
 

@@ -10,8 +10,9 @@ import "@fontsource/cinzel/600.css";
 import "./nexo.css";
 import "./themes/casaviva.css";
 import "./app.css";
-import { mountFinance, refreshFinance } from "./finance";
-import type { DeviceIdentity } from "./sync";
+import { mountFinance, refreshFinance, startCloseDay } from "./finance";
+import { mountWebOrders, refreshWebOrders } from "./weborders";
+import { lastMissing, type DeviceIdentity } from "./sync";
 import { openCheckout, describePayments, type PaymentInput } from "./checkout";
 import { icon, ISOTIPO, escapeHtml, openSheet } from "./ui";
 import { openReceive } from "./receive";
@@ -37,8 +38,15 @@ let BUSINESS_ID = "casa-viva";
 const PILOT_BUSINESS = "casa-viva";
 const businessName = () => (BUSINESS_ID === PILOT_BUSINESS ? "Casa Viva" : BUSINESS_ID);
 const NO_CATEGORY = "Sin categoría";
+// «3 botones» (propuesta 20-oct, si Lennys la aprueba): una pantalla de inicio con
+// «Cobrar pedido», «Venta rápida» y «Cerrar el día»; lo demás sigue en las pestañas.
+// Se enciende por teléfono en Más → Este equipo (apagada por defecto).
+const HOME_KEY = "nexo.home";
+const home3 = (() => { try { return localStorage.getItem(HOME_KEY) === "3botones"; } catch { return false; } })();
 const VIEWS = [
+  ["inicio", "Inicio", "grid"],
   ["vender", "Vender", "tag"],
+  ["web", "Pedidos", "receipt"],
   ["caja", "Caja", "wallet"],
   ["inventario", "Inventario", "box"],
   ["mas", "Más", "grid"],
@@ -50,10 +58,19 @@ app.innerHTML = `
 <div class="nx app" data-theme="casaviva">
   <nav class="nav" aria-label="Principal">
     <div class="nav-logo">${ISOTIPO}</div>
-    ${VIEWS.map(([id, label, ic]) => `<button type="button" class="tab" data-view="${id}" ${id === "vender" ? 'aria-current="page"' : ""}>${icon(ic)}${label}</button>`).join("")}
+    ${VIEWS.filter(([id]) => id !== "inicio" || home3).map(([id, label, ic]) => `<button type="button" class="tab" data-view="${id}" ${id === (home3 ? "inicio" : "vender") ? 'aria-current="page"' : ""}>${icon(ic)}${label}</button>`).join("")}
     <div class="nav-spacer"></div>
   </nav>
   <div class="views">
+    <section class="view" data-view="inicio" hidden>
+      <header class="top"><div class="logo">${ISOTIPO}<span class="logo-name">Casa Viva</span></div></header>
+      <div class="scroll"><div class="stack" style="gap: 16px; padding-top: 12px">
+        <button type="button" class="btn btn-primary btn-xl btn-block" data-go="web" style="min-height: 96px; font-size: 1.3em">${icon("receipt")}Cobrar pedido</button>
+        <button type="button" class="btn btn-primary btn-xl btn-block" data-go="vender" style="min-height: 96px; font-size: 1.3em">${icon("tag")}Venta rápida</button>
+        <button type="button" class="btn btn-secondary btn-xl btn-block" data-go="cerrar" style="min-height: 96px; font-size: 1.3em">${icon("wallet")}Cerrar el día</button>
+        <p class="t-sm muted">Lo demás (devoluciones, inventario, sincronización…) está abajo en las pestañas y en «Más».</p>
+      </div></div>
+    </section>
     <section class="view" data-view="vender">
       <header class="top"><div class="logo">${ISOTIPO}<span class="logo-name" id="store-name">Casa Viva</span></div><span class="pill calm" id="net">${icon("offline", "sm")}Sin conexión</span></header>
       <div class="sell">
@@ -69,6 +86,10 @@ app.innerHTML = `
         <aside class="side-cart" aria-label="Carrito"><div class="top"><h2 class="title" id="side-cart-title">Carrito</h2><button class="btn btn-ghost" id="side-cart-clear" style="color: var(--nx-danger)">Vaciar</button></div><div class="cart-body" id="side-cart-body"></div><div class="cart-foot" id="side-cart-foot"></div></aside>
       </div>
       <div class="dock" id="dock"><button class="cartbar is-empty" id="cartbar" type="button"><span class="count">Carrito vacío</span></button></div>
+    </section>
+    <section class="view" data-view="web" hidden>
+      <header class="top"><h1 class="title">Pedidos web</h1></header>
+      <div class="scroll"><div class="stack" id="web-orders"></div></div>
     </section>
     <section class="view" data-view="caja" hidden>
       <header class="top"><h1 class="title">Caja</h1></header>
@@ -95,7 +116,7 @@ app.innerHTML = `
         <details class="panel"><summary>Consignación a clientes</summary><div id="fin-consignment" class="nx-form"></div></details>
         <details class="panel"><summary>Resumen del negocio</summary><div id="fin-summary"></div></details>
         <details class="panel"><summary>Sincronización</summary><div id="fin-sync"></div></details>
-        <details class="panel"><summary>Este equipo</summary><p class="t-sm" id="device-label"></p><p class="t-sm muted" id="history"></p><p class="t-sm muted" id="audit">Auditoría local pendiente…</p></details>
+        <details class="panel"><summary>Este equipo</summary><p class="t-sm" id="device-label"></p><label class="t-sm" style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="home3"> Pantalla de inicio con 3 botones (prueba)</label><p class="t-sm muted" id="history"></p><p class="t-sm muted" id="audit">Auditoría local pendiente…</p></details>
       </div></div>
     </section>
   </div>
@@ -128,6 +149,7 @@ function showView(view: View) {
     t.dataset.view === view ? t.setAttribute("aria-current", "page") : t.removeAttribute("aria-current")
   );
   if (view === "inventario") void renderLowStock();
+  if (view === "web") refreshWebOrders();
 }
 document.querySelectorAll<HTMLButtonElement>(".nav .tab").forEach(t => (t.onclick = () => showView(t.dataset.view as View)));
 
@@ -174,7 +196,7 @@ function showDeviceLabel(identity: DeviceIdentity) {
 }
 window.addEventListener("nexo:device-updated", e => showDeviceLabel((e as CustomEvent<DeviceIdentity>).detail));
 
-/** "Sin conexión" stays calm; pending sales are shown, errors only if they persist. */
+/** Plain Spanish (20-oct): "Sin internet" stays calm; pending sales are shown, errors only if they persist. */
 async function renderNet() {
   let state: SyncState | null = null;
   try {
@@ -185,25 +207,19 @@ async function renderNet() {
   const pill = $("#net");
   let token = "";
   try { token = localStorage.getItem("nexo.sync.deviceToken") ?? ""; } catch { /* sin almacenamiento */ }
-  if (!token.trim()) {
-    pill.className = "pill calm";
-    pill.innerHTML = `${icon("offline", "sm")}Sin conectar`;
-  } else if (!navigator.onLine) {
-    pill.className = "pill calm";
-    pill.innerHTML = `${icon("offline", "sm")}Sin conexión${state?.pending ? ` · ${state.pending}` : ""}`;
-  } else if (state?.failing) {
-    pill.className = "pill danger";
-    pill.innerHTML = `${icon("alert", "sm")}Revisar envío`;
-  } else if (state?.pending) {
-    pill.className = "pill info";
-    pill.innerHTML = `${icon("cloud", "sm")}Enviando ${state.pending}`;
-  } else if (!fullSyncInSession) {
-    pill.className = "pill info";
-    pill.innerHTML = `${icon("alert", "sm")}Verificar sincronización`;
-  } else {
-    pill.className = "pill ok";
-    pill.innerHTML = `${icon("check", "sm")}Al día`;
-  }
+  const pending = state?.pending ?? 0;
+  const set = (tone: string, ic: string, text: string, title: string) => {
+    pill.className = `pill ${tone}`;
+    pill.innerHTML = `${icon(ic, "sm")}${escapeHtml(text)}`;
+    pill.title = title;
+  };
+  if (!token.trim()) set("calm", "offline", "Sin conectar", "Este teléfono no está conectado a la tienda: Más → Sincronización.");
+  else if (!navigator.onLine) set("calm", "offline", pending ? `Sin internet · ${pending} por enviar` : "Sin internet", "Todo se guarda en el teléfono y se envía solo al volver la red.");
+  else if (state?.failing) set("danger", "alert", `No se pudo enviar · ${pending}`, "Se reintenta solo en menos de 5 minutos. Para enviarlo ya: Más → Sincronización → Sincronizar ahora.");
+  else if (pending) set("info", "cloud", `Enviando ${pending}`, "Enviando las ventas a la nube.");
+  else if (lastMissing.length) set("info", "alert", `Falta bajar ${lastMissing[0]}`, "Toca Más → Sincronización → Sincronizar ahora.");
+  else if (!fullSyncInSession) set("info", "clock", "Comprobando…", "Bajando productos, existencias y tasas.");
+  else set("ok", "check", "Al día", "Todo enviado y todo bajado.");
 }
 window.addEventListener("nexo:sync-complete", () => { fullSyncInSession = true; void renderNet(); });
 window.addEventListener("nexo:sync-failed", () => { fullSyncInSession = false; void renderNet(); });
@@ -781,6 +797,12 @@ async function checkout(exactUsdCash: boolean) {
   if (!cart.size || checkingOut) return;
   checkingOut = true;
   try {
+    // 20-oct: un cajón por tienda; sin turno abierto no se vende (el dinero no entraría en ningún cajón).
+    const shift = await invoke<{ shiftId: string } | null>("cash_shift_current").catch(() => null);
+    if (!shift) {
+      showToast("Primero abre el turno (o únete al de tu compañera).", "error", 6000, { label: "Ir a Caja", run: () => { cartSheet?.close(); showView("caja"); } });
+      return;
+    }
     const totalMinor = cartTotalMinor();
     const payments: PaymentInput[] | null = exactUsdCash
       ? [{ paymentId: crypto.randomUUID(), method: "cash", currency: "USD", amountMinor: totalMinor, usdMinor: totalMinor, exchangeRate: null, provider: null, externalRef: null }]
@@ -937,6 +959,23 @@ async function init() {
   await renderHistory();
   await renderAudit();
   await mountFinance($(".nx.app"), db);
+  mountWebOrders($("#web-orders"));
+  document.querySelectorAll<HTMLButtonElement>("[data-go]").forEach(b => (b.onclick = () => {
+    const go = b.dataset.go!;
+    if (go === "cerrar") { showView("caja"); void startCloseDay(); } else showView(go as View);
+  }));
+  const homeBox = $<HTMLInputElement>("#home3");
+  homeBox.checked = home3;
+  homeBox.onchange = () => {
+    try { localStorage.setItem(HOME_KEY, homeBox.checked ? "3botones" : "pestañas"); } catch { /* sin almacenamiento */ }
+    window.location.reload();
+  };
+  if (home3) showView("inicio");
+  $("#net").onclick = () => {
+    showView("mas");
+    const panel = $("#fin-sync").closest("details");
+    if (panel) panel.open = true;
+  };
   document.querySelector<HTMLButtonElement>("#recv-open")!.onclick = () => void openReceive(db);
   // Equipo nuevo sin conectar: abre directamente "Más → Sincronización" para poner el código de alta.
   let connected = "";

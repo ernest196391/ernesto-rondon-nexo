@@ -8,10 +8,11 @@ import {
   type PushEvent,
   type PushRequest,
 } from "../../../packages/business-domain/src/sync-contract";
+import { getVersion } from "@tauri-apps/api/app";
 import { pullRates } from "./checkout";
 import { can } from "./attribution";
 
-type SyncState = { pending: number; failing: number; synced: number; oldestPendingAt: string | null; lastError: string | null };
+export type SyncState = { pending: number; failing: number; synced: number; oldestPendingAt: string | null; lastError: string | null };
 type OutboxEvent = PushEvent & { attempts: number };
 
 const ENDPOINT_KEY = "nexo.sync.endpoint";
@@ -36,17 +37,32 @@ function save(key: string, value: string) {
   }
 }
 
-function describe(state: SyncState) {
-  const parts = [`Pendientes ${state.pending}`, `sincronizados ${state.synced}`];
-  if (state.failing) parts.push(`con error ${state.failing}`);
-  if (state.lastError) parts.push(`último error: ${state.lastError}`);
-  return parts.join(" · ");
+/** Plain Spanish for the clerks (20-oct): what is waiting and what to do. */
+export function describe(state: SyncState) {
+  if (!state.pending) return `Todo enviado (${state.synced} en total).`;
+  const n = state.pending === 1 ? "1 cosa por enviar" : `${state.pending} cosas por enviar`;
+  if (!state.failing) return `${n}. Se envían solas en cuanto haya internet.`;
+  return `${n}. Un intento falló (${friendlyError(state.lastError)}); se repite solo en menos de 5 minutos o toca «Sincronizar ahora».`;
 }
 
-/** Pushes every due event. Returns the final queue state. */
-export async function pushOutbox(endpoint: string, deviceToken: string): Promise<SyncState> {
+/** Technical errors → words the clerk understands. */
+export function friendlyError(raw: string | null | undefined) {
+  const e = String(raw ?? "");
+  if (!e) return "sin detalle";
+  if (/failed to fetch|networkerror|load failed|network|timeout|sin conexi/i.test(e)) return "sin internet o la red muy lenta";
+  if (/HTTP 401|unauthorized|no es válida/i.test(e)) return "la clave de este teléfono no vale: pide un código nuevo a Lennys";
+  if (/HTTP 5\d\d/i.test(e)) return "la nube no contestó";
+  return e.length > 120 ? `${e.slice(0, 120)}…` : e;
+}
+
+/**
+ * Pushes every due event. Returns the final queue state.
+ * `force` («Sincronizar ahora»): everything pending goes now, ignoring the backoff.
+ */
+export async function pushOutbox(endpoint: string, deviceToken: string, force = false): Promise<SyncState> {
   let state = await invoke<SyncState>("sync_state");
   if (!endpoint || !deviceToken) return state;
+  if (force) await invoke<number>("sync_make_all_due");
   for (let round = 0; round < 50; round++) {
     const now = new Date().toISOString();
     const events = await invoke<OutboxEvent[]>("sync_pending_batch", { now, limit: BATCH });
@@ -128,8 +144,50 @@ export async function pullStock(endpoint: string, deviceToken: string): Promise<
 
 export type DeviceIdentity = { businessId: string; branchId: string; deviceId: string; label: string | null; provisioned: boolean };
 
-function identityUrl(endpoint: string) {
-  return endpoint.replace(/nexo-sync-push\/?$/, "nexo-device-identity");
+let versionCache = "";
+/** This app's version (tauri.conf.json), sent with the check-in for Ajustes → Cajas. */
+export async function appVersion(): Promise<string> {
+  if (!versionCache) {
+    try {
+      versionCache = await getVersion();
+    } catch {
+      versionCache = "";
+    }
+  }
+  return versionCache;
+}
+
+function identityUrl(endpoint: string, version = "") {
+  return endpoint.replace(/nexo-sync-push\/?$/, "nexo-device-identity") + (version ? `?v=${encodeURIComponent(version)}` : "");
+}
+
+/** URL of another device function next to the sync endpoint. */
+export function functionUrl(name: string) {
+  return read(ENDPOINT_KEY, DEFAULT_ENDPOINT).trim().replace(/nexo-sync-push\/?$/, name);
+}
+
+/** The device key, or "" when this phone is not connected yet. */
+export function deviceToken() {
+  return read(TOKEN_KEY).trim();
+}
+
+/** POST to a device function with this phone's key. Throws with the server's message. */
+export async function deviceCall<T>(name: string, body: Record<string, unknown>): Promise<T> {
+  const token = deviceToken();
+  if (!token) throw new Error("Este teléfono aún no está conectado (Más → Sincronización).");
+  const response = await fetch(functionUrl(name), {
+    method: "POST",
+    headers: { "content-type": "application/json", "x-nexo-device-token": token },
+    body: JSON.stringify(body),
+  });
+  const data = (await response.json().catch(() => ({}))) as T & { error?: string; message?: string };
+  if (!response.ok) {
+    const error = new Error(data.message || data.error || `HTTP ${response.status}`) as Error & { status?: number; code?: string };
+    error.status = response.status;
+    error.code = data.error;
+    throw error;
+  }
+  return data;
 }
 
 /**
@@ -138,7 +196,8 @@ function identityUrl(endpoint: string) {
  */
 export async function provisionDevice(endpoint: string, deviceToken: string): Promise<DeviceIdentity> {
   const current = await invoke<DeviceIdentity>("device_identity");
-  const response = await fetch(identityUrl(endpoint), { headers: { "x-nexo-device-token": deviceToken } });
+  // Also the «check-in»: the panel sees «Última conexión» and the version even without sales to send.
+  const response = await fetch(identityUrl(endpoint, await appVersion()), { headers: { "x-nexo-device-token": deviceToken } });
   if (response.status === 401) throw new Error("La clave del dispositivo no es válida o está desactivada");
   if (!response.ok) throw new Error(`Identidad: HTTP ${response.status}`);
   const cloud = (await response.json()) as { businessId: string; deviceId: string; label: string | null };
@@ -164,8 +223,20 @@ let pendingRequest: number | undefined;
 let onState: ((state: SyncState, note?: string) => void) | undefined;
 let onProblem: ((message: string) => void) | undefined;
 
-/** One push at a time; manual and automatic syncs share this gate. */
-async function syncOnce(): Promise<SyncState | undefined> {
+/** Extra steps other screens add to every sync (web-order queue, store shift). */
+const afterPush: Array<() => Promise<void>> = [];
+export function onEverySync(step: () => Promise<void>) {
+  afterPush.push(step);
+}
+
+/** Which downloads failed in the last sync («Productos», «Existencias», «Tasas»). */
+export let lastMissing: string[] = [];
+
+/**
+ * One sync at a time; manual and automatic syncs share this gate.
+ * `force` = «Sincronizar ahora»: everything pending goes now, ignoring the backoff.
+ */
+export async function syncOnce(force = false): Promise<SyncState | undefined> {
   const endpoint = read(ENDPOINT_KEY, DEFAULT_ENDPOINT).trim();
   const token = read(TOKEN_KEY).trim();
   if (running || !endpoint || !token || !navigator.onLine) return undefined;
@@ -173,20 +244,38 @@ async function syncOnce(): Promise<SyncState | undefined> {
   try {
     // Never push or pull under an identity the key does not belong to.
     await provisionDevice(endpoint, token);
-    const state = await pushOutbox(endpoint, token);
-    // "Al día" debe significar que catálogo, existencias y tasas llegaron.
-    // Antes se ocultaban errores de las tres descargas mientras el POS mostraba
-    // una marca verde aun sin stock para algunos artículos.
-    try {
-      await pullCatalog(endpoint, token);
-      await pullStock(endpoint, token);
-      await pullRates(endpoint, token);
-      window.dispatchEvent(new Event("nexo:sync-complete"));
-      return state;
-    } catch (error) {
-      window.dispatchEvent(new Event("nexo:sync-failed"));
-      throw error;
+    const state = await pushOutbox(endpoint, token, force);
+    for (const step of afterPush) {
+      try {
+        await step();
+      } catch (e) {
+        console.warn("sync step", e);
+      }
     }
+    // "Al día" = las tres descargas llegaron. Cada una se intenta aunque otra falle
+    // (20-oct: antes una sola fallida dejaba sin bajar las demás) y se dice cuál faltó.
+    const missing: string[] = [];
+    const steps: Array<[string, () => Promise<unknown>]> = [
+      ["productos", () => pullCatalog(endpoint, token)],
+      ["existencias", () => pullStock(endpoint, token)],
+      ["tasas y personas", () => pullRates(endpoint, token)],
+    ];
+    let firstError: unknown = null;
+    for (const [name, run] of steps) {
+      try {
+        await run();
+      } catch (e) {
+        missing.push(name);
+        firstError ??= e;
+      }
+    }
+    lastMissing = missing;
+    if (missing.length) {
+      window.dispatchEvent(new CustomEvent("nexo:sync-failed", { detail: { missing } }));
+      throw new Error(`no bajaron ${missing.join(", ")} (${friendlyError(firstError instanceof Error ? firstError.message : String(firstError))})`);
+    }
+    window.dispatchEvent(new Event("nexo:sync-complete"));
+    return state;
   } finally {
     running = false;
   }
@@ -195,10 +284,10 @@ async function syncOnce(): Promise<SyncState | undefined> {
 async function autoSync() {
   try {
     const state = await syncOnce();
-    if (state) onState?.(state, `Auto ${new Date().toLocaleTimeString()} · `);
+    if (state) onState?.(state, `Revisado a las ${new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })} · `);
   } catch (e) {
     console.warn("auto sync", e);
-    onProblem?.(`No se sincronizó: ${e instanceof Error ? e.message : String(e)}`);
+    onProblem?.(`No se completó: ${e instanceof Error ? e.message : String(e)}. Se reintenta solo; también puedes tocar «Sincronizar ahora».`);
   }
 }
 
@@ -208,9 +297,17 @@ export function requestSync() {
   pendingRequest = window.setTimeout(() => void autoSync(), 2_000);
 }
 
+let autoStarted = false;
 export function startAutoSync() {
+  if (autoStarted) return;
+  autoStarted = true;
   window.setInterval(() => void autoSync(), AUTO_INTERVAL_MS);
   window.addEventListener("online", () => requestSync());
+  // 20-oct: al volver a la app (Android la deja en segundo plano) se sincroniza enseguida.
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "visible") requestSync();
+  });
+  window.addEventListener("focus", () => requestSync());
   requestSync();
 }
 
@@ -288,15 +385,16 @@ export async function mountSync(container: HTMLElement) {
       return;
     }
     if (!navigator.onLine) {
-      show(await invoke<SyncState>("sync_state"), "Sin conexión: se enviará solo al volver la red · ");
+      show(await invoke<SyncState>("sync_state"), "Sin internet: todo sigue guardado en el teléfono y se enviará solo al volver la red · ");
       return;
     }
-    stateEl.textContent = "Sincronizando…";
+    stateEl.textContent = "Enviando y bajando todo ahora…";
     try {
-      const state = await syncOnce();
-      show(state ?? (await invoke<SyncState>("sync_state")), state ? "" : "Ya hay un envío en curso · ");
+      // «Sincronizar ahora»: envía TODO lo pendiente ya, sin esperar los reintentos.
+      const state = await syncOnce(true);
+      show(state ?? (await invoke<SyncState>("sync_state")), state ? "✓ Listo · " : "Ya se está enviando, espera unos segundos · ");
     } catch (e) {
-      onProblem?.(`No se sincronizó: ${e instanceof Error ? e.message : String(e)}`);
+      onProblem?.(`No se completó: ${e instanceof Error ? e.message : String(e)}`);
     }
   };
   show(await invoke<SyncState>("sync_state"));

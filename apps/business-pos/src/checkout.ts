@@ -127,7 +127,17 @@ function settle(rows: Row[], totalMinor: number, rates: Map<string, Rate>) {
  * Opens the checkout sheet. Resolves with the payments, or null if the
  * seller closes it.
  */
-export async function openCheckout(totalMinor: number): Promise<PaymentInput[] | null> {
+export type CheckoutOptions = {
+  /** Sheet title (default «Cobrar 12,00 USD»). */
+  title?: string;
+  /** Extra line under the title, e.g. how the web order said the client pays. */
+  hint?: string;
+  confirmLabel?: string;
+  /** Units per USD that win over the cloud rates (a web order keeps the rate of its day). */
+  rateOverrides?: Record<string, string>;
+};
+
+export async function openCheckout(totalMinor: number, opts: CheckoutOptions = {}): Promise<PaymentInput[] | null> {
   let rateList: Rate[] = [];
   try {
     rateList = await invoke<Rate[]>("rates_current");
@@ -135,17 +145,21 @@ export async function openCheckout(totalMinor: number): Promise<PaymentInput[] |
     rateList = [];
   }
   const rates = new Map(rateList.map(r => [r.currency, r]));
+  for (const [currency, perUsd] of Object.entries(opts.rateOverrides ?? {})) {
+    if (Number(perUsd) > 0) rates.set(currency, { currency, perUsd: String(perUsd), setAt: new Date().toISOString() });
+  }
   const rows: Row[] = [];
 
   const panel = openSheet(`
-      <div class="sheet-head"><h2>Cobrar ${fmt(totalMinor, "USD")}</h2><button type="button" class="btn btn-ghost checkout-cancel">Cancelar</button></div>
+      <div class="sheet-head"><h2>${escapeHtml(opts.title ?? `Cobrar ${fmt(totalMinor, "USD")}`)}</h2><button type="button" class="btn btn-ghost checkout-cancel">Cancelar</button></div>
+      ${opts.hint ? `<p class="t-sm" style="font-weight: 700">${escapeHtml(opts.hint)}</p>` : ""}
       <p class="t-sm muted checkout-rates"></p>
       <div class="checkout-rows" style="display: flex; flex-direction: column; gap: 8px"></div>
       <p class="t-xs muted" style="font-weight: 700">AÑADIR FORMA DE PAGO (MÁX. ${MAX_PAYMENTS})</p>
       <div class="methods checkout-methods"></div>
       <div class="kv"><span style="font-weight: 700">Cubierto</span><span class="badge checkout-balance" aria-live="polite" style="font-size: 15px"></span></div>
       <p class="t-sm checkout-error" role="alert" style="color: var(--nx-danger); font-weight: 700"></p>
-      <button type="button" class="btn btn-primary btn-xl btn-block checkout-confirm">Confirmar venta</button>`, "Cobrar");
+      <button type="button" class="btn btn-primary btn-xl btn-block checkout-confirm">${escapeHtml(opts.confirmLabel ?? "Confirmar venta")}</button>`, "Cobrar");
   const sheet = panel.el;
 
   const $ = <T extends HTMLElement>(sel: string) => sheet.querySelector<T>(sel)!;

@@ -129,3 +129,16 @@ export function attributionHtml() {
     </details>
   </div>`;
 }
+
+/** Dependientas activas (para «Quién abre / quién cierra» en Caja y «Atiende» en Pedidos web). */
+export const staffList = () => list.filter(p => p.kind === "staff");
+export const personName = (id: string | null | undefined) => (id ? list.find(p => p.id === id)?.name ?? null : null);
+
+/** Select de dependientas, con la de «Atiende» elegida por defecto. */
+export function staffSelectHtml(name: string, label: string, selected: string | null = attribution.staffId) {
+  const staff = staffList();
+  if (!staff.length) return "";
+  return `<label class="field">${escapeHtml(label)}<select class="input" name="${escapeHtml(name)}" required><option value="">— Elige —</option>${staff
+    .map(p => `<option value="${escapeHtml(p.id)}"${p.id === selected ? " selected" : ""}>${escapeHtml(p.name)}</option>`)
+    .join("")}</select></label>`;
+}
