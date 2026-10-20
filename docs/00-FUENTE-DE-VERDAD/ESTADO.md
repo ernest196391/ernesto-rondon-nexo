@@ -1674,3 +1674,23 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
 - **Pendiente de la caja:** APK 1.1.0 compilándose en la laptop (`D:\NexoBuild\android-caja-110.log`); instalador Windows en GitHub Actions (release `caja-v1.1.0`); luego códigos nuevos de Lennys, limpieza `docs/nexo-business/caja/limpieza-2026-10-20.mjs` y guía con capturas.
 - **Mensajeros:** Marlon (Core 126) no recibió la bienvenida oficial (chat `@lid`) → enviada a mano. …2399 sin respuesta del bot → enviado registro. Dirección de recogida en la descripción del grupo Mensajerías y en /registro-mensajero/ y /area-mensajeros/. Incidencias en `incidencias/2026-10-20.md`.
 - **Fotos 42 y 23:** catálogo en `docs/nexo-business/proveedores/tienda-42-y-23/` (26 productos; ficha `crm_suppliers` 103). Fotos pro con Higgsfield en marcha (Ernesto aprobó; tope 80 créditos).
+
+### L47. Martes 20-oct ~19:55 — anuncios diarios INTELIGENTES al grupo «Actualización de productos» (desde el 21-oct)
+- **Qué hace:**
+  - **8:40:** `seleccion-diaria.mjs` elige hasta 30 productos distintos. Mezcla noticia (titulares RSS gratis + 1 llamada gpt-4.1-mini, unos 0,001 USD), pedido (chats de 7 días, General, búsquedas y ventas web de 14 días), nuevo (la web en 7 días + los 267 electrodomésticos de L45) y categoría (variedad). Deja 6 reservas. Avisa a Ernesto por privado con un resumen de 6 líneas.
+  - **9:02–19:00:** `novedades.mjs` manda 1 por minuto hasta acabar la lista y se para.
+- **Reglas:**
+  - Solo productos publicados con existencias (o «Bajo pedido» publicados en la bolsa) y con foto de 400 px o más.
+  - No repite nada de los últimos 7 días, contando lo de grupo-diario y los envíos a mano.
+  - Al terminar, apunta lo enviado en `grupo_diario_estado` para que el bot no lo repita a las 19:00.
+- **Ajustes:**
+  - Parar: `crm_settings novedades_auto = no`.
+  - Cuántos al día: `novedades_max_dia` (30).
+  - Ritmo: `novedades_cada_min` (1).
+- **Cron:**
+  - `40 8` → selección.
+  - `* * * * *` → envío (antes cada 3 min con la cola fija).
+  - Copias: `/root/backups/crontab.bak-20261020-novedades`, `novedades.mjs.bak-20261020-antes-seleccion`.
+- **Prueba en seco (20-oct):** 30 + 6 reservas, con 10 de noticias (agua, apagones, comida), 8 pedidos, 8 nuevos y 4 de categorías. Salida en `/root/supervisor/logs/seleccion-diaria-prueba-20261020.txt`. Nada enviado a grupos.
+- **Código y explicación:** `docs/nexo-business/novedades/` (`COMO-FUNCIONA.md`).
+- **Siguiente:** mañana a las 8:40, comprobar que llega el resumen y que a las 9:02 sale el primero (`tail /root/supervisor/logs/novedades.log`, `cv outbox 10`).
