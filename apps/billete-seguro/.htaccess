@@ -1,0 +1,11 @@
+# Billete Seguro: el service worker siempre fresco; el resto, caché corta.
+<Files "sw.js">
+  Header set Cache-Control "no-cache"
+</Files>
+<FilesMatch "\.(js|css|html|webmanifest)$">
+  Header set Cache-Control "max-age=300"
+</FilesMatch>
+Header set X-Content-Type-Options "nosniff"
+Header set Permissions-Policy "camera=(self), microphone=(), geolocation=()"
+AddType application/manifest+json .webmanifest
+DirectoryIndex index.html
