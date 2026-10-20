@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+
+        @font-face { font-family: "Cinzel"; src: url("assets/fonts/cinzel-600.woff2") format("woff2"); font-weight: 600; font-style: normal; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-400.woff2") format("woff2"); font-weight: 400; font-style: normal; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-500.woff2") format("woff2"); font-weight: 500; font-style: normal; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-600.woff2") format("woff2"); font-weight: 600; font-style: normal; }
+        #s04-giro-root { position: absolute; inset: 0; }
+
+        #s04-a { position: absolute; left: 70px; right: 70px; top: 330px; text-align: center; font-weight: 600; font-size: 84px; line-height: 1.1; color: #2B2420; }
+        #s04-a b { font-weight: 600; color: #9B2C2C; }
+        #s04-b { position: absolute; left: 70px; right: 70px; top: 760px; display: flex; flex-direction: column; align-items: center; gap: 26px; opacity: 0; }
+        #s04-esc { width: 170px; height: 198px; }
+        #s04-esc svg { width: 100%; height: 100%; display: block; }
+        #s04-name { font-family: "Cinzel", Georgia, serif; font-weight: 600; font-size: 104px; letter-spacing: 0.06em; color: #0D3B45; text-align: center; line-height: 1.1; }
+        #s04-de { font-weight: 500; font-size: 40px; color: #2B2420; }
+      </style>
+      <div id="s04-giro-root" data-composition-id="s04-giro" data-width="1080" data-height="1920">
+
+        <div id="s04-a">El que pierde es<br><b>el que recibe el billete</b></div>
+        <div id="s04-b"><div id="s04-esc"><svg viewBox="0 0 48 56" aria-hidden="true"><path d="M24 3l19 7v15c0 13-8.5 22.5-19 28C13.5 47.5 5 38 5 25V10z" fill="#0D3B45"/><path d="M15 28l7 7 12-14" fill="none" stroke="#F6F1E6" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div id="s04-name">BILLETE SEGURO</div><div id="s04-de">de Casa Viva</div></div>
+      </div>
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          
+          tl.fromTo("#s04-a", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.4, ease: "power4.out" }, 0.25);
+          tl.fromTo("#s04-a", { y: 0 }, { y: -110, duration: 0.4, ease: "power2.inOut", immediateRender: false }, 2.3);
+          tl.fromTo("#s04-b", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.7)" }, 2.75);
+          tl.fromTo("#s04-a", { opacity: 1 }, { opacity: 0, duration: 0.22, ease: "power1.in", immediateRender: false }, 3.7);
+          tl.fromTo("#s04-b", { opacity: 1 }, { opacity: 0, duration: 0.22, ease: "power1.in", immediateRender: false }, 3.7);
+          window.__timelines["s04-giro"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

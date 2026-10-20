@@ -1601,7 +1601,14 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
   - **Código de Casa Viva:** guardado en la tabla. El enlace del equipo es `https://casaviva.company/billete/?equipo=<código>`.
   - **Probado yo:** el recorrido completo en el navegador (modo con IA y sin internet); la serie LAA-02 del 5 000 → «No lo aceptes»; la IA respondió en 5 s y marcó «falso» una foto inventada; un código malo da 401; los archivos del servidor son iguales a los del repo.
   - **Falta que lo confirme Ernesto:** abrirla en su celular. La protección antirrobots de Hostinger no me deja verla desde aquí; un celular de verdad la pasa solo.
-- **Siguiente:** fotos de ejemplo reales de cada prueba, una prueba con billetes reales (uno bueno y, si aparece, uno falso), lámparas UV de 365 nm para el equipo, y el anuncio a mensajeros y dependientas con el SÍ de Ernesto (etapa 4).
+- **Etapa 4, lanzamiento (20-oct, 16:56):**
+  - Guía de 5 pasos (`docs/nexo-business/guias/billete-seguro/`) enviada a Dany a las 15:41. No se espera su prueba, porque necesita tener los billetes.
+  - Conocimiento del bot #275: qué es Billete Seguro.
+  - **Video «Billete Seguro»** (1:04, estilo Hormozi; `videos/tutorial-billete-seguro`, MP4 en `docs/nexo-business/tutoriales/billete-seguro.mp4`). Ernesto lo aprobó.
+  - El video está en la web, en `casaviva.company/billete/video.mp4`, con el botón «Mira cómo funciona (1 min)» en la app (sw `bs-2`; copia `~/bak-20261020-billete-antes-video`).
+  - **Enviado al General** con el SÍ de Ernesto: mensaje + video + 5 pasos (buzón #2114-#2121).
+- **Lista de estafadores:** la lleva otra sesión («Lista de números sospechosos de estafa»): tabla, avisos del bot, comprobación del número en la app y búsqueda diaria.
+- **Siguiente:** fotos de ejemplo reales de cada prueba, lámparas UV de 365 nm para el equipo, y mirar las dudas del General sobre el video.
 
 ### L42. Martes 20-oct ~15:45 — panel de Lennys EN VIVO, auditoría de la caja, vigilancia de chats
 - **EN VIVO (pedido de Lennys, «súbelo» de Ernesto):** Core **3.14.41** (Casa-Viva main `7501e3d`; copia `~/bak-20261020-cvd-3.14.40-antes-3.14.41`), función `nexo-panel-web`, panel `befbc1f` en casaviva.company/panel (copias `~/bak-20261020-panel-*-antes-ocultar-duplicar.*`) y en **negocio.nexocuba.com** (Vercel `dpl_2Byfo8Qi…`; Lennys usa este), y VivaBot **`7597dc0`** (reiniciado 15:42). Incluye: Descripción también con colores, **Duplicar** (copia en borrador → Publicar/Descartar), **Ocultar / Ocultar este color / Ocultar todo** (antes «Dejar de vender»), **una sola foto principal** (la de la web, se cambia desde el panel), **Cerrar** abajo, y el bot ve los cambios de productos en ≤30 s (`/bot/catalogo/cambios`). Falta: probar Duplicar/Publicar con la sesión de Lennys.

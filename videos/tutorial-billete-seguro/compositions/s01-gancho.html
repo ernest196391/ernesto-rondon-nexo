@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+
+        @font-face { font-family: "Cinzel"; src: url("assets/fonts/cinzel-600.woff2") format("woff2"); font-weight: 600; font-style: normal; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-400.woff2") format("woff2"); font-weight: 400; font-style: normal; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-500.woff2") format("woff2"); font-weight: 500; font-style: normal; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-600.woff2") format("woff2"); font-weight: 600; font-style: normal; }
+        #s01-gancho-root { position: absolute; inset: 0; }
+
+        #s01-block { position: absolute; left: 70px; right: 70px; top: 300px; display: flex; flex-direction: column; align-items: center; gap: 30px; text-align: center; }
+        #s01-eyebrow { display: inline-flex; padding: 14px 30px; border-radius: 999px; background: #0D3B45; color: #F6F1E6; font-weight: 600; font-size: 34px; }
+        #s01-head { font-weight: 600; font-size: 100px; line-height: 1.05; letter-spacing: -0.02em; color: #2B2420; }
+        #s01-bici { width: 360px; height: 225px; color: #0D3B45; }
+        #s01-bici svg { width: 100%; height: 100%; display: block; }
+        #s01-num { font-weight: 600; font-size: 210px; line-height: 1; letter-spacing: -0.04em; color: #A35A1F; }
+        #s01-sub { font-weight: 500; font-size: 40px; color: #2B2420; }
+      </style>
+      <div id="s01-gancho-root" data-composition-id="s01-gancho" data-width="1080" data-height="1920">
+
+        <div id="s01-block">
+          <div id="s01-eyebrow">Pasó esta semana</div>
+          <h1 id="s01-head">Casi perdemos</h1>
+          <div id="s01-bici"><svg viewBox="0 0 64 40" aria-hidden="true"><circle cx="13" cy="27" r="10" fill="none" stroke="currentColor" stroke-width="3.2"/><circle cx="51" cy="27" r="10" fill="none" stroke="currentColor" stroke-width="3.2"/><path d="M13 27l10-16h17l11 16M23 11l9 16 8-16M19 6h9M40 11l-3-6h7" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div id="s01-num">550 USD</div>
+          <div id="s01-sub">Pedido #4220 · bicicleta eléctrica</div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          
+          tl.fromTo("#s01-eyebrow", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 0.05);
+          tl.fromTo("#s01-head", { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.45, ease: "power4.out" }, 0.75);
+          tl.fromTo("#s01-bici", { opacity: 0, x: -260 }, { opacity: 1, x: 0, duration: 0.6, ease: "power3.out" }, 1.7);
+          tl.fromTo("#s01-num", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.8)" }, 2.7);
+          tl.fromTo("#s01-sub", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power1.out" }, 3.2);
+          tl.fromTo("#s01-block", { opacity: 1, y: 0 }, { opacity: 0, y: -40, duration: 0.28, ease: "power2.in", immediateRender: false }, 4.09);
+          window.__timelines["s01-gancho"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

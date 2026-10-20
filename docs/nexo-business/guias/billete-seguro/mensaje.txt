@@ -1,0 +1,5 @@
+Hola, Dany 👋 ¿Tienes 5 minutos hoy para probar algo nuevo antes de que lo vea todo el equipo?
+Es *Billete Seguro*: revisas un billete con tu celular antes de aceptarlo y te avisa si hay señales de que es falso.
+Ábrelo aquí: https://casaviva.company/billete/?equipo=cv-49f2861896
+Prueba con cualquier billete que tengas a mano. Los pasos, en las fotos 👇
+Cuéntame dónde te trabas o qué no se entiende. Si algo no sale, escríbeme.

@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+
+        @font-face { font-family: "Cinzel"; src: url("assets/fonts/cinzel-600.woff2") format("woff2"); font-weight: 600; font-style: normal; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-400.woff2") format("woff2"); font-weight: 400; font-style: normal; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-500.woff2") format("woff2"); font-weight: 500; font-style: normal; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-600.woff2") format("woff2"); font-weight: 600; font-style: normal; }
+        #s07-cuando-root { position: absolute; inset: 0; }
+
+        #s07-title { position: absolute; left: 70px; right: 70px; top: 250px; font-weight: 600; font-size: 76px; line-height: 1.1; color: #2B2420; }
+        #s07-title b { font-weight: 600; color: #A35A1F; }
+        #s07-grid { position: absolute; left: 70px; right: 70px; top: 400px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px; }
+        .s07-bill { height: 200px; border-radius: 22px; border: 6px solid #0D3B45; background: #FFFFFF; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; opacity: 0; box-shadow: 0 12px 28px rgba(43, 36, 32, 0.1); }
+        .s07-v { font-weight: 600; font-size: 74px; line-height: 1; color: #0D3B45; letter-spacing: -0.02em; }
+        .s07-m { font-weight: 600; font-size: 34px; color: #A35A1F; letter-spacing: 0.1em; }
+        .s07-row { position: absolute; left: 70px; right: 70px; display: flex; align-items: center; gap: 26px; padding: 26px 30px; border-radius: 26px; background: #0D3B45; color: #F6F1E6; font-weight: 600; font-size: 46px; opacity: 0; }
+        .s07-row svg { width: 64px; height: 64px; flex: 0 0 auto; }
+        #s07-r1 { top: 900px; }
+        #s07-r2 { top: 1060px; }
+      </style>
+      <div id="s07-cuando-root" data-composition-id="s07-cuando" data-width="1080" data-height="1920">
+<div class="eyebrow" id="s07-cuando-eb">¿Cuándo usarla?</div>
+
+        <div id="s07-title">Con un <b>billete grande</b></div>
+        <div id="s07-grid"><div class="s07-bill" id="s07-b0"><span class="s07-v">100</span><span class="s07-m">USD</span></div><div class="s07-bill" id="s07-b1"><span class="s07-v">5 000</span><span class="s07-m">CUP</span></div><div class="s07-bill" id="s07-b2"><span class="s07-v">10 000</span><span class="s07-m">CUP</span></div><div class="s07-bill" id="s07-b3"><span class="s07-v">20 000</span><span class="s07-m">CUP</span></div></div>
+        <div class="s07-row" id="s07-r1"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>Clientes nuevos</div>
+        <div class="s07-row" id="s07-r2"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="9" r="2.5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Entregas en la calle</div>
+      </div>
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          tl.fromTo("#s07-cuando-eb", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.4, ease: "power3.out" }, 0.05);
+          tl.fromTo("#s07-cuando-eb", { opacity: 1 }, { opacity: 0, duration: 0.22, ease: "power1.in", immediateRender: false }, 9.56);
+          
+          tl.fromTo("#s07-title", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 1.5);
+          tl.fromTo("#s07-b0", { opacity: 0, scale: 0.6, rotation: -6 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.38, ease: "back.out(1.8)" }, 2.52);
+          tl.fromTo("#s07-b1", { opacity: 0, scale: 0.6, rotation: 6 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.38, ease: "back.out(1.8)" }, 3.52);
+          tl.fromTo("#s07-b2", { opacity: 0, scale: 0.6, rotation: -6 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.38, ease: "back.out(1.8)" }, 4.28);
+          tl.fromTo("#s07-b3", { opacity: 0, scale: 0.6, rotation: 6 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.38, ease: "back.out(1.8)" }, 4.96);
+          tl.fromTo("#s07-r1", { opacity: 0, x: -60 }, { opacity: 1, x: 0, duration: 0.4, ease: "back.out(1.5)" }, 6.9);
+          tl.fromTo("#s07-r2", { opacity: 0, x: 60 }, { opacity: 1, x: 0, duration: 0.4, ease: "back.out(1.5)" }, 8.4);
+          tl.fromTo("#s07-title", { opacity: 1 }, { opacity: 0, duration: 0.22, ease: "power1.in", immediateRender: false }, 9.56);
+          tl.fromTo("#s07-grid", { opacity: 1 }, { opacity: 0, duration: 0.22, ease: "power1.in", immediateRender: false }, 9.56);
+          tl.fromTo("#s07-r1", { opacity: 1 }, { opacity: 0, duration: 0.22, ease: "power1.in", immediateRender: false }, 9.56);
+          tl.fromTo("#s07-r2", { opacity: 1 }, { opacity: 0, duration: 0.22, ease: "power1.in", immediateRender: false }, 9.56);
+          window.__timelines["s07-cuando"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

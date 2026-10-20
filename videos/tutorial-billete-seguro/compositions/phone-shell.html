@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #phone-shell-root {
+          position: absolute;
+          inset: 0;
+        }
+        #ps-body {
+          position: absolute;
+          left: 212px;
+          top: 400px;
+          width: 656px;
+          height: 1424px;
+          border-radius: 64px;
+          background: #2B2420;
+          box-shadow:
+            0 40px 80px rgba(13, 59, 69, 0.22),
+            0 8px 20px rgba(43, 36, 32, 0.18);
+        }
+        #ps-screen {
+          position: absolute;
+          left: 18px;
+          top: 18px;
+          width: 620px;
+          height: 1388px;
+          border-radius: 48px;
+          background: #f4efe4;
+        }
+      </style>
+      <div id="phone-shell-root" data-composition-id="phone-shell" data-width="1080" data-height="1920">
+        <div id="ps-body"><div id="ps-screen"></div></div>
+      </div>
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          tl.fromTo("#ps-body", { opacity: 0, y: 160 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0);
+          tl.fromTo("#ps-body", { opacity: 1, y: 0 }, { opacity: 0, y: 110, duration: 0.42, ease: "power2.in", immediateRender: false }, 16.51);
+          window.__timelines["phone-shell"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

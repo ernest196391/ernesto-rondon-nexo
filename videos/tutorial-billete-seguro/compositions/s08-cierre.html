@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+
+        @font-face { font-family: "Cinzel"; src: url("assets/fonts/cinzel-600.woff2") format("woff2"); font-weight: 600; font-style: normal; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-400.woff2") format("woff2"); font-weight: 400; font-style: normal; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-500.woff2") format("woff2"); font-weight: 500; font-style: normal; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-600.woff2") format("woff2"); font-weight: 600; font-style: normal; }
+        #s08-cierre-root { position: absolute; inset: 0; }
+
+        #s08-title { position: absolute; left: 60px; right: 60px; top: 190px; text-align: center; font-family: "Cinzel", Georgia, serif; font-weight: 600; font-size: 84px; letter-spacing: 0.06em; color: #0D3B45; }
+        #s08-url { position: absolute; left: 70px; right: 70px; top: 330px; padding: 30px 20px; border-radius: 999px; background: #A35A1F; color: #F6F1E6; text-align: center; font-weight: 600; font-size: 54px; white-space: nowrap; }
+        #s08-save { position: absolute; left: 60px; right: 60px; top: 500px; text-align: center; font-weight: 600; font-size: 64px; color: #2B2420; }
+        #s08-save b { font-weight: 600; color: #A35A1F; }
+        #s08-logo { position: absolute; left: 50%; top: 680px; width: 380px; margin-left: -190px; display: block; }
+        #s08-q { position: absolute; left: 60px; right: 60px; top: 1060px; text-align: center; font-weight: 600; font-size: 60px; color: #0D3B45; }
+        #s08-note { position: absolute; left: 60px; right: 60px; top: 1160px; text-align: center; font-weight: 500; font-size: 36px; color: #2B2420; }
+      </style>
+      <div id="s08-cierre-root" data-composition-id="s08-cierre" data-width="1080" data-height="1920">
+
+        <div id="s08-title">BILLETE SEGURO</div>
+        <div id="s08-url">casaviva.company/billete</div>
+        <div id="s08-save">Guárdalo <b>hoy</b></div>
+        <img id="s08-logo" src="assets/logo/casa-viva-vertical-marron.svg" alt="Casa Viva" />
+        <div id="s08-q">¿Dudas? Escríbeme.</div>
+        <div id="s08-note">Te ayuda, pero no sustituye al banco.</div>
+      </div>
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          
+          tl.fromTo("#s08-title", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.45, ease: "power4.out" }, 0.05);
+          tl.fromTo("#s08-url", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(1.8)" }, 0.65);
+          tl.fromTo("#s08-save", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.4, ease: "back.out(1.4)" }, 3.2);
+          tl.fromTo("#s08-logo", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.55, ease: "power3.out" }, 4.0);
+          tl.fromTo("#s08-q", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.42, ease: "back.out(1.4)" }, 5.9);
+          tl.fromTo("#s08-note", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power1.out" }, 6.3);
+          window.__timelines["s08-cierre"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

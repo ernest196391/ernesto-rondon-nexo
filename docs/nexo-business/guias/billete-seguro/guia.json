@@ -1,0 +1,49 @@
+{
+  "titulo": "Billete Seguro",
+  "formato": "1080x1350",
+  "para": "Dany (prueba antes del anuncio)",
+  "mensaje": "Hola, Dany 👋 ¿Tienes 5 minutos hoy para probar algo nuevo antes de que lo vea todo el equipo?\nEs *Billete Seguro*: revisas un billete con tu celular antes de aceptarlo y te avisa si hay señales de que es falso.\nÁbrelo aquí: https://casaviva.company/billete/?equipo=cv-49f2861896\nPrueba con cualquier billete que tengas a mano. Los pasos, en las fotos 👇\nCuéntame dónde te trabas o qué no se entiende. Si algo no sale, escríbeme.",
+  "pasos": [
+    {
+      "texto": "Toca el **billete** que vas a revisar.",
+      "resultado": "Con internet, la IA también mira tus fotos.",
+      "captura": "capturas/1-inicio.png",
+      "flecha": "arriba",
+      "zoom": 1.1,
+      "pie": "Paso 1 de 5: toca el billete que vas a revisar."
+    },
+    {
+      "texto": "Toca **Tomar foto** con el billete de frente.",
+      "resultado": "Sale **Foto lista**. Luego toca **Seguir**.",
+      "captura": "capturas/2-frente.png",
+      "flecha": "arriba",
+      "zoom": 1.1,
+      "pie": "Paso 2 de 5: toca Tomar foto, con el billete de frente."
+    },
+    {
+      "texto": "Mira el billete y toca **Sí, se ve así**.",
+      "resultado": "Son 4 pruebas: contraluz, inclinarlo, tocarlo y luz UV.",
+      "ojo": "Sin lámpara UV, toca **No tengo lámpara** en la última.",
+      "captura": "capturas/3-prueba.png",
+      "flecha": "arriba",
+      "zoom": 1.1,
+      "pie": "Paso 3 de 5: en cada prueba, toca tu respuesta."
+    },
+    {
+      "texto": "Revisa el número y toca **Ver el resultado**.",
+      "resultado": "Si la IA no leyó el número de serie, escríbelo tú.",
+      "captura": "capturas/4-serie.png",
+      "flecha": "arriba",
+      "zoom": 1.1,
+      "pie": "Paso 4 de 5: revisa el número de serie y toca Ver el resultado."
+    },
+    {
+      "texto": "Si sale rojo, toca **Avisar al equipo**.",
+      "resultado": "Se abre WhatsApp con el aviso listo para enviar.",
+      "captura": "capturas/5-resultado.png",
+      "flecha": "arriba",
+      "zoom": 1.1,
+      "pie": "Paso 5 de 5: si sale rojo, toca Avisar al equipo."
+    }
+  ]
+}

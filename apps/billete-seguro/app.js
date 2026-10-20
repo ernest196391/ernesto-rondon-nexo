@@ -48,6 +48,7 @@
     duda: c => `<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="${c || "#7E4515"}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v5"/><path d="M12 16.5h.01"/><circle cx="12" cy="12" r="9"/></svg>`,
     camara: '<svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>',
     aviso: '<svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 20h20L12 3z"/><path d="M12 10v4"/><path d="M12 17h.01"/></svg>',
+    play: '<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>',
     wa: '<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-5.4A8.5 8.5 0 1 1 21 12z"/></svg>',
   };
 
@@ -117,7 +118,8 @@
         </div>
       </div>
       ${avisos.length ? `<div class="aviso" role="note">${I.aviso}<span><b>Series reportadas como falsas:</b> ${esc(avisos.join("; "))}.</span></div>` : ""}
-      <p class="pie" style="margin-top:auto">Billete Seguro te ayuda, pero no sustituye al banco. Si dudas, no lo aceptes.</p>`;
+      <a class="btn btn-soft" href="video.mp4" target="_blank" rel="noopener" style="margin-top:auto">${I.play}Mira cómo funciona (1 min)</a>
+      <p class="pie">Billete Seguro te ayuda, pero no sustituye al banco. Si dudas, no lo aceptes.</p>`;
   }
 
   function visorFoto(tipo, uv) {

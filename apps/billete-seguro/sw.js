@@ -1,6 +1,6 @@
 // Billete Seguro: guarda la app en el teléfono para que la guía funcione sin internet.
 // Al cambiar cualquier archivo, sube VERSION para que los teléfonos bajen la nueva.
-const VERSION = "bs-1";
+const VERSION = "bs-2";
 const APP = ["./", "index.html", "styles.css", "app.js", "billetes.js", "logo-casa-viva.svg", "icon.svg", "manifest.webmanifest"];
 
 self.addEventListener("install", e => {
@@ -19,7 +19,7 @@ self.addEventListener("fetch", e => {
   // Primero la red (para tener lo último); sin internet, lo guardado.
   e.respondWith(
     fetch(req).then(res => {
-      if (res.ok || res.type === "opaque") { const copia = res.clone(); caches.open(VERSION).then(c => c.put(req, copia)); }
+      if ((res.status === 200 && !u.pathname.endsWith(".mp4")) || res.type === "opaque") { const copia = res.clone(); caches.open(VERSION).then(c => c.put(req, copia)); }
       return res;
     }).catch(() => caches.match(req, { ignoreSearch: true }).then(r => r || caches.match("index.html")))
   );

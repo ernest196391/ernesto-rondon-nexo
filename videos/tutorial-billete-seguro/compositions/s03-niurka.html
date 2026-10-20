@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+
+        @font-face { font-family: "Cinzel"; src: url("assets/fonts/cinzel-600.woff2") format("woff2"); font-weight: 600; font-style: normal; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-400.woff2") format("woff2"); font-weight: 400; font-style: normal; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-500.woff2") format("woff2"); font-weight: 500; font-style: normal; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-600.woff2") format("woff2"); font-weight: 600; font-style: normal; }
+        #s03-niurka-root { position: absolute; inset: 0; }
+
+        #s03-title { position: absolute; left: 80px; right: 80px; top: 250px; font-weight: 600; font-size: 70px; line-height: 1.1; color: #2B2420; }
+        #s03-list { position: absolute; left: 70px; right: 70px; top: 420px; display: flex; flex-direction: column; gap: 22px; }
+        .s03-p { display: flex; align-items: center; gap: 24px; padding: 22px 28px; border-radius: 24px; background: #FFFFFF; font-weight: 500; font-size: 42px; line-height: 1.2; color: #2B2420; box-shadow: 0 12px 28px rgba(43, 36, 32, 0.1); opacity: 0; }
+        .s03-p b { font-weight: 600; color: #0D3B45; }
+        .s03-n { width: 70px; height: 70px; flex: 0 0 auto; border-radius: 50%; background: #0D3B45; color: #F6F1E6; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 38px; }
+        #s03-bye { position: absolute; left: 60px; right: 60px; top: 1180px; padding: 30px 20px; border-radius: 28px; background: #9B2C2C; color: #F6F1E6; text-align: center; font-family: "Cinzel", Georgia, serif; font-weight: 600; font-size: 76px; letter-spacing: 0.06em; opacity: 0; }
+      </style>
+      <div id="s03-niurka-root" data-composition-id="s03-niurka" data-width="1080" data-height="1920">
+<div class="eyebrow" id="s03-niurka-eb">El aviso de Niurka</div>
+
+        <div id="s03-title">Así operan:</div>
+        <div id="s03-list"><div class="s03-p" id="s03-p0"><span class="s03-n">1</span><span>Una pareja, con <b>el mismo número</b></span></div><div class="s03-p" id="s03-p1"><span class="s03-n">2</span><span>Pide un artículo</span></div><div class="s03-p" id="s03-p2"><span class="s03-n">3</span><span>Da una <b>dirección falsa</b></span></div><div class="s03-p" id="s03-p3"><span class="s03-n">4</span><span>Espera al mensajero <b>en la calle</b></span></div><div class="s03-p" id="s03-p4"><span class="s03-n">5</span><span>Paga con un <b>billete falso de 100 USD</b></span></div></div>
+        <div id="s03-bye">Y DESAPARECE</div>
+      </div>
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          tl.fromTo("#s03-niurka-eb", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.4, ease: "power3.out" }, 0.05);
+          tl.fromTo("#s03-niurka-eb", { opacity: 1 }, { opacity: 0, duration: 0.22, ease: "power1.in", immediateRender: false }, 11.62);
+          
+          tl.fromTo("#s03-title", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 0.9);
+          tl.fromTo("#s03-p0", { opacity: 0, x: -60 }, { opacity: 1, x: 0, duration: 0.38, ease: "back.out(1.6)" }, 2.74);
+          tl.fromTo("#s03-p1", { opacity: 0, x: -60 }, { opacity: 1, x: 0, duration: 0.38, ease: "back.out(1.6)" }, 4.36);
+          tl.fromTo("#s03-p2", { opacity: 0, x: -60 }, { opacity: 1, x: 0, duration: 0.38, ease: "back.out(1.6)" }, 5.38);
+          tl.fromTo("#s03-p3", { opacity: 0, x: -60 }, { opacity: 1, x: 0, duration: 0.38, ease: "back.out(1.6)" }, 6.96);
+          tl.fromTo("#s03-p4", { opacity: 0, x: -60 }, { opacity: 1, x: 0, duration: 0.38, ease: "back.out(1.6)" }, 8.64);
+          tl.fromTo("#s03-list", { opacity: 1 }, { opacity: 0.35, duration: 0.3, ease: "power1.out" }, 10.6);
+          tl.fromTo("#s03-bye", { opacity: 0, scale: 1.5 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power4.in" }, 10.7);
+          tl.fromTo("#s03-title", { opacity: 1 }, { opacity: 0, duration: 0.22, ease: "power1.in", immediateRender: false }, 11.62);
+          tl.fromTo("#s03-list", { opacity: 1 }, { opacity: 0, duration: 0.22, ease: "power1.in", immediateRender: false }, 11.62);
+          tl.fromTo("#s03-bye", { opacity: 1 }, { opacity: 0, duration: 0.22, ease: "power1.in", immediateRender: false }, 11.62);
+          window.__timelines["s03-niurka"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

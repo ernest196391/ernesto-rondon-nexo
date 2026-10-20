@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+
+        @font-face { font-family: "Cinzel"; src: url("assets/fonts/cinzel-600.woff2") format("woff2"); font-weight: 600; font-style: normal; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-400.woff2") format("woff2"); font-weight: 400; font-style: normal; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-500.woff2") format("woff2"); font-weight: 500; font-style: normal; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-600.woff2") format("woff2"); font-weight: 600; font-style: normal; }
+        #s02-bici-root { position: absolute; inset: 0; }
+
+        .s02-row { position: absolute; left: 80px; right: 80px; display: flex; align-items: center; gap: 28px; padding: 30px 34px; border-radius: 28px; background: #FFFFFF; box-shadow: 0 18px 40px rgba(43, 36, 32, 0.14); opacity: 0; }
+        .s02-ic { width: 92px; height: 92px; flex: 0 0 auto; border-radius: 50%; background: #0D3B45; color: #F6F1E6; display: flex; align-items: center; justify-content: center; }
+        .s02-ic svg { width: 50px; height: 50px; }
+        .s02-t { font-weight: 500; font-size: 40px; color: #2B2420; line-height: 1.2; }
+        .s02-t b { display: block; font-weight: 600; font-size: 62px; letter-spacing: 0.04em; color: #0D3B45; }
+        #s02-r1 { top: 280px; }
+        #s02-r2 { top: 520px; }
+        #s02-fb { position: absolute; left: 80px; right: 80px; top: 800px; padding: 34px; border-radius: 28px; background: #0D3B45; color: #F6F1E6; text-align: center; font-weight: 500; font-size: 42px; opacity: 0; }
+        #s02-stamp { position: absolute; left: 110px; right: 110px; top: 1000px; padding: 26px 20px; border: 8px solid #9B2C2C; border-radius: 22px; color: #9B2C2C; text-align: center; font-family: "Cinzel", Georgia, serif; font-weight: 600; font-size: 56px; letter-spacing: 0.04em; line-height: 1.15; background: rgba(246, 241, 230, 0.92); opacity: 0; }
+      </style>
+      <div id="s02-bici-root" data-composition-id="s02-bici" data-width="1080" data-height="1920">
+<div class="eyebrow" id="s02-bici-eb">La clienta de la bici</div>
+
+        <div class="s02-row" id="s02-r1"><span class="s02-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-5.4A8.5 8.5 0 1 1 21 12z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></span><span class="s02-t">Escribía desde<b>51•• ••23</b></span></div>
+        <div class="s02-row" id="s02-r2"><span class="s02-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3h3l1.5 4.5-2 1.5a12 12 0 0 0 6 6l1.5-2 4.5 1.5v3A2 2 0 0 1 19 20 16 16 0 0 1 4 5a2 2 0 0 1 2.5-2z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></span><span class="s02-t">Llamaba desde<b>52•• ••38</b></span></div>
+        <div id="s02-fb">Cary la buscó en Facebook…</div>
+        <div id="s02-stamp">REPORTADA COMO ESTAFADORA</div>
+      </div>
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          tl.fromTo("#s02-bici-eb", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.4, ease: "power3.out" }, 0.05);
+          tl.fromTo("#s02-bici-eb", { opacity: 1 }, { opacity: 0, duration: 0.22, ease: "power1.in", immediateRender: false }, 7.22);
+          
+          tl.fromTo("#s02-r1", { opacity: 0, x: -80 }, { opacity: 1, x: 0, duration: 0.4, ease: "back.out(1.5)" }, 0.75);
+          tl.fromTo("#s02-r2", { opacity: 0, x: 80 }, { opacity: 1, x: 0, duration: 0.4, ease: "back.out(1.5)" }, 2.3);
+          tl.fromTo("#s02-fb", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 3.5);
+          tl.fromTo("#s02-stamp", { opacity: 0, scale: 1.8, rotation: -14 }, { opacity: 1, scale: 1, rotation: -6, duration: 0.32, ease: "power4.in" }, 5.6);
+          tl.fromTo("#s02-r1", { opacity: 1 }, { opacity: 0, duration: 0.22, ease: "power1.in", immediateRender: false }, 7.22);
+          tl.fromTo("#s02-r2", { opacity: 1 }, { opacity: 0, duration: 0.22, ease: "power1.in", immediateRender: false }, 7.22);
+          tl.fromTo("#s02-fb", { opacity: 1 }, { opacity: 0, duration: 0.22, ease: "power1.in", immediateRender: false }, 7.22);
+          tl.fromTo("#s02-stamp", { opacity: 1 }, { opacity: 0, duration: 0.22, ease: "power1.in", immediateRender: false }, 7.22);
+          window.__timelines["s02-bici"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

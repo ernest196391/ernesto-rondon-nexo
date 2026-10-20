@@ -1,0 +1,5 @@
+Paso 1 de 5: toca el billete que vas a revisar.
+Paso 2 de 5: toca Tomar foto, con el billete de frente.
+Paso 3 de 5: en cada prueba, toca tu respuesta.
+Paso 4 de 5: revisa el número de serie y toca Ver el resultado.
+Paso 5 de 5: si sale rojo, toca Avisar al equipo.

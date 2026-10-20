@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+
+        @font-face { font-family: "Cinzel"; src: url("assets/fonts/cinzel-600.woff2") format("woff2"); font-weight: 600; font-style: normal; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-400.woff2") format("woff2"); font-weight: 400; font-style: normal; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-500.woff2") format("woff2"); font-weight: 500; font-style: normal; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-600.woff2") format("woff2"); font-weight: 600; font-style: normal; }
+        #s05-como-root { position: absolute; inset: 0; }
+
+      </style>
+      <div id="s05-como-root" data-composition-id="s05-como" data-width="1080" data-height="1920">
+<div class="eyebrow" id="s05-como-eb"><span class="eb-n">1</span>Cómo funciona</div>
+<div class="cap" id="s05-como-c0"><span class="ci">Eliges el <span class="k">billete</span></span></div>
+<div class="cap" id="s05-como-c1"><span class="ci"><span class="k">4 pruebas</span></span></div>
+<div class="cap" id="s05-como-c2"><span class="ci">El <span class="k">número de serie</span></span></div>
+<div class="scr" id="s05-como-scr"><div class="sb" id="s05-como-sb"><span>10:24</span><span class="sb-icons"><span class="sb-bar" style="height:9px"></span><span class="sb-bar" style="height:13px"></span><span class="sb-bar" style="height:17px"></span><span class="sb-batt"></span></span></div>
+<img class="shot" id="s05-como-s0" src="assets/screens/bs-inicio.jpg" alt="" />
+<img class="shot" id="s05-como-s1" src="assets/screens/bs-luz.jpg" alt="" />
+<img class="shot" id="s05-como-s2" src="assets/screens/bs-inclinar.jpg" alt="" />
+<img class="shot" id="s05-como-s3" src="assets/screens/bs-tocar.jpg" alt="" />
+<img class="shot" id="s05-como-s4" src="assets/screens/bs-uv.jpg" alt="" />
+<img class="shot" id="s05-como-s5" src="assets/screens/bs-serie.jpg" alt="" />
+<div class="hl" data-layout-allow-overflow id="s05-como-h0" style="left:20px;top:662px;width:288px;height:154px"></div>
+<div class="tap" id="s05-como-t0" style="left:118px;top:693px"><span class="tap-dot"></span><span class="tap-ring" id="s05-como-t0r"></span></div></div>
+      </div>
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          tl.fromTo("#s05-como-scr", { opacity: 0, y: 160 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0);
+          tl.fromTo("#s05-como-eb", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.4, ease: "power3.out" }, 0.05);
+          tl.fromTo("#s05-como-eb", { opacity: 1 }, { opacity: 0, duration: 0.22, ease: "power1.in", immediateRender: false }, 8.89);
+          tl.fromTo("#s05-como-c0", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 0.3);
+          tl.fromTo("#s05-como-c0", { opacity: 1 }, { opacity: 0, duration: 0.22, ease: "power2.in", immediateRender: false }, 2.75);
+          tl.fromTo("#s05-como-c0 .k", { backgroundSize: "0% 100%" }, { backgroundSize: "100% 100%", duration: 0.45, ease: "power2.out" }, 0.65);
+          tl.fromTo("#s05-como-c1", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 2.85);
+          tl.fromTo("#s05-como-c1", { opacity: 1 }, { opacity: 0, duration: 0.22, ease: "power2.in", immediateRender: false }, 6.85);
+          tl.fromTo("#s05-como-c1 .k", { backgroundSize: "0% 100%" }, { backgroundSize: "100% 100%", duration: 0.45, ease: "power2.out" }, 3.2);
+          tl.fromTo("#s05-como-c2", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 6.95);
+          tl.fromTo("#s05-como-c2", { opacity: 1 }, { opacity: 0, duration: 0.22, ease: "power2.in", immediateRender: false }, 8.91);
+          tl.fromTo("#s05-como-c2 .k", { backgroundSize: "0% 100%" }, { backgroundSize: "100% 100%", duration: 0.45, ease: "power2.out" }, 7.3);
+          tl.fromTo("#s05-como-s1", { opacity: 0 }, { opacity: 1, duration: 0.2, ease: "power1.out" }, 2.85);
+          tl.fromTo("#s05-como-s2", { opacity: 0 }, { opacity: 1, duration: 0.2, ease: "power1.out" }, 3.85);
+          tl.fromTo("#s05-como-s3", { opacity: 0 }, { opacity: 1, duration: 0.2, ease: "power1.out" }, 4.8);
+          tl.fromTo("#s05-como-s4", { opacity: 0 }, { opacity: 1, duration: 0.2, ease: "power1.out" }, 5.65);
+          tl.fromTo("#s05-como-s5", { opacity: 0 }, { opacity: 1, duration: 0.2, ease: "power1.out" }, 6.9);
+          tl.fromTo("#s05-como-h0", { opacity: 0, scale: 1.08 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }, 0.6);
+          tl.fromTo("#s05-como-h0", { opacity: 1 }, { opacity: 0, duration: 0.25, ease: "power1.in", immediateRender: false }, 2.7);
+          tl.fromTo("#s05-como-t0", { opacity: 0, scale: 1.5 }, { opacity: 1, scale: 1, duration: 0.25, ease: "power2.out" }, 1.6);
+          tl.fromTo("#s05-como-t0 .tap-dot", { scale: 1 }, { scale: 0.82, duration: 0.1, ease: "power2.in", yoyo: true, repeat: 1 }, 1.9);
+          tl.fromTo("#s05-como-t0r", { opacity: 0.9, scale: 1 }, { opacity: 0, scale: 2.1, duration: 0.5, ease: "power2.out" }, 1.9);
+          tl.fromTo("#s05-como-t0", { opacity: 1 }, { opacity: 0, duration: 0.2, ease: "power1.in", immediateRender: false }, 2.3);
+          window.__timelines["s05-como"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

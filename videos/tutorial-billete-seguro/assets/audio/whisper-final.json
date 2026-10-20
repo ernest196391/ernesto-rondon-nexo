@@ -1,0 +1,885 @@
+{
+ "text": "Esta semana casi perdemos una bicicleta eléctrica de 550 dólares. La clienta escribía desde un número y llamaba desde otro. Cari la buscó en Facebook y ya estaba reportada como estafadora. Y hoy, Niurka nos avisó de otra trampa. Una pareja, con el mismo número, pide un artículo y da una dirección falsa. Espera al mensajero en la calle. Paga con un billete falso de 100 dólares. Y desaparece. El que pierde es el que recibe el billete. Por eso hicimos Billete Seguro. Eliges el billete y haces cuatro pruebas, a contraluz, inclinándolo, tocándolo y con luz ultravioleta. Al final, pones el número de serie. En un minuto te dice, sin señales de falso, dudoso o no lo aceptes. Si sale rojo, lo devuelves con calma y avisas al equipo. Úsala siempre que te paguen con un billete grande, 100 dólares o 5 mil, 10 mil o 20 mil pesos, sobre todo con clientes nuevos y en las entregas en la calle. Está en casaviva.company barra billete. Guarda el enlace hoy antes de tu próxima entrega.",
+ "words": [
+  {
+   "word": "Esta",
+   "start": 0.3,
+   "end": 0.5
+  },
+  {
+   "word": "semana",
+   "start": 0.5,
+   "end": 0.86
+  },
+  {
+   "word": "casi",
+   "start": 0.86,
+   "end": 1.3
+  },
+  {
+   "word": "perdemos",
+   "start": 1.3,
+   "end": 1.64
+  },
+  {
+   "word": "una",
+   "start": 1.64,
+   "end": 1.82
+  },
+  {
+   "word": "bicicleta",
+   "start": 1.82,
+   "end": 2.26
+  },
+  {
+   "word": "eléctrica",
+   "start": 2.26,
+   "end": 2.62
+  },
+  {
+   "word": "de",
+   "start": 2.62,
+   "end": 2.76
+  },
+  {
+   "word": "550",
+   "start": 2.76,
+   "end": 3.32
+  },
+  {
+   "word": "dólares.",
+   "start": 3.32,
+   "end": 4.38
+  },
+  {
+   "word": "La",
+   "start": 4.69,
+   "end": 4.83
+  },
+  {
+   "word": "clienta",
+   "start": 4.83,
+   "end": 5.21
+  },
+  {
+   "word": "escribía",
+   "start": 5.21,
+   "end": 5.69
+  },
+  {
+   "word": "desde",
+   "start": 5.69,
+   "end": 5.93
+  },
+  {
+   "word": "un",
+   "start": 5.93,
+   "end": 6.11
+  },
+  {
+   "word": "número",
+   "start": 6.11,
+   "end": 6.43
+  },
+  {
+   "word": "y",
+   "start": 6.43,
+   "end": 6.75
+  },
+  {
+   "word": "llamaba",
+   "start": 6.75,
+   "end": 7.15
+  },
+  {
+   "word": "desde",
+   "start": 7.15,
+   "end": 7.39
+  },
+  {
+   "word": "otro.",
+   "start": 7.39,
+   "end": 7.93
+  },
+  {
+   "word": "Cari",
+   "start": 7.93,
+   "end": 8.15
+  },
+  {
+   "word": "la",
+   "start": 8.15,
+   "end": 8.29
+  },
+  {
+   "word": "buscó",
+   "start": 8.29,
+   "end": 8.63
+  },
+  {
+   "word": "en",
+   "start": 8.63,
+   "end": 8.79
+  },
+  {
+   "word": "Facebook",
+   "start": 8.79,
+   "end": 9.17
+  },
+  {
+   "word": "y",
+   "start": 9.17,
+   "end": 9.47
+  },
+  {
+   "word": "ya",
+   "start": 9.47,
+   "end": 9.65
+  },
+  {
+   "word": "estaba",
+   "start": 9.65,
+   "end": 10.07
+  },
+  {
+   "word": "reportada",
+   "start": 10.07,
+   "end": 10.65
+  },
+  {
+   "word": "como",
+   "start": 10.65,
+   "end": 10.89
+  },
+  {
+   "word": "estafadora.",
+   "start": 10.89,
+   "end": 11.95
+  },
+  {
+   "word": "Y",
+   "start": 12.21,
+   "end": 12.33
+  },
+  {
+   "word": "hoy,",
+   "start": 12.33,
+   "end": 12.77
+  },
+  {
+   "word": "Niurka",
+   "start": 12.77,
+   "end": 13.11
+  },
+  {
+   "word": "nos",
+   "start": 13.11,
+   "end": 13.41
+  },
+  {
+   "word": "avisó",
+   "start": 13.41,
+   "end": 13.75
+  },
+  {
+   "word": "de",
+   "start": 13.75,
+   "end": 13.87
+  },
+  {
+   "word": "otra",
+   "start": 13.87,
+   "end": 14.05
+  },
+  {
+   "word": "trampa.",
+   "start": 14.05,
+   "end": 14.73
+  },
+  {
+   "word": "Una",
+   "start": 14.75,
+   "end": 14.85
+  },
+  {
+   "word": "pareja,",
+   "start": 14.85,
+   "end": 15.25
+  },
+  {
+   "word": "con",
+   "start": 15.25,
+   "end": 15.49
+  },
+  {
+   "word": "el",
+   "start": 15.49,
+   "end": 15.61
+  },
+  {
+   "word": "mismo",
+   "start": 15.61,
+   "end": 15.83
+  },
+  {
+   "word": "número,",
+   "start": 15.83,
+   "end": 16.37
+  },
+  {
+   "word": "pide",
+   "start": 16.37,
+   "end": 16.49
+  },
+  {
+   "word": "un",
+   "start": 16.49,
+   "end": 16.65
+  },
+  {
+   "word": "artículo",
+   "start": 16.65,
+   "end": 17.03
+  },
+  {
+   "word": "y",
+   "start": 17.03,
+   "end": 17.39
+  },
+  {
+   "word": "da",
+   "start": 17.39,
+   "end": 17.49
+  },
+  {
+   "word": "una",
+   "start": 17.49,
+   "end": 17.67
+  },
+  {
+   "word": "dirección",
+   "start": 17.67,
+   "end": 18.11
+  },
+  {
+   "word": "falsa.",
+   "start": 18.11,
+   "end": 19.05
+  },
+  {
+   "word": "Espera",
+   "start": 18.97,
+   "end": 19.21
+  },
+  {
+   "word": "al",
+   "start": 19.21,
+   "end": 19.33
+  },
+  {
+   "word": "mensajero",
+   "start": 19.33,
+   "end": 19.77
+  },
+  {
+   "word": "en",
+   "start": 19.77,
+   "end": 19.85
+  },
+  {
+   "word": "la",
+   "start": 19.85,
+   "end": 19.97
+  },
+  {
+   "word": "calle.",
+   "start": 19.97,
+   "end": 20.63
+  },
+  {
+   "word": "Paga",
+   "start": 20.65,
+   "end": 20.79
+  },
+  {
+   "word": "con",
+   "start": 20.79,
+   "end": 20.95
+  },
+  {
+   "word": "un",
+   "start": 20.95,
+   "end": 21.07
+  },
+  {
+   "word": "billete",
+   "start": 21.07,
+   "end": 21.35
+  },
+  {
+   "word": "falso",
+   "start": 21.35,
+   "end": 21.63
+  },
+  {
+   "word": "de",
+   "start": 21.63,
+   "end": 21.81
+  },
+  {
+   "word": "100",
+   "start": 21.81,
+   "end": 22.03
+  },
+  {
+   "word": "dólares.",
+   "start": 22.03,
+   "end": 22.29
+  },
+  {
+   "word": "Y",
+   "start": 22.65,
+   "end": 22.73
+  },
+  {
+   "word": "desaparece.",
+   "start": 22.73,
+   "end": 23.81
+  },
+  {
+   "word": "El",
+   "start": 24.13,
+   "end": 24.27
+  },
+  {
+   "word": "que",
+   "start": 24.27,
+   "end": 24.39
+  },
+  {
+   "word": "pierde",
+   "start": 24.39,
+   "end": 24.71
+  },
+  {
+   "word": "es",
+   "start": 24.71,
+   "end": 24.95
+  },
+  {
+   "word": "el",
+   "start": 24.95,
+   "end": 25.07
+  },
+  {
+   "word": "que",
+   "start": 25.07,
+   "end": 25.17
+  },
+  {
+   "word": "recibe",
+   "start": 25.17,
+   "end": 25.49
+  },
+  {
+   "word": "el",
+   "start": 25.49,
+   "end": 25.65
+  },
+  {
+   "word": "billete.",
+   "start": 25.65,
+   "end": 26.05
+  },
+  {
+   "word": "Por",
+   "start": 26.05,
+   "end": 26.15
+  },
+  {
+   "word": "eso",
+   "start": 26.15,
+   "end": 26.29
+  },
+  {
+   "word": "hicimos",
+   "start": 26.29,
+   "end": 26.65
+  },
+  {
+   "word": "Billete",
+   "start": 26.65,
+   "end": 27.03
+  },
+  {
+   "word": "Seguro.",
+   "start": 27.03,
+   "end": 27.39
+  },
+  {
+   "word": "Eliges",
+   "start": 28.21,
+   "end": 28.53
+  },
+  {
+   "word": "el",
+   "start": 28.53,
+   "end": 28.75
+  },
+  {
+   "word": "billete",
+   "start": 28.75,
+   "end": 29.11
+  },
+  {
+   "word": "y",
+   "start": 29.11,
+   "end": 29.43
+  },
+  {
+   "word": "haces",
+   "start": 29.43,
+   "end": 29.63
+  },
+  {
+   "word": "cuatro",
+   "start": 29.63,
+   "end": 29.87
+  },
+  {
+   "word": "pruebas,",
+   "start": 29.87,
+   "end": 30.79
+  },
+  {
+   "word": "a",
+   "start": 30.79,
+   "end": 30.89
+  },
+  {
+   "word": "contraluz,",
+   "start": 30.89,
+   "end": 31.81
+  },
+  {
+   "word": "inclinándolo,",
+   "start": 31.81,
+   "end": 32.73
+  },
+  {
+   "word": "tocándolo",
+   "start": 32.73,
+   "end": 33.17
+  },
+  {
+   "word": "y",
+   "start": 33.17,
+   "end": 33.55
+  },
+  {
+   "word": "con",
+   "start": 33.55,
+   "end": 33.71
+  },
+  {
+   "word": "luz",
+   "start": 33.71,
+   "end": 33.87
+  },
+  {
+   "word": "ultravioleta.",
+   "start": 33.87,
+   "end": 34.81
+  },
+  {
+   "word": "Al",
+   "start": 34.81,
+   "end": 34.91
+  },
+  {
+   "word": "final,",
+   "start": 34.91,
+   "end": 35.67
+  },
+  {
+   "word": "pones",
+   "start": 35.67,
+   "end": 35.77
+  },
+  {
+   "word": "el",
+   "start": 35.77,
+   "end": 35.93
+  },
+  {
+   "word": "número",
+   "start": 35.93,
+   "end": 36.15
+  },
+  {
+   "word": "de",
+   "start": 36.15,
+   "end": 36.31
+  },
+  {
+   "word": "serie.",
+   "start": 36.31,
+   "end": 37.05
+  },
+  {
+   "word": "En",
+   "start": 37.32,
+   "end": 37.41
+  },
+  {
+   "word": "un",
+   "start": 37.41,
+   "end": 37.51
+  },
+  {
+   "word": "minuto",
+   "start": 37.51,
+   "end": 37.81
+  },
+  {
+   "word": "te",
+   "start": 37.81,
+   "end": 37.97
+  },
+  {
+   "word": "dice,",
+   "start": 37.97,
+   "end": 38.47
+  },
+  {
+   "word": "sin",
+   "start": 38.47,
+   "end": 38.55
+  },
+  {
+   "word": "señales",
+   "start": 38.55,
+   "end": 38.93
+  },
+  {
+   "word": "de",
+   "start": 38.93,
+   "end": 39.11
+  },
+  {
+   "word": "falso,",
+   "start": 39.11,
+   "end": 39.73
+  },
+  {
+   "word": "dudoso",
+   "start": 39.73,
+   "end": 40.03
+  },
+  {
+   "word": "o",
+   "start": 40.03,
+   "end": 40.31
+  },
+  {
+   "word": "no",
+   "start": 40.31,
+   "end": 40.43
+  },
+  {
+   "word": "lo",
+   "start": 40.43,
+   "end": 40.55
+  },
+  {
+   "word": "aceptes.",
+   "start": 40.55,
+   "end": 41.47
+  },
+  {
+   "word": "Si",
+   "start": 41.51,
+   "end": 41.57
+  },
+  {
+   "word": "sale",
+   "start": 41.57,
+   "end": 41.77
+  },
+  {
+   "word": "rojo,",
+   "start": 41.77,
+   "end": 42.21
+  },
+  {
+   "word": "lo",
+   "start": 42.21,
+   "end": 42.31
+  },
+  {
+   "word": "devuelves",
+   "start": 42.31,
+   "end": 42.69
+  },
+  {
+   "word": "con",
+   "start": 42.69,
+   "end": 42.83
+  },
+  {
+   "word": "calma",
+   "start": 42.83,
+   "end": 43.23
+  },
+  {
+   "word": "y",
+   "start": 43.23,
+   "end": 43.43
+  },
+  {
+   "word": "avisas",
+   "start": 43.43,
+   "end": 43.65
+  },
+  {
+   "word": "al",
+   "start": 43.65,
+   "end": 43.83
+  },
+  {
+   "word": "equipo.",
+   "start": 43.83,
+   "end": 44.59
+  },
+  {
+   "word": "Úsala",
+   "start": 45.06,
+   "end": 45.34
+  },
+  {
+   "word": "siempre",
+   "start": 45.34,
+   "end": 45.64
+  },
+  {
+   "word": "que",
+   "start": 45.64,
+   "end": 45.78
+  },
+  {
+   "word": "te",
+   "start": 45.78,
+   "end": 45.94
+  },
+  {
+   "word": "paguen",
+   "start": 45.94,
+   "end": 46.2
+  },
+  {
+   "word": "con",
+   "start": 46.2,
+   "end": 46.34
+  },
+  {
+   "word": "un",
+   "start": 46.34,
+   "end": 46.52
+  },
+  {
+   "word": "billete",
+   "start": 46.52,
+   "end": 46.76
+  },
+  {
+   "word": "grande,",
+   "start": 46.76,
+   "end": 47.38
+  },
+  {
+   "word": "100",
+   "start": 47.38,
+   "end": 47.54
+  },
+  {
+   "word": "dólares",
+   "start": 47.54,
+   "end": 47.86
+  },
+  {
+   "word": "o",
+   "start": 47.86,
+   "end": 48.38
+  },
+  {
+   "word": "5",
+   "start": 48.38,
+   "end": 48.68
+  },
+  {
+   "word": "mil,",
+   "start": 48.68,
+   "end": 49.14
+  },
+  {
+   "word": "10",
+   "start": 49.14,
+   "end": 49.3
+  },
+  {
+   "word": "mil",
+   "start": 49.3,
+   "end": 49.52
+  },
+  {
+   "word": "o",
+   "start": 49.52,
+   "end": 49.82
+  },
+  {
+   "word": "20",
+   "start": 49.82,
+   "end": 50.04
+  },
+  {
+   "word": "mil",
+   "start": 50.04,
+   "end": 50.24
+  },
+  {
+   "word": "pesos,",
+   "start": 50.24,
+   "end": 51.06
+  },
+  {
+   "word": "sobre",
+   "start": 51.16,
+   "end": 51.36
+  },
+  {
+   "word": "todo",
+   "start": 51.36,
+   "end": 51.54
+  },
+  {
+   "word": "con",
+   "start": 51.54,
+   "end": 51.76
+  },
+  {
+   "word": "clientes",
+   "start": 51.76,
+   "end": 52.16
+  },
+  {
+   "word": "nuevos",
+   "start": 52.16,
+   "end": 52.5
+  },
+  {
+   "word": "y",
+   "start": 52.5,
+   "end": 53.06
+  },
+  {
+   "word": "en",
+   "start": 53.06,
+   "end": 53.18
+  },
+  {
+   "word": "las",
+   "start": 53.18,
+   "end": 53.3
+  },
+  {
+   "word": "entregas",
+   "start": 53.3,
+   "end": 53.66
+  },
+  {
+   "word": "en",
+   "start": 53.66,
+   "end": 53.78
+  },
+  {
+   "word": "la",
+   "start": 53.78,
+   "end": 53.88
+  },
+  {
+   "word": "calle.",
+   "start": 53.88,
+   "end": 54.62
+  },
+  {
+   "word": "Está",
+   "start": 54.94,
+   "end": 55.2
+  },
+  {
+   "word": "en",
+   "start": 55.2,
+   "end": 55.34
+  },
+  {
+   "word": "casaviva.company",
+   "start": 55.34,
+   "end": 56.54
+  },
+  {
+   "word": "barra",
+   "start": 56.54,
+   "end": 57.12
+  },
+  {
+   "word": "billete.",
+   "start": 57.12,
+   "end": 58.04
+  },
+  {
+   "word": "Guarda",
+   "start": 57.88,
+   "end": 58.1
+  },
+  {
+   "word": "el",
+   "start": 58.1,
+   "end": 58.2
+  },
+  {
+   "word": "enlace",
+   "start": 58.2,
+   "end": 58.54
+  },
+  {
+   "word": "hoy",
+   "start": 58.54,
+   "end": 58.92
+  },
+  {
+   "word": "antes",
+   "start": 58.92,
+   "end": 59.3
+  },
+  {
+   "word": "de",
+   "start": 59.3,
+   "end": 59.48
+  },
+  {
+   "word": "tu",
+   "start": 59.48,
+   "end": 59.58
+  },
+  {
+   "word": "próxima",
+   "start": 59.58,
+   "end": 59.94
+  },
+  {
+   "word": "entrega.",
+   "start": 59.94,
+   "end": 60.9
+  }
+ ]
+}
