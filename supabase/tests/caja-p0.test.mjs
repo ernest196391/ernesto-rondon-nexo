@@ -157,3 +157,12 @@ describe("un cajón por tienda", () => {
     expect((await one("SELECT count(*)::int AS n FROM nexo_business.store_shifts")).n).toBeGreaterThan(0);
   });
 });
+
+describe("pedidos web: quién cobra", () => {
+  it("la caja obtiene nombre, teléfono e id web de la dependienta de Atiende (solo personal activo)", async () => {
+    const r = await call("public.nexo_business_device_person", TOKEN_A, nana);
+    expect(r).toMatchObject({ deviceId: "caja-nana", label: "Caja Nana", person: { name: "Daniela (Nana)", phone: "5355550001" } });
+    expect((await call("public.nexo_business_device_person", TOKEN_A, gestora)).person).toBeNull();
+    expect((await call("public.nexo_business_device_person", "z".repeat(40), nana)).error).toBe("unauthorized");
+  });
+});

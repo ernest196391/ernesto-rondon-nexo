@@ -540,3 +540,20 @@ END;
 $$;
 REVOKE ALL ON FUNCTION public.nexo_business_report(TEXT, DATE, DATE) FROM PUBLIC, anon;
 GRANT EXECUTE ON FUNCTION public.nexo_business_report(TEXT, DATE, DATE) TO authenticated;
+
+-- ---------- 5. Pedidos web en la caja ----------
+-- La dependienta de «Atiende» (de la caja que pide): nombre, teléfono y su id de la web,
+-- para que Core firme el cobro con su usuaria (nexo-device-web-orders). Solo personal activo.
+CREATE OR REPLACE FUNCTION public.nexo_business_device_person(p_token TEXT, p_person TEXT)
+RETURNS JSONB LANGUAGE sql STABLE SECURITY DEFINER SET search_path = '' AS $$
+  SELECT coalesce((
+    SELECT jsonb_build_object('businessId', d.business_id, 'deviceId', d.device_id, 'label', d.label,
+             'person', (SELECT jsonb_build_object('id', p.id, 'name', p.full_name, 'phone', p.phone, 'wooUserId', p.woo_user_id)
+                          FROM nexo_business.people p
+                         WHERE p.business_id = d.business_id AND p.id::text = p_person AND p.kind = 'staff' AND p.status = 'active'))
+      FROM nexo_business.devices d
+     WHERE coalesce(length(p_token), 0) >= 32 AND d.token_hash = encode(extensions.digest(p_token, 'sha256'), 'hex') AND d.active),
+    jsonb_build_object('error', 'unauthorized'));
+$$;
+REVOKE ALL ON FUNCTION public.nexo_business_device_person(TEXT, TEXT) FROM PUBLIC, anon, authenticated;
+GRANT EXECUTE ON FUNCTION public.nexo_business_device_person(TEXT, TEXT) TO service_role;

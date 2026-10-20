@@ -35,7 +35,7 @@ const STATUS_ES: Record<string, string> = {
 };
 
 type WooOrder = {
-  id: number; number: string; status: string; date_created: string; total: string; currency: string;
+  id: number; number: string; status: string; date_created: string; date_completed?: string | null; total: string; currency: string;
   billing: { first_name: string; last_name: string; phone: string };
   shipping: { address_1: string; city: string; state: string };
   line_items: { name: string; quantity: number; total: string; sku?: string; meta_data: { display_key?: string; display_value?: unknown }[] }[];
@@ -193,6 +193,12 @@ Deno.serve(async req => {
         const month = `${start.getUTCFullYear()}-${pad(start.getUTCMonth() + 1)}`;
         const after = `${month}-01T00:00:00`, before = `${end.getUTCFullYear()}-${pad(end.getUTCMonth() + 1)}-01T00:00:00`;
         const by: Record<string, { name: string; orders: number; sales: number }> = {};
+        // 20-oct (Lennys): el bote del 0,5 % de los pedidos cerrados un día es de la dependienta
+        // de turno de ese día (quien abrió el turno de la tienda en la caja). Sin turno ese día: como antes.
+        const lastDay = new Date(end.getTime() - 86_400_000).toISOString().slice(0, 10);
+        const { data: shiftDays } = await admin.rpc("nexo_business_shift_days", { p_business: BUSINESS, p_from: `${month}-01`, p_to: lastDay });
+        const onDuty = new Map(((Array.isArray(shiftDays) ? shiftDays : []) as { day: string; staffId: string; name: string; wooUserId: number | null }[])
+          .map(d => [d.day, d]));
         let total = 0, orders = 0;
         for (let page = 1; page <= 30; page++) {
           const { data, pages } = await woo("orders", { after, before, status: "completed", per_page: "100", page: String(page) });
@@ -200,16 +206,18 @@ Deno.serve(async req => {
             const sales = Math.round(o.line_items.reduce((t, l) => t + Number(l.total || 0), 0) * 100) / 100;
             const hist = meta(o, "_cvd_operation_history");
             const firstOp = Array.isArray(hist) && hist.length ? Number((hist[0] as { user_id?: number }).user_id ?? 0) : 0;
-            const who = [meta(o, "_cvd_collection_received_by"), meta(o, "_cvd_handed_over_by"), firstOp].map(Number).find(id => id && clerks[id]) ?? 0;
-            const key = who ? String(who) : "unknown";
-            by[key] ??= { name: who ? clerks[who] : "", orders: 0, sales: 0 };
+            const shift = onDuty.get(String(o.date_completed ?? o.date_created ?? "").slice(0, 10));
+            const shiftWoo = shift?.wooUserId && clerks[shift.wooUserId] ? shift.wooUserId : 0;
+            const who = shift ? shiftWoo : [meta(o, "_cvd_collection_received_by"), meta(o, "_cvd_handed_over_by"), firstOp].map(Number).find(id => id && clerks[id]) ?? 0;
+            const key = shift && !shiftWoo ? `turno:${shift.staffId}` : who ? String(who) : "unknown";
+            by[key] ??= { name: shift && !shiftWoo ? shift.name : who ? clerks[who] : "", orders: 0, sales: 0 };
             by[key].orders++; by[key].sales = Math.round((by[key].sales + sales) * 100) / 100;
             total += sales; orders++;
           }
           if (page >= pages) break;
         }
         out.push({ month, orders, sales: Math.round(total * 100) / 100,
-          clerks: Object.entries(by).filter(([k]) => k !== "unknown").map(([id, v]) => ({ id: Number(id), ...v })).sort((a, b) => b.sales - a.sales),
+          clerks: Object.entries(by).filter(([k]) => k !== "unknown").map(([id, v]) => ({ id: /^\d+$/.test(id) ? Number(id) : id, ...v })).sort((a, b) => b.sales - a.sales),
           unknown: by.unknown ?? { name: "", orders: 0, sales: 0 } });
       }
       return json(200, { months: out });
