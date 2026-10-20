@@ -33,6 +33,7 @@ fn open_input(id: &str, floats: &[(&str, i64)]) -> OpenShiftInput {
             })
             .collect(),
         opened_at: "2026-10-02T08:00:00Z".into(),
+        store_role: None,
     }
 }
 
@@ -79,6 +80,7 @@ fn close_input(shift: &str, counts: Vec<CountInput>) -> CloseShiftInput {
         closed_by: Some("op-ana".into()),
         note: None,
         closed_at: "2026-10-02T18:00:00Z".into(),
+        expected: None,
     }
 }
 
@@ -121,7 +123,7 @@ fn migrations_apply_in_order_and_enable_ledger() {
     let conn = db();
     assert!(cash_ledger_ready(&conn).unwrap());
     let versions: Vec<i64> = MIGRATIONS.iter().map(|m| m.version).collect();
-    assert_eq!(versions, vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]);
+    assert_eq!(versions, vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]);
 }
 
 #[test]

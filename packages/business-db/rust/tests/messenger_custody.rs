@@ -85,6 +85,7 @@ fn open_shift(conn: &mut Connection) {
                 amount_minor: 1_000,
             }],
             opened_at: "2026-10-02T08:00:00Z".into(),
+            store_role: None,
         },
     )
     .unwrap();

@@ -16,6 +16,7 @@ pub mod receivables;
 pub mod sale;
 pub mod sale_returns;
 pub mod sync;
+pub mod web_orders;
 
 /// A versioned migration: (version, description, sql).
 pub struct LocalMigration {
@@ -109,6 +110,11 @@ pub const MIGRATIONS: &[LocalMigration] = &[
         version: 17,
         description: "favorites",
         sql: include_str!("../../migrations/0017_favorites.sql"),
+    },
+    LocalMigration {
+        version: 18,
+        description: "store_shift_and_web_charges",
+        sql: include_str!("../../migrations/0018_store_shift_and_web_charges.sql"),
     },
 ];
 

@@ -147,6 +147,7 @@ fn cash_in_each_currency_reaches_the_open_drawer() {
         location_id: None,
         opening_floats: vec![OpeningFloatInput { movement_id: "f1".into(), currency: "USD".into(), amount_minor: 0 }],
         opened_at: "2026-10-03T14:00:00Z".into(),
+        store_role: None,
     })
     .unwrap();
     let input = sale("s1", vec![

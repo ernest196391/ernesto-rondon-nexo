@@ -20,6 +20,7 @@ use nexo_business_db::receivables::{
 };
 use nexo_business_db::sale_returns::{self, RecordSaleReturnInput, SaleReturnSummary};
 use nexo_business_db::sync::{self, OutboxEvent, PushResult, SyncState};
+use nexo_business_db::web_orders::{self, ChargeWebOrderInput, WebOrderCharge};
 use rusqlite::{params, Connection};
 use serde::Serialize;
 use std::fs;
@@ -70,6 +71,8 @@ fn open_local_db(app: &tauri::AppHandle) -> Result<Connection, String> {
 fn complete_sale(app: tauri::AppHandle, input: CompleteSaleInput) -> Result<(), String> {
     let mut conn = open_local_db(&app)?;
     let scope = device_scope(&conn)?;
+    // 20-oct: one drawer per store; every sale must land in an open shift.
+    cash_shift::require_open_shift(&conn, &scope).map_err(|e| e.to_string())?;
     sale::complete_sale(&mut conn, &scope, &input).map(|_| ()).map_err(|e| e.to_string())
 }
 
@@ -379,6 +382,89 @@ fn sync_record_failure(
     sync::record_transport_failure(&mut conn, &event_ids, &error, &now).map_err(|e| e.to_string())
 }
 
+/// «Sincronizar ahora»: everything pending is sent now, ignoring the backoff.
+#[tauri::command]
+fn sync_make_all_due(app: tauri::AppHandle) -> Result<usize, String> {
+    let conn = open_local_db(&app)?;
+    sync::make_all_due(&conn).map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+fn sync_next_attempt(app: tauri::AppHandle) -> Result<Option<String>, String> {
+    let conn = open_local_db(&app)?;
+    sync::next_attempt_at(&conn).map_err(|e| e.to_string())
+}
+
+/// Another phone counted and closed the store shift: close it here too.
+#[tauri::command]
+fn cash_shift_mark_closed_remote(
+    app: tauri::AppHandle,
+    shift_id: String,
+    closed_at: String,
+    closed_by: Option<String>,
+    note: Option<String>,
+) -> Result<ShiftSummary, String> {
+    let mut conn = open_local_db(&app)?;
+    let scope = device_scope(&conn)?;
+    cash_shift::mark_closed_remote(&mut conn, &scope, &shift_id, &closed_at, closed_by.as_deref(), note.as_deref())
+        .map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+fn web_order_charge(app: tauri::AppHandle, input: ChargeWebOrderInput) -> Result<WebOrderCharge, String> {
+    let mut conn = open_local_db(&app)?;
+    let scope = device_scope(&conn)?;
+    web_orders::record_charge(&mut conn, &scope, &input).map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+fn web_order_queued(app: tauri::AppHandle) -> Result<Vec<WebOrderCharge>, String> {
+    let conn = open_local_db(&app)?;
+    let business_id = device_scope(&conn)?.business_id;
+    web_orders::queued_charges(&conn, &business_id).map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+fn web_order_recent(app: tauri::AppHandle, limit: i64) -> Result<Vec<WebOrderCharge>, String> {
+    let conn = open_local_db(&app)?;
+    let business_id = device_scope(&conn)?.business_id;
+    web_orders::recent_charges(&conn, &business_id, limit).map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+fn web_order_mark_done(app: tauri::AppHandle, charge_id: String, message: Option<String>, now: String) -> Result<WebOrderCharge, String> {
+    let conn = open_local_db(&app)?;
+    web_orders::mark_done(&conn, &charge_id, message.as_deref(), &now).map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+fn web_order_mark_failure(app: tauri::AppHandle, charge_id: String, error: String) -> Result<WebOrderCharge, String> {
+    let conn = open_local_db(&app)?;
+    web_orders::record_attempt_failure(&conn, &charge_id, &error).map_err(|e| e.to_string())
+}
+
+#[derive(Serialize)]
+#[serde(rename_all = "camelCase")]
+struct RefusedCharge {
+    charge: WebOrderCharge,
+    corrected: bool,
+}
+
+#[tauri::command]
+fn web_order_mark_refused(
+    app: tauri::AppHandle,
+    charge_id: String,
+    message: String,
+    now: String,
+    outbox_prefix: String,
+) -> Result<RefusedCharge, String> {
+    let mut conn = open_local_db(&app)?;
+    let scope = device_scope(&conn)?;
+    web_orders::mark_refused(&mut conn, &scope, &charge_id, &message, &now, &outbox_prefix)
+        .map(|(charge, corrected)| RefusedCharge { charge, corrected })
+        .map_err(|e| e.to_string())
+}
+
 #[tauri::command]
 fn catalog_checkpoint(app: tauri::AppHandle) -> Result<i64, String> {
     let conn = open_local_db(&app)?;
@@ -537,6 +623,15 @@ pub fn run() {
             sync_pending_batch,
             sync_record_results,
             sync_record_failure,
+            sync_make_all_due,
+            sync_next_attempt,
+            cash_shift_mark_closed_remote,
+            web_order_charge,
+            web_order_queued,
+            web_order_recent,
+            web_order_mark_done,
+            web_order_mark_failure,
+            web_order_mark_refused,
             catalog_checkpoint,
             catalog_apply,
             device_identity,

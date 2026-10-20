@@ -5,15 +5,18 @@
 //! * `applied` and `duplicate` both mean the server holds the event: the row is
 //!   marked synced. A duplicate is the normal answer to a retry.
 //! * `rejected` and transport failures keep the row, store the error and back
-//!   off exponentially (30 s, 1 min, 2 min… capped at 1 h). Nothing is deleted:
-//!   the queue can never be cleared destructively.
+//!   off exponentially (30 s, 1 min, 2 min… capped at 5 min; until 20-oct the
+//!   cap was 1 h and a phone back online could wait an hour). Nothing is
+//!   deleted: the queue can never be cleared destructively.
+//! * «Sincronizar ahora» (manual) calls `make_all_due` first, so everything
+//!   pending is sent right away, ignoring the backoff once.
 
 use crate::cash_shift::{CashError, CashResult};
 use rusqlite::{params, Connection, OptionalExtension};
 use serde::{Deserialize, Serialize};
 
 const BASE_BACKOFF_SECS: i64 = 30;
-const MAX_BACKOFF_SECS: i64 = 3_600;
+pub const MAX_BACKOFF_SECS: i64 = 300;
 
 #[derive(Debug, Clone, PartialEq, Serialize)]
 #[serde(rename_all = "camelCase")]
@@ -95,6 +98,25 @@ pub fn pending_batch(conn: &Connection, now: &str, limit: i64) -> CashResult<Vec
         events.push(event);
     }
     Ok(events)
+}
+
+/// Manual sync: every pending event becomes due now (the backoff is skipped
+/// once). Synced rows and attempt counters are untouched. Returns how many
+/// events were waiting for their backoff.
+pub fn make_all_due(conn: &Connection) -> CashResult<usize> {
+    Ok(conn.execute(
+        "UPDATE local_outbox SET next_attempt_at=NULL WHERE synced_at IS NULL AND next_attempt_at IS NOT NULL",
+        [],
+    )?)
+}
+
+/// When the next event that is waiting for its backoff becomes due.
+pub fn next_attempt_at(conn: &Connection) -> CashResult<Option<String>> {
+    Ok(conn.query_row(
+        "SELECT MIN(next_attempt_at) FROM local_outbox WHERE synced_at IS NULL",
+        [],
+        |row| row.get(0),
+    )?)
 }
 
 fn add_secs(now: &str, secs: i64) -> CashResult<String> {

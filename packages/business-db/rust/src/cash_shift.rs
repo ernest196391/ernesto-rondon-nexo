@@ -137,6 +137,45 @@ pub struct OpenShiftInput {
     pub location_id: Option<String>,
     pub opening_floats: Vec<OpeningFloatInput>,
     pub opened_at: String,
+    /// «Un cajón por tienda» (20-oct): "opener" counts the floats of the
+    /// store's only drawer; "joiner" joins the shift another phone opened
+    /// (same shift id, no floats). None = legacy shift of one device.
+    #[serde(default)]
+    pub store_role: Option<String>,
+}
+
+/// Store role of a shift: who counted the drawer and who only joined it.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum StoreRole {
+    Opener,
+    Joiner,
+}
+
+impl StoreRole {
+    pub fn parse(raw: &Option<String>) -> CashResult<Option<StoreRole>> {
+        match raw.as_deref().map(str::trim) {
+            None | Some("") => Ok(None),
+            Some("opener") => Ok(Some(StoreRole::Opener)),
+            Some("joiner") => Ok(Some(StoreRole::Joiner)),
+            Some(_) => invalid("Papel del turno inválido"),
+        }
+    }
+
+    pub fn as_str(self) -> &'static str {
+        match self {
+            StoreRole::Opener => "opener",
+            StoreRole::Joiner => "joiner",
+        }
+    }
+}
+
+/// «Debería haber» per currency computed outside this phone (the cloud adds
+/// the other phones and the web orders charged in Ventas).
+#[derive(Debug, Clone, Deserialize, Serialize, PartialEq, Eq)]
+#[serde(rename_all = "camelCase")]
+pub struct ExpectedInput {
+    pub currency: String,
+    pub expected_minor: i64,
 }
 
 #[derive(Debug, Clone, Deserialize)]
@@ -179,6 +218,11 @@ pub struct CloseShiftInput {
     pub closed_by: Option<String>,
     pub note: Option<String>,
     pub closed_at: String,
+    /// Store-wide «debería haber» from the cloud (all phones + web). When
+    /// absent (no internet) the phone's own totals are used and the close is
+    /// marked `expected_source = "local"`.
+    #[serde(default)]
+    pub expected: Option<Vec<ExpectedInput>>,
 }
 
 #[derive(Debug, Clone, Default, PartialEq, Eq, Serialize)]
@@ -211,6 +255,13 @@ pub struct ShiftSummary {
     pub closed_at: Option<String>,
     pub currencies: Vec<CurrencySummary>,
     pub counts: Vec<CountResult>,
+    /// "opener", "joiner" or None (legacy, one device).
+    pub store_role: Option<String>,
+    /// Who opened / closed («Atiende» of that moment).
+    pub opened_by: Option<String>,
+    pub closed_by: Option<String>,
+    /// Closed by another phone of the store (no counts here).
+    pub closed_remote: bool,
 }
 
 pub fn normalize_currency(raw: &str) -> CashResult<String> {
@@ -252,17 +303,18 @@ pub(crate) fn non_empty(value: &Option<String>) -> Option<String> {
         .map(str::to_string)
 }
 
-struct ShiftRow {
-    business_id: String,
-    branch_id: String,
-    device_id: String,
-    status: String,
+pub(crate) struct ShiftRow {
+    pub(crate) business_id: String,
+    pub(crate) branch_id: String,
+    pub(crate) device_id: String,
+    pub(crate) status: String,
+    pub(crate) store_role: Option<String>,
 }
 
 fn load_shift(conn: &Connection, shift_id: &str) -> CashResult<Option<ShiftRow>> {
     Ok(conn
         .query_row(
-            "SELECT business_id, branch_id, device_id, status FROM local_cash_shifts WHERE id=?1",
+            "SELECT business_id, branch_id, device_id, status, store_role FROM local_cash_shifts WHERE id=?1",
             [shift_id],
             |row| {
                 Ok(ShiftRow {
@@ -270,13 +322,14 @@ fn load_shift(conn: &Connection, shift_id: &str) -> CashResult<Option<ShiftRow>>
                     branch_id: row.get(1)?,
                     device_id: row.get(2)?,
                     status: row.get(3)?,
+                    store_role: row.get(4)?,
                 })
             },
         )
         .optional()?)
 }
 
-fn require_owned_shift(
+pub(crate) fn require_owned_shift(
     conn: &Connection,
     scope: &ShiftScope,
     shift_id: &str,
@@ -442,11 +495,23 @@ pub fn currency_totals(
 }
 
 pub fn shift_summary(conn: &Connection, shift_id: &str) -> CashResult<ShiftSummary> {
-    let (status, primary_currency, opened_at, closed_at): (String, String, String, Option<String>) =
+    type Head = (String, String, String, Option<String>, Option<String>, Option<String>, Option<String>, i64);
+    let (status, primary_currency, opened_at, closed_at, store_role, opened_by, closed_by, closed_remote): Head =
         conn.query_row(
-            "SELECT status, currency, opened_at, closed_at FROM local_cash_shifts WHERE id=?1",
+            "SELECT status, currency, opened_at, closed_at, store_role, opened_by, closed_by, closed_remote FROM local_cash_shifts WHERE id=?1",
             [shift_id],
-            |row| Ok((row.get(0)?, row.get(1)?, row.get(2)?, row.get(3)?)),
+            |row| {
+                Ok((
+                    row.get(0)?,
+                    row.get(1)?,
+                    row.get(2)?,
+                    row.get(3)?,
+                    row.get(4)?,
+                    row.get(5)?,
+                    row.get(6)?,
+                    row.get(7)?,
+                ))
+            },
         )
         .optional()?
         .ok_or_else(|| CashError::NotFound("Turno de caja no encontrado".into()))?;
@@ -473,6 +538,10 @@ pub fn shift_summary(conn: &Connection, shift_id: &str) -> CashResult<ShiftSumma
         closed_at,
         currencies: currency_totals(conn, shift_id)?.into_values().collect(),
         counts,
+        store_role,
+        opened_by,
+        closed_by,
+        closed_remote: closed_remote != 0,
     })
 }
 
@@ -484,6 +553,54 @@ pub fn current_open_shift(conn: &Connection, scope: &ShiftScope) -> CashResult<O
             |row| row.get(0),
         )
         .optional()?)
+}
+
+/// Selling needs an open shift (20-oct: the store has one drawer and every
+/// sale must land in it). Returns the open shift of this phone.
+pub fn require_open_shift(conn: &Connection, scope: &ShiftScope) -> CashResult<String> {
+    if !crate::cash_ledger_ready(conn)? {
+        return invalid("Falta actualizar la base de la caja: cierra y abre la app");
+    }
+    current_open_shift(conn, scope)?.ok_or_else(|| {
+        CashError::Validation(
+            "No hay turno abierto. Ve a Caja y abre el turno (o únete al de tu compañera) antes de vender".into(),
+        )
+    })
+}
+
+/// Another phone counted and closed the store shift (the one drawer): close
+/// it here without counts. Only store shifts (opener or joiner), never a
+/// legacy per-device one; idempotent.
+pub fn mark_closed_remote(
+    conn: &mut Connection,
+    scope: &ShiftScope,
+    shift_id: &str,
+    closed_at: &str,
+    closed_by: Option<&str>,
+    note: Option<&str>,
+) -> CashResult<ShiftSummary> {
+    let tx = conn.transaction()?;
+    let shift = require_owned_shift(&tx, scope, shift_id)?;
+    if shift.status == "closed" {
+        drop(tx);
+        return shift_summary(conn, shift_id);
+    }
+    if shift.store_role.is_none() {
+        return Err(CashError::Conflict(
+            "Este turno es solo de este teléfono: se cierra contando el dinero aquí".into(),
+        ));
+    }
+    let note = note
+        .map(str::trim)
+        .filter(|n| !n.is_empty())
+        .map(|n| n.chars().take(REASON_MAX_CHARS).collect::<String>())
+        .unwrap_or_else(|| "Cerrado en otro teléfono de la tienda".into());
+    tx.execute(
+        "UPDATE local_cash_shifts SET status='closed', closed_remote=1, closed_at=?2, closed_by=?3, close_note=?4 WHERE id=?1 AND status='open'",
+        params![shift_id, closed_at, closed_by.map(str::trim).filter(|v| !v.is_empty()), note],
+    )?;
+    tx.commit()?;
+    shift_summary(conn, shift_id)
 }
 
 pub fn open_shift(
@@ -509,6 +626,10 @@ pub fn open_shift(
             return invalid("Moneda repetida en el fondo inicial");
         }
     }
+    let role = StoreRole::parse(&input.store_role)?;
+    if role == Some(StoreRole::Joiner) && floats.values().any(|(_, amount)| *amount > 0) {
+        return invalid("Al unirte al turno no se cuenta el fondo: ya lo contó quien abrió");
+    }
 
     let tx = conn.transaction()?;
 
@@ -533,8 +654,8 @@ pub fn open_shift(
     let location = non_empty(&input.location_id);
 
     tx.execute(
-        "INSERT INTO local_cash_shifts (id,business_id,branch_id,device_id,currency,opening_float_minor,status,opened_at,opened_by,sync_status,location_id)
-         VALUES (?1,?2,?3,?4,?5,?6,'open',?7,?8,'pending',?9)",
+        "INSERT INTO local_cash_shifts (id,business_id,branch_id,device_id,currency,opening_float_minor,status,opened_at,opened_by,sync_status,location_id,store_role)
+         VALUES (?1,?2,?3,?4,?5,?6,'open',?7,?8,'pending',?9,?10)",
         params![
             input.shift_id,
             scope.business_id,
@@ -544,7 +665,8 @@ pub fn open_shift(
             primary_float,
             input.opened_at,
             operator,
-            location
+            location,
+            role.map(StoreRole::as_str)
         ],
     )?;
 
@@ -577,7 +699,7 @@ pub fn open_shift(
         &input.outbox_id,
         &scope.business_id,
         &scope.device_id,
-        "cash_shift.opened",
+        if role == Some(StoreRole::Joiner) { "cash_shift.joined" } else { "cash_shift.opened" },
         "cash_shift",
         &input.shift_id,
         &input.opened_at,
@@ -589,6 +711,7 @@ pub fn open_shift(
             "location_id": location,
             "primary_currency": primary_currency,
             "opening_floats": floats_payload,
+            "store_role": role.map(StoreRole::as_str),
         }),
     )?;
 
@@ -601,6 +724,20 @@ pub fn record_movement(
     scope: &ShiftScope,
     input: &RecordMovementInput,
 ) -> CashResult<ShiftSummary> {
+    let tx = conn.transaction()?;
+    record_movement_in(&tx, scope, input)?;
+    tx.commit()?;
+    shift_summary(conn, &input.shift_id)
+}
+
+/// `record_movement` inside a caller's transaction (web-order charges write
+/// their drawer movements and their own row atomically). A retry with the
+/// same movement id changes nothing.
+pub(crate) fn record_movement_in(
+    tx: &Transaction,
+    scope: &ShiftScope,
+    input: &RecordMovementInput,
+) -> CashResult<()> {
     require_id(&input.movement_id, "movimiento")?;
     require_id(&input.outbox_id, "evento")?;
     if input.amount_minor <= 0 {
@@ -634,8 +771,7 @@ pub fn record_movement(
         return invalid("Un cobro de pedido o devolución de mensajero debe indicar su origen");
     }
 
-    let tx = conn.transaction()?;
-    let shift = require_owned_shift(&tx, scope, &input.shift_id)?;
+    let shift = require_owned_shift(tx, scope, &input.shift_id)?;
 
     let existing: Option<String> = tx
         .query_row(
@@ -650,8 +786,7 @@ pub fn record_movement(
                 "El identificador de movimiento ya existe en otro turno".into(),
             ));
         }
-        drop(tx);
-        return shift_summary(conn, &input.shift_id);
+        return Ok(());
     }
 
     if shift.status != "open" {
@@ -757,9 +892,7 @@ pub fn record_movement(
             "corrects_movement_id": corrects,
         }),
     )?;
-
-    tx.commit()?;
-    shift_summary(conn, &input.shift_id)
+    Ok(())
 }
 
 pub fn close_shift(
@@ -803,6 +936,37 @@ pub fn close_shift(
     }
 
     let mut totals = currency_totals(&tx, &input.shift_id)?;
+    let local_expected: Vec<ExpectedInput> = totals
+        .values()
+        .map(|c| ExpectedInput { currency: c.currency.clone(), expected_minor: c.expected_minor })
+        .collect();
+    // Store-wide «debería haber» from the cloud replaces this phone's own.
+    let cloud = match &input.expected {
+        Some(list) => {
+            let mut cloud: BTreeMap<String, i64> = BTreeMap::new();
+            for e in list {
+                if cloud.insert(normalize_currency(&e.currency)?, e.expected_minor).is_some() {
+                    return invalid("Moneda repetida en lo que debería haber");
+                }
+            }
+            Some(cloud)
+        }
+        None => None,
+    };
+    if let Some(cloud) = &cloud {
+        for (currency, expected) in cloud {
+            // A currency the cloud reports with nothing expected and that
+            // this phone never touched does not have to be counted.
+            if *expected == 0 && !totals.contains_key(currency) && !counted.contains_key(currency) {
+                continue;
+            }
+            let entry = totals.entry(currency.clone()).or_insert_with(|| CurrencySummary {
+                currency: currency.clone(),
+                ..Default::default()
+            });
+            entry.expected_minor = *expected;
+        }
+    }
     // Currencies that only appear through POS sales still have to be counted.
     for currency in totals.keys() {
         track_currency(&tx, &input.shift_id, currency)?;
@@ -909,6 +1073,10 @@ pub fn close_shift(
             "closed_by": non_empty(&input.closed_by),
             "note": non_empty(&input.note),
             "counts": counts_payload,
+            "store_role": shift.store_role,
+            // "cloud" = store-wide (all phones + web); "local" = only this phone (no internet).
+            "expected_source": if cloud.is_some() { "cloud" } else { "local" },
+            "local_expected": local_expected,
         }),
     )?;
 

@@ -61,7 +61,8 @@ fn transport_failure_backs_off_exponentially_with_a_cap() {
     assert_eq!(next, "2026-10-03T12:01:00.000Z");
     assert_eq!(backoff_secs(1), 30);
     assert_eq!(backoff_secs(3), 120);
-    assert_eq!(backoff_secs(50), 3_600);
+    assert_eq!(backoff_secs(5), 300);
+    assert_eq!(backoff_secs(50), 300, "nunca más de 5 minutos");
 }
 
 #[test]
@@ -72,5 +73,27 @@ fn synced_events_are_never_resent_or_reopened() {
     record_transport_failure(&mut conn, &["e1".to_string()], "late", NOW).unwrap();
     let synced: Option<String> = conn.query_row("SELECT synced_at FROM local_outbox WHERE id='e1'", [], |r| r.get(0)).unwrap();
     assert_eq!(synced.as_deref(), Some(NOW));
+    assert_eq!(sync_state(&conn).unwrap().synced, 1);
+}
+
+#[test]
+fn manual_sync_makes_every_waiting_event_due_now() {
+    let mut conn = db();
+    let ids = vec!["e1".to_string(), "e2".to_string()];
+    for _ in 0..6 {
+        record_transport_failure(&mut conn, &ids, "sin conexión", NOW).unwrap();
+    }
+    // Waiting (at most 5 minutes), so an automatic round does not send them.
+    assert_eq!(pending_batch(&conn, NOW, 10).unwrap().len(), 1);
+    assert_eq!(next_attempt_at(&conn).unwrap().as_deref(), Some("2026-10-03T12:05:00.000Z"));
+    // «Sincronizar ahora»: everything pending goes now; attempts are kept.
+    assert_eq!(make_all_due(&conn).unwrap(), 2);
+    let batch = pending_batch(&conn, NOW, 10).unwrap();
+    assert_eq!(batch.len(), 3);
+    assert!(batch.iter().any(|e| e.event_id == "e1" && e.attempts == 6));
+    assert_eq!(next_attempt_at(&conn).unwrap(), None);
+    // Synced rows are never touched.
+    record_push_results(&mut conn, &[ok("e3", PushStatus::Applied)], NOW).unwrap();
+    assert_eq!(make_all_due(&conn).unwrap(), 0);
     assert_eq!(sync_state(&conn).unwrap().synced, 1);
 }
