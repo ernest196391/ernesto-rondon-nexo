@@ -249,7 +249,7 @@
         subir("no"); motivos.push(`El teléfono ${tel} está en la lista de estafadores del equipo${t.motivo ? ` (${t.motivo})` : ""}.`);
         filas.push(["Teléfono del cliente", "En la lista de estafadores", "no"]);
       } else if (t.encontrado) {
-        subir("duda"); motivos.push(`El teléfono ${tel} fue reportado como sospechoso${t.desde ? ` el ${new Date(t.desde).toLocaleDateString("es")}` : ""}${t.motivo ? ` (${t.motivo})` : ""}.`);
+        subir("duda"); motivos.push(`El teléfono ${tel} fue reportado como sospechoso${t.desde ? ` el ${new Date(t.desde).toLocaleDateString("es")}` : ""}${t.origen ? ` (${t.origen.toLowerCase()})` : ""}. Sin confirmar por la tienda.`);
         filas.push(["Teléfono del cliente", "Reportado como sospechoso", "duda"]);
       } else filas.push(["Teléfono del cliente", "No está en la lista", "ok"]);
     }

@@ -1,0 +1,4 @@
+Paso 1 de 4: en Más herramientas, toca Abrir en «¿Es de confianza este número?».
+Paso 2 de 4: escribe el número de tu cliente y toca Mirar.
+Paso 3 de 4: para buscar en la lista, escribe parte del número en Filtrar.
+Paso 4 de 4: si te estafaron, pon el número, qué pasó y toca Reportar.

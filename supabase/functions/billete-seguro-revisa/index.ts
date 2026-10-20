@@ -8,7 +8,8 @@
 // Equipos: tabla billete_seguro_equipos (un código por negocio; activo y tope por hora).
 // Cada revisión queda en billete_seguro_revisiones (sin fotos).
 // Además: POST {equipo, accion: "telefono", telefono} → ¿está en crm_sospechosos?
-//         POST {equipo, accion: "reportar", telefono, motivo} → entra como «sospechoso» (VivaBot avisa a Ernesto).
+//         POST {equipo, accion: "reportar", telefono, motivo[, por, origen:"gestoras"]} → entra como «sospechoso» (VivaBot avisa a Ernesto).
+//         POST {equipo, accion: "lista"} → los números no descartados (motivo solo de los confirmados).
 // Secrets: OPENAI_API_KEY / CURRU_MODEL / CURRU_BASE_URL, o WOO_URL + CASAVIVA_PANEL_KEY.
 // Deploy: npx.cmd supabase functions deploy billete-seguro-revisa --project-ref viwwlriwlwodrfukbgbj --no-verify-jwt --use-api
 import { createClient } from "jsr:@supabase/supabase-js@2";
@@ -53,24 +54,45 @@ Deno.serve(async req => {
   const { data: eq } = await admin.from("billete_seguro_equipos").select("codigo, nombre, activo, tope_hora").eq("codigo", equipo).maybeSingle();
   if (!eq || !eq.activo) return json(401, { error: "equipo" });
 
-  // Lista de números sospechosos (crm_sospechosos, 20-oct): consultar un teléfono o reportarlo.
+  // Lista de números sospechosos (crm_sospechosos, 20-oct): consultar un teléfono, reportarlo o ver la lista.
   // Mismas reglas que VivaBot (src/sospechosos-rules.js, normTel): de Cuba, los 8 últimos dígitos.
+  // Hacia fuera (app y área de gestoras) el motivo solo sale si el número está CONFIRMADO por el equipo; de los
+  // demás, solo de dónde vino (lo automático trae el mensaje entero, con nombres y direcciones).
+  const deDonde = (f: { estado: string; fuente?: string | null }) => {
+    if (f.estado === "confirmado") return "Reportado por el equipo";
+    const s = String(f.fuente ?? "").toLowerCase();
+    if (s.startsWith("billete seguro") || s.startsWith("área de gestoras")) return "Reportado con Billete Seguro o por una gestora";
+    if (s.startsWith("búsqueda diaria") && !s.includes("grupo")) return "Visto en internet";
+    return "Reportado en un grupo de vendedores";
+  };
+  const publico = (f: { telefono: string; estado: string; motivo?: string | null; fuente?: string | null; creado: string; veces?: number }) => ({
+    telefono: f.telefono, estado: f.estado, origen: deDonde(f), desde: f.creado, veces: f.veces ?? 1,
+    motivo: f.estado === "confirmado" ? String(f.motivo ?? "").replace(/[.\s]+$/, "").slice(0, 120) : "",
+  });
+  if (body.accion === "lista") {
+    const { data, error } = await admin.from("crm_sospechosos").select("telefono, estado, motivo, fuente, creado, veces")
+      .neq("estado", "descartado").order("estado").order("creado", { ascending: false }).limit(500);
+    if (error) { console.error("sospechosos", error.message); return json(502, { error: "lista" }); }
+    return json(200, { numeros: (data ?? []).map(publico) });
+  }
   if (body.accion === "telefono" || body.accion === "reportar") {
     let tel = String(body.telefono ?? "").replace(/\D/g, "");
     if (tel.startsWith("00")) tel = tel.slice(2);
     if (tel.length === 10 && tel.startsWith("53")) tel = tel.slice(2);
     if (tel.length < 6 || tel.length > 15) return json(400, { error: "telefono" });
     const claves = [...new Set([tel, tel.slice(-8)])];
-    const { data: filas, error: e1 } = await admin.from("crm_sospechosos").select("telefono, estado, motivo, creado, veces, historial").in("telefono", claves);
+    const { data: filas, error: e1 } = await admin.from("crm_sospechosos").select("telefono, estado, motivo, fuente, creado, veces, historial").in("telefono", claves);
     if (e1) { console.error("sospechosos", e1.message); return json(502, { error: "lista" }); }
     const fila = (filas ?? []).find(f => f.estado !== "descartado") ?? null;
     if (body.accion === "telefono") {
-      return json(200, fila
-        ? { encontrado: true, estado: fila.estado, motivo: String(fila.motivo ?? "").slice(0, 120), desde: fila.creado }
-        : { encontrado: false });
+      return json(200, fila ? { encontrado: true, ...publico(fila) } : { encontrado: false });
     }
     const motivo = String(body.motivo ?? "Reportado desde Billete Seguro").slice(0, 280);
-    const evento = { at: new Date().toISOString(), estado: "sospechoso", motivo, fuente: `Billete Seguro · ${eq.nombre}`, por: eq.nombre };
+    // El área de gestoras de Core manda quién reporta y desde dónde (`por`, `origen`); la app, solo el equipo.
+    const b2 = body as { por?: string; origen?: string };
+    const por = String(b2.por ?? "").trim().slice(0, 60) || eq.nombre;
+    const fuente = b2.origen === "gestoras" ? `Área de gestoras · ${por}` : `Billete Seguro · ${eq.nombre}`;
+    const evento = { at: new Date().toISOString(), estado: "sospechoso", motivo, fuente, por };
     const previa = (filas ?? []).find(f => f.telefono === tel);
     if (previa) {
       // Ya estaba (también si Ernesto lo descartó): solo cuenta un aviso más; no se cambia lo que decidió Ernesto.
@@ -78,7 +100,7 @@ Deno.serve(async req => {
       if (error) { console.error("sospechosos", error.message); return json(502, { error: "lista" }); }
       return json(200, { ok: true, nuevo: false });
     }
-    const { error } = await admin.from("crm_sospechosos").insert({ telefono: tel, estado: "sospechoso", motivo, fuente: `Billete Seguro · ${eq.nombre}`, reportado_por: eq.nombre, avisado: false, historial: [evento] });
+    const { error } = await admin.from("crm_sospechosos").insert({ telefono: tel, estado: "sospechoso", motivo, fuente, reportado_por: por, avisado: false, historial: [evento] });
     if (error) { console.error("sospechosos", error.message); return json(502, { error: "lista" }); }
     return json(200, { ok: true, nuevo: true }); // VivaBot le avisa a Ernesto (avisado=false)
   }

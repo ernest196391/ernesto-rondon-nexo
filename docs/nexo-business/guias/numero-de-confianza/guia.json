@@ -1,0 +1,41 @@
+{
+  "titulo": "¿Es de confianza?",
+  "formato": "1080x1350",
+  "para": "grupo General (gestoras)",
+  "mensaje": "Hola a todo el equipo 👋 Novedad en su área de gestora: *¿Es de confianza este número?*\nAntes de mandar un pedido, escriben el número del cliente y les dice si fue reportado por estafa. Y si les estafan, lo reportan ahí mismo para cuidar a todo el equipo.\nLa lista se actualiza sola cada día. Los pasos, en las fotos 👇\nSi algo no sale, escríbanme.",
+  "pasos": [
+    {
+      "texto": "En **Más herramientas**, toca **Abrir**.",
+      "resultado": "Se abre **¿Es de confianza este número?**",
+      "captura": "capturas/1-herramientas.png",
+      "flecha": "der",
+      "zoom": 1.1,
+      "pie": "Paso 1 de 4: en Más herramientas, toca Abrir en «¿Es de confianza este número?»."
+    },
+    {
+      "texto": "Escribe el número y toca **Mirar**.",
+      "resultado": "Rojo: lo reportó el equipo. Naranja: sin confirmar. Verde: no está.",
+      "ojo": "Si sale rojo, no mandes el pedido sin hablar con la tienda.",
+      "captura": "capturas/2-mirar.png",
+      "flecha": "der",
+      "zoom": 1.1,
+      "pie": "Paso 2 de 4: escribe el número de tu cliente y toca Mirar."
+    },
+    {
+      "texto": "Escribe parte del número en **Filtrar**.",
+      "resultado": "Solo ves los números con esos dígitos. La lista se actualiza sola.",
+      "captura": "capturas/3-filtrar.png",
+      "flecha": "arriba",
+      "zoom": 1.1,
+      "pie": "Paso 3 de 4: para buscar en la lista, escribe parte del número en Filtrar."
+    },
+    {
+      "texto": "Si te estafaron, cuéntalo y toca **Reportar**.",
+      "resultado": "Entra como «sin confirmar» y la tienda lo revisa.",
+      "captura": "capturas/4-reportar.png",
+      "flecha": "der",
+      "zoom": 1.1,
+      "pie": "Paso 4 de 4: si te estafaron, pon el número, qué pasó y toca Reportar."
+    }
+  ]
+}

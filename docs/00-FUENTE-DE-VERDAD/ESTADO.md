@@ -1635,3 +1635,14 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
   - Los números de prueba están borrados y los archivos del servidor son iguales a los del repo (sha1).
 - **Pendiente aparte:** el test `catalog-commission` («Woo → búsqueda → contexto conserva la comisión») falla cuando se carga el `.env` real. Por eso `cv reiniciar` se niega a reiniciar; hoy se reinició con `--sin-check` después de pasar `npm run check` limpio 6 veces. Ese test hay que aislarlo de la red.
 - **Falta que lo vea Ernesto:** el primer aviso de verdad en «Tú», y darle a «Ejecutar ahora» una vez a la tarea diaria para aprobar sus permisos.
+- **17:30 — siguientes pasos de Ernesto («deja los números en el General… que se actualice sola la web… herramienta simple para ellas en su panel»):**
+  - **Core 3.14.42 EN VIVO** (`c882bc3`): «¿Es de confianza este número?» en el área de gestoras (Herramientas y menú lateral).
+    - Mirar un número: rojo = reportado por el equipo, naranja = sin confirmar, verde = no está.
+    - La lista de números reportados, con un filtro; se actualiza sola (caché de 5 min).
+    - Reportar un número: entra como «sospechoso» y el bot avisa a Ernesto.
+    - Core la pide a `billete-seguro-revisa` (acciones nuevas: `lista` y `reportar` con `por`/`origen`), con el código de equipo en la opción `cvd_billete_seguro_equipo`. Hacia fuera, el motivo solo sale de los confirmados.
+    - Copia de seguridad: `~/bak-20261020-cvd-3.14.41-antes-3.14.42`.
+  - **Probado yo:** como gestora en el servidor, mirar 56280375 → confirmado y 52544351 → no está; la lista con 20 números; el código no sale en la página; sin sesión → 401; la home, /tienda/ y /mi-cuenta/ → 200.
+  - **General (17:29–17:30, #2136–#2142):** la lista (5 «reportados por nuestro equipo» y 15 «reportados en otros grupos, sin confirmar por la tienda», un número por línea, sin direcciones ni nombres), más la guía de 4 pasos `docs/nexo-business/guias/numero-de-confianza/`.
+  - **Conocimiento del bot:** #277 («¿Cómo sé si el número de un cliente es de un estafador?»).
+  - **Billete Seguro bs-4:** de los no confirmados se muestra de dónde vino, no el mensaje entero.
