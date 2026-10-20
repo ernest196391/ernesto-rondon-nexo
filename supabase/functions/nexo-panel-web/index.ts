@@ -6,6 +6,8 @@
 //   POST { action: "staff_pay", months? }            → ventas del mes por dependienta («A pagar este mes»)
 //   Productos (Core 3.13.52): product_variations, variation_add, product_variable_create, products_visibility
 //   Venta de proveedor (Core 3.14.14, D69): supplier_split, supplier_split_save, supplier_sales
+//   Core 3.14.41: product_description_save, product_main_photo, product_duplicate, product_copies, product_copy,
+//                 product_copy_publish, product_copy_discard
 // Deploy: npx.cmd supabase functions deploy nexo-panel-web --project-ref viwwlriwlwodrfukbgbj --no-verify-jwt --use-api
 import { createClient } from "jsr:@supabase/supabase-js@2";
 
@@ -373,6 +375,56 @@ Deno.serve(async req => {
       const items = (Array.isArray(body.wooIds) ? body.wooIds : []).map(Number).filter(n => n > 0).slice(0, 300);
       if (!items.length) return json(200, { items: [] });
       return json(200, await core("POST", "panel/products/visibility", { items, sell: body.sell === true, by }));
+    }
+
+    // ---------- Core 3.14.41 (Lennys 20-oct): descripción de productos con diseños, foto principal y «Duplicar» ----------
+    // Descripción del producto (en uno con diseños, la del padre: la misma para todos los colores).
+    if (body.action === "product_description_save") {
+      if (!(Number(body.wooId) > 0) || typeof body.description !== "string" || !body.description.trim()) return json(400, { error: "Escribe la descripción." });
+      return json(200, await core("POST", `panel/products/${Number(body.wooId)}/description`, { description: String(body.description).slice(0, 6000), by }));
+    }
+    // Foto principal (la de la tienda, las gestoras y el bot). Solo fotos subidas por el panel a nexo-product-photos.
+    if (body.action === "product_main_photo") {
+      const url = String(body.imageUrl ?? "");
+      if (!(Number(body.wooId) > 0) || !url.startsWith(GALLERY_PREFIX)) return json(400, { error: "Foto no válida." });
+      return json(200, await core("POST", `panel/products/${Number(body.wooId)}/photo`, { imageUrl: url, by }));
+    }
+    // Duplicar: copia en borrador en la web (nadie la ve). La caja no la conoce hasta publicarla.
+    if (body.action === "product_duplicate") {
+      if (!(Number(body.wooId) > 0)) return json(400, { error: "Producto no válido." });
+      return json(200, await core("POST", `panel/products/${Number(body.wooId)}/duplicate`, { ref: String(body.ref ?? ""), by }));
+    }
+    if (body.action === "product_copies") return json(200, await core("GET", "panel/products/copies"));
+    if (body.action === "product_copy") {
+      if (!(Number(body.wooId) > 0)) return json(400, { error: "Copia no válida." });
+      return json(200, await core("GET", `panel/products/${Number(body.wooId)}/copy`));
+    }
+    if (body.action === "product_copy_discard") {
+      if (!(Number(body.wooId) > 0)) return json(400, { error: "Copia no válida." });
+      return json(200, await core("POST", `panel/products/${Number(body.wooId)}/copy-discard`, { by }));
+    }
+    // Publicar la copia. Con diseños: sus diseños a la venta se enlazan aquí con la caja (grupo cv-<id>, 0 unidades;
+    // las pone el panel). Sin diseños: la caja la crea el panel (nexo_business_product_save, como dueña) y la enlaza.
+    if (body.action === "product_copy_publish") {
+      const price = Number(body.price);
+      const name = String(body.name ?? "").trim();
+      if (!(Number(body.wooId) > 0) || !name || !(price > 0)) return json(400, { error: "Falta el nombre o el precio." });
+      const photo = (u: unknown) => { const s = String(u ?? ""); return s.startsWith(GALLERY_PREFIX) ? s : ""; };
+      const photos: Record<string, string> = {};
+      for (const [k, v] of Object.entries((body.photos && typeof body.photos === "object") ? body.photos as Record<string, unknown> : {})) {
+        if (Number(k) > 0 && photo(v)) photos[String(Number(k))] = photo(v);
+      }
+      const out = await core("POST", `panel/products/${Number(body.wooId)}/copy-publish`, {
+        name, price, category: String(body.category ?? ""), imageUrl: photo(body.imageUrl), photos,
+        keep: (Array.isArray(body.keep) ? body.keep : []).map(Number).filter((n: number) => n > 0).slice(0, 100),
+        add: (Array.isArray(body.add) ? body.add : []).slice(0, 30).map((d: { label?: string; imageUrl?: string }) => ({ label: String(d?.label ?? "").trim(), imageUrl: photo(d?.imageUrl) })),
+        ...(typeof body.description === "string" ? { description: String(body.description).slice(0, 6000) } : {}),
+        by,
+      });
+      if (out.type !== "variable") return json(200, { ...out, group: null, linked: [] });
+      const vars = (out.variations as WebVariation[]).filter(v => v.status === "publish" && v.price > 0).map(v => ({ ...v, stock: 0 }));
+      const linked = await linkVariants(`cv-${out.wooId}`, { id: Number(out.wooId), name: String(out.name ?? name) }, vars, { category: String(out.category ?? body.category ?? "") });
+      return json(200, { ...out, group: `cv-${out.wooId}`, linked });
     }
 
     // Mensajeros: lista y aprobar/rechazar (misma lógica que gestoras en Core).

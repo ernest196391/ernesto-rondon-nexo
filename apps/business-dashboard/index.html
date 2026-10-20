@@ -209,14 +209,15 @@
         <button type="button" class="chip" data-f="low" aria-pressed="false">Pocas unidades</button>
         <button type="button" class="chip" data-f="nocost" aria-pressed="false" data-cost-only hidden>Sin costo</button>
         <button type="button" class="chip" data-f="offer" aria-pressed="false">En oferta</button>
-        <button type="button" class="chip" data-f="hidden" aria-pressed="false">Retirados</button>
+        <button type="button" class="chip" data-f="hidden" aria-pressed="false">Ocultos</button>
         <button type="button" class="chip" data-f="diff" aria-pressed="false" hidden>No coincide con la web</button>
         <button type="button" class="chip" data-f="ficha" aria-pressed="false" hidden>Falta información</button>
       </div>
       <div class="attention" id="attention-products" hidden></div>
+      <section class="panel note-box" id="inv-copies" hidden></section>
       <div class="inv-help" id="inv-filter-help" hidden></div>
       <button type="button" class="btn btn-ghost btn-block" id="bulk-btn">Cambiar varios</button>
-      <div class="bulk-bar" id="bulk-bar" hidden><span id="bulk-count">Toca los productos</span><span class="bulk-actions"><button type="button" class="btn btn-secondary" id="bulk-retire" disabled>Dejar de vender</button><button type="button" class="btn btn-primary" id="bulk-go" disabled>Cambiar precio o comisión</button></span></div>
+      <div class="bulk-bar" id="bulk-bar" hidden><span id="bulk-count">Toca los productos</span><span class="bulk-actions"><button type="button" class="btn btn-secondary" id="bulk-retire" disabled>Ocultar</button><button type="button" class="btn btn-primary" id="bulk-go" disabled>Cambiar precio o comisión</button></span></div>
       <section class="panel" id="inventory"><p class="muted">Cargando…</p></section>
       <button type="button" class="btn btn-ghost btn-block" id="recv-history">Ver mercancía recibida</button>
     </main>
@@ -336,7 +337,17 @@ function openSheet(html, label) {
   const close = () => wrap.remove();
   wrap.querySelector(".scrim").onclick = close;
   wrap.querySelectorAll("[data-close]").forEach(b => (b.onclick = close));
-  return { el: wrap.querySelector(".sheet"), close };
+  // Lennys 20-oct: en las hojas largas, «Cerrar» también abajo (hace lo mismo que el de arriba, que pregunta si hay cambios).
+  const sheetEl = wrap.querySelector(".sheet");
+  const top = sheetEl.querySelector(".sheet-head [data-close], .sheet-head [data-x]");
+  const otherClose = [...sheetEl.querySelectorAll("[data-close]")].some(b => !b.closest(".sheet-head"));
+  if (top && !otherClose) {
+    const foot = document.createElement("button");
+    foot.type = "button"; foot.className = "btn btn-ghost btn-block sheet-foot-close"; foot.textContent = "Cerrar";
+    foot.onclick = () => top.click();
+    sheetEl.appendChild(foot);
+  }
+  return { el: sheetEl, close };
 }
 
 // ---------- Navigation ----------
@@ -727,13 +738,15 @@ async function editProduct(p) {
   const cats = [...new Set((catalog ?? []).map(x => x.category).filter(Boolean))].sort((a, b) => a.localeCompare(b, "es"));
   const group = p?.variant_of ?? null; // es un diseño de un producto con diseños
   const retired = p ? p.active === false : false;
+  // Lennys 20-oct: la foto que se ve y se cambia aquí es la de la web (la que ven la tienda, las gestoras y el bot).
+  const webImg = inv?.web?.image ?? null;
   const sheet = openSheet(`
     <div class="sheet-head"><h2>${p ? (group ? "Editar diseño" : "Editar producto") : "Nuevo producto"}</h2><button type="button" class="btn btn-ghost" data-close>Cerrar</button></div>
-    ${retired ? `<div class="note-box note-calm"><p><strong>Retirado:</strong> no se vende en la caja ni en la web. No se borró nada.</p><button type="button" class="btn btn-primary btn-block" data-sell>Volver a vender</button></div>` : ""}
+    ${retired ? `<div class="note-box note-calm"><p><strong>Oculto:</strong> no se ve ni se vende en la web, en las tiendas de las gestoras ni en la caja. No se borró nada.</p><button type="button" class="btn btn-primary btn-block" data-sell>Mostrar</button></div>` : ""}
     ${group ? `<div class="note-box"><p>Es un diseño de <strong>${esc(groupName(group))}</strong>.</p><button type="button" class="btn btn-secondary btn-block" data-group-open>Ver todos sus diseños y colores</button></div>` : ""}
     ${!p ? `<div class="note-box"><p>¿Viene en varios colores o diseños (por ejemplo, cortinas)?</p><button type="button" class="btn btn-secondary btn-block" data-new-designs>Crear producto con diseños</button></div>` : ""}
     <form class="form">
-      ${photoPicker(group ? "Foto" : "Foto principal", p?.image_url ?? "")}
+      ${photoPicker(group ? "Foto de este diseño" : "Foto principal (la misma de la web y de las gestoras)", webImg || (p?.image_url ?? ""))}
       ${group ? "" : galleryPicker(p ? "Añadir más fotos (opcional)" : "Más fotos (opcional)")}
       <input type="hidden" name="sku" value="${esc(p?.sku ?? "")}">
       <label class="field">Nombre<input name="name" required value="${esc(p?.name ?? "")}" placeholder="Ej.: Toalla grande azul"></label>
@@ -745,8 +758,8 @@ async function editProduct(p) {
       ${commissionField(p ? commOf(p.product_id) : "", group ? "Solo para este diseño. Vacía = la general (" + commDefault().text + ")." : null)}
       <label class="field">Categoría<input name="category" list="cat-list" value="${esc(p?.category ?? "")}" placeholder="Ej.: Baño"></label>
       <datalist id="cat-list">${cats.map(c => `<option value="${esc(c)}">`).join("")}</datalist>
-      ${group ? "" : `<label class="field">Descripción<textarea name="description" rows="6"${onWeb ? " disabled" : ""} placeholder="Para qué sirve y qué trae. Medidas en cm y material (si es eléctrico: potencia, voltaje y batería). Cada línea que empiece por «-» sale como un punto de la lista."></textarea></label>
-      <p class="t-xs muted" data-ficha>${onWeb ? "Cargando la descripción de la web…" : "Con medidas y material la ficha sale completa. Si falta algo, las gestoras ven «Falta información» y el bot se lo pide a la tienda."}</p>`}
+      <label class="field">${group ? "Descripción del producto (la misma para todos sus colores)" : "Descripción"}<textarea name="description" rows="6"${onWeb ? " disabled" : ""} placeholder="Para qué sirve y qué trae. Medidas en cm y material (si es eléctrico: potencia, voltaje y batería). Cada línea que empiece por «-» sale como un punto de la lista."></textarea></label>
+      <p class="t-xs muted" data-ficha>${onWeb ? "Cargando la descripción de la web…" : "Con medidas y material la ficha sale completa. Si falta algo, las gestoras ven «Falta información» y el bot se lo pide a la tienda."}</p>
       <details><summary class="t-sm">Más opciones</summary>
         <label class="field">Avisarme cuando queden<input name="min" type="number" min="0" step="1" inputmode="numeric" placeholder="Sin aviso" value="${p?.min_stock ?? ""}"></label>
         <label class="field">Código de barras<input name="barcodes" value="${esc((p?.barcodes ?? []).join(", "))}" placeholder="Si tiene, separados por coma" inputmode="numeric"></label>
@@ -757,7 +770,8 @@ async function editProduct(p) {
     </form>
     ${p && !group && !retired && onWeb ? `<div class="note-box"><p><strong>Este producto no tiene colores.</strong> ¿Quieres añadir colores o diseños?</p><button type="button" class="btn btn-secondary btn-block" data-add-colors>Añadir colores o diseños</button></div>` : ""}
     ${p && canCost() && costSheet ? costSection(p) : ""}
-    ${p && !retired ? `<button type="button" class="btn btn-ghost btn-block btn-danger-text" data-retire>${group ? "Dejar de vender este diseño" : "Dejar de vender este producto"}</button>` : ""}`, p ? `Editar ${p.name}` : "Nuevo producto");
+    ${p && !group && onWeb ? `<button type="button" class="btn btn-secondary btn-block" data-dup>Duplicar (copia oculta con fotos y descripción)</button>` : ""}
+    ${p && !retired ? `<button type="button" class="btn btn-ghost btn-block btn-danger-text" data-retire>${group ? "Ocultar este diseño" : "Ocultar este producto"}</button>` : ""}`, p ? `Editar ${p.name}` : "Nuevo producto");
   if (p && canCost() && costSheet) wireCostSection(sheet.el, p);
   // Descripción de la web y lo que le falta a la ficha (Core 3.14.40, Lennys 18-oct). Si no se puede leer, no se deja
   // escribir (para no pisar la descripción de la web sin verla).
@@ -776,6 +790,7 @@ async function editProduct(p) {
   sheet.el.querySelector("[data-group-open]")?.addEventListener("click", () => { sheet.close(); void editGroup(group); });
   sheet.el.querySelector("[data-new-designs]")?.addEventListener("click", () => { sheet.close(); designsProductSheet(null); });
   sheet.el.querySelector("[data-add-colors]")?.addEventListener("click", () => colorsForSimple(p, inv, sheet));
+  sheet.el.querySelector("[data-dup]")?.addEventListener("click", () => { sheet.close(); void duplicateFlow(onWeb, { commission: canCost() && costSheet ? commOf(p.product_id) : null }); });
   const form = sheet.el.querySelector("form:not([data-cost])");
   const msg = form.querySelector("[data-msg]");
   let photoFile = null;
@@ -815,7 +830,8 @@ async function editProduct(p) {
       const { data: saved, error } = await supabase.rpc("nexo_business_product_save", {
         p_business: bizId(), p_product_id: p?.product_id ?? null, p_name: f.get("name"), p_sku: f.get("sku"),
         p_barcodes: String(f.get("barcodes") ?? "").split(",").map(v => v.trim()).filter(Boolean),
-        p_price_usd: price, p_category: f.get("category"), p_image_url: imageUrl,
+        // Sin foto nueva, la caja se queda con la foto de la web (Lennys 20-oct: una sola foto principal).
+        p_price_usd: price, p_category: f.get("category"), p_image_url: imageUrl ?? (webImg && webImg !== p?.image_url ? webImg : null),
         p_active: p ? p.active !== false : true, p_min_stock: String(f.get("min") ?? "").trim() === "" ? null : Number(f.get("min")),
       });
       if (error || saved?.error) throw new Error(error?.message ?? (saved.error === "forbidden" ? "solo la dueña puede hacerlo" : saved.error));
@@ -829,15 +845,22 @@ async function editProduct(p) {
       try {
         const w = await panelWeb({ action: "product_web_save", wooId: saved.wooId ?? null, nexoId: saved.productId, name: f.get("name"), price,
           category: f.get("category"), imageUrl: imageUrl ?? (saved.wooId ? "" : (p?.image_url ?? "")), sku: saved.sku, active: p ? p.active !== false : true, galleryUrls,
-          ...(descChanged ? { description: desc } : {}) });
+          ...(descChanged && !group ? { description: desc } : {}) });
         if (galleryUrls.length && w.gallery == null) notes.push("las fotos de más no llegaron a la galería de la web (falta actualizar la web a Core 3.14.24)");
-        if (descChanged && w.ficha === undefined) notes.push("la descripción no llegó a la web (falta actualizar la web a Core 3.14.40)");
+        if (descChanged && !group && w.ficha === undefined) notes.push("la descripción no llegó a la web (falta actualizar la web a Core 3.14.40)");
         if (Array.isArray(w.ficha) && w.ficha.length) fichaTxt = " En la web falta información: " + w.ficha.join(", ") + " (el bot se la pide a la tienda).";
         if (!saved.wooId && w.wooId) {
           const { data: ln, error: e4 } = await supabase.rpc("nexo_business_product_link_web", { p_business: bizId(), p_product: saved.productId, p_woo_id: w.wooId });
           if (e4 || ln?.error) notes.push("se creó en la web pero no quedó enlazado (" + (e4?.message ?? ln.error) + ")");
         }
       } catch (e3) { notes.push("no llegó a la web (" + e3.message + "); vuelve a guardar para reintentar"); }
+      // Un diseño: la descripción es la de su producto (Core 3.14.41, Lennys 20-oct).
+      if (descChanged && group && onWeb) {
+        try {
+          const d = await panelWeb({ action: "product_description_save", wooId: onWeb, description: desc });
+          if (d.ficha?.length) fichaTxt = " En la web falta información: " + d.ficha.join(", ") + " (el bot se la pide a la tienda).";
+        } catch (e5) { notes.push("la descripción no llegó a la web (" + e5.message + ")"); }
+      }
       // Comisión de la gestora (después de enlazar con la web, para que se copie allí también).
       if (comm !== undefined) {
         const before = p ? commOf(p.product_id) : null;
@@ -928,6 +951,7 @@ async function loadInventory() {
   if (!fichas && invFilter === "ficha") invFilter = "all";
   document.querySelectorAll("#inv-filter [data-cost-only]").forEach(c => (c.hidden = !canCost()));
   renderInventory();
+  if (isOwner()) void loadCopies(); // «Duplicar»: copias sin publicar (Core 3.14.41)
 }
 // Precios (normal y oferta) en la nube y luego en la web. items: [{productId, price?, offer?, clearOffer?}]
 async function applyPrices(items) {
@@ -955,9 +979,9 @@ function updateBulkBar() {
   $("#bulk-count").textContent = picked.size ? picked.size + " marcados" : "Toca los productos";
   $("#bulk-go").disabled = !picked.size; $("#bulk-go").hidden = back;
   $("#bulk-retire").disabled = !picked.size;
-  $("#bulk-retire").textContent = back ? "Volver a vender" : "Dejar de vender";
+  $("#bulk-retire").textContent = back ? "Mostrar" : "Ocultar";
   $("#bulk-retire").className = "btn " + (back ? "btn-primary" : "btn-secondary");
-  $("#bulk-btn").textContent = picking ? "Cancelar" : back ? "Marcar varios para volver a vender" : invFilter === "out" ? "Marcar agotados para dejar de vender" : "Cambiar varios";
+  $("#bulk-btn").textContent = picking ? "Cancelar" : back ? "Marcar varios para mostrar" : invFilter === "out" ? "Marcar agotados para ocultar" : "Cambiar varios";
 }
 function bulkSheet() {
   const sheet = openSheet('<div class="sheet-head"><h2>Cambiar ' + picked.size + " productos</h2><button type=\"button\" class=\"btn btn-ghost\" data-close>Cerrar</button></div>"
@@ -1010,6 +1034,8 @@ function openProducts(filter) {
   go("catalogo");
 }
 const isDiff = r => r.active && r.web && r.web.stock !== null && r.web.stock !== r.stock;
+// La foto de la web (Core 3.14.41: la misma de la tienda y de las gestoras); si la web no la da, la de la caja.
+const imgOf = r => r.web?.image || r.imageUrl || null;
 // Lo que le falta a la ficha de la web (Core 3.14.40): medidas, material, datos técnicos o descripción.
 const fichaOf = r => (Array.isArray(r.web?.ficha) ? r.web.ficha : []);
 const isLow = r => r.active && r.stock > 0 && r.minStock != null && r.stock <= r.minStock;
@@ -1059,8 +1085,8 @@ function oneMatches(r) {
   return true;
 }
 const FILTER_HELP = {
-  out: "Aquí salen los productos y diseños sin unidades. Si no vas a volver a tenerlos, toca «Marcar agotados para dejar de vender». No se borra nada.",
-  hidden: "Retirados: no se venden en la caja ni en la web. No se borró nada. Ábrelos (o márcalos) para volver a venderlos.",
+  out: "Aquí salen los productos y diseños sin unidades. Si no vas a volver a tenerlos, toca «Marcar agotados para ocultar». No se borra nada.",
+  hidden: "Ocultos: no se ven ni se venden en la web, en las tiendas de las gestoras ni en la caja. No se borró nada. Ábrelos (o márcalos) y pulsa «Mostrar».",
   ficha: "A estos productos les faltan medidas o características en la web. Ábrelos y escríbelas en «Descripción» (medidas en cm y material; si es eléctrico, potencia y batería). Mientras, el bot se las pide a la tienda.",
   diff: "La web tiene otra cantidad. Cuenta lo que hay, ponlo en «Quedan» (aunque sea el mismo número) y toca Guardar: en unos 2 minutos la web queda igual que la caja.",
 };
@@ -1102,15 +1128,15 @@ function renderInventory() {
 function oneRow(r) {
   const name = r.name;
   const state = (r.offerUsd != null && r.active ? '<span class="badge badge-info">Oferta ' + usd2(r.offerUsd) + "</span>" : "")
-    + (!r.active ? '<span class="badge badge-calm">Retirado</span>' : r.stock <= 0 ? '<span class="badge badge-out">Agotado</span>' : isLow(r) ? '<span class="badge badge-low">Pocas</span>' : "")
+    + (!r.active ? '<span class="badge badge-calm">Oculto</span>' : r.stock <= 0 ? '<span class="badge badge-out">Agotado</span>' : isLow(r) ? '<span class="badge badge-low">Pocas</span>' : "")
     + (noComm(r) ? '<span class="badge badge-low" title="Ábrelo y escribe la comisión de la gestora">Sin comisión</span>' : "")
     + (r.active && fichaOf(r).length ? '<span class="badge badge-low" title="Falta: ' + esc(fichaOf(r).join(", ")) + '">Falta información</span>' : "");
   // Comisión de la gestora a la vista (Lennys, 15-oct): «gestora 2 USD (20 %)». Solo dueña/economista.
   const cm = canCost() && costSheet ? commOf(r.productId) : null;
   const commTxt = cm != null ? " · gestora " + usd2(cm) + (r.priceUsd > 0 ? " (" + Math.round(cm / r.priceUsd * 100) + " %)" : "") : "";
-  if (picking) return '<label class="inv-row inv-pick"><input type="checkbox" data-pick="' + esc(r.productId) + '"' + (picked.has(r.productId) ? " checked" : "") + ">" + photo(r.imageUrl, name)
+  if (picking) return '<label class="inv-row inv-pick"><input type="checkbox" data-pick="' + esc(r.productId) + '"' + (picked.has(r.productId) ? " checked" : "") + ">" + photo(imgOf(r), name)
     + '<span class="grow"><span class="title">' + esc(name) + '</span><span class="meta">' + usd2(r.priceUsd) + " · quedan " + r.stock + commTxt + "</span></span>" + state + "</label>";
-  const head = '<button type="button" class="inv-head" data-open aria-label="Abrir ' + esc(name) + '">' + photo(r.imageUrl, name)
+  const head = '<button type="button" class="inv-head" data-open aria-label="Abrir ' + esc(name) + '">' + photo(imgOf(r), name)
     + '<span class="grow"><span class="title">' + esc(name) + "</span>"
     + (webLeft(r) ? '<span class="meta" style="color:var(--nx-danger)">Todavía se ve en la web</span>'
       : isDiff(r) ? '<span class="meta" style="color:var(--nx-danger)">En la web: ' + r.web.stock + " · pon en «Quedan» lo que hay y toca Guardar: la web se iguala en unos 2 minutos</span>" : !r.wooId ? '<span class="meta">No está en la web</span>' : "")
@@ -1118,20 +1144,21 @@ function oneRow(r) {
     + "</span>" + state + "</button>";
   if (!r.active) return '<div class="inv-row" data-inv="' + esc(r.productId) + '">' + head + '<div class="row-actions">'
     + (webLeft(r) ? '<button type="button" class="btn btn-secondary" data-webhide>Quitar de la web</button>' : "")
-    + '<button type="button" class="btn btn-primary" data-sell>Volver a vender</button></div></div>';
+    + '<button type="button" class="btn btn-primary" data-sell>Mostrar</button></div></div>';
   return '<div class="inv-row" data-inv="' + esc(r.productId) + '">' + head
     + '<div class="inv-edit"><label class="field t-sm">Precio USD<input class="input" inputmode="decimal" data-price value="' + esc(r.priceUsd ?? "") + '"></label>'
     + '<label class="field t-sm">Quedan<input class="input" inputmode="numeric" data-stock value="' + esc(r.stock) + '"></label>'
     + '<button type="button" class="btn btn-primary" data-save' + (isDiff(r) ? "" : " hidden") + '>Guardar</button></div></div>';
 }
 function groupRow(g) {
-  const img = g.rows.find(r => r.imageUrl)?.imageUrl ?? null;
+  // Foto principal del producto en la web (la del padre), no la del primer color (Lennys 20-oct).
+  const img = g.rows.find(r => r.web?.mainImage)?.web.mainImage ?? g.rows.find(r => r.imageUrl)?.imageUrl ?? null;
   const back = invFilter === "hidden";
   const total = g.live.reduce((s, r) => s + Math.max(0, r.stock), 0);
-  const state = (back ? '<span class="badge badge-calm">Retirado</span>' : !total ? '<span class="badge badge-out">Agotado</span>' : g.shown.some(isLow) ? '<span class="badge badge-low">Pocas</span>' : "")
+  const state = (back ? '<span class="badge badge-calm">Oculto</span>' : !total ? '<span class="badge badge-out">Agotado</span>' : g.shown.some(isLow) ? '<span class="badge badge-low">Pocas</span>' : "")
     + (!back && g.live.some(noComm) ? '<span class="badge badge-low" title="Ábrelo y escribe la comisión de la gestora">Sin comisión</span>' : "")
     + (!back && g.live.some(r => fichaOf(r).length) ? '<span class="badge badge-low" title="Falta: ' + esc(fichaOf(g.live.find(r => fichaOf(r).length)).join(", ")) + '">Falta información</span>' : "");
-  const meta = back ? g.shown.length + (g.shown.length === 1 ? " diseño retirado" : " diseños retirados")
+  const meta = back ? g.shown.length + (g.shown.length === 1 ? " diseño oculto" : " diseños ocultos")
     : invFilter === "out" ? g.shown.length + " de " + g.live.length + (g.live.length === 1 ? " diseño agotado" : " diseños agotados")
     : g.live.length + (g.live.length === 1 ? " diseño" : " diseños") + " · quedan " + total + " en total";
   const chips = '<div class="design-chips">' + g.shown.slice(0, 12).map(r => '<span class="design-chip' + (r.stock <= 0 || !r.active ? " out" : "") + '">'
@@ -1144,7 +1171,7 @@ function groupRow(g) {
   }
   return '<div class="inv-row" data-group="' + esc(g.key) + '"><button type="button" class="inv-head" data-open-group aria-label="Abrir ' + esc(g.name) + '">' + photo(img, g.name)
     + '<span class="grow"><span class="title">' + esc(g.name) + '</span><span class="meta">' + esc(meta) + "</span></span>" + state + "</button>" + chips
-    + '<button type="button" class="btn btn-secondary btn-block" data-open-group>' + (back ? "Ver retirados y volver a vender" : "Ver y cambiar diseños y colores") + "</button></div>";
+    + '<button type="button" class="btn btn-secondary btn-block" data-open-group>' + (back ? "Ver ocultos y mostrarlos" : "Ver y cambiar diseños y colores") + "</button></div>";
 }
 function wireInventory() {
   document.querySelectorAll("#inventory [data-group]").forEach(row => row.querySelectorAll("[data-open-group]").forEach(b => (b.onclick = () => editGroup(row.dataset.group))));
@@ -1209,7 +1236,7 @@ document.querySelectorAll("#inv-filter [data-f]").forEach(b => (b.onclick = () =
 }));
 $("#inv-search").oninput = () => { clearTimeout(invTimer); invTimer = setTimeout(renderInventory, 250); };
 
-// ---------- Dejar de vender / Volver a vender (nunca se borra nada) ----------
+// ---------- Ocultar / Mostrar (antes «Dejar de vender» / «Volver a vender»; Lennys 20-oct). Nunca se borra nada ----------
 // Lo que hay que cambiar en la web: cada producto o diseño y, si es un producto con diseños, también el
 // producto (padre) cuando ya no le queda ningún diseño a la venta (al retirar) o al volver a vender.
 function webIdsFor(ids, retire) {
@@ -1231,16 +1258,16 @@ function retireFlow(ids, retire, done) {
   const names = rows.map(r => r.name);
   const withStock = retire ? rows.filter(r => r.stock > 0) : [];
   // Un diseño queda dentro de su producto, en «Diseños retirados»; un producto, en el filtro «Retirados».
-  const where = rows.every(r => r.variantOf) ? "Diseños retirados" : "Retirados";
-  const sheet = openSheet('<div class="sheet-head"><h2>' + (retire ? "¿Dejar de vender?" : "¿Volver a vender?") + '</h2><button type="button" class="btn btn-ghost" data-close>Cerrar</button></div>'
+  const where = rows.every(r => r.variantOf) ? "Diseños ocultos" : "Ocultos";
+  const sheet = openSheet('<div class="sheet-head"><h2>' + (retire ? "¿Ocultar?" : "¿Mostrar?") + '</h2><button type="button" class="btn btn-ghost" data-close>Cerrar</button></div>'
     + '<ul class="confirm-list">' + names.slice(0, 8).map(n => "<li>" + esc(n) + "</li>").join("") + (names.length > 8 ? "<li>y " + (names.length - 8) + " más</li>" : "") + "</ul>"
     + (retire
-      ? "<p>Dejará" + (rows.length > 1 ? "n" : "") + " de verse en la web, en el buscador, en la tienda de las gestoras y en la caja.</p><p><strong>No se borra nada.</strong> " + (rows.length > 1 ? "Los encuentras en «" + where + "» y puedes volver a venderlos" : "Lo encuentras en «" + where + "» y puedes volver a venderlo") + " cuando quieras.</p>"
-      : "<p>Volverá" + (rows.length > 1 ? "n" : "") + " a verse en la web, en la tienda de las gestoras y en la caja, con las unidades que tenga" + (rows.length > 1 ? "n" : "") + ".</p>")
+      ? "<p>Dejará" + (rows.length > 1 ? "n" : "") + " de verse y de venderse en la web, en el buscador, en las tiendas de las gestoras y en la caja.</p><p><strong>No se borra nada.</strong> " + (rows.length > 1 ? "Los encuentras en «" + where + "» y los puedes mostrar otra vez" : "Lo encuentras en «" + where + "» y lo puedes mostrar otra vez") + " cuando quieras.</p>"
+      : "<p>Volverá" + (rows.length > 1 ? "n" : "") + " a verse y a venderse en la web, en las tiendas de las gestoras y en la caja, con las unidades que tenga" + (rows.length > 1 ? "n" : "") + ".</p>")
     + (withStock.length ? '<p class="note-box note-warn">Ojo: ' + withStock.slice(0, 3).map(r => "«" + esc(r.name) + "» todavía tiene " + r.stock).join(", ") + (withStock.length > 3 ? "…" : "") + ".</p>" : "")
     + '<p class="msg" data-msg role="status"></p>'
-    + '<button type="button" class="btn ' + (retire ? "btn-danger" : "btn-primary") + ' btn-xl btn-block" data-yes>' + (retire ? "Sí, dejar de vender" : "Sí, volver a vender") + "</button>"
-    + '<button type="button" class="btn btn-ghost btn-block" data-close>No, volver atrás</button>', retire ? "Dejar de vender" : "Volver a vender");
+    + '<button type="button" class="btn ' + (retire ? "btn-danger" : "btn-primary") + ' btn-xl btn-block" data-yes>' + (retire ? "Sí, ocultar" : "Sí, mostrar") + "</button>"
+    + '<button type="button" class="btn btn-ghost btn-block" data-close>No, volver atrás</button>', retire ? "Ocultar" : "Mostrar");
   const msg = sheet.el.querySelector("[data-msg]");
   const yes = sheet.el.querySelector("[data-yes]");
   yes.onclick = async () => {
@@ -1253,8 +1280,8 @@ function retireFlow(ids, retire, done) {
     sheet.close();
     const n = data.items.length;
     toast(retire
-      ? "Listo: " + n + (n === 1 ? " retirado" : " retirados") + ". Ya no se vende" + (n === 1 ? "" : "n") + " en la caja." + (webFail ? " Ojo: la web no respondió; en «Retirados» toca «Quitar de la web»." : " En la web también.")
-      : "Listo: " + n + " de vuelta a la venta." + (webFail ? " Ojo: la web no respondió; vuelve a intentarlo." : ""), webFail ? "bad" : "ok");
+      ? "Listo: " + n + (n === 1 ? " oculto" : " ocultos") + ". Ya no se vende" + (n === 1 ? "" : "n") + " en la caja." + (webFail ? " Ojo: la web no respondió; en «Ocultos» toca «Quitar de la web»." : " En la web y en las tiendas de las gestoras tampoco se ve" + (n === 1 ? "" : "n") + ".")
+      : "Listo: " + n + (n === 1 ? " se ve" : " se ven") + " otra vez y vuelve" + (n === 1 ? "" : "n") + " a la venta." + (webFail ? " Ojo: la web no respondió; vuelve a intentarlo." : ""), webFail ? "bad" : "ok");
     catalog = null; shop = null;
     await loadInventory();
     done?.();
@@ -1271,6 +1298,14 @@ async function editGroup(key) {
   const dirty = new Map(); // productId → { qty?, price? }
   let web = null; // diseños leídos de la web
   const sheet = openSheet('<div class="sheet-head"><h2>' + esc(name) + '</h2><button type="button" class="btn btn-ghost" data-x>Cerrar</button></div>'
+    // Lennys 20-oct (Core 3.14.41): la foto principal y la descripción son del producto (las mismas para todos los colores).
+    + (parentWooId ? '<section class="note-box" data-main><h3 class="t-lg">Foto principal</h3>'
+      + '<img class="receipt-photo" data-mainimg alt="" hidden onerror="this.hidden=true">'
+      + '<p class="t-xs muted">Es la que ven la tienda, las gestoras y el bot. La foto de cada color se cambia abajo, en su diseño.</p>'
+      + '<label class="btn btn-secondary btn-block" data-mainbtn><span data-mainph>📷 Cambiar foto principal</span><input type="file" accept="image/*" data-mainphoto aria-label="Cambiar la foto principal" ' + HIDE_INPUT + "></label></section>"
+      + '<section class="form" data-descbox><label class="field">Descripción del producto (la misma para todos sus colores)<textarea name="description" rows="6" disabled placeholder="Para qué sirve y qué trae. Medidas en cm y material. Cada línea que empiece por «-» sale como un punto de la lista."></textarea></label>'
+      + '<p class="t-xs muted" data-ficha>Cargando la descripción de la web…</p>'
+      + '<button type="button" class="btn btn-primary btn-block" data-descsave hidden>Guardar descripción</button></section>' : "")
     + '<section class="designs" aria-label="Diseños y colores"><h3 class="t-lg">Diseños y colores</h3>'
     + '<p class="t-sm muted">Cambia cuántas quedan con <strong>−</strong> y <strong>+</strong> (o escribe el número) y pulsa <strong>Guardar</strong>. Llega a la caja y a la web en unos minutos.</p>'
     + '<p class="t-sm" data-webnote hidden></p>'
@@ -1282,12 +1317,15 @@ async function editGroup(key) {
     + '<button type="button" class="btn btn-primary btn-xl btn-block sticky-save" data-save hidden>Guardar</button>'
     + '<button type="button" class="btn btn-secondary btn-xl btn-block" data-add>＋ Añadir diseño o color</button>'
     + '<div data-addform hidden></div>'
-    + '<details class="retired-box" data-retired hidden><summary>Diseños retirados</summary><div data-retired-list></div></details></section>'
-    + '<button type="button" class="btn btn-ghost btn-block btn-danger-text" data-retire-all>Dejar de vender todo este producto</button>', name);
+    + '<details class="retired-box" data-retired hidden><summary>Diseños ocultos</summary><div data-retired-list></div></details></section>'
+    + (parentWooId ? '<button type="button" class="btn btn-secondary btn-block" data-dup>Duplicar (copia oculta con todos sus colores)</button>' : "")
+    + '<button type="button" class="btn btn-ghost btn-block btn-danger-text" data-retire-all>Ocultar todo (el producto con todos sus diseños)</button>', name);
   const $s = sel => sheet.el.querySelector(sel);
   const list = $s("[data-list]"), msg = $s("[data-msg]"), saveBtn = $s("[data-save]"), addBtn = $s("[data-add]"), addForm = $s("[data-addform]"), webNote = $s("[data-webnote]");
   // Cerrar con cambios sin guardar: preguntar antes.
-  const tryClose = () => { if (!dirty.size || confirm("Tienes cambios sin guardar. ¿Salir sin guardar?")) sheet.close(); };
+  const descBox = $s("[data-descbox] textarea"), descSave = $s("[data-descsave]"), fichaNote = $s("[data-descbox] [data-ficha]");
+  const descDirty = () => Boolean(descBox && !descBox.disabled && descBox.value.trim() !== String(descBox.dataset.orig ?? "").trim());
+  const tryClose = () => { if ((!dirty.size && !descDirty()) || confirm("Tienes cambios sin guardar. ¿Salir sin guardar?")) sheet.close(); };
   $s("[data-x]").onclick = tryClose;
   sheet.el.parentElement.querySelector(".scrim").onclick = tryClose;
 
@@ -1308,7 +1346,7 @@ async function editGroup(key) {
     list.innerHTML = live.length ? live.map(r => {
       const d = dirty.get(r.productId) ?? {};
       const label = designLabel(r);
-      const img = r.imageUrl || webBy.get(Number(r.wooId))?.image || null;
+      const img = webBy.get(Number(r.wooId))?.image || imgOf(r);
       return '<div class="design" data-pid="' + esc(r.productId) + '"><div class="design-top">' + photo(img, label)
         + '<span class="grow"><span class="title">' + esc(label) + '</span><span class="meta">'
         + (r.stock <= 0 ? '<span class="badge badge-out">Agotado</span>' : "Quedan " + r.stock) + (r.offerUsd != null ? " · en oferta " + usd2(r.offerUsd) : "")
@@ -1324,8 +1362,8 @@ async function editGroup(key) {
           + '<span class="t-xs" data-cv>' + designVerdict(r, d) + "</span></div>" : "")
         // A la vista (Lennys, 11-oct): quitar UN diseño estaba escondido en «Más», y cada color necesita su foto real.
         + '<div class="row-actions"><label class="btn btn-secondary" style="flex:1 1 150px" data-photo-btn><span data-ph>📷 Cambiar foto</span><input type="file" accept="image/*" data-dphoto aria-label="Cambiar la foto de ' + esc(label) + '" ' + HIDE_INPUT + "></label>"
-        + '<button type="button" class="btn btn-secondary btn-danger-text" style="flex:1 1 150px" data-quit>Quitar este diseño</button></div></div>';
-    }).join("") : '<p class="muted">Este producto no tiene diseños a la venta. Añade uno abajo' + (gone.length ? " o vuelve a vender uno retirado" : "") + ".</p>";
+        + '<button type="button" class="btn btn-secondary btn-danger-text" style="flex:1 1 150px" data-quit>Ocultar este color</button></div></div>';
+    }).join("") : '<p class="muted">Este producto no tiene diseños a la venta. Añade uno abajo' + (gone.length ? " o muestra uno oculto" : "") + ".</p>";
     list.querySelectorAll("[data-pid]").forEach(el => {
       const id = el.dataset.pid;
       const qty = el.querySelector("[data-qty]");
@@ -1374,19 +1412,19 @@ async function editGroup(key) {
     // Retirados: los de la caja y los que la web tiene desactivados y la caja no conoce.
     const webOnlyGone = (web?.variations ?? []).filter(v => v.status !== "publish" && !rows.some(r => Number(r.wooId) === Number(v.id)));
     $s("[data-retired]").hidden = !gone.length && !webOnlyGone.length;
-    $s("[data-retired] summary").textContent = "Diseños retirados (" + (gone.length + webOnlyGone.length) + ")";
-    $s("[data-retired-list]").innerHTML = gone.map(r => '<div class="row-item"><span class="grow"><span class="title">' + esc(designLabel(r)) + '</span><span class="meta">No se vende · quedan ' + r.stock + "</span></span>"
-      + '<button type="button" class="btn btn-secondary" data-sell="' + esc(r.productId) + '">Volver a vender</button></div>').join("")
-      + webOnlyGone.map(v => '<div class="row-item"><span class="grow"><span class="title">' + esc(v.label) + '</span><span class="meta">Retirado en la web</span></span>'
-      + '<button type="button" class="btn btn-secondary" data-websell="' + Number(v.id) + '">Volver a vender</button></div>').join("");
+    $s("[data-retired] summary").textContent = "Diseños ocultos (" + (gone.length + webOnlyGone.length) + ")";
+    $s("[data-retired-list]").innerHTML = gone.map(r => '<div class="row-item"><span class="grow"><span class="title">' + esc(designLabel(r)) + '</span><span class="meta">Oculto · quedan ' + r.stock + "</span></span>"
+      + '<button type="button" class="btn btn-secondary" data-sell="' + esc(r.productId) + '">Mostrar</button></div>').join("")
+      + webOnlyGone.map(v => '<div class="row-item"><span class="grow"><span class="title">' + esc(v.label) + '</span><span class="meta">Oculto en la web</span></span>'
+      + '<button type="button" class="btn btn-secondary" data-websell="' + Number(v.id) + '">Mostrar</button></div>').join("");
     $s("[data-retired-list]").querySelectorAll("[data-sell]").forEach(b => (b.onclick = () => retireFlow([b.dataset.sell], false, render)));
     $s("[data-retired-list]").querySelectorAll("[data-websell]").forEach(b => (b.onclick = async () => {
-      if (!confirm("¿Volver a vender «" + (webBy.get(Number(b.dataset.websell))?.label ?? "") + "»?")) return;
+      if (!confirm("¿Mostrar otra vez «" + (webBy.get(Number(b.dataset.websell))?.label ?? "") + "»?")) return;
       b.disabled = true;
       try {
         await panelWeb({ action: "products_visibility", wooIds: [Number(b.dataset.websell), ...(web?.parent?.retired ? [Number(parentWooId)] : [])], sell: true });
         await loadWeb();
-        toast("Listo: vuelve a la venta. Revisa cuántas quedan.", "ok");
+        toast("Listo: se ve otra vez y vuelve a la venta. Revisa cuántas quedan.", "ok");
       } catch (e) { b.disabled = false; toast("La web no respondió: " + e.message, "bad"); }
     }));
     $s("[data-retire-all]").hidden = !live.length;
@@ -1475,6 +1513,7 @@ async function editGroup(key) {
     }
     try {
       web = await panelWeb({ action: "product_variations", wooId: parentWooId, group: key });
+      if (web.parent?.image && mainImg) { mainImg.src = web.parent.image; mainImg.hidden = false; }
       const added = (web.linked ?? []).filter(l => l.created).length;
       if (added) { await loadInventory(); webNote.hidden = false; webNote.textContent = added === 1 ? "Encontré 1 diseño de la web que la caja no tenía. Ya está en la lista." : "Encontré " + added + " diseños de la web que la caja no tenía. Ya están en la lista."; }
       if (web.parent && !web.parent.canAdd) { addBtn.disabled = true; webNote.hidden = false; webNote.textContent = web.parent.cantAddReason ?? "A este producto no se le pueden añadir diseños desde aquí."; }
@@ -1556,7 +1595,7 @@ async function editGroup(key) {
       const qtyT = form.qty.value.trim(), qty = Number(qtyT);
       if (!label) return fail("Escribe el nombre del diseño o color");
       const twin = rowsNow().find(r => sameLabel(designLabel(r), label));
-      if (twin) return fail(twin.active ? "Ya hay un diseño «" + designLabel(twin) + "». Cambia su cantidad en la lista de arriba." : "«" + designLabel(twin) + "» ya existe pero está retirado: ábrelo en «Diseños retirados» y pulsa «Volver a vender».");
+      if (twin) return fail(twin.active ? "Ya hay un diseño «" + designLabel(twin) + "». Cambia su cantidad en la lista de arriba." : "«" + designLabel(twin) + "» ya existe pero está oculto: ábrelo en «Diseños ocultos» y pulsa «Mostrar».");
       if (!(price > 0)) return fail("Escribe un precio mayor que 0");
       if (qtyT === "" || !Number.isInteger(qty) || qty < 0) return fail("Escribe cuántas hay (0 o más)");
       const comm = readCommission(form, price);
@@ -1567,7 +1606,7 @@ async function editGroup(key) {
         if (file) { amsg.textContent = "Subiendo foto…"; amsg.dataset.tone = ""; try { imageUrl = await uploadPhoto(file); } catch { throw new Error("esa foto no se pudo usar. Prueba con otra o añádelo sin foto"); } }
         amsg.textContent = "Creando el diseño en la web y en la caja…"; amsg.dataset.tone = "";
         const out = await panelWeb({ action: "variation_add", wooId: parentWooId, group: key, label, price, imageUrl });
-        if (out.retired) { await loadWeb(); return fail("«" + label + "» ya existe en la web pero está retirado: ábrelo en «Diseños retirados» y pulsa «Volver a vender»."); }
+        if (out.retired) { await loadWeb(); return fail("«" + label + "» ya existe en la web pero está oculto: ábrelo en «Diseños ocultos» y pulsa «Mostrar»."); }
         if (!out.productId) throw new Error("no quedó enlazado con la caja; vuelve a pulsar «Añadir»");
         let note = "";
         if (out.existing) note = " Ya estaba en la web: lo dejé en la lista con sus unidades.";
@@ -1591,6 +1630,51 @@ async function editGroup(key) {
     if (dirty.size && !confirm("Tienes cambios sin guardar. ¿Seguir sin guardarlos?")) return;
     retireFlow(rowsNow().filter(r => r.active).map(r => r.productId), true, () => sheet.close());
   };
+
+  // Foto principal, descripción y «Duplicar» (Core 3.14.41, Lennys 20-oct).
+  const mainImg = $s("[data-mainimg]");
+  const showMain = url => { if (mainImg && url) { mainImg.src = url; mainImg.hidden = false; } };
+  showMain(rowsNow().find(r => r.web?.mainImage)?.web.mainImage);
+  const mainInput = $s("[data-mainphoto]");
+  if (mainInput) mainInput.onchange = async e => {
+    const f = e.target.files?.[0];
+    if (!f) return;
+    const ph = $s("[data-mainph]"), btn = $s("[data-mainbtn]");
+    ph.textContent = "Subiendo foto…"; btn.style.pointerEvents = "none";
+    try {
+      let url;
+      try { url = await uploadPhoto(f); } catch { throw new Error("esa foto no se pudo usar. Prueba con otra"); }
+      const out = await panelWeb({ action: "product_main_photo", wooId: Number(parentWooId), imageUrl: url });
+      showMain(out.image ?? url);
+      toast("Foto principal cambiada: ya se ve en la tienda, en las gestoras y en el bot.", "ok");
+      void loadInventory();
+    } catch (err) { toast("No se cambió la foto: " + err.message, "bad"); }
+    ph.textContent = "📷 Cambiar foto principal"; btn.style.pointerEvents = ""; e.target.value = "";
+  };
+  if (descBox) {
+    panelWeb({ action: "product_ficha", wooId: Number(parentWooId) }).then(d => {
+      descBox.value = d.descripcion ?? ""; descBox.dataset.orig = descBox.value; descBox.disabled = false;
+      fichaNote.textContent = d.excluido ? "Producto de proveedor: su ficha la lleva el proveedor."
+        : d.etiquetas?.length ? "⚠️ Falta información: " + d.etiquetas.join(", ") + ". Escríbela aquí (o el bot se la pide a la tienda)." : "✓ Ficha completa: tiene medidas y características.";
+    }).catch(() => { fichaNote.textContent = "No se pudo leer la descripción de la web. Ahora no se puede cambiar desde aquí."; });
+    descBox.oninput = () => { descSave.hidden = !descDirty(); };
+    descSave.onclick = async () => {
+      const text = descBox.value.trim();
+      if (!text) return toast("Escribe la descripción (medidas en cm y material).", "bad");
+      descSave.disabled = true; descSave.textContent = "Guardando…";
+      try {
+        const d = await panelWeb({ action: "product_description_save", wooId: Number(parentWooId), description: text });
+        descBox.dataset.orig = text; descSave.hidden = true;
+        fichaNote.textContent = d.ficha?.length ? "⚠️ Falta información: " + d.ficha.join(", ") + "." : "✓ Ficha completa: tiene medidas y características.";
+        toast("Descripción guardada: la ven la tienda, las gestoras y el bot.", "ok");
+      } catch (err) { toast("No se guardó la descripción: " + err.message, "bad"); }
+      descSave.disabled = false; descSave.textContent = "Guardar descripción";
+    };
+  }
+  $s("[data-dup]")?.addEventListener("click", () => {
+    if ((dirty.size || descDirty()) && !confirm("Tienes cambios sin guardar. ¿Seguir sin guardarlos?")) return;
+    sheet.close(); void duplicateFlow(Number(parentWooId), { commission: canCost() && costSheet ? groupComm() : null });
+  });
 
   render();
   await loadWeb();
@@ -1623,6 +1707,164 @@ async function changeDesignPhoto(r, file) {
   return { webFail, imageUrl };
 }
 
+// ---------- «Duplicar» (Lennys 20-oct, Core 3.14.41) ----------
+// Core copia el producto (con todos sus diseños, fotos, descripción y categoría) en BORRADOR: nadie la ve (ni la web,
+// ni las gestoras, ni el bot) y la caja no la conoce hasta «Publicar». Las unidades empiezan en 0. Si se cierra sin
+// publicar, queda en «Copias sin publicar» (arriba en Productos).
+async function duplicateFlow(wooId, opts = {}) {
+  if (!wooId) return toast("Este producto no está en la web: no se puede duplicar.", "bad");
+  const sheet = openSheet('<div class="sheet-head"><h2>Duplicar</h2><button type="button" class="btn btn-ghost" data-close>Cerrar</button></div><p class="muted" data-msg>Haciendo la copia (oculta)…</p>', "Duplicar");
+  try {
+    const copy = await panelWeb({ action: "product_duplicate", wooId: Number(wooId), ref: crypto.randomUUID() });
+    sheet.close();
+    copySheet(copy, opts);
+    void loadCopies();
+  } catch (err) { const m = sheet.el.querySelector("[data-msg]"); m.textContent = "No se pudo duplicar: " + err.message; m.className = "msg"; m.dataset.tone = "bad"; }
+}
+
+// Copias sin publicar (para que no se pierdan si se cierra el panel).
+async function loadCopies() {
+  const box = $("#inv-copies");
+  if (!box) return;
+  let list = [];
+  try { list = (await panelWeb({ action: "product_copies" })).copies ?? []; } catch { list = []; }
+  box.hidden = !list.length;
+  box.innerHTML = list.length ? '<h3 class="t-lg">Copias sin publicar (' + list.length + ")</h3>"
+    + '<p class="t-xs muted">Están ocultas: nadie las ve. Ábrelas, cámbiales lo que haga falta y pulsa «Publicar».</p>'
+    + list.map(c => '<div class="row-item">' + photo(c.image, c.name) + '<span class="grow"><span class="title">' + esc(c.name) + '</span><span class="meta">' + (c.type === "variable" ? "Con colores o diseños" : "Sin colores") + '</span></span><button type="button" class="btn btn-secondary" data-copy="' + Number(c.wooId) + '">Abrir</button></div>').join("") : "";
+  box.querySelectorAll("[data-copy]").forEach(b => (b.onclick = async () => {
+    b.disabled = true;
+    try { copySheet(await panelWeb({ action: "product_copy", wooId: Number(b.dataset.copy) })); }
+    catch (err) { toast("No se pudo abrir la copia: " + err.message, "bad"); }
+    b.disabled = false;
+  }));
+}
+
+function copySheet(copy, opts = {}) {
+  const variable = copy.type === "variable";
+  // Comisión: la del producto original (si se conoce), o la que escriba ella.
+  const src = invRows.filter(r => copy.copyOf && (Number(r.wooId) === Number(copy.copyOf) || Number(r.parentWooId) === Number(copy.copyOf)));
+  const srcComm = opts.commission ?? (canCost() && costSheet && src.length ? (new Set(src.map(r => commOf(r.productId))).size === 1 ? commOf(src[0].productId) : null) : null);
+  const cats = [...new Set(invRows.map(r => r.category).filter(Boolean))].sort((a, b) => a.localeCompare(b, "es"));
+  const sheet = openSheet('<div class="sheet-head"><h2>Copia sin publicar</h2><button type="button" class="btn btn-ghost" data-close>Cerrar</button></div>'
+    + '<div class="note-box note-calm"><p><strong>Está oculta:</strong> nadie la ve (ni la web, ni las gestoras, ni el bot, ni la caja). Cambia el nombre, los colores y las fotos, y pulsa <strong>Publicar</strong>.'
+    + (copy.copyOfName ? " Es una copia de «" + esc(copy.copyOfName) + "»." : "") + '</p><p class="t-xs muted">Si la cierras, la encuentras en Productos, en «Copias sin publicar».</p></div>'
+    + '<form class="form">' + photoPicker("Foto principal", copy.image ?? "")
+    + '<label class="field">Nombre<input class="input" name="name" required value="' + esc(copy.name) + '"></label>'
+    + '<div class="grid-2"><label class="field">Precio USD<input class="input" name="price" required inputmode="decimal" value="' + esc(copy.price > 0 ? copy.price : "") + '"></label>'
+    + '<label class="field">Categoría<input class="input" name="category" list="cat-list-c" value="' + esc(copy.category ?? "") + '"></label></div>'
+    + '<datalist id="cat-list-c">' + cats.map(c => '<option value="' + esc(c) + '">').join("") + "</datalist>"
+    + (variable ? "" : '<label class="field">Cuántas hay<input class="input" name="qty" inputmode="numeric" placeholder="0"></label>')
+    + commissionField(srcComm ?? "", variable ? "La misma para todos los colores. Vacía = la general (" + commDefault().text + ")." : null)
+    + '<label class="field">Descripción' + (variable ? " (la misma para todos los colores)" : "") + '<textarea name="description" rows="6">' + esc(copy.description ?? "") + "</textarea></label>"
+    + (variable ? '<h3 class="t-lg">Colores o diseños</h3><p class="t-xs muted">Desmarca los que no quieras. Cada color con su <strong>foto real</strong>. ¿Un color nuevo? «＋ Otro color».</p><div data-vars></div><div data-new></div>'
+      + '<button type="button" class="btn btn-secondary btn-block" data-more>＋ Otro color o diseño</button>' : "")
+    + '<p class="msg" data-msg role="status"></p><button type="submit" class="btn btn-primary btn-xl btn-block">Publicar</button></form>'
+    + '<button type="button" class="btn btn-ghost btn-block btn-danger-text" data-discard>Descartar esta copia</button>', "Copia sin publicar");
+  const form = sheet.el.querySelector("form"), msg = form.querySelector("[data-msg]");
+  let mainFile = null;
+  wirePhotoPicker(form, async f => { mainFile = f; return true; });
+  const files = new Map(); // fila → foto nueva
+  const photoBtn = () => '<label class="btn btn-secondary photo-mini"><span data-ph>📷 Foto real</span><input type="file" accept="image/*" data-dphoto ' + HIDE_INPUT + "></label>";
+  const wireRowPhoto = row => { row.querySelector("[data-dphoto]").onchange = e => { const f = e.target.files?.[0]; if (f) { files.set(row, f); row.querySelector("[data-ph]").textContent = "✓ Foto lista"; } }; };
+  if (variable) {
+    const box = form.querySelector("[data-vars]");
+    box.innerHTML = (copy.variations ?? []).map(v => '<div class="design-new" data-vid="' + Number(v.id) + '"><div class="design-top">' + photo(v.image, v.label)
+      + '<label class="grow"><input type="checkbox" data-keep' + (v.status === "publish" ? " checked" : "") + '> <span class="title">' + esc(v.label) + "</span>"
+      + (v.status !== "publish" ? ' <span class="meta">(estaba oculto)</span>' : "") + "</label></div>"
+      + '<div class="grid-2"><label class="field">Cuántas hay<input class="input" data-qty inputmode="numeric" placeholder="0"></label>' + photoBtn() + "</div></div>").join("");
+    box.querySelectorAll("[data-vid]").forEach(wireRowPhoto);
+    const extra = form.querySelector("[data-new]");
+    form.querySelector("[data-more]").onclick = () => {
+      const row = document.createElement("div");
+      row.className = "design-new";
+      row.innerHTML = '<label class="field">Color o diseño nuevo<input class="input" data-label maxlength="60" placeholder="Ej.: verde" autocomplete="off"></label>'
+        + '<div class="grid-2"><label class="field">Cuántas hay<input class="input" data-qty inputmode="numeric" placeholder="0"></label>' + photoBtn() + "</div>"
+        + '<button type="button" class="btn btn-ghost" data-remove>Quitar</button>';
+      wireRowPhoto(row);
+      row.querySelector("[data-remove]").onclick = () => { files.delete(row); row.remove(); };
+      extra.appendChild(row);
+      row.querySelector("[data-label]").focus();
+    };
+  }
+  sheet.el.querySelector("[data-discard]").onclick = async () => {
+    if (!confirm("¿Descartar esta copia? Nadie la vio; va a la papelera de la web.")) return;
+    try { await panelWeb({ action: "product_copy_discard", wooId: Number(copy.wooId) }); sheet.close(); toast("Copia descartada.", "ok"); void loadCopies(); }
+    catch (err) { toast("No se descartó: " + err.message, "bad"); }
+  };
+  const fail = t => { msg.textContent = t; msg.dataset.tone = "bad"; form.querySelector("[type=submit]").disabled = false; };
+  const qtyOf = row => { const t = row.querySelector("[data-qty]")?.value.trim() ?? ""; return t === "" ? 0 : Number(t); };
+  form.onsubmit = async e => {
+    e.preventDefault();
+    const name = form.name.value.trim().replace(/\s+/g, " "), price = num(form.price.value);
+    if (!name) return fail("Escribe el nombre");
+    if (/\(copia\)\s*$/i.test(name) && form.dataset.copyName !== "1") { form.dataset.copyName = "1"; return fail("Todavía se llama «… (copia)». Cámbiale el nombre, o toca Publicar otra vez para dejarlo así."); }
+    if (!(price > 0)) return fail("Escribe un precio mayor que 0");
+    const comm = readCommission(form, price);
+    if (Number.isNaN(comm)) return fail("La comisión debe ser un número en USD (0 o más) o un % del precio, por ejemplo 10%");
+    const kept = variable ? [...form.querySelectorAll("[data-vid]")].filter(r => r.querySelector("[data-keep]").checked) : [];
+    const added = variable ? [...form.querySelectorAll("[data-new] .design-new")].map(row => ({ row, label: row.querySelector("[data-label]").value.trim().replace(/\s+/g, " ") })).filter(d => d.label) : [];
+    if (variable && !kept.length && !added.length) return fail("Deja al menos un color o diseño");
+    const labels = [...kept.map(r => r.querySelector(".title").textContent), ...added.map(d => d.label)];
+    const twin = labels.find((l, i) => labels.findIndex(x => sameLabel(x, l)) !== i);
+    if (twin) return fail("«" + twin + "» está repetido");
+    for (const row of variable ? [...kept, ...added.map(d => d.row)] : [form]) {
+      const q = variable ? qtyOf(row) : (form.qty.value.trim() === "" ? 0 : Number(form.qty.value.trim()));
+      if (!Number.isInteger(q) || q < 0) return fail("Las unidades deben ser un número entero (0 o más)");
+    }
+    form.querySelector("[type=submit]").disabled = true;
+    try {
+      msg.textContent = "Subiendo fotos…"; msg.dataset.tone = "";
+      const up = async f => { if (!f) return ""; try { return await uploadPhoto(f); } catch { throw new Error("una foto no se pudo usar. Prueba con otra"); } };
+      const imageUrl = await up(mainFile);
+      const photos = {};
+      for (const r of kept) { const u = await up(files.get(r)); if (u) photos[r.dataset.vid] = u; }
+      for (const d of added) d.imageUrl = await up(files.get(d.row));
+      msg.textContent = "Publicando en la web y en la caja…";
+      const desc = String(form.description.value ?? "").trim();
+      const out = await panelWeb({ action: "product_copy_publish", wooId: Number(copy.wooId), name, price, category: form.category.value.trim(), imageUrl,
+        keep: kept.map(r => Number(r.dataset.vid)), photos, add: added.map(d => ({ label: d.label, imageUrl: d.imageUrl })),
+        ...(desc && desc !== String(copy.description ?? "").trim() ? { description: desc } : {}) });
+      const notes = [], pids = [], qty = new Map();
+      if (variable) {
+        const pidByWoo = new Map((out.linked ?? []).map(l => [Number(l.wooId), l.productId]));
+        for (const r of kept) qty.set(Number(r.dataset.vid), qtyOf(r));
+        for (const d of added) { const v = (out.variations ?? []).find(x => sameLabel(x.label, d.label)); if (v) qty.set(Number(v.id), qtyOf(d.row)); else notes.push("«" + d.label + "» no se creó"); }
+        for (const [wid, q] of qty) {
+          const pid = pidByWoo.get(wid);
+          if (!pid) { notes.push("un color no quedó enlazado con la caja (ábrelo en Productos)"); continue; }
+          pids.push(pid);
+          if (q > 0) { const { data: st, error: e2 } = await supabase.rpc("nexo_business_set_stock", { p_business: bizId(), p_product: pid, p_quantity: q, p_reason: "Copia publicada (panel)" }); if (e2 || st?.error) notes.push("no se guardaron unas unidades"); }
+        }
+      } else {
+        // Sin colores: la caja la crea la dueña (como «Nuevo producto») y se enlaza con la copia. Si ya existe (reintento), no se duplica.
+        const { data: cat } = await supabase.rpc("nexo_business_catalog_list", { p_business: bizId() });
+        if (Array.isArray(cat)) catalog = cat;
+        let pid = (catalog ?? []).find(x => Number(x.external_refs?.["casaviva.company"]?.wooId) === Number(out.wooId))?.product_id ?? null;
+        if (!pid) {
+          const { data: saved, error } = await supabase.rpc("nexo_business_product_save", {
+            p_business: bizId(), p_product_id: null, p_name: name, p_sku: "", p_barcodes: [], p_price_usd: price, p_category: form.category.value.trim(),
+            p_image_url: out.image ?? null, p_active: true, p_min_stock: null });
+          if (error || saved?.error) throw new Error("se publicó en la web pero la caja no lo guardó (" + (error?.message ?? saved.error) + "). Vuelve a pulsar Publicar");
+          pid = saved.productId;
+          const { data: ln, error: e4 } = await supabase.rpc("nexo_business_product_link_web", { p_business: bizId(), p_product: pid, p_woo_id: Number(out.wooId) });
+          if (e4 || ln?.error) notes.push("no quedó enlazado con la web (" + (e4?.message ?? ln.error) + ")");
+        }
+        pids.push(pid);
+        const q = form.qty.value.trim() === "" ? 0 : Number(form.qty.value.trim());
+        if (q > 0) { const { data: st, error: e2 } = await supabase.rpc("nexo_business_set_stock", { p_business: bizId(), p_product: pid, p_quantity: q, p_reason: "Copia publicada (panel)" }); if (e2 || st?.error) notes.push("las unidades no se guardaron"); }
+      }
+      const commTarget = comm === undefined ? null : comm ?? commDefault().usd;
+      if (commTarget != null && pids.length) { msg.textContent = "Guardando la comisión…"; const c = commNote(await saveCommissions(pids, commTarget)); if (c) notes.push(c); }
+      sheet.close();
+      toast("Publicado «" + name + "»." + (notes.length ? " Ojo: " + notes.join("; ") + "." : " Ya se ve en la web y en las gestoras; llega a la caja en unos minutos."), notes.length ? "bad" : "ok");
+      catalog = null; shop = null;
+      await loadInventory();
+      if (out.group) void editGroup(out.group);
+    } catch (err) { fail("No se publicó: " + err.message); }
+  };
+}
+
 // Un producto sin colores no se convierte (sus ventas, unidades, comisiones y costos son de ese producto y
 // el puente de existencias dejaría de funcionar): se crea un producto nuevo con diseños.
 function colorsForSimple(p, inv, parentSheet) {
@@ -1630,7 +1872,7 @@ function colorsForSimple(p, inv, parentSheet) {
   const sheet = openSheet('<div class="sheet-head"><h2>Añadir colores o diseños</h2><button type="button" class="btn btn-ghost" data-close>Cerrar</button></div>'
     + "<p>Para no mezclar lo que ya se vendió" + (stock > 0 ? " ni " + (stock === 1 ? "la <strong>unidad</strong> que le queda" : "las <strong>" + stock + " unidades</strong> que le quedan") : "") + ", «" + esc(p.name) + "» se queda como está.</p>"
     + "<p>Los colores o diseños se crean en un <strong>producto nuevo con diseños</strong>. Te lo dejo casi listo, con el mismo nombre y precio.</p>"
-    + '<p class="t-sm muted">Cuando termines, si este producto ya no lo vas a vender, ábrelo y pulsa «Dejar de vender». No se borra nada.</p>'
+    + '<p class="t-sm muted">Cuando termines, si este producto ya no lo vas a vender, ábrelo y pulsa «Ocultar este producto». No se borra nada.</p>'
     + '<button type="button" class="btn btn-primary btn-xl btn-block" data-go>Crear producto con diseños</button>'
     + '<button type="button" class="btn btn-ghost btn-block" data-close>No, volver</button>', "Añadir colores o diseños");
   sheet.el.querySelector("[data-go]").onclick = () => {
@@ -2058,7 +2300,7 @@ async function editWebOrder(o) {
   form.querySelector("[data-q]").oninput = e => {
     const q = e.target.value.trim().toLowerCase();
     const box = form.querySelector("[data-items]");
-    box.innerHTML = q ? invRows.filter(r => r.active && r.wooId && r.name.toLowerCase().includes(q)).slice(0, 8).map(r => '<button type="button" class="pick" data-add="' + r.wooId + '">' + photo(r.imageUrl, r.name) + '<span class="grow"><span class="title">' + esc(r.name) + '</span><span class="meta">' + usd2(r.offerUsd ?? r.priceUsd) + " · quedan " + r.stock + "</span></span></button>").join("") : "";
+    box.innerHTML = q ? invRows.filter(r => r.active && r.wooId && r.name.toLowerCase().includes(q)).slice(0, 8).map(r => '<button type="button" class="pick" data-add="' + r.wooId + '">' + photo(imgOf(r), r.name) + '<span class="grow"><span class="title">' + esc(r.name) + '</span><span class="meta">' + usd2(r.offerUsd ?? r.priceUsd) + " · quedan " + r.stock + "</span></span></button>").join("") : "";
     box.querySelectorAll("[data-add]").forEach(b => (b.onclick = () => { const r = invRows.find(x => String(x.wooId) === b.dataset.add); add.push({ wooId: r.wooId, qty: 1, name: r.name }); e.target.value = ""; box.innerHTML = ""; drawAdded(); }));
   };
   form.onsubmit = async e => {
