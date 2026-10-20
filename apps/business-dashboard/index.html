@@ -517,13 +517,18 @@ async function loadStaffPay() {
     const shopUsd = shop ? Math.max(0, (shop.totals.usdMinor - (shop.totals.refundsMinor ?? 0)) / 100) : 0;
     const base = m.sales + shopUsd;
     const pay = v => Math.round(v * staffPct) / 100;
-    const unknown = m.unknown.sales + shopUsd;
-    const staffTotal = pay(base), nati = Math.round(base * natiPct) / 100;
+    // Caja P0 (20-oct): la caja ya sabe quién atendió (2 % mostrador D80, 0,5 % con gestora); sin «Atiende», como antes.
+    const cajaStaff = shop?.staff ?? [];
+    const cajaPaid = Math.round(cajaStaff.reduce((t, x) => t + Number(x.counterUsd || 0) + Number(x.staffUsd || 0), 0) * 100) / 100;
+    const cajaUnknown = shop?.withoutStaff ? Math.max(0, shop.withoutStaff.usdMinor / 100) : shopUsd;
+    const unknown = m.unknown.sales + cajaUnknown;
+    const staffTotal = Math.round((pay(m.sales) + pay(cajaUnknown) + cajaPaid) * 100) / 100, nati = Math.round(base * natiPct) / 100;
     const line = (label, value, sub) => '<div class="kv"><span>' + label + (sub ? '<br><span class="t-xs muted">' + sub + "</span>" : "") + '</span><span class="num">' + value + "</span></div>";
     return '<div class="row-item" style="display:block">'
       + '<div class="kv"><span class="title">' + (i === 0 ? "Este mes" : "Mes pasado") + " · " + MONTHS[mo - 1] + '</span><span class="t-sm muted">vendido ' + usd2(base) + "</span></div>"
       + m.clerks.map(c => line("Pagar a " + esc(nameOf(c.name)) + " (" + pct1(staffPct) + ")", money(pay(c.sales)), "de " + usd2(c.sales) + " · " + c.orders + (c.orders === 1 ? " pedido" : " pedidos"))).join("")
-      + (unknown > 0 ? line("Dependientas, sin saber quién (" + pct1(staffPct) + ")", money(pay(unknown)), "de " + usd2(unknown) + (m.unknown.orders ? " · " + m.unknown.orders + " pedidos web que cerró otra persona" : "") + (shopUsd ? (m.unknown.orders ? " + " : " · ") + "caja " + usd2(shopUsd) : "")) : "")
+      + cajaStaff.map(x => line("Caja · " + esc(nameOf(x.name)) + " (2 % mostrador + " + pct1(staffPct) + " con gestora)", money(Number(x.counterUsd || 0) + Number(x.staffUsd || 0)), x.sales + " ventas · " + usd2(x.usdMinor / 100))).join("")
+      + (unknown > 0 ? line("Dependientas, sin saber quién (" + pct1(staffPct) + ")", money(pay(unknown)), "de " + usd2(unknown) + (m.unknown.orders ? " · " + m.unknown.orders + " pedidos web que cerró otra persona" : "") + (cajaUnknown ? (m.unknown.orders ? " + " : " · ") + "caja sin «Atiende» " + usd2(cajaUnknown) : "")) : "")
       + line("Pagar a " + esc(s.other_label) + " (" + pct1(natiPct) + ")", money(nati), "de " + usd2(base))
       + '<div class="kv strong" style="border-top:1px solid var(--nx-border);margin-top:4px;padding-top:4px"><span><b>Total a pagar</b></span><span class="num"><b>' + money(staffTotal + nati) + "</b></span></div>"
       + "</div>";
@@ -531,7 +536,7 @@ async function loadStaffPay() {
   box.innerHTML = '<section class="panel" style="margin-top:12px"><h2 class="t-lg">A pagar este mes</h2>'
     + blocks.join("")
     + '<p class="t-xs muted" style="margin-top:8px">Solo para saber cuánto pagar: aquí no se paga nada. Cuenta los pedidos completados de la web (solo productos, sin envío) y las ventas de la caja. '
-    + "Cada pedido web es de la dependienta que recibió el dinero (si no, la que lo entregó). La caja no guarda quién vendió, por eso va en «sin saber quién». "
+    + "Cada pedido web es de la dependienta de turno de ese día (la que abrió la caja); sin turno, de la que recibió el dinero (si no, la que lo entregó). En la caja cuenta «Atiende»: mostrador sin gestora 2 % (D80), con gestora 0,5 %. "
     + "Los % se cambian en Ajustes → Costos.</p></section>";
 }
 // Historial por meses (como BizneCubano): web + tienda, número de ventas y promedio por venta.
@@ -615,9 +620,20 @@ async function loadReport() {
       + "</section>" : "")
     + '<section class="panel"><div class="kv"><h2 class="t-lg">Ventas</h2><span class="badge badge-info">' + data.sales.length + "</span></div>"
     + '<div class="grid-2"><button type="button" class="btn btn-secondary" id="dl-csv">' + icon("download", "sm") + 'Descargar Excel</button><button type="button" class="btn btn-secondary" id="dl-pdf">' + icon("download", "sm") + "Descargar PDF</button></div>"
-    + data.sales.slice(0, 30).map(s => '<div class="row-item"><span class="grow"><span class="title">' + esc((s.lines ?? []).map(l => (l.qty > 1 ? l.qty + "× " : "") + l.name).join(", ")) + '</span><span class="meta">' + esc(when(s.at)) + " · " + esc((s.payments ?? []).map(methodLabel).join(" + ")) + '</span></span><span class="price-tag">' + usd(s.usdMinor) + "</span></div>").join("")
+    + data.sales.slice(0, 30).map(s => '<div class="row-item"><span class="grow"><span class="title">' + esc((s.lines ?? []).map(l => (l.qty > 1 ? l.qty + "× " : "") + l.name).join(", ")) + '</span><span class="meta">' + esc(when(s.at)) + " · " + esc((s.payments ?? []).map(methodLabel).join(" + ")) + (s.staff ? " · atendió " + esc(s.staff) : "") + (s.gestora ? " · gestora " + esc(s.gestora) : "") + '</span></span><span class="price-tag">' + usd(s.usdMinor) + "</span></div>").join("")
     + (data.sales.length > 30 ? '<p class="t-xs muted">Se muestran 30 de ' + data.sales.length + ". Las descargas llevan todas.</p>" : "")
-    + "</section>";
+    + "</section>"
+    + (data.staff?.length || data.withoutStaff?.sales ? '<section class="panel"><div class="kv"><h2 class="t-lg">Quién atendió en la caja</h2><span class="t-xs muted">2 % mostrador (D80) · 0,5 % con gestora</span></div>'
+      + (data.staff ?? []).map(x => '<div class="row-item"><span class="grow"><span class="title">' + esc(x.name) + '</span><span class="meta">' + x.sales + " ventas · mostrador " + dollars(x.counterUsd) + " · con gestora " + dollars(x.staffUsd) + '</span></span><span class="price-tag">' + usd(x.usdMinor) + "</span></div>").join("")
+      + (data.withoutStaff?.sales ? '<p class="t-xs muted">' + data.withoutStaff.sales + " ventas sin «Atiende» (" + usd(data.withoutStaff.usdMinor) + "): nadie cobra comisión de esas.</p>" : "")
+      + "</section>" : "")
+    + (data.shifts?.length ? '<section class="panel"><div class="kv"><h2 class="t-lg">Turnos de caja</h2><span class="badge badge-info">' + data.shifts.length + "</span></div>"
+      + data.shifts.slice(0, 31).map(x => {
+          const diff = (x.counts ?? []).filter(c => c.difference_minor).map(c => (c.difference_minor > 0 ? "sobran " : "faltan ") + money(Math.abs(c.difference_minor), c.currency)).join(" · ");
+          return '<div class="row-item"><span class="grow"><span class="title">' + esc(when(x.openedAt)) + " · abrió " + esc(x.openedBy ?? "—") + '</span><span class="meta">'
+            + (x.status === "closed" ? "cerró " + esc(x.closedBy ?? "—") + " " + esc(when(x.closedAt)) + (x.expectedSource === "local" ? " · cuenta solo de un teléfono (sin internet)" : "") + (x.counts ? " · " + (diff || "cuadró") : "") : "<b>abierto</b>")
+            + " · " + esc((x.devices ?? [x.device]).join(", ")) + "</span></span></div>";
+        }).join("") + "</section>" : "");
   $("#dl-csv").onclick = downloadCsv;
   $("#dl-pdf").onclick = printReport;
 }
@@ -3952,11 +3968,25 @@ async function loadWebRates() {
 const system = d => d.deviceId.endsWith("-web") || d.deviceId.endsWith("-panel");
 function renderDevices() {
   const owner = isOwner();
+  // Caja P0 (20-oct): versión de la app y conexión aunque no haya ventas (nexo_business_device_status).
+  if (!renderDevices.loading && !renderDevices.loaded) {
+    renderDevices.loading = true;
+    supabase.rpc("nexo_business_device_status", { p_business: current.businessId }).then(({ data }) => {
+      renderDevices.loading = false;
+      if (!Array.isArray(data)) return;
+      renderDevices.loaded = true;
+      for (const d of current.devices) {
+        const x = data.find(v => v.deviceId === d.deviceId);
+        if (x) { d.lastSeenAt = x.lastSeenAt ?? d.lastSeenAt; d.appVersion = x.appVersion; }
+      }
+      renderDevices();
+    });
+  }
   // Solo las cajas de verdad: las internas (web, panel) no se tocan aquí; primero las activas.
   const all = current.devices.filter(d => !system(d));
   const row = d => `
     <div class="row-item device"><span class="avatar">${icon("device", "sm")}</span>
-      <span class="grow"><span class="title">${esc(d.label ?? d.deviceId)}</span><span class="meta">${d.lastSeenAt ? "Conectada " + esc(when(d.lastSeenAt)) : "Nunca se ha conectado"}</span></span>
+      <span class="grow"><span class="title">${esc(d.label ?? d.deviceId)}</span><span class="meta">${d.lastSeenAt ? "Última conexión " + esc(when(d.lastSeenAt)) : "Nunca se ha conectado"}${d.appVersion ? " · versión " + esc(d.appVersion) : ""}</span></span>
       <span class="actions">${d.active === false ? `<span class="badge badge-out">Desactivada</span>` : ""}
       ${owner && !system(d) ? `<button type="button" class="btn ${d.active === false ? "btn-secondary" : "btn-danger"}" data-toggle="${esc(d.deviceId)}" data-active="${d.active === false}">${d.active === false ? "Reactivar" : "Desactivar"}</button>` : ""}</span>
     </div>`;
