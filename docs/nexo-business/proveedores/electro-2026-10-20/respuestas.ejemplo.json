@@ -1,0 +1,22 @@
+{
+ "_nota": "EJEMPLO. Copiar como respuestas.json y rellenar con lo que contesten. N.º = número del mensaje enviado a cada proveedor.",
+ "S": {
+  "respondio": true,
+  "quien": "Ricardo",
+  "fecha": "2026-10-21 10:15",
+  "todo_ok": true,
+  "cambios": {
+   "7": { "agotado": true },
+   "12": { "precio": 380 },
+   "30": { "precio": 1400, "garantia": "3 meses" }
+  },
+  "antiguos_si": [],
+  "garantia": "lo que diga Ricardo por tipo",
+  "recogida": "dirección y horario del local",
+  "comision": "lo que diga Ricardo (si da precio de revendedor, poner «precio» nuevo en cambios)"
+ },
+ "L": {
+  "respondio": false
+ },
+ "incluir_respaldo": false
+}

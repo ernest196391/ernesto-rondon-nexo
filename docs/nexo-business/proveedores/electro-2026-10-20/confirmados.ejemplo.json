@@ -1,0 +1,39 @@
+{
+ "_nota": "EJEMPLO del archivo que lee crear-productos.php. El de verdad lo genera armar-confirmados.mjs en el VPS (con enlaces de fotos firmados 7 días).",
+ "generado": "2026-10-21T15:00:00.000Z",
+ "estado": "draft",
+ "productos": [
+  {
+   "market_id": 1758,
+   "ids": [146, 488, 1758, 381],
+   "nombre": "OUPES Exodus 992 Wh",
+   "proveedor": "S",
+   "n": 1,
+   "precio_proveedor": 490,
+   "precio": 540,
+   "comision": 20,
+   "precio_manual": false,
+   "departamentos": ["apagones-y-energia"],
+   "descripcion": "Estación de energía OUPES EXODUS\nPotencia pico 3600 W\nPotencia continua 1200 W\n992 Wh\n\nGarantía: (la que diga Ricardo)",
+   "fotos": ["https://viwwlriwlwodrfukbgbj.supabase.co/storage/v1/object/sign/mercado/8771c6ed-9dbf-497d-b3df-be6697ba2693/1758/2A0856954D89E31E4ADB.jpg?token=…"],
+   "confirmado": true,
+   "confirmado_por": "Ricardo 2026-10-21 10:15"
+  },
+  {
+   "market_id": 1254,
+   "ids": [3, 210, 1445, 1558, 410, 1511, 1351, 1254],
+   "nombre": "EcoFlow Delta 3 Classic 1024 Wh",
+   "proveedor": "L",
+   "n": 3,
+   "precio_proveedor": 590,
+   "precio": 650,
+   "comision": 24,
+   "precio_manual": false,
+   "departamentos": ["apagones-y-energia"],
+   "descripcion": "…",
+   "fotos": ["/home/u824654880/electro-fotos/1254/1.jpg"],
+   "confirmado": true,
+   "confirmado_por": "LJH 2026-10-21 11:00"
+  }
+ ]
+}

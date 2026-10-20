@@ -1,0 +1,1363 @@
+[
+ {
+  "proveedor": "TRD 42 y 23 (Tienda 42 y 23)",
+  "clave_proveedor": "T",
+  "tipo": "clima",
+  "tipo_nombre": "Climatización (split)",
+  "nombre": "Aire acondicionado split Parker (unidad interior y exterior)",
+  "market_id": null,
+  "anuncio_mas_reciente": null,
+  "ids": [],
+  "sku": null,
+  "precio_proveedor": null,
+  "moneda": "?",
+  "precio_venta": null,
+  "precio_formula": null,
+  "precio_bloqueado": false,
+  "comision_gestora": null,
+  "ganancia_casa_viva": null,
+  "precios_vistos": [],
+  "historial": [],
+  "ultima_vez": "2026-10-20",
+  "veces_visto": 1,
+  "antiguo": false,
+  "fotos": [
+   "docs/nexo-business/proveedores/tienda-42-y-23/fotos/WhatsApp Image 2026-10-20 at 18.09.05.jpeg"
+  ],
+  "fotos_de": null,
+  "fotos_limpias": true,
+  "calidad_fotos": "sí (sin etiqueta; fondo de almacén)",
+  "en_web": [
+   1013
+  ],
+  "parecido_en_web": "web 1013 (privado, NEXO-PARKER-SPLIT, 365 USD)",
+  "departamentos": [
+   "electrodomesticos"
+  ],
+  "texto_proveedor": "(sin etiqueta de precio en la foto)",
+  "vendedor_original": "TRD 42 y 23",
+  "garantia_meses": null,
+  "precio_etiqueta_anterior": null,
+  "precio_dudoso": true,
+  "nota": "Falta precio y capacidad (¿1 tonelada?). No se ve ninguna etiqueta.",
+  "en_bolsa": false,
+  "ya_existe": "sí: web 1013 (privado, NEXO-PARKER-SPLIT, 365 USD)",
+  "n": 1
+ },
+ {
+  "proveedor": "TRD 42 y 23 (Tienda 42 y 23)",
+  "clave_proveedor": "T",
+  "tipo": "bombas",
+  "tipo_nombre": "Bombas de agua",
+  "nombre": "Motobomba periférica Thebe TP-70 Junior (Ebara)",
+  "market_id": null,
+  "anuncio_mas_reciente": null,
+  "ids": [],
+  "sku": null,
+  "precio_proveedor": 66.35,
+  "moneda": "USD",
+  "precio_venta": 85,
+  "precio_formula": 85,
+  "precio_bloqueado": false,
+  "comision_gestora": 7.46,
+  "ganancia_casa_viva": 11.19,
+  "precios_vistos": [
+   "66.35 USD"
+  ],
+  "historial": [
+   {
+    "id": null,
+    "precio": 66.35,
+    "moneda": "USD",
+    "visto": "2026-10-20"
+   }
+  ],
+  "ultima_vez": "2026-10-20",
+  "veces_visto": 1,
+  "antiguo": false,
+  "fotos": [
+   "docs/nexo-business/proveedores/tienda-42-y-23/fotos/WhatsApp Image 2026-10-20 at 18.09.05 (1).jpeg",
+   "docs/nexo-business/proveedores/tienda-42-y-23/fotos/WhatsApp Image 2026-10-20 at 18.09.06.jpeg"
+  ],
+  "fotos_de": null,
+  "fotos_limpias": false,
+  "calidad_fotos": "no (recortar etiqueta y otra caja detrás)",
+  "en_web": [],
+  "parecido_en_web": null,
+  "departamentos": [
+   "electrodomesticos"
+  ],
+  "texto_proveedor": "GARANTÍA COMERCIAL 3 meses · PRECIO USD 66.35",
+  "vendedor_original": "TRD 42 y 23",
+  "garantia_meses": 3,
+  "precio_etiqueta_anterior": null,
+  "precio_dudoso": false,
+  "nota": "",
+  "en_bolsa": false,
+  "ya_existe": "no",
+  "n": 2
+ },
+ {
+  "proveedor": "TRD 42 y 23 (Tienda 42 y 23)",
+  "clave_proveedor": "T",
+  "tipo": "bombas",
+  "tipo_nombre": "Bombas de agua",
+  "nombre": "Bomba de agua periférica Hyundai 1/2 HP (HY-CH05HP, 370 W)",
+  "market_id": null,
+  "anuncio_mas_reciente": null,
+  "ids": [],
+  "sku": null,
+  "precio_proveedor": 51,
+  "moneda": "USD",
+  "precio_venta": 68,
+  "precio_formula": 68,
+  "precio_bloqueado": false,
+  "comision_gestora": 6.8,
+  "ganancia_casa_viva": 10.2,
+  "precios_vistos": [
+   "51.00 USD"
+  ],
+  "historial": [
+   {
+    "id": null,
+    "precio": 51,
+    "moneda": "USD",
+    "visto": "2026-10-20"
+   }
+  ],
+  "ultima_vez": "2026-10-20",
+  "veces_visto": 1,
+  "antiguo": false,
+  "fotos": [
+   "docs/nexo-business/proveedores/tienda-42-y-23/fotos/WhatsApp Image 2026-10-20 at 18.09.06.jpeg",
+   "docs/nexo-business/proveedores/tienda-42-y-23/fotos/WhatsApp Image 2026-10-20 at 18.09.05 (1).jpeg"
+  ],
+  "fotos_de": null,
+  "fotos_limpias": false,
+  "calidad_fotos": "no (recortar etiqueta)",
+  "en_web": [],
+  "parecido_en_web": null,
+  "departamentos": [
+   "electrodomesticos"
+  ],
+  "texto_proveedor": "GARANTÍA COMERCIAL 3 meses · PRECIO USD 51.00",
+  "vendedor_original": "TRD 42 y 23",
+  "garantia_meses": 3,
+  "precio_etiqueta_anterior": null,
+  "precio_dudoso": false,
+  "nota": "",
+  "en_bolsa": false,
+  "ya_existe": "no",
+  "n": 3
+ },
+ {
+  "proveedor": "TRD 42 y 23 (Tienda 42 y 23)",
+  "clave_proveedor": "T",
+  "tipo": "cocina",
+  "tipo_nombre": "Cocina (batidoras, arroceras, ollas, cocinas de gas)",
+  "nombre": "Batidora Hamilton Beach blanca, jarra plástica, 5 botones",
+  "market_id": null,
+  "anuncio_mas_reciente": null,
+  "ids": [],
+  "sku": null,
+  "precio_proveedor": 39.8,
+  "moneda": "USD",
+  "precio_venta": 56,
+  "precio_formula": 56,
+  "precio_bloqueado": false,
+  "comision_gestora": 6.48,
+  "ganancia_casa_viva": 9.72,
+  "precios_vistos": [
+   "39.80 USD"
+  ],
+  "historial": [
+   {
+    "id": null,
+    "precio": 39.8,
+    "moneda": "USD",
+    "visto": "2026-10-20"
+   }
+  ],
+  "ultima_vez": "2026-10-20",
+  "veces_visto": 1,
+  "antiguo": false,
+  "fotos": [
+   "docs/nexo-business/proveedores/tienda-42-y-23/fotos/WhatsApp Image 2026-10-20 at 18.09.06 (1).jpeg"
+  ],
+  "fotos_de": null,
+  "fotos_limpias": false,
+  "calidad_fotos": "no (recortar etiqueta)",
+  "en_web": [],
+  "parecido_en_web": "web 1015 (privado, NEXO-HB-BLENDER-WHITE, 50 USD)",
+  "departamentos": [
+   "cocina"
+  ],
+  "texto_proveedor": "GARANTÍA COMERCIAL 3 meses · PRECIO USD 39.80",
+  "vendedor_original": "TRD 42 y 23",
+  "garantia_meses": 3,
+  "precio_etiqueta_anterior": null,
+  "precio_dudoso": false,
+  "nota": "Si es la misma que la web 1015, con esta regla saldría a 56 USD (hoy tiene 50).",
+  "en_bolsa": false,
+  "ya_existe": "parecido: web 1015 (privado, NEXO-HB-BLENDER-WHITE, 50 USD)",
+  "n": 4
+ },
+ {
+  "proveedor": "TRD 42 y 23 (Tienda 42 y 23)",
+  "clave_proveedor": "T",
+  "tipo": "cocina",
+  "tipo_nombre": "Cocina (batidoras, arroceras, ollas, cocinas de gas)",
+  "nombre": "Batidora Hamilton Beach negra, jarra de vidrio, 5 velocidades + pulso",
+  "market_id": null,
+  "anuncio_mas_reciente": null,
+  "ids": [],
+  "sku": null,
+  "precio_proveedor": 44.2,
+  "moneda": "USD",
+  "precio_venta": 62,
+  "precio_formula": 62,
+  "precio_bloqueado": false,
+  "comision_gestora": 7.12,
+  "ganancia_casa_viva": 10.68,
+  "precios_vistos": [
+   "44.20 USD"
+  ],
+  "historial": [
+   {
+    "id": null,
+    "precio": 44.2,
+    "moneda": "USD",
+    "visto": "2026-10-20"
+   }
+  ],
+  "ultima_vez": "2026-10-20",
+  "veces_visto": 1,
+  "antiguo": false,
+  "fotos": [
+   "docs/nexo-business/proveedores/tienda-42-y-23/fotos/WhatsApp Image 2026-10-20 at 18.09.06 (2).jpeg",
+   "docs/nexo-business/proveedores/tienda-42-y-23/fotos/WhatsApp Image 2026-10-20 at 18.09.06 (1).jpeg"
+  ],
+  "fotos_de": null,
+  "fotos_limpias": false,
+  "calidad_fotos": "no (recortar etiqueta)",
+  "en_web": [],
+  "parecido_en_web": null,
+  "departamentos": [
+   "cocina"
+  ],
+  "texto_proveedor": "GARANTÍA COMERCIAL 3 meses · PRECIO USD 44.20",
+  "vendedor_original": "TRD 42 y 23",
+  "garantia_meses": 3,
+  "precio_etiqueta_anterior": null,
+  "precio_dudoso": false,
+  "nota": "",
+  "en_bolsa": false,
+  "ya_existe": "no",
+  "n": 5
+ },
+ {
+  "proveedor": "TRD 42 y 23 (Tienda 42 y 23)",
+  "clave_proveedor": "T",
+  "tipo": "cocina",
+  "tipo_nombre": "Cocina (batidoras, arroceras, ollas, cocinas de gas)",
+  "nombre": "Batidora Kenwood gris con perilla naranja",
+  "market_id": null,
+  "anuncio_mas_reciente": null,
+  "ids": [],
+  "sku": null,
+  "precio_proveedor": 36,
+  "moneda": "USD",
+  "precio_venta": 51,
+  "precio_formula": 51,
+  "precio_bloqueado": false,
+  "comision_gestora": 6,
+  "ganancia_casa_viva": 9,
+  "precios_vistos": [
+   "36.00 USD"
+  ],
+  "historial": [
+   {
+    "id": null,
+    "precio": 36,
+    "moneda": "USD",
+    "visto": "2026-10-20"
+   }
+  ],
+  "ultima_vez": "2026-10-20",
+  "veces_visto": 1,
+  "antiguo": false,
+  "fotos": [
+   "docs/nexo-business/proveedores/tienda-42-y-23/fotos/WhatsApp Image 2026-10-20 at 18.09.07.jpeg"
+  ],
+  "fotos_de": null,
+  "fotos_limpias": false,
+  "calidad_fotos": "no (recortar etiqueta)",
+  "en_web": [],
+  "parecido_en_web": null,
+  "departamentos": [
+   "cocina"
+  ],
+  "texto_proveedor": "GARANTÍA COMERCIAL 3 meses · PRECIO USD 36.00",
+  "vendedor_original": "TRD 42 y 23",
+  "garantia_meses": 3,
+  "precio_etiqueta_anterior": null,
+  "precio_dudoso": false,
+  "nota": "",
+  "en_bolsa": false,
+  "ya_existe": "no",
+  "n": 6
+ },
+ {
+  "proveedor": "TRD 42 y 23 (Tienda 42 y 23)",
+  "clave_proveedor": "T",
+  "tipo": "cocina",
+  "tipo_nombre": "Cocina (batidoras, arroceras, ollas, cocinas de gas)",
+  "nombre": "Batidora Philco blanca, jarra plástica 1,5 L, 2 velocidades + pulso",
+  "market_id": null,
+  "anuncio_mas_reciente": null,
+  "ids": [],
+  "sku": null,
+  "precio_proveedor": 29.8,
+  "moneda": "USD",
+  "precio_venta": 42,
+  "precio_formula": 42,
+  "precio_bloqueado": false,
+  "comision_gestora": 4.88,
+  "ganancia_casa_viva": 7.32,
+  "precios_vistos": [
+   "29.80 USD"
+  ],
+  "historial": [
+   {
+    "id": null,
+    "precio": 29.8,
+    "moneda": "USD",
+    "visto": "2026-10-20"
+   }
+  ],
+  "ultima_vez": "2026-10-20",
+  "veces_visto": 1,
+  "antiguo": false,
+  "fotos": [
+   "docs/nexo-business/proveedores/tienda-42-y-23/fotos/WhatsApp Image 2026-10-20 at 18.09.07 (1).jpeg"
+  ],
+  "fotos_de": null,
+  "fotos_limpias": false,
+  "calidad_fotos": "no (recortar etiqueta)",
+  "en_web": [],
+  "parecido_en_web": null,
+  "departamentos": [
+   "cocina"
+  ],
+  "texto_proveedor": "GARANTÍA COMERCIAL 3 meses · PRECIO USD 29.80",
+  "vendedor_original": "TRD 42 y 23",
+  "garantia_meses": 3,
+  "precio_etiqueta_anterior": null,
+  "precio_dudoso": false,
+  "nota": "",
+  "en_bolsa": false,
+  "ya_existe": "no",
+  "n": 7
+ },
+ {
+  "proveedor": "TRD 42 y 23 (Tienda 42 y 23)",
+  "clave_proveedor": "T",
+  "tipo": "cocina",
+  "tipo_nombre": "Cocina (batidoras, arroceras, ollas, cocinas de gas)",
+  "nombre": "Batidora Continental blanca, 2 velocidades + pulso",
+  "market_id": null,
+  "anuncio_mas_reciente": null,
+  "ids": [],
+  "sku": null,
+  "precio_proveedor": 23.7,
+  "moneda": "USD",
+  "precio_venta": 34,
+  "precio_formula": 34,
+  "precio_bloqueado": false,
+  "comision_gestora": 4.12,
+  "ganancia_casa_viva": 6.18,
+  "precios_vistos": [
+   "23.70 USD"
+  ],
+  "historial": [
+   {
+    "id": null,
+    "precio": 23.7,
+    "moneda": "USD",
+    "visto": "2026-10-20"
+   }
+  ],
+  "ultima_vez": "2026-10-20",
+  "veces_visto": 1,
+  "antiguo": false,
+  "fotos": [
+   "docs/nexo-business/proveedores/tienda-42-y-23/fotos/WhatsApp Image 2026-10-20 at 18.09.07 (2).jpeg"
+  ],
+  "fotos_de": null,
+  "fotos_limpias": false,
+  "calidad_fotos": "no (recortar etiqueta escrita a mano)",
+  "en_web": [],
+  "parecido_en_web": null,
+  "departamentos": [
+   "cocina"
+  ],
+  "texto_proveedor": "Garantía comercial 3 meses · Precio USD 23.70 (a mano)",
+  "vendedor_original": "TRD 42 y 23",
+  "garantia_meses": 3,
+  "precio_etiqueta_anterior": null,
+  "precio_dudoso": false,
+  "nota": "Con zoom se lee 23.70; si fuera 23.90 el precio de Casa Viva no cambia (34).",
+  "en_bolsa": false,
+  "ya_existe": "no",
+  "n": 8
+ },
+ {
+  "proveedor": "TRD 42 y 23 (Tienda 42 y 23)",
+  "clave_proveedor": "T",
+  "tipo": "cocina",
+  "tipo_nombre": "Cocina (batidoras, arroceras, ollas, cocinas de gas)",
+  "nombre": "Cocina de gas Royal REG404BK de mesa, 4 hornillas, acero inoxidable",
+  "market_id": null,
+  "anuncio_mas_reciente": null,
+  "ids": [],
+  "sku": null,
+  "precio_proveedor": 85,
+  "moneda": "USD",
+  "precio_venta": 105,
+  "precio_formula": 105,
+  "precio_bloqueado": false,
+  "comision_gestora": 8,
+  "ganancia_casa_viva": 12,
+  "precios_vistos": [
+   "85.00 USD (etiqueta 106.00)"
+  ],
+  "historial": [
+   {
+    "id": null,
+    "precio": 85,
+    "moneda": "USD",
+    "visto": "2026-10-20"
+   }
+  ],
+  "ultima_vez": "2026-10-20",
+  "veces_visto": 1,
+  "antiguo": false,
+  "fotos": [
+   "docs/nexo-business/proveedores/tienda-42-y-23/fotos/WhatsApp Image 2026-10-20 at 18.09.07 (3).jpeg"
+  ],
+  "fotos_de": null,
+  "fotos_limpias": false,
+  "calidad_fotos": "no (recortar etiqueta)",
+  "en_web": [],
+  "parecido_en_web": null,
+  "departamentos": [
+   "cocina"
+  ],
+  "texto_proveedor": "GARANTÍA COMERCIAL 3 meses · PRECIO USD 106.00 · pegatina encima 85.00",
+  "vendedor_original": "TRD 42 y 23",
+  "garantia_meses": 3,
+  "precio_etiqueta_anterior": 106,
+  "precio_dudoso": true,
+  "nota": "Etiqueta 106.00 con pegatina 85.00 encima (parece rebaja). Se calculó con 85; con 106 sería 125 USD (gestora 7.60).",
+  "en_bolsa": false,
+  "ya_existe": "no",
+  "n": 9
+ },
+ {
+  "proveedor": "TRD 42 y 23 (Tienda 42 y 23)",
+  "clave_proveedor": "T",
+  "tipo": "cocina",
+  "tipo_nombre": "Cocina (batidoras, arroceras, ollas, cocinas de gas)",
+  "nombre": "Cocina de gas Royal de mesa, 2 hornillas, tope de vidrio negro y azul",
+  "market_id": null,
+  "anuncio_mas_reciente": null,
+  "ids": [],
+  "sku": null,
+  "precio_proveedor": 43,
+  "moneda": "USD",
+  "precio_venta": 60,
+  "precio_formula": 60,
+  "precio_bloqueado": false,
+  "comision_gestora": 6.8,
+  "ganancia_casa_viva": 10.2,
+  "precios_vistos": [
+   "43.00 USD"
+  ],
+  "historial": [
+   {
+    "id": null,
+    "precio": 43,
+    "moneda": "USD",
+    "visto": "2026-10-20"
+   }
+  ],
+  "ultima_vez": "2026-10-20",
+  "veces_visto": 1,
+  "antiguo": false,
+  "fotos": [
+   "docs/nexo-business/proveedores/tienda-42-y-23/fotos/WhatsApp Image 2026-10-20 at 18.09.08.jpeg"
+  ],
+  "fotos_de": null,
+  "fotos_limpias": false,
+  "calidad_fotos": "no (recortar etiqueta y cajas)",
+  "en_web": [],
+  "parecido_en_web": "web 1028 (privado, Royal REG202V 2 hornillas, 64.80 USD); el modelo no se ve en la foto",
+  "departamentos": [
+   "cocina"
+  ],
+  "texto_proveedor": "GARANTÍA COMERCIAL 3 meses · PRECIO USD 43.00",
+  "vendedor_original": "TRD 42 y 23",
+  "garantia_meses": 3,
+  "precio_etiqueta_anterior": null,
+  "precio_dudoso": false,
+  "nota": "Confirmar el modelo (¿REG202V?).",
+  "en_bolsa": false,
+  "ya_existe": "parecido: web 1028 (privado, Royal REG202V 2 hornillas, 64.80 USD); el modelo no se ve en la foto",
+  "n": 10
+ },
+ {
+  "proveedor": "TRD 42 y 23 (Tienda 42 y 23)",
+  "clave_proveedor": "T",
+  "tipo": "cocina",
+  "tipo_nombre": "Cocina (batidoras, arroceras, ollas, cocinas de gas)",
+  "nombre": "Cocina de gas Arox CG-05, 2 hornillas, acero inoxidable",
+  "market_id": null,
+  "anuncio_mas_reciente": null,
+  "ids": [],
+  "sku": null,
+  "precio_proveedor": 53.95,
+  "moneda": "USD",
+  "precio_venta": 71,
+  "precio_formula": 71,
+  "precio_bloqueado": false,
+  "comision_gestora": 6.82,
+  "ganancia_casa_viva": 10.23,
+  "precios_vistos": [
+   "53.95 USD"
+  ],
+  "historial": [
+   {
+    "id": null,
+    "precio": 53.95,
+    "moneda": "USD",
+    "visto": "2026-10-20"
+   }
+  ],
+  "ultima_vez": "2026-10-20",
+  "veces_visto": 1,
+  "antiguo": false,
+  "fotos": [
+   "docs/nexo-business/proveedores/tienda-42-y-23/fotos/WhatsApp Image 2026-10-20 at 18.09.09.jpeg",
+   "docs/nexo-business/proveedores/tienda-42-y-23/fotos/WhatsApp Image 2026-10-20 at 18.09.06 (1).jpeg",
+   "docs/nexo-business/proveedores/tienda-42-y-23/fotos/WhatsApp Image 2026-10-20 at 18.09.06 (2).jpeg"
+  ],
+  "fotos_de": null,
+  "fotos_limpias": false,
+  "calidad_fotos": "no (foto de lado, con caja y etiqueta; pedir otra)",
+  "en_web": [],
+  "parecido_en_web": null,
+  "departamentos": [
+   "cocina"
+  ],
+  "texto_proveedor": "GARANTÍA COMERCIAL 3 meses · PRECIO USD 53.95",
+  "vendedor_original": "TRD 42 y 23",
+  "garantia_meses": 3,
+  "precio_etiqueta_anterior": null,
+  "precio_dudoso": false,
+  "nota": "La foto está girada 90° y la cocina se ve poco.",
+  "en_bolsa": false,
+  "ya_existe": "no",
+  "n": 11
+ },
+ {
+  "proveedor": "TRD 42 y 23 (Tienda 42 y 23)",
+  "clave_proveedor": "T",
+  "tipo": "cocina",
+  "tipo_nombre": "Cocina (batidoras, arroceras, ollas, cocinas de gas)",
+  "nombre": "Olla arrocera Kenwood gris con vaporera",
+  "market_id": null,
+  "anuncio_mas_reciente": null,
+  "ids": [],
+  "sku": null,
+  "precio_proveedor": 27.35,
+  "moneda": "USD",
+  "precio_venta": 39,
+  "precio_formula": 39,
+  "precio_bloqueado": false,
+  "comision_gestora": 4.66,
+  "ganancia_casa_viva": 6.99,
+  "precios_vistos": [
+   "27.35 USD"
+  ],
+  "historial": [
+   {
+    "id": null,
+    "precio": 27.35,
+    "moneda": "USD",
+    "visto": "2026-10-20"
+   }
+  ],
+  "ultima_vez": "2026-10-20",
+  "veces_visto": 1,
+  "antiguo": false,
+  "fotos": [
+   "docs/nexo-business/proveedores/tienda-42-y-23/fotos/WhatsApp Image 2026-10-20 at 18.09.09 (1).jpeg",
+   "docs/nexo-business/proveedores/tienda-42-y-23/fotos/WhatsApp Image 2026-10-20 at 18.09.08 (1).jpeg"
+  ],
+  "fotos_de": null,
+  "fotos_limpias": true,
+  "calidad_fotos": "sí (09 (1) sin etiqueta)",
+  "en_web": [],
+  "parecido_en_web": null,
+  "departamentos": [
+   "cocina"
+  ],
+  "texto_proveedor": "Garantía comercial 6 meses · Precio USD 27.35 (a mano) · C-0134 521-512",
+  "vendedor_original": "TRD 42 y 23",
+  "garantia_meses": 6,
+  "precio_etiqueta_anterior": null,
+  "precio_dudoso": false,
+  "nota": "",
+  "en_bolsa": false,
+  "ya_existe": "no (Kevin tiene arroceras genéricas: web 3031 y 3033)",
+  "n": 12
+ },
+ {
+  "proveedor": "TRD 42 y 23 (Tienda 42 y 23)",
+  "clave_proveedor": "T",
+  "tipo": "cocina",
+  "tipo_nombre": "Cocina (batidoras, arroceras, ollas, cocinas de gas)",
+  "nombre": "Olla arrocera Kenwood blanca con vaporera",
+  "market_id": null,
+  "anuncio_mas_reciente": null,
+  "ids": [],
+  "sku": null,
+  "precio_proveedor": 23.9,
+  "moneda": "USD",
+  "precio_venta": 34,
+  "precio_formula": 34,
+  "precio_bloqueado": false,
+  "comision_gestora": 4.04,
+  "ganancia_casa_viva": 6.06,
+  "precios_vistos": [
+   "23.90 USD"
+  ],
+  "historial": [
+   {
+    "id": null,
+    "precio": 23.9,
+    "moneda": "USD",
+    "visto": "2026-10-20"
+   }
+  ],
+  "ultima_vez": "2026-10-20",
+  "veces_visto": 1,
+  "antiguo": false,
+  "fotos": [
+   "docs/nexo-business/proveedores/tienda-42-y-23/fotos/WhatsApp Image 2026-10-20 at 18.09.09 (2).jpeg",
+   "docs/nexo-business/proveedores/tienda-42-y-23/fotos/WhatsApp Image 2026-10-20 at 18.09.10 (1).jpeg"
+  ],
+  "fotos_de": null,
+  "fotos_limpias": true,
+  "calidad_fotos": "sí (09 (2) sin etiqueta)",
+  "en_web": [],
+  "parecido_en_web": null,
+  "departamentos": [
+   "cocina"
+  ],
+  "texto_proveedor": "Garantía comercial 6 meses · Precio USD 23.90 (a mano) · C-0134 521-499",
+  "vendedor_original": "TRD 42 y 23",
+  "garantia_meses": 6,
+  "precio_etiqueta_anterior": null,
+  "precio_dudoso": false,
+  "nota": "",
+  "en_bolsa": false,
+  "ya_existe": "no",
+  "n": 13
+ },
+ {
+  "proveedor": "TRD 42 y 23 (Tienda 42 y 23)",
+  "clave_proveedor": "T",
+  "tipo": "cocina",
+  "tipo_nombre": "Cocina (batidoras, arroceras, ollas, cocinas de gas)",
+  "nombre": "Olla arrocera Continental blanca con tapa de vidrio",
+  "market_id": null,
+  "anuncio_mas_reciente": null,
+  "ids": [],
+  "sku": null,
+  "precio_proveedor": 22.3,
+  "moneda": "USD",
+  "precio_venta": 32,
+  "precio_formula": 32,
+  "precio_bloqueado": false,
+  "comision_gestora": 3.88,
+  "ganancia_casa_viva": 5.82,
+  "precios_vistos": [
+   "22.30 USD"
+  ],
+  "historial": [
+   {
+    "id": null,
+    "precio": 22.3,
+    "moneda": "USD",
+    "visto": "2026-10-20"
+   }
+  ],
+  "ultima_vez": "2026-10-20",
+  "veces_visto": 1,
+  "antiguo": false,
+  "fotos": [
+   "docs/nexo-business/proveedores/tienda-42-y-23/fotos/WhatsApp Image 2026-10-20 at 18.09.08 (2).jpeg",
+   "docs/nexo-business/proveedores/tienda-42-y-23/fotos/WhatsApp Image 2026-10-20 at 18.09.10.jpeg"
+  ],
+  "fotos_de": null,
+  "fotos_limpias": true,
+  "calidad_fotos": "sí (08 (2) sin etiqueta)",
+  "en_web": [],
+  "parecido_en_web": null,
+  "departamentos": [
+   "cocina"
+  ],
+  "texto_proveedor": "Garantía comercial 6 meses · Precio USD 22.30 (a mano) · C-0134 521-451",
+  "vendedor_original": "TRD 42 y 23",
+  "garantia_meses": 6,
+  "precio_etiqueta_anterior": null,
+  "precio_dudoso": false,
+  "nota": "La etiqueta está en la foto 10 (misma olla: «CALENTAR / COCINAR»).",
+  "en_bolsa": false,
+  "ya_existe": "no",
+  "n": 14
+ },
+ {
+  "proveedor": "TRD 42 y 23 (Tienda 42 y 23)",
+  "clave_proveedor": "T",
+  "tipo": "cocina",
+  "tipo_nombre": "Cocina (batidoras, arroceras, ollas, cocinas de gas)",
+  "nombre": "Olla arrocera Philco blanca con tapa de acero",
+  "market_id": null,
+  "anuncio_mas_reciente": null,
+  "ids": [],
+  "sku": null,
+  "precio_proveedor": 33.35,
+  "moneda": "USD",
+  "precio_venta": 47,
+  "precio_formula": 47,
+  "precio_bloqueado": false,
+  "comision_gestora": 5.46,
+  "ganancia_casa_viva": 8.19,
+  "precios_vistos": [
+   "33.35 USD"
+  ],
+  "historial": [
+   {
+    "id": null,
+    "precio": 33.35,
+    "moneda": "USD",
+    "visto": "2026-10-20"
+   }
+  ],
+  "ultima_vez": "2026-10-20",
+  "veces_visto": 1,
+  "antiguo": false,
+  "fotos": [
+   "docs/nexo-business/proveedores/tienda-42-y-23/fotos/WhatsApp Image 2026-10-20 at 18.09.10 (2).jpeg"
+  ],
+  "fotos_de": null,
+  "fotos_limpias": false,
+  "calidad_fotos": "no (recortar etiqueta)",
+  "en_web": [],
+  "parecido_en_web": null,
+  "departamentos": [
+   "cocina"
+  ],
+  "texto_proveedor": "GARANTÍA COMERCIAL 6 meses · PRECIO USD 33.35",
+  "vendedor_original": "TRD 42 y 23",
+  "garantia_meses": 6,
+  "precio_etiqueta_anterior": null,
+  "precio_dudoso": false,
+  "nota": "",
+  "en_bolsa": false,
+  "ya_existe": "no",
+  "n": 15
+ },
+ {
+  "proveedor": "TRD 42 y 23 (Tienda 42 y 23)",
+  "clave_proveedor": "T",
+  "tipo": "cocina",
+  "tipo_nombre": "Cocina (batidoras, arroceras, ollas, cocinas de gas)",
+  "nombre": "Olla arrocera Hamilton Beach negra",
+  "market_id": null,
+  "anuncio_mas_reciente": null,
+  "ids": [],
+  "sku": null,
+  "precio_proveedor": 47.1,
+  "moneda": "USD",
+  "precio_venta": 65,
+  "precio_formula": 65,
+  "precio_bloqueado": false,
+  "comision_gestora": 7.16,
+  "ganancia_casa_viva": 10.74,
+  "precios_vistos": [
+   "47.10 USD"
+  ],
+  "historial": [
+   {
+    "id": null,
+    "precio": 47.1,
+    "moneda": "USD",
+    "visto": "2026-10-20"
+   }
+  ],
+  "ultima_vez": "2026-10-20",
+  "veces_visto": 1,
+  "antiguo": false,
+  "fotos": [
+   "docs/nexo-business/proveedores/tienda-42-y-23/fotos/WhatsApp Image 2026-10-20 at 18.09.11.jpeg"
+  ],
+  "fotos_de": null,
+  "fotos_limpias": false,
+  "calidad_fotos": "no (recortar etiqueta)",
+  "en_web": [],
+  "parecido_en_web": null,
+  "departamentos": [
+   "cocina"
+  ],
+  "texto_proveedor": "GARANTÍA COMERCIAL 6 meses · PRECIO USD 47.10",
+  "vendedor_original": "TRD 42 y 23",
+  "garantia_meses": 6,
+  "precio_etiqueta_anterior": null,
+  "precio_dudoso": false,
+  "nota": "",
+  "en_bolsa": false,
+  "ya_existe": "no",
+  "n": 16
+ },
+ {
+  "proveedor": "TRD 42 y 23 (Tienda 42 y 23)",
+  "clave_proveedor": "T",
+  "tipo": "cocina",
+  "tipo_nombre": "Cocina (batidoras, arroceras, ollas, cocinas de gas)",
+  "nombre": "Olla arrocera Hamilton Beach roja",
+  "market_id": null,
+  "anuncio_mas_reciente": null,
+  "ids": [],
+  "sku": null,
+  "precio_proveedor": 43.1,
+  "moneda": "USD",
+  "precio_venta": 61,
+  "precio_formula": 61,
+  "precio_bloqueado": false,
+  "comision_gestora": 7.16,
+  "ganancia_casa_viva": 10.74,
+  "precios_vistos": [
+   "43.10 USD"
+  ],
+  "historial": [
+   {
+    "id": null,
+    "precio": 43.1,
+    "moneda": "USD",
+    "visto": "2026-10-20"
+   }
+  ],
+  "ultima_vez": "2026-10-20",
+  "veces_visto": 1,
+  "antiguo": false,
+  "fotos": [
+   "docs/nexo-business/proveedores/tienda-42-y-23/fotos/WhatsApp Image 2026-10-20 at 18.09.11 (1).jpeg"
+  ],
+  "fotos_de": null,
+  "fotos_limpias": false,
+  "calidad_fotos": "no (recortar etiqueta)",
+  "en_web": [],
+  "parecido_en_web": null,
+  "departamentos": [
+   "cocina"
+  ],
+  "texto_proveedor": "GARANTÍA COMERCIAL 6 meses · PRECIO USD 43.10",
+  "vendedor_original": "TRD 42 y 23",
+  "garantia_meses": 6,
+  "precio_etiqueta_anterior": null,
+  "precio_dudoso": false,
+  "nota": "",
+  "en_bolsa": false,
+  "ya_existe": "no",
+  "n": 17
+ },
+ {
+  "proveedor": "TRD 42 y 23 (Tienda 42 y 23)",
+  "clave_proveedor": "T",
+  "tipo": "cocina",
+  "tipo_nombre": "Cocina (batidoras, arroceras, ollas, cocinas de gas)",
+  "nombre": "Olla de presión eléctrica RCA de acero inoxidable",
+  "market_id": null,
+  "anuncio_mas_reciente": null,
+  "ids": [],
+  "sku": null,
+  "precio_proveedor": 72.1,
+  "moneda": "USD",
+  "precio_venta": 90,
+  "precio_formula": 90,
+  "precio_bloqueado": false,
+  "comision_gestora": 7.16,
+  "ganancia_casa_viva": 10.74,
+  "precios_vistos": [
+   "72.10 USD"
+  ],
+  "historial": [
+   {
+    "id": null,
+    "precio": 72.1,
+    "moneda": "USD",
+    "visto": "2026-10-20"
+   }
+  ],
+  "ultima_vez": "2026-10-20",
+  "veces_visto": 1,
+  "antiguo": false,
+  "fotos": [
+   "docs/nexo-business/proveedores/tienda-42-y-23/fotos/WhatsApp Image 2026-10-20 at 18.09.11 (2).jpeg"
+  ],
+  "fotos_de": null,
+  "fotos_limpias": false,
+  "calidad_fotos": "no (recortar etiqueta, ventilador y gomas de moto)",
+  "en_web": [],
+  "parecido_en_web": null,
+  "departamentos": [
+   "cocina"
+  ],
+  "texto_proveedor": "GARANTÍA COMERCIAL 6 meses · PRECIO USD 72.10",
+  "vendedor_original": "TRD 42 y 23",
+  "garantia_meses": 6,
+  "precio_etiqueta_anterior": null,
+  "precio_dudoso": false,
+  "nota": "",
+  "en_bolsa": false,
+  "ya_existe": "no",
+  "n": 18
+ },
+ {
+  "proveedor": "TRD 42 y 23 (Tienda 42 y 23)",
+  "clave_proveedor": "T",
+  "tipo": "cocina",
+  "tipo_nombre": "Cocina (batidoras, arroceras, ollas, cocinas de gas)",
+  "nombre": "Olla de presión eléctrica Philco de acero inoxidable",
+  "market_id": null,
+  "anuncio_mas_reciente": null,
+  "ids": [],
+  "sku": null,
+  "precio_proveedor": 68.75,
+  "moneda": "USD",
+  "precio_venta": 90,
+  "precio_formula": 90,
+  "precio_bloqueado": false,
+  "comision_gestora": 8.5,
+  "ganancia_casa_viva": 12.75,
+  "precios_vistos": [
+   "68.75 USD"
+  ],
+  "historial": [
+   {
+    "id": null,
+    "precio": 68.75,
+    "moneda": "USD",
+    "visto": "2026-10-20"
+   }
+  ],
+  "ultima_vez": "2026-10-20",
+  "veces_visto": 1,
+  "antiguo": false,
+  "fotos": [
+   "docs/nexo-business/proveedores/tienda-42-y-23/fotos/WhatsApp Image 2026-10-20 at 18.09.11 (3).jpeg"
+  ],
+  "fotos_de": null,
+  "fotos_limpias": false,
+  "calidad_fotos": "no (recortar etiqueta y ventilador)",
+  "en_web": [],
+  "parecido_en_web": null,
+  "departamentos": [
+   "cocina"
+  ],
+  "texto_proveedor": "GARANTÍA COMERCIAL 6 meses · PRECIO USD 68.75",
+  "vendedor_original": "TRD 42 y 23",
+  "garantia_meses": 6,
+  "precio_etiqueta_anterior": null,
+  "precio_dudoso": false,
+  "nota": "",
+  "en_bolsa": false,
+  "ya_existe": "no",
+  "n": 19
+ },
+ {
+  "proveedor": "TRD 42 y 23 (Tienda 42 y 23)",
+  "clave_proveedor": "T",
+  "tipo": "cocina",
+  "tipo_nombre": "Cocina (batidoras, arroceras, ollas, cocinas de gas)",
+  "nombre": "Olla de presión eléctrica GWELL roja (perilla de tiempo)",
+  "market_id": null,
+  "anuncio_mas_reciente": null,
+  "ids": [],
+  "sku": null,
+  "precio_proveedor": 46.25,
+  "moneda": "USD",
+  "precio_venta": 64,
+  "precio_formula": 64,
+  "precio_bloqueado": false,
+  "comision_gestora": 7.1,
+  "ganancia_casa_viva": 10.65,
+  "precios_vistos": [
+   "46.25 USD"
+  ],
+  "historial": [
+   {
+    "id": null,
+    "precio": 46.25,
+    "moneda": "USD",
+    "visto": "2026-10-20"
+   }
+  ],
+  "ultima_vez": "2026-10-20",
+  "veces_visto": 1,
+  "antiguo": false,
+  "fotos": [
+   "docs/nexo-business/proveedores/tienda-42-y-23/fotos/WhatsApp Image 2026-10-20 at 18.09.12.jpeg"
+  ],
+  "fotos_de": null,
+  "fotos_limpias": false,
+  "calidad_fotos": "no (recortar etiqueta y ventilador)",
+  "en_web": [],
+  "parecido_en_web": null,
+  "departamentos": [
+   "cocina"
+  ],
+  "texto_proveedor": "GARANTÍA COMERCIAL 6 meses · PRECIO USD 46.25",
+  "vendedor_original": "TRD 42 y 23",
+  "garantia_meses": 6,
+  "precio_etiqueta_anterior": null,
+  "precio_dudoso": false,
+  "nota": "",
+  "en_bolsa": false,
+  "ya_existe": "no",
+  "n": 20
+ },
+ {
+  "proveedor": "TRD 42 y 23 (Tienda 42 y 23)",
+  "clave_proveedor": "T",
+  "tipo": "cocina",
+  "tipo_nombre": "Cocina (batidoras, arroceras, ollas, cocinas de gas)",
+  "nombre": "Olla de presión eléctrica Ariete digital (9 programas)",
+  "market_id": null,
+  "anuncio_mas_reciente": null,
+  "ids": [],
+  "sku": null,
+  "precio_proveedor": 45,
+  "moneda": "USD",
+  "precio_venta": 62,
+  "precio_formula": 62,
+  "precio_bloqueado": false,
+  "comision_gestora": 6.8,
+  "ganancia_casa_viva": 10.2,
+  "precios_vistos": [
+   "45.00 USD"
+  ],
+  "historial": [
+   {
+    "id": null,
+    "precio": 45,
+    "moneda": "USD",
+    "visto": "2026-10-20"
+   }
+  ],
+  "ultima_vez": "2026-10-20",
+  "veces_visto": 1,
+  "antiguo": false,
+  "fotos": [
+   "docs/nexo-business/proveedores/tienda-42-y-23/fotos/WhatsApp Image 2026-10-20 at 18.09.12 (1).jpeg"
+  ],
+  "fotos_de": null,
+  "fotos_limpias": false,
+  "calidad_fotos": "no (recortar etiqueta)",
+  "en_web": [],
+  "parecido_en_web": null,
+  "departamentos": [
+   "cocina"
+  ],
+  "texto_proveedor": "GARANTÍA COMERCIAL 6 meses · PRECIO USD 45.00",
+  "vendedor_original": "TRD 42 y 23",
+  "garantia_meses": 6,
+  "precio_etiqueta_anterior": null,
+  "precio_dudoso": false,
+  "nota": "",
+  "en_bolsa": false,
+  "ya_existe": "no",
+  "n": 21
+ },
+ {
+  "proveedor": "TRD 42 y 23 (Tienda 42 y 23)",
+  "clave_proveedor": "T",
+  "tipo": "energia",
+  "tipo_nombre": "Energía (paneles, estaciones, ventiladores recargables)",
+  "nombre": "Panel solar plegable 120 W · 18 V",
+  "market_id": null,
+  "anuncio_mas_reciente": null,
+  "ids": [],
+  "sku": null,
+  "precio_proveedor": 93,
+  "moneda": "USD",
+  "precio_venta": 110,
+  "precio_formula": 110,
+  "precio_bloqueado": false,
+  "comision_gestora": 6.8,
+  "ganancia_casa_viva": 10.2,
+  "precios_vistos": [
+   "93.00 USD"
+  ],
+  "historial": [
+   {
+    "id": null,
+    "precio": 93,
+    "moneda": "USD",
+    "visto": "2026-10-20"
+   }
+  ],
+  "ultima_vez": "2026-10-20",
+  "veces_visto": 1,
+  "antiguo": false,
+  "fotos": [
+   "docs/nexo-business/proveedores/tienda-42-y-23/fotos/WhatsApp Image 2026-10-20 at 18.09.12 (2).jpeg"
+  ],
+  "fotos_de": null,
+  "fotos_limpias": false,
+  "calidad_fotos": "no (cartel escrito a mano y precio en el estante)",
+  "en_web": [
+   1146
+  ],
+  "parecido_en_web": "web 1146 (privado, NEXO-SOLAR-FOLD-120W, variante 18V; costo guardado 93 USD = esta tienda)",
+  "departamentos": [
+   "apagones-y-energia"
+  ],
+  "texto_proveedor": "cartel «18 V 120 W» · estante 93.00",
+  "vendedor_original": "TRD 42 y 23",
+  "garantia_meses": null,
+  "precio_etiqueta_anterior": null,
+  "precio_dudoso": false,
+  "nota": "La etiqueta del estante no dice moneda; la web ya guarda 93.00 USD como costo de este panel.",
+  "en_bolsa": false,
+  "ya_existe": "sí: web 1146 (privado, NEXO-SOLAR-FOLD-120W, variante 18V; costo guardado 93 USD = esta tienda)",
+  "n": 22
+ },
+ {
+  "proveedor": "TRD 42 y 23 (Tienda 42 y 23)",
+  "clave_proveedor": "T",
+  "tipo": "energia",
+  "tipo_nombre": "Energía (paneles, estaciones, ventiladores recargables)",
+  "nombre": "Panel solar plegable 120 W · 36 V",
+  "market_id": null,
+  "anuncio_mas_reciente": null,
+  "ids": [],
+  "sku": null,
+  "precio_proveedor": 93,
+  "moneda": "USD",
+  "precio_venta": 110,
+  "precio_formula": 110,
+  "precio_bloqueado": false,
+  "comision_gestora": 6.8,
+  "ganancia_casa_viva": 10.2,
+  "precios_vistos": [
+   "93.00 USD"
+  ],
+  "historial": [
+   {
+    "id": null,
+    "precio": 93,
+    "moneda": "USD",
+    "visto": "2026-10-20"
+   }
+  ],
+  "ultima_vez": "2026-10-20",
+  "veces_visto": 1,
+  "antiguo": false,
+  "fotos": [
+   "docs/nexo-business/proveedores/tienda-42-y-23/fotos/WhatsApp Image 2026-10-20 at 18.09.13 (2).jpeg"
+  ],
+  "fotos_de": null,
+  "fotos_limpias": false,
+  "calidad_fotos": "no (cartel escrito a mano y precio en el estante)",
+  "en_web": [
+   1146
+  ],
+  "parecido_en_web": "web 1146 (privado, variante 36V)",
+  "departamentos": [
+   "apagones-y-energia"
+  ],
+  "texto_proveedor": "cartel «36 V 120 W» · estante 93.00",
+  "vendedor_original": "TRD 42 y 23",
+  "garantia_meses": null,
+  "precio_etiqueta_anterior": null,
+  "precio_dudoso": false,
+  "nota": "Es la otra variante del mismo producto web 1146.",
+  "en_bolsa": false,
+  "ya_existe": "sí: web 1146 (privado, variante 36V)",
+  "n": 23
+ },
+ {
+  "proveedor": "TRD 42 y 23 (Tienda 42 y 23)",
+  "clave_proveedor": "T",
+  "tipo": "energia",
+  "tipo_nombre": "Energía (paneles, estaciones, ventiladores recargables)",
+  "nombre": "Ventilador recargable Royal RA12RSL de 12\" con panel solar y 2 bombillos LED",
+  "market_id": null,
+  "anuncio_mas_reciente": null,
+  "ids": [],
+  "sku": null,
+  "precio_proveedor": 55,
+  "moneda": "USD",
+  "precio_venta": 72,
+  "precio_formula": 72,
+  "precio_bloqueado": false,
+  "comision_gestora": 6.8,
+  "ganancia_casa_viva": 10.2,
+  "precios_vistos": [
+   "55.00 USD (etiqueta 68.00)"
+  ],
+  "historial": [
+   {
+    "id": null,
+    "precio": 55,
+    "moneda": "USD",
+    "visto": "2026-10-20"
+   }
+  ],
+  "ultima_vez": "2026-10-20",
+  "veces_visto": 1,
+  "antiguo": false,
+  "fotos": [
+   "docs/nexo-business/proveedores/tienda-42-y-23/fotos/WhatsApp Image 2026-10-20 at 18.09.12 (3).jpeg",
+   "docs/nexo-business/proveedores/tienda-42-y-23/fotos/WhatsApp Image 2026-10-20 at 18.09.12 (1).jpeg"
+  ],
+  "fotos_de": null,
+  "fotos_limpias": false,
+  "calidad_fotos": "no (recortar etiqueta y caja Philco)",
+  "en_web": [],
+  "parecido_en_web": "web 1019 (privado, «Royal RA123SL», 78 USD); la caja de la foto dice RA12RSL",
+  "departamentos": [
+   "apagones-y-energia"
+  ],
+  "texto_proveedor": "GARANTÍA COMERCIAL 3 meses · PRECIO USD 68.00 · pegatina encima 55.00",
+  "vendedor_original": "TRD 42 y 23",
+  "garantia_meses": 3,
+  "precio_etiqueta_anterior": 68,
+  "precio_dudoso": true,
+  "nota": "Es «el ventilador recargable con panel» que dijo Ernesto. Etiqueta 68.00 con pegatina 55.00 (rebaja). Con 68 sería 85 USD (gestora 6.80).",
+  "en_bolsa": false,
+  "ya_existe": "parecido: web 1019 (privado, «Royal RA123SL», 78 USD); la caja de la foto dice RA12RSL",
+  "n": 24
+ },
+ {
+  "proveedor": "TRD 42 y 23 (Tienda 42 y 23)",
+  "clave_proveedor": "T",
+  "tipo": "energia",
+  "tipo_nombre": "Energía (paneles, estaciones, ventiladores recargables)",
+  "nombre": "Estación de energía GWELL 600 W / 672 Wh",
+  "market_id": null,
+  "anuncio_mas_reciente": null,
+  "ids": [],
+  "sku": null,
+  "precio_proveedor": 350,
+  "moneda": "USD",
+  "precio_venta": 385,
+  "precio_formula": 385,
+  "precio_bloqueado": false,
+  "comision_gestora": 14,
+  "ganancia_casa_viva": 21,
+  "precios_vistos": [
+   "350.00 USD (etiqueta 455.00)"
+  ],
+  "historial": [
+   {
+    "id": null,
+    "precio": 350,
+    "moneda": "USD",
+    "visto": "2026-10-20"
+   }
+  ],
+  "ultima_vez": "2026-10-20",
+  "veces_visto": 1,
+  "antiguo": false,
+  "fotos": [
+   "docs/nexo-business/proveedores/tienda-42-y-23/fotos/WhatsApp Image 2026-10-20 at 18.09.13.jpeg",
+   "docs/nexo-business/proveedores/tienda-42-y-23/fotos/WhatsApp Image 2026-10-20 at 18.09.13 (1).jpeg"
+  ],
+  "fotos_de": null,
+  "fotos_limpias": true,
+  "calidad_fotos": "sí (13 sin etiqueta)",
+  "en_web": [],
+  "parecido_en_web": null,
+  "departamentos": [
+   "apagones-y-energia"
+  ],
+  "texto_proveedor": "GARANTÍA COMERCIAL 6 meses · PRECIO USD 455.00 · pegatina encima 350.00",
+  "vendedor_original": "TRD 42 y 23",
+  "garantia_meses": 6,
+  "precio_etiqueta_anterior": 455,
+  "precio_dudoso": true,
+  "nota": "Etiqueta 455.00 con pegatina 350.00 (rebaja). Con 455 sería 505 USD (gestora 20.00).",
+  "en_bolsa": false,
+  "ya_existe": "no",
+  "n": 25
+ },
+ {
+  "proveedor": "TRD 42 y 23 (Tienda 42 y 23)",
+  "clave_proveedor": "T",
+  "tipo": "energia",
+  "tipo_nombre": "Energía (paneles, estaciones, ventiladores recargables)",
+  "nombre": "Estación de energía GWELL grande (3 tomas 110 V, entrada 24-50 V, con cargador)",
+  "market_id": null,
+  "anuncio_mas_reciente": null,
+  "ids": [],
+  "sku": null,
+  "precio_proveedor": 427,
+  "moneda": "USD",
+  "precio_venta": 470,
+  "precio_formula": 470,
+  "precio_bloqueado": false,
+  "comision_gestora": 17.2,
+  "ganancia_casa_viva": 25.8,
+  "precios_vistos": [
+   "427.00 USD (etiqueta 550.00)"
+  ],
+  "historial": [
+   {
+    "id": null,
+    "precio": 427,
+    "moneda": "USD",
+    "visto": "2026-10-20"
+   }
+  ],
+  "ultima_vez": "2026-10-20",
+  "veces_visto": 1,
+  "antiguo": false,
+  "fotos": [
+   "docs/nexo-business/proveedores/tienda-42-y-23/fotos/WhatsApp Image 2026-10-20 at 18.09.14.jpeg",
+   "docs/nexo-business/proveedores/tienda-42-y-23/fotos/WhatsApp Image 2026-10-20 at 18.09.13 (3).jpeg",
+   "docs/nexo-business/proveedores/tienda-42-y-23/fotos/WhatsApp Image 2026-10-20 at 18.09.14 (1).jpeg"
+  ],
+  "fotos_de": null,
+  "fotos_limpias": true,
+  "calidad_fotos": "sí (14 y 13 (3) sin etiqueta)",
+  "en_web": [],
+  "parecido_en_web": null,
+  "departamentos": [
+   "apagones-y-energia"
+  ],
+  "texto_proveedor": "GARANTÍA COMERCIAL 6 meses · PRECIO USD 550.00 tachado · nuevo 427.00",
+  "vendedor_original": "TRD 42 y 23",
+  "garantia_meses": 6,
+  "precio_etiqueta_anterior": 550,
+  "precio_dudoso": false,
+  "nota": "El precio viejo 550 está tachado con una X roja → 427. Falta la capacidad (Wh) y la potencia: no se ven en las fotos.",
+  "en_bolsa": false,
+  "ya_existe": "no",
+  "n": 26
+ }
+]

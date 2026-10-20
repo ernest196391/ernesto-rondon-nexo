@@ -1,0 +1,6958 @@
+{
+ "generado": "2026-10-20T22:36:35.378Z",
+ "estado": "publish",
+ "productos": [
+  {
+   "market_id": 1758,
+   "ids": [
+    146,
+    488,
+    1758,
+    381
+   ],
+   "nombre": "Estación de energía OUPES Exodus 992 Wh",
+   "proveedor": "S",
+   "n": 1,
+   "tipo": "estaciones",
+   "precio_proveedor": 490,
+   "precio": 540,
+   "comision": 20,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Estación de energía🔋\nOUPES EXODUS\nPotencia pico 3600w\nPotencia continua 1200w\n992 Wh",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1758/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 139,
+   "ids": [
+    139,
+    484,
+    376
+   ],
+   "nombre": "Estación de energía EcoFlow Delta 3 Classic 1024 Wh",
+   "proveedor": "S",
+   "n": 2,
+   "tipo": "estaciones",
+   "precio_proveedor": 600,
+   "precio": 660,
+   "comision": 24,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Eco Flow Delta 3 Classic 1024WH",
+   "fotos": [
+    "/home/u824654880/electro-fotos/139/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1756,
+   "ids": [
+    276,
+    140,
+    1756,
+    377
+   ],
+   "nombre": "Estación de energía EcoFlow Delta 3 1024 Wh (3600 W pico)",
+   "proveedor": "S",
+   "n": 3,
+   "tipo": "estaciones",
+   "precio_proveedor": 660,
+   "precio": 730,
+   "comision": 28,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "ECOFLOW DELTA 3×1024Wh , 3600W pico ✅ acepta batería extra y panel solar ☀️",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1756/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 382,
+   "ids": [
+    147,
+    382
+   ],
+   "nombre": "Estación de energía OUPES Mega 1 Lite",
+   "proveedor": "S",
+   "n": 4,
+   "tipo": "estaciones",
+   "precio_proveedor": 670,
+   "precio": 740,
+   "comision": 28,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Estación de energía\nOUPES MEGA 1 LITE\nPotencia continua 2000w\nPotencia pico 4500w",
+   "fotos": [
+    "/home/u824654880/electro-fotos/382/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1757,
+   "ids": [
+    277,
+    343,
+    141,
+    1757
+   ],
+   "nombre": "Estación de energía EcoFlow Delta 3 Plus 1024 Wh",
+   "proveedor": "S",
+   "n": 5,
+   "tipo": "estaciones",
+   "precio_proveedor": 750,
+   "precio": 825,
+   "comision": 30,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "🔋ECOFLOW DELTA 3 PLUS🔋\n1024 Wh picos de 3600W",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1757/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 383,
+   "ids": [
+    148,
+    344,
+    312,
+    383
+   ],
+   "nombre": "Estación OUPES 2400 W (4500 W pico)",
+   "proveedor": "S",
+   "n": 6,
+   "tipo": "estaciones",
+   "precio_proveedor": 1000,
+   "precio": 1100,
+   "comision": 40,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Estación de energía OUPES\nPotencia pico 4500w\nPotencia continua 2400w",
+   "fotos": [
+    "/home/u824654880/electro-fotos/383/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 311,
+   "ids": [
+    278,
+    142,
+    311
+   ],
+   "nombre": "Estación de energía EcoFlow Delta 3 Max 2048 Wh",
+   "proveedor": "S",
+   "n": 7,
+   "tipo": "estaciones",
+   "precio_proveedor": 1150,
+   "precio": 1265,
+   "comision": 46,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Estación ecoflow Delta 3 max\n2048Wh",
+   "fotos": [
+    "/home/u824654880/electro-fotos/311/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 379,
+   "ids": [
+    144,
+    486,
+    379,
+    1713
+   ],
+   "nombre": "Estación de energía Jackery HomePower 3000 (3072 Wh)",
+   "proveedor": "S",
+   "n": 8,
+   "tipo": "estaciones",
+   "precio_proveedor": 1620,
+   "precio": 1785,
+   "comision": 66,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Estacion de energíaJackery HomePower 3000\nSalida de 3600W (Pico 7200W), Batería LFP de 3072Wh 🤩🤩",
+   "fotos": [
+    "/home/u824654880/electro-fotos/379/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 378,
+   "ids": [
+    143,
+    485,
+    378
+   ],
+   "nombre": "Estación de energía EcoFlow Delta 3 Ultra 3072 Wh",
+   "proveedor": "S",
+   "n": 9,
+   "tipo": "estaciones",
+   "precio_proveedor": 1900,
+   "precio": 2090,
+   "comision": 76,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "🔋Ecoflow Delta 3 Ultra 🔋\nCapacidad: 3072 Wh🔋",
+   "fotos": [
+    "/home/u824654880/electro-fotos/378/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 380,
+   "ids": [
+    145,
+    487,
+    380
+   ],
+   "nombre": "Estación de energía Jackery Explorer 3600 Plus (3584 Wh)",
+   "proveedor": "S",
+   "n": 10,
+   "tipo": "estaciones",
+   "precio_proveedor": 2000,
+   "precio": 2200,
+   "comision": 80,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "ESTACION DE ENERGÍA Jackery 3600 PLUS\nSalida AC: 120 V / 60 Hz\n🔌 Potencia: 3,600 W continuos\n🚀 Pico: 7,200 W\n🔋 Capacidad: 3,584 Wh",
+   "fotos": [
+    "/home/u824654880/electro-fotos/380/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1760,
+   "ids": [
+    1423,
+    1220,
+    1641,
+    1760,
+    386,
+    347,
+    158,
+    284,
+    493,
+    305
+   ],
+   "nombre": "Batería para inversores 12 V BMS (nueva en caja, sin garantía)",
+   "proveedor": "S",
+   "n": 11,
+   "tipo": "baterias",
+   "precio_proveedor": 310,
+   "precio": 345,
+   "comision": 14,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "🔋BATERÍA IDEAL PARA INVERSORES🔋\nCiclos de carga profundo🪫🔋",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1760/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 494,
+   "ids": [
+    317,
+    1642,
+    494,
+    159
+   ],
+   "nombre": "Batería LiFePO4 12,8 V 150 Ah",
+   "proveedor": "S",
+   "n": 12,
+   "tipo": "baterias",
+   "precio_proveedor": 400,
+   "precio": 440,
+   "comision": 16,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "BATERÍA 12.8V 150 Ah\nIDEAL PARA INVERSORES🔋\nCiclos de carga profundo🪫🔋\nBMS Integrado✅",
+   "fotos": [
+    "/home/u824654880/electro-fotos/494/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 316,
+   "ids": [
+    1442,
+    316,
+    370,
+    404,
+    515,
+    206,
+    129
+   ],
+   "nombre": "Batería para inversores ciclo profundo BMS (se prueba con multímetro)",
+   "proveedor": "S",
+   "n": 13,
+   "tipo": "baterias",
+   "precio_proveedor": 450,
+   "precio": 495,
+   "comision": 18,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "🔋BATERÍA IDEAL PARA INVERSORES🔋\nCiclos de carga profundo🪫🔋\nBMS Integrado✅ el cliente puede medirla con un multimetro y probarla",
+   "fotos": [
+    "/home/u824654880/electro-fotos/316/1.jpg",
+    "/home/u824654880/electro-fotos/316/2.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1217,
+   "ids": [
+    1217,
+    1712,
+    342,
+    138
+   ],
+   "nombre": "Batería extra EcoFlow Delta 2 (1024 Wh)",
+   "proveedor": "S",
+   "n": 14,
+   "tipo": "baterias",
+   "precio_proveedor": 600,
+   "precio": 660,
+   "comision": 24,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Bateria extra de Ecoflow delta 2×1024Wh",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1217/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1761,
+   "ids": [
+    1643,
+    318,
+    495,
+    1761,
+    160,
+    285,
+    348
+   ],
+   "nombre": "Batería LiFePO4 25,6 V 100 Ah (2560 Wh)",
+   "proveedor": "S",
+   "n": 15,
+   "tipo": "baterias",
+   "precio_proveedor": 660,
+   "precio": 730,
+   "comision": 28,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "🔋BATERÍA IDEAL PARA INVERSORES🔋\nCiclos de carga profundo🪫🔋\nBMS Integrado✅\n25.6V 100 Ah (2560 Wh)",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1761/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 292,
+   "ids": [
+    328,
+    1229,
+    1718,
+    292,
+    178
+   ],
+   "nombre": "Batería inteligente LiFePO4 5,12 kWh 51,2 V 100 Ah",
+   "proveedor": "S",
+   "n": 16,
+   "tipo": "baterias",
+   "precio_proveedor": 1350,
+   "precio": 1485,
+   "comision": 54,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Batería Inteligente\nTecnología LiFePO4 🔋\n5.12 Kwh 🔋\n51,2 V 100 Ah⚡️\nBMS Integrado 💡\nNota adicional: Es compatible con los Inversores de 48V ✅️",
+   "fotos": [
+    "/home/u824654880/electro-fotos/292/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 521,
+   "ids": [
+    521,
+    1725,
+    1582
+   ],
+   "nombre": "Batería Humsienk LiFePO4 5,12 kWh",
+   "proveedor": "S",
+   "n": 17,
+   "tipo": "baterias",
+   "precio_proveedor": 1380,
+   "precio": 1520,
+   "comision": 56,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Batería de Litio LiFePO4 - Humsienk🔋\nTecnología LiFePO4 (Más segura y duradera) 🛡️\n5.12 kWh (5120 Wh) 🔋\n51.2 V 100 Ah ⚡️\nBMS Inteligente Integrado (Protección múltiple y monitoreo) 💡\nLarga vida útil: +6000 ciclos (a 80% DOD) 🔄\nIdeal para sistemas solares residenciales, comerciales, inversores y más 🏠🏢\nNota adicional: Compatible con inversores híbridos y sistemas off-grid ✅️",
+   "fotos": [
+    "/home/u824654880/electro-fotos/521/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1762,
+   "ids": [
+    319,
+    161,
+    286,
+    1644,
+    1424,
+    387,
+    1221,
+    496,
+    1562,
+    349,
+    1762
+   ],
+   "nombre": "Batería inteligente Eco-Humsienk 5,12 kWh 51,2 V 100 Ah",
+   "proveedor": "S",
+   "n": 18,
+   "tipo": "baterias",
+   "precio_proveedor": 1470,
+   "precio": 1620,
+   "comision": 60,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Batería Inteligente Eco - Humsienk\nTecnología LiFePO4 🔋\n5.12 Kwh 🔋\n51,2 V 100 Ah⚡️\nBMS Integrado 💡\nNota adicional: Es compatible con los Inversores de 48V ✅️",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1762/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 522,
+   "ids": [
+    522,
+    1583,
+    1726
+   ],
+   "nombre": "Batería WattCycle LiFePO4 5,12 kWh",
+   "proveedor": "S",
+   "n": 19,
+   "tipo": "baterias",
+   "precio_proveedor": 1550,
+   "precio": 1705,
+   "comision": 62,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Batería de Litio WattCycle 🔋\nTecnología LiFePO4 (Más segura y duradera) 🛡️\n5.12 kWh 🔋\n51.2 V 100 Ah ⚡️\nLarga vida útil: +6000 ciclos (a 80% DOD) 🔄\nCompatibilidad con la mayoría de inversores híbridos y off-grid ⚙️\nIdeal para hogar y negocio 🏠🏢",
+   "fotos": [
+    "/home/u824654880/electro-fotos/522/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 186,
+   "ids": [
+    508,
+    186,
+    363,
+    1235
+   ],
+   "nombre": "Batería Sako 10 kWh LiFePO4",
+   "proveedor": "S",
+   "n": 20,
+   "tipo": "baterias",
+   "precio_proveedor": 2770,
+   "precio": 3050,
+   "comision": 112,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Batería SAKO de 10KWH ✅",
+   "fotos": [
+    "/home/u824654880/electro-fotos/186/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1234,
+   "ids": [
+    1575,
+    1234,
+    362,
+    1722,
+    507,
+    185,
+    295,
+    333
+   ],
+   "nombre": "Batería LiFePO4 15 kWh 300 Ah 51,2 V",
+   "proveedor": "S",
+   "n": 21,
+   "tipo": "baterias",
+   "precio_proveedor": 3420,
+   "precio": 3765,
+   "comision": 138,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Bateria 15kWh 300Ah 51.2vol LiFePO4 solar",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1234/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 137,
+   "ids": [
+    137,
+    1422
+   ],
+   "nombre": "Batería 48 V 300 Ah (15360 Wh)",
+   "proveedor": "S",
+   "n": 22,
+   "tipo": "baterias",
+   "precio_proveedor": 3500,
+   "precio": 3850,
+   "comision": 140,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "BATERIA 48vol 300AH 15360Wh",
+   "fotos": [
+    "/home/u824654880/electro-fotos/137/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 177,
+   "ids": [
+    395,
+    177,
+    358
+   ],
+   "nombre": "Batería inteligente Eco-Worthy 16 kWh",
+   "proveedor": "S",
+   "n": 23,
+   "tipo": "baterias",
+   "precio_proveedor": 3950,
+   "precio": 4345,
+   "comision": 158,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Bateria inteligente Eco-worthy\n16kw 🤩🤩🤩🤩",
+   "fotos": [
+    "/home/u824654880/electro-fotos/177/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1759,
+   "ids": [
+    345,
+    490,
+    1759,
+    281,
+    153
+   ],
+   "nombre": "Inversor Sumry 4000 W 110 V (24 V)",
+   "proveedor": "S",
+   "n": 24,
+   "tipo": "inversores",
+   "precio_proveedor": 430,
+   "precio": 475,
+   "comision": 18,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Inversor Sumry 4000w\n110v ,Potencia: 4000W (8000W Pico) Voltaje: 24V DC a 120V AC",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1759/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 193,
+   "ids": [
+    299,
+    193,
+    1239
+   ],
+   "nombre": "Inversor Sako 5 kW 110 V",
+   "proveedor": "S",
+   "n": 25,
+   "tipo": "inversores",
+   "precio_proveedor": 800,
+   "precio": 880,
+   "comision": 32,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Inversor Sako de 5kwh 110v",
+   "fotos": [
+    "/home/u824654880/electro-fotos/193/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1771,
+   "ids": [
+    340,
+    1580,
+    154,
+    1434,
+    1771,
+    403
+   ],
+   "nombre": "Inversor híbrido 6,2 kW 110/220 V",
+   "proveedor": "S",
+   "n": 26,
+   "tipo": "inversores",
+   "precio_proveedor": 850,
+   "precio": 935,
+   "comision": 34,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Inversor híbrido de 6.2 kw\n110 y 220",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1771/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 157,
+   "ids": [
+    157
+   ],
+   "nombre": "Inversor bifásico Must 6 kW",
+   "proveedor": "S",
+   "n": 27,
+   "tipo": "inversores",
+   "precio_proveedor": 1050,
+   "precio": 1155,
+   "comision": 42,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Inversor Bifásico Must 6kW",
+   "fotos": [
+    "/home/u824654880/electro-fotos/157/1.jpg",
+    "/home/u824654880/electro-fotos/157/2.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 518,
+   "ids": [
+    518
+   ],
+   "nombre": "Inversor híbrido ECO-WORTHY 6 kW",
+   "proveedor": "S",
+   "n": 28,
+   "tipo": "inversores",
+   "precio_proveedor": 1400,
+   "precio": 1540,
+   "comision": 56,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Inversor híbrido ECO-WORTHY 🤩🤩 100%original\nde 6 kw\n110 y 220",
+   "fotos": [
+    "/home/u824654880/electro-fotos/518/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 519,
+   "ids": [
+    519
+   ],
+   "nombre": "Inversor híbrido WattCycle 6,5 kW",
+   "proveedor": "S",
+   "n": 29,
+   "tipo": "inversores",
+   "precio_proveedor": 1500,
+   "precio": 1650,
+   "comision": 60,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Inversor Híbrido WattCycle ⚡️\nPotencia 6.5 kW (6500W) ⚡️\nDoble Controlador Solar MPPT ☀️☀️\nSalida 110V / 220V 🏠\nCompatible con Baterías de Litio y Plomo (48V) 🔋\nFunción de respaldo (Red + Solar + Batería) 🔌\nPantalla LCD de fácil configuración ⚙️",
+   "fotos": [
+    "/home/u824654880/electro-fotos/519/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 520,
+   "ids": [
+    520,
+    1581
+   ],
+   "nombre": "Inversor híbrido WattCycle Hybrid Plus 12 kW",
+   "proveedor": "S",
+   "n": 30,
+   "tipo": "inversores",
+   "precio_proveedor": 2400,
+   "precio": 2640,
+   "comision": 96,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Inversor Híbrido WattCycle HYBRID PLUS ⚡️\nPotencia 12 kW (12000W) ⚡️\nDoble Controlador Solar MPPT ☀️☀️\nSalida 110V / 220V (Uso residencial y comercial) 🏠\nCompatible con Baterías de Litio y Plomo 🔋\nFunción de respaldo (Red + Solar + Batería) 🔌\nPantalla LCD (Monitoreo y configuración fácil) ⚙️",
+   "fotos": [
+    "/home/u824654880/electro-fotos/520/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 162,
+   "ids": [
+    287,
+    162,
+    350,
+    320,
+    497,
+    1222,
+    388,
+    1563,
+    1645
+   ],
+   "nombre": "Combo Sumry 4000 W + 2 baterías 12,8 V 100 Ah (+ transfer)",
+   "proveedor": "S",
+   "n": 31,
+   "tipo": "kits",
+   "precio_proveedor": 1100,
+   "precio": 1210,
+   "comision": 44,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Combo#️⃣2️⃣\nInversor SUMRY 4000W💡\n110V🔌\n🔋2x bat de 12.8 v 100 Ah🔋\nTransfer SACO🔄",
+   "fotos": [
+    "/home/u824654880/electro-fotos/162/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1223,
+   "ids": [
+    288,
+    163,
+    351,
+    321,
+    498,
+    1223,
+    1564,
+    1646
+   ],
+   "nombre": "Combo Sumry 4000 W + batería 25,6 V LiFePO4 (+ transfer)",
+   "proveedor": "S",
+   "n": 32,
+   "tipo": "kits",
+   "precio_proveedor": 1220,
+   "precio": 1345,
+   "comision": 50,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Combo #️⃣1️⃣\nInversor SUMRY 4000W 💡\n110V🔌\n🔋Batería 25.6V(LifePO4)🔋\nTransfer SACO🔄",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1223/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 164,
+   "ids": [
+    289,
+    164,
+    352,
+    322,
+    499,
+    1224,
+    389,
+    1565,
+    1647
+   ],
+   "nombre": "Combo Sumry 4000 W + 2 baterías 12,8 V 150 Ah (+ transfer)",
+   "proveedor": "S",
+   "n": 33,
+   "tipo": "kits",
+   "precio_proveedor": 1300,
+   "precio": 1430,
+   "comision": 52,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Combo#️⃣7\nInversor SUMRY 4000W💡\n110V🔌\n🔋2x bat de 12.8V 150 Ah🔋\nTransfer SACO🔄",
+   "fotos": [
+    "/home/u824654880/electro-fotos/164/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 165,
+   "ids": [
+    290,
+    165,
+    353,
+    323,
+    500,
+    1225,
+    390,
+    1566,
+    1648
+   ],
+   "nombre": "Combo Sumry 4000 W + 2 baterías 12,8 V 200 Ah (+ transfer)",
+   "proveedor": "S",
+   "n": 34,
+   "tipo": "kits",
+   "precio_proveedor": 1620,
+   "precio": 1785,
+   "comision": 66,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Combo#️⃣7\nInversor SUMRY 4000W💡\n110V🔌\n🔋2x bat de 12.8V 200 Ah🔋\nTransfer SACO🔄",
+   "fotos": [
+    "/home/u824654880/electro-fotos/165/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1763,
+   "ids": [
+    166,
+    354,
+    167,
+    324,
+    1763,
+    501,
+    1649,
+    1226,
+    391
+   ],
+   "nombre": "Combo Sumry 4000 W + 2 baterías 25,6 V 100 Ah (+ transfer)",
+   "proveedor": "S",
+   "n": 35,
+   "tipo": "kits",
+   "precio_proveedor": 1940,
+   "precio": 2135,
+   "comision": 78,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Inversor SUMRY 4000W💡\n110V🔌\n🔋2x bat de 25.6V 100 Ah🔋\nTransfer SACO",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1763/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1432,
+   "ids": [
+    298,
+    190,
+    366,
+    511,
+    1238,
+    1432,
+    336
+   ],
+   "nombre": "Inversor todo en uno Must 3 kW con 7 kWh",
+   "proveedor": "S",
+   "n": 36,
+   "tipo": "kits",
+   "precio_proveedor": 2500,
+   "precio": 2750,
+   "comision": 100,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Inversor todo en uno must 3 con 7 kwh de respaldo",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1432/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 502,
+   "ids": [
+    293,
+    155,
+    282,
+    314,
+    179,
+    491,
+    1218,
+    384,
+    1426,
+    502,
+    1571
+   ],
+   "nombre": "Combo inversor híbrido 6,2 kW + 1 batería 5,12 kWh",
+   "proveedor": "S",
+   "n": 37,
+   "tipo": "kits",
+   "precio_proveedor": 2550,
+   "precio": 2805,
+   "comision": 102,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Combo de energía inversor hibrido de 6.2kw mas 1 bateria inteligente de 5.12 kwh",
+   "fotos": [
+    "/home/u824654880/electro-fotos/502/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1774,
+   "ids": [
+    1584,
+    1244,
+    1727,
+    523,
+    1774
+   ],
+   "nombre": "Combo Sumry 4000 W + 2 baterías 12,8 V 100 Ah + 2 paneles 625 W",
+   "proveedor": "S",
+   "n": 38,
+   "tipo": "kits",
+   "precio_proveedor": 2600,
+   "precio": 2860,
+   "comision": 104,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Combo#️⃣2️⃣\nInversor SUMRY 4000W💡\n110V🔌\n🔋2x bat de 12.8 v 100 Ah🔋\n2 paneles solares de 625 W mas instalación y todas las protecciones  🚗\nTodo absolutamente todo✅",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1774/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1654,
+   "ids": [
+    188,
+    296,
+    364,
+    1654,
+    509,
+    1576,
+    1236,
+    1430,
+    335
+   ],
+   "nombre": "Kit todo en uno Infinity 6 kW con 15 kWh",
+   "proveedor": "S",
+   "n": 39,
+   "tipo": "kits",
+   "precio_proveedor": 3780,
+   "precio": 4160,
+   "comision": 152,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Kit todo en uno infinity 6 con 15 kwh de respaldo",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1654/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1769,
+   "ids": [
+    189,
+    297,
+    1655,
+    365,
+    510,
+    1769,
+    1237,
+    1431
+   ],
+   "nombre": "Inversor todo en uno Must 6 kW con 15 kWh",
+   "proveedor": "S",
+   "n": 40,
+   "tipo": "kits",
+   "precio_proveedor": 3850,
+   "precio": 4235,
+   "comision": 154,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Inversor todo en uno must 6k con 15k de respaldo",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1769/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 385,
+   "ids": [
+    346,
+    156,
+    283,
+    315,
+    492,
+    385,
+    1219,
+    1640,
+    1714
+   ],
+   "nombre": "Combo inversor híbrido 6,2 kW + 2 baterías 5,12 kWh (10,24 kWh)",
+   "proveedor": "S",
+   "n": 41,
+   "tipo": "kits",
+   "precio_proveedor": 4000,
+   "precio": 4400,
+   "comision": 160,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Combo de energía inversor hibrido de 6.2kw mas 2 bateria inteligente de 5.12 kwh\nPara un total de 10kwh en baterías",
+   "fotos": [
+    "/home/u824654880/electro-fotos/385/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 401,
+   "ids": [
+    302,
+    198,
+    338,
+    1657,
+    1577,
+    401,
+    1241
+   ],
+   "nombre": "Inversor Must 6 kW 110/220 V + batería Sako 15 kWh",
+   "proveedor": "S",
+   "n": 42,
+   "tipo": "kits",
+   "precio_proveedor": 4700,
+   "precio": 5170,
+   "comision": 188,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Inversor Must de 6kwh 110v y 220v\nBatería Sako de 15kwh",
+   "fotos": [
+    "/home/u824654880/electro-fotos/401/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1764,
+   "ids": [
+    180,
+    329,
+    1764,
+    1572,
+    503,
+    1719,
+    1230,
+    1427,
+    359,
+    396
+   ],
+   "nombre": "Kit fotovoltaico 6,2 kVA + 4 paneles 625 W + batería 5,12 kWh",
+   "proveedor": "S",
+   "n": 43,
+   "tipo": "kits",
+   "precio_proveedor": 4700,
+   "precio": 5170,
+   "comision": 188,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "☀️ KIT FOTOVOLTAICO COMPLETO – MONTAJE INCLUIDO\n⚡ Energía solar instalada, configurada y lista para usar.\nEl kit incluye:\n1. ⚡ Inversor híbrido 6.2 kVA – 48 V, salida 110 V / 220 V.\n2. ☀️ 4 paneles solares de 625 W cada uno.\n3. 🔋 1 batería LiFePO₄ 51.2 V – 100 Ah, capacidad total 5.12 kWh (5,120 Wh).\n4. 🛡️ Todas las protecciones eléctricas AC y DC necesarias para el sistema.\n5. 🔌 Cableado solar, conectores MC4, breakers, seccionadores y accesorios necesarios.\n6. 🏗️ Estructura y materiales necesarios para el montaje de los paneles.\n7. 🔧 Montaje profesional incluido: instalación, conexión, configuración, pruebas y puesta en funcionamiento.\n8. ⁠",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1764/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1766,
+   "ids": [
+    182,
+    1429,
+    398,
+    1766,
+    1232,
+    504,
+    1653,
+    1574,
+    361,
+    331,
+    1721
+   ],
+   "nombre": "Kit fotovoltaico ECO-WORTHY 6 kW + batería 5,12 kWh + 6 paneles 625 W",
+   "proveedor": "S",
+   "n": 44,
+   "tipo": "kits",
+   "precio_proveedor": 5350,
+   "precio": 5885,
+   "comision": 214,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "☀️ KIT FOTOVOLTAICO COMPLETO – INSTALACIÓN INCLUIDA\n⚡ Inversor híbrido ECO-WORTHY de 6 kW + batería LiFePO₄ de 5.12 kWh + 6 paneles solares de 625 W.\n🔧 Incluye montaje, conexión, configuración y puesta en funcionamiento.",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1766/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 300,
+   "ids": [
+    194,
+    300,
+    337,
+    512,
+    400,
+    1723,
+    1433,
+    1656,
+    1240
+   ],
+   "nombre": "Combo Must 6 kW + batería Sako 15 kWh + 6 paneles bifaciales",
+   "proveedor": "S",
+   "n": 45,
+   "tipo": "kits",
+   "precio_proveedor": 5700,
+   "precio": 6270,
+   "comision": 228,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Combo\nInversor must de 6kwh\nBatería Sako de 15kwh\nPaneles Solar Bifacial 6",
+   "fotos": [
+    "/home/u824654880/electro-fotos/300/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1765,
+   "ids": [
+    181,
+    1652,
+    1720,
+    1231,
+    1428,
+    360,
+    397,
+    1573,
+    1765,
+    330
+   ],
+   "nombre": "Kit fotovoltaico 6,2 kVA + 6 paneles 625 W + 2 baterías (10,24 kWh)",
+   "proveedor": "S",
+   "n": 46,
+   "tipo": "kits",
+   "precio_proveedor": 6600,
+   "precio": 7260,
+   "comision": 264,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "☀️ KIT FOTOVOLTAICO COMPLETO – MONTAJE INCLUIDO\n⚡ Energía solar instalada, configurada y lista para usar.\nEl kit incluye:\n1. ⚡ Inversor híbrido 6.2 kVA – 48 V, salida 110 V / 220 V.\n2. ☀️ 6 paneles solares de 625 W cada uno.\n3. 🔋 2 baterías LiFePO₄ de 51.2 V – 100 Ah cada una, capacidad total 10.24 kWh (10,240 Wh).\n4. 🛡️ Todas las protecciones eléctricas AC y DC necesarias para el sistema.\n5. 🔌 Cableado solar, conectores MC4, breakers, seccionadores y accesorios necesarios.\n6. 🏗️ Estructura y materiales necesarios para el montaje de los paneles.",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1765/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 402,
+   "ids": [
+    303,
+    339,
+    200,
+    1578,
+    513,
+    402,
+    1242,
+    367
+   ],
+   "nombre": "Panel solar 450 W Ever Solar bifacial",
+   "proveedor": "S",
+   "n": 47,
+   "tipo": "paneles",
+   "precio_proveedor": 160,
+   "precio": 180,
+   "comision": 8,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Panel solar de 450 W ideal para las eko flow bifaciales  Marcar solar ever 🚨",
+   "fotos": [
+    "/home/u824654880/electro-fotos/402/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1768,
+   "ids": [
+    294,
+    184,
+    1233,
+    332,
+    506,
+    1768,
+    1443
+   ],
+   "nombre": "Panel solar 625 W bifacial (BIN)",
+   "proveedor": "S",
+   "n": 48,
+   "tipo": "paneles",
+   "precio_proveedor": 170,
+   "precio": 190,
+   "comision": 8,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "PANEL SOLAR 625 W Bin Bifaciales",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1768/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1767,
+   "ids": [
+    183,
+    1767,
+    505,
+    399
+   ],
+   "nombre": "Panel solar Longi 620 W bifacial",
+   "proveedor": "S",
+   "n": 49,
+   "tipo": "paneles",
+   "precio_proveedor": 210,
+   "precio": 230,
+   "comision": 8,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Panel longi 620 WH bifacial lo mejor para kit solares 👀",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1767/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 489,
+   "ids": [
+    489,
+    280,
+    313,
+    150
+   ],
+   "nombre": "Cable solar 10 m (inversor, panel y EcoFlow)",
+   "proveedor": "S",
+   "n": 50,
+   "tipo": "cables",
+   "precio_proveedor": 55,
+   "precio": 72,
+   "comision": 6.8,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "CABLE PARA INVERSORES, PANEL SOLAR Y ECOFLOW  Vienen por rollos de 10 metros✅ Compatibles con conectores MC4 y XT60i nuevos a estrenar  (son royal cord calibre 10)",
+   "fotos": [
+    "/home/u824654880/electro-fotos/489/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 149,
+   "ids": [
+    149,
+    279
+   ],
+   "nombre": "Cable solar MC4 a XT60 de 6 m",
+   "proveedor": "S",
+   "n": 51,
+   "tipo": "cables",
+   "precio_proveedor": 85,
+   "precio": 105,
+   "comision": 8,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Cable Solar☀️\nMC4 A XT60🔌\n6 metros de longitud\nNOTA ADICIONAL : Funciona para las ECOFLOW🔋repartiendo los 500w 💡",
+   "fotos": [
+    "/home/u824654880/electro-fotos/149/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 405,
+   "ids": [
+    516,
+    405,
+    306
+   ],
+   "nombre": "Transfer automático SACO 110 V",
+   "proveedor": "S",
+   "n": 52,
+   "tipo": "cables",
+   "precio_proveedor": 90,
+   "precio": 110,
+   "comision": 8,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Transfer automático\nMarca SACO 110Vol",
+   "fotos": [
+    "/home/u824654880/electro-fotos/405/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 151,
+   "ids": [
+    151
+   ],
+   "nombre": "Controlador solar Boost Q7-LUMINA MPPT 1200 W",
+   "proveedor": "S",
+   "n": 53,
+   "tipo": "cables",
+   "precio_proveedor": 125,
+   "precio": 145,
+   "comision": 8,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Controlador Solar Boost Q7-LUMINA MPPT 1200W\n✅ Potencia máxima: 1200W.\n✅ Tecnología MPPT para mayor eficiencia de carga.\n✅ Compatible con sistemas de 48V, 60V y 72V.\n✅ Voltaje de entrada: 12V–60V.\n✅Incluye controlador, cableado, accesorios y manual de usuario.\n✅Ideal para paneles de triciclos y baterías para hogares",
+   "fotos": [
+    "/home/u824654880/electro-fotos/151/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 168,
+   "ids": [
+    168,
+    1715,
+    1567,
+    355,
+    392
+   ],
+   "nombre": "Planta SIGMA Inverter 4000 W (3300 W continuos)",
+   "proveedor": "S",
+   "n": 54,
+   "tipo": "plantas",
+   "precio_proveedor": 870,
+   "precio": 960,
+   "comision": 36,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "PLANTA ELÉCTRICA SIGMA Inverter 4000 W pico y 3300 W continuos\nGasolina ⛽️\nGas 💨\nEs silenciosa🤩✅\nDetalles en la foto✅",
+   "fotos": [
+    "/home/u824654880/electro-fotos/168/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 169,
+   "ids": [
+    169,
+    1716,
+    1568,
+    1227
+   ],
+   "nombre": "Planta SIGMA Inverter 6500 W (5000 W continuos)",
+   "proveedor": "S",
+   "n": 55,
+   "tipo": "plantas",
+   "precio_proveedor": 1150,
+   "precio": 1265,
+   "comision": 46,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "PLANTA ELÉCTRICA SIGMA Inverter 6500W pico y 5000W continuos\nGasolina ⛽️\nGas 💨\nEs silenciosa🤩✅\nDetalles en la foto✅",
+   "fotos": [
+    "/home/u824654880/electro-fotos/169/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1750,
+   "ids": [
+    1750
+   ],
+   "nombre": "Neveras con detalles pequeños (funcionan bien)",
+   "proveedor": "S",
+   "n": 56,
+   "tipo": "neveras",
+   "precio_proveedor": 240,
+   "precio": 260,
+   "comision": 8,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1750/1.jpg",
+    "/home/u824654880/electro-fotos/1750/2.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 135,
+   "ids": [
+    135,
+    1711
+   ],
+   "nombre": "Nevera Royal 3,5 pies Inverter",
+   "proveedor": "S",
+   "n": 57,
+   "tipo": "neveras",
+   "precio_proveedor": 245,
+   "precio": 265,
+   "comision": 8,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "NEVERA ROYAL 3.5 pies 🦶\nTecnología inverter , ahorrativa para sistemas fotovoltaicos 😏🤩",
+   "fotos": [
+    "/home/u824654880/electro-fotos/135/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 136,
+   "ids": [
+    136
+   ],
+   "nombre": "Nevera Milexus 4,2 pies (119 L)",
+   "proveedor": "S",
+   "n": 58,
+   "tipo": "neveras",
+   "precio_proveedor": 250,
+   "precio": 270,
+   "comision": 8,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "Nevera de 4.2 pies Marca MILEXUS 119L",
+   "fotos": [
+    "/home/u824654880/electro-fotos/136/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 525,
+   "ids": [
+    525,
+    1585
+   ],
+   "nombre": "Nevera Milexus 6 pies con llave",
+   "proveedor": "S",
+   "n": 60,
+   "tipo": "neveras",
+   "precio_proveedor": 300,
+   "precio": 320,
+   "comision": 8,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "Nevera Milexus de 6 pies 🦶 con llave 🔑 (congelación Seca )",
+   "fotos": [
+    "/home/u824654880/electro-fotos/525/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1216,
+   "ids": [
+    375,
+    1216,
+    134,
+    310
+   ],
+   "nombre": "Frío Hisense 7,3 pies",
+   "proveedor": "S",
+   "n": 61,
+   "tipo": "neveras",
+   "precio_proveedor": 370,
+   "precio": 410,
+   "comision": 16,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "Frio Hisense de 7.3 pies\npies no es congelación seca poca escarcha",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1216/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 584,
+   "ids": [
+    584,
+    1586
+   ],
+   "nombre": "Congelador vertical Premier 145 L",
+   "proveedor": "S",
+   "n": 62,
+   "tipo": "neveras",
+   "precio_proveedor": 385,
+   "precio": 425,
+   "comision": 16,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "Congelador Vertical Premier 145 L\nCAPACIDAD: 145L/5.1Pc\nTIPO: ESCARCHA\nNÚMERO DE PUERTAS: 1\nCOLOR Y DISEÑO: VERTICAL, BLANCO\nDIMENSIONES: 540×550×1259MM",
+   "fotos": [
+    "/home/u824654880/electro-fotos/584/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 585,
+   "ids": [
+    1587,
+    1245,
+    585
+   ],
+   "nombre": "Congelador vertical Premier 177 L",
+   "proveedor": "S",
+   "n": 63,
+   "tipo": "neveras",
+   "precio_proveedor": 415,
+   "precio": 460,
+   "comision": 18,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "Congeladora vertical 177l/6.25pc (f) blanco Premier\nCapacidad: 177l/6.25pc\ntipo: escarcha\nnúmero de puertas: 1\ncolor y diseño: vertical, blanco\ndimensiones: 540×550×1440mm",
+   "fotos": [
+    "/home/u824654880/electro-fotos/585/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 195,
+   "ids": [
+    195
+   ],
+   "nombre": "Refrigerador LG 14 pies",
+   "proveedor": "S",
+   "n": 64,
+   "tipo": "neveras",
+   "precio_proveedor": 830,
+   "precio": 915,
+   "comision": 34,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "🧊 Refrigerador LG 14 Pies\n💧 Dispensador de agua\n❄️ LINEARCooling™️\n🌬️ DoorCooling + flujo de aire múltiple\n⚡ Tecnología Smart Inverter\n✨ Congelación seca",
+   "fotos": [
+    "/home/u824654880/electro-fotos/195/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 197,
+   "ids": [
+    197
+   ],
+   "nombre": "Refrigerador Hisense Side by Side 16 pies",
+   "proveedor": "S",
+   "n": 65,
+   "tipo": "neveras",
+   "precio_proveedor": 840,
+   "precio": 925,
+   "comision": 34,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "🧊 Refrigerador Hisense Side by Side 16 Pies\n❄️ Tecnología No Frost\n⚡ Tecnología Inverter\n🚪 Diseño Side by Side\n📦 Capacidad: 16 pies cúbicos\n📏 Medidas: 910×1770×590 mm\n✨ Nuevo en caja",
+   "fotos": [
+    "/home/u824654880/electro-fotos/197/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1251,
+   "ids": [
+    1251,
+    1438
+   ],
+   "nombre": "Lavadora semiautomática Milexus 7 kg",
+   "proveedor": "S",
+   "n": 66,
+   "tipo": "lavadoras",
+   "precio_proveedor": 180,
+   "precio": 200,
+   "comision": 8,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "Lavadora semi milexus de 7 kg",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1251/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 202,
+   "ids": [
+    304,
+    202
+   ],
+   "nombre": "Lavadora automática Milexus 7,5 kg",
+   "proveedor": "S",
+   "n": 67,
+   "tipo": "lavadoras",
+   "precio_proveedor": 200,
+   "precio": 220,
+   "comision": 8,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "Lavadora automática milexus 7.5kg",
+   "fotos": [
+    "/home/u824654880/electro-fotos/202/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 132,
+   "ids": [
+    1710,
+    373,
+    132
+   ],
+   "nombre": "Lavadora semiautomática Premier 9 kg",
+   "proveedor": "S",
+   "n": 68,
+   "tipo": "lavadoras",
+   "precio_proveedor": 220,
+   "precio": 240,
+   "comision": 8,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "Lavadora Semiautomática Premier de 9kg Doble tina 🛁",
+   "fotos": [
+    "/home/u824654880/electro-fotos/132/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 371,
+   "ids": [
+    199,
+    371,
+    341,
+    1658
+   ],
+   "nombre": "Lavadora automática LG 9 kg",
+   "proveedor": "S",
+   "n": 69,
+   "tipo": "lavadoras",
+   "precio_proveedor": 300,
+   "precio": 320,
+   "comision": 8,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "LAVADORA AUTOMÁTICA LG 9 KG agua fría y agua caliente 🔥",
+   "fotos": [
+    "/home/u824654880/electro-fotos/371/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1246,
+   "ids": [
+    1246,
+    1659,
+    586,
+    1588
+   ],
+   "nombre": "Lavadora secadora al vapor Milexus 10 kg",
+   "proveedor": "S",
+   "n": 70,
+   "tipo": "lavadoras",
+   "precio_proveedor": 650,
+   "precio": 715,
+   "comision": 26,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "Lavadora Secadora al Vapor Milexus 10 kg\nModelo: ML-LVFL-10KGS\nVoltaje/Frecuencia: 110v/60Hz\nPotencia de calefacción nominal 1200wats\nPotencia máxima: 1300 W\nPotencia de entrada de lavado: 250W\nCapacidad de lavado: 10,0 kg\nCapacidad de la secadora: 6,0 kg\nDimensión: 598(W)x608(D)x845(H) mm",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1246/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 196,
+   "ids": [
+    301,
+    196
+   ],
+   "nombre": "Lavadora secadora Hisense 15 kg",
+   "proveedor": "S",
+   "n": 71,
+   "tipo": "lavadoras",
+   "precio_proveedor": 670,
+   "precio": 740,
+   "comision": 28,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "🧺 Lavadora Secadora Hisense 15KG\n💦 Lavado: 15 kg\n🌬️ Secado: 10 kg\n♨️ Limpieza a vapor\n⚡ Tecnología Eco Inverter\n📱 ConnectLife",
+   "fotos": [
+    "/home/u824654880/electro-fotos/196/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1435,
+   "ids": [
+    1435,
+    526
+   ],
+   "nombre": "Lavadora secadora LG 14 kg",
+   "proveedor": "S",
+   "n": 72,
+   "tipo": "lavadoras",
+   "precio_proveedor": 780,
+   "precio": 860,
+   "comision": 32,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "🧺 Lavadora Secadora LG 14KG\n💦 Lavado: 14 kg\n🌬️ Secado: 8 kg\n📏 Medidas: 600×850×610 mm\n✨ Función de vapor inteligente",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1435/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1717,
+   "ids": [
+    1717,
+    291,
+    170,
+    393,
+    1650,
+    325,
+    356,
+    1569
+   ],
+   "nombre": "Smart TV Insignia 32\" Fire TV",
+   "proveedor": "S",
+   "n": 74,
+   "tipo": "tv",
+   "precio_proveedor": 155,
+   "precio": 175,
+   "comision": 8,
+   "precio_manual": false,
+   "departamentos": [
+    "tecnologia"
+   ],
+   "descripcion": "TELEVISOR SMART TV 32” pulgadas INSIGNIA Fire TV ‼️HD",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1717/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 171,
+   "ids": [
+    1651,
+    171,
+    394,
+    326,
+    1570
+   ],
+   "nombre": "Smart TV ONN Vizio 32\"",
+   "proveedor": "S",
+   "n": 75,
+   "tipo": "tv",
+   "precio_proveedor": 155,
+   "precio": 175,
+   "comision": 8,
+   "precio_manual": false,
+   "departamentos": [
+    "tecnologia"
+   ],
+   "descripcion": "TELEVISOR SMART TV 32” pulgadas ONN VIZIO MARCA 100% de EEUU🇺🇸",
+   "fotos": [
+    "/home/u824654880/electro-fotos/171/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1770,
+   "ids": [
+    368,
+    1770,
+    514,
+    1579,
+    203
+   ],
+   "nombre": "TV Premier 32\" Smart con barra de sonido",
+   "proveedor": "S",
+   "n": 76,
+   "tipo": "tv",
+   "precio_proveedor": 165,
+   "precio": 185,
+   "comision": 8,
+   "precio_manual": false,
+   "departamentos": [
+    "tecnologia"
+   ],
+   "descripcion": "TV premier de 32 smart TV con barra de sonido incluida y soporte a la pared",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1770/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 201,
+   "ids": [
+    201
+   ],
+   "nombre": "Smart TV Samsung 40\"",
+   "proveedor": "S",
+   "n": 77,
+   "tipo": "tv",
+   "precio_proveedor": 245,
+   "precio": 265,
+   "comision": 8,
+   "precio_manual": false,
+   "departamentos": [
+    "tecnologia"
+   ],
+   "descripcion": "Smart TV Samsung 40 pulgadas con soporte de regalo 🎁",
+   "fotos": [
+    "/home/u824654880/electro-fotos/201/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1639,
+   "ids": [
+    1730,
+    1639
+   ],
+   "nombre": "Smart TV Insignia 55\" 4K",
+   "proveedor": "S",
+   "n": 78,
+   "tipo": "tv",
+   "precio_proveedor": 400,
+   "precio": 440,
+   "comision": 16,
+   "precio_manual": false,
+   "departamentos": [
+    "tecnologia"
+   ],
+   "descripcion": "TELEVISOR SMART TV Insignia 55” pulgadas 4K 🎁",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1639/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1775,
+   "ids": [
+    1775,
+    1341,
+    1441
+   ],
+   "nombre": "TV Premier 50\" UHD Smart con barra de sonido y soporte",
+   "proveedor": "S",
+   "n": 79,
+   "tipo": "tv",
+   "precio_proveedor": 485,
+   "precio": 535,
+   "comision": 20,
+   "precio_manual": false,
+   "departamentos": [
+    "tecnologia"
+   ],
+   "descripcion": "TV 50\" Premier con Barra de Sonido y  soporte de pared incluido\ncaracterísticas:\n• smart tv uhd de 50\", sin marco\n• incluye 2 controles remotos (1 de voz, 1 normal)\n• con versión dvb-t2\n• con dolby, duplicación de pantalla y función blue-connect\n• entradas hdmi (vídeo dvi): 3\n• consumo de energía: 130w\n• máx. resolución (panel uhd): 3840×2160\n• entrada de antena: 1 (tipo fin)\n• memoria flash: 8 gb\n• 2 entradas usb\n• dimensiones de la unidad (con soporte): 1110.5×288.6×703mm\n• dimensiones de la unidad (sin soporte): 1110.5×78.2×684mm",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1775/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1589,
+   "ids": [
+    1437,
+    1248,
+    1589,
+    588
+   ],
+   "nombre": "Calentador eléctrico Milexus 50 L (YB-003-50L)",
+   "proveedor": "S",
+   "n": 80,
+   "tipo": "calentadores",
+   "precio_proveedor": 170,
+   "precio": 190,
+   "comision": 8,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "Calentador Eléctrico 50 litros\nMarca: Milexus\nModelo: YB-003-50L\nCapacidad: 50 Litros\nVoltaje: 220V – 60Hz\nPotencia: 2.0 kW\nTemperatura Máxima: 75 °C\nControl de Temperatura Manual.\nPanel de Temperatura en el mueble.",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1589/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 589,
+   "ids": [
+    1249,
+    1728,
+    589
+   ],
+   "nombre": "Calentador eléctrico 11 kW (1100 W)",
+   "proveedor": "S",
+   "n": 81,
+   "tipo": "calentadores",
+   "precio_proveedor": 210,
+   "precio": 230,
+   "comision": 8,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "Calentadores Eléctricos 11kw\nCalentador eléctrico de 1100 w\n63 amperios\nVoltage 220-240\nFrecuencia 50-60Hz\nProtección eléctrica IPX4\nRango de temperatura 30-55°C\nPresión de agua 0.1Mpa-0.7Mpa\nPantalla Icd digital\nControl tactil.",
+   "fotos": [
+    "/home/u824654880/electro-fotos/589/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1436,
+   "ids": [
+    1250,
+    1436,
+    590
+   ],
+   "nombre": "Calentador eléctrico 13 kW (1300 W)",
+   "proveedor": "S",
+   "n": 82,
+   "tipo": "calentadores",
+   "precio_proveedor": 220,
+   "precio": 240,
+   "comision": 8,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "Calentadores 13 kw\nCalentador eléctrico de 1300 w\n63 amperios\nVoltage 220-240\nFrecuencia 50-60Hz\nProtección eléctrica IPX4\nRango de temperatura 30-55°C\nPresión de agua 0.1 Mpa-0.7Mpa\nPantalla Icd digital\nControl tactil.",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1436/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1439,
+   "ids": [
+    1439,
+    1339
+   ],
+   "nombre": "Grill a gas para parrilladas",
+   "proveedor": "S",
+   "n": 83,
+   "tipo": "cocina",
+   "precio_proveedor": 190,
+   "precio": 210,
+   "comision": 8,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "🔥 ¡GRILL A GAS PARA TUS MEJORES PARRILLADAS! 🔥\n✅ Características:\n🔥 Funcionamiento a gas con 2 perillas de control.\n🍖 Parrilla metálica ideal para carnes, pollo, pescados y vegetales.\n🖤 Diseño moderno en color negro con detalles en acero inoxidable.\n🌡️ Tapa abatible para ayudar a conservar el calor durante la cocción.\n🍽️ Dos mesas laterales para colocar utensilios, condimentos y alimentos.\n🧰 Estante inferior para almacenamiento.\n🛞 Estructura con ruedas para facilitar su desplazamiento.\n🏡 Ideal para patios, terrazas y reuniones familiares.\n⁠",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1439/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 204,
+   "ids": [
+    369,
+    204
+   ],
+   "nombre": "Cocina Premier 20\" con magneto",
+   "proveedor": "S",
+   "n": 84,
+   "tipo": "cocina",
+   "precio_proveedor": 210,
+   "precio": 230,
+   "comision": 8,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "Cocina marca premier con magneto 🧲 de 20 pulgadas",
+   "fotos": [
+    "/home/u824654880/electro-fotos/204/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1749,
+   "ids": [
+    1749,
+    1327
+   ],
+   "nombre": "Estufa de gas 6 quemadores con horno 30\"",
+   "proveedor": "S",
+   "n": 85,
+   "tipo": "cocina",
+   "precio_proveedor": 400,
+   "precio": 440,
+   "comision": 16,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "Estufa de Gas  (6 Quemadores de Gas y un Horno de Gas) Con Luz de Horno (25w) Vidrio Superior (Tapa de Vidrio Transparente con Soporte) Cuerpo de Acero Inoxidable Puerta del Horno (Vidrio Espejo): Doble Vidrio Con Junta de Puerta de Nylon fuerte en la Puerta del Horno (2 Grandes, 2 Medianos, 2 Pequeños) Encendido Manual,Capacidad del Horno: 1051 (30\")\nDimensiones:\nTamaño de la Unidad (Sin Pata): 760×500×820mm\nTamaño de la Unidad (Con la Pata): 760×500×910mm",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1749/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1777,
+   "ids": [
+    1777
+   ],
+   "nombre": "Cocina Milexus de gas 5 quemadores",
+   "proveedor": "S",
+   "n": 86,
+   "tipo": "cocina",
+   "precio_proveedor": 440,
+   "precio": 485,
+   "comision": 18,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "COCINA MILEXUS A GAS DE 5 QUEMADORES 🔥\nHORNO CON ASADOR Y LÁMPARA",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1777/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1778,
+   "ids": [
+    1778
+   ],
+   "nombre": "Cocina Milexus de gas 6 quemadores",
+   "proveedor": "S",
+   "n": 87,
+   "tipo": "cocina",
+   "precio_proveedor": 470,
+   "precio": 520,
+   "comision": 20,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "COCINA A GAS MILEXUS\n6 QUEMADORES,IGNICIÓN DE PULSO,HORNO DE GAS,CON ASADOR, LÁMPARA Y DISPOSITIVO SAFTY\nQUEMADOR TRIPLE POTENCIA\nHORNO AMPLIO,CON LÁMPARA\nIGNICIÓN DE PULSO\nSEGURIDAD Y CALIDAD\nEN CADA DETALLE",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1778/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1776,
+   "ids": [
+    1228,
+    1776,
+    1425,
+    173
+   ],
+   "nombre": "Batidora de mano Midea 200 W",
+   "proveedor": "S",
+   "n": 88,
+   "tipo": "batidoras",
+   "precio_proveedor": 35,
+   "precio": 49,
+   "comision": 5.6,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "Batidora de mano Midea con merenguera y procesador de alimentos 🌪️ (200 wats )",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1776/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1729,
+   "ids": [
+    1729,
+    1340,
+    1440
+   ],
+   "nombre": "Batidora Silver Crest 2 L 1800 W",
+   "proveedor": "S",
+   "n": 89,
+   "tipo": "batidoras",
+   "precio_proveedor": 50,
+   "precio": 67,
+   "comision": 6.8,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "Batidora Silver Crest\nVASO 2LTS\n1800W\nAUMENTO DE VELOCIDAD CONTINUA\nOJA ESPECIAL DE ACERO INOXIDABLE",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1729/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 174,
+   "ids": [
+    174
+   ],
+   "nombre": "Cafetera espresso Royal",
+   "proveedor": "S",
+   "n": 90,
+   "tipo": "batidoras",
+   "precio_proveedor": 55,
+   "precio": 72,
+   "comision": 6.8,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "Cafetera Espresso Royal\n(Hace capuchino)☕",
+   "fotos": [
+    "/home/u824654880/electro-fotos/174/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1247,
+   "ids": [
+    1247,
+    587
+   ],
+   "nombre": "Batidora Ninja Plus Blender Duo 1400 W",
+   "proveedor": "S",
+   "n": 91,
+   "tipo": "batidoras",
+   "precio_proveedor": 190,
+   "precio": 210,
+   "comision": 8,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "Batidora Ninja Plus Blender Dúo\nNinja Professional Plus Blender Duo\n-Potencia: 1400watts\n-2 programas de autoIQ (bebidas congeladas y extracciones de nutrientes)\n-Jarra de tritura ion total 72oz\n-1 Vaso individual 24oz",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1247/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1772,
+   "ids": [
+    1772,
+    407,
+    1724,
+    517,
+    372
+   ],
+   "nombre": "Ventilador industrial 30\" 160 W",
+   "proveedor": "S",
+   "n": 92,
+   "tipo": "ventiladores",
+   "precio_proveedor": 165,
+   "precio": 185,
+   "comision": 8,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "Ventilador Industrial de 30\" y 160  wats tiene 3 velocidades 🌬️",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1772/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1752,
+   "ids": [
+    1752,
+    1743,
+    1735
+   ],
+   "nombre": "Goma 120/70-12 para moto eléctrica / scooter",
+   "proveedor": "S",
+   "n": 93,
+   "tipo": "otros",
+   "precio_proveedor": 31,
+   "precio": 44,
+   "comision": 5.2,
+   "precio_manual": false,
+   "departamentos": [
+    "movilidad"
+   ],
+   "descripcion": "🛞 VENTA DE GOMAS Y NEUMÁTICOS 🛞",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1752/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1745,
+   "ids": [
+    1745,
+    1737
+   ],
+   "nombre": "Goma 3.50-12 para triciclo (delantera)",
+   "proveedor": "S",
+   "n": 94,
+   "tipo": "otros",
+   "precio_proveedor": 31,
+   "precio": 44,
+   "comision": 5.2,
+   "precio_manual": false,
+   "departamentos": [
+    "movilidad"
+   ],
+   "descripcion": "🛞 VENTA DE GOMAS Y NEUMÁTICOS 🛞",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1745/1.jpg",
+    "/home/u824654880/electro-fotos/1745/2.jpg",
+    "/home/u824654880/electro-fotos/1745/3.jpg",
+    "/home/u824654880/electro-fotos/1745/4.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1746,
+   "ids": [
+    1746,
+    1738
+   ],
+   "nombre": "Goma 3.75-12 para triciclo (delantera)",
+   "proveedor": "S",
+   "n": 95,
+   "tipo": "otros",
+   "precio_proveedor": 31,
+   "precio": 44,
+   "comision": 5.2,
+   "precio_manual": false,
+   "departamentos": [
+    "movilidad"
+   ],
+   "descripcion": "🛞 VENTA DE GOMAS Y NEUMÁTICOS 🛞",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1746/1.jpg",
+    "/home/u824654880/electro-fotos/1746/2.jpg",
+    "/home/u824654880/electro-fotos/1746/3.jpg",
+    "/home/u824654880/electro-fotos/1746/4.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1754,
+   "ids": [
+    1754,
+    1747,
+    1739
+   ],
+   "nombre": "Goma 4.00-12 para triciclo",
+   "proveedor": "S",
+   "n": 96,
+   "tipo": "otros",
+   "precio_proveedor": 31,
+   "precio": 44,
+   "comision": 5.2,
+   "precio_manual": false,
+   "departamentos": [
+    "movilidad"
+   ],
+   "descripcion": "🛞 VENTA DE GOMAS Y NEUMÁTICOS 🛞",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1754/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1755,
+   "ids": [
+    1755,
+    1748,
+    1740
+   ],
+   "nombre": "Goma 80/90-14 para bici-moto",
+   "proveedor": "S",
+   "n": 97,
+   "tipo": "otros",
+   "precio_proveedor": 31,
+   "precio": 44,
+   "comision": 5.2,
+   "precio_manual": false,
+   "departamentos": [
+    "movilidad"
+   ],
+   "descripcion": "🛞 VENTA DE GOMAS Y NEUMÁTICOS 🛞",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1755/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1753,
+   "ids": [
+    1753,
+    1744,
+    1736
+   ],
+   "nombre": "Goma 145/70-12 para triciclo (trasera)",
+   "proveedor": "S",
+   "n": 98,
+   "tipo": "otros",
+   "precio_proveedor": 33,
+   "precio": 47,
+   "comision": 5.6,
+   "precio_manual": false,
+   "departamentos": [
+    "movilidad"
+   ],
+   "descripcion": "🛞 VENTA DE GOMAS Y NEUMÁTICOS 🛞",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1753/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1751,
+   "ids": [
+    1751,
+    1742,
+    1734
+   ],
+   "nombre": "Goma 130/60-13 para moto eléctrica / scooter",
+   "proveedor": "S",
+   "n": 99,
+   "tipo": "otros",
+   "precio_proveedor": 48,
+   "precio": 65,
+   "comision": 6.8,
+   "precio_manual": false,
+   "departamentos": [
+    "movilidad"
+   ],
+   "descripcion": "🛞 VENTA DE GOMAS Y NEUMÁTICOS 🛞",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1751/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 176,
+   "ids": [
+    176
+   ],
+   "nombre": "Silla de oficina",
+   "proveedor": "S",
+   "n": 100,
+   "tipo": "otros",
+   "precio_proveedor": 55,
+   "precio": 72,
+   "comision": 6.8,
+   "precio_manual": false,
+   "departamentos": [
+    "sala-y-muebles"
+   ],
+   "descripcion": "Silla de oficina Comodidad y estilo 😏",
+   "fotos": [
+    "/home/u824654880/electro-fotos/176/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1590,
+   "ids": [
+    1342,
+    1590
+   ],
+   "nombre": "Inflable muñeco de nieve LYC-053 (1,6 m)",
+   "proveedor": "S",
+   "n": 101,
+   "tipo": "otros",
+   "precio_proveedor": 90,
+   "precio": 110,
+   "comision": 8,
+   "precio_manual": false,
+   "departamentos": [
+    "navidad"
+   ],
+   "descripcion": "Inflable Muñeco de Nieve LYC-053\nDimensión :1.6metros",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1590/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1592,
+   "ids": [
+    1345,
+    1592
+   ],
+   "nombre": "Inflable muñeco de nieve LYC-054 (1,8 m)",
+   "proveedor": "S",
+   "n": 102,
+   "tipo": "otros",
+   "precio_proveedor": 110,
+   "precio": 130,
+   "comision": 8,
+   "precio_manual": false,
+   "departamentos": [
+    "navidad"
+   ],
+   "descripcion": "Inflable muñeco de Nieve LYC-054\nHermoso para decorar su hogar\nDimenciones : 1.8 metros",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1592/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1344,
+   "ids": [
+    1344
+   ],
+   "nombre": "Inflable Papá Noel gigante",
+   "proveedor": "S",
+   "n": 103,
+   "tipo": "otros",
+   "precio_proveedor": 135,
+   "precio": 155,
+   "comision": 8,
+   "precio_manual": false,
+   "departamentos": [
+    "navidad"
+   ],
+   "descripcion": "Inflable Papá Noel Gigante usó interior o Exterior ideal para hogar, tienda o negocio",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1344/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1591,
+   "ids": [
+    1343,
+    1591
+   ],
+   "nombre": "Inflable árbol de Navidad LYC-044 (2,1 m)",
+   "proveedor": "S",
+   "n": 104,
+   "tipo": "otros",
+   "precio_proveedor": 140,
+   "precio": 160,
+   "comision": 8,
+   "precio_manual": false,
+   "departamentos": [
+    "navidad"
+   ],
+   "descripcion": "Inflable Árbol de Navidad LYC-044\nHermoso inflable para decorar su hogar\nDimensiones : 2.1 metro",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1591/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 406,
+   "ids": [
+    406,
+    307
+   ],
+   "nombre": "Bicicleta Silver Bike MTB 26\"",
+   "proveedor": "S",
+   "n": 105,
+   "tipo": "otros",
+   "precio_proveedor": 200,
+   "precio": 220,
+   "comision": 8,
+   "precio_manual": false,
+   "departamentos": [
+    "movilidad"
+   ],
+   "descripcion": "🚲 BICICLETA SILVER BIKE MTB 26”\n🔹Aro 26”\n🔹Cambios de velocidades\n🔹Frenos de disco delanteros y traseros\n🔹Suspensión delantera\n🔹Gomas todoterreno\n🔹Guardafangos incluidos\n🔹Portabotella incluido\n🔹Totalmente nueva",
+   "fotos": [
+    "/home/u824654880/electro-fotos/406/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1298,
+   "ids": [
+    76,
+    1475,
+    451,
+    1298
+   ],
+   "nombre": "Estación de energía EcoFlow River 3 Plus 286 Wh",
+   "proveedor": "L",
+   "n": 1,
+   "tipo": "estaciones",
+   "precio_proveedor": 400,
+   "precio": 440,
+   "comision": 16,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "🔹Estación de energía portátil Ecoflow River 3 Plus🔹\n600w - pico de 1200w\n286Wh\n👉🏻Con batería extra EB600 (572Wh)",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1298/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1305,
+   "ids": [
+    256,
+    83,
+    457,
+    1624,
+    1387,
+    1305
+   ],
+   "nombre": "Estación de energía SBAOH 600 W (538,7 Wh)",
+   "proveedor": "L",
+   "n": 2,
+   "tipo": "estaciones",
+   "precio_proveedor": 410,
+   "precio": 455,
+   "comision": 18,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "🔹Estación de energía portátil SBAOH🔹\n600w\n538.7Wh",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1305/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1302,
+   "ids": [
+    253,
+    80,
+    1302,
+    455
+   ],
+   "nombre": "Estación de energía Ampace Andes 600 Pro (584 Wh)",
+   "proveedor": "L",
+   "n": 3,
+   "tipo": "estaciones",
+   "precio_proveedor": 460,
+   "precio": 510,
+   "comision": 20,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "🔹Estación de energía portátil Ampace Andes 600 Pro🔹\n600w - pico de 1800w\n584Wh",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1302/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1541,
+   "ids": [
+    262,
+    77,
+    1621,
+    1385,
+    452,
+    1541,
+    1299
+   ],
+   "nombre": "Estación de energía EcoFlow River 3 Plus + batería extra EB600 (572 Wh)",
+   "proveedor": "L",
+   "n": 4,
+   "tipo": "estaciones",
+   "precio_proveedor": 550,
+   "precio": 605,
+   "comision": 22,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "🔹Estación de energía portátil Ecoflow River 3 Plus🔹\n600w - pico de 1200w\n286Wh\n👉🏻Con batería extra EB600 (572Wh)",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1541/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 464,
+   "ids": [
+    261,
+    84,
+    464,
+    1545,
+    1623,
+    1392
+   ],
+   "nombre": "Estación de energía Oukitel P1000 Plus (1024 Wh, 1800 W)",
+   "proveedor": "L",
+   "n": 5,
+   "tipo": "estaciones",
+   "precio_proveedor": 550,
+   "precio": 605,
+   "comision": 22,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "⚡OUKITEL P1000 PLUS 1800W/capavidad almacenamiento 1024Wh\nEstación de energía portátil",
+   "fotos": [
+    "/home/u824654880/electro-fotos/464/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1254,
+   "ids": [
+    3,
+    210,
+    1445,
+    1558,
+    410,
+    1511,
+    1351,
+    1254
+   ],
+   "nombre": "Estación de energía EcoFlow Delta 3 Classic 1024 Wh",
+   "proveedor": "L",
+   "n": 6,
+   "tipo": "estaciones",
+   "precio_proveedor": 590,
+   "precio": 650,
+   "comision": 24,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Eco Flow Delta 3 Classic 1024WH",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1254/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1255,
+   "ids": [
+    4,
+    211,
+    1446,
+    1593,
+    1559,
+    411,
+    1512,
+    1352,
+    1255
+   ],
+   "nombre": "Estación de energía EcoFlow Delta 3 1024 Wh LiFePO4",
+   "proveedor": "L",
+   "n": 7,
+   "tipo": "estaciones",
+   "precio_proveedor": 660,
+   "precio": 730,
+   "comision": 28,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Eco Flow Delta 3 1024WH(Life Po)\n( detalles en la foto se le puede añadir batería 🔋 extra )😌",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1255/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1306,
+   "ids": [
+    257,
+    85,
+    1306,
+    1388,
+    458
+   ],
+   "nombre": "Estación de energía Bluetti AC180 (1152 Wh)",
+   "proveedor": "L",
+   "n": 8,
+   "tipo": "estaciones",
+   "precio_proveedor": 670,
+   "precio": 740,
+   "comision": 28,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "🔹Estación de energía portátil Bluetti AC180🔹\n1800w - pico de 2700w\n1152Wh",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1306/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1660,
+   "ids": [
+    5,
+    212,
+    1515,
+    1355,
+    1660
+   ],
+   "nombre": "Estación de energía EcoFlow Delta 3 Plus 1024 Wh",
+   "proveedor": "L",
+   "n": 9,
+   "tipo": "estaciones",
+   "precio_proveedor": 700,
+   "precio": 770,
+   "comision": 28,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "🔋ECOFLOW DELTA 3 PLUS🔋\n1024 Wh picos de 3600W",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1660/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1307,
+   "ids": [
+    258,
+    86,
+    1307,
+    1389,
+    459
+   ],
+   "nombre": "Estación de energía Bluetti AC180P (1440 Wh)",
+   "proveedor": "L",
+   "n": 10,
+   "tipo": "estaciones",
+   "precio_proveedor": 790,
+   "precio": 870,
+   "comision": 32,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "🔹Estación de energía portátil Bluetti AC180P🔹\n1800w - pico de 2700w\n1440Wh",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1307/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 463,
+   "ids": [
+    260,
+    89,
+    1391,
+    463,
+    1544,
+    1626
+   ],
+   "nombre": "Estación de energía Oukitel P1500 Plus (1536 Wh, 1800 W)",
+   "proveedor": "L",
+   "n": 11,
+   "tipo": "estaciones",
+   "precio_proveedor": 870,
+   "precio": 960,
+   "comision": 36,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "🔹Estación de energía portátil Oukitel P1500 Plus🔹\n1800w - pico de 3600w\n1536Wh",
+   "fotos": [
+    "/home/u824654880/electro-fotos/463/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1300,
+   "ids": [
+    251,
+    78,
+    1300,
+    453
+   ],
+   "nombre": "Estación de energía Ampace Andes 1500 (1462 Wh)",
+   "proveedor": "L",
+   "n": 12,
+   "tipo": "estaciones",
+   "precio_proveedor": 880,
+   "precio": 970,
+   "comision": 36,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "🔹Estación de energía portátil Ampace Andes 1500🔹\n2400w - pico de 3600w\n1462Wh",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1300/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1252,
+   "ids": [
+    1,
+    208,
+    409,
+    1509,
+    1349,
+    1252
+   ],
+   "nombre": "Estación de energía EcoFlow Delta 3 Max 2048 Wh",
+   "proveedor": "L",
+   "n": 13,
+   "tipo": "estaciones",
+   "precio_proveedor": 1020,
+   "precio": 1125,
+   "comision": 42,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "⚡ECOFLOW DELTA 3 MAX\nCapacidad de almacenamiento 2048 Wh\nEstación de energia portátil DELTA 3 Max, bateria LiFeP04 de 2048 Wh, generador solar (panel solar opcional), salic X-Boost de 3400 W, carga ultrarrápida del 0 al 80% en 1.13 horas",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1252/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1304,
+   "ids": [
+    255,
+    82,
+    456,
+    1386,
+    1304
+   ],
+   "nombre": "Estación de energía Solar Play 2400 W (2160 Wh)",
+   "proveedor": "L",
+   "n": 14,
+   "tipo": "estaciones",
+   "precio_proveedor": 1040,
+   "precio": 1145,
+   "comision": 42,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "🔹Estación de energía portátil Solar Play🔹\n2400w - pico de 4800w\n2160Wh",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1304/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1301,
+   "ids": [
+    252,
+    79,
+    1301,
+    454
+   ],
+   "nombre": "Estación de energía Anker Solix S2000 (2010 Wh)",
+   "proveedor": "L",
+   "n": 15,
+   "tipo": "estaciones",
+   "precio_proveedor": 1070,
+   "precio": 1180,
+   "comision": 44,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "🔹Estación de energía portátil Anker Solix S2000🔹\n2400w - pico de 4800w\n2010Wh",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1301/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1303,
+   "ids": [
+    254,
+    81,
+    1303
+   ],
+   "nombre": "Estación de energía OUPES Mega 2 Pro (2500 W)",
+   "proveedor": "L",
+   "n": 16,
+   "tipo": "estaciones",
+   "precio_proveedor": 1190,
+   "precio": 1310,
+   "comision": 48,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Estación de energía🔋\nOUPES MEGA 2 Pro\nPotencia pico 3900w\nPotencia continua 2500w",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1303/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1661,
+   "ids": [
+    8,
+    1638,
+    1444,
+    1594,
+    1259,
+    1356,
+    1661
+   ],
+   "nombre": "Estación de energía EcoFlow Delta 2 Max 2048 Wh",
+   "proveedor": "L",
+   "n": 17,
+   "tipo": "estaciones",
+   "precio_proveedor": 1260,
+   "precio": 1390,
+   "comision": 52,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "⚡ECOFLOW DELTA 2 MAX\nCapacidad de almacenamiento 2048 Wh\nEstación de energia portátil DELTA 2 Max, bateria LiFeP04 de 2048 Wh, generador solar (panel solar opcional), salic X-Boost de 3400 W, carga ultrarrápida del 0 al 80% en 1.13 horas\nBatería expandible",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1661/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1692,
+   "ids": [
+    90,
+    263,
+    1308,
+    461,
+    1477,
+    1390,
+    1625,
+    1692,
+    1543
+   ],
+   "nombre": "Estación de energía LiFePO4 3600 W 3072 Wh (sin marca)",
+   "proveedor": "L",
+   "n": 18,
+   "tipo": "estaciones",
+   "precio_proveedor": 1600,
+   "precio": 1760,
+   "comision": 64,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Potencia nominal: 3600 W\nPotencia pico: 7200 W\nCapacidad: 3072 Wh\nBatería: LiFePO₄\nEntrada solar máxima: 1000 W (2 puertos, hasta 500 W por puerto)\nTiempo de carga por CA: aproximadamente 2.5 horas\nPeso: alrededor de 27 kg\nSalida: onda sinusoidal pura",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1692/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1663,
+   "ids": [
+    2,
+    209,
+    1663,
+    408,
+    1510,
+    1350,
+    1253
+   ],
+   "nombre": "Estación de energía EcoFlow Delta 3 Ultra 3072 Wh",
+   "proveedor": "L",
+   "n": 19,
+   "tipo": "estaciones",
+   "precio_proveedor": 1710,
+   "precio": 1885,
+   "comision": 70,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "ECOFLOW DELTA 3 Ultra Estación de energía portátil, batería LiFePO4 de 3072Wh, salida de 3600W (pico de 7200W)",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1663/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1256,
+   "ids": [
+    6,
+    1357,
+    1256
+   ],
+   "nombre": "Estación de energía EcoFlow Delta 3 Ultra Plus",
+   "proveedor": "L",
+   "n": 20,
+   "tipo": "estaciones",
+   "precio_proveedor": 1900,
+   "precio": 2090,
+   "comision": 76,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Ecoflow Delta 3 Ultra Plus",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1256/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1257,
+   "ids": [
+    9,
+    213,
+    412,
+    1513,
+    1353,
+    1257,
+    1505
+   ],
+   "nombre": "Estación de energía EcoFlow Delta Pro 3600 Wh",
+   "proveedor": "L",
+   "n": 21,
+   "tipo": "estaciones",
+   "precio_proveedor": 2060,
+   "precio": 2270,
+   "comision": 84,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Ecoflow Delta PRO ⚡\nCapacidad: 3,600 Wh (expandible hasta 10.8 kWh)\nSalida AC: 3,600 W (pico 7,200 W)\nEntrada solar máx.: 1,600 W (11–150 V)\nCarga: hasta 3,000 W\nBatería: LiFePO₄ (3,500 ciclos al 80%)\nConectividad: Wi-Fi + Bluetooth + AppMovil\nPeso: 45 kg",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1257/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 88,
+   "ids": [
+    88,
+    462
+   ],
+   "nombre": "Estación de energía Jackery Explorer 5000 Plus",
+   "proveedor": "L",
+   "n": 22,
+   "tipo": "estaciones",
+   "precio_proveedor": 2950,
+   "precio": 3245,
+   "comision": 118,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Estación Jackery Explorer 5000 plus ( 14400W )",
+   "fotos": [
+    "/home/u824654880/electro-fotos/88/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1258,
+   "ids": [
+    7,
+    214,
+    413,
+    1447,
+    1514,
+    1354,
+    1258
+   ],
+   "nombre": "Estación de energía EcoFlow Delta Pro 3 4000 Wh",
+   "proveedor": "L",
+   "n": 23,
+   "tipo": "estaciones",
+   "precio_proveedor": 3200,
+   "precio": 3520,
+   "comision": 128,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "⚡Ecoflow Delta PRO 3\n110 y 220 v\nCapacidad Almacenamiento 4000 wh (4 kw/h)\n8000 w Máxima\n3600 w nominal",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1258/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1662,
+   "ids": [
+    1504,
+    1595,
+    1662
+   ],
+   "nombre": "Estación de energía EcoFlow Delta Pro Ultra 6144 Wh",
+   "proveedor": "L",
+   "n": 24,
+   "tipo": "estaciones",
+   "precio_proveedor": 4550,
+   "precio": 5005,
+   "comision": 182,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "DELTA PRO ULTRA\nEspecificaciones principales\n🔋 Capacidad inicial: 6,144 Wh (6.1 kWh) por batería.\n➕ Expansión: hasta 30 kWh con un inversor y 90 kWh utilizando 3 inversores y 15 baterías.\n⚡ Potencia continua: 7,200 W.\n🚀 Potencia pico: 10,800 W.\n🏠 Salida: 120/240 V (versión EE. UU.).\n☀️ Entrada solar: hasta 5,600 W (4,000 W de alta tensión + 1,600 W de baja tensión).\n🔄 UPS: cambio automático en menos de 20 ms (0 ms en modo Online UPS).\n🔋 Batería: LiFePO₄ con aproximadamente 3,500 ciclos hasta conservar el 80 % de su capacidad.\n📱 Conectividad: Wi-Fi, Bluetooth y 4G.",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1662/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1473,
+   "ids": [
+    59,
+    1473,
+    1293,
+    445
+   ],
+   "nombre": "Combo EcoFlow Delta 3 Classic + panel 595 W",
+   "proveedor": "L",
+   "n": 25,
+   "tipo": "combos",
+   "precio_proveedor": 730,
+   "precio": 805,
+   "comision": 30,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Combo de panel de 595W con Ecoflow delta 3 clásica",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1473/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1686,
+   "ids": [
+    1536,
+    1618,
+    1472,
+    1381,
+    1686
+   ],
+   "nombre": "Combo EcoFlow (modelo por confirmar) + panel 450 W + cable 10 m",
+   "proveedor": "L",
+   "n": 26,
+   "tipo": "combos",
+   "precio_proveedor": 830,
+   "precio": 915,
+   "comision": 34,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Combo de eko flow con cable de 10 metros y panel de 450 w 😏",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1686/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1687,
+   "ids": [
+    1470,
+    1616,
+    1687,
+    1291
+   ],
+   "nombre": "Combo EcoFlow Delta 3 Plus + panel 450 W + cable 10 m",
+   "proveedor": "L",
+   "n": 27,
+   "tipo": "combos",
+   "precio_proveedor": 880,
+   "precio": 970,
+   "comision": 36,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Combo de delta 3 plus ➕ cable de 10 metros ➕ panel de 450W",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1687/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1294,
+   "ids": [
+    1294,
+    448,
+    58
+   ],
+   "nombre": "Combo EcoFlow Delta 3 + panel 450 W + cable 10 m",
+   "proveedor": "L",
+   "n": 28,
+   "tipo": "combos",
+   "precio_proveedor": 890,
+   "precio": 980,
+   "comision": 36,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Combo delta 3 normal\nPanel de 450 w\nCable de 10 metros original",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1294/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 447,
+   "ids": [
+    1471,
+    1292,
+    1617,
+    447,
+    1380
+   ],
+   "nombre": "Combo EcoFlow Delta 3 Max + panel 450 W + cable 10 m",
+   "proveedor": "L",
+   "n": 29,
+   "tipo": "combos",
+   "precio_proveedor": 1190,
+   "precio": 1310,
+   "comision": 48,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Combo de delta 3 Max ➕ cable de 10 metros ➕ panel de 450W",
+   "fotos": [
+    "/home/u824654880/electro-fotos/447/1.jpg",
+    "/home/u824654880/electro-fotos/447/2.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1691,
+   "ids": [
+    259,
+    87,
+    1691,
+    1476,
+    1542,
+    1622,
+    460
+   ],
+   "nombre": "Jackery Explorer 2000 (2042 Wh) + panel SolarSaga 200 W",
+   "proveedor": "L",
+   "n": 30,
+   "tipo": "combos",
+   "precio_proveedor": 1540,
+   "precio": 1695,
+   "comision": 62,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Jackery Explorerwh ➕️Panel SolarSaga 200W Bifacial plegable",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1691/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1506,
+   "ids": [
+    1506
+   ],
+   "nombre": "Combo EcoFlow Delta Pro + paneles 450 W",
+   "proveedor": "L",
+   "n": 31,
+   "tipo": "combos",
+   "precio_proveedor": 2550,
+   "precio": 2805,
+   "comision": 102,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Delta pro\nCombo delta pro\n3 paneles de 450w\nCable de 10 metros",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1506/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1667,
+   "ids": [
+    13,
+    1596,
+    1517,
+    217,
+    417,
+    1263,
+    1667
+   ],
+   "nombre": "Batería para inversores BMS (nueva en caja, sin garantía)",
+   "proveedor": "L",
+   "n": 32,
+   "tipo": "baterias",
+   "precio_proveedor": 315,
+   "precio": 350,
+   "comision": 14,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "🔋BATERÍA IDEAL PARA INVERSORES🔋\nCiclos de carga profundo🪫🔋",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1667/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1666,
+   "ids": [
+    416,
+    1666,
+    1262,
+    12,
+    219
+   ],
+   "nombre": "Batería LiFePO4 12,8 V 150 Ah",
+   "proveedor": "L",
+   "n": 33,
+   "tipo": "baterias",
+   "precio_proveedor": 405,
+   "precio": 450,
+   "comision": 18,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "BATERÍA 12.8V 150 Ah\nIDEAL PARA INVERSORES🔋\nCiclos de carga profundo🪫🔋\nBMS Integrado✅",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1666/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1664,
+   "ids": [
+    1664,
+    1358,
+    1598,
+    1261,
+    414,
+    26
+   ],
+   "nombre": "Batería para inversores ciclo profundo BMS (se prueba con multímetro)",
+   "proveedor": "L",
+   "n": 34,
+   "tipo": "baterias",
+   "precio_proveedor": 460,
+   "precio": 510,
+   "comision": 20,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "🔋BATERÍA IDEAL PARA INVERSORES🔋\nCiclos de carga profundo🪫🔋\nBMS Integrado✅ el cliente puede medirla con un multimetro y probarla",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1664/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 25,
+   "ids": [
+    215,
+    25
+   ],
+   "nombre": "Batería extra EcoFlow Delta 2 (1024 Wh)",
+   "proveedor": "L",
+   "n": 35,
+   "tipo": "baterias",
+   "precio_proveedor": 610,
+   "precio": 675,
+   "comision": 26,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Bateria extra de Ecoflow delta 2×1024Wh",
+   "fotos": [
+    "/home/u824654880/electro-fotos/25/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 14,
+   "ids": [
+    14
+   ],
+   "nombre": "Batería 25,5 V 100 Ah",
+   "proveedor": "L",
+   "n": 36,
+   "tipo": "baterias",
+   "precio_proveedor": 610,
+   "precio": 675,
+   "comision": 26,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "⚡Batería 25.5v 100Ah",
+   "fotos": [
+    "/home/u824654880/electro-fotos/14/1.jpg",
+    "/home/u824654880/electro-fotos/14/2.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1665,
+   "ids": [
+    1359,
+    1665,
+    27,
+    218,
+    1449,
+    415
+   ],
+   "nombre": "Batería LiFePO4 25,6 V 100 Ah (2560 Wh)",
+   "proveedor": "L",
+   "n": 37,
+   "tipo": "baterias",
+   "precio_proveedor": 670,
+   "precio": 740,
+   "comision": 28,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "🔋BATERÍA IDEAL PARA INVERSORES🔋\nCiclos de carga profundo🪫🔋\nBMS Integrado✅\n25.6V 100 Ah (2560 Wh)",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1665/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1561,
+   "ids": [
+    23,
+    1561,
+    1360
+   ],
+   "nombre": "Batería 5 kWh",
+   "proveedor": "L",
+   "n": 38,
+   "tipo": "baterias",
+   "precio_proveedor": 1060,
+   "precio": 1170,
+   "comision": 44,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Bateria de 5kwh",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1561/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1448,
+   "ids": [
+    1448,
+    1419
+   ],
+   "nombre": "Batería extra EcoFlow Delta 2 Max",
+   "proveedor": "L",
+   "n": 39,
+   "tipo": "baterias",
+   "precio_proveedor": 1250,
+   "precio": 1375,
+   "comision": 50,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Batería extra de Delta 2 Max",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1448/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 11,
+   "ids": [
+    11,
+    1516,
+    1260,
+    216
+   ],
+   "nombre": "Batería inteligente Eco-Humsienk 5,12 kWh 51,2 V 100 Ah",
+   "proveedor": "L",
+   "n": 40,
+   "tipo": "baterias",
+   "precio_proveedor": 1480,
+   "precio": 1630,
+   "comision": 60,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Batería Inteligente Eco - Humsienk\nTecnología LiFePO4 🔋\n5.12 Kwh 🔋\n51,2 V 100 Ah⚡️\nBMS Integrado 💡\nNota adicional: Es compatible con los Inversores de 48V ✅️",
+   "fotos": [
+    "/home/u824654880/electro-fotos/11/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1507,
+   "ids": [
+    1507
+   ],
+   "nombre": "Batería extra EcoFlow Delta Pro",
+   "proveedor": "L",
+   "n": 41,
+   "tipo": "baterias",
+   "precio_proveedor": 1690,
+   "precio": 1860,
+   "comision": 68,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Batería de delta pro",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1507/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1670,
+   "ids": [
+    1670
+   ],
+   "nombre": "Batería TBSOLARO LiFePO4 10 kWh 51 V 200 Ah",
+   "proveedor": "L",
+   "n": 42,
+   "tipo": "baterias",
+   "precio_proveedor": 2560,
+   "precio": 2820,
+   "comision": 104,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Bateria LiFePO4 TBSOLARO 10kw de 51volt x 200 amperes inteligente corporación vietnamita",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1670/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1599,
+   "ids": [
+    24,
+    1599
+   ],
+   "nombre": "Batería 10 kWh",
+   "proveedor": "L",
+   "n": 43,
+   "tipo": "baterias",
+   "precio_proveedor": 2610,
+   "precio": 2875,
+   "comision": 106,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Bateria de 10 kwh",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1599/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1671,
+   "ids": [
+    1671,
+    10
+   ],
+   "nombre": "Batería Must 10 kWh",
+   "proveedor": "L",
+   "n": 44,
+   "tipo": "baterias",
+   "precio_proveedor": 2610,
+   "precio": 2875,
+   "comision": 106,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Batería Must de 10 kW",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1671/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 21,
+   "ids": [
+    21
+   ],
+   "nombre": "Batería Must 15 kWh",
+   "proveedor": "L",
+   "n": 45,
+   "tipo": "baterias",
+   "precio_proveedor": 2760,
+   "precio": 3040,
+   "comision": 112,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Bateria must de 15 kwh",
+   "fotos": [
+    "/home/u824654880/electro-fotos/21/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 16,
+   "ids": [
+    16
+   ],
+   "nombre": "Batería Sako 10 kWh",
+   "proveedor": "L",
+   "n": 46,
+   "tipo": "baterias",
+   "precio_proveedor": 2780,
+   "precio": 3060,
+   "comision": 112,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Bateria sako de 10 kwh",
+   "fotos": [
+    "/home/u824654880/electro-fotos/16/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1420,
+   "ids": [
+    1420
+   ],
+   "nombre": "Batería GIGA CITY 16 kWh",
+   "proveedor": "L",
+   "n": 47,
+   "tipo": "baterias",
+   "precio_proveedor": 3110,
+   "precio": 3425,
+   "comision": 126,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Bateria GIGA CITY 16 KWH",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1420/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 18,
+   "ids": [
+    18,
+    1451
+   ],
+   "nombre": "Batería 16 kWh",
+   "proveedor": "L",
+   "n": 48,
+   "tipo": "baterias",
+   "precio_proveedor": 3210,
+   "precio": 3535,
+   "comision": 130,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Bateria de 16 kwh",
+   "fotos": [
+    "/home/u824654880/electro-fotos/18/1.jpg",
+    "/home/u824654880/electro-fotos/18/2.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1668,
+   "ids": [
+    28,
+    1518,
+    419,
+    222,
+    1266,
+    1346,
+    1597,
+    1668
+   ],
+   "nombre": "Batería EcoWorthy 16 kWh 51,2 V 314 Ah",
+   "proveedor": "L",
+   "n": 49,
+   "tipo": "baterias",
+   "precio_proveedor": 3320,
+   "precio": 3655,
+   "comision": 134,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Batería EcoWorthy de 16kw/h\nSmart Battery Marca\nEcoWorthy 51.2v 314ah 16kw",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1668/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1669,
+   "ids": [
+    1361,
+    420,
+    220,
+    1450,
+    1267,
+    1669,
+    17
+   ],
+   "nombre": "Batería LiFePO4 15 kWh 300 Ah 51,2 V",
+   "proveedor": "L",
+   "n": 50,
+   "tipo": "baterias",
+   "precio_proveedor": 3430,
+   "precio": 3775,
+   "comision": 138,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Bateria 15kWh 300Ah 51.2vol LiFePO4 solar",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1669/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 20,
+   "ids": [
+    20,
+    418,
+    1265
+   ],
+   "nombre": "Batería Bluesun 16 kWh",
+   "proveedor": "L",
+   "n": 51,
+   "tipo": "baterias",
+   "precio_proveedor": 3450,
+   "precio": 3795,
+   "comision": 138,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Batería Bluesun de 16kw",
+   "fotos": [
+    "/home/u824654880/electro-fotos/20/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 19,
+   "ids": [
+    19,
+    1264
+   ],
+   "nombre": "Batería Humsienk 15 kWh",
+   "proveedor": "L",
+   "n": 52,
+   "tipo": "baterias",
+   "precio_proveedor": 3500,
+   "precio": 3850,
+   "comision": 140,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Batería Humsienk 15 kw",
+   "fotos": [
+    "/home/u824654880/electro-fotos/19/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 43,
+   "ids": [
+    43,
+    234,
+    435
+   ],
+   "nombre": "Inversor solar Sumry 4000 W híbrido 110 V",
+   "proveedor": "L",
+   "n": 53,
+   "tipo": "inversores",
+   "precio_proveedor": 360,
+   "precio": 400,
+   "comision": 16,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Inversor solar Sumry 4000 w\npotencia nominal de 4000W y puede alcanzar una potencia pico de 7200W a 8000W\n-Salida de Voltaje: Proporciona una salida de corriente alterna dual de 110V\n-Tecnología Híbrida y Onda Pura: Es un inversor híbrido de onda sinusoidal pura, lo que asegura una corriente estable y compatible con equipos electrónicos sensibles\n-Controlador MPPT Integrado: Incluye un controlador de carga solar MPPT de 150A o 140A, permitiendo una conexión eficiente de paneles solares\n-Compatibilidad con Baterías: Funciona con baterías de 24V de diversos tipos, incluyendo AGM, Gel, Plomo, Ión-Litio y LiFePO4, y puede operar con o sin ellas\n-Pantalla Táctil LCD: Dispone de una pantalla táctil LCD de 6.25 pulgadas para facilitar el control y monitoreo del estado del sistema",
+   "fotos": [
+    "/home/u824654880/electro-fotos/43/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1466,
+   "ids": [
+    1466,
+    1285,
+    1375
+   ],
+   "nombre": "Inversor 3 kW 110 V 48 V",
+   "proveedor": "L",
+   "n": 54,
+   "tipo": "inversores",
+   "precio_proveedor": 460,
+   "precio": 510,
+   "comision": 20,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Inversor de 3 kwh\n110 v\n48 v",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1466/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1682,
+   "ids": [
+    1467,
+    1682,
+    1613,
+    1532,
+    1376,
+    1286
+   ],
+   "nombre": "Inversor Must 3 kW 110/220 V",
+   "proveedor": "L",
+   "n": 55,
+   "tipo": "inversores",
+   "precio_proveedor": 660,
+   "precio": 730,
+   "comision": 28,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Inversor 3 kw must\n110 y 220",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1682/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1534,
+   "ids": [
+    1615,
+    1534
+   ],
+   "nombre": "Inversor ECO-WORTHY 5 kW",
+   "proveedor": "L",
+   "n": 56,
+   "tipo": "inversores",
+   "precio_proveedor": 750,
+   "precio": 825,
+   "comision": 30,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Inversor ECO-WORTHY de 5k\nFase dividida 110v & 220v",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1534/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 50,
+   "ids": [
+    237,
+    50,
+    1374
+   ],
+   "nombre": "Inversor 5 kW",
+   "proveedor": "L",
+   "n": 57,
+   "tipo": "inversores",
+   "precio_proveedor": 810,
+   "precio": 895,
+   "comision": 34,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Inversor de 5 kw",
+   "fotos": [
+    "/home/u824654880/electro-fotos/50/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1614,
+   "ids": [
+    1614,
+    1468
+   ],
+   "nombre": "Inversor GIGA CITY 6 kW",
+   "proveedor": "L",
+   "n": 58,
+   "tipo": "inversores",
+   "precio_proveedor": 860,
+   "precio": 950,
+   "comision": 36,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Inversor GIGA CITY 6 kw\n110 y 220",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1614/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 44,
+   "ids": [
+    44
+   ],
+   "nombre": "Inversor Must 6 kW",
+   "proveedor": "L",
+   "n": 59,
+   "tipo": "inversores",
+   "precio_proveedor": 910,
+   "precio": 1005,
+   "comision": 38,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Inversor  Must de 6kw",
+   "fotos": [
+    "/home/u824654880/electro-fotos/44/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1684,
+   "ids": [
+    1684
+   ],
+   "nombre": "Inversor InfiniSolar 6000 W VP330 TLV",
+   "proveedor": "L",
+   "n": 60,
+   "tipo": "inversores",
+   "precio_proveedor": 910,
+   "precio": 1005,
+   "comision": 38,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Inversor Solar InfiniSolar 6000W\n- Modelo: VP330 TLV\n- MD: VP TLV\n- Operating Temperature: 0°C to +40°C\n- Protection Class: Class 1\n- Protection Degree. IP 20\n- Inverter Mcde: Rated Power: 60 0W\n- DC Input: 43VDC 147/\n- AC Output: 120/240VAC 50/30Hz.25A\n- AC Charger Mode a: AC Input 2 10VA- 50/60Hz. 6A\n- DC Ourput. 48VL C 40A\n- Solar Charer Mode: Rated Current: 10A\n- System Voltage: 8VD MPPT Volteage Range: 60-230VDC\n- Max. Solar Voltage (VoC): 245VDC\n- Max, Charge Current 80A\n910💵 con 🚘 incluído",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1684/1.jpg",
+    "/home/u824654880/electro-fotos/1684/2.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1283,
+   "ids": [
+    238,
+    48,
+    1283,
+    436,
+    1373
+   ],
+   "nombre": "Inversor Sako 6 kW",
+   "proveedor": "L",
+   "n": 61,
+   "tipo": "inversores",
+   "precio_proveedor": 960,
+   "precio": 1060,
+   "comision": 40,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Inversor de 6 kw sako",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1283/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1683,
+   "ids": [
+    49,
+    1683,
+    1560
+   ],
+   "nombre": "Inversor híbrido 8 kW 110/220 V",
+   "proveedor": "L",
+   "n": 62,
+   "tipo": "inversores",
+   "precio_proveedor": 1300,
+   "precio": 1430,
+   "comision": 52,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Inversor Híbrido 8kw\n110 y 220 v",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1683/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1681,
+   "ids": [
+    236,
+    46,
+    1681,
+    1612,
+    1284,
+    1531,
+    438
+   ],
+   "nombre": "Inversor Sako Sunsee Amery 10000 W fase dividida",
+   "proveedor": "L",
+   "n": 63,
+   "tipo": "inversores",
+   "precio_proveedor": 1710,
+   "precio": 1885,
+   "comision": 70,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Inversor Solar de Fase Dividida SAKO SUNSEE AMERY 10000Wh\n- Tipo de salida: Dividida\n- Tipo Inversores: DC/AC\n- Marca: SAKO\n- Número de Modelo: SUNSEE AMERY\n- Voltaje de entrada 125425 voltios CC\n- Voltaje de salida 120/240 voltios CA\n- Corriente de salida 41,66A\n- Frecuencia de salida 50Hz/60Hz (Detección automática)\n- Dimensiones 620×445×130mm\n- Peso: 27 kilogramos\n- Potencia de Salida Nominal: 4200W - 12000W\n- Voltaje Nominal de Salida: 120V/240VAC Fase Dividida\n- Voltaje Nominal de la Batería: 48 VCC\n- Número de seguidores MPPT: 2\n- Corriente Máxima de Carga MPPT: 220 amperios\n- Forma de Onda de Salida: Onda sinusoidal más pura\n- Capacidad Paralela: Hasta 6 unidades\n1710💵 con 🚘 incluido",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1681/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 47,
+   "ids": [
+    47
+   ],
+   "nombre": "Inversor Sunpal 10 kW 110/220 V",
+   "proveedor": "L",
+   "n": 64,
+   "tipo": "inversores",
+   "precio_proveedor": 1730,
+   "precio": 1905,
+   "comision": 70,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Inversor Sunpal de 10kw 110/220v",
+   "fotos": [
+    "/home/u824654880/electro-fotos/47/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 51,
+   "ids": [
+    239,
+    51
+   ],
+   "nombre": "Inversor Sako 10 kW 110/220 V",
+   "proveedor": "L",
+   "n": 65,
+   "tipo": "inversores",
+   "precio_proveedor": 1760,
+   "precio": 1940,
+   "comision": 72,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Inversor Sako de 10kw 110/220v",
+   "fotos": [
+    "/home/u824654880/electro-fotos/51/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 240,
+   "ids": [
+    240
+   ],
+   "nombre": "Inversor Sako 12000 W",
+   "proveedor": "L",
+   "n": 66,
+   "tipo": "inversores",
+   "precio_proveedor": 1910,
+   "precio": 2105,
+   "comision": 78,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Inversor Solar SAKO 12000W\n- Onda sinusoidal pura\n- WIFI y GPRS local opcional\n- Inversor funcionando con o sin batería\n- Activación automática de la batería de litio integrada\n- Controlador de carga solar MPPT de 120 A\n1910💵 con 🚘 incluído",
+   "fotos": [
+    "/home/u824654880/electro-fotos/240/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1533,
+   "ids": [
+    1533,
+    1335
+   ],
+   "nombre": "Inversor Humsienk 12000 Plus+ (12 kW)",
+   "proveedor": "L",
+   "n": 67,
+   "tipo": "inversores",
+   "precio_proveedor": 1950,
+   "precio": 2145,
+   "comision": 78,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "HUMSIENK 12000 PLUS+ — INVERSOR SOLAR CARGADOR\nModelo: HSINV48V12KWSP-SGRE-US\nCaracterísticas generales\nGrado de protección: IP20\nUso: Interior\nTemperatura de operación: 1–131 °F (derating)\nVoltaje nominal de entrada/salida: 120/240 V AC, fase dividida\nEntrada de batería (Battery Input)\nTipo de batería: Litio / plomo-ácido\nVoltaje nominal de batería: 51.2 V DC (40–60 V)\nCorriente máxima de descarga de batería: 220 A DC\nCorriente máxima de carga de batería: 220 A DC\nEntrada fotovoltaica (PV Input)\nNúmero de circuitos fotovoltaicos: 1+1\nVoltaje máximo de entrada PV: 500 V DC\nRango de entrada MPPT: 90–450 V DC\nCorriente máxima de entrada PV: 22 A DC + 22 A DC\nPotencia máxima de entrada PV: 6000 W + 6000 W\nCorriente máxima de carga solar hacia la batería: 220 A DC\nEntrada AC (AC Input)\nVoltaje nominal por fase: L1/L2/N/PE, 120/120 V AC\nFrecuencia de entrada: 50/60 Hz\nCorriente máxima nominal de entrada por fase: 60 A AC + 60 A AC\nCorriente máxima de carga",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1533/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 437,
+   "ids": [
+    45,
+    235,
+    437
+   ],
+   "nombre": "Inversor Sako 1000 W con batería 2000 Wh",
+   "proveedor": "L",
+   "n": 68,
+   "tipo": "kits",
+   "precio_proveedor": 790,
+   "precio": 870,
+   "comision": 32,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Inversor SAKO 1000w con 2000Wh\nCaracterísticas:\n- 110V\n- Salida de onda sinusoidal pura\n- Prioridad de suministro programable para energía fotovoltaica, baterí as o red eléctrica.\n- S Rastreadores MPPT integrados y cargador de CA y solar mejorado\n- Admite carga de teléfono móvil e interfaz de lámpara de CC\n- Compatible con la red eléctrica o con la entrada del generador.\n- Batería LiFeP04 integrada de 2 kWh",
+   "fotos": [
+    "/home/u824654880/electro-fotos/437/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 421,
+   "ids": [
+    34,
+    1606,
+    1268,
+    421
+   ],
+   "nombre": "Inversor Future Tech 3 kW + batería SunDta 5 kWh",
+   "proveedor": "L",
+   "n": 69,
+   "tipo": "kits",
+   "precio_proveedor": 1960,
+   "precio": 2160,
+   "comision": 80,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Inversor Future Tech de 3kw y batería SunDta de 5kw",
+   "fotos": [
+    "/home/u824654880/electro-fotos/421/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1672,
+   "ids": [
+    1459,
+    1672,
+    1608,
+    1519,
+    1370,
+    1279
+   ],
+   "nombre": "Combo inversor 5 kW (110/220 V) + batería 5 kWh",
+   "proveedor": "L",
+   "n": 70,
+   "tipo": "kits",
+   "precio_proveedor": 2050,
+   "precio": 2255,
+   "comision": 82,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Combo\ninversor 5 k  ( 110v y 220 v )\nBatería 5 k",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1672/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 426,
+   "ids": [
+    36,
+    425,
+    1271,
+    426,
+    1368
+   ],
+   "nombre": "Kit Infinity inversor 3 kW + batería 5 kWh (110 V)",
+   "proveedor": "L",
+   "n": 71,
+   "tipo": "kits",
+   "precio_proveedor": 2110,
+   "precio": 2325,
+   "comision": 86,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Kit infinty\nInversor 3 kw\nBateria 5 kwh\n110 v",
+   "fotos": [
+    "/home/u824654880/electro-fotos/426/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1696,
+   "ids": [
+    1628,
+    1314,
+    1696,
+    471,
+    97,
+    96,
+    267,
+    1490,
+    1396
+   ],
+   "nombre": "Kit inversor 3 kW con 7 kWh de respaldo",
+   "proveedor": "L",
+   "n": 72,
+   "tipo": "kits",
+   "precio_proveedor": 2310,
+   "precio": 2545,
+   "comision": 94,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "3 con 7 kwh de respaldo",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1696/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1277,
+   "ids": [
+    228,
+    37,
+    429,
+    1277,
+    1527,
+    1520,
+    1609,
+    1462
+   ],
+   "nombre": "Combo inversor híbrido 6,2 kW + 1 batería 5,12 kWh",
+   "proveedor": "L",
+   "n": 73,
+   "tipo": "kits",
+   "precio_proveedor": 2560,
+   "precio": 2820,
+   "comision": 104,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Combo de energía inversor híbrido de 6.2kw mas 1bateria inteligente de 5.12 kwh",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1277/1.jpg",
+    "/home/u824654880/electro-fotos/1277/2.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1673,
+   "ids": [
+    223,
+    1269,
+    1673,
+    1607,
+    1455,
+    1362,
+    30,
+    1418
+   ],
+   "nombre": "Kit inversor 6 kW con 10 kWh de respaldo",
+   "proveedor": "L",
+   "n": 74,
+   "tipo": "kits",
+   "precio_proveedor": 2860,
+   "precio": 3150,
+   "comision": 116,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Kit de 6 con 10 kwh de respaldo",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1673/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1551,
+   "ids": [
+    1551
+   ],
+   "nombre": "Kit inversor 3 kW con 7 kWh + 5 paneles 595 W",
+   "proveedor": "L",
+   "n": 75,
+   "tipo": "kits",
+   "precio_proveedor": 3110,
+   "precio": 3425,
+   "comision": 126,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "3 con 7 kwh de respaldo\nCon 5 paneles 595 w",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1551/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1457,
+   "ids": [
+    95,
+    264,
+    469,
+    1627,
+    1488,
+    1395,
+    1312,
+    1457,
+    1695
+   ],
+   "nombre": "Todo en uno Must 6 kW con 15 kWh",
+   "proveedor": "L",
+   "n": 76,
+   "tipo": "kits",
+   "precio_proveedor": 3360,
+   "precio": 3700,
+   "comision": 136,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Kit 6 con 15 kwh\nCon 6 paneles bifacial de 620 w",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1457/1.jpg",
+    "/home/u824654880/electro-fotos/1457/2.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1487,
+   "ids": [
+    1315,
+    1397,
+    1487
+   ],
+   "nombre": "Infinity 6 kW con 15 kWh de respaldo",
+   "proveedor": "L",
+   "n": 77,
+   "tipo": "kits",
+   "precio_proveedor": 3510,
+   "precio": 3865,
+   "comision": 142,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Infinity 6 con 15 kwh de respaldo",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1487/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1274,
+   "ids": [
+    427,
+    1274,
+    1508
+   ],
+   "nombre": "Inversor 6 kW + batería 16 kWh",
+   "proveedor": "L",
+   "n": 78,
+   "tipo": "kits",
+   "precio_proveedor": 3710,
+   "precio": 4085,
+   "comision": 150,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Inversor de 6 kw\nBateria de 16 kwh",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1274/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1697,
+   "ids": [
+    98,
+    266,
+    1550,
+    470,
+    1489,
+    1697,
+    1313
+   ],
+   "nombre": "Inversor 6 kW con 15 kWh de respaldo (batería Sako)",
+   "proveedor": "L",
+   "n": 79,
+   "tipo": "kits",
+   "precio_proveedor": 3860,
+   "precio": 4250,
+   "comision": 156,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Inversor de 6 con 15 kwh de respaldo saco",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1697/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1278,
+   "ids": [
+    229,
+    38,
+    1465,
+    1369,
+    430,
+    1278,
+    1528,
+    1604
+   ],
+   "nombre": "Combo inversor híbrido 6,2 kW + 2 baterías 5,12 kWh (10,24 kWh)",
+   "proveedor": "L",
+   "n": 80,
+   "tipo": "kits",
+   "precio_proveedor": 4010,
+   "precio": 4415,
+   "comision": 162,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Combo de energía inversor hibrido de 6.2kw mas 2 bateria inteligente de 5.12 kwh\nPara un total de 10kwh en baterías",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1278/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1679,
+   "ids": [
+    1602,
+    1524,
+    1679
+   ],
+   "nombre": "Kit todo en uno 6 kW + 15 kWh + 5 paneles Longi 620 W bifaciales",
+   "proveedor": "L",
+   "n": 81,
+   "tipo": "kits",
+   "precio_proveedor": 4210,
+   "precio": 4635,
+   "comision": 170,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Kit de inversor todk en uno\n6 con 15 kwh de respaldo\n5 paneles bifacial de 620 w longi .",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1679/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1731,
+   "ids": [
+    1601,
+    1523,
+    1680,
+    1731
+   ],
+   "nombre": "Kit 6 kW + 15 kWh + 6 paneles Longi 620 W bifaciales",
+   "proveedor": "L",
+   "n": 82,
+   "tipo": "kits",
+   "precio_proveedor": 4360,
+   "precio": 4800,
+   "comision": 176,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Kit 6 con 15 kwh\nCon 6 paneles bifacial de 620 w",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1731/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1365,
+   "ids": [
+    224,
+    35,
+    422,
+    1365,
+    1272
+   ],
+   "nombre": "Kit 6 kW + 15 kWh + 5 paneles 595 W",
+   "proveedor": "L",
+   "n": 83,
+   "tipo": "kits",
+   "precio_proveedor": 4380,
+   "precio": 4820,
+   "comision": 176,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Kit de 6 con 15 kwh\n5 paneles de 595 watt",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1365/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1676,
+   "ids": [
+    233,
+    42,
+    1676,
+    1522,
+    1464,
+    434
+   ],
+   "nombre": "Inversor Must 6 kW + batería Sako 15 kWh",
+   "proveedor": "L",
+   "n": 84,
+   "tipo": "kits",
+   "precio_proveedor": 4710,
+   "precio": 5185,
+   "comision": 190,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Inversor Must de 6kwh 110v y 220v\nBatería Sako de 15kwh",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1676/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1677,
+   "ids": [
+    230,
+    39,
+    1611,
+    431,
+    1460,
+    1280,
+    1677,
+    1529
+   ],
+   "nombre": "Kit fotovoltaico 6,2 kVA + 4 paneles 625 W + batería 5,12 kWh",
+   "proveedor": "L",
+   "n": 85,
+   "tipo": "kits",
+   "precio_proveedor": 4710,
+   "precio": 5185,
+   "comision": 190,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "☀️ KIT FOTOVOLTAICO COMPLETO – MONTAJE INCLUIDO\n⚡ Energía solar instalada, configurada y lista para usar.\nEl kit incluye:\n1. ⚡ Inversor híbrido 6.2 kVA – 48 V, salida 110 V / 220 V.\n2. ☀️ 4 paneles solares de 625 W cada uno.\n3. 🔋 1 batería LiFePO₄ 51.2 V – 100 Ah, capacidad total 5.12 kWh (5,120 Wh).\n4. 🛡️ Todas las protecciones eléctricas AC y DC necesarias para el sistema.\n5. 🔌 Cableado solar, conectores MC4, breakers, seccionadores y accesorios necesarios.\n6. 🏗️ Estructura y materiales necesarios para el montaje de los paneles.\n7. 🔧 Montaje profesional incluido: instalación, conexión, configuración, pruebas y puesta en funcionamiento.\n8. ⁠",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1677/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1526,
+   "ids": [
+    1526,
+    1610
+   ],
+   "nombre": "Inversor Must 12 kW + batería 15 kWh",
+   "proveedor": "L",
+   "n": 86,
+   "tipo": "kits",
+   "precio_proveedor": 4910,
+   "precio": 5405,
+   "comision": 198,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Inversor must de 12 kw\nBateria de 15 kwh",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1526/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1674,
+   "ids": [
+    226,
+    1364,
+    1456,
+    1674,
+    33
+   ],
+   "nombre": "Kit 8 kW con 16 kWh",
+   "proveedor": "L",
+   "n": 87,
+   "tipo": "kits",
+   "precio_proveedor": 5110,
+   "precio": 5625,
+   "comision": 206,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Kit de 8 con 16 kwh",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1674/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1698,
+   "ids": [
+    94,
+    265,
+    468,
+    1311,
+    1698
+   ],
+   "nombre": "Inversor 12 kW + batería 16 kWh",
+   "proveedor": "L",
+   "n": 88,
+   "tipo": "kits",
+   "precio_proveedor": 5110,
+   "precio": 5625,
+   "comision": 206,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Inversor de 12 kw y bateria de 16 kwh",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1698/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1275,
+   "ids": [
+    428,
+    1275
+   ],
+   "nombre": "Inversor EcoWorthy 10 kW + batería EcoWorthy 16 kWh",
+   "proveedor": "L",
+   "n": 89,
+   "tipo": "kits",
+   "precio_proveedor": 5360,
+   "precio": 5900,
+   "comision": 216,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "10 kw inversor EcoWorthy +\n16 kwh de bateria EcoWorthy",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1275/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1458,
+   "ids": [
+    31,
+    227,
+    1366,
+    1458,
+    1273,
+    423
+   ],
+   "nombre": "Kit Must 6 kW + 15 kWh + 6 paneles 595 W bifaciales",
+   "proveedor": "L",
+   "n": 90,
+   "tipo": "kits",
+   "precio_proveedor": 5510,
+   "precio": 6065,
+   "comision": 222,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "kit de inversor de 6 kwh must\nBateria de 15 kwh must\n6 paneles bifaciales de 595 watt",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1458/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1675,
+   "ids": [
+    232,
+    41,
+    1600,
+    1521,
+    1675,
+    433,
+    1282,
+    1372,
+    1463
+   ],
+   "nombre": "Combo Must 6 kW + batería Sako 15 kWh + 6 paneles bifaciales",
+   "proveedor": "L",
+   "n": 91,
+   "tipo": "kits",
+   "precio_proveedor": 5710,
+   "precio": 6285,
+   "comision": 230,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Combo\nInversor must de 6kwh\nBatería Sako de 15kwh\nPaneles Solar Bifacial 6",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1675/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1454,
+   "ids": [
+    1454
+   ],
+   "nombre": "Kit Must 12 kW con 15 kWh (sin paneles)",
+   "proveedor": "L",
+   "n": 92,
+   "tipo": "kits",
+   "precio_proveedor": 5860,
+   "precio": 6450,
+   "comision": 236,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Kit de 12 con 15 kwh must\n12 paneles de 595 watt",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1454/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1678,
+   "ids": [
+    231,
+    40,
+    432,
+    1371,
+    1461,
+    1605,
+    1281,
+    1678,
+    1530
+   ],
+   "nombre": "Kit fotovoltaico 6,2 kVA + 6 paneles 625 W + 2 baterías (10,24 kWh)",
+   "proveedor": "L",
+   "n": 93,
+   "tipo": "kits",
+   "precio_proveedor": 6610,
+   "precio": 7275,
+   "comision": 266,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "☀️ KIT FOTOVOLTAICO COMPLETO – MONTAJE INCLUIDO\n⚡ Energía solar instalada, configurada y lista para usar.\nEl kit incluye:\n1. ⚡ Inversor híbrido 6.2 kVA – 48 V, salida 110 V / 220 V.\n2. ☀️ 6 paneles solares de 625 W cada uno.\n3. 🔋 2 baterías LiFePO₄ de 51.2 V – 100 Ah cada una, capacidad total 10.24 kWh (10,240 Wh).\n4. 🛡️ Todas las protecciones eléctricas AC y DC necesarias para el sistema.\n5. 🔌 Cableado solar, conectores MC4, breakers, seccionadores y accesorios necesarios.\n6. 🏗️ Estructura y materiales necesarios para el montaje de los paneles.",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1678/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1453,
+   "ids": [
+    32,
+    225,
+    1270,
+    424,
+    1453,
+    1363
+   ],
+   "nombre": "Kit Must 12 kW + 15 kWh + 12 paneles 595 W",
+   "proveedor": "L",
+   "n": 94,
+   "tipo": "kits",
+   "precio_proveedor": 7710,
+   "precio": 8485,
+   "comision": 310,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Kit de 12 con 15 kwh must\n12 paneles de 595 watt",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1453/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1525,
+   "ids": [
+    1525,
+    1603
+   ],
+   "nombre": "Inversor Must 12 kW + 2 baterías 15 kWh (30 kWh)",
+   "proveedor": "L",
+   "n": 95,
+   "tipo": "kits",
+   "precio_proveedor": 7710,
+   "precio": 8485,
+   "comision": 310,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Inversor must 12 kw\n2 baterias 15 kwh ( 30 kwh de respaldo )",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1525/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1452,
+   "ids": [
+    1452,
+    1367,
+    1276
+   ],
+   "nombre": "Kit 12 kW con 30 kWh de respaldo",
+   "proveedor": "L",
+   "n": 96,
+   "tipo": "kits",
+   "precio_proveedor": 9010,
+   "precio": 9915,
+   "comision": 362,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Kit de 12 con 30 kwh de respaldo",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1452/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 439,
+   "ids": [
+    52,
+    439,
+    1287,
+    1469,
+    1378
+   ],
+   "nombre": "Panel solar 450 W bifacial",
+   "proveedor": "L",
+   "n": 97,
+   "tipo": "paneles",
+   "precio_proveedor": 150,
+   "precio": 170,
+   "comision": 8,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Panel solar de 450 W ideal para las eko flow bifaciales",
+   "fotos": [
+    "/home/u824654880/electro-fotos/439/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 443,
+   "ids": [
+    56,
+    443
+   ],
+   "nombre": "Panel solar 595 W",
+   "proveedor": "L",
+   "n": 98,
+   "tipo": "paneles",
+   "precio_proveedor": 160,
+   "precio": 180,
+   "comision": 8,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Panel solar 595 w",
+   "fotos": [
+    "/home/u824654880/electro-fotos/443/1.jpg",
+    "/home/u824654880/electro-fotos/443/2.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1685,
+   "ids": [
+    1535,
+    1685
+   ],
+   "nombre": "Panel solar Horay 630 W",
+   "proveedor": "L",
+   "n": 99,
+   "tipo": "paneles",
+   "precio_proveedor": 170,
+   "precio": 190,
+   "comision": 8,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Panel horay 630 w",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1685/1.jpg",
+    "/home/u824654880/electro-fotos/1685/2.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1290,
+   "ids": [
+    55,
+    442,
+    1290,
+    1377
+   ],
+   "nombre": "Panel solar Skymax 630 W",
+   "proveedor": "L",
+   "n": 100,
+   "tipo": "paneles",
+   "precio_proveedor": 185,
+   "precio": 205,
+   "comision": 8,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Paneles Skymax de 630 w",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1290/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1288,
+   "ids": [
+    53,
+    440,
+    1288,
+    1379
+   ],
+   "nombre": "Panel solar Longi 620 W",
+   "proveedor": "L",
+   "n": 101,
+   "tipo": "paneles",
+   "precio_proveedor": 190,
+   "precio": 210,
+   "comision": 8,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Panel longi de 620 w",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1288/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1289,
+   "ids": [
+    54,
+    1289,
+    441
+   ],
+   "nombre": "Panel solar 550 W bifacial",
+   "proveedor": "L",
+   "n": 102,
+   "tipo": "paneles",
+   "precio_proveedor": 205,
+   "precio": 225,
+   "comision": 8,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Panel solar de 550wh bifaciales sirven para las Ecoflow",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1289/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1704,
+   "ids": [
+    99,
+    1704,
+    1629,
+    472,
+    1491,
+    1398,
+    268,
+    1316
+   ],
+   "nombre": "Cable solar 10 m royal cord calibre 10 (MC4 / XT60i)",
+   "proveedor": "L",
+   "n": 103,
+   "tipo": "cables",
+   "precio_proveedor": 65,
+   "precio": 85,
+   "comision": 8,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "CABLE PARA INVERSORES, PANEL SOLAR Y ECOFLOW  Vienen por rollos de 10 metros✅ Compatibles con conectores MC4 y XT60i nuevos a estrenar  (son royal cord calibre 10)",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1704/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 269,
+   "ids": [
+    269,
+    1630,
+    100
+   ],
+   "nombre": "Cable solar MC4 a XT60 de 6 m",
+   "proveedor": "L",
+   "n": 104,
+   "tipo": "cables",
+   "precio_proveedor": 90,
+   "precio": 110,
+   "comision": 8,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Cable Solar☀️\nMC4 A XT60🔌\n6 metros de longitud\nNOTA ADICIONAL : Funciona para las ECOFLOW🔋repartiendo los 500w 💡",
+   "fotos": [
+    "/home/u824654880/electro-fotos/269/1.jpg",
+    "/home/u824654880/electro-fotos/269/2.jpg",
+    "/home/u824654880/electro-fotos/269/3.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1552,
+   "ids": [
+    1552,
+    107
+   ],
+   "nombre": "Planta Sankey 3000 W",
+   "proveedor": "L",
+   "n": 105,
+   "tipo": "plantas",
+   "precio_proveedor": 630,
+   "precio": 695,
+   "comision": 26,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "🔸Planta eléctrica Sankey 3000w🔸\nGasolina y gas\n110v y 220v\nArranque manual",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1552/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 101,
+   "ids": [
+    1399,
+    101
+   ],
+   "nombre": "Planta SIGMA Inverter 4000 W",
+   "proveedor": "L",
+   "n": 106,
+   "tipo": "plantas",
+   "precio_proveedor": 880,
+   "precio": 970,
+   "comision": 36,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "PLANTA ELÉCTRICA SIGMA Inverter 4000 W pico y 3300 W continuos\nGasolina ⛽️\nGas 💨\nEs silenciosa🤩✅\nDetalles en la foto✅",
+   "fotos": [
+    "/home/u824654880/electro-fotos/101/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 108,
+   "ids": [
+    108
+   ],
+   "nombre": "Planta Firman 8375 W",
+   "proveedor": "L",
+   "n": 107,
+   "tipo": "plantas",
+   "precio_proveedor": 1090,
+   "precio": 1200,
+   "comision": 44,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "🔸Planta eléctrica Firman 8375w🔸\n110v y 220v\nArranque manual\nCon instalación para gas:",
+   "fotos": [
+    "/home/u824654880/electro-fotos/108/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 110,
+   "ids": [
+    1401,
+    110
+   ],
+   "nombre": "Planta SIGMA Inverter 6500 W",
+   "proveedor": "L",
+   "n": 108,
+   "tipo": "plantas",
+   "precio_proveedor": 1160,
+   "precio": 1280,
+   "comision": 48,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "PLANTA ELÉCTRICA SIGMA Inverter 6500W pico y 5000W continuos\nGasolina ⛽️\nGas 💨\nEs silenciosa🤩✅\nDetalles en la foto✅",
+   "fotos": [
+    "/home/u824654880/electro-fotos/110/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 273,
+   "ids": [
+    1336,
+    1493,
+    273,
+    1321,
+    105,
+    1404
+   ],
+   "nombre": "Planta Dual Fuel 12500 W",
+   "proveedor": "L",
+   "n": 109,
+   "tipo": "plantas",
+   "precio_proveedor": 1670,
+   "precio": 1840,
+   "comision": 68,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "DualFuel\n12500wtts",
+   "fotos": [
+    "/home/u824654880/electro-fotos/273/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1338,
+   "ids": [
+    1338,
+    1494,
+    1319,
+    103,
+    271
+   ],
+   "nombre": "Planta Dual Fuel 13000 W",
+   "proveedor": "L",
+   "n": 110,
+   "tipo": "plantas",
+   "precio_proveedor": 1720,
+   "precio": 1895,
+   "comision": 70,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "DualFuel\n13000wtts",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1338/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 104,
+   "ids": [
+    104,
+    1405,
+    1320,
+    1337
+   ],
+   "nombre": "Planta Tri Fuel 12500 W",
+   "proveedor": "L",
+   "n": 111,
+   "tipo": "plantas",
+   "precio_proveedor": 1770,
+   "precio": 1950,
+   "comision": 72,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Tri Fuel\n12500watts",
+   "fotos": [
+    "/home/u824654880/electro-fotos/104/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1705,
+   "ids": [
+    1400,
+    270,
+    1317,
+    1705,
+    109,
+    1492
+   ],
+   "nombre": "Planta WEN 14500 W modelo 2026",
+   "proveedor": "L",
+   "n": 112,
+   "tipo": "plantas",
+   "precio_proveedor": 1950,
+   "precio": 2145,
+   "comision": 78,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "WEN de 14,500w\nModelo actualizado 2026\nPlanta eléctrica americana/canadiense\nGasolina, gas de la calle y balita de gas.\nEncendido por giro de llave y yoyo.\nEntrada para 20, 30 y 50 amperes.\nTanque de 32 litros.\nIncluye Aceite, batería y ruedas.\nMotor de 500cc.",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1705/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1706,
+   "ids": [
+    1706,
+    1403,
+    111,
+    474
+   ],
+   "nombre": "Planta Pulsar 10000 W (gasolina) / 9000 W (gas)",
+   "proveedor": "L",
+   "n": 113,
+   "tipo": "plantas",
+   "precio_proveedor": 2270,
+   "precio": 2500,
+   "comision": 92,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Planta Pulsar 10000w gasolina y 9000w gas\n4 tiempo de gasolina y gas de calle y balita",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1706/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 473,
+   "ids": [
+    1402,
+    1322,
+    1631,
+    106,
+    473,
+    272
+   ],
+   "nombre": "Planta Dual Fuel 9500 W 110/220 V",
+   "proveedor": "L",
+   "n": 114,
+   "tipo": "plantas",
+   "precio_proveedor": 2800,
+   "precio": 3080,
+   "comision": 112,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "9500w dualfuel 110/220v\nEncendido por mando a distancia",
+   "fotos": [
+    "/home/u824654880/electro-fotos/473/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1318,
+   "ids": [
+    102,
+    1318
+   ],
+   "nombre": "Planta Tri Fuel 13500 W",
+   "proveedor": "L",
+   "n": 115,
+   "tipo": "plantas",
+   "precio_proveedor": 2860,
+   "precio": 3150,
+   "comision": 116,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Tri Fuel\n13500watts",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1318/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1538,
+   "ids": [
+    64,
+    1538
+   ],
+   "nombre": "Nevera Royal 3,5 pies Inverter con llave",
+   "proveedor": "L",
+   "n": 116,
+   "tipo": "neveras",
+   "precio_proveedor": 240,
+   "precio": 260,
+   "comision": 8,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "Nevera ROYAL 3.5 pies INVERTER con llave 🔐\nIdeales para Estaciones de energía y Sistemas de energía solar por su bajo consumo\nVoltaje 110 V/60hz Puerta con llave",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1538/1.jpg",
+    "/home/u824654880/electro-fotos/1538/2.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 248,
+   "ids": [
+    248,
+    65
+   ],
+   "nombre": "Nevera Milexus 3,5 pies con llave",
+   "proveedor": "L",
+   "n": 117,
+   "tipo": "neveras",
+   "precio_proveedor": 255,
+   "precio": 275,
+   "comision": 8,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "Nevera Milexus de 3.5 pies³👣 Con manilla y llave 🔑",
+   "fotos": [
+    "/home/u824654880/electro-fotos/248/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 245,
+   "ids": [
+    245,
+    67
+   ],
+   "nombre": "Nevera Milexus 4,2 pies con llave",
+   "proveedor": "L",
+   "n": 118,
+   "tipo": "neveras",
+   "precio_proveedor": 255,
+   "precio": 275,
+   "comision": 8,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "Nevera de 4.2 pies milexus con 🔑\n255 💵 con 🚘 incluído\nAncho 55cm alto 86cm profundidad 49cm",
+   "fotos": [
+    "/home/u824654880/electro-fotos/245/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 247,
+   "ids": [
+    247,
+    63
+   ],
+   "nombre": "Nevera Royal 5,5 pies con cerradura",
+   "proveedor": "L",
+   "n": 119,
+   "tipo": "neveras",
+   "precio_proveedor": 275,
+   "precio": 295,
+   "comision": 8,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "Nevera Royal de 5.5 pies³ 👣\nCon cerradura",
+   "fotos": [
+    "/home/u824654880/electro-fotos/247/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1382,
+   "ids": [
+    1382,
+    62,
+    246,
+    449
+   ],
+   "nombre": "Nevera Milexus 6 pies con llave",
+   "proveedor": "L",
+   "n": 120,
+   "tipo": "neveras",
+   "precio_proveedor": 295,
+   "precio": 315,
+   "comision": 8,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "Nevera Milexus de 6 cuft con🔑\n295💵 con 🚘 incluído\n- Potencia: 120W\n- Voltaje: 115V\n- Frecuencia: 60Hz\n- Capacidad: 6 pies cúbicos (170L)\n- Condensador interior\n- Interior de plástico con recubrimiento blanco\n- Doble función (congelador y refrigerador)\n- Control de temperatura: Mecánico -18 °C\n- Descongelación: Manual\n- Gas refrigerante: R600a\n- Incluye: cesta de aluminio,\n- Dimensiones: 67×58×89 cm\n- Color: Gris\n- Peso Neto: 22 kg\n- Peso Bruto: 25 kg",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1382/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 127,
+   "ids": [
+    127,
+    250
+   ],
+   "nombre": "Frío Milexus 6,5 pies",
+   "proveedor": "L",
+   "n": 121,
+   "tipo": "neveras",
+   "precio_proveedor": 310,
+   "precio": 345,
+   "comision": 14,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "Frío milexus de 6.5 pies\nNo es Congelación seca ❌\nMedidas: 46×55×163cm",
+   "fotos": [
+    "/home/u824654880/electro-fotos/127/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1537,
+   "ids": [
+    1474,
+    1537
+   ],
+   "nombre": "Nevera Royal 7,8 pies con llave",
+   "proveedor": "L",
+   "n": 122,
+   "tipo": "neveras",
+   "precio_proveedor": 315,
+   "precio": 350,
+   "comision": 14,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "Nevera ROYAL 7.8 pies con llave 🔐\nVoltaje 110 V/60hz Puerta con llave, Incluye 2 cestas plásticas",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1537/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 249,
+   "ids": [
+    249,
+    73
+   ],
+   "nombre": "Refrigerador Royal 7,6 pies una puerta",
+   "proveedor": "L",
+   "n": 123,
+   "tipo": "neveras",
+   "precio_proveedor": 345,
+   "precio": 380,
+   "comision": 14,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "Refrigerador ROYAL de 7.6 pies³ de una sola puerta\nNo es congelación seca\nMedidas\nAncho 58cm\nLargo 129.5cm\nProfundo 56cm",
+   "fotos": [
+    "/home/u824654880/electro-fotos/249/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1688,
+   "ids": [
+    1688
+   ],
+   "nombre": "Refrigerador Milexus 7 pies",
+   "proveedor": "L",
+   "n": 124,
+   "tipo": "neveras",
+   "precio_proveedor": 355,
+   "precio": 395,
+   "comision": 16,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "👉Refrigerador Milexus de 7 pies\n❌No es congelación seca❌\nMedidas: 58×58×149cm",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1688/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 75,
+   "ids": [
+    75,
+    1384
+   ],
+   "nombre": "Refrigerador Royal 8 pies (congelador abajo)",
+   "proveedor": "L",
+   "n": 125,
+   "tipo": "neveras",
+   "precio_proveedor": 380,
+   "precio": 420,
+   "comision": 16,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "Refrigerador Royal de 8 pies³\nCongelador abajo\nNo es congelación seca\nMedidas\n483×509×1502 mm",
+   "fotos": [
+    "/home/u824654880/electro-fotos/75/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 68,
+   "ids": [
+    68
+   ],
+   "nombre": "Refrigerador Royal 8,5 pies",
+   "proveedor": "L",
+   "n": 126,
+   "tipo": "neveras",
+   "precio_proveedor": 385,
+   "precio": 425,
+   "comision": 16,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "Refrigerador royal de 8.5 pies\nNo es congelacion seca\nTrae dispensador",
+   "fotos": [
+    "/home/u824654880/electro-fotos/68/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1619,
+   "ids": [
+    1296,
+    1540,
+    1619
+   ],
+   "nombre": "Congelador vertical Premier 145 L",
+   "proveedor": "L",
+   "n": 127,
+   "tipo": "neveras",
+   "precio_proveedor": 395,
+   "precio": 435,
+   "comision": 16,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "Congelador Vertical Premier 145 L\nCAPACIDAD: 145L/5.1Pc\nTIPO: ESCARCHA\nNÚMERO DE PUERTAS: 1\nCOLOR Y DISEÑO: VERTICAL, BLANCO\nDIMENSIONES: 540×550×1259MM",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1619/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 524,
+   "ids": [
+    524
+   ],
+   "nombre": "Refrigerador Lemax 7,5 pies",
+   "proveedor": "L",
+   "n": 128,
+   "tipo": "neveras",
+   "precio_proveedor": 410,
+   "precio": 455,
+   "comision": 18,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "Refrigerador Lemax de 7.5 pies, congelación seca",
+   "fotos": [
+    "/home/u824654880/electro-fotos/524/1.jpg",
+    "/home/u824654880/electro-fotos/524/2.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1620,
+   "ids": [
+    1297,
+    1620,
+    1539
+   ],
+   "nombre": "Congelador vertical Premier 177 L",
+   "proveedor": "L",
+   "n": 129,
+   "tipo": "neveras",
+   "precio_proveedor": 425,
+   "precio": 470,
+   "comision": 18,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "Congeladora vertical 177l/6.25pc (f) blanco Premier\nCapacidad: 177l/6.25pc\ntipo: escarcha\nnúmero de puertas: 1\ncolor y diseño: vertical, blanco\ndimensiones: 540×550×1440mm",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1620/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1741,
+   "ids": [
+    1741
+   ],
+   "nombre": "Nevera Royal 10 pies",
+   "proveedor": "L",
+   "n": 130,
+   "tipo": "neveras",
+   "precio_proveedor": 430,
+   "precio": 475,
+   "comision": 18,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "Nevera ROYAL 10 pies 🔐\nVoltaje 110 V/60hz Puerta con llave",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1741/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1421,
+   "ids": [
+    1421
+   ],
+   "nombre": "Refrigerador Lemax 10 pies",
+   "proveedor": "L",
+   "n": 131,
+   "tipo": "neveras",
+   "precio_proveedor": 430,
+   "precio": 475,
+   "comision": 18,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "Refrigerador lemax 10 pies\nSon congelacion seca",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1421/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 74,
+   "ids": [
+    74
+   ],
+   "nombre": "Refrigerador Milexus 9,1 pies",
+   "proveedor": "L",
+   "n": 132,
+   "tipo": "neveras",
+   "precio_proveedor": 455,
+   "precio": 505,
+   "comision": 20,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "Refrigerador milexus de 9.1 pies\nFrio\nCongelación seca 🥶\nNo es inverter",
+   "fotos": [
+    "/home/u824654880/electro-fotos/74/1.jpg",
+    "/home/u824654880/electro-fotos/74/2.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1383,
+   "ids": [
+    1383,
+    1295,
+    450
+   ],
+   "nombre": "Nevera Milexus 11,2 pies ML-CF-319",
+   "proveedor": "L",
+   "n": 133,
+   "tipo": "neveras",
+   "precio_proveedor": 480,
+   "precio": 530,
+   "comision": 20,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "Nevera Milexus 11.2cuft con llave 🔐\n- Marca: MILEXUS\n- Referencia: ML-CF-319\n- País de fabricación: China\n- Dimensiones: Ancho 112cm Alto 60cm Profundidad 83cm\nCongelador 319L sin cerradura\nFunción de congelación o mantenimiento\nRevestimiento interior blanco\n110V\nDimenciones\n• Ancho 112 CM\n• Alto 60 CM\n• Profundidad 83 CM",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1383/1.jpg",
+    "/home/u824654880/electro-fotos/1383/2.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1414,
+   "ids": [
+    1414,
+    1496,
+    1348
+   ],
+   "nombre": "Nevera exhibidora vertical AUCMA 7,2 pies",
+   "proveedor": "L",
+   "n": 134,
+   "tipo": "neveras",
+   "precio_proveedor": 485,
+   "precio": 535,
+   "comision": 20,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1414/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1689,
+   "ids": [
+    1689
+   ],
+   "nombre": "Refrigerador Royal 11 pies",
+   "proveedor": "L",
+   "n": 135,
+   "tipo": "neveras",
+   "precio_proveedor": 530,
+   "precio": 585,
+   "comision": 22,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "Refrigerador Royal 11cuft\n- Potencia: 120W\n- Voltaje: 115V\n- Frecuencia: 60Hz\n- Congelación Seca (NO FROST)\n- Tecnología Inverter\n- Incluye sistema de dispensador de agua\n- Refrigerante: R600\n- Peso neto: 51 kg\n- Luz LED\n- Agente espumante ciclopentane\n- Estante de vidrio\n- Consumo: 326 kWh/año\n530💵 con 🚘 incluído",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1689/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1334,
+   "ids": [
+    1499,
+    126,
+    1334
+   ],
+   "nombre": "Exhibidora Milexus 13 pies 1 puerta",
+   "proveedor": "L",
+   "n": 136,
+   "tipo": "neveras",
+   "precio_proveedor": 610,
+   "precio": 675,
+   "comision": 26,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "Exhibidora de 13 pies milexus\nDimenciones:\n• ancho 60.5 cm\n•Alto 1. 95 cm\n• profundidad 62.5 cm\nEspecificaciones técnicas:\n•Enfriador vertical 1 puerta\n•4 estantes de metal revestidos de plástico\n•Luz led en el interior\n•Voltaje 110 v\n•Frecuencia 60hz\n•R134A\n610💵 con 🚘 incluído",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1334/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1690,
+   "ids": [
+    1690,
+    70
+   ],
+   "nombre": "Refrigerador LG 14 pies",
+   "proveedor": "L",
+   "n": 137,
+   "tipo": "neveras",
+   "precio_proveedor": 770,
+   "precio": 850,
+   "comision": 32,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "Refrigerador LG 14cuft\n- LINEARCooling™ - Control preciso de la temperatura para conservar la frescura de los alimentos hasta por 7 días.\n- DoorCooling+™ - Enfriamiento constante y unifome desde la puerta hasta cada rincón.\n- Dimensiones (An. x Alt. x Prof.) 700 mm x 1760 mm x 680 mm\n- Multi Air Flow™ - Distribución uniforme de aire frío en todas las repisas.\n- Smart Inverter Compressor™ energéticamente eficiente y duradero\n- Color Blanco hueso 🤍\n770💵 con 🚘 incluído",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1690/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 72,
+   "ids": [
+    72
+   ],
+   "nombre": "Refrigerador Hisense 15,6 pies",
+   "proveedor": "L",
+   "n": 138,
+   "tipo": "neveras",
+   "precio_proveedor": 810,
+   "precio": 895,
+   "comision": 34,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "Refrigerador Hisense 15.6 pies cuft",
+   "fotos": [
+    "/home/u824654880/electro-fotos/72/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1703,
+   "ids": [
+    1636,
+    1497,
+    1415,
+    1555,
+    1703
+   ],
+   "nombre": "Exhibidora vertical Milexus 20 pies doble puerta",
+   "proveedor": "L",
+   "n": 139,
+   "tipo": "neveras",
+   "precio_proveedor": 1210,
+   "precio": 1335,
+   "comision": 50,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "Exhibidora vertical 20cuft DOBLE PUERTA\n- Marca Milexus\n- Capacidad en volumen 560 L🥛\n- Voltaje 120V\n- Con luz interior Sí 💡\n- Altura x Ancho x Profundidad 200 cm x 100 cm x 66 cm\n- Con control de temperatura Sí\n- Ruedas Sí",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1703/1.jpg",
+    "/home/u824654880/electro-fotos/1703/2.jpg",
+    "/home/u824654880/electro-fotos/1703/3.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1556,
+   "ids": [
+    1416,
+    1556,
+    1498
+   ],
+   "nombre": "Freezer exhibidor Focustar 21 pies SD-569BY",
+   "proveedor": "L",
+   "n": 140,
+   "tipo": "neveras",
+   "precio_proveedor": 1680,
+   "precio": 1850,
+   "comision": 68,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "Frezzer Exhibidor Focustar de 21 pies cúbicos\nEspecificaciones técnicas:\n· Modelo: SD-569BY\n· Capacidad: 569 L\n· Temperatura: -18  -22 °C\n· Tipo de clima: T (tropical)\n· Voltaje/Frecuencia: 110 V / 60 Hz\n. Luz interior Led\n· Refrigerante: R290\n· Marco: ABS\n· Cerradura: Sí\n· Puerta: Vidrio templado\n· Marco de puerta: ABS\n· Termostato: Mecánico\n· Ruedas: 2 fijas + 2 giratorias\n· Dimensiones netas: 1620×694×910 mm",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1556/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1482,
+   "ids": [
+    1411,
+    1482
+   ],
+   "nombre": "Lavadora semiautomática Milexus 7 kg",
+   "proveedor": "L",
+   "n": 141,
+   "tipo": "lavadoras",
+   "precio_proveedor": 180,
+   "precio": 200,
+   "comision": 8,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "Lavadora semi milexus de 7 kg",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1482/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1485,
+   "ids": [
+    1412,
+    1485,
+    1347
+   ],
+   "nombre": "Lavadora semiautomática Estelectric 8 kg",
+   "proveedor": "L",
+   "n": 142,
+   "tipo": "lavadoras",
+   "precio_proveedor": 180,
+   "precio": 200,
+   "comision": 8,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "Lavadora semiautomática Estelectric de 8 kg",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1485/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1481,
+   "ids": [
+    1409,
+    1481
+   ],
+   "nombre": "Lavadora automática Milexus 7,5 kg",
+   "proveedor": "L",
+   "n": 143,
+   "tipo": "lavadoras",
+   "precio_proveedor": 205,
+   "precio": 225,
+   "comision": 8,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "Lavadora automática milexus 7.5kg",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1481/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1486,
+   "ids": [
+    1486
+   ],
+   "nombre": "Lavadora automática Chiq 10 kg",
+   "proveedor": "L",
+   "n": 144,
+   "tipo": "lavadoras",
+   "precio_proveedor": 280,
+   "precio": 300,
+   "comision": 8,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "Lavadora automática chiq de 10 Kg agua fría y agua caliente",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1486/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1413,
+   "ids": [
+    1548,
+    1413
+   ],
+   "nombre": "Lavadora automática LG (agua fría y caliente)",
+   "proveedor": "L",
+   "n": 145,
+   "tipo": "lavadoras",
+   "precio_proveedor": 305,
+   "precio": 340,
+   "comision": 14,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "lavadora automática LG agua fría y agua caliente 🔥",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1413/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1694,
+   "ids": [
+    1549,
+    1408,
+    1694,
+    1484
+   ],
+   "nombre": "Lavadora secadora al vapor Milexus 10 kg",
+   "proveedor": "L",
+   "n": 146,
+   "tipo": "lavadoras",
+   "precio_proveedor": 660,
+   "precio": 730,
+   "comision": 28,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "Lavadora Secadora al Vapor Milexus 10 kg\nModelo: ML-LVFL-10KGS\nVoltaje/Frecuencia: 110v/60Hz\nPotencia de calefacción nominal 1200wats\nPotencia máxima: 1300 W\nPotencia de entrada de lavado: 250W\nCapacidad de lavado: 10,0 kg\nCapacidad de la secadora: 6,0 kg\nDimensión: 598(W)x608(D)x845(H) mm",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1694/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1483,
+   "ids": [
+    1410,
+    1483
+   ],
+   "nombre": "Lavadora secadora Hisense 15 kg",
+   "proveedor": "L",
+   "n": 147,
+   "tipo": "lavadoras",
+   "precio_proveedor": 680,
+   "precio": 750,
+   "comision": 28,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "🧺 Lavadora Secadora Hisense 15KG\n💦 Lavado: 15 kg\n🌬️ Secado: 10 kg\n♨️ Limpieza a vapor\n⚡ Tecnología Eco Inverter\n📱 ConnectLife",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1483/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1393,
+   "ids": [
+    1393,
+    1309,
+    465,
+    1479
+   ],
+   "nombre": "Split Well 1 tonelada WA122W 220 V",
+   "proveedor": "L",
+   "n": 148,
+   "tipo": "splits",
+   "precio_proveedor": 275,
+   "precio": 295,
+   "comision": 8,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "Split Well 1 tonelada 220v\n- Marca: WELL\n- Modelo: WA122W\n- Voltaje:V\n- Frecuencia: 60Hz\n- Capacidad de enfriamiento: 12000 BTU (1 tonelada)\n- Corriente nominal: 5.25A\n- Entrada nominal: 30A\n- Gas refrigerante: R410A\n- Peso neto: 26.5 kg\n- Dimensiones evaporador interno: 72×29.2×24 cm\n- Dimensiones condensador exterior: 64×28.7×50.2 cm\n- Color: Blanco\n- Componentes y accesorios incluídos:\n-Evaporador interior con montaje en la pared\n-Condensador exterior\n-Control remoto con baterías\n-Tubería de cobre de 3 metros\n-Cables eléctricos de 3 metros\n-Manual de usuario",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1393/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1478,
+   "ids": [
+    1394,
+    1478,
+    1547
+   ],
+   "nombre": "Split Milexus 1 tonelada 220 V",
+   "proveedor": "L",
+   "n": 149,
+   "tipo": "splits",
+   "precio_proveedor": 280,
+   "precio": 300,
+   "comision": 8,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "SPLIT MILEXUS DE 1 tonelada ( Incluye Tuberías de cobre ) no trae protector de voltaje ni pie de amigos ) 220Vol  ( es convencional )",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1478/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 466,
+   "ids": [
+    466,
+    91
+   ],
+   "nombre": "Split Milexus 1 tonelada 110 V (12000 BTU)",
+   "proveedor": "L",
+   "n": 150,
+   "tipo": "splits",
+   "precio_proveedor": 350,
+   "precio": 385,
+   "comision": 14,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "Split Milexus 110V 1 tonelada ⚫️\n- Marca: Milexus\n- 110V\n- Convencional\n- 12.000 BTU\n- Compresor TOSHIBA\n- Tuberías de cobre 3.5 mtrs para mayor durabilidad\n- Refrigerante R-410A 600g\n- Filtro Antibacteriano\n- Control Remoto Inalámbrico\n- Temporizador\n- Función de Descongelación\n- Display Digital - Panel LED\n- Función de Auto-Limpieza\n- Función Anti-Hongos\n350 💵 con 🚘 incluído",
+   "fotos": [
+    "/home/u824654880/electro-fotos/466/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1693,
+   "ids": [
+    1693,
+    1546,
+    93,
+    1310,
+    1480,
+    467
+   ],
+   "nombre": "Split Milexus Inverter 1 tonelada 220 V",
+   "proveedor": "L",
+   "n": 151,
+   "tipo": "splits",
+   "precio_proveedor": 375,
+   "precio": 415,
+   "comision": 16,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "Split Milexus de 1 tonelada Inverter ❄️ 12000BTU\n- Marca: MILEXUS\n- Modelo: ML-INVERTER-12K-220V\n- Capacidad de enfriamiento: 12,000 BTU\n- Potencia de entrada: 1250W\n- Potencia de entrada nominal: 1600W\n- Voltaje:V\n- Frecuencia: 60Hz\n- Corriente: 5.8A\n- Corriente nominal: 9.6A\n- Volumen de aire interior: 550 m³/h\n- Refrigerante: R32\n- Dimensiones unidad exterior: 768×575×338 mm\n- Dimensiones unidad interior: 867×274×337 mm\n- Incluye: Control remoto, 3.5 metros de tubería de cobre, masilla y cinta para sellar, tubería de desagüe plástica",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1693/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 124,
+   "ids": [
+    483,
+    1500,
+    1333,
+    124
+   ],
+   "nombre": "TV Premier 32\" Smart con barra de sonido",
+   "proveedor": "L",
+   "n": 152,
+   "tipo": "tv",
+   "precio_proveedor": 170,
+   "precio": 190,
+   "comision": 8,
+   "precio_manual": false,
+   "departamentos": [
+    "tecnologia"
+   ],
+   "descripcion": "TV premier de 32 smart TV con barra de sonido incluida y soporte a la pared",
+   "fotos": [
+    "/home/u824654880/electro-fotos/124/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 123,
+   "ids": [
+    123
+   ],
+   "nombre": "Smart TV Samsung 40\"",
+   "proveedor": "L",
+   "n": 153,
+   "tipo": "tv",
+   "precio_proveedor": 250,
+   "precio": 270,
+   "comision": 8,
+   "precio_manual": false,
+   "departamentos": [
+    "tecnologia"
+   ],
+   "descripcion": "Smart TV Samsung de 40 pulgadas\n✅ con su soporte",
+   "fotos": [
+    "/home/u824654880/electro-fotos/123/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1707,
+   "ids": [
+    482,
+    1332,
+    275,
+    1707,
+    122
+   ],
+   "nombre": "Smart TV Milexus 43\" Full HD",
+   "proveedor": "L",
+   "n": 154,
+   "tipo": "tv",
+   "precio_proveedor": 265,
+   "precio": 285,
+   "comision": 8,
+   "precio_manual": false,
+   "departamentos": [
+    "tecnologia"
+   ],
+   "descripcion": "Televisor Smart TV Milexus 43 pulgadas\n- Modelo: ML-LED-43 DVB-T2 SMART AGTV\n- Voltaje: 110–240 V\n- Frecuencia: 50/60 Hz\n- Tamaño de pantalla: 43 pulgadas\n- Resolución: Full HD (1920×1080 píxeles)\n- Tipo de pantalla: LED\n- Relación de aspecto: 16:9\n- Frecuencia de actualización: 60 Hz\n- Google TV\n- Funciones inteligentes:\n1. Aplicaciones de streaming\n2. Navegador web integrado\n3. Reproducción multimedia USB\n- Audio: Potencia de salida: 16 W (2×8 W). Sonido estéreo\n- Conectividad: Wi-Fi integrado\n- Puertos y entradas:\n1. HDMI: 2\n2. USB: 2\n3. Entrada AV (RCA): 1\n4. Entrada de antena RF: 1\n5. Puerto Ethernet (LAN): 1\n- Sintonizador: Televisión digital terrestre: DVB-T2\n- Dimensiones: Alto: 55.5 cm, Profundidad: 8.5 cm, Ancho: 95.5 cm\n- Accesorios incluidos:\n1. Control remoto\n2. Soporte de mesa\n3. Tornillos para el soporte\n4. Manual de usuario (incluye idioma español)\n265💵 con 🚘 incluído\n290💵 con soporte",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1707/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1702,
+   "ids": [
+    481,
+    1702,
+    1406,
+    1326,
+    118,
+    1633
+   ],
+   "nombre": "Calentador Milexus 30 L ML-CA888",
+   "proveedor": "L",
+   "n": 155,
+   "tipo": "calentadores",
+   "precio_proveedor": 140,
+   "precio": 160,
+   "comision": 8,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "Calentador de agua Milexus Capacidad 30L\n- Modelo: ML-CA888\n- Potencia: 2000W\n- Voltaje:V\n- Frecuencia: 60Hz\n- Capacidad: 30 litros\n- Dimensiones: 400×400×645 mm\n- Instalación: Vertical\n140💵 con 🚘 incluído",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1702/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1700,
+   "ids": [
+    1700,
+    1554,
+    479,
+    1324,
+    1635,
+    116
+   ],
+   "nombre": "Calentador instantáneo Milexus 10 L",
+   "proveedor": "L",
+   "n": 156,
+   "tipo": "calentadores",
+   "precio_proveedor": 155,
+   "precio": 175,
+   "comision": 8,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "Calentador de agua instatáneo con escape de humo.\nControl de agua completo, encendido automático por impulso.\nFunción de arranque por baja presión de agua, gran caudal.\nProtección contra sobre calentamiento.\nProtección contra extinsión de llamas.\nProtección contra la combustión en seco.\nProtección contra sobrepresión y anti congelacion por drenaje de agua\nMarca milexus",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1700/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1701,
+   "ids": [
+    480,
+    1701,
+    1325,
+    117,
+    1632
+   ],
+   "nombre": "Calentador Milexus 50 L ML-CA888",
+   "proveedor": "L",
+   "n": 157,
+   "tipo": "calentadores",
+   "precio_proveedor": 165,
+   "precio": 185,
+   "comision": 8,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "Calentador de agua Milexus 50L\n- Modelo: ML-CA888\n- Potencia: 2000W\n- Voltaje:V\n- Frecuencia: 60Hz\n- Capacidad: 50 litros\n- Dimensiones: 465×465×685 mm\n- Instalación: Vertical\n165💵 con 🚘 incluído",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1701/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1495,
+   "ids": [
+    1328,
+    1407,
+    1495
+   ],
+   "nombre": "Calentador eléctrico 13 kW (1300 W)",
+   "proveedor": "L",
+   "n": 158,
+   "tipo": "calentadores",
+   "precio_proveedor": 200,
+   "precio": 220,
+   "comision": 8,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "Calentadores 13 kw\nCalentador eléctrico de 1300 w\n63 amperios\nVoltage 220-240\nFrecuencia 50-60Hz\nProtección eléctrica IPX4\nRango de temperatura 30-55°C\nPresión de agua 0.1 Mpa-0.7Mpa\nPantalla Icd digital\nControl tactil.",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1495/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1699,
+   "ids": [
+    1699,
+    1553,
+    478,
+    1323,
+    1634,
+    115
+   ],
+   "nombre": "Calentador instantáneo Milexus 20 L",
+   "proveedor": "L",
+   "n": 159,
+   "tipo": "calentadores",
+   "precio_proveedor": 225,
+   "precio": 245,
+   "comision": 8,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "Calentador de agua instatáneo con escape de humo.\nControl de agua completo, encendido automático por impulso.\nFunción de arranque por baja presión de agua, gran caudal.\nProtección contra sobre calentamiento.\nProtección contra extinsión de llamas.\nProtección contra la combustión en seco.\nProtección contra sobrepresión y anti congelacion por drenaje de agua\nMarca milexus",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1699/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 114,
+   "ids": [
+    477,
+    114
+   ],
+   "nombre": "Calentador Royal 100 L 220 V",
+   "proveedor": "L",
+   "n": 160,
+   "tipo": "calentadores",
+   "precio_proveedor": 300,
+   "precio": 320,
+   "comision": 8,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "",
+   "fotos": [
+    "/home/u824654880/electro-fotos/114/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 113,
+   "ids": [
+    113
+   ],
+   "nombre": "Calentador Primo 60 L",
+   "proveedor": "L",
+   "n": 161,
+   "tipo": "calentadores",
+   "precio_proveedor": 400,
+   "precio": 440,
+   "comision": 16,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "",
+   "fotos": [
+    "/home/u824654880/electro-fotos/113/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 120,
+   "ids": [
+    120,
+    1330,
+    1501
+   ],
+   "nombre": "Ventilador recargable de pedestal Milexus",
+   "proveedor": "L",
+   "n": 162,
+   "tipo": "ventiladores",
+   "precio_proveedor": 85,
+   "precio": 105,
+   "comision": 8,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos",
+    "apagones-y-energia"
+   ],
+   "descripcion": "Ventilador recargable de pedestal milexus\n- ALIMENTACIÓN DOBLE CA Y CC\n- MOTOR SUPERIOR | SILENCIOSO Y DURADERO\n- BATERÍA DE LITIO SEGURA DE 8000 mAh\n- AUTONOMÍA DE HASTA 20 HORAS\n- ALTAS RPM | POTENTE FLUJO DE AIRE\n- LUZ LED INTEGRADA\n- CARGA DE TELÉFONO USB\n- 3 VELOCIDADES",
+   "fotos": [
+    "/home/u824654880/electro-fotos/120/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1708,
+   "ids": [
+    121,
+    1331,
+    1637,
+    1708,
+    1502,
+    1557,
+    1417
+   ],
+   "nombre": "Lámpara solar exterior Vivamax 300 W",
+   "proveedor": "L",
+   "n": 163,
+   "tipo": "otros",
+   "precio_proveedor": 155,
+   "precio": 175,
+   "comision": 8,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "descripcion": "Lámpara solar para exteriores 300W\n- Energía solar, electricidad gratis\n- Incluye panel solar\n- Marca Vivamax\n- Sin cableado, instálelo donde quiera\n- Nuevo diseño desmontable, fácil de instalar y mantener\n- Impermeable\n- La lente Optiact mejora la eficiencia lumínica en un 20%\n- Batería LiFePO4 de alta calidad y completamente nueva, 100% de capacidad.\n- Múltiples modos de funcionamiento para diferentes aplicaciones en escenas\n- Encendido automático por la noche, apagado automático durante el día\n155 💵 con 🚘 incluído",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1708/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  },
+  {
+   "market_id": 1709,
+   "ids": [
+    1709,
+    274,
+    119,
+    1329
+   ],
+   "nombre": "Máquina de hielo Coolake K450 (550 lb en 24 h)",
+   "proveedor": "L",
+   "n": 164,
+   "tipo": "otros",
+   "precio_proveedor": 2050,
+   "precio": 2255,
+   "comision": 82,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "descripcion": "Hielera 550 lb en 24 h\nCoolake K450 es una máquina comercial de hielo en cubos con sistema enfriado por aire y diseño modular, capaz de producir hasta 550 libras (250 kg) de hielo cada 24 horas.Especificaciones PrincipalesCapacidad de producción diaria: Hasta 550 lbs / 24 horas (250 kg).Capacidad de almacenamiento (Bin): Compatible con contenedor de almacenamiento de hasta 360 lbs (163 kg) con aislamiento de 7 a 9 horas.Voltaje / Energía: 115 V, diseño energéticamente eficiente con condensador enfriado por aire.Tipo de hielo: Cubos de hielo transparentes y sólidos (medidas estándar aprox. 7/8\" x 7/8\" x 7/8\").Material: Acero inoxidable de alta durabilidad en su estructura exterior.Funciones destacadas: Panel de control digital con monitoreo en tiempo real, autodiagnóstico de fallas y función de autolimpieza de un solo toque.Conexiones: Entradas y salidas de agua estándar de 3/4\".",
+   "fotos": [
+    "/home/u824654880/electro-fotos/1709/1.jpg"
+   ],
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: bajo pedido, se confirma con el proveedor en cada venta"
+  }
+ ]
+}

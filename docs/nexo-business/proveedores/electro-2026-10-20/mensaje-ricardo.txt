@@ -1,0 +1,158 @@
+Hola Ricardo 👋 Soy Ernesto, de Casa Viva.
+Queremos poner en nuestra tienda online (casaviva.company) los equipos que Sergio anuncia en su grupo, para que los vendan nuestras gestoras. Antes de publicar nada quiero confirmarlo contigo.
+
+*Para todo en general:*
+A. ¿Qué precio nos haces como revendedores, o cuánto nos dejas de comisión por cada equipo que vendamos?
+B. ¿Se puede recoger en su local? Dirección y horario. Y si lo llevan ustedes al cliente, ¿a qué zonas y cuánto cuesta?
+C. ¿Qué garantía tiene cada tipo de equipo (estaciones, baterías, inversores, neveras, lavadoras…)?
+
+*Y esta lista, con el precio que vimos en el grupo (USD):* ¿sigue disponible y es el precio final?
+Para ir rápido, contéstame *solo los números que no tienes o que cambiaron* (ej.: «7 agotado, 12 ahora 380»). Si todo está bien, con un «todo ok» me basta 👌
+
+⚡ *Estaciones de energía*
+1. OUPES Exodus 992 Wh — 490
+2. EcoFlow Delta 3 Classic 1024 Wh — 600
+3. EcoFlow Delta 3 1024 Wh (3600 W pico) — 660
+4. OUPES Mega 1 Lite — 670
+5. EcoFlow Delta 3 Plus 1024 Wh — 750
+6. Estación OUPES 2400 W (4500 W pico) — 1000
+7. EcoFlow Delta 3 Max 2048 Wh — 1150
+8. Jackery HomePower 3000 (3072 Wh) — 1620
+9. EcoFlow Delta 3 Ultra 3072 Wh — 1900
+10. Jackery Explorer 3600 Plus (3584 Wh) — 2000
+
+🔋 *Baterías*
+11. Batería para inversores 12 V BMS (nueva en caja, sin garantía) — 310
+12. Batería LiFePO4 12,8 V 150 Ah — 400
+13. Batería para inversores ciclo profundo BMS (se prueba con multímetro) — 450
+14. Batería extra EcoFlow Delta 2 (1024 Wh) — 600
+15. Batería LiFePO4 25,6 V 100 Ah (2560 Wh) — 660
+16. Batería inteligente LiFePO4 5,12 kWh 51,2 V 100 Ah — 1350
+17. Batería Humsienk LiFePO4 5,12 kWh — 1380
+18. Batería inteligente Eco-Humsienk 5,12 kWh 51,2 V 100 Ah — 1470
+19. Batería WattCycle LiFePO4 5,12 kWh — 1550
+20. Batería Sako 10 kWh LiFePO4 — 2770
+21. Batería LiFePO4 15 kWh 300 Ah 51,2 V — 3420
+22. Batería 48 V 300 Ah (15360 Wh) — 3500
+23. Batería inteligente Eco-Worthy 16 kWh — 3950
+
+🔌 *Inversores*
+24. Inversor Sumry 4000 W 110 V (24 V) — 430
+25. Inversor Sako 5 kW 110 V — 800
+26. Inversor híbrido 6,2 kW 110/220 V — 850
+27. Inversor bifásico Must 6 kW — 1050
+28. Inversor híbrido ECO-WORTHY 6 kW — 1400
+29. Inversor híbrido WattCycle 6,5 kW — 1500
+30. Inversor híbrido WattCycle Hybrid Plus 12 kW — 2400
+
+🏠 *Kits inversor + batería*
+31. Combo Sumry 4000 W + 2 baterías 12,8 V 100 Ah (+ transfer) — 1100
+32. Combo Sumry 4000 W + batería 25,6 V LiFePO4 (+ transfer) — 1220
+33. Combo Sumry 4000 W + 2 baterías 12,8 V 150 Ah (+ transfer) — 1300
+34. Combo Sumry 4000 W + 2 baterías 12,8 V 200 Ah (+ transfer) — 1620
+35. Combo Sumry 4000 W + 2 baterías 25,6 V 100 Ah (+ transfer) — 1940
+36. Inversor todo en uno Must 3 kW con 7 kWh — 2500
+37. Combo inversor híbrido 6,2 kW + 1 batería 5,12 kWh — 2550
+38. Combo Sumry 4000 W + 2 baterías 12,8 V 100 Ah + 2 paneles 625 W — 2600
+39. Kit todo en uno Infinity 6 kW con 15 kWh — 3780
+40. Inversor todo en uno Must 6 kW con 15 kWh — 3850
+41. Combo inversor híbrido 6,2 kW + 2 baterías 5,12 kWh (10,24 kWh) — 4000
+42. Inversor Must 6 kW 110/220 V + batería Sako 15 kWh — 4700
+43. Kit fotovoltaico 6,2 kVA + 4 paneles 625 W + batería 5,12 kWh — 4700
+44. Kit fotovoltaico ECO-WORTHY 6 kW + batería 5,12 kWh + 6 paneles 625 W — 5350
+45. Combo Must 6 kW + batería Sako 15 kWh + 6 paneles bifaciales — 5700
+46. Kit fotovoltaico 6,2 kVA + 6 paneles 625 W + 2 baterías (10,24 kWh) — 6600
+
+☀️ *Paneles solares*
+47. Panel solar 450 W Ever Solar bifacial — 160
+48. Panel solar 625 W bifacial (BIN) — 170
+49. Panel solar Longi 620 W bifacial — 210
+
+🔗 *Cables y accesorios*
+50. Cable solar 10 m (inversor, panel y EcoFlow) — 55
+51. Cable solar MC4 a XT60 de 6 m — 85
+52. Transfer automático SACO 110 V — 90
+53. Controlador solar Boost Q7-LUMINA MPPT 1200 W — 125
+
+⛽ *Plantas eléctricas*
+54. Planta SIGMA Inverter 4000 W (3300 W continuos) — 870
+55. Planta SIGMA Inverter 6500 W (5000 W continuos) — 1150
+
+❄️ *Neveras y congeladores*
+56. Neveras con detalles pequeños (funcionan bien) — 240
+57. Nevera Royal 3,5 pies Inverter — 245
+58. Nevera Milexus 4,2 pies (119 L) — 250
+59. Nevera Royal 5,5 pies — 270
+60. Nevera Milexus 6 pies con llave — 300
+61. Frío Hisense 7,3 pies — 370
+62. Congelador vertical Premier 145 L — 385
+63. Congelador vertical Premier 177 L — 415
+64. Refrigerador LG 14 pies — 830
+65. Refrigerador Hisense Side by Side 16 pies — 840
+
+🧺 *Lavadoras*
+66. Lavadora semiautomática Milexus 7 kg — 180
+67. Lavadora automática Milexus 7,5 kg — 200
+68. Lavadora semiautomática Premier 9 kg — 220
+69. Lavadora automática LG 9 kg — 300
+70. Lavadora secadora al vapor Milexus 10 kg — 650
+71. Lavadora secadora Hisense 15 kg — 670
+72. Lavadora secadora LG 14 kg — 780
+
+🌬️ *Splits*
+73. Split Milexus 1 tonelada 220 V — 280
+
+📺 *Televisores*
+74. Smart TV Insignia 32" Fire TV — 155
+75. Smart TV ONN Vizio 32" — 155
+76. TV Premier 32" Smart con barra de sonido — 165
+77. Smart TV Samsung 40" — 245
+78. Smart TV Insignia 55" 4K — 400
+79. TV Premier 50" UHD Smart con barra de sonido y soporte — 485
+
+🚿 *Calentadores*
+80. Calentador eléctrico Milexus 50 L (YB-003-50L) — 170
+81. Calentador eléctrico 11 kW (1100 W) — 210
+82. Calentador eléctrico 13 kW (1300 W) — 220
+
+🍳 *Cocinas y hornos*
+83. Grill a gas para parrilladas — 190
+84. Cocina Premier 20" con magneto — 210
+85. Estufa de gas 6 quemadores con horno 30" — 400
+86. Cocina Milexus de gas 5 quemadores — 440
+87. Cocina Milexus de gas 6 quemadores — 470
+
+🥤 *Batidoras y cafetera*
+88. Batidora de mano Midea 200 W — 35
+89. Batidora Silver Crest 2 L 1800 W — 50
+90. Cafetera espresso Royal — 55
+91. Batidora Ninja Plus Blender Duo 1400 W — 190
+
+🌀 *Ventiladores*
+92. Ventilador industrial 30" 160 W — 165
+
+📦 *Otros*
+93. Goma 120/70-12 para moto eléctrica / scooter — 31
+94. Goma 3.50-12 para triciclo (delantera) — 31
+95. Goma 3.75-12 para triciclo (delantera) — 31
+96. Goma 4.00-12 para triciclo — 31
+97. Goma 80/90-14 para bici-moto — 31
+98. Goma 145/70-12 para triciclo (trasera) — 33
+99. Goma 130/60-13 para moto eléctrica / scooter — 48
+100. Silla de oficina — 55
+101. Inflable muñeco de nieve LYC-053 (1,6 m) — 90
+102. Inflable muñeco de nieve LYC-054 (1,8 m) — 110
+103. Inflable Papá Noel gigante — 135
+104. Inflable árbol de Navidad LYC-044 (2,1 m) — 140
+105. Bicicleta Silver Bike MTB 26" — 200
+
+🕓 *Estos hace días que no los veo en el grupo. ¿Todavía los tienes?*
+106. Batería inteligente Eco-Worthy 5,12 kWh 51,2 V 100 Ah — 1470
+107. Transfer automático ZENEOGK — 90
+108. Frío Royal 8,5 pies con dispensador — 380
+109. Lavadora automática Samsung 9 kg — 275
+110. Horno Premier 45 L con asador — 160
+111. Ventilador recargable 20000 mAh — 58
+112. Ventilador recargable Elfo 15000 mAh con panel solar — 90
+
+¡Muchas gracias! 🙏

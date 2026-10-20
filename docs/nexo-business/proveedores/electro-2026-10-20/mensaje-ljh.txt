@@ -1,0 +1,225 @@
+Hola 👋 Soy Ernesto, de Casa Viva.
+Queremos poner en nuestra tienda online (casaviva.company) los equipos que anuncias en tu grupo «Electro L Q Nesecitas», para que los vendan nuestras gestoras. Antes de publicar nada quiero confirmarlo contigo.
+
+*Para todo en general:*
+A. ¿Qué precio nos haces como revendedores, o cuánto nos dejas de comisión por cada equipo que vendamos?
+B. ¿Se puede recoger en tu local? Dirección y horario. Y si lo llevan ustedes al cliente, ¿a qué zonas y cuánto cuesta?
+C. ¿Qué garantía tiene cada tipo de equipo (estaciones, baterías, inversores, neveras, lavadoras…)?
+
+*Y esta lista, con el precio que vimos en el grupo (USD):* ¿sigue disponible y es el precio final?
+Para ir rápido, contéstame *solo los números que no tienes o que cambiaron* (ej.: «7 agotado, 12 ahora 380»). Si todo está bien, con un «todo ok» me basta 👌
+
+⚡ *Estaciones de energía*
+1. EcoFlow River 3 Plus 286 Wh — 400
+2. SBAOH 600 W (538,7 Wh) — 410
+3. Ampace Andes 600 Pro (584 Wh) — 460
+4. EcoFlow River 3 Plus + batería extra EB600 (572 Wh) — 550
+5. Oukitel P1000 Plus (1024 Wh, 1800 W) — 550
+6. EcoFlow Delta 3 Classic 1024 Wh — 590
+7. EcoFlow Delta 3 1024 Wh LiFePO4 — 660
+8. Bluetti AC180 (1152 Wh) — 670
+9. EcoFlow Delta 3 Plus 1024 Wh — 700
+10. Bluetti AC180P (1440 Wh) — 790
+11. Oukitel P1500 Plus (1536 Wh, 1800 W) — 870
+12. Ampace Andes 1500 (1462 Wh) — 880
+13. EcoFlow Delta 3 Max 2048 Wh — 1020
+14. Solar Play 2400 W (2160 Wh) — 1040
+15. Anker Solix S2000 (2010 Wh) — 1070
+16. OUPES Mega 2 Pro (2500 W) — 1190
+17. EcoFlow Delta 2 Max 2048 Wh — 1260
+18. Estación de energía LiFePO4 3600 W 3072 Wh (sin marca) — 1600
+19. EcoFlow Delta 3 Ultra 3072 Wh — 1710
+20. EcoFlow Delta 3 Ultra Plus — 1900
+21. EcoFlow Delta Pro 3600 Wh — 2060
+22. Jackery Explorer 5000 Plus — 2950
+23. EcoFlow Delta Pro 3 4000 Wh — 3200
+24. EcoFlow Delta Pro Ultra 6144 Wh — 4550
+
+☀️ *Combos estación + panel*
+25. Combo EcoFlow Delta 3 Classic + panel 595 W — 730
+26. Combo EcoFlow (modelo por confirmar) + panel 450 W + cable 10 m — 830
+27. Combo EcoFlow Delta 3 Plus + panel 450 W + cable 10 m — 880
+28. Combo EcoFlow Delta 3 + panel 450 W + cable 10 m — 890
+29. Combo EcoFlow Delta 3 Max + panel 450 W + cable 10 m — 1190
+30. Jackery Explorer 2000 (2042 Wh) + panel SolarSaga 200 W — 1540
+31. Combo EcoFlow Delta Pro + paneles 450 W — 2550
+
+🔋 *Baterías*
+32. Batería para inversores BMS (nueva en caja, sin garantía) — 315
+33. Batería LiFePO4 12,8 V 150 Ah — 405
+34. Batería para inversores ciclo profundo BMS (se prueba con multímetro) — 460
+35. Batería extra EcoFlow Delta 2 (1024 Wh) — 610
+36. Batería 25,5 V 100 Ah — 610
+37. Batería LiFePO4 25,6 V 100 Ah (2560 Wh) — 670
+38. Batería 5 kWh — 1060
+39. Batería extra EcoFlow Delta 2 Max — 1250
+40. Batería inteligente Eco-Humsienk 5,12 kWh 51,2 V 100 Ah — 1480
+41. Batería extra EcoFlow Delta Pro — 1690
+42. Batería TBSOLARO LiFePO4 10 kWh 51 V 200 Ah — 2560
+43. Batería 10 kWh — 2610
+44. Batería Must 10 kWh — 2610
+45. Batería Must 15 kWh — 2760
+46. Batería Sako 10 kWh — 2780
+47. Batería GIGA CITY 16 kWh — 3110
+48. Batería 16 kWh — 3210
+49. Batería EcoWorthy 16 kWh 51,2 V 314 Ah — 3320
+50. Batería LiFePO4 15 kWh 300 Ah 51,2 V — 3430
+51. Batería Bluesun 16 kWh — 3450
+52. Batería Humsienk 15 kWh — 3500
+
+🔌 *Inversores*
+53. Inversor solar Sumry 4000 W híbrido 110 V — 360
+54. Inversor 3 kW 110 V 48 V — 460
+55. Inversor Must 3 kW 110/220 V — 660
+56. Inversor ECO-WORTHY 5 kW — 750
+57. Inversor 5 kW — 810
+58. Inversor GIGA CITY 6 kW — 860
+59. Inversor Must 6 kW — 910
+60. Inversor InfiniSolar 6000 W VP330 TLV — 910
+61. Inversor Sako 6 kW — 960
+62. Inversor híbrido 8 kW 110/220 V — 1300
+63. Inversor Sako Sunsee Amery 10000 W fase dividida — 1710
+64. Inversor Sunpal 10 kW 110/220 V — 1730
+65. Inversor Sako 10 kW 110/220 V — 1760
+66. Inversor Sako 12000 W — 1910
+67. Inversor Humsienk 12000 Plus+ (12 kW) — 1950
+
+🏠 *Kits inversor + batería*
+68. Inversor Sako 1000 W con batería 2000 Wh — 790
+69. Inversor Future Tech 3 kW + batería SunDta 5 kWh — 1960
+70. Combo inversor 5 kW (110/220 V) + batería 5 kWh — 2050
+71. Kit Infinity inversor 3 kW + batería 5 kWh (110 V) — 2110
+72. Kit inversor 3 kW con 7 kWh de respaldo — 2310
+73. Combo inversor híbrido 6,2 kW + 1 batería 5,12 kWh — 2560
+74. Kit inversor 6 kW con 10 kWh de respaldo — 2860
+75. Kit inversor 3 kW con 7 kWh + 5 paneles 595 W — 3110
+76. Todo en uno Must 6 kW con 15 kWh — 3360
+77. Infinity 6 kW con 15 kWh de respaldo — 3510
+78. Inversor 6 kW + batería 16 kWh — 3710
+79. Inversor 6 kW con 15 kWh de respaldo (batería Sako) — 3860
+80. Combo inversor híbrido 6,2 kW + 2 baterías 5,12 kWh (10,24 kWh) — 4010
+81. Kit todo en uno 6 kW + 15 kWh + 5 paneles Longi 620 W bifaciales — 4210
+82. Kit 6 kW + 15 kWh + 6 paneles Longi 620 W bifaciales — 4360
+83. Kit 6 kW + 15 kWh + 5 paneles 595 W — 4380
+84. Inversor Must 6 kW + batería Sako 15 kWh — 4710
+85. Kit fotovoltaico 6,2 kVA + 4 paneles 625 W + batería 5,12 kWh — 4710
+86. Inversor Must 12 kW + batería 15 kWh — 4910
+87. Kit 8 kW con 16 kWh — 5110
+88. Inversor 12 kW + batería 16 kWh — 5110
+89. Inversor EcoWorthy 10 kW + batería EcoWorthy 16 kWh — 5360
+90. Kit Must 6 kW + 15 kWh + 6 paneles 595 W bifaciales — 5510
+91. Combo Must 6 kW + batería Sako 15 kWh + 6 paneles bifaciales — 5710
+92. Kit Must 12 kW con 15 kWh (sin paneles) — 5860
+93. Kit fotovoltaico 6,2 kVA + 6 paneles 625 W + 2 baterías (10,24 kWh) — 6610
+94. Kit Must 12 kW + 15 kWh + 12 paneles 595 W — 7710
+95. Inversor Must 12 kW + 2 baterías 15 kWh (30 kWh) — 7710
+96. Kit 12 kW con 30 kWh de respaldo — 9010
+
+☀️ *Paneles solares*
+97. Panel solar 450 W bifacial — 150
+98. Panel solar 595 W — 160
+99. Panel solar Horay 630 W — 170
+100. Panel solar Skymax 630 W — 185
+101. Panel solar Longi 620 W — 190
+102. Panel solar 550 W bifacial — 205
+
+🔗 *Cables y accesorios*
+103. Cable solar 10 m royal cord calibre 10 (MC4 / XT60i) — 65
+104. Cable solar MC4 a XT60 de 6 m — 90
+
+⛽ *Plantas eléctricas*
+105. Planta Sankey 3000 W — 630
+106. Planta SIGMA Inverter 4000 W — 880
+107. Planta Firman 8375 W — 1090
+108. Planta SIGMA Inverter 6500 W — 1160
+109. Planta Dual Fuel 12500 W — 1670
+110. Planta Dual Fuel 13000 W — 1720
+111. Planta Tri Fuel 12500 W — 1770
+112. Planta WEN 14500 W modelo 2026 — 1950
+113. Planta Pulsar 10000 W (gasolina) / 9000 W (gas) — 2270
+114. Planta Dual Fuel 9500 W 110/220 V — 2800
+115. Planta Tri Fuel 13500 W — 2860
+
+❄️ *Neveras y congeladores*
+116. Nevera Royal 3,5 pies Inverter con llave — 240
+117. Nevera Milexus 3,5 pies con llave — 255
+118. Nevera Milexus 4,2 pies con llave — 255
+119. Nevera Royal 5,5 pies con cerradura — 275
+120. Nevera Milexus 6 pies con llave — 295
+121. Frío Milexus 6,5 pies — 310
+122. Nevera Royal 7,8 pies con llave — 315
+123. Refrigerador Royal 7,6 pies una puerta — 345
+124. Refrigerador Milexus 7 pies — 355
+125. Refrigerador Royal 8 pies (congelador abajo) — 380
+126. Refrigerador Royal 8,5 pies — 385
+127. Congelador vertical Premier 145 L — 395
+128. Refrigerador Lemax 7,5 pies — 410
+129. Congelador vertical Premier 177 L — 425
+130. Nevera Royal 10 pies — 430
+131. Refrigerador Lemax 10 pies — 430
+132. Refrigerador Milexus 9,1 pies — 455
+133. Nevera Milexus 11,2 pies ML-CF-319 — 480
+134. Nevera exhibidora vertical AUCMA 7,2 pies — 485
+135. Refrigerador Royal 11 pies — 530
+136. Exhibidora Milexus 13 pies 1 puerta — 610
+137. Refrigerador LG 14 pies — 770
+138. Refrigerador Hisense 15,6 pies — 810
+139. Exhibidora vertical Milexus 20 pies doble puerta — 1210
+140. Freezer exhibidor Focustar 21 pies SD-569BY — 1680
+
+🧺 *Lavadoras*
+141. Lavadora semiautomática Milexus 7 kg — 180
+142. Lavadora semiautomática Estelectric 8 kg — 180
+143. Lavadora automática Milexus 7,5 kg — 205
+144. Lavadora automática Chiq 10 kg — 280
+145. Lavadora automática LG (agua fría y caliente) — 305
+146. Lavadora secadora al vapor Milexus 10 kg — 660
+147. Lavadora secadora Hisense 15 kg — 680
+
+🌬️ *Splits*
+148. Split Well 1 tonelada WA122W 220 V — 275
+149. Split Milexus 1 tonelada 220 V — 280
+150. Split Milexus 1 tonelada 110 V (12000 BTU) — 350
+151. Split Milexus Inverter 1 tonelada 220 V — 375
+
+📺 *Televisores*
+152. TV Premier 32" Smart con barra de sonido — 170
+153. Smart TV Samsung 40" — 250
+154. Smart TV Milexus 43" Full HD — 265
+
+🚿 *Calentadores*
+155. Calentador Milexus 30 L ML-CA888 — 140
+156. Calentador instantáneo Milexus 10 L — 155
+157. Calentador Milexus 50 L ML-CA888 — 165
+158. Calentador eléctrico 13 kW (1300 W) — 200
+159. Calentador instantáneo Milexus 20 L — 225
+160. Calentador Royal 100 L 220 V — 300
+161. Calentador Primo 60 L — 400
+
+🌀 *Ventiladores*
+162. Ventilador recargable de pedestal Milexus — 85
+
+📦 *Otros*
+163. Lámpara solar exterior Vivamax 300 W — 155
+164. Máquina de hielo Coolake K450 (550 lb en 24 h) — 2050
+
+🕓 *Estos hace días que no los veo en el grupo. ¿Todavía los tienes?*
+165. Combo EcoFlow Delta 3 + panel 595 W — 800
+166. Combo EcoFlow Delta 3 Plus + panel 595 W — 840
+167. Combo EcoFlow Delta 3 Classic + panel 500 W + cable 10 m — 850
+168. Combo EcoFlow Delta 3 Classic + panel 450 W + cable 10 m — 880
+169. Combo EcoFlow Delta 3 Max + panel 595 W — 1230
+170. Batería inteligente LiFePO4 5,12 kWh 51,2 V 100 Ah — 1360
+171. Batería Sako 16 kWh — 3410
+172. Kit Must 3000 W + batería Must 5000 Wh — 2510 CUP (¿cuánto en USD?)
+173. Planta Globestar 3300 W — 500
+174. Planta Globestar 3300 W con instalación para gas — 680
+175. Planta Firman 8375 W con instalación para gas — 1250
+176. Nevera Konka 5 pies — 250
+177. Nevera Sankey 5,5 pies — 270
+178. Refrigerador Hisense 7,3 pies — 370
+179. Refrigerador LG Toc Toc 24 pies Inverter — 2360
+180. Split Milexus Inverter 1,5 toneladas 220 V — 590
+181. Smart TV Samsung 55" — 530
+
+¡Muchas gracias! 🙏

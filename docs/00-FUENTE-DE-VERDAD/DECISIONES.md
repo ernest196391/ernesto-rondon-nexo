@@ -380,3 +380,11 @@ Ampliación D30 (2026-10-07): el flujo de **Devolución** ya existe en `/ventas/
 - El **título** (la mejor piedra que tuvo una gestora) se queda en su perfil para siempre como **reconocimiento**, pero **no da dinero**.
 - El **bono** en CUP se gana **solo el mes** en que llega a la piedra con las ventas de ese mes (y con al menos 1 venta propia entregada). Sin ventas, no hay bono: no existe ningún residual.
 - Así lo explica el bot (conocimiento #280). El código ya funcionaba así (`CVD_Programa_Calc`: `bonus_cup` sale de la piedra del mes; `title` = `best_stone`).
+
+**D85 · 2026-10-20 · Proveedores solo-WhatsApp (Sergio y LJH): se publica todo lo vigente «bajo pedido» sin confirmación previa.** Ernesto, ~18:00. Cambia lo propuesto en `PASOS.md` del 20-oct.
+- Se publica todo lo anunciado desde el 13-oct; los antiguos, no (de momento). Si los dos proveedores tienen el mismo producto, van **los dos** (un producto por proveedor, cada uno con su precio).
+- No se pregunta al proveedor antes: la disponibilidad se confirma en cada venta con el flujo de bajo pedido (D47).
+- Precio = `my_price` del bot; comisión = 40 % del margen (como MK-1192).
+- Lo de Sergio se le pregunta a **Ricardo** (+53 5 0817885): ficha 21 con su teléfono.
+- Un anuncio por producto (foto + pie, sin proveedor ni su precio), como mucho 1 cada 3 min y solo de 9:00 a 19:00, contra el bloqueo de WhatsApp.
+- Las fotos nunca muestran teléfono, nombre ni marca de agua del proveedor o de otro negocio; si una no se puede limpiar, el producto se publica sin anunciar («foto pendiente»).
