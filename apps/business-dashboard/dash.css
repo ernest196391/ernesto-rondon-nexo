@@ -58,6 +58,9 @@ body { background: #F6F1E6; }
 /* Forms */
 .nx .form { display: flex; flex-direction: column; gap: var(--nx-s3); }
 .nx .form .field input, .nx .form .field select { min-height: var(--nx-touch); padding: 0 var(--nx-s3); border: var(--nx-border) solid var(--nx-line); border-radius: var(--nx-r-md); background: var(--nx-surface); color: var(--nx-text); font-weight: 400; }
+/* Descripción del producto (Core 3.14.40, Lennys 18-oct) */
+.nx .form .field textarea { min-height: 132px; padding: var(--nx-s2) var(--nx-s3); border: var(--nx-border) solid var(--nx-line); border-radius: var(--nx-r-md); background: var(--nx-surface); color: var(--nx-text); font: inherit; font-weight: 400; line-height: 1.45; resize: vertical; width: 100%; box-sizing: border-box; }
+.nx .form .field textarea:disabled { opacity: .6; }
 .nx .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: var(--nx-s3); }
 .nx .check { display: flex; align-items: center; gap: var(--nx-s2); min-height: 44px; font-weight: 700; }
 .nx .check input { width: 22px; height: 22px; accent-color: var(--nx-primary); }

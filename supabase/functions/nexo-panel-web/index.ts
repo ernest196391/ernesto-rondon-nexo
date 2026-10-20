@@ -291,7 +291,14 @@ Deno.serve(async req => {
         wooId: Number(body.wooId) > 0 ? Number(body.wooId) : undefined, nexoId: String(body.nexoId ?? ""), name, price,
         category: String(body.category ?? ""), imageUrl: String(body.imageUrl ?? ""), sku: String(body.sku ?? ""), active: body.active !== false,
         galleryUrls: galleryOf(body), // Core 3.14.24: más fotos (galería de la web)
+        // Core 3.14.40 (Lennys 18-oct): descripción escrita en el panel (texto; solo se manda si cambió).
+        ...(typeof body.description === "string" ? { description: String(body.description).slice(0, 6000) } : {}),
       }));
+    }
+    // Core 3.14.40: descripción de la web (texto) y lo que le falta a la ficha (medidas, material…), al abrir un producto.
+    if (body.action === "product_ficha") {
+      if (!(Number(body.wooId) > 0)) return json(400, { error: "Producto no válido." });
+      return json(200, await core("GET", `panel/products/${Number(body.wooId)}/ficha`));
     }
 
     // ---------- Diseños y colores (variaciones de la web) y «Dejar de vender» (Core 3.13.52) ----------

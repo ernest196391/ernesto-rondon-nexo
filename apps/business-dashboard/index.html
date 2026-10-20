@@ -211,6 +211,7 @@
         <button type="button" class="chip" data-f="offer" aria-pressed="false">En oferta</button>
         <button type="button" class="chip" data-f="hidden" aria-pressed="false">Retirados</button>
         <button type="button" class="chip" data-f="diff" aria-pressed="false" hidden>No coincide con la web</button>
+        <button type="button" class="chip" data-f="ficha" aria-pressed="false" hidden>Falta información</button>
       </div>
       <div class="attention" id="attention-products" hidden></div>
       <div class="inv-help" id="inv-filter-help" hidden></div>
@@ -720,6 +721,8 @@ async function editProduct(p) {
       ${commissionField(p ? commOf(p.product_id) : "", group ? "Solo para este diseño. Vacía = la general (" + commDefault().text + ")." : null)}
       <label class="field">Categoría<input name="category" list="cat-list" value="${esc(p?.category ?? "")}" placeholder="Ej.: Baño"></label>
       <datalist id="cat-list">${cats.map(c => `<option value="${esc(c)}">`).join("")}</datalist>
+      ${group ? "" : `<label class="field">Descripción<textarea name="description" rows="6"${onWeb ? " disabled" : ""} placeholder="Para qué sirve y qué trae. Medidas en cm y material (si es eléctrico: potencia, voltaje y batería). Cada línea que empiece por «-» sale como un punto de la lista."></textarea></label>
+      <p class="t-xs muted" data-ficha>${onWeb ? "Cargando la descripción de la web…" : "Con medidas y material la ficha sale completa. Si falta algo, las gestoras ven «Falta información» y el bot se lo pide a la tienda."}</p>`}
       <details><summary class="t-sm">Más opciones</summary>
         <label class="field">Avisarme cuando queden<input name="min" type="number" min="0" step="1" inputmode="numeric" placeholder="Sin aviso" value="${p?.min_stock ?? ""}"></label>
         <label class="field">Código de barras<input name="barcodes" value="${esc((p?.barcodes ?? []).join(", "))}" placeholder="Si tiene, separados por coma" inputmode="numeric"></label>
@@ -732,6 +735,17 @@ async function editProduct(p) {
     ${p && canCost() && costSheet ? costSection(p) : ""}
     ${p && !retired ? `<button type="button" class="btn btn-ghost btn-block btn-danger-text" data-retire>${group ? "Dejar de vender este diseño" : "Dejar de vender este producto"}</button>` : ""}`, p ? `Editar ${p.name}` : "Nuevo producto");
   if (p && canCost() && costSheet) wireCostSection(sheet.el, p);
+  // Descripción de la web y lo que le falta a la ficha (Core 3.14.40, Lennys 18-oct). Si no se puede leer, no se deja
+  // escribir (para no pisar la descripción de la web sin verla).
+  const descBox = sheet.el.querySelector("[name=description]");
+  const fichaNote = sheet.el.querySelector("[data-ficha]");
+  if (descBox && onWeb) {
+    panelWeb({ action: "product_ficha", wooId: onWeb }).then(d => {
+      descBox.value = d.descripcion ?? ""; descBox.dataset.orig = descBox.value; descBox.disabled = false;
+      fichaNote.textContent = d.excluido ? "Producto de proveedor: su ficha la lleva el proveedor."
+        : d.etiquetas?.length ? "⚠️ Falta información: " + d.etiquetas.join(", ") + ". Escríbela aquí (o el bot se la pide a la tienda)." : "✓ Ficha completa: tiene medidas y características.";
+    }).catch(() => { fichaNote.textContent = "No se pudo leer la descripción de la web (hace falta Core 3.14.40). Ahora no se puede cambiar desde aquí."; });
+  }
   const after = () => { sheet.close(); };
   sheet.el.querySelector("[data-sell]")?.addEventListener("click", () => retireFlow([p.product_id], false, after));
   sheet.el.querySelector("[data-retire]")?.addEventListener("click", () => retireFlow([p.product_id], true, after));
@@ -756,6 +770,15 @@ async function editProduct(p) {
     if (qty != null && (!Number.isInteger(qty) || qty < 0)) return fail("La cantidad debe ser un número entero");
     const comm = readCommission(form, price);
     if (Number.isNaN(comm)) return fail("La comisión debe ser un número en USD (0 o más) o un % del precio, por ejemplo 10%");
+    // Descripción (Lennys 18-oct: «antes de subir un producto, debe tener toda la descripción»): al crear sin ella, aviso
+    // y segundo toque para subirlo igual. Solo se manda a la web si cambió.
+    const desc = descBox && !descBox.disabled ? String(descBox.value ?? "").trim() : "";
+    const descChanged = Boolean(desc) && desc !== String(descBox?.dataset.orig ?? "").trim();
+    if (!p && descBox && !desc && form.dataset.noDesc !== "1") {
+      form.dataset.noDesc = "1";
+      return fail("Falta la descripción (medidas en cm y material). Si lo subes así, las gestoras verán «Falta información» y el bot se la pedirá a la tienda. Toca Guardar otra vez para subirlo igual.");
+    }
+    let fichaTxt = "";
     form.querySelector("[type=submit]").disabled = true;
     try {
       let imageUrl = null;
@@ -781,8 +804,11 @@ async function editProduct(p) {
       msg.textContent = "Guardando en la web…";
       try {
         const w = await panelWeb({ action: "product_web_save", wooId: saved.wooId ?? null, nexoId: saved.productId, name: f.get("name"), price,
-          category: f.get("category"), imageUrl: imageUrl ?? (saved.wooId ? "" : (p?.image_url ?? "")), sku: saved.sku, active: p ? p.active !== false : true, galleryUrls });
+          category: f.get("category"), imageUrl: imageUrl ?? (saved.wooId ? "" : (p?.image_url ?? "")), sku: saved.sku, active: p ? p.active !== false : true, galleryUrls,
+          ...(descChanged ? { description: desc } : {}) });
         if (galleryUrls.length && w.gallery == null) notes.push("las fotos de más no llegaron a la galería de la web (falta actualizar la web a Core 3.14.24)");
+        if (descChanged && w.ficha === undefined) notes.push("la descripción no llegó a la web (falta actualizar la web a Core 3.14.40)");
+        if (Array.isArray(w.ficha) && w.ficha.length) fichaTxt = " En la web falta información: " + w.ficha.join(", ") + " (el bot se la pide a la tienda).";
         if (!saved.wooId && w.wooId) {
           const { data: ln, error: e4 } = await supabase.rpc("nexo_business_product_link_web", { p_business: bizId(), p_product: saved.productId, p_woo_id: w.wooId });
           if (e4 || ln?.error) notes.push("se creó en la web pero no quedó enlazado (" + (e4?.message ?? ln.error) + ")");
@@ -800,7 +826,7 @@ async function editProduct(p) {
         if (pr.webFail) notes.push("la oferta no llegó a la web");
       } catch { notes.push("la oferta no se guardó"); }
       sheet.close();
-      toast("Guardado. Llega a las cajas y a la web en unos minutos." + (notes.length ? " Ojo: " + notes.join("; ") + "." : ""), notes.length ? "bad" : "ok");
+      toast("Guardado. Llega a las cajas y a la web en unos minutos." + fichaTxt + (notes.length ? " Ojo: " + notes.join("; ") + "." : ""), notes.length ? "bad" : "ok");
       catalog = null; shop = null;
       await load();
       if (page === "catalogo") await loadInventory();
@@ -871,6 +897,11 @@ async function loadInventory() {
   const diffChip = $('#inv-filter [data-f="diff"]');
   diffChip.hidden = !diffs; diffChip.textContent = "No coincide con la web " + diffs;
   if (!diffs && invFilter === "diff") invFilter = "all";
+  // Core 3.14.40: productos de la web sin medidas o características (Lennys 18-oct).
+  const fichas = invRows.filter(r => !r.variantOf && r.active && fichaOf(r).length).length + new Set(invRows.filter(r => r.variantOf && r.active && fichaOf(r).length).map(r => r.variantOf)).size;
+  const fichaChip = $('#inv-filter [data-f="ficha"]');
+  fichaChip.hidden = !fichas; fichaChip.textContent = "Falta información " + fichas;
+  if (!fichas && invFilter === "ficha") invFilter = "all";
   document.querySelectorAll("#inv-filter [data-cost-only]").forEach(c => (c.hidden = !canCost()));
   renderInventory();
 }
@@ -955,6 +986,8 @@ function openProducts(filter) {
   go("catalogo");
 }
 const isDiff = r => r.active && r.web && r.web.stock !== null && r.web.stock !== r.stock;
+// Lo que le falta a la ficha de la web (Core 3.14.40): medidas, material, datos técnicos o descripción.
+const fichaOf = r => (Array.isArray(r.web?.ficha) ? r.web.ficha : []);
 const isLow = r => r.active && r.stock > 0 && r.minStock != null && r.stock <= r.minStock;
 // Retirado en la caja pero todavía a la venta en la web (la web no respondió al retirarlo).
 const webLeft = r => !r.active && r.web && (r.web.itemStatus ?? r.web.status) === "publish";
@@ -986,6 +1019,7 @@ function shownOf(rows) {
     case "diff": return live.filter(isDiff);
     case "nocost": return costSheet ? live.filter(r => !costOf(r.productId)?.cost) : [];
     case "offer": return live.filter(r => r.offerUsd != null);
+    case "ficha": return live.filter(r => fichaOf(r).length);
     default: return live;
   }
 }
@@ -997,11 +1031,13 @@ function oneMatches(r) {
   if (invFilter === "out") return r.stock <= 0;
   if (invFilter === "nocost") return costSheet && !costOf(r.productId)?.cost;
   if (invFilter === "offer") return r.offerUsd != null;
+  if (invFilter === "ficha") return fichaOf(r).length > 0;
   return true;
 }
 const FILTER_HELP = {
   out: "Aquí salen los productos y diseños sin unidades. Si no vas a volver a tenerlos, toca «Marcar agotados para dejar de vender». No se borra nada.",
   hidden: "Retirados: no se venden en la caja ni en la web. No se borró nada. Ábrelos (o márcalos) para volver a venderlos.",
+  ficha: "A estos productos les faltan medidas o características en la web. Ábrelos y escríbelas en «Descripción» (medidas en cm y material; si es eléctrico, potencia y batería). Mientras, el bot se las pide a la tienda.",
   diff: "La web tiene otra cantidad. Cuenta lo que hay, ponlo en «Quedan» (aunque sea el mismo número) y toca Guardar: en unos 2 minutos la web queda igual que la caja.",
 };
 let pickGroups = new Map(); // grupo → ids marcables con el filtro actual
@@ -1043,7 +1079,8 @@ function oneRow(r) {
   const name = r.name;
   const state = (r.offerUsd != null && r.active ? '<span class="badge badge-info">Oferta ' + usd2(r.offerUsd) + "</span>" : "")
     + (!r.active ? '<span class="badge badge-calm">Retirado</span>' : r.stock <= 0 ? '<span class="badge badge-out">Agotado</span>' : isLow(r) ? '<span class="badge badge-low">Pocas</span>' : "")
-    + (noComm(r) ? '<span class="badge badge-low" title="Ábrelo y escribe la comisión de la gestora">Sin comisión</span>' : "");
+    + (noComm(r) ? '<span class="badge badge-low" title="Ábrelo y escribe la comisión de la gestora">Sin comisión</span>' : "")
+    + (r.active && fichaOf(r).length ? '<span class="badge badge-low" title="Falta: ' + esc(fichaOf(r).join(", ")) + '">Falta información</span>' : "");
   // Comisión de la gestora a la vista (Lennys, 15-oct): «gestora 2 USD (20 %)». Solo dueña/economista.
   const cm = canCost() && costSheet ? commOf(r.productId) : null;
   const commTxt = cm != null ? " · gestora " + usd2(cm) + (r.priceUsd > 0 ? " (" + Math.round(cm / r.priceUsd * 100) + " %)" : "") : "";
@@ -1068,7 +1105,8 @@ function groupRow(g) {
   const back = invFilter === "hidden";
   const total = g.live.reduce((s, r) => s + Math.max(0, r.stock), 0);
   const state = (back ? '<span class="badge badge-calm">Retirado</span>' : !total ? '<span class="badge badge-out">Agotado</span>' : g.shown.some(isLow) ? '<span class="badge badge-low">Pocas</span>' : "")
-    + (!back && g.live.some(noComm) ? '<span class="badge badge-low" title="Ábrelo y escribe la comisión de la gestora">Sin comisión</span>' : "");
+    + (!back && g.live.some(noComm) ? '<span class="badge badge-low" title="Ábrelo y escribe la comisión de la gestora">Sin comisión</span>' : "")
+    + (!back && g.live.some(r => fichaOf(r).length) ? '<span class="badge badge-low" title="Falta: ' + esc(fichaOf(g.live.find(r => fichaOf(r).length)).join(", ")) + '">Falta información</span>' : "");
   const meta = back ? g.shown.length + (g.shown.length === 1 ? " diseño retirado" : " diseños retirados")
     : invFilter === "out" ? g.shown.length + " de " + g.live.length + (g.live.length === 1 ? " diseño agotado" : " diseños agotados")
     : g.live.length + (g.live.length === 1 ? " diseño" : " diseños") + " · quedan " + total + " en total";
