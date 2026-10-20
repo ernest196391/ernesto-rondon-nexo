@@ -139,13 +139,15 @@ ALTER TABLE nexo_business.store_shifts ENABLE ROW LEVEL SECURITY;
 REVOKE ALL ON nexo_business.store_shifts FROM PUBLIC, anon, authenticated;
 GRANT SELECT, INSERT, UPDATE ON nexo_business.store_shifts TO service_role;
 
--- El turno de la tienda abierto ahora (el último que se abrió y contó el fondo).
+-- El turno de la tienda abierto HOY (hora de Cuba): el último que se abrió y contó el fondo.
+-- Uno de otro día que nadie cerró no cuenta (la caja avisa: «turno viejo sin cerrar»).
 -- Un «claim» (alta en línea antes de que llegue el evento) caduca a los 15 min.
 CREATE OR REPLACE FUNCTION nexo_business.open_store_shift(p_business TEXT)
 RETURNS nexo_business.store_shifts LANGUAGE sql STABLE SECURITY DEFINER SET search_path = '' AS $$
   SELECT * FROM nexo_business.store_shifts
    WHERE business_id = p_business AND status = 'open' AND role = 'opener' AND NOT merged
      AND store_shift_id = shift_id AND (NOT claimed OR updated_at > now() - interval '15 minutes')
+     AND (opened_at AT TIME ZONE 'America/Havana')::date = (now() AT TIME ZONE 'America/Havana')::date
    ORDER BY opened_at DESC LIMIT 1;
 $$;
 REVOKE ALL ON FUNCTION nexo_business.open_store_shift(TEXT) FROM PUBLIC, anon, authenticated;
@@ -351,7 +353,13 @@ BEGIN
     IF v_session IS NOT NULL THEN v_mine := nexo_business.store_shift_json(d.business_id, v_session); END IF;
     RETURN jsonb_build_object(
       'open', CASE WHEN v_open.shift_id IS NULL THEN NULL ELSE nexo_business.store_shift_json(d.business_id, v_open.store_shift_id) END,
-      'mine', v_mine, 'known', v_session IS NOT NULL);
+      'mine', v_mine, 'known', v_session IS NOT NULL,
+      -- Turnos de otros días que nadie cerró (para avisar; no se usan).
+      'stale', coalesce((SELECT jsonb_agg(nexo_business.store_shift_json(d.business_id, s.store_shift_id) ORDER BY s.opened_at DESC)
+                  FROM nexo_business.store_shifts s
+                 WHERE s.business_id = d.business_id AND s.status = 'open' AND s.role IN ('opener', 'legacy') AND NOT s.merged AND NOT s.claimed
+                   AND s.store_shift_id = s.shift_id
+                   AND (s.opened_at AT TIME ZONE 'America/Havana')::date < (now() AT TIME ZONE 'America/Havana')::date), '[]'::jsonb));
   END IF;
 
   IF p_action = 'expected' THEN

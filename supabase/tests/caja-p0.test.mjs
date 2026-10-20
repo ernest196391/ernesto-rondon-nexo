@@ -166,3 +166,15 @@ describe("pedidos web: quién cobra", () => {
     expect((await call("public.nexo_business_device_person", "z".repeat(40), nana)).error).toBe("unauthorized");
   });
 });
+
+describe("turno viejo sin cerrar", () => {
+  it("no se usa para unirse y la caja lo ve como viejo", async () => {
+    await push("caja-nana", "cash_shift.opened", "viejo", { shift_id: "viejo", operator_id: nana, store_role: "opener", opening_floats: [] }, "2026-10-11T20:09:00.000Z");
+    const st = await call("public.nexo_business_device_shift", TOKEN_B, "status", {});
+    expect(st.open).toBeNull();
+    expect(st.stale.map(s => s.storeShiftId)).toContain("viejo");
+    const opened = await call("public.nexo_business_device_shift", TOKEN_B, "open", { shiftId: "nuevo-hoy", operatorId: zaymi });
+    expect(opened.action).toBe("open");
+    expect(await call("public.nexo_business_on_duty", BIZ)).toMatchObject({ open: false }); // aún sin evento (solo reservado)
+  });
+});

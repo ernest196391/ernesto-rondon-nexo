@@ -1,5 +1,13 @@
 *Caja Casa Viva (1.0.7) · guía rápida para dependientas*
 
+*Novedades de la Caja 1.1.0 (cuando se instale; mientras tanto vale la guía de abajo)*
+
+A. *Un solo cajón:* la primera que llega abre el turno en *Caja* y cuenta el dinero: queda como *dependienta de turno* (el bot le pregunta a ella). Las demás tocan *Unirme al turno* (no cuentan nada). Sin turno abierto la caja no deja vender.
+B. *Pedidos web:* pestaña *Pedidos*. Salen los de recogida («Listo para recoger») y los que trae el mensajero. Toca *Cobrar*, elige cómo pagó (la misma pantalla de siempre) y *Confirmar cobro*. La web cierra el pedido con tu nombre. Sin internet se guarda y se envía solo. Si ya se cobró en Ventas, la caja no deja cobrarlo dos veces.
+C. *Al cerrar el día:* *Caja → Contar y cerrar turno*. Con internet la caja calcula lo que debería haber en TODA la tienda (todos los teléfonos y lo cobrado en Ventas). Sin internet avisa que solo cuenta tu teléfono. Cuando una cierra, en los otros teléfonos el turno se cierra solo.
+D. *Sincronizar ahora* envía todo enseguida. Si algo falla se reintenta solo en menos de 5 minutos. Arriba: «Al día», «Enviando 3», «Sin internet · 3 por enviar», «No se pudo enviar» o «Falta bajar existencias».
+
+
 1. Abre la APK nueva y toca *Instalar / Actualizar* encima de la que tienes. *No la desinstales.*
 2. Antes de abrirla: Ajustes del teléfono → Aplicaciones → Casa Viva Core → Almacenamiento → *Borrar datos*. Lo de antes eran pruebas, y si no lo borras no aparece la casilla del código.
 3. Abre la caja con internet. Sola te lleva a *Más → Sincronización*. Escribe *TU* código de 6 letras (cada una tiene el suyo) y toca *Conectar este equipo*. Espera a que bajen los productos. Si dice que el código "venció" o "ya se usó", pídele otro a Lennys (lo crea en su panel: Ajustes → Cajas).
