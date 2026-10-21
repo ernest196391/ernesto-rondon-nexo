@@ -1730,3 +1730,20 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
 - **Resúmenes cortos:** 177 fichas (137 simples + 40 con colores) y 187 variaciones con resumen real sacado de su descripción (Ernesto «sí, en los 194»). 17 sin descripción larga, pendientes de la tienda. Copia y deshacer en `fichas/resumenes-2026-10-21/` y `~/backup-resumenes-cortos-2026-10-21.json`. «Copiar texto» de gestoras sigue usando la 1.ª frase de la descripción larga.
 - **Aprendido:** #286 farol solar (trae cable tipo C y gancho); #287 cliente enviado a la tienda «de parte de» la gestora = su 10 % a precio de tienda (Ernesto). Corrección del farol en el General (con SÍ).
 - **Tarjetas CUP automáticas** (L51) en vivo; **cesto 7 L** stock 1 (Lennys).
+
+
+### Catálogo XAG · Codex21oct2026
+Ocho fichas nuevas Bajo pedido publicadas y verificadas (4934,4936,4938,4940,4943,4945,4947,4949); sencillo160agotado no publicado. Precios, costos privados, comisiones y enlaces: `../nexo-business/proveedores/xag-2026-10-21/PUBLICADOS-Y-RELEVO.md`. Enrique: aviso2327; comprobar envío. Pendiente fecha/transporte de6dobles y unidades del mostrador. Claude tiene preparada actualización del grupo; no duplicar publicación ni vales.
+
+Actualización XAG18:33UTC: ya tiene6dobles enFontanar para despachar, desarmadas (CRM13590/13592). Ficha4938/bolsa1880 corregidas. Enrique2330novedad; transporte2329pendiente. Sin compra ni reserva.
+
+Comprobación final: Enrique2327 y2330ENVIADOS (18:29:59Z y18:37:59Z); consulta transporte2329ENVIADA18:37:48Z. Web4938HTTP200,215USD y descripción desarmada comprobadas.
+
+### L53. Miércoles 21-oct ~15:35 — errores del bot corregidos y desplegados, Core 3.14.44, anuncios con comisión, tasa en la caja
+- **VivaBot desplegado** (14:46 y 15:35; `e5ea232` @lid, `3447e1c` General/preguntas, `7c79b1c` proveedores/aviso doble/importe del vale/«ya deposité», `8987001` no inventar, `cf97a0c` tasa también a la caja NEXO). Lista de errores y arreglos en `incidencias/2026-10-21.md` (1–13).
+- **Core 3.14.44** (`3875e8e`): la caja cobra recogidas sin «Listo» (las pasa a Listo y las completa). Probado en real: #4951 (Niurka).
+- **Caja NEXO:** su tasa CUP estaba en 775 desde el 3-oct → 827 (fila nueva en `nexo_business.exchange_rates`, business `casa-viva`); desde mañana la pone la tasa de las 8:50 y «tasa 820».
+- **Anuncios en «Actualización de productos»** (Ernesto SÍ): 8 góndolas XAG (fichas 4934–4949, sin comisión → luego resumen de comisiones) + 22 de 42 y 23 (los 12 últimos con «Ganas»; Lennys: «la comisión no puede faltar»). Scripts en `/root/archivos/novedades/xag-20261021/` y `t42-20261021/`.
+- **Inventario de entrega de turno** Zaymi → Daniela (desde 15-oct, 445 productos): `caja/inventario-entrega-2026-10-21/` (PDF enviado a Lennys).
+- **Laptop de Lennys** conectada («Pc casa viva» 1.1.0). Notas para la próxima versión de la caja: `caja/notas-lennys-1.1.0.md` (buscador, foto del producto, «sin preparar/listo», casilla de código).
+- Pendiente de Ernesto: `PUBLICA #4253` (tablet ya en tienda), aprobar a Rancel en Mensajerías, ¿la tienda da factura/comprobante?, XAG reservar sí/no.
