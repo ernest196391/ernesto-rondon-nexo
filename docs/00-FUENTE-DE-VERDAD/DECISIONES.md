@@ -388,3 +388,9 @@ Ampliación D30 (2026-10-07): el flujo de **Devolución** ya existe en `/ventas/
 - Lo de Sergio se le pregunta a **Ricardo** (+53 5 0817885): ficha 21 con su teléfono.
 - Un anuncio por producto (foto + pie, sin proveedor ni su precio), como mucho 1 cada 3 min y solo de 9:00 a 19:00, contra el bloqueo de WhatsApp.
 - Las fotos nunca muestran teléfono, nombre ni marca de agua del proveedor o de otro negocio; si una no se puede limpiar, el producto se publica sin anunciar («foto pendiente»).
+
+## D86 · 20-oct noche · Tasa del día: manda siempre la regla (Ernesto)
+- Tasa base de la tienda = **elToque + 10 CUP** = efectivo; transferencia CUP = efectivo × 1,20. La pone **el bot solo** a las 8:50 (elToque vía Directorio Cubano, sin clave) y se cambia a mano con «tasa 820» (Ernesto o Lennys).
+- **Gana siempre la regla:** Maryta ya no manda la tasa; si alguien publica «FORMAS DE PAGO», su CUP no se usa (VivaBot `87c8ba1`). Maryta tiene que consultar con Ernesto/Lennys.
+- El % de las dependientas (0,5 %, 2 %) y el de **Nati** van sobre el **precio de la tienda** (Casa Viva), sin la subida de las gestoras (Ernesto y Lennys confirmado).
+- Avisos a mensajeros 9:30 y 15:00 también los domingos (la tienda abre).
