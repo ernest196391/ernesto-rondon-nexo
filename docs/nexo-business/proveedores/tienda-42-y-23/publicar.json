@@ -1,0 +1,601 @@
+{
+ "generado": "2026-10-21T00:11:54.532Z",
+ "estado": "publish",
+ "productos": [
+  {
+   "n": 2,
+   "juntos": [],
+   "market_id": 1779,
+   "nombre": "Motobomba periférica Thebe TP-70 Junior",
+   "descripcion": "Motobomba periférica Thebe (Ebara Corporation), modelo TP-70 Junior.\nUsos que indica la caja: casa, agricultura, fincas y obras.\nNueva, en su caja.",
+   "precio_proveedor": 66.35,
+   "precio": 85,
+   "comision": 7.46,
+   "precio_manual": false,
+   "departamentos": [
+    "ferreteria"
+   ],
+   "categoria_bolsa": "ferretería",
+   "tamano": "pequeno",
+   "actualizar": null,
+   "foto_local": "fotos-pro/02-motobomba-periferica-thebe-tp-70-junior.jpg",
+   "fotos": [
+    "/home/u824654880/42y23-fotos/2.jpg"
+   ],
+   "etiqueta": "GARANTÍA COMERCIAL 3 meses · PRECIO USD 66.35",
+   "garantia_meses": 3,
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: publicar con el precio de la pegatina; bajo pedido, se confirma al recoger"
+  },
+  {
+   "n": 3,
+   "juntos": [],
+   "market_id": 1780,
+   "nombre": "Bomba de agua periférica Hyundai 1/2 HP (370 W)",
+   "descripcion": "Bomba de agua periférica Hyundai, modelo HY-CH05HP.\nPotencia: 1/2 HP (370 W).\nNueva, en su caja.",
+   "precio_proveedor": 51,
+   "precio": 68,
+   "comision": 6.8,
+   "precio_manual": false,
+   "departamentos": [
+    "ferreteria"
+   ],
+   "categoria_bolsa": "ferretería",
+   "tamano": "pequeno",
+   "actualizar": null,
+   "foto_local": "fotos-pro/03-bomba-de-agua-periferica-hyundai-1-2.jpg",
+   "fotos": [
+    "/home/u824654880/42y23-fotos/3.jpg"
+   ],
+   "etiqueta": "GARANTÍA COMERCIAL 3 meses · PRECIO USD 51.00",
+   "garantia_meses": 3,
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: publicar con el precio de la pegatina; bajo pedido, se confirma al recoger"
+  },
+  {
+   "n": 4,
+   "juntos": [],
+   "market_id": 1781,
+   "nombre": "Batidora Hamilton Beach blanca de 5 botones",
+   "descripcion": "Batidora Hamilton Beach.\nJarra plástica transparente con tapa.\nBase blanca con 5 botones al frente.",
+   "precio_proveedor": 39.8,
+   "precio": 56,
+   "comision": 6.48,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos",
+    "cocina"
+   ],
+   "categoria_bolsa": "electrodomésticos",
+   "tamano": "pequeno",
+   "actualizar": 1015,
+   "foto_local": "fotos-pro/04-batidora-hamilton-beach-blanca-jarra-plastica-5.jpg",
+   "fotos": [
+    "/home/u824654880/42y23-fotos/4.jpg"
+   ],
+   "etiqueta": "GARANTÍA COMERCIAL 3 meses · PRECIO USD 39.80",
+   "garantia_meses": 3,
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: publicar con el precio de la pegatina; bajo pedido, se confirma al recoger"
+  },
+  {
+   "n": 5,
+   "juntos": [],
+   "market_id": 1782,
+   "nombre": "Batidora Hamilton Beach negra con jarra de vidrio",
+   "descripcion": "Batidora Hamilton Beach.\nJarra de vidrio.\n5 velocidades y pulso.\nBase negra.",
+   "precio_proveedor": 44.2,
+   "precio": 62,
+   "comision": 7.12,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos",
+    "cocina"
+   ],
+   "categoria_bolsa": "electrodomésticos",
+   "tamano": "pequeno",
+   "actualizar": null,
+   "foto_local": "fotos-pro/05-batidora-hamilton-beach-negra-jarra-de-vidrio.jpg",
+   "fotos": [
+    "/home/u824654880/42y23-fotos/5.jpg"
+   ],
+   "etiqueta": "GARANTÍA COMERCIAL 3 meses · PRECIO USD 44.20",
+   "garantia_meses": 3,
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: publicar con el precio de la pegatina; bajo pedido, se confirma al recoger"
+  },
+  {
+   "n": 6,
+   "juntos": [],
+   "market_id": 1783,
+   "nombre": "Batidora Kenwood gris",
+   "descripcion": "Batidora Kenwood.\nJarra transparente.\nBase gris con perilla naranja.",
+   "precio_proveedor": 36,
+   "precio": 51,
+   "comision": 6,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos",
+    "cocina"
+   ],
+   "categoria_bolsa": "electrodomésticos",
+   "tamano": "pequeno",
+   "actualizar": null,
+   "foto_local": "fotos-pro/06-batidora-kenwood-gris-con-perilla-naranja.jpg",
+   "fotos": [
+    "/home/u824654880/42y23-fotos/6.jpg"
+   ],
+   "etiqueta": "GARANTÍA COMERCIAL 3 meses · PRECIO USD 36.00",
+   "garantia_meses": 3,
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: publicar con el precio de la pegatina; bajo pedido, se confirma al recoger"
+  },
+  {
+   "n": 7,
+   "juntos": [],
+   "market_id": 1784,
+   "nombre": "Batidora Philco blanca con jarra de 1,5 L",
+   "descripcion": "Batidora Philco.\nJarra plástica de 1,5 litros.\n2 velocidades y pulso.\nBase blanca.",
+   "precio_proveedor": 29.8,
+   "precio": 42,
+   "comision": 4.88,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos",
+    "cocina"
+   ],
+   "categoria_bolsa": "electrodomésticos",
+   "tamano": "pequeno",
+   "actualizar": null,
+   "foto_local": "fotos-pro/07-batidora-philco-blanca-jarra-plastica-1-5.jpg",
+   "fotos": [
+    "/home/u824654880/42y23-fotos/7.jpg"
+   ],
+   "etiqueta": "GARANTÍA COMERCIAL 3 meses · PRECIO USD 29.80",
+   "garantia_meses": 3,
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: publicar con el precio de la pegatina; bajo pedido, se confirma al recoger"
+  },
+  {
+   "n": 8,
+   "juntos": [],
+   "market_id": 1785,
+   "nombre": "Batidora Continental blanca",
+   "descripcion": "Batidora Continental.\nJarra transparente.\n2 velocidades y pulso.\nBase blanca.",
+   "precio_proveedor": 23.7,
+   "precio": 34,
+   "comision": 4.12,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos",
+    "cocina"
+   ],
+   "categoria_bolsa": "electrodomésticos",
+   "tamano": "pequeno",
+   "actualizar": null,
+   "foto_local": "fotos-pro/08-batidora-continental-blanca-2-velocidades-pulso.jpg",
+   "fotos": [
+    "/home/u824654880/42y23-fotos/8.jpg"
+   ],
+   "etiqueta": "Garantía comercial 3 meses · Precio USD 23.70 (a mano)",
+   "garantia_meses": 3,
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: publicar con el precio de la pegatina; bajo pedido, se confirma al recoger"
+  },
+  {
+   "n": 9,
+   "juntos": [],
+   "market_id": 1786,
+   "nombre": "Cocina de gas Royal REG404BK de 4 hornillas",
+   "descripcion": "Cocina de gas de mesa Royal, modelo REG404BK.\n4 hornillas.\nAcero inoxidable.",
+   "precio_proveedor": 85,
+   "precio": 105,
+   "comision": 8,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos",
+    "cocina"
+   ],
+   "categoria_bolsa": "electrodomésticos",
+   "tamano": "grande",
+   "actualizar": null,
+   "foto_local": "fotos-pro/09-cocina-de-gas-royal-reg404bk-de-mesa.jpg",
+   "fotos": [
+    "/home/u824654880/42y23-fotos/9.jpg"
+   ],
+   "etiqueta": "GARANTÍA COMERCIAL 3 meses · PRECIO USD 106.00 · pegatina encima 85.00",
+   "garantia_meses": 3,
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: publicar con el precio de la pegatina; bajo pedido, se confirma al recoger"
+  },
+  {
+   "n": 10,
+   "juntos": [],
+   "market_id": 1787,
+   "nombre": "Cocina de gas Royal de 2 hornillas con tope de vidrio",
+   "descripcion": "Cocina de gas de mesa Royal.\n2 hornillas.\nTope de vidrio negro con diseño azul.\nPerillas al frente.",
+   "precio_proveedor": 43,
+   "precio": 60,
+   "comision": 6.8,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos",
+    "cocina"
+   ],
+   "categoria_bolsa": "electrodomésticos",
+   "tamano": "grande",
+   "actualizar": null,
+   "foto_local": "fotos-pro/10b-cocina-de-gas-royal-2-hornillas-logo-corregido.jpg",
+   "fotos": [
+    "/home/u824654880/42y23-fotos/10.jpg"
+   ],
+   "etiqueta": "GARANTÍA COMERCIAL 3 meses · PRECIO USD 43.00",
+   "garantia_meses": 3,
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: publicar con el precio de la pegatina; bajo pedido, se confirma al recoger"
+  },
+  {
+   "n": 12,
+   "juntos": [],
+   "market_id": 1788,
+   "nombre": "Olla arrocera Kenwood gris con vaporera",
+   "descripcion": "Olla arrocera Kenwood.\nCon vaporera y tapa de vidrio.\nColor gris.",
+   "precio_proveedor": 27.35,
+   "precio": 39,
+   "comision": 4.66,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos",
+    "cocina"
+   ],
+   "categoria_bolsa": "electrodomésticos",
+   "tamano": "pequeno",
+   "actualizar": null,
+   "foto_local": "fotos-pro/12-olla-arrocera-kenwood-gris-con-vaporera.jpg",
+   "fotos": [
+    "/home/u824654880/42y23-fotos/12.jpg"
+   ],
+   "etiqueta": "Garantía comercial 6 meses · Precio USD 27.35 (a mano) · C-0134 521-512",
+   "garantia_meses": 6,
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: publicar con el precio de la pegatina; bajo pedido, se confirma al recoger"
+  },
+  {
+   "n": 13,
+   "juntos": [],
+   "market_id": 1789,
+   "nombre": "Olla arrocera Kenwood blanca con vaporera",
+   "descripcion": "Olla arrocera Kenwood.\nCon vaporera y tapa de vidrio.\nColor blanco.",
+   "precio_proveedor": 23.9,
+   "precio": 34,
+   "comision": 4.04,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos",
+    "cocina"
+   ],
+   "categoria_bolsa": "electrodomésticos",
+   "tamano": "pequeno",
+   "actualizar": null,
+   "foto_local": "fotos-pro/13-olla-arrocera-kenwood-blanca-con-vaporera.jpg",
+   "fotos": [
+    "/home/u824654880/42y23-fotos/13.jpg"
+   ],
+   "etiqueta": "Garantía comercial 6 meses · Precio USD 23.90 (a mano) · C-0134 521-499",
+   "garantia_meses": 6,
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: publicar con el precio de la pegatina; bajo pedido, se confirma al recoger"
+  },
+  {
+   "n": 14,
+   "juntos": [],
+   "market_id": 1790,
+   "nombre": "Olla arrocera Continental blanca",
+   "descripcion": "Olla arrocera Continental.\nTapa de vidrio.\nFunciones cocinar y calentar.\nColor blanco.",
+   "precio_proveedor": 22.3,
+   "precio": 32,
+   "comision": 3.88,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos",
+    "cocina"
+   ],
+   "categoria_bolsa": "electrodomésticos",
+   "tamano": "pequeno",
+   "actualizar": null,
+   "foto_local": "fotos-pro/14-olla-arrocera-continental-blanca-con-tapa-de.jpg",
+   "fotos": [
+    "/home/u824654880/42y23-fotos/14.jpg"
+   ],
+   "etiqueta": "Garantía comercial 6 meses · Precio USD 22.30 (a mano) · C-0134 521-451",
+   "garantia_meses": 6,
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: publicar con el precio de la pegatina; bajo pedido, se confirma al recoger"
+  },
+  {
+   "n": 15,
+   "juntos": [],
+   "market_id": 1791,
+   "nombre": "Olla arrocera Philco blanca",
+   "descripcion": "Olla arrocera Philco.\nTapa de acero.\nFunciones cocinar y mantener caliente.\nColor blanco.",
+   "precio_proveedor": 33.35,
+   "precio": 47,
+   "comision": 5.46,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos",
+    "cocina"
+   ],
+   "categoria_bolsa": "electrodomésticos",
+   "tamano": "pequeno",
+   "actualizar": null,
+   "foto_local": "fotos-pro/15-olla-arrocera-philco-blanca-con-tapa-de.jpg",
+   "fotos": [
+    "/home/u824654880/42y23-fotos/15.jpg"
+   ],
+   "etiqueta": "GARANTÍA COMERCIAL 6 meses · PRECIO USD 33.35",
+   "garantia_meses": 6,
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: publicar con el precio de la pegatina; bajo pedido, se confirma al recoger"
+  },
+  {
+   "n": 16,
+   "juntos": [],
+   "market_id": 1792,
+   "nombre": "Olla arrocera Hamilton Beach negra",
+   "descripcion": "Olla arrocera Hamilton Beach.\nColor negro.",
+   "precio_proveedor": 47.1,
+   "precio": 65,
+   "comision": 7.16,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos",
+    "cocina"
+   ],
+   "categoria_bolsa": "electrodomésticos",
+   "tamano": "pequeno",
+   "actualizar": null,
+   "foto_local": "fotos-pro/16-olla-arrocera-hamilton-beach-negra.jpg",
+   "fotos": [
+    "/home/u824654880/42y23-fotos/16.jpg"
+   ],
+   "etiqueta": "GARANTÍA COMERCIAL 6 meses · PRECIO USD 47.10",
+   "garantia_meses": 6,
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: publicar con el precio de la pegatina; bajo pedido, se confirma al recoger"
+  },
+  {
+   "n": 17,
+   "juntos": [],
+   "market_id": 1793,
+   "nombre": "Olla arrocera Hamilton Beach roja",
+   "descripcion": "Olla arrocera Hamilton Beach.\nColor rojo.",
+   "precio_proveedor": 43.1,
+   "precio": 61,
+   "comision": 7.16,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos",
+    "cocina"
+   ],
+   "categoria_bolsa": "electrodomésticos",
+   "tamano": "pequeno",
+   "actualizar": null,
+   "foto_local": "fotos-pro/17-olla-arrocera-hamilton-beach-roja.jpg",
+   "fotos": [
+    "/home/u824654880/42y23-fotos/17.jpg"
+   ],
+   "etiqueta": "GARANTÍA COMERCIAL 6 meses · PRECIO USD 43.10",
+   "garantia_meses": 6,
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: publicar con el precio de la pegatina; bajo pedido, se confirma al recoger"
+  },
+  {
+   "n": 18,
+   "juntos": [],
+   "market_id": 1794,
+   "nombre": "Olla de presión eléctrica RCA",
+   "descripcion": "Olla de presión eléctrica RCA.\nCuerpo de acero inoxidable.\nPerilla de programas.",
+   "precio_proveedor": 72.1,
+   "precio": 90,
+   "comision": 7.16,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos",
+    "cocina"
+   ],
+   "categoria_bolsa": "electrodomésticos",
+   "tamano": "pequeno",
+   "actualizar": null,
+   "foto_local": "fotos-pro/18-olla-de-presion-electrica-rca-de-acero.jpg",
+   "fotos": [
+    "/home/u824654880/42y23-fotos/18.jpg"
+   ],
+   "etiqueta": "GARANTÍA COMERCIAL 6 meses · PRECIO USD 72.10",
+   "garantia_meses": 6,
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: publicar con el precio de la pegatina; bajo pedido, se confirma al recoger"
+  },
+  {
+   "n": 19,
+   "juntos": [],
+   "market_id": 1795,
+   "nombre": "Olla de presión eléctrica Philco",
+   "descripcion": "Olla de presión eléctrica Philco.\nCuerpo de acero inoxidable.\nPerilla de programas.",
+   "precio_proveedor": 68.75,
+   "precio": 90,
+   "comision": 8.5,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos",
+    "cocina"
+   ],
+   "categoria_bolsa": "electrodomésticos",
+   "tamano": "pequeno",
+   "actualizar": null,
+   "foto_local": "fotos-pro/19-olla-de-presion-electrica-philco-de-acero.jpg",
+   "fotos": [
+    "/home/u824654880/42y23-fotos/19.jpg"
+   ],
+   "etiqueta": "GARANTÍA COMERCIAL 6 meses · PRECIO USD 68.75",
+   "garantia_meses": 6,
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: publicar con el precio de la pegatina; bajo pedido, se confirma al recoger"
+  },
+  {
+   "n": 20,
+   "juntos": [],
+   "market_id": 1796,
+   "nombre": "Olla de presión eléctrica GWELL roja",
+   "descripcion": "Olla de presión eléctrica GWELL.\nPerilla de tiempo.\nColor rojo.",
+   "precio_proveedor": 46.25,
+   "precio": 64,
+   "comision": 7.1,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos",
+    "cocina"
+   ],
+   "categoria_bolsa": "electrodomésticos",
+   "tamano": "pequeno",
+   "actualizar": null,
+   "foto_local": "fotos-pro/20-olla-de-presion-electrica-gwell-roja.jpg",
+   "fotos": [
+    "/home/u824654880/42y23-fotos/20.jpg"
+   ],
+   "etiqueta": "GARANTÍA COMERCIAL 6 meses · PRECIO USD 46.25",
+   "garantia_meses": 6,
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: publicar con el precio de la pegatina; bajo pedido, se confirma al recoger"
+  },
+  {
+   "n": 21,
+   "juntos": [],
+   "market_id": 1797,
+   "nombre": "Olla de presión eléctrica Ariete digital",
+   "descripcion": "Olla de presión eléctrica Ariete.\nPanel digital con 9 programas.\nCuerpo de acero inoxidable.",
+   "precio_proveedor": 45,
+   "precio": 62,
+   "comision": 6.8,
+   "precio_manual": false,
+   "departamentos": [
+    "electrodomesticos",
+    "cocina"
+   ],
+   "categoria_bolsa": "electrodomésticos",
+   "tamano": "pequeno",
+   "actualizar": null,
+   "foto_local": "fotos-pro/21-olla-de-presion-electrica-ariete-digital.jpg",
+   "fotos": [
+    "/home/u824654880/42y23-fotos/21.jpg"
+   ],
+   "etiqueta": "GARANTÍA COMERCIAL 6 meses · PRECIO USD 45.00",
+   "garantia_meses": 6,
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: publicar con el precio de la pegatina; bajo pedido, se confirma al recoger"
+  },
+  {
+   "n": 22,
+   "juntos": [
+    23
+   ],
+   "market_id": 1798,
+   "nombre": "Panel solar plegable 120 W (18 V o 36 V)",
+   "descripcion": "Panel solar plegable y portátil de 120 W.\nDos versiones: 18 V o 36 V (elige la tuya).\nComprueba que tu estación o controlador acepta ese voltaje antes de conectarlo.",
+   "precio_proveedor": 93,
+   "precio": 110,
+   "comision": 6.8,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "categoria_bolsa": "cargadores portátiles y baterías",
+   "tamano": "grande",
+   "actualizar": 1146,
+   "foto_local": "fotos-pro/22-panel-solar-plegable-120-w-18-v.jpg",
+   "fotos": [
+    "/home/u824654880/42y23-fotos/22.jpg"
+   ],
+   "etiqueta": "cartel «18 V 120 W» · estante 93.00",
+   "garantia_meses": null,
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: publicar con el precio de la pegatina; bajo pedido, se confirma al recoger"
+  },
+  {
+   "n": 24,
+   "juntos": [],
+   "market_id": 1799,
+   "nombre": "Ventilador recargable Royal RA12RSL de 12\" con panel solar y 2 bombillos",
+   "descripcion": "Ventilador de mesa recargable Royal, modelo RA12RSL, de 12 pulgadas.\nIncluye panel solar para cargarlo y 2 bombillos LED.",
+   "precio_proveedor": 55,
+   "precio": 72,
+   "comision": 6.8,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia",
+    "electrodomesticos"
+   ],
+   "categoria_bolsa": "ventilador",
+   "tamano": "pequeno",
+   "actualizar": 1019,
+   "foto_local": "fotos-pro/24-ventilador-recargable-royal-ra12rsl-de-12-con.jpg",
+   "fotos": [
+    "/home/u824654880/42y23-fotos/24.jpg"
+   ],
+   "etiqueta": "GARANTÍA COMERCIAL 3 meses · PRECIO USD 68.00 · pegatina encima 55.00",
+   "garantia_meses": 3,
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: publicar con el precio de la pegatina; bajo pedido, se confirma al recoger"
+  },
+  {
+   "n": 25,
+   "juntos": [],
+   "market_id": 1800,
+   "nombre": "Estación de energía GWELL 600 W / 672 Wh",
+   "descripcion": "Estación de energía portátil GWELL.\nPotencia 600 W.\nCapacidad 672 Wh.",
+   "precio_proveedor": 350,
+   "precio": 385,
+   "comision": 14,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "categoria_bolsa": "cargadores portátiles y baterías",
+   "tamano": "grande",
+   "actualizar": null,
+   "foto_local": "fotos-pro/25-estacion-de-energia-gwell-600-w-672.jpg",
+   "fotos": [
+    "/home/u824654880/42y23-fotos/25.jpg"
+   ],
+   "etiqueta": "GARANTÍA COMERCIAL 6 meses · PRECIO USD 455.00 · pegatina encima 350.00",
+   "garantia_meses": 6,
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: publicar con el precio de la pegatina; bajo pedido, se confirma al recoger"
+  },
+  {
+   "n": 26,
+   "juntos": [],
+   "market_id": 1801,
+   "nombre": "Estación de energía GWELL con 3 tomas de 110 V",
+   "descripcion": "Estación de energía portátil GWELL (modelo grande).\n3 tomas de 110 V.\nEntrada de carga de 24 a 50 V.\nIncluye cargador.",
+   "precio_proveedor": 427,
+   "precio": 470,
+   "comision": 17.2,
+   "precio_manual": false,
+   "departamentos": [
+    "apagones-y-energia"
+   ],
+   "categoria_bolsa": "cargadores portátiles y baterías",
+   "tamano": "grande",
+   "actualizar": null,
+   "foto_local": "fotos-pro/26-estacion-de-energia-gwell-grande.jpg",
+   "fotos": [
+    "/home/u824654880/42y23-fotos/26.jpg"
+   ],
+   "etiqueta": "GARANTÍA COMERCIAL 6 meses · PRECIO USD 550.00 tachado · nuevo 427.00",
+   "garantia_meses": 6,
+   "confirmado": true,
+   "confirmado_por": "Ernesto 20-oct: publicar con el precio de la pegatina; bajo pedido, se confirma al recoger"
+  }
+ ]
+}

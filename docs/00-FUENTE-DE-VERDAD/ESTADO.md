@@ -1694,3 +1694,9 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
 - **Prueba en seco (20-oct):** 30 + 6 reservas, con 10 de noticias (agua, apagones, comida), 8 pedidos, 8 nuevos y 4 de categorías. Salida en `/root/supervisor/logs/seleccion-diaria-prueba-20261020.txt`. Nada enviado a grupos.
 - **Código y explicación:** `docs/nexo-business/novedades/` (`COMO-FUNCIONA.md`).
 - **Siguiente:** mañana a las 8:40, comprobar que llega el resumen y que a las 9:02 sale el primero (`tail /root/supervisor/logs/novedades.log`, `cv outbox 10`).
+
+### L48. Martes 20-oct ~20:20 — 42 y 23 PUBLICADOS + APK 1.1.0 + cierre 20:00 solo al General
+- **42 y 23:** 23 fichas en la web (24 de 26 productos) como «Bajo pedido», precio = pegatina + regla del bot, gestora 40 % del margen; bolsa a nombre de «TRD 42 y 23». Actualizadas y publicadas 1015, 1019, 1146; 1028 y 1013 sin tocar. Faltan: Split Parker (precio) y cocina Arox (foto). Tabla: `proveedores/tienda-42-y-23/publicados.md`. Fotos Higgsfield: 41 créditos.
+- **Caja 1.1.0:** APK firmado con la misma clave que 1.0.7 (`/root/archivos/CasaVivaCore-1.1.0-Android.apk`, copia en Descargas `CasaViva-Caja-1.1.0.apk`); Windows en la release `caja-v1.1.0` (Descargas `CasaViva-Caja-1.1.0-Windows.exe`). **Falta:** instalar en los teléfonos y la laptop (mañana antes de abrir), códigos nuevos de Lennys, limpieza «caja en cero», guía con capturas.
+- **VivaBot:** `06b05e8` pasar carrera con «Vale#…»; cierre 20:00 solo al General (Lennys: a Mensajerías no); la IA ya da transferencia CUP = efectivo × 1,20 (Cely recibió 815 por error, corregido). El 20:00 de hoy se mandó a las 20:18 (el estado lo daba por hecho desde las 17:00).
+- **Pendiente para Ernesto (pedido de Lennys):** aviso por privado a cada mensajero con vale sin entregar para que pase por la tienda.

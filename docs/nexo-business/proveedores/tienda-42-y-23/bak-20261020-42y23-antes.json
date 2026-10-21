@@ -1,0 +1,489 @@
+{
+    "1015": {
+        "id": 1015,
+        "type": "simple",
+        "name": "Licuadora Hamilton Beach blanca de 5 velocidades",
+        "slug": "licuadora-hamilton-beach-blanca-de-5-velocidades",
+        "status": "private",
+        "sku": "NEXO-HB-BLENDER-WHITE",
+        "regular_price": "50.00",
+        "sale_price": "",
+        "catalog_visibility": "visible",
+        "menu_order": 0,
+        "manage_stock": false,
+        "stock_status": "instock",
+        "category_ids": [
+            29
+        ],
+        "image_id": "1014",
+        "gallery_image_ids": [],
+        "short_description": "Licuadora Hamilton Beach con jarra transparente, base blanca y cinco controles frontales.",
+        "description": "<p>Una licuadora sencilla para preparar batidos, jugos y mezclas cotidianas. Su jarra transparente permite controlar la textura y sus cinco controles frontales facilitan el uso.</p><p><strong>Producto sujeto a confirmación de disponibilidad.</strong> NEXO verifica existencia y precio antes de completar la compra.</p>",
+        "meta": {
+            "_cvd_inventory_code": [
+                "CV-1015"
+            ],
+            "_sku": [
+                "NEXO-HB-BLENDER-WHITE"
+            ],
+            "_regular_price": [
+                "50.00"
+            ],
+            "total_sales": [
+                "0"
+            ],
+            "_tax_status": [
+                "taxable"
+            ],
+            "_tax_class": [
+                ""
+            ],
+            "_manage_stock": [
+                "no"
+            ],
+            "_backorders": [
+                "no"
+            ],
+            "_sold_individually": [
+                "no"
+            ],
+            "_virtual": [
+                "no"
+            ],
+            "_downloadable": [
+                "no"
+            ],
+            "_download_limit": [
+                "-1"
+            ],
+            "_download_expiry": [
+                "-1"
+            ],
+            "_thumbnail_id": [
+                "1014"
+            ],
+            "_stock": [
+                null
+            ],
+            "_stock_status": [
+                "instock"
+            ],
+            "_wc_average_rating": [
+                "0"
+            ],
+            "_wc_review_count": [
+                "0"
+            ],
+            "_product_version": [
+                "11.1.0"
+            ],
+            "_price": [
+                "50.00"
+            ],
+            "nexo_pilot_batch": [
+                "2026-08-26-eight-products"
+            ],
+            "nexo_availability_confirmation": [
+                "required"
+            ],
+            "nexo_verified_at": [
+                "2026-08-26T11:21:10.774Z"
+            ],
+            "_cvd_sync_hidden_from": [
+                "publish"
+            ],
+            "_cvd_floor_status": [
+                "sin_costo"
+            ],
+            "_cvd_under_floor": [
+                "0"
+            ]
+        },
+        "children": [],
+        "guardado": "2026-10-21T00:12:33+00:00"
+    },
+    "1146": {
+        "id": 1146,
+        "type": "variable",
+        "name": "Panel Solar Plegable 120 W | 18 V / 36 V",
+        "slug": "panel-solar-portatil-plegable-120w-18v-36v",
+        "status": "private",
+        "sku": "NEXO-SOLAR-FOLD-120W",
+        "regular_price": "",
+        "sale_price": "",
+        "catalog_visibility": "visible",
+        "menu_order": 0,
+        "manage_stock": false,
+        "stock_status": "instock",
+        "category_ids": [
+            37
+        ],
+        "image_id": "1605",
+        "gallery_image_ids": [],
+        "short_description": "<p><strong>Panel plegable de 120 W para recarga solar en sistemas compatibles.</strong></p><ul><li><strong>120 W:</strong> potencia anunciada por el proveedor.</li><li><strong>Dos versiones:</strong> 18 V y 36 V.</li><li><strong>Portátil:</strong> diseño plegable para transportar y guardar con facilidad.</li><li><strong>Uso:</strong> estaciones de energía, baterías o controladores compatibles.</li><li><strong>Compatibilidad:</strong> debe verificarse voltaje, corriente y conector antes de conectar.</li></ul>",
+        "description": "<h2>Energía solar portátil, sin complicar el transporte</h2><p>Este <strong>panel solar plegable de 120 W</strong> está pensado para quienes necesitan una fuente solar que pueda moverse, guardarse y desplegarse según la necesidad. NEXO dispone de versiones anunciadas de <strong>18 V / 120 W</strong> y <strong>36 V / 120 W</strong>.</p><h2>Datos confirmados</h2><ul><li><strong>Potencia anunciada:</strong> 120 W.</li><li><strong>Versiones:</strong> 18 V y 36 V.</li><li><strong>Diseño:</strong> plegable y portátil.</li><li><strong>Precio NEXO:</strong> 108 USD.</li></ul><h2>Antes de conectarlo</h2><p>La potencia en watts no basta para asegurar compatibilidad. Antes de conectarlo a una estación de energía, batería o controlador, hay que comprobar <strong>rango de voltaje de entrada, corriente máxima y tipo de conector</strong> del equipo receptor.</p><h2>Información pendiente de ficha técnica</h2><p>Marca, Voc/Vmp, Isc/Imp, conectores, dimensiones exactas y contenido del paquete aún no están documentados con evidencia suficiente. NEXO no los presenta como datos confirmados.</p><p><strong>Garantía y disponibilidad:</strong> sujetas a confirmación antes de reservar.</p>",
+        "meta": {
+            "_cvd_inventory_code": [
+                "CV-1146"
+            ],
+            "_sku": [
+                "NEXO-SOLAR-FOLD-120W"
+            ],
+            "total_sales": [
+                "0"
+            ],
+            "_tax_status": [
+                "taxable"
+            ],
+            "_tax_class": [
+                ""
+            ],
+            "_manage_stock": [
+                "no"
+            ],
+            "_backorders": [
+                "no"
+            ],
+            "_sold_individually": [
+                "no"
+            ],
+            "_virtual": [
+                "no"
+            ],
+            "_downloadable": [
+                "no"
+            ],
+            "_download_limit": [
+                "-1"
+            ],
+            "_download_expiry": [
+                "-1"
+            ],
+            "_stock": [
+                null
+            ],
+            "_stock_status": [
+                "instock"
+            ],
+            "_wc_average_rating": [
+                "0"
+            ],
+            "_wc_review_count": [
+                "0"
+            ],
+            "_product_attributes": [
+                "a:2:{s:7:\"voltaje\";a:6:{s:4:\"name\";s:7:\"Voltaje\";s:5:\"value\";s:9:\"18V | 36V\";s:8:\"position\";i:0;s:10:\"is_visible\";i:1;s:12:\"is_variation\";i:1;s:11:\"is_taxonomy\";i:0;}s:8:\"potencia\";a:6:{s:4:\"name\";s:8:\"Potencia\";s:5:\"value\";s:4:\"120W\";s:8:\"position\";i:0;s:10:\"is_visible\";i:1;s:12:\"is_variation\";i:0;s:11:\"is_taxonomy\";i:0;}}"
+            ],
+            "_product_version": [
+                "11.1.0"
+            ],
+            "nexo_catalog_batch": [
+                "2026-09-04-energy"
+            ],
+            "nexo_source_price_usd": [
+                "93.00"
+            ],
+            "nexo_supplier_commission_usd": [
+                ""
+            ],
+            "nexo_supplier_commission_visibility": [
+                "internal_only"
+            ],
+            "nexo_availability_confirmation": [
+                "required"
+            ],
+            "nexo_warranty_days": [
+                "5"
+            ],
+            "nexo_verified_at": [
+                "2026-09-05T02:12:58.916Z"
+            ],
+            "nexo_research_source": [
+                "Evidencia física NEXO: fotografía del producto y rótulo 18V/120W; variante 36V/120W informada por proveedor"
+            ],
+            "nexo_public_price_rule": [
+                "source_plus_15"
+            ],
+            "nexo_copy_style": [
+                "amazon-inspired-benefit-first"
+            ],
+            "_thumbnail_id": [
+                "1605"
+            ],
+            "_price": [
+                "108.00"
+            ],
+            "_cvd_sync_hidden_from": [
+                "publish"
+            ],
+            "_cvd_floor_status": [
+                "sin_costo"
+            ],
+            "_cvd_under_floor": [
+                "0"
+            ]
+        },
+        "children": [
+            {
+                "id": 1147,
+                "sku": "",
+                "regular_price": "108.00",
+                "sale_price": "",
+                "status": "publish",
+                "meta": {
+                    "_variation_description": [
+                        ""
+                    ],
+                    "_regular_price": [
+                        "108.00"
+                    ],
+                    "total_sales": [
+                        "0"
+                    ],
+                    "_tax_status": [
+                        "taxable"
+                    ],
+                    "_tax_class": [
+                        "parent"
+                    ],
+                    "_manage_stock": [
+                        "no"
+                    ],
+                    "_backorders": [
+                        "no"
+                    ],
+                    "_sold_individually": [
+                        "no"
+                    ],
+                    "_virtual": [
+                        "no"
+                    ],
+                    "_downloadable": [
+                        "no"
+                    ],
+                    "_download_limit": [
+                        "-1"
+                    ],
+                    "_download_expiry": [
+                        "-1"
+                    ],
+                    "_stock": [
+                        null
+                    ],
+                    "_stock_status": [
+                        "instock"
+                    ],
+                    "_wc_average_rating": [
+                        "0"
+                    ],
+                    "_wc_review_count": [
+                        "0"
+                    ],
+                    "attribute_voltaje": [
+                        "18V"
+                    ],
+                    "_price": [
+                        "108.00"
+                    ],
+                    "_product_version": [
+                        "10.9.4"
+                    ],
+                    "_thumbnail_id": [
+                        "0"
+                    ],
+                    "_cvd_inventory_code": [
+                        "CV-1147"
+                    ],
+                    "_cvd_floor_status": [
+                        "sin_costo"
+                    ],
+                    "_cvd_under_floor": [
+                        "0"
+                    ]
+                }
+            },
+            {
+                "id": 1148,
+                "sku": "",
+                "regular_price": "108.00",
+                "sale_price": "",
+                "status": "publish",
+                "meta": {
+                    "_variation_description": [
+                        ""
+                    ],
+                    "_regular_price": [
+                        "108.00"
+                    ],
+                    "total_sales": [
+                        "0"
+                    ],
+                    "_tax_status": [
+                        "taxable"
+                    ],
+                    "_tax_class": [
+                        "parent"
+                    ],
+                    "_manage_stock": [
+                        "no"
+                    ],
+                    "_backorders": [
+                        "no"
+                    ],
+                    "_sold_individually": [
+                        "no"
+                    ],
+                    "_virtual": [
+                        "no"
+                    ],
+                    "_downloadable": [
+                        "no"
+                    ],
+                    "_download_limit": [
+                        "-1"
+                    ],
+                    "_download_expiry": [
+                        "-1"
+                    ],
+                    "_stock": [
+                        null
+                    ],
+                    "_stock_status": [
+                        "instock"
+                    ],
+                    "_wc_average_rating": [
+                        "0"
+                    ],
+                    "_wc_review_count": [
+                        "0"
+                    ],
+                    "attribute_voltaje": [
+                        "36V"
+                    ],
+                    "_price": [
+                        "108.00"
+                    ],
+                    "_product_version": [
+                        "11.1.0"
+                    ],
+                    "_thumbnail_id": [
+                        "0"
+                    ],
+                    "_cvd_inventory_code": [
+                        "CV-1148"
+                    ],
+                    "_cvd_floor_status": [
+                        "sin_costo"
+                    ],
+                    "_cvd_under_floor": [
+                        "0"
+                    ]
+                }
+            }
+        ],
+        "guardado": "2026-10-21T00:16:13+00:00"
+    },
+    "1019": {
+        "id": 1019,
+        "type": "simple",
+        "name": "Ventilador solar recargable Royal RA123SL de 12 pulgadas con bombillos LED",
+        "slug": "ventilador-solar-recargable-royal-ra123sl-de-12-pulgadas-con-bombillos-led",
+        "status": "private",
+        "sku": "NEXO-RA123SL",
+        "regular_price": "78.00",
+        "sale_price": "",
+        "catalog_visibility": "visible",
+        "menu_order": 0,
+        "manage_stock": false,
+        "stock_status": "instock",
+        "category_ids": [
+            30
+        ],
+        "image_id": "1018",
+        "gallery_image_ids": [],
+        "short_description": "Ventilador Royal recargable de 12 pulgadas con panel solar y dos bombillos LED.",
+        "description": "<p>Solución compacta para ventilación e iluminación de respaldo. El conjunto incluye ventilador Royal RA123SL, panel solar y dos bombillos LED.</p><p>Autonomía y capacidad de batería pendientes de validación.</p><p><strong>Producto sujeto a confirmación de disponibilidad.</strong> NEXO verifica existencia y precio antes de completar la compra.</p>",
+        "meta": {
+            "_cvd_inventory_code": [
+                "CV-1019"
+            ],
+            "_sku": [
+                "NEXO-RA123SL"
+            ],
+            "_regular_price": [
+                "78.00"
+            ],
+            "total_sales": [
+                "0"
+            ],
+            "_tax_status": [
+                "taxable"
+            ],
+            "_tax_class": [
+                ""
+            ],
+            "_manage_stock": [
+                "no"
+            ],
+            "_backorders": [
+                "no"
+            ],
+            "_sold_individually": [
+                "no"
+            ],
+            "_virtual": [
+                "no"
+            ],
+            "_downloadable": [
+                "no"
+            ],
+            "_download_limit": [
+                "-1"
+            ],
+            "_download_expiry": [
+                "-1"
+            ],
+            "_thumbnail_id": [
+                "1018"
+            ],
+            "_stock": [
+                null
+            ],
+            "_stock_status": [
+                "instock"
+            ],
+            "_wc_average_rating": [
+                "0"
+            ],
+            "_wc_review_count": [
+                "0"
+            ],
+            "_product_version": [
+                "11.1.0"
+            ],
+            "_price": [
+                "78.00"
+            ],
+            "nexo_pilot_batch": [
+                "2026-08-26-eight-products"
+            ],
+            "nexo_availability_confirmation": [
+                "required"
+            ],
+            "nexo_verified_at": [
+                "2026-08-26T11:21:14.821Z"
+            ],
+            "_cvd_sync_hidden_from": [
+                "publish"
+            ],
+            "_cvd_floor_status": [
+                "sin_costo"
+            ],
+            "_cvd_under_floor": [
+                "0"
+            ]
+        },
+        "children": [],
+        "guardado": "2026-10-21T00:16:14+00:00"
+    }
+}
