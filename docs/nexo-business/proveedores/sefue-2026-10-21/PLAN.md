@@ -27,3 +27,12 @@ Archivos: `extraer.mjs` (lee su tienda, en seco) → `catalogo.json` (158 produc
 7. **Web:** `electro-2026-10-20/crear-productos.php` en seco → borradores → Ernesto revisa → publicar → marcar bolsa «publicado».
 8. **Anuncio** al grupo «Actualización de productos» con la comisión, con el sí de Ernesto.
 9. **Mantenimiento:** a los 21 días el bot los marca «quizá agotados» (no anuncian): volver a pasar `extraer.mjs` para refrescar precio y `last_seen`.
+
+## Acuerdo con SeFué (21-oct, Javier Quota +53 5 4942950, comercial)
+- **Opción 1** (Ernesto): SeFué nos da su precio **−3 %**; ponemos nuestro precio (regla `myPrice`). **Ventas con mensajería** (pide que no sean recogidas, para evitar choques de precio entre gestores).
+- **Existencia:** se consulta con ellos en cada venta (no tienen otra vía).
+- **Entrega:** en su local; transporte por nuestra cuenta, salvo **colchones y humidores** (la entrega la ponen ellos).
+- **Fotos:** autorizado usar las de su web (16:56).
+- **Lista de precios:** la manda «a más tardar mañana» (22-oct). Con ella: bolsa `MK-` + web «Bajo pedido» con `extraer.mjs`/`bolsa-crear.mjs`.
+- Ofrecen **consignación** para la tienda física: elegir pocos productos que roten.
+- Contacto creado en `crm_contacts` («Javier Quota · SeFué (comercial)», etiquetas proveedor, sefue), bot en pausa hasta el 23-oct.
