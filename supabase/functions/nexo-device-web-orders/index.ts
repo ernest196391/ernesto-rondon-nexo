@@ -9,7 +9,9 @@
 //          409 already_charged = ya se cobró en Ventas (la caja lo devuelve del cajón).
 //   POST {action:"change", orderId, changeRequired:[{amount, currency}], staffId} → vuelto que lleva el mensajero.
 // Los productos de proveedor (SKU MK-) salen aquí como pedidos web: no se importan al catálogo.
-// Core: 3.14.42 (CVD_Caja_Bridge). Deploy:
+// Caja 1.1.1 (Lennys 21-oct): cada pedido trae su tasa CUP del día del pedido (cupRate, cupTransferRate, cupRateDay;
+// la caja cobra en CUP con ella, nunca con la de hoy) y la miniatura de cada producto (products[].image, solo https).
+// Core: 3.14.46 (CVD_Caja_Bridge). Deploy:
 // npx.cmd supabase functions deploy nexo-device-web-orders --project-ref viwwlriwlwodrfukbgbj --no-verify-jwt --use-api
 import { createClient } from "jsr:@supabase/supabase-js@2";
 
@@ -65,7 +67,23 @@ Deno.serve(async req => {
       const r = await core("GET", "panel/caja/web-orders");
       if (r.status === 404) return json(501, { error: "core_old", message: "La web todavía no tiene esta función (falta Core 3.14.42). Cobra en Ventas como siempre." });
       if (r.status >= 400) return json(502, { error: "core", message: "No se pudo leer los pedidos de la web. Prueba en un minuto." });
-      return json(200, r.data);
+      const rate = (v: unknown) => {
+        const n = Number(v);
+        return Number.isFinite(n) && n >= 50 && n <= 5000 ? Math.round(n * 100) / 100 : null;
+      };
+      const orders = (Array.isArray(r.data.orders) ? r.data.orders : []) as Array<Record<string, unknown>>;
+      for (const o of orders) {
+        o.cupRate = rate(o.cupRate);
+        o.cupTransferRate = rate(o.cupTransferRate);
+        o.cupRateDay = String(o.cupRateDay ?? "").slice(0, 12);
+        if (Array.isArray(o.products)) {
+          for (const p of o.products as Array<Record<string, unknown>>) {
+            const image = String(p.image ?? "");
+            p.image = /^https:\/\//.test(image) ? image.slice(0, 500) : "";
+          }
+        }
+      }
+      return json(200, { ...r.data, orders });
     }
 
     if (body.action === "charge") {

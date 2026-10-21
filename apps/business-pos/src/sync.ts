@@ -11,12 +11,15 @@ import {
 import { getVersion } from "@tauri-apps/api/app";
 import { pullRates } from "./checkout";
 import { can } from "./attribution";
+import { looksLikeEnrollCode } from "./weborder-logic";
 
 export type SyncState = { pending: number; failing: number; synced: number; oldestPendingAt: string | null; lastError: string | null };
 type OutboxEvent = PushEvent & { attempts: number };
 
 const ENDPOINT_KEY = "nexo.sync.endpoint";
 const TOKEN_KEY = "nexo.sync.deviceToken";
+/** La clave que la nube rechazó (desactivada o de otro equipo): mientras sea la actual, se pide un código nuevo. */
+const REJECTED_KEY = "nexo.sync.rejectedToken";
 /** NEXO production ingestion (Supabase Edge Function nexo-sync-push). */
 export const DEFAULT_ENDPOINT = "https://viwwlriwlwodrfukbgbj.supabase.co/functions/v1/nexo-sync-push";
 const BATCH = 100;
@@ -171,6 +174,18 @@ export function deviceToken() {
   return read(TOKEN_KEY).trim();
 }
 
+/** true = la nube dijo que la clave de este equipo no vale (Lennys 21-oct: PC con la clave vieja). */
+export function keyRejected() {
+  const token = deviceToken();
+  return !!token && read(REJECTED_KEY) === token;
+}
+
+function markRejected(token: string) {
+  if (!token || read(REJECTED_KEY) === token) return;
+  save(REJECTED_KEY, token);
+  window.dispatchEvent(new CustomEvent("nexo:key-rejected"));
+}
+
 /** POST to a device function with this phone's key. Throws with the server's message. */
 export async function deviceCall<T>(name: string, body: Record<string, unknown>): Promise<T> {
   const token = deviceToken();
@@ -182,6 +197,7 @@ export async function deviceCall<T>(name: string, body: Record<string, unknown>)
   });
   const data = (await response.json().catch(() => ({}))) as T & { error?: string; message?: string };
   if (!response.ok) {
+    if (response.status === 401) markRejected(token);
     const error = new Error(data.message || data.error || `HTTP ${response.status}`) as Error & { status?: number; code?: string };
     error.status = response.status;
     error.code = data.error;
@@ -198,7 +214,10 @@ export async function provisionDevice(endpoint: string, deviceToken: string): Pr
   const current = await invoke<DeviceIdentity>("device_identity");
   // Also the «check-in»: the panel sees «Última conexión» and the version even without sales to send.
   const response = await fetch(identityUrl(endpoint, await appVersion()), { headers: { "x-nexo-device-token": deviceToken } });
-  if (response.status === 401) throw new Error("La clave del dispositivo no es válida o está desactivada");
+  if (response.status === 401) {
+    markRejected(deviceToken);
+    throw new Error("La clave de este equipo ya no vale (está desactivada). Toca «Conectar con otro código» y escribe el código de alta nuevo.");
+  }
   if (!response.ok) throw new Error(`Identidad: HTTP ${response.status}`);
   const cloud = (await response.json()) as { businessId: string; deviceId: string; label: string | null };
   if (current.provisioned && current.businessId === cloud.businessId && current.deviceId === cloud.deviceId && current.label === cloud.label) {
@@ -314,24 +333,26 @@ export function startAutoSync() {
 /** Alta con código corto: la nube crea el equipo y entrega su clave una sola vez. */
 export async function enrollWithCode(code: string): Promise<{ label: string; deviceId: string }> {
   const url = DEFAULT_ENDPOINT.replace(/nexo-sync-push\/?$/, "nexo-device-enroll");
-  const response = await fetch(url, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ code }) });
+  const response = await fetch(url, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ code: code.replace(/[\s-]+/g, "").toUpperCase() }) });
   const body = (await response.json().catch(() => ({}))) as { error?: string; token?: string; label?: string; deviceId?: string };
   if (!response.ok || !body.token) throw new Error(body.error || "No se pudo dar de alta");
   save(ENDPOINT_KEY, DEFAULT_ENDPOINT);
   save(TOKEN_KEY, body.token);
+  save(REJECTED_KEY, "");
   await provisionDevice(DEFAULT_ENDPOINT, body.token);
   return { label: body.label ?? "", deviceId: body.deviceId ?? "" };
 }
 
 export async function mountSync(container: HTMLElement) {
   container.innerHTML = `
-    <form id="enroll-form" class="nx-form" ${read(TOKEN_KEY) ? 'hidden style="display:none"' : ""}>
-      <p class="t-sm">Para conectar este equipo con la tienda, pide a Ernesto un <b>código de alta</b> y escríbelo aquí.</p>
+    <form id="enroll-form" class="nx-form" ${read(TOKEN_KEY) && !keyRejected() ? 'hidden style="display:none"' : ""}>
+      <p class="t-sm" data-enroll-why>Para conectar este equipo con la tienda, pide a Lennys o a Ernesto un <b>código de alta</b> y escríbelo aquí.</p>
       <label class="field">Código de alta<input class="input" name="code" autocomplete="off" autocapitalize="characters" maxlength="7" placeholder="Ej.: K7M2QX" style="text-transform:uppercase;letter-spacing:.2em;font-size:1.3em"></label>
       <button type="submit" class="btn btn-primary btn-block">Conectar este equipo</button>
     </form>
     <form id="sync-form" class="nx-form">
       <button type="submit" class="btn btn-primary btn-block">Sincronizar ahora</button>
+      <button type="button" class="btn btn-secondary btn-block" data-other-code>Conectar con otro código</button>
       <details class="t-sm"><summary class="muted">Opciones avanzadas</summary>
         <label class="field">Servidor de sincronización<input class="input" name="endpoint" type="url"></label>
         <label class="field">Clave del dispositivo<input class="input" name="token" type="password" autocomplete="off" placeholder="La entrega NEXO al dar de alta el equipo"></label>
@@ -339,9 +360,19 @@ export async function mountSync(container: HTMLElement) {
     </form>
     <p class="t-sm muted" id="sync-state"></p>`;
   const enrollForm = container.querySelector<HTMLFormElement>("#enroll-form")!;
-  enrollForm.onsubmit = async e => {
-    e.preventDefault();
-    const codeInput = enrollForm.querySelector<HTMLInputElement>('[name="code"]')!;
+  const codeInput = enrollForm.querySelector<HTMLInputElement>('[name="code"]')!;
+  /** Muestra el campo «Código de alta» (clave rechazada o «Conectar con otro código»). */
+  const showEnroll = (why?: string) => {
+    enrollForm.hidden = false;
+    enrollForm.style.display = "";
+    if (why) enrollForm.querySelector<HTMLElement>("[data-enroll-why]")!.innerHTML = why;
+    codeInput.focus();
+  };
+  const REJECTED_TEXT = "⚠️ <b>La clave de este equipo ya no vale</b> (está desactivada o es de otro equipo). Pide a Lennys un <b>código de alta</b> nuevo y escríbelo aquí. Las ventas guardadas no se pierden.";
+  window.addEventListener("nexo:key-rejected", () => showEnroll(REJECTED_TEXT));
+  if (keyRejected()) window.setTimeout(() => showEnroll(REJECTED_TEXT));
+  /** Conecta con un código de alta (desde su casilla o escrito por error en «Clave del dispositivo»). */
+  const enroll = async (code: string) => {
     const button = enrollForm.querySelector<HTMLButtonElement>("button")!;
     if (!navigator.onLine) {
       stateEl.textContent = "Necesitas internet solo para este paso. Conéctate y prueba otra vez.";
@@ -350,7 +381,7 @@ export async function mountSync(container: HTMLElement) {
     button.disabled = true;
     stateEl.textContent = "Conectando…";
     try {
-      const who = await enrollWithCode(codeInput.value);
+      const who = await enrollWithCode(code);
       tokenInput.value = read(TOKEN_KEY);
       enrollForm.hidden = true;
       enrollForm.style.display = "none";
@@ -363,7 +394,13 @@ export async function mountSync(container: HTMLElement) {
       button.disabled = false;
     }
   };
+  enrollForm.onsubmit = e => {
+    e.preventDefault();
+    void enroll(codeInput.value);
+  };
   const form = container.querySelector<HTMLFormElement>("#sync-form")!;
+  form.querySelector<HTMLButtonElement>("[data-other-code]")!.onclick = () =>
+    showEnroll("Escribe el <b>código de alta</b> nuevo (6 o 7 letras) que te da Lennys. Este equipo se conecta con él; lo guardado no se pierde.");
   const input = form.querySelector<HTMLInputElement>('[name="endpoint"]')!;
   const tokenInput = form.querySelector<HTMLInputElement>('[name="token"]')!;
   const stateEl = container.querySelector<HTMLElement>("#sync-state")!;
@@ -378,10 +415,26 @@ export async function mountSync(container: HTMLElement) {
   };
   form.onsubmit = async e => {
     e.preventDefault();
+    // Lennys 21-oct: escribió el código de alta en «Clave del dispositivo». Un código (6–7 letras) es un alta.
+    const typed = tokenInput.value.trim();
+    const code = typed !== read(TOKEN_KEY) ? looksLikeEnrollCode(typed) : null;
+    if (code) {
+      tokenInput.value = read(TOKEN_KEY);
+      codeInput.value = code;
+      showEnroll("Eso es un <b>código de alta</b>: conectando este equipo con él…");
+      await enroll(code);
+      return;
+    }
+    // Una clave a medias no se guarda: la clave de verdad es larga (la entrega la nube con el código de alta).
+    if (typed && typed.length < 32) {
+      tokenInput.value = read(TOKEN_KEY);
+      stateEl.textContent = "Esa clave está incompleta y no se guardó. Para conectar el equipo usa «Conectar con otro código».";
+      return;
+    }
     save(ENDPOINT_KEY, input.value);
     save(TOKEN_KEY, tokenInput.value);
     if (!input.value.trim() || !tokenInput.value.trim()) {
-      show(await invoke<SyncState>("sync_state"), "Falta el servidor o la clave del dispositivo: todo sigue guardado en el equipo · ");
+      show(await invoke<SyncState>("sync_state"), "Este equipo aún no está conectado: toca «Conectar con otro código» y escribe el código de alta. Todo sigue guardado en el equipo · ");
       return;
     }
     if (!navigator.onLine) {

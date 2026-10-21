@@ -9,8 +9,10 @@
 import { invoke } from "@tauri-apps/api/core";
 import { attribution, personName, setStaff, staffSelectHtml, staffList } from "./attribution";
 import { openCheckout, type PaymentInput } from "./checkout";
-import { deviceCall, deviceToken, onEverySync } from "./sync";
+import { markups } from "./store-info";
+import { deviceCall, deviceToken, keyRejected, onEverySync } from "./sync";
 import { escapeHtml, icon, openSheet } from "./ui";
+import { chargeNote, orderRates, rateLine, rateOverrides, searchOrders, transferFrom, type OrderRates } from "./weborder-logic";
 
 type WebOrder = {
   id: number;
@@ -27,7 +29,13 @@ type WebOrder = {
   prepaid: boolean;
   declaredUsd: string;
   declaredCup: string;
-  products: Array<{ name: string; qty: number; sku: string }>;
+  products: Array<{ name: string; qty: number; sku: string; image?: string }>;
+  /** Tasa CUP del día del pedido (Core 3.14.46): efectivo y transferencia por 1 USD, y el día («18-oct»). */
+  cupRate?: number | null;
+  cupTransferRate?: number | null;
+  cupRateDay?: string;
+  /** Recogida: true = ya pulsaron «Listo» en la web (Core 3.14.44). */
+  prepared?: boolean;
   supplier: boolean;
   test: boolean;
   /** false = aún no se cobra (sale en la lista para darle el vuelto al mensajero). */
@@ -68,6 +76,7 @@ let orders: WebOrder[] = [];
 let loadedAt: string | null = null;
 let loadError = "";
 let sending = false;
+let query = "";
 
 /** Sends every queued charge to the web. Runs after each sync and right after a charge. */
 export async function sendQueued(): Promise<void> {
@@ -112,7 +121,7 @@ onEverySync(sendQueued);
 
 async function load() {
   if (!navigator.onLine || !deviceToken()) {
-    loadError = !deviceToken() ? "Este teléfono no está conectado (Más → Sincronización)." : "Sin internet: la lista de pedidos necesita internet. Los cobros ya hechos se envían solos al volver la red.";
+    loadError = !deviceToken() ? "Este equipo no está conectado: Más → Sincronización → escribe el código de alta." : "Sin internet: la lista de pedidos necesita internet. Los cobros ya hechos se envían solos al volver la red.";
     return render();
   }
   loadError = "";
@@ -122,19 +131,30 @@ async function load() {
     orders = Array.isArray(r.orders) ? r.orders : [];
     loadedAt = r.generatedAt;
   } catch (e) {
-    loadError = e instanceof Error ? e.message : String(e);
+    const err = e as Error & { status?: number };
+    loadError = err.status === 401 || keyRejected()
+      ? "La clave de este equipo ya no vale (está desactivada). Ve a Más → Sincronización → «Conectar con otro código» y escribe el código de alta que te da Lennys."
+      : err instanceof Error ? err.message : String(e);
   }
   await render();
 }
+
+/** Miniatura del producto (150 px de la web; el navegador la guarda en caché). Sin foto: un cuadro gris. */
+const photo = (p: { name: string; image?: string }) => /^https:\/\//.test(p.image ?? "")
+  ? `<img src="${escapeHtml(p.image)}" alt="${escapeHtml(p.name)}" loading="lazy" decoding="async" width="56" height="56" style="width: 56px; height: 56px; object-fit: cover; border-radius: 8px; flex: none; background: var(--nx-surface-2, #eee)" onerror="this.style.visibility='hidden'">`
+  : `<span aria-hidden="true" style="width: 56px; height: 56px; border-radius: 8px; flex: none; background: var(--nx-surface-2, #eee)"></span>`;
 
 const changeText = (list: Array<{ amount: number; currency: string }> | undefined) =>
   (list ?? []).filter(c => c.amount > 0).map(c => `${c.amount.toLocaleString("es")} ${c.currency}`).join(" + ");
 
 function orderCard(o: WebOrder, local: Charge | undefined, street: Street) {
   const inStreet = street.filter(([, m]) => m > 0);
-  const items = o.products.map(p => `${p.qty > 1 ? `${p.qty}× ` : ""}${escapeHtml(p.name)}`).join(", ");
+  const items = o.products.map(p => `<div style="display: flex; align-items: center; gap: 8px">${photo(p)}<span>${p.qty > 1 ? `<b>${p.qty}×</b> ` : ""}${escapeHtml(p.name)}</span></div>`).join("");
+  const ready = o.kind === "pickup" && o.prepared !== false && /listo/i.test(o.statusLabel);
   const badges = [
-    o.kind === "pickup" ? `<span class="badge badge-info">Recogida en tienda</span>` : `<span class="badge badge-low">${escapeHtml(o.statusLabel)}</span>`,
+    o.kind === "pickup"
+      ? `<span class="badge ${ready ? "badge-ok" : "badge-low"}">${escapeHtml(o.statusLabel || "Recogida en tienda")}</span>`
+      : `<span class="badge badge-low">${escapeHtml(o.statusLabel)}</span>`,
     o.supplier ? `<span class="badge">Proveedor (MK)</span>` : "",
     o.test ? `<span class="badge badge-out">PRUEBA</span>` : "",
     o.prepaid ? `<span class="badge badge-ok">Pagado por adelantado</span>` : "",
@@ -147,7 +167,8 @@ function orderCard(o: WebOrder, local: Charge | undefined, street: Street) {
   return `<div class="panel" style="gap: 6px">
     <div class="kv"><span style="font-weight: 700">#${escapeHtml(o.number)} · ${escapeHtml(o.customer || "Cliente")}</span><span class="num" style="font-weight: 700">${usd(o.totalUsd)}</span></div>
     <div>${badges}</div>
-    <div class="t-sm">${items}</div>
+    <div class="t-sm" style="display: grid; gap: 4px">${items}</div>
+    ${o.cupRate ? `<div class="t-xs muted">Tasa del pedido: ${o.cupRate.toLocaleString("es")}${o.cupRateDay ? ` (${escapeHtml(o.cupRateDay)})` : ""}</div>` : ""}
     <div class="t-xs muted">${who}</div>
     ${o.payment?.text ? `<div class="t-xs">Cómo paga: ${escapeHtml(o.payment.text)}</div>` : ""}
     ${declared}
@@ -171,11 +192,14 @@ async function render() {
     if (o.kind === "pickup") continue;
     streets.set(o.id, await invoke<Street>("web_order_vuelto_outstanding", { orderId: o.id }).catch(() => []));
   }
+  const shown = searchOrders(orders, query);
   list.innerHTML = loadError
     ? `<div class="notice warn">${icon("alert")}<div><b>No se pudo cargar</b>${escapeHtml(loadError)}</div></div>`
-    : orders.length
-      ? orders.map(o => orderCard(o, byOrder.get(o.id), streets.get(o.id) ?? [])).join("")
-      : `<p class="t-sm muted">${loadedAt ? "No hay pedidos web para cobrar ahora." : "Toca «Actualizar» para ver los pedidos."}</p>`;
+    : shown.length
+      ? shown.map(o => orderCard(o, byOrder.get(o.id), streets.get(o.id) ?? [])).join("")
+      : orders.length
+        ? `<p class="t-sm muted">Ningún pedido con «${escapeHtml(query)}». Prueba con el número (#4243), el nombre o el teléfono.</p>`
+        : `<p class="t-sm muted">${loadedAt ? "No hay pedidos web para cobrar ahora." : "Toca «Actualizar» para ver los pedidos."}</p>`;
   list.querySelectorAll<HTMLButtonElement>("[data-charge]").forEach(b => (b.onclick = () => void charge(Number(b.dataset.charge))));
   list.querySelectorAll<HTMLButtonElement>("[data-vuelto]").forEach(b => (b.onclick = () => void vueltoSheet(Number(b.dataset.vuelto))));
   list.querySelectorAll<HTMLButtonElement>("[data-vuelto-back]").forEach(b => (b.onclick = () => void vueltoBack(Number(b.dataset.vueltoBack), streets.get(Number(b.dataset.vueltoBack)) ?? [])));
@@ -219,15 +243,26 @@ async function charge(orderId: number) {
     }
     const staffId = await askStaff();
     const totalMinor = Math.round(order.totalUsd * 100);
-    const overrides: Record<string, string> = {};
-    if (order.payment?.factor && order.payment.currency === "CUP") overrides.CUP = String(order.payment.factor);
+    // Tasa del DÍA DEL PEDIDO para todo pago en CUP (efectivo o transferencia), nunca la de hoy (Lennys 21-oct).
+    const pct = markups().transferPct;
+    const fromOrder = orderRates(order, pct);
+    let used: OrderRates | null = fromOrder;
+    let reason = "";
     const payments: PaymentInput[] | null = await openCheckout(totalMinor, {
       title: `Cobrar pedido #${order.number}`,
       hint: [order.prepaid ? "Pagado por adelantado (Zelle/PayPal): cobra solo lo que falte." : order.payment?.text ?? "",
         (await invoke<Street>("web_order_vuelto_outstanding", { orderId: order.id }).catch(() => [] as Street)).filter(([, m]) => m > 0).length
           ? "Cobra solo el pedido: el vuelto que trae el mensajero vuelve solo al fondo." : ""].filter(Boolean).join(" · "),
       confirmLabel: "Confirmar cobro",
-      rateOverrides: overrides,
+      rateOverrides: rateOverrides(fromOrder),
+      orderRate: {
+        line: fromOrder ? rateLine(fromOrder) : "Este pedido no guardó su tasa: se usa la de hoy.",
+        change: (cash, why) => {
+          used = { cash, transfer: transferFrom(cash, pct), day: "" };
+          reason = why;
+          return { overrides: rateOverrides(used), line: `${rateLine(used, true)} · motivo: ${why}` };
+        },
+      },
     });
     if (!payments) return;
     await invoke("web_order_charge", {
@@ -240,7 +275,8 @@ async function charge(orderId: number) {
         payments: payments.map(p => ({ method: p.method, currency: p.currency, amountMinor: p.amountMinor, externalRef: p.externalRef, provider: p.provider })),
         staffId,
         staffName: personName(staffId),
-        note: null,
+        // La tasa queda escrita si se cobró algo en CUP o si la cambiaron (con su motivo).
+        note: (reason || payments.some(p => p.currency === "CUP") ? chargeNote(fromOrder, used, reason) : "") || null,
         occurredAt: new Date().toISOString(),
         collectionAccount: payments.find(p => p.accountId)?.accountId ?? null,
       },
@@ -361,9 +397,16 @@ export function mountWebOrders(container: HTMLElement) {
   container.innerHTML = `
     <p class="t-sm muted">Pedidos de las gestoras para cobrar aquí: los de recogida y los que trae el mensajero. El dinero entra al cajón; la web cierra el pedido con tu nombre.</p>
     <div class="kv"><button type="button" class="btn btn-secondary" data-reload>${icon("cloud", "sm")}Actualizar</button><span class="t-xs muted" data-when></span></div>
+    <input class="input" type="search" data-search autocomplete="off" placeholder="Buscar: #número, nombre o teléfono" aria-label="Buscar pedido" style="font-size: var(--nx-fs-lg)">
     <div class="stack" data-list></div>
     <details class="panel"><summary>Cobrados en este teléfono</summary><div data-recent></div></details>`;
   container.querySelector<HTMLButtonElement>("[data-reload]")!.onclick = () => void load();
+  const search = container.querySelector<HTMLInputElement>("[data-search]")!;
+  search.value = query;
+  search.oninput = () => {
+    query = search.value;
+    void render();
+  };
   void render();
 }
 

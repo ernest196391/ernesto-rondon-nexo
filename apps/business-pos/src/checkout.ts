@@ -32,9 +32,9 @@ function storeAccounts(): PayAccount[] {
   }
 }
 
-type Rate = { currency: string; perUsd: string; setAt: string };
+export type Rate = { currency: string; perUsd: string; setAt: string };
 
-type MethodDef = {
+export type MethodDef = {
   key: string;
   label: string;
   method: PaymentInput["method"];
@@ -47,10 +47,11 @@ type MethodDef = {
   rateKey?: string;
 };
 
-const METHODS: MethodDef[] = [
+export const METHODS: MethodDef[] = [
   { key: "cash-usd", label: "Efectivo USD", method: "cash", currency: "USD", needsRef: false },
   { key: "cash-cup", label: "Efectivo CUP", method: "cash", currency: "CUP", needsRef: false },
-  { key: "transfer-cup", label: "Transferencia CUP", method: "transfer", currency: "CUP", providers: ["Transfermóvil", "EnZona"], needsRef: true },
+  // CUP_TRANSFER: tasa propia de la transferencia (pedido web: la del día del vale); si no hay, la CUP.
+  { key: "transfer-cup", label: "Transferencia CUP", method: "transfer", currency: "CUP", providers: ["Transfermóvil", "EnZona"], needsRef: true, rateKey: "CUP_TRANSFER" },
   { key: "transfer-mlc", label: "MLC", method: "transfer", currency: "MLC", provider: "tarjeta mlc", needsRef: true },
   { key: "zelle", label: "Zelle", method: "transfer", currency: "USD", provider: "zelle", rateKey: "ZELLE", needsRef: true },
   { key: "usdt", label: "USDT", method: "crypto", currency: "USDT", provider: "usdt", needsRef: true },
@@ -59,7 +60,7 @@ const METHODS: MethodDef[] = [
 
 const MAX_PAYMENTS = 3;
 
-type Row = { id: string; def: MethodDef; amountMinor: number; provider: string; ref: string; accountId: string };
+export type Row = { id: string; def: MethodDef; amountMinor: number; provider: string; ref: string; accountId: string };
 
 const escapeHtml = (s: unknown) =>
   String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!);
@@ -72,14 +73,16 @@ const methodIcon = (m: MethodDef) => icon(m.method === "cash" ? "cash" : "transf
 const keyOf = (m: MethodDef) => m.rateKey ?? m.currency;
 
 /** Units per USD for a rate key; USD is 1, USDT and Zelle default to 1 until the owners set them. */
-function rateOf(rates: Map<string, Rate>, currency: string): number | null {
+export function rateOf(rates: Map<string, Rate>, currency: string): number | null {
   if (currency === "USD") return 1;
+  if (currency === "CUP_TRANSFER" && !rates.has(currency)) return rateOf(rates, "CUP");
   const r = Number(rates.get(currency)?.perUsd);
   if (Number.isFinite(r) && r > 0) return r;
   return currency === "USDT" || currency === "ZELLE" ? 1 : null;
 }
 
-function rateText(rates: Map<string, Rate>, currency: string) {
+function rateText(rates: Map<string, Rate>, currency: string): string | null {
+  if (currency === "CUP_TRANSFER" && !rates.has(currency)) return rateText(rates, "CUP");
   return rates.get(currency)?.perUsd ?? (currency === "USDT" || currency === "ZELLE" ? "1" : null);
 }
 
@@ -98,7 +101,7 @@ function withAccount(provider: string | null, accountId: string) {
 }
 
 /** Converts the rows to payments; change comes off the last cash row. */
-function settle(rows: Row[], totalMinor: number, rates: Map<string, Rate>) {
+export function settle(rows: Row[], totalMinor: number, rates: Map<string, Rate>) {
   const payments: PaymentInput[] = rows.map(row => {
     const rate = rateOf(rates, keyOf(row.def))!;
     return {
@@ -155,6 +158,14 @@ export type CheckoutOptions = {
   confirmLabel?: string;
   /** Units per USD that win over the cloud rates (a web order keeps the rate of its day). */
   rateOverrides?: Record<string, string>;
+  /**
+   * Pedido web (caja 1.1.1): línea «Tasa del pedido: 810 (18-oct)» y botón «Cambiar tasa» con motivo obligatorio.
+   * `change(cash, reason)` devuelve las tasas nuevas {CUP, CUP_TRANSFER} y la línea a mostrar.
+   */
+  orderRate?: {
+    line: string;
+    change: (cash: number, reason: string) => { overrides: Record<string, string>; line: string };
+  };
 };
 
 export async function openCheckout(totalMinor: number, opts: CheckoutOptions = {}): Promise<PaymentInput[] | null> {
@@ -173,6 +184,15 @@ export async function openCheckout(totalMinor: number, opts: CheckoutOptions = {
   const panel = openSheet(`
       <div class="sheet-head"><h2>${escapeHtml(opts.title ?? `Cobrar ${fmt(totalMinor, "USD")}`)}</h2><button type="button" class="btn btn-ghost checkout-cancel">Cancelar</button></div>
       ${opts.hint ? `<p class="t-sm" style="font-weight: 700">${escapeHtml(opts.hint)}</p>` : ""}
+      ${opts.orderRate ? `<div class="panel checkout-order-rate" style="gap: 6px; padding: 10px">
+        <div class="kv"><b class="t-sm checkout-order-rate-line">${escapeHtml(opts.orderRate.line)}</b><button type="button" class="btn btn-secondary checkout-rate-open">Cambiar tasa</button></div>
+        <form class="nx-form checkout-rate-form" hidden style="display: none">
+          <label class="field">Nueva tasa (efectivo CUP por 1 USD)<input class="input checkout-rate-value" inputmode="decimal" placeholder="Ej.: 830"></label>
+          <label class="field">Motivo (obligatorio)<input class="input checkout-rate-reason" maxlength="120" placeholder="Ej.: Lennys autorizó la tasa de hoy"></label>
+          <p class="t-xs muted">Solo en casos especiales: el pedido se cobra con la tasa del día en que se hizo.</p>
+          <button type="submit" class="btn btn-primary btn-block">Usar esta tasa</button>
+        </form>
+      </div>` : ""}
       <p class="t-sm muted checkout-rates"></p>
       <div class="checkout-rows" style="display: flex; flex-direction: column; gap: 8px"></div>
       <p class="t-xs muted" style="font-weight: 700">AÑADIR FORMA DE PAGO (MÁX. ${MAX_PAYMENTS})</p>
@@ -183,14 +203,18 @@ export async function openCheckout(totalMinor: number, opts: CheckoutOptions = {
   const sheet = panel.el;
 
   const $ = <T extends HTMLElement>(sel: string) => sheet.querySelector<T>(sel)!;
-  const cup = rateOf(rates, "CUP");
-  const rateParts = ["CUP", "MLC", "USDT", "ZELLE"]
-    .filter(c => rates.has(c))
-    .map(c => `${c} ${escapeHtml(rates.get(c)!.perUsd)}`);
-  const newest = rateList.map(r => r.setAt).sort().pop();
-  $(".checkout-rates").innerHTML = icon("clock", "sm") + " " + escapeHtml(rateParts.length
-    ? `${cup ? `= ${fmt(Math.round(totalMinor * cup), "CUP")} · ` : ""}Tasas: ${rateParts.join(" · ")}${newest ? ` (${ago(newest)})` : ""}`
-    : "Sin tasas de cambio: el dueño las fija en el panel. Solo USD disponible.");
+  let cup = rateOf(rates, "CUP");
+  const showRates = () => {
+    const names: Record<string, string> = { CUP_TRANSFER: "CUP transf." };
+    const rateParts = ["CUP", "CUP_TRANSFER", "MLC", "USDT", "ZELLE"]
+      .filter(c => rates.has(c))
+      .map(c => `${names[c] ?? c} ${escapeHtml(rates.get(c)!.perUsd)}`);
+    const newest = rateList.map(r => r.setAt).sort().pop();
+    $(".checkout-rates").innerHTML = icon("clock", "sm") + " " + escapeHtml(rateParts.length
+      ? `${cup ? `= ${fmt(Math.round(totalMinor * cup), "CUP")} · ` : ""}Tasas: ${rateParts.join(" · ")}${newest && !opts.orderRate ? ` (${ago(newest)})` : ""}`
+      : "Sin tasas de cambio: el dueño las fija en el panel. Solo USD disponible.");
+  };
+  showRates();
 
   $(".checkout-methods").innerHTML = METHODS.map(m => {
     const missing = rateOf(rates, keyOf(m)) === null;
@@ -277,6 +301,37 @@ export async function openCheckout(totalMinor: number, opts: CheckoutOptions = {
   sheet.querySelectorAll<HTMLButtonElement>(".checkout-methods .method-btn").forEach(b => {
     b.onclick = () => addMethod(METHODS.find(m => m.key === b.dataset.key)!);
   });
+  const enableMethods = () => sheet.querySelectorAll<HTMLButtonElement>(".checkout-methods .method-btn").forEach(b => {
+    const def = METHODS.find(m => m.key === b.dataset.key)!;
+    b.disabled = rateOf(rates, keyOf(def)) === null;
+  });
+
+  // «Cambiar tasa» (pedido web, casos especiales): motivo obligatorio; los pagos en CUP se recalculan.
+  if (opts.orderRate) {
+    const rateForm = $<HTMLFormElement>(".checkout-rate-form");
+    $(".checkout-rate-open").onclick = () => {
+      rateForm.hidden = !rateForm.hidden;
+      rateForm.style.display = rateForm.hidden ? "none" : "";
+      if (!rateForm.hidden) $<HTMLInputElement>(".checkout-rate-value").focus();
+    };
+    rateForm.onsubmit = e => {
+      e.preventDefault();
+      const raw = $<HTMLInputElement>(".checkout-rate-value").value.trim().replace(/\s/g, "").replace(",", ".");
+      const value = Number(raw);
+      const reason = $<HTMLInputElement>(".checkout-rate-reason").value.trim();
+      if (!Number.isFinite(value) || value < 50 || value > 5000) return void ($(".checkout-error").textContent = "Escribe una tasa válida (por ejemplo 830).");
+      if (reason.length < 3) return void ($(".checkout-error").textContent = "Escribe el motivo del cambio de tasa.");
+      const next = opts.orderRate!.change(Math.round(value * 100) / 100, reason);
+      for (const [currency, perUsd] of Object.entries(next.overrides)) rates.set(currency, { currency, perUsd, setAt: new Date().toISOString() });
+      cup = rateOf(rates, "CUP");
+      $(".checkout-order-rate-line").textContent = next.line;
+      rateForm.hidden = true;
+      rateForm.style.display = "none";
+      showRates();
+      enableMethods();
+      render();
+    };
+  }
   render();
 
   return new Promise(resolve => {

@@ -316,7 +316,12 @@ pub fn record_charge(conn: &mut Connection, scope: &ShiftScope, input: &ChargeWe
         return Err(CashError::Conflict("El turno de caja está cerrado: abre el turno para cobrar".into()));
     }
 
-    let reason = normalize_reason(&format!("Pedido web #{number}"))?;
+    // 1.1.1 (Lennys 21-oct): la tasa con que se cobró (la del pedido o la cambiada con su motivo) queda en el cajón.
+    let reason = match &note {
+        Some(n) => format!("Pedido web #{number} · {n}").chars().take(280).collect::<String>(),
+        None => format!("Pedido web #{number}"),
+    };
+    let reason = normalize_reason(&reason)?;
     let operator = non_empty(&input.staff_id);
     for (currency, amount, suffix) in [("USD", collection.cash_usd_minor, "usd"), ("CUP", collection.cash_cup_minor, "cup")] {
         if amount <= 0 {
