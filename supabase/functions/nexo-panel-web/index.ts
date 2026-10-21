@@ -68,6 +68,16 @@ async function core(method: "GET" | "POST", path: string, body?: unknown) {
 
 const meta = (o: WooOrder, key: string) => o.meta_data.find(m => m.key === key)?.value ?? null;
 const money = (v: string) => Math.round(Number(v || 0) * 100) / 100;
+// 20-oct (Lennys): el % de las dependientas va sobre el precio de Casa Viva, sin la subida de la gestora.
+// Core guarda en el pedido de una gestora _cvd_commission_base_amount (líneas a precio de Casa Viva).
+// Sin gestora o sin ese dato: precio de Casa Viva = lo cobrado en productos (subida 0). El envío no cuenta.
+function cvPrice(o: WooOrder) {
+  const lines = Math.round(o.line_items.reduce((t, l) => t + Number(l.total || 0), 0) * 100) / 100;
+  const raw = meta(o, "_cvd_owner_type") === "gestora" ? meta(o, "_cvd_commission_base_amount") : null;
+  const b = raw === null || raw === "" ? NaN : Number(raw);
+  const base = Number.isFinite(b) && b >= 0 ? Math.min(lines, Math.round(b * 100) / 100) : lines;
+  return { lines, base, markup: Math.round((lines - base) * 100) / 100 };
+}
 
 async function names(ids: number[]) {
   const out: Record<number, string> = {};
@@ -135,10 +145,12 @@ Deno.serve(async req => {
       }
       const sum = { done: 0, pending: 0, lost: 0 };
       const count = { done: 0, pending: 0, lost: 0 };
+      let doneMarkup = 0; // 20-oct (Lennys): subida de las gestoras en lo vendido (lo demás es precio de Casa Viva)
       const byGestora: Record<number, { orders: number; total: number }> = {};
       for (const o of orders) {
         const g = GROUP[o.status] ?? "pending";
         sum[g] += money(o.total); count[g]++;
+        if (g === "done") doneMarkup += cvPrice(o).markup;
         const id = meta(o, "_cvd_owner_type") === "gestora" ? Number(meta(o, "_cvd_owner_user_id") ?? 0) : 0;
         if (id && g !== "lost") { byGestora[id] ??= { orders: 0, total: 0 }; byGestora[id].orders++; byGestora[id].total += money(o.total); }
       }
@@ -149,7 +161,8 @@ Deno.serve(async req => {
       return json(200, {
         from, to, currency: orders[0]?.currency ?? "USD", orders: orders.length,
         total: Math.round((sum.done + sum.pending + sum.lost) * 100) / 100,
-        done: { orders: count.done, total: Math.round(sum.done * 100) / 100 },
+        done: { orders: count.done, total: Math.round(sum.done * 100) / 100,
+          base: Math.round((sum.done - doneMarkup) * 100) / 100, markup: Math.round(doneMarkup * 100) / 100 },
         pending: { orders: count.pending, total: Math.round(sum.pending * 100) / 100 },
         lost: { orders: count.lost, total: Math.round(sum.lost * 100) / 100 },
         ranking,
@@ -194,6 +207,8 @@ Deno.serve(async req => {
         const start = new Date(Date.UTC(y, m0, 1)), end = new Date(Date.UTC(y, m0 + 1, 1));
         const month = `${start.getUTCFullYear()}-${pad(start.getUTCMonth() + 1)}`;
         const after = `${month}-01T00:00:00`, before = `${end.getUTCFullYear()}-${pad(end.getUTCMonth() + 1)}-01T00:00:00`;
+        // 20-oct (Lennys): el % de las dependientas va sobre el precio de Casa Viva, sin la subida de la gestora.
+        // «sales» = precio de Casa Viva; «salesTotal» = lo cobrado en productos; «markup» = subida de las gestoras.
         const by: Record<string, { name: string; orders: number; sales: number }> = {};
         // 20-oct (Lennys): el bote del 0,5 % de los pedidos cerrados un día es de la dependienta
         // de turno de ese día (quien abrió el turno de la tienda en la caja). Sin turno ese día: como antes.
@@ -201,11 +216,12 @@ Deno.serve(async req => {
         const { data: shiftDays } = await admin.rpc("nexo_business_shift_days", { p_business: BUSINESS, p_from: `${month}-01`, p_to: lastDay });
         const onDuty = new Map(((Array.isArray(shiftDays) ? shiftDays : []) as { day: string; staffId: string; name: string; wooUserId: number | null }[])
           .map(d => [d.day, d]));
-        let total = 0, orders = 0;
+        let total = 0, orders = 0, raised = 0;
         for (let page = 1; page <= 30; page++) {
           const { data, pages } = await woo("orders", { after, before, status: "completed", per_page: "100", page: String(page) });
           for (const o of data as WooOrder[]) {
-            const sales = Math.round(o.line_items.reduce((t, l) => t + Number(l.total || 0), 0) * 100) / 100;
+            const price = cvPrice(o), sales = price.base;
+            raised += price.lines;
             const hist = meta(o, "_cvd_operation_history");
             const firstOp = Array.isArray(hist) && hist.length ? Number((hist[0] as { user_id?: number }).user_id ?? 0) : 0;
             const shift = onDuty.get(String(o.date_completed ?? o.date_created ?? "").slice(0, 10));
@@ -219,6 +235,7 @@ Deno.serve(async req => {
           if (page >= pages) break;
         }
         out.push({ month, orders, sales: Math.round(total * 100) / 100,
+          salesTotal: Math.round(raised * 100) / 100, markup: Math.round((raised - total) * 100) / 100,
           clerks: Object.entries(by).filter(([k]) => k !== "unknown").map(([id, v]) => ({ id: /^\d+$/.test(id) ? Number(id) : id, ...v })).sort((a, b) => b.sales - a.sales),
           unknown: by.unknown ?? { name: "", orders: 0, sales: 0 } });
       }

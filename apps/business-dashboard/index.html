@@ -467,6 +467,8 @@ async function loadWebMonth() {
   const $$ = v => "$" + Number(v).toLocaleString("es", { maximumFractionDigits: 2 });
   const shopUsd = shop.error ? 0 : (shop.totals.usdMinor - (shop.totals.refundsMinor ?? 0)) / 100;
   const webDone = web.error ? 0 : web.done.total;
+  // 20-oct (Lennys): lo vendido también a precio de Casa Viva, sin la subida que ponen las gestoras.
+  const webMarkup = web.error ? 0 : Math.max(0, Number(web.done.markup) || 0);
   const tracked = (current.stock ?? []).filter(p => p.lastMovementAt);
   const out = tracked.filter(p => p.quantity <= 0).length;
   const active = (catalog ?? []).filter(p => p.active);
@@ -474,7 +476,8 @@ async function loadWebMonth() {
   try {
     box.innerHTML = '<section class="panel"><h2 class="t-lg">Este mes</h2>'
       + '<div class="kpis">'
-      + tile("Vendido", $$(webDone + shopUsd), "Web " + $$(webDone) + " · Tienda " + $$(shopUsd), "ok")
+      + tile("Vendido", $$(webDone + shopUsd), "Web " + $$(webDone) + " · Tienda " + $$(shopUsd)
+        + (web.error ? "" : '<br><b>A precio Casa Viva: ' + $$(webDone - webMarkup + shopUsd) + "</b> · Subida de gestoras: " + $$(webMarkup)), "ok")
       + tile("Por entregar", web.error ? "—" : $$(web.pending.total), (web.error ? "?" : web.pending.orders) + " pedidos de la web", "warn")
       + tile("Cancelado", web.error ? "—" : $$(web.lost.total), (web.error ? "?" : web.lost.orders) + " pedidos de la web", "danger")
       + "</div>"
@@ -537,7 +540,8 @@ async function loadStaffPay() {
     const staffTotal = Math.round((pay(m.sales) + pay(cajaUnknown) + cajaPaid) * 100) / 100, nati = Math.round(base * natiPct) / 100;
     const line = (label, value, sub) => '<div class="kv"><span>' + label + (sub ? '<br><span class="t-xs muted">' + sub + "</span>" : "") + '</span><span class="num">' + value + "</span></div>";
     return '<div class="row-item" style="display:block">'
-      + '<div class="kv"><span class="title">' + (i === 0 ? "Este mes" : "Mes pasado") + " · " + MONTHS[mo - 1] + '</span><span class="t-sm muted">vendido ' + usd2(base) + "</span></div>"
+      + '<div class="kv"><span class="title">' + (i === 0 ? "Este mes" : "Mes pasado") + " · " + MONTHS[mo - 1] + '</span><span class="t-sm muted">vendido ' + usd2(base) + " a precio Casa Viva</span></div>"
+      + (m.markup > 0 ? '<p class="t-xs muted" style="margin:0 0 4px">La subida de las gestoras (' + usd2(m.markup) + ") es de ellas: no cuenta para estos %.</p>" : "")
       + m.clerks.map(c => line("Pagar a " + esc(nameOf(c.name)) + " (" + pct1(staffPct) + ")", money(pay(c.sales)), "de " + usd2(c.sales) + " · " + c.orders + (c.orders === 1 ? " pedido" : " pedidos"))).join("")
       + cajaStaff.map(x => line("Caja · " + esc(nameOf(x.name)) + " (2 % mostrador + " + pct1(staffPct) + " con gestora)", money(Number(x.counterUsd || 0) + Number(x.staffUsd || 0)), x.sales + " ventas · " + usd2(x.usdMinor / 100))).join("")
       + (unknown > 0 ? line("Dependientas, sin saber quién (" + pct1(staffPct) + ")", money(pay(unknown)), "de " + usd2(unknown) + (m.unknown.orders ? " · " + m.unknown.orders + " pedidos web que cerró otra persona" : "") + (cajaUnknown ? (m.unknown.orders ? " + " : " · ") + "caja sin «Atiende» " + usd2(cajaUnknown) : "")) : "")
@@ -547,7 +551,7 @@ async function loadStaffPay() {
   }));
   box.innerHTML = '<section class="panel" style="margin-top:12px"><h2 class="t-lg">A pagar este mes</h2>'
     + blocks.join("")
-    + '<p class="t-xs muted" style="margin-top:8px">Solo para saber cuánto pagar: aquí no se paga nada. Cuenta los pedidos completados de la web (solo productos, sin envío) y las ventas de la caja. '
+    + '<p class="t-xs muted" style="margin-top:8px">Solo para saber cuánto pagar: aquí no se paga nada. Cuenta los pedidos completados de la web (solo productos, sin envío) y las ventas de la caja, siempre al precio de Casa Viva (sin la subida de la gestora, Lennys 20-oct). '
     + "Cada pedido web es de la dependienta de turno de ese día (la que abrió la caja); sin turno, de la que recibió el dinero (si no, la que lo entregó). En la caja cuenta «Atiende»: mostrador sin gestora 2 % (D80), con gestora 0,5 %. "
     + "Los % se cambian en Ajustes → Costos.</p></section>";
 }
