@@ -1,0 +1,38 @@
+{
+  "fecha": "2026-10-21",
+  "pedido_por": "Maryta (nota de voz 12:50)",
+  "fuente": "crm_wa_messages, grupo «Actualización de productos» 120363283827702479@g.us, desde 05-10 (304 mensajes, 97 con texto). Sin historial anterior al 5-oct (no hay export en Descargas).",
+  "falta_informacion_antes": 117,
+  "falta_informacion_despues": 117,
+  "aplicado": [
+    {"id": 3552, "producto": "Estante organizador multiusos de metal y madera, 5 niveles", "mensaje": "#14461 Lennys 14-10 «Dato adicional 20 cm de alto entre niveles»", "anadido": "Altura entre niveles: 20 cm", "backup": "backup-3552.json"}
+  ],
+  "ya_estaban_en_la_web": [
+    "Tabla de planchar (#682) → 2807, 2813, 4887, 4890, 4892, 4894",
+    "Escritorio de oficina (#4456) → 2729",
+    "Bolas navideñas (#4463) → 2610, 2612",
+    "Mochila plegable (#4474) → 2503, 2753",
+    "Mochila USB 30/25/20 (#4490, #4509, #4513) → mochilas M-x",
+    "Juego de cama Full 5 piezas (#4524) → 2439",
+    "Percha multifuncional doble con zapatera (#4541) → 2547",
+    "Cortinas blackout 1,37 × 2,28 m (#4554) → 290 / 466",
+    "Doyle metalizado (#4579) → 2455; Doylie matizado (#4586) → 2437",
+    "Toalla mediana 70×40 (#4606) → 695; Toalla Cisne 70×140 (#4742) → 2581, 2583",
+    "Alfombra Bienvenido 45×75 (#4803) → 2397; Alfombra rombo 40×60 (#4950) → 2403",
+    "Rasuradora facial (#5686) → 2825; Depiladora cejas FUGETSU (#5690) → 2823",
+    "Árbol de Navidad 150 cm (#7189) → 2381",
+    "Mantas 240×260, 180×220, 180×200 (#7241, #7258, #7288) → 2499, 2471, 2497",
+    "Set cortina de baño + tapete (#7310) → 2543",
+    "Elikana cápsulas (#7397) → 2821",
+    "Sombrillas inversas (#7545, #7581) → 2828, 2858",
+    "Cortinero decorativo Diseño 1 (texto que Maryta pegó en el General) → 291",
+    "Anuncios automáticos 15-oct y 18-oct: salen de la propia ficha"
+  ],
+  "dudosos_para_una_persona": [
+    {"ids": [117, 692], "producto": "Cojín decorativo Diseño 1 y 2 (11 USD)", "mensaje": "#4567/#4593 cojín terciopelo + relleno 12 USD", "motivo": "precio distinto y no se sabe qué diseño es; el de 12 USD (2701) es de felpa gris y ya tiene ficha"},
+    {"ids": [2908, 2912, 2914], "producto": "Cortinas de baño 9 USD (nx-4, nx-6, nx-7), sin descripción", "mensaje": "#7310 es el SET cortina + tapete de 16 USD", "motivo": "no es el mismo producto; probablemente son como la 2429 (180 × 180 cm), pero hay que confirmarlo en la tienda"},
+    {"ids": [3836], "producto": "Bola navideña 8 USD (nx-47), sin descripción", "mensaje": "#4463 tira de bolas 8 USD", "motivo": "singular/plural, 1 unidad; no se puede asegurar que sea la tira"},
+    {"ids": [684], "producto": "Toallas pequeña 11 USD (50 × 80 cm)", "mensaje": "#4606 toalla mediana 70 × 40, 8 USD", "motivo": "medidas y precio distintos"}
+  ],
+  "aviso": "2821 (Elikana) tiene «8 usd» escrito dentro de la descripción y el precio es 9 USD; no se tocó (texto de Lennys)."
+}
