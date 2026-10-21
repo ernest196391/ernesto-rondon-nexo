@@ -1,0 +1,1 @@
+- 21-oct 17:17 (Lennys): los 7 con SKU «NEXO-» de la sección «Revisar» (BLUETTI AC70, AC180, Elite 100 Mini, EcoFlow DELTA 3, Samsung A17, REVVL Tab 2, impresora Epson) NO son de Casa Viva → excluir siempre del inventario de la tienda.
