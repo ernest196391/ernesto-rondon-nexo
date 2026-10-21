@@ -17,7 +17,7 @@ Precio Casa Viva calculado con `myPrice()` de `vivabot/src/market-price.js`; ges
 | 1 | Estante de pared sencillo, 5 repisas, 60 kg/repisa | 160 × 90 × 45 cm | 120 | **140** | 8 | **no hay ahora** |
 | 2 | Góndola de exhibición (pared), 6 repisas | 180 × 90 × 45 cm | 130 | **150** | 8 | **la tiene ahora** (blanca, tira amarilla) |
 | 3 | Estante de centro de pasillo **doble cara**, 5 repisas por cara, 60 kg/repisa | 160 × 90 × 90 cm | 195 | **215** | 8 | hay que traerla de otro almacén |
-| — | En la misma lámina: «**Doble $380**» | — | 380 | (420) | (16) | **aclarar qué es** (¿2 módulos unidos?) antes de publicar |
+| — | «Doble $380» de la lámina = *doble cara doble* | — | 380 | — | — | **XAG no la tiene: NO publicar** (confirmado 14:11) |
 | 4 | Góndola con display (negra, cabecera roja) | 220 × 90 × 45 cm | 220 | **240** | 8 | — |
 | 5 | Góndola de malla (con cestas y ganchos) | 180 × 90 × 45 cm | 160 | **180** | 8 | — |
 | 6 | Estante de almacenamiento, estructura reforzada | 2 × 1,85 × 0,6 m | 200 | **220** | 8 | — |
