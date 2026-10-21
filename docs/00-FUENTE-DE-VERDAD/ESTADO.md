@@ -1707,3 +1707,11 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
 - **Cely #4886:** mochila a 33 USD a mano (comisión 6 = 3 + 3 de subida); copia `~/bak-20261020-pedido4886.json` en Hostinger; Lázaro avisado.
 - **Caja 1.1.0:** guía + APK + Windows enviados al chat de Ernesto (#2200–2202); él la instala en persona.
 - **Avisos a mensajeros 9:30 y 15:00:** en construcción (aprobado por Ernesto).
+
+### L50. Martes 20-oct ~20:50 — avisos a mensajeros con vales sin entregar EN VIVO (desde mañana 9:30)
+- **Qué hace (VivaBot `9898f13`, pedido de Lennys aprobado por Ernesto):** a las **9:30 y 15:00** (Cuba; margen 1 h, nunca de noche) un mensaje por privado a cada mensajero con vales **para hoy o atrasados** (los de otro día no). Por vale: «#N · cliente · zona · pasa por la tienda a recogerlo» o, si ya lo recogió, «¿ya lo entregaste? escribe *entregado #N*». Dirección de la tienda una vez (solo si hay algo que recoger). Máx. 6 renglones, 2 emojis.
+- **Quién no lo recibe:** grupos, clientes, admin (Lennys), dependientas (Nana), equipo, contactos «ignorar», y la gestora que lleva su propia venta (hoy Thaly #4835). Una gestora que cogió la carrera de otra venta SÍ lo recibe como mensajera (hoy Patricia #4293). Se salta: incidencias, pruebas, recogida en tienda y productos de proveedor (MK-) aún no listos.
+- **Datos:** Core manda (`_cvd_messenger_user_id`, `_cvd_delivery_status`, `_cvd_delivery_date`); `crm_dispatch` solo rellena teléfono o el mensajero si Core no dice nada.
+- **Interruptor:** `crm_settings avisos_mensajeros` = si (por defecto) | prueba (todo a Ernesto) | no. Una vez por día y franja: `avisos_mensajeros_estado` + buzón `created_by avisos-mensajeros`.
+- **Ver sin enviar:** `cd /root/vivabot && node scripts/avisos-mensajeros-simula.mjs --dia manana --hora 9:30 --motivos`. Simulación de mañana 9:30 (con los datos de esta noche): 10 mensajeros (Alejandro 2 vales, Daiquel, Damian, Elizabet, Félix, Fernando, Lázaro, Max, Patricia, Pedri).
+- Desplegado en el VPS (merge `54965c5`, check OK, reinicio con chats tranquilos). **Falta:** mirar mañana a las 9:31 `cv outbox 12` que salieron bien.
