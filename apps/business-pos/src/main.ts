@@ -97,6 +97,7 @@ app.innerHTML = `
       <header class="top"><h1 class="title">Caja</h1></header>
       <div class="scroll"><div class="stack">
         <div id="fin-shift"></div>
+        <details class="panel" id="fin-today-box"><summary>Ventas de hoy</summary><div id="fin-today" class="stack"></div></details>
         <details class="panel"><summary>Devoluciones</summary><div id="fin-returns"></div></details>
       </div></div>
     </section>

@@ -8,8 +8,9 @@ import "./finance.css";
 import { mountBusinessSummary, mountSync, requestSync, syncOnce } from "./sync";
 import { cachedOpen, claimOpen, cloudExpected, fetchStatus, isToday, online, type CloudExpected, type StoreShiftInfo } from "./shift";
 import { icon, openSheet } from "./ui";
-import { attribution, can, messengerNames, personName, setStaff, staffList, staffSelectHtml } from "./attribution";
+import { attribution, can, fundExitPeople, messengerNames, personName, setStaff, staffList, staffSelectHtml } from "./attribution";
 import { accountLabel, openRatesSheet, payAccounts } from "./store-info";
+import { buildTodaySales, cubaDayStart, filterTodaySales, type LineRow, type PaymentRow, type SaleRow, type TodaySale } from "./sales-today";
 
 const CURRENCIES = ["USD", "CUP", "MLC"] as const;
 const RAILS: Array<[string, string]> = [
@@ -243,11 +244,13 @@ const EXIT_TYPES: Array<[string, string, boolean]> = [
   ["otro", "Otro · lo aprueba Lennys", true],
 ];
 
-/** Quién saca el dinero: las dependientas, los mensajeros (Daiquel…) y Lennys. */
+/** Quién saca el dinero: SOLO el equipo de la tienda (Lennys, Zaymi, Nana), no gestoras ni mensajeros (Lennys 21-oct). */
 function whoTakesHtml() {
-  const people = [...staffList(), ...messengerNames().map(name => ({ id: `mensajero:${name}`, name }))];
+  const people = fundExitPeople();
+  const lennys = people.some(p => /lennys/i.test(p.name)) ? "" : `<option value="lennys">Lennys</option>`;
   return `<label class="field">¿Quién saca el dinero?<select class="input" name="who"><option value="">— Elige —</option>${people
-    .map(p => `<option value="${esc(p.id)}"${p.id === attribution.staffId ? " selected" : ""}>${esc(p.name)}</option>`).join("")}<option value="lennys">Lennys</option></select></label>`;
+    .map(p => `<option value="${esc(p.id)}"${p.id === attribution.staffId ? " selected" : ""}>${esc(p.name)}</option>`).join("")}${lennys}</select></label>
+    <p class="t-xs muted">Solo Lennys y las dependientas pueden sacar dinero del fondo. Si es para un mensajero o una gestora, escríbelo en el motivo.</p>`;
 }
 
 function movementSheet(shift: ShiftSummary, kind: "cash_in" | "cash_out" | "expense") {
@@ -708,6 +711,50 @@ function mountMessenger() {
   });
 }
 
+// ---------- Ventas de hoy (Lennys 21-oct) ----------
+
+let todayQuery = "";
+async function renderTodaySales() {
+  const box = root.querySelector<HTMLElement>("#fin-today");
+  if (!box) return;
+  const from = cubaDayStart();
+  const sales = await db.select<SaleRow[]>(
+    `SELECT s.id, s.total_minor, s.currency, s.occurred_at, s.operator_id,
+            (SELECT o.payload_json FROM local_outbox o WHERE o.entity_type='sale' AND o.entity_id=s.id LIMIT 1) AS payload_json
+       FROM local_sales s WHERE s.occurred_at >= $1 ORDER BY s.occurred_at DESC LIMIT 300`, [from],
+  );
+  const lines = await db.select<LineRow[]>(
+    `SELECT l.sale_id, l.quantity, p.name FROM local_sale_lines l JOIN local_sales s ON s.id = l.sale_id
+       LEFT JOIN local_products p ON p.id = l.product_id WHERE s.occurred_at >= $1`, [from],
+  );
+  const payments = await db.select<PaymentRow[]>(
+    `SELECT p.sale_id, p.method, p.currency, p.amount_minor, p.provider FROM local_payments p JOIN local_sales s ON s.id = p.sale_id
+       WHERE s.occurred_at >= $1`, [from],
+  );
+  const rows = buildTodaySales(sales, lines, payments, personName);
+  const totals = new Map<string, number>();
+  for (const s of sales) totals.set(s.currency, (totals.get(s.currency) ?? 0) + s.total_minor);
+  box.innerHTML = `
+    <p class="t-sm">${sales.length ? `<b>${sales.length}</b> venta(s) hoy en este equipo · ${[...totals].map(([c, m]) => fmt(m, c)).join(" + ")}` : "Hoy todavía no hay ventas en este equipo."}</p>
+    ${sales.length ? `<input class="input" type="search" data-today-search autocomplete="off" placeholder="Buscar: producto, gestora, hora…" value="${esc(todayQuery)}">` : ""}
+    <div class="stack" data-today-list style="gap: 8px"></div>
+    <p class="t-xs muted">Solo las ventas hechas en este equipo. Las de la otra caja salen en esa caja.</p>`;
+  const list = box.querySelector<HTMLElement>("[data-today-list]")!;
+  const draw = () => {
+    const shown: TodaySale[] = filterTodaySales(rows, todayQuery);
+    list.innerHTML = shown.length
+      ? shown.map(r => `<div class="panel" style="gap: 2px; padding: 10px">
+          <div class="kv"><b>${esc(r.time)}</b><b class="num">${esc(r.total)}</b></div>
+          <div class="t-sm">${esc(r.products || "—")}</div>
+          <div class="t-xs muted">${esc([r.paid, r.staff && `Atendió ${r.staff}`, r.gestora ? `Gestora ${r.gestora}` : "Venta directa"].filter(Boolean).join(" · "))}</div>
+        </div>`).join("")
+      : rows.length ? `<p class="t-sm muted">Ninguna venta con «${esc(todayQuery)}».</p>` : "";
+  };
+  const search = box.querySelector<HTMLInputElement>("[data-today-search]");
+  if (search) search.oninput = () => { todayQuery = search.value; draw(); };
+  draw();
+}
+
 // ---------- Returns ----------
 
 async function mountReturns() {
@@ -1109,7 +1156,7 @@ async function renderConsignment() {
 export async function refreshFinance() {
   if (!root) return;
   requestSync();
-  await Promise.all([renderShift(), mountReturns()]).catch(e => say(String(e), "error"));
+  await Promise.all([renderShift(), mountReturns(), renderTodaySales()]).catch(e => say(String(e), "error"));
 }
 
 /**
@@ -1125,5 +1172,6 @@ export async function mountFinance(container: HTMLElement, database: Database) {
   mountReceivables();
   mountMessenger();
   void renderConsignment().catch(e => say(String(e), "error"));
-  await Promise.all([renderShift(), mountReturns(), renderLocations(), mountSync(root.querySelector<HTMLElement>("#fin-sync")!), mountBusinessSummary(root.querySelector<HTMLElement>("#fin-summary")!)]).catch(e => say(String(e), "error"));
+  root.querySelector<HTMLDetailsElement>("#fin-today-box")?.addEventListener("toggle", e => { if ((e.target as HTMLDetailsElement).open) void renderTodaySales(); });
+  await Promise.all([renderShift(), mountReturns(), renderTodaySales(), renderLocations(), mountSync(root.querySelector<HTMLElement>("#fin-sync")!), mountBusinessSummary(root.querySelector<HTMLElement>("#fin-summary")!)]).catch(e => say(String(e), "error"));
 }

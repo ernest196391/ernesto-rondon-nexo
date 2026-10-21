@@ -142,3 +142,12 @@ export function staffSelectHtml(name: string, label: string, selected: string | 
     .map(p => `<option value="${escapeHtml(p.id)}"${p.id === selected ? " selected" : ""}>${escapeHtml(p.name)}</option>`)
     .join("")}</select></label>`;
 }
+
+/**
+ * Quién puede sacar dinero del fondo (Lennys 21-oct 16:47): SOLO el equipo de la tienda (Lennys, Zaymi y Nana:
+ * personas «staff» del panel), nunca gestoras, socios ni mensajeros. Si la dueña le quita a alguien el permiso
+ * «fund_exit» en el panel, tampoco sale.
+ */
+export function fundExitPeople(people: Person[] = list): Array<{ id: string; name: string }> {
+  return people.filter(p => p.kind === "staff" && p.permissions?.fund_exit !== false).map(p => ({ id: p.id, name: p.name }));
+}
