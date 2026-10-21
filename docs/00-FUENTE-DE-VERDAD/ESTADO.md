@@ -1700,3 +1700,10 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
 - **Caja 1.1.0:** APK firmado con la misma clave que 1.0.7 (`/root/archivos/CasaVivaCore-1.1.0-Android.apk`, copia en Descargas `CasaViva-Caja-1.1.0.apk`); Windows en la release `caja-v1.1.0` (Descargas `CasaViva-Caja-1.1.0-Windows.exe`). **Falta:** instalar en los teléfonos y la laptop (mañana antes de abrir), códigos nuevos de Lennys, limpieza «caja en cero», guía con capturas.
 - **VivaBot:** `06b05e8` pasar carrera con «Vale#…»; cierre 20:00 solo al General (Lennys: a Mensajerías no); la IA ya da transferencia CUP = efectivo × 1,20 (Cely recibió 815 por error, corregido). El 20:00 de hoy se mandó a las 20:18 (el estado lo daba por hecho desde las 17:00).
 - **Pendiente para Ernesto (pedido de Lennys):** aviso por privado a cada mensajero con vale sin entregar para que pase por la tienda.
+
+### L49. Martes 20-oct ~20:45 — tasa con elToque SIN clave + panel a precio Casa Viva
+- **Tasa 8:50 (VivaBot `612655f`):** sin clave de elToque (Ernesto no puede sacarla) usa el artículo diario de Directorio Cubano («Dólar a 817…», referencia elToque de las 10:00 del día anterior). Prueba en seco: toque 817 → efectivo 827 · transferencia 992. Si Maryta manda otro número después, gana el suyo y Ernesto recibe aviso si difiere > 5 CUP.
+- **Panel (`4b56205`, Vercel + nexo-panel-web):** «Vendido» con «A precio Casa Viva» y «Subida de gestoras»; 0,5 % y % de Nati sobre precio Casa Viva (Lennys). Octubre: 6.976 → 6.927 (subida 49 USD en 8 pedidos).
+- **Cely #4886:** mochila a 33 USD a mano (comisión 6 = 3 + 3 de subida); copia `~/bak-20261020-pedido4886.json` en Hostinger; Lázaro avisado.
+- **Caja 1.1.0:** guía + APK + Windows enviados al chat de Ernesto (#2200–2202); él la instala en persona.
+- **Avisos a mensajeros 9:30 y 15:00:** en construcción (aprobado por Ernesto).
