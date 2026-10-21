@@ -394,3 +394,8 @@ Ampliación D30 (2026-10-07): el flujo de **Devolución** ya existe en `/ventas/
 - **Gana siempre la regla:** Maryta ya no manda la tasa; si alguien publica «FORMAS DE PAGO», su CUP no se usa (VivaBot `87c8ba1`). Maryta tiene que consultar con Ernesto/Lennys.
 - El % de las dependientas (0,5 %, 2 %) y el de **Nati** van sobre el **precio de la tienda** (Casa Viva), sin la subida de las gestoras (Ernesto y Lennys confirmado).
 - Avisos a mensajeros 9:30 y 15:00 también los domingos (la tienda abre).
+
+**D87 · 2026-10-21 · El equipo de la tienda no cobra comisión de gestora por sus compras ni las de la tienda.** Ernesto (pedido #4953, «hay que mejorar eso»); detalles técnicos decididos por Claude (reversibles).
+- Equipo = dependientas y administración. Cliente «Tienda»/«Casa Viva», su teléfono, su nombre o cuenta de la tienda → comisión 0 con nota.
+- Venta del equipo a un cliente de verdad con su enlace: cobra, pero queda marcada y sale como alerta «equipo» para que Lennys la revise.
+- Excepción por persona solo si Ernesto lo decide. El % de mostrador (D80) va aparte y no cambia. Lo ya aprobado o pagado no se toca sin su SÍ. Detalle: `ESTADO.md` L54.
