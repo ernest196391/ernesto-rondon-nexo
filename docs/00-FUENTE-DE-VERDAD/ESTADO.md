@@ -1768,3 +1768,12 @@ Ernesto pidió conversación y memoria común; eligió «Sin gasto adicional; pr
 - No cambia: el % de mostrador de las dependientas (D80), ni las comisiones ya aprobadas o pagadas.
 - **#4953 sigue con 2,00 USD aprobados (sin tocar).** Para quitarlos, con el SÍ de Ernesto: `wp eval 'print_r(CVD_Commissions::staff_rule_fix(4953, true, "Ernesto 21-oct"));'` (en `public_html`; con `false` solo enseña lo que haría). Ya pagadas antes (no se tocan): #4222 6 USD, #4097 9, #3942 2, #3939 6 (cliente «Tienda»), #3887 6 y #3696 4 (su propio teléfono) = 33 USD.
 - Despliegue: commit `f9a3a12` en `core-caja-1020` (Casa-Viva-caja); copia `~/bak-20261021-cvd-3.14.44-antes-3.14.45/`; home, /tienda/ y /wp-json 200; `CVD_VERSION` 3.14.45. Prueba en seco con 18 pedidos reales del equipo + 37 de gestoras normales (ninguna afectada). `class-cvd-caja-bridge.php` tenía cambios sin commit de otra sesión: no se subió ni se tocó.
+
+### L55. Miércoles 21-oct ~17:20 — avisos solo a la dependienta de turno, mensajeros 2 avisos/día, gestora avisada de ventas en caja
+- **VivaBot `861a785`** (desplegado 17:17): todos los avisos de tienda pasan por `src/tienda-turno.js` → solo la dependienta de turno (caja; si no, `cv turno`; hasta 11:00 en cola; nunca Lennys; 10:00–17:00; juntos en un mensaje). Mensajeros: vales + dinero en un aviso a las 14:30 (máx. 2/día), «¿a qué hora vas?» solo 8:00–21:00. Venta de caja con gestora → aviso privado a la gestora (SQL `028_caja_ventas_gestora.sql` aplicado).
+- **`cv enviar turno "…"`**, `cv preguntar turno …`, `cv turno` (ver/poner; `cv turno nana --dia manana` puesto para el 22-oct: Daniela empieza).
+- **Core 3.14.45** (L54): sin comisión de gestora en compras del equipo. Pendiente de Ernesto: #4953 (2 USD a Zaymi) y 33 USD ya pagados en pedidos parecidos.
+- **#4238:** cobro corregido a 50 USD (recibidos 40.600 CUP a 810 → 100 CUP de más = subida de la gestora Daymee: comisión 10 → 10,12 USD, Lennys). `_cvd_declared_usd` 88 → 50.
+- **Inventario agrupado** por producto y tamaño (Lennys) enviado: `caja/inventario-entrega-2026-10-21/entrega-2026-10-21-agrupado.pdf`.
+- **SeFué:** acuerdo −3 %, fotos autorizadas, lista mañana (`proveedores/sefue-2026-10-21/PLAN.md`).
+- **Caja 1.1.1 en construcción:** tasa del día del vale (+ pago mixto), «Cambiar tasa», buscador, foto del producto, «sin preparar/listo», alta más fácil, salida del fondo solo Lennys/Zaymi/Nana, «Ventas de hoy».
