@@ -1723,3 +1723,10 @@ Plan: (1) Core: endpoint del bot para publicar oferta / aceptar por teléfono de
 - **Interruptor:** `crm_settings tarjetas_auto` = si (por defecto) | no → vuelve la confirmación de Lennys en cada pago (`solicitudes_cuentas_cobro`, sin cambios).
 - **Código:** `src/tarjetas-rules.js` (reglas + 16 pruebas en `test/tarjetas.test.js`), `src/tarjetas-engine.js`, `src/tarjetas.js`. **Ver sin enviar:** `cd /root/vivabot && node scripts/tarjetas-simula.mjs [--dias 3]` (solo últimos 4 dígitos).
 - **Falta:** explicarle a Lennys (texto en el informe de la sesión) y mirar el primer vale de transferencia CUP real.
+
+### L52. Miércoles 21-oct ~13:30 — mañana revisada, descargas 1.1.0, resúmenes reales en 177 fichas
+- Automático de la mañana OK (tasa 827/992, 30 productos, 10 avisos a mensajeros, aviso a Maryta). Incidencias en `incidencias/2026-10-21.md`.
+- **casaviva.company/descargas/**: caja 1.1.0 (Windows + Android) con página de botones; los nombres viejos apuntan a 1.1.0. Lennys instalando en la laptop: tenía la clave vieja «Ernesto PC/Lennys PC» desactivada; notas 1–4 en `caja/notas-lennys-1.1.0.md`.
+- **Resúmenes cortos:** 177 fichas (137 simples + 40 con colores) y 187 variaciones con resumen real sacado de su descripción (Ernesto «sí, en los 194»). 17 sin descripción larga, pendientes de la tienda. Copia y deshacer en `fichas/resumenes-2026-10-21/` y `~/backup-resumenes-cortos-2026-10-21.json`. «Copiar texto» de gestoras sigue usando la 1.ª frase de la descripción larga.
+- **Aprendido:** #286 farol solar (trae cable tipo C y gancho); #287 cliente enviado a la tienda «de parte de» la gestora = su 10 % a precio de tienda (Ernesto). Corrección del farol en el General (con SÍ).
+- **Tarjetas CUP automáticas** (L51) en vivo; **cesto 7 L** stock 1 (Lennys).
