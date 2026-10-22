@@ -425,3 +425,10 @@ Ampliación D30 (2026-10-07): el flujo de **Devolución** ya existe en `/ventas/
 - **Sin respuesta en 10 min (9:00–19:00):** `/root/supervisor/tareas/general-sin-respuesta.mjs` (cron cada 5 min). Claude Code del VPS (suscripción, entorno limpio sin la clave de la API) mira si ya se contestó (General y su chat privado), ve la foto y busca en la web (`cv producto`) o internet. **Claude no envía:** el programa manda la respuesta solo por privado a quien preguntó (nunca al grupo, nunca a Lennys/Ernesto), o pregunta a la de turno (`cv preguntar turno`), y apunta el fallo en `crm_errores` (por «bot»).
 - **`cv producto <texto|id>`** (nuevo, solo lectura): ficha real de la web, también agotados; dice si es MK- y de qué proveedor.
 - Revisión de las preguntas del General del 19 al 22-oct: agente en marcha; sus errores van a `crm_errores`.
+
+**D92 · 2026-10-22 ~12:15 · Cuenta de gestor de Ernesto (Ernesto).**
+- Cuenta aparte de la de administrador: usuario **137** `ernesto.gestor`, «Ernesto Rondón», rondonernesto316@gmail.com, sin teléfono (su número es el del bot); contraseña la pone él con el enlace del correo. Enlace de invitación `registro-gestora/?invita=CV137ERNESTO`. Meta `_cvd_owner_account=yes`: no pagar comisiones de esta cuenta sin su sí.
+- **Proveedores que busca él (SKU MK-):** su comisión es «el resto» del reparto (D69, `CVD_Supplier_Split`, «gestor especial»); la cobra la tienda y se la debe. Octubre: cerrado 15.171 CUP (#3693, #3845, #4201, #4244), abierto 9.231 CUP (#4253, #4963). Esas ventas (de cualquier gestora) suman **puntos a su rango** sin quitárselos a ella; sin bono.
+- **Su equipo** (solo las que entren con su enlace): red 1 % + 0,5 % sobre artículos de Casa Viva, pagada como a cualquier madrina; sobre líneas MK- no hay red para él.
+- Programación (Core 3.14.48, opción `cvd_owner_gestor_user=137`): en marcha en la rama `core-dueno-gestor-1022`; se revisa antes de desplegar.
+- Ventas de proveedor hechas fuera de la web: pendiente que Ernesto diga dónde están anotadas.
