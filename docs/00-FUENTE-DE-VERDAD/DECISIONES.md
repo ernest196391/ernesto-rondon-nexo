@@ -419,3 +419,9 @@ Ampliación D30 (2026-10-07): el flujo de **Devolución** ya existe en `/ventas/
 2. Kevin: revisar SIEMPRE su app primero (catálogo público, `src/digitalstore-catalog.js`): existencia, stock, precio y lo que diga la descripción (voltaje, tallas, colores). Otros: el texto del anuncio.
 3. Solo lo que falte se le pregunta al proveedor correcto (1 pregunta, ≤ 320 letras). A la gestora «confirmado» solo después.
 - Escrito en: memoria `supplier-orders-double-check`, `/root/supervisor/CLAUDE.md`, `CODEX-VPS.md`, `CODEX-OPERACION.md` y `/root/nexo-movil/CLAUDE.md`. Origen: error #14 (Claude preguntó a Kevin por la cafetera Royal de Sergio y la olla Ariete de la 42 y 23).
+
+**D91 · 2026-10-22 ~11:50 · Preguntas del General: se contestan bien, con internet y sin inventar (Ernesto).**
+- **Internet para gestoras:** `WEB_SEARCH_AUTO=on` en VivaBot (antes «prueba»: solo avisaba a Ernesto). Cuando falta un dato de producto, el bot busca el modelo y contesta «aproximado del modelo de fábrica (sacado de internet)» con la fuente; si no es seguro, no dice nada. Tope 1 USD/día (`WEB_SEARCH_DAILY_USD`). Copia `.env.bak-20261022-websearch-auto`.
+- **Sin respuesta en 10 min (9:00–19:00):** `/root/supervisor/tareas/general-sin-respuesta.mjs` (cron cada 5 min). Claude Code del VPS (suscripción, entorno limpio sin la clave de la API) mira si ya se contestó (General y su chat privado), ve la foto y busca en la web (`cv producto`) o internet. **Claude no envía:** el programa manda la respuesta solo por privado a quien preguntó (nunca al grupo, nunca a Lennys/Ernesto), o pregunta a la de turno (`cv preguntar turno`), y apunta el fallo en `crm_errores` (por «bot»).
+- **`cv producto <texto|id>`** (nuevo, solo lectura): ficha real de la web, también agotados; dice si es MK- y de qué proveedor.
+- Revisión de las preguntas del General del 19 al 22-oct: agente en marcha; sus errores van a `crm_errores`.
