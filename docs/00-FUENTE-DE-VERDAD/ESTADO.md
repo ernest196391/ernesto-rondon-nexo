@@ -1777,3 +1777,10 @@ Ernesto pidió conversación y memoria común; eligió «Sin gasto adicional; pr
 - **Inventario agrupado** por producto y tamaño (Lennys) enviado: `caja/inventario-entrega-2026-10-21/entrega-2026-10-21-agrupado.pdf`.
 - **SeFué:** acuerdo −3 %, fotos autorizadas, lista mañana (`proveedores/sefue-2026-10-21/PLAN.md`).
 - **Caja 1.1.1 en construcción:** tasa del día del vale (+ pago mixto), «Cambiar tasa», buscador, foto del producto, «sin preparar/listo», alta más fácil, salida del fondo solo Lennys/Zaymi/Nana, «Ventas de hoy».
+
+### L56. Jueves 22-oct ~10:20 — caja 1.1.1 EN VIVO y anunciada, vuelto de la tienda en «entregado», red de Yanaika
+- **Caja 1.1.1 completa** (comprobado hoy): Core **3.14.46** en la web, función `nexo-device-web-orders` con la tasa del pedido y fotos (versión 2), instaladores 1.1.1 en casaviva.company/descargas (APK `versionCode 1001001`, misma firma que 1.1.0 → se instala encima; EXE 1.1.1). 18 pruebas de la caja en verde (vitest con config mínima: el `vite.config.ts` no carga con el node_modules enlazado). Avisadas Lennys (#2470, + pregunta por su «corrección del inventario») y Nana (#2471, actualizar laptop y teléfono). A las 10:00 ninguna caja tenía 1.1.1 (todas 1.1.0).
+- **VivaBot `281b1fd`** (VPS `8755501`): al decir «entregado», el mensajero trae *productos + vuelto que le dio la tienda* (`_cvd_change_required` del pedido; #4271 Max: 30 + 10 = 40; lo que dio de su bolsillo es suyo). A Core se siguen declarando solo los productos (el vuelto vuelve al fondo aparte). Prueba `test/vuelto-tienda.test.js`.
+- **Ojo `cv reiniciar`:** la prueba «Woo → búsqueda → contexto conserva la comisión explícita» falla solo con las claves reales cargadas (cv carga `.env`); sin ellas pasa. Se reinició con `--sin-check`. **Pendiente:** aislar esa prueba del `.env`.
+- **Red de Yanaika (sí de Ernesto):** Jhosstin Donet (user 131) y Arlety Fernández (129), registradas sin enlace → `_cvd_invited_by = 65` (+ `_cvd_invited_by_note`). Explicado a Yanaika su enlace `registro-gestora/?invita=CV65YANAIKAA` (#2478): de ahora en adelante, solo con el enlace.
+- SeFué: lista aún no llega (Javier dijo «más tardar mañana» el 21-oct).
