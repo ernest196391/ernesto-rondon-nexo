@@ -406,3 +406,9 @@ Ampliación D30 (2026-10-07): el flujo de **Devolución** ya existe en `/ventas/
 - **Dependientas y equipo de la tienda:** entran **solo por lo que venden como gestora** (cliente real con su enlace, alerta «equipo»); compras de la tienda o suyas y ventas de caja no dan puntos. Core **3.14.47** lo aplica también a los pedidos de antes de 3.14.45 (Zaymi bajó de 92 a 33 puntos y sin Bronce).
 - **Red puesta a mano:** si una gestora trae a otra que se registró sin su enlace, se apunta `_cvd_invited_by` con nota (Yanaika: Jhosstin y Arlety, 22-oct). Desde ahora se les pide usar siempre el enlace.
 - **Piedras (Ernesto 22-oct ~10:40, opción 1 de 3):** se queda como está: los puntos de la piedra son los propios + los del equipo, y las ventas propias cuentan enteras. Una gestora puede llegar a Oro sola (Nadielys); la red (1 % + 0,5 %) es un extra aparte. Descartadas: exigir 1 invitada activa desde Plata, o limitar lo propio a la mitad.
+
+**D89 · 2026-10-22 ~10:55 · Registro diario de errores del bot, uno solo para Claude y Codex (Ernesto).**
+- **Dónde:** tabla Supabase `crm_errores` (migración `vivabot/supabase/029_errores.sql`, aplicada). En el VPS: `cv error "…"` para apuntar y `cv errores [hoy|abiertos]` / `cv errores cerrar <id> "…" --leccion "…"` para ver y cerrar. Ningún otro archivo o lista de errores.
+- **Estados:** `abierto` hasta que la causa (bot, código o regla) esté corregida; `--arreglo` = lo hecho con ese caso; `decidir` = pregunta para Ernesto; `descartado`.
+- **Revisión 21:00:** tarea programada de Claude `revision-errores-bot-21h` (corrige la causa o pasa a «decidir» y apunta la lección; lo importante a `LECCIONES.md`). Codex tiene las mismas instrucciones en `/root/supervisor/CODEX-VPS.md` y `CODEX-OPERACION.md`.
+- **Resumen 21:40** a Ernesto por privado, 5–6 líneas (cron VPS `tareas/errores-dia.mjs`): corregidos, abiertos, lo grave y lo que decide él. Sin preguntas de sí/no (en «Tú» un «sí» suelto es un comando).
