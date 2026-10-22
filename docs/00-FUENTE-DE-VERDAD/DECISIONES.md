@@ -399,3 +399,9 @@ Ampliación D30 (2026-10-07): el flujo de **Devolución** ya existe en `/ventas/
 - Equipo = dependientas y administración. Cliente «Tienda»/«Casa Viva», su teléfono, su nombre o cuenta de la tienda → comisión 0 con nota.
 - Venta del equipo a un cliente de verdad con su enlace: cobra, pero queda marcada y sale como alerta «equipo» para que Lennys la revise.
 - Excepción por persona solo si Ernesto lo decide. El % de mostrador (D80) va aparte y no cambia. Lo ya aprobado o pagado no se toca sin su SÍ. Detalle: `ESTADO.md` L54.
+
+**D88 · 2026-10-22 ~10:25 · Programa de gestoras: semana de prueba para todas y arranque el 1-nov; dependientas solo como gestoras (Ernesto).**
+- **Prueba abierta a todas** del 22 al 31-oct (`cvd_programa_ver = todas`, modo sigue `sombra`): cada gestora ve sus puntos, piedra y red «En prueba»; octubre NO se paga. Anunciado en el General estilo Hormozi con la demo real de Nadielys (Oro, 15.000 CUP) y Dany (Bronce, 5.000 CUP + red) (#2480, #2481).
+- **1-nov:** si la semana va bien, empieza a contar de verdad (`cvd_programa_gestoras = si`); noviembre se cobra del 1 al 5 de diciembre. Antes: B4–B6 de `LANZAMIENTO.md` y el sí de Lennys al programa.
+- **Dependientas y equipo de la tienda:** entran **solo por lo que venden como gestora** (cliente real con su enlace, alerta «equipo»); compras de la tienda o suyas y ventas de caja no dan puntos. Core **3.14.47** lo aplica también a los pedidos de antes de 3.14.45 (Zaymi bajó de 92 a 33 puntos y sin Bronce).
+- **Red puesta a mano:** si una gestora trae a otra que se registró sin su enlace, se apunta `_cvd_invited_by` con nota (Yanaika: Jhosstin y Arlety, 22-oct). Desde ahora se les pide usar siempre el enlace.

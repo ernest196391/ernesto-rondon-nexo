@@ -1784,3 +1784,10 @@ Ernesto pidió conversación y memoria común; eligió «Sin gasto adicional; pr
 - **Ojo `cv reiniciar`:** la prueba «Woo → búsqueda → contexto conserva la comisión explícita» falla solo con las claves reales cargadas (cv carga `.env`); sin ellas pasa. Se reinició con `--sin-check`. **Pendiente:** aislar esa prueba del `.env`.
 - **Red de Yanaika (sí de Ernesto):** Jhosstin Donet (user 131) y Arlety Fernández (129), registradas sin enlace → `_cvd_invited_by = 65` (+ `_cvd_invited_by_note`). Explicado a Yanaika su enlace `registro-gestora/?invita=CV65YANAIKAA` (#2478): de ahora en adelante, solo con el enlace.
 - SeFué: lista aún no llega (Javier dijo «más tardar mañana» el 21-oct).
+
+### L57. Jueves 22-oct ~10:30 — programa de gestoras: prueba abierta a todas, arranque 1-nov (D88)
+- `cvd_programa_ver`: `18,110,112,113,114,121,122` → **`todas`** (copia del valor viejo en `~/bak-20261022-cvd_programa_ver.txt`; volver atrás = poner ese valor). Modo sigue `sombra`.
+- **Core 3.14.47** (`874617a`, copia `~/bak-20261022-cvd-3.14.46-antes-3.14.47/`): pedidos viejos del equipo de la tienda se clasifican al calcular. Recalculado octubre (cálculo 11): fondo 255 USD, a pagar si fuera real 85 USD (70.000 CUP en bonos + 0,46 USD red), 9 con piedra.
+- **Bot:** conocimiento 245–256 cambiado a «prueba para todas 22–31 oct, cuenta desde el 1-nov»; nuevos #298 (dependientas), #299 (registrada sin enlace), #300 (cuándo empieza / «En prueba»).
+- **Anuncio General** #2480 + #2481 (sí de Ernesto). Vigilar dudas esta semana.
+- **Falta antes del 1-nov:** sí de Lennys al programa (A1), alerta sombrilla #3580 (B4), costos provisionales (B5), cierre de prueba con «Pedir mi pago» (B6), guía «Cómo invitar» con capturas (C2), arreglar la prueba del bot que falla con `.env` (L56).

@@ -8,7 +8,7 @@ Plan técnico y cómo volver atrás: `PLAN-DESPLIEGUE.md`. Números y auditoría
 | # | Qué | Quién | Estado |
 |---|---|---|---|
 | A1 | Aprobar el programa y cómo se paga: **opción 2** (subir +1, +2 o +3 USD según el precio, 203 productos) | Lennys | Se le manda la presentación el 17-oct a las 9:15 |
-| A2 | Fecha para abrirlo a todas. **Recomendado: 1-nov**, con noviembre como primer mes completo, que se cobra del 1 al 5 de diciembre | Ernesto | Pendiente |
+| A2 | Fecha para abrirlo a todas | Ernesto | ✅ D88 (22-oct): prueba para todas 22–31 oct, de verdad desde el 1-nov |
 | A3 | Las invitadas de Dany ven «Mi piedra» (`cvd_programa_ver=18,110,112,113,114`) | Ernesto | ✅ SÍ (16-oct 22:40), puesto |
 | A4 | Cuenta DANIELA PRUEBA (109) | Ernesto | ✅ Suspendida y fuera del equipo de Dany (copia `~/bak-20261016-user109-meta.json`) |
 | A5 | Mensaje de lanzamiento en el General | Ernesto (SÍ) | Al final |
