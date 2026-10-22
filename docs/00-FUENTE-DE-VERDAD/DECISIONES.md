@@ -432,3 +432,9 @@ Ampliación D30 (2026-10-07): el flujo de **Devolución** ya existe en `/ventas/
 - **Su equipo** (solo las que entren con su enlace): red 1 % + 0,5 % sobre artículos de Casa Viva, pagada como a cualquier madrina; sobre líneas MK- no hay red para él.
 - Programación (Core 3.14.48, opción `cvd_owner_gestor_user=137`): en marcha en la rama `core-dueno-gestor-1022`; se revisa antes de desplegar.
 - Ventas de proveedor hechas fuera de la web: pendiente que Ernesto diga dónde están anotadas.
+
+**D93 · 2026-10-22 ~12:30 · Reparto de proveedor: la tienda pasa a 3.000 CUP (Ernesto).**
+- Opción `cvd_supplier_split_store = 3000` (antes 1.500 sugerido). Se aplica a los abiertos y a los nuevos; los cerrados (#3693, #3845 con 2.500; #4201, #4244 con 1.500) no se tocan.
+- Revisión de octubre: la comisión de las gestoras es el 40 % del margen (sobre el costo de la ficha) en los 6; patines #3845 bien (120,75 USD por Clásica = 105 × 1,15; margen 21 USD).
+- Abiertos guardados con transporte de Kevin 1.200 CUP (ruta A), dependienta 500, tienda 3.000: #4253 → Ernesto 5.569 CUP; #4963 → 262 CUP («no llega al mínimo»: el bolso de 35 USD con costo 25 deja poco margen; subir precio queda para Ernesto).
+- Venta fuera de la web apuntada en `cvd_owner_offweb_sales`: split Parker de Harley (11-oct): 380 − 351 − 10 = 19 USD para Ernesto.
