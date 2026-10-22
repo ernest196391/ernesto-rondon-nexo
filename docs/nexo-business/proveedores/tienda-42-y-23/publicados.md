@@ -6,7 +6,7 @@ Ernesto (20-oct): «usa el precio de la pegatina y súmale lo que nosotros ganam
 - **Precio** = regla del bot (`vivabot/src/market-price.js`, importada tal cual). **Gestora gana** = 40 % del margen (comisión fija, como MK-1192). **Costo** = etiqueta; donde había pegatina negra, la pegatina (#9 85, #24 55, #25 350, #26 427).
 - Todos: «Bajo pedido» + departamento, SKU `MK-<id bolsa>`, sin control de stock, aviso corto de bajo pedido, `_cvd_cost` = costo (fuente «proveedor»). Sin nombre de la tienda, sin precio de etiqueta, sin costo en la página.
 - **Bolsa** (`crm_market_items` 1779–1801): vendedor «TRD 42 y 23» (ficha 103, `sin-whatsapp:trd-42-y-23`) → el bajo pedido le pregunta a Ernesto (recoge y paga él). Estado «publicado» + `published_url`. Foto en Storage `mercado/<negocio>/<id>/limpia-1.jpg`.
-- **No publicados:** #1 split Parker (sin precio; el 1013 sigue privado, sin tocar) · #11 cocina Arox CG-05 (hay que pedir otra foto).
+- **No publicados:** #1 split Parker (sin precio; el 1013 sigue privado, sin tocar) · #11 cocina Arox CG-05: publicada el 22-oct (4978, MK-1890) con foto provisional hecha con sharp de la foto real (`arox-foto-2026-10-22/`); falta una foto buena.
 - **1028** (cocina Royal REG202V, privado): no se tocó. La foto de la web está rota y en la nuestra no se ve el modelo → se creó la #10 aparte (4858).
 - **Fotos «revisar»:** bombas Thebe e Hyundai = fieles a la caja (se usan). Cocina Royal 2 hornillas: la IA inventó «JAYCE» encima del logo (era el reflejo de la caja) → se tapó con sharp; queda solo «ROYAL» (`fotos-pro/10b-…-logo-corregido.jpg`).
 - **No se mandó nada a WhatsApp.** El selector diario de novedades los cogerá solo (estado «publicado»).
@@ -22,6 +22,7 @@ Ernesto (20-oct): «usa el precio de la pegatina y súmale lo que nosotros ganam
 | 8 | Batidora Continental blanca | 4854 | MK-1785 | https://casaviva.company/producto/batidora-continental-blanca/ | 23.70 | 34 | 4.12 |
 | 9 | Cocina de gas Royal REG404BK de 4 hornillas | 4856 | MK-1786 | https://casaviva.company/producto/cocina-de-gas-royal-reg404bk-de-4-hornillas/ | 85 | 105 | 8 |
 | 10 | Cocina de gas Royal de 2 hornillas con tope de vidrio | 4858 | MK-1787 | https://casaviva.company/producto/cocina-de-gas-royal-de-2-hornillas-con-tope-de-vidrio/ | 43 | 60 | 6.80 |
+| 11 | Cocina de gas Arox CG-05 de 2 hornillas (22-oct, foto provisional) | 4978 | MK-1890 | https://casaviva.company/producto/cocina-de-gas-arox-cg-05-de-2-hornillas/ | 53.95 | 71 | 6.82 |
 | 12 | Olla arrocera Kenwood gris con vaporera | 4860 | MK-1788 | https://casaviva.company/producto/olla-arrocera-kenwood-gris-con-vaporera/ | 27.35 | 39 | 4.66 |
 | 13 | Olla arrocera Kenwood blanca con vaporera | 4862 | MK-1789 | https://casaviva.company/producto/olla-arrocera-kenwood-blanca-con-vaporera/ | 23.90 | 34 | 4.04 |
 | 14 | Olla arrocera Continental blanca | 4864 | MK-1790 | https://casaviva.company/producto/olla-arrocera-continental-blanca/ | 22.30 | 32 | 3.88 |

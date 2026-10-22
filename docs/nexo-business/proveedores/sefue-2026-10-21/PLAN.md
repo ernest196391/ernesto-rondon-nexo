@@ -34,5 +34,6 @@ Archivos: `extraer.mjs` (lee su tienda, en seco) → `catalogo.json` (158 produc
 - **Entrega:** en su local; transporte por nuestra cuenta, salvo **colchones y humidores** (la entrega la ponen ellos).
 - **Fotos:** autorizado usar las de su web (16:56).
 - **Lista de precios:** la manda «a más tardar mañana» (22-oct). Con ella: bolsa `MK-` + web «Bajo pedido» con `extraer.mjs`/`bolsa-crear.mjs`.
+- **22-oct 16:06 llegó la lista** (Excel, 150 filas; notas de voz: colchones a precio de mayorista −3 % salvo el King, humidores −5 %, herrajes de humidor sin local y pedido mínimo 500 USD). Preparada en seco en `oferta-2026-10-22/tabla.md` (43 para publicar, 17 para consignación, alertas y qué falta).
 - Ofrecen **consignación** para la tienda física: elegir pocos productos que roten.
 - Contacto creado en `crm_contacts` («Javier Quota · SeFué (comercial)», etiquetas proveedor, sefue), bot en pausa hasta el 23-oct.

@@ -1,0 +1,1368 @@
+{
+ "archivo": "OFERTA CASA VIVA 22-10-26.xlsx",
+ "origen": "/root/archivos/entrantes/2026-10-22/5354942950-3EB068270C865E9C214A7E.xlsx",
+ "recibido": "2026-10-22 16:06 (Javier Quota, SeFué, WhatsApp)",
+ "hojas": [
+  "OFICINA",
+  "INSECTICIDA",
+  "HUMIDORES",
+  "COLCHONES",
+  "FERRETERÍA",
+  "REFRIGERACIÓN",
+  "CABLES COBRE",
+  "BICIS",
+  "ASEO-LIMP"
+ ],
+ "filas": [
+  {
+   "hoja": "OFICINA",
+   "fila": 2,
+   "nombre": "Bolígrafo de gel 0.5mm negro 3/paq-R305",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Paquete de 4",
+   "precio": 1.0185,
+   "locacion": "Vedado, calle N/21 y 23"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 3,
+   "nombre": "Caja lápiz HB, 4u x caja,R358",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Unidades",
+   "precio": 0.776,
+   "locacion": "Vedado, calle N/21 y 24"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 4,
+   "nombre": "Calculadora de escritorio 12 dígitos, solar, metal, plateada-R57",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Unidades",
+   "precio": 11.155,
+   "locacion": "Vedado, calle N/21 y 25"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 5,
+   "nombre": "Calculadora de escritorio, solar,12 dígitos, plástico, blanco-R56",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Unidades",
+   "precio": 5.529,
+   "locacion": "Vedado, calle N/21 y 26"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 6,
+   "nombre": "Carpeta para Archivos Expansible. 13 divisiones A4",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Unidades",
+   "precio": 6.305,
+   "locacion": "Vedado, calle N/21 y 27"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 7,
+   "nombre": "Cinta adhesiva transparente 12×30×38mm 12/paq-R226",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Paquete de 12",
+   "precio": 2.425,
+   "locacion": "Vedado, calle N/21 y 28"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 8,
+   "nombre": "Grapas para presilladora 24/6 1000/caja",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Unidades",
+   "precio": 0.582,
+   "locacion": "Vedado, calle N/21 y 29"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 9,
+   "nombre": "Marcador de Pizarra 1-5mm. Color Surtido 4/Paq.",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Unidades",
+   "precio": 3.395,
+   "locacion": "Vedado, calle N/21 y 30"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 10,
+   "nombre": "Portapapeles con clip, tamaño A4, color marrón-R150",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Unidades",
+   "precio": 2.425,
+   "locacion": "Vedado, calle N/21 y 31"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 11,
+   "nombre": "Presillas de Patas para Encuadernar 80 mm",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Caja de 50 uds",
+   "precio": 3.395,
+   "locacion": "Vedado, calle N/21 y 32"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 12,
+   "nombre": "Almohadilla para cuño, color rojo",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Unidades",
+   "precio": 1.261,
+   "locacion": "Vedado, calle N/21 y 33"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 13,
+   "nombre": "Bolígrafo a base de aceite 0.7 mm azul 5/paq-R285",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Unidades",
+   "precio": 1.1155,
+   "locacion": "Vedado, calle N/21 y 34"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 14,
+   "nombre": "Bolígrafo a base de aceite-gel 0.7mm azul 50/caja-R274",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Caja de 50 uds",
+   "precio": 11.64,
+   "locacion": "Vedado, calle N/21 y 35"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 15,
+   "nombre": "Bolígrafo de gel 0.5 mm 4/paq colores variados-R307",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Paquete de 4",
+   "precio": 1.455,
+   "locacion": "Vedado, calle N/21 y 36"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 16,
+   "nombre": "Caja lápiz HB, 12 u x caja,R361",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Unidades",
+   "precio": 1.8915,
+   "locacion": "Vedado, calle N/21 y 37"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 17,
+   "nombre": "Caja lápiz HB, 3u x caja,R357",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Unidades",
+   "precio": 0.679,
+   "locacion": "Vedado, calle N/21 y 38"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 18,
+   "nombre": "Caja lápiz HB, 4u x caja,R359",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Unidades",
+   "precio": 0.776,
+   "locacion": "Vedado, calle N/21 y 39"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 19,
+   "nombre": "Caja lápiz HB, 4u x caja,R360",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Unidades",
+   "precio": 0.776,
+   "locacion": "Vedado, calle N/21 y 40"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 20,
+   "nombre": "Caja lápiz con goma negro, 12 u x caja,R351",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Unidades",
+   "precio": 1.746,
+   "locacion": "Vedado, calle N/21 y 41"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 21,
+   "nombre": "Caja lápiz con goma, 12 u x caja,R352",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Unidades",
+   "precio": 1.5035,
+   "locacion": "Vedado, calle N/21 y 42"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 22,
+   "nombre": "Caja lápiz con goma, 12 u x caja,R353",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Unidades",
+   "precio": 1.746,
+   "locacion": "Vedado, calle N/21 y 43"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 23,
+   "nombre": "Calculadora 14 dígitos, solar+batería, 211*154*41mm-R59",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Unidades",
+   "precio": 12.998,
+   "locacion": "Vedado, calle N/21 y 44"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 24,
+   "nombre": "Calculadora 14 dígitos, solar+batería, 218x146.5x38mm-R61",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Unidades",
+   "precio": 13.58,
+   "locacion": "Vedado, calle N/21 y 45"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 25,
+   "nombre": "Calculadora 14 dígitos, solar, batería 185x135x39mm-R63",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Unidades",
+   "precio": 10.67,
+   "locacion": "Vedado, calle N/21 y 46"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 26,
+   "nombre": "Calculadora de escrítorio 12 dígitos, solar,batería,plateada-R64",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Unidades",
+   "precio": 10.67,
+   "locacion": "Vedado, calle N/21 y 47"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 27,
+   "nombre": "Calculadora portátil 12 dígitos, azul-R65",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Unidades",
+   "precio": 5.335,
+   "locacion": "Vedado, calle N/21 y 48"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 28,
+   "nombre": "Calculadora portátil 8 dígitos, solar,batería-R62",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Unidades",
+   "precio": 7.178,
+   "locacion": "Vedado, calle N/21 y 49"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 29,
+   "nombre": "Cortador, R68",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Unidades",
+   "precio": 2.716,
+   "locacion": "Vedado, calle N/21 y 50"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 30,
+   "nombre": "Cortador, R69",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Unidades",
+   "precio": 0.873,
+   "locacion": "Vedado, calle N/21 y 51"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 31,
+   "nombre": "Cortador, R70",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Unidades",
+   "precio": 1.746,
+   "locacion": "Vedado, calle N/21 y 52"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 32,
+   "nombre": "Cortador, R72",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Unidades",
+   "precio": 1.843,
+   "locacion": "Vedado, calle N/21 y 53"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 33,
+   "nombre": "Cortador, R74",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Unidades",
+   "precio": 1.6005,
+   "locacion": "Vedado, calle N/21 y 54"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 34,
+   "nombre": "Cortador, R75",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Unidades",
+   "precio": 1.067,
+   "locacion": "Vedado, calle N/21 y 55"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 35,
+   "nombre": "Cortador, R76",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Unidades",
+   "precio": 1.94,
+   "locacion": "Vedado, calle N/21 y 56"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 36,
+   "nombre": "Cortador, R77",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Unidades",
+   "precio": 2.619,
+   "locacion": "Vedado, calle N/21 y 57"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 37,
+   "nombre": "Cortador, R78",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Unidades",
+   "precio": 1.649,
+   "locacion": "Vedado, calle N/21 y 58"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 38,
+   "nombre": "Cortador, R79",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Unidades",
+   "precio": 1.649,
+   "locacion": "Vedado, calle N/21 y 59"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 39,
+   "nombre": "Cortador, R80",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Unidades",
+   "precio": 2.328,
+   "locacion": "Vedado, calle N/21 y 60"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 40,
+   "nombre": "Crayolas pastel, 12u x caja",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Unidades",
+   "precio": 2.134,
+   "locacion": "Vedado, calle N/21 y 61"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 41,
+   "nombre": "Dispensador de cinta adhesiva, R237",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Unidades",
+   "precio": 2.425,
+   "locacion": "Vedado, calle N/21 y 62"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 42,
+   "nombre": "Dispensador de cinta adhesiva, R238",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Unidades",
+   "precio": 1.746,
+   "locacion": "Vedado, calle N/21 y 63"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 43,
+   "nombre": "Dispensador de cinta adhesiva,color verde, R236",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Unidades",
+   "precio": 2.328,
+   "locacion": "Vedado, calle N/21 y 64"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 44,
+   "nombre": "Estuche multiusos, R34",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Unidades",
+   "precio": 2.4735,
+   "locacion": "Vedado, calle N/21 y 65"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 45,
+   "nombre": "Grapas para presilladora 26/6 1000/caja",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Unidades",
+   "precio": 0.582,
+   "locacion": "Vedado, calle N/21 y 66"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 46,
+   "nombre": "Marcador Fluorescente 1mm-5mm 6/paq. Color Surtido",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Unidades",
+   "precio": 3.395,
+   "locacion": "Vedado, calle N/21 y 67"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 47,
+   "nombre": "Notas Adhesivas 3''x 3'' 4 colores x 100 Hojas",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Unidades",
+   "precio": 3.395,
+   "locacion": "Vedado, calle N/21 y 68"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 48,
+   "nombre": "Notas Adhesivas de Papel 76×76mm (3''×3'') 100 Hojas",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Unidades",
+   "precio": 0.679,
+   "locacion": "Vedado, calle N/21 y 69"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 49,
+   "nombre": "Paquete 4 bolígrafos a base de aceite-gel 0.7mm azul-R264",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Unidades",
+   "precio": 1.0185,
+   "locacion": "Vedado, calle N/21 y 70"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 50,
+   "nombre": "Pegamento Multiusos Pégalo Todo 3g",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Unidades",
+   "precio": 0.3395,
+   "locacion": "Vedado, calle N/21 y 71"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 51,
+   "nombre": "Pegamento de Barra Blanco 9g",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Unidades",
+   "precio": 0.679,
+   "locacion": "Vedado, calle N/21 y 72"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 52,
+   "nombre": "Ponchadora 80 mm, R104",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Unidades",
+   "precio": 2.8615,
+   "locacion": "Vedado, calle N/21 y 73"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 53,
+   "nombre": "Ponchadora 80 mm, R106",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Unidades",
+   "precio": 3.007,
+   "locacion": "Vedado, calle N/21 y 74"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 54,
+   "nombre": "Ponchadora hasta 20 hojas, R7",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Unidades",
+   "precio": 4.85,
+   "locacion": "Vedado, calle N/21 y 75"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 55,
+   "nombre": "Presilladora hasta 25 hojas, R12",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Unidades",
+   "precio": 3.007,
+   "locacion": "Vedado, calle N/21 y 76"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 56,
+   "nombre": "Presilladora hasta 25 hojas, R137",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Unidades",
+   "precio": 2.8615,
+   "locacion": "Vedado, calle N/21 y 77"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 57,
+   "nombre": "Presilladora hasta 25 hojas, R140",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Unidades",
+   "precio": 4.656,
+   "locacion": "Vedado, calle N/21 y 78"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 58,
+   "nombre": "Presilladora hasta 25 hojas, R141",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Unidades",
+   "precio": 4.0255,
+   "locacion": "Vedado, calle N/21 y 79"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 59,
+   "nombre": "Presillas Gem Clip #3 29mm. Color Surtido",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Caja de 100 uds",
+   "precio": 0.97,
+   "locacion": "Vedado, calle N/21 y 80"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 60,
+   "nombre": "Presillas Gem Clip #4 33mm",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Caja de 100 uds",
+   "precio": 0.873,
+   "locacion": "Vedado, calle N/21 y 81"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 61,
+   "nombre": "Presillas clip 15mm, R50",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Unidades",
+   "precio": 2.037,
+   "locacion": "Vedado, calle N/21 y 82"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 62,
+   "nombre": "Presillas clip 25mm, R40",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Unidades",
+   "precio": 3.686,
+   "locacion": "Vedado, calle N/21 y 83"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 63,
+   "nombre": "Presillas clip 25mm, R49",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Unidades",
+   "precio": 4.462,
+   "locacion": "Vedado, calle N/21 y 84"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 64,
+   "nombre": "Presillas clip 25mm, R51",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Unidades",
+   "precio": 1.843,
+   "locacion": "Vedado, calle N/21 y 85"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 65,
+   "nombre": "Presillas clip 32mm, R38",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Unidades",
+   "precio": 2.91,
+   "locacion": "Vedado, calle N/21 y 86"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 66,
+   "nombre": "Presillas clip 32mm, R48",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Unidades",
+   "precio": 3.201,
+   "locacion": "Vedado, calle N/21 y 87"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 67,
+   "nombre": "Presillas clip 41mm, R39",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Unidades",
+   "precio": 5.335,
+   "locacion": "Vedado, calle N/21 y 88"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 68,
+   "nombre": "Presillas clip 41mm, R44",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Unidades",
+   "precio": 4.753,
+   "locacion": "Vedado, calle N/21 y 89"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 69,
+   "nombre": "Presillas clip 41mm, R47",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Unidades",
+   "precio": 5.5775,
+   "locacion": "Vedado, calle N/21 y 90"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 70,
+   "nombre": "Presillas clip 51mm, R45",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Unidades",
+   "precio": 3.589,
+   "locacion": "Vedado, calle N/21 y 91"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 71,
+   "nombre": "Presillas clip 51mm, R55",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Unidades",
+   "precio": 3.8315,
+   "locacion": "Vedado, calle N/21 y 92"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 72,
+   "nombre": "Presillas clip plateadas 51mm, R53",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Unidades",
+   "precio": 1.649,
+   "locacion": "Vedado, calle N/21 y 93"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 73,
+   "nombre": "Presillas clip plateadas 76mm, R52",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Unidades",
+   "precio": 4.6075,
+   "locacion": "Vedado, calle N/21 y 94"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 74,
+   "nombre": "Presillas de Patas para Encuadernar 80 mm",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Caja de 50 uds",
+   "precio": 3.395,
+   "locacion": "Vedado, calle N/21 y 95"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 75,
+   "nombre": "Presillas de Patas para Encuadernar 80 mm. Color Surtido",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Caja de 50 uds",
+   "precio": 3.492,
+   "locacion": "Vedado, calle N/21 y 96"
+  },
+  {
+   "hoja": "OFICINA",
+   "fila": 76,
+   "nombre": "Tachuela 23mm,100/caja",
+   "categoria": "Material de Oficina y Útiles Escolares",
+   "unidad": "Unidades",
+   "precio": 1.649,
+   "locacion": "Vedado, calle N/21 y 97"
+  },
+  {
+   "hoja": "INSECTICIDA",
+   "fila": 2,
+   "nombre": "Bolsa de Inyectores, Cabeza 9.5 mm",
+   "categoria": "Insecticidas",
+   "unidad": "Paquete",
+   "precio": 126.1,
+   "locacion": "Cerro, Manglar y Oquendo, justo al lado del parque La Normal"
+  },
+  {
+   "hoja": "INSECTICIDA",
+   "fila": 3,
+   "nombre": "Insecticida para mosquitos y cucarachas, 250 ml",
+   "categoria": "Insecticidas",
+   "unidad": "Unidades",
+   "precio": 5.3835,
+   "locacion": "Cerro, Manglar y Oquendo, justo al lado del parque La Normal"
+  },
+  {
+   "hoja": "INSECTICIDA",
+   "fila": 4,
+   "nombre": "Bolsa de Inyectores 6.5/Cabeza 20mm",
+   "categoria": "Insecticidas",
+   "unidad": "Paquete",
+   "precio": 111.55,
+   "locacion": "Cerro, Manglar y Oquendo, justo al lado del parque La Normal"
+  },
+  {
+   "hoja": "INSECTICIDA",
+   "fila": 5,
+   "nombre": "Cebo Hormiguicida Granulado Antex 1.5Kg",
+   "categoria": "Insecticidas",
+   "unidad": "Unidades",
+   "precio": 19.4,
+   "locacion": "Cerro, Manglar y Oquendo, justo al lado del parque La Normal"
+  },
+  {
+   "hoja": "INSECTICIDA",
+   "fila": 6,
+   "nombre": "Gel Insecticida para control de Hormigas Magnum. Paquete de 4u",
+   "categoria": "Insecticidas",
+   "unidad": "Paquete de 4",
+   "precio": 7.76,
+   "locacion": "Cerro, Manglar y Oquendo, justo al lado del parque La Normal"
+  },
+  {
+   "hoja": "HUMIDORES",
+   "fila": 2,
+   "nombre": "Bisagra de arco dorada , r7",
+   "categoria": "Humidores",
+   "unidad": "Cantidad",
+   "precio": 2.2795,
+   "locacion": null
+  },
+  {
+   "hoja": "HUMIDORES",
+   "fila": 3,
+   "nombre": "Cerradura de empotrar plateada, r6",
+   "categoria": "Humidores",
+   "unidad": "Cantidad",
+   "precio": 5.9655,
+   "locacion": null
+  },
+  {
+   "hoja": "HUMIDORES",
+   "fila": 4,
+   "nombre": "Humidificador con ventana ajustable, r1",
+   "categoria": "Humidores",
+   "unidad": "Cantidad",
+   "precio": 7.7115,
+   "locacion": null
+  },
+  {
+   "hoja": "HUMIDORES",
+   "fila": 5,
+   "nombre": "Cerradura de empotrar dorada, r3",
+   "categoria": "Humidores",
+   "unidad": "Cantidad",
+   "precio": 6.208,
+   "locacion": null
+  },
+  {
+   "hoja": "HUMIDORES",
+   "fila": 6,
+   "nombre": "Higrómetro redondo de esfera plana, metal y cristal,r2",
+   "categoria": "Humidores",
+   "unidad": "Cantidad",
+   "precio": 4.1225,
+   "locacion": null
+  },
+  {
+   "hoja": "HUMIDORES",
+   "fila": 7,
+   "nombre": "Humidificador cuadrado de plástico con placa de imán con adhesivo, r10",
+   "categoria": "Humidores",
+   "unidad": "Cantidad",
+   "precio": 3.977,
+   "locacion": null
+  },
+  {
+   "hoja": "HUMIDORES",
+   "fila": 8,
+   "nombre": "Humidificador cuadrado de plástico, r8",
+   "categoria": "Humidores",
+   "unidad": "Cantidad",
+   "precio": 3.686,
+   "locacion": null
+  },
+  {
+   "hoja": "HUMIDORES",
+   "fila": 9,
+   "nombre": "Humidificador de plástico y metal, r9",
+   "categoria": "Humidores",
+   "unidad": "Cantidad",
+   "precio": 5.6745,
+   "locacion": null
+  },
+  {
+   "hoja": "HUMIDORES",
+   "fila": 10,
+   "nombre": "Humidor, capacidad para 1200 tabacos, modelo B4",
+   "categoria": "Humidores",
+   "unidad": "Unidades",
+   "precio": 1425.0,
+   "locacion": "Cerro, Manglar y Oquendo, justo al lado del parque La Normal"
+  },
+  {
+   "hoja": "HUMIDORES",
+   "fila": 11,
+   "nombre": "Humidor, capacidad para 2000 tabacos, modelo B6",
+   "categoria": "Humidores",
+   "unidad": "Unidades",
+   "precio": 2090.0,
+   "locacion": "Cerro, Manglar y Oquendo, justo al lado del parque La Normal"
+  },
+  {
+   "hoja": "HUMIDORES",
+   "fila": 12,
+   "nombre": "Humidor, capacidad para 500 tabacos, modelo B1",
+   "categoria": "Humidores",
+   "unidad": "Unidades",
+   "precio": 760.0,
+   "locacion": "Cerro, Manglar y Oquendo, justo al lado del parque La Normal"
+  },
+  {
+   "hoja": "HUMIDORES",
+   "fila": 13,
+   "nombre": "Humidor, capacidad para 850 tabacos, modelo B2",
+   "categoria": "Humidores",
+   "unidad": "Unidades",
+   "precio": 950.0,
+   "locacion": "Cerro, Manglar y Oquendo, justo al lado del parque La Normal"
+  },
+  {
+   "hoja": "HUMIDORES",
+   "fila": 14,
+   "nombre": "Humidor,capacidad hasta 1600 tabacos, modelo C5",
+   "categoria": "Humidores",
+   "unidad": "Unidades",
+   "precio": 2375.0,
+   "locacion": "Cerro, Manglar y Oquendo, justo al lado del parque La Normal"
+  },
+  {
+   "hoja": "HUMIDORES",
+   "fila": 15,
+   "nombre": "Humidor,capacidad hasta 3000 tabacos, modelo C8",
+   "categoria": "Humidores",
+   "unidad": "Unidades",
+   "precio": 3800.0,
+   "locacion": "Cerro, Manglar y Oquendo, justo al lado del parque La Normal"
+  },
+  {
+   "hoja": "HUMIDORES",
+   "fila": 16,
+   "nombre": "Humidor,capacidad para 1200 tabacos, modelo L5",
+   "categoria": "Humidores",
+   "unidad": "Unidades",
+   "precio": 3990.0,
+   "locacion": "Cerro, Manglar y Oquendo, justo al lado del parque La Normal"
+  },
+  {
+   "hoja": "HUMIDORES",
+   "fila": 17,
+   "nombre": "Humidor,capacidad para 1500 tabacos, modelo L6",
+   "categoria": "Humidores",
+   "unidad": "Unidades",
+   "precio": 4560.0,
+   "locacion": "Cerro, Manglar y Oquendo, justo al lado del parque La Normal"
+  },
+  {
+   "hoja": "HUMIDORES",
+   "fila": 18,
+   "nombre": "Humidor,capacidad para 250 tabacos, modelo L3",
+   "categoria": "Humidores",
+   "unidad": "Unidades",
+   "precio": 3040.0,
+   "locacion": "Cerro, Manglar y Oquendo, justo al lado del parque La Normal"
+  },
+  {
+   "hoja": "COLCHONES",
+   "fila": 2,
+   "nombre": "Colchón de espuma Areca 90x190x20cm",
+   "categoria": "Hogar y Muebles",
+   "unidad": "Unidades",
+   "precio": 115.0,
+   "locacion": "Cerro, Manglar y Oquendo, justo al lado del parque La Normal"
+  },
+  {
+   "hoja": "COLCHONES",
+   "fila": 3,
+   "nombre": "Colchón de espuma Low Cost lV 135x190x20cm",
+   "categoria": "Hogar y Muebles",
+   "unidad": "Unidades",
+   "precio": 185.0,
+   "locacion": "Cerro, Manglar y Oquendo, justo al lado del parque La Normal"
+  },
+  {
+   "hoja": "COLCHONES",
+   "fila": 4,
+   "nombre": "Colchón de espuma SPRING 135x190x23cm",
+   "categoria": "Hogar y Muebles",
+   "unidad": "Unidades",
+   "precio": 220.0,
+   "locacion": "Cerro, Manglar y Oquendo, justo al lado del parque La Normal"
+  },
+  {
+   "hoja": "COLCHONES",
+   "fila": 5,
+   "nombre": "Colchón de espuma SPRING 200x200x23cm",
+   "categoria": "Hogar y Muebles",
+   "unidad": "Unidades",
+   "precio": 349.2,
+   "locacion": "Cerro, Manglar y Oquendo, justo al lado del parque La Normal"
+  },
+  {
+   "hoja": "COLCHONES",
+   "fila": 6,
+   "nombre": "Colchón de espuma camero Cala 135x190x20cm",
+   "categoria": "Hogar y Muebles",
+   "unidad": "Unidades",
+   "precio": 195.0,
+   "locacion": "Cerro, Manglar y Oquendo, justo al lado del parque La Normal"
+  },
+  {
+   "hoja": "COLCHONES",
+   "fila": 7,
+   "nombre": "Colchón personal de espuma Cala 90x190x20cm",
+   "categoria": "Hogar y Muebles",
+   "unidad": "Unidades",
+   "precio": 115.0,
+   "locacion": "Cerro, Manglar y Oquendo, justo al lado del parque La Normal"
+  },
+  {
+   "hoja": "FERRETERÍA",
+   "fila": 2,
+   "nombre": "Pistola de Pintar 750 ml",
+   "categoria": "Ferretería",
+   "unidad": "Unidades",
+   "precio": 19.4,
+   "locacion": "Vedado, calle N/21 y 23"
+  },
+  {
+   "hoja": "FERRETERÍA",
+   "fila": 3,
+   "nombre": "Amoladora/Pulidora 850W, 100mm",
+   "categoria": "Ferretería",
+   "unidad": "Unidades",
+   "precio": 33.95,
+   "locacion": "Vedado, calle N/21 y 23"
+  },
+  {
+   "hoja": "FERRETERÍA",
+   "fila": 4,
+   "nombre": "Pistola de Pintar 1000 ml",
+   "categoria": "Ferretería",
+   "unidad": "Unidades",
+   "precio": 21.34,
+   "locacion": "Vedado, calle N/21 y 23"
+  },
+  {
+   "hoja": "FERRETERÍA",
+   "fila": 5,
+   "nombre": "Segueta de Aluminio 12*300MM",
+   "categoria": "Ferretería",
+   "unidad": "Unidades",
+   "precio": 7.76,
+   "locacion": "Vedado, calle N/21 y 23"
+  },
+  {
+   "hoja": "FERRETERÍA",
+   "fila": 6,
+   "nombre": "Taladro Eléctrico 110v, 50/60Hz, 13mm, 550w",
+   "categoria": "Ferretería",
+   "unidad": "Unidades",
+   "precio": 38.8,
+   "locacion": "Vedado, calle N/21 y 23"
+  },
+  {
+   "hoja": "FERRETERÍA",
+   "fila": 7,
+   "nombre": "Pintura Vinil TOR Blanco Mate (15L)",
+   "categoria": "Pintura",
+   "unidad": "Unidades",
+   "precio": 43.65,
+   "locacion": "Cerro, Manglar y Oquendo, justo al lado del parque La Normal"
+  },
+  {
+   "hoja": "REFRIGERACIÓN",
+   "fila": 2,
+   "nombre": "Nevera Westing 7 pies",
+   "categoria": "Electrodomésticos",
+   "unidad": "Unidades",
+   "precio": 291.0,
+   "locacion": "Cerro, Manglar y Oquendo, justo al lado del parque La Normal"
+  },
+  {
+   "hoja": "REFRIGERACIÓN",
+   "fila": 3,
+   "nombre": "Aceite Sintético Suniso SL 32 (4L)",
+   "categoria": "Productos de Refrigeración y Clima",
+   "unidad": "Unidades",
+   "precio": 67.9,
+   "locacion": "Cerro, Manglar y Oquendo, justo al lado del parque La Normal"
+  },
+  {
+   "hoja": "REFRIGERACIÓN",
+   "fila": 4,
+   "nombre": "Disolvente Técnico Air Dislim (5L)",
+   "categoria": "Productos de Refrigeración y Clima",
+   "unidad": "Unidades",
+   "precio": 33.95,
+   "locacion": "Cerro, Manglar y Oquendo, justo al lado del parque La Normal"
+  },
+  {
+   "hoja": "REFRIGERACIÓN",
+   "fila": 5,
+   "nombre": "Aceite Sintético SUNICE PAG 46 (20L)",
+   "categoria": "Productos de Refrigeración y Clima",
+   "unidad": "Unidades",
+   "precio": 388.0,
+   "locacion": "Cerro, Manglar y Oquendo, justo al lado del parque La Normal"
+  },
+  {
+   "hoja": "REFRIGERACIÓN",
+   "fila": 6,
+   "nombre": "Aceite Sintético SUNICE PAG 46 (5L)",
+   "categoria": "Productos de Refrigeración y Clima",
+   "unidad": "Unidades",
+   "precio": 106.7,
+   "locacion": "Cerro, Manglar y Oquendo, justo al lado del parque La Normal"
+  },
+  {
+   "hoja": "REFRIGERACIÓN",
+   "fila": 7,
+   "nombre": "Aceite Sintético Suniso SL 68 (20L)",
+   "categoria": "Productos de Refrigeración y Clima",
+   "unidad": "Unidades",
+   "precio": 358.9,
+   "locacion": "Cerro, Manglar y Oquendo, justo al lado del parque La Normal"
+  },
+  {
+   "hoja": "REFRIGERACIÓN",
+   "fila": 8,
+   "nombre": "Aceite Sintético Suniso SL 68 (4L)",
+   "categoria": "Productos de Refrigeración y Clima",
+   "unidad": "Unidades",
+   "precio": 77.6,
+   "locacion": "Cerro, Manglar y Oquendo, justo al lado del parque La Normal"
+  },
+  {
+   "hoja": "REFRIGERACIÓN",
+   "fila": 9,
+   "nombre": "Detector de Fugas Fluorescente Spray, Nu-Calgon (0.94L)",
+   "categoria": "Productos de Refrigeración y Clima",
+   "unidad": "Unidades",
+   "precio": 9.7,
+   "locacion": "Cerro, Manglar y Oquendo, justo al lado del parque La Normal"
+  },
+  {
+   "hoja": "REFRIGERACIÓN",
+   "fila": 10,
+   "nombre": "Detector de Fugas Fluorescente, Nu-Calgon (3.8L)",
+   "categoria": "Productos de Refrigeración y Clima",
+   "unidad": "Unidades",
+   "precio": 29.1,
+   "locacion": "Cerro, Manglar y Oquendo, justo al lado del parque La Normal"
+  },
+  {
+   "hoja": "REFRIGERACIÓN",
+   "fila": 11,
+   "nombre": "Limpiador Alcalino Espumante Nu-Brite, Nu-Calgon (3.8L)",
+   "categoria": "Productos de Refrigeración y Clima",
+   "unidad": "Unidades",
+   "precio": 29.1,
+   "locacion": "Cerro, Manglar y Oquendo, justo al lado del parque La Normal"
+  },
+  {
+   "hoja": "REFRIGERACIÓN",
+   "fila": 12,
+   "nombre": "Limpiador Alcalino Pesado Especial HD CalClean, Nu-Calgon (3.8L)",
+   "categoria": "Productos de Refrigeración y Clima",
+   "unidad": "Unidades",
+   "precio": 29.1,
+   "locacion": "Cerro, Manglar y Oquendo, justo al lado del parque La Normal"
+  },
+  {
+   "hoja": "REFRIGERACIÓN",
+   "fila": 13,
+   "nombre": "Limpiador Ácido Suave Cal Brite, Nu-Calgon (3.8L)",
+   "categoria": "Productos de Refrigeración y Clima",
+   "unidad": "Unidades",
+   "precio": 33.95,
+   "locacion": "Cerro, Manglar y Oquendo, justo al lado del parque La Normal"
+  },
+  {
+   "hoja": "REFRIGERACIÓN",
+   "fila": 14,
+   "nombre": "Refrigerante Comercial DuPont SUVA R-409A (30Lb/13.62Kg)",
+   "categoria": "Productos de Refrigeración y Clima",
+   "unidad": "Unidades",
+   "precio": 97.0,
+   "locacion": "Cerro, Manglar y Oquendo, justo al lado del parque La Normal"
+  },
+  {
+   "hoja": "CABLES COBRE",
+   "fila": 2,
+   "nombre": "Cable de cobre 4mm²",
+   "categoria": "Cables",
+   "unidad": "Metro",
+   "precio": 1.746,
+   "locacion": "Vedado, calle N/21 y 23"
+  },
+  {
+   "hoja": "CABLES COBRE",
+   "fila": 3,
+   "nombre": "Cable de cobre, 10mm²",
+   "categoria": "Cables",
+   "unidad": "Metro",
+   "precio": 4.268,
+   "locacion": "Vedado, calle N/21 y 23"
+  },
+  {
+   "hoja": "CABLES COBRE",
+   "fila": 4,
+   "nombre": "Cable de cobre, 6mm²",
+   "categoria": "Cables",
+   "unidad": "Metro",
+   "precio": 2.522,
+   "locacion": "Vedado, calle N/21 y 23"
+  },
+  {
+   "hoja": "BICIS",
+   "fila": 2,
+   "nombre": "Bicicleta MTB 26, Oferta 165 USD, Solo 1 disponible",
+   "categoria": "Bicicletas y accesorios",
+   "unidad": "Unidades",
+   "precio": 160.05,
+   "locacion": "Cerro, Manglar y Oquendo, justo al lado del parque La Normal"
+  },
+  {
+   "hoja": "BICIS",
+   "fila": 3,
+   "nombre": "Bicicleta de montaña Huffy, medida 24",
+   "categoria": "Bicicletas y accesorios",
+   "unidad": "Unidades",
+   "precio": 145.5,
+   "locacion": "Vedado, calle N/21 y 23"
+  },
+  {
+   "hoja": "BICIS",
+   "fila": 4,
+   "nombre": "Bicicleta de montaña Huffy, medida 27.5 negra",
+   "categoria": "Bicicletas y accesorios",
+   "unidad": "Unidades",
+   "precio": 174.6,
+   "locacion": "Cerro, Manglar y Oquendo, justo al lado del parque La Normal"
+  },
+  {
+   "hoja": "BICIS",
+   "fila": 5,
+   "nombre": "Bicicleta de montaña, medida 27.5 morada",
+   "categoria": "Bicicletas y accesorios",
+   "unidad": "Unidades",
+   "precio": 174.6,
+   "locacion": "Cerro, Manglar y Oquendo, justo al lado del parque La Normal"
+  },
+  {
+   "hoja": "BICIS",
+   "fila": 6,
+   "nombre": "Bicicleta de paseo, medida 26",
+   "categoria": "Bicicletas y accesorios",
+   "unidad": "Unidades",
+   "precio": 155.2,
+   "locacion": "Cerro, Manglar y Oquendo, justo al lado del parque La Normal"
+  },
+  {
+   "hoja": "ASEO-LIMP",
+   "fila": 2,
+   "nombre": "Acondicionador aloe",
+   "categoria": "Aseo y Limpieza",
+   "unidad": "Unidades",
+   "precio": 1.35,
+   "locacion": "Vedado, calle N/21 y 23"
+  },
+  {
+   "hoja": "ASEO-LIMP",
+   "fila": 3,
+   "nombre": "Acondicionador miel",
+   "categoria": "Aseo y Limpieza",
+   "unidad": "Unidades",
+   "precio": 1.35,
+   "locacion": "Vedado, calle N/21 y 24"
+  },
+  {
+   "hoja": "ASEO-LIMP",
+   "fila": 4,
+   "nombre": "Acondicionador Coco",
+   "categoria": "Aseo y Limpieza",
+   "unidad": "Unidades",
+   "precio": 1.35,
+   "locacion": "Vedado, calle N/21 y 25"
+  },
+  {
+   "hoja": "ASEO-LIMP",
+   "fila": 5,
+   "nombre": "Champú miel",
+   "categoria": "Aseo y Limpieza",
+   "unidad": "Unidades",
+   "precio": 0.35,
+   "locacion": "Vedado, calle N/21 y 26"
+  },
+  {
+   "hoja": "ASEO-LIMP",
+   "fila": 6,
+   "nombre": "Champú coco",
+   "categoria": "Aseo y Limpieza",
+   "unidad": "Unidades",
+   "precio": 1.35,
+   "locacion": "Vedado, calle N/21 y 27"
+  },
+  {
+   "hoja": "ASEO-LIMP",
+   "fila": 7,
+   "nombre": "Alcohol Perfumado 300 ml, desinfectante, 96%,12 u x caja",
+   "categoria": "Aseo y Limpieza",
+   "unidad": "Paquete de 12",
+   "precio": 24.25,
+   "locacion": "Cerro, Manglar y Oquendo, justo al lado del parque La Normal"
+  },
+  {
+   "hoja": "ASEO-LIMP",
+   "fila": 8,
+   "nombre": "Desengrasante Zelnova 5 lts",
+   "categoria": "Aseo y Limpieza",
+   "unidad": "Unidades",
+   "precio": 7.663,
+   "locacion": "Cerro, Manglar y Oquendo, justo al lado del parque La Normal"
+  },
+  {
+   "hoja": "ASEO-LIMP",
+   "fila": 9,
+   "nombre": "Detergente Líquido 1lt",
+   "categoria": "Aseo y Limpieza",
+   "unidad": "Unidades",
+   "precio": 0.9,
+   "locacion": "Cerro, Manglar y Oquendo, justo al lado del parque La Normal"
+  },
+  {
+   "hoja": "ASEO-LIMP",
+   "fila": 10,
+   "nombre": "Dosificador Automático para Aromatizante 250 ml",
+   "categoria": "Aseo y Limpieza",
+   "unidad": "Unidades",
+   "precio": 29.1,
+   "locacion": "Cerro, Manglar y Oquendo, justo al lado del parque La Normal"
+  },
+  {
+   "hoja": "ASEO-LIMP",
+   "fila": 11,
+   "nombre": "Spray Aromatizante de Vainilla 250 ml/12 u x caja",
+   "categoria": "Aseo y Limpieza",
+   "unidad": "Paquete de 12",
+   "precio": 13.58,
+   "locacion": "Cerro, Manglar y Oquendo, justo al lado del parque La Normal"
+  },
+  {
+   "hoja": "ASEO-LIMP",
+   "fila": 12,
+   "nombre": "Detergente para Superficies Quitagrasa Rudex 5 lt",
+   "categoria": "Aseo y Limpieza",
+   "unidad": "Unidades",
+   "precio": 8.73,
+   "locacion": "Cerro, Manglar y Oquendo, justo al lado del parque La Normal"
+  },
+  {
+   "hoja": "ASEO-LIMP",
+   "fila": 13,
+   "nombre": "Loción Hidroalcohólica de Spray al 97.8% 100ml/12 u x caja",
+   "categoria": "Aseo y Limpieza",
+   "unidad": "Paquete de 12",
+   "precio": 11.64,
+   "locacion": "Cerro, Manglar y Oquendo, justo al lado del parque La Normal"
+  },
+  {
+   "hoja": "ASEO-LIMP",
+   "fila": 14,
+   "nombre": "Porta Spray 250 ml",
+   "categoria": "Aseo y Limpieza",
+   "unidad": "Unidades",
+   "precio": 19.4,
+   "locacion": "Cerro, Manglar y Oquendo, justo al lado del parque La Normal"
+  },
+  {
+   "hoja": "ASEO-LIMP",
+   "fila": 15,
+   "nombre": "Solución Hidroalcohólica al 72% 100 ml/15 u x caja",
+   "categoria": "Aseo y Limpieza",
+   "unidad": "Paquete de 15",
+   "precio": 7.76,
+   "locacion": "Cerro, Manglar y Oquendo, justo al lado del parque La Normal"
+  },
+  {
+   "hoja": "ASEO-LIMP",
+   "fila": 16,
+   "nombre": "Spray Aromatizante Bouquet 250 ml/12 u x caja",
+   "categoria": "Aseo y Limpieza",
+   "unidad": "Paquete de 12",
+   "precio": 13.58,
+   "locacion": "Cerro, Manglar y Oquendo, justo al lado del parque La Normal"
+  },
+  {
+   "hoja": "ASEO-LIMP",
+   "fila": 17,
+   "nombre": "Spray Aromatizante Dolce 250 ml/12 u x caja",
+   "categoria": "Aseo y Limpieza",
+   "unidad": "Paquete de 12",
+   "precio": 13.58,
+   "locacion": "Cerro, Manglar y Oquendo, justo al lado del parque La Normal"
+  },
+  {
+   "hoja": "ASEO-LIMP",
+   "fila": 18,
+   "nombre": "Spray Aromatizante Millonaire 250 ml/12 u x caja",
+   "categoria": "Aseo y Limpieza",
+   "unidad": "Paquete de 12",
+   "precio": 13.58,
+   "locacion": "Cerro, Manglar y Oquendo, justo al lado del parque La Normal"
+  },
+  {
+   "hoja": "ASEO-LIMP",
+   "fila": 19,
+   "nombre": "Spray Aromatizante Tiador 250 ml/12 u x caja",
+   "categoria": "Aseo y Limpieza",
+   "unidad": "Paquete de 12",
+   "precio": 13.58,
+   "locacion": "Cerro, Manglar y Oquendo, justo al lado del parque La Normal"
+  },
+  {
+   "hoja": "ASEO-LIMP",
+   "fila": 20,
+   "nombre": "Spray Desinfectante para Superficies Cooperbacter 200 ml/12 u x caja",
+   "categoria": "Aseo y Limpieza",
+   "unidad": "Paquete de 12",
+   "precio": 19.4,
+   "locacion": "Cerro, Manglar y Oquendo, justo al lado del parque La Normal"
+  },
+  {
+   "hoja": "ASEO-LIMP",
+   "fila": 21,
+   "nombre": "Toalla 140x70 cm",
+   "categoria": "Aseo y Limpieza",
+   "unidad": "Unidades",
+   "precio": 3.0,
+   "locacion": "Cerro, Manglar y Oquendo, justo al lado del parque La Normal"
+  }
+ ]
+}

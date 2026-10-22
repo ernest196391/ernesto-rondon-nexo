@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Video del día 22-oct · Kit del apagón</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      /* Video del día 22-oct-2026 (Casa Viva): «4 cosas para el apagón». Sin voz, sin IA generativa:
+         fotos reales del equipo (biblioteca cv fotos / web), letras y colores del manual de marca. */
+      @font-face { font-family: "Figtree"; src: url("assets/fuentes/figtree.ttf") format("truetype"); font-weight: 300 900; }
+      @font-face { font-family: "Cinzel"; src: url("assets/fuentes/cinzel.ttf") format("truetype"); font-weight: 400 900; }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #0d3b45; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: #0d3b45; font-family: "Figtree", sans-serif; color: #f6f1e6; }
+      .escena { position: absolute; inset: 0; background: #0d3b45; overflow: hidden; }
+      .centro { position: absolute; left: 60px; width: 960px; text-align: center; }
+
+      /* Gancho */
+      #s0-fondo { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; object-fit: cover; object-position: 50% 45%; }
+      #s0-oscuro { position: absolute; inset: 0; background: #050505; opacity: 0.9; }
+      .caja-gancho { position: absolute; left: 70px; width: 940px; top: 330px; padding: 34px 40px; border-radius: 28px; text-align: center; font-weight: 700; font-size: 92px; line-height: 1.08; }
+      #s0-a { background: #0d3b45; color: #f6f1e6; }
+      #s0-b { background: #f6f1e6; color: #2b2420; opacity: 0; }
+      .ambar { color: #a35a1f; }
+
+      /* Loop abierto */
+      #s1-txt { top: 560px; font-weight: 700; font-size: 96px; line-height: 1.1; }
+      #s1-fila { position: absolute; top: 880px; left: 150px; width: 780px; height: 170px; display: flex; justify-content: space-between; }
+      .bola { width: 170px; height: 170px; border-radius: 50%; border: 8px solid #f6f1e6; display: flex; align-items: center; justify-content: center; font-family: "Cinzel"; font-weight: 700; font-size: 92px; color: #f6f1e6; opacity: 0; }
+      #s1-b4 { background: #a35a1f; border-color: #a35a1f; }
+      #s1-sub { top: 1130px; font-weight: 500; font-size: 58px; line-height: 1.2; opacity: 0; }
+
+      /* Producto */
+      .titulo { position: absolute; top: 285px; left: 40px; width: 1000px; text-align: center; font-family: "Cinzel"; font-weight: 700; font-size: 66px; letter-spacing: 3px; color: #f6f1e6; white-space: nowrap; }
+      .titulo .n { color: #0d3b45; background: #f6f1e6; border-radius: 14px; padding: 0 22px; margin-right: 14px; }
+      .tarjeta { position: absolute; left: 180px; top: 400px; width: 720px; height: 960px; border-radius: 34px; overflow: hidden; border: 8px solid #f6f1e6; background: #f6f1e6; }
+      .zoom { position: absolute; inset: 0; }
+      .foto { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+      .foto.b { opacity: 0; }
+      .contain { object-fit: contain; background: #ffffff; }
+      .precio { position: absolute; left: 120px; top: 1272px; padding: 10px 34px; border-radius: 22px; background: #a35a1f; color: #f6f1e6; font-weight: 800; font-size: 82px; line-height: 1.1; }
+      .stock { position: absolute; left: 600px; top: 1290px; padding: 12px 26px; border-radius: 18px; background: #f6f1e6; color: #2b2420; font-weight: 700; font-size: 50px; line-height: 1.1; }
+      .nombre { position: absolute; left: 70px; width: 940px; top: 1400px; text-align: center; font-weight: 500; font-size: 46px; line-height: 1.22; color: #f6f1e6; }
+
+      /* Prueba */
+      #s6-titulo { top: 285px; font-family: "Cinzel"; font-weight: 700; font-size: 76px; letter-spacing: 3px; }
+      #s6-sub { top: 385px; font-weight: 500; font-size: 46px; }
+      #s6-grid { position: absolute; left: 190px; top: 470px; width: 700px; height: 920px; display: grid; grid-template-columns: 340px 340px; grid-template-rows: 450px 450px; gap: 20px; }
+      .celda { width: 340px; height: 450px; border-radius: 22px; overflow: hidden; border: 6px solid #f6f1e6; background: #fff; opacity: 0; }
+      .celda img { width: 100%; height: 100%; object-fit: cover; display: block; }
+      #s6-suma { position: absolute; left: 190px; width: 700px; top: 1412px; text-align: center; padding: 12px 0; border-radius: 22px; background: #a35a1f; color: #f6f1e6; font-weight: 800; font-size: 64px; opacity: 0; }
+
+      /* CTA */
+      #s7-preg { top: 380px; font-weight: 700; font-size: 104px; line-height: 1.08; }
+      #s7-caja { position: absolute; left: 110px; width: 860px; top: 650px; padding: 26px 0; border-radius: 28px; background: #a35a1f; text-align: center; font-weight: 800; font-size: 86px; color: #f6f1e6; }
+      #s7-sub { top: 860px; font-weight: 500; font-size: 56px; line-height: 1.2; }
+      #s7-web { top: 1060px; font-weight: 600; font-size: 50px; color: #f6f1e6; opacity: 0.85; }
+      #s7-logo { position: absolute; left: 240px; top: 1250px; width: 600px; height: auto; }
+      #negro { position: absolute; inset: 0; background: #050505; opacity: 0; pointer-events: none; }
+      #destello { position: absolute; inset: 0; background: #f6f1e6; opacity: 0; pointer-events: none; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="24.5" data-width="1080" data-height="1920">
+
+      <!-- 0 · Gancho (0–2,8 s): oscuro, parpadeo, se enciende la lámpara real -->
+      <div id="s0" class="clip escena" data-start="0" data-duration="3.2" data-track-index="1">
+        <div id="s0-cam" class="zoom"><img id="s0-fondo" src="assets/usar/lampara-luz.jpg" alt="" /></div>
+        <div id="s0-oscuro"></div>
+        <div id="s0-a" class="caja-gancho">¿Otra vez sin corriente?</div>
+        <div id="s0-b" class="caja-gancho">Ten estas <span class="ambar">4</span> cosas listas</div>
+      </div>
+
+      <!-- 1 · Loop abierto (2,8–4,4 s) -->
+      <div id="s1" class="clip escena" data-start="3.2" data-duration="2" data-track-index="1">
+        <div id="s1-txt" class="centro">Quédate hasta la 4.ª</div>
+        <div id="s1-fila"><div class="bola" id="s1-b1">1</div><div class="bola" id="s1-b2">2</div><div class="bola" id="s1-b3">3</div><div class="bola" id="s1-b4">4</div></div>
+        <div id="s1-sub" class="centro">cuida tu aire</div>
+      </div>
+
+      <!-- 2 · Producto 1 (4,4–7,8 s): Lámpara recargable con panel solar #2469 -->
+      <div id="s2" class="clip escena" data-start="5.2" data-duration="3.4" data-track-index="1">
+        <div class="titulo"><span class="n">1</span>LUZ SIN CORRIENTE</div>
+        <div class="tarjeta" id="s2-t"><div class="zoom" id="s2-z">
+          <img class="foto a" id="s2-a" src="assets/usar/lampara-luz.jpg" alt="" />
+          <img class="foto b" id="s2-b" src="assets/usar/lampara-panel.jpg" alt="" />
+        </div></div>
+        <div class="precio" id="s2-p">25 USD</div>
+        <div class="stock" id="s2-s">Quedan 2</div>
+        <div class="nombre" id="s2-n">Lámpara recargable con panel solar y carga USB-C</div>
+      </div>
+
+      <!-- 3 · Producto 2 (7,8–10,8 s): Power bank #2551 -->
+      <div id="s3" class="clip escena" data-start="8.6" data-duration="3.2" data-track-index="1">
+        <div class="titulo"><span class="n">2</span>EL MÓVIL CARGADO</div>
+        <div class="tarjeta" id="s3-t"><div class="zoom" id="s3-z">
+          <img class="foto a" id="s3-a" src="assets/usar/powerbank-caja.jpg" alt="" />
+          <img class="foto b" id="s3-b" src="assets/usar/powerbank-mano.jpg" style="object-position: 30% 50%" alt="" />
+        </div></div>
+        <div class="precio" id="s3-p">30 USD</div>
+        <div class="stock" id="s3-s">Quedan 2</div>
+        <div class="nombre" id="s3-n">Power bank de 10 000 mAh con cables incluidos</div>
+      </div>
+
+      <!-- 4 · Producto 3 (10,8–13,8 s): Protector nevera #3905 -->
+      <div id="s4" class="clip escena" data-start="11.8" data-duration="3.2" data-track-index="1">
+        <div class="titulo"><span class="n">3</span>LA NEVERA SEGURA</div>
+        <div class="tarjeta" id="s4-t"><div class="zoom" id="s4-z">
+          <img class="foto a" id="s4-a" src="assets/usar/protector-nevera.jpg" alt="" />
+        </div></div>
+        <div class="precio" id="s4-p">20 USD</div>
+        <div class="stock" id="s4-s">Queda 1</div>
+        <div class="nombre" id="s4-n">Protector para nevera contra subidas y bajadas de voltaje</div>
+      </div>
+
+      <!-- 5 · Producto 4 (13,8–17 s): Protector aire 220 V #3909 -->
+      <div id="s5" class="clip escena" data-start="15" data-duration="3.4" data-track-index="1">
+        <div class="titulo"><span class="n">4</span>EL AIRE SEGURO</div>
+        <div class="tarjeta" id="s5-t"><div class="zoom" id="s5-z">
+          <img class="foto a" id="s5-a" src="assets/usar/protector-aire.jpg" alt="" />
+          <img class="foto b contain" id="s5-b" src="assets/usar/protector-aire-web.jpg" alt="" />
+        </div></div>
+        <div class="precio" id="s5-p">20 USD</div>
+        <div class="stock" id="s5-s">Queda 1</div>
+        <div class="nombre" id="s5-n">Protector 220 V de alta carga para aire acondicionado</div>
+      </div>
+
+      <!-- 6 · Prueba (17–19,2 s) -->
+      <div id="s6" class="clip escena" data-start="18.4" data-duration="2.6" data-track-index="1">
+        <div id="s6-titulo" class="centro">FOTOS REALES</div>
+        <div id="s6-sub" class="centro">de nuestra tienda en Nuevo Vedado</div>
+        <div id="s6-grid">
+          <div class="celda" id="s6-c1"><img src="assets/usar/lampara-luz.jpg" alt="" /></div>
+          <div class="celda" id="s6-c2"><img src="assets/usar/powerbank-caja.jpg" alt="" /></div>
+          <div class="celda" id="s6-c3"><img src="assets/usar/protector-nevera.jpg" alt="" /></div>
+          <div class="celda" id="s6-c4"><img src="assets/usar/protector-aire.jpg" alt="" /></div>
+        </div>
+        <div id="s6-suma">Las 4 suman 95 USD</div>
+      </div>
+
+      <!-- 7 · CTA (19,2–22 s) -->
+      <div id="s7" class="clip escena" data-start="21" data-duration="3.5" data-track-index="1">
+        <div id="s7-preg" class="centro">¿Cuál te falta a ti?</div>
+        <div id="s7-caja">Comenta APAGÓN</div>
+        <div id="s7-sub" class="centro">y te decimos cuál necesita tu casa</div>
+        <div id="s7-web" class="centro">Te lo llevamos a casa</div>
+        <img id="s7-logo" src="assets/logo.svg" alt="Casa Viva" />
+      </div>
+
+      <div id="destello"></div>
+      <div id="negro"></div>
+
+      <!-- Sonido: canción de Casa Viva (de Ernesto) + efectos Pixabay de media-use -->
+      <audio id="musica" src="assets/musica.mp3" data-start="0" data-media-start="0.45" data-duration="24.5" data-track-index="10" data-volume="0.75"
+        data-automation='{"version":1,"lanes":[{"target":"volume","points":[{"t":0,"v":0.55},{"t":1.4,"v":1},{"t":23.3,"v":1},{"t":24.5,"v":0}]}]}'></audio>
+      <audio id="fx-click1" src="assets/sfx/click.mp3" data-start="0.95" data-duration="0.36" data-track-index="11" data-volume="0.8"></audio>
+      <audio id="fx-click2" src="assets/sfx/click.mp3" data-start="1.3" data-duration="0.36" data-track-index="12" data-volume="0.8"></audio>
+      <audio id="fx-golpe" src="assets/sfx/impact-bass-1.mp3" data-start="1.4" data-duration="1.6" data-track-index="13" data-volume="0.7"></audio>
+      <audio id="fx-w1" src="assets/sfx/whoosh-short.mp3" data-start="3.02" data-duration="0.57" data-track-index="14" data-volume="0.6"></audio>
+      <audio id="fx-pop1" src="assets/sfx/pop.mp3" data-start="3.6" data-duration="0.6" data-track-index="15" data-volume="0.55"></audio>
+      <audio id="fx-w2" src="assets/sfx/whoosh-short.mp3" data-start="5.02" data-duration="0.57" data-track-index="14" data-volume="0.6"></audio>
+      <audio id="fx-pop2" src="assets/sfx/pop.mp3" data-start="5.65" data-duration="0.6" data-track-index="15" data-volume="0.5"></audio>
+      <audio id="fx-w3" src="assets/sfx/whoosh-short.mp3" data-start="6.8" data-duration="0.57" data-track-index="16" data-volume="0.35"></audio>
+      <audio id="fx-w4" src="assets/sfx/whoosh-short.mp3" data-start="8.42" data-duration="0.57" data-track-index="14" data-volume="0.6"></audio>
+      <audio id="fx-pop3" src="assets/sfx/pop.mp3" data-start="9.05" data-duration="0.6" data-track-index="15" data-volume="0.5"></audio>
+      <audio id="fx-w5" src="assets/sfx/whoosh-short.mp3" data-start="10.1" data-duration="0.57" data-track-index="16" data-volume="0.35"></audio>
+      <audio id="fx-w6" src="assets/sfx/whoosh-short.mp3" data-start="11.62" data-duration="0.57" data-track-index="14" data-volume="0.6"></audio>
+      <audio id="fx-pop4" src="assets/sfx/pop.mp3" data-start="12.25" data-duration="0.6" data-track-index="15" data-volume="0.5"></audio>
+      <audio id="fx-w7" src="assets/sfx/whoosh-short.mp3" data-start="13.35" data-duration="0.57" data-track-index="16" data-volume="0.35"></audio>
+      <audio id="fx-w8" src="assets/sfx/whoosh-short.mp3" data-start="14.82" data-duration="0.57" data-track-index="14" data-volume="0.6"></audio>
+      <audio id="fx-pop5" src="assets/sfx/pop.mp3" data-start="15.45" data-duration="0.6" data-track-index="15" data-volume="0.5"></audio>
+      <audio id="fx-w9" src="assets/sfx/whoosh-short.mp3" data-start="16.6" data-duration="0.57" data-track-index="16" data-volume="0.35"></audio>
+      <audio id="fx-w10" src="assets/sfx/whoosh-short.mp3" data-start="18.22" data-duration="0.57" data-track-index="14" data-volume="0.6"></audio>
+      <audio id="fx-pop6" src="assets/sfx/pop.mp3" data-start="19.15" data-duration="0.6" data-track-index="15" data-volume="0.55"></audio>
+      <audio id="fx-w11" src="assets/sfx/whoosh-short.mp3" data-start="20.82" data-duration="0.57" data-track-index="14" data-volume="0.6"></audio>
+      <audio id="fx-brillo" src="assets/sfx/sparkle.mp3" data-start="21.35" data-duration="1.8" data-track-index="16" data-volume="0.45"></audio>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+
+      // 0 · Gancho (0–3,2 s): oscuro → parpadeo → se enciende la lámpara (1,4 s) → cambia el texto
+      tl.fromTo("#s0-cam", { scale: 1.0 }, { scale: 1.12, duration: 3.2, ease: "none" }, 0);
+      tl.fromTo("#s0-a", { scale: 0.92 }, { scale: 1, duration: 0.25, ease: "back.out(2)" }, 0);
+      tl.set("#s0-oscuro", { opacity: 0.45 }, 0.95);
+      tl.set("#s0-oscuro", { opacity: 0.9 }, 1.05);
+      tl.set("#s0-oscuro", { opacity: 0.4 }, 1.3);
+      tl.set("#s0-oscuro", { opacity: 0.85 }, 1.36);
+      tl.set("#s0-oscuro", { opacity: 0.05 }, 1.4);
+      tl.set("#destello", { opacity: 0.55 }, 1.4);
+      tl.to("#destello", { opacity: 0, duration: 0.3, ease: "power1.out" }, 1.401);
+      tl.set("#s0-a", { opacity: 0 }, 1.4);
+      tl.fromTo("#s0-b", { opacity: 0, scale: 1.15 }, { opacity: 1, scale: 1, duration: 0.22, ease: "power3.out" }, 1.4);
+
+      // 1 · Loop abierto (3,2–5,2 s): bolas 1-2-3-4 y el 4 late
+      tl.fromTo("#s1-txt", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.25, ease: "power3.out" }, 3.2);
+      ["#s1-b1", "#s1-b2", "#s1-b3", "#s1-b4"].forEach((id, i) => {
+        tl.fromTo(id, { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(2.5)" }, 3.3 + i * 0.1);
+      });
+      tl.to("#s1-b4", { scale: 1.22, duration: 0.18, ease: "power2.out", yoyo: true, repeat: 1 }, 3.8);
+      tl.fromTo("#s1-sub", { opacity: 0 }, { opacity: 1, duration: 0.2 }, 3.75);
+
+      // 2–5 · Productos: entra la tarjeta, Ken Burns, precio con «pop», cambio de foto o punch-in a la mitad
+      const productos = [
+        { s: "s2", t0: 5.2, dur: 3.4, cambio: 6.9 },
+        { s: "s3", t0: 8.6, dur: 3.2, cambio: 10.2 },
+        { s: "s4", t0: 11.8, dur: 3.2, punch: 13.4 },
+        { s: "s5", t0: 15.0, dur: 3.4, cambio: 16.7 },
+      ];
+      for (const p of productos) {
+        const q = (x) => "#" + p.s + "-" + x;
+        tl.fromTo("#" + p.s + " .titulo", { y: -30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.25, ease: "power3.out" }, p.t0);
+        tl.fromTo(q("t"), { x: 140, rotation: 3, opacity: 0 }, { x: 0, rotation: 0, opacity: 1, duration: 0.3, ease: "power3.out" }, p.t0);
+        tl.fromTo(q("z"), { scale: 1.0 }, { scale: 1.1, duration: p.dur, ease: "none" }, p.t0);
+        tl.fromTo(q("p"), { scale: 0.5, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(2.2)" }, p.t0 + 0.45);
+        tl.fromTo(q("s"), { x: -30, opacity: 0 }, { x: 0, opacity: 1, duration: 0.25, ease: "power2.out" }, p.t0 + 0.65);
+        tl.fromTo(q("n"), { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power2.out" }, p.t0 + 0.2);
+        if (p.cambio) {
+          tl.fromTo(q("b"), { opacity: 0 }, { opacity: 1, duration: 0.12, ease: "none" }, p.cambio);
+          tl.fromTo(q("t"), { scale: 1.06 }, { scale: 1, duration: 0.3, ease: "power2.out" }, p.cambio);
+        }
+        if (p.punch) {
+          tl.fromTo(q("a"), { scale: 1 }, { scale: 1.18, duration: 0.12, ease: "power3.out" }, p.punch);
+          tl.to(q("a"), { scale: 1.0, duration: 0.3, ease: "power2.out" }, p.punch + 0.9);
+        }
+        // «Queda/Quedan»: un latido para que se lea la escasez
+        tl.to(q("s"), { scale: 1.12, duration: 0.15, ease: "power2.out", yoyo: true, repeat: 1 }, p.t0 + 1.4);
+      }
+
+      // 6 · Prueba (18,4–21 s): rejilla de las 4 fotos reales + suma
+      tl.fromTo("#s6-titulo", { y: -30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.25, ease: "power3.out" }, 18.4);
+      tl.fromTo("#s6-sub", { opacity: 0 }, { opacity: 1, duration: 0.25 }, 18.55);
+      ["#s6-c1", "#s6-c2", "#s6-c3", "#s6-c4"].forEach((id, i) => {
+        tl.fromTo(id, { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.22, ease: "back.out(1.8)" }, 18.55 + i * 0.12);
+      });
+      tl.fromTo("#s6-suma", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2.2)" }, 19.15);
+
+      // 7 · CTA (21–24,5 s) y vuelta al oscuro del principio (bucle)
+      tl.fromTo("#s7-preg", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.25, ease: "power3.out" }, 21.0);
+      tl.fromTo("#s7-caja", { scale: 0.5, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(2.2)" }, 21.35);
+      tl.to("#s7-caja", { scale: 1.07, duration: 0.25, ease: "sine.inOut", yoyo: true, repeat: 3 }, 21.8);
+      tl.fromTo("#s7-sub", { opacity: 0 }, { opacity: 1, duration: 0.25 }, 21.6);
+      tl.fromTo("#s7-web", { opacity: 0 }, { opacity: 0.85, duration: 0.25 }, 21.75);
+      tl.fromTo("#s7-logo", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power2.out" }, 21.9);
+      tl.fromTo("#negro", { opacity: 0 }, { opacity: 0.9, duration: 0.4, ease: "power1.in" }, 24.1);
+
+      // Destellos suaves en los cortes de escena
+      for (const t of [3.2, 5.2, 8.6, 11.8, 15.0, 18.4, 21.0]) {
+        tl.set("#destello", { opacity: 0.22 }, t);
+        tl.to("#destello", { opacity: 0, duration: 0.2, ease: "power1.out" }, t + 0.001);
+      }
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

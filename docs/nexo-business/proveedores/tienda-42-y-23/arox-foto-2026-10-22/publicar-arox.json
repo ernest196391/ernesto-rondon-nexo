@@ -1,0 +1,27 @@
+{
+ "generado": "2026-10-22",
+ "estado": "publish",
+ "productos": [
+  {
+   "n": 11,
+   "juntos": [],
+   "market_id": 1890,
+   "nombre": "Cocina de gas Arox CG-05 de 2 hornillas",
+   "descripcion": "Cocina de gas de mesa Arox, modelo CG-05.\n2 hornillas.\nTope de cristal oscuro.\nBase de acero inoxidable.",
+   "precio_proveedor": 53.95,
+   "precio": 71,
+   "comision": 6.82,
+   "precio_manual": false,
+   "departamentos": ["electrodomesticos", "cocina"],
+   "categoria_bolsa": "electrodomésticos",
+   "tamano": "grande",
+   "actualizar": null,
+   "foto_local": "arox-foto-2026-10-22/arox-cg-05-1-cocina.jpg",
+   "fotos": ["/home/u824654880/42y23-fotos/11.jpg"],
+   "etiqueta": "GARANTÍA COMERCIAL 3 meses · PRECIO USD 53.95",
+   "garantia_meses": 3,
+   "confirmado": true,
+   "confirmado_por": "Ernesto 22-oct: crear ya la ficha con foto provisional y subirla a la web"
+  }
+ ]
+}

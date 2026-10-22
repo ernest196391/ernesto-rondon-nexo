@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Video del día 22-oct · Prosko vino preparado</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      /* Video del día 22-oct-2026 (Casa Viva) con Cúrru y Proskopellin. 0 créditos:
+         clips ya generados del reel del apagón (12-oct, videos/curru-tienda/reel-apagon/) recortados aquí,
+         fotos reales del equipo, letras y colores del manual de marca. */
+      @font-face { font-family: "Figtree"; src: url("assets/fuentes/figtree.ttf") format("truetype"); font-weight: 300 900; }
+      @font-face { font-family: "Cinzel"; src: url("assets/fuentes/cinzel.ttf") format("truetype"); font-weight: 400 900; }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #0d3b45; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: #0d3b45; font-family: "Figtree", sans-serif; color: #f6f1e6; }
+
+      /* Cámara: el tiempo va en cada <video>; el acercamiento va en el envoltorio #cam (sin tiempo) */
+      #cam { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; will-change: transform; }
+      #cam video { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; object-fit: cover; }
+      #sombra { position: absolute; inset: 0; background: #050505; opacity: 0; pointer-events: none; }
+
+      /* Gancho y subtítulos */
+      #gancho { position: absolute; left: 70px; width: 940px; top: 1150px; padding: 30px 36px; border-radius: 28px; background: #0d3b45; color: #f6f1e6; text-align: center; font-weight: 700; font-size: 84px; line-height: 1.08; }
+      .sub { position: absolute; left: 60px; width: 960px; top: 1270px; text-align: center; font-weight: 800; font-size: 92px; line-height: 1.05; color: #f6f1e6; opacity: 0;
+             -webkit-text-stroke: 10px #2b2420; paint-order: stroke fill; }
+      .sub .k { color: #f6f1e6; background: #a35a1f; border-radius: 18px; padding: 0 22px; -webkit-text-stroke: 0; }
+      #clave { position: absolute; left: 190px; width: 700px; top: 300px; padding: 22px 0; border-radius: 26px; background: #a35a1f; color: #f6f1e6; text-align: center; font-weight: 700; font-size: 86px; opacity: 0; }
+
+      /* Productos (mismo diseño que el video del día) */
+      .escena { position: absolute; inset: 0; background: #0d3b45; overflow: hidden; }
+      .titulo { position: absolute; top: 285px; left: 40px; width: 1000px; text-align: center; font-family: "Cinzel"; font-weight: 700; font-size: 66px; letter-spacing: 3px; color: #f6f1e6; white-space: nowrap; }
+      .titulo .n { color: #0d3b45; background: #f6f1e6; border-radius: 14px; padding: 0 22px; margin-right: 14px; }
+      .tarjeta { position: absolute; left: 180px; top: 400px; width: 720px; height: 960px; border-radius: 34px; overflow: hidden; border: 8px solid #f6f1e6; background: #f6f1e6; }
+      .zoom { position: absolute; inset: 0; }
+      .foto { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+      .foto.b { opacity: 0; }
+      .precio { position: absolute; left: 120px; top: 1272px; padding: 10px 34px; border-radius: 22px; background: #a35a1f; color: #f6f1e6; font-weight: 800; font-size: 82px; line-height: 1.1; }
+      .stock { position: absolute; left: 600px; top: 1290px; padding: 12px 26px; border-radius: 18px; background: #f6f1e6; color: #2b2420; font-weight: 700; font-size: 50px; line-height: 1.1; }
+      .nombre { position: absolute; left: 70px; width: 940px; top: 1400px; text-align: center; font-weight: 500; font-size: 46px; line-height: 1.22; color: #f6f1e6; }
+
+      /* CTA encima de Cúrru y Prosko con el pulgar arriba */
+      #cta-logo-p { position: absolute; left: 290px; top: 285px; width: 500px; padding: 22px 34px; border-radius: 22px; background: #0d3b45; opacity: 0; }
+      #cta-logo-p img { display: block; width: 100%; height: auto; }
+      #cta-panel { position: absolute; left: 60px; top: 1060px; width: 960px; height: 470px; border-radius: 34px; background: #0d3b45; opacity: 0; }
+      #cta-escribe { position: absolute; left: 60px; width: 960px; top: 1085px; text-align: center; font-weight: 600; font-size: 56px; opacity: 0; }
+      #cta-caja { position: absolute; left: 150px; width: 780px; top: 1165px; padding: 18px 0; border-radius: 26px; background: #a35a1f; text-align: center; font-weight: 800; font-size: 104px; line-height: 1.05; color: #f6f1e6; opacity: 0; }
+      #cta-wa { position: absolute; left: 60px; width: 960px; top: 1315px; text-align: center; font-weight: 700; font-size: 58px; opacity: 0; }
+      #cta-sub { position: absolute; left: 80px; width: 920px; top: 1398px; text-align: center; font-weight: 500; font-size: 42px; line-height: 1.2; opacity: 0; }
+
+      #destello { position: absolute; inset: 0; background: #f6f1e6; opacity: 0; pointer-events: none; }
+      #negro { position: absolute; inset: 0; background: #050505; opacity: 0; pointer-events: none; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="16.15" data-width="1080" data-height="1920">
+
+      <!-- Cámara: cortes del reel del apagón (Seedance, 12-oct). Con su voz original (no hay voz nueva). -->
+      <div id="cam">
+        <!-- A1 · se va la luz (fuente 3,25–3,70) -->
+        <video id="v-a1" class="clip" src="assets/clips/escena-apagon.mp4" data-start="0" data-duration="0.45" data-media-start="3.25" data-track-index="0" playsinline data-has-audio="true" data-volume="1"></video>
+        <!-- A2 · Cúrru: «Ay, no, otra vez se fue la corriente» (fuente 4,15–6,30) -->
+        <video id="v-a2" class="clip" src="assets/clips/escena-apagon.mp4" data-start="0.45" data-duration="2.15" data-media-start="4.15" data-track-index="0" playsinline data-has-audio="true" data-volume="1"></video>
+        <!-- B · Prosko: «Tranquila, mami, que yo vine preparado» (fuente 8,00–10,35) -->
+        <video id="v-b" class="clip" src="assets/clips/escena-apagon.mp4" data-start="2.6" data-duration="2.35" data-media-start="8.0" data-track-index="0" playsinline data-has-audio="true" data-volume="1"></video>
+        <!-- C · «¿Y eso de dónde tú lo sacaste?» «De tu tienda.» (fuente 10,65–13,30) -->
+        <video id="v-c" class="clip" src="assets/clips/escena-apagon.mp4" data-start="4.95" data-duration="2.65" data-media-start="10.65" data-track-index="0" playsinline data-has-audio="true" data-volume="1"></video>
+        <!-- D · CTA: los dos a cámara, pulgar arriba, «Escríbenos.» (fuente 2,95–6,08; voz solo en «Escríbenos») -->
+        <video id="v-d" class="clip" src="assets/clips/cta-apagon.mp4" data-start="13.0" data-duration="3.08" data-media-start="2.95" data-track-index="0" playsinline data-has-audio="true" data-volume="1"
+          data-automation='{"version":1,"lanes":[{"target":"volume","points":[{"t":0,"v":0},{"t":1.85,"v":0},{"t":1.95,"v":1},{"t":3.08,"v":1}]}]}'></video>
+      </div>
+      <div id="sombra"></div>
+
+      <!-- Gancho (fotograma 0 → fin de la frase de Cúrru) -->
+      <div id="gancho" class="clip" data-start="0" data-duration="2.6" data-track-index="2">¿Otra vez se fue la corriente?</div>
+
+      <!-- Subtítulos de 1–3 palabras -->
+      <div id="sb1" class="sub clip" data-start="2.62" data-duration="0.78" data-track-index="3">Tranquila, mami</div>
+      <div id="sb2" class="sub clip" data-start="3.4" data-duration="0.6" data-track-index="3">que yo vine</div>
+      <div id="sb3" class="sub clip" data-start="4.0" data-duration="0.95" data-track-index="3"><span class="k">preparado</span></div>
+      <div id="sb4" class="sub clip" data-start="5.0" data-duration="0.7" data-track-index="3">¿Y eso de dónde</div>
+      <div id="sb5" class="sub clip" data-start="5.7" data-duration="0.9" data-track-index="3">tú lo sacaste?</div>
+      <div id="clave" class="clip" data-start="6.6" data-duration="1.0" data-track-index="4">¡De tu tienda!</div>
+
+      <!-- P1 · Lámpara recargable con panel solar #2469 (25 USD, stock 2 a las 13:05 y 22-oct) -->
+      <div id="p1" class="clip escena" data-start="7.6" data-duration="2.7" data-track-index="1">
+        <div class="titulo"><span class="n">1</span>LUZ SIN CORRIENTE</div>
+        <div class="tarjeta" id="p1-t"><div class="zoom" id="p1-z">
+          <img class="foto a" id="p1-a" src="assets/usar/lampara-luz.jpg" alt="" />
+          <img class="foto b" id="p1-b" src="assets/usar/lampara-panel.jpg" alt="" />
+        </div></div>
+        <div class="precio" id="p1-p">25 USD</div>
+        <div class="stock" id="p1-s">Quedan 2</div>
+        <div class="nombre" id="p1-n">Lámpara recargable con panel solar y carga USB-C</div>
+      </div>
+
+      <!-- P2 · Power bank 10 000 mAh #2551 (30 USD, stock 2) -->
+      <div id="p2" class="clip escena" data-start="10.3" data-duration="2.7" data-track-index="1">
+        <div class="titulo"><span class="n">2</span>EL MÓVIL CARGADO</div>
+        <div class="tarjeta" id="p2-t"><div class="zoom" id="p2-z">
+          <img class="foto a" id="p2-a" src="assets/usar/powerbank-caja.jpg" alt="" />
+          <img class="foto b" id="p2-b" src="assets/usar/powerbank-mano.jpg" style="object-position: 30% 50%" alt="" />
+        </div></div>
+        <div class="precio" id="p2-p">30 USD</div>
+        <div class="stock" id="p2-s">Quedan 2</div>
+        <div class="nombre" id="p2-n">Power bank de 10 000 mAh con cables incluidos</div>
+      </div>
+
+      <!-- CTA (13–16,15) -->
+      <div id="cta" class="clip" data-start="13.0" data-duration="3.15" data-track-index="5" style="position:absolute;inset:0;">
+        <div id="cta-logo-p"><img src="assets/logo.svg" alt="Casa Viva" /></div>
+        <div id="cta-panel"></div>
+        <div id="cta-escribe">Escribe por WhatsApp</div>
+        <div id="cta-caja">APAGÓN</div>
+        <div id="cta-wa">+53 5405 6173</div>
+        <div id="cta-sub">Te decimos cuál te conviene<br />y te lo llevamos a casa</div>
+      </div>
+
+      <div id="destello"></div>
+      <div id="negro"></div>
+
+      <!-- Sonido: canción de Casa Viva (de Ernesto) bajita bajo las voces + efectos Pixabay (media-use) -->
+      <audio id="musica" src="assets/musica.mp3" data-start="0" data-media-start="0.45" data-duration="16.15" data-track-index="10" data-volume="0.8"
+        data-automation='{"version":1,"lanes":[{"target":"volume","points":[{"t":0,"v":0.22},{"t":7.4,"v":0.22},{"t":7.7,"v":1},{"t":13.4,"v":1},{"t":13.8,"v":0.35},{"t":15.1,"v":0.35},{"t":15.4,"v":0.6},{"t":16.15,"v":0}]}]}'></audio>
+      <audio id="fx-pop0" src="assets/sfx/pop.mp3" data-start="0.05" data-duration="0.6" data-track-index="11" data-volume="0.45"></audio>
+      <audio id="fx-w1" src="assets/sfx/whoosh-short.mp3" data-start="0.3" data-duration="0.57" data-track-index="12" data-volume="0.35"></audio>
+      <audio id="fx-w2" src="assets/sfx/whoosh-short.mp3" data-start="2.42" data-duration="0.57" data-track-index="12" data-volume="0.35"></audio>
+      <audio id="fx-w3" src="assets/sfx/whoosh-short.mp3" data-start="4.77" data-duration="0.57" data-track-index="12" data-volume="0.35"></audio>
+      <audio id="fx-pop1" src="assets/sfx/pop.mp3" data-start="6.6" data-duration="0.6" data-track-index="11" data-volume="0.5"></audio>
+      <audio id="fx-w4" src="assets/sfx/whoosh-short.mp3" data-start="7.42" data-duration="0.57" data-track-index="12" data-volume="0.6"></audio>
+      <audio id="fx-pop2" src="assets/sfx/pop.mp3" data-start="8.05" data-duration="0.6" data-track-index="11" data-volume="0.5"></audio>
+      <audio id="fx-w5" src="assets/sfx/whoosh-short.mp3" data-start="8.85" data-duration="0.57" data-track-index="13" data-volume="0.3"></audio>
+      <audio id="fx-w6" src="assets/sfx/whoosh-short.mp3" data-start="10.12" data-duration="0.57" data-track-index="12" data-volume="0.6"></audio>
+      <audio id="fx-pop3" src="assets/sfx/pop.mp3" data-start="10.75" data-duration="0.6" data-track-index="11" data-volume="0.5"></audio>
+      <audio id="fx-w7" src="assets/sfx/whoosh-short.mp3" data-start="11.55" data-duration="0.57" data-track-index="13" data-volume="0.3"></audio>
+      <audio id="fx-w8" src="assets/sfx/whoosh-short.mp3" data-start="12.82" data-duration="0.57" data-track-index="12" data-volume="0.6"></audio>
+      <audio id="fx-brillo" src="assets/sfx/sparkle.mp3" data-start="13.35" data-duration="1.8" data-track-index="13" data-volume="0.4"></audio>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+
+      // ── Cámara: un plano por frase (punch-in digital sobre #cam) ──
+      // A1 (0–0,45): plano general, se va la luz → la sombra parpadea
+      tl.set("#cam", { scale: 1, transformOrigin: "540px 960px" }, 0);
+      tl.set("#sombra", { opacity: 0 }, 0);
+      tl.set("#sombra", { opacity: 0.35 }, 0.12);
+      tl.set("#sombra", { opacity: 0.1 }, 0.2);
+      tl.set("#sombra", { opacity: 0.4 }, 0.28);
+      // A2 (0,45–2,6): primer plano de Cúrru, se acerca despacio
+      tl.set("#cam", { scale: 1.28, transformOrigin: "390px 860px" }, 0.45);
+      tl.to("#cam", { scale: 1.36, duration: 2.15, ease: "none" }, 0.45);
+      tl.set("#sombra", { opacity: 0.25 }, 0.45);
+      // B (2,6–4,95): general (se enciende la luz de Prosko) → punch-in a Prosko en «que yo vine preparado»
+      tl.set("#cam", { scale: 1.0, transformOrigin: "540px 960px" }, 2.6);
+      tl.set("#sombra", { opacity: 0.15 }, 2.6);
+      tl.set("#cam", { transformOrigin: "860px 900px" }, 3.38);
+      tl.to("#cam", { scale: 1.3, duration: 0.14, ease: "power3.out" }, 3.4);
+      tl.to("#cam", { scale: 1.36, duration: 1.4, ease: "none" }, 3.55);
+      // C (4,95–7,6): plano medio de los dos → punch-in a Prosko en «De tu tienda»
+      tl.set("#cam", { scale: 1.12, transformOrigin: "520px 1000px" }, 4.95);
+      tl.to("#cam", { scale: 1.18, duration: 1.6, ease: "none" }, 4.96);
+      tl.set("#cam", { transformOrigin: "860px 950px" }, 6.58);
+      tl.to("#cam", { scale: 1.32, duration: 0.14, ease: "power3.out" }, 6.6);
+      tl.set("#sombra", { opacity: 0 }, 7.6);
+      // D · CTA (13–16,15): los dos a cámara, acercamiento lento
+      tl.set("#cam", { scale: 1.05, transformOrigin: "540px 760px" }, 13.0);
+      tl.to("#cam", { scale: 1.14, duration: 3.15, ease: "none" }, 13.0);
+
+      // ── Textos ──
+      tl.fromTo("#gancho", { scale: 0.9 }, { scale: 1, duration: 0.22, ease: "back.out(2)" }, 0);
+      tl.to("#gancho", { scale: 1.05, duration: 0.12, ease: "power2.out", yoyo: true, repeat: 1 }, 0.45);
+      for (const id of ["#sb1", "#sb2", "#sb4", "#sb5"]) {
+        const t = { "#sb1": 2.62, "#sb2": 3.4, "#sb4": 5.0, "#sb5": 5.7 }[id];
+        tl.fromTo(id, { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.12, ease: "back.out(2)" }, t);
+      }
+      tl.fromTo("#sb3", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.18, ease: "back.out(2.6)" }, 4.0);
+      tl.fromTo("#clave", { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.22, ease: "back.out(2.4)" }, 6.6);
+
+      // ── Productos: entra la tarjeta, Ken Burns, precio con «pop», cambio de foto a la mitad ──
+      const productos = [
+        { s: "p1", t0: 7.6, dur: 2.7, cambio: 8.95 },
+        { s: "p2", t0: 10.3, dur: 2.7, cambio: 11.65 },
+      ];
+      for (const p of productos) {
+        const q = (x) => "#" + p.s + "-" + x;
+        tl.fromTo("#" + p.s + " .titulo", { y: -30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.25, ease: "power3.out" }, p.t0);
+        tl.fromTo(q("t"), { x: 140, rotation: 3, opacity: 0 }, { x: 0, rotation: 0, opacity: 1, duration: 0.3, ease: "power3.out" }, p.t0);
+        tl.fromTo(q("z"), { scale: 1.0 }, { scale: 1.1, duration: p.dur, ease: "none" }, p.t0);
+        tl.fromTo(q("n"), { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power2.out" }, p.t0 + 0.2);
+        tl.fromTo(q("p"), { scale: 0.5, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(2.2)" }, p.t0 + 0.45);
+        tl.fromTo(q("s"), { x: -30, opacity: 0 }, { x: 0, opacity: 1, duration: 0.25, ease: "power2.out" }, p.t0 + 0.65);
+        tl.fromTo(q("b"), { opacity: 0 }, { opacity: 1, duration: 0.12, ease: "none" }, p.cambio);
+        tl.fromTo(q("t"), { scale: 1.06 }, { scale: 1, duration: 0.3, ease: "power2.out" }, p.cambio);
+        tl.to(q("s"), { scale: 1.12, duration: 0.15, ease: "power2.out", yoyo: true, repeat: 1 }, p.t0 + 1.3);
+      }
+
+      // ── CTA ──
+      tl.fromTo("#cta-logo-p", { y: -20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.25, ease: "power2.out" }, 13.05);
+      tl.fromTo("#cta-panel", { opacity: 0, y: 40 }, { opacity: 0.94, y: 0, duration: 0.25, ease: "power3.out" }, 13.05);
+      tl.fromTo("#cta-escribe", { opacity: 0 }, { opacity: 1, duration: 0.2 }, 13.2);
+      tl.fromTo("#cta-caja", { scale: 0.5, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(2.2)" }, 13.3);
+      tl.to("#cta-caja", { scale: 1.07, duration: 0.25, ease: "sine.inOut", yoyo: true, repeat: 3 }, 13.9);
+      tl.fromTo("#cta-wa", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.25, ease: "power2.out" }, 13.6);
+      tl.fromTo("#cta-sub", { opacity: 0 }, { opacity: 1, duration: 0.25 }, 13.8);
+      // Bucle: al final se va a oscuro y empalma con el apagón del principio
+      tl.fromTo("#negro", { opacity: 0 }, { opacity: 0.85, duration: 0.35, ease: "power1.in" }, 15.8);
+
+      // Destellos suaves en los cortes de escena
+      for (const t of [0.45, 2.6, 4.95, 7.6, 10.3, 13.0]) {
+        tl.set("#destello", { opacity: 0.2 }, t);
+        tl.to("#destello", { opacity: 0, duration: 0.18, ease: "power1.out" }, t + 0.001);
+      }
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

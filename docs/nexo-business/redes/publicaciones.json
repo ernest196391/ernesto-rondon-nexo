@@ -82,6 +82,75 @@
    "programado_por": "Claude, Business Suite, Compartir ahora 20:17 (la de las 20:00 no se pudo: pestaña detrás de otra)",
    "al_general": "#899 20:24",
    "metricas": null
+  },
+  {
+   "fecha": "2026-10-14",
+   "hora": "19:06 (IG) / 19:14 (FB)",
+   "dia": "miércoles",
+   "red": "instagram+facebook",
+   "tipo": "reel",
+   "pieza": "reel «Súper Prosko» cama plegable (casa-viva-reel-cama-plegable-fb.mp4, 14,3 s)",
+   "tema": "humor de Cúrru y Proskopellin / cama plegable",
+   "etiqueta_ia": false,
+   "enlaces": {
+    "facebook": "https://www.facebook.com/reel/1126484033250370/",
+    "instagram": "https://www.instagram.com/reel/DefhhG7FKB3/"
+   },
+   "texto": "pie.txt de reel-cama-plegable",
+   "programado_por": "subagente Claude, Business Suite",
+   "al_general": "#1121 19:18",
+   "metricas": null,
+   "nota": "Añadido por la auditoría del 20-oct desde ESTADO.md (faltaba en el registro)."
+  },
+  {
+   "fecha": "2026-10-16",
+   "hora": "19:00 (programado)",
+   "dia": "jueves",
+   "red": "facebook+instagram",
+   "tipo": "reel",
+   "pieza": "reel «POV: 2 AM sin corriente» topper con gel (casa-viva-reel-topper-gel-fb.mp4, 28,5 s)",
+   "tema": "apagón / calor de noche + sorteo de 1 topper (vie 23, 19:00)",
+   "etiqueta_ia": false,
+   "texto": "pie.txt de reel-topper-gel (CTA sorteo)",
+   "programado_por": "Claude, Business Suite, 16-oct 00:50",
+   "metricas": null,
+   "nota": "Añadido por la auditoría del 20-oct desde ESTADO.md. SIN CONFIRMAR que salió y sin enlaces: no se pudo abrir Meta (Chrome desconectado). CONFIRMADO 22-oct (Business Suite > Publicadas): salió en Facebook 16-oct 19:00 (1.426 de alcance, 1.353 visualizaciones, 8 reacciones, 8 comentarios) y en Instagram 19:01 (4 de alcance)."
+  },
+  {
+   "fecha": "2026-10-22",
+   "hora": "15:03",
+   "dia": "jueves",
+   "red": "facebook+instagram (publicación cruzada)",
+   "tipo": "reel",
+   "pieza": "video del día «¿Otra vez sin corriente?» 4 productos del apagón (video-diario/2026-10-22/casa-viva-video-dia-2026-10-22-fb.mp4, 24,5 s; copia ligera del original)",
+   "tema": "apagón / productos con precio (lámpara solar, power bank, protector nevera, protector aire)",
+   "etiqueta_ia": false,
+   "enlaces": {
+    "facebook": "https://www.facebook.com/reel/1698848191608812/",
+    "instagram": "https://www.instagram.com/reel/DezsGEhGOFH/"
+   },
+   "texto": "¿Otra vez sin corriente? Que el apagón no te agarre sin luz, sin teléfono y con la nevera en riesgo.\n\nLámpara recargable con panel solar: 25 USD (quedan 2)\nPower bank de 10 000 mAh con cables incluidos: 30 USD (quedan 2)\nProtector de voltaje para nevera: 20 USD (queda 1)\nProtector 220 V de alta carga para aire acondicionado: 20 USD (queda 1)\n\nFotos reales de nuestra tienda en Nuevo Vedado. Te lo llevamos con mensajero o lo recoges en la tienda.\n\n¿Cuál te falta a ti? Comenta APAGÓN y te decimos cuál necesita tu casa 👇\nToda la tienda: https://casaviva.company/tienda/?ref=CV137ERNESTO\n\n#Cuba #LaHabana #apagón #NuevoVedado #CasaViva",
+   "programado_por": "subagente Claude, Business Suite (portfolio Casa Viva), Compartir ahora 15:03; subtítulos automáticos de Meta apagados",
+   "al_general": "#2611 15:10",
+   "metricas": null
+  },
+  {
+   "fecha": "2026-10-22",
+   "hora": "19:00 (programado)",
+   "dia": "jueves",
+   "red": "facebook+instagram",
+   "tipo": "reel",
+   "pieza": "video del día Cúrru y Prosko «¿Otra vez se fue la corriente?» (video-diario/2026-10-22-prosko/casa-viva-video-dia-2026-10-22-prosko-fb.mp4, 16,2 s)",
+   "tema": "apagón / lámpara solar y power bank, CTA APAGÓN por WhatsApp",
+   "etiqueta_ia": false,
+   "enlaces": {
+    "facebook": "https://www.facebook.com/reel/1924377412273065/",
+    "instagram": "(se sabe al publicarse; perfil https://www.instagram.com/casavivadecuba/)"
+   },
+   "texto": "¿Otra vez se fue la corriente? Prosko sí vino preparado.\n\nLámpara recargable con panel solar y carga USB-C: 25 USD (quedan 2)\nPower bank de 10 000 mAh con cables incluidos: 30 USD (quedan 2)\nFotos reales de nuestra tienda en Nuevo Vedado. Te lo llevamos a casa o lo recoges en la tienda.\n\nEscribe APAGÓN por WhatsApp al +53 5405 6173 y te decimos cuál te conviene.\n¿Y tú, cuántas horas llevas hoy sin corriente? Cuéntanos aquí abajo 👇\n\n#Cuba #LaHabana #apagón #NuevoVedado #CasaViva",
+   "programado_por": "subagente Claude, Business Suite (portfolio Casa Viva), programado 15:12 para 19:00 America/Havana en FB e IG; subtítulos automáticos apagados",
+   "al_general": "programado: temporizador VPS reel-prosko-20261022 (19:02) comprueba que Facebook lo publicó y manda UN mensaje (FB reel + perfil de IG); registro /root/supervisor/tareas/reel-prosko-20261022/salida.log",
+   "metricas": null
   }
  ]
 }

@@ -1,0 +1,630 @@
+{
+  "ok": true,
+  "strict": false,
+  "browserSkipped": false,
+  "lint": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 11,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "duplicate_media_discovery_risk",
+        "severity": "warning",
+        "message": "Detected 3 matching img entries with the same source/start/duration.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\Ernesto\\ernesto-rondon-nexo\\docs\\nexo-business\\redes\\video-diario\\2026-10-22\\hf\\index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Avoid duplicated media nodes that can be discovered twice during compilation."
+      },
+      {
+        "code": "duplicate_media_discovery_risk",
+        "severity": "warning",
+        "message": "Detected 2 matching img entries with the same source/start/duration.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\Ernesto\\ernesto-rondon-nexo\\docs\\nexo-business\\redes\\video-diario\\2026-10-22\\hf\\index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Avoid duplicated media nodes that can be discovered twice during compilation."
+      },
+      {
+        "code": "timeline_track_too_dense",
+        "severity": "warning",
+        "message": "Track 1 has 8 timed elements in this HTML file. Smaller sub-compositions keep timelines easier to read, iterate on, and diff.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\Ernesto\\ernesto-rondon-nexo\\docs\\nexo-business\\redes\\video-diario\\2026-10-22\\hf\\index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move coherent scene groups into separate .html files under compositions/ and mount them from the parent with data-composition-src so the timeline stays easier to inspect, revise, and validate."
+      },
+      {
+        "code": "nested_structure_needs_subcomposition",
+        "severity": "warning",
+        "message": "<div id=\"s0\"> is a timeline element that contains nested <div id=\"s0-cam\">. The timeline shows one row per top-level element, and the root composition is built only from sub-compositions.",
+        "selector": "#s0",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\Ernesto\\ernesto-rondon-nexo\\docs\\nexo-business\\redes\\video-diario\\2026-10-22\\hf\\index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move <div id=\"s0\"> and its contents into a sub-composition file and mount it with data-composition-src."
+      },
+      {
+        "code": "nested_structure_needs_subcomposition",
+        "severity": "warning",
+        "message": "<div id=\"s1\"> is a timeline element that contains nested <div id=\"s1-txt\">. The timeline shows one row per top-level element, and the root composition is built only from sub-compositions.",
+        "selector": "#s1",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\Ernesto\\ernesto-rondon-nexo\\docs\\nexo-business\\redes\\video-diario\\2026-10-22\\hf\\index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move <div id=\"s1\"> and its contents into a sub-composition file and mount it with data-composition-src."
+      },
+      {
+        "code": "nested_structure_needs_subcomposition",
+        "severity": "warning",
+        "message": "<div id=\"s2\"> is a timeline element that contains nested <div>. The timeline shows one row per top-level element, and the root composition is built only from sub-compositions.",
+        "selector": "#s2",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\Ernesto\\ernesto-rondon-nexo\\docs\\nexo-business\\redes\\video-diario\\2026-10-22\\hf\\index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move <div id=\"s2\"> and its contents into a sub-composition file and mount it with data-composition-src."
+      },
+      {
+        "code": "nested_structure_needs_subcomposition",
+        "severity": "warning",
+        "message": "<div id=\"s3\"> is a timeline element that contains nested <div>. The timeline shows one row per top-level element, and the root composition is built only from sub-compositions.",
+        "selector": "#s3",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\Ernesto\\ernesto-rondon-nexo\\docs\\nexo-business\\redes\\video-diario\\2026-10-22\\hf\\index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move <div id=\"s3\"> and its contents into a sub-composition file and mount it with data-composition-src."
+      },
+      {
+        "code": "nested_structure_needs_subcomposition",
+        "severity": "warning",
+        "message": "<div id=\"s4\"> is a timeline element that contains nested <div>. The timeline shows one row per top-level element, and the root composition is built only from sub-compositions.",
+        "selector": "#s4",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\Ernesto\\ernesto-rondon-nexo\\docs\\nexo-business\\redes\\video-diario\\2026-10-22\\hf\\index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move <div id=\"s4\"> and its contents into a sub-composition file and mount it with data-composition-src."
+      },
+      {
+        "code": "nested_structure_needs_subcomposition",
+        "severity": "warning",
+        "message": "<div id=\"s5\"> is a timeline element that contains nested <div>. The timeline shows one row per top-level element, and the root composition is built only from sub-compositions.",
+        "selector": "#s5",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\Ernesto\\ernesto-rondon-nexo\\docs\\nexo-business\\redes\\video-diario\\2026-10-22\\hf\\index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move <div id=\"s5\"> and its contents into a sub-composition file and mount it with data-composition-src."
+      },
+      {
+        "code": "nested_structure_needs_subcomposition",
+        "severity": "warning",
+        "message": "<div id=\"s6\"> is a timeline element that contains nested <div id=\"s6-titulo\">. The timeline shows one row per top-level element, and the root composition is built only from sub-compositions.",
+        "selector": "#s6",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\Ernesto\\ernesto-rondon-nexo\\docs\\nexo-business\\redes\\video-diario\\2026-10-22\\hf\\index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move <div id=\"s6\"> and its contents into a sub-composition file and mount it with data-composition-src."
+      },
+      {
+        "code": "nested_structure_needs_subcomposition",
+        "severity": "warning",
+        "message": "<div id=\"s7\"> is a timeline element that contains nested <div id=\"s7-preg\">. The timeline shows one row per top-level element, and the root composition is built only from sub-compositions.",
+        "selector": "#s7",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\Ernesto\\ernesto-rondon-nexo\\docs\\nexo-business\\redes\\video-diario\\2026-10-22\\hf\\index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move <div id=\"s7\"> and its contents into a sub-composition file and mount it with data-composition-src."
+      }
+    ],
+    "filesScanned": 1
+  },
+  "runtime": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": []
+  },
+  "layout": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 5,
+    "findings": [
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 1.222,
+        "selector": "#s0-cam",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": -27.76,
+          "top": -49.34,
+          "right": 1107.76,
+          "bottom": 1969.34,
+          "width": 1135.51,
+          "height": 2018.69
+        },
+        "containerSelector": "#s0",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "left": 27.76,
+          "right": 27.76,
+          "top": 49.34,
+          "bottom": 49.34
+        },
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": -27.76,
+          "y": -49.34,
+          "width": 1135.51,
+          "height": 2018.69
+        },
+        "firstSeen": 1.222,
+        "lastSeen": 1.222,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          1.222
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 6.111,
+        "selector": "#s2-z",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 148.22,
+          "top": 354.66,
+          "right": 931.78,
+          "bottom": 1405.34,
+          "width": 783.55,
+          "height": 1050.67
+        },
+        "containerSelector": "#s2-t",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 158.4,
+          "top": 371.2,
+          "right": 921.6,
+          "bottom": 1388.8,
+          "width": 763.2,
+          "height": 1017.6
+        },
+        "overflow": {
+          "left": 10.18,
+          "right": 10.18,
+          "top": 16.54,
+          "bottom": 16.54
+        },
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 148.22,
+          "y": 354.66,
+          "width": 783.55,
+          "height": 1050.67
+        },
+        "firstSeen": 6.111,
+        "lastSeen": 6.111,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          6.111
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 8.556,
+        "selector": "#s3-z",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 157.78,
+          "top": 367.47,
+          "right": 922.22,
+          "bottom": 1392.53,
+          "width": 764.45,
+          "height": 1025.06
+        },
+        "containerSelector": "#s3-t",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 158.4,
+          "top": 371.2,
+          "right": 921.6,
+          "bottom": 1388.8,
+          "width": 763.2,
+          "height": 1017.6
+        },
+        "overflow": {
+          "top": 3.73,
+          "bottom": 3.73
+        },
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 157.78,
+          "y": 367.47,
+          "width": 764.45,
+          "height": 1025.06
+        },
+        "firstSeen": 8.556,
+        "lastSeen": 8.556,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          8.556
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 13.444,
+        "selector": "#s4-z",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 156.6,
+          "top": 365.89,
+          "right": 923.4,
+          "bottom": 1394.11,
+          "width": 766.81,
+          "height": 1028.22
+        },
+        "containerSelector": "#s4-t",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 179.53,
+          "top": 399.38,
+          "right": 900.47,
+          "bottom": 1360.62,
+          "width": 720.94,
+          "height": 961.25
+        },
+        "overflow": {
+          "left": 22.93,
+          "right": 22.93,
+          "top": 33.49,
+          "bottom": 33.49
+        },
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 156.6,
+          "y": 365.89,
+          "width": 766.81,
+          "height": 1028.22
+        },
+        "firstSeen": 13.444,
+        "lastSeen": 13.444,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          13.444
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 15.889,
+        "selector": "#s5-z",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 165.26,
+          "top": 377.51,
+          "right": 914.74,
+          "bottom": 1382.49,
+          "width": 749.48,
+          "height": 1004.98
+        },
+        "containerSelector": "#s5-t",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 180,
+          "top": 400,
+          "right": 900,
+          "bottom": 1360,
+          "width": 720,
+          "height": 960
+        },
+        "overflow": {
+          "left": 14.74,
+          "right": 14.74,
+          "top": 22.49,
+          "bottom": 22.49
+        },
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 165.26,
+          "y": 377.51,
+          "width": 749.48,
+          "height": 1004.98
+        },
+        "firstSeen": 15.889,
+        "lastSeen": 15.889,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          15.889
+        ]
+      }
+    ],
+    "duration": 22,
+    "samples": [
+      1.222,
+      3.667,
+      6.111,
+      8.556,
+      11,
+      13.444,
+      15.889,
+      18.333,
+      20.778
+    ],
+    "transitionSamples": [],
+    "transitionSamplesDropped": 0,
+    "tolerance": 2,
+    "totalIssueCount": 5,
+    "truncated": false
+  },
+  "motion": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": false,
+    "samples": 0
+  },
+  "contrast": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": true,
+    "samples": [
+      1.222,
+      6.111,
+      11,
+      15.889,
+      20.778
+    ],
+    "checked": 17,
+    "passed": 17
+  },
+  "craft": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 7,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"Ten estas cosas listas 4\" (5 words) is on screen 1.34 s (±0.01 s), under its 1.50 s floor: hold it about 0.5 s + 0.3 s a word (2.00 s here) before it leaves or changes; see references/motion.md.",
+        "text": "Ten estas cosas listas 4",
+        "selector": "#s0-b",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 167.5,
+          "y": 356.6,
+          "width": 744.98,
+          "height": 212.14
+        },
+        "time": 1.469,
+        "words": 5,
+        "seconds": 1.336,
+        "floorSeconds": 1.5
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"la que cuida tu aire acondicionado\" (6 words) is on screen 0.67 s (±0.01 s), under its 1.72 s floor: hold it about 0.5 s + 0.3 s a word (2.30 s here) before it leaves or changes; see references/motion.md.",
+        "text": "la que cuida tu aire acondicionado",
+        "selector": "#s1-sub",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 95.36,
+          "y": 1129,
+          "width": 889.27,
+          "height": 70
+        },
+        "time": 3.734,
+        "words": 6,
+        "seconds": 0.672,
+        "floorSeconds": 1.725
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"Lámpara recargable con panel solar. Se carga con el sol o...\" (14 words) is on screen 3.07 s (±0.01 s), under its 3.53 s floor: hold it about 0.5 s + 0.3 s a word (4.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "Lámpara recargable con panel solar. Se carga con el sol o por USB-C.",
+        "selector": "#s2-n",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 73.77,
+          "y": 1409.04,
+          "width": 932.46,
+          "height": 112.1099999999999
+        },
+        "time": 4.734,
+        "words": 14,
+        "seconds": 3.07,
+        "floorSeconds": 3.525
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"Protector de voltaje para nevera, contra subidas y bajada...\" (11 words) is on screen 2.66 s (±0.01 s), under its 2.85 s floor: hold it about 0.5 s + 0.3 s a word (3.80 s here) before it leaves or changes; see references/motion.md.",
+        "text": "Protector de voltaje para nevera, contra subidas y bajadas de voltaje.",
+        "selector": "#s4-n",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 129.34,
+          "y": 1401.41,
+          "width": 821.3,
+          "height": 112.1099999999999
+        },
+        "time": 11.141,
+        "words": 11,
+        "seconds": 2.664,
+        "floorSeconds": 2.85
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"Protector de voltaje 220 V de alta carga (30 A) para aire...\" (13 words) is on screen 2.86 s (±0.01 s), under its 3.30 s floor: hold it about 0.5 s + 0.3 s a word (4.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "Protector de voltaje 220 V de alta carga (30 A) para aire acondicionado.",
+        "selector": "#s5-n",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 86.17,
+          "y": 1401.41,
+          "width": 907.66,
+          "height": 112.1099999999999
+        },
+        "time": 14.141,
+        "words": 13,
+        "seconds": 2.859,
+        "floorSeconds": 3.3
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"Las 4 suman 95 USD\" (5 words) is on screen 0.93 s (±0.01 s), under its 1.50 s floor: hold it about 0.5 s + 0.3 s a word (2.00 s here) before it leaves or changes; see references/motion.md.",
+        "text": "Las 4 suman 95 USD",
+        "selector": "#s6-suma",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 221.88,
+          "y": 1421.63,
+          "width": 636.24,
+          "height": 81.74000000000001
+        },
+        "time": 18.273,
+        "words": 5,
+        "seconds": 0.93,
+        "floorSeconds": 1.5
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "The film's last line \"casaviva.company/tienda\" (3 words) is on screen 1.80 s (±0.01 s), under the 2.00 s a closing line needs: hold it about 0.5 s + 0.3 s a word and at least 2 s before the film ends; see references/motion.md.",
+        "text": "casaviva.company/tienda",
+        "selector": "#s7-web",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 272.53,
+          "y": 1060,
+          "width": 534.94,
+          "height": 56
+        },
+        "time": 20.203,
+        "words": 3,
+        "seconds": 1.801,
+        "floorSeconds": 2
+      }
+    ],
+    "enabled": true,
+    "step": 0.125,
+    "samples": 176
+  },
+  "hdr": {
+    "autoPromotion": null,
+    "inspection": "available"
+  },
+  "snapshots": {
+    "enabled": false,
+    "files": [],
+    "times": [],
+    "findingFiles": []
+  }
+}

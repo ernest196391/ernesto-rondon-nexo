@@ -1,0 +1,9 @@
+{
+  "name": "video-diario-2026-10-22-prosko",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "npx --yes hyperframes@0.8.186 check",
+    "render": "npx --yes hyperframes@0.8.186 render"
+  }
+}

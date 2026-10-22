@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Ganadores de septiembre</title>
+<!-- Casa Viva · Ganadores de septiembre 2026. Captura: Chrome headless 1280x853 (ver captura.sh). -->
+<link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Baloo+2:wght@700;800&family=Caveat:wght@600;700&family=Figtree:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --crema:#FBF5EA; --navy:#1F2A44; --marron:#2B2420;
+    --rosa:#E5405F; --rosa-claro:#FCE4E8; --rosa-suave:#F8C9D2;
+    --verde:#17806F; --verde-claro:#DDF1EB; --verde-suave:#BFE3D8;
+    --oro:#E7B53C; --oro-claro:#FBE7A6;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:1280px;height:853px;overflow:hidden;background:var(--crema)}
+  body{position:relative;font-family:"Figtree",sans-serif;color:var(--navy)}
+
+  /* Fondo: manchas doradas suaves en las esquinas */
+  .blob{position:absolute;border-radius:50%;filter:blur(2px)}
+  .b1{width:360px;height:260px;left:-140px;top:-120px;background:radial-gradient(circle at 60% 60%,#F3DDB0 0%,#F7E8C9 55%,transparent 72%)}
+  .b2{width:420px;height:320px;left:-170px;bottom:-170px;background:radial-gradient(circle at 60% 40%,#F0D49C 0%,#F6E5C2 55%,transparent 72%)}
+  .b3{width:420px;height:300px;right:-190px;bottom:-170px;background:radial-gradient(circle at 40% 40%,#F3DDB0 0%,#F8EBD0 55%,transparent 72%)}
+  .b4{width:240px;height:200px;right:-110px;top:-110px;background:radial-gradient(circle,#F3DDB0 0%,transparent 70%)}
+  .star{position:absolute;color:var(--oro);font-size:26px;line-height:1}
+
+  /* Cabecera */
+  .head{position:absolute;top:18px;left:0;right:0;text-align:center}
+  .titulo{font-family:"Luckiest Guy",cursive;font-size:56px;letter-spacing:1px;color:var(--navy);line-height:1}
+  .titulo .mes{color:var(--rosa)}
+  .cinta{display:inline-block;margin-top:6px;padding:4px 30px 2px;font-family:"Caveat",cursive;font-weight:700;font-size:31px;color:var(--navy);
+    background:linear-gradient(90deg,transparent 0,var(--oro-claro) 8%,#F7D774 50%,var(--oro-claro) 92%,transparent 100%);border-radius:8px;transform:rotate(-1deg)}
+  .cinta .co{color:var(--rosa)}
+
+  .logo{position:absolute;top:16px;right:22px;width:170px;text-align:center}
+  .logo img{width:104px;display:block;margin:0 auto}
+  .logo .lema{margin-top:5px;font-family:"Figtree",sans-serif;font-weight:600;font-size:10.5px;letter-spacing:2.2px;color:#A35A1F;white-space:nowrap}
+
+  /* Paneles */
+  .panel{position:absolute;top:142px;width:590px;height:520px}
+  .izq{left:30px}.der{left:660px}
+  .sep{position:absolute;left:639px;top:150px;width:2px;height:500px;background:linear-gradient(transparent,#E8D7B5 15%,#E8D7B5 85%,transparent)}
+
+  .pill{height:108px;border-radius:30px;display:flex;align-items:center;gap:22px;padding:0 26px}
+  .izq .pill{background:var(--rosa-claro)}
+  .der .pill{background:var(--verde-claro)}
+  .ico{width:92px;height:92px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex:none}
+  .izq .ico{background:var(--rosa)} .der .ico{background:var(--verde)}
+  .ptxt{line-height:.95}
+  .ptxt .top{font-family:"Baloo 2",sans-serif;font-weight:800;font-size:34px;color:var(--navy);letter-spacing:.5px}
+  .ptxt .big{font-family:"Luckiest Guy",cursive;font-size:54px;letter-spacing:1px;margin-top:2px}
+  .izq .big{color:var(--rosa)} .der .big{color:var(--verde)}
+  .ptxt .sub{font-family:"Caveat",cursive;font-weight:700;font-size:25px;color:var(--navy);margin-top:4px}
+  .rayos{margin-left:auto;align-self:center}
+
+  /* Podio */
+  .podio{position:relative;height:350px;margin-top:6px}
+  .base{position:absolute;left:12px;right:12px;bottom:0;height:46px;border-radius:50% / 40%}
+  .izq .base{background:linear-gradient(#FAD7DE,#F5C3CD)}
+  .der .base{background:linear-gradient(#D2EEE5,#B9E0D3)}
+  .col{position:absolute;bottom:12px;width:172px;display:flex;flex-direction:column;align-items:center}
+  .p1{left:209px;width:174px}.p2{left:30px}.p3{left:390px}
+  .crown{width:96px;height:66px;margin-bottom:-4px;position:relative;z-index:2}
+  .p1 .crown{width:104px;height:72px}
+  .bloque{width:100%;border-radius:18px 18px 10px 10px;display:flex;align-items:flex-start;justify-content:center;position:relative;box-shadow:inset 0 -10px 0 rgba(0,0,0,.06),0 6px 14px rgba(80,50,20,.12)}
+  .p1 .bloque{height:216px;background:linear-gradient(180deg,#FCEDB6 0%,#F6D877 100%)}
+  .p2 .bloque{height:180px;background:linear-gradient(180deg,#F1F1F3 0%,#CFD2D8 100%)}
+  .p3 .bloque{height:160px;background:linear-gradient(180deg,#F8DCCB 0%,#E7B193 100%)}
+  .num{font-family:"Luckiest Guy",cursive;font-size:70px;line-height:1;margin-top:14px}
+  .p1 .num{color:#C9930F;font-size:84px}
+  .p2 .num{color:#7D828C}
+  .p3 .num{color:#A9522A;margin-top:10px;font-size:62px}
+  .placa{position:absolute;left:-6px;right:-6px;bottom:14px;height:48px;border-radius:10px;display:flex;align-items:center;justify-content:center;
+    font-family:"Baloo 2",sans-serif;font-weight:800;font-size:30px;letter-spacing:.5px;color:var(--navy);box-shadow:0 4px 8px rgba(80,50,20,.18)}
+  .p1 .placa{background:linear-gradient(#F9D766,#E9B530);font-size:32px}
+  .p2 .placa{background:linear-gradient(#ECEDEF,#C4C8CF)}
+  .p3 .placa{background:linear-gradient(#F4C9B0,#DE9E7C)}
+  .premio{margin-top:7px;white-space:nowrap;position:relative;z-index:2;box-shadow:0 3px 6px rgba(0,0,0,.12);padding:2px 16px 1px;border-radius:20px;
+    font-family:"Baloo 2",sans-serif;font-weight:800;font-size:26px;color:#fff;line-height:34px}
+  .izq .premio{background:var(--rosa)} .der .premio{background:var(--verde)}
+  .premio small{font-size:16px;font-weight:700;margin-left:3px}
+
+  .frase{margin:14px auto 0;width:480px;height:46px;border-radius:24px;display:flex;align-items:center;justify-content:center;gap:8px;
+    font-family:"Caveat",cursive;font-weight:700;font-size:27px;color:var(--navy)}
+  .izq .frase{background:var(--rosa-claro)} .der .frase{background:var(--verde-claro)}
+  .heart{color:var(--rosa)}
+
+  /* Franja y pie */
+  .franja{position:absolute;top:678px;left:50%;transform:translateX(-50%) rotate(-.6deg);width:700px;height:66px;background:var(--navy);border-radius:14px;
+    display:flex;align-items:center;justify-content:center;font-family:"Caveat",cursive;font-weight:700;font-size:44px;color:#fff;letter-spacing:.3px;box-shadow:0 6px 14px rgba(31,42,68,.25)}
+  .franja .oro{color:var(--oro)}
+  .pie{position:absolute;top:762px;left:50%;transform:translateX(-50%);display:flex;align-items:center}
+  .item{display:flex;align-items:center;gap:12px;padding:0 26px;font-family:"Figtree",sans-serif;font-weight:700;font-size:16px;letter-spacing:.6px;color:var(--navy);line-height:1.2;text-transform:uppercase;white-space:nowrap}
+  .item + .item{border-left:2px solid #E3D3B3}
+  .item.dest{color:#A35A1F;font-size:18px}
+  .firma{position:absolute;right:42px;bottom:20px;font-family:"Caveat",cursive;font-weight:700;font-size:25px;line-height:1;color:var(--navy);transform:rotate(-8deg);text-align:center}
+</style>
+</head>
+<body>
+  <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="blob b4"></div>
+  <span class="star" style="left:206px;top:36px">&#10022;</span>
+  <span class="star" style="left:150px;top:96px;font-size:16px">&#10022;</span>
+  <span class="star" style="left:1012px;top:30px;font-size:20px">&#10022;</span>
+  <span class="star" style="left:1080px;top:700px;font-size:30px">&#9733;</span>
+  <span class="star" style="left:1226px;top:660px;font-size:16px">&#10022;</span>
+  <span class="star" style="left:76px;top:672px;font-size:18px">&#10022;</span>
+
+  <div class="head">
+    <div class="titulo">GANADORES DE <span class="mes">SEPTIEMBRE</span></div>
+    <div class="cinta">¡Gracias por hacerlo posible! <span class="co">&#9829;</span></div>
+  </div>
+
+  <div class="logo"><img src="logo.svg" alt="Casa Viva"><div class="lema">HOGAR QUE INSPIRA</div></div>
+
+  <div class="sep"></div>
+
+  <section class="panel izq" id="ventas"></section>
+  <section class="panel der" id="productos"></section>
+
+  <div class="franja">¡<span class="oro">Felicidades</span>&nbsp;a nuestros ganadores!</div>
+
+  <div class="pie">
+    <div class="item">
+      <svg width="40" height="34" viewBox="0 0 40 34" fill="none" stroke="#1F2A44" stroke-width="2.4" stroke-linecap="round"><circle cx="20" cy="9" r="6"/><circle cx="7" cy="12" r="4.5"/><circle cx="33" cy="12" r="4.5"/><path d="M9 32c0-7 5-11 11-11s11 4 11 11"/><path d="M1 30c0-5 3-8 7-8M39 30c0-5-3-8-7-8"/></svg>
+      <span>Un equipo<br>que inspira</span>
+    </div>
+    <div class="item dest">
+      <svg width="40" height="30" viewBox="0 0 40 30"><path d="M3 26 L6 7 L14 15 L20 3 L26 15 L34 7 L37 26 Z" fill="#E7B53C" stroke="#B9861A" stroke-width="1.6" stroke-linejoin="round"/></svg>
+      <span>Nadielys:<br>¡doble corona!</span>
+    </div>
+    <div class="item">
+      <svg width="38" height="34" viewBox="0 0 38 34" fill="#1F2A44"><rect x="3" y="22" width="6" height="11" rx="1"/><rect x="13" y="16" width="6" height="17" rx="1"/><rect x="23" y="10" width="6" height="23" rx="1"/><path d="M2 14 L14 6 L22 10 L34 2" fill="none" stroke="#1F2A44" stroke-width="2.4" stroke-linecap="round"/><path d="M28 1h7v7" fill="none" stroke="#1F2A44" stroke-width="2.4" stroke-linecap="round"/></svg>
+      <span>Seguimos<br>creciendo juntos</span>
+    </div>
+  </div>
+
+  <div class="firma">Lo mejor<br>aún está<br>por venir <span class="heart">&#9825;</span></div>
+
+<script>
+  const crown = (id, c1, c2, c3) => `
+    <svg class="crown" viewBox="0 0 120 82">
+      <defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${c1}"/><stop offset="1" stop-color="${c2}"/></linearGradient></defs>
+      <path d="M12 70 L6 22 L36 46 L60 10 L84 46 L114 22 L108 70 Z" fill="url(#${id})" stroke="${c3}" stroke-width="3" stroke-linejoin="round"/>
+      <rect x="10" y="64" width="100" height="14" rx="5" fill="url(#${id})" stroke="${c3}" stroke-width="3"/>
+      <circle cx="6" cy="20" r="6" fill="${c1}" stroke="${c3}" stroke-width="2.5"/>
+      <circle cx="60" cy="8" r="7" fill="${c1}" stroke="${c3}" stroke-width="2.5"/>
+      <circle cx="114" cy="20" r="6" fill="${c1}" stroke="${c3}" stroke-width="2.5"/>
+      <circle cx="60" cy="52" r="6" fill="#fff" opacity=".55"/>
+    </svg>`;
+  const CR = {
+    1: s => crown('g'+s, '#FCE38A', '#E3A821', '#B37F12'),
+    2: s => crown('s'+s, '#F4F5F7', '#A9AEB7', '#7D828C'),
+    3: s => crown('b'+s, '#F6C7A4', '#C97446', '#99512B'),
+  };
+  const rayos = c => `<svg class="rayos" width="44" height="60" viewBox="0 0 44 60" stroke="${c}" stroke-width="5" stroke-linecap="round"><path d="M6 12 L30 2"/><path d="M8 30 L40 30"/><path d="M6 48 L30 58"/></svg>`;
+  const bolsa = `<svg width="54" height="58" viewBox="0 0 54 58" fill="none" stroke="#fff" stroke-width="4" stroke-linejoin="round"><path d="M6 18 H48 L45 54 H9 Z"/><path d="M18 18 V12 a9 9 0 0 1 18 0 V18" stroke-linecap="round"/><path d="M27 44 C15 36 18 26 23 27 C25 27.5 26.5 29 27 31 C27.5 29 29 27.5 31 27 C36 26 39 36 27 44 Z" fill="#fff" stroke-width="1"/></svg>`;
+  const caja = `<svg width="58" height="58" viewBox="0 0 58 58" fill="none" stroke="#fff" stroke-width="4" stroke-linejoin="round"><path d="M29 4 L54 15 V43 L29 54 L4 43 V15 Z"/><path d="M4 15 L29 26 L54 15 M29 26 V54"/><path d="M16 9.5 L41 20.5" /><path d="M42 40 C35 36 36 30 39 30.5 C40.2 30.7 41.2 31.6 42 33 C42.8 31.6 43.8 30.7 45 30.5 C48 30 49 36 42 40 Z" fill="#fff" stroke-width="1"/></svg>`;
+
+  const D = {
+    ventas: { top:'TOP EN', big:'VENTAS', sub:'¡Grandes resultados!', ico:bolsa, ray:'#E5405F',
+      p:{1:['NADIELYS',30],2:['DAYRA',20],3:['RAFAEL',10]}, frase:'Tu esfuerzo genera grandes historias' },
+    productos: { top:'TOP EN', big:'PRODUCTOS', sub:'¡Más hogares felices!', ico:caja, ray:'#17806F',
+      p:{1:['NADIELYS',20],2:['DAYRA',12],3:['ZUANET',8]}, frase:'Cada producto cuenta, ¡y tú haces la diferencia!' },
+  };
+  for (const [k, d] of Object.entries(D)) {
+    const cols = [2,1,3].map(n => `
+      <div class="col p${n}">
+        ${CR[n](k)}
+        <div class="bloque"><div class="num">${n}</div>
+          <div class="placa">${d.p[n][0]}</div>
+        </div>
+        <div class="premio">${d.p[n][1]}<small>USD</small></div>
+      </div>`).join('');
+    document.getElementById(k).innerHTML = `
+      <div class="pill"><div class="ico">${d.ico}</div>
+        <div class="ptxt"><div class="top">${d.top}</div><div class="big">${d.big}</div><div class="sub">${d.sub}</div></div>
+        ${rayos(d.ray)}</div>
+      <div class="podio"><div class="base"></div>${cols}</div>
+      <div class="frase">${d.frase} <span class="heart">&#9825;</span></div>`;
+  }
+</script>
+</body>
+</html>
