@@ -21,11 +21,14 @@ const BIZ = '8771c6ed-9dbf-497d-b3df-be6697ba2693';
 const JID = '5354942950@s.whatsapp.net';
 const SELLER = { seller_jid: JID, seller_phone: '5354942950', seller_name: 'SeFué (Javier Quota)', group_jid: 'a-mano:sefue', group_name: 'SeFué (lista de precios de Javier, 22-oct)' };
 const FICHA = {
-  business_id: BIZ, jid: JID, phone: '5354942950', name: 'SeFué', source: 'a_mano', source_ref: 'proveedores/sefue-2026-10-21 (PLAN 21-oct + lista 22-oct)',
-  aliases: 'SeFue, Se Fue, Sefué, sefue.app, Javier Quota', pickup: true, delivers: false, collects: 'casaviva',
+  business_id: BIZ, jid: JID, phone: '5354942950', name: 'SeFué', source: 'a_mano', source_ref: 'proveedores/sefue-2026-10-21 (PLAN 21-oct + lista 22-oct + Javier 23-oct; D102)',
+  aliases: 'SeFue, Se Fue, Sefué, sefue.app, Javier Quota', products: ['oficina', 'insecticidas', 'colchones', 'ferreteria', 'refrigeracion', 'cables', 'bicicletas', 'aseo', 'humidores'],
+  pickup: true, delivers: false, collects: 'casaviva', hours: '9:00-17:00',
   pickup_address: 'Dos locales (cada artículo dice cuál): Vedado, calle N e/ 21 y 23 · Cerro, Manglar y Oquendo, junto al parque La Normal',
-  terms: 'Precio = su web −3 % (humidores −5 %, colchones de mayorista −3 % salvo el King). Ventas solo con mensajería (no recogidas de clientes ni gestoras en su local). Existencia: preguntar en cada venta. Transporte nuestro salvo colchones y humidores (lo pone SeFué). Herrajes de humidor: se piden, mínimo 500 USD. Fotos de su web autorizadas (21-oct).',
-  settlement: 'Por acordar con Javier (quién paga y cuándo).', hours: null,
+  terms: 'Precios en USD (Javier 23-oct). Precio para nosotros = su web −3 % (humidores −5 %; colchones a precio de mayorista, el King solo −3 %), ya aplicado en su Excel del 22-oct: no descontar otra vez. Ventas solo con mensajería (no recogidas de clientes ni gestoras en su local). Existencia: preguntar a Javier en cada venta. Recogemos nosotros en su local (transporte nuestro), salvo colchones y humidores: la entrega la pone SeFué en La Habana; zonas lejanas (p. ej. Mantilla) las valoran ellos ese día. Herrajes de humidor: se piden, mínimo 500 USD. Fotos de su web autorizadas (21-oct 16:56).',
+  settlement: 'Por acordar con Javier (quién paga y cuándo). Mientras tanto: se paga a SeFué al recoger.',
+  wholesale: false, consent: 'si', consent_at: '2026-10-21T20:56:00Z', consent_note: 'Javier Quota 21-oct: opción 1 (su precio −3 %, nosotros ponemos el nuestro), ventas con mensajería, «Sí, pueden usar las fotos».',
+  notes: '23-oct-2026: ficha creada por decisión de Ernesto (publicar SeFué con my_price). Horario 9:00-17:00 PROVISIONAL (por confirmar con Javier para los 2 locales). Contacto: Javier Quota, comercial (+53 5 4942950); otros teléfonos de su web: +53 5066 6790 y 5352963072.',
 };
 const args = process.argv.slice(2);
 const HACER = args.includes('hacer');

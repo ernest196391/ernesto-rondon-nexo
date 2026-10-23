@@ -1,0 +1,10 @@
+{
+  "name": "tutorial-tarjeta-carrera",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "gen": "node gen.mjs",
+    "check": "npx --yes hyperframes@0.8.189 check",
+    "render": "npx --yes hyperframes@0.8.189 render"
+  }
+}

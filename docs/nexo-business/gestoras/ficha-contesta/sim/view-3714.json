@@ -1,0 +1,66 @@
+{
+    "id": 3714,
+    "nombre": "Almohada ortopédica cervical Ceasar Palace 45 × 70 cm",
+    "url": "https:\/\/casaviva.company\/producto\/almohada-ortopedica-cervical-ceasar-palace-45-x-70-cm\/",
+    "imagen": "https:\/\/casaviva.company\/wp-content\/uploads\/2026\/10\/almohada-ortopedica-cervical-45x70-1-300x300.jpg",
+    "proveedor": false,
+    "electrico": false,
+    "estado": {
+        "code": "hay",
+        "texto": "🏪 Hay 11 en la tienda",
+        "qty": 11
+    },
+    "variantes": [],
+    "filas": [
+        "medidas",
+        "material",
+        "trae",
+        "colores"
+    ],
+    "datos": {
+        "medidas": [
+            {
+                "texto": "Medidas: 45 × 70 cm (±2 cm), tamaño estándar.",
+                "exacto": true,
+                "tienda": false,
+                "quien": "",
+                "at": ""
+            },
+            {
+                "texto": "Viene sellada al vacío: al abrirla crece hasta unos 10 cm de alto.",
+                "exacto": true,
+                "tienda": false,
+                "quien": "",
+                "at": ""
+            }
+        ],
+        "material": [
+            {
+                "texto": "Tela: 100 % poliéster. Relleno: 100 % poliéster.",
+                "exacto": true,
+                "tienda": false,
+                "quien": "",
+                "at": ""
+            },
+            {
+                "texto": "Tela suave y transpirable, en blanco y gris.",
+                "exacto": true,
+                "tienda": false,
+                "quien": "",
+                "at": ""
+            }
+        ],
+        "voltaje": [],
+        "trae": [],
+        "colores": [],
+        "garantia": []
+    },
+    "fotos": [],
+    "faltan": [
+        "trae",
+        "colores",
+        "foto"
+    ],
+    "abiertas": [],
+    "respuestas": []
+}

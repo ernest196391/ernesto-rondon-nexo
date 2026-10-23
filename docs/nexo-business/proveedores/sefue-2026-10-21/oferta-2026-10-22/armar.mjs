@@ -6,6 +6,10 @@
 // Uso: node armar.mjs                      → propuesta (grandes al precio de su web, resto con la regla)
 //      node armar.mjs --solo-regla          → todo con la regla del bot, sin igualar su web
 //      node armar.mjs --con-opcionales      → también refrigeración técnica y cables (tramo de 5 m)
+//      node armar.mjs --todo                → también sueltos < 5 USD como PAQUETE (12 si < 2 USD, si no 6; costo = unidad × N),
+//                                             útiles de oficina sueltos y humidores/inyectores con foto (fuera: sin foto, champú 0,35,
+//                                             herrajes de humidor, bici morada)
+//      node armar.mjs --publicar            → publicar.json con "estado": "publish" (si no, borrador)
 //      node armar.mjs --ids bolsa-ids.json  → rellena market_id con los ids de la bolsa (después de bolsa-crear «hacer»)
 import fs from 'fs';
 import path from 'path';
@@ -15,6 +19,8 @@ const DIR = path.dirname(fileURLToPath(import.meta.url));
 const args = process.argv.slice(2);
 const SOLO_REGLA = args.includes('--solo-regla');
 const CON_OPC = args.includes('--con-opcionales');
+const TODO = args.includes('--todo'); // 23-oct (Ernesto «Sí, todo»): sueltos < 5 USD como paquete de 6/12, humidores e inyectores con la regla
+const ESTADO = args.includes('--publicar') ? 'publish' : 'draft'; // 23-oct: Ernesto decidió publicar (D102)
 const idsFile = args.includes('--ids') ? args[args.indexOf('--ids') + 1] : null;
 const bolsaIds = idsFile ? JSON.parse(fs.readFileSync(path.resolve(idsFile), 'utf8')) : {};
 
@@ -185,6 +191,18 @@ const filas = cruda.filas.map((f, i) => {
 
   let [estado, motivo] = decidir(f, p, cost);
   if (estado === 'opcional' && CON_OPC) estado = 'publicar';
+  let paquete = 0;
+  if (TODO) {
+    const conFoto = !!(p && p.fotos && p.fotos.length);
+    const herraje = f.hoja === 'HUMIDORES' && cost < 60;
+    const dudoso = /^champu miel/.test(n) || /morada/.test(n) || /^acondicionador (aloe|miel)/.test(n); // aloe/miel: su única foto es la del de coco
+    if (estado === 'aparte' && conFoto) { estado = 'publicar'; motivo = 'Ernesto 23-oct: «Sí, todo» (venta especial, con la regla)'; }
+    else if (estado === 'fuera' && conFoto && !herraje && !dudoso) {
+      estado = 'publicar';
+      if (cost < 5) { paquete = cost < 2 ? 12 : 6; motivo = `Ernesto 23-oct: suelto de menos de 5 USD → paquete de ${paquete}`; }
+      else motivo = 'Ernesto 23-oct: «Sí, todo» (útil de oficina suelto)';
+    } else if (estado === 'fuera' || estado === 'aparte' || estado === 'revisar') motivo = [motivo, herraje ? 'fuera también con «todo»: herraje sin locación, mínimo 500 USD' : dudoso ? 'fuera también con «todo»: dato dudoso' : !conFoto ? 'fuera también con «todo»: sin foto' : ''].filter(Boolean).join(' · ');
+  }
 
   // Propuesta de precio: lo grande (≥ 60 USD) que la regla deja POCO por encima de su web (≤ 10 %) → igualar su web.
   // Lo demás → la regla del bot (sale 36–65 % por encima de su web; su web no sale en Google: robots «Disallow: /»).
@@ -198,6 +216,10 @@ const filas = cruda.filas.map((f, i) => {
   if (f.hoja === 'CABLES COBRE') {
     costoPub = r2(Number(f.precio) * 5); precio = myPrice(costoPub); webPub = web != null ? r2(web * 5) : null; nombrePub = `${f.nombre.replace(/,/, '')} (tramo de 5 m)`;
     motivoPrecio = `tramo de 5 m: regla sobre ${costoPub}`;
+  }
+  if (paquete) {
+    costoPub = r2(cost * paquete); precio = myPrice(costoPub); webPub = web != null ? r2(web * paquete) : null;
+    motivoPrecio = `paquete de ${paquete}: regla sobre ${costoPub} (${cost} × ${paquete})`;
   }
   const com = share(precio, costoPub);
   const fila = {
@@ -213,16 +235,34 @@ const filas = cruda.filas.map((f, i) => {
     fotos_sefue: p?.fotos || [], nota_foto: p?.nota || null,
     departamentos: dept(f, n), categoria_bolsa: catBolsa(f, n), tamano: grande(f, n) ? 'grande' : 'pequeno',
     descripcion_sefue: p?.descripcion_limpia || '',
+    paquete, ref: (f.nombre.match(/\br(\d+)\s*$/i) || [])[1] ? 'R' + f.nombre.match(/\br(\d+)\s*$/i)[1] : null,
   };
+  if (/inyectores/.test(n)) fila.departamentos = ['ferreteria'];
+  if (/^toalla/.test(n)) fila.departamentos = ['bano'];
+  if (f.hoja === 'HUMIDORES') fila.nombre = fila.nombre.replace(/,(?=\S)/g, ', ');
   return fila;
 });
 
+// ---- nombres únicos (23-oct): si dos filas a publicar se llaman igual, se añade su referencia (R68…); paquetes «· paquete de N» ----
+{
+  const cuenta = {}; const vistos = {};
+  for (const x of filas.filter((x) => x.estado === 'publicar')) cuenta[norm(x.nombre)] = (cuenta[norm(x.nombre)] || 0) + 1;
+  for (const x of filas.filter((x) => x.estado === 'publicar')) {
+    const base = x.nombre.replace(/[\s,]+$/, '');
+    if (cuenta[norm(x.nombre)] > 1 && !x.ref) { if (vistos[norm(x.nombre)]) { x.estado = 'fuera'; x.motivo = `repetido: mismo nombre y precio que la fila ${vistos[norm(x.nombre)]}`; continue; } vistos[norm(x.nombre)] = x.n; }
+    if (cuenta[norm(x.nombre)] > 1 && x.ref) x.nombre = `${base} (ref. ${x.ref})`;
+    if (x.paquete) {
+      x.descripcion_paquete = `Paquete de ${x.paquete} unidades de «${x.nombre}»${x.unidad && !/^unidades|cantidad$/i.test(x.unidad) ? ` (cada unidad: ${x.unidad.toLowerCase()})` : ''}.`;
+      x.nombre = `${x.nombre} · paquete de ${x.paquete}`;
+    }
+  }
+}
 // ---- publicar.json (forma de tienda-42-y-23/publicar.json) ----
 const CONF = 'Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta';
 const pub = filas.filter((x) => x.estado === 'publicar').map((x) => ({
   n: x.n, id_sefue: x.id_sefue, market_id: bolsaIds[x.n] || null, ids: [],
   nombre: x.nombre,
-  descripcion: [x.descripcion_sefue || x.nombre, x.unidad && !/^unidades|cantidad$/i.test(x.unidad) ? `Se vende por: ${x.unidad.toLowerCase()}.` : '']
+  descripcion: [x.descripcion_paquete || x.descripcion_sefue || x.nombre, !x.paquete && x.unidad && !/^unidades|cantidad$/i.test(x.unidad) ? `Se vende por: ${x.unidad.toLowerCase()}.` : '', x.hoja === 'HUMIDORES' ? 'Entrega incluida en La Habana (zonas lejanas, a consultar).' : '']
     .filter(Boolean).join('\n'),
   precio_proveedor: x.precio_proveedor, precio: x.precio, comision: x.comision, precio_manual: x.precio_manual,
   departamentos: x.departamentos, categoria_bolsa: x.categoria_bolsa, tamano: x.tamano,
@@ -231,7 +271,7 @@ const pub = filas.filter((x) => x.estado === 'publicar').map((x) => ({
   confirmado: true, confirmado_por: CONF, alertas: x.alertas,
 }));
 fs.writeFileSync(path.join(DIR, 'oferta.json'), JSON.stringify({ generado: new Date().toISOString(), solo_regla: SOLO_REGLA, con_opcionales: CON_OPC, filas }, null, 1));
-fs.writeFileSync(path.join(DIR, 'publicar.json'), JSON.stringify({ generado: new Date().toISOString(), estado: 'draft', proveedor: 'SeFué', productos: pub }, null, 1));
+fs.writeFileSync(path.join(DIR, 'publicar.json'), JSON.stringify({ generado: new Date().toISOString(), estado: ESTADO, proveedor: 'SeFué', productos: pub }, null, 1));
 
 // ---- tabla.md ----
 const money = (v) => (v == null ? '—' : String(Math.round(v * 100) / 100).replace('.', ','));

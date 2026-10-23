@@ -1,0 +1,3408 @@
+{
+ "version": 1,
+ "generado": "2026-10-23 (Cuba), Claude — solo lectura, nada escrito ni enviado",
+ "ventana": "Últimos 30 días. Grupo General y privados guardados desde el 06-oct; preguntas a la tienda (crm_settings.preguntas_abiertas) desde el 18-oct; crm_escalations 30 días; crm_errores #16 y #18–#41.",
+ "metodo": [
+  "Mensajes de gestoras y clientes (sin Lennys, Nana, Zaymi, Maryta ni Ernesto) que preguntan un dato de producto (medidas, material, voltaje, batería, qué trae, colores, fotos reales) o si queda.",
+  "Cada mensaje se empareja con un producto PROPIO de la web por su nombre (sin SKU MK-). Si el mensaje no nombra el producto pero sigue a otro de la misma persona en 20 min, cuenta para ese.",
+  "«Pregunta» = una persona sobre una familia de producto en 60 min (si el bot la pasó a la tienda, no cuenta dos veces). Revisado a mano: se quitaron entradas de mercancía, pedidos y cobros.",
+  "Productos AGOTADOS fuera (no se pueden medir): puertas de corredera 2525/2555 (5 preguntas, errores #20 #41), pesa digital 2517 (4, error #40), repetidor wifi 3901 (2, error #26), silla de oficina 2593 (2).",
+  "Las búsquedas de la web no se registran en ningún sitio: no se pudieron contar."
+ ],
+ "core": {
+  "meta_datos": "_cvd_ficha_datos (texto, se va sumando con « · »), historial en _cvd_ficha_historial",
+  "escribir": "POST /wp-json/casa-viva/v1/bot/fichas/guardar {id, lineas[≤12], fuente:\"tienda\", quien, pregunta} con cabecera X-VivaBot-Key (CURRU_KEY). Core 3.14.52, CVD_Ficha_Estado::save_lines: añade el bloque «Características y medidas» al final de la descripción sin borrar nada y no repite líneas que ya están.",
+  "conocimiento": "crm_knowledge: una fila por producto, «¿Qué medidas y características tiene <nombre>?» (como fichas-rules.js filaConocimiento), active=true, status=activa; si hay una casi igual (findDuplicateKnowledge ≥ 0,7) se actualiza."
+ },
+ "totales": {
+  "preguntas_top20": 81,
+  "datos_ya_sabidos_con_fuente": 58,
+  "de_ellos_faltan_en_la_web_y_se_escriben": 13,
+  "de_ellos_solo_para_el_bot": 2,
+  "casillas_para_nana": 84,
+  "casillas_por_tipo": {
+   "sino": 10,
+   "texto": 51,
+   "foto": 13,
+   "opciones": 10
+  },
+  "preguntas_abiertas_que_se_cierran": 7
+ },
+ "ranking": [
+  {
+   "rank": 1,
+   "key": "cortinero",
+   "nombre": "Cortineros decorativos",
+   "preguntas": 7,
+   "personas": 6,
+   "errores_crm": [
+    28,
+    40
+   ],
+   "ids": [
+    291,
+    3739,
+    3747
+   ],
+   "ids_agotados_fuera": [
+    391
+   ],
+   "nota": null,
+   "solo_si": null,
+   "preguntaron": [
+    "«¿Los cortineros se recogen de largo?»",
+    "«¿Solo tenemos cortineros de color plateado?»",
+    "«¿Queda algún cortinero de 3 m?»",
+    "«¿Hay disponibilidad de cortineros dobles?» (2 veces)",
+    "«Me podrían decir las medidas de estos cortineros»",
+    "«¿Cómo son los soportes de los cortineros de 2 metros?»"
+   ],
+   "productos": [
+    {
+     "id": 291,
+     "nombre": "Cortinero decorativo — Diseño 1",
+     "url": "https://casaviva.company/producto/cortinero-decorativo-diseno-1/",
+     "precio_usd": 10,
+     "stock": "sí (sin contar)",
+     "faltas_core": [],
+     "fotos_reales": 0,
+     "imagen": "https://casaviva.company/wp-content/uploads/2026/08/hf_20261005_151646_495fe745-0df5-452a-93bb-3e1c44a87a61.png"
+    },
+    {
+     "id": 3739,
+     "nombre": "Cortinero decorativo en espiral extensible 168–305 cm",
+     "url": "https://casaviva.company/producto/cortinero-decorativo-en-espiral-extensible-66-120-cm/",
+     "precio_usd": 15,
+     "stock": "sí (sin contar)",
+     "faltas_core": [],
+     "fotos_reales": 0,
+     "imagen": "https://casaviva.company/wp-content/uploads/2026/10/cortinero-espiral-kit.jpg"
+    },
+    {
+     "id": 3747,
+     "nombre": "Cortinero decorativo en espiral extensible 122–213 cm",
+     "url": "https://casaviva.company/producto/cortinero-decorativo-en-espiral-extensible-122-213-cm/",
+     "precio_usd": 14,
+     "stock": "sí (sin contar)",
+     "faltas_core": [],
+     "fotos_reales": 0,
+     "imagen": "https://casaviva.company/wp-content/uploads/2026/10/cortinero-espiral-kit-1.jpg"
+    }
+   ],
+   "campos": [
+    {
+     "clave": "291.k1",
+     "id": 291,
+     "campo": "Largo",
+     "valor": "Extensible de 70 a 120 cm",
+     "estado": "confirmado",
+     "fuente": "ficha de la web (Woo); Maryta 06-oct (crm_knowledge #89)",
+     "en_web": true,
+     "interno": false,
+     "quien": null,
+     "linea_web": null,
+     "destino": "ya_en_web"
+    },
+    {
+     "clave": "291.k2",
+     "id": 291,
+     "campo": "Colores en la web",
+     "valor": "Negro, dorado y plateado",
+     "estado": "confirmado",
+     "fuente": "ficha de la web (Woo) (atributo color)",
+     "en_web": true,
+     "interno": false,
+     "quien": null,
+     "linea_web": null,
+     "destino": "ya_en_web"
+    },
+    {
+     "clave": "291.k3",
+     "id": 291,
+     "campo": "Material y soportes",
+     "valor": "Tubo metálico; incluye soportes",
+     "estado": "confirmado",
+     "fuente": "ficha de la web (Woo)",
+     "en_web": true,
+     "interno": false,
+     "quien": null,
+     "linea_web": null,
+     "destino": "ya_en_web"
+    },
+    {
+     "clave": "3739.k4",
+     "id": 3739,
+     "campo": "Largo",
+     "valor": "Extensible de 168 a 305 cm (66″–120″)",
+     "estado": "confirmado",
+     "fuente": "ficha de la web (Woo); foto del empaque de Lennys 15-oct",
+     "en_web": true,
+     "interno": false,
+     "quien": null,
+     "linea_web": null,
+     "destino": "ya_en_web"
+    },
+    {
+     "clave": "3739.k5",
+     "id": 3739,
+     "campo": "Qué trae",
+     "valor": "2 remates, 2 soportes, tornillos y tacos",
+     "estado": "confirmado",
+     "fuente": "ficha de la web (Woo); Lennys 15-oct («traen sus tornillos con expansionadores»)",
+     "en_web": true,
+     "interno": false,
+     "quien": null,
+     "linea_web": null,
+     "destino": "ya_en_web"
+    },
+    {
+     "clave": "3747.k6",
+     "id": 3747,
+     "campo": "Largo",
+     "valor": "Extensible de 122 a 213 cm (48″–84″)",
+     "estado": "confirmado",
+     "fuente": "ficha de la web (Woo); foto del empaque de Lennys 15-oct",
+     "en_web": true,
+     "interno": false,
+     "quien": null,
+     "linea_web": null,
+     "destino": "ya_en_web"
+    },
+    {
+     "clave": "3747.k7",
+     "id": 3747,
+     "campo": "Color",
+     "valor": "Negro; el redondo, negro con detalles plateados",
+     "estado": "confirmado",
+     "fuente": "ficha de la web (Woo); Lennys 15-oct",
+     "en_web": true,
+     "interno": false,
+     "quien": null,
+     "linea_web": null,
+     "destino": "ya_en_web"
+    },
+    {
+     "clave": "3747.k8",
+     "id": 3747,
+     "campo": "Qué trae",
+     "valor": "2 remates, 2 soportes, tornillos y tacos",
+     "estado": "confirmado",
+     "fuente": "ficha de la web (Woo); Lennys 15-oct",
+     "en_web": true,
+     "interno": false,
+     "quien": null,
+     "linea_web": null,
+     "destino": "ya_en_web"
+    },
+    {
+     "clave": "cortinero.doble",
+     "id": "cortinero",
+     "slug": "doble",
+     "campo": "¿Hay en la tienda algún cortinero DOBLE (2 barras)?",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "sino",
+     "ayuda": "Lo preguntaron 3 veces (error #28: el bot dijo que sí sin saberlo).",
+     "linea_si": "Hay cortinero doble (2 barras) en la tienda.",
+     "linea_no": "Los cortineros que hay son de una sola barra (no hay cortinero doble).",
+     "destino": "solo_conocimiento",
+     "web_ids": []
+    },
+    {
+     "clave": "291.colores_hoy",
+     "id": 291,
+     "slug": "colores_hoy",
+     "campo": "Colores que quedan hoy (Diseño 1)",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "texto",
+     "unidad": "",
+     "ayuda": "El 21-oct quedaban 11 (Lennys), sin decir colores.",
+     "linea_web": "Colores: {v}.",
+     "ancho": "medio",
+     "destino": "solo_conocimiento",
+     "web_ids": [
+      291
+     ]
+    },
+    {
+     "clave": "3747.foto_soportes",
+     "id": 3747,
+     "slug": "foto_soportes",
+     "campo": "Foto real de los soportes (cortinero de 2 m, 122–213 cm)",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "foto",
+     "ayuda": "Mándala al bot por WhatsApp con el número en el pie (ej. «#3747»).",
+     "destino": "foto_real",
+     "web_ids": [
+      3747
+     ]
+    }
+   ],
+   "cerrar_preguntas": [],
+   "conocimiento_pendiente": [
+    {
+     "k": 313,
+     "requiere": [
+      "cortinero.doble"
+     ]
+    }
+   ]
+  },
+  {
+   "rank": 2,
+   "key": "colchon",
+   "nombre": "Colchones (EDSM y Dawang)",
+   "preguntas": 7,
+   "personas": 7,
+   "errores_crm": [],
+   "ids": [
+    362,
+    574,
+    773,
+    274
+   ],
+   "ids_agotados_fuera": [],
+   "nota": null,
+   "solo_si": null,
+   "preguntaron": [
+    "«Me puede enviar las medidas del colchón»",
+    "«¿De grosor sabe cuánto es?» (colchón King)",
+    "«¿Me podrías mandar fotos reales del colchón?»",
+    "«¿Todos los colchones son empacados y enrollados o sellados al vacío?»",
+    "«¿Quedan colchón 3/4 y personal?»"
+   ],
+   "productos": [
+    {
+     "id": 362,
+     "nombre": "Colchón - EDSM A - King",
+     "url": "https://casaviva.company/producto/colchon-edsm-a-king/",
+     "precio_usd": 340,
+     "stock": "sí (sin contar)",
+     "faltas_core": [],
+     "fotos_reales": 0,
+     "imagen": "https://casaviva.company/wp-content/uploads/2026/08/pnc-product-cover.webp"
+    },
+    {
+     "id": 574,
+     "nombre": "Colchón - EDSM A - Queen",
+     "url": "https://casaviva.company/producto/colchon-edsm-a-queen/",
+     "precio_usd": 310,
+     "stock": "sí (sin contar)",
+     "faltas_core": [],
+     "fotos_reales": 0,
+     "imagen": "https://casaviva.company/wp-content/uploads/2026/08/1bR-product-cover.webp"
+    },
+    {
+     "id": 773,
+     "nombre": "Colchón de resorte 180x200cm Dawang",
+     "url": "https://casaviva.company/producto/colchon-de-resorte-180x200cm-dawang/",
+     "precio_usd": 320,
+     "stock": 1,
+     "faltas_core": [],
+     "fotos_reales": 0,
+     "imagen": "https://casaviva.company/wp-content/uploads/2026/08/AoQ-product-cover.webp"
+    },
+    {
+     "id": 274,
+     "nombre": "Colchón 180x200cm Dawang + 2 almohadas hoteleras",
+     "url": "https://casaviva.company/producto/colchon-180x200cm-dawang-2-almohadas-hoteleras/",
+     "precio_usd": 340,
+     "stock": 1,
+     "faltas_core": [],
+     "fotos_reales": 0,
+     "imagen": "https://casaviva.company/wp-content/uploads/2026/08/PyL-product-cover.webp"
+    }
+   ],
+   "campos": [
+    {
+     "clave": "362.k1",
+     "id": 362,
+     "campo": "Medidas",
+     "valor": "180 × 200 cm y 20 cm de alto",
+     "estado": "confirmado",
+     "fuente": "Maryta 14-oct (privado con el bot: «King - 180x200x20»); alto confirmado por Maryta 22-oct (pregunta ptnbqrqyb)",
+     "en_web": false,
+     "interno": false,
+     "quien": "Maryta",
+     "linea_web": "Medidas: 180 × 200 cm, 20 cm de alto.",
+     "destino": "escribir_en_web"
+    },
+    {
+     "clave": "574.k2",
+     "id": 574,
+     "campo": "Medidas",
+     "valor": "150 × 200 cm y 20 cm de alto",
+     "estado": "confirmado",
+     "fuente": "Maryta 14-oct (privado con el bot: «Queen - 150x200x20»)",
+     "en_web": false,
+     "interno": false,
+     "quien": "Maryta",
+     "linea_web": "Medidas: 150 × 200 cm, 20 cm de alto.",
+     "destino": "escribir_en_web"
+    },
+    {
+     "clave": "362.k3",
+     "id": 362,
+     "campo": "Dónde está",
+     "valor": "Venta directa: no está en la tienda",
+     "estado": "confirmado",
+     "fuente": "Maryta 14-oct (nota de voz: «los colchones de Desma son venta directa, no están en tienda»)",
+     "en_web": false,
+     "interno": true,
+     "quien": null,
+     "linea_web": null,
+     "destino": "solo_conocimiento"
+    },
+    {
+     "clave": "773.k4",
+     "id": 773,
+     "campo": "Medidas",
+     "valor": "180 × 200 cm",
+     "estado": "confirmado",
+     "fuente": "ficha de la web (Woo)",
+     "en_web": true,
+     "interno": false,
+     "quien": null,
+     "linea_web": null,
+     "destino": "ya_en_web"
+    },
+    {
+     "clave": "773.k5",
+     "id": 773,
+     "campo": "Empaque",
+     "valor": "Viene comprimido y enrollado",
+     "estado": "confirmado",
+     "fuente": "ficha de la web (Woo)",
+     "en_web": true,
+     "interno": false,
+     "quien": null,
+     "linea_web": null,
+     "destino": "ya_en_web"
+    },
+    {
+     "clave": "274.k6",
+     "id": 274,
+     "campo": "Medidas",
+     "valor": "180 × 200 cm, con 2 almohadas hoteleras",
+     "estado": "confirmado",
+     "fuente": "ficha de la web (Woo)",
+     "en_web": true,
+     "interno": false,
+     "quien": null,
+     "linea_web": null,
+     "destino": "ya_en_web"
+    },
+    {
+     "clave": "773.alto",
+     "id": 773,
+     "slug": "alto",
+     "campo": "Alto (grosor) del colchón Dawang",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "texto",
+     "unidad": "cm",
+     "ayuda": "",
+     "linea_web": "Alto (grosor): {v} cm.",
+     "ancho": "medio",
+     "destino": "escribir_en_web",
+     "web_ids": [
+      773
+     ]
+    },
+    {
+     "clave": "274.alto",
+     "id": 274,
+     "slug": "alto",
+     "campo": "Alto (grosor) del colchón Dawang + almohadas",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "texto",
+     "unidad": "cm",
+     "ayuda": "",
+     "linea_web": "Alto (grosor): {v} cm.",
+     "ancho": "medio",
+     "destino": "escribir_en_web",
+     "web_ids": [
+      274
+     ]
+    },
+    {
+     "clave": "274.almohadas",
+     "id": 274,
+     "slug": "almohadas",
+     "campo": "Medidas de cada almohada hotelera",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "texto",
+     "unidad": "cm",
+     "ayuda": "Largo × ancho.",
+     "linea_web": "Almohadas hoteleras: {v} cm cada una.",
+     "ancho": "medio",
+     "destino": "escribir_en_web",
+     "web_ids": [
+      274
+     ]
+    },
+    {
+     "clave": "773.foto_real",
+     "id": 773,
+     "slug": "foto_real",
+     "campo": "Foto real del colchón Dawang (fuera del plástico si se puede)",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "foto",
+     "ayuda": "La pidió una gestora el 22-oct (pregunta ptnbrywy7). Mándala al bot con «#773» en el pie.",
+     "destino": "foto_real",
+     "web_ids": [
+      773
+     ]
+    }
+   ],
+   "cerrar_preguntas": [
+    {
+     "q": "ptnbrywy7",
+     "requiere": [
+      "773.foto_real"
+     ],
+     "nota": "pedía fotos reales del EDSM King; el EDSM no está en tienda (venta directa): se le ofrece la del Dawang"
+    }
+   ],
+   "conocimiento_pendiente": []
+  },
+  {
+   "rank": 3,
+   "key": "sobrecama",
+   "nombre": "Sobrecamas y colchas",
+   "preguntas": 7,
+   "personas": 6,
+   "errores_crm": [],
+   "ids": [
+    3848,
+    745,
+    634,
+    118
+   ],
+   "ids_agotados_fuera": [],
+   "nota": null,
+   "solo_si": null,
+   "preguntaron": [
+    "«¿Qué incluye el paquete de Sobrecama tiwn? ¿Solo es sobrecama o trae sábana y funda?»",
+    "«¿Me pueden enviar fotos reales del color del sobrecama tiwn?»",
+    "«¿Las colchas o mantas son gruesas o finas?»",
+    "«Necesito saber las colchas si hay blanca, gris, beige, color entero, las medidas más grandes»"
+   ],
+   "productos": [
+    {
+     "id": 3848,
+     "nombre": "Sobrecama tiwn",
+     "url": "https://casaviva.company/producto/sobrecama-tiwn-3/",
+     "precio_usd": 32,
+     "stock": "sí (sin contar)",
+     "faltas_core": [
+      "descripcion",
+      "medidas",
+      "material"
+     ],
+     "fotos_reales": 0,
+     "imagen": "https://casaviva.company/wp-content/uploads/2026/10/ccae550d-2e8b-4b91-99c6-6517f954941c.webp"
+    },
+    {
+     "id": 745,
+     "nombre": "Sobrecama Queen",
+     "url": "https://casaviva.company/producto/sobrecama-queen/",
+     "precio_usd": 38,
+     "stock": "sí (sin contar)",
+     "faltas_core": [],
+     "fotos_reales": 0,
+     "imagen": "https://casaviva.company/wp-content/uploads/2026/08/hf_20261005_151327_dad68ad2-0e75-44f1-b02b-4d6d003763a6.png"
+    },
+    {
+     "id": 634,
+     "nombre": "Sobrecama king",
+     "url": "https://casaviva.company/producto/sobrecama-king/",
+     "precio_usd": 43,
+     "stock": "sí (sin contar)",
+     "faltas_core": [],
+     "fotos_reales": 0,
+     "imagen": "https://casaviva.company/wp-content/uploads/2026/08/hf_20261005_151443_e305e4ed-9efb-4366-ae44-6ef28352850d.png"
+    },
+    {
+     "id": 118,
+     "nombre": "Sobrecama lisa full",
+     "url": "https://casaviva.company/producto/sobrecama-lisa-full/",
+     "precio_usd": 36,
+     "stock": "sí (sin contar)",
+     "faltas_core": [],
+     "fotos_reales": 0,
+     "imagen": "https://casaviva.company/wp-content/uploads/2026/08/2X0-product-cover.webp"
+    }
+   ],
+   "campos": [
+    {
+     "clave": "3848.k1",
+     "id": 3848,
+     "campo": "Qué trae",
+     "valor": "Sobrecama de 190 × 230 cm, 2 fundas de almohada de 50 × 70 cm y 2 fundas de cojín de 45 × 45 cm",
+     "estado": "confirmado",
+     "fuente": "Zaymi en el General 17-oct + crm_knowledge #242; Maryta en el General 20-oct",
+     "en_web": false,
+     "interno": false,
+     "quien": "Zaymi",
+     "linea_web": "Trae: sobrecama de 190 × 230 cm, 2 fundas de almohada de 50 × 70 cm y 2 fundas de cojín de 45 × 45 cm.",
+     "destino": "escribir_en_web"
+    },
+    {
+     "clave": "745.k2",
+     "id": 745,
+     "campo": "Medidas y material",
+     "valor": "240 × 240 cm; 100 % poliéster; 2 fundas y 2 forros de cojín",
+     "estado": "confirmado",
+     "fuente": "ficha de la web (Woo)",
+     "en_web": true,
+     "interno": false,
+     "quien": null,
+     "linea_web": null,
+     "destino": "ya_en_web"
+    },
+    {
+     "clave": "634.k3",
+     "id": 634,
+     "campo": "Medidas y material",
+     "valor": "260 × 290 cm; 100 % poliéster; 2 fundas y 2 forros de cojín",
+     "estado": "confirmado",
+     "fuente": "ficha de la web (Woo)",
+     "en_web": true,
+     "interno": false,
+     "quien": null,
+     "linea_web": null,
+     "destino": "ya_en_web"
+    },
+    {
+     "clave": "118.k4",
+     "id": 118,
+     "campo": "Medidas y material",
+     "valor": "220 × 240 cm; 5 piezas; 100 % poliéster",
+     "estado": "confirmado",
+     "fuente": "ficha de la web (Woo)",
+     "en_web": true,
+     "interno": false,
+     "quien": null,
+     "linea_web": null,
+     "destino": "ya_en_web"
+    },
+    {
+     "clave": "3848.material",
+     "id": 3848,
+     "slug": "material",
+     "campo": "Material de la sobrecama tiwn (según la etiqueta)",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "texto",
+     "unidad": "",
+     "ayuda": "",
+     "linea_web": "Material: {v}.",
+     "ancho": "medio",
+     "destino": "escribir_en_web",
+     "web_ids": [
+      3848
+     ]
+    },
+    {
+     "clave": "3848.grosor",
+     "id": 3848,
+     "slug": "grosor",
+     "campo": "Sobrecama tiwn: ¿fina, media o gruesa?",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "opciones",
+     "opciones": [
+      "fina",
+      "media",
+      "gruesa"
+     ],
+     "ayuda": "",
+     "linea_web": "Grosor: {v}.",
+     "destino": "escribir_en_web",
+     "web_ids": [
+      3848
+     ]
+    },
+    {
+     "clave": "745.grosor",
+     "id": 745,
+     "slug": "grosor",
+     "campo": "Sobrecama Queen: ¿fina, media o gruesa?",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "opciones",
+     "opciones": [
+      "fina",
+      "media",
+      "gruesa"
+     ],
+     "ayuda": "",
+     "linea_web": "Grosor: {v}.",
+     "destino": "escribir_en_web",
+     "web_ids": [
+      745
+     ]
+    },
+    {
+     "clave": "634.grosor",
+     "id": 634,
+     "slug": "grosor",
+     "campo": "Sobrecama King: ¿fina, media o gruesa?",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "opciones",
+     "opciones": [
+      "fina",
+      "media",
+      "gruesa"
+     ],
+     "ayuda": "",
+     "linea_web": "Grosor: {v}.",
+     "destino": "escribir_en_web",
+     "web_ids": [
+      634
+     ]
+    },
+    {
+     "clave": "118.grosor",
+     "id": 118,
+     "slug": "grosor",
+     "campo": "Sobrecama lisa Full: ¿fina, media o gruesa?",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "opciones",
+     "opciones": [
+      "fina",
+      "media",
+      "gruesa"
+     ],
+     "ayuda": "",
+     "linea_web": "Grosor: {v}.",
+     "destino": "escribir_en_web",
+     "web_ids": [
+      118
+     ]
+    },
+    {
+     "clave": "sobrecama.lisos_hoy",
+     "id": "sobrecama",
+     "slug": "lisos_hoy",
+     "campo": "Colores LISOS (de un solo color) que hay hoy en Queen y King",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "texto",
+     "unidad": "",
+     "ayuda": "Ej.: «Queen: blanco, gris · King: beige». Lo pidió una gestora hoy.",
+     "linea_web": "Colores LISOS (de un solo color) que hay hoy en Queen y King: {v}.",
+     "ancho": "largo",
+     "destino": "solo_conocimiento",
+     "web_ids": []
+    },
+    {
+     "clave": "3848.foto_real",
+     "id": 3848,
+     "slug": "foto_real",
+     "campo": "Foto real de cada diseño de la Sobrecama tiwn",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "foto",
+     "ayuda": "Mándala al bot por WhatsApp con el número en el pie (ej. «#3848»).",
+     "destino": "foto_real",
+     "web_ids": [
+      3848
+     ]
+    }
+   ],
+   "cerrar_preguntas": [
+    {
+     "q": "ptnbe1g3o",
+     "requiere": [
+      "3848.material",
+      "3848.grosor"
+     ],
+     "nota": "pregunta de ficha #3848 (descripción, medidas, material)"
+    },
+    {
+     "q": "ptnd9fc7o",
+     "requiere": [
+      "sobrecama.lisos_hoy"
+     ],
+     "nota": "colchas de color entero en medida grande"
+    }
+   ],
+   "conocimiento_pendiente": []
+  },
+  {
+   "rank": 4,
+   "key": "almohada",
+   "nombre": "Almohadas ortopédicas Ceasar Palace",
+   "preguntas": 6,
+   "personas": 5,
+   "errores_crm": [
+    24
+   ],
+   "ids": [
+    3714,
+    3720
+   ],
+   "ids_agotados_fuera": [],
+   "nota": null,
+   "solo_si": null,
+   "preguntaron": [
+    "«¿Son de algodón?»",
+    "«Las almohadas de 22 y 25 USD, ¿ambas son ortopédicas?»",
+    "«¿Se puede usar hoy o hay que esperar 72 horas como los colchones?»",
+    "«¿De qué material están rellenas? ¿Blandas o duras?»",
+    "«Me pueden mandar una foto real de la almohada ortopédica cervical 45 × 70»"
+   ],
+   "productos": [
+    {
+     "id": 3714,
+     "nombre": "Almohada ortopédica cervical Ceasar Palace 45 × 70 cm",
+     "url": "https://casaviva.company/producto/almohada-ortopedica-cervical-ceasar-palace-45-x-70-cm/",
+     "precio_usd": 22,
+     "stock": 11,
+     "faltas_core": [],
+     "fotos_reales": 0,
+     "imagen": "https://casaviva.company/wp-content/uploads/2026/10/almohada-ortopedica-cervical-45x70-1.jpg"
+    },
+    {
+     "id": 3720,
+     "nombre": "Almohada de espuma viscoelástica Ceasar Palace 40 × 65 cm",
+     "url": "https://casaviva.company/producto/almohada-de-espuma-viscoelastica-ceasar-palace-40-x-65-cm/",
+     "precio_usd": 25,
+     "stock": 18,
+     "faltas_core": [],
+     "fotos_reales": 0,
+     "imagen": "https://casaviva.company/wp-content/uploads/2026/10/almohada-viscoelastica-40x65-1.jpg"
+    }
+   ],
+   "campos": [
+    {
+     "clave": "3714.k1",
+     "id": 3714,
+     "campo": "Tela y relleno",
+     "valor": "Tela 100 % poliéster; relleno 100 % poliéster (no es algodón)",
+     "estado": "confirmado",
+     "fuente": "ficha de la web (Woo) (según la etiqueta)",
+     "en_web": true,
+     "interno": false,
+     "quien": null,
+     "linea_web": null,
+     "destino": "ya_en_web"
+    },
+    {
+     "clave": "3714.k2",
+     "id": 3714,
+     "campo": "Medidas",
+     "valor": "45 × 70 cm; sale del vacío y crece hasta unos 10 cm de alto",
+     "estado": "confirmado",
+     "fuente": "ficha de la web (Woo); Lennys 15-oct",
+     "en_web": true,
+     "interno": false,
+     "quien": null,
+     "linea_web": null,
+     "destino": "ya_en_web"
+    },
+    {
+     "clave": "3720.k3",
+     "id": 3720,
+     "campo": "Material y medidas",
+     "valor": "Espuma viscoelástica; 40 × 65 cm; 12 cm en el lado alto y 10 cm en el bajo; funda con cremallera",
+     "estado": "confirmado",
+     "fuente": "ficha de la web (Woo)",
+     "en_web": true,
+     "interno": false,
+     "quien": null,
+     "linea_web": null,
+     "destino": "ya_en_web"
+    },
+    {
+     "clave": "3720.k4",
+     "id": 3720,
+     "campo": "Tipo",
+     "valor": "Las dos son ortopédicas: la de 22 USD es cervical de poliéster y la de 25 USD es de espuma viscoelástica",
+     "estado": "confirmado",
+     "fuente": "ficha de la web (Woo)",
+     "en_web": true,
+     "interno": false,
+     "quien": null,
+     "linea_web": null,
+     "destino": "ya_en_web"
+    },
+    {
+     "clave": "3714.firmeza",
+     "id": 3714,
+     "slug": "firmeza",
+     "campo": "Almohada cervical 45 × 70 (22 USD): ¿blanda, media o firme?",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "opciones",
+     "opciones": [
+      "blanda",
+      "media",
+      "firme"
+     ],
+     "ayuda": "",
+     "linea_web": "Firmeza: {v}.",
+     "destino": "escribir_en_web",
+     "web_ids": [
+      3714
+     ]
+    },
+    {
+     "clave": "3720.firmeza",
+     "id": 3720,
+     "slug": "firmeza",
+     "campo": "Almohada viscoelástica 40 × 65 (25 USD): ¿blanda, media o firme?",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "opciones",
+     "opciones": [
+      "blanda",
+      "media",
+      "firme"
+     ],
+     "ayuda": "",
+     "linea_web": "Firmeza: {v}.",
+     "destino": "escribir_en_web",
+     "web_ids": [
+      3720
+     ]
+    },
+    {
+     "clave": "3714.horas_forma",
+     "id": 3714,
+     "slug": "horas_forma",
+     "campo": "Al sacarla del vacío, ¿cuántas horas tarda en tomar su forma?",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "texto",
+     "unidad": "horas",
+     "ayuda": "Si lo dice el empaque. Si no, déjalo en blanco.",
+     "linea_web": "Al sacarla del empaque tarda unas {v} horas en tomar su forma.",
+     "ancho": "medio",
+     "destino": "escribir_en_web",
+     "web_ids": [
+      3714
+     ]
+    },
+    {
+     "clave": "3714.foto_real",
+     "id": 3714,
+     "slug": "foto_real",
+     "campo": "Foto real de la almohada cervical 45 × 70, fuera del empaque",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "foto",
+     "ayuda": "La pidió Zulien hoy (pregunta ptnd4d58h). Mándala al bot con «#3714» en el pie.",
+     "destino": "foto_real",
+     "web_ids": [
+      3714
+     ]
+    },
+    {
+     "clave": "3720.foto_real",
+     "id": 3720,
+     "slug": "foto_real",
+     "campo": "Foto real de la almohada viscoelástica 40 × 65",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "foto",
+     "ayuda": "Mándala al bot por WhatsApp con el número en el pie (ej. «#3720»).",
+     "destino": "foto_real",
+     "web_ids": [
+      3720
+     ]
+    }
+   ],
+   "cerrar_preguntas": [
+    {
+     "q": "ptnd4d58h",
+     "requiere": [
+      "3714.foto_real"
+     ],
+     "nota": "foto real de la almohada 45 × 70"
+    }
+   ],
+   "conocimiento_pendiente": [
+    {
+     "k": 271,
+     "requiere": [
+      "3714.firmeza",
+      "3720.firmeza"
+     ]
+    }
+   ]
+  },
+  {
+   "rank": 5,
+   "key": "sabanas",
+   "nombre": "Juegos de sábanas Majestic y Luxury Home",
+   "preguntas": 6,
+   "personas": 5,
+   "errores_crm": [],
+   "ids": [
+    345,
+    465,
+    577,
+    2491,
+    2557
+   ],
+   "ids_agotados_fuera": [],
+   "nota": null,
+   "solo_si": null,
+   "preguntaron": [
+    "«¿De qué tejido son los juegos de sábana personales de 14 USD?»",
+    "«Necesito las fotos de los colores de las sábanas King size» / «solo salen de dos»",
+    "«Gris oscuro, rosado y azul en sábanas King no me sale color en la página»",
+    "«¿Tienes foto real de los colores que quedan de sábanas?»"
+   ],
+   "productos": [
+    {
+     "id": 345,
+     "nombre": "Juego de Sábanas Majestic King",
+     "url": "https://casaviva.company/producto/juego-de-sabanas-majestic-king/",
+     "precio_usd": 27,
+     "stock": "sí (sin contar)",
+     "faltas_core": [],
+     "fotos_reales": 0,
+     "imagen": "https://casaviva.company/wp-content/uploads/2026/08/hf_20261005_193651_44f96912-e629-41e3-b09a-52cf7bca9cd1.png"
+    },
+    {
+     "id": 465,
+     "nombre": "Juego de sabanas Queen Majestic imperial",
+     "url": "https://casaviva.company/producto/juego-de-sabanas-queen-majestic-imperial/",
+     "precio_usd": 25,
+     "stock": "sí (sin contar)",
+     "faltas_core": [],
+     "fotos_reales": 1,
+     "imagen": "https://casaviva.company/wp-content/uploads/2026/08/nRo-product-cover.webp"
+    },
+    {
+     "id": 577,
+     "nombre": "Juego de Sábanas Majestic Imperial – TWIN",
+     "url": "https://casaviva.company/producto/juego-de-sabanas-majestic-imperial-twin/",
+     "precio_usd": 14,
+     "stock": "sí (sin contar)",
+     "faltas_core": [],
+     "fotos_reales": 0,
+     "imagen": "https://casaviva.company/wp-content/uploads/2026/08/IVt-product-cover.webp"
+    },
+    {
+     "id": 2491,
+     "nombre": "Juego de sabanas Camera Majestic imperial",
+     "url": "https://casaviva.company/producto/juego-de-sabanas-camera-majestic-imperial/",
+     "precio_usd": 23,
+     "stock": "sí (sin contar)",
+     "faltas_core": [],
+     "fotos_reales": 0,
+     "imagen": "https://casaviva.company/wp-content/uploads/2026/10/hf_20261005_152730_1b50348a-a394-4336-a6cc-d5760b422cb6-1.png"
+    },
+    {
+     "id": 2557,
+     "nombre": "Sabana camera 100% luxury home",
+     "url": "https://casaviva.company/producto/sabana-camera-100-luxury-home/",
+     "precio_usd": 25,
+     "stock": "sí (sin contar)",
+     "faltas_core": [],
+     "fotos_reales": 8,
+     "imagen": "https://casaviva.company/wp-content/uploads/2026/10/3x1-product-cover.webp"
+    }
+   ],
+   "campos": [
+    {
+     "clave": "577.k1",
+     "id": 577,
+     "campo": "Tejido",
+     "valor": "Microfibra",
+     "estado": "confirmado",
+     "fuente": "Zaymi 08-oct (crm_knowledge #54 y #58)",
+     "en_web": false,
+     "interno": false,
+     "quien": "Zaymi",
+     "linea_web": "Tejido: microfibra.",
+     "destino": "escribir_en_web"
+    },
+    {
+     "clave": "465.k2",
+     "id": 465,
+     "campo": "Material",
+     "valor": "100 % poliéster",
+     "estado": "confirmado",
+     "fuente": "ficha de la web (Woo)",
+     "en_web": true,
+     "interno": false,
+     "quien": null,
+     "linea_web": null,
+     "destino": "ya_en_web"
+    },
+    {
+     "clave": "2491.k3",
+     "id": 2491,
+     "campo": "Material",
+     "valor": "100 % poliéster",
+     "estado": "confirmado",
+     "fuente": "ficha de la web (Woo)",
+     "en_web": true,
+     "interno": false,
+     "quien": null,
+     "linea_web": null,
+     "destino": "ya_en_web"
+    },
+    {
+     "clave": "345.k4",
+     "id": 345,
+     "campo": "Medidas",
+     "valor": "Plana 274 × 259 cm; ajustable 198 × 203 cm con 20 cm de alto; 2 fundas de 51 × 102 cm",
+     "estado": "confirmado",
+     "fuente": "ficha de la web (Woo)",
+     "en_web": true,
+     "interno": false,
+     "quien": null,
+     "linea_web": null,
+     "destino": "ya_en_web"
+    },
+    {
+     "clave": "345.k5",
+     "id": 345,
+     "campo": "Colores",
+     "valor": "Los colores valen para todas las medidas (Queen, King y Twin); se toma el que haya en cada medida",
+     "estado": "confirmado",
+     "fuente": "Lennys 18-oct (privado con el bot)",
+     "en_web": false,
+     "interno": true,
+     "quien": null,
+     "linea_web": null,
+     "destino": "solo_conocimiento"
+    },
+    {
+     "clave": "345.material",
+     "id": 345,
+     "slug": "material",
+     "campo": "Material de las sábanas King (según la etiqueta)",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "texto",
+     "unidad": "",
+     "ayuda": "",
+     "linea_web": "Material: {v}.",
+     "ancho": "medio",
+     "destino": "escribir_en_web",
+     "web_ids": [
+      345
+     ]
+    },
+    {
+     "clave": "2557.material",
+     "id": 2557,
+     "slug": "material",
+     "campo": "Material de la sábana Luxury Home (según la etiqueta)",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "texto",
+     "unidad": "",
+     "ayuda": "",
+     "linea_web": "Material: {v}.",
+     "ancho": "medio",
+     "destino": "escribir_en_web",
+     "web_ids": [
+      2557
+     ]
+    },
+    {
+     "clave": "345.colores_hoy",
+     "id": 345,
+     "slug": "colores_hoy",
+     "campo": "Colores de sábanas King que hay hoy",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "texto",
+     "unidad": "",
+     "ayuda": "",
+     "linea_web": "Colores: {v}.",
+     "ancho": "largo",
+     "destino": "solo_conocimiento",
+     "web_ids": [
+      345
+     ]
+    },
+    {
+     "clave": "345.foto_colores",
+     "id": 345,
+     "slug": "foto_colores",
+     "campo": "Foto real de cada color de sábanas King que quede",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "foto",
+     "ayuda": "Mándala al bot por WhatsApp con el número en el pie (ej. «#345»).",
+     "destino": "foto_real",
+     "web_ids": [
+      345
+     ]
+    }
+   ],
+   "cerrar_preguntas": [],
+   "conocimiento_pendiente": []
+  },
+  {
+   "rank": 6,
+   "key": "edredon",
+   "nombre": "Edredón con juego de sábanas (Full y Queen)",
+   "preguntas": 6,
+   "personas": 5,
+   "errores_crm": [],
+   "ids": [
+    2439,
+    2457
+   ],
+   "ids_agotados_fuera": [],
+   "nota": null,
+   "solo_si": null,
+   "preguntaron": [
+    "«¿Qué edredones quedan?»",
+    "«¿De qué grosor es el edredón de los juegos que hay en existencia?»",
+    "«Me podrían mandar fotos de los edredones queen que hay, que solo sale 1 foto»",
+    "«¿Me haces una foto del edredón Queen BLANCO?»"
+   ],
+   "productos": [
+    {
+     "id": 2439,
+     "nombre": "Edredón con juego de sabana (camero)",
+     "url": "https://casaviva.company/producto/edredon-con-juego-de-sabana-camero/",
+     "precio_usd": 40,
+     "stock": "sí (sin contar)",
+     "faltas_core": [
+      "material"
+     ],
+     "fotos_reales": 5,
+     "imagen": "https://casaviva.company/wp-content/uploads/2026/10/j1Z-product-cover.webp"
+    },
+    {
+     "id": 2457,
+     "nombre": "Edredón con juego de sabana (queen)",
+     "url": "https://casaviva.company/producto/edredon-con-juego-de-sabana-queen/",
+     "precio_usd": 50,
+     "stock": "sí (sin contar)",
+     "faltas_core": [
+      "material"
+     ],
+     "fotos_reales": 0,
+     "imagen": "https://casaviva.company/wp-content/uploads/2026/10/byD-product-cover.webp"
+    }
+   ],
+   "campos": [
+    {
+     "clave": "2439.k1",
+     "id": 2439,
+     "campo": "Qué trae",
+     "valor": "Cobertor 193 × 218 cm, sábana plana 203 × 228 cm, ajustable 137 × 190 + 35 cm y 2 fundas 50 × 76 cm",
+     "estado": "confirmado",
+     "fuente": "ficha de la web (Woo)",
+     "en_web": true,
+     "interno": false,
+     "quien": null,
+     "linea_web": null,
+     "destino": "ya_en_web"
+    },
+    {
+     "clave": "2457.k2",
+     "id": 2457,
+     "campo": "Qué trae",
+     "valor": "Cobertor 218 × 218 cm, sábana plana 228 × 259 cm, ajustable 152 × 203 + 35 cm y 2 fundas 50 × 76 cm",
+     "estado": "confirmado",
+     "fuente": "ficha de la web (Woo)",
+     "en_web": true,
+     "interno": false,
+     "quien": null,
+     "linea_web": null,
+     "destino": "ya_en_web"
+    },
+    {
+     "clave": "2439.k3",
+     "id": 2439,
+     "campo": "Color blanco",
+     "valor": "El blanco del Full no es liso: es blanco con bolas de colores",
+     "estado": "confirmado",
+     "fuente": "Nana 13-oct (crm_knowledge #174)",
+     "en_web": false,
+     "interno": false,
+     "quien": "Nana",
+     "linea_web": "El color blanco es blanco con bolas de colores (no es liso).",
+     "destino": "escribir_en_web"
+    },
+    {
+     "clave": "2439.material",
+     "id": 2439,
+     "slug": "material",
+     "campo": "Material del edredón Full (según la etiqueta)",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "texto",
+     "unidad": "",
+     "ayuda": "",
+     "linea_web": "Material: {v}.",
+     "ancho": "medio",
+     "destino": "escribir_en_web",
+     "web_ids": [
+      2439
+     ]
+    },
+    {
+     "clave": "2457.material",
+     "id": 2457,
+     "slug": "material",
+     "campo": "Material del edredón Queen (según la etiqueta)",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "texto",
+     "unidad": "",
+     "ayuda": "",
+     "linea_web": "Material: {v}.",
+     "ancho": "medio",
+     "destino": "escribir_en_web",
+     "web_ids": [
+      2457
+     ]
+    },
+    {
+     "clave": "2439.grosor",
+     "id": 2439,
+     "slug": "grosor",
+     "campo": "Cobertor Full: ¿fino, medio o grueso?",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "opciones",
+     "opciones": [
+      "fino",
+      "medio",
+      "grueso"
+     ],
+     "ayuda": "",
+     "linea_web": "Grosor del cobertor: {v}.",
+     "destino": "escribir_en_web",
+     "web_ids": [
+      2439
+     ]
+    },
+    {
+     "clave": "2457.grosor",
+     "id": 2457,
+     "slug": "grosor",
+     "campo": "Cobertor Queen: ¿fino, medio o grueso?",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "opciones",
+     "opciones": [
+      "fino",
+      "medio",
+      "grueso"
+     ],
+     "ayuda": "",
+     "linea_web": "Grosor del cobertor: {v}.",
+     "destino": "escribir_en_web",
+     "web_ids": [
+      2457
+     ]
+    },
+    {
+     "clave": "edredon.colores_hoy",
+     "id": "edredon",
+     "slug": "colores_hoy",
+     "campo": "Colores que hay hoy (Full y Queen)",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "texto",
+     "unidad": "",
+     "ayuda": "Ej.: «Full: azul, rosado · Queen: blanco».",
+     "linea_web": "Colores que hay hoy (Full y Queen): {v}.",
+     "ancho": "largo",
+     "destino": "solo_conocimiento",
+     "web_ids": []
+    },
+    {
+     "clave": "2457.foto_real",
+     "id": 2457,
+     "slug": "foto_real",
+     "campo": "Foto real del edredón Queen BLANCO (y de los otros colores que queden)",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "foto",
+     "ayuda": "La pidieron Dayami y Dany el 22-oct (pregunta ptnbknuao). Con «#2457» en el pie.",
+     "destino": "foto_real",
+     "web_ids": [
+      2457
+     ]
+    }
+   ],
+   "cerrar_preguntas": [
+    {
+     "q": "ptnbknuao",
+     "requiere": [
+      "2457.foto_real"
+     ],
+     "nota": "foto del edredón Queen blanco"
+    }
+   ],
+   "conocimiento_pendiente": []
+  },
+  {
+   "rank": 7,
+   "key": "alfombras",
+   "nombre": "Alfombras de cocina 3D y alfombra Bienvenido",
+   "preguntas": 6,
+   "personas": 5,
+   "errores_crm": [],
+   "ids": [
+    2531,
+    2559,
+    2561,
+    2567,
+    2397
+   ],
+   "ids_agotados_fuera": [
+    2563,
+    3705
+   ],
+   "nota": null,
+   "solo_si": null,
+   "preguntaron": [
+    "«Necesito foto real de las alfombras de cocina, que se vea el material»",
+    "«Necesito la foto real del set de alfombras de cocina de girasol»",
+    "«Foto real de las alfombras de bienvenida 45 × 75 color carmelita oscuro»",
+    "«Una clienta quiere que le lleven 3 modelos de alfombras de cocina para ver»"
+   ],
+   "productos": [
+    {
+     "id": 2531,
+     "nombre": "Set de 2 alfombras para cocina 3D — diseño utensilios rojo y negro",
+     "url": "https://casaviva.company/producto/set-de-2-alfombras-para-cocina-3d/",
+     "precio_usd": 18,
+     "stock": 2,
+     "faltas_core": [
+      "material"
+     ],
+     "fotos_reales": 1,
+     "imagen": "https://casaviva.company/wp-content/uploads/2026/10/Qm8-product-cover.webp"
+    },
+    {
+     "id": 2559,
+     "nombre": "Set de 2 alfombras para cocina 3D — diseño café y rosa",
+     "url": "https://casaviva.company/producto/set-de-2-alfombras-para-cocina-3d-7/",
+     "precio_usd": 18,
+     "stock": 2,
+     "faltas_core": [],
+     "fotos_reales": 1,
+     "imagen": "https://casaviva.company/wp-content/uploads/2026/10/XWv-product-cover.webp"
+    },
+    {
+     "id": 2561,
+     "nombre": "Set de 2 alfombras para cocina 3D — diseño sushi",
+     "url": "https://casaviva.company/producto/set-de-2-alfombras-para-cocina-3d-8/",
+     "precio_usd": 18,
+     "stock": 1,
+     "faltas_core": [
+      "material"
+     ],
+     "fotos_reales": 1,
+     "imagen": "https://casaviva.company/wp-content/uploads/2026/10/WkB-product-cover.webp"
+    },
+    {
+     "id": 2567,
+     "nombre": "Set de 2 alfombras para cocina 3D — diseño Kitchen Rules",
+     "url": "https://casaviva.company/producto/set-de-2-alfombras-para-cocina-3d-11/",
+     "precio_usd": 18,
+     "stock": 1,
+     "faltas_core": [
+      "material"
+     ],
+     "fotos_reales": 1,
+     "imagen": "https://casaviva.company/wp-content/uploads/2026/10/pNX-product-cover.webp"
+    },
+    {
+     "id": 2397,
+     "nombre": "Alfombra Bienvenido 45x75 cm",
+     "url": "https://casaviva.company/producto/alfombra-bienvenido-45x75-cm/",
+     "precio_usd": 15,
+     "stock": "sí (sin contar)",
+     "faltas_core": [],
+     "fotos_reales": 8,
+     "imagen": "https://casaviva.company/wp-content/uploads/2026/10/3jn-product-cover.webp"
+    }
+   ],
+   "campos": [
+    {
+     "clave": "2531.k1",
+     "id": 2531,
+     "campo": "Medidas",
+     "valor": "2 piezas: 40 × 60 cm y 40 × 120 cm (igual en todos los diseños)",
+     "estado": "confirmado",
+     "fuente": "ficha de la web (Woo)",
+     "en_web": true,
+     "interno": false,
+     "quien": null,
+     "linea_web": null,
+     "destino": "ya_en_web"
+    },
+    {
+     "clave": "2397.k2",
+     "id": 2397,
+     "campo": "Medidas y material",
+     "valor": "45 × 75 cm; engomada (goma) con pelitos por arriba y letras en relieve",
+     "estado": "confirmado",
+     "fuente": "ficha de la web (Woo); Lennys 08-oct (crm_knowledge #100)",
+     "en_web": true,
+     "interno": false,
+     "quien": null,
+     "linea_web": null,
+     "destino": "ya_en_web"
+    },
+    {
+     "clave": "alfombras.material_cocina",
+     "id": "alfombras",
+     "slug": "material_cocina",
+     "campo": "Material de las alfombras de cocina 3D (según la etiqueta)",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "texto",
+     "unidad": "",
+     "ayuda": "Es el mismo para los 4 diseños.",
+     "linea_web": "Material: {v}.",
+     "ancho": "medio",
+     "destino": "escribir_en_web",
+     "web_ids": [
+      2531,
+      2559,
+      2561,
+      2567
+     ]
+    },
+    {
+     "clave": "alfombras.antideslizante",
+     "id": "alfombras",
+     "slug": "antideslizante",
+     "campo": "¿Las alfombras de cocina 3D tienen base antideslizante (de goma)?",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "sino",
+     "ayuda": "",
+     "linea_si": "Base antideslizante.",
+     "linea_no": "La base no es antideslizante.",
+     "destino": "escribir_en_web",
+     "web_ids": [
+      2531,
+      2559,
+      2561,
+      2567
+     ]
+    },
+    {
+     "clave": "2531.foto_material",
+     "id": 2531,
+     "slug": "foto_material",
+     "campo": "Foto real de cerca de una alfombra de cocina (que se vea el material)",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "foto",
+     "ayuda": "Mándala al bot por WhatsApp con el número en el pie (ej. «#2531»).",
+     "destino": "foto_real",
+     "web_ids": [
+      2531
+     ]
+    },
+    {
+     "clave": "2397.foto_carmelita",
+     "id": 2397,
+     "slug": "foto_carmelita",
+     "campo": "Foto real de la alfombra Bienvenido color carmelita oscuro",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "foto",
+     "ayuda": "Mándala al bot por WhatsApp con el número en el pie (ej. «#2397»).",
+     "destino": "foto_real",
+     "web_ids": [
+      2397
+     ]
+    }
+   ],
+   "cerrar_preguntas": [],
+   "conocimiento_pendiente": []
+  },
+  {
+   "rank": 8,
+   "key": "roller",
+   "nombre": "Cortinas roller enrollables",
+   "preguntas": 5,
+   "personas": 5,
+   "errores_crm": [],
+   "ids": [
+    2451,
+    2431,
+    2453,
+    2433
+   ],
+   "ids_agotados_fuera": [],
+   "nota": null,
+   "solo_si": null,
+   "preguntaron": [
+    "«En las cortinas roller, ¿las medidas vienen ancho × largo o largo × ancho?»",
+    "«Necesito fotos reales de las cortinas roller gris de 1,6 × 2,8 m»",
+    "«¿La tenemos disponible en blanco o solo el color de la foto?» (100 × 160)",
+    "«Las persianitas roller, ¿se pueden modificar de alguna manera?»"
+   ],
+   "productos": [
+    {
+     "id": 2451,
+     "nombre": "Cortina roller enrollable 100X160",
+     "url": "https://casaviva.company/producto/cortina-roller-enrollable-100x160/",
+     "precio_usd": 55,
+     "stock": 9,
+     "faltas_core": [
+      "material"
+     ],
+     "fotos_reales": 0,
+     "imagen": "https://casaviva.company/wp-content/uploads/2026/10/kqO-product-cover.webp"
+    },
+    {
+     "id": 2431,
+     "nombre": "Cortina roller enrollable 140X280",
+     "url": "https://casaviva.company/producto/cortina-roller-enrollable-140x280/",
+     "precio_usd": 60,
+     "stock": 4,
+     "faltas_core": [
+      "material"
+     ],
+     "fotos_reales": 1,
+     "imagen": "https://casaviva.company/wp-content/uploads/2026/10/a9x-product-cover.webp"
+    },
+    {
+     "id": 2453,
+     "nombre": "Cortina roller enrollable 160X280",
+     "url": "https://casaviva.company/producto/cortina-roller-enrollable-160x280/",
+     "precio_usd": 65,
+     "stock": 3,
+     "faltas_core": [
+      "material"
+     ],
+     "fotos_reales": 0,
+     "imagen": "https://casaviva.company/wp-content/uploads/2026/10/yLa-product-cover.webp"
+    },
+    {
+     "id": 2433,
+     "nombre": "Cortina roller enrollable 172X280",
+     "url": "https://casaviva.company/producto/cortina-roller-enrollable-172x280/",
+     "precio_usd": 70,
+     "stock": 10,
+     "faltas_core": [
+      "material"
+     ],
+     "fotos_reales": 1,
+     "imagen": "https://casaviva.company/wp-content/uploads/2026/10/NOv-product-cover.webp"
+    }
+   ],
+   "campos": [
+    {
+     "clave": "2431.k1",
+     "id": 2431,
+     "campo": "Medidas y colores",
+     "valor": "100 × 160 negra · 140 × 280 beige · 160 × 280 gris · 172 × 280 gris",
+     "estado": "confirmado",
+     "fuente": "ficha de la web (Woo)",
+     "en_web": true,
+     "interno": false,
+     "quien": null,
+     "linea_web": null,
+     "destino": "ya_en_web"
+    },
+    {
+     "clave": "2431.k2",
+     "id": 2431,
+     "campo": "Cómo se leen las medidas",
+     "valor": "Primero el ancho y después el largo (140 × 280 = 1,40 m de ancho y 2,80 m de largo)",
+     "estado": "confirmado",
+     "fuente": "chats del equipo 11-oct (crm_knowledge #82)",
+     "en_web": false,
+     "interno": false,
+     "quien": "equipo",
+     "linea_web": "Primero va el ancho y después el largo: 140 × 280 son 1,40 m de ancho y 2,80 m de largo.",
+     "destino": "escribir_en_web"
+    },
+    {
+     "clave": "2431.k3",
+     "id": 2431,
+     "campo": "Qué trae",
+     "valor": "Cadena lateral; soportes y accesorios de instalación",
+     "estado": "confirmado",
+     "fuente": "ficha de la web (Woo)",
+     "en_web": true,
+     "interno": false,
+     "quien": null,
+     "linea_web": null,
+     "destino": "ya_en_web"
+    },
+    {
+     "clave": "roller.material",
+     "id": "roller",
+     "slug": "material",
+     "campo": "Material de la tela de las cortinas roller (según la etiqueta)",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "texto",
+     "unidad": "",
+     "ayuda": "",
+     "linea_web": "Material: {v}.",
+     "ancho": "medio",
+     "destino": "escribir_en_web",
+     "web_ids": [
+      2431,
+      2433,
+      2451,
+      2453
+     ]
+    },
+    {
+     "clave": "roller.luz",
+     "id": "roller",
+     "slug": "luz",
+     "campo": "¿Oscurecen del todo o dejan pasar algo de luz?",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "opciones",
+     "opciones": [
+      "oscurecen del todo (blackout)",
+      "dejan pasar algo de luz"
+     ],
+     "ayuda": "",
+     "linea_web": "Luz: {v}.",
+     "destino": "escribir_en_web",
+     "web_ids": [
+      2431,
+      2433,
+      2451,
+      2453
+     ]
+    },
+    {
+     "clave": "roller.cortar",
+     "id": "roller",
+     "slug": "cortar",
+     "campo": "¿Se pueden cortar o ajustar de ancho?",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "sino",
+     "ayuda": "",
+     "linea_si": "Se puede cortar o ajustar de ancho.",
+     "linea_no": "No se puede cortar ni ajustar de ancho: hay que elegir la medida.",
+     "destino": "escribir_en_web",
+     "web_ids": [
+      2431,
+      2433,
+      2451,
+      2453
+     ]
+    },
+    {
+     "clave": "2453.foto_real",
+     "id": 2453,
+     "slug": "foto_real",
+     "campo": "Foto real de la cortina roller gris 160 × 280",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "foto",
+     "ayuda": "Mándala al bot por WhatsApp con el número en el pie (ej. «#2453»).",
+     "destino": "foto_real",
+     "web_ids": [
+      2453
+     ]
+    },
+    {
+     "clave": "2451.foto_real",
+     "id": 2451,
+     "slug": "foto_real",
+     "campo": "Foto real de la cortina roller negra 100 × 160",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "foto",
+     "ayuda": "Mándala al bot por WhatsApp con el número en el pie (ej. «#2451»).",
+     "destino": "foto_real",
+     "web_ids": [
+      2451
+     ]
+    }
+   ],
+   "cerrar_preguntas": [],
+   "conocimiento_pendiente": []
+  },
+  {
+   "rank": 9,
+   "key": "cama",
+   "nombre": "Cama plegable portátil",
+   "preguntas": 4,
+   "personas": 4,
+   "errores_crm": [
+    41
+   ],
+   "ids": [
+    2407
+   ],
+   "ids_agotados_fuera": [],
+   "nota": null,
+   "solo_si": null,
+   "preguntaron": [
+    "«Necesito saber cuántas camas plegables quedan en tienda»",
+    "«¿Las camas plegables vienen en una caja? La clienta la quiere recoger en moto»",
+    "Pregunta de ficha del bot: «material»"
+   ],
+   "productos": [
+    {
+     "id": 2407,
+     "nombre": "Cama plegable portátil",
+     "url": "https://casaviva.company/producto/cama-plegable-portatil/",
+     "precio_usd": 60,
+     "stock": 4,
+     "faltas_core": [
+      "material"
+     ],
+     "fotos_reales": 4,
+     "imagen": "https://casaviva.company/wp-content/uploads/2026/10/don-product-cover.webp"
+    }
+   ],
+   "campos": [
+    {
+     "clave": "2407.k1",
+     "id": 2407,
+     "campo": "Medidas",
+     "valor": "1,75 m de largo × 60 cm de ancho; 27 cm de alto",
+     "estado": "confirmado",
+     "fuente": "ficha de la web (Woo)",
+     "en_web": true,
+     "interno": false,
+     "quien": null,
+     "linea_web": null,
+     "destino": "ya_en_web"
+    },
+    {
+     "clave": "2407.k2",
+     "id": 2407,
+     "campo": "Patas",
+     "valor": "Tiene 3 patas (no 4 como se ve en la foto)",
+     "estado": "confirmado",
+     "fuente": "Lennys en el General 21-oct",
+     "en_web": false,
+     "interno": false,
+     "quien": "Lennys",
+     "linea_web": "Tiene 3 patas (no 4 como en la foto).",
+     "destino": "escribir_en_web"
+    },
+    {
+     "clave": "2407.material",
+     "id": 2407,
+     "slug": "material",
+     "campo": "Material de la estructura y de la tela",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "texto",
+     "unidad": "",
+     "ayuda": "Ej.: «estructura de metal, tela de lona».",
+     "linea_web": "Material: {v}.",
+     "ancho": "largo",
+     "destino": "escribir_en_web",
+     "web_ids": [
+      2407
+     ]
+    },
+    {
+     "clave": "2407.caja",
+     "id": 2407,
+     "slug": "caja",
+     "campo": "¿Viene en caja?",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "sino",
+     "ayuda": "",
+     "linea_si": "Viene en caja.",
+     "linea_no": "No viene en caja.",
+     "destino": "escribir_en_web",
+     "web_ids": [
+      2407
+     ]
+    },
+    {
+     "clave": "2407.doblada",
+     "id": 2407,
+     "slug": "doblada",
+     "campo": "Medidas doblada (o de la caja)",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "texto",
+     "unidad": "cm",
+     "ayuda": "Largo × ancho × alto. Es para saber si cabe en una moto.",
+     "linea_web": "Doblada mide {v} cm.",
+     "ancho": "medio",
+     "destino": "escribir_en_web",
+     "web_ids": [
+      2407
+     ]
+    }
+   ],
+   "cerrar_preguntas": [
+    {
+     "q": "ptnbb52eu",
+     "requiere": [
+      "2407.material"
+     ],
+     "nota": "pregunta de ficha #2407 (material)"
+    }
+   ],
+   "conocimiento_pendiente": []
+  },
+  {
+   "rank": 10,
+   "key": "bici",
+   "nombre": "Bicicleta eléctrica plegable",
+   "preguntas": 4,
+   "personas": 3,
+   "errores_crm": [],
+   "ids": [
+    4184
+   ],
+   "ids_agotados_fuera": [],
+   "nota": "La bici es de un dueño de fuera (ESTADO L39: los datos se los pide Ernesto). Lennys escribió el 19-oct «Caridad vendió la bici», pero la web sigue con 1: confirmar si queda.",
+   "solo_si": "Solo si la bici está en la tienda (mira la etiqueta de la batería). Si no está, déjalo en blanco.",
+   "preguntaron": [
+    "«¿Marca de la bicicleta eléctrica plegable?»",
+    "«Me podrían decir las medidas de la bici eléctrica, y también autonomía, velocidad y batería» (Dany, 2 días seguidos)",
+    "«¿Vienen armadas?»"
+   ],
+   "productos": [
+    {
+     "id": 4184,
+     "nombre": "Bicicleta eléctrica plegable con asiento trasero",
+     "url": "https://casaviva.company/producto/bicicleta-electrica-plegable-con-asiento-trasero/",
+     "precio_usd": 550,
+     "stock": 1,
+     "faltas_core": [
+      "medidas",
+      "tecnicas"
+     ],
+     "fotos_reales": 1,
+     "imagen": "https://casaviva.company/wp-content/uploads/2026/10/bicicleta-electrica-plegable.jpg"
+    }
+   ],
+   "campos": [
+    {
+     "clave": "4184.k1",
+     "id": 4184,
+     "campo": "Lo que ya dice la web",
+     "valor": "Plegable, negra, frenos de disco, asiento trasero, cesta, batería en el cuadro, faro y luz trasera",
+     "estado": "confirmado",
+     "fuente": "ficha de la web (Woo)",
+     "en_web": true,
+     "interno": false,
+     "quien": null,
+     "linea_web": null,
+     "destino": "ya_en_web"
+    },
+    {
+     "clave": "4184.marca",
+     "id": 4184,
+     "slug": "marca",
+     "campo": "Marca y modelo",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "texto",
+     "unidad": "",
+     "ayuda": "",
+     "linea_web": "Marca y modelo: {v}.",
+     "ancho": "medio",
+     "destino": "escribir_en_web",
+     "web_ids": [
+      4184
+     ]
+    },
+    {
+     "clave": "4184.bateria",
+     "id": 4184,
+     "slug": "bateria",
+     "campo": "Batería (voltios y amperios, de la etiqueta)",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "texto",
+     "unidad": "",
+     "ayuda": "Ej.: «48 V 10 Ah».",
+     "linea_web": "Batería: {v}.",
+     "ancho": "medio",
+     "destino": "escribir_en_web",
+     "web_ids": [
+      4184
+     ]
+    },
+    {
+     "clave": "4184.motor",
+     "id": 4184,
+     "slug": "motor",
+     "campo": "Potencia del motor",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "texto",
+     "unidad": "W",
+     "ayuda": "",
+     "linea_web": "Motor: {v} W.",
+     "ancho": "medio",
+     "destino": "escribir_en_web",
+     "web_ids": [
+      4184
+     ]
+    },
+    {
+     "clave": "4184.autonomia",
+     "id": 4184,
+     "slug": "autonomia",
+     "campo": "Autonomía",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "texto",
+     "unidad": "km",
+     "ayuda": "",
+     "linea_web": "Autonomía: {v} km.",
+     "ancho": "medio",
+     "destino": "escribir_en_web",
+     "web_ids": [
+      4184
+     ]
+    },
+    {
+     "clave": "4184.velocidad",
+     "id": 4184,
+     "slug": "velocidad",
+     "campo": "Velocidad máxima",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "texto",
+     "unidad": "km/h",
+     "ayuda": "",
+     "linea_web": "Velocidad máxima: {v} km/h.",
+     "ancho": "medio",
+     "destino": "escribir_en_web",
+     "web_ids": [
+      4184
+     ]
+    },
+    {
+     "clave": "4184.medidas",
+     "id": 4184,
+     "slug": "medidas",
+     "campo": "Medidas abierta y plegada",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "texto",
+     "unidad": "cm",
+     "ayuda": "",
+     "linea_web": "Medidas: {v} cm.",
+     "ancho": "largo",
+     "destino": "escribir_en_web",
+     "web_ids": [
+      4184
+     ]
+    },
+    {
+     "clave": "4184.armada",
+     "id": 4184,
+     "slug": "armada",
+     "campo": "¿Se entrega armada?",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "sino",
+     "ayuda": "",
+     "linea_si": "Se entrega armada.",
+     "linea_no": "No se entrega armada.",
+     "destino": "escribir_en_web",
+     "web_ids": [
+      4184
+     ]
+    }
+   ],
+   "cerrar_preguntas": [],
+   "conocimiento_pendiente": []
+  },
+  {
+   "rank": 11,
+   "key": "setbano",
+   "nombre": "Set de baño 3 piezas (cortina, tapete y cesta)",
+   "preguntas": 4,
+   "personas": 4,
+   "errores_crm": [],
+   "ids": [
+    2573
+   ],
+   "ids_agotados_fuera": [],
+   "nota": null,
+   "solo_si": null,
+   "preguntaron": [
+    "«Fotos de los colores disponibles del set de baño de 28 USD; solo me sale la del color rosado»",
+    "«¿Alguien tiene las fotos reales de los sets disponibles de baño de 28?»",
+    "«¿Cómo obtener las fotos de los colores que aparecen en existencia y no salen en la app?»"
+   ],
+   "productos": [
+    {
+     "id": 2573,
+     "nombre": "Set para baño 3 piezas, alfombra cesta y cortina",
+     "url": "https://casaviva.company/producto/set-para-bano-3-piezas-alfombra-cesta-y-cortina/",
+     "precio_usd": 28,
+     "stock": "sí (sin contar)",
+     "faltas_core": [],
+     "fotos_reales": 5,
+     "imagen": "https://casaviva.company/wp-content/uploads/2026/10/vpP-product-cover.webp"
+    }
+   ],
+   "campos": [
+    {
+     "clave": "2573.k1",
+     "id": 2573,
+     "campo": "Qué trae",
+     "valor": "Cortina 183 × 183 cm con 12 aros, tapete 43 × 61 cm y canasta organizadora",
+     "estado": "confirmado",
+     "fuente": "ficha de la web (Woo)",
+     "en_web": true,
+     "interno": false,
+     "quien": null,
+     "linea_web": null,
+     "destino": "ya_en_web"
+    },
+    {
+     "clave": "2573.material",
+     "id": 2573,
+     "slug": "material",
+     "campo": "Material de la cortina y del tapete (según la etiqueta)",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "texto",
+     "unidad": "",
+     "ayuda": "",
+     "linea_web": "Material: {v}.",
+     "ancho": "largo",
+     "destino": "escribir_en_web",
+     "web_ids": [
+      2573
+     ]
+    },
+    {
+     "clave": "2573.colores_hoy",
+     "id": 2573,
+     "slug": "colores_hoy",
+     "campo": "Colores que hay hoy",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "texto",
+     "unidad": "",
+     "ayuda": "El 14-oct Nana dijo: rosado, rojo vino, azul y turquesa.",
+     "linea_web": "Colores: {v}.",
+     "ancho": "largo",
+     "destino": "solo_conocimiento",
+     "web_ids": [
+      2573
+     ]
+    },
+    {
+     "clave": "2573.foto_colores",
+     "id": 2573,
+     "slug": "foto_colores",
+     "campo": "Foto real de cada color que quede",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "foto",
+     "ayuda": "Mándala al bot por WhatsApp con el número en el pie (ej. «#2573»).",
+     "destino": "foto_real",
+     "web_ids": [
+      2573
+     ]
+    }
+   ],
+   "cerrar_preguntas": [],
+   "conocimiento_pendiente": []
+  },
+  {
+   "rank": 12,
+   "key": "blackout",
+   "nombre": "Cortinas blackout Ceasar Palace y tapa sol Royale",
+   "preguntas": 3,
+   "personas": 3,
+   "errores_crm": [],
+   "ids": [
+    3726,
+    290,
+    466
+   ],
+   "ids_agotados_fuera": [],
+   "nota": null,
+   "solo_si": null,
+   "preguntaron": [
+    "«¿Qué colores de cortinas blackout quedan?»",
+    "«Las medidas, ¿son de un paño o del juego de 2 paños?»",
+    "«¿Hay cortinas blackout gris oscuro?»",
+    "«El tamaño de las cortinas de 1,40 × 2,20, ¿es por paño o la medida completa de los dos?»"
+   ],
+   "productos": [
+    {
+     "id": 3726,
+     "nombre": "Juego de 2 cortinas blackout Ceasar Palace 140 × 240 cm",
+     "url": "https://casaviva.company/producto/juego-de-2-cortinas-blackout-ceasar-palace-140-x-240-cm/",
+     "precio_usd": 31,
+     "stock": "sí (sin contar)",
+     "faltas_core": [],
+     "fotos_reales": 3,
+     "imagen": "https://casaviva.company/wp-content/uploads/2026/10/cortinas-blackout-140x240-colores.jpg"
+    },
+    {
+     "id": 290,
+     "nombre": "Juego de cortina tapa sol Royale",
+     "url": "https://casaviva.company/producto/juego-de-cortina-tapa-sol-royale/",
+     "precio_usd": 27,
+     "stock": "sí (sin contar)",
+     "faltas_core": [],
+     "fotos_reales": 4,
+     "imagen": "https://casaviva.company/wp-content/uploads/2026/08/Z3s-product-cover.webp"
+    },
+    {
+     "id": 466,
+     "nombre": "Juego de cortina tapa sol Royale con diseño",
+     "url": "https://casaviva.company/producto/juego-de-cortina-tapa-sol-royale-con-diseno/",
+     "precio_usd": 30,
+     "stock": "sí (sin contar)",
+     "faltas_core": [],
+     "fotos_reales": 0,
+     "imagen": "https://casaviva.company/wp-content/uploads/2026/08/SuN-product-cover.webp"
+    }
+   ],
+   "campos": [
+    {
+     "clave": "3726.k1",
+     "id": 3726,
+     "campo": "Medidas",
+     "valor": "Juego de 2 paños de 140 × 240 cm cada uno, con argollas metálicas",
+     "estado": "confirmado",
+     "fuente": "ficha de la web (Woo); Lennys 15-oct («es por juego»)",
+     "en_web": true,
+     "interno": false,
+     "quien": null,
+     "linea_web": null,
+     "destino": "ya_en_web"
+    },
+    {
+     "clave": "3726.k2",
+     "id": 3726,
+     "campo": "Colores",
+     "valor": "Gris oscuro, gris claro y beige",
+     "estado": "confirmado",
+     "fuente": "ficha de la web (Woo); Lennys 15-oct",
+     "en_web": true,
+     "interno": false,
+     "quien": null,
+     "linea_web": null,
+     "destino": "ya_en_web"
+    },
+    {
+     "clave": "290.k3",
+     "id": 290,
+     "campo": "Material y medida",
+     "valor": "Poliéster; 1,37 × 2,28 m; bloquea un 90 % de la luz",
+     "estado": "confirmado",
+     "fuente": "ficha de la web (Woo); Lennys 08-oct (crm_knowledge #95)",
+     "en_web": true,
+     "interno": false,
+     "quien": null,
+     "linea_web": null,
+     "destino": "ya_en_web"
+    },
+    {
+     "clave": "290.pano",
+     "id": 290,
+     "slug": "pano",
+     "campo": "Tapa sol Royale: ¿1,37 × 2,28 m es de cada paño o de todo el juego?",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "opciones",
+     "opciones": [
+      "de cada paño",
+      "de todo el juego"
+     ],
+     "ayuda": "",
+     "linea_web": "La medida de 1,37 × 2,28 m es {v}.",
+     "destino": "escribir_en_web",
+     "web_ids": [
+      290
+     ]
+    },
+    {
+     "clave": "290.panos",
+     "id": 290,
+     "slug": "panos",
+     "campo": "¿Cuántos paños trae el juego tapa sol?",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "texto",
+     "unidad": "",
+     "ayuda": "",
+     "linea_web": "El juego trae {v} paños.",
+     "ancho": "medio",
+     "destino": "escribir_en_web",
+     "web_ids": [
+      290
+     ]
+    },
+    {
+     "clave": "290.colores_hoy",
+     "id": 290,
+     "slug": "colores_hoy",
+     "campo": "Colores de tapa sol que hay hoy",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "texto",
+     "unidad": "",
+     "ayuda": "El 13-oct Nana dijo: verde, gris, blanca y blanca con diseño dorado.",
+     "linea_web": "Colores: {v}.",
+     "ancho": "largo",
+     "destino": "solo_conocimiento",
+     "web_ids": [
+      290
+     ]
+    }
+   ],
+   "cerrar_preguntas": [],
+   "conocimiento_pendiente": []
+  },
+  {
+   "rank": 13,
+   "key": "capa",
+   "nombre": "Capa (funda) para moto talla L",
+   "preguntas": 3,
+   "personas": 3,
+   "errores_crm": [],
+   "ids": [
+    2387
+   ],
+   "ids_agotados_fuera": [],
+   "nota": null,
+   "solo_si": null,
+   "preguntaron": [
+    "«¿La capa de moto le sirve a esta?» (con foto de la moto)",
+    "«Me preguntan si la capa de moto le servirá a esta moto en específico»",
+    "«¿Cómo puedo ver las características?»"
+   ],
+   "productos": [
+    {
+     "id": 2387,
+     "nombre": "Capas de moto (talla L)",
+     "url": "https://casaviva.company/producto/capas-de-moto-talla-l/",
+     "precio_usd": 20,
+     "stock": 40,
+     "faltas_core": [],
+     "fotos_reales": 6,
+     "imagen": "https://casaviva.company/wp-content/uploads/2026/10/yYF-product-cover.webp"
+    }
+   ],
+   "campos": [
+    {
+     "clave": "2387.k1",
+     "id": 2387,
+     "campo": "Tela",
+     "valor": "Talla L; tejido reflectante plateado, resistente al agua; ojal para cadena o candado",
+     "estado": "confirmado",
+     "fuente": "ficha de la web (Woo)",
+     "en_web": true,
+     "interno": false,
+     "quien": null,
+     "linea_web": null,
+     "destino": "ya_en_web"
+    },
+    {
+     "clave": "2387.k2",
+     "id": 2387,
+     "campo": "Tamaño",
+     "valor": "A una moto pequeña le queda un poco grande",
+     "estado": "confirmado",
+     "fuente": "Lennys en el General 17-oct",
+     "en_web": false,
+     "interno": false,
+     "quien": "Lennys",
+     "linea_web": "A una moto pequeña le queda un poco grande.",
+     "destino": "escribir_en_web"
+    },
+    {
+     "clave": "2387.largo",
+     "id": 2387,
+     "slug": "largo",
+     "campo": "Largo de la capa extendida",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "texto",
+     "unidad": "cm",
+     "ayuda": "",
+     "linea_web": "Largo: {v} cm.",
+     "ancho": "medio",
+     "destino": "escribir_en_web",
+     "web_ids": [
+      2387
+     ]
+    },
+    {
+     "clave": "2387.alto",
+     "id": 2387,
+     "slug": "alto",
+     "campo": "Alto de la capa",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "texto",
+     "unidad": "cm",
+     "ayuda": "",
+     "linea_web": "Alto: {v} cm.",
+     "ancho": "medio",
+     "destino": "escribir_en_web",
+     "web_ids": [
+      2387
+     ]
+    }
+   ],
+   "cerrar_preguntas": [],
+   "conocimiento_pendiente": []
+  },
+  {
+   "rank": 14,
+   "key": "farol",
+   "nombre": "Farol solar",
+   "preguntas": 2,
+   "personas": 2,
+   "errores_crm": [
+    31,
+    32
+   ],
+   "ids": [
+    2463
+   ],
+   "ids_agotados_fuera": [],
+   "nota": null,
+   "solo_si": null,
+   "preguntaron": [
+    "«¿El farol solar viene con un cable tipo C para cargarlo?» (error #32: el bot dijo que no)",
+    "«¿La base para colgarlo también la trae?»",
+    "Vatios, duración de la batería y si se apaga a mano (error #31)",
+    "«¿La luz del farol es blanca o amarilla?»"
+   ],
+   "productos": [
+    {
+     "id": 2463,
+     "nombre": "Farol solar",
+     "url": "https://casaviva.company/producto/farol-solar/",
+     "precio_usd": 11,
+     "stock": 32,
+     "faltas_core": [
+      "medidas",
+      "tecnicas"
+     ],
+     "fotos_reales": 2,
+     "imagen": "https://casaviva.company/wp-content/uploads/2026/10/sT1-product-cover.webp"
+    }
+   ],
+   "campos": [
+    {
+     "clave": "2463.k1",
+     "id": 2463,
+     "campo": "Carga",
+     "valor": "Panel solar o USB tipo C; trae su cable",
+     "estado": "confirmado",
+     "fuente": "ficha de la web (Woo) (tipo C); cable: Maryta y Dayra 21-oct (crm_knowledge #286)",
+     "en_web": false,
+     "interno": false,
+     "quien": "Maryta",
+     "linea_web": "Trae su cable de carga tipo C.",
+     "destino": "escribir_en_web"
+    },
+    {
+     "clave": "2463.k2",
+     "id": 2463,
+     "campo": "Gancho",
+     "valor": "Trae el gancho para colgarlo con su tornillo",
+     "estado": "confirmado",
+     "fuente": "Maryta y Dayra 21-oct (crm_knowledge #286)",
+     "en_web": false,
+     "interno": false,
+     "quien": "Maryta",
+     "linea_web": "Trae el gancho para colgarlo, con su tornillo.",
+     "destino": "escribir_en_web"
+    },
+    {
+     "clave": "2463.k3",
+     "id": 2463,
+     "campo": "Luz",
+     "valor": "Luz blanca y amarilla (predomina la amarilla); con sensor y se puede apagar a mano",
+     "estado": "confirmado",
+     "fuente": "Maryta y Dayra 21-oct (crm_knowledge #286)",
+     "en_web": false,
+     "interno": false,
+     "quien": "Maryta",
+     "linea_web": "Luz blanca y amarilla (predomina la amarilla). Se puede apagar a mano.",
+     "destino": "escribir_en_web"
+    },
+    {
+     "clave": "2463.k4",
+     "id": 2463,
+     "campo": "Duración",
+     "valor": "Con luz intensa dura unas 3–4 h y luego baja",
+     "estado": "confirmado",
+     "fuente": "Maryta y Dayra 21-oct (crm_knowledge #286)",
+     "en_web": false,
+     "interno": false,
+     "quien": "Maryta",
+     "linea_web": "Con la luz más fuerte dura unas 3 a 4 horas y luego baja.",
+     "destino": "escribir_en_web"
+    },
+    {
+     "clave": "2463.k5",
+     "id": 2463,
+     "campo": "Modelo",
+     "valor": "JD-7802; los vatios no salen en la caja",
+     "estado": "confirmado",
+     "fuente": "Maryta y Dayra 21-oct (crm_knowledge #286)",
+     "en_web": false,
+     "interno": false,
+     "quien": "Maryta",
+     "linea_web": "Modelo JD-7802.",
+     "destino": "escribir_en_web"
+    },
+    {
+     "clave": "2463.medidas",
+     "id": 2463,
+     "slug": "medidas",
+     "campo": "Medidas del farol (alto × ancho)",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "texto",
+     "unidad": "cm",
+     "ayuda": "",
+     "linea_web": "Medidas: {v} cm.",
+     "ancho": "medio",
+     "destino": "escribir_en_web",
+     "web_ids": [
+      2463
+     ]
+    },
+    {
+     "clave": "2463.bateria",
+     "id": 2463,
+     "slug": "bateria",
+     "campo": "Batería (mAh o voltios, si sale en la etiqueta)",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "texto",
+     "unidad": "",
+     "ayuda": "",
+     "linea_web": "Batería: {v}.",
+     "ancho": "medio",
+     "destino": "escribir_en_web",
+     "web_ids": [
+      2463
+     ]
+    },
+    {
+     "clave": "2463.horas_carga",
+     "id": 2463,
+     "slug": "horas_carga",
+     "campo": "Horas de carga con el cable",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "texto",
+     "unidad": "horas",
+     "ayuda": "",
+     "linea_web": "Se carga en unas {v} horas con el cable.",
+     "ancho": "medio",
+     "destino": "escribir_en_web",
+     "web_ids": [
+      2463
+     ]
+    }
+   ],
+   "cerrar_preguntas": [],
+   "conocimiento_pendiente": [
+    {
+     "k": 293,
+     "requiere": []
+    },
+    {
+     "k": 295,
+     "requiere": []
+    }
+   ]
+  },
+  {
+   "rank": 15,
+   "key": "topper",
+   "nombre": "Topper de espuma con gel (Full)",
+   "preguntas": 2,
+   "personas": 2,
+   "errores_crm": [
+    22
+   ],
+   "ids": [
+    3702
+   ],
+   "ids_agotados_fuera": [],
+   "nota": null,
+   "solo_si": null,
+   "preguntaron": [
+    "«¿Qué medidas hay de topper?» / «¿Cuándo entrarían los de medida King?»",
+    "«Necesito una foto real de los topper»",
+    "Fotos «fuera del nailon, puesto en el colchón» (error #22)"
+   ],
+   "productos": [
+    {
+     "id": 3702,
+     "nombre": "Topper de espuma con gel refrescante 4 cm (Full)",
+     "url": "https://casaviva.company/producto/topper-de-espuma-con-gel-refrescante-4-cm-full/",
+     "precio_usd": 60,
+     "stock": 18,
+     "faltas_core": [],
+     "fotos_reales": 1,
+     "imagen": "https://casaviva.company/wp-content/uploads/2026/10/topper-gel-refrescante-full.jpg"
+    }
+   ],
+   "campos": [
+    {
+     "clave": "3702.k1",
+     "id": 3702,
+     "campo": "Medidas y material",
+     "valor": "Solo talla Full: 135 × 190 cm, 4 cm de alto; espuma con gel refrescante azul; viene al vacío",
+     "estado": "confirmado",
+     "fuente": "ficha de la web (Woo); Lennys 15-oct («talla solo full»)",
+     "en_web": true,
+     "interno": false,
+     "quien": null,
+     "linea_web": null,
+     "destino": "ya_en_web"
+    },
+    {
+     "clave": "3702.foto_real",
+     "id": 3702,
+     "slug": "foto_real",
+     "campo": "Foto real del topper fuera del empaque (si se puede, puesto sobre un colchón)",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "foto",
+     "ayuda": "Mándala al bot por WhatsApp con el número en el pie (ej. «#3702»).",
+     "destino": "foto_real",
+     "web_ids": [
+      3702
+     ]
+    }
+   ],
+   "cerrar_preguntas": [],
+   "conocimiento_pendiente": []
+  },
+  {
+   "rank": 16,
+   "key": "pelar",
+   "nombre": "Máquina de pelar recargable GYT-999",
+   "preguntas": 2,
+   "personas": 2,
+   "errores_crm": [
+    34
+   ],
+   "ids": [
+    2473
+   ],
+   "ids_agotados_fuera": [],
+   "nota": null,
+   "solo_si": null,
+   "preguntaron": [
+    "«Los datos de la máquina de pelar recargable, por favor» (error #34: nadie contestó)",
+    "«¿Tienen fotos reales de la máquina de pelar?»",
+    "«¿Cuánto pesa cuando la coges en la mano?»"
+   ],
+   "productos": [
+    {
+     "id": 2473,
+     "nombre": "Máquinas de pelar recargable",
+     "url": "https://casaviva.company/producto/maquinas-de-pelar-recargable/",
+     "precio_usd": 25,
+     "stock": 3,
+     "faltas_core": [
+      "medidas",
+      "tecnicas"
+     ],
+     "fotos_reales": 3,
+     "imagen": "https://casaviva.company/wp-content/uploads/2026/10/I0y-product-cover.webp"
+    }
+   ],
+   "campos": [
+    {
+     "clave": "2473.k1",
+     "id": 2473,
+     "campo": "Lo que ya dice la web",
+     "valor": "GYT-999; carga USB tipo C; cuchilla de acero inoxidable; pantalla de batería; trae peines guía, cable, cepillo y aceite",
+     "estado": "confirmado",
+     "fuente": "ficha de la web (Woo)",
+     "en_web": true,
+     "interno": false,
+     "quien": null,
+     "linea_web": null,
+     "destino": "ya_en_web"
+    },
+    {
+     "clave": "2473.bateria",
+     "id": 2473,
+     "slug": "bateria",
+     "campo": "Batería (mAh, de la caja o el manual)",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "texto",
+     "unidad": "mAh",
+     "ayuda": "",
+     "linea_web": "Batería: {v} mAh.",
+     "ancho": "medio",
+     "destino": "escribir_en_web",
+     "web_ids": [
+      2473
+     ]
+    },
+    {
+     "clave": "2473.minutos",
+     "id": 2473,
+     "slug": "minutos",
+     "campo": "Minutos de uso con la carga llena",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "texto",
+     "unidad": "min",
+     "ayuda": "",
+     "linea_web": "Con la carga llena dura unos {v} minutos.",
+     "ancho": "medio",
+     "destino": "escribir_en_web",
+     "web_ids": [
+      2473
+     ]
+    },
+    {
+     "clave": "2473.peso",
+     "id": 2473,
+     "slug": "peso",
+     "campo": "Peso de la máquina",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "texto",
+     "unidad": "g",
+     "ayuda": "Si hay pesa en la tienda; si no, «ligera» o «pesada».",
+     "linea_web": "Peso: {v}.",
+     "ancho": "medio",
+     "destino": "escribir_en_web",
+     "web_ids": [
+      2473
+     ]
+    }
+   ],
+   "cerrar_preguntas": [],
+   "conocimiento_pendiente": [
+    {
+     "k": 267,
+     "requiere": [
+      "2473.peso"
+     ]
+    }
+   ]
+  },
+  {
+   "rank": 17,
+   "key": "protcolchon",
+   "nombre": "Protectores de colchón (King y Queen)",
+   "preguntas": 2,
+   "personas": 2,
+   "errores_crm": [
+    25
+   ],
+   "ids": [
+    2523,
+    302
+   ],
+   "ids_agotados_fuera": [
+    3888
+   ],
+   "nota": null,
+   "solo_si": null,
+   "preguntaron": [
+    "«¿Hay protector de colchón personal?»",
+    "«¿Quedan colchón 3/4 y personal?» (error #25: el bot dijo «no hay» por el protector)"
+   ],
+   "productos": [
+    {
+     "id": 2523,
+     "nombre": "Protector de colchón king",
+     "url": "https://casaviva.company/producto/protector-de-colchon-king/",
+     "precio_usd": 39,
+     "stock": 4,
+     "faltas_core": [
+      "material"
+     ],
+     "fotos_reales": 0,
+     "imagen": "https://casaviva.company/wp-content/uploads/2026/10/OPs-product-cover.webp"
+    },
+    {
+     "id": 302,
+     "nombre": "Protector de colchón Queen",
+     "url": "https://casaviva.company/producto/protector-de-colchon-queen/",
+     "precio_usd": 36,
+     "stock": 2,
+     "faltas_core": [
+      "medidas",
+      "material"
+     ],
+     "fotos_reales": 0,
+     "imagen": "https://casaviva.company/wp-content/uploads/2026/08/iPQ-product-cover.webp"
+    }
+   ],
+   "campos": [
+    {
+     "clave": "2523.k1",
+     "id": 2523,
+     "campo": "Medidas",
+     "valor": "Scarlett Classics; 200 × 200 × 40 cm; 100 % impermeable",
+     "estado": "confirmado",
+     "fuente": "ficha de la web (Woo)",
+     "en_web": true,
+     "interno": false,
+     "quien": null,
+     "linea_web": null,
+     "destino": "ya_en_web"
+    },
+    {
+     "clave": "302.medidas",
+     "id": 302,
+     "slug": "medidas",
+     "campo": "Medidas del protector Queen",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "texto",
+     "unidad": "cm",
+     "ayuda": "Largo × ancho × fondo (ej. 152 × 203 × 40).",
+     "linea_web": "Medidas: {v} cm.",
+     "ancho": "medio",
+     "destino": "escribir_en_web",
+     "web_ids": [
+      302
+     ]
+    },
+    {
+     "clave": "302.marca",
+     "id": 302,
+     "slug": "marca",
+     "campo": "Marca del protector Queen",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "texto",
+     "unidad": "",
+     "ayuda": "",
+     "linea_web": "Marca: {v}.",
+     "ancho": "medio",
+     "destino": "escribir_en_web",
+     "web_ids": [
+      302
+     ]
+    },
+    {
+     "clave": "302.impermeable",
+     "id": 302,
+     "slug": "impermeable",
+     "campo": "¿El protector Queen es impermeable?",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "sino",
+     "ayuda": "",
+     "linea_si": "100 % impermeable.",
+     "linea_no": "No es impermeable.",
+     "destino": "escribir_en_web",
+     "web_ids": [
+      302
+     ]
+    },
+    {
+     "clave": "2523.material",
+     "id": 2523,
+     "slug": "material",
+     "campo": "Material de la tela de arriba (King)",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "texto",
+     "unidad": "",
+     "ayuda": "",
+     "linea_web": "Material: {v}.",
+     "ancho": "medio",
+     "destino": "escribir_en_web",
+     "web_ids": [
+      2523
+     ]
+    },
+    {
+     "clave": "302.material",
+     "id": 302,
+     "slug": "material",
+     "campo": "Material de la tela de arriba (Queen)",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "texto",
+     "unidad": "",
+     "ayuda": "",
+     "linea_web": "Material: {v}.",
+     "ancho": "medio",
+     "destino": "escribir_en_web",
+     "web_ids": [
+      302
+     ]
+    }
+   ],
+   "cerrar_preguntas": [],
+   "conocimiento_pendiente": []
+  },
+  {
+   "rank": 18,
+   "key": "cortinabano",
+   "nombre": "Cortinas de baño",
+   "preguntas": 2,
+   "personas": 2,
+   "errores_crm": [],
+   "ids": [
+    2429,
+    2543,
+    2912,
+    2914
+   ],
+   "ids_agotados_fuera": [
+    2908
+   ],
+   "nota": null,
+   "solo_si": null,
+   "preguntaron": [
+    "«¿Cómo sé los colores disponibles de la Cortina de baño 180 × 180?»",
+    "«Fotos de todas las cortinas de baño para enviar a un cliente»",
+    "«¿De qué material son? ¿Son antimoho?» (Max, 11-oct)"
+   ],
+   "productos": [
+    {
+     "id": 2429,
+     "nombre": "Cortina de baño 180x180 cm",
+     "url": "https://casaviva.company/producto/cortina-de-bano-180x180-cm/",
+     "precio_usd": 9,
+     "stock": "sí (sin contar)",
+     "faltas_core": [],
+     "fotos_reales": 2,
+     "imagen": "https://casaviva.company/wp-content/uploads/2026/10/bDC-product-cover.webp"
+    },
+    {
+     "id": 2543,
+     "nombre": "Set de cortina de baño + alfombra",
+     "url": "https://casaviva.company/producto/set-de-cortina-de-bano-alfombra/",
+     "precio_usd": 16,
+     "stock": "sí (sin contar)",
+     "faltas_core": [],
+     "fotos_reales": 5,
+     "imagen": "https://casaviva.company/wp-content/uploads/2026/10/cyo-product-cover.webp"
+    },
+    {
+     "id": 2912,
+     "nombre": "Cortina de baño diseño de cuadros",
+     "url": "https://casaviva.company/producto/cortina-de-bano-diseno-de-cuadros/",
+     "precio_usd": 9,
+     "stock": 1,
+     "faltas_core": [
+      "descripcion",
+      "medidas",
+      "material"
+     ],
+     "fotos_reales": 0,
+     "imagen": "https://casaviva.company/wp-content/uploads/2026/10/d7361ffb-e4ab-4922-8d63-5081d8d6fd7a.webp"
+    },
+    {
+     "id": 2914,
+     "nombre": "Cortina de baño flores amarillas y rosa",
+     "url": "https://casaviva.company/producto/cortina-de-bano-flores-amarillas-y-rosa/",
+     "precio_usd": 9,
+     "stock": 1,
+     "faltas_core": [
+      "descripcion",
+      "medidas",
+      "material"
+     ],
+     "fotos_reales": 0,
+     "imagen": "https://casaviva.company/wp-content/uploads/2026/10/3b01d4ac-fbfd-41c2-8651-3258c4a274f0.webp"
+    }
+   ],
+   "campos": [
+    {
+     "clave": "2429.k1",
+     "id": 2429,
+     "campo": "Medidas y material",
+     "valor": "180 × 180 cm; poliéster impermeable; 12 ganchos",
+     "estado": "confirmado",
+     "fuente": "ficha de la web (Woo); tela confirmada por la tienda 11-oct (crm_knowledge #134)",
+     "en_web": true,
+     "interno": false,
+     "quien": null,
+     "linea_web": null,
+     "destino": "ya_en_web"
+    },
+    {
+     "clave": "2543.k2",
+     "id": 2543,
+     "campo": "Antimoho",
+     "valor": "Sí: el set de 16 USD tiene tratamiento antihongos",
+     "estado": "confirmado",
+     "fuente": "ficha de la web (Woo); Nana 12-oct («las de 16 USD sí lo son»)",
+     "en_web": true,
+     "interno": false,
+     "quien": null,
+     "linea_web": null,
+     "destino": "ya_en_web"
+    },
+    {
+     "clave": "2429.antimoho",
+     "id": 2429,
+     "slug": "antimoho",
+     "campo": "Cortina 180 × 180 (9 USD): ¿es antimoho?",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "sino",
+     "ayuda": "Solo si lo dice el empaque.",
+     "linea_si": "Es antimoho.",
+     "linea_no": "No es antimoho.",
+     "destino": "escribir_en_web",
+     "web_ids": [
+      2429
+     ]
+    },
+    {
+     "clave": "2429.colores_hoy",
+     "id": 2429,
+     "slug": "colores_hoy",
+     "campo": "Cortina 180 × 180: diseños o colores que hay hoy",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "texto",
+     "unidad": "",
+     "ayuda": "",
+     "linea_web": "Diseños: {v}.",
+     "ancho": "largo",
+     "destino": "solo_conocimiento",
+     "web_ids": [
+      2429
+     ]
+    },
+    {
+     "clave": "2912.medidas",
+     "id": 2912,
+     "slug": "medidas",
+     "campo": "Cortina diseño de cuadros: medidas",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "texto",
+     "unidad": "cm",
+     "ayuda": "",
+     "linea_web": "Medidas: {v} cm.",
+     "ancho": "medio",
+     "destino": "escribir_en_web",
+     "web_ids": [
+      2912
+     ]
+    },
+    {
+     "clave": "2912.material",
+     "id": 2912,
+     "slug": "material",
+     "campo": "Cortina diseño de cuadros: material",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "texto",
+     "unidad": "",
+     "ayuda": "",
+     "linea_web": "Material: {v}.",
+     "ancho": "medio",
+     "destino": "escribir_en_web",
+     "web_ids": [
+      2912
+     ]
+    },
+    {
+     "clave": "2912.ganchos",
+     "id": 2912,
+     "slug": "ganchos",
+     "campo": "Cortina diseño de cuadros: ¿trae ganchos?",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "sino",
+     "ayuda": "",
+     "linea_si": "Trae sus ganchos.",
+     "linea_no": "No trae ganchos.",
+     "destino": "escribir_en_web",
+     "web_ids": [
+      2912
+     ]
+    },
+    {
+     "clave": "2914.medidas",
+     "id": 2914,
+     "slug": "medidas",
+     "campo": "Cortina flores amarillas y rosa: medidas",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "texto",
+     "unidad": "cm",
+     "ayuda": "",
+     "linea_web": "Medidas: {v} cm.",
+     "ancho": "medio",
+     "destino": "escribir_en_web",
+     "web_ids": [
+      2914
+     ]
+    },
+    {
+     "clave": "2914.material",
+     "id": 2914,
+     "slug": "material",
+     "campo": "Cortina flores amarillas y rosa: material",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "texto",
+     "unidad": "",
+     "ayuda": "",
+     "linea_web": "Material: {v}.",
+     "ancho": "medio",
+     "destino": "escribir_en_web",
+     "web_ids": [
+      2914
+     ]
+    },
+    {
+     "clave": "2914.ganchos",
+     "id": 2914,
+     "slug": "ganchos",
+     "campo": "Cortina flores amarillas y rosa: ¿trae ganchos?",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "sino",
+     "ayuda": "",
+     "linea_si": "Trae sus ganchos.",
+     "linea_no": "No trae ganchos.",
+     "destino": "escribir_en_web",
+     "web_ids": [
+      2914
+     ]
+    }
+   ],
+   "cerrar_preguntas": [],
+   "conocimiento_pendiente": []
+  },
+  {
+   "rank": 19,
+   "key": "lampara",
+   "nombre": "Lámparas recargables",
+   "preguntas": 2,
+   "personas": 2,
+   "errores_crm": [],
+   "ids": [
+    2469,
+    256
+   ],
+   "ids_agotados_fuera": [],
+   "nota": null,
+   "solo_si": null,
+   "preguntaron": [
+    "«Estas lámparas dicen que son recargables pero traen para pilas AA. No entiendo, y es la duda de un cliente»",
+    "«¿Cuánto dura la carga de esta lámpara?»"
+   ],
+   "productos": [
+    {
+     "id": 2469,
+     "nombre": "Lámparas recargables con panel solar",
+     "url": "https://casaviva.company/producto/lamparas-recargables-con-panel-solar/",
+     "precio_usd": 25,
+     "stock": 2,
+     "faltas_core": [
+      "tecnicas"
+     ],
+     "fotos_reales": 4,
+     "imagen": "https://casaviva.company/wp-content/uploads/2026/10/V1m-product-cover.webp"
+    },
+    {
+     "id": 256,
+     "nombre": "Lámpara recargable portátil",
+     "url": "https://casaviva.company/producto/lampara-recargable-portatil/",
+     "precio_usd": 25,
+     "stock": 1,
+     "faltas_core": [
+      "medidas",
+      "tecnicas"
+     ],
+     "fotos_reales": 0,
+     "imagen": "https://casaviva.company/wp-content/uploads/2026/08/zYj-product-cover.webp"
+    }
+   ],
+   "campos": [
+    {
+     "clave": "2469.k1",
+     "id": 2469,
+     "campo": "Lo que ya dice la web",
+     "valor": "Panel solar y carga USB-C; luz frontal y 4 focos laterales; unos 15 × 9,7 × 7 cm",
+     "estado": "confirmado",
+     "fuente": "ficha de la web (Woo)",
+     "en_web": true,
+     "interno": false,
+     "quien": null,
+     "linea_web": null,
+     "destino": "ya_en_web"
+    },
+    {
+     "clave": "256.k2",
+     "id": 256,
+     "campo": "Lo que ya dice la web",
+     "valor": "LED de luz blanca; batería interna; trae cable USB y caja",
+     "estado": "confirmado",
+     "fuente": "ficha de la web (Woo)",
+     "en_web": true,
+     "interno": false,
+     "quien": null,
+     "linea_web": null,
+     "destino": "ya_en_web"
+    },
+    {
+     "clave": "2469.pilas",
+     "id": 2469,
+     "slug": "pilas",
+     "campo": "Lámpara con panel solar: ¿también funciona con pilas AA?",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "sino",
+     "ayuda": "",
+     "linea_si": "También funciona con pilas AA (además de la batería recargable).",
+     "linea_no": "No usa pilas: solo batería recargable.",
+     "destino": "escribir_en_web",
+     "web_ids": [
+      2469
+     ]
+    },
+    {
+     "clave": "2469.horas_luz",
+     "id": 2469,
+     "slug": "horas_luz",
+     "campo": "Lámpara con panel solar: horas de luz con la carga llena",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "texto",
+     "unidad": "horas",
+     "ayuda": "",
+     "linea_web": "Con la carga llena da luz unas {v} horas.",
+     "ancho": "medio",
+     "destino": "escribir_en_web",
+     "web_ids": [
+      2469
+     ]
+    },
+    {
+     "clave": "256.horas_luz",
+     "id": 256,
+     "slug": "horas_luz",
+     "campo": "Lámpara recargable portátil: horas de luz con la carga llena",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "texto",
+     "unidad": "horas",
+     "ayuda": "",
+     "linea_web": "Con la carga llena da luz unas {v} horas.",
+     "ancho": "medio",
+     "destino": "escribir_en_web",
+     "web_ids": [
+      256
+     ]
+    },
+    {
+     "clave": "256.medidas",
+     "id": 256,
+     "slug": "medidas",
+     "campo": "Lámpara recargable portátil: medidas (alto × ancho)",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "texto",
+     "unidad": "cm",
+     "ayuda": "",
+     "linea_web": "Medidas: {v} cm.",
+     "ancho": "medio",
+     "destino": "escribir_en_web",
+     "web_ids": [
+      256
+     ]
+    }
+   ],
+   "cerrar_preguntas": [],
+   "conocimiento_pendiente": []
+  },
+  {
+   "rank": 20,
+   "key": "rasuradora",
+   "nombre": "Rasuradoras recargables",
+   "preguntas": 1,
+   "personas": 1,
+   "errores_crm": [],
+   "ids": [
+    299,
+    2825
+   ],
+   "ids_agotados_fuera": [],
+   "nota": null,
+   "solo_si": null,
+   "preguntaron": [
+    "«¿Qué tipo de batería usa la rasuradora portátil recargable de 14 USD?» (pregunta abierta desde el 22-oct)"
+   ],
+   "productos": [
+    {
+     "id": 299,
+     "nombre": "Rasuradora portatil recargable",
+     "url": "https://casaviva.company/producto/rasuradora-portatil-recargable/",
+     "precio_usd": 14,
+     "stock": 4,
+     "faltas_core": [
+      "medidas",
+      "tecnicas"
+     ],
+     "fotos_reales": 1,
+     "imagen": "https://casaviva.company/wp-content/uploads/2026/08/Yhe-product-cover.webp"
+    },
+    {
+     "id": 2825,
+     "nombre": "Rasuradora portátil facial",
+     "url": "https://casaviva.company/producto/rasuradora-portatil-facial/",
+     "precio_usd": 12,
+     "stock": 2,
+     "faltas_core": [
+      "medidas",
+      "tecnicas"
+     ],
+     "fotos_reales": 0,
+     "imagen": "https://casaviva.company/wp-content/uploads/2026/10/SGa-product-cover.webp"
+    }
+   ],
+   "campos": [
+    {
+     "clave": "299.k1",
+     "id": 299,
+     "campo": "Lo que ya dice la web",
+     "valor": "Vintage T9; carga USB; trae 4 peines guía, cable, aceite, cepillo y manual",
+     "estado": "confirmado",
+     "fuente": "ficha de la web (Woo)",
+     "en_web": true,
+     "interno": false,
+     "quien": null,
+     "linea_web": null,
+     "destino": "ya_en_web"
+    },
+    {
+     "clave": "2825.k2",
+     "id": 2825,
+     "campo": "Lo que ya dice la web",
+     "valor": "Facial para mujer; carga USB; trae cable, cepillo y tapa",
+     "estado": "confirmado",
+     "fuente": "ficha de la web (Woo); Lennys 08-oct (crm_knowledge #102)",
+     "en_web": true,
+     "interno": false,
+     "quien": null,
+     "linea_web": null,
+     "destino": "ya_en_web"
+    },
+    {
+     "clave": "299.bateria",
+     "id": 299,
+     "slug": "bateria",
+     "campo": "Rasuradora Vintage T9 (14 USD): tipo de batería",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "texto",
+     "unidad": "",
+     "ayuda": "Ej.: «recargable de litio 1200 mAh» o «pilas AA».",
+     "linea_web": "Batería: {v}.",
+     "ancho": "medio",
+     "destino": "escribir_en_web",
+     "web_ids": [
+      299
+     ]
+    },
+    {
+     "clave": "299.medidas",
+     "id": 299,
+     "slug": "medidas",
+     "campo": "Rasuradora Vintage T9: largo",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "texto",
+     "unidad": "cm",
+     "ayuda": "",
+     "linea_web": "Largo: {v} cm.",
+     "ancho": "medio",
+     "destino": "escribir_en_web",
+     "web_ids": [
+      299
+     ]
+    },
+    {
+     "clave": "2825.bateria",
+     "id": 2825,
+     "slug": "bateria",
+     "campo": "Rasuradora facial (12 USD): tipo de batería",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "texto",
+     "unidad": "",
+     "ayuda": "",
+     "linea_web": "Batería: {v}.",
+     "ancho": "medio",
+     "destino": "escribir_en_web",
+     "web_ids": [
+      2825
+     ]
+    },
+    {
+     "clave": "2825.medidas",
+     "id": 2825,
+     "slug": "medidas",
+     "campo": "Rasuradora facial: largo",
+     "valor": null,
+     "estado": "falta",
+     "tipo": "texto",
+     "unidad": "cm",
+     "ayuda": "",
+     "linea_web": "Largo: {v} cm.",
+     "ancho": "medio",
+     "destino": "escribir_en_web",
+     "web_ids": [
+      2825
+     ]
+    }
+   ],
+   "cerrar_preguntas": [
+    {
+     "q": "ptnbgd9yo",
+     "requiere": [
+      "299.bateria"
+     ],
+     "nota": "tipo de batería de la Vintage T9"
+    }
+   ],
+   "conocimiento_pendiente": [
+    {
+     "k": 314,
+     "requiere": [
+      "299.bateria"
+     ]
+    }
+   ]
+  }
+ ]
+}

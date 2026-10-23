@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Video 25-oct · La llamada (gestores y gestoras)</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      /* Video del 25-oct-2026 (Casa Viva): «La llamada», parodia de la llamada de Scream.
+         Escenas con Cúrru y Prosko (Higgsfield Seedance 2.0, trabajos 7a310121 y 40254fc8), voz misteriosa
+         (Higgsfield TTS), pantalla dividida con fotos reales de productos propios en existencia y cierre con el
+         logo oficial. Sin enlace, sin teléfono y sin precio en pantalla (D96). El audio se mezcla aparte (mezcla.sh). */
+      @font-face { font-family: "Figtree"; src: url("assets/fuentes/figtree.ttf") format("truetype"); font-weight: 300 900; }
+      @font-face { font-family: "Cinzel"; src: url("assets/fuentes/cinzel.ttf") format("truetype"); font-weight: 400 900; }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #050505; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: #050505; font-family: "Figtree", sans-serif; color: #f6f1e6; }
+      .cam { position: absolute; inset: 0; overflow: hidden; }
+      .cam video { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; object-fit: cover; }
+      .escena { position: absolute; inset: 0; overflow: hidden; }
+      .lleno { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; object-fit: cover; }
+      .zoom { position: absolute; inset: 0; }
+
+      /* Preguntas de la voz: naranja de terror (Cinzel) · Respuestas: mayúsculas finas crema (Figtree 300) */
+      .preg { position: absolute; left: 40px; width: 1000px; text-align: center; font-family: "Cinzel", serif; font-weight: 800;
+              font-size: 92px; line-height: 1.05; color: #f47a1f; letter-spacing: 0.02em;
+              -webkit-text-stroke: 2px #f47a1f; text-shadow: 0 0 2px #2a0b00, 0 6px 0 #2a0b00, 0 0 34px rgba(0,0,0,0.95); }
+      .preg.grande { font-size: 132px; }
+      .resp { position: absolute; left: 40px; width: 1000px; text-align: center; font-weight: 300; font-size: 76px; line-height: 1.12;
+              letter-spacing: 0.16em; text-transform: uppercase; color: #f6f1e6; text-shadow: 0 2px 6px rgba(0,0,0,0.95), 0 0 26px rgba(0,0,0,0.85); }
+      .alto { top: 1120px; }
+      .medio { top: 1250px; }
+
+      /* Pantalla dividida 2×2 */
+      #rejilla { position: absolute; inset: 0; background: #0d3b45; }
+      .celda { position: absolute; width: 536px; height: 956px; overflow: hidden; background: #0d3b45; }
+      .celda img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+      .c1 { left: 0; top: 0; } .c2 { left: 544px; top: 0; } .c3 { left: 0; top: 964px; } .c4 { left: 544px; top: 964px; }
+      .etq { position: absolute; left: 0; right: 0; bottom: 34px; text-align: center; }
+      .c1 .etq, .c2 .etq { top: 262px; bottom: auto; }
+      .c3 .etq, .c4 .etq { top: 120px; bottom: auto; }
+      .etq span { display: inline-block; padding: 10px 22px; border-radius: 14px; background: rgba(13,59,69,0.92); color: #f6f1e6;
+                  font-weight: 600; font-size: 34px; letter-spacing: 0.08em; text-transform: uppercase; }
+      .vacia { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: "Cinzel", serif;
+               font-weight: 800; font-size: 220px; color: rgba(244,122,31,0.35); }
+      #banda { position: absolute; left: 0; width: 1080px; top: 838px; height: 244px; background: linear-gradient(rgba(5,5,5,0), rgba(5,5,5,0.78) 30%, rgba(5,5,5,0.78) 70%, rgba(5,5,5,0)); }
+
+      /* CTA */
+      #cta { background: #0d3b45; }
+      #cta-preg { top: 330px; }
+      #cta-caja { position: absolute; left: 90px; width: 900px; top: 560px; padding: 26px 0; border-radius: 28px; background: #a35a1f; text-align: center;
+                  font-weight: 800; font-size: 100px; color: #f6f1e6; }
+      #cta-sub { position: absolute; left: 60px; width: 960px; top: 770px; text-align: center; font-weight: 500; font-size: 58px; line-height: 1.2; color: #f6f1e6; }
+      #cta-extra { position: absolute; left: 60px; width: 960px; top: 940px; text-align: center; font-weight: 600; font-size: 50px; color: #f6f1e6; opacity: 0.85; }
+      #cta-logo { position: absolute; left: 310px; top: 1060px; width: 460px; height: auto; }
+      #bucle { position: absolute; inset: 0; opacity: 0; }
+      #destello { position: absolute; inset: 0; background: #f6f1e6; opacity: 0; pointer-events: none; }
+      #vineta { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse at 50% 42%, rgba(0,0,0,0) 55%, rgba(0,0,0,0.55) 100%); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="25" data-width="1080" data-height="1920">
+
+      <!-- A · 0–11,07 s: apagón, suena el teléfono, Cúrru con la vela; enciende la lámpara (cámara lenta mientras escucha) -->
+      <div id="camA" class="cam">
+        <video id="va" class="clip" src="assets/hf/camA.mp4" muted playsinline data-start="0" data-duration="11.066" data-track-index="0"></video>
+      </div>
+      <div id="vineta" class="clip" data-start="0" data-duration="11.066" data-track-index="1"></div>
+
+      <div id="t-diga" class="clip preg grande alto" data-start="0" data-duration="2.6" data-track-index="3">¿DIGA?</div>
+      <div id="txt-1" class="clip preg alto" data-start="2.73" data-duration="1.02" data-track-index="3">¿CUÁL ES TU<br />PELÍCULA</div>
+      <div id="txt-2" class="clip preg alto" data-start="3.75" data-duration="1.5" data-track-index="3">DE TERROR<br />FAVORITA?</div>
+      <div id="txt-3" class="clip resp medio" data-start="5.27" data-duration="0.61" data-track-index="4">SEIS HORAS</div>
+      <div id="txt-4" class="clip resp medio" data-start="5.88" data-duration="0.8" data-track-index="4">SIN CORRIENTE.</div>
+      <div id="txt-5" class="clip preg alto" data-start="6.77" data-duration="1.55" data-track-index="3">¿Y DÓNDE<br />TE ESCONDES</div>
+      <div id="txt-6" class="clip preg alto" data-start="8.32" data-duration="1.83" data-track-index="3">CUANDO SE VA<br />LA LUZ?</div>
+      <div id="t-lampara" class="clip resp medio" data-start="10.25" data-duration="0.816" data-track-index="4">AQUÍ.<br />CON LUZ PROPIA.</div>
+
+      <!-- Pantalla dividida (11,07–15,75 s): productos reales que hay hoy en la tienda (sin precio) -->
+      <div id="rejilla" class="clip escena" data-start="11.066" data-duration="4.684" data-track-index="2">
+        <div class="celda c1" id="c1"><div class="zoom" id="c1-z"><img src="assets/hf/tile-curru.jpg" style="object-position: 50% 30%" alt="" /></div></div>
+        <div class="celda c2" id="c2"><div class="zoom" id="c2-z"><img src="assets/usar/lampara-luz.jpg" alt="" /></div><div class="etq"><span>Lámpara solar</span></div></div>
+        <div class="celda c3" id="c3"><div class="vacia" id="c3-v">?</div><div class="zoom" id="c3-z" style="opacity:0"><img src="assets/usar/cortina-gris.jpg" style="object-position: 50% 70%" alt="" /><div class="etq"><span>Cortinas blackout</span></div></div></div>
+        <div class="celda c4" id="c4"><div class="vacia" id="c4-v">?</div><div class="zoom" id="c4-z" style="opacity:0"><img src="assets/usar/powerbank-caja.jpg" alt="" /><div class="etq"><span>Power bank</span></div></div></div>
+        <div id="banda"></div>
+        <div id="t-calor" class="preg" style="top: 900px">¿Y EL CALOR?</div>
+        <div id="t-movil" class="preg" style="top: 900px; opacity: 0">¿Y EL MÓVIL?</div>
+        <div id="t-cuesta" class="preg" style="top: 852px; opacity: 0">¿CUÁNTO CUESTA<br />TODO?</div>
+      </div>
+
+      <!-- A6 · 15,75–17,35 s: «¿No te gusta un poco de misterio?» -->
+      <div id="camA6" class="cam">
+        <video id="va6" class="clip" src="assets/hf/camA6.mp4" muted playsinline data-start="15.75" data-duration="1.6" data-track-index="0"></video>
+      </div>
+      <div id="txt-7" class="clip resp medio" data-start="15.75" data-duration="0.53" data-track-index="4">¿NO TE GUSTA</div>
+      <div id="txt-8" class="clip resp medio" data-start="16.28" data-duration="1.07" data-track-index="4">UN POCO<br />DE MISTERIO?</div>
+
+      <!-- C · 17,35–21,82 s: el giro. Susurro en la oscuridad → se enciende la luz y es Prosko -->
+      <div id="camC" class="cam">
+        <video id="vc" class="clip" src="assets/hf/camC.mp4" muted playsinline data-start="17.35" data-duration="4.467" data-track-index="0"></video>
+      </div>
+      <div id="txt-9" class="clip preg alto" data-start="17.49" data-duration="1.32" data-track-index="3">ESTOY DENTRO…</div>
+      <div id="t-tienda" class="clip preg alto" data-start="18.81" data-duration="1.665" data-track-index="3">DE LA TIENDA…</div>
+
+      <!-- CTA (21,82–24,5 s) -->
+      <div id="cta" class="clip escena" data-start="21.817" data-duration="2.683" data-track-index="2">
+        <div id="cta-preg" class="preg">¿Y TU CASA,<br />ESTÁ LISTA?</div>
+        <div id="cta-caja">Comenta APAGÓN</div>
+        <div id="cta-sub">y te decimos qué necesita tu casa</div>
+        <div id="cta-extra">Te lo llevamos a casa</div>
+        <img id="cta-logo" src="assets/logo-vertical-crema.svg" alt="Casa Viva" />
+      </div>
+
+      <!-- Bucle (24,5–25 s): vuelve el teléfono sonando del segundo 0 -->
+      <div id="final" class="clip escena" data-start="24.5" data-duration="0.5" data-track-index="2" style="background: transparent">
+        <img id="bucle" class="lleno" src="assets/hf/a-primer.jpg" alt="" />
+      </div>
+
+      <div id="destello"></div>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+
+      // A: acercamientos suaves por plano (cara arriba-centro), máx. 1,08
+      tl.fromTo("#camA", { scale: 1.0, transformOrigin: "50% 35%" }, { scale: 1.06, duration: 2.6, ease: "none" }, 0);
+      tl.set("#camA", { scale: 1.0, transformOrigin: "40% 30%" }, 2.6);
+      tl.to("#camA", { scale: 1.07, duration: 2.667, ease: "none" }, 2.601);
+      tl.set("#camA", { scale: 1.04, transformOrigin: "50% 35%" }, 5.267);
+      tl.to("#camA", { scale: 1.08, duration: 1.4, ease: "none" }, 5.268);
+      tl.set("#camA", { scale: 1.0, transformOrigin: "45% 30%" }, 6.667);
+      tl.to("#camA", { scale: 1.06, duration: 3.533, ease: "none" }, 6.668);
+      tl.set("#camA", { scale: 1.0, transformOrigin: "50% 40%" }, 10.2);
+      tl.to("#camA", { scale: 1.05, duration: 0.866, ease: "power1.out" }, 10.201);
+
+      // Preguntas: entran con un golpe (escala) y tiemblan un poco; respuestas: aparecen sin moverse
+      for (const el of document.querySelectorAll("#root > .preg")) {
+        const t0 = parseFloat(el.dataset.start);
+        if (t0 === 0) {
+          tl.fromTo(el, { scale: 0.92 }, { scale: 1, duration: 0.2, ease: "back.out(2)" }, 0);
+        } else {
+          tl.fromTo(el, { scale: 1.18, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.18, ease: "power3.out" }, t0);
+        }
+        tl.to(el, { x: 3, duration: 0.05, yoyo: true, repeat: 3, ease: "none" }, t0 + 0.2);
+      }
+      tl.to("#t-diga", { scale: 1.06, duration: 0.12, yoyo: true, repeat: 3, ease: "power2.out" }, 0.3);
+      for (const el of document.querySelectorAll("#root > .resp")) {
+        const t0 = parseFloat(el.dataset.start);
+        tl.fromTo(el, { opacity: 0, scale: 1.08 }, { opacity: 1, scale: 1, duration: 0.22, ease: "power2.out" }, t0);
+      }
+
+      // Rejilla: Cúrru al teléfono + lámpara; luego cortinas (calor) y power bank (móvil)
+      tl.fromTo("#c1", { x: -540 }, { x: 0, duration: 0.25, ease: "power3.out" }, 11.066);
+      tl.fromTo("#c2", { x: 540 }, { x: 0, duration: 0.25, ease: "power3.out" }, 11.066);
+      tl.fromTo("#c1-z", { scale: 1.0 }, { scale: 1.08, duration: 4.684, ease: "none" }, 11.066);
+      tl.fromTo("#c2-z", { scale: 1.0 }, { scale: 1.1, duration: 4.684, ease: "none" }, 11.066);
+      tl.fromTo("#t-calor", { scale: 1.2, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.18, ease: "power3.out" }, 11.35);
+      tl.set("#c3-v", { opacity: 0 }, 11.62);
+      tl.fromTo("#c3-z", { scale: 1.25, opacity: 0 }, { scale: 1.0, opacity: 1, duration: 0.3, ease: "power3.out" }, 11.62);
+      tl.to("#c3-z", { scale: 1.08, duration: 3.8, ease: "none" }, 11.93);
+      tl.to("#t-calor", { opacity: 0, duration: 0.1 }, 12.6);
+      tl.fromTo("#t-movil", { scale: 1.2, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.18, ease: "power3.out" }, 12.7);
+      tl.set("#c4-v", { opacity: 0 }, 13.0);
+      tl.fromTo("#c4-z", { scale: 1.25, opacity: 0 }, { scale: 1.0, opacity: 1, duration: 0.3, ease: "power3.out" }, 13.0);
+      tl.to("#c4-z", { scale: 1.08, duration: 2.4, ease: "none" }, 13.31);
+      tl.to("#t-movil", { opacity: 0, duration: 0.1 }, 13.75);
+      tl.fromTo("#t-cuesta", { scale: 1.2, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.2, ease: "power3.out" }, 13.85);
+      tl.to("#t-cuesta", { x: 3, duration: 0.05, yoyo: true, repeat: 5, ease: "none" }, 14.1);
+
+      // A6: punch-in a la cara cuando dice «misterio»
+      tl.fromTo("#camA6", { scale: 1.0, transformOrigin: "48% 30%" }, { scale: 1.04, duration: 0.53, ease: "none" }, 15.75);
+      tl.set("#camA6", { scale: 1.09, transformOrigin: "48% 28%" }, 16.28);
+      tl.to("#camA6", { scale: 1.12, duration: 1.07, ease: "none" }, 16.281);
+
+      // C: acercamiento lento en la oscuridad; al encenderse la luz, salto atrás y leve acercamiento
+      tl.fromTo("#camC", { scale: 1.0, transformOrigin: "45% 40%" }, { scale: 1.1, duration: 3.125, ease: "none" }, 17.35);
+      tl.set("#camC", { scale: 1.0, transformOrigin: "45% 35%" }, 20.475);
+      tl.to("#camC", { scale: 1.06, duration: 1.342, ease: "power1.out" }, 20.476);
+      tl.to("#t-tienda", { scale: 1.05, duration: 0.8, ease: "sine.inOut" }, 19.4);
+
+      // CTA
+      tl.fromTo("#cta-preg", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.22, ease: "power3.out" }, 21.817);
+      tl.fromTo("#cta-caja", { scale: 0.5, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.28, ease: "back.out(2.2)" }, 22.1);
+      tl.to("#cta-caja", { scale: 1.07, duration: 0.25, ease: "sine.inOut", yoyo: true, repeat: 3 }, 22.45);
+      tl.fromTo("#cta-sub", { opacity: 0 }, { opacity: 1, duration: 0.22 }, 22.3);
+      tl.fromTo("#cta-extra", { opacity: 0 }, { opacity: 0.85, duration: 0.22 }, 22.5);
+      tl.fromTo("#cta-logo", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power2.out" }, 22.6);
+
+      // Bucle: fundido al primer fotograma (el teléfono que suena)
+      tl.fromTo("#bucle", { opacity: 0 }, { opacity: 1, duration: 0.45, ease: "power1.inOut" }, 24.5);
+
+      // Destellos: suaves en los cortes; fuerte cuando se enciende la luz de la tienda (20,475 s)
+      for (const t of [11.066, 15.75, 17.35, 21.817]) {
+        tl.set("#destello", { opacity: 0.18 }, t);
+        tl.to("#destello", { opacity: 0, duration: 0.18, ease: "power1.out" }, t + 0.001);
+      }
+      tl.set("#destello", { opacity: 0.75 }, 20.475);
+      tl.to("#destello", { opacity: 0, duration: 0.35, ease: "power2.out" }, 20.476);
+      tl.set("#destello", { opacity: 0.35 }, 10.2);
+      tl.to("#destello", { opacity: 0, duration: 0.25, ease: "power2.out" }, 10.201);
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

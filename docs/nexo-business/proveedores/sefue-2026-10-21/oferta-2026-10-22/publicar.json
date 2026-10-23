@@ -1,12 +1,40 @@
 {
- "generado": "2026-10-22T20:23:34.406Z",
- "estado": "draft",
+ "generado": "2026-10-23T17:19:25.851Z",
+ "estado": "publish",
  "proveedor": "SeFué",
  "productos": [
   {
+   "n": 2,
+   "id_sefue": "SF-152",
+   "market_id": 1969,
+   "ids": [],
+   "nombre": "Caja lápiz HB, 4u x caja (ref. R358) · paquete de 12",
+   "descripcion": "Paquete de 12 unidades de «Caja lápiz HB, 4u x caja (ref. R358)».",
+   "precio_proveedor": 9.36,
+   "precio": 15,
+   "comision": 2.26,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/158/image_1920/Caja%20l%C3%A1piz%20HB%2C%204u%20x%20caja%2CR358?unique=e4eabb1",
+   "foto_local": "fotos/2.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/2.jpg"
+   ],
+   "etiqueta": "SeFué SF-152 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 9.6 USD, a nosotros 9.36",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 24»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
    "n": 3,
    "id_sefue": "SF-106",
-   "market_id": null,
+   "market_id": 1911,
    "ids": [],
    "nombre": "Calculadora de escritorio 12 dígitos, solar, metal plateada",
    "descripcion": "Calculadora de escritorio 12 dígitos, solar, metal plateada",
@@ -34,7 +62,7 @@
   {
    "n": 4,
    "id_sefue": "SF-105",
-   "market_id": null,
+   "market_id": 1912,
    "ids": [],
    "nombre": "Calculadora de escritorio 12 dígitos, solar, blanca",
    "descripcion": "Calculadora de escritorio 12 dígitos, solar, blanca",
@@ -62,7 +90,7 @@
   {
    "n": 5,
    "id_sefue": "SF-76",
-   "market_id": null,
+   "market_id": 1913,
    "ids": [],
    "nombre": "Carpeta archivadora expansible A4 de 13 divisiones",
    "descripcion": "Carpeta archivadora expansible A4 de 13 divisiones",
@@ -88,9 +116,205 @@
    ]
   },
   {
+   "n": 6,
+   "id_sefue": "SF-103",
+   "market_id": 1970,
+   "ids": [],
+   "nombre": "Cinta adhesiva transparente 12×30×38mm 12/paq · paquete de 6",
+   "descripcion": "Paquete de 6 unidades de «Cinta adhesiva transparente 12×30×38mm 12/paq» (cada unidad: paquete de 12).",
+   "precio_proveedor": 14.52,
+   "precio": 21,
+   "comision": 2.59,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/103/image_1920/Cinta%20adhesiva%20transparente%2012%C3%9730%C3%9738mm%2012-paq-R226?unique=705d2a2",
+   "foto_local": "fotos/6.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/6.jpg"
+   ],
+   "etiqueta": "SeFué SF-103 · Paquete de 12 · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 15 USD, a nosotros 14.52",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 28»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
+   "n": 7,
+   "id_sefue": "SF-79",
+   "market_id": 1971,
+   "ids": [],
+   "nombre": "Grapas para presilladora 24/6 1000/caja · paquete de 12",
+   "descripcion": "Paquete de 12 unidades de «Grapas para presilladora 24/6 1000/caja».",
+   "precio_proveedor": 6.96,
+   "precio": 12,
+   "comision": 2.02,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/79/image_1920/Grapas%20para%20presilladora%2024-6%201000-caja?unique=d46cbce",
+   "foto_local": "fotos/7.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/7.jpg"
+   ],
+   "etiqueta": "SeFué SF-79 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 7.2 USD, a nosotros 6.96",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 29»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
+   "n": 8,
+   "id_sefue": "SF-73",
+   "market_id": 1972,
+   "ids": [],
+   "nombre": "Marcador de Pizarra 1-5mm. Color Surtido 4/Paq. · paquete de 6",
+   "descripcion": "Paquete de 6 unidades de «Marcador de Pizarra 1-5mm. Color Surtido 4/Paq.».",
+   "precio_proveedor": 20.4,
+   "precio": 29,
+   "comision": 3.44,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/73/image_1920/Marcador%20de%20Pizarra%201-5mm.%20Color%20Surtido%204-Paq.?unique=290688e",
+   "foto_local": "fotos/8.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/8.jpg"
+   ],
+   "etiqueta": "SeFué SF-73 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 21 USD, a nosotros 20.4",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 30»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
+   "n": 9,
+   "id_sefue": "SF-104",
+   "market_id": 1973,
+   "ids": [],
+   "nombre": "Portapapeles con clip, tamaño A4, color marrón · paquete de 6",
+   "descripcion": "Paquete de 6 unidades de «Portapapeles con clip, tamaño A4, color marrón».",
+   "precio_proveedor": 14.52,
+   "precio": 21,
+   "comision": 2.59,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/104/image_1920/Portapapeles%20con%20clip%2C%20tama%C3%B1o%20A4%2C%20color%20marr%C3%B3n-R150?unique=f6ea372",
+   "foto_local": "fotos/9.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/9.jpg"
+   ],
+   "etiqueta": "SeFué SF-104 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 15 USD, a nosotros 14.52",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 31»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
+   "n": 10,
+   "id_sefue": "SF-66",
+   "market_id": 1974,
+   "ids": [],
+   "nombre": "Presillas de Patas para Encuadernar 80 mm · paquete de 6",
+   "descripcion": "Paquete de 6 unidades de «Presillas de Patas para Encuadernar 80 mm» (cada unidad: caja de 50 uds).",
+   "precio_proveedor": 20.4,
+   "precio": 29,
+   "comision": 3.44,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/66/image_1920/Presillas%20de%20Patas%20para%20Encuadernar%2080%20mm?unique=8b1631f",
+   "foto_local": "fotos/10.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/10.jpg"
+   ],
+   "etiqueta": "SeFué SF-66 · Caja de 50 uds · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 21 USD, a nosotros 20.4",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 32»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
+   "n": 11,
+   "id_sefue": "SF-162",
+   "market_id": 1975,
+   "ids": [],
+   "nombre": "Almohadilla para cuño, color rojo · paquete de 12",
+   "descripcion": "Paquete de 12 unidades de «Almohadilla para cuño, color rojo».",
+   "precio_proveedor": 15.12,
+   "precio": 22,
+   "comision": 2.75,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/181/image_1920/Almohadilla%20para%20cu%C3%B1o%2C%20color%20rojo?unique=0cc6711",
+   "foto_local": "fotos/11.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/11.jpg"
+   ],
+   "etiqueta": "SeFué SF-162 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 15.6 USD, a nosotros 15.12",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 33»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
+   "n": 12,
+   "id_sefue": "SF-100",
+   "market_id": 1976,
+   "ids": [],
+   "nombre": "Bolígrafo a base de aceite 0.7 mm azul 5/paq · paquete de 12",
+   "descripcion": "Paquete de 12 unidades de «Bolígrafo a base de aceite 0.7 mm azul 5/paq».",
+   "precio_proveedor": 13.44,
+   "precio": 19,
+   "comision": 2.22,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/100/image_1920/Bol%C3%ADgrafo%20a%20base%20de%20aceite%200.7%20mm%20azul%205-paq-R285?unique=3b5138d",
+   "foto_local": "fotos/12.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/12.jpg"
+   ],
+   "etiqueta": "SeFué SF-100 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 13.8 USD, a nosotros 13.44",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 34»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
    "n": 13,
    "id_sefue": "SF-99",
-   "market_id": null,
+   "market_id": 1914,
    "ids": [],
    "nombre": "Bolígrafos de tinta gel-aceite 0,7 mm azul (caja de 50)",
    "descripcion": "Bolígrafos de tinta gel-aceite 0,7 mm azul (caja de 50)\nSe vende por: caja de 50 uds.",
@@ -116,9 +340,233 @@
    ]
   },
   {
+   "n": 14,
+   "id_sefue": "SF-101",
+   "market_id": 1977,
+   "ids": [],
+   "nombre": "Bolígrafo de gel 0.5 mm 4/paq colores variados · paquete de 12",
+   "descripcion": "Paquete de 12 unidades de «Bolígrafo de gel 0.5 mm 4/paq colores variados» (cada unidad: paquete de 4).",
+   "precio_proveedor": 17.52,
+   "precio": 25,
+   "comision": 2.99,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/101/image_1920/Bol%C3%ADgrafo%20de%20gel%200.5%20mm%204-paq%20colores%20variados-R307?unique=e74bf6e",
+   "foto_local": "fotos/14.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/14.jpg"
+   ],
+   "etiqueta": "SeFué SF-101 · Paquete de 4 · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 18 USD, a nosotros 17.52",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 36»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
+   "n": 15,
+   "id_sefue": "SF-155",
+   "market_id": 1978,
+   "ids": [],
+   "nombre": "Caja lápiz HB, 12 u x caja · paquete de 12",
+   "descripcion": "Paquete de 12 unidades de «Caja lápiz HB, 12 u x caja».",
+   "precio_proveedor": 22.68,
+   "precio": 32,
+   "comision": 3.73,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/161/image_1920/Caja%20l%C3%A1piz%20HB%2C%2012%20u%20x%20caja%2CR361?unique=3265795",
+   "foto_local": "fotos/15.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/15.jpg"
+   ],
+   "etiqueta": "SeFué SF-155 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 23.4 USD, a nosotros 22.68",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 37»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
+   "n": 16,
+   "id_sefue": "SF-151",
+   "market_id": 1979,
+   "ids": [],
+   "nombre": "Caja lápiz HB, 3u x caja · paquete de 12",
+   "descripcion": "Paquete de 12 unidades de «Caja lápiz HB, 3u x caja».",
+   "precio_proveedor": 8.16,
+   "precio": 14,
+   "comision": 2.34,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/157/image_1920/Caja%20l%C3%A1piz%20HB%2C%203u%20x%20caja%2CR357?unique=9eb05b2",
+   "foto_local": "fotos/16.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/16.jpg"
+   ],
+   "etiqueta": "SeFué SF-151 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 8.4 USD, a nosotros 8.16",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 38»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
+   "n": 17,
+   "id_sefue": "SF-153",
+   "market_id": 1980,
+   "ids": [],
+   "nombre": "Caja lápiz HB, 4u x caja (ref. R359) · paquete de 12",
+   "descripcion": "Paquete de 12 unidades de «Caja lápiz HB, 4u x caja (ref. R359)».",
+   "precio_proveedor": 9.36,
+   "precio": 15,
+   "comision": 2.26,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/159/image_1920/Caja%20l%C3%A1piz%20HB%2C%204u%20x%20caja%2CR359?unique=0035508",
+   "foto_local": "fotos/17.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/17.jpg"
+   ],
+   "etiqueta": "SeFué SF-153 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 9.6 USD, a nosotros 9.36",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 39»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
+   "n": 18,
+   "id_sefue": "SF-154",
+   "market_id": 1981,
+   "ids": [],
+   "nombre": "Caja lápiz HB, 4u x caja (ref. R360) · paquete de 12",
+   "descripcion": "Paquete de 12 unidades de «Caja lápiz HB, 4u x caja (ref. R360)».",
+   "precio_proveedor": 9.36,
+   "precio": 15,
+   "comision": 2.26,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/160/image_1920/Caja%20l%C3%A1piz%20HB%2C%204u%20x%20caja%2CR360?unique=750eba2",
+   "foto_local": "fotos/18.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/18.jpg"
+   ],
+   "etiqueta": "SeFué SF-154 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 9.6 USD, a nosotros 9.36",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 40»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
+   "n": 19,
+   "id_sefue": "SF-148",
+   "market_id": 1982,
+   "ids": [],
+   "nombre": "Caja lápiz con goma negro, 12 u x caja · paquete de 12",
+   "descripcion": "Paquete de 12 unidades de «Caja lápiz con goma negro, 12 u x caja».",
+   "precio_proveedor": 21,
+   "precio": 30,
+   "comision": 3.6,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/154/image_1920/Caja%20l%C3%A1piz%20con%20goma%20negro%2C%2012%20u%20x%20caja%2CR351?unique=009efc5",
+   "foto_local": "fotos/19.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/19.jpg"
+   ],
+   "etiqueta": "SeFué SF-148 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 21.6 USD, a nosotros 21",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 41»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
+   "n": 20,
+   "id_sefue": "SF-149",
+   "market_id": 1983,
+   "ids": [],
+   "nombre": "Caja lápiz con goma, 12 u x caja (ref. R352) · paquete de 12",
+   "descripcion": "Paquete de 12 unidades de «Caja lápiz con goma, 12 u x caja (ref. R352)».",
+   "precio_proveedor": 18,
+   "precio": 26,
+   "comision": 3.2,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/155/image_1920/Caja%20l%C3%A1piz%20con%20goma%2C%2012%20u%20x%20caja%2CR352?unique=7153a7e",
+   "foto_local": "fotos/20.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/20.jpg"
+   ],
+   "etiqueta": "SeFué SF-149 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 18.6 USD, a nosotros 18",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 42»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
+   "n": 21,
+   "id_sefue": "SF-150",
+   "market_id": 1984,
+   "ids": [],
+   "nombre": "Caja lápiz con goma, 12 u x caja (ref. R353) · paquete de 12",
+   "descripcion": "Paquete de 12 unidades de «Caja lápiz con goma, 12 u x caja (ref. R353)».",
+   "precio_proveedor": 21,
+   "precio": 30,
+   "comision": 3.6,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/156/image_1920/Caja%20l%C3%A1piz%20con%20goma%2C%2012%20u%20x%20caja%2CR353?unique=f8eae96",
+   "foto_local": "fotos/21.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/21.jpg"
+   ],
+   "etiqueta": "SeFué SF-150 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 21.6 USD, a nosotros 21",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 43»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
    "n": 22,
    "id_sefue": "SF-107",
-   "market_id": null,
+   "market_id": 1915,
    "ids": [],
    "nombre": "Calculadora 14 dígitos, solar y batería (211 x 154 mm)",
    "descripcion": "Calculadora 14 dígitos, solar y batería (211 x 154 mm)",
@@ -146,7 +594,7 @@
   {
    "n": 23,
    "id_sefue": "SF-108",
-   "market_id": null,
+   "market_id": 1916,
    "ids": [],
    "nombre": "Calculadora 14 dígitos, solar y batería (218 x 146 mm)",
    "descripcion": "Calculadora 14 dígitos, solar y batería (218 x 146 mm)",
@@ -174,7 +622,7 @@
   {
    "n": 24,
    "id_sefue": "SF-119",
-   "market_id": null,
+   "market_id": 1917,
    "ids": [],
    "nombre": "Calculadora 14 dígitos, solar y batería (185 x 135 mm)",
    "descripcion": "Calculadora 14 dígitos, solar y batería (185 x 135 mm)",
@@ -202,7 +650,7 @@
   {
    "n": 25,
    "id_sefue": "SF-120",
-   "market_id": null,
+   "market_id": 1918,
    "ids": [],
    "nombre": "Calculadora de escritorio 12 dígitos, solar y batería, plateada",
    "descripcion": "Calculadora de escritorio 12 dígitos, solar y batería, plateada",
@@ -230,7 +678,7 @@
   {
    "n": 26,
    "id_sefue": "SF-121",
-   "market_id": null,
+   "market_id": 1919,
    "ids": [],
    "nombre": "Calculadora portátil 12 dígitos, azul",
    "descripcion": "Calculadora portátil 12 dígitos, azul",
@@ -258,7 +706,7 @@
   {
    "n": 27,
    "id_sefue": "SF-118",
-   "market_id": null,
+   "market_id": 1920,
    "ids": [],
    "nombre": "Calculadora portátil 8 dígitos, solar y batería",
    "descripcion": "Calculadora portátil 8 dígitos, solar y batería",
@@ -284,9 +732,1295 @@
    ]
   },
   {
+   "n": 28,
+   "id_sefue": "SF-185",
+   "market_id": 1985,
+   "ids": [],
+   "nombre": "Cortador (ref. R68) · paquete de 6",
+   "descripcion": "Paquete de 6 unidades de «Cortador (ref. R68)».",
+   "precio_proveedor": 16.32,
+   "precio": 23,
+   "comision": 2.67,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/206/image_1920/Cortador%2C%20R68?unique=4d6be35",
+   "foto_local": "fotos/28.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/28.jpg"
+   ],
+   "etiqueta": "SeFué SF-185 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 16.8 USD, a nosotros 16.32",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 50»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
+   "n": 29,
+   "id_sefue": "SF-186",
+   "market_id": 1986,
+   "ids": [],
+   "nombre": "Cortador (ref. R69) · paquete de 12",
+   "descripcion": "Paquete de 12 unidades de «Cortador (ref. R69)».",
+   "precio_proveedor": 10.44,
+   "precio": 16,
+   "comision": 2.22,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/207/image_1920/Cortador%2C%20R69?unique=d327131",
+   "foto_local": "fotos/29.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/29.jpg"
+   ],
+   "etiqueta": "SeFué SF-186 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 10.8 USD, a nosotros 10.44",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 51»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
+   "n": 30,
+   "id_sefue": "SF-187",
+   "market_id": 1987,
+   "ids": [],
+   "nombre": "Cortador (ref. R70) · paquete de 12",
+   "descripcion": "Paquete de 12 unidades de «Cortador (ref. R70)».",
+   "precio_proveedor": 21,
+   "precio": 30,
+   "comision": 3.6,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/208/image_1920/Cortador%2C%20R70?unique=49bff40",
+   "foto_local": "fotos/30.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/30.jpg"
+   ],
+   "etiqueta": "SeFué SF-187 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 21.6 USD, a nosotros 21",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 52»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
+   "n": 31,
+   "id_sefue": "SF-188",
+   "market_id": 1988,
+   "ids": [],
+   "nombre": "Cortador (ref. R72) · paquete de 12",
+   "descripcion": "Paquete de 12 unidades de «Cortador (ref. R72)».",
+   "precio_proveedor": 22.08,
+   "precio": 31,
+   "comision": 3.57,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/209/image_1920/Cortador%2C%20R72?unique=bc60f32",
+   "foto_local": "fotos/31.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/31.jpg"
+   ],
+   "etiqueta": "SeFué SF-188 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 22.8 USD, a nosotros 22.08",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 53»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
+   "n": 32,
+   "id_sefue": "SF-189",
+   "market_id": 1989,
+   "ids": [],
+   "nombre": "Cortador (ref. R74) · paquete de 12",
+   "descripcion": "Paquete de 12 unidades de «Cortador (ref. R74)».",
+   "precio_proveedor": 19.2,
+   "precio": 27,
+   "comision": 3.12,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/210/image_1920/Cortador%2C%20R74?unique=a1c3ec1",
+   "foto_local": "fotos/32.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/32.jpg"
+   ],
+   "etiqueta": "SeFué SF-189 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 19.8 USD, a nosotros 19.2",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 54»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
+   "n": 34,
+   "id_sefue": "SF-191",
+   "market_id": 1990,
+   "ids": [],
+   "nombre": "Cortador (ref. R76) · paquete de 12",
+   "descripcion": "Paquete de 12 unidades de «Cortador (ref. R76)».",
+   "precio_proveedor": 23.28,
+   "precio": 33,
+   "comision": 3.89,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/212/image_1920/Cortador%2C%20R76?unique=3872907",
+   "foto_local": "fotos/34.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/34.jpg"
+   ],
+   "etiqueta": "SeFué SF-191 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 24 USD, a nosotros 23.28",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 56»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
+   "n": 35,
+   "id_sefue": "SF-192",
+   "market_id": 1991,
+   "ids": [],
+   "nombre": "Cortador (ref. R77) · paquete de 6",
+   "descripcion": "Paquete de 6 unidades de «Cortador (ref. R77)».",
+   "precio_proveedor": 15.72,
+   "precio": 23,
+   "comision": 2.91,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/213/image_1920/Cortador%2C%20R77?unique=59989b8",
+   "foto_local": "fotos/35.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/35.jpg"
+   ],
+   "etiqueta": "SeFué SF-192 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 16.2 USD, a nosotros 15.72",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 57»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
+   "n": 36,
+   "id_sefue": "SF-193",
+   "market_id": 1992,
+   "ids": [],
+   "nombre": "Cortador (ref. R78) · paquete de 12",
+   "descripcion": "Paquete de 12 unidades de «Cortador (ref. R78)».",
+   "precio_proveedor": 19.8,
+   "precio": 28,
+   "comision": 3.28,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/214/image_1920/Cortador%2C%20R78?unique=8e2c018",
+   "foto_local": "fotos/36.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/36.jpg"
+   ],
+   "etiqueta": "SeFué SF-193 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 20.4 USD, a nosotros 19.8",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 58»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
+   "n": 37,
+   "id_sefue": "SF-194",
+   "market_id": 1993,
+   "ids": [],
+   "nombre": "Cortador (ref. R79) · paquete de 12",
+   "descripcion": "Paquete de 12 unidades de «Cortador (ref. R79)».",
+   "precio_proveedor": 19.8,
+   "precio": 28,
+   "comision": 3.28,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/215/image_1920/Cortador%2C%20R79?unique=d9308bc",
+   "foto_local": "fotos/37.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/37.jpg"
+   ],
+   "etiqueta": "SeFué SF-194 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 20.4 USD, a nosotros 19.8",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 59»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
+   "n": 38,
+   "id_sefue": "SF-195",
+   "market_id": 1994,
+   "ids": [],
+   "nombre": "Cortador (ref. R80) · paquete de 6",
+   "descripcion": "Paquete de 6 unidades de «Cortador (ref. R80)».",
+   "precio_proveedor": 13.98,
+   "precio": 20,
+   "comision": 2.41,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/216/image_1920/Cortador%2C%20R80?unique=2c2e92c",
+   "foto_local": "fotos/38.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/38.jpg"
+   ],
+   "etiqueta": "SeFué SF-195 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 14.4 USD, a nosotros 13.98",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 60»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
+   "n": 39,
+   "id_sefue": "SF-147",
+   "market_id": 1995,
+   "ids": [],
+   "nombre": "Crayolas pastel, 12u x caja · paquete de 6",
+   "descripcion": "Paquete de 6 unidades de «Crayolas pastel, 12u x caja».",
+   "precio_proveedor": 12.78,
+   "precio": 18,
+   "comision": 2.09,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/153/image_1920/Crayolas%20pastel%2C%2012u%20x%20caja?unique=7bea5d1",
+   "foto_local": "fotos/39.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/39.jpg"
+   ],
+   "etiqueta": "SeFué SF-147 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 13.2 USD, a nosotros 12.78",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 61»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
+   "n": 40,
+   "id_sefue": "SF-145",
+   "market_id": 1996,
+   "ids": [],
+   "nombre": "Dispensador de cinta adhesiva (ref. R237) · paquete de 6",
+   "descripcion": "Paquete de 6 unidades de «Dispensador de cinta adhesiva (ref. R237)».",
+   "precio_proveedor": 14.52,
+   "precio": 21,
+   "comision": 2.59,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/151/image_1920/Dispensador%20de%20cinta%20adhesiva%2C%20R237?unique=c2aeb25",
+   "foto_local": "fotos/40.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/40.jpg"
+   ],
+   "etiqueta": "SeFué SF-145 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 15 USD, a nosotros 14.52",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 62»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
+   "n": 41,
+   "id_sefue": "SF-146",
+   "market_id": 1997,
+   "ids": [],
+   "nombre": "Dispensador de cinta adhesiva (ref. R238) · paquete de 12",
+   "descripcion": "Paquete de 12 unidades de «Dispensador de cinta adhesiva (ref. R238)».",
+   "precio_proveedor": 21,
+   "precio": 30,
+   "comision": 3.6,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/152/image_1920/Dispensador%20de%20cinta%20adhesiva%2C%20R238?unique=cfd3034",
+   "foto_local": "fotos/41.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/41.jpg"
+   ],
+   "etiqueta": "SeFué SF-146 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 21.6 USD, a nosotros 21",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 63»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
+   "n": 42,
+   "id_sefue": "SF-144",
+   "market_id": 1998,
+   "ids": [],
+   "nombre": "Dispensador de cinta adhesiva,color verde · paquete de 6",
+   "descripcion": "Paquete de 6 unidades de «Dispensador de cinta adhesiva,color verde».",
+   "precio_proveedor": 13.98,
+   "precio": 20,
+   "comision": 2.41,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/150/image_1920/Dispensador%20de%20cinta%20adhesiva%2Ccolor%20verde%2C%20R236?unique=09168cd",
+   "foto_local": "fotos/42.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/42.jpg"
+   ],
+   "etiqueta": "SeFué SF-144 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 14.4 USD, a nosotros 13.98",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 64»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
+   "n": 43,
+   "id_sefue": "SF-171",
+   "market_id": 1999,
+   "ids": [],
+   "nombre": "Estuche multiusos · paquete de 6",
+   "descripcion": "Paquete de 6 unidades de «Estuche multiusos».",
+   "precio_proveedor": 14.82,
+   "precio": 21,
+   "comision": 2.47,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/192/image_1920/Estuche%20multiusos%2C%20R34?unique=efe6602",
+   "foto_local": "fotos/43.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/43.jpg"
+   ],
+   "etiqueta": "SeFué SF-171 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 15.3 USD, a nosotros 14.82",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 65»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
+   "n": 44,
+   "id_sefue": "SF-80",
+   "market_id": 2000,
+   "ids": [],
+   "nombre": "Grapas para presilladora 26/6 1000/caja · paquete de 12",
+   "descripcion": "Paquete de 12 unidades de «Grapas para presilladora 26/6 1000/caja».",
+   "precio_proveedor": 6.96,
+   "precio": 12,
+   "comision": 2.02,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/80/image_1920/Grapas%20para%20presilladora%2026-6%201000-caja?unique=7921079",
+   "foto_local": "fotos/44.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/44.jpg"
+   ],
+   "etiqueta": "SeFué SF-80 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 7.2 USD, a nosotros 6.96",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 66»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
+   "n": 45,
+   "id_sefue": "SF-75",
+   "market_id": 2001,
+   "ids": [],
+   "nombre": "Marcador Fluorescente 1mm-5mm 6/paq. Color Surtido · paquete de 6",
+   "descripcion": "Paquete de 6 unidades de «Marcador Fluorescente 1mm-5mm 6/paq. Color Surtido».",
+   "precio_proveedor": 20.4,
+   "precio": 29,
+   "comision": 3.44,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/75/image_1920/Marcador%20Fluorescente%201mm-5mm%206-paq.%20Color%20Surtido?unique=efaf7df",
+   "foto_local": "fotos/45.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/45.jpg"
+   ],
+   "etiqueta": "SeFué SF-75 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 21 USD, a nosotros 20.4",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 67»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
+   "n": 46,
+   "id_sefue": "SF-78",
+   "market_id": 2002,
+   "ids": [],
+   "nombre": "Notas Adhesivas 3''x 3'' 4 colores x 100 Hojas · paquete de 6",
+   "descripcion": "Paquete de 6 unidades de «Notas Adhesivas 3''x 3'' 4 colores x 100 Hojas».",
+   "precio_proveedor": 20.4,
+   "precio": 29,
+   "comision": 3.44,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/78/image_1920/Notas%20Adhesivas%203%27%27x%203%27%27%204%20colores%20x%20100%20Hojas?unique=cfb5445",
+   "foto_local": "fotos/46.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/46.jpg"
+   ],
+   "etiqueta": "SeFué SF-78 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 21 USD, a nosotros 20.4",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 68»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
+   "n": 47,
+   "id_sefue": "SF-77",
+   "market_id": 2003,
+   "ids": [],
+   "nombre": "Notas Adhesivas de Papel 76×76mm (3''×3'') 100 Hojas · paquete de 12",
+   "descripcion": "Paquete de 12 unidades de «Notas Adhesivas de Papel 76×76mm (3''×3'') 100 Hojas».",
+   "precio_proveedor": 8.16,
+   "precio": 14,
+   "comision": 2.34,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/77/image_1920/Notas%20Adhesivas%20de%20Papel%2076%C3%9776mm%20%283%27%27%C3%973%27%27%29%20100%20Hojas?unique=7266ff4",
+   "foto_local": "fotos/47.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/47.jpg"
+   ],
+   "etiqueta": "SeFué SF-77 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 8.4 USD, a nosotros 8.16",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 69»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
+   "n": 48,
+   "id_sefue": "SF-98",
+   "market_id": 2004,
+   "ids": [],
+   "nombre": "Paquete 4 bolígrafos a base de aceite-gel 0.7mm azul · paquete de 12",
+   "descripcion": "Paquete de 12 unidades de «Paquete 4 bolígrafos a base de aceite-gel 0.7mm azul».",
+   "precio_proveedor": 12.24,
+   "precio": 18,
+   "comision": 2.3,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/98/image_1920/Paquete%204%20bol%C3%ADgrafos%20a%20base%20de%20aceite-gel%200.7mm%20azul-R264?unique=53d3523",
+   "foto_local": "fotos/48.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/48.jpg"
+   ],
+   "etiqueta": "SeFué SF-98 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 12.6 USD, a nosotros 12.24",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 70»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
+   "n": 49,
+   "id_sefue": "SF-81",
+   "market_id": 2005,
+   "ids": [],
+   "nombre": "Pegamento Multiusos Pégalo Todo 3g · paquete de 12",
+   "descripcion": "Paquete de 12 unidades de «Pegamento Multiusos Pégalo Todo 3g».",
+   "precio_proveedor": 4.08,
+   "precio": 10,
+   "comision": 2.37,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/81/image_1920/Pegamento%20Multiusos%20P%C3%A9galo%20Todo%203g?unique=a92fd41",
+   "foto_local": "fotos/49.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/49.jpg"
+   ],
+   "etiqueta": "SeFué SF-81 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 4.2 USD, a nosotros 4.08",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 71»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
+   "n": 51,
+   "id_sefue": "SF-168",
+   "market_id": 2006,
+   "ids": [],
+   "nombre": "Ponchadora 80 mm (ref. R104) · paquete de 6",
+   "descripcion": "Paquete de 6 unidades de «Ponchadora 80 mm (ref. R104)».",
+   "precio_proveedor": 17.16,
+   "precio": 25,
+   "comision": 3.14,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/189/image_1920/Ponchadora%2080%20mm%2C%20R104?unique=8cf926a",
+   "foto_local": "fotos/51.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/51.jpg"
+   ],
+   "etiqueta": "SeFué SF-168 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 17.7 USD, a nosotros 17.16",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 73»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
+   "n": 52,
+   "id_sefue": "SF-169",
+   "market_id": 2007,
+   "ids": [],
+   "nombre": "Ponchadora 80 mm (ref. R106) · paquete de 6",
+   "descripcion": "Paquete de 6 unidades de «Ponchadora 80 mm (ref. R106)».",
+   "precio_proveedor": 18.06,
+   "precio": 26,
+   "comision": 3.18,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/190/image_1920/Ponchadora%2080%20mm%2C%20R106?unique=3192946",
+   "foto_local": "fotos/52.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/52.jpg"
+   ],
+   "etiqueta": "SeFué SF-169 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 18.6 USD, a nosotros 18.06",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 74»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
+   "n": 53,
+   "id_sefue": "SF-170",
+   "market_id": 2008,
+   "ids": [],
+   "nombre": "Ponchadora hasta 20 hojas · paquete de 6",
+   "descripcion": "Paquete de 6 unidades de «Ponchadora hasta 20 hojas».",
+   "precio_proveedor": 29.1,
+   "precio": 41,
+   "comision": 4.76,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/191/image_1920/Ponchadora%20hasta%2020%20hojas%2C%20R7?unique=821157f",
+   "foto_local": "fotos/53.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/53.jpg"
+   ],
+   "etiqueta": "SeFué SF-170 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 30 USD, a nosotros 29.1",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 75»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
+   "n": 54,
+   "id_sefue": "SF-164",
+   "market_id": 2009,
+   "ids": [],
+   "nombre": "Presilladora hasta 25 hojas (ref. R12) · paquete de 6",
+   "descripcion": "Paquete de 6 unidades de «Presilladora hasta 25 hojas (ref. R12)».",
+   "precio_proveedor": 18.06,
+   "precio": 26,
+   "comision": 3.18,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/185/image_1920/Presilladora%20hasta%2025%20hojas%2C%20R12?unique=e506e82",
+   "foto_local": "fotos/54.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/54.jpg"
+   ],
+   "etiqueta": "SeFué SF-164 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 18.6 USD, a nosotros 18.06",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 76»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
+   "n": 55,
+   "id_sefue": "SF-165",
+   "market_id": 2010,
+   "ids": [],
+   "nombre": "Presilladora hasta 25 hojas (ref. R137) · paquete de 6",
+   "descripcion": "Paquete de 6 unidades de «Presilladora hasta 25 hojas (ref. R137)».",
+   "precio_proveedor": 17.16,
+   "precio": 25,
+   "comision": 3.14,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/186/image_1920/Presilladora%20hasta%2025%20hojas%2C%20R137?unique=0918105",
+   "foto_local": "fotos/55.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/55.jpg"
+   ],
+   "etiqueta": "SeFué SF-165 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 17.7 USD, a nosotros 17.16",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 77»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
+   "n": 56,
+   "id_sefue": "SF-166",
+   "market_id": 2011,
+   "ids": [],
+   "nombre": "Presilladora hasta 25 hojas (ref. R140) · paquete de 6",
+   "descripcion": "Paquete de 6 unidades de «Presilladora hasta 25 hojas (ref. R140)».",
+   "precio_proveedor": 27.96,
+   "precio": 40,
+   "comision": 4.82,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/187/image_1920/Presilladora%20hasta%2025%20hojas%2C%20R140?unique=5f493a0",
+   "foto_local": "fotos/56.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/56.jpg"
+   ],
+   "etiqueta": "SeFué SF-166 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 28.8 USD, a nosotros 27.96",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 78»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
+   "n": 57,
+   "id_sefue": "SF-167",
+   "market_id": 2012,
+   "ids": [],
+   "nombre": "Presilladora hasta 25 hojas (ref. R141) · paquete de 6",
+   "descripcion": "Paquete de 6 unidades de «Presilladora hasta 25 hojas (ref. R141)».",
+   "precio_proveedor": 24.18,
+   "precio": 34,
+   "comision": 3.93,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/188/image_1920/Presilladora%20hasta%2025%20hojas%2C%20R141?unique=ee3d1aa",
+   "foto_local": "fotos/57.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/57.jpg"
+   ],
+   "etiqueta": "SeFué SF-167 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 24.9 USD, a nosotros 24.18",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 79»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
+   "n": 58,
+   "id_sefue": "SF-69",
+   "market_id": 2013,
+   "ids": [],
+   "nombre": "Presillas Gem Clip #3 29mm. Color Surtido · paquete de 12",
+   "descripcion": "Paquete de 12 unidades de «Presillas Gem Clip #3 29mm. Color Surtido» (cada unidad: caja de 100 uds).",
+   "precio_proveedor": 11.64,
+   "precio": 17,
+   "comision": 2.14,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/69/image_1920/Presillas%20Gem%20Clip%20%233%2029mm.%20Color%20Surtido?unique=9328433",
+   "foto_local": "fotos/58.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/58.jpg"
+   ],
+   "etiqueta": "SeFué SF-69 · Caja de 100 uds · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 12 USD, a nosotros 11.64",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 80»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
+   "n": 59,
+   "id_sefue": "SF-70",
+   "market_id": 2014,
+   "ids": [],
+   "nombre": "Presillas Gem Clip #4 33mm · paquete de 12",
+   "descripcion": "Paquete de 12 unidades de «Presillas Gem Clip #4 33mm» (cada unidad: caja de 100 uds).",
+   "precio_proveedor": 10.44,
+   "precio": 16,
+   "comision": 2.22,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/70/image_1920/Presillas%20Gem%20Clip%20%234%2033mm?unique=0fb78a8",
+   "foto_local": "fotos/59.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/59.jpg"
+   ],
+   "etiqueta": "SeFué SF-70 · Caja de 100 uds · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 10.8 USD, a nosotros 10.44",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 81»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
+   "n": 60,
+   "id_sefue": "SF-175",
+   "market_id": 2015,
+   "ids": [],
+   "nombre": "Presillas clip 15mm · paquete de 6",
+   "descripcion": "Paquete de 6 unidades de «Presillas clip 15mm».",
+   "precio_proveedor": 12.24,
+   "precio": 18,
+   "comision": 2.3,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/196/image_1920/Presillas%20clip%2015mm%2C%20R50?unique=b6ea6bf",
+   "foto_local": "fotos/60.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/60.jpg"
+   ],
+   "etiqueta": "SeFué SF-175 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 12.6 USD, a nosotros 12.24",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 82»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
+   "n": 61,
+   "id_sefue": "SF-174",
+   "market_id": 2016,
+   "ids": [],
+   "nombre": "Presillas clip 25mm (ref. R40) · paquete de 6",
+   "descripcion": "Paquete de 6 unidades de «Presillas clip 25mm (ref. R40)».",
+   "precio_proveedor": 22.14,
+   "precio": 31,
+   "comision": 3.54,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/195/image_1920/Presillas%20clip%2025mm%2C%20R40?unique=56153b2",
+   "foto_local": "fotos/61.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/61.jpg"
+   ],
+   "etiqueta": "SeFué SF-174 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 22.8 USD, a nosotros 22.14",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 83»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
+   "n": 62,
+   "id_sefue": "SF-180",
+   "market_id": 2017,
+   "ids": [],
+   "nombre": "Presillas clip 25mm (ref. R49) · paquete de 6",
+   "descripcion": "Paquete de 6 unidades de «Presillas clip 25mm (ref. R49)».",
+   "precio_proveedor": 26.76,
+   "precio": 38,
+   "comision": 4.5,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/201/image_1920/Presillas%20clip%2025mm%2C%20R49?unique=e47635e",
+   "foto_local": "fotos/62.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/62.jpg"
+   ],
+   "etiqueta": "SeFué SF-180 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 27.6 USD, a nosotros 26.76",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 84»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
+   "n": 63,
+   "id_sefue": "SF-181",
+   "market_id": 2018,
+   "ids": [],
+   "nombre": "Presillas clip 25mm (ref. R51) · paquete de 12",
+   "descripcion": "Paquete de 12 unidades de «Presillas clip 25mm (ref. R51)».",
+   "precio_proveedor": 22.08,
+   "precio": 31,
+   "comision": 3.57,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/202/image_1920/Presillas%20clip%2025mm%2C%20R51?unique=d43ff75",
+   "foto_local": "fotos/63.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/63.jpg"
+   ],
+   "etiqueta": "SeFué SF-181 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 22.8 USD, a nosotros 22.08",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 85»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
+   "n": 64,
+   "id_sefue": "SF-172",
+   "market_id": 2019,
+   "ids": [],
+   "nombre": "Presillas clip 32mm (ref. R38) · paquete de 6",
+   "descripcion": "Paquete de 6 unidades de «Presillas clip 32mm (ref. R38)».",
+   "precio_proveedor": 17.46,
+   "precio": 25,
+   "comision": 3.02,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/193/image_1920/Presillas%20clip%2032mm%2C%20R38?unique=ff923ee",
+   "foto_local": "fotos/64.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/64.jpg"
+   ],
+   "etiqueta": "SeFué SF-172 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 18 USD, a nosotros 17.46",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 86»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
+   "n": 65,
+   "id_sefue": "SF-179",
+   "market_id": 2020,
+   "ids": [],
+   "nombre": "Presillas clip 32mm (ref. R48) · paquete de 6",
+   "descripcion": "Paquete de 6 unidades de «Presillas clip 32mm (ref. R48)».",
+   "precio_proveedor": 19.2,
+   "precio": 27,
+   "comision": 3.12,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/200/image_1920/Presillas%20clip%2032mm%2C%20R48?unique=0b2b92a",
+   "foto_local": "fotos/65.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/65.jpg"
+   ],
+   "etiqueta": "SeFué SF-179 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 19.8 USD, a nosotros 19.2",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 87»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
+   "n": 66,
+   "id_sefue": "SF-173",
+   "market_id": 2021,
+   "ids": [],
+   "nombre": "Presillas clip 41mm (ref. R39)",
+   "descripcion": "Presillas clip 41mm (ref. R39)",
+   "precio_proveedor": 5.34,
+   "precio": 11,
+   "comision": 2.26,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/194/image_1920/Presillas%20clip%2041mm%2C%20R39?unique=9390960",
+   "foto_local": "fotos/66.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/66.jpg"
+   ],
+   "etiqueta": "SeFué SF-173 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 5.5 USD, a nosotros 5.34",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 88»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
+   "n": 67,
+   "id_sefue": "SF-176",
+   "market_id": 2022,
+   "ids": [],
+   "nombre": "Presillas clip 41mm (ref. R44) · paquete de 6",
+   "descripcion": "Paquete de 6 unidades de «Presillas clip 41mm (ref. R44)».",
+   "precio_proveedor": 28.5,
+   "precio": 40,
+   "comision": 4.6,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/197/image_1920/Presillas%20clip%2041mm%2C%20R44?unique=2773ba5",
+   "foto_local": "fotos/67.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/67.jpg"
+   ],
+   "etiqueta": "SeFué SF-176 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 29.4 USD, a nosotros 28.5",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 89»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
+   "n": 68,
+   "id_sefue": "SF-178",
+   "market_id": 2023,
+   "ids": [],
+   "nombre": "Presillas clip 41mm (ref. R47)",
+   "descripcion": "Presillas clip 41mm (ref. R47)",
+   "precio_proveedor": 5.58,
+   "precio": 11,
+   "comision": 2.17,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/199/image_1920/Presillas%20clip%2041mm%2C%20R47?unique=577e248",
+   "foto_local": "fotos/68.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/68.jpg"
+   ],
+   "etiqueta": "SeFué SF-178 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 5.75 USD, a nosotros 5.58",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 90»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
+   "n": 69,
+   "id_sefue": "SF-177",
+   "market_id": 2024,
+   "ids": [],
+   "nombre": "Presillas clip 51mm (ref. R45) · paquete de 6",
+   "descripcion": "Paquete de 6 unidades de «Presillas clip 51mm (ref. R45)».",
+   "precio_proveedor": 21.54,
+   "precio": 31,
+   "comision": 3.78,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/198/image_1920/Presillas%20clip%2051mm%2C%20R45?unique=8cccefa",
+   "foto_local": "fotos/69.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/69.jpg"
+   ],
+   "etiqueta": "SeFué SF-177 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 22.2 USD, a nosotros 21.54",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 91»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
+   "n": 70,
+   "id_sefue": "SF-184",
+   "market_id": 2025,
+   "ids": [],
+   "nombre": "Presillas clip 51mm (ref. R55) · paquete de 6",
+   "descripcion": "Paquete de 6 unidades de «Presillas clip 51mm (ref. R55)».",
+   "precio_proveedor": 22.98,
+   "precio": 33,
+   "comision": 4.01,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/205/image_1920/Presillas%20clip%2051mm%2C%20R55?unique=bd6812e",
+   "foto_local": "fotos/70.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/70.jpg"
+   ],
+   "etiqueta": "SeFué SF-184 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 23.7 USD, a nosotros 22.98",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 92»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
+   "n": 71,
+   "id_sefue": "SF-183",
+   "market_id": 2026,
+   "ids": [],
+   "nombre": "Presillas clip plateadas 51mm · paquete de 12",
+   "descripcion": "Paquete de 12 unidades de «Presillas clip plateadas 51mm».",
+   "precio_proveedor": 19.8,
+   "precio": 28,
+   "comision": 3.28,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/204/image_1920/Presillas%20clip%20plateadas%2051mm%2C%20R53?unique=a90a3c2",
+   "foto_local": "fotos/71.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/71.jpg"
+   ],
+   "etiqueta": "SeFué SF-183 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 20.4 USD, a nosotros 19.8",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 93»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
+   "n": 72,
+   "id_sefue": "SF-182",
+   "market_id": 2027,
+   "ids": [],
+   "nombre": "Presillas clip plateadas 76mm · paquete de 6",
+   "descripcion": "Paquete de 6 unidades de «Presillas clip plateadas 76mm».",
+   "precio_proveedor": 27.66,
+   "precio": 39,
+   "comision": 4.54,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/203/image_1920/Presillas%20clip%20plateadas%2076mm%2C%20R52?unique=8061776",
+   "foto_local": "fotos/72.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/72.jpg"
+   ],
+   "etiqueta": "SeFué SF-182 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 28.5 USD, a nosotros 27.66",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 94»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
+   "n": 74,
+   "id_sefue": "SF-67",
+   "market_id": 2028,
+   "ids": [],
+   "nombre": "Presillas de Patas para Encuadernar 80 mm. Color Surtido · paquete de 6",
+   "descripcion": "Paquete de 6 unidades de «Presillas de Patas para Encuadernar 80 mm. Color Surtido» (cada unidad: caja de 50 uds).",
+   "precio_proveedor": 20.94,
+   "precio": 30,
+   "comision": 3.62,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/67/image_1920/Presillas%20de%20Patas%20para%20Encuadernar%2080%20mm.%20Color%20Surtido?unique=4b049ab",
+   "foto_local": "fotos/74.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/74.jpg"
+   ],
+   "etiqueta": "SeFué SF-67 · Caja de 50 uds · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 21.6 USD, a nosotros 20.94",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 96»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
+   "n": 75,
+   "id_sefue": "SF-163",
+   "market_id": 2029,
+   "ids": [],
+   "nombre": "Tachuela 23mm,100/caja · paquete de 12",
+   "descripcion": "Paquete de 12 unidades de «Tachuela 23mm,100/caja».",
+   "precio_proveedor": 19.8,
+   "precio": 28,
+   "comision": 3.28,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/183/image_1920/Tachuela%2023mm%2C100-caja%20%28Caja%29?unique=0ac8b16",
+   "foto_local": "fotos/75.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/75.jpg"
+   ],
+   "etiqueta": "SeFué SF-163 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 20.4 USD, a nosotros 19.8",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 97»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
+   "n": 76,
+   "id_sefue": "SF-142",
+   "market_id": 2030,
+   "ids": [],
+   "nombre": "Bolsa de Inyectores, Cabeza 9.5 mm",
+   "descripcion": "Bolsa de Inyectores, Cabeza 9.5 mm\nSe vende por: paquete.",
+   "precio_proveedor": 126.1,
+   "precio": 145,
+   "comision": 7.56,
+   "precio_manual": false,
+   "departamentos": [
+    "ferreteria"
+   ],
+   "categoria_bolsa": "insecticida",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/148/image_1920/Bolsa%20de%20Inyectores%2C%20Cabeza%209.5%20mm?unique=d4c114c",
+   "foto_local": "fotos/76.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/76.jpg"
+   ],
+   "etiqueta": "SeFué SF-142 · Paquete · Cerro · Manglar y Oquendo, junto al parque La Normal · entrega: recogemos en su local (transporte nuestro) · su web 130 USD, a nosotros 126.1",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": []
+  },
+  {
    "n": 77,
    "id_sefue": "SF-214",
-   "market_id": null,
+   "market_id": 1921,
    "ids": [],
    "nombre": "Insecticida para mosquitos y cucarachas 250 ml",
    "descripcion": "Insecticida para mosquitos y cucarachas 250 ml",
@@ -310,9 +2044,35 @@
    "alertas": []
   },
   {
+   "n": 78,
+   "id_sefue": "SF-143",
+   "market_id": 2031,
+   "ids": [],
+   "nombre": "Bolsa de Inyectores 6.5/Cabeza 20mm",
+   "descripcion": "Bolsa de Inyectores 6.5/Cabeza 20mm\nSe vende por: paquete.",
+   "precio_proveedor": 111.55,
+   "precio": 130,
+   "comision": 7.38,
+   "precio_manual": false,
+   "departamentos": [
+    "ferreteria"
+   ],
+   "categoria_bolsa": "insecticida",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/149/image_1920/Bolsa%20de%20Inyectores%206.5-Cabeza%2020mm?unique=54e635e",
+   "foto_local": "fotos/78.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/78.jpg"
+   ],
+   "etiqueta": "SeFué SF-143 · Paquete · Cerro · Manglar y Oquendo, junto al parque La Normal · entrega: recogemos en su local (transporte nuestro) · su web 115 USD, a nosotros 111.55",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": []
+  },
+  {
    "n": 79,
    "id_sefue": "SF-86",
-   "market_id": null,
+   "market_id": 1922,
    "ids": [],
    "nombre": "Cebo hormiguicida granulado Antex 1,5 kg",
    "descripcion": "Cebo hormiguicida granulado Antex 1,5 kg",
@@ -338,7 +2098,7 @@
   {
    "n": 80,
    "id_sefue": "SF-82",
-   "market_id": null,
+   "market_id": 1923,
    "ids": [],
    "nombre": "Gel insecticida para hormigas Magnum (paquete de 4)",
    "descripcion": "Gel insecticida específico para el control de hormigas\nContiene IGR (Regulador de Crecimiento de Insectos)\nActúa sobre obreras, larvas y reina , eliminando la colonia\nAlta atractividad y aceptación por las hormigas\nIdeal para uso en interiores y exteriores\nAplicación precisa en grietas, hendiduras y zonas de tránsito\nNo genera efecto de rechazo inmediato\nUso recomendado en hogares, comercios e instalaciones profesionales\nSolución eficaz para control prolongado de infestaciones\nSe vende por: paquete de 4.",
@@ -362,16 +2122,224 @@
    "alertas": []
   },
   {
+   "n": 90,
+   "id_sefue": "SF-225",
+   "market_id": 2032,
+   "ids": [],
+   "nombre": "Humidor, capacidad para 2000 tabacos, modelo B6",
+   "descripcion": "Humidor, capacidad para 2000 tabacos, modelo B6\nEntrega incluida en La Habana (zonas lejanas, a consultar).",
+   "precio_proveedor": 2090,
+   "precio": 2300,
+   "comision": 84,
+   "precio_manual": false,
+   "departamentos": [
+    "sala-y-muebles"
+   ],
+   "categoria_bolsa": "humidor",
+   "tamano": "grande",
+   "foto_url": "https://www.sefue.app/web/image/product.product/266/image_1920/Humidor%2C%20capacidad%20para%202000%20tabacos%2C%20modelo%20B6?unique=779da18",
+   "foto_local": "fotos/90.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/90.jpg"
+   ],
+   "etiqueta": "SeFué SF-225 · Unidades · Cerro · Manglar y Oquendo, junto al parque La Normal · entrega: la pone SeFué · su web 2200 USD, a nosotros 2090",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": []
+  },
+  {
+   "n": 91,
+   "id_sefue": "SF-216",
+   "market_id": 2033,
+   "ids": [],
+   "nombre": "Humidor, capacidad para 500 tabacos, modelo B1",
+   "descripcion": "Humidor, capacidad para 500 tabacos, modelo B1\nEntrega incluida en La Habana (zonas lejanas, a consultar).",
+   "precio_proveedor": 760,
+   "precio": 840,
+   "comision": 32,
+   "precio_manual": false,
+   "departamentos": [
+    "sala-y-muebles"
+   ],
+   "categoria_bolsa": "humidor",
+   "tamano": "grande",
+   "foto_url": "https://www.sefue.app/web/image/product.product/257/image_1920/Humidor%2C%20capacidad%20para%20500%20tabacos%2C%20modelo%20B1?unique=1b2b745",
+   "foto_local": "fotos/91.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/91.jpg"
+   ],
+   "etiqueta": "SeFué SF-216 · Unidades · Cerro · Manglar y Oquendo, junto al parque La Normal · entrega: la pone SeFué · su web 800 USD, a nosotros 760",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": []
+  },
+  {
+   "n": 92,
+   "id_sefue": "SF-223",
+   "market_id": 2034,
+   "ids": [],
+   "nombre": "Humidor, capacidad para 850 tabacos, modelo B2",
+   "descripcion": "Humidor, capacidad para 850 tabacos, modelo B2\nEntrega incluida en La Habana (zonas lejanas, a consultar).",
+   "precio_proveedor": 950,
+   "precio": 1045,
+   "comision": 38,
+   "precio_manual": false,
+   "departamentos": [
+    "sala-y-muebles"
+   ],
+   "categoria_bolsa": "humidor",
+   "tamano": "grande",
+   "foto_url": "https://www.sefue.app/web/image/product.product/264/image_1920/Humidor%2C%20capacidad%20para%20850%20tabacos%2C%20modelo%20B2?unique=cdd2ff4",
+   "foto_local": "fotos/92.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/92.jpg"
+   ],
+   "etiqueta": "SeFué SF-223 · Unidades · Cerro · Manglar y Oquendo, junto al parque La Normal · entrega: la pone SeFué · su web 1000 USD, a nosotros 950",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": []
+  },
+  {
+   "n": 93,
+   "id_sefue": "SF-220",
+   "market_id": 2035,
+   "ids": [],
+   "nombre": "Humidor, capacidad hasta 1600 tabacos, modelo C5",
+   "descripcion": "Humidor, capacidad hasta 1600 tabacos, modelo C5\nEntrega incluida en La Habana (zonas lejanas, a consultar).",
+   "precio_proveedor": 2375,
+   "precio": 2615,
+   "comision": 96,
+   "precio_manual": false,
+   "departamentos": [
+    "sala-y-muebles"
+   ],
+   "categoria_bolsa": "humidor",
+   "tamano": "grande",
+   "foto_url": "https://www.sefue.app/web/image/product.product/261/image_1920/Humidor%2Ccapacidad%20hasta%201600%20tabacos%2C%20modelo%20C5?unique=58542d8",
+   "foto_local": "fotos/93.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/93.jpg"
+   ],
+   "etiqueta": "SeFué SF-220 · Unidades · Cerro · Manglar y Oquendo, junto al parque La Normal · entrega: la pone SeFué · su web 2500 USD, a nosotros 2375",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": []
+  },
+  {
+   "n": 94,
+   "id_sefue": "SF-221",
+   "market_id": 2036,
+   "ids": [],
+   "nombre": "Humidor, capacidad hasta 3000 tabacos, modelo C8",
+   "descripcion": "Humidor, capacidad hasta 3000 tabacos, modelo C8\nEntrega incluida en La Habana (zonas lejanas, a consultar).",
+   "precio_proveedor": 3800,
+   "precio": 4180,
+   "comision": 152,
+   "precio_manual": false,
+   "departamentos": [
+    "sala-y-muebles"
+   ],
+   "categoria_bolsa": "humidor",
+   "tamano": "grande",
+   "foto_url": "https://www.sefue.app/web/image/product.product/262/image_1920/Humidor%2Ccapacidad%20hasta%203000%20tabacos%2C%20modelo%20C8?unique=adc498c",
+   "foto_local": "fotos/94.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/94.jpg"
+   ],
+   "etiqueta": "SeFué SF-221 · Unidades · Cerro · Manglar y Oquendo, junto al parque La Normal · entrega: la pone SeFué · su web 4000 USD, a nosotros 3800",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": []
+  },
+  {
+   "n": 95,
+   "id_sefue": "SF-218",
+   "market_id": 2037,
+   "ids": [],
+   "nombre": "Humidor, capacidad para 1200 tabacos, modelo L5",
+   "descripcion": "Humidor, capacidad para 1200 tabacos, modelo L5\nEntrega incluida en La Habana (zonas lejanas, a consultar).",
+   "precio_proveedor": 3990,
+   "precio": 4390,
+   "comision": 160,
+   "precio_manual": false,
+   "departamentos": [
+    "sala-y-muebles"
+   ],
+   "categoria_bolsa": "humidor",
+   "tamano": "grande",
+   "foto_url": "https://www.sefue.app/web/image/product.product/259/image_1920/Humidor%2Ccapacidad%20para%201200%20tabacos%2C%20modelo%20L5?unique=81bd01c",
+   "foto_local": "fotos/95.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/95.jpg"
+   ],
+   "etiqueta": "SeFué SF-218 · Unidades · Cerro · Manglar y Oquendo, junto al parque La Normal · entrega: la pone SeFué · su web 4200 USD, a nosotros 3990",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": []
+  },
+  {
+   "n": 96,
+   "id_sefue": "SF-219",
+   "market_id": 2038,
+   "ids": [],
+   "nombre": "Humidor, capacidad para 1500 tabacos, modelo L6",
+   "descripcion": "Humidor, capacidad para 1500 tabacos, modelo L6\nEntrega incluida en La Habana (zonas lejanas, a consultar).",
+   "precio_proveedor": 4560,
+   "precio": 5020,
+   "comision": 184,
+   "precio_manual": false,
+   "departamentos": [
+    "sala-y-muebles"
+   ],
+   "categoria_bolsa": "humidor",
+   "tamano": "grande",
+   "foto_url": "https://www.sefue.app/web/image/product.product/260/image_1920/Humidor%2Ccapacidad%20para%201500%20tabacos%2C%20modelo%20L6?unique=7023b8a",
+   "foto_local": "fotos/96.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/96.jpg"
+   ],
+   "etiqueta": "SeFué SF-219 · Unidades · Cerro · Manglar y Oquendo, junto al parque La Normal · entrega: la pone SeFué · su web 4800 USD, a nosotros 4560",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": []
+  },
+  {
+   "n": 97,
+   "id_sefue": "SF-217",
+   "market_id": 2039,
+   "ids": [],
+   "nombre": "Humidor, capacidad para 250 tabacos, modelo L3",
+   "descripcion": "Humidor, capacidad para 250 tabacos, modelo L3\nEntrega incluida en La Habana (zonas lejanas, a consultar).",
+   "precio_proveedor": 3040,
+   "precio": 3345,
+   "comision": 122,
+   "precio_manual": false,
+   "departamentos": [
+    "sala-y-muebles"
+   ],
+   "categoria_bolsa": "humidor",
+   "tamano": "grande",
+   "foto_url": "https://www.sefue.app/web/image/product.product/258/image_1920/Humidor%2Ccapacidad%20para%20250%20tabacos%2C%20modelo%20L3?unique=6187606",
+   "foto_local": "fotos/97.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/97.jpg"
+   ],
+   "etiqueta": "SeFué SF-217 · Unidades · Cerro · Manglar y Oquendo, junto al parque La Normal · entrega: la pone SeFué · su web 3200 USD, a nosotros 3040",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": []
+  },
+  {
    "n": 98,
    "id_sefue": "SF-95",
-   "market_id": null,
+   "market_id": 1924,
    "ids": [],
    "nombre": "Colchón personal de espuma Areca 90 x 190 x 20 cm",
    "descripcion": "Colchón personal de espuma Areca 90 x 190 x 20 cm",
    "precio_proveedor": 115,
-   "precio": 125,
-   "comision": 4,
-   "precio_manual": true,
+   "precio": 135,
+   "comision": 8,
+   "precio_manual": false,
    "departamentos": [
     "habitacion"
    ],
@@ -390,14 +2358,14 @@
   {
    "n": 99,
    "id_sefue": "SF-96",
-   "market_id": null,
+   "market_id": 1925,
    "ids": [],
    "nombre": "Colchón camero de espuma Low Cost IV 135 x 190 x 20 cm",
    "descripcion": "Colchón camero de espuma Low Cost IV 135 x 190 x 20 cm",
    "precio_proveedor": 185,
-   "precio": 200,
-   "comision": 6,
-   "precio_manual": true,
+   "precio": 205,
+   "comision": 8,
+   "precio_manual": false,
    "departamentos": [
     "habitacion"
    ],
@@ -416,7 +2384,7 @@
   {
    "n": 100,
    "id_sefue": "SF-93",
-   "market_id": null,
+   "market_id": 1926,
    "ids": [],
    "nombre": "Colchón de espuma Spring 135 x 190 x 23 cm",
    "descripcion": "Colchón de espuma Spring 135 x 190 x 23 cm",
@@ -442,14 +2410,14 @@
   {
    "n": 101,
    "id_sefue": "SF-94",
-   "market_id": null,
+   "market_id": 1927,
    "ids": [],
    "nombre": "Colchón de espuma Spring King 200 x 200 x 23 cm",
    "descripcion": "Colchón de espuma Spring King 200 x 200 x 23 cm",
    "precio_proveedor": 349.2,
-   "precio": 360,
-   "comision": 4.32,
-   "precio_manual": true,
+   "precio": 385,
+   "comision": 14.32,
+   "precio_manual": false,
    "departamentos": [
     "habitacion"
    ],
@@ -468,14 +2436,14 @@
   {
    "n": 102,
    "id_sefue": "SF-92",
-   "market_id": null,
+   "market_id": 1928,
    "ids": [],
    "nombre": "Colchón camero de espuma Cala 135 x 190 x 20 cm",
    "descripcion": "Colchón camero de espuma Cala 135 x 190 x 20 cm",
    "precio_proveedor": 195,
-   "precio": 205,
-   "comision": 4,
-   "precio_manual": true,
+   "precio": 215,
+   "comision": 8,
+   "precio_manual": false,
    "departamentos": [
     "habitacion"
    ],
@@ -494,14 +2462,14 @@
   {
    "n": 103,
    "id_sefue": "SF-91",
-   "market_id": null,
+   "market_id": 1929,
    "ids": [],
    "nombre": "Colchón personal de espuma Cala 90 x 190 x 20 cm",
    "descripcion": "Los colchones vienen empacados al vacío para facilitar el traslado y almacenamiento.\n-Una vez realizada la compra y abierto el empaque, se recomienda esperar 24 horas mínimo para el uso del colchón, esto permite que el colchón alcance su forma óptima.",
    "precio_proveedor": 115,
-   "precio": 125,
-   "comision": 4,
-   "precio_manual": true,
+   "precio": 135,
+   "comision": 8,
+   "precio_manual": false,
    "departamentos": [
     "habitacion"
    ],
@@ -520,7 +2488,7 @@
   {
    "n": 104,
    "id_sefue": "SF-47",
-   "market_id": null,
+   "market_id": 1930,
    "ids": [],
    "nombre": "Pistola de pintar 750 ml",
    "descripcion": "Pistola de pintar 750 ml",
@@ -546,7 +2514,7 @@
   {
    "n": 105,
    "id_sefue": "SF-46",
-   "market_id": null,
+   "market_id": 1931,
    "ids": [],
    "nombre": "Amoladora / pulidora 850 W, disco de 100 mm",
    "descripcion": "Amoladora / pulidora 850 W, disco de 100 mm",
@@ -572,7 +2540,7 @@
   {
    "n": 106,
    "id_sefue": "SF-48",
-   "market_id": null,
+   "market_id": 1932,
    "ids": [],
    "nombre": "Pistola de pintar 1000 ml",
    "descripcion": "Pistola de pintar 1000 ml",
@@ -598,7 +2566,7 @@
   {
    "n": 107,
    "id_sefue": "SF-61",
-   "market_id": null,
+   "market_id": 1933,
    "ids": [],
    "nombre": "Segueta de aluminio 12\" (300 mm)",
    "descripcion": "Segueta de aluminio 12\" (300 mm)",
@@ -624,7 +2592,7 @@
   {
    "n": 108,
    "id_sefue": "SF-50",
-   "market_id": null,
+   "market_id": 1934,
    "ids": [],
    "nombre": "Taladro eléctrico 550 W, 110 V, mandril 13 mm",
    "descripcion": "Taladro eléctrico 550 W, 110 V, mandril 13 mm",
@@ -650,7 +2618,7 @@
   {
    "n": 109,
    "id_sefue": "SF-45",
-   "market_id": null,
+   "market_id": 1935,
    "ids": [],
    "nombre": "Pintura vinil TOR blanco mate (cubo de 15 L)",
    "descripcion": "Uso: Interiores y exteriores (¡ideal para el clima cubano!)\nTranspirable y Alta Cubrición: Permite que tus paredes respiren y cubre como ninguna otra\nPintura plástica, anti moho\nRendimiento: 8-10 m²/L\nSecado Rápido: Al tacto en solo 2 horas\nAcabado: Mate, con una blancura y opacidad excelentes\nFormato: Disponible en tanquetas de 15 L\nAplicar con brocha, rodillo o pistola\nPropiedades destacadas:\nGran blancura y buena cubrición\nExcelente rendimiento\nAlta transpirabilidad\nNo deja marcas",
@@ -676,14 +2644,14 @@
   {
    "n": 110,
    "id_sefue": "SF-90",
-   "market_id": null,
+   "market_id": 1936,
    "ids": [],
    "nombre": "Nevera Westing 7 pies",
    "descripcion": "Nevera de 7 pies cúbicos de capacidad\nDiseño compacto y funcional , ideal para espacios reducidos\nSistema de refrigeración eficiente para óptima conservación de alimentos\nBajo consumo de energía\nDistribución interna práctica con estantes y compartimentos\nFuncionamiento silencioso\nIdeal para hogares, oficinas, dormitorios y pequeños negocios\nConstrucción robusta y duradera\nMarca reconocida por su calidad y confiabilidad",
    "precio_proveedor": 291,
-   "precio": 300,
-   "comision": 3.6,
-   "precio_manual": true,
+   "precio": 310,
+   "comision": 7.6,
+   "precio_manual": false,
    "departamentos": [
     "electrodomesticos"
    ],
@@ -700,16 +2668,406 @@
    "alertas": []
   },
   {
+   "n": 111,
+   "id_sefue": "SF-33",
+   "market_id": 1937,
+   "ids": [],
+   "nombre": "Aceite Sintético Suniso SL 32 (4L)",
+   "descripcion": "Aceite Sintético Suniso SL 32 (4L)",
+   "precio_proveedor": 67.9,
+   "precio": 85,
+   "comision": 6.84,
+   "precio_manual": false,
+   "departamentos": [
+    "ferreteria"
+   ],
+   "categoria_bolsa": "refrigeración",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/33/image_1920/Aceite%20Sint%C3%A9tico%20Suniso%20SL%2032%20%284L%29?unique=01630a3",
+   "foto_local": "fotos/111.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/111.jpg"
+   ],
+   "etiqueta": "SeFué SF-33 · Unidades · Cerro · Manglar y Oquendo, junto al parque La Normal · entrega: recogemos en su local (transporte nuestro) · su web 70 USD, a nosotros 67.9",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": []
+  },
+  {
+   "n": 112,
+   "id_sefue": "SF-31",
+   "market_id": 1938,
+   "ids": [],
+   "nombre": "Disolvente Técnico Air Dislim (5L)",
+   "descripcion": "Disolvente Técnico Air Dislim (5L)",
+   "precio_proveedor": 33.95,
+   "precio": 48,
+   "comision": 5.62,
+   "precio_manual": false,
+   "departamentos": [
+    "ferreteria"
+   ],
+   "categoria_bolsa": "refrigeración",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/31/image_1920/Disolvente%20T%C3%A9cnico%20Air%20Dislim%20%285L%29?unique=2d3c002",
+   "foto_local": "fotos/112.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/112.jpg"
+   ],
+   "etiqueta": "SeFué SF-31 · Unidades · Cerro · Manglar y Oquendo, junto al parque La Normal · entrega: recogemos en su local (transporte nuestro) · su web 35 USD, a nosotros 33.95",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": []
+  },
+  {
+   "n": 113,
+   "id_sefue": "SF-37",
+   "market_id": 1939,
+   "ids": [],
+   "nombre": "Aceite Sintético SUNICE PAG 46 (20L)",
+   "descripcion": "Aceite Sintético SUNICE PAG 46 (20L)",
+   "precio_proveedor": 388,
+   "precio": 430,
+   "comision": 16.8,
+   "precio_manual": false,
+   "departamentos": [
+    "ferreteria"
+   ],
+   "categoria_bolsa": "refrigeración",
+   "tamano": "grande",
+   "foto_url": "https://www.sefue.app/web/image/product.product/37/image_1920/Aceite%20Sint%C3%A9tico%20SUNICE%20PAG%2046%20%2820L%29?unique=25cdc20",
+   "foto_local": "fotos/113.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/113.jpg"
+   ],
+   "etiqueta": "SeFué SF-37 · Unidades · Cerro · Manglar y Oquendo, junto al parque La Normal · entrega: recogemos en su local (transporte nuestro) · su web 400 USD, a nosotros 388",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": []
+  },
+  {
+   "n": 114,
+   "id_sefue": "SF-38",
+   "market_id": 1940,
+   "ids": [],
+   "nombre": "Aceite Sintético SUNICE PAG 46 (5L)",
+   "descripcion": "Aceite Sintético SUNICE PAG 46 (5L)",
+   "precio_proveedor": 106.7,
+   "precio": 125,
+   "comision": 7.32,
+   "precio_manual": false,
+   "departamentos": [
+    "ferreteria"
+   ],
+   "categoria_bolsa": "refrigeración",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/38/image_1920/Aceite%20Sint%C3%A9tico%20SUNICE%20PAG%2046%20%285L%29?unique=26ece91",
+   "foto_local": "fotos/114.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/114.jpg"
+   ],
+   "etiqueta": "SeFué SF-38 · Unidades · Cerro · Manglar y Oquendo, junto al parque La Normal · entrega: recogemos en su local (transporte nuestro) · su web 110 USD, a nosotros 106.7",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": []
+  },
+  {
+   "n": 115,
+   "id_sefue": "SF-36",
+   "market_id": 1941,
+   "ids": [],
+   "nombre": "Aceite Sintético Suniso SL 68 (20L)",
+   "descripcion": "Aceite Sintético Suniso SL 68 (20L)",
+   "precio_proveedor": 358.9,
+   "precio": 395,
+   "comision": 14.44,
+   "precio_manual": false,
+   "departamentos": [
+    "ferreteria"
+   ],
+   "categoria_bolsa": "refrigeración",
+   "tamano": "grande",
+   "foto_url": "https://www.sefue.app/web/image/product.product/36/image_1920/Aceite%20Sint%C3%A9tico%20Suniso%20SL%2068%20%2820L%29?unique=1d4ef55",
+   "foto_local": "fotos/115.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/115.jpg"
+   ],
+   "etiqueta": "SeFué SF-36 · Unidades · Cerro · Manglar y Oquendo, junto al parque La Normal · entrega: recogemos en su local (transporte nuestro) · su web 370 USD, a nosotros 358.9",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": []
+  },
+  {
+   "n": 116,
+   "id_sefue": "SF-35",
+   "market_id": 1942,
+   "ids": [],
+   "nombre": "Aceite Sintético Suniso SL 68 (4L)",
+   "descripcion": "Aceite Sintético Suniso SL 68 (4L)",
+   "precio_proveedor": 77.6,
+   "precio": 95,
+   "comision": 6.96,
+   "precio_manual": false,
+   "departamentos": [
+    "ferreteria"
+   ],
+   "categoria_bolsa": "refrigeración",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/35/image_1920/Aceite%20Sint%C3%A9tico%20Suniso%20SL%2068%20%284L%29?unique=122dc7f",
+   "foto_local": "fotos/116.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/116.jpg"
+   ],
+   "etiqueta": "SeFué SF-35 · Unidades · Cerro · Manglar y Oquendo, junto al parque La Normal · entrega: recogemos en su local (transporte nuestro) · su web 80 USD, a nosotros 77.6",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": []
+  },
+  {
+   "n": 117,
+   "id_sefue": "SF-34",
+   "market_id": 1943,
+   "ids": [],
+   "nombre": "Detector de Fugas Fluorescente Spray, Nu-Calgon (0.94L)",
+   "descripcion": "Detector de Fugas Fluorescente Spray, Nu-Calgon (0.94L)",
+   "precio_proveedor": 9.7,
+   "precio": 15,
+   "comision": 2.12,
+   "precio_manual": false,
+   "departamentos": [
+    "ferreteria"
+   ],
+   "categoria_bolsa": "refrigeración",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/34/image_1920/Detector%20de%20Fugas%20Fluorescente%20Spray%2C%20Nu-Calgon%20%280.94L%29?unique=8a5c1d8",
+   "foto_local": "fotos/117.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/117.jpg"
+   ],
+   "etiqueta": "SeFué SF-34 · Unidades · Cerro · Manglar y Oquendo, junto al parque La Normal · entrega: recogemos en su local (transporte nuestro) · su web 10 USD, a nosotros 9.7",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": []
+  },
+  {
+   "n": 118,
+   "id_sefue": "SF-32",
+   "market_id": 1944,
+   "ids": [],
+   "nombre": "Detector de Fugas Fluorescente, Nu-Calgon (3.8L)",
+   "descripcion": "Detector de Fugas Fluorescente, Nu-Calgon (3.8L)",
+   "precio_proveedor": 29.1,
+   "precio": 41,
+   "comision": 4.76,
+   "precio_manual": false,
+   "departamentos": [
+    "ferreteria"
+   ],
+   "categoria_bolsa": "refrigeración",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/32/image_1920/Detector%20de%20Fugas%20Fluorescente%2C%20Nu-Calgon%20%283.8L%29?unique=a3685ae",
+   "foto_local": "fotos/118.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/118.jpg"
+   ],
+   "etiqueta": "SeFué SF-32 · Unidades · Cerro · Manglar y Oquendo, junto al parque La Normal · entrega: recogemos en su local (transporte nuestro) · su web 30 USD, a nosotros 29.1",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": []
+  },
+  {
+   "n": 119,
+   "id_sefue": "SF-30",
+   "market_id": 1945,
+   "ids": [],
+   "nombre": "Limpiador Alcalino Espumante Nu-Brite, Nu-Calgon (3.8L)",
+   "descripcion": "Limpiador Alcalino Espumante Nu-Brite, Nu-Calgon (3.8L)",
+   "precio_proveedor": 29.1,
+   "precio": 41,
+   "comision": 4.76,
+   "precio_manual": false,
+   "departamentos": [
+    "ferreteria"
+   ],
+   "categoria_bolsa": "refrigeración",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/30/image_1920/Limpiador%20Alcalino%20Espumante%20Nu-Brite%2C%20Nu-Calgon%20%283.8L%29?unique=59bdf94",
+   "foto_local": "fotos/119.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/119.jpg"
+   ],
+   "etiqueta": "SeFué SF-30 · Unidades · Cerro · Manglar y Oquendo, junto al parque La Normal · entrega: recogemos en su local (transporte nuestro) · su web 30 USD, a nosotros 29.1",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": []
+  },
+  {
+   "n": 120,
+   "id_sefue": "SF-29",
+   "market_id": 1946,
+   "ids": [],
+   "nombre": "Limpiador Alcalino Pesado Especial HD CalClean, Nu-Calgon (3.8L)",
+   "descripcion": "Limpiador Alcalino Pesado Especial HD CalClean, Nu-Calgon (3.8L)",
+   "precio_proveedor": 29.1,
+   "precio": 41,
+   "comision": 4.76,
+   "precio_manual": false,
+   "departamentos": [
+    "ferreteria"
+   ],
+   "categoria_bolsa": "refrigeración",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/29/image_1920/Limpiador%20Alcalino%20Pesado%20Especial%20HD%20CalClean%2C%20Nu-Calgon%20%283.8L%29?unique=093fe75",
+   "foto_local": "fotos/120.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/120.jpg"
+   ],
+   "etiqueta": "SeFué SF-29 · Unidades · Cerro · Manglar y Oquendo, junto al parque La Normal · entrega: recogemos en su local (transporte nuestro) · su web 30 USD, a nosotros 29.1",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": []
+  },
+  {
+   "n": 121,
+   "id_sefue": "SF-28",
+   "market_id": 1947,
+   "ids": [],
+   "nombre": "Limpiador Ácido Suave Cal Brite, Nu-Calgon (3.8L)",
+   "descripcion": "Limpiador ácido suave para uso profesional\nDiseñado para la eliminación de incrustaciones minerales, óxido y sarro\nIdeal para serpentines, condensadores y evaporadores\nSeguro para superficies metálicas cuando se usa según indicaciones\nAyuda a restaurar la eficiencia térmica del equipo\nRecomendado para sistemas de refrigeración y aire acondicionado\nFácil aplicación mediante aspersión o bombeo\nProducto formulado para limpieza eficaz sin dañar el equipo\nPresentación: Envase de 3,8 litros",
+   "precio_proveedor": 33.95,
+   "precio": 48,
+   "comision": 5.62,
+   "precio_manual": false,
+   "departamentos": [
+    "ferreteria"
+   ],
+   "categoria_bolsa": "refrigeración",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/28/image_1920/Limpiador%20%C3%81cido%20Suave%20Cal%20Brite%2C%20Nu-Calgon%20%283.8L%29?unique=7a36579",
+   "foto_local": "fotos/121.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/121.jpg"
+   ],
+   "etiqueta": "SeFué SF-28 · Unidades · Cerro · Manglar y Oquendo, junto al parque La Normal · entrega: recogemos en su local (transporte nuestro) · su web 35 USD, a nosotros 33.95",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": []
+  },
+  {
+   "n": 122,
+   "id_sefue": "SF-39",
+   "market_id": 1948,
+   "ids": [],
+   "nombre": "Refrigerante Comercial DuPont SUVA R-409A (30Lb/13.62Kg)",
+   "descripcion": "Refrigerante Comercial DuPont SUVA R-409A (30Lb/13.62Kg)",
+   "precio_proveedor": 97,
+   "precio": 115,
+   "comision": 7.2,
+   "precio_manual": false,
+   "departamentos": [
+    "ferreteria"
+   ],
+   "categoria_bolsa": "refrigeración",
+   "tamano": "grande",
+   "foto_url": "https://www.sefue.app/web/image/product.product/39/image_1920/Refrigerante%20Comercial%20DuPont%20SUVA%20R-409A%20%2830Lb-13.62Kg%29?unique=2755c87",
+   "foto_local": "fotos/122.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/122.jpg"
+   ],
+   "etiqueta": "SeFué SF-39 · Unidades · Cerro · Manglar y Oquendo, junto al parque La Normal · entrega: recogemos en su local (transporte nuestro) · su web 100 USD, a nosotros 97",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": []
+  },
+  {
+   "n": 123,
+   "id_sefue": "SF-199",
+   "market_id": 1949,
+   "ids": [],
+   "nombre": "Cable de cobre 4mm² (tramo de 5 m)",
+   "descripcion": "Cable de cobre, 4mm².\nColores disponibles: negro, rojo.\nSe vende por: metro.",
+   "precio_proveedor": 8.73,
+   "precio": 14,
+   "comision": 2.11,
+   "precio_manual": false,
+   "departamentos": [
+    "ferreteria"
+   ],
+   "categoria_bolsa": "cable",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/229/image_1920/Cable%20de%20cobre%204mm%C2%B2%20%28Negro%29?unique=b8ee315",
+   "foto_local": "fotos/123.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/123.jpg"
+   ],
+   "etiqueta": "SeFué SF-199 · Metro · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 9 USD, a nosotros 8.73",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": []
+  },
+  {
+   "n": 124,
+   "id_sefue": "SF-202",
+   "market_id": 1950,
+   "ids": [],
+   "nombre": "Cable de cobre 10mm² (tramo de 5 m)",
+   "descripcion": "Cable de cobre 10mm² (tramo de 5 m)\nSe vende por: metro.",
+   "precio_proveedor": 21.34,
+   "precio": 30,
+   "comision": 3.46,
+   "precio_manual": false,
+   "departamentos": [
+    "ferreteria"
+   ],
+   "categoria_bolsa": "cable",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/236/image_1920/Cable%20de%20cobre%2C%2010mm%C2%B2%20%28Negro%29?unique=1a85146",
+   "foto_local": "fotos/124.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/124.jpg"
+   ],
+   "etiqueta": "SeFué SF-202 · Metro · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 22 USD, a nosotros 21.34",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": []
+  },
+  {
+   "n": 125,
+   "id_sefue": "SF-200",
+   "market_id": 1951,
+   "ids": [],
+   "nombre": "Cable de cobre 6mm² (tramo de 5 m)",
+   "descripcion": "Cable de cobre, 6mm².\nColores disponibles: azul, rojo.\nSe vende por: metro.",
+   "precio_proveedor": 12.61,
+   "precio": 18,
+   "comision": 2.16,
+   "precio_manual": false,
+   "departamentos": [
+    "ferreteria"
+   ],
+   "categoria_bolsa": "cable",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/233/image_1920/Cable%20de%20cobre%2C%206mm%C2%B2%20%28Azul%29?unique=a40c1f4",
+   "foto_local": "fotos/125.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/125.jpg"
+   ],
+   "etiqueta": "SeFué SF-200 · Metro · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 13 USD, a nosotros 12.61",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": []
+  },
+  {
    "n": 126,
    "id_sefue": "SF-109",
-   "market_id": null,
+   "market_id": 1952,
    "ids": [],
    "nombre": "Bicicleta MTB 26 (última unidad)",
    "descripcion": "Bicicleta MTB 26 (última unidad)",
    "precio_proveedor": 160.05,
-   "precio": 165,
-   "comision": 1.98,
-   "precio_manual": true,
+   "precio": 180,
+   "comision": 7.98,
+   "precio_manual": false,
    "departamentos": [
     "movilidad"
    ],
@@ -730,14 +3088,14 @@
   {
    "n": 127,
    "id_sefue": "SF-205",
-   "market_id": null,
+   "market_id": 1953,
    "ids": [],
    "nombre": "Bicicleta de montaña Huffy 24",
    "descripcion": "Bicicleta de montaña Huffy 24",
    "precio_proveedor": 145.5,
-   "precio": 150,
-   "comision": 1.8,
-   "precio_manual": true,
+   "precio": 165,
+   "comision": 7.8,
+   "precio_manual": false,
    "departamentos": [
     "movilidad"
    ],
@@ -756,14 +3114,14 @@
   {
    "n": 128,
    "id_sefue": "SF-204",
-   "market_id": null,
+   "market_id": 1954,
    "ids": [],
    "nombre": "Bicicleta de montaña Huffy 27.5 negra",
    "descripcion": "Bicicleta de montaña Huffy 27.5 negra",
    "precio_proveedor": 174.6,
-   "precio": 180,
-   "comision": 2.16,
-   "precio_manual": true,
+   "precio": 195,
+   "comision": 8.16,
+   "precio_manual": false,
    "departamentos": [
     "movilidad"
    ],
@@ -782,14 +3140,14 @@
   {
    "n": 130,
    "id_sefue": "SF-161",
-   "market_id": null,
+   "market_id": 1955,
    "ids": [],
    "nombre": "Bicicleta de paseo 26",
    "descripcion": "Bicicleta de paseo 26",
    "precio_proveedor": 155.2,
-   "precio": 160,
-   "comision": 1.92,
-   "precio_manual": true,
+   "precio": 175,
+   "comision": 7.92,
+   "precio_manual": false,
    "departamentos": [
     "movilidad"
    ],
@@ -806,9 +3164,67 @@
    "alertas": []
   },
   {
+   "n": 133,
+   "id_sefue": "SF-197",
+   "market_id": 2042,
+   "ids": [],
+   "nombre": "Acondicionador Coco · paquete de 12",
+   "descripcion": "Paquete de 12 unidades de «Acondicionador Coco».",
+   "precio_proveedor": 16.2,
+   "precio": 23,
+   "comision": 2.72,
+   "precio_manual": false,
+   "departamentos": [
+    "cuidado-personal"
+   ],
+   "categoria_bolsa": "limpieza",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/224/image_1920/Acondicionador%20%28Coco%29?unique=5acfbf0",
+   "foto_local": "fotos/133.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/133.jpg"
+   ],
+   "etiqueta": "SeFué SF-197 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 17.4 USD, a nosotros 16.2",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 25»: arrastre de Excel (debe ser N/21 y 23)",
+    "descuento −6.9 % (lo pactado es −3 %): confirmar"
+   ]
+  },
+  {
+   "n": 135,
+   "id_sefue": "SF-196",
+   "market_id": 2043,
+   "ids": [],
+   "nombre": "Champú coco · paquete de 12",
+   "descripcion": "Paquete de 12 unidades de «Champú coco».",
+   "precio_proveedor": 16.2,
+   "precio": 23,
+   "comision": 2.72,
+   "precio_manual": false,
+   "departamentos": [
+    "cuidado-personal"
+   ],
+   "categoria_bolsa": "limpieza",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/222/image_1920/Champ%C3%BA%20%28Coco%29?unique=1e23655",
+   "foto_local": "fotos/135.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/135.jpg"
+   ],
+   "etiqueta": "SeFué SF-196 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 17.4 USD, a nosotros 16.2",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 27»: arrastre de Excel (debe ser N/21 y 23)",
+    "descuento −6.9 % (lo pactado es −3 %): confirmar"
+   ]
+  },
+  {
    "n": 136,
    "id_sefue": "SF-65",
-   "market_id": null,
+   "market_id": 1956,
    "ids": [],
    "nombre": "Alcohol perfumado desinfectante 96 % 300 ml (caja de 12)",
    "descripcion": "Alcohol perfumado desinfectante 96 % 300 ml (caja de 12)\nSe vende por: paquete de 12.",
@@ -834,7 +3250,7 @@
   {
    "n": 137,
    "id_sefue": "SF-60",
-   "market_id": null,
+   "market_id": 1957,
    "ids": [],
    "nombre": "Desengrasante Zelnova 5 L",
    "descripcion": "Desengrasante Zelnova 5 L",
@@ -858,9 +3274,37 @@
    "alertas": []
   },
   {
+   "n": 138,
+   "id_sefue": "SF-157",
+   "market_id": 2044,
+   "ids": [],
+   "nombre": "Detergente Líquido 1lt · paquete de 12",
+   "descripcion": "Paquete de 12 unidades de «Detergente Líquido 1lt».",
+   "precio_proveedor": 10.8,
+   "precio": 16,
+   "comision": 2.08,
+   "precio_manual": false,
+   "departamentos": [
+    "cocina"
+   ],
+   "categoria_bolsa": "limpieza",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/220/image_1920/%5BMultiuso%5D%20Detergente%20L%C3%ADquido%201lt?unique=b46240f",
+   "foto_local": "fotos/138.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/138.jpg"
+   ],
+   "etiqueta": "SeFué SF-157 · Unidades · Cerro · Manglar y Oquendo, junto al parque La Normal · entrega: recogemos en su local (transporte nuestro) · su web 12 USD, a nosotros 10.8",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "descuento −10 % (lo pactado es −3 %): confirmar"
+   ]
+  },
+  {
    "n": 139,
    "id_sefue": "SF-84",
-   "market_id": null,
+   "market_id": 1958,
    "ids": [],
    "nombre": "Dosificador automático para aromatizante 250 ml",
    "descripcion": "Dosificador automático para aromatizante 250 ml",
@@ -886,7 +3330,7 @@
   {
    "n": 140,
    "id_sefue": "SF-44",
-   "market_id": null,
+   "market_id": 1959,
    "ids": [],
    "nombre": "Spray aromatizante Vainilla 250 ml (caja de 12)",
    "descripcion": "Espray aromatizante 250ml, aromas disponibles:\nvainilla, tiador, dolce, bouquet y millonario. Venta por cajas de 12 aromatizantes.\nSe vende por: paquete de 12.",
@@ -912,7 +3356,7 @@
   {
    "n": 141,
    "id_sefue": "SF-59",
-   "market_id": null,
+   "market_id": 1960,
    "ids": [],
    "nombre": "Quitagrasa para superficies Rudex 5 L",
    "descripcion": "Quitagrasa para superficies Rudex 5 L",
@@ -938,7 +3382,7 @@
   {
    "n": 142,
    "id_sefue": "SF-63",
-   "market_id": null,
+   "market_id": 1961,
    "ids": [],
    "nombre": "Loción hidroalcohólica en spray 97,8 % 100 ml (caja de 12)",
    "descripcion": "Loción hidroalcohólica en spray 97,8 % 100 ml (caja de 12)\nSe vende por: paquete de 12.",
@@ -964,7 +3408,7 @@
   {
    "n": 143,
    "id_sefue": "SF-83",
-   "market_id": null,
+   "market_id": 1962,
    "ids": [],
    "nombre": "Porta spray 250 ml",
    "descripcion": "Porta spray 250 ml",
@@ -990,7 +3434,7 @@
   {
    "n": 144,
    "id_sefue": "SF-62",
-   "market_id": null,
+   "market_id": 1963,
    "ids": [],
    "nombre": "Solución hidroalcohólica 72 % 100 ml (caja de 15)",
    "descripcion": "Solución hidroalcohólica 72 % 100 ml (caja de 15)\nSe vende por: paquete de 15.",
@@ -1016,7 +3460,7 @@
   {
    "n": 145,
    "id_sefue": "SF-57",
-   "market_id": null,
+   "market_id": 1964,
    "ids": [],
    "nombre": "Spray aromatizante Bouquet 250 ml (caja de 12)",
    "descripcion": "Spray aromatizante Bouquet 250 ml (caja de 12)\nSe vende por: paquete de 12.",
@@ -1042,7 +3486,7 @@
   {
    "n": 146,
    "id_sefue": "SF-56",
-   "market_id": null,
+   "market_id": 1965,
    "ids": [],
    "nombre": "Spray aromatizante Dolce 250 ml (caja de 12)",
    "descripcion": "Spray aromatizante Dolce 250 ml (caja de 12)\nSe vende por: paquete de 12.",
@@ -1068,7 +3512,7 @@
   {
    "n": 147,
    "id_sefue": "SF-58",
-   "market_id": null,
+   "market_id": 1966,
    "ids": [],
    "nombre": "Spray aromatizante Millonaire 250 ml (caja de 12)",
    "descripcion": "Spray aromatizante Millonaire 250 ml (caja de 12)\nSe vende por: paquete de 12.",
@@ -1094,7 +3538,7 @@
   {
    "n": 148,
    "id_sefue": "SF-55",
-   "market_id": null,
+   "market_id": 1967,
    "ids": [],
    "nombre": "Spray aromatizante Tiador 250 ml (caja de 12)",
    "descripcion": "Spray aromatizante Tiador 250 ml (caja de 12)\nSe vende por: paquete de 12.",
@@ -1120,7 +3564,7 @@
   {
    "n": 149,
    "id_sefue": "SF-64",
-   "market_id": null,
+   "market_id": 1968,
    "ids": [],
    "nombre": "Spray desinfectante de superficies Cooperbacter 200 ml (caja de 12)",
    "descripcion": "Spray desinfectante de superficies Cooperbacter 200 ml (caja de 12)\nSe vende por: paquete de 12.",
@@ -1142,6 +3586,34 @@
    "confirmado": true,
    "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
    "alertas": []
+  },
+  {
+   "n": 150,
+   "id_sefue": "SF-85",
+   "market_id": 2045,
+   "ids": [],
+   "nombre": "Toalla 140x70 cm · paquete de 6",
+   "descripcion": "Paquete de 6 unidades de «Toalla 140x70 cm».",
+   "precio_proveedor": 18,
+   "precio": 26,
+   "comision": 3.2,
+   "precio_manual": false,
+   "departamentos": [
+    "bano"
+   ],
+   "categoria_bolsa": "limpieza",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/85/image_1920/Toalla%20140x70%20cm?unique=25f45dd",
+   "foto_local": "fotos/150.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/150.jpg"
+   ],
+   "etiqueta": "SeFué SF-85 · Unidades · Cerro · Manglar y Oquendo, junto al parque La Normal · entrega: recogemos en su local (transporte nuestro) · su web 21 USD, a nosotros 18",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "descuento −14.29 % (lo pactado es −3 %): confirmar"
+   ]
   }
  ]
 }

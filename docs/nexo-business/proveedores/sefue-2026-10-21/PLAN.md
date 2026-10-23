@@ -1,6 +1,6 @@
 # Plan: productos de SeFué en Casa Viva «Bajo pedido» (21-oct-2026)
 
-**Estado:** solo preparado. Nada publicado, nada en la bolsa, nada en la web, nadie contactado.
+**Estado (23-oct tarde):** PUBLICADO — 133 productos en la web «Bajo pedido» con `my_price` (D102). Ver «Publicado 23-oct» al final. Nadie avisado: los anuncios esperan a que vuelva WhatsApp.
 Archivos: `extraer.mjs` (lee su tienda, en seco) → `catalogo.json` (158 productos, forma de `electro-2026-10-20/productos.json`) + `resumen.md`.
 
 ## Qué es SeFué
@@ -37,3 +37,14 @@ Archivos: `extraer.mjs` (lee su tienda, en seco) → `catalogo.json` (158 produc
 - **22-oct 16:06 llegó la lista** (Excel, 150 filas; notas de voz: colchones a precio de mayorista −3 % salvo el King, humidores −5 %, herrajes de humidor sin local y pedido mínimo 500 USD). Preparada en seco en `oferta-2026-10-22/tabla.md` (43 para publicar, 17 para consignación, alertas y qué falta).
 - Ofrecen **consignación** para la tienda física: elegir pocos productos que roten.
 - Contacto creado en `crm_contacts` («Javier Quota · SeFué (comercial)», etiquetas proveedor, sefue), bot en pausa hasta el 23-oct.
+
+## Publicado 23-oct (D102, Ernesto: «publicar con nuestra regla» y luego «Sí, todo»)
+- **Javier 23-oct 12:03:** precios en USD; colchones y humidores los entrega SeFué en La Habana; zonas lejanas (Mantilla…) las valoran ese día.
+- **Ficha:** `crm_suppliers` **131** «SeFué» (jid/teléfono de Javier 5354942950, recoger, cobra Casa Viva, horario 9:00-17:00 **provisional**, términos y consentimiento de fotos). El contacto de Javier no se tocó (rol cliente; el check de crm_contacts no admite «proveedor»).
+- **Bolsa:** 135 artículos (`MK-1911…2045`): 133 `publicado` con `published_url`, 2 `descartado` (acondicionador aloe y miel: su foto es la del de coco).
+- **Web:** 133 productos PUBLICADOS (ids 5036–5300), precio = regla del bot, gestora 40 % del margen, costo = Excel. Sueltos de < 5 USD como paquete de 12 (< 2 USD) o 6. Lista completa y deshacer: `oferta-2026-10-22/bak-20261023-sefue-creados.json` (= servidor `~/bak-20261023-sefue-creados.json`).
+- **Fuera (y por qué):** sin foto #1, #33, #50, #89 (humidor B4); dudosos #134 (champú 0,35), #129 (bici morada); #131/#132 (foto de otro sabor); #73 (repetido de #10); herrajes #81–#88 (sin locación, mínimo 500 USD).
+- **Fotos:** 107 con fondo verde menta (`menta.mjs` en el VPS, sharp, sin IA de pago); 26 con la original (`menta.json` dice por qué). Deshacer en la web: `wp eval-file ~/sefue-fotos-menta/poner-menta.php ~/sefue-fotos-menta/menta-plan.json deshacer`.
+- **Pendiente de Javier:** dirección exacta de oficina/aseo (se usa calle N e/ 21 y 23), horario de los 2 locales, champú miel 0,35, bici morada (marca y foto), bolígrafo R305 (3 o 4), humidor B4 (foto), quién paga y cuándo.
+- **Anuncios:** NO metidos en la cola. Lista en VPS `/root/archivos/sefue-2026-10-22/anuncios-pendientes.json` (copia aquí), para el grupo 24 h (D101), con el SÍ de Ernesto cuando vuelva WhatsApp.
+- **A los 21 días** el bot los da por «quizá agotados»: pedir lista nueva a Javier y volver a pasar `armar.mjs --solo-regla --con-opcionales --todo --publicar`.

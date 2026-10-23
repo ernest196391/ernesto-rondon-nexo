@@ -1,0 +1,812 @@
+[
+ {
+  "n": 3,
+  "id": 1911,
+  "nombre": "Calculadora de escritorio 12 dígitos, solar, metal plateada",
+  "creado": "2026-10-23T17:01:01.192Z"
+ },
+ {
+  "n": 4,
+  "id": 1912,
+  "nombre": "Calculadora de escritorio 12 dígitos, solar, blanca",
+  "creado": "2026-10-23T17:01:03.793Z"
+ },
+ {
+  "n": 5,
+  "id": 1913,
+  "nombre": "Carpeta archivadora expansible A4 de 13 divisiones",
+  "creado": "2026-10-23T17:01:05.550Z"
+ },
+ {
+  "n": 13,
+  "id": 1914,
+  "nombre": "Bolígrafos de tinta gel-aceite 0,7 mm azul (caja de 50)",
+  "creado": "2026-10-23T17:01:07.469Z"
+ },
+ {
+  "n": 22,
+  "id": 1915,
+  "nombre": "Calculadora 14 dígitos, solar y batería (211 x 154 mm)",
+  "creado": "2026-10-23T17:01:09.331Z"
+ },
+ {
+  "n": 23,
+  "id": 1916,
+  "nombre": "Calculadora 14 dígitos, solar y batería (218 x 146 mm)",
+  "creado": "2026-10-23T17:01:11.081Z"
+ },
+ {
+  "n": 24,
+  "id": 1917,
+  "nombre": "Calculadora 14 dígitos, solar y batería (185 x 135 mm)",
+  "creado": "2026-10-23T17:01:12.975Z"
+ },
+ {
+  "n": 25,
+  "id": 1918,
+  "nombre": "Calculadora de escritorio 12 dígitos, solar y batería, plateada",
+  "creado": "2026-10-23T17:01:14.743Z"
+ },
+ {
+  "n": 26,
+  "id": 1919,
+  "nombre": "Calculadora portátil 12 dígitos, azul",
+  "creado": "2026-10-23T17:01:16.513Z"
+ },
+ {
+  "n": 27,
+  "id": 1920,
+  "nombre": "Calculadora portátil 8 dígitos, solar y batería",
+  "creado": "2026-10-23T17:01:18.258Z"
+ },
+ {
+  "n": 77,
+  "id": 1921,
+  "nombre": "Insecticida para mosquitos y cucarachas 250 ml",
+  "creado": "2026-10-23T17:01:19.982Z"
+ },
+ {
+  "n": 79,
+  "id": 1922,
+  "nombre": "Cebo hormiguicida granulado Antex 1,5 kg",
+  "creado": "2026-10-23T17:01:21.770Z"
+ },
+ {
+  "n": 80,
+  "id": 1923,
+  "nombre": "Gel insecticida para hormigas Magnum (paquete de 4)",
+  "creado": "2026-10-23T17:01:23.975Z"
+ },
+ {
+  "n": 98,
+  "id": 1924,
+  "nombre": "Colchón personal de espuma Areca 90 x 190 x 20 cm",
+  "creado": "2026-10-23T17:01:26.248Z"
+ },
+ {
+  "n": 99,
+  "id": 1925,
+  "nombre": "Colchón camero de espuma Low Cost IV 135 x 190 x 20 cm",
+  "creado": "2026-10-23T17:01:28.822Z"
+ },
+ {
+  "n": 100,
+  "id": 1926,
+  "nombre": "Colchón de espuma Spring 135 x 190 x 23 cm",
+  "creado": "2026-10-23T17:01:31.279Z"
+ },
+ {
+  "n": 101,
+  "id": 1927,
+  "nombre": "Colchón de espuma Spring King 200 x 200 x 23 cm",
+  "creado": "2026-10-23T17:01:33.672Z"
+ },
+ {
+  "n": 102,
+  "id": 1928,
+  "nombre": "Colchón camero de espuma Cala 135 x 190 x 20 cm",
+  "creado": "2026-10-23T17:01:35.898Z"
+ },
+ {
+  "n": 103,
+  "id": 1929,
+  "nombre": "Colchón personal de espuma Cala 90 x 190 x 20 cm",
+  "creado": "2026-10-23T17:01:37.993Z"
+ },
+ {
+  "n": 104,
+  "id": 1930,
+  "nombre": "Pistola de pintar 750 ml",
+  "creado": "2026-10-23T17:01:40.260Z"
+ },
+ {
+  "n": 105,
+  "id": 1931,
+  "nombre": "Amoladora / pulidora 850 W, disco de 100 mm",
+  "creado": "2026-10-23T17:01:42.108Z"
+ },
+ {
+  "n": 106,
+  "id": 1932,
+  "nombre": "Pistola de pintar 1000 ml",
+  "creado": "2026-10-23T17:01:43.918Z"
+ },
+ {
+  "n": 107,
+  "id": 1933,
+  "nombre": "Segueta de aluminio 12\" (300 mm)",
+  "creado": "2026-10-23T17:01:45.795Z"
+ },
+ {
+  "n": 108,
+  "id": 1934,
+  "nombre": "Taladro eléctrico 550 W, 110 V, mandril 13 mm",
+  "creado": "2026-10-23T17:01:47.913Z"
+ },
+ {
+  "n": 109,
+  "id": 1935,
+  "nombre": "Pintura vinil TOR blanco mate (cubo de 15 L)",
+  "creado": "2026-10-23T17:01:49.780Z"
+ },
+ {
+  "n": 110,
+  "id": 1936,
+  "nombre": "Nevera Westing 7 pies",
+  "creado": "2026-10-23T17:01:51.717Z"
+ },
+ {
+  "n": 111,
+  "id": 1937,
+  "nombre": "Aceite Sintético Suniso SL 32 (4L)",
+  "creado": "2026-10-23T17:01:53.676Z"
+ },
+ {
+  "n": 112,
+  "id": 1938,
+  "nombre": "Disolvente Técnico Air Dislim (5L)",
+  "creado": "2026-10-23T17:01:57.687Z"
+ },
+ {
+  "n": 113,
+  "id": 1939,
+  "nombre": "Aceite Sintético SUNICE PAG 46 (20L)",
+  "creado": "2026-10-23T17:01:59.873Z"
+ },
+ {
+  "n": 114,
+  "id": 1940,
+  "nombre": "Aceite Sintético SUNICE PAG 46 (5L)",
+  "creado": "2026-10-23T17:02:02.043Z"
+ },
+ {
+  "n": 115,
+  "id": 1941,
+  "nombre": "Aceite Sintético Suniso SL 68 (20L)",
+  "creado": "2026-10-23T17:02:04.566Z"
+ },
+ {
+  "n": 116,
+  "id": 1942,
+  "nombre": "Aceite Sintético Suniso SL 68 (4L)",
+  "creado": "2026-10-23T17:02:06.959Z"
+ },
+ {
+  "n": 117,
+  "id": 1943,
+  "nombre": "Detector de Fugas Fluorescente Spray, Nu-Calgon (0.94L)",
+  "creado": "2026-10-23T17:02:09.209Z"
+ },
+ {
+  "n": 118,
+  "id": 1944,
+  "nombre": "Detector de Fugas Fluorescente, Nu-Calgon (3.8L)",
+  "creado": "2026-10-23T17:02:11.418Z"
+ },
+ {
+  "n": 119,
+  "id": 1945,
+  "nombre": "Limpiador Alcalino Espumante Nu-Brite, Nu-Calgon (3.8L)",
+  "creado": "2026-10-23T17:02:13.632Z"
+ },
+ {
+  "n": 120,
+  "id": 1946,
+  "nombre": "Limpiador Alcalino Pesado Especial HD CalClean, Nu-Calgon (3.8L)",
+  "creado": "2026-10-23T17:02:15.813Z"
+ },
+ {
+  "n": 121,
+  "id": 1947,
+  "nombre": "Limpiador Ácido Suave Cal Brite, Nu-Calgon (3.8L)",
+  "creado": "2026-10-23T17:02:18.132Z"
+ },
+ {
+  "n": 122,
+  "id": 1948,
+  "nombre": "Refrigerante Comercial DuPont SUVA R-409A (30Lb/13.62Kg)",
+  "creado": "2026-10-23T17:02:20.341Z"
+ },
+ {
+  "n": 123,
+  "id": 1949,
+  "nombre": "Cable de cobre 4mm² (tramo de 5 m)",
+  "creado": "2026-10-23T17:02:22.499Z"
+ },
+ {
+  "n": 124,
+  "id": 1950,
+  "nombre": "Cable de cobre 10mm² (tramo de 5 m)",
+  "creado": "2026-10-23T17:02:24.538Z"
+ },
+ {
+  "n": 125,
+  "id": 1951,
+  "nombre": "Cable de cobre 6mm² (tramo de 5 m)",
+  "creado": "2026-10-23T17:02:26.571Z"
+ },
+ {
+  "n": 126,
+  "id": 1952,
+  "nombre": "Bicicleta MTB 26 (última unidad)",
+  "creado": "2026-10-23T17:02:28.726Z"
+ },
+ {
+  "n": 127,
+  "id": 1953,
+  "nombre": "Bicicleta de montaña Huffy 24",
+  "creado": "2026-10-23T17:02:30.508Z"
+ },
+ {
+  "n": 128,
+  "id": 1954,
+  "nombre": "Bicicleta de montaña Huffy 27.5 negra",
+  "creado": "2026-10-23T17:02:32.610Z"
+ },
+ {
+  "n": 130,
+  "id": 1955,
+  "nombre": "Bicicleta de paseo 26",
+  "creado": "2026-10-23T17:02:34.628Z"
+ },
+ {
+  "n": 136,
+  "id": 1956,
+  "nombre": "Alcohol perfumado desinfectante 96 % 300 ml (caja de 12)",
+  "creado": "2026-10-23T17:02:36.613Z"
+ },
+ {
+  "n": 137,
+  "id": 1957,
+  "nombre": "Desengrasante Zelnova 5 L",
+  "creado": "2026-10-23T17:02:38.926Z"
+ },
+ {
+  "n": 139,
+  "id": 1958,
+  "nombre": "Dosificador automático para aromatizante 250 ml",
+  "creado": "2026-10-23T17:02:41.371Z"
+ },
+ {
+  "n": 140,
+  "id": 1959,
+  "nombre": "Spray aromatizante Vainilla 250 ml (caja de 12)",
+  "creado": "2026-10-23T17:02:43.397Z"
+ },
+ {
+  "n": 141,
+  "id": 1960,
+  "nombre": "Quitagrasa para superficies Rudex 5 L",
+  "creado": "2026-10-23T17:02:46.011Z"
+ },
+ {
+  "n": 142,
+  "id": 1961,
+  "nombre": "Loción hidroalcohólica en spray 97,8 % 100 ml (caja de 12)",
+  "creado": "2026-10-23T17:02:48.307Z"
+ },
+ {
+  "n": 143,
+  "id": 1962,
+  "nombre": "Porta spray 250 ml",
+  "creado": "2026-10-23T17:02:50.750Z"
+ },
+ {
+  "n": 144,
+  "id": 1963,
+  "nombre": "Solución hidroalcohólica 72 % 100 ml (caja de 15)",
+  "creado": "2026-10-23T17:02:52.863Z"
+ },
+ {
+  "n": 145,
+  "id": 1964,
+  "nombre": "Spray aromatizante Bouquet 250 ml (caja de 12)",
+  "creado": "2026-10-23T17:02:55.622Z"
+ },
+ {
+  "n": 146,
+  "id": 1965,
+  "nombre": "Spray aromatizante Dolce 250 ml (caja de 12)",
+  "creado": "2026-10-23T17:02:57.980Z"
+ },
+ {
+  "n": 147,
+  "id": 1966,
+  "nombre": "Spray aromatizante Millonaire 250 ml (caja de 12)",
+  "creado": "2026-10-23T17:03:00.474Z"
+ },
+ {
+  "n": 148,
+  "id": 1967,
+  "nombre": "Spray aromatizante Tiador 250 ml (caja de 12)",
+  "creado": "2026-10-23T17:03:02.422Z"
+ },
+ {
+  "n": 149,
+  "id": 1968,
+  "nombre": "Spray desinfectante de superficies Cooperbacter 200 ml (caja de 12)",
+  "creado": "2026-10-23T17:03:04.600Z"
+ },
+ {
+  "n": 2,
+  "id": 1969,
+  "nombre": "Caja lápiz HB, 4u x caja (ref. R358) · paquete de 12",
+  "creado": "2026-10-23T17:08:06.532Z"
+ },
+ {
+  "n": 6,
+  "id": 1970,
+  "nombre": "Cinta adhesiva transparente 12×30×38mm 12/paq · paquete de 6",
+  "creado": "2026-10-23T17:08:09.014Z"
+ },
+ {
+  "n": 7,
+  "id": 1971,
+  "nombre": "Grapas para presilladora 24/6 1000/caja · paquete de 12",
+  "creado": "2026-10-23T17:08:11.143Z"
+ },
+ {
+  "n": 8,
+  "id": 1972,
+  "nombre": "Marcador de Pizarra 1-5mm. Color Surtido 4/Paq. · paquete de 6",
+  "creado": "2026-10-23T17:08:13.031Z"
+ },
+ {
+  "n": 9,
+  "id": 1973,
+  "nombre": "Portapapeles con clip, tamaño A4, color marrón · paquete de 6",
+  "creado": "2026-10-23T17:08:14.898Z"
+ },
+ {
+  "n": 10,
+  "id": 1974,
+  "nombre": "Presillas de Patas para Encuadernar 80 mm · paquete de 6",
+  "creado": "2026-10-23T17:08:16.684Z"
+ },
+ {
+  "n": 11,
+  "id": 1975,
+  "nombre": "Almohadilla para cuño, color rojo · paquete de 12",
+  "creado": "2026-10-23T17:08:18.501Z"
+ },
+ {
+  "n": 12,
+  "id": 1976,
+  "nombre": "Bolígrafo a base de aceite 0.7 mm azul 5/paq · paquete de 12",
+  "creado": "2026-10-23T17:08:20.409Z"
+ },
+ {
+  "n": 14,
+  "id": 1977,
+  "nombre": "Bolígrafo de gel 0.5 mm 4/paq colores variados · paquete de 12",
+  "creado": "2026-10-23T17:08:22.304Z"
+ },
+ {
+  "n": 15,
+  "id": 1978,
+  "nombre": "Caja lápiz HB, 12 u x caja · paquete de 12",
+  "creado": "2026-10-23T17:08:24.061Z"
+ },
+ {
+  "n": 16,
+  "id": 1979,
+  "nombre": "Caja lápiz HB, 3u x caja · paquete de 12",
+  "creado": "2026-10-23T17:08:25.844Z"
+ },
+ {
+  "n": 17,
+  "id": 1980,
+  "nombre": "Caja lápiz HB, 4u x caja (ref. R359) · paquete de 12",
+  "creado": "2026-10-23T17:08:27.661Z"
+ },
+ {
+  "n": 18,
+  "id": 1981,
+  "nombre": "Caja lápiz HB, 4u x caja (ref. R360) · paquete de 12",
+  "creado": "2026-10-23T17:08:29.440Z"
+ },
+ {
+  "n": 19,
+  "id": 1982,
+  "nombre": "Caja lápiz con goma negro, 12 u x caja · paquete de 12",
+  "creado": "2026-10-23T17:08:31.165Z"
+ },
+ {
+  "n": 20,
+  "id": 1983,
+  "nombre": "Caja lápiz con goma, 12 u x caja (ref. R352) · paquete de 12",
+  "creado": "2026-10-23T17:08:33.128Z"
+ },
+ {
+  "n": 21,
+  "id": 1984,
+  "nombre": "Caja lápiz con goma, 12 u x caja (ref. R353) · paquete de 12",
+  "creado": "2026-10-23T17:08:34.844Z"
+ },
+ {
+  "n": 28,
+  "id": 1985,
+  "nombre": "Cortador (ref. R68) · paquete de 6",
+  "creado": "2026-10-23T17:08:36.862Z"
+ },
+ {
+  "n": 29,
+  "id": 1986,
+  "nombre": "Cortador (ref. R69) · paquete de 12",
+  "creado": "2026-10-23T17:08:38.658Z"
+ },
+ {
+  "n": 30,
+  "id": 1987,
+  "nombre": "Cortador (ref. R70) · paquete de 12",
+  "creado": "2026-10-23T17:08:40.397Z"
+ },
+ {
+  "n": 31,
+  "id": 1988,
+  "nombre": "Cortador (ref. R72) · paquete de 12",
+  "creado": "2026-10-23T17:08:42.436Z"
+ },
+ {
+  "n": 32,
+  "id": 1989,
+  "nombre": "Cortador (ref. R74) · paquete de 12",
+  "creado": "2026-10-23T17:08:44.177Z"
+ },
+ {
+  "n": 34,
+  "id": 1990,
+  "nombre": "Cortador (ref. R76) · paquete de 12",
+  "creado": "2026-10-23T17:08:45.902Z"
+ },
+ {
+  "n": 35,
+  "id": 1991,
+  "nombre": "Cortador (ref. R77) · paquete de 6",
+  "creado": "2026-10-23T17:08:47.686Z"
+ },
+ {
+  "n": 36,
+  "id": 1992,
+  "nombre": "Cortador (ref. R78) · paquete de 12",
+  "creado": "2026-10-23T17:08:49.484Z"
+ },
+ {
+  "n": 37,
+  "id": 1993,
+  "nombre": "Cortador (ref. R79) · paquete de 12",
+  "creado": "2026-10-23T17:08:51.187Z"
+ },
+ {
+  "n": 38,
+  "id": 1994,
+  "nombre": "Cortador (ref. R80) · paquete de 6",
+  "creado": "2026-10-23T17:08:52.923Z"
+ },
+ {
+  "n": 39,
+  "id": 1995,
+  "nombre": "Crayolas pastel, 12u x caja · paquete de 6",
+  "creado": "2026-10-23T17:08:54.680Z"
+ },
+ {
+  "n": 40,
+  "id": 1996,
+  "nombre": "Dispensador de cinta adhesiva (ref. R237) · paquete de 6",
+  "creado": "2026-10-23T17:08:56.534Z"
+ },
+ {
+  "n": 41,
+  "id": 1997,
+  "nombre": "Dispensador de cinta adhesiva (ref. R238) · paquete de 12",
+  "creado": "2026-10-23T17:08:58.479Z"
+ },
+ {
+  "n": 42,
+  "id": 1998,
+  "nombre": "Dispensador de cinta adhesiva,color verde · paquete de 6",
+  "creado": "2026-10-23T17:09:00.291Z"
+ },
+ {
+  "n": 43,
+  "id": 1999,
+  "nombre": "Estuche multiusos · paquete de 6",
+  "creado": "2026-10-23T17:09:02.345Z"
+ },
+ {
+  "n": 44,
+  "id": 2000,
+  "nombre": "Grapas para presilladora 26/6 1000/caja · paquete de 12",
+  "creado": "2026-10-23T17:09:04.286Z"
+ },
+ {
+  "n": 45,
+  "id": 2001,
+  "nombre": "Marcador Fluorescente 1mm-5mm 6/paq. Color Surtido · paquete de 6",
+  "creado": "2026-10-23T17:09:06.032Z"
+ },
+ {
+  "n": 46,
+  "id": 2002,
+  "nombre": "Notas Adhesivas 3''x 3'' 4 colores x 100 Hojas · paquete de 6",
+  "creado": "2026-10-23T17:09:08.325Z"
+ },
+ {
+  "n": 47,
+  "id": 2003,
+  "nombre": "Notas Adhesivas de Papel 76×76mm (3''×3'') 100 Hojas · paquete de 12",
+  "creado": "2026-10-23T17:09:10.335Z"
+ },
+ {
+  "n": 48,
+  "id": 2004,
+  "nombre": "Paquete 4 bolígrafos a base de aceite-gel 0.7mm azul · paquete de 12",
+  "creado": "2026-10-23T17:09:12.493Z"
+ },
+ {
+  "n": 49,
+  "id": 2005,
+  "nombre": "Pegamento Multiusos Pégalo Todo 3g · paquete de 12",
+  "creado": "2026-10-23T17:09:14.221Z"
+ },
+ {
+  "n": 51,
+  "id": 2006,
+  "nombre": "Ponchadora 80 mm (ref. R104) · paquete de 6",
+  "creado": "2026-10-23T17:09:16.034Z"
+ },
+ {
+  "n": 52,
+  "id": 2007,
+  "nombre": "Ponchadora 80 mm (ref. R106) · paquete de 6",
+  "creado": "2026-10-23T17:09:17.742Z"
+ },
+ {
+  "n": 53,
+  "id": 2008,
+  "nombre": "Ponchadora hasta 20 hojas · paquete de 6",
+  "creado": "2026-10-23T17:09:19.453Z"
+ },
+ {
+  "n": 54,
+  "id": 2009,
+  "nombre": "Presilladora hasta 25 hojas (ref. R12) · paquete de 6",
+  "creado": "2026-10-23T17:09:21.193Z"
+ },
+ {
+  "n": 55,
+  "id": 2010,
+  "nombre": "Presilladora hasta 25 hojas (ref. R137) · paquete de 6",
+  "creado": "2026-10-23T17:09:22.933Z"
+ },
+ {
+  "n": 56,
+  "id": 2011,
+  "nombre": "Presilladora hasta 25 hojas (ref. R140) · paquete de 6",
+  "creado": "2026-10-23T17:09:24.697Z"
+ },
+ {
+  "n": 57,
+  "id": 2012,
+  "nombre": "Presilladora hasta 25 hojas (ref. R141) · paquete de 6",
+  "creado": "2026-10-23T17:09:26.431Z"
+ },
+ {
+  "n": 58,
+  "id": 2013,
+  "nombre": "Presillas Gem Clip #3 29mm. Color Surtido · paquete de 12",
+  "creado": "2026-10-23T17:09:28.266Z"
+ },
+ {
+  "n": 59,
+  "id": 2014,
+  "nombre": "Presillas Gem Clip #4 33mm · paquete de 12",
+  "creado": "2026-10-23T17:09:30.340Z"
+ },
+ {
+  "n": 60,
+  "id": 2015,
+  "nombre": "Presillas clip 15mm · paquete de 6",
+  "creado": "2026-10-23T17:09:32.169Z"
+ },
+ {
+  "n": 61,
+  "id": 2016,
+  "nombre": "Presillas clip 25mm (ref. R40) · paquete de 6",
+  "creado": "2026-10-23T17:09:33.928Z"
+ },
+ {
+  "n": 62,
+  "id": 2017,
+  "nombre": "Presillas clip 25mm (ref. R49) · paquete de 6",
+  "creado": "2026-10-23T17:09:35.716Z"
+ },
+ {
+  "n": 63,
+  "id": 2018,
+  "nombre": "Presillas clip 25mm (ref. R51) · paquete de 12",
+  "creado": "2026-10-23T17:09:37.424Z"
+ },
+ {
+  "n": 64,
+  "id": 2019,
+  "nombre": "Presillas clip 32mm (ref. R38) · paquete de 6",
+  "creado": "2026-10-23T17:09:39.322Z"
+ },
+ {
+  "n": 65,
+  "id": 2020,
+  "nombre": "Presillas clip 32mm (ref. R48) · paquete de 6",
+  "creado": "2026-10-23T17:09:41.042Z"
+ },
+ {
+  "n": 66,
+  "id": 2021,
+  "nombre": "Presillas clip 41mm (ref. R39)",
+  "creado": "2026-10-23T17:09:43.021Z"
+ },
+ {
+  "n": 67,
+  "id": 2022,
+  "nombre": "Presillas clip 41mm (ref. R44) · paquete de 6",
+  "creado": "2026-10-23T17:09:44.803Z"
+ },
+ {
+  "n": 68,
+  "id": 2023,
+  "nombre": "Presillas clip 41mm (ref. R47)",
+  "creado": "2026-10-23T17:09:46.532Z"
+ },
+ {
+  "n": 69,
+  "id": 2024,
+  "nombre": "Presillas clip 51mm (ref. R45) · paquete de 6",
+  "creado": "2026-10-23T17:09:48.241Z"
+ },
+ {
+  "n": 70,
+  "id": 2025,
+  "nombre": "Presillas clip 51mm (ref. R55) · paquete de 6",
+  "creado": "2026-10-23T17:09:50.051Z"
+ },
+ {
+  "n": 71,
+  "id": 2026,
+  "nombre": "Presillas clip plateadas 51mm · paquete de 12",
+  "creado": "2026-10-23T17:09:51.807Z"
+ },
+ {
+  "n": 72,
+  "id": 2027,
+  "nombre": "Presillas clip plateadas 76mm · paquete de 6",
+  "creado": "2026-10-23T17:09:53.532Z"
+ },
+ {
+  "n": 74,
+  "id": 2028,
+  "nombre": "Presillas de Patas para Encuadernar 80 mm. Color Surtido · paquete de 6",
+  "creado": "2026-10-23T17:09:55.244Z"
+ },
+ {
+  "n": 75,
+  "id": 2029,
+  "nombre": "Tachuela 23mm,100/caja · paquete de 12",
+  "creado": "2026-10-23T17:10:00.268Z"
+ },
+ {
+  "n": 76,
+  "id": 2030,
+  "nombre": "Bolsa de Inyectores, Cabeza 9.5 mm",
+  "creado": "2026-10-23T17:10:03.284Z"
+ },
+ {
+  "n": 78,
+  "id": 2031,
+  "nombre": "Bolsa de Inyectores 6.5/Cabeza 20mm",
+  "creado": "2026-10-23T17:10:06.056Z"
+ },
+ {
+  "n": 90,
+  "id": 2032,
+  "nombre": "Humidor, capacidad para 2000 tabacos, modelo B6",
+  "creado": "2026-10-23T17:10:08.613Z"
+ },
+ {
+  "n": 91,
+  "id": 2033,
+  "nombre": "Humidor, capacidad para 500 tabacos, modelo B1",
+  "creado": "2026-10-23T17:10:10.542Z"
+ },
+ {
+  "n": 92,
+  "id": 2034,
+  "nombre": "Humidor, capacidad para 850 tabacos, modelo B2",
+  "creado": "2026-10-23T17:10:12.667Z"
+ },
+ {
+  "n": 93,
+  "id": 2035,
+  "nombre": "Humidor,capacidad hasta 1600 tabacos, modelo C5",
+  "creado": "2026-10-23T17:10:14.560Z"
+ },
+ {
+  "n": 94,
+  "id": 2036,
+  "nombre": "Humidor,capacidad hasta 3000 tabacos, modelo C8",
+  "creado": "2026-10-23T17:10:16.569Z"
+ },
+ {
+  "n": 95,
+  "id": 2037,
+  "nombre": "Humidor,capacidad para 1200 tabacos, modelo L5",
+  "creado": "2026-10-23T17:10:18.557Z"
+ },
+ {
+  "n": 96,
+  "id": 2038,
+  "nombre": "Humidor,capacidad para 1500 tabacos, modelo L6",
+  "creado": "2026-10-23T17:10:20.563Z"
+ },
+ {
+  "n": 97,
+  "id": 2039,
+  "nombre": "Humidor,capacidad para 250 tabacos, modelo L3",
+  "creado": "2026-10-23T17:10:22.452Z"
+ },
+ {
+  "n": 131,
+  "id": 2040,
+  "nombre": "Acondicionador aloe · paquete de 12",
+  "creado": "2026-10-23T17:10:25.633Z"
+ },
+ {
+  "n": 132,
+  "id": 2041,
+  "nombre": "Acondicionador miel · paquete de 12",
+  "creado": "2026-10-23T17:10:27.481Z"
+ },
+ {
+  "n": 133,
+  "id": 2042,
+  "nombre": "Acondicionador Coco · paquete de 12",
+  "creado": "2026-10-23T17:10:29.322Z"
+ },
+ {
+  "n": 135,
+  "id": 2043,
+  "nombre": "Champú coco · paquete de 12",
+  "creado": "2026-10-23T17:10:31.208Z"
+ },
+ {
+  "n": 138,
+  "id": 2044,
+  "nombre": "Detergente Líquido 1lt · paquete de 12",
+  "creado": "2026-10-23T17:10:33.127Z"
+ },
+ {
+  "n": 150,
+  "id": 2045,
+  "nombre": "Toalla 140x70 cm · paquete de 6",
+  "creado": "2026-10-23T17:10:35.476Z"
+ }
+]

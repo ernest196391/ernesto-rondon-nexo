@@ -1,0 +1,542 @@
+{
+ "10.jpg": {
+  "hecho": true,
+  "fondo": 42
+ },
+ "100.jpg": {
+  "hecho": false,
+  "motivo": "borde no liso (0 % claro)"
+ },
+ "101.jpg": {
+  "hecho": false,
+  "motivo": "revisado a ojo: el producto blanco se tiñe de menta (se deja la original)"
+ },
+ "102.jpg": {
+  "hecho": false,
+  "motivo": "borde no liso (25 % claro)"
+ },
+ "103.jpg": {
+  "hecho": true,
+  "fondo": 54
+ },
+ "104.jpg": {
+  "hecho": true,
+  "fondo": 78
+ },
+ "105.jpg": {
+  "hecho": true,
+  "fondo": 83
+ },
+ "106.jpg": {
+  "hecho": true,
+  "fondo": 65
+ },
+ "107.jpg": {
+  "hecho": true,
+  "fondo": 83
+ },
+ "108.jpg": {
+  "hecho": false,
+  "motivo": "borde no liso (0 % claro)"
+ },
+ "109.jpg": {
+  "hecho": false,
+  "motivo": "revisado a ojo: el producto blanco se tiñe de menta (se deja la original)"
+ },
+ "11.jpg": {
+  "hecho": false,
+  "motivo": "borde no liso (13 % claro)"
+ },
+ "110.jpg": {
+  "hecho": false,
+  "motivo": "revisado a ojo: el producto blanco se tiñe de menta (se deja la original)"
+ },
+ "111.jpg": {
+  "hecho": true,
+  "fondo": 59
+ },
+ "112.jpg": {
+  "hecho": false,
+  "motivo": "revisado a ojo: el producto blanco se tiñe de menta (se deja la original)"
+ },
+ "113.jpg": {
+  "hecho": false,
+  "motivo": "borde no liso (71 % claro)"
+ },
+ "114.jpg": {
+  "hecho": true,
+  "fondo": 57
+ },
+ "115.jpg": {
+  "hecho": false,
+  "motivo": "borde no liso (23 % claro)"
+ },
+ "116.jpg": {
+  "hecho": true,
+  "fondo": 56
+ },
+ "117.jpg": {
+  "hecho": true,
+  "fondo": 84
+ },
+ "118.jpg": {
+  "hecho": true,
+  "fondo": 68
+ },
+ "119.jpg": {
+  "hecho": true,
+  "fondo": 74
+ },
+ "12.jpg": {
+  "hecho": true,
+  "fondo": 56
+ },
+ "120.jpg": {
+  "hecho": true,
+  "fondo": 69
+ },
+ "121.jpg": {
+  "hecho": true,
+  "fondo": 71
+ },
+ "122.jpg": {
+  "hecho": true,
+  "fondo": 62
+ },
+ "123.jpg": {
+  "hecho": true,
+  "fondo": 50
+ },
+ "124.jpg": {
+  "hecho": true,
+  "fondo": 50
+ },
+ "125.jpg": {
+  "hecho": true,
+  "fondo": 63
+ },
+ "126.jpg": {
+  "hecho": true,
+  "fondo": 73
+ },
+ "127.jpg": {
+  "hecho": true,
+  "fondo": 72
+ },
+ "128.jpg": {
+  "hecho": true,
+  "fondo": 63
+ },
+ "13.jpg": {
+  "hecho": true,
+  "fondo": 51
+ },
+ "130.jpg": {
+  "hecho": false,
+  "motivo": "borde no liso (51 % claro)"
+ },
+ "131.jpg": {
+  "hecho": false,
+  "motivo": "fondo 94 % (raro)"
+ },
+ "132.jpg": {
+  "hecho": false,
+  "motivo": "fondo 94 % (raro)"
+ },
+ "133.jpg": {
+  "hecho": false,
+  "motivo": "fondo 94 % (raro)"
+ },
+ "135.jpg": {
+  "hecho": true,
+  "fondo": 92
+ },
+ "136.jpg": {
+  "hecho": true,
+  "fondo": 77
+ },
+ "137.jpg": {
+  "hecho": true,
+  "fondo": 69
+ },
+ "138.jpg": {
+  "hecho": true,
+  "fondo": 88
+ },
+ "139.jpg": {
+  "hecho": true,
+  "fondo": 84
+ },
+ "14.jpg": {
+  "hecho": true,
+  "fondo": 42
+ },
+ "140.jpg": {
+  "hecho": true,
+  "fondo": 73
+ },
+ "141.jpg": {
+  "hecho": true,
+  "fondo": 64
+ },
+ "142.jpg": {
+  "hecho": true,
+  "fondo": 82
+ },
+ "143.jpg": {
+  "hecho": false,
+  "motivo": "revisado a ojo: el producto blanco se tiñe de menta (se deja la original)"
+ },
+ "144.jpg": {
+  "hecho": false,
+  "motivo": "fondo 93 % (raro)"
+ },
+ "145.jpg": {
+  "hecho": false,
+  "motivo": "borde no liso (67 % claro)"
+ },
+ "146.jpg": {
+  "hecho": true,
+  "fondo": 75
+ },
+ "147.jpg": {
+  "hecho": false,
+  "motivo": "borde no liso (19 % claro)"
+ },
+ "148.jpg": {
+  "hecho": true,
+  "fondo": 71
+ },
+ "149.jpg": {
+  "hecho": true,
+  "fondo": 70
+ },
+ "15.jpg": {
+  "hecho": true,
+  "fondo": 70
+ },
+ "150.jpg": {
+  "hecho": true,
+  "fondo": 44
+ },
+ "16.jpg": {
+  "hecho": true,
+  "fondo": 66
+ },
+ "17.jpg": {
+  "hecho": true,
+  "fondo": 60
+ },
+ "18.jpg": {
+  "hecho": true,
+  "fondo": 56
+ },
+ "19.jpg": {
+  "hecho": true,
+  "fondo": 80
+ },
+ "2.jpg": {
+  "hecho": true,
+  "fondo": 67
+ },
+ "20.jpg": {
+  "hecho": true,
+  "fondo": 74
+ },
+ "21.jpg": {
+  "hecho": true,
+  "fondo": 35
+ },
+ "22.jpg": {
+  "hecho": true,
+  "fondo": 33
+ },
+ "23.jpg": {
+  "hecho": true,
+  "fondo": 54
+ },
+ "24.jpg": {
+  "hecho": true,
+  "fondo": 46
+ },
+ "25.jpg": {
+  "hecho": true,
+  "fondo": 48
+ },
+ "26.jpg": {
+  "hecho": true,
+  "fondo": 36
+ },
+ "27.jpg": {
+  "hecho": true,
+  "fondo": 32
+ },
+ "28.jpg": {
+  "hecho": true,
+  "fondo": 57
+ },
+ "29.jpg": {
+  "hecho": true,
+  "fondo": 69
+ },
+ "3.jpg": {
+  "hecho": true,
+  "fondo": 36
+ },
+ "30.jpg": {
+  "hecho": true,
+  "fondo": 73
+ },
+ "31.jpg": {
+  "hecho": true,
+  "fondo": 86
+ },
+ "32.jpg": {
+  "hecho": true,
+  "fondo": 70
+ },
+ "34.jpg": {
+  "hecho": true,
+  "fondo": 85
+ },
+ "35.jpg": {
+  "hecho": true,
+  "fondo": 63
+ },
+ "36.jpg": {
+  "hecho": true,
+  "fondo": 82
+ },
+ "37.jpg": {
+  "hecho": true,
+  "fondo": 83
+ },
+ "38.jpg": {
+  "hecho": true,
+  "fondo": 66
+ },
+ "39.jpg": {
+  "hecho": true,
+  "fondo": 56
+ },
+ "4.jpg": {
+  "hecho": true,
+  "fondo": 36
+ },
+ "40.jpg": {
+  "hecho": true,
+  "fondo": 52
+ },
+ "41.jpg": {
+  "hecho": true,
+  "fondo": 57
+ },
+ "42.jpg": {
+  "hecho": false,
+  "motivo": "borde no liso (28 % claro)"
+ },
+ "43.jpg": {
+  "hecho": false,
+  "motivo": "borde no liso (34 % claro)"
+ },
+ "44.jpg": {
+  "hecho": true,
+  "fondo": 46
+ },
+ "45.jpg": {
+  "hecho": true,
+  "fondo": 44
+ },
+ "46.jpg": {
+  "hecho": true,
+  "fondo": 42
+ },
+ "47.jpg": {
+  "hecho": true,
+  "fondo": 43
+ },
+ "48.jpg": {
+  "hecho": true,
+  "fondo": 62
+ },
+ "49.jpg": {
+  "hecho": true,
+  "fondo": 85
+ },
+ "5.jpg": {
+  "hecho": true,
+  "fondo": 38
+ },
+ "51.jpg": {
+  "hecho": false,
+  "motivo": "revisado a ojo: el producto blanco se tiñe de menta (se deja la original)"
+ },
+ "52.jpg": {
+  "hecho": false,
+  "motivo": "revisado a ojo: el producto blanco se tiñe de menta (se deja la original)"
+ },
+ "53.jpg": {
+  "hecho": false,
+  "motivo": "revisado a ojo: el producto blanco se tiñe de menta (se deja la original)"
+ },
+ "54.jpg": {
+  "hecho": true,
+  "fondo": 68
+ },
+ "55.jpg": {
+  "hecho": false,
+  "motivo": "revisado a ojo: el producto blanco se tiñe de menta (se deja la original)"
+ },
+ "56.jpg": {
+  "hecho": true,
+  "fondo": 74
+ },
+ "57.jpg": {
+  "hecho": true,
+  "fondo": 59
+ },
+ "58.jpg": {
+  "hecho": false,
+  "motivo": "borde no liso (13 % claro)"
+ },
+ "59.jpg": {
+  "hecho": true,
+  "fondo": 51
+ },
+ "6.jpg": {
+  "hecho": true,
+  "fondo": 69
+ },
+ "60.jpg": {
+  "hecho": true,
+  "fondo": 64
+ },
+ "61.jpg": {
+  "hecho": true,
+  "fondo": 52
+ },
+ "62.jpg": {
+  "hecho": true,
+  "fondo": 72
+ },
+ "63.jpg": {
+  "hecho": false,
+  "motivo": "borde no liso (0 % claro)"
+ },
+ "64.jpg": {
+  "hecho": true,
+  "fondo": 61
+ },
+ "65.jpg": {
+  "hecho": true,
+  "fondo": 72
+ },
+ "66.jpg": {
+  "hecho": true,
+  "fondo": 61
+ },
+ "67.jpg": {
+  "hecho": true,
+  "fondo": 48
+ },
+ "68.jpg": {
+  "hecho": true,
+  "fondo": 72
+ },
+ "69.jpg": {
+  "hecho": true,
+  "fondo": 48
+ },
+ "7.jpg": {
+  "hecho": true,
+  "fondo": 69
+ },
+ "70.jpg": {
+  "hecho": true,
+  "fondo": 61
+ },
+ "71.jpg": {
+  "hecho": true,
+  "fondo": 69
+ },
+ "72.jpg": {
+  "hecho": true,
+  "fondo": 54
+ },
+ "74.jpg": {
+  "hecho": true,
+  "fondo": 52
+ },
+ "75.jpg": {
+  "hecho": true,
+  "fondo": 66
+ },
+ "76.jpg": {
+  "hecho": true,
+  "fondo": 59
+ },
+ "77.jpg": {
+  "hecho": true,
+  "fondo": 82
+ },
+ "78.jpg": {
+  "hecho": false,
+  "motivo": "borde no liso (0 % claro)"
+ },
+ "79.jpg": {
+  "hecho": true,
+  "fondo": 27
+ },
+ "8.jpg": {
+  "hecho": true,
+  "fondo": 64
+ },
+ "80.jpg": {
+  "hecho": true,
+  "fondo": 73
+ },
+ "9.jpg": {
+  "hecho": true,
+  "fondo": 34
+ },
+ "90.jpg": {
+  "hecho": true,
+  "fondo": 54
+ },
+ "91.jpg": {
+  "hecho": true,
+  "fondo": 43
+ },
+ "92.jpg": {
+  "hecho": true,
+  "fondo": 35
+ },
+ "93.jpg": {
+  "hecho": false,
+  "motivo": "fondo 7 % (raro)"
+ },
+ "94.jpg": {
+  "hecho": true,
+  "fondo": 62
+ },
+ "95.jpg": {
+  "hecho": true,
+  "fondo": 74
+ },
+ "96.jpg": {
+  "hecho": true,
+  "fondo": 74
+ },
+ "97.jpg": {
+  "hecho": true,
+  "fondo": 62
+ },
+ "98.jpg": {
+  "hecho": true,
+  "fondo": 54
+ },
+ "99.jpg": {
+  "hecho": true,
+  "fondo": 79
+ }
+}

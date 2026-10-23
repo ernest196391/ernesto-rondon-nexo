@@ -1,0 +1,2 @@
+{"id":"sfx_001","type":"sfx","path":".media/audio/sfx/sfx_001.mp3","source":"bundled","description":"Punchy digital glitch — hard-cut accent or sudden reveal. Trigger on the hit; let the decay bleed into the next shot (J-cut).","duration":2.6,"provenance":{"provider":"bundled.sfx","prompt":"horror stinger hit scary","library_key":"glitch-1"}}
+{"id":"sfx_002","type":"sfx","path":"assets/sfx/click.mp3","source":"existing","description":"click","provenance":{"provider":"local","adopted":true,"prompt":"light switch click"}}

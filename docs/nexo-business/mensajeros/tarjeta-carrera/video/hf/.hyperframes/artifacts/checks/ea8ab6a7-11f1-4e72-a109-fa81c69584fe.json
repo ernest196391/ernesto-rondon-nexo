@@ -1,0 +1,387 @@
+{
+  "ok": false,
+  "strict": false,
+  "browserSkipped": false,
+  "lint": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 9,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "duplicate_media_discovery_risk",
+        "severity": "warning",
+        "message": "Detected 2 matching img entries with the same source/start/duration.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\Ernesto\\ernesto-rondon-nexo\\docs\\nexo-business\\mensajeros\\tarjeta-carrera\\video\\hf\\index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Avoid duplicated media nodes that can be discovered twice during compilation."
+      },
+      {
+        "code": "composition_file_too_large",
+        "severity": "warning",
+        "message": "This HTML composition file has 340 lines. Smaller sub-compositions are easier to read, iterate on, and diff.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\Ernesto\\ernesto-rondon-nexo\\docs\\nexo-business\\mensajeros\\tarjeta-carrera\\video\\hf\\index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Split coherent scenes or layers into separate .html files under compositions/, then mount them from the parent with data-composition-src so each file stays small enough to inspect, revise, and validate independently."
+      },
+      {
+        "code": "timeline_track_too_dense",
+        "severity": "warning",
+        "message": "Track 1 has 6 timed elements in this HTML file. Smaller sub-compositions keep timelines easier to read, iterate on, and diff.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\Ernesto\\ernesto-rondon-nexo\\docs\\nexo-business\\mensajeros\\tarjeta-carrera\\video\\hf\\index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move coherent scene groups into separate .html files under compositions/ and mount them from the parent with data-composition-src so the timeline stays easier to inspect, revise, and validate."
+      },
+      {
+        "code": "nested_structure_needs_subcomposition",
+        "severity": "warning",
+        "message": "<div id=\"s0\"> is a timeline element that contains nested <img id=\"s0-logo\">. The timeline shows one row per top-level element, and the root composition is built only from sub-compositions.",
+        "selector": "#s0",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\Ernesto\\ernesto-rondon-nexo\\docs\\nexo-business\\mensajeros\\tarjeta-carrera\\video\\hf\\index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move <div id=\"s0\"> and its contents into a sub-composition file and mount it with data-composition-src."
+      },
+      {
+        "code": "nested_structure_needs_subcomposition",
+        "severity": "warning",
+        "message": "<div id=\"s1\"> is a timeline element that contains nested <div id=\"s1-tit\">. The timeline shows one row per top-level element, and the root composition is built only from sub-compositions.",
+        "selector": "#s1",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\Ernesto\\ernesto-rondon-nexo\\docs\\nexo-business\\mensajeros\\tarjeta-carrera\\video\\hf\\index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move <div id=\"s1\"> and its contents into a sub-composition file and mount it with data-composition-src."
+      },
+      {
+        "code": "nested_structure_needs_subcomposition",
+        "severity": "warning",
+        "message": "<div id=\"s2\"> is a timeline element that contains nested <div id=\"g0-h\">. The timeline shows one row per top-level element, and the root composition is built only from sub-compositions.",
+        "selector": "#s2",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\Ernesto\\ernesto-rondon-nexo\\docs\\nexo-business\\mensajeros\\tarjeta-carrera\\video\\hf\\index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move <div id=\"s2\"> and its contents into a sub-composition file and mount it with data-composition-src."
+      },
+      {
+        "code": "nested_structure_needs_subcomposition",
+        "severity": "warning",
+        "message": "<div id=\"s3\"> is a timeline element that contains nested <div id=\"s3-tit\">. The timeline shows one row per top-level element, and the root composition is built only from sub-compositions.",
+        "selector": "#s3",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\Ernesto\\ernesto-rondon-nexo\\docs\\nexo-business\\mensajeros\\tarjeta-carrera\\video\\hf\\index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move <div id=\"s3\"> and its contents into a sub-composition file and mount it with data-composition-src."
+      },
+      {
+        "code": "nested_structure_needs_subcomposition",
+        "severity": "warning",
+        "message": "<div id=\"s4\"> is a timeline element that contains nested <div id=\"s4-tit\">. The timeline shows one row per top-level element, and the root composition is built only from sub-compositions.",
+        "selector": "#s4",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\Ernesto\\ernesto-rondon-nexo\\docs\\nexo-business\\mensajeros\\tarjeta-carrera\\video\\hf\\index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move <div id=\"s4\"> and its contents into a sub-composition file and mount it with data-composition-src."
+      },
+      {
+        "code": "nested_structure_needs_subcomposition",
+        "severity": "warning",
+        "message": "<div id=\"s5\"> is a timeline element that contains nested <img id=\"s5-logo\">. The timeline shows one row per top-level element, and the root composition is built only from sub-compositions.",
+        "selector": "#s5",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\Ernesto\\ernesto-rondon-nexo\\docs\\nexo-business\\mensajeros\\tarjeta-carrera\\video\\hf\\index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move <div id=\"s5\"> and its contents into a sub-composition file and mount it with data-composition-src."
+      }
+    ],
+    "filesScanned": 1
+  },
+  "runtime": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": []
+  },
+  "layout": {
+    "ok": false,
+    "errorCount": 1,
+    "warningCount": 2,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "content_overlap",
+        "severity": "error",
+        "time": 52.361,
+        "selector": "#g12-h > b:nth-of-type(1)",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 418.22,
+          "top": 209,
+          "right": 882.3,
+          "bottom": 377.91,
+          "width": 464.08,
+          "height": 168.91
+        },
+        "containerSelector": "#g12-s",
+        "text": "la sueltas",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 418.22,
+          "y": 209,
+          "width": 464.08,
+          "height": 168.91
+        },
+        "firstSeen": 51.728,
+        "lastSeen": 53.357,
+        "occurrences": 6,
+        "heldMs": 1628.9999999999977,
+        "times": [
+          51.728,
+          52.135,
+          52.361,
+          52.542,
+          52.949,
+          53.357
+        ]
+      },
+      {
+        "code": "escaped_container",
+        "severity": "warning",
+        "time": 20.139,
+        "selector": "#s2-lienzo",
+        "message": "Positioned element renders far outside its offset parent — its coordinates were likely computed in a different frame (canvas/viewport pixels).",
+        "rect": {
+          "left": 110,
+          "top": 490,
+          "right": 970,
+          "bottom": 6453,
+          "width": 860,
+          "height": 5963
+        },
+        "containerSelector": "#s2-tel > div:nth-of-type(1)",
+        "text": "",
+        "fixHint": "Compute left/top in the offset parent's frame (subtract its rect), or mark intentional placement with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 110,
+          "top": 490,
+          "right": 970,
+          "bottom": 1780,
+          "width": 860,
+          "height": 1290
+        },
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 110,
+          "y": 490,
+          "width": 860,
+          "height": 5963
+        },
+        "firstSeen": 20.139,
+        "lastSeen": 52.361,
+        "occurrences": 5,
+        "heldMs": 0,
+        "times": [
+          20.139,
+          28.194,
+          36.25,
+          44.306,
+          52.361
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "warning",
+        "time": 44.306,
+        "selector": "#s2-lienzo",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 110,
+          "top": -1975,
+          "right": 970,
+          "bottom": 3988,
+          "width": 860,
+          "height": 5963
+        },
+        "containerSelector": "#s2-tel > div:nth-of-type(1)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 110,
+          "top": 490,
+          "right": 970,
+          "bottom": 1780,
+          "width": 860,
+          "height": 1290
+        },
+        "overflow": {
+          "top": 2465,
+          "bottom": 2208
+        },
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 110,
+          "y": -1975,
+          "width": 860,
+          "height": 5963
+        },
+        "firstSeen": 20.139,
+        "lastSeen": 52.361,
+        "occurrences": 5,
+        "heldMs": 0,
+        "times": [
+          20.139,
+          28.194,
+          36.25,
+          44.306,
+          52.361
+        ]
+      }
+    ],
+    "duration": 72.5,
+    "samples": [
+      4.028,
+      12.083,
+      20.139,
+      28.194,
+      36.25,
+      44.306,
+      52.361,
+      60.417,
+      68.472
+    ],
+    "transitionSamples": [],
+    "transitionSamplesDropped": 0,
+    "tolerance": 2,
+    "totalIssueCount": 3,
+    "truncated": false
+  },
+  "motion": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": false,
+    "samples": 0
+  },
+  "contrast": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": true,
+    "samples": [
+      4.028,
+      20.139,
+      36.25,
+      52.361,
+      68.472
+    ],
+    "checked": 17,
+    "passed": 17
+  },
+  "craft": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 1,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"Conill A esq. 45 #864 · de 10 a 4\" (9 words) is on screen 2.03 s (±0.01 s), under its 2.40 s floor: hold it about 0.5 s + 0.3 s a word (3.20 s here) before it leaves or changes; see references/motion.md.",
+        "text": "Conill A esq. 45 #864 · de 10 a 4",
+        "selector": "#s1-paso5 > div:nth-of-type(4)",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 149,
+          "y": 1149,
+          "width": 781.98,
+          "height": 65
+        },
+        "time": 12.273,
+        "words": 9,
+        "seconds": 2.031,
+        "floorSeconds": 2.4
+      }
+    ],
+    "enabled": true,
+    "step": 0.125,
+    "samples": 580
+  },
+  "hdr": {
+    "autoPromotion": null,
+    "inspection": "available"
+  },
+  "snapshots": {
+    "enabled": false,
+    "files": [],
+    "times": [],
+    "findingFiles": []
+  }
+}

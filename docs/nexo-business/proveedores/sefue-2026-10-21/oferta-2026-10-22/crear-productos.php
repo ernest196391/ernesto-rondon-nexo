@@ -2,7 +2,7 @@
 /**
  * SeFué (oferta del 22-oct-2026): crea en la web (WooCommerce) los productos de publicar.json, igual que el lote
  * electro-2026-10-20 y tienda-42-y-23 (copia de electro-2026-10-20/crear-productos.php con 3 cambios: archivo de copia
- * ~/bak-20261022-sefue-creados.json, más departamentos y la prueba en seco funciona aunque aún no haya ids de la bolsa).
+ * ~/bak-20261023-sefue-creados.json, más departamentos y la prueba en seco funciona aunque aún no haya ids de la bolsa).
  *   SKU MK-<id de crm_market_items> · «Bajo pedido» + su departamento · sin control de stock, «hay existencias» ·
  *   descripción corta = aviso de bajo pedido · menu_order 10 · _cvd_market_item_id / _cvd_market_version · comisión fija
  *   (_cvd_commission_type=fixed) · costo = precio de SeFué para nosotros (CVD_Costs, «proveedor»). El proveedor no se
@@ -27,7 +27,7 @@ foreach ( $cvx_args as $a ) { if ( preg_match( '/\.json$/i', $a ) ) { $cvx_file 
 if ( '' === $cvx_file ) { $cvx_file = getcwd() . '/publicar.json'; }
 $cvx_max = PHP_INT_MAX;
 foreach ( $cvx_args as $a ) { if ( preg_match( '/^max=(\d+)$/', $a, $m ) ) { $cvx_max = (int) $m[1]; } }
-$cvx_bak = rtrim( (string) getenv( 'HOME' ), '/' ) . '/bak-20261022-sefue-creados.json';
+$cvx_bak = rtrim( (string) getenv( 'HOME' ), '/' ) . '/bak-20261023-sefue-creados.json';
 
 const CVX_NOTICE  = 'Producto bajo pedido: confirmamos disponibilidad en 1 hora antes de cobrar.';
 const CVX_MARKET  = 'bajo-pedido';
@@ -130,6 +130,7 @@ foreach ( $cvx_in['productos'] as $i => $it ) {
 	$p = new WC_Product_Simple();
 	$p->set_name( $name );
 	$p->set_sku( 'MK-' . $mid );
+	$p->set_slug( sanitize_title( str_replace( '·', ' ', $name ) ) ); // 23-oct: sin «%c2%b7» en la URL de los paquetes
 	$p->set_regular_price( wc_format_decimal( $price, 2 ) );
 	$p->set_sale_price( '' );
 	$p->set_manage_stock( false );

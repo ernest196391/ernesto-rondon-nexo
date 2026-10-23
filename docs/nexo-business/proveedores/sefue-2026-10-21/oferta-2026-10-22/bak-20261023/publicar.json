@@ -1,0 +1,1147 @@
+{
+ "generado": "2026-10-22T20:23:34.406Z",
+ "estado": "draft",
+ "proveedor": "SeFué",
+ "productos": [
+  {
+   "n": 3,
+   "id_sefue": "SF-106",
+   "market_id": null,
+   "ids": [],
+   "nombre": "Calculadora de escritorio 12 dígitos, solar, metal plateada",
+   "descripcion": "Calculadora de escritorio 12 dígitos, solar, metal plateada",
+   "precio_proveedor": 11.16,
+   "precio": 17,
+   "comision": 2.34,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/106/image_1920/Calculadora%20de%20escritorio%2012%20d%C3%ADgitos%2C%20solar%2C%20metal%2C%20plateada-R57?unique=decd168",
+   "foto_local": "fotos/3.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/3.jpg"
+   ],
+   "etiqueta": "SeFué SF-106 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 11.5 USD, a nosotros 11.16",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 25»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
+   "n": 4,
+   "id_sefue": "SF-105",
+   "market_id": null,
+   "ids": [],
+   "nombre": "Calculadora de escritorio 12 dígitos, solar, blanca",
+   "descripcion": "Calculadora de escritorio 12 dígitos, solar, blanca",
+   "precio_proveedor": 5.53,
+   "precio": 11,
+   "comision": 2.19,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/105/image_1920/Calculadora%20de%20escritorio%2C%20solar%2C12%20d%C3%ADgitos%2C%20pl%C3%A1stico%2C%20blanco-R56?unique=b7d62c2",
+   "foto_local": "fotos/4.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/4.jpg"
+   ],
+   "etiqueta": "SeFué SF-105 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 5.7 USD, a nosotros 5.53",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 26»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
+   "n": 5,
+   "id_sefue": "SF-76",
+   "market_id": null,
+   "ids": [],
+   "nombre": "Carpeta archivadora expansible A4 de 13 divisiones",
+   "descripcion": "Carpeta archivadora expansible A4 de 13 divisiones",
+   "precio_proveedor": 6.31,
+   "precio": 12,
+   "comision": 2.28,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/76/image_1920/Carpeta%20para%20Archivos%20Expansible.%2013%20divisiones%20A4?unique=9607ad3",
+   "foto_local": "fotos/5.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/5.jpg"
+   ],
+   "etiqueta": "SeFué SF-76 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 6.5 USD, a nosotros 6.31",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 27»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
+   "n": 13,
+   "id_sefue": "SF-99",
+   "market_id": null,
+   "ids": [],
+   "nombre": "Bolígrafos de tinta gel-aceite 0,7 mm azul (caja de 50)",
+   "descripcion": "Bolígrafos de tinta gel-aceite 0,7 mm azul (caja de 50)\nSe vende por: caja de 50 uds.",
+   "precio_proveedor": 11.64,
+   "precio": 17,
+   "comision": 2.14,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/99/image_1920/Bol%C3%ADgrafo%20a%20base%20de%20aceite-gel%200.7mm%20azul%2050-caja-R274?unique=4695f1a",
+   "foto_local": "fotos/13.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/13.jpg"
+   ],
+   "etiqueta": "SeFué SF-99 · Caja de 50 uds · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 12 USD, a nosotros 11.64",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 35»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
+   "n": 22,
+   "id_sefue": "SF-107",
+   "market_id": null,
+   "ids": [],
+   "nombre": "Calculadora 14 dígitos, solar y batería (211 x 154 mm)",
+   "descripcion": "Calculadora 14 dígitos, solar y batería (211 x 154 mm)",
+   "precio_proveedor": 13,
+   "precio": 19,
+   "comision": 2.4,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/107/image_1920/Calculadora%2014%20d%C3%ADgitos%2C%20solar%2Bbater%C3%ADa%2C%20211%2A154%2A41mm-R59?unique=60ae190",
+   "foto_local": "fotos/22.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/22.jpg"
+   ],
+   "etiqueta": "SeFué SF-107 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 13.4 USD, a nosotros 13",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 44»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
+   "n": 23,
+   "id_sefue": "SF-108",
+   "market_id": null,
+   "ids": [],
+   "nombre": "Calculadora 14 dígitos, solar y batería (218 x 146 mm)",
+   "descripcion": "Calculadora 14 dígitos, solar y batería (218 x 146 mm)",
+   "precio_proveedor": 13.58,
+   "precio": 20,
+   "comision": 2.57,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/108/image_1920/Calculadora%2014%20d%C3%ADgitos%2C%20solar%2Bbater%C3%ADa%2C%20218x146.5x38mm-R61?unique=7ef45f0",
+   "foto_local": "fotos/23.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/23.jpg"
+   ],
+   "etiqueta": "SeFué SF-108 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 14 USD, a nosotros 13.58",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 45»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
+   "n": 24,
+   "id_sefue": "SF-119",
+   "market_id": null,
+   "ids": [],
+   "nombre": "Calculadora 14 dígitos, solar y batería (185 x 135 mm)",
+   "descripcion": "Calculadora 14 dígitos, solar y batería (185 x 135 mm)",
+   "precio_proveedor": 10.67,
+   "precio": 16,
+   "comision": 2.13,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/119/image_1920/Calculadora%2014%20d%C3%ADgitos%2C%20solar%2C%20bater%C3%ADa%20185x135x39mm-R63?unique=16833ec",
+   "foto_local": "fotos/24.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/24.jpg"
+   ],
+   "etiqueta": "SeFué SF-119 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 11 USD, a nosotros 10.67",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 46»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
+   "n": 25,
+   "id_sefue": "SF-120",
+   "market_id": null,
+   "ids": [],
+   "nombre": "Calculadora de escritorio 12 dígitos, solar y batería, plateada",
+   "descripcion": "Calculadora de escritorio 12 dígitos, solar y batería, plateada",
+   "precio_proveedor": 10.67,
+   "precio": 16,
+   "comision": 2.13,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/120/image_1920/Calculadora%20de%20escr%C3%ADtorio%2012%20d%C3%ADgitos%2C%20solar%2Cbater%C3%ADa%2Cplateada-R64?unique=4fcc4b6",
+   "foto_local": "fotos/25.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/25.jpg"
+   ],
+   "etiqueta": "SeFué SF-120 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 11 USD, a nosotros 10.67",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 47»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
+   "n": 26,
+   "id_sefue": "SF-121",
+   "market_id": null,
+   "ids": [],
+   "nombre": "Calculadora portátil 12 dígitos, azul",
+   "descripcion": "Calculadora portátil 12 dígitos, azul",
+   "precio_proveedor": 5.34,
+   "precio": 11,
+   "comision": 2.26,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/121/image_1920/Calculadora%20port%C3%A1til%2012%20d%C3%ADgitos%2C%20azul-R65?unique=3dd0a38",
+   "foto_local": "fotos/26.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/26.jpg"
+   ],
+   "etiqueta": "SeFué SF-121 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 5.5 USD, a nosotros 5.34",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 48»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
+   "n": 27,
+   "id_sefue": "SF-118",
+   "market_id": null,
+   "ids": [],
+   "nombre": "Calculadora portátil 8 dígitos, solar y batería",
+   "descripcion": "Calculadora portátil 8 dígitos, solar y batería",
+   "precio_proveedor": 7.18,
+   "precio": 13,
+   "comision": 2.33,
+   "precio_manual": false,
+   "departamentos": [
+    "organizacion"
+   ],
+   "categoria_bolsa": "oficina",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/118/image_1920/Calculadora%20port%C3%A1til%208%20d%C3%ADgitos%2C%20solar%2Cbater%C3%ADa-R62?unique=641095d",
+   "foto_local": "fotos/27.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/27.jpg"
+   ],
+   "etiqueta": "SeFué SF-118 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 7.4 USD, a nosotros 7.18",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "locación «Vedado, calle N/21 y 49»: arrastre de Excel (debe ser N/21 y 23)"
+   ]
+  },
+  {
+   "n": 77,
+   "id_sefue": "SF-214",
+   "market_id": null,
+   "ids": [],
+   "nombre": "Insecticida para mosquitos y cucarachas 250 ml",
+   "descripcion": "Insecticida para mosquitos y cucarachas 250 ml",
+   "precio_proveedor": 5.38,
+   "precio": 11,
+   "comision": 2.25,
+   "precio_manual": false,
+   "departamentos": [
+    "cocina"
+   ],
+   "categoria_bolsa": "insecticida",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/255/image_1920/Insecticida%20para%20mosquitos%20y%20cucarachas%2C%20250%20ml?unique=b1e354c",
+   "foto_local": "fotos/77.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/77.jpg"
+   ],
+   "etiqueta": "SeFué SF-214 · Unidades · Cerro · Manglar y Oquendo, junto al parque La Normal · entrega: recogemos en su local (transporte nuestro) · su web 5.55 USD, a nosotros 5.38",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": []
+  },
+  {
+   "n": 79,
+   "id_sefue": "SF-86",
+   "market_id": null,
+   "ids": [],
+   "nombre": "Cebo hormiguicida granulado Antex 1,5 kg",
+   "descripcion": "Cebo hormiguicida granulado Antex 1,5 kg",
+   "precio_proveedor": 19.4,
+   "precio": 28,
+   "comision": 3.44,
+   "precio_manual": false,
+   "departamentos": [
+    "cocina"
+   ],
+   "categoria_bolsa": "insecticida",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/86/image_1920/Cebo%20Hormiguicida%20Granulado%20Antex%201.5Kg?unique=df18203",
+   "foto_local": "fotos/79.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/79.jpg"
+   ],
+   "etiqueta": "SeFué SF-86 · Unidades · Cerro · Manglar y Oquendo, junto al parque La Normal · entrega: recogemos en su local (transporte nuestro) · su web 20 USD, a nosotros 19.4",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": []
+  },
+  {
+   "n": 80,
+   "id_sefue": "SF-82",
+   "market_id": null,
+   "ids": [],
+   "nombre": "Gel insecticida para hormigas Magnum (paquete de 4)",
+   "descripcion": "Gel insecticida específico para el control de hormigas\nContiene IGR (Regulador de Crecimiento de Insectos)\nActúa sobre obreras, larvas y reina , eliminando la colonia\nAlta atractividad y aceptación por las hormigas\nIdeal para uso en interiores y exteriores\nAplicación precisa en grietas, hendiduras y zonas de tránsito\nNo genera efecto de rechazo inmediato\nUso recomendado en hogares, comercios e instalaciones profesionales\nSolución eficaz para control prolongado de infestaciones\nSe vende por: paquete de 4.",
+   "precio_proveedor": 7.76,
+   "precio": 13,
+   "comision": 2.1,
+   "precio_manual": false,
+   "departamentos": [
+    "cocina"
+   ],
+   "categoria_bolsa": "insecticida",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/82/image_1920/Gel%20Insecticida%20para%20control%20de%20Hormigas%20Magnum.%20Paquete%20de%204u?unique=c750470",
+   "foto_local": "fotos/80.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/80.jpg"
+   ],
+   "etiqueta": "SeFué SF-82 · Paquete de 4 · Cerro · Manglar y Oquendo, junto al parque La Normal · entrega: recogemos en su local (transporte nuestro) · su web 8 USD, a nosotros 7.76",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": []
+  },
+  {
+   "n": 98,
+   "id_sefue": "SF-95",
+   "market_id": null,
+   "ids": [],
+   "nombre": "Colchón personal de espuma Areca 90 x 190 x 20 cm",
+   "descripcion": "Colchón personal de espuma Areca 90 x 190 x 20 cm",
+   "precio_proveedor": 115,
+   "precio": 125,
+   "comision": 4,
+   "precio_manual": true,
+   "departamentos": [
+    "habitacion"
+   ],
+   "categoria_bolsa": "colchón",
+   "tamano": "grande",
+   "foto_url": "https://www.sefue.app/web/image/product.product/95/image_1920/Colch%C3%B3n%20de%20espuma%20Areca%2090x190x20cm?unique=a0ad2dc",
+   "foto_local": "fotos/98.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/98.jpg"
+   ],
+   "etiqueta": "SeFué SF-95 · Unidades · Cerro · Manglar y Oquendo, junto al parque La Normal · entrega: la pone SeFué · su web 125 USD, a nosotros 115",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": []
+  },
+  {
+   "n": 99,
+   "id_sefue": "SF-96",
+   "market_id": null,
+   "ids": [],
+   "nombre": "Colchón camero de espuma Low Cost IV 135 x 190 x 20 cm",
+   "descripcion": "Colchón camero de espuma Low Cost IV 135 x 190 x 20 cm",
+   "precio_proveedor": 185,
+   "precio": 200,
+   "comision": 6,
+   "precio_manual": true,
+   "departamentos": [
+    "habitacion"
+   ],
+   "categoria_bolsa": "colchón",
+   "tamano": "grande",
+   "foto_url": "https://www.sefue.app/web/image/product.product/96/image_1920/Colch%C3%B3n%20de%20espuma%20Low%20Cost%20lV%20135x190x20cm?unique=b3d9058",
+   "foto_local": "fotos/99.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/99.jpg"
+   ],
+   "etiqueta": "SeFué SF-96 · Unidades · Cerro · Manglar y Oquendo, junto al parque La Normal · entrega: la pone SeFué · su web 200 USD, a nosotros 185",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": []
+  },
+  {
+   "n": 100,
+   "id_sefue": "SF-93",
+   "market_id": null,
+   "ids": [],
+   "nombre": "Colchón de espuma Spring 135 x 190 x 23 cm",
+   "descripcion": "Colchón de espuma Spring 135 x 190 x 23 cm",
+   "precio_proveedor": 220,
+   "precio": 240,
+   "comision": 8,
+   "precio_manual": false,
+   "departamentos": [
+    "habitacion"
+   ],
+   "categoria_bolsa": "colchón",
+   "tamano": "grande",
+   "foto_url": "https://www.sefue.app/web/image/product.product/93/image_1920/Colch%C3%B3n%20de%20espuma%20SPRING%20135x190x23cm?unique=503c2dd",
+   "foto_local": "fotos/100.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/100.jpg"
+   ],
+   "etiqueta": "SeFué SF-93 · Unidades · Cerro · Manglar y Oquendo, junto al parque La Normal · entrega: la pone SeFué · su web 240 USD, a nosotros 220",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": []
+  },
+  {
+   "n": 101,
+   "id_sefue": "SF-94",
+   "market_id": null,
+   "ids": [],
+   "nombre": "Colchón de espuma Spring King 200 x 200 x 23 cm",
+   "descripcion": "Colchón de espuma Spring King 200 x 200 x 23 cm",
+   "precio_proveedor": 349.2,
+   "precio": 360,
+   "comision": 4.32,
+   "precio_manual": true,
+   "departamentos": [
+    "habitacion"
+   ],
+   "categoria_bolsa": "colchón",
+   "tamano": "grande",
+   "foto_url": "https://www.sefue.app/web/image/product.product/94/image_1920/Colch%C3%B3n%20de%20espuma%20SPRING%20200x200x23cm?unique=be8c5ce",
+   "foto_local": "fotos/101.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/101.jpg"
+   ],
+   "etiqueta": "SeFué SF-94 · Unidades · Cerro · Manglar y Oquendo, junto al parque La Normal · entrega: la pone SeFué · su web 360 USD, a nosotros 349.2",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": []
+  },
+  {
+   "n": 102,
+   "id_sefue": "SF-92",
+   "market_id": null,
+   "ids": [],
+   "nombre": "Colchón camero de espuma Cala 135 x 190 x 20 cm",
+   "descripcion": "Colchón camero de espuma Cala 135 x 190 x 20 cm",
+   "precio_proveedor": 195,
+   "precio": 205,
+   "comision": 4,
+   "precio_manual": true,
+   "departamentos": [
+    "habitacion"
+   ],
+   "categoria_bolsa": "colchón",
+   "tamano": "grande",
+   "foto_url": "https://www.sefue.app/web/image/product.product/92/image_1920/Colch%C3%B3n%20de%20espuma%20camero%20Cala%20135x190x20cm?unique=dcf47d5",
+   "foto_local": "fotos/102.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/102.jpg"
+   ],
+   "etiqueta": "SeFué SF-92 · Unidades · Cerro · Manglar y Oquendo, junto al parque La Normal · entrega: la pone SeFué · su web 205 USD, a nosotros 195",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": []
+  },
+  {
+   "n": 103,
+   "id_sefue": "SF-91",
+   "market_id": null,
+   "ids": [],
+   "nombre": "Colchón personal de espuma Cala 90 x 190 x 20 cm",
+   "descripcion": "Los colchones vienen empacados al vacío para facilitar el traslado y almacenamiento.\n-Una vez realizada la compra y abierto el empaque, se recomienda esperar 24 horas mínimo para el uso del colchón, esto permite que el colchón alcance su forma óptima.",
+   "precio_proveedor": 115,
+   "precio": 125,
+   "comision": 4,
+   "precio_manual": true,
+   "departamentos": [
+    "habitacion"
+   ],
+   "categoria_bolsa": "colchón",
+   "tamano": "grande",
+   "foto_url": "https://www.sefue.app/web/image/product.product/91/image_1920/Colch%C3%B3n%20personal%20de%20espuma%20Cala%2090x190x20cm?unique=e595c22",
+   "foto_local": "fotos/103.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/103.jpg"
+   ],
+   "etiqueta": "SeFué SF-91 · Unidades · Cerro · Manglar y Oquendo, junto al parque La Normal · entrega: la pone SeFué · su web 125 USD, a nosotros 115",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": []
+  },
+  {
+   "n": 104,
+   "id_sefue": "SF-47",
+   "market_id": null,
+   "ids": [],
+   "nombre": "Pistola de pintar 750 ml",
+   "descripcion": "Pistola de pintar 750 ml",
+   "precio_proveedor": 19.4,
+   "precio": 28,
+   "comision": 3.44,
+   "precio_manual": false,
+   "departamentos": [
+    "ferreteria"
+   ],
+   "categoria_bolsa": "ferretería",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/47/image_1920/Pistola%20de%20Pintar%20750%20ml?unique=c38469d",
+   "foto_local": "fotos/104.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/104.jpg"
+   ],
+   "etiqueta": "SeFué SF-47 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 20 USD, a nosotros 19.4",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": []
+  },
+  {
+   "n": 105,
+   "id_sefue": "SF-46",
+   "market_id": null,
+   "ids": [],
+   "nombre": "Amoladora / pulidora 850 W, disco de 100 mm",
+   "descripcion": "Amoladora / pulidora 850 W, disco de 100 mm",
+   "precio_proveedor": 33.95,
+   "precio": 48,
+   "comision": 5.62,
+   "precio_manual": false,
+   "departamentos": [
+    "ferreteria"
+   ],
+   "categoria_bolsa": "ferretería",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/46/image_1920/Amoladora-Pulidora%20850W%2C%20100mm?unique=07c83b9",
+   "foto_local": "fotos/105.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/105.jpg"
+   ],
+   "etiqueta": "SeFué SF-46 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 35 USD, a nosotros 33.95",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": []
+  },
+  {
+   "n": 106,
+   "id_sefue": "SF-48",
+   "market_id": null,
+   "ids": [],
+   "nombre": "Pistola de pintar 1000 ml",
+   "descripcion": "Pistola de pintar 1000 ml",
+   "precio_proveedor": 21.34,
+   "precio": 30,
+   "comision": 3.46,
+   "precio_manual": false,
+   "departamentos": [
+    "ferreteria"
+   ],
+   "categoria_bolsa": "ferretería",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/48/image_1920/Pistola%20de%20Pintar%201000%20ml?unique=45c5ec0",
+   "foto_local": "fotos/106.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/106.jpg"
+   ],
+   "etiqueta": "SeFué SF-48 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 22 USD, a nosotros 21.34",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": []
+  },
+  {
+   "n": 107,
+   "id_sefue": "SF-61",
+   "market_id": null,
+   "ids": [],
+   "nombre": "Segueta de aluminio 12\" (300 mm)",
+   "descripcion": "Segueta de aluminio 12\" (300 mm)",
+   "precio_proveedor": 7.76,
+   "precio": 13,
+   "comision": 2.1,
+   "precio_manual": false,
+   "departamentos": [
+    "ferreteria"
+   ],
+   "categoria_bolsa": "ferretería",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/61/image_1920/Segueta%20de%20Aluminio%2012%2A300MM?unique=97f1c20",
+   "foto_local": "fotos/107.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/107.jpg"
+   ],
+   "etiqueta": "SeFué SF-61 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 8 USD, a nosotros 7.76",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": []
+  },
+  {
+   "n": 108,
+   "id_sefue": "SF-50",
+   "market_id": null,
+   "ids": [],
+   "nombre": "Taladro eléctrico 550 W, 110 V, mandril 13 mm",
+   "descripcion": "Taladro eléctrico 550 W, 110 V, mandril 13 mm",
+   "precio_proveedor": 38.8,
+   "precio": 55,
+   "comision": 6.48,
+   "precio_manual": false,
+   "departamentos": [
+    "ferreteria"
+   ],
+   "categoria_bolsa": "ferretería",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/50/image_1920/Taladro%20El%C3%A9ctrico%20110v%2C%2050-60Hz%2C%2013mm%2C%20550w?unique=4d0ca45",
+   "foto_local": "fotos/108.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/108.jpg"
+   ],
+   "etiqueta": "SeFué SF-50 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 40 USD, a nosotros 38.8",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": []
+  },
+  {
+   "n": 109,
+   "id_sefue": "SF-45",
+   "market_id": null,
+   "ids": [],
+   "nombre": "Pintura vinil TOR blanco mate (cubo de 15 L)",
+   "descripcion": "Uso: Interiores y exteriores (¡ideal para el clima cubano!)\nTranspirable y Alta Cubrición: Permite que tus paredes respiren y cubre como ninguna otra\nPintura plástica, anti moho\nRendimiento: 8-10 m²/L\nSecado Rápido: Al tacto en solo 2 horas\nAcabado: Mate, con una blancura y opacidad excelentes\nFormato: Disponible en tanquetas de 15 L\nAplicar con brocha, rodillo o pistola\nPropiedades destacadas:\nGran blancura y buena cubrición\nExcelente rendimiento\nAlta transpirabilidad\nNo deja marcas",
+   "precio_proveedor": 43.65,
+   "precio": 61,
+   "comision": 6.94,
+   "precio_manual": false,
+   "departamentos": [
+    "ferreteria"
+   ],
+   "categoria_bolsa": "ferretería",
+   "tamano": "grande",
+   "foto_url": "https://www.sefue.app/web/image/product.product/45/image_1920/Pintura%20Vinil%20TOR%20Blanco%20Mate%20%2815L%29?unique=526b8b0",
+   "foto_local": "fotos/109.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/109.jpg"
+   ],
+   "etiqueta": "SeFué SF-45 · Unidades · Cerro · Manglar y Oquendo, junto al parque La Normal · entrega: recogemos en su local (transporte nuestro) · su web 45 USD, a nosotros 43.65",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": []
+  },
+  {
+   "n": 110,
+   "id_sefue": "SF-90",
+   "market_id": null,
+   "ids": [],
+   "nombre": "Nevera Westing 7 pies",
+   "descripcion": "Nevera de 7 pies cúbicos de capacidad\nDiseño compacto y funcional , ideal para espacios reducidos\nSistema de refrigeración eficiente para óptima conservación de alimentos\nBajo consumo de energía\nDistribución interna práctica con estantes y compartimentos\nFuncionamiento silencioso\nIdeal para hogares, oficinas, dormitorios y pequeños negocios\nConstrucción robusta y duradera\nMarca reconocida por su calidad y confiabilidad",
+   "precio_proveedor": 291,
+   "precio": 300,
+   "comision": 3.6,
+   "precio_manual": true,
+   "departamentos": [
+    "electrodomesticos"
+   ],
+   "categoria_bolsa": "nevera",
+   "tamano": "grande",
+   "foto_url": "https://www.sefue.app/web/image/product.product/90/image_1920/Nevera%20Westing%207%20pies?unique=c99f694",
+   "foto_local": "fotos/110.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/110.jpg"
+   ],
+   "etiqueta": "SeFué SF-90 · Unidades · Cerro · Manglar y Oquendo, junto al parque La Normal · entrega: recogemos en su local (transporte nuestro) · su web 300 USD, a nosotros 291",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": []
+  },
+  {
+   "n": 126,
+   "id_sefue": "SF-109",
+   "market_id": null,
+   "ids": [],
+   "nombre": "Bicicleta MTB 26 (última unidad)",
+   "descripcion": "Bicicleta MTB 26 (última unidad)",
+   "precio_proveedor": 160.05,
+   "precio": 165,
+   "comision": 1.98,
+   "precio_manual": true,
+   "departamentos": [
+    "movilidad"
+   ],
+   "categoria_bolsa": "bicicleta",
+   "tamano": "grande",
+   "foto_url": "https://www.sefue.app/web/image/product.product/135/image_1920/Bicicleta%20MTB%2026%2C%20Oferta%20165%20USD%2C%20Solo%201%20disponible?unique=fe8cebd",
+   "foto_local": "fotos/126.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/126.jpg"
+   ],
+   "etiqueta": "SeFué SF-109 · Unidades · Cerro · Manglar y Oquendo, junto al parque La Normal · entrega: recogemos en su local (transporte nuestro) · su web 165 USD, a nosotros 160.05",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": [
+    "dicen «solo 1 disponible»"
+   ]
+  },
+  {
+   "n": 127,
+   "id_sefue": "SF-205",
+   "market_id": null,
+   "ids": [],
+   "nombre": "Bicicleta de montaña Huffy 24",
+   "descripcion": "Bicicleta de montaña Huffy 24",
+   "precio_proveedor": 145.5,
+   "precio": 150,
+   "comision": 1.8,
+   "precio_manual": true,
+   "departamentos": [
+    "movilidad"
+   ],
+   "categoria_bolsa": "bicicleta",
+   "tamano": "grande",
+   "foto_url": "https://www.sefue.app/web/image/product.product/242/image_1920/Bicicleta%20de%20monta%C3%B1a%20Huffy%2C%20medida%2024%20%28Rojo%29?unique=071d541",
+   "foto_local": "fotos/127.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/127.jpg"
+   ],
+   "etiqueta": "SeFué SF-205 · Unidades · Vedado · calle N e/ 21 y 23 · entrega: recogemos en su local (transporte nuestro) · su web 150 USD, a nosotros 145.5",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": []
+  },
+  {
+   "n": 128,
+   "id_sefue": "SF-204",
+   "market_id": null,
+   "ids": [],
+   "nombre": "Bicicleta de montaña Huffy 27.5 negra",
+   "descripcion": "Bicicleta de montaña Huffy 27.5 negra",
+   "precio_proveedor": 174.6,
+   "precio": 180,
+   "comision": 2.16,
+   "precio_manual": true,
+   "departamentos": [
+    "movilidad"
+   ],
+   "categoria_bolsa": "bicicleta",
+   "tamano": "grande",
+   "foto_url": "https://www.sefue.app/web/image/product.product/245/image_1920/Bicicleta%20de%20monta%C3%B1a%20Huffy%2C%20medida%2027.5%20%28Negro%29?unique=7f41e55",
+   "foto_local": "fotos/128.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/128.jpg"
+   ],
+   "etiqueta": "SeFué SF-204 · Unidades · Cerro · Manglar y Oquendo, junto al parque La Normal · entrega: recogemos en su local (transporte nuestro) · su web 180 USD, a nosotros 174.6",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": []
+  },
+  {
+   "n": 130,
+   "id_sefue": "SF-161",
+   "market_id": null,
+   "ids": [],
+   "nombre": "Bicicleta de paseo 26",
+   "descripcion": "Bicicleta de paseo 26",
+   "precio_proveedor": 155.2,
+   "precio": 160,
+   "comision": 1.92,
+   "precio_manual": true,
+   "departamentos": [
+    "movilidad"
+   ],
+   "categoria_bolsa": "bicicleta",
+   "tamano": "grande",
+   "foto_url": "https://www.sefue.app/web/image/product.product/217/image_1920/Bicicleta%20de%20paseo%2C%20medida%2026?unique=7e4f9ca",
+   "foto_local": "fotos/130.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/130.jpg"
+   ],
+   "etiqueta": "SeFué SF-161 · Unidades · Cerro · Manglar y Oquendo, junto al parque La Normal · entrega: recogemos en su local (transporte nuestro) · su web 160 USD, a nosotros 155.2",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": []
+  },
+  {
+   "n": 136,
+   "id_sefue": "SF-65",
+   "market_id": null,
+   "ids": [],
+   "nombre": "Alcohol perfumado desinfectante 96 % 300 ml (caja de 12)",
+   "descripcion": "Alcohol perfumado desinfectante 96 % 300 ml (caja de 12)\nSe vende por: paquete de 12.",
+   "precio_proveedor": 24.25,
+   "precio": 34,
+   "comision": 3.9,
+   "precio_manual": false,
+   "departamentos": [
+    "cuidado-personal"
+   ],
+   "categoria_bolsa": "limpieza",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/65/image_1920/Alcohol%20Perfumado%2C%20desinfectante%2C%2096%25%2C12%20u%20x%20caja?unique=5ee00b2",
+   "foto_local": "fotos/136.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/136.jpg"
+   ],
+   "etiqueta": "SeFué SF-65 · Paquete de 12 · Cerro · Manglar y Oquendo, junto al parque La Normal · entrega: recogemos en su local (transporte nuestro) · su web 25 USD, a nosotros 24.25",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": []
+  },
+  {
+   "n": 137,
+   "id_sefue": "SF-60",
+   "market_id": null,
+   "ids": [],
+   "nombre": "Desengrasante Zelnova 5 L",
+   "descripcion": "Desengrasante Zelnova 5 L",
+   "precio_proveedor": 7.66,
+   "precio": 13,
+   "comision": 2.14,
+   "precio_manual": false,
+   "departamentos": [
+    "cocina"
+   ],
+   "categoria_bolsa": "limpieza",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/60/image_1920/Desengrasante%20Zelnova%205%20lts?unique=4bad3e9",
+   "foto_local": "fotos/137.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/137.jpg"
+   ],
+   "etiqueta": "SeFué SF-60 · Unidades · Cerro · Manglar y Oquendo, junto al parque La Normal · entrega: recogemos en su local (transporte nuestro) · su web 7.9 USD, a nosotros 7.66",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": []
+  },
+  {
+   "n": 139,
+   "id_sefue": "SF-84",
+   "market_id": null,
+   "ids": [],
+   "nombre": "Dosificador automático para aromatizante 250 ml",
+   "descripcion": "Dosificador automático para aromatizante 250 ml",
+   "precio_proveedor": 29.1,
+   "precio": 41,
+   "comision": 4.76,
+   "precio_manual": false,
+   "departamentos": [
+    "bano"
+   ],
+   "categoria_bolsa": "limpieza",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/84/image_1920/Dosificador%20Autom%C3%A1tico%20para%20Aromatizante%20250%20ml?unique=ebd59db",
+   "foto_local": "fotos/139.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/139.jpg"
+   ],
+   "etiqueta": "SeFué SF-84 · Unidades · Cerro · Manglar y Oquendo, junto al parque La Normal · entrega: recogemos en su local (transporte nuestro) · su web 30 USD, a nosotros 29.1",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": []
+  },
+  {
+   "n": 140,
+   "id_sefue": "SF-44",
+   "market_id": null,
+   "ids": [],
+   "nombre": "Spray aromatizante Vainilla 250 ml (caja de 12)",
+   "descripcion": "Espray aromatizante 250ml, aromas disponibles:\nvainilla, tiador, dolce, bouquet y millonario. Venta por cajas de 12 aromatizantes.\nSe vende por: paquete de 12.",
+   "precio_proveedor": 13.58,
+   "precio": 20,
+   "comision": 2.57,
+   "precio_manual": false,
+   "departamentos": [
+    "bano"
+   ],
+   "categoria_bolsa": "limpieza",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/44/image_1920/Spray%20Aromatizante%20de%20Vainilla%20250%20ml-12%20u%20x%20caja?unique=e21d87c",
+   "foto_local": "fotos/140.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/140.jpg"
+   ],
+   "etiqueta": "SeFué SF-44 · Paquete de 12 · Cerro · Manglar y Oquendo, junto al parque La Normal · entrega: recogemos en su local (transporte nuestro) · su web 14 USD, a nosotros 13.58",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": []
+  },
+  {
+   "n": 141,
+   "id_sefue": "SF-59",
+   "market_id": null,
+   "ids": [],
+   "nombre": "Quitagrasa para superficies Rudex 5 L",
+   "descripcion": "Quitagrasa para superficies Rudex 5 L",
+   "precio_proveedor": 8.73,
+   "precio": 14,
+   "comision": 2.11,
+   "precio_manual": false,
+   "departamentos": [
+    "cocina"
+   ],
+   "categoria_bolsa": "limpieza",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/59/image_1920/Detergente%20para%20Superficies%20Quitagrasa%20Rudex%205%20lt?unique=9032cc4",
+   "foto_local": "fotos/141.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/141.jpg"
+   ],
+   "etiqueta": "SeFué SF-59 · Unidades · Cerro · Manglar y Oquendo, junto al parque La Normal · entrega: recogemos en su local (transporte nuestro) · su web 9 USD, a nosotros 8.73",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": []
+  },
+  {
+   "n": 142,
+   "id_sefue": "SF-63",
+   "market_id": null,
+   "ids": [],
+   "nombre": "Loción hidroalcohólica en spray 97,8 % 100 ml (caja de 12)",
+   "descripcion": "Loción hidroalcohólica en spray 97,8 % 100 ml (caja de 12)\nSe vende por: paquete de 12.",
+   "precio_proveedor": 11.64,
+   "precio": 17,
+   "comision": 2.14,
+   "precio_manual": false,
+   "departamentos": [
+    "cuidado-personal"
+   ],
+   "categoria_bolsa": "limpieza",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/63/image_1920/Loci%C3%B3n%20Hidroalcoh%C3%B3lica%20de%20Spray%20al%2097.8%25%20100ml-12%20u%20x%20caja?unique=6b81f82",
+   "foto_local": "fotos/142.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/142.jpg"
+   ],
+   "etiqueta": "SeFué SF-63 · Paquete de 12 · Cerro · Manglar y Oquendo, junto al parque La Normal · entrega: recogemos en su local (transporte nuestro) · su web 12 USD, a nosotros 11.64",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": []
+  },
+  {
+   "n": 143,
+   "id_sefue": "SF-83",
+   "market_id": null,
+   "ids": [],
+   "nombre": "Porta spray 250 ml",
+   "descripcion": "Porta spray 250 ml",
+   "precio_proveedor": 19.4,
+   "precio": 28,
+   "comision": 3.44,
+   "precio_manual": false,
+   "departamentos": [
+    "bano"
+   ],
+   "categoria_bolsa": "limpieza",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/83/image_1920/Porta%20Spray%20250%20ml?unique=98e72c0",
+   "foto_local": "fotos/143.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/143.jpg"
+   ],
+   "etiqueta": "SeFué SF-83 · Unidades · Cerro · Manglar y Oquendo, junto al parque La Normal · entrega: recogemos en su local (transporte nuestro) · su web 20 USD, a nosotros 19.4",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": []
+  },
+  {
+   "n": 144,
+   "id_sefue": "SF-62",
+   "market_id": null,
+   "ids": [],
+   "nombre": "Solución hidroalcohólica 72 % 100 ml (caja de 15)",
+   "descripcion": "Solución hidroalcohólica 72 % 100 ml (caja de 15)\nSe vende por: paquete de 15.",
+   "precio_proveedor": 7.76,
+   "precio": 13,
+   "comision": 2.1,
+   "precio_manual": false,
+   "departamentos": [
+    "cuidado-personal"
+   ],
+   "categoria_bolsa": "limpieza",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/62/image_1920/Soluci%C3%B3n%20Hidroalcoh%C3%B3lica%20al%2072%25%20100%20ml-15%20u%20x%20caja?unique=1ba595d",
+   "foto_local": "fotos/144.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/144.jpg"
+   ],
+   "etiqueta": "SeFué SF-62 · Paquete de 15 · Cerro · Manglar y Oquendo, junto al parque La Normal · entrega: recogemos en su local (transporte nuestro) · su web 8 USD, a nosotros 7.76",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": []
+  },
+  {
+   "n": 145,
+   "id_sefue": "SF-57",
+   "market_id": null,
+   "ids": [],
+   "nombre": "Spray aromatizante Bouquet 250 ml (caja de 12)",
+   "descripcion": "Spray aromatizante Bouquet 250 ml (caja de 12)\nSe vende por: paquete de 12.",
+   "precio_proveedor": 13.58,
+   "precio": 20,
+   "comision": 2.57,
+   "precio_manual": false,
+   "departamentos": [
+    "bano"
+   ],
+   "categoria_bolsa": "limpieza",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/57/image_1920/Spray%20Aromatizante%20Bouquet%20250%20ml-12%20u%20x%20caja?unique=ee99083",
+   "foto_local": "fotos/145.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/145.jpg"
+   ],
+   "etiqueta": "SeFué SF-57 · Paquete de 12 · Cerro · Manglar y Oquendo, junto al parque La Normal · entrega: recogemos en su local (transporte nuestro) · su web 14 USD, a nosotros 13.58",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": []
+  },
+  {
+   "n": 146,
+   "id_sefue": "SF-56",
+   "market_id": null,
+   "ids": [],
+   "nombre": "Spray aromatizante Dolce 250 ml (caja de 12)",
+   "descripcion": "Spray aromatizante Dolce 250 ml (caja de 12)\nSe vende por: paquete de 12.",
+   "precio_proveedor": 13.58,
+   "precio": 20,
+   "comision": 2.57,
+   "precio_manual": false,
+   "departamentos": [
+    "bano"
+   ],
+   "categoria_bolsa": "limpieza",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/56/image_1920/Spray%20Aromatizante%20Dolce%20250%20ml-12%20u%20x%20caja?unique=82bd4c0",
+   "foto_local": "fotos/146.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/146.jpg"
+   ],
+   "etiqueta": "SeFué SF-56 · Paquete de 12 · Cerro · Manglar y Oquendo, junto al parque La Normal · entrega: recogemos en su local (transporte nuestro) · su web 14 USD, a nosotros 13.58",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": []
+  },
+  {
+   "n": 147,
+   "id_sefue": "SF-58",
+   "market_id": null,
+   "ids": [],
+   "nombre": "Spray aromatizante Millonaire 250 ml (caja de 12)",
+   "descripcion": "Spray aromatizante Millonaire 250 ml (caja de 12)\nSe vende por: paquete de 12.",
+   "precio_proveedor": 13.58,
+   "precio": 20,
+   "comision": 2.57,
+   "precio_manual": false,
+   "departamentos": [
+    "bano"
+   ],
+   "categoria_bolsa": "limpieza",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/58/image_1920/Spray%20Aromatizante%20Millonaire%20250%20ml-12%20u%20x%20caja?unique=eb3738d",
+   "foto_local": "fotos/147.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/147.jpg"
+   ],
+   "etiqueta": "SeFué SF-58 · Paquete de 12 · Cerro · Manglar y Oquendo, junto al parque La Normal · entrega: recogemos en su local (transporte nuestro) · su web 14 USD, a nosotros 13.58",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": []
+  },
+  {
+   "n": 148,
+   "id_sefue": "SF-55",
+   "market_id": null,
+   "ids": [],
+   "nombre": "Spray aromatizante Tiador 250 ml (caja de 12)",
+   "descripcion": "Spray aromatizante Tiador 250 ml (caja de 12)\nSe vende por: paquete de 12.",
+   "precio_proveedor": 13.58,
+   "precio": 20,
+   "comision": 2.57,
+   "precio_manual": false,
+   "departamentos": [
+    "bano"
+   ],
+   "categoria_bolsa": "limpieza",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/55/image_1920/Spray%20Aromatizante%20Tiador%20250%20ml-12%20u%20x%20caja?unique=34f8ce9",
+   "foto_local": "fotos/148.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/148.jpg"
+   ],
+   "etiqueta": "SeFué SF-55 · Paquete de 12 · Cerro · Manglar y Oquendo, junto al parque La Normal · entrega: recogemos en su local (transporte nuestro) · su web 14 USD, a nosotros 13.58",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": []
+  },
+  {
+   "n": 149,
+   "id_sefue": "SF-64",
+   "market_id": null,
+   "ids": [],
+   "nombre": "Spray desinfectante de superficies Cooperbacter 200 ml (caja de 12)",
+   "descripcion": "Spray desinfectante de superficies Cooperbacter 200 ml (caja de 12)\nSe vende por: paquete de 12.",
+   "precio_proveedor": 19.4,
+   "precio": 28,
+   "comision": 3.44,
+   "precio_manual": false,
+   "departamentos": [
+    "cocina"
+   ],
+   "categoria_bolsa": "limpieza",
+   "tamano": "pequeno",
+   "foto_url": "https://www.sefue.app/web/image/product.product/64/image_1920/Spray%20Desinfectante%20para%20Superficies%20Cooperbacter%20200%20ml-12%20u%20x%20caja?unique=c9a45cc",
+   "foto_local": "fotos/149.jpg",
+   "fotos": [
+    "/home/u824654880/sefue-fotos/149.jpg"
+   ],
+   "etiqueta": "SeFué SF-64 · Paquete de 12 · Cerro · Manglar y Oquendo, junto al parque La Normal · entrega: recogemos en su local (transporte nuestro) · su web 20 USD, a nosotros 19.4",
+   "confirmado": true,
+   "confirmado_por": "Lista de precios de Javier Quota (SeFué) 22-oct 16:06; existencia se consulta en cada venta",
+   "alertas": []
+  }
+ ]
+}

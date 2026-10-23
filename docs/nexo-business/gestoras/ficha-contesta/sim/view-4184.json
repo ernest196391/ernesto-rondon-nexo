@@ -1,0 +1,60 @@
+{
+    "id": 4184,
+    "nombre": "Bicicleta eléctrica plegable con asiento trasero",
+    "url": "https:\/\/casaviva.company\/producto\/bicicleta-electrica-plegable-con-asiento-trasero\/",
+    "imagen": "https:\/\/casaviva.company\/wp-content\/uploads\/2026\/10\/bicicleta-electrica-plegable-300x300.jpg",
+    "proveedor": false,
+    "electrico": true,
+    "estado": {
+        "code": "hay",
+        "texto": "🏪 Hay 1 en la tienda",
+        "qty": 1
+    },
+    "variantes": [],
+    "filas": [
+        "medidas",
+        "voltaje",
+        "trae",
+        "colores"
+    ],
+    "datos": {
+        "medidas": [],
+        "material": [],
+        "voltaje": [
+            {
+                "texto": "Batería integrada en el cuadro.",
+                "exacto": false,
+                "tienda": false,
+                "quien": "",
+                "at": ""
+            }
+        ],
+        "trae": [
+            {
+                "texto": "Cesta delantera incluida.",
+                "exacto": true,
+                "tienda": false,
+                "quien": "",
+                "at": ""
+            }
+        ],
+        "colores": [
+            {
+                "texto": "Color negro.",
+                "exacto": true,
+                "tienda": false,
+                "quien": "",
+                "at": ""
+            }
+        ],
+        "garantia": []
+    },
+    "fotos": [],
+    "faltan": [
+        "medidas",
+        "voltaje",
+        "foto"
+    ],
+    "abiertas": [],
+    "respuestas": []
+}

@@ -151,6 +151,42 @@
    "programado_por": "subagente Claude, Business Suite (portfolio Casa Viva), programado 15:12 para 19:00 America/Havana en FB e IG; subtítulos automáticos apagados",
    "al_general": "programado: temporizador VPS reel-prosko-20261022 (19:02) comprueba que Facebook lo publicó y manda UN mensaje (FB reel + perfil de IG); registro /root/supervisor/tareas/reel-prosko-20261022/salida.log",
    "metricas": null
+  },
+  {
+   "fecha": "2026-10-24",
+   "hora": "(sin programar: pendiente del SÍ de Ernesto)",
+   "dia": "sábado",
+   "red": "facebook+instagram",
+   "tipo": "reel",
+   "pieza": "«El billete» con Cúrru y Prosko (video-diario/2026-10-24-billete/casa-viva-billete-2026-10-24-fb.mp4, 25 s)",
+   "tema": "billete en el suelo → lo que de verdad resuelve: 6 productos reales (2469, 3726, 2551, 3905, 746, 2463); CTA Comenta CIEN",
+   "etiqueta_ia": false,
+   "enlaces": {
+    "facebook": null,
+    "instagram": null
+   },
+   "texto": "Un billete en el suelo parece suerte. Lo que de verdad te salva la semana es otra cosa.\n\nLámpara recargable con panel solar: 25 USD (quedan 2)\nCortinas blackout para un cuarto más fresco: 31 USD\nPower bank de 10 000 mAh: 30 USD (quedan 2)\nProtector de voltaje para la nevera: 20 USD (queda 1)\nTermo térmico de 1 litro: 17 USD (queda 1)\nFarol solar con sensor: 11 USD\n\nFotos reales de nuestra tienda en Nuevo Vedado. Lo revisas delante del mensajero: si tiene un defecto, se devuelve sin costo.\n\n¿Y tú, qué resolverías con 100 USD? Comenta CIEN y te decimos qué te resuelve más 👇\nToda la tienda: https://casaviva.company/tienda/?ref=CV137ERNESTO\n\n#Cuba #LaHabana #apagón #NuevoVedado #CasaViva",
+   "programado_por": null,
+   "al_general": "pendiente (versión -gestoras.mp4, pie en caption.md)",
+   "metricas": null
+  },
+  {
+   "fecha": "2026-10-25",
+   "hora": "(sin programar: pendiente del SÍ de Ernesto)",
+   "dia": "domingo",
+   "red": "facebook+instagram",
+   "tipo": "reel",
+   "pieza": "«La llamada» con Cúrru y Prosko (video-diario/2026-10-25-llamada/casa-viva-llamada-2026-10-25-fb.mp4, 25 s)",
+   "tema": "parodia de la llamada de Scream en un apagón → lámpara solar 2469, cortinas blackout 3726, power bank 2551 (sin precio en pantalla); CTA Comenta APAGÓN",
+   "etiqueta_ia": false,
+   "enlaces": {
+    "facebook": null,
+    "instagram": null
+   },
+   "texto": "Toda película de terror empieza con una llamada… y en Cuba, con un apagón.\n\nPara no esconderte cuando se va la luz: lámpara recargable con panel solar, cortinas blackout para un cuarto más fresco y power bank para el móvil. Fotos reales de nuestra tienda en Nuevo Vedado. Lo revisas delante del mensajero: si tiene un defecto, se devuelve sin costo.\n\n¿Cuánto cuesta todo? Un poco de misterio… Comenta APAGÓN y te decimos qué necesita tu casa 👇\nToda la tienda: https://casaviva.company/tienda/?ref=CV137ERNESTO\n\n#Cuba #LaHabana #apagón #CasaViva #NuevoVedado",
+   "programado_por": null,
+   "al_general": "pendiente (versión -gestoras.mp4, pie en caption.md)",
+   "metricas": null
   }
  ]
 }
