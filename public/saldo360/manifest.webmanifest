@@ -1,0 +1,19 @@
+{
+  "name": "Saldo 360",
+  "short_name": "Saldo360",
+  "description": "Busco saldo. Tengo saldo.",
+  "id": "/saldo360",
+  "start_url": "/saldo360",
+  "scope": "/saldo360/",
+  "display": "standalone",
+  "background_color": "#F7F8FB",
+  "theme_color": "#0D3B8E",
+  "icons": [
+    {
+      "src": "/saldo360/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
