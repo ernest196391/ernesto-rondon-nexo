@@ -1537,3 +1537,10 @@ exo-caja-p0`), Core `core-caja-1020` = **3.14.42** (worktree `C:UsersErnestoCasa
 
 ## SALDO 360 — 26-oct-2026 (nuevo piloto autorizado D83)
 **Estado:** EN CONSTRUCCIÓN, NO APTO PARA TRANSACCIONES REALES. **Ubicación:** mismo repositorio `ernesto-rondon-nexo`, rama `casa-viva/saldo360-piloto-20261026`, PR #134, despliegue piloto separado `saldo360-piloto` en Vercel. **Qué existe:** frontend demo, directorio manual inicialmente vacío, tiendas/perfil/cuenta como estructura visual, SVG y copy; **no hay** cuentas reales, base de datos dedicada, reseñas verificadas, publicación autónoma ni bot. **Plan maestro:** `docs/nexo-business/SALDO360_MASTER_BLUEPRINT.md`. **Estado granular y próxima acción exacta:** `docs/nexo-business/SALDO360_CONTROL.md`. **Siguiente:** completar verificación visual del paso 0 y contrato/compliance del paso 1; seguir con diseño, BD segura y registro. **No tocar:** producción de Casa Viva ni datos de NEXO Business.
+
+
+### Saldo 360 — 26-oct-2026, tarde (rama piloto, NO producción)
+- Usuario confirmó el subdominio `saldo360.casaviva.company` en Hostinger. Está agregado al proyecto Vercel `saldo360-piloto` (gitBranch de feature); DNS sigue a Hostinger y requiere CNAME específico **solo** `saldo360` (sin tocar web principal). Ojo: carpeta del subdominio apunta al `public_html` principal: no subir ni sobrescribir archivos allí.
+- UI implementada: inicio real «Busco saldo» / «Tengo saldo», ofertas, tiendas, formulario para copiar oferta, demo separada, manifest PWA y redirección de la raíz solo en host Saldo360. Build Vercel de la versión de interfaz verificado `READY` (`dpl_DAhyrVg3jZrvLMBAhuYvJ7nrTL1z`); PR #134 continúa en borrador.
+- VivaBot separado: PR #23 del repo `vivabot` con parser y cola opt-in para borradores de ofertas; NO desplegado, NO leyendo chats ni programado, requiere fuente autorizada y separación Casa Viva/Saldo360.
+- Sigue pendiente base Supabase propia/registro de usuarios/ofertas editables y seguridad de producción. Instrucciones exactas en `docs/nexo-business/SALDO360_LANZAMIENTO_2026-10-27.md` y progreso en `SALDO360_CONTROL.md`.
