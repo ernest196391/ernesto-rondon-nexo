@@ -1533,3 +1533,7 @@ exo-caja-p0`), Core `core-caja-1020` = **3.14.42** (worktree `C:UsersErnestoCasa
   - sección «Preguntas de Lennys sobre el PROGRAMA»;
   - tareas aprobadas 601 (proveedores para Day y Nadielys) y 602 (cola de fotos por color).
 - **Decisión D80** (2 % de mostrador). Mensajeros: aprobado construir el cierre automático al cobrar (docs/nexo-business/lennys/pedidos-lennys-2026-10-18.md).
+
+
+## SALDO 360 — 26-oct-2026 (nuevo piloto autorizado D83)
+**Estado:** EN CONSTRUCCIÓN, NO APTO PARA TRANSACCIONES REALES. **Ubicación:** mismo repositorio `ernesto-rondon-nexo`, rama `casa-viva/saldo360-piloto-20261026`, PR #134, despliegue piloto separado `saldo360-piloto` en Vercel. **Qué existe:** frontend demo, directorio manual inicialmente vacío, tiendas/perfil/cuenta como estructura visual, SVG y copy; **no hay** cuentas reales, base de datos dedicada, reseñas verificadas, publicación autónoma ni bot. **Plan maestro:** `docs/nexo-business/SALDO360_MASTER_BLUEPRINT.md`. **Estado granular y próxima acción exacta:** `docs/nexo-business/SALDO360_CONTROL.md`. **Siguiente:** completar verificación visual del paso 0 y contrato/compliance del paso 1; seguir con diseño, BD segura y registro. **No tocar:** producción de Casa Viva ni datos de NEXO Business.
