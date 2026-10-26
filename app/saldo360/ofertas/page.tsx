@@ -13,7 +13,7 @@ export default function Saldo360Ofertas(){
  useEffect(()=>setNow(new Date()),[]);
  const providers=useMemo(()=>now?(providersFile.providers as SaldoProvider[]).filter(p=>providerIsCurrent(p,now)&&amount>=p.minAmountCup&&amount<=p.maxAmountCup&&(method==="Cualquiera"||p.paymentMethods.includes(method))).sort((a,b)=>a.rateCupPerCup-b.rateCupPerCup):[],[amount,method,now]);
  return <main className="s360 s360-real"><div className="s360-shell">
- <header className="s360-top"><a href="/saldo360/ofertas" className="s360-logo"><span className="s360-mark">s</span><span>saldo<strong>360</strong></span></a><Link className="s360-header-link" href="/saldo360/mi-cuenta">Mi cuenta ↗</Link></header>
+ <header className="s360-top"><a href="/saldo360/ofertas" className="s360-logo"><img src="/saldo360/logo.svg" alt="" width="38" height="38"/><span>saldo<strong>360</strong></span></a><Link className="s360-header-link" href="/saldo360/mi-cuenta">Mi cuenta ↗</Link></header>
  <nav className="s360-market-nav"><Link className="active" href="/saldo360/ofertas">Explorar</Link><Link href="/saldo360/proveedores">Tiendas</Link><Link href="/saldo360/mi-cuenta">Mi cuenta</Link></nav>
  <section className="s360-content">
  <div className="s360-intro" style={{marginTop:36}}><h1>Encuentra saldo. Sin vueltas.</h1><p>Compara precios. Elige tu proveedor.</p></div>
