@@ -40,6 +40,9 @@ export default function Publicar() {
     <Top right={<Link href="/saldo360/ofertas" className="s360-header-link">Busco saldo</Link>}/>
     <section className="s360-content">
       <div className="s360-intro"><h1>Tengo saldo</h1><p>Publica tu oferta gratis. Los compradores te escriben directo.</p></div>
+      <Link className="s360-primary" href="/saldo360/mi-tienda">Crear mi tienda</Link>
+      <p className="s360-muted s360-center">Con tu tienda cambias precios y pausas ofertas cuando quieras.</p>
+      <h2 className="s360-heading">¿Sin correo? Envíanos tu oferta</h2>
       <div className="s360-card s360-sell-form" onChange={() => setCopied("")}>
         <label className="s360-label" htmlFor="stock">¿Cuánto saldo tienes?</label>
         <div className="s360-amount"><input id="stock" type="number" inputMode="numeric" min="1" max="100000" value={stock} onChange={(e) => setStock(e.target.value)}/><span>CUP</span></div>

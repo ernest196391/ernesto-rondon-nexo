@@ -1,17 +1,43 @@
+"use client";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { saldoSupabase } from "../../../lib/saldo360/supabase-browser";
 import { Top } from "../ui";
+import { useCuenta } from "../useCuenta";
 import "../saldo360.css";
 
-// Sin cuentas todavía: esta pantalla lo dice claro y ofrece lo que sí funciona hoy.
+const ROLE = { buyer: "Comprador", seller: "Vendedor", admin: "Administración" } as const;
+
 export default function Cuenta() {
+  const router = useRouter();
+  const { loading, user, profile } = useCuenta();
+
+  async function salir() {
+    await saldoSupabase()?.auth.signOut();
+    router.push("/saldo360");
+  }
+
   return <main className="s360"><div className="s360-shell">
     <Top/>
     <section className="s360-content">
-      <div className="s360-intro"><h1>Mi cuenta</h1><p>Las cuentas llegan pronto. Hoy no hace falta registrarse.</p></div>
-      <div className="s360-card"><h2>¿Buscas saldo?</h2><p>Compara precios y escribe directo al vendedor.</p>
-        <Link className="s360-primary" href="/saldo360/ofertas">Busco saldo</Link></div>
-      <div className="s360-card"><h2>¿Vendes saldo?</h2><p>Envíanos tu oferta; la verificamos y la publicamos.</p>
-        <Link className="s360-primary" href="/saldo360/publicar">Tengo saldo</Link></div>
+      {loading ? <div className="s360-empty"><p>Cargando…</p></div>
+        : !user ? <>
+          <div className="s360-intro"><h1>Mi cuenta</h1><p>Para comprar no hace falta cuenta. Para vender, sí.</p></div>
+          <Link className="s360-primary" href="/saldo360/entrar">Entrar</Link>
+          <Link className="s360-secondary" href="/saldo360/entrar?modo=registro">Crear cuenta</Link>
+        </> : <>
+          <div className="s360-intro"><h1>Hola{profile?.display_name ? `, ${profile.display_name}` : ""}</h1>
+            <p>{user.email} · {profile ? ROLE[profile.role] : "Comprador"}</p></div>
+          {profile?.status === "suspended" && <div className="s360-card"><p className="s360-error">Tu cuenta está suspendida. Escríbenos para revisarla.</p></div>}
+          <nav className="s360-menu">
+            {profile?.role === "seller"
+              ? <Link href="/saldo360/mi-tienda"><strong>Mi tienda</strong><small>Ofertas, foto y datos</small></Link>
+              : <Link href="/saldo360/mi-tienda"><strong>Vender saldo</strong><small>Crea tu tienda gratis</small></Link>}
+            <Link href="/saldo360/ofertas"><strong>Busco saldo</strong><small>Ofertas vigentes</small></Link>
+            {profile?.role === "admin" && <Link href="/saldo360/admin"><strong>Revisar tiendas</strong><small>Aprobar o suspender</small></Link>}
+          </nav>
+          <button className="s360-secondary" type="button" onClick={salir}>Cerrar sesión</button>
+        </>}
     </section>
   </div></main>;
 }
