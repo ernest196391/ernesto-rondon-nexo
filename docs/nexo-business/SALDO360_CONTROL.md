@@ -33,9 +33,8 @@
 - No se tocó la producción de Casa Viva para esta auditoría.
 
 ## Próxima acción EXACTA
-1. **Ernesto — apagar «Confirm email» (1 clic, bloquea registros):** Supabase → proyecto `saldo360` → *Authentication → Sign In / Providers → Email* → apagar **Confirm email** → *Save*. Comprobado el 27-oct: con el interruptor encendido, cada registro intenta mandar un correo y Supabase lo frena (429). Con él apagado no se envía nada.
+1. ✅ **Hecho 27-oct:** «Confirm email» apagado (comprobado: registro con sesión inmediata, sin correo). Ernesto es **admin** (`ernest196391@gmail.com`, entra con «Entrar con correo»).
 2. **Ernesto — abrir el dominio al público (2 min):** Vercel → `saldo360-piloto` → *Settings → Environments → Production → Branch Tracking*: `casa-viva/saldo360-piloto-20261026`; luego *Domains → saldo360.casaviva.company → Edit* → Production. Hoy el dominio pide login de Vercel.
-3. **Primer administrador:** Ernesto se registra con su número en `/saldo360/entrar?modo=registro` y Claude le pone el rol `admin` por SQL.
 4. **Piloto:** 3 proveedores se registran con su número; Ernesto verifica cada WhatsApp a mano y aprueba en «Revisar tiendas».
 5. **Copia de seguridad diaria** (plan gratis sin copias): contraseña de la base → `/root/saldo360/.env` en el VPS → `pg_dump` diario a `/root/backups/saldo360-*.sql.gz`.
 6. **Más adelante (no urgente):** correo SMTP (puede costar en Hostinger; alternativa gratis Brevo) o códigos por WhatsApp con un número propio de Saldo 360; luego «Mis operaciones» y reseñas (Fase F) y VivaBot → `admin_publish_offer` (Fase G).
