@@ -13,7 +13,7 @@ function logContact(offerId: string, amountCup: number) {
   if (!SUPABASE_URL || !SUPABASE_KEY) return;
   fetch(`${SUPABASE_URL}/rest/v1/rpc/log_contact`, {
     method: "POST", keepalive: true,
-    headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}`, "Content-Type": "application/json" },
+    headers: { apikey: SUPABASE_KEY, "Content-Type": "application/json" },
     body: JSON.stringify({ p_offer_id: offerId, p_amount_cup: amountCup }),
   }).catch(() => {});
 }

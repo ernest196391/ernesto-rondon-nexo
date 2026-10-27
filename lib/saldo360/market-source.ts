@@ -32,7 +32,7 @@ export async function loadOffers(): Promise<{ offers: MarketOffer[]; error: bool
   }
   try {
     const res = await fetch(`${supabaseUrl}/rest/v1/market_offers?select=*&order=price_per_100_cup.asc&limit=200`, {
-      headers: { apikey: supabaseAnonKey, Authorization: `Bearer ${supabaseAnonKey}` },
+      headers: { apikey: supabaseAnonKey },
       next: { revalidate: 30 },
     });
     if (!res.ok) return { offers: [], error: true };
