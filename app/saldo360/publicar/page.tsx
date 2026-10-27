@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
-import { PAYMENT_METHODS, formatCup, totalCup, type PaymentMethod } from "../../../lib/saldo360/market";
+import { METHODS_BY_CURRENCY, PAYMENT_METHODS, formatCup, totalCup, type PaymentMethod } from "../../../lib/saldo360/market";
 import { Top } from "../ui";
 import "../saldo360.css";
 
@@ -49,9 +49,9 @@ export default function Publicar() {
         <label className="s360-label" htmlFor="rate">¿Cuánto cobras por cada 100 CUP de saldo?</label>
         <div className="s360-amount"><input id="rate" type="number" inputMode="decimal" min="0.01" max="100000" step="0.01" value={price} onChange={(e) => setPrice(e.target.value)}/><span>CUP</span></div>
         {priceOk && <p className="s360-preview">Quien compre 300 CUP de saldo te pagará <strong>{formatCup(totalCup(300, p))}</strong>.</p>}
-        <fieldset className="s360-methods"><legend className="s360-label">¿Cómo te pagan?</legend>
-          {Object.entries(PAYMENT_METHODS).map(([k, v]) => <label key={k} className={methods.includes(k as PaymentMethod) ? "active" : ""}>
-            <input type="checkbox" checked={methods.includes(k as PaymentMethod)} onChange={() => toggle(k as PaymentMethod)}/>{v}</label>)}
+        <fieldset className="s360-methods"><legend className="s360-label">¿Cómo te pagan? <span className="s360-muted">(en dólares o USDT: crea tu tienda)</span></legend>
+          {METHODS_BY_CURRENCY.CUP.map((k) => <label key={k} className={methods.includes(k) ? "active" : ""}>
+            <input type="checkbox" checked={methods.includes(k)} onChange={() => toggle(k)}/>{PAYMENT_METHODS[k]}</label>)}
         </fieldset>
         <label className="s360-label" htmlFor="shop">Nombre de tu tienda</label>
         <input id="shop" maxLength={60} placeholder="Ej. Saldo Rápido Playa" value={shop} onChange={(e) => setShop(e.target.value)}/>

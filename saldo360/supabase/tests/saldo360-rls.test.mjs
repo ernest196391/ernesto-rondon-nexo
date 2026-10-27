@@ -366,3 +366,32 @@ describe("moderación, importación supervisada y fotos", () => {
     expect(own.affectedRows).toBe(1);
   });
 });
+
+describe("formas de pago, moneda y mayorista", () => {
+  it("oferta en USD con Zelle y USDT; métodos de otra moneda rechazados; métodos propios", async () => {
+    await as(db, U.sellerA, (tx) => tx.query("UPDATE public.offers SET status = 'paused' WHERE shop_id = $1 AND status = 'active'", [shopA]));
+    const id = (await as(db, U.sellerA, (tx) => one(tx,
+      "SELECT public.publish_offer($1, 100, 5000, 0.35, '{zelle,usdt}', 24, 'USD', '{PayPal}') AS id", [shopA]))).id;
+    const m = await as(db, null, (tx) => one(tx, "SELECT price_currency, payment_methods, custom_payment_methods FROM public.market_offers WHERE id = $1", [id]));
+    expect(m).toEqual({ price_currency: "USD", payment_methods: ["zelle", "usdt"], custom_payment_methods: ["PayPal"] });
+    await expect(as(db, U.sellerA, (tx) => tx.query("SELECT public.publish_offer($1, 1, 10, 0.3, '{transfermovil}', 24, 'USD')", [shopA]))).rejects.toThrow(/check/);
+    await expect(as(db, U.sellerA, (tx) => tx.query("SELECT public.publish_offer($1, 1, 10, 40, '{zelle}', 24, 'CUP')", [shopA]))).rejects.toThrow(/check/);
+    await expect(as(db, U.sellerA, (tx) => tx.query("SELECT public.publish_offer($1, 1, 10, 40, '{}', 24, 'CUP', '{a,b,c,d}')", [shopA]))).rejects.toThrow(/check/);
+    await expect(as(db, U.sellerA, (tx) => tx.query("SELECT public.publish_offer($1, 1, 10, 40, '{}', 24, 'CUP', '{}')", [shopA]))).rejects.toThrow(/check/);
+    const soloPropio = (await as(db, U.sellerA, (tx) => one(tx, "SELECT public.publish_offer($1, 1, 10, 40, '{}', 24, 'CUP', '{Saldo móvil}') AS id", [shopA]))).id;
+    expect(soloPropio).toBeTruthy();
+  });
+
+  it("mayorista: precio por volumen coherente y aplicado al congelar la operación", async () => {
+    await as(db, U.sellerA, (tx) => tx.query("UPDATE public.offers SET status = 'paused' WHERE shop_id = $1 AND status = 'active'", [shopA]));
+    await expect(as(db, U.sellerA, (tx) => tx.query("SELECT public.publish_offer($1, 100, 5000, 40, '{efectivo}', 24, 'CUP', '{}', 2000, 45)", [shopA]))).rejects.toThrow(/check/); // mayorista más caro
+    await expect(as(db, U.sellerA, (tx) => tx.query("SELECT public.publish_offer($1, 100, 5000, 40, '{efectivo}', 24, 'CUP', '{}', 9000, 35)", [shopA]))).rejects.toThrow(/check/); // umbral fuera de rango
+    const id = (await as(db, U.sellerA, (tx) => one(tx, "SELECT public.publish_offer($1, 100, 5000, 40, '{efectivo}', 24, 'CUP', '{}', 2000, 35) AS id", [shopA]))).id;
+    const small = (await as(db, U.buyer, (tx) => one(tx, "SELECT public.start_request($1, 1000) AS id", [id]))).id;
+    const big = (await as(db, U.other, (tx) => one(tx, "SELECT public.start_request($1, 3000) AS id", [id]))).id;
+    const a = await as(db, U.buyer, (tx) => one(tx, "SELECT price_per_100_cup, total_cup, price_currency FROM public.requests WHERE id = $1", [small]));
+    const b = await as(db, U.other, (tx) => one(tx, "SELECT price_per_100_cup, total_cup FROM public.requests WHERE id = $1", [big]));
+    expect(a).toEqual({ price_per_100_cup: "40.00", total_cup: "400.00", price_currency: "CUP" });
+    expect(b).toEqual({ price_per_100_cup: "35.00", total_cup: "1050.00" });
+  });
+});

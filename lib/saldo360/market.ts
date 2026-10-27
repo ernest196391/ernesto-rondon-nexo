@@ -1,8 +1,17 @@
 // Saldo 360 — reglas del mercado compartidas por servidor y navegador.
-// Precio = CUP que paga el comprador por cada 100 CUP de saldo (misma unidad que la base y VivaBot).
+// Precio = lo que paga el comprador por cada 100 CUP de saldo, en la moneda de la oferta (CUP o USD).
 
-export const PAYMENT_METHODS = { transfermovil: "Transfermóvil", enzona: "EnZona", efectivo: "Efectivo" } as const;
+export const PAYMENT_METHODS = {
+  transfermovil: "Transfermóvil", enzona: "EnZona", efectivo: "Efectivo CUP",
+  zelle: "Zelle", usdt: "USDT", clasica: "Tarjeta Clásica", mlc: "MLC", efectivo_usd: "Efectivo USD",
+} as const;
 export type PaymentMethod = keyof typeof PAYMENT_METHODS;
+export type Currency = "CUP" | "USD";
+export const METHODS_BY_CURRENCY: Record<Currency, PaymentMethod[]> = {
+  CUP: ["transfermovil", "enzona", "efectivo"],
+  USD: ["zelle", "usdt", "clasica", "mlc", "efectivo_usd"],
+};
+export const currencyOf = (m: PaymentMethod): Currency => (METHODS_BY_CURRENCY.USD.includes(m) ? "USD" : "CUP");
 
 export type MarketOffer = {
   id: string;
@@ -14,7 +23,11 @@ export type MarketOffer = {
   minCup: number;
   maxCup: number;
   pricePer100Cup: number;
+  currency: Currency;
   paymentMethods: PaymentMethod[];
+  customMethods: string[];
+  wholesaleMinCup: number | null;
+  wholesalePricePer100: number | null;
   confirmedAt: string;
   expiresAt: string;
   confirmedOps: number;
@@ -29,25 +42,39 @@ export function offerIsLive(o: MarketOffer, now = new Date()): boolean {
   if (!/^53[0-9]{8}$/.test(o.whatsapp)) return false;
   if (!Number.isFinite(o.pricePer100Cup) || o.pricePer100Cup <= 0) return false;
   if (!Number.isInteger(o.minCup) || !Number.isInteger(o.maxCup) || o.minCup < 1 || o.maxCup < o.minCup) return false;
-  if (!o.paymentMethods.length || o.paymentMethods.some((m) => !(m in PAYMENT_METHODS))) return false;
+  if (o.currency !== "CUP" && o.currency !== "USD") return false;
+  if (!o.paymentMethods.length && !o.customMethods.length) return false;
+  if (o.paymentMethods.some((m) => !METHODS_BY_CURRENCY[o.currency].includes(m))) return false;
   const confirmed = Date.parse(o.confirmedAt), expires = Date.parse(o.expiresAt), t = now.getTime();
   if (!Number.isFinite(confirmed) || !Number.isFinite(expires)) return false;
   return confirmed <= t && expires > t && expires - confirmed <= MAX_VALIDITY_MS;
 }
 
-/** Total en CUP, redondeado a céntimos (igual que la base: round(monto * precio / 100, 2)). */
+/** Precio por cada 100 CUP que toca para ese monto (mayorista si llega al mínimo). */
+export function priceFor(o: Pick<MarketOffer, "pricePer100Cup" | "wholesaleMinCup" | "wholesalePricePer100">, amountCup: number): number {
+  return o.wholesaleMinCup != null && o.wholesalePricePer100 != null && amountCup >= o.wholesaleMinCup ? o.wholesalePricePer100 : o.pricePer100Cup;
+}
+
+/** Total redondeado a céntimos (igual que la base: round(monto * precio / 100, 2)). */
 export function totalCup(amountCup: number, pricePer100Cup: number): number {
   return Math.round(amountCup * pricePer100Cup) / 100;
 }
 
-export function formatCup(n: number): string {
-  return new Intl.NumberFormat("es-CU", { maximumFractionDigits: 2 }).format(n) + " CUP";
+export function formatMoney(n: number, currency: Currency): string {
+  return new Intl.NumberFormat("es-CU", { minimumFractionDigits: currency === "USD" ? 2 : 0, maximumFractionDigits: 2 }).format(n) + " " + currency;
 }
+export const formatCup = (n: number) => formatMoney(n, "CUP");
 
+/** Formas de pago en palabras (las fijas y las que escribió el vendedor). */
+export const methodsText = (o: Pick<MarketOffer, "paymentMethods" | "customMethods">) =>
+  [...o.paymentMethods.map((m) => PAYMENT_METHODS[m]), ...o.customMethods].join(", ");
+
+/** Filtra por monto y forma de pago. Ordena CUP antes que USD y, dentro, por el precio que toca. */
 export function filterOffers(offers: MarketOffer[], amountCup: number, method: PaymentMethod | "any", now = new Date()): MarketOffer[] {
   return offers
     .filter((o) => offerIsLive(o, now) && amountCup >= o.minCup && amountCup <= o.maxCup && (method === "any" || o.paymentMethods.includes(method)))
-    .sort((a, b) => a.pricePer100Cup - b.pricePer100Cup || Date.parse(b.confirmedAt) - Date.parse(a.confirmedAt));
+    .sort((a, b) => (a.currency === b.currency ? 0 : a.currency === "CUP" ? -1 : 1)
+      || priceFor(a, amountCup) - priceFor(b, amountCup) || Date.parse(b.confirmedAt) - Date.parse(a.confirmedAt));
 }
 
 /** «hace 3 h», «hace 20 min»: la frescura se ve sin hacer cuentas. */

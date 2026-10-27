@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
-import { PAYMENT_METHODS, ago, filterOffers, formatCup, reputationLabel, totalCup, whatsAppLink, type MarketOffer, type PaymentMethod } from "../../../lib/saldo360/market";
+import { METHODS_BY_CURRENCY, PAYMENT_METHODS, ago, filterOffers, formatCup, formatMoney, methodsText, priceFor, reputationLabel, totalCup, whatsAppLink, type MarketOffer, type PaymentMethod } from "../../../lib/saldo360/market";
 import { Avatar, SAFETY } from "../ui";
 
 const AMOUNTS = [100, 300, 500, 1000];
@@ -42,7 +42,8 @@ export default function Buscador({ offers, error, initialAmount, initialMethod, 
       <label className="s360-label" htmlFor="payment">¿Cómo pagas?</label>
       <select id="payment" value={method} onChange={(e) => setMethod(e.target.value as PaymentMethod | "any")}>
         <option value="any">Cualquier forma</option>
-        {Object.entries(PAYMENT_METHODS).map(([k, v]) => <option key={k} value={k}>{v}</option>)}
+        <optgroup label="En CUP">{METHODS_BY_CURRENCY.CUP.map((k) => <option key={k} value={k}>{PAYMENT_METHODS[k]}</option>)}</optgroup>
+        <optgroup label="En dólares">{METHODS_BY_CURRENCY.USD.map((k) => <option key={k} value={k}>{PAYMENT_METHODS[k]}</option>)}</optgroup>
       </select>
     </div>
 
@@ -56,9 +57,10 @@ export default function Buscador({ offers, error, initialAmount, initialMethod, 
         </Link>
         <div className="s360-price">
           <div><small>Recibes</small><strong>{formatCup(amount)}</strong></div>
-          <div><small>Pagas</small><strong className="s360-total">{formatCup(totalCup(amount, o.pricePer100Cup))}</strong></div>
+          <div><small>Pagas</small><strong className="s360-total">{formatMoney(totalCup(amount, priceFor(o, amount)), o.currency)}</strong></div>
         </div>
-        <p className="s360-meta">{formatCup(o.pricePer100Cup)} por cada 100 · hasta {formatCup(o.maxCup)} · {o.paymentMethods.map((m) => PAYMENT_METHODS[m]).join(", ")} · confirmada {ago(o.confirmedAt, now)}</p>
+        <p className="s360-meta">{formatMoney(priceFor(o, amount), o.currency)} por cada 100{o.wholesaleMinCup != null && amount >= o.wholesaleMinCup ? " (mayorista)" : ""} · hasta {formatCup(o.maxCup)} · {methodsText(o)} · confirmada {ago(o.confirmedAt, now)}</p>
+        {o.wholesaleMinCup != null && o.wholesalePricePer100 != null && amount < o.wholesaleMinCup && <p className="s360-meta">Mayorista: desde {formatCup(o.wholesaleMinCup)} a {formatMoney(o.wholesalePricePer100, o.currency)} por cada 100.</p>}
         <a className="s360-chat" target="_blank" rel="noopener noreferrer" href={whatsAppLink(o, amount)} onClick={() => logContact(o.id, amount)}>Escribir por WhatsApp</a>
       </article>)}
     <p className="s360-footnote">{SAFETY}</p>
