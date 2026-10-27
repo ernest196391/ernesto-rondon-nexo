@@ -1,5 +1,5 @@
 # SALDO 360 — CONTROL DE AVANCE (archivo vivo)
-**Última actualización:** 2026-10-26  
+**Última actualización:** 2026-10-27 (Claude Code, traspaso desde ChatGPT)  
 **Blueprint:** `docs/nexo-business/SALDO360_MASTER_BLUEPRINT.md`  
 **Repo:** `ernest196391/ernesto-rondon-nexo`  
 **Rama:** `casa-viva/saldo360-piloto-20261026`  
@@ -11,20 +11,21 @@
 
 | Paso | Tema | Estado | Evidencia y pendiente |
 |---|---|---|---|
-| 0 | Inventario / punto de partida | 🟡 | PR #134, código y Vercel inventariados; confirmar smoke tests del despliegue nuevo y prueba móvil. |
-| 1 | Producto, legal y reglas | ⚪ | Falta revisión de actividad comercial/ETECSA/privacidad y consentimiento. |
-| 2 | UX app-first / identidad / rutas | 🟡 | SVG + pantallas de tiendas/perfil/cuenta; falta inicio canónico en /saldo360, PWA y probar accesibilidad. |
-| 3 | BD + RLS | ⚪ | Sin proyecto BD dedicado ni migraciones. |
-| 4 | Registro y roles | ⚪ | /mi-cuenta es maqueta, todavía NO registra usuarios. |
-| 5 | Tienda y avatar | 🟡 | Ficha pública de prueba; NO hay fotos cargadas por proveedores. |
-| 6 | Publicación ofertas | ⚪ | JSON de proveedores vacío, sin editor ni BD. |
-| 7 | Búsqueda y WhatsApp | 🟡 | Filtros básicos y enlace wa.me para proveedores consentidos; falta prueba con oferta real. |
-| 8 | Solicitudes / seguimiento | ⚪ | Solo pruebas locales ficticias en demo. |
-| 9 | Reputación / moderación | ⚪ | No existen transacciones verificadas. |
-| 10 | Bot WhatsApp | ⚪ | No iniciado; canal oficial y consentimiento pendientes. |
-| 11 | QA, piloto, lanzamiento | ⚪ | No comercial, sin cuentas reales, hosting Hobby. |
+| 0 | Inventario / punto de partida | 🟢 | Auditoría real 27-oct: `SALDO360_AUDITORIA_CONTINUIDAD_2026-10-27.md` (código, Vercel, DNS, VPS, VivaBot, Supabase). |
+| 1 | Producto, legal y reglas | ⚪ | Falta revisión de actividad comercial/ETECSA/privacidad. Unidad de precio fijada: CUP por cada 100 CUP. |
+| 2 | UX app-first / identidad / rutas | 🟢 | Portada BUSCO/TENGO SALDO, buscador con precio final, tiendas, perfil, 404 en español, iconos PWA. Probado en móvil 375 px (27-oct). Falta aprobación visual de Ernesto. |
+| 3 | BD + RLS | 🟡 | Migraciones `saldo360/supabase/migrations/` + 26 pruebas RLS OK en PGlite. **Falta crear el proyecto Supabase `saldo360` (gratis, espera autorización) y aplicarlas.** |
+| 4 | Registro y roles | 🟡 | Roles y permisos en la base (comprador/proveedor/admin, nadie se sube de rol). Falta pantalla de registro/login (necesita el paso 3 en vivo). |
+| 5 | Tienda y avatar | 🟡 | Tablas, Storage `shop-photos` y permisos listos y probados. Falta pantalla «Mi tienda». |
+| 6 | Publicación ofertas | 🟡 | Base lista (vigencia ≤ 72 h, máx. 5 activas, pausar, reconfirmar). Hoy: formulario «Tengo saldo» con consentimiento + importación supervisada. Falta editor con cuenta. |
+| 7 | Búsqueda y WhatsApp | 🟢 | Monto + forma de pago (se conservan al volver), precio final, vigencia, reputación real, WhatsApp y registro de contacto (no venta). Falta prueba con oferta real. |
+| 8 | Solicitudes / seguimiento | 🟡 | RPC `start_request` / `request_action` con doble confirmación y disputas, probadas. Falta pantalla. |
+| 9 | Reputación / moderación | 🟡 | Reputación solo de operaciones confirmadas por ambos; reseña única del comprador; RPC de moderación y auditoría, probadas. Falta panel. |
+| 10 | Bot WhatsApp | 🟡 | Intérprete VivaBot corregido (PR #23, `e682517`, 8/8). Sin desplegar, sin cron, sin leer chats. |
+| 11 | QA, piloto, lanzamiento | 🔴 | Dominio con HTTPS OK pero **pide login de Vercel** (acción de Ernesto abajo). Hosting Hobby no comercial. |
 
 ## Punto de restauración y estado verificado
+- **27-oct:** commits `c7087f3` (base + RLS) y `ba14509` (portada y buscador), despliegue `dpl_8TviVkYMHiNTsX1Pv8A1FxGZBWiY` **READY** (`saldo360-piloto-jrw79rw39-…vercel.app`). Volver atrás: redeploy de `dpl_9gihpzzYGXGhrJNy8k3Sfrany8TT` (commit `6df76bd`).
 - **Vercel proyecto:** `saldo360-piloto` (prj_ZpjL97o0Gvx5NeTXjcUk7QnsW2Yq)
 - **Último despliegue confirmado READY que se verificó por herramienta:** dpl_8ZTPdvzVvYcdscHaohi2pgn1RoUU, commit `49e40fb1`; URL `https://saldo360-piloto-gjwkonlij-ernest196391s-projects.vercel.app/saldo360`.
 - Rama actual recibió nuevos commits de UX/blueprint después. **No asumir que están publicados** hasta comprobar el despliegue correspondiente.
@@ -32,7 +33,9 @@
 - No se tocó la producción de Casa Viva para esta auditoría.
 
 ## Próxima acción EXACTA
-**Completar Paso 0:** confirmar último HEAD y deployment, abrir `/saldo360/ofertas`, `/saldo360/proveedores`, `/saldo360/mi-cuenta` en móvil, comprobar que no hay botones falsos, y anotar capturas/errores. Luego **Paso 1**, documento de alcance/legales y puerta de cumplimiento; mientras se valida lo comercial, es válido implementar en pruebas aisladas el diseño del Paso 2.
+1. **Acción de Ernesto (2 min, bloquea el acceso público):** en Vercel → proyecto `saldo360-piloto` → *Settings → Environments → Production → Branch Tracking*: poner `casa-viva/saldo360-piloto-20261026` y guardar. Luego *Settings → Domains → saldo360.casaviva.company → Edit*: quitar la rama (dejarlo en **Production**). Así el dominio deja de pedir login y los enlaces de prueba siguen protegidos. (Claude lo intentó: el panel dijo «You need additional permissions» y el cambio por API quedó bloqueado por seguridad.) Alternativa más simple pero menos segura: *Deployment Protection → Vercel Authentication → Off*.
+2. **Autorización de Ernesto:** crear el proyecto Supabase `saldo360` (0 USD/mes, región us-east-1). Después: aplicar `saldo360/supabase/migrations/*`, poner en Vercel `NEXT_PUBLIC_SALDO360_SUPABASE_URL` y `NEXT_PUBLIC_SALDO360_SUPABASE_ANON_KEY`, crear el primer admin y programar `pg_dump` diario en el VPS (el plan gratis no hace copias).
+3. Con la base viva: pantallas de registro/login y «Mi tienda» (Fases C–D).
 
 ## Obligaciones para el próximo agente
 1. Leer `SALDO360_MASTER_BLUEPRINT.md` completo y este CONTROL.
@@ -55,3 +58,14 @@
 - **Supabase:** proyectos existentes vistos; no hay uno dedicado a Saldo 360. No usar `nexo-production` ni crear otro sin aclarar organización/coste. Registro real y panel de vendedores siguen pendientes.
 - **Infraestructura:** el hosting de Hostinger y la clave SSH del PC no son accesibles desde este chat; las herramientas conectadas permiten GitHub/Vercel, no edición DNS Hostinger ni terminal de su Windows.
 - **Próxima acción para lanzamiento:** 1) comprobar nuevo deploy READY y pruebas móvil; 2) arreglar CNAME *solo saldo360* en hPanel → Dominios → DNS; 3) verificar HTTPS y apertura de ambas rutas; 4) añadir autorización real de 3 proveedores; 5) preparar Supabase aislado (organización/coste), Auth y publicación de ofertas; 6) conectar VivaBot aislado con fuente autorizada y horario Havana, aprobación humana inicial. **No asegurar que el barrido 07:00 del 27-oct esté programado**.
+
+## Sesión 27-oct-2026 — Claude Code (auditoría de continuidad + base de datos + rediseño)
+**Informe completo:** `SALDO360_AUDITORIA_CONTINUIDAD_2026-10-27.md`.
+- **DNS hecho:** Hostinger, solo el registro `saldo360` (ALIAS a Hostinger → CNAME `a20442328f1324fb.vercel-dns-017.com`). Vercel `misconfigured:false`, HTTPS emitido, `casaviva.company` intacta (200).
+- **Bloqueo:** el dominio pide login de Vercel (protección de preview). Solución en «Próxima acción».
+- **Base de datos (sin aplicar):** `saldo360/supabase/migrations/20261027000100_saldo360_base.sql` (perfiles, tiendas, ofertas, reputación, contactos, operaciones, reseñas, denuncias, auditoría, consentimientos, vista `market_offers`, RPC `log_contact`, `start_request`, `request_action`, `leave_review`, `admin_*`) y `…000200_saldo360_fotos.sql` (Storage). Pruebas: `npx vitest run saldo360/supabase/tests` → **26/26**.
+- **Web:** `lib/saldo360/market.ts` (reglas y precio), `market-source.ts` (Supabase o archivo supervisado), `app/saldo360/*` rediseñado. Pruebas `npx vitest run lib/saldo360` → **5/5**. `tsc` OK, `next build --webpack` OK, Vercel READY. Probado en navegador a 375 px con 2 ofertas de prueba **locales** (no subidas): precio 1000 × 42,5/100 = 425 CUP, filtros, dirección, perfil, 404 y formulario.
+- **VivaBot PR #23:** `e682517` — unidad por 100 CUP, decimales con coma, sin tildes, mensaje de la web. **8/8**. Nada desplegado en el VPS.
+- **VPS:** solo lectura. Errores de Casa Viva anotados en la auditoría (Telegram Unauthorized, correo Core 400), sin tocar.
+- **No hecho / no verificado:** proyecto Supabase (espera autorización), registro y paneles, ofertas reales, acceso público al dominio.
+- **Cómo publicar ofertas HOY (importación supervisada):** el proveedor manda el texto de «Tengo saldo» → se revisa con él → se añade a `data/saldo360/offers.json` con `confirmedAt`/`expiresAt` (≤ 72 h) y commit → Vercel publica. Solo con consentimiento registrado (fuera del repo).

@@ -1544,3 +1544,9 @@ exo-caja-p0`), Core `core-caja-1020` = **3.14.42** (worktree `C:UsersErnestoCasa
 - UI implementada: inicio real «Busco saldo» / «Tengo saldo», ofertas, tiendas, formulario para copiar oferta, demo separada, manifest PWA y redirección de la raíz solo en host Saldo360. Build Vercel de la versión de interfaz verificado `READY` (`dpl_DAhyrVg3jZrvLMBAhuYvJ7nrTL1z`); PR #134 continúa en borrador.
 - VivaBot separado: PR #23 del repo `vivabot` con parser y cola opt-in para borradores de ofertas; NO desplegado, NO leyendo chats ni programado, requiere fuente autorizada y separación Casa Viva/Saldo360.
 - Sigue pendiente base Supabase propia/registro de usuarios/ofertas editables y seguridad de producción. Instrucciones exactas en `docs/nexo-business/SALDO360_LANZAMIENTO_2026-10-27.md` y progreso en `SALDO360_CONTROL.md`.
+
+### Saldo 360 — 27-oct-2026 (Claude Code, traspaso; rama piloto, NO producción)
+- **Hecho:** DNS de `saldo360.casaviva.company` corregido en Hostinger (solo ese registro) y HTTPS emitido; base de datos propia con permisos (migraciones en `saldo360/supabase/`, 26 pruebas OK, **sin aplicar**); portada «BUSCO SALDO / TENGO SALDO» y buscador con precio final y reputación real (`ba14509`, Vercel READY); intérprete VivaBot corregido (PR #23 `e682517`, 8/8, sin desplegar).
+- **Bloqueos para Ernesto:** (1) el dominio pide login de Vercel → poner la rama de Saldo 360 como *Production* del proyecto `saldo360-piloto` (pasos en `SALDO360_CONTROL.md`); (2) autorizar crear el Supabase `saldo360` (0 USD/mes, plan gratis sin copias automáticas).
+- **VPS (solo mirado):** VivaBot online; Telegram `Unauthorized` en bucle y `[correo] Core 400` en los logs de Casa Viva; ~1 GB de RAM libre.
+- **Siguiente:** con la base viva → registro/login y «Mi tienda». Detalle: `docs/nexo-business/SALDO360_AUDITORIA_CONTINUIDAD_2026-10-27.md`.
