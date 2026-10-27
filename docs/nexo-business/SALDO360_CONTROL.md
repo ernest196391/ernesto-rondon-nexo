@@ -34,6 +34,7 @@
 
 ## Próxima acción EXACTA
 1. ✅ **Hecho 27-oct:** «Confirm email» apagado (comprobado: registro con sesión inmediata, sin correo). Ernesto es **admin** (`ernest196391@gmail.com`, entra con «Entrar con correo»).
+1b. **Verificación automática por WhatsApp (lista, falta desplegar el bot):** fusionar [vivabot#24](https://github.com/ernest196391/vivabot/pull/24) (el control de seguridad no dejó a Claude subir a `main` de VivaBot) → en el VPS `cd /root/vivabot && git fetch && git merge --ff-only origin/main && cv reiniciar` → comprobar `cv estado` → poner en Vercel `NEXT_PUBLIC_SALDO360_VERIFY_ON=1` y redesplegar. Hasta entonces el botón está oculto (si no, «SALDO360 …» llegaría a la IA de Casa Viva). Volver atrás: borrar `/root/saldo360/bot.env` y reiniciar, o volver al commit `0668573` (copia en `/root/backups/vivabot-src-20261027-antes-saldo360.tgz`).
 2. **Ernesto — abrir el dominio al público (2 min):** Vercel → `saldo360-piloto` → *Settings → Environments → Production → Branch Tracking*: `casa-viva/saldo360-piloto-20261026`; luego *Domains → saldo360.casaviva.company → Edit* → Production. Hoy el dominio pide login de Vercel.
 4. **Piloto:** 3 proveedores se registran con su número; Ernesto verifica cada WhatsApp a mano y aprueba en «Revisar tiendas».
 5. **Copia de seguridad diaria** (plan gratis sin copias): contraseña de la base → `/root/saldo360/.env` en el VPS → `pg_dump` diario a `/root/backups/saldo360-*.sql.gz`.
@@ -95,3 +96,10 @@
 - **Olvido de clave:** `admin_temp_password` (migración `…000600`) crea 8 cifras; el admin las manda a mano con el botón de WhatsApp; el usuario la cambia en Mi cuenta. `admin_shop_owners` (`…000700`) da el número del dueño.
 - **Probado de punta a punta (base real):** número inválido avisado; clave mala → «Número o clave incorrectos»; entrar con número; tienda con WhatsApp prellenado; admin genera clave temporal (la vieja deja de servir); vendedor entra con la temporal y la cambia (la temporal deja de servir). Limpiado: base en 0.
 - **Commits:** `1f78e89`. Pruebas: 10 unitarias + 30 permisos; `next build` OK.
+
+## Sesión 27-oct-2026 (noche, 3) — Verificación automática por WhatsApp
+- **Cómo funciona:** en Mi tienda (tienda «En revisión») el vendedor toca «Verificar por WhatsApp» → código de 6 cifras (30 min) → abre WhatsApp al número de VivaBot (5354056173) con «SALDO360 123456». VivaBot intercepta los mensajes privados que empiezan por SALDO360 **antes** del flujo de Casa Viva (sin IA ni CRM), resuelve el número real (también @lid) y llama a `bot_verify_shop` del Supabase de Saldo 360 con una clave propia. Si el número es el WhatsApp de la tienda y el código cuadra → tienda aprobada sola. El bot nunca escribe primero.
+- **Seguridad:** la clave del bot se generó en el VPS (`/root/saldo360/bot.env`, 600; nunca mostrada); en la base solo está su huella sha256 (`private.bot_secrets`). Sin clave → «forbidden». 5 códigos fallidos anulan el código. La aprobación manual del admin sigue funcionando.
+- **Pruebas:** 31 de permisos (PGlite) + 4 en VivaBot (`npm run check` completo OK). **Desde el VPS con la clave real** (sin reiniciar): mal código → no coincide; otro número → no encuentra; sin código → ayuda; correcto → aprobada; repetido → ya verificada. Botón probado en local: código = el de la base, enlace `wa.me/5354056173?text=SALDO360 …`. Todo limpiado.
+- **Pendiente:** desplegar vivabot#24 (ver «Próxima acción» 1b) y una prueba real enviando desde un móvil que no sea el del bot.
+- **Commits:** Saldo 360 en este repo; VivaBot `c48a642` (rama `feat/saldo360-verificacion`, PR #24).
