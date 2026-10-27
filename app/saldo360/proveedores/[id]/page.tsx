@@ -1,1 +1,32 @@
-import Link from "next/link";import {notFound} from "next/navigation";import data from "../../../../data/saldo360/providers.json";import {providerIsCurrent,whatsAppOffer,type SaldoProvider} from "../../../../lib/saldo360/providers";import "../../saldo360.css";export default async function Perfil({params}:{params:Promise<{id:string}>}){const {id}=await params;const p=(data.providers as SaldoProvider[]).find(p=>p.id===id&&providerIsCurrent(p));if(!p)notFound();return <main className="s360 s360-real"><div className="s360-shell"><header className="s360-top"><Link href="/saldo360/ofertas" className="s360-logo"><img src="/saldo360/logo.svg" alt="" width="38" height="38"/><span>saldo<strong>360</strong></span></Link><Link href="/saldo360/proveedores" className="s360-header-link">← Tiendas</Link></header><section className="s360-content"><div className="s360-seller-hero"><span className="s360-avatar large" aria-hidden="true">{p.name[0]}</span><div><h1>{p.name}</h1><p>{p.locality}</p></div></div><div className="s360-card"><h2>Oferta publicada</h2><div className="s360-price"><div><small>Por cada CUP de saldo</small><strong>{p.rateCupPerCup.toLocaleString("es-CU")} CUP</strong></div></div><p>Disponible para solicitar: {p.minAmountCup.toLocaleString("es-CU")}–{p.maxAmountCup.toLocaleString("es-CU")} CUP</p><p>Medios: {p.paymentMethods.join(", ")}</p><p>Última confirmación: {new Date(p.confirmedAt).toLocaleString("es-CU")}</p><a className="s360-chat s360-full" href={whatsAppOffer(p,p.minAmountCup)} target="_blank" rel="noopener noreferrer">Consultar por WhatsApp ↗</a></div><div className="s360-card s360-trust"><h2>Reputación</h2><p>Sin operaciones verificadas todavía.</p><p>Las reseñas y el total de ventas aparecerán cuando exista un registro de operaciones comprobadas.</p></div><p className="s360-footnote">Contacto directo. Confirma las condiciones antes de pagar.</p></section></div></main>}
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { loadOffers } from "../../../../lib/saldo360/market-source";
+import { PAYMENT_METHODS, formatCup, reputationLabel, whatsAppLink } from "../../../../lib/saldo360/market";
+import { Avatar, SAFETY, Top } from "../../ui";
+import "../../saldo360.css";
+
+export const dynamic = "force-dynamic";
+
+export default async function Perfil({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const { offers } = await loadOffers();
+  const mine = offers.filter((o) => o.shopSlug === id).sort((a, b) => a.pricePer100Cup - b.pricePer100Cup);
+  if (!mine.length) notFound();
+  const shop = mine[0];
+  return <main className="s360"><div className="s360-shell">
+    <Top right={<Link href="/saldo360/proveedores" className="s360-header-link">← Tiendas</Link>}/>
+    <section className="s360-content">
+      <div className="s360-seller-hero"><Avatar offer={shop} large/><div><h1>{shop.shopName}</h1><p>{shop.locality || "Cuba"}</p></div></div>
+      <div className="s360-card s360-trust"><h2>Reputación</h2><p>{reputationLabel(shop)}</p>
+        {shop.confirmedOps <= 0 && <p className="s360-muted">Solo contamos operaciones confirmadas por comprador y vendedor. Un mensaje por WhatsApp no cuenta como venta.</p>}</div>
+      <h2 className="s360-heading">Ofertas <span>{mine.length}</span></h2>
+      {mine.map((o) => <article className="s360-offer" key={o.id}>
+        <div className="s360-price"><div><small>Por cada 100 CUP de saldo</small><strong className="s360-total">{formatCup(o.pricePer100Cup)}</strong></div>
+          <div><small>Puedes pedir</small><strong>{o.minCup.toLocaleString("es-CU")}–{o.maxCup.toLocaleString("es-CU")}</strong></div></div>
+        <p className="s360-meta">{o.paymentMethods.map((m) => PAYMENT_METHODS[m]).join(", ")} · vigente hasta {new Date(o.expiresAt).toLocaleString("es-CU", { timeZone: "America/Havana", dateStyle: "short", timeStyle: "short" })}</p>
+        <a className="s360-chat" href={whatsAppLink(o, o.minCup)} target="_blank" rel="noopener noreferrer">Escribir por WhatsApp</a>
+      </article>)}
+      <p className="s360-footnote">{SAFETY}</p>
+    </section>
+  </div></main>;
+}

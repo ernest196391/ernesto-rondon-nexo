@@ -13,6 +13,7 @@ const KEY="saldo360-demo-requests-v1";
 const money=(v:number)=>new Intl.NumberFormat("es-CU",{maximumFractionDigits:0}).format(v)+" CUP";
 export default function Saldo360Page(){
 const [amount,setAmount]=useState("300"),[method,setMethod]=useState("Transfermóvil"),[section,setSection]=useState<"recargar"|"pedidos"|"proveedor">("recargar"),[chosen,setChosen]=useState<string|null>(null),[requests,setRequests]=useState<Request[]>([]),[loaded,setLoaded]=useState(false),[notice,setNotice]=useState("");
+// eslint-disable-next-line react-hooks/set-state-in-effect -- leer localStorage solo puede hacerse tras montar
 useEffect(()=>{try{const stored=JSON.parse(localStorage.getItem(KEY)||"[]");if(Array.isArray(stored))setRequests(stored.slice(0,25));}catch{}setLoaded(true)},[]);
 useEffect(()=>{if(loaded)localStorage.setItem(KEY,JSON.stringify(requests));},[requests,loaded]);
 const num=Number(amount);const valid=Number.isInteger(num)&&num>=10&&num<=10000;

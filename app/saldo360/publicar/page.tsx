@@ -1,21 +1,69 @@
 "use client";
 import Link from "next/link";
-import {useState} from "react";
+import { useState } from "react";
+import { PAYMENT_METHODS, formatCup, totalCup, type PaymentMethod } from "../../../lib/saldo360/market";
+import { Top } from "../ui";
 import "../saldo360.css";
-export default function Publicar(){
- const [monto,setMonto]=useState("500"),[precio,setPrecio]=useState(""),[medio,setMedio]=useState("Transfermóvil"),[done,setDone]=useState(false),[copyError,setCopyError]=useState(false);
- const n=Number(monto),p=Number(precio),ok=Number.isFinite(n)&&Number.isInteger(n)&&n>0&&n<=100000&&Number.isFinite(p)&&p>0&&p<=1000000;
- const message=`SALDO360 OFERTA\nSaldo disponible: ${n} CUP\nPrecio por 100 CUP de saldo: ${p} CUP\nPago: ${medio}\nConfirmar antes de publicar.\nAutorizo que se me contacte para verificar la oferta; todavía no autorizo publicar mis datos personales.`;
- async function copy(){if(!ok)return;try{await navigator.clipboard.writeText(message);setDone(true);setCopyError(false)}catch{setCopyError(true);setDone(false)}}
- return <main className="s360 s360-real"><div className="s360-shell"><header className="s360-top"><Link className="s360-logo" href="/saldo360"><img src="/saldo360/logo.svg" alt="" width="42" height="42"/><span>saldo<strong>360</strong></span></Link><Link href="/saldo360/ofertas" className="s360-header-link">Busco saldo →</Link></header>
- <section className="s360-content"><div className="s360-intro s360-subpage-intro"><h1>Tengo saldo.</h1><p>Prepara tu oferta.</p></div><div className="s360-card s360-sell-form">
- <label className="s360-label" htmlFor="stock">¿Cuánto tienes? (CUP)</label><input id="stock" type="number" min="1" max="100000" value={monto} onChange={e=>{setMonto(e.target.value);setDone(false)}}/>
- <label className="s360-label" htmlFor="rate">¿Cuánto cobras por 100 CUP de saldo?</label><input id="rate" type="number" min="0.01" max="1000000" step="0.01" placeholder="Ej. 400" value={precio} onChange={e=>{setPrecio(e.target.value);setDone(false)}}/>
- <label className="s360-label" htmlFor="method">¿Cómo recibes el pago?</label><select id="method" value={medio} onChange={e=>{setMedio(e.target.value);setDone(false)}}>{["Transfermóvil","EnZona","Efectivo"].map(x=><option key={x}>{x}</option>)}</select>
- <button className="s360-primary" disabled={!ok} onClick={copy}>Copiar oferta</button>
- {done&&<p role="status" className="s360-success">Oferta copiada. Envíala por WhatsApp al equipo que te invitó.</p>}
- {copyError&&<p role="alert" className="s360-error">No se pudo copiar. Selecciona y copia el texto manualmente:</p>}
- {copyError&&<textarea readOnly aria-label="Texto de la oferta" value={message}/>}
- </div><p className="s360-footnote">Registro y publicación automática aún no disponibles. Copiar una oferta no la publica ni envía mensajes.</p>
- </section></div></main>;
+
+// Mientras no haya cuentas, la oferta se envía al equipo de Saldo 360, que la verifica y la publica.
+const OPERATOR = (process.env.NEXT_PUBLIC_SALDO360_OPERATOR_WHATSAPP || "").replace(/\D/g, "");
+
+export default function Publicar() {
+  const [stock, setStock] = useState("1000");
+  const [price, setPrice] = useState("");
+  const [methods, setMethods] = useState<PaymentMethod[]>(["transfermovil"]);
+  const [shop, setShop] = useState("");
+  const [locality, setLocality] = useState("");
+  const [consent, setConsent] = useState(false);
+  const [copied, setCopied] = useState<"" | "ok" | "error">("");
+
+  const n = Number(stock), p = Number(price);
+  const amountOk = Number.isInteger(n) && n >= 1 && n <= 100000;
+  const priceOk = Number.isFinite(p) && p > 0 && p <= 100000;
+  const ok = amountOk && priceOk && methods.length > 0 && shop.trim().length >= 2 && consent;
+  const message = [
+    "SALDO360 OFERTA",
+    `Tienda: ${shop.trim()}${locality.trim() ? ` (${locality.trim()})` : ""}`,
+    `Saldo disponible: ${n} CUP`,
+    `Por 100 CUP cobro ${p} CUP`,
+    `Pago: ${methods.map((m) => PAYMENT_METHODS[m]).join(", ")}`,
+    "Autorizo a Saldo 360 a publicar mi nombre de tienda y este WhatsApp con esta oferta durante 24 horas.",
+  ].join("\n");
+
+  const toggle = (m: PaymentMethod) => { setMethods((xs) => (xs.includes(m) ? xs.filter((x) => x !== m) : [...xs, m])); setCopied(""); };
+  async function copy() {
+    if (!ok) return;
+    try { await navigator.clipboard.writeText(message); setCopied("ok"); } catch { setCopied("error"); }
+  }
+
+  return <main className="s360"><div className="s360-shell">
+    <Top right={<Link href="/saldo360/ofertas" className="s360-header-link">Busco saldo</Link>}/>
+    <section className="s360-content">
+      <div className="s360-intro"><h1>Tengo saldo</h1><p>Publica tu oferta gratis. Los compradores te escriben directo.</p></div>
+      <div className="s360-card s360-sell-form" onChange={() => setCopied("")}>
+        <label className="s360-label" htmlFor="stock">¿Cuánto saldo tienes?</label>
+        <div className="s360-amount"><input id="stock" type="number" inputMode="numeric" min="1" max="100000" value={stock} onChange={(e) => setStock(e.target.value)}/><span>CUP</span></div>
+        <label className="s360-label" htmlFor="rate">¿Cuánto cobras por cada 100 CUP de saldo?</label>
+        <div className="s360-amount"><input id="rate" type="number" inputMode="decimal" min="0.01" max="100000" step="0.01" value={price} onChange={(e) => setPrice(e.target.value)}/><span>CUP</span></div>
+        {priceOk && <p className="s360-preview">Quien compre 300 CUP de saldo te pagará <strong>{formatCup(totalCup(300, p))}</strong>.</p>}
+        <fieldset className="s360-methods"><legend className="s360-label">¿Cómo te pagan?</legend>
+          {Object.entries(PAYMENT_METHODS).map(([k, v]) => <label key={k} className={methods.includes(k as PaymentMethod) ? "active" : ""}>
+            <input type="checkbox" checked={methods.includes(k as PaymentMethod)} onChange={() => toggle(k as PaymentMethod)}/>{v}</label>)}
+        </fieldset>
+        <label className="s360-label" htmlFor="shop">Nombre de tu tienda</label>
+        <input id="shop" maxLength={60} placeholder="Ej. Saldo Rápido Playa" value={shop} onChange={(e) => setShop(e.target.value)}/>
+        <label className="s360-label" htmlFor="locality">¿Dónde estás? <span className="s360-muted">(opcional)</span></label>
+        <input id="locality" maxLength={60} placeholder="Municipio o provincia" value={locality} onChange={(e) => setLocality(e.target.value)}/>
+        <label className="s360-consent"><input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)}/>
+          <span>Autorizo publicar mi nombre de tienda y mi WhatsApp con esta oferta.</span></label>
+        {OPERATOR
+          ? <a className={"s360-primary" + (ok ? "" : " disabled")} aria-disabled={!ok} href={ok ? `https://wa.me/${OPERATOR}?text=${encodeURIComponent(message)}` : undefined} target="_blank" rel="noopener noreferrer">Enviar oferta por WhatsApp</a>
+          : <button className="s360-primary" type="button" disabled={!ok} onClick={copy}>Copiar oferta</button>}
+        {!ok && <p className="s360-muted">Completa saldo, precio, forma de pago, nombre y autorización.</p>}
+        {copied === "ok" && <p role="status" className="s360-success">Copiada. Pégala en WhatsApp a quien te invitó a Saldo 360.</p>}
+        {copied === "error" && <><p role="alert" className="s360-error">No se pudo copiar. Copia este texto:</p><textarea readOnly aria-label="Texto de la oferta" value={message}/></>}
+      </div>
+      <p className="s360-footnote">Verificamos cada oferta antes de publicarla. Vence a las 24 h si no la confirmas. Saldo 360 no cobra ni transfiere saldo.</p>
+    </section>
+  </div></main>;
 }

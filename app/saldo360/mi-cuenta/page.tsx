@@ -1,1 +1,17 @@
-import Link from "next/link";import "../saldo360.css";export default function Cuenta(){return <main className="s360 s360-real"><div className="s360-shell"><header className="s360-top"><Link href="/saldo360/ofertas" className="s360-logo"><img src="/saldo360/logo.svg" alt="" width="38" height="38"/><span>saldo<strong>360</strong></span></Link></header><nav className="s360-market-nav"><Link href="/saldo360/ofertas">Explorar</Link><Link href="/saldo360/proveedores">Tiendas</Link><Link className="active" href="/saldo360/mi-cuenta">Mi cuenta</Link></nav><section className="s360-content"><div className="s360-intro"><h1>Tu cuenta</h1><p>Compra, vende y construye tu reputación.</p></div><div className="s360-card"><h2>Para compradores</h2><p>Guarda proveedores, consulta tus contactos y valora operaciones completadas.</p><p className="s360-muted">Registro seguro en preparación. Aún no guardamos datos personales.</p></div><div className="s360-card" style={{marginTop:14}}><h2>Para proveedores</h2><p>Tu perfil, foto, ofertas, historial y reseñas en una misma tienda.</p><p className="s360-muted">La publicación de ofertas requerirá una cuenta verificada.</p></div><Link href="/saldo360/ofertas" className="s360-chat s360-full">Explorar ofertas →</Link></section></div></main>}
+import Link from "next/link";
+import { Top } from "../ui";
+import "../saldo360.css";
+
+// Sin cuentas todavía: esta pantalla lo dice claro y ofrece lo que sí funciona hoy.
+export default function Cuenta() {
+  return <main className="s360"><div className="s360-shell">
+    <Top/>
+    <section className="s360-content">
+      <div className="s360-intro"><h1>Mi cuenta</h1><p>Las cuentas llegan pronto. Hoy no hace falta registrarse.</p></div>
+      <div className="s360-card"><h2>¿Buscas saldo?</h2><p>Compara precios y escribe directo al vendedor.</p>
+        <Link className="s360-primary" href="/saldo360/ofertas">Busco saldo</Link></div>
+      <div className="s360-card"><h2>¿Vendes saldo?</h2><p>Envíanos tu oferta; la verificamos y la publicamos.</p>
+        <Link className="s360-primary" href="/saldo360/publicar">Tengo saldo</Link></div>
+    </section>
+  </div></main>;
+}
