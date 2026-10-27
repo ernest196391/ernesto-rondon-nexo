@@ -240,6 +240,47 @@ describe("contactos y operaciones", () => {
   });
 });
 
+describe("ofertas del vendedor con hora del servidor", () => {
+  it("publish_offer fija la vigencia en la base y solo en la tienda propia", async () => {
+    await as(db, U.sellerA, (tx) => tx.query("UPDATE public.offers SET status = 'paused' WHERE shop_id = $1", [shopA]));
+    const id = (await as(db, U.sellerA, (tx) => one(tx, "SELECT public.publish_offer($1, 100, 3000, 41, '{enzona}', 72) AS id", [shopA]))).id;
+    const o = await as(db, U.sellerA, (tx) => one(tx, "SELECT round(extract(epoch FROM expires_at - confirmed_at) / 3600) AS h, source FROM public.offers WHERE id = $1", [id]));
+    expect(o).toEqual({ h: "72", source: "web" });
+    await expect(as(db, U.sellerB, (tx) => tx.query("SELECT public.publish_offer($1, 1, 10, 40, '{efectivo}', 24)", [shopA])))
+      .rejects.toThrow(/row-level security|Solo el dueño/);
+    await expect(as(db, U.sellerA, (tx) => tx.query("SELECT public.publish_offer($1, 1, 10, 40, '{efectivo}', 100)", [shopA])))
+      .rejects.toThrow(/Vigencia/);
+    await expect(as(db, null, (tx) => tx.query("SELECT public.publish_offer($1, 1, 10, 40, '{efectivo}', 24)", [shopA])))
+      .rejects.toThrow(/permission denied/);
+  });
+
+  it("update_offer cambia el precio y renueva; confirm_offer renueva; nadie toca ofertas ajenas", async () => {
+    const id = (await as(db, U.sellerA, (tx) => one(tx, "SELECT id FROM public.offers WHERE shop_id = $1 AND status = 'active' LIMIT 1", [shopA]))).id;
+    await db.query("UPDATE public.offers SET confirmed_at = now() - interval '30 hours', expires_at = now() - interval '1 hour' WHERE id = $1", [id]);
+    await as(db, U.sellerA, (tx) => tx.query("SELECT public.update_offer($1, 100, 2500, 39.5, '{transfermovil}', 24)", [id]));
+    const m = await as(db, null, (tx) => one(tx, "SELECT price_per_100_cup, max_cup FROM public.market_offers WHERE id = $1", [id]));
+    expect(m).toEqual({ price_per_100_cup: "39.50", max_cup: 2500 });
+    await expect(as(db, U.sellerB, (tx) => tx.query("SELECT public.update_offer($1, 1, 10, 1, '{efectivo}', 24)", [id]))).rejects.toThrow(/no encontrada/);
+    await expect(as(db, U.sellerB, (tx) => tx.query("SELECT public.confirm_offer($1, 24)", [id]))).rejects.toThrow(/no encontrada/);
+    await db.query("UPDATE public.offers SET confirmed_at = now() - interval '30 hours', expires_at = now() - interval '1 hour' WHERE id = $1", [id]);
+    await as(db, U.sellerA, (tx) => tx.query("SELECT public.confirm_offer($1, 48)", [id]));
+    const again = await as(db, null, (tx) => rows(tx, "SELECT id FROM public.market_offers WHERE id = $1", [id]));
+    expect(again).toHaveLength(1);
+  });
+
+  it("pausar o quitar una oferta vencida hace días funciona y no la revive", async () => {
+    await as(db, U.sellerA, (tx) => tx.query("UPDATE public.offers SET status = 'paused' WHERE shop_id = $1 AND status = 'active'", [shopA]));
+    const id = (await as(db, U.sellerA, (tx) => one(tx, "SELECT public.publish_offer($1, 1, 10, 40, '{efectivo}', 24) AS id", [shopA]))).id;
+    await db.query("UPDATE public.offers SET confirmed_at = now() - interval '5 days', expires_at = now() - interval '4 days' WHERE id = $1", [id]);
+    await as(db, U.sellerA, (tx) => tx.query("UPDATE public.offers SET status = 'paused' WHERE id = $1", [id]));
+    let o = await as(db, U.sellerA, (tx) => one(tx, "SELECT status, expires_at < now() AS vencida FROM public.offers WHERE id = $1", [id]));
+    expect(o).toEqual({ status: "paused", vencida: true });
+    await as(db, U.sellerA, (tx) => tx.query("UPDATE public.offers SET status = 'removed' WHERE id = $1", [id]));
+    o = await as(db, U.sellerA, (tx) => one(tx, "SELECT status FROM public.offers WHERE id = $1", [id]));
+    expect(o.status).toBe("removed");
+  });
+});
+
 describe("moderación, importación supervisada y fotos", () => {
   it("suspender a un proveedor oculta su tienda y bloquea nuevas ofertas", async () => {
     await as(db, U.admin, (tx) => tx.query("SELECT public.admin_set_user_status($1, 'suspended', 'prueba')", [U.sellerB]));
@@ -278,5 +319,11 @@ describe("moderación, importación supervisada y fotos", () => {
       .rejects.toThrow(/row-level security/);
     const del = await as(db, U.sellerA, (tx) => tx.query("DELETE FROM storage.objects WHERE name = $1", [`${U.sellerB}/perfil.jpg`]));
     expect(del.affectedRows).toBe(0);
+    // Cada uno ve (y por tanto puede borrar) solo lo suyo.
+    await db.query("INSERT INTO storage.objects (bucket_id, name, owner) VALUES ('shop-photos', $1, $2)", [`${U.sellerB}/b.jpg`, U.sellerB]);
+    const mine = await as(db, U.sellerA, (tx) => rows(tx, "SELECT name FROM storage.objects ORDER BY name"));
+    expect(mine.map((r) => r.name)).toEqual([`${U.sellerA}/perfil.jpg`]);
+    const own = await as(db, U.sellerA, (tx) => tx.query("DELETE FROM storage.objects WHERE name = $1", [`${U.sellerA}/perfil.jpg`]));
+    expect(own.affectedRows).toBe(1);
   });
 });
