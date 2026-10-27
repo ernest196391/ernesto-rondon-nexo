@@ -15,7 +15,7 @@
 | 1 | Producto, legal y reglas | ⚪ | Falta revisión de actividad comercial/ETECSA/privacidad. Unidad de precio fijada: CUP por cada 100 CUP. |
 | 2 | UX app-first / identidad / rutas | 🟢 | Portada BUSCO/TENGO SALDO, buscador con precio final, tiendas, perfil, 404 en español, iconos PWA. Probado en móvil 375 px (27-oct). Falta aprobación visual de Ernesto. |
 | 3 | BD + RLS | 🟢 | Supabase `saldo360` (`zgjycphcugbiyoluqsry`, us-east-1, plan gratis) creado 27-oct con las 2 migraciones. Permisos verificados en la base real (prueba que se deshace sola) + 26 pruebas PGlite. Falta copia de seguridad diaria (el plan gratis no la hace). |
-| 4 | Registro y roles | 🟡 | `/saldo360/entrar` (entrar, crear cuenta, olvidé contraseña), `/saldo360/nueva-clave`, Mi cuenta con sesión y cerrar sesión; rol vendedor automático al crear tienda. Probado contra la base real. **Falta SMTP propio** (sin él, Supabase no envía la confirmación ni la recuperación a correos de fuera del equipo y limita a ~2 registros/hora) y URLs de Auth. |
+| 4 | Registro y roles | 🟢 | Cuentas con **número Cubacel + clave** (decisión 27-oct): sin correo, SMS ni WhatsApp automáticos. Olvido de clave → clave temporal desde Revisar tiendas, enviada a mano. Probado de punta a punta (`1f78e89`). **Falta que Ernesto apague «Confirm email» en Supabase** para que el registro público funcione. |
 | 5 | Tienda y avatar | 🟢 | `/saldo360/mi-tienda`: crear con WhatsApp cubano + autorización, foto (512 px WebP, reemplaza la anterior), editar, pausar/reactivar, contactos de 7 días. Probado de punta a punta (27-oct). |
 | 6 | Publicación ofertas | 🟢 | Mis ofertas: publicar, cambiar precio, pausar, «Sigue en pie», quitar; vigencia calculada en la base (RPC `publish_offer`/`update_offer`/`confirm_offer`). Probado de punta a punta. |
 | 7 | Búsqueda y WhatsApp | 🟢 | Monto + forma de pago (se conservan al volver), precio final, vigencia, reputación real, WhatsApp y registro de contacto (no venta). Falta prueba con oferta real. |
@@ -33,17 +33,12 @@
 - No se tocó la producción de Casa Viva para esta auditoría.
 
 ## Próxima acción EXACTA
-1. **Acción de Ernesto (2 min, bloquea el acceso público):** en Vercel → proyecto `saldo360-piloto` → *Settings → Environments → Production → Branch Tracking*: poner `casa-viva/saldo360-piloto-20261026` y guardar. Luego *Settings → Domains → saldo360.casaviva.company → Edit*: quitar la rama (dejarlo en **Production**). Así el dominio deja de pedir login y los enlaces de prueba siguen protegidos. (Claude lo intentó: el panel dijo «You need additional permissions» y el cambio por API quedó bloqueado por seguridad.) Alternativa más simple pero menos segura: *Deployment Protection → Vercel Authentication → Off*.
-2. **Correo propio para las cuentas (bloquea registros reales; lo hace Ernesto porque lleva contraseña):**
-   - Hostinger → *Emails* → `casaviva.company` → *Crear cuenta de correo*: `saldo360@casaviva.company`, contraseña nueva y larga (guárdala en tu gestor; no la mandes por chat). Si Hostinger pide pagar o ampliar el plan, **no pagues**: avísame y buscamos otra opción.
-   - Supabase → proyecto `saldo360` → *Authentication → Emails → SMTP Settings* → activar *Enable custom SMTP*:
-     Sender email `saldo360@casaviva.company` · Sender name `Saldo 360` · Host `smtp.hostinger.com` · Port `465` · Username `saldo360@casaviva.company` · Password = la del buzón · Minimum interval `60` → *Save*.
-   - Después: *Authentication → Rate Limits* → «emails por hora» a 30 (con SMTP propio ya se puede subir).
-   - Sin esto, la confirmación y la recuperación de contraseña no llegan a nadie de fuera del equipo y Supabase limita a ~2 registros por hora (comprobado: 429).
-3. **URLs de Auth (sin contraseñas; Claude puede hacerlo si tiene el panel de Supabase en un navegador):** Supabase → *Authentication → URL Configuration*: Site URL `https://saldo360.casaviva.company/saldo360`; Redirect URLs: `https://saldo360.casaviva.company/saldo360/**`. Sin esto, los enlaces del correo van a `localhost`.
-4. **Primer administrador:** Ernesto se registra en `/saldo360/entrar?modo=registro` y Claude le pone el rol `admin` por SQL (no hay botón para darse admin, a propósito).
-5. **Copia de seguridad diaria:** el plan gratis no hace copias. Hace falta la contraseña de la base (Supabase → Project Settings → Database → *Reset database password*); se guarda solo en el VPS (`/root/saldo360/.env`) y se programa `pg_dump` diario a `/root/backups/saldo360-*.sql.gz` (7 días).
-6. Siguiente bloque: «Mis operaciones» (solicitudes con doble confirmación) y reseñas verificadas (Fases F); luego VivaBot → `admin_publish_offer` (Fase G).
+1. **Ernesto — apagar «Confirm email» (1 clic, bloquea registros):** Supabase → proyecto `saldo360` → *Authentication → Sign In / Providers → Email* → apagar **Confirm email** → *Save*. Comprobado el 27-oct: con el interruptor encendido, cada registro intenta mandar un correo y Supabase lo frena (429). Con él apagado no se envía nada.
+2. **Ernesto — abrir el dominio al público (2 min):** Vercel → `saldo360-piloto` → *Settings → Environments → Production → Branch Tracking*: `casa-viva/saldo360-piloto-20261026`; luego *Domains → saldo360.casaviva.company → Edit* → Production. Hoy el dominio pide login de Vercel.
+3. **Primer administrador:** Ernesto se registra con su número en `/saldo360/entrar?modo=registro` y Claude le pone el rol `admin` por SQL.
+4. **Piloto:** 3 proveedores se registran con su número; Ernesto verifica cada WhatsApp a mano y aprueba en «Revisar tiendas».
+5. **Copia de seguridad diaria** (plan gratis sin copias): contraseña de la base → `/root/saldo360/.env` en el VPS → `pg_dump` diario a `/root/backups/saldo360-*.sql.gz`.
+6. **Más adelante (no urgente):** correo SMTP (puede costar en Hostinger; alternativa gratis Brevo) o códigos por WhatsApp con un número propio de Saldo 360; luego «Mis operaciones» y reseñas (Fase F) y VivaBot → `admin_publish_offer` (Fase G).
 
 ## Obligaciones para el próximo agente
 1. Leer `SALDO360_MASTER_BLUEPRINT.md` completo y este CONTROL.
@@ -94,3 +89,10 @@
 - **Pruebas:** 9 unitarias + 29 de permisos (PGlite) OK; `tsc` OK; `next build` (Turbopack) OK. **De punta a punta contra la base real** (local, móvil 375 px): contraseña mala → «Correo o contraseña incorrectos»; crear tienda (móvil inválido rechazado) → «En revisión»; oferta guardada pero NO pública; foto subida (carpeta propia 200, ajena 403); autoaprobación por API rechazada; admin aprueba → oferta pública con foto y 1000 CUP → 425 CUP; cambiar precio 42,5→40; pausar (desaparece), renovar (vuelve), quitar; pausar/reactivar tienda. Después se borró todo: 0 usuarios, 0 tiendas, 0 fotos.
 - **Hallazgos:** Supabase sin SMTP propio solo envía correos al equipo y limita a ~2 registros/hora (429 comprobado). Las URLs de Auth siguen en `localhost`. Ver «Próxima acción».
 - **Commits:** `5e093ca` (base), `ce818d8` (pantallas).
+
+## Sesión 27-oct-2026 (noche, 2) — Cuentas por número + clave
+- **Decisión de Ernesto:** sin correo ni verificación automática en el piloto (el correo podría costar en Hostinger y el WhatsApp automático arriesga bloqueos). Cuenta = móvil Cubacel + clave; verificación humana al aprobar la tienda.
+- **Cómo funciona:** la cuenta interna es `saldo360+<53XXXXXXXX>@casaviva.company` (Supabase exige un dominio con correo; `tel.saldo360…` fue rechazado). No se envía ningún mensaje.
+- **Olvido de clave:** `admin_temp_password` (migración `…000600`) crea 8 cifras; el admin las manda a mano con el botón de WhatsApp; el usuario la cambia en Mi cuenta. `admin_shop_owners` (`…000700`) da el número del dueño.
+- **Probado de punta a punta (base real):** número inválido avisado; clave mala → «Número o clave incorrectos»; entrar con número; tienda con WhatsApp prellenado; admin genera clave temporal (la vieja deja de servir); vendedor entra con la temporal y la cambia (la temporal deja de servir). Limpiado: base en 0.
+- **Commits:** `1f78e89`. Pruebas: 10 unitarias + 30 permisos; `next build` OK.
