@@ -14,7 +14,7 @@
 | 0 | Inventario / punto de partida | 🟢 | Auditoría real 27-oct: `SALDO360_AUDITORIA_CONTINUIDAD_2026-10-27.md` (código, Vercel, DNS, VPS, VivaBot, Supabase). |
 | 1 | Producto, legal y reglas | ⚪ | Falta revisión de actividad comercial/ETECSA/privacidad. Unidad de precio fijada: CUP por cada 100 CUP. |
 | 2 | UX app-first / identidad / rutas | 🟢 | Portada BUSCO/TENGO SALDO, buscador con precio final, tiendas, perfil, 404 en español, iconos PWA. Probado en móvil 375 px (27-oct). Falta aprobación visual de Ernesto. |
-| 3 | BD + RLS | 🟡 | Migraciones `saldo360/supabase/migrations/` + 26 pruebas RLS OK en PGlite. **Falta crear el proyecto Supabase `saldo360` (gratis, espera autorización) y aplicarlas.** |
+| 3 | BD + RLS | 🟢 | Supabase `saldo360` (`zgjycphcugbiyoluqsry`, us-east-1, plan gratis) creado 27-oct con las 2 migraciones. Permisos verificados en la base real (prueba que se deshace sola) + 26 pruebas PGlite. Falta copia de seguridad diaria (el plan gratis no la hace). |
 | 4 | Registro y roles | 🟡 | Roles y permisos en la base (comprador/proveedor/admin, nadie se sube de rol). Falta pantalla de registro/login (necesita el paso 3 en vivo). |
 | 5 | Tienda y avatar | 🟡 | Tablas, Storage `shop-photos` y permisos listos y probados. Falta pantalla «Mi tienda». |
 | 6 | Publicación ofertas | 🟡 | Base lista (vigencia ≤ 72 h, máx. 5 activas, pausar, reconfirmar). Hoy: formulario «Tengo saldo» con consentimiento + importación supervisada. Falta editor con cuenta. |
@@ -34,7 +34,7 @@
 
 ## Próxima acción EXACTA
 1. **Acción de Ernesto (2 min, bloquea el acceso público):** en Vercel → proyecto `saldo360-piloto` → *Settings → Environments → Production → Branch Tracking*: poner `casa-viva/saldo360-piloto-20261026` y guardar. Luego *Settings → Domains → saldo360.casaviva.company → Edit*: quitar la rama (dejarlo en **Production**). Así el dominio deja de pedir login y los enlaces de prueba siguen protegidos. (Claude lo intentó: el panel dijo «You need additional permissions» y el cambio por API quedó bloqueado por seguridad.) Alternativa más simple pero menos segura: *Deployment Protection → Vercel Authentication → Off*.
-2. **Autorización de Ernesto:** crear el proyecto Supabase `saldo360` (0 USD/mes, región us-east-1). Después: aplicar `saldo360/supabase/migrations/*`, poner en Vercel `NEXT_PUBLIC_SALDO360_SUPABASE_URL` y `NEXT_PUBLIC_SALDO360_SUPABASE_ANON_KEY`, crear el primer admin y programar `pg_dump` diario en el VPS (el plan gratis no hace copias).
+2. **Copia de seguridad diaria del Supabase `saldo360`:** el plan gratis no hace copias. Hace falta la contraseña de la base (Supabase → Project Settings → Database → *Reset database password*); se guarda solo en el VPS (`/root/saldo360/.env`, nunca en GitHub) y se programa `pg_dump` diario a `/root/backups/saldo360-*.sql.gz` (7 días).
 3. Con la base viva: pantallas de registro/login y «Mi tienda» (Fases C–D).
 
 ## Obligaciones para el próximo agente
@@ -69,3 +69,12 @@
 - **VPS:** solo lectura. Errores de Casa Viva anotados en la auditoría (Telegram Unauthorized, correo Core 400), sin tocar.
 - **No hecho / no verificado:** proyecto Supabase (espera autorización), registro y paneles, ofertas reales, acceso público al dominio.
 - **Cómo publicar ofertas HOY (importación supervisada):** el proveedor manda el texto de «Tengo saldo» → se revisa con él → se añade a `data/saldo360/offers.json` con `confirmedAt`/`expiresAt` (≤ 72 h) y commit → Vercel publica. Solo con consentimiento registrado (fuera del repo).
+
+## Sesión 27-oct-2026 (tarde) — Supabase saldo360 creado y conectado
+- **Proyecto:** `saldo360`, id `zgjycphcugbiyoluqsry`, `https://zgjycphcugbiyoluqsry.supabase.co`, us-east-1, organización «Ernesto Rondón», **plan gratis, 0 USD/mes** (autorizado por Ernesto).
+- **Migraciones aplicadas:** `saldo360_base` y `saldo360_fotos` (mismo SQL que `saldo360/supabase/migrations/`). Avisos de Supabase: solo «funciones SECURITY DEFINER ejecutables», esperado (cada RPC comprueba quién llama). Ninguna tabla sin RLS.
+- **Prueba en la base real** (transacción que se deshace): tienda nueva pendiente, rol vendedor automático, el dueño no se autoaprueba, el visitante ve la oferta pero no perfiles ni evidencia de consentimiento, un clic = contacto y 0 operaciones, el proveedor B no edita la oferta de A ni usa funciones de admin.
+- **Web conectada:** variables `NEXT_PUBLIC_SALDO360_SUPABASE_URL` y `NEXT_PUBLIC_SALDO360_SUPABASE_ANON_KEY` (clave `sb_publishable_…`, pública por diseño) en Vercel para production/preview/development. Commit `442c9ac`, despliegue `dpl_G4LS2u8d6j4AQXth9i3NEffxRdPh` READY.
+- **Prueba de punta a punta:** oferta temporal «PRUEBA — no comprar» (WhatsApp ficticio) creada con `admin_publish_offer` → apareció en `/saldo360/ofertas` del despliegue real con 1000 CUP → 425 CUP; `log_contact` como visitante → 1 contacto, 0 operaciones. **Borrada** después: la base quedó con 0 tiendas, 0 ofertas, 0 contactos.
+- **Desde ahora las ofertas salen de Supabase.** `data/saldo360/offers.json` solo se usa si faltan las variables. Importación supervisada: `saldo360/supabase/plantillas/importar-oferta.sql`.
+- **Pendiente:** copia diaria (ver Próxima acción 2), primer usuario admin (cuando exista el registro), acceso público al dominio (Próxima acción 1).
