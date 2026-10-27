@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { dbError, normalizeCubanMobile } from "../../../lib/saldo360/shop-rules";
+import { dbError, normalizeCubanMobile, prettyPhone } from "../../../lib/saldo360/shop-rules";
 import { photoUrl, saldoSupabase } from "../../../lib/saldo360/supabase-browser";
 
 export type Shop = { id: string; slug: string; name: string; bio: string; locality: string; whatsapp_e164: string | null; photo_path: string | null; status: "pending" | "approved" | "paused" | "suspended"; verified_at: string | null };
@@ -21,6 +21,37 @@ async function shrink(file: File): Promise<Blob> {
   canvas.width = canvas.height = 512;
   canvas.getContext("2d")!.drawImage(img, (img.width - side) / 2, (img.height - side) / 2, side, side, 0, 0, 512, 512);
   return new Promise((resolve, reject) => canvas.toBlob((b) => (b ? resolve(b) : reject(new Error("foto"))), "image/webp", 0.82));
+}
+
+// Número del bot que verifica tiendas (VivaBot filtra los mensajes «SALDO360»). Solo se muestra con
+// NEXT_PUBLIC_SALDO360_VERIFY_ON=1, que se pone cuando el bot ya tiene el cambio (vivabot#24).
+const BOT = process.env.NEXT_PUBLIC_SALDO360_VERIFY_ON === "1" ? (process.env.NEXT_PUBLIC_SALDO360_BOT_WHATSAPP || "").replace(/\D/g, "") : "";
+
+/** El vendedor manda «SALDO360 <código>» desde SU WhatsApp; el bot comprueba número y código y aprueba la tienda. */
+function Verificar({ shop, onDone }: { shop: Shop; onDone: () => void }) {
+  const [code, setCode] = useState("");
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState("");
+
+  async function start() {
+    setBusy(true); setError("");
+    const { data, error } = await saldoSupabase()!.rpc("start_shop_verification", { p_shop_id: shop.id });
+    setBusy(false);
+    if (error) return setError(dbError(error.message));
+    setCode(String(data));
+  }
+
+  if (!code) return <>
+    <button className="s360-primary" type="button" disabled={busy} onClick={start}>{busy ? "Un momento…" : "Verificar por WhatsApp"}</button>
+    <p className="s360-muted">Se publica sola en cuanto nos escribes desde el WhatsApp de tu tienda.</p>
+    {error && <p role="alert" className="s360-error s360-form-msg">{error}</p>}
+  </>;
+  const text = `SALDO360 ${code}`;
+  return <>
+    <p className="s360-verify">Envía <strong>{text}</strong> desde el WhatsApp <strong>{prettyPhone(shop.whatsapp_e164!)}</strong>. Vale 30 minutos.</p>
+    <a className="s360-chat" href={`https://wa.me/${BOT}?text=${encodeURIComponent(text)}`} target="_blank" rel="noopener noreferrer">Abrir WhatsApp y enviar</a>
+    <button className="s360-link-btn" type="button" onClick={onDone}>Ya lo envié</button>
+  </>;
 }
 
 export default function Tienda({ shop, userId, onChange }: { shop: Shop; userId: string; onChange: () => void }) {
@@ -96,6 +127,7 @@ export default function Tienda({ shop, userId, onChange }: { shop: Shop; userId:
       {shop.status === "approved" && <p className="s360-muted"><Link href={`/saldo360/proveedores/${shop.slug}`}>Ver mi tienda como comprador</Link> · {contacts ?? "…"} contactos en 7 días (no son ventas)</p>}
       {shop.status === "approved" && <button className="s360-link-btn" type="button" disabled={busy} onClick={() => setStatus("paused")}>Pausar tienda</button>}
       {shop.status === "paused" && <button className="s360-primary" type="button" disabled={busy} onClick={() => setStatus("approved")}>Reactivar tienda</button>}
+      {shop.status === "pending" && shop.whatsapp_e164 && BOT && <Verificar shop={shop} onDone={onChange}/>}
     </div>
 
     {msg && <p role={msg.ok ? "status" : "alert"} className={msg.ok ? "s360-success" : "s360-error s360-form-msg"}>{msg.text}</p>}

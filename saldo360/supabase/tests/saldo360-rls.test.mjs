@@ -319,6 +319,31 @@ describe("moderación, importación supervisada y fotos", () => {
     expect(none).toEqual([]);
   });
 
+  it("verificación por WhatsApp: el bot aprueba solo con su clave, el número real y el código", async () => {
+    await db.query("INSERT INTO private.bot_secrets (name, secret_sha256) VALUES ('vivabot', encode(digest('clave-del-bot', 'sha256'), 'hex'))");
+    const shop = (await as(db, U.other, (tx) => one(tx, "INSERT INTO public.shops (slug, name, whatsapp_e164) VALUES ('dora-saldo', 'Dora', '5355555555') RETURNING id"))).id;
+    await expect(as(db, U.sellerA, (tx) => tx.query("SELECT public.start_shop_verification($1)", [shop]))).rejects.toThrow(/Solo el dueño/);
+    await expect(as(db, null, (tx) => tx.query("SELECT public.start_shop_verification($1)", [shop]))).rejects.toThrow(/permission denied/);
+    const code = (await as(db, U.other, (tx) => one(tx, "SELECT public.start_shop_verification($1) AS c", [shop]))).c;
+    expect(code).toMatch(/^\d{6}$/);
+    const bot = (phone, c, secret = "clave-del-bot") => as(db, null, (tx) => one(tx, "SELECT public.bot_verify_shop($1, $2, $3) AS r", [phone, c, secret])).then((x) => x.r);
+    expect(await bot("5355555555", code, "otra-clave")).toBe("forbidden");
+    expect(await bot("5351112222", code)).toBe("no_shop"); // otro número
+    expect(await bot("55555555", "000000")).toBe(code === "000000" ? "approved" : "wrong_code");
+    let pub = await as(db, null, (tx) => rows(tx, "SELECT id FROM public.shops WHERE id = $1", [shop]));
+    expect(pub).toEqual([]); // sigue sin publicarse
+    expect(await bot("+53 5555 5555", code)).toBe("approved");
+    pub = await as(db, null, (tx) => rows(tx, "SELECT id FROM public.shops WHERE id = $1", [shop]));
+    expect(pub).toHaveLength(1);
+    expect(await bot("5355555555", code)).toBe("already");
+    // Cinco intentos fallidos anulan el código.
+    const shopB2 = (await db.query("INSERT INTO public.shops (owner_id, slug, name, whatsapp_e164, whatsapp_consent_at, status) VALUES (NULL, 'p-intentos', 'Intentos', '5356666666', now(), 'pending') RETURNING id")).rows[0].id;
+    await db.query("INSERT INTO private.shop_verifications (shop_id, code, expires_at) VALUES ($1, '123456', now() + interval '30 minutes')", [shopB2]);
+    for (let i = 0; i < 5; i++) expect(await bot("5356666666", "999999")).toBe("wrong_code");
+    expect(await bot("5356666666", "123456")).toBe("expired");
+    await db.query("DELETE FROM public.shops WHERE id = $1", [shopB2]);
+  });
+
   it("solo el admin lee la auditoría y registra los cambios", async () => {
     await expect(as(db, null, (tx) => tx.query("SELECT * FROM public.audit_events"))).rejects.toThrow(/permission denied/);
     const none = await as(db, U.sellerA, (tx) => rows(tx, "SELECT id FROM public.audit_events"));

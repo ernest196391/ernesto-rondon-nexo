@@ -16,6 +16,7 @@ CREATE SCHEMA IF NOT EXISTS extensions;
 CREATE OR REPLACE FUNCTION extensions.crypt(p text, s text) RETURNS text LANGUAGE sql AS $$ SELECT public.crypt(p, s) $$;
 CREATE OR REPLACE FUNCTION extensions.gen_salt(t text) RETURNS text LANGUAGE sql AS $$ SELECT public.gen_salt(t) $$;
 CREATE OR REPLACE FUNCTION extensions.gen_random_bytes(n int) RETURNS bytea LANGUAGE sql AS $$ SELECT public.gen_random_bytes(n) $$;
+CREATE OR REPLACE FUNCTION extensions.digest(data text, type text) RETURNS bytea LANGUAGE sql AS $$ SELECT public.digest(data, type) $$;
 DO $$ BEGIN
   CREATE ROLE anon NOLOGIN; CREATE ROLE authenticated NOLOGIN; CREATE ROLE service_role NOLOGIN;
 EXCEPTION WHEN duplicate_object THEN NULL; END $$;

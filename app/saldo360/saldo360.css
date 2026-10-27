@@ -150,3 +150,4 @@
 .s360-actions button,.s360-actions a{flex:1 1 auto;min-height:44px;padding:0 14px;border:1px solid #cfdcf5;border-radius:11px;background:#f6f9ff;color:var(--navy);font-size:14px;font-weight:750;cursor:pointer;text-decoration:none;display:grid;place-items:center}
 .s360-actions .danger{color:var(--danger);border-color:#f0c9c9;background:#fff7f7}
 .s360 button:disabled{opacity:.6;cursor:wait}
+.s360-verify{background:var(--soft);border-radius:12px;padding:12px;margin-top:12px!important;color:#24406f!important;font-size:15px!important;line-height:1.5}

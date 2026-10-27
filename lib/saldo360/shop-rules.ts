@@ -35,6 +35,7 @@ export function dbError(message: string | undefined): string {
   if (m.includes("shops_slug_key") || m.includes("duplicate key")) return "Ese nombre ya existe. Prueba con otro.";
   if (m.includes("check constraint")) return "Revisa los importes y el precio.";
   if (m.includes("no encontrada")) return "Esa oferta ya no existe.";
+  if (m.includes("no está en revisión")) return "Tu tienda ya está verificada.";
   if (m.toLowerCase().includes("failed to fetch")) return "Sin conexión. Inténtalo de nuevo.";
   return "No se pudo guardar. Inténtalo de nuevo.";
 }
