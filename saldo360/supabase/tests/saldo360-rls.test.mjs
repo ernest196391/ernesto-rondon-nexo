@@ -305,6 +305,20 @@ describe("moderación, importación supervisada y fotos", () => {
       "SELECT public.admin_publish_offer($1, 100, 1000, 40, '{transfermovil}', 12)", [managed]))).rejects.toThrow(/Solo moderación/);
   });
 
+  it("clave temporal: solo el admin la genera y funciona como contraseña", async () => {
+    await db.query("UPDATE auth.users SET email = 'saldo360+5351111111@casaviva.company' WHERE id = $1", [U.sellerA]);
+    await expect(as(db, U.sellerB, (tx) => tx.query("SELECT public.admin_temp_password($1)", [U.sellerA]))).rejects.toThrow(/Solo moderación/);
+    await expect(as(db, null, (tx) => tx.query("SELECT public.admin_temp_password($1)", [U.sellerA]))).rejects.toThrow(/permission denied/);
+    const temp = (await as(db, U.admin, (tx) => one(tx, "SELECT public.admin_temp_password($1) AS t", [U.sellerA]))).t;
+    expect(temp).toMatch(/^\d{8}$/);
+    const ok = (await db.query("SELECT encrypted_password = crypt($1, encrypted_password) AS ok FROM auth.users WHERE id = $2", [temp, U.sellerA])).rows[0].ok;
+    expect(ok).toBe(true);
+    const owners = await as(db, U.admin, (tx) => rows(tx, "SELECT owner_id, phone FROM public.admin_shop_owners()"));
+    expect(owners).toEqual([{ owner_id: U.sellerA, phone: "5351111111" }]);
+    const none = await as(db, U.sellerA, (tx) => rows(tx, "SELECT * FROM public.admin_shop_owners()"));
+    expect(none).toEqual([]);
+  });
+
   it("solo el admin lee la auditoría y registra los cambios", async () => {
     await expect(as(db, null, (tx) => tx.query("SELECT * FROM public.audit_events"))).rejects.toThrow(/permission denied/);
     const none = await as(db, U.sellerA, (tx) => rows(tx, "SELECT id FROM public.audit_events"));

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { dbError, normalizeCubanMobile, slugFromName, timeLeft } from "./shop-rules";
+import { dbError, normalizeCubanMobile, phoneFromLogin, phoneLogin, prettyPhone, slugFromName, timeLeft } from "./shop-rules";
 
 describe("Saldo 360 · tienda del vendedor", () => {
   it("acepta móviles cubanos escritos de varias formas", () => {
@@ -9,6 +9,15 @@ describe("Saldo 360 · tienda del vendedor", () => {
     expect(normalizeCubanMobile("7123456")).toBeNull(); // fijo
     expect(normalizeCubanMobile("41234567")).toBeNull(); // no empieza por 5
     expect(normalizeCubanMobile("51234")).toBeNull();
+  });
+
+  it("el número es la cuenta: ida y vuelta sin correo real", () => {
+    expect(phoneLogin("5351234567")).toBe("saldo360+5351234567@casaviva.company");
+    expect(phoneFromLogin("saldo360+5351234567@casaviva.company")).toBe("5351234567");
+    expect(phoneFromLogin("alguien@gmail.com")).toBeNull();
+    expect(phoneFromLogin("saldo360+123@casaviva.company")).toBeNull();
+    expect(phoneFromLogin("otro+5351234567@casaviva.company")).toBeNull();
+    expect(prettyPhone("5351234567")).toBe("+53 5 123 4567");
   });
 
   it("la dirección de la tienda cumple el formato de la base", () => {

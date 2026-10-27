@@ -3,10 +3,10 @@ import { useState } from "react";
 import { dbError, normalizeCubanMobile, slugFromName } from "../../../lib/saldo360/shop-rules";
 import { saldoSupabase } from "../../../lib/saldo360/supabase-browser";
 
-export default function CrearTienda({ onCreated }: { onCreated: () => void }) {
+export default function CrearTienda({ onCreated, defaultPhone }: { onCreated: () => void; defaultPhone?: string | null }) {
   const [name, setName] = useState("");
   const [locality, setLocality] = useState("");
-  const [phone, setPhone] = useState("");
+  const [phone, setPhone] = useState(defaultPhone?.slice(2) ?? "");
   const [consent, setConsent] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");

@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
+import { phoneFromLogin } from "../../../lib/saldo360/shop-rules";
 import { saldoSupabase } from "../../../lib/saldo360/supabase-browser";
 import { Top } from "../ui";
 import { useCuenta } from "../useCuenta";
@@ -39,7 +40,7 @@ export default function MiTienda() {
           <Link className="s360-primary" href="/saldo360/entrar?modo=registro&rol=vendedor">Crear mi tienda</Link>
           <Link className="s360-secondary" href="/saldo360/entrar?rol=vendedor">Ya tengo cuenta</Link>
         </> : profile?.status === "suspended" ? <div className="s360-card"><p className="s360-error">Tu cuenta está suspendida. Escríbenos para revisarla.</p></div>
-        : !shop ? <CrearTienda onCreated={async () => { await loadShop(user.id); await refresh(); }}/>
+        : !shop ? <CrearTienda defaultPhone={phoneFromLogin(user.email)} onCreated={async () => { await loadShop(user.id); await refresh(); }}/>
         : <>
           <Tienda shop={shop} userId={user.id} onChange={() => loadShop(user.id)}/>
           <Ofertas shop={shop}/>

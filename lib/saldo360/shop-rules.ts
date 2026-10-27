@@ -7,9 +7,20 @@ export function normalizeCubanMobile(input: string): string | null {
   return /^5\d{7}$/.test(local) ? "53" + local : null;
 }
 
+// Cuentas del piloto: el número es el usuario. Por dentro, Supabase guarda un correo interno
+// «saldo360+<número>@casaviva.company» (Supabase exige un dominio que reciba correo).
+// Con «Confirm email» apagado no se envía nada: ni correos, ni SMS, ni WhatsApp automáticos.
+export const phoneLogin = (e164: string) => `saldo360+${e164}@casaviva.company`;
+export function phoneFromLogin(email: string | null | undefined): string | null {
+  const m = /^saldo360\+(53\d{8})@casaviva\.company$/.exec(email || "");
+  return m ? m[1] : null;
+}
+/** «+53 5 123 4567» para mostrar. */
+export const prettyPhone = (e164: string) => `+53 ${e164.slice(2, 3)} ${e164.slice(3, 6)} ${e164.slice(6)}`;
+
 /** Dirección corta y legible de la tienda: «saldo-rapido-playa-k3x9». */
 export function slugFromName(name: string, suffix: string): string {
-  const base = name.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase()
+  const base = name.normalize("NFD").replace(/\p{M}/gu, "").toLowerCase()
     .replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 30).replace(/-+$/g, "");
   return `${base || "tienda"}-${suffix.toLowerCase().replace(/[^a-z0-9]/g, "").slice(0, 6) || "s360"}`;
 }
