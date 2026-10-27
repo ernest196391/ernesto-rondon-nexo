@@ -17,6 +17,8 @@ export default function Entrar({ initialMode, seller }: { initialMode: "login" |
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
+  const [byEmail, setByEmail] = useState(false); // cuentas antiguas o de administración con correo
+  const [email, setEmail] = useState("");
   const next = seller ? "/saldo360/mi-tienda" : "/saldo360/mi-cuenta";
   const e164 = normalizeCubanMobile(phone);
 
@@ -26,16 +28,17 @@ export default function Entrar({ initialMode, seller }: { initialMode: "login" |
     e.preventDefault();
     const sb = saldoSupabase();
     if (!sb) return setError("Las cuentas aún no están disponibles.");
-    if (!e164) return setError("Escribe tu móvil cubano: 8 cifras que empiezan por 5.");
+    const loginEmail = byEmail && mode === "login" ? email.trim() : e164 ? phoneLogin(e164) : null;
+    if (!loginEmail) return setError(byEmail ? "Escribe tu correo." : "Escribe tu móvil cubano: 8 cifras que empiezan por 5.");
     if (password.length < 6) return setError("La clave debe tener al menos 6 caracteres.");
     setBusy(true); setError(""); setNotice("");
     try {
       if (mode === "login") {
-        const { error } = await sb.auth.signInWithPassword({ email: phoneLogin(e164), password });
-        if (error) return setError(authError(error.message));
+        const { error } = await sb.auth.signInWithPassword({ email: loginEmail, password });
+        if (error) return setError(authError(error.message).replace("Número o clave", byEmail ? "Correo o clave" : "Número o clave"));
         router.push(next);
       } else {
-        const { data, error } = await sb.auth.signUp({ email: phoneLogin(e164), password, options: { data: { display_name: name.trim().slice(0, 80) } } });
+        const { data, error } = await sb.auth.signUp({ email: loginEmail, password, options: { data: { display_name: name.trim().slice(0, 80) } } });
         if (error) return setError(authError(error.message));
         if (data.session) router.push(next);
         else setNotice("Cuenta creada. La activamos en breve; luego entra con tu número y tu clave.");
@@ -52,9 +55,11 @@ export default function Entrar({ initialMode, seller }: { initialMode: "login" |
     </div> : <form className="s360-card s360-sell-form" onSubmit={submit}>
       {mode === "signup" && <><label className="s360-label" htmlFor="name">Tu nombre</label>
         <input id="name" autoComplete="name" maxLength={80} required value={name} onChange={(e) => setName(e.target.value)}/></>}
-      <label className="s360-label" htmlFor="phone">Tu número de móvil</label>
-      <div className="s360-amount s360-phone"><span>+53</span><input id="phone" type="tel" inputMode="tel" autoComplete="tel" placeholder="5XXXXXXX" required value={phone} onChange={(e) => setPhone(e.target.value)}/></div>
-      {phone && !e164 && <p className="s360-error s360-form-msg">8 cifras que empiezan por 5.</p>}
+      {byEmail && mode === "login" ? <><label className="s360-label" htmlFor="email">Correo</label>
+        <input id="email" type="email" inputMode="email" autoComplete="email" required value={email} onChange={(e) => setEmail(e.target.value)}/></>
+      : <><label className="s360-label" htmlFor="phone">Tu número de móvil</label>
+        <div className="s360-amount s360-phone"><span>+53</span><input id="phone" type="tel" inputMode="tel" autoComplete="tel" placeholder="5XXXXXXX" required value={phone} onChange={(e) => setPhone(e.target.value)}/></div>
+        {phone && !e164 && <p className="s360-error s360-form-msg">8 cifras que empiezan por 5.</p>}</>}
       <label className="s360-label" htmlFor="password">{mode === "signup" ? "Crea una clave" : "Clave"}</label>
       <input id="password" type="password" autoComplete={mode === "login" ? "current-password" : "new-password"} minLength={6} required value={password} onChange={(e) => setPassword(e.target.value)}/>
       <button className="s360-primary" type="submit" disabled={busy}>{busy ? "Un momento…" : mode === "login" ? "Entrar" : "Crear cuenta"}</button>
@@ -63,7 +68,8 @@ export default function Entrar({ initialMode, seller }: { initialMode: "login" |
     </form>}
     <div className="s360-links">
       {mode === "login" && <><button type="button" onClick={() => switchTo("signup")}>¿No tienes cuenta? <strong>Créala</strong></button>
-        <button type="button" onClick={() => switchTo("forgot")}>Olvidé mi clave</button></>}
+        <button type="button" onClick={() => switchTo("forgot")}>Olvidé mi clave</button>
+        <button type="button" onClick={() => { setByEmail(!byEmail); setError(""); }}>{byEmail ? "Entrar con mi número" : "Entrar con correo"}</button></>}
       {mode !== "login" && <button type="button" onClick={() => switchTo("login")}>¿Ya tienes cuenta? <strong>Entrar</strong></button>}
     </div>
     <p className="s360-footnote">Para buscar saldo no hace falta cuenta. <Link href="/saldo360/ofertas">Ver ofertas</Link></p>
