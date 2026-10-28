@@ -103,6 +103,8 @@ function row(o: WooOrder, people: Record<number, string>) {
   const ownerId = Number(meta(o, "_cvd_owner_user_id") ?? 0);
   return {
     id: o.id, number: o.number, date: o.date_created, status: o.status,
+    // Core 3.14.69.11 (Lennys #581, 26-oct): número propio que nunca salta («Nº 292 · 8.º de hoy»); null en pruebas.
+    seq: Number(meta(o, "_cvd_seq") ?? 0) || null, seqDay: Number(meta(o, "_cvd_seq_dia") ?? 0) || null, seqDate: meta(o, "_cvd_seq_fecha") || null,
     statusText: STATUS_ES[o.status] ?? o.status, group: GROUP[o.status] ?? "pending",
     operation: meta(o, "_cvd_operation_status"), total: money(o.total), currency: o.currency,
     shippingCup: Number(meta(o, "_cvd_shipping_fee_cup") ?? 0) || null,
