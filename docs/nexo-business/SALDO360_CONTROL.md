@@ -117,3 +117,4 @@
 - **Lennys** (5356885368) creó la tienda «Prueba» (Playa) el 27-oct a las 18:57 y a los 18 segundos quedó **aprobada sola por VivaBot** (`verify_whatsapp`, via vivabot). La verificación automática funciona en real.
 - Aún **no publicó ninguna oferta** (0 ofertas, 0 contactos). Datos de prueba sin borrar.
 - **SSH al VPS sigue bloqueado** (connection reset en el saludo SSH) desde el 27-oct tarde; VivaBot y la web de Casa Viva funcionan. Probable bloqueo por exceso de intentos (fail2ban o cortafuegos de Hostinger).
+- **28-oct:** por orden de Ernesto se **borraron la tienda «Prueba» y la cuenta de Lennys**. Base limpia: 1 usuario (Ernesto admin), 0 tiendas, 0 ofertas, 0 códigos. Se conserva el historial de auditoría.
