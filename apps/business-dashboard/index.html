@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Figtree:wght@400;600;700&display=swap">
 <link rel="stylesheet" href="nexo.css">
 <link rel="stylesheet" href="casaviva.css">
-<link rel="stylesheet" href="dash.css?v=20261014b">
+<link rel="stylesheet" href="dash.css?v=20261028a">
 </head>
 <body>
 <div class="nx dash" data-theme="casaviva" id="root">
@@ -197,6 +197,12 @@
 
     <main class="page" data-page="catalogo" hidden>
       <div class="page-head"><h1>Productos</h1><span class="t-sm muted" id="inv-note"></span></div>
+      <!-- D121 (28-oct): los de la tienda y los de los proveedores («bajo pedido»). La segunda pestaña solo la ve la dueña. -->
+      <div class="seg" id="prod-seg" role="group" aria-label="Qué productos" hidden>
+        <button type="button" data-psub="propios" aria-pressed="true">Mis productos</button>
+        <button type="button" data-psub="proveedores" aria-pressed="false">Proveedores · bajo pedido</button>
+      </div>
+      <div data-psub-box="propios">
       <p class="inv-help" id="inv-help">Para añadir colores a un producto, ábrelo → <strong>Diseños y colores</strong>. Para mercancía que llegó, usa <strong>Llegó mercancía</strong> (Recibir mercancía).</p>
       <div class="grid-2" style="margin-bottom:8px">
         <button type="button" class="btn btn-primary" id="new-product"><span data-ic="plus"></span>Nuevo producto</button>
@@ -220,6 +226,16 @@
       <div class="bulk-bar" id="bulk-bar" hidden><span id="bulk-count">Toca los productos</span><span class="bulk-actions"><button type="button" class="btn btn-secondary" id="bulk-retire" disabled>Ocultar</button><button type="button" class="btn btn-primary" id="bulk-go" disabled>Cambiar precio o comisión</button></span></div>
       <section class="panel" id="inventory"><p class="muted">Cargando…</p></section>
       <button type="button" class="btn btn-ghost btn-block" id="recv-history">Ver mercancía recibida</button>
+      </div>
+      <div data-psub-box="proveedores" hidden>
+        <p class="inv-help">Lo que anuncian los proveedores en los grupos. Eliges el precio y lo publicas en la web como <strong>«Bajo pedido · llega en 24 h»</strong>. La comisión de la gestora es fija: 40 % de la ganancia.</p>
+        <label class="search-field"><span data-ic="search"></span><input id="mk-search" type="search" placeholder="Buscar: ventilador, nevera…" aria-label="Buscar en los proveedores"></label>
+        <div class="chips" id="mk-tab" role="group" aria-label="Mostrar">
+          <button type="button" class="chip" data-t="bolsa" aria-pressed="true">Por publicar</button>
+          <button type="button" class="chip" data-t="publicados" aria-pressed="false">Publicados</button>
+        </div>
+        <section class="panel" id="mk-list"><p class="muted">Cargando…</p></section>
+      </div>
     </main>
 
     <main class="page" data-page="ajustes" hidden>
@@ -357,7 +373,7 @@ function go(next) {
   document.querySelectorAll("main.page").forEach(p => (p.hidden = p.dataset.page !== next));
   document.querySelectorAll("#nav .tab").forEach(t => t.dataset.page === next ? t.setAttribute("aria-current", "page") : t.removeAttribute("aria-current"));
   window.scrollTo({ top: 0 });
-  if (next === "catalogo") void loadInventory();
+  if (next === "catalogo") { void loadInventory(); if (prodSub === "proveedores") void loadMarket(); }
   if (next === "ajustes") { void loadRates(); void loadCostSettings(); if (ajustesSub === "mensajeria") void loadShipping(); if (ajustesSub === "tarjetas") void loadCards(); }
   if (next === "resumen") { if (resSub === "caja") void loadMoney(); else void loadReport(); }
   if (next === "pedidos") void loadOrders();
@@ -934,6 +950,9 @@ $("#new-order").onclick = () => editOrder(null);
 // ---------- Inventario y precios: una tabla para la caja y la web (D37 fase 2) ----------
 let invRows = [], invFilter = "all", invTimer = null;
 async function loadInventory() {
+  // D121: «Proveedores · bajo pedido» solo para la dueña (la función nexo-panel-web también lo exige).
+  $("#prod-seg").hidden = !isOwner();
+  if (!isOwner() && prodSub !== "propios") showProdSub("propios");
   $("#inventory").innerHTML = '<p class="muted">Cargando inventario…</p>';
   const [{ data, error }, web] = await Promise.all([
     supabase.rpc("nexo_business_inventory", { p_business: bizId() }),
@@ -2060,6 +2079,161 @@ async function saveCommissions(ids, usd) {
   return { failed, web };
 }
 const commNote = c => c.failed.length ? "la comisión no se guardó" : !c.web ? "la comisión no llegó a la web (se reintenta esta noche)" : "";
+
+// ---------- D121 (28-oct): Proveedores · bajo pedido — Lennys publica sola, vía nexo-panel-web → Core 3.14.71 ----------
+// La bolsa del bot (crm_market_items): foto, proveedor (sin teléfono), precio del proveedor, sugerido, comisión y mínimo.
+// Publica DIRECTO (su botón es la aprobación); el precio puede bajar solo hasta el mínimo y subir siempre; comisión fija.
+let prodSub = "propios", mkTab = "bolsa", mkTimer = null, mkSeq = 0, mkItems = [], mkDepts = [];
+// Copia de la regla del bot (vivabot src/market-price.js, myPrice/gestoraShare) y del mínimo de Core
+// (CVD_Market_Bridge::quote), SOLO para ver los números mientras se escribe. Quien manda es la web: si el precio
+// está por debajo del mínimo, no lo publica. Si se cambia la regla, cambiarla en los tres sitios.
+const MK = { share: 0.4, pct: 2.5, minUsd: 1 };
+const mkSuggested = c => c < 60 ? Math.ceil(c + Math.min(17, Math.max(5, c * 0.4))) : Math.ceil((c + Math.max(17, c > 300 ? c * 0.1 : 0)) / 5) * 5;
+const mkShare = (p, c) => Math.max(0, Math.round((p - c) * MK.share * 100) / 100);
+const mkFloor = c => { const k = mkShare(mkSuggested(c), c); return Math.ceil(Math.max(c + k + MK.minUsd, (c + k) / (1 - MK.pct / 100)) * 100 - 1e-6) / 100; };
+// Los números de la web si llegaron (Core 3.14.71); si no, los de la copia.
+const mkQuote = it => it.quote && it.quote.floor != null ? it.quote
+  : { suggested: mkSuggested(it.cost), commission: mkShare(mkSuggested(it.cost), it.cost), floor: mkFloor(it.cost) };
+const mkSeen = d => d === 0 ? "visto hoy" : d === 1 ? "visto ayer" : "visto hace " + d + " días";
+const mkLive = it => it.quote?.web?.status === "publish";
+// Logo animado mientras carga (regla de Ernesto 25-oct: toda app enseña el logo al cargar).
+const mkLoading = text => '<div class="mk-loading" role="status">' + ISOTIPO + '<span class="t-sm muted">' + esc(text) + "</span></div>";
+
+function showProdSub(sub) {
+  prodSub = sub;
+  document.querySelectorAll("#prod-seg [data-psub]").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.psub === sub)));
+  document.querySelectorAll("[data-psub-box]").forEach(el => (el.hidden = el.dataset.psubBox !== sub));
+  if (sub === "proveedores") void loadMarket();
+}
+document.querySelectorAll("#prod-seg [data-psub]").forEach(b => (b.onclick = () => showProdSub(b.dataset.psub)));
+document.querySelectorAll("#mk-tab [data-t]").forEach(b => (b.onclick = () => {
+  mkTab = b.dataset.t;
+  document.querySelectorAll("#mk-tab [data-t]").forEach(c => c.setAttribute("aria-pressed", String(c === b)));
+  void loadMarket();
+}));
+$("#mk-search").oninput = () => { clearTimeout(mkTimer); mkTimer = setTimeout(loadMarket, 350); };
+
+function mkCard(it) {
+  const q = mkQuote(it), web = it.quote?.web, live = mkLive(it);
+  const price = live ? web.price : it.priceLocked && it.myPrice ? it.myPrice : q.suggested;
+  return '<div class="row-item"><button type="button" class="row-btn" data-mk="' + it.id + '">' + photo(it.thumb, it.title)
+    + '<span class="grow"><span class="title">' + esc(it.title) + "</span>"
+    + '<span class="meta">' + esc(it.supplier) + (it.group ? " · " + esc(it.group) : "") + "</span>"
+    + '<span class="meta">' + (it.seenDays > 7 ? '<strong style="color:var(--nx-warn)">⚠️ ' + mkSeen(it.seenDays) + "</strong>" : mkSeen(it.seenDays)) + " · <span class=\"mk-sku\">" + esc(it.sku) + "</span>"
+    + (live ? ' · <span class="badge badge-ok">En la web</span>' : web ? ' · <span class="badge badge-out">Retirado de la web</span>' : "")
+    + (!it.photos ? ' · <span class="badge badge-out">Sin fotos</span>' : "")
+    + (it.twin ? ' · <span class="badge badge-low">Ya publicado de otro proveedor (' + esc(it.twin) + ")</span>" : "") + "</span></span>"
+    + '<span style="display:flex;flex-direction:column;align-items:flex-end;gap:4px"><span class="price-tag">' + dollars(price) + "</span>"
+    + '<span class="t-xs muted">proveedor ' + dollars(it.cost) + "</span></span></button></div>";
+}
+
+async function loadMarket() {
+  const box = $("#mk-list");
+  const seq = ++mkSeq;
+  box.innerHTML = mkLoading(mkTab === "publicados" ? "Buscando lo publicado…" : "Buscando en los anuncios de los proveedores…");
+  try {
+    const data = await panelWeb({ action: "market_list", tab: mkTab, search: $("#mk-search").value });
+    if (seq !== mkSeq) return; // otra búsqueda más nueva ya está cargando
+    mkItems = data.items ?? [];
+    if (data.departments?.length) mkDepts = data.departments;
+    box.innerHTML = (data.previewError ? '<p class="split-warn bad">' + esc(data.previewError) + " Los números son los del panel.</p>" : "")
+      + (mkItems.length ? mkItems.map(mkCard).join("")
+        : '<p class="muted">' + ($("#mk-search").value.trim() ? "No hay nada con esa búsqueda." : mkTab === "publicados" ? "Todavía no hay productos de proveedor publicados." : "No hay anuncios nuevos de proveedores.") + "</p>");
+    box.querySelectorAll("[data-mk]").forEach(b => (b.onclick = () => openMarketItem(Number(b.dataset.mk))));
+  } catch (e) {
+    if (seq === mkSeq) box.innerHTML = '<p class="muted">' + esc(e.message) + "</p>";
+  }
+}
+
+async function openMarketItem(id) {
+  const sheet = openSheet('<div class="sheet-head"><h2>Producto de proveedor</h2><button type="button" class="btn btn-ghost" data-close>Cerrar</button></div>'
+    + "<div data-mk-body>" + mkLoading("Abriendo el anuncio…") + "</div>", "Producto de proveedor");
+  const body = sheet.el.querySelector("[data-mk-body]");
+  let it;
+  try { it = await panelWeb({ action: "market_item", id }); }
+  catch (e) { body.innerHTML = '<p class="muted">' + esc(e.message) + "</p>"; return; }
+  if (it.departments?.length) mkDepts = it.departments;
+  const twin = mkItems.find(x => x.id === it.id)?.twin ?? null;
+  const q = mkQuote(it), web = it.quote?.web, live = mkLive(it);
+  const start = live ? web.price : it.priceLocked && it.myPrice ? it.myPrice : q.suggested;
+  const dept = web?.departments?.[0] ?? it.quote?.guess?.[0] ?? "";
+  const deptOpts = (mkDepts.some(d => d.slug === dept) || !dept ? "" : '<option value="' + esc(dept) + '" selected>' + esc(dept) + "</option>")
+    + '<option value=""' + (dept ? "" : " selected") + ">Elige departamento</option>"
+    + mkDepts.map(d => '<option value="' + esc(d.slug) + '"' + (d.slug === dept ? " selected" : "") + ">" + esc(d.name) + "</option>").join("");
+  body.innerHTML = (it.images?.length ? '<div class="mk-photos">' + it.images.map(u => '<img src="' + esc(u) + '" alt="" loading="lazy" decoding="async">').join("") + "</div>"
+      : '<p class="split-warn bad">Este anuncio no tiene fotos' + (it.publishedUrl ? " nuevas: la web conserva las que ya tenía." : ": no se puede publicar.") + "</p>")
+    + '<h3 class="t-lg">' + esc(it.title) + "</h3>"
+    + '<p class="t-sm muted">' + esc(it.supplier) + (it.group ? " · " + esc(it.group) : "") + " · " + mkSeen(it.seenDays) + " · " + esc(it.sku)
+    + (live ? ' · <span class="badge badge-ok">En la web</span>' : web ? ' · <span class="badge badge-out">Retirado de la web</span>' : "") + "</p>"
+    + (it.seenDays > 7 ? '<p class="split-warn bad">⚠️ Hace ' + it.seenDays + " días que el proveedor no lo anuncia. Pregúntale si aún lo tiene antes de publicarlo.</p>" : "")
+    + (twin ? '<p class="split-warn bad">⚠️ Ya hay uno parecido publicado de otro proveedor (' + esc(twin) + "). Revisa que no salga dos veces.</p>" : "")
+    + (it.previewError ? '<p class="split-warn bad">' + esc(it.previewError) + "</p>" : "")
+    + (it.description ? '<p class="t-sm">' + esc(it.description) + "</p>" : "")
+    + (it.ad ? '<details class="mk-ad"><summary>Anuncio original del proveedor</summary><p class="t-sm">' + esc(it.ad).replace(/\n/g, "<br>") + "</p></details>" : "")
+    + '<div class="breakdown" data-mk-nums></div>'
+    + '<form class="form" data-mk-form novalidate>'
+    + '<div class="grid-2"><label class="field">Precio de venta (USD)<input class="input" name="price" inputmode="decimal" autocomplete="off" value="' + esc(String(start)) + '"></label>'
+    + '<label class="field">Departamento<select class="input" name="department">' + deptOpts + "</select></label></div>"
+    + "<p data-mk-check></p>"
+    + '<p class="msg" data-msg role="status"></p>'
+    + '<button type="submit" class="btn btn-primary btn-xl btn-block" data-mk-go>' + (live ? "Guardar el precio en la web" : "Publicar en la web") + "</button>"
+    + "</form>"
+    + (live ? '<p class="t-sm mk-web-link"><a href="' + esc(web.url) + '" target="_blank" rel="noopener">Ver en la web</a>' + (web.by ? ' · <span class="muted">por ' + esc(web.by) + "</span>" : "") + "</p>"
+      + '<button type="button" class="btn btn-secondary btn-block" data-mk-retire>Retirar (agotado)</button>' : "")
+    + '<p class="t-xs muted">Sale en la tienda como «Bajo pedido · llega en 24 h». La comisión de la gestora es fija (40 % de la ganancia). '
+    + "El precio queda fijado a mano: el bot no lo cambia. A Ernesto le llega un correo; a las gestoras no se les avisa.</p>";
+
+  const form = body.querySelector("[data-mk-form]"), go = body.querySelector("[data-mk-go]"), msg = body.querySelector("[data-msg]");
+  const check = body.querySelector("[data-mk-check]"), numsBox = body.querySelector("[data-mk-nums]");
+  const kv = (label, value, strong = false) => '<div class="kv' + (strong ? " strong" : "") + '"><span>' + label + '</span><span class="num">' + value + "</span></div>";
+  const canPublish = !!it.images?.length || !!it.publishedUrl;
+  let busy = false;
+  const nums = () => {
+    const p = num(form.price.value);
+    const k = p == null ? null : mkShare(p, it.cost);
+    const nexo = p == null ? null : Math.round((p - it.cost - k) * 100) / 100;
+    numsBox.innerHTML = kv("Precio del proveedor", dollars(it.cost)) + kv("Precio Casa Viva sugerido", dollars(q.suggested))
+      + kv("Comisión de la gestora (40 %)", dollars(k)) + kv("Para Ernesto / NEXO", dollars(nexo)) + kv("Precio mínimo", dollars(q.floor), true);
+    const ok = p != null && p + 0.005 >= q.floor;
+    check.className = "split-warn " + (ok ? "ok" : "bad");
+    check.textContent = p == null ? "Escribe el precio de venta." : ok ? "✓ Llega al mínimo (" + dollars(q.floor) + ")." : "⚠️ Por debajo del mínimo (" + dollars(q.floor) + "): súbelo para poder publicar.";
+    go.disabled = busy || !ok || !canPublish;
+  };
+  form.price.oninput = nums;
+  nums();
+  form.onsubmit = async e => {
+    e.preventDefault();
+    if (busy || go.disabled) return;
+    if (!form.department.value && !confirm("No elegiste departamento: la web lo adivina por el nombre. ¿Publicar así?")) return;
+    busy = true; go.textContent = "Publicando…"; nums(); msg.textContent = "";
+    try {
+      const out = await panelWeb({ action: "market_publish", id: it.id, price: num(form.price.value), department: form.department.value });
+      msg.dataset.tone = "ok";
+      msg.innerHTML = "✓ Ya está en la tienda (" + esc(it.sku) + ", " + dollars(num(form.price.value)) + ", la gestora gana " + dollars(out.commission) + "). "
+        + (out.url ? '<a href="' + esc(out.url) + '" target="_blank" rel="noopener">Ver en la web</a>' : "");
+      toast("Publicado en la web: " + it.sku, "ok");
+      go.textContent = "Guardar el precio en la web";
+      void loadMarket();
+    } catch (err) {
+      msg.dataset.tone = "bad"; msg.textContent = err.message;
+      go.textContent = live ? "Guardar el precio en la web" : "Publicar en la web";
+    } finally { busy = false; nums(); }
+  };
+  const retire = body.querySelector("[data-mk-retire]");
+  if (retire) retire.onclick = async () => {
+    if (!confirm("¿Retirar «" + it.title + "» de la web? Queda oculto (no se borra) y se puede volver a publicar.")) return;
+    retire.disabled = true; retire.textContent = "Retirando…";
+    try {
+      await panelWeb({ action: "market_unpublish", id: it.id });
+      toast("Retirado de la web: " + it.sku, "ok");
+      sheet.close();
+      void loadMarket();
+    } catch (err) {
+      msg.dataset.tone = "bad"; msg.textContent = err.message;
+      retire.disabled = false; retire.textContent = "Retirar (agotado)";
+    }
+  };
+}
 
 // ---------- Pedidos de la web (casaviva.company), vía nexo-panel-web ----------
 let ordersSrc = "web", webFilter = "open", webPage = 1, webSearchTimer = null, webOrders = [];

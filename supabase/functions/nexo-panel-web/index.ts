@@ -8,6 +8,8 @@
 //   Venta de proveedor (Core 3.14.14, D69): supplier_split, supplier_split_save, supplier_sales
 //   Core 3.14.41: product_description_save, product_main_photo, product_duplicate, product_copies, product_copy,
 //                 product_copy_publish, product_copy_discard
+//   D121 (Core 3.14.71): market_list, market_item, market_publish, market_unpublish — «Proveedores · bajo pedido»
+//                 (lee crm_market_items sin teléfonos; publicar/retirar por /panel/market/* de la web)
 // Deploy: npx.cmd supabase functions deploy nexo-panel-web --project-ref viwwlriwlwodrfukbgbj --no-verify-jwt --use-api
 import { createClient } from "jsr:@supabase/supabase-js@2";
 
@@ -23,6 +25,10 @@ const json = (status: number, body: unknown) =>
 const base = () => (Deno.env.get("WOO_URL") ?? "").replace(/\/$/, "");
 // Fotos que el panel sube a su almacén (las únicas que se mandan a la galería de la web).
 const GALLERY_PREFIX = (Deno.env.get("SUPABASE_URL") ?? "").replace(/\/$/, "") + "/storage/v1/object/public/nexo-product-photos/";
+// D121: fotos de la bolsa del bot (bucket privado «mercado»): se firman 1 hora para verlas y para que la web las baje.
+const MARKET_BUCKET = "mercado";
+// Igual que noContacts() del bot (wa.me primero): nada de teléfonos, @usuarios ni enlaces de WhatsApp al panel ni a la web.
+const noContacts = (t = "") => String(t).replace(/wa\.me\/\S+/gi, "").replace(/(\+?53)?[\s-]*\d[\d\s-]{6,}\d/g, "").replace(/@\w+/g, "").trim();
 const auth = () => "Basic " + btoa(`${Deno.env.get("WOO_CK") ?? ""}:${Deno.env.get("WOO_CS") ?? ""}`);
 
 // Grupos como en BizneCubano: concretado, pendiente, perdido.
@@ -62,7 +68,8 @@ async function core(method: "GET" | "POST", path: string, body?: unknown) {
     body: body ? JSON.stringify(body) : undefined,
   });
   const data = await res.json().catch(() => ({}));
-  if (!res.ok) throw new Error(data?.message ?? `core ${path} ${res.status}`);
+  // D121: las rutas /panel/market/* responden { ok: false, error } (p. ej. «por debajo del mínimo»).
+  if (!res.ok) throw new Error(data?.message ?? data?.error ?? `core ${path} ${res.status}`);
   return data;
 }
 
@@ -536,6 +543,117 @@ Deno.serve(async req => {
       }
       return json(200, out);
     }
+    // ---------- D121 (Core 3.14.71): «Proveedores · bajo pedido» — la bolsa del bot (crm_market_items) ----------
+    // Solo LECTURA de la bolsa, sin el teléfono ni el chat del proveedor. Publicar y retirar los hace la web
+    // (/panel/market/*): allí se calcula la comisión fija (40 % de la ganancia) y se rechaza un precio bajo el mínimo.
+    // Aquí solo se marca el artículo en la bolsa (publicado / agotado, precio fijado a mano) para que el bot lo respete.
+    if (typeof body.action === "string" && body.action.startsWith("market_")) {
+      const { data: biz } = await admin.from("crm_businesses").select("id").eq("slug", BUSINESS).maybeSingle();
+      if (!biz?.id) return json(500, { error: "No encuentro la bolsa de proveedores de Casa Viva." });
+      const um = (who.user.user_metadata ?? {}) as Record<string, unknown>;
+      const byName = String(um.full_name ?? um.name ?? "").trim().slice(0, 60);
+      const COLS = "id,title,description,category,supplier_price,currency,my_price,price_locked,status,seller_name,group_name,photos,photos_clean,first_seen,last_seen,times_seen,published_url";
+      type Item = { id: number; title: string; description: string | null; category: string | null; supplier_price: number | null; currency: string | null;
+        my_price: number | null; price_locked: boolean; status: string; seller_name: string | null; group_name: string | null; photos: string[] | null;
+        photos_clean: string[] | null; first_seen: string; last_seen: string; times_seen: number; published_url: string | null; raw_text?: string | null };
+      const pics = (it: Item) => ((it.photos_clean?.length ? it.photos_clean : it.photos) ?? []).filter(Boolean);
+      const sign = async (paths: string[]) => {
+        if (!paths.length) return {} as Record<string, string>;
+        const { data } = await admin.storage.from(MARKET_BUCKET).createSignedUrls(paths, 3600);
+        return Object.fromEntries((data ?? []).filter(d => d.signedUrl && d.path).map(d => [d.path as string, d.signedUrl as string]));
+      };
+      const days = (iso: string) => Math.max(0, Math.floor((Date.now() - Date.parse(iso)) / 864e5));
+      // Lo que ve el panel de cada artículo: nunca seller_phone, seller_jid ni group_jid (ni se leen).
+      const card = (it: Item, thumb: string | null) => ({
+        id: it.id, sku: `MK-${it.id}`, title: noContacts(it.title), category: it.category, cost: Number(it.supplier_price),
+        myPrice: it.my_price == null ? null : Number(it.my_price), priceLocked: !!it.price_locked, status: it.status,
+        supplier: noContacts(it.seller_name ?? "") || "Proveedor", group: it.group_name ?? "", seenDays: days(it.last_seen),
+        firstSeen: it.first_seen, timesSeen: it.times_seen, photos: pics(it).length, thumb, publishedUrl: it.published_url,
+      });
+      const preview = async (rows: Item[]) => {
+        try {
+          return await core("POST", "panel/market/preview", { items: rows.map(r => ({ id: r.id, title: r.title, cost: Number(r.supplier_price), category: r.category ?? "" })) });
+        } catch (e) {
+          console.error("market preview", (e as Error).message);
+          return { items: {}, departments: [], error: "La web todavía no tiene esta función (Core 3.14.71)." };
+        }
+      };
+      const getItem = async (id: number, extra = "") => {
+        const { data } = await admin.from("crm_market_items").select(COLS + extra).eq("business_id", biz.id).eq("id", id).maybeSingle();
+        return data as Item | null;
+      };
+
+      if (body.action === "market_list") {
+        const tab = body.tab === "publicados" ? "publicados" : "bolsa";
+        const words = String(body.search ?? "").replace(/[%_,()*]/g, " ").trim().split(/\s+/).filter(Boolean).slice(0, 5);
+        let q = admin.from("crm_market_items").select(COLS).eq("business_id", biz.id).eq("currency", "USD").gt("supplier_price", 0);
+        q = tab === "publicados" ? q.eq("status", "publicado") : q.in("status", ["nuevo", "aprobado"]);
+        if (words.length) q = q.ilike("title", `%${words.join("%")}%`);
+        const { data, error } = await q.order("last_seen", { ascending: false }).limit(60);
+        if (error) throw new Error(error.message);
+        const rows = (data ?? []) as Item[];
+        const firsts = rows.map(r => pics(r)[0]).filter(Boolean) as string[];
+        const signed = await sign(firsts);
+        // «Ya publicado de otro proveedor»: mismo comienzo del nombre (3 palabras) entre lo publicado.
+        const key = (t: string) => t.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9ñ ]/g, " ").split(/\s+/).filter(w => w.length > 2).slice(0, 3).join(" ");
+        const twins: Record<string, number> = {};
+        if (tab === "bolsa" && rows.length) {
+          const { data: pub } = await admin.from("crm_market_items").select("id,title").eq("business_id", biz.id).eq("status", "publicado").limit(1000);
+          for (const p of (pub ?? []) as { id: number; title: string }[]) { const k = key(p.title); if (k.split(" ").length >= 2) twins[k] ??= p.id; }
+        }
+        const pv = await preview(rows);
+        return json(200, {
+          tab, departments: pv.departments ?? [], previewError: pv.error ?? null,
+          items: rows.map(r => ({ ...card(r, signed[pics(r)[0]] ?? null), quote: pv.items?.[String(r.id)] ?? null,
+            twin: twins[key(r.title)] && twins[key(r.title)] !== r.id ? `MK-${twins[key(r.title)]}` : null })),
+        });
+      }
+
+      if (body.action === "market_item") {
+        const it = await getItem(Number(body.id), ",raw_text");
+        if (!it) return json(404, { error: "Ese artículo ya no está en la bolsa." });
+        const list = pics(it).slice(0, 4);
+        const signed = await sign(list);
+        const pv = await preview([it]);
+        return json(200, { ...card(it, signed[list[0]] ?? null), images: list.map(p => signed[p]).filter(Boolean),
+          description: noContacts(it.description ?? ""), ad: noContacts(it.raw_text ?? "").slice(0, 800),
+          quote: pv.items?.[String(it.id)] ?? null, departments: pv.departments ?? [], previewError: pv.error ?? null });
+      }
+
+      if (body.action === "market_publish") {
+        const it = await getItem(Number(body.id));
+        const price = Math.round(Number(body.price) * 100) / 100;
+        if (!it) return json(404, { error: "Ese artículo ya no está en la bolsa." });
+        if (it.currency !== "USD" || !(Number(it.supplier_price) > 0)) return json(400, { error: "Este artículo no tiene precio del proveedor en USD." });
+        if (it.status === "descartado") return json(400, { error: "Ernesto descartó este artículo." });
+        if (!(price > 0)) return json(400, { error: "Escribe el precio de venta." });
+        const list = pics(it).slice(0, 4);
+        const signed = await sign(list);
+        const images = list.map(p => signed[p]).filter(Boolean);
+        if (!images.length && !it.published_url) return json(400, { error: "No tiene fotos: no se puede publicar." });
+        const department = String(body.department ?? "").replace(/[^a-z0-9-]/gi, "").slice(0, 60);
+        const out = await core("POST", "panel/market/publish", {
+          item_id: it.id, title: noContacts(it.title), description: noContacts(it.description ?? ""), cost: Number(it.supplier_price),
+          price, department, images, version: Date.now(), by, byName,
+        });
+        // Precio fijado a mano: el bot (catalog.js) y el robot de proveedores (supplier-feed) ya no lo cambian.
+        const { error } = await admin.from("crm_market_items").update({ status: "publicado", published_url: out.url ?? it.published_url, my_price: price, price_locked: true })
+          .eq("business_id", biz.id).eq("id", it.id);
+        if (error) console.error("market_publish bolsa", it.id, error.message);
+        return json(200, { ...out, bolsaOk: !error });
+      }
+
+      if (body.action === "market_unpublish") {
+        const it = await getItem(Number(body.id));
+        if (!it) return json(404, { error: "Ese artículo ya no está en la bolsa." });
+        const out = await core("POST", `panel/market/${it.id}/unpublish`, { version: Date.now(), by, byName, title: noContacts(it.title) });
+        const { error } = await admin.from("crm_market_items").update({ status: "agotado" }).eq("business_id", biz.id).eq("id", it.id);
+        if (error) console.error("market_unpublish bolsa", it.id, error.message);
+        return json(200, { ...out, bolsaOk: !error });
+      }
+      return json(400, { error: "Acción desconocida." });
+    }
+
     // Venta de proveedor (Core 3.14.14, D69): reparto del margen apuntado en el pedido. Es información: no mueve dinero.
     if (body.action === "supplier_split") return json(200, await core("GET", `panel/supplier-split/${Number(body.id)}`));
     if (body.action === "supplier_split_save") {
