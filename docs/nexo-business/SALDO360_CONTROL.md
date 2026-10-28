@@ -103,3 +103,17 @@
 - **Pruebas:** 31 de permisos (PGlite) + 4 en VivaBot (`npm run check` completo OK). **Desde el VPS con la clave real** (sin reiniciar): mal código → no coincide; otro número → no encuentra; sin código → ayuda; correcto → aprobada; repetido → ya verificada. Botón probado en local: código = el de la base, enlace `wa.me/5354056173?text=SALDO360 …`. Todo limpiado.
 - **Pendiente:** desplegar vivabot#24 (ver «Próxima acción» 1b) y una prueba real enviando desde un móvil que no sea el del bot.
 - **Commits:** Saldo 360 en este repo; VivaBot `c48a642` (rama `feat/saldo360-verificacion`, PR #24).
+
+## Sesión 27-oct-2026 (noche, 4) — Formas de pago, dólares y mayorista
+- **Pedido de Ernesto:** más formas de pago (USDT, Zelle, Clásica…), venta mayorista y minorista, y que el proveedor pueda añadir las suyas.
+- **Elegido por Ernesto:** CUP = Transfermóvil, EnZona, efectivo CUP; USD = Zelle, USDT, Tarjeta Clásica, MLC, efectivo USD. Precio en dólares **por cada 100 CUP** de saldo. Mayorista = **precio más barato desde cierta cantidad**.
+- **Cómo funciona:** cada oferta tiene una moneda (CUP o USD) y solo acepta las formas de esa moneda; el vendedor puede escribir hasta 3 formas propias (2–30 letras, ej. «PayPal»). Mayorista opcional: desde X CUP (mayor que la venta mínima, hasta el saldo) a un precio menor o igual al normal. El buscador cobra el precio mayorista cuando el monto llega, muestra «(mayorista)» y avisa del mayorista si el monto aún no llega; ordena CUP primero y luego USD. La solicitud guarda el precio que tocó y la moneda.
+- **Formulario sin cuenta** (`/saldo360/publicar`): solo pesos; para dólares hay que crear tienda.
+- **Base:** migración `…000900` aplicada en `saldo360` (columnas `price_currency`, `custom_payment_methods`, `wholesale_min_cup`, `wholesale_price_per_100`; `publish_offer`/`update_offer` con 4 parámetros nuevos; vista `market_offers` ampliada). Ofertas viejas siguen siendo CUP.
+- **Pruebas:** 44 (11 unitarias + 33 permisos); `tsc`, `eslint` y `next build` OK. Commit `4d38405`, publicado en producción.
+- **Pendiente:** que el parser de VivaBot (fuente de proveedores, Fase G) entienda USD/mayorista; prueba real con Lennys (mensaje #3285 enviado 18:38).
+
+## 28-oct-2026 — Primera verificación real por WhatsApp ✅
+- **Lennys** (5356885368) creó la tienda «Prueba» (Playa) el 27-oct a las 18:57 y a los 18 segundos quedó **aprobada sola por VivaBot** (`verify_whatsapp`, via vivabot). La verificación automática funciona en real.
+- Aún **no publicó ninguna oferta** (0 ofertas, 0 contactos). Datos de prueba sin borrar.
+- **SSH al VPS sigue bloqueado** (connection reset en el saludo SSH) desde el 27-oct tarde; VivaBot y la web de Casa Viva funcionan. Probable bloqueo por exceso de intentos (fail2ban o cortafuegos de Hostinger).
