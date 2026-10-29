@@ -7,6 +7,12 @@ Estados: **FOCO** (se trabaja ahora) · **ACTIVO** (funciona, solo mantenimiento
 
 ---
 
+## Casa Viva — Pilar 3 «Lo que se promete llega a la tienda» (28-oct-2026, Claude)
+- **Hecho en código, SIN desplegar:** Core 3.14.72 (repo Casa-Viva, rama `feat/reserva-1028`, commit `58ae026`, worktree `C:\Users\Ernesto\Casa-Viva-reserva`). La reserva («guardar hasta mañana») vive dentro del pedido (`_cvd_reserva_hasta/por/nota`), sale en rojo en `/ventas/` («Kay pidió guardarlo hasta mañana»), la dependienta no puede cancelar con reserva vigente, administración confirma, el bot por la API de WooCommerce recibe 409, y al vencer hay un solo aviso (`GET /bot/reservas/vencidas`). Diseño: `docs/nexo-business/pilar3-reservas-diseno-2026-10-28.md`.
+- **Verificado:** sintaxis de todos los PHP/JS tocados. **NO verificado:** la prueba `artifacts/tests/test-reserva.php` (no hay PHP en esta PC y el SSH a Hostinger estaba bloqueado; la corre la CI al subir la rama) ni ninguna prueba en vivo.
+- **Falta:** (1) OK de Ernesto al diseño; (2) copia de seguridad + desplegar + probar con un pedido de PRUEBA; (3) lado bot (reservar con comprobación, no cancelar con reserva, aviso al vencer) con bot-maraton; (4) franja roja en la app de la Caja (el campo `reserva` ya llega); (5) botón en el panel de Lennys y en el área de la gestora.
+- **Ernesto debe decidir:** dependienta bloqueada (propuesto) o solo aviso; máximo 7 días; si la Caja se actualiza ya.
+
 ## Casa Viva — comprobación urgente del 10-oct-2026 (fase 1)
 - **Evidencia real:** Lennys instaló la caja Windows 1.0.3 y pudo añadir 14 "Toallas pequeña" aunque nube y conteo físico son 3. El producto no tenía stock verificado en la pantalla; el código permitía añadir unidades sin límite si faltaba la fila en el mapa de existencias.
 - **Solución propuesta, NO publicada:** PR #131 (`fix/casa-viva-stock-guard-20261010`); bloquea stock desconocido en tarjeta/lector/carrito y en transacción Rust (incluidos ventas offline y líneas repetidas), incorpora devoluciones offline en stock calculado, y hace visible si falla la descarga de catálogo/stock/tasas. CI Rust y TypeScript POS **aprobadas**; CI general **falló por vulnerabilidad crítica Next.js 16.3.4** (issue #132), no por POS.
