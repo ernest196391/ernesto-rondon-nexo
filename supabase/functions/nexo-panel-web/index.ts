@@ -13,7 +13,8 @@
 //   D121 (Core 3.14.71): market_list, market_item, market_publish, market_unpublish — «Proveedores · bajo pedido»
 //                 (lee crm_market_items sin teléfonos; publicar/retirar por /panel/market/* de la web)
 // Deploy: npx.cmd supabase functions deploy nexo-panel-web --project-ref viwwlriwlwodrfukbgbj --no-verify-jwt --use-api
-import { createClient } from "jsr:@supabase/supabase-js@2";
+// 29-oct: npm: en vez de jsr: (el empaquetador de Supabase no llegaba a jsr.io y no dejaba desplegar). Misma librería.
+import { createClient } from "npm:@supabase/supabase-js@2";
 
 const BUSINESS = "casa-viva";
 const cors = {
