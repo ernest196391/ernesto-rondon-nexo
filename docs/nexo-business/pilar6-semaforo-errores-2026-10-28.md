@@ -61,7 +61,8 @@ Cómo se saca (en el VPS): `cd /root/vivabot && node scripts/errores-semana.mjs`
 - «Anotado sin registro» se mide por el texto del error mientras no exista la tabla de pendientes del Pilar 1; cuando exista se mide directo (promesas del bot sin fila = 0).
 - Para el resumen del domingo: pegar las 5 líneas tal cual.
 
-## Para aplicar en el VPS cuando el SSH vuelva (verde, reversible)
+## #57 cerrado (28-oct, después de las 21:24, cuando el SSH volvió)
+Se cerró con este comando (comprobado: `test/d111-tecnicos.test.js` pasa dentro de `npm run check`). Quedan 37 abiertos.
 ```bash
 cv errores cerrar 57 "Tarifa de Kevin pedido por pedido (D111, 24-oct); programado en src/tarifa-kevin-rules.js (commit 0668573)" --leccion "App disponible no equivale a precio de transporte actualizado" --estado corregido
 ```
