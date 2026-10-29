@@ -8,6 +8,8 @@
 //   Venta de proveedor (Core 3.14.14, D69): supplier_split, supplier_split_save, supplier_sales
 //   Core 3.14.41: product_description_save, product_main_photo, product_duplicate, product_copies, product_copy,
 //                 product_copy_publish, product_copy_discard
+//   Lennys 28-oct: product_photos, product_photos_set — fotos de un producto de la web (se añaden, ✕ quita, ★ principal),
+//                 por la API de WooCommerce (sin cambiar Core)
 //   D121 (Core 3.14.71): market_list, market_item, market_publish, market_unpublish — «Proveedores · bajo pedido»
 //                 (lee crm_market_items sin teléfonos; publicar/retirar por /panel/market/* de la web)
 // Deploy: npx.cmd supabase functions deploy nexo-panel-web --project-ref viwwlriwlwodrfukbgbj --no-verify-jwt --use-api
@@ -59,6 +61,41 @@ async function woo(path: string, params: Record<string, string>) {
   if (!res.ok) throw new Error(`woo ${path} ${res.status}`);
   return { data: await res.json(), pages: Number(res.headers.get("x-wp-totalpages") ?? "1"), total: Number(res.headers.get("x-wp-total") ?? "0") };
 }
+
+// Escribir en WooCommerce (PUT). Mismas claves que la lectura.
+async function wooPut(path: string, body: unknown) {
+  const res = await fetch(`${base()}/wp-json/wc/v3/${path}`, {
+    method: "PUT", headers: { authorization: auth(), "content-type": "application/json" }, body: JSON.stringify(body),
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data?.message ?? `woo ${path} ${res.status}`);
+  return data;
+}
+
+// <photo-set> Lennys 28-oct: el orden de fotos que pide el panel → las imágenes para WooCommerce (la primera = principal,
+// el resto = galería). Las que ya tiene van por su id y SOLO si son de este producto; las nuevas, solo si son fotos
+// subidas por el panel (prefix = nexo-product-photos). Máx. 9 (1 principal + 8 en la galería, Core 3.14.24); al menos 1.
+// Nada se borra de la biblioteca de medios de la web: una foto quitada solo deja de salir en el producto.
+const PHOTO_MAX = 9;
+function photoSetPlan(currentIds: number[], wanted: unknown, prefix: string): { images: Array<{ id: number } | { src: string }> } | { error: string } {
+  const list = Array.isArray(wanted) ? wanted : [];
+  if (!list.length) return { error: "Deja al menos una foto." };
+  if (list.length > PHOTO_MAX) return { error: `Caben ${PHOTO_MAX} fotos (1 principal + ${PHOTO_MAX - 1} en la galería). Quita alguna.` };
+  const images: Array<{ id: number } | { src: string }> = [];
+  const seen = new Set<string>();
+  for (const w of list as Array<{ id?: unknown; url?: unknown }>) {
+    const id = Number(w?.id);
+    const url = String(w?.url ?? "");
+    if (Number.isInteger(id) && id > 0) {
+      if (!currentIds.includes(id)) return { error: "Una de las fotos ya no está en este producto. Cierra y vuelve a abrirlo." };
+      if (!seen.has("id:" + id)) { seen.add("id:" + id); images.push({ id }); }
+    } else if (prefix.startsWith("http") && url.startsWith(prefix) && !url.includes("..") && /\.(webp|jpe?g|png)$/i.test(url)) {
+      if (!seen.has(url)) { seen.add(url); images.push({ src: url }); }
+    } else return { error: "Foto no válida." };
+  }
+  return { images };
+}
+// </photo-set>
 
 async function core(method: "GET" | "POST", path: string, body?: unknown) {
   const sep = path.includes("?") ? "&" : "?";
@@ -414,6 +451,30 @@ Deno.serve(async req => {
       const url = String(body.imageUrl ?? "");
       if (!(Number(body.wooId) > 0) || !url.startsWith(GALLERY_PREFIX)) return json(400, { error: "Foto no válida." });
       return json(200, await core("POST", `panel/products/${Number(body.wooId)}/photo`, { imageUrl: url, by }));
+    }
+    // Lennys 28-oct: fotos de un producto (simple o con diseños; no de un diseño suelto). Leer y guardar en el orden elegido.
+    type WooImage = { id: number; src: string };
+    const productImages = async (wooId: number) => {
+      const { data } = await woo(`products/${wooId}`, {});
+      if (!data || data.type === "variation") throw new Error("Producto no válido.");
+      return ((data.images ?? []) as WooImage[]).map(i => ({ id: Number(i.id), src: String(i.src) }));
+    };
+    if (body.action === "product_photos") {
+      if (!(Number(body.wooId) > 0)) return json(400, { error: "Producto no válido." });
+      return json(200, { images: await productImages(Number(body.wooId)) });
+    }
+    if (body.action === "product_photos_set") {
+      const wooId = Number(body.wooId);
+      if (!(wooId > 0)) return json(400, { error: "Producto no válido." });
+      const now = await productImages(wooId);
+      const plan = photoSetPlan(now.map(i => i.id), body.photos, GALLERY_PREFIX);
+      if ("error" in plan) return json(400, { error: plan.error });
+      const out = await wooPut(`products/${wooId}`, { images: plan.images,
+        meta_data: [{ key: "_cvd_panel_photos_log", value: JSON.stringify({ at: new Date().toISOString(), by, before: now.map(i => i.id), count: plan.images.length }) }] });
+      const images = ((out.images ?? []) as WooImage[]).map(i => ({ id: Number(i.id), src: String(i.src) }));
+      // Las nuevas que la web no pudo bajar no se pierden en silencio: se dice cuántas faltan.
+      const missing = plan.images.length - images.length;
+      return json(200, { images, ...(missing > 0 ? { warning: `${missing} foto(s) no se pudieron poner en la web. Prueba otra vez.` } : {}) });
     }
     // Duplicar: copia en borrador en la web (nadie la ve). La caja no la conoce hasta publicarla.
     if (body.action === "product_duplicate") {

@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Figtree:wght@400;600;700&display=swap">
 <link rel="stylesheet" href="nexo.css">
 <link rel="stylesheet" href="casaviva.css">
-<link rel="stylesheet" href="dash.css?v=20261028a">
+<link rel="stylesheet" href="dash.css?v=20261028b">
 </head>
 <body>
 <div class="nx dash" data-theme="casaviva" id="root">
@@ -747,8 +747,8 @@ async function editProduct(p) {
     ${group ? `<div class="note-box"><p>Es un diseño de <strong>${esc(groupName(group))}</strong>.</p><button type="button" class="btn btn-secondary btn-block" data-group-open>Ver todos sus diseños y colores</button></div>` : ""}
     ${!p ? `<div class="note-box"><p>¿Viene en varios colores o diseños (por ejemplo, cortinas)?</p><button type="button" class="btn btn-secondary btn-block" data-new-designs>Crear producto con diseños</button></div>` : ""}
     <form class="form">
-      ${photoPicker(group ? "Foto de este diseño" : "Foto principal (la misma de la web y de las gestoras)", webImg || (p?.image_url ?? ""))}
-      ${group ? "" : galleryPicker(p ? "Añadir más fotos (opcional)" : "Más fotos (opcional)")}
+      ${onWeb && !group ? '<div data-photos></div>' : photoPicker(group ? "Foto de este diseño" : "Foto principal (la misma de la web y de las gestoras)", webImg || (p?.image_url ?? ""))}
+      ${group || onWeb ? "" : galleryPicker(p ? "Añadir más fotos (opcional)" : "Más fotos (opcional)")}
       <input type="hidden" name="sku" value="${esc(p?.sku ?? "")}">
       <label class="field">Nombre<input name="name" required value="${esc(p?.name ?? "")}" placeholder="Ej.: Toalla grande azul"></label>
       <div class="grid-2">
@@ -796,6 +796,8 @@ async function editProduct(p) {
   const msg = form.querySelector("[data-msg]");
   let photoFile = null;
   wirePhotoPicker(form, async f => { photoFile = f; return true; });
+  // Lennys 28-oct: en un producto que ya está en la web se ven sus fotos; las nuevas se añaden, ✕ quita y ★ elige la principal.
+  const photos = onWeb && !group ? mountPhotos(form.querySelector("[data-photos]"), Number(onWeb)) : null;
   const galleryFiles = wireGallery(form);
   const fail = text => { msg.textContent = text; msg.dataset.tone = "bad"; form.querySelector("[type=submit]").disabled = false; };
   form.onsubmit = async e => {
@@ -821,8 +823,14 @@ async function editProduct(p) {
     let fichaTxt = "";
     form.querySelector("[type=submit]").disabled = true;
     try {
-      let imageUrl = null;
-      if (photoFile) {
+      let imageUrl = null, cajaImage = null, photoWarn = "";
+      if (photos) {
+        // Primero las fotos: si fallan, no se guarda nada más y se dice por qué.
+        let r = null;
+        try { r = await photos.save(); } catch (e0) { throw new Error("las fotos no se guardaron (" + e0.message + "). No se cambió nada más"); }
+        if (r?.mainChanged) cajaImage = r.main; // la caja enseña la misma foto principal que la web
+        photoWarn = r?.warning ?? "";
+      } else if (photoFile) {
         msg.textContent = "Subiendo foto…"; msg.dataset.tone = "";
         try { imageUrl = await uploadPhoto(photoFile); } catch { throw new Error("esa foto no se pudo usar. Prueba con otra o haz una nueva"); }
       }
@@ -832,11 +840,11 @@ async function editProduct(p) {
         p_business: bizId(), p_product_id: p?.product_id ?? null, p_name: f.get("name"), p_sku: f.get("sku"),
         p_barcodes: String(f.get("barcodes") ?? "").split(",").map(v => v.trim()).filter(Boolean),
         // Sin foto nueva, la caja se queda con la foto de la web (Lennys 20-oct: una sola foto principal).
-        p_price_usd: price, p_category: f.get("category"), p_image_url: imageUrl ?? (webImg && webImg !== p?.image_url ? webImg : null),
+        p_price_usd: price, p_category: f.get("category"), p_image_url: imageUrl ?? cajaImage ?? (webImg && webImg !== p?.image_url ? webImg : null),
         p_active: p ? p.active !== false : true, p_min_stock: String(f.get("min") ?? "").trim() === "" ? null : Number(f.get("min")),
       });
       if (error || saved?.error) throw new Error(error?.message ?? (saved.error === "forbidden" ? "solo la dueña puede hacerlo" : saved.error));
-      const notes = [];
+      const notes = photoWarn ? [photoWarn.replace(/[.]$/, "")] : [];
       if (qty != null && (!s?.lastMovementAt || qty !== s.quantity)) {
         const { data: st, error: e2 } = await supabase.rpc("nexo_business_set_stock", { p_business: bizId(), p_product: saved.productId, p_quantity: qty, p_reason: saved.created ? "Alta desde el panel" : "Conteo desde el panel" });
         if (e2 || st?.error) notes.push("la cantidad no se guardó (" + (e2?.message ?? st.message ?? st.error) + ")");
@@ -1303,10 +1311,9 @@ async function editGroup(key) {
   let web = null; // diseños leídos de la web
   const sheet = openSheet('<div class="sheet-head"><h2>' + esc(name) + '</h2><button type="button" class="btn btn-ghost" data-x>Cerrar</button></div>'
     // Lennys 20-oct (Core 3.14.41): la foto principal y la descripción son del producto (las mismas para todos los colores).
-    + (parentWooId ? '<section class="note-box" data-main><h3 class="t-lg">Foto principal</h3>'
-      + '<img class="receipt-photo" data-mainimg alt="" hidden onerror="this.hidden=true">'
-      + '<p class="t-xs muted">Es la que ven la tienda, las gestoras y el bot. La foto de cada color se cambia abajo, en su diseño.</p>'
-      + '<label class="btn btn-secondary btn-block" data-mainbtn><span data-mainph>📷 Cambiar foto principal</span><input type="file" accept="image/*" data-mainphoto aria-label="Cambiar la foto principal" ' + HIDE_INPUT + "></label></section>"
+    + (parentWooId ? '<section class="note-box" data-main><h3 class="t-lg">Fotos del producto</h3>'
+      + '<p class="t-xs muted">La ★ principal es la que ven la tienda, las gestoras y el bot. La foto de cada color se cambia abajo, en su diseño.</p>'
+      + '<div data-photos></div></section>'
       + '<section class="form" data-descbox><label class="field">Descripción del producto (la misma para todos sus colores)<textarea name="description" rows="6" disabled placeholder="Para qué sirve y qué trae. Medidas en cm y material. Cada línea que empiece por «-» sale como un punto de la lista."></textarea></label>'
       + '<p class="t-xs muted" data-ficha>Cargando la descripción de la web…</p>'
       + '<button type="button" class="btn btn-primary btn-block" data-descsave hidden>Guardar descripción</button></section>' : "")
@@ -1635,26 +1642,8 @@ async function editGroup(key) {
     retireFlow(rowsNow().filter(r => r.active).map(r => r.productId), true, () => sheet.close());
   };
 
-  // Foto principal, descripción y «Duplicar» (Core 3.14.41, Lennys 20-oct).
-  const mainImg = $s("[data-mainimg]");
-  const showMain = url => { if (mainImg && url) { mainImg.src = url; mainImg.hidden = false; } };
-  showMain(rowsNow().find(r => r.web?.mainImage)?.web.mainImage);
-  const mainInput = $s("[data-mainphoto]");
-  if (mainInput) mainInput.onchange = async e => {
-    const f = e.target.files?.[0];
-    if (!f) return;
-    const ph = $s("[data-mainph]"), btn = $s("[data-mainbtn]");
-    ph.textContent = "Subiendo foto…"; btn.style.pointerEvents = "none";
-    try {
-      let url;
-      try { url = await uploadPhoto(f); } catch { throw new Error("esa foto no se pudo usar. Prueba con otra"); }
-      const out = await panelWeb({ action: "product_main_photo", wooId: Number(parentWooId), imageUrl: url });
-      showMain(out.image ?? url);
-      toast("Foto principal cambiada: ya se ve en la tienda, en las gestoras y en el bot.", "ok");
-      void loadInventory();
-    } catch (err) { toast("No se cambió la foto: " + err.message, "bad"); }
-    ph.textContent = "📷 Cambiar foto principal"; btn.style.pointerEvents = ""; e.target.value = "";
-  };
+  // Fotos (Lennys 28-oct: se añaden, ✕ quita, ★ principal), descripción y «Duplicar» (Core 3.14.41, Lennys 20-oct).
+  if (parentWooId) mountPhotos($s("[data-photos]"), Number(parentWooId), { ownButton: true, onSaved: () => void loadInventory() });
   if (descBox) {
     panelWeb({ action: "product_ficha", wooId: Number(parentWooId) }).then(d => {
       descBox.value = d.descripcion ?? ""; descBox.dataset.orig = descBox.value; descBox.disabled = false;
@@ -4027,23 +4016,121 @@ function photoPicker(label, current = "") {
     + '<div class="grid-2"><label class="btn btn-secondary">📷 Hacer foto<input type="file" accept="image/*" capture="environment" data-photo ' + HIDE_INPUT + '></label>'
     + '<label class="btn btn-secondary">🖼️ Galería<input type="file" accept="image/*" data-photo ' + HIDE_INPUT + "></label></div></div>";
 }
+// <photo-logic> Fotos de un producto (Lennys 28-oct): las nuevas se AÑADEN a las que ya tiene; ✕ quita una;
+// ★ elige la principal. La primera de la lista es la principal y el resto, la galería de la web (máx. 8, Core 3.14.24).
+// La prueba panel-lennys-1028.test.mjs.
+const PHOTO_GALLERY_MAX = 8;
+const PHOTO_MAX = PHOTO_GALLERY_MAX + 1; // + la principal
+// Cuántas de las fotos elegidas caben. Nunca se tira una foto sin decirlo: msg dice cuántas no caben y qué hacer.
+function photoAddPlan(count, picked, max = PHOTO_MAX) {
+  const take = Math.max(0, Math.min(max - count, picked));
+  const left = picked - take;
+  const limit = max === PHOTO_MAX ? max + " fotos (1 principal + " + PHOTO_GALLERY_MAX + " en la galería)" : max + " fotos en la galería";
+  return { take, left, msg: left ? (take ? "Añadí " + take + (take === 1 ? " foto" : " fotos") + ", pero " : "") + (left === 1 ? "1 foto no cabe" : left + " fotos no caben") + ": el máximo es " + limit + ". Quita alguna con ✕ para poner otras." : "" };
+}
+const photoMakeMain = (list, i) => (i > 0 && i < list.length ? [list[i], ...list.filter((_, j) => j !== i)] : list.slice());
+const photoRemove = (list, i) => list.filter((_, j) => j !== i);
+const photoDirty = (orig, list) => list.length !== orig.length || list.some((p, i) => p.kind !== "web" || p.id !== orig[i]?.id);
+// Lo que se manda a nexo-panel-web (product_photos_set): las de la web por su id; las nuevas, por la URL ya subida.
+const photoPayload = (list, urls) => list.map(p => (p.kind === "web" ? { id: p.id } : { url: urls[p.key] }));
+const photoCountText = n => (n ? n + (n === 1 ? " foto" : " fotos") + ": 1 principal" + (n > 1 ? " + " + (n - 1) + " en la galería" : "") + ". Caben " + PHOTO_MAX + "." : "Sin fotos: añade al menos una.");
+// </photo-logic>
+
+// Fotos de un producto que ya está en la web: se ven las que tiene, se añaden más, ✕ quita y ★ elige la principal.
+// Nada cambia hasta guardar (botón «Guardar fotos» o el «Guardar» del producto). Una foto quitada solo deja de salir
+// en el producto: no se borra de la web.
+function mountPhotos(box, wooId, { ownButton = false, onSaved = null } = {}) {
+  let orig = [], list = [], state = "loading", warn = "", seq = 0, busy = false;
+  const dirty = () => state === "ready" && photoDirty(orig, list);
+  const say = (text, tone = "") => { const m = box.querySelector("[data-pmsg]"); if (m) { m.textContent = text; m.dataset.tone = tone; } };
+  const render = () => {
+    if (state !== "ready") {
+      box.innerHTML = '<div class="field"><span>Fotos</span><p class="t-xs muted">' + (state === "loading" ? "Cargando las fotos de la web…" : "No se pudieron leer las fotos de la web. Ahora no se pueden cambiar desde aquí: cierra y vuelve a abrir el producto.") + "</p></div>";
+      return;
+    }
+    box.innerHTML = '<div class="field"><span>Fotos · la ★ principal es la que ven la tienda, las gestoras y el bot</span>'
+      + '<div class="photo-grid">' + list.map((p, i) => '<div class="photo-cell' + (i === 0 ? " is-main" : "") + '"><img alt="" src="' + esc(p.src) + '">'
+        + (i === 0 ? '<span class="photo-tag">★ Principal' + (p.kind === "new" ? " · nueva" : "") + "</span>" : '<button type="button" class="photo-main" data-pmain="' + i + '" aria-label="Hacer principal">★</button>' + (p.kind === "new" ? '<span class="photo-new">nueva</span>' : ""))
+        + '<button type="button" class="photo-x" data-px="' + i + '" aria-label="Quitar esta foto">✕</button></div>').join("") + "</div>"
+      + '<div class="grid-2"><label class="btn btn-secondary">📷 Hacer foto<input type="file" accept="image/*" capture="environment" data-padd ' + HIDE_INPUT + "></label>"
+      + '<label class="btn btn-secondary">🖼️ Añadir fotos<input type="file" accept="image/*" multiple data-padd ' + HIDE_INPUT + "></label></div>"
+      + '<p class="t-xs muted">' + photoCountText(list.length) + " Las nuevas se añaden a las que ya hay. Toca ★ para hacerla principal y ✕ para quitarla." + (dirty() ? " <b>Cambios sin guardar.</b>" : "") + "</p>"
+      + '<p class="msg" data-pmsg role="status"' + (warn ? ' data-tone="bad"' : "") + ">" + esc(warn) + "</p>"
+      + (ownButton && dirty() ? '<button type="button" class="btn btn-primary btn-block" data-psave>Guardar fotos</button>' : "")
+      + "</div>";
+    box.querySelectorAll("[data-pmain]").forEach(b => (b.onclick = () => { list = photoMakeMain(list, Number(b.dataset.pmain)); warn = ""; render(); }));
+    box.querySelectorAll("[data-px]").forEach(b => (b.onclick = () => { list = photoRemove(list, Number(b.dataset.px)); warn = list.length ? "" : "Sin fotos el producto se queda sin imagen: añade al menos una antes de guardar."; render(); }));
+    box.querySelectorAll("[data-padd]").forEach(input => (input.onchange = () => {
+      const picked = [...(input.files ?? [])];
+      const plan = photoAddPlan(list.length, picked.length);
+      for (const f of picked.slice(0, plan.take)) list.push({ kind: "new", key: "n" + ++seq, file: f, src: URL.createObjectURL(f) });
+      warn = plan.msg; input.value = ""; render();
+    }));
+    box.querySelector("[data-psave]")?.addEventListener("click", async e => {
+      e.target.disabled = true;
+      try { await api.save(); say("Fotos guardadas: ya se ven en la tienda, en las gestoras y en el bot.", "ok"); onSaved?.(); }
+      catch (err) { say("No se guardaron las fotos: " + err.message, "bad"); e.target.disabled = false; }
+    });
+  };
+  const api = {
+    dirty,
+    // Sube las nuevas (una vez cada una: un reintento no las vuelve a subir) y guarda el orden en la web.
+    // Devuelve { main, mainChanged } o null si no había cambios.
+    async save() {
+      if (!dirty() || busy) return null;
+      if (!list.length) throw new Error("deja al menos una foto");
+      busy = true;
+      try {
+        const fresh = list.filter(p => p.kind === "new");
+        for (const [i, p] of fresh.entries()) {
+          if (p.url) continue;
+          say("Subiendo fotos nuevas (" + (i + 1) + " de " + fresh.length + ")…");
+          try { p.url = await uploadPhoto(p.file); } catch { throw new Error("una de las fotos nuevas no se pudo usar. Quítala con ✕ y prueba con otra"); }
+        }
+        say("Guardando las fotos en la web…");
+        const before = orig[0]?.id ?? null;
+        const out = await panelWeb({ action: "product_photos_set", wooId, photos: photoPayload(list, Object.fromEntries(fresh.map(p => [p.key, p.url]))) });
+        orig = (out.images ?? []).map(x => ({ kind: "web", id: x.id, src: x.src }));
+        list = orig.slice(); warn = out.warning ?? ""; render();
+        return { main: orig[0]?.src ?? null, mainChanged: (orig[0]?.id ?? null) !== before, warning: out.warning ?? "" };
+      } finally { busy = false; }
+    },
+  };
+  render();
+  panelWeb({ action: "product_photos", wooId }).then(d => {
+    orig = (d.images ?? []).map(x => ({ kind: "web", id: x.id, src: x.src }));
+    list = orig.slice(); state = "ready"; render();
+  }).catch(() => { state = "error"; render(); });
+  return api;
+}
+
 // Más fotos para la galería de la web (Lennys 16-oct; Core 3.14.24). Se añaden a la galería, nunca se quitan.
+// 28-oct: cada vez que se eligen fotos se SUMAN a las ya elegidas (antes se cambiaban), cada una con ✕, y si no caben se dice.
 function galleryPicker(label) {
   return '<div class="field"><span>' + esc(label) + '</span>'
     + '<label class="btn btn-secondary btn-block">🖼️ Elegir varias fotos<input type="file" accept="image/*" multiple data-gallery ' + HIDE_INPUT + "></label>"
-    + '<div data-gallery-thumbs style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px"></div>'
-    + '<span class="t-xs muted" data-gallery-note>Hasta 8. Salen en la web debajo de la foto principal.</span></div>';
+    + '<div class="photo-grid" data-gallery-thumbs></div>'
+    + '<span class="t-xs muted" data-gallery-note>Hasta ' + PHOTO_GALLERY_MAX + '. Salen en la web debajo de la foto principal.</span><p class="msg" data-gallery-warn role="status"></p></div>';
 }
 function wireGallery(form) {
-  let files = [];
+  const files = [];
   const input = form.querySelector("[data-gallery]");
   if (!input) return () => [];
-  input.onchange = () => {
-    files = [...(input.files ?? [])].slice(0, 8);
-    form.querySelector("[data-gallery-thumbs]").innerHTML = files.map(f => '<img alt="" style="width:56px;height:56px;object-fit:cover;border-radius:8px" src="' + URL.createObjectURL(f) + '">').join("");
-    form.querySelector("[data-gallery-note]").textContent = files.length ? files.length + (files.length === 1 ? " foto elegida" : " fotos elegidas") + " (se suben al guardar)." : "Hasta 8. Salen en la web debajo de la foto principal.";
+  const box = form.querySelector("[data-gallery-thumbs]"), note = form.querySelector("[data-gallery-note]"), warnEl = form.querySelector("[data-gallery-warn]");
+  const draw = (warn = "") => {
+    box.innerHTML = files.map((f, i) => '<div class="photo-cell"><img alt="" src="' + URL.createObjectURL(f) + '"><button type="button" class="photo-x" data-gx="' + i + '" aria-label="Quitar esta foto">✕</button></div>').join("");
+    box.querySelectorAll("[data-gx]").forEach(b => (b.onclick = () => { files.splice(Number(b.dataset.gx), 1); draw(); }));
+    note.textContent = files.length ? files.length + (files.length === 1 ? " foto elegida" : " fotos elegidas") + " de " + PHOTO_GALLERY_MAX + " (se suben al guardar). Puedes elegir más: se suman." : "Hasta " + PHOTO_GALLERY_MAX + ". Salen en la web debajo de la foto principal.";
+    warnEl.textContent = warn; warnEl.dataset.tone = warn ? "bad" : "";
   };
-  return () => files;
+  input.onchange = () => {
+    const picked = [...(input.files ?? [])];
+    const plan = photoAddPlan(files.length, picked.length, PHOTO_GALLERY_MAX);
+    files.push(...picked.slice(0, plan.take));
+    input.value = "";
+    draw(plan.msg);
+  };
+  return () => files.slice();
 }
 async function uploadGallery(files, msg) {
   const urls = [];
@@ -4080,14 +4167,64 @@ function shrinkPhoto(file) {
   });
 }
 
+// <recv-logic> «Llegó mercancía»: lógica sin pantalla (la prueba panel-lennys-1028.test.mjs).
+// Lennys 28-oct: si la factura trae nombres que el sistema no conoce, se sigue igual. Cada línea se decide:
+// es uno de mis productos (buscar y tocarlo), es nuevo (borrador con nombre, cantidad y costo, se completa después)
+// o se salta. Una línea saltada NUNCA toca el stock: no se manda y queda anotada en la nota de la entrada.
+const RECV_STOP = new Set(["de", "del", "la", "el", "los", "las", "con", "para", "y", "en", "x", "un", "una", "por", "sin", "al", "a", "o"]);
+const recvNorm = s => String(s ?? "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, " ").trim();
+const recvWords = s => recvNorm(s).split(" ").filter(w => w.length > 1 && !RECV_STOP.has(w)).map(w => (w.length > 4 ? w.replace(/(es|s)$/, "") : w));
+// Productos parecidos a un nombre de la factura (o a lo que se escribe en «Buscar»): más palabras en común, primero.
+function recvSuggest(items, query, limit = 8) {
+  const words = recvWords(query);
+  if (!words.length) return [];
+  const out = [];
+  for (const p of items ?? []) {
+    const nw = recvWords(p.name);
+    const hits = words.filter(w => nw.some(n => n.startsWith(w) || (n.length >= 4 && w.startsWith(n)))).length;
+    if (hits) out.push({ p, hits });
+  }
+  out.sort((a, b) => b.hits - a.hits || String(a.p.name).localeCompare(String(b.p.name), "es"));
+  return out.slice(0, limit).map(x => x.p);
+}
+// «ok» = producto elegido · «new» = producto nuevo · «skip» = saltado (no entra) · «pending» = falta decidir (en rojo).
+const recvState = l => (l.skip ? "skip" : l.productId ? "ok" : l.isNew ? "new" : "pending");
+const recvLabel = l => String(l.readName || l.newName || "producto");
+const recvPrice = v => { const t = String(v ?? "").replace(",", ".").trim(); const n = Number(t); return t !== "" && Number.isFinite(n) && n > 0 ? n : null; };
+const recvCount = lines => lines.reduce((c, l) => ({ ...c, [recvState(l)]: c[recvState(l)] + 1 }), { ok: 0, new: 0, skip: 0, pending: 0 });
+// Qué falta antes de confirmar ("" = todo bien). suggest(l) = precio sugerido de un producto nuevo (o null).
+function recvCheck(lines, suggest = () => null) {
+  if (!lines.length) return "Añade al menos un producto.";
+  const live = lines.filter(l => !l.skip);
+  if (!live.length) return "Todas las líneas están saltadas: no entraría nada. Recupera alguna con «Deshacer» o añade un producto.";
+  const pending = live.filter(l => recvState(l) === "pending").length;
+  if (pending) return "Falta decidir " + (pending === 1 ? "1 producto" : pending + " productos") + " (en rojo): toca el tuyo, márcalo como nuevo o sáltalo.";
+  const noCost = live.find(l => l.unitCost == null || !(Number(l.unitCost) >= 0));
+  if (noCost) return "Falta el costo de «" + (noCost.productName ?? recvLabel(noCost)) + "».";
+  const fresh = live.filter(l => l.isNew && !l.productId);
+  if (fresh.some(l => !String(l.newName ?? "").trim())) return "Escribe el nombre del producto nuevo.";
+  const noPrice = fresh.find(l => recvPrice(l.newPrice) == null && !(suggest(l) > 0));
+  if (noPrice) return "Escribe el precio de venta de «" + String(noPrice.newName).trim() + "».";
+  return "";
+}
+// Lo que se manda a nexo_business_receive_goods: solo líneas con producto y sin saltar.
+const recvPayload = lines => lines.filter(l => !l.skip && l.productId).map(l => ({ productId: l.productId, quantity: l.quantity, unitCost: l.unitCost, currency: l.currency }));
+// Nota de la entrada + lo que no entró, para que se vea en «Ver mercancía recibida».
+function recvNote(note, lines) {
+  const skipped = lines.filter(l => l.skip);
+  const text = skipped.length ? "Sin entrar (saltados): " + skipped.map(l => l.quantity + "× " + recvLabel(l)).join(", ") : "";
+  return [String(note ?? "").trim(), text].filter(Boolean).join(" · ").slice(0, 1000);
+}
+// </recv-logic>
+
 async function receiveSheet(done) {
   const items = await loadShop();
   if (!items) return;
   const partners = mode === "admin" ? ((peopleCache ?? (await loadPeople())) ?? []).filter(p => p.kind === "partner" && p.status === "active") : [];
   const lines = [];
   let invoicePhoto = null, aiUsed = false;
-  // 16-oct (Lennys): productos de la factura que no están en el catálogo → «➕ Producto nuevo con este nombre».
-  // Se crean al confirmar (como «Nuevo producto»: caja + web), con el costo de la factura y el dueño elegido arriba.
+  // 16-oct (Lennys): productos de la factura que no están en el catálogo → «➕ Es nuevo». Se crean al confirmar
+  // (como «Nuevo producto»: caja + web), con el costo de la factura y el dueño elegido arriba. 28-oct: en borrador por defecto.
   const canNew = mode === "admin" && canCost();
   if (canNew && !costSheet) await loadCostSheet();
   if (curruReady === null) curruReady = await fetch(FN + "nexo-curru", { method: "POST", headers: { "content-type": "application/json" }, body: '{"check":true}' }).then(r => r.json()).then(r => r.configured === true).catch(() => false);
@@ -4099,6 +4236,7 @@ async function receiveSheet(done) {
     + (partners.length ? '<label class="field">Es mercancía de<select name="partner"><option value="">Casa Viva</option>' + partners.map(p => '<option value="' + p.id + '">' + esc(p.fullName) + "</option>").join("") + "</select></label>" : "<span></span>") + "</div>"
     + '<label class="search-field"><span>' + icon("search") + '</span><input data-q type="search" placeholder="Añadir producto a mano"></label>'
     + '<div data-items class="pick-list"></div>'
+    + '<div data-summary></div>'
     + '<div data-lines></div>'
     + '<label class="field">Nota<input name="note" maxlength="200" placeholder="Ej. 2 llegaron rotos"></label>'
     + '<p class="msg" data-msg role="status"></p><button type="submit" class="btn btn-primary btn-xl btn-block">Confirmar entrada</button></form>', "Recibir mercancía");
@@ -4108,43 +4246,87 @@ async function receiveSheet(done) {
   const usdOf = l => l.unitCost == null ? null : Number(l.unitCost) / rateOf(l.currency);
   // Precio sugerido (D68: costo × 1,5, nunca bajo el mínimo) para un producto nuevo.
   const suggestOf = l => { const c = usdOf(l); return c != null && Number.isFinite(c) && costSheet ? lennysPrice(c, fixedFor(c), null).price : null; };
+  const qtyCost = l => l.quantity + " × " + (l.unitCost == null ? "sin costo" : Number(l.unitCost).toLocaleString("es") + " " + esc(l.currency));
+  const pickBtn = p => '<button type="button" class="pick" data-match="' + esc(p.productId) + '">' + photo(p.imageUrl, p.name) + '<span class="grow"><span class="title">' + esc(p.name) + '</span><span class="meta">' + p.stock + " en stock</span></span>" + icon("plus", "sm") + "</button>";
+  const sugHtml = l => {
+    const typed = String(l.q ?? "").trim();
+    const list = recvSuggest(items, typed || l.readName, typed ? 8 : 4);
+    return (list.length ? '<p class="t-sm">' + (typed ? "Toca el tuyo:" : "¿Es uno de estos? Toca el tuyo:") + '</p><div class="pick-list">' + list.map(pickBtn).join("") + "</div>"
+      : '<p class="t-sm">' + (typed ? "No encuentro «" + esc(typed) + "». Prueba otra palabra." : "No encuentro uno parecido. Búscalo:") + "</p>");
+  };
+  const costFields = l => '<div class="grid-3"><label class="field t-sm">Cantidad<input data-qty inputmode="numeric" value="' + l.quantity + '"></label><label class="field t-sm">Costo c/u<input data-cost inputmode="decimal" value="' + esc(l.unitCost ?? "") + '"></label>'
+    + '<label class="field t-sm">Moneda<select data-cur>' + ["USD", "CUP", "MLC"].map(c => "<option" + (l.currency === c ? " selected" : "") + ">" + c + "</option>").join("") + "</select></label></div>"
+    + (l.currency !== "USD" && l.unitCost != null ? '<span class="meta">' + (Number.isFinite(usdOf(l)) ? "≈ " + dollars(usdOf(l)) + " c/u (tasa de hoy " + rateOf(l.currency) + " " + l.currency + ")" : "Falta la tasa de hoy del " + l.currency + " (Ajustes → Tasas)") + "</span>" : "");
+  const lineHtml = (l, i) => {
+    const st = recvState(l);
+    const fromInvoice = Boolean(l.readName);
+    const del = '<button type="button" class="btn btn-ghost btn-icon" data-del aria-label="' + (fromInvoice ? "Saltar" : "Quitar") + '">✕</button>';
+    const head = (title, right) => '<div class="kv"><span class="title">' + title + "</span>" + right + "</div>";
+    if (st === "skip") return '<div class="recv-line recv-skip" data-i="' + i + '">'
+      + head("⏭️ Saltado: «" + esc(recvLabel(l)) + "»", '<button type="button" class="btn btn-ghost t-sm" data-unskip>Deshacer</button>')
+      + '<span class="meta">' + qtyCost(l) + " · no entra al stock (queda anotado en la entrada)</span></div>";
+    if (st === "pending") return '<div class="recv-line recv-pending" data-i="' + i + '">'
+      + head('<span class="recv-warn">No lo conozco: «' + esc(l.readName) + "»</span>", del)
+      + '<span class="meta">En la factura: ' + qtyCost(l) + "</span>"
+      + '<div data-sug>' + sugHtml(l) + "</div>"
+      + '<label class="search-field"><span>' + icon("search") + '</span><input data-lq type="search" placeholder="Buscar otro producto mío" value="' + esc(l.q ?? "") + '"></label>'
+      + '<div class="grid-2">' + (canNew ? '<button type="button" class="btn btn-secondary" data-new>➕ Es nuevo</button>' : "") + '<button type="button" class="btn btn-secondary" data-skip>⏭️ Saltar</button></div>'
+      + '<p class="t-xs muted">' + (canNew ? "«Es nuevo»: se crea en borrador con este nombre, la cantidad y el costo; lo completas después. «Saltar»: no entra al stock." : "¿Es un producto nuevo? Sáltalo: no entra al stock y queda anotado en la entrada para crearlo después.") + "</p></div>";
+    if (st === "new") {
+      const sug = suggestOf(l);
+      return '<div class="recv-line recv-new" data-i="' + i + '">'
+        + head("➕ Producto nuevo" + (l.newActive === true ? " (a la venta)" : " (borrador)"), del)
+        + (fromInvoice ? '<span class="meta">En la factura: ' + esc(l.readName) + "</span>" : "")
+        + '<label class="field t-sm">Nombre del producto nuevo<input data-nname maxlength="120" value="' + esc(l.newName ?? "") + '"></label>'
+        + '<div class="grid-2"><label class="field t-sm">Precio de venta USD<input data-nprice inputmode="decimal" placeholder="' + esc(sug ?? "") + '" value="' + esc(l.newPrice ?? "") + '"></label>'
+        + '<label class="field t-sm">¿Se vende ya?<select data-nactive><option value="0"' + (l.newActive !== true ? " selected" : "") + '>No, borrador</option><option value="1"' + (l.newActive === true ? " selected" : "") + ">Sí, a la venta</option></select></label></div>"
+        + '<p class="t-xs muted">' + (sug != null ? "Sugerido " + dollars(sug) + " (costo × 1,5, nunca bajo el mínimo). Vacío = el sugerido. " : "") + "Borrador = entra al stock pero no se vende en la caja ni en la web hasta que le pongas foto y descripción y lo pongas a la venta.</p>"
+        + costFields(l)
+        + '<button type="button" class="btn btn-ghost btn-block t-sm" data-unnew>Mejor elegir uno que ya existe</button></div>';
+    }
+    return '<div class="recv-line" data-i="' + i + '">'
+      + head(esc(byId(l.productId)?.name ?? l.productName ?? l.productId), del)
+      + (fromInvoice ? '<div class="kv"><span class="meta">En la factura: ' + esc(l.readName) + '</span><button type="button" class="btn btn-ghost t-sm" data-change>Cambiar</button></div>' : "")
+      + costFields(l) + "</div>";
+  };
+  const wireSug = (row, l) => row.querySelectorAll("[data-match]").forEach(b => (b.onclick = () => {
+    l.productId = b.dataset.match; l.productName = byId(l.productId)?.name ?? null; l.isNew = false; l.q = ""; renderLines();
+  }));
   const renderLines = () => {
-    const usdTotal = lines.reduce((t, l) => t + (l.productId || l.isNew ? l.quantity * (usdOf(l) ?? 0) : 0), 0);
-    form.querySelector("[data-lines]").innerHTML = lines.length ? '<div class="breakdown">' + lines.map((l, i) => '<div class="recv-line" data-i="' + i + '">'
-      + '<div class="kv"><span class="title">' + (l.productId ? esc(byId(l.productId)?.name ?? l.newName ?? l.productId) : l.isNew ? "➕ Producto nuevo" : '<span style="color:var(--nx-danger)">Elige el producto: «' + esc(l.readName) + "»</span>") + '</span><button type="button" class="btn btn-ghost btn-icon" data-del aria-label="Quitar">✕</button></div>'
-      + (l.readName && (l.productId || l.isNew) ? '<span class="meta">En la factura: ' + esc(l.readName) + "</span>" : "")
-      + (l.productId || l.isNew ? "" : '<select data-fix><option value="">— elegir —</option>' + (canNew ? '<option value="__new">➕ Producto nuevo con este nombre</option>' : "") + items.filter(p => !l.readName || p.name.toLowerCase().includes(l.readName.split(" ")[0].toLowerCase())).slice(0, 30).map(p => '<option value="' + esc(p.productId) + '">' + esc(p.name) + "</option>").join("") + "</select>"
-        + (canNew ? '<p class="t-xs muted">¿No está en la lista? Elige «➕ Producto nuevo con este nombre»: se crea al confirmar la entrada.</p>' : ""))
-      + (l.isNew && !l.productId ? '<label class="field t-sm">Nombre del producto nuevo<input data-nname maxlength="120" value="' + esc(l.newName ?? "") + '"></label>'
-        + '<div class="grid-2"><label class="field t-sm">Precio de venta USD<input data-nprice inputmode="decimal" placeholder="' + esc(suggestOf(l) ?? "") + '" value="' + esc(l.newPrice ?? "") + '"></label>'
-        + '<label class="field t-sm">¿Se vende ya?<select data-nactive><option value="1"' + (l.newActive !== false ? " selected" : "") + '>Sí, a la venta</option><option value="0"' + (l.newActive === false ? " selected" : "") + ">No, borrador</option></select></label></div>"
-        + '<p class="t-xs muted">' + (suggestOf(l) != null ? "Sugerido " + dollars(suggestOf(l)) + " (costo × 1,5, nunca bajo el mínimo). Vacío = el sugerido. " : "") + "Borrador = se crea pero no se vende en la caja ni en la web hasta que lo pongas a la venta.</p>"
-        + '<button type="button" class="btn btn-ghost btn-block t-sm" data-unnew>Mejor elegir uno que ya existe</button>' : "")
-      + '<div class="grid-3"><label class="field t-sm">Cantidad<input data-qty inputmode="numeric" value="' + l.quantity + '"></label><label class="field t-sm">Costo c/u<input data-cost inputmode="decimal" value="' + esc(l.unitCost ?? "") + '"></label>'
-      + '<label class="field t-sm">Moneda<select data-cur>' + ["USD", "CUP", "MLC"].map(c => "<option" + (l.currency === c ? " selected" : "") + ">" + c + "</option>").join("") + "</select></label></div>"
-      + (l.currency !== "USD" && l.unitCost != null ? '<span class="meta">' + (Number.isFinite(usdOf(l)) ? "≈ " + dollars(usdOf(l)) + " c/u (tasa de hoy " + rateOf(l.currency) + " " + l.currency + ")" : "Falta la tasa de hoy del " + l.currency + " (Ajustes → Tasas)") + "</span>" : "")
-      + "</div>").join("")
-      + (Number.isFinite(usdTotal) ? '<div class="kv strong"><span>Total</span><span class="num">' + dollars(usdTotal) + "</span></div>" : "") + "</div>" : "";
+    const live = lines.filter(l => !l.skip && (l.productId || l.isNew));
+    const usdTotal = live.reduce((t, l) => t + l.quantity * (usdOf(l) ?? 0), 0);
+    const c = recvCount(lines);
+    const invoice = lines.some(l => l.readName);
+    form.querySelector("[data-summary]").innerHTML = invoice ? '<div class="note-box' + (c.pending ? "" : " note-calm") + '"><p class="t-sm"><b>' + [c.ok + " reconocidos", c.new ? c.new + (c.new === 1 ? " nuevo" : " nuevos") : "", c.skip ? c.skip + (c.skip === 1 ? " saltado" : " saltados") : "", c.pending ? '<span class="recv-warn">' + c.pending + " por decidir</span>" : ""].filter(Boolean).join(" · ") + "</b></p>"
+      + (c.pending ? '<p class="t-xs muted">Los que Curru no conoce están en rojo: toca el tuyo, márcalo como nuevo o sáltalo. Los reconocidos entran normal.</p><button type="button" class="btn btn-ghost btn-block t-sm" data-skip-rest>⏭️ ' + (c.pending === 1 ? "Saltar el que falta" : "Saltar los " + c.pending + " que faltan") + "</button>" : "") + "</div>" : "";
+    form.querySelector("[data-skip-rest]")?.addEventListener("click", () => { lines.forEach(l => { if (recvState(l) === "pending") l.skip = true; }); renderLines(); });
+    form.querySelector("[data-lines]").innerHTML = lines.length ? '<div class="breakdown">' + lines.map(lineHtml).join("")
+      + (Number.isFinite(usdTotal) ? '<div class="kv strong"><span>Total que entra</span><span class="num">' + dollars(usdTotal) + "</span></div>" : "") + "</div>" : "";
+    const n = recvPayload(lines).length + lines.filter(l => !l.skip && !l.productId && l.isNew).length;
+    form.querySelector("[type=submit]").textContent = n ? "Confirmar entrada (" + n + (n === 1 ? " producto)" : " productos)") : "Confirmar entrada";
     form.querySelectorAll(".recv-line").forEach(row => {
       const l = lines[Number(row.dataset.i)];
-      row.querySelector("[data-del]").onclick = () => { lines.splice(lines.indexOf(l), 1); renderLines(); };
-      row.querySelector("[data-fix]")?.addEventListener("change", e => {
-        if (e.target.value === "__new") { l.isNew = true; l.newName = l.newName ?? l.readName ?? ""; l.productId = null; }
-        else l.productId = e.target.value || null;
-        renderLines();
-      });
+      row.querySelector("[data-del]")?.addEventListener("click", () => { if (l.readName) l.skip = true; else lines.splice(lines.indexOf(l), 1); renderLines(); });
+      row.querySelector("[data-unskip]")?.addEventListener("click", () => { l.skip = false; renderLines(); });
+      row.querySelector("[data-skip]")?.addEventListener("click", () => { l.skip = true; renderLines(); });
+      row.querySelector("[data-new]")?.addEventListener("click", () => { l.isNew = true; l.productId = null; l.newName = l.newName ?? l.readName ?? ""; if (l.newActive == null) l.newActive = false; renderLines(); });
+      row.querySelector("[data-change]")?.addEventListener("click", () => { l.productId = null; l.productName = null; l.isNew = false; renderLines(); });
       row.querySelector("[data-unnew]")?.addEventListener("click", () => { l.isNew = false; renderLines(); });
+      const lq = row.querySelector("[data-lq]");
+      if (lq) lq.oninput = () => { l.q = lq.value; const box = row.querySelector("[data-sug]"); box.innerHTML = sugHtml(l); wireSug(box, l); };
+      wireSug(row, l);
       row.querySelector("[data-nname]")?.addEventListener("change", e => { l.newName = e.target.value.trim(); });
       row.querySelector("[data-nprice]")?.addEventListener("change", e => { l.newPrice = e.target.value.trim(); });
-      row.querySelector("[data-nactive]")?.addEventListener("change", e => { l.newActive = e.target.value === "1"; });
-      row.querySelector("[data-qty]").onchange = e => { l.quantity = Math.max(1, parseInt(e.target.value, 10) || 1); renderLines(); };
-      row.querySelector("[data-cost]").onchange = e => { l.unitCost = num(e.target.value); renderLines(); };
-      row.querySelector("[data-cur]").onchange = e => { l.currency = e.target.value; renderLines(); };
+      row.querySelector("[data-nactive]")?.addEventListener("change", e => { l.newActive = e.target.value === "1"; renderLines(); });
+      const qty = row.querySelector("[data-qty]"), cost = row.querySelector("[data-cost]"), cur = row.querySelector("[data-cur]");
+      if (qty) qty.onchange = e => { l.quantity = Math.max(1, parseInt(e.target.value, 10) || 1); renderLines(); };
+      if (cost) cost.onchange = e => { l.unitCost = num(e.target.value); renderLines(); };
+      if (cur) cur.onchange = e => { l.currency = e.target.value; renderLines(); };
     });
   };
   const renderItems = () => {
-    const q = form.querySelector("[data-q]").value.trim().toLowerCase();
-    form.querySelector("[data-items]").innerHTML = q ? items.filter(p => p.name.toLowerCase().includes(q)).slice(0, 12).map(p => '<button type="button" class="pick" data-add="' + esc(p.productId) + '">' + photo(p.imageUrl, p.name) + '<span class="grow"><span class="title">' + esc(p.name) + '</span><span class="meta">' + p.stock + " en stock</span></span>" + icon("plus", "sm") + "</button>").join("") : "";
+    const q = form.querySelector("[data-q]").value.trim();
+    form.querySelector("[data-items]").innerHTML = q ? recvSuggest(items, q, 12).map(p => '<button type="button" class="pick" data-add="' + esc(p.productId) + '">' + photo(p.imageUrl, p.name) + '<span class="grow"><span class="title">' + esc(p.name) + '</span><span class="meta">' + p.stock + " en stock</span></span>" + icon("plus", "sm") + "</button>").join("") : "";
     form.querySelectorAll("[data-add]").forEach(b => (b.onclick = () => { lines.push({ productId: b.dataset.add, quantity: 1, unitCost: null, currency: "USD" }); form.querySelector("[data-q]").value = ""; renderItems(); renderLines(); }));
   };
   form.querySelector("[data-q]").oninput = renderItems;
@@ -4165,8 +4347,12 @@ async function receiveSheet(done) {
       if (!r.ok) throw new Error("no pudo");
       aiUsed = true;
       if (out.supplier && !form.elements.supplier.value) form.elements.supplier.value = out.supplier;
-      for (const l of out.lines) lines.push({ productId: l.productId, readName: l.name, quantity: l.quantity, unitCost: l.unitCost, currency: l.currency });
-      msg.textContent = "Curru leyó " + out.lines.length + " productos. Revísalos antes de confirmar.";
+      // Leer otra vez la factura cambia lo que Curru leyó antes (no se suma dos veces). Lo añadido a mano se queda.
+      for (let i = lines.length - 1; i >= 0; i--) if (lines[i].readName) lines.splice(i, 1);
+      // Un id que ya no está en el catálogo cuenta como «no lo conozco» (se decide a mano).
+      for (const l of out.lines) lines.push({ productId: l.productId && byId(l.productId) ? l.productId : null, productName: l.productName ?? null, readName: l.name, quantity: Math.max(1, parseInt(l.quantity, 10) || 1), unitCost: l.unitCost, currency: l.currency });
+      const unknown = recvCount(lines).pending;
+      msg.textContent = "Curru leyó " + out.lines.length + " productos" + (unknown ? "; " + unknown + " no los conozco (en rojo): decide qué es cada uno." : ". Revísalos antes de confirmar.");
       renderLines();
     } catch { msg.textContent = "Curru no pudo leerla. Añade los productos a mano."; msg.dataset.tone = "bad"; }
     finally { curru.disabled = false; }
@@ -4176,36 +4362,40 @@ async function receiveSheet(done) {
     e.preventDefault();
     const msg = form.querySelector("[data-msg]");
     const bad = t => { msg.textContent = t; msg.dataset.tone = "bad"; };
-    if (!lines.length) return bad("Añade al menos un producto.");
-    if (lines.some(l => !l.productId && !l.isNew)) return bad("Hay productos sin elegir (en rojo).");
-    if (lines.some(l => l.unitCost == null)) return bad("Falta el costo de algún producto.");
-    if (lines.some(l => !l.productId && l.isNew && !String(l.newName ?? "").trim())) return bad("Escribe el nombre del producto nuevo.");
-    if (lines.some(l => !l.productId && l.isNew && !(num(l.newPrice) > 0) && !(suggestOf(l) > 0))) return bad("Escribe el precio de venta del producto nuevo.");
+    const problem = recvCheck(lines, suggestOf);
+    if (problem) return bad(problem);
     const submit = form.querySelector("[type=submit]");
     submit.disabled = true; msg.textContent = "Guardando…"; msg.dataset.tone = "";
     // Primero se crean los productos nuevos (caja + web). Si algo falla después, ya quedan creados y no se repiten.
-    const webNotes = [];
-    for (const l of lines.filter(x => x.isNew && !x.productId)) {
-      const price = num(l.newPrice) > 0 ? num(l.newPrice) : suggestOf(l);
-      const active = l.newActive !== false;
+    const webNotes = [], drafts = [];
+    for (const l of lines.filter(x => !x.skip && x.isNew && !x.productId)) {
+      const price = recvPrice(l.newPrice) ?? suggestOf(l);
+      const active = l.newActive === true;
       msg.textContent = "Creando «" + l.newName + "»…";
       const { data: saved, error } = await supabase.rpc("nexo_business_product_save", {
         p_business: bizId(), p_product_id: null, p_name: l.newName, p_sku: "", p_barcodes: [], p_price_usd: price,
         p_category: "", p_image_url: null, p_active: active, p_min_stock: null });
       if (error || saved?.error) { submit.disabled = false; return bad("No se creó «" + l.newName + "»: " + (error?.message ?? saved.error)); }
       l.productId = saved.productId;
+      if (!active) drafts.push(l.newName);
       try {
         const w = await panelWeb({ action: "product_web_save", wooId: null, nexoId: saved.productId, name: l.newName, price, category: "", imageUrl: "", sku: saved.sku, active, galleryUrls: [] });
         if (w.wooId) await supabase.rpc("nexo_business_product_link_web", { p_business: bizId(), p_product: saved.productId, p_woo_id: w.wooId });
       } catch { webNotes.push(l.newName); }
     }
+    const payload = recvPayload(lines);
+    if (payload.length !== lines.filter(l => !l.skip).length) { submit.disabled = false; return bad("Hay productos sin elegir (en rojo)."); }
     msg.textContent = "Guardando la entrada…";
     const { data, error } = await supabase.rpc("nexo_business_receive_goods", { p_business: bizId(), p_receipt: {
       supplierName: form.elements.supplier.value.trim(), partnerId: form.elements.partner?.value || null, photo: invoicePhoto, aiUsed,
-      note: form.elements.note.value.trim(), lines: lines.map(l => ({ productId: l.productId, quantity: l.quantity, unitCost: l.unitCost, currency: l.currency })) } });
+      note: recvNote(form.elements.note.value, lines), lines: payload } });
     if (error || data?.error) { submit.disabled = false; return bad("No se guardó: " + (error?.message ?? data.message ?? data.error)); }
     sheet.close();
-    toast("Entrada #" + data.number + " guardada: stock y costos al día" + (webNotes.length ? ". Ojo: no llegó a la web: " + webNotes.join(", ") + " (ábrelo y guarda otra vez)" : ""), webNotes.length ? "bad" : "ok");
+    const skipped = lines.filter(l => l.skip).length;
+    toast("Entrada #" + data.number + " guardada: stock y costos al día"
+      + (skipped ? ". " + skipped + (skipped === 1 ? " línea saltada no entró" : " líneas saltadas no entraron") + " (anotadas en la entrada)" : "")
+      + (drafts.length ? ". En borrador: " + drafts.join(", ") + " (ábrelos en Inventario para ponerles foto, descripción y ponerlos a la venta)" : "")
+      + (webNotes.length ? ". Ojo: no llegó a la web: " + webNotes.join(", ") + " (ábrelo y guarda otra vez)" : ""), webNotes.length ? "bad" : "ok");
     shop = null; costSheet = null;
     done?.();
   };
