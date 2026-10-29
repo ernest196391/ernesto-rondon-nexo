@@ -118,3 +118,9 @@
 - Aún **no publicó ninguna oferta** (0 ofertas, 0 contactos). Datos de prueba sin borrar.
 - **SSH al VPS sigue bloqueado** (connection reset en el saludo SSH) desde el 27-oct tarde; VivaBot y la web de Casa Viva funcionan. Probable bloqueo por exceso de intentos (fail2ban o cortafuegos de Hostinger).
 - **28-oct:** por orden de Ernesto se **borraron la tienda «Prueba» y la cuenta de Lennys**. Base limpia: 1 usuario (Ernesto admin), 0 tiendas, 0 ofertas, 0 códigos. Se conserva el historial de auditoría.
+
+## 29-oct-2026 — Invitaciones, arreglo de «Mi tienda», bot y oferta Grand Slam
+- **Invitaciones:** 28-oct (10) y 29-oct (11), 1 por minuto, todas distintas y ≤ 320 letras. Dijeron sí: Aramis, Axel (tienda verificada), Daniel, Luisito, Raudel, Roelmis, LAMR, Alfredo, Aly, Yunior (todos con enlace y 3 pasos). Dijeron no: Laura, Super Envíos (no se insiste). **Ofertas publicadas: 0.**
+- **«Mi tienda» (`75ade1e`, en producción):** con la tienda publicada, las ofertas salen primero y, si no hay ninguna, el formulario aparece abierto con «Último paso: publica tu oferta».
+- **Bot:** a los «sí» contestaba «Recibido 👍, se lo paso a Ernesto» o «soy el asistente de Ernesto» sin enlace. Arreglo en vivabot#28 (`feat/saldo360-respuestas`, `npm run check` OK), **sin desplegar**: falta el SÍ de Ernesto para fusionar y hacer `cv reiniciar`. Fichas `crm_knowledge` #392–#399.
+- **Oferta Grand Slam «Vendedor Fundador»** en `docs/ofertas/saldo360-grand-slam.md`: «te lo publico yo una vez y los compradores te escriben», 20 cupos, gratis para siempre. Datos: 20 vendedores y 141 anuncios de saldo en 7 días; uno solo, 131 anuncios.
