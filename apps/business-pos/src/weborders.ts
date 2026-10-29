@@ -42,6 +42,8 @@ type WebOrder = {
   chargeable?: boolean;
   /** Vuelto que lleva el mensajero (Lennys 20-oct). */
   change?: Array<{ amount: number; currency: string }>;
+  /** Reserva de la recogida (Core 3.14.72, Pilar 3): «Kay pidió guardarlo hasta mañana». active = vigente; expired = ya venció. */
+  reserva?: { until: string; untilLabel: string; by: string; note: string; active: boolean; expired: boolean; text: string } | null;
 };
 type Street = Array<[string, number]>;
 type Charge = {
@@ -147,6 +149,18 @@ const photo = (p: { name: string; image?: string }) => /^https:\/\//.test(p.imag
 const changeText = (list: Array<{ amount: number; currency: string }> | undefined) =>
   (list ?? []).filter(c => c.amount > 0).map(c => `${c.amount.toLocaleString("es")} ${c.currency}`).join(" + ");
 
+/** Pilar 3 (caso #5551): la reserva en rojo arriba de la tarjeta; ámbar si ya venció. Sin reserva, nada. */
+function reservaBanner(o: WebOrder) {
+  const r = o.reserva;
+  if (!r || o.kind !== "pickup" || !r.text) return "";
+  if (r.active) {
+    return `<div role="alert" style="background: #b3261e; color: #fff; border-radius: 10px; padding: 10px 12px; font-weight: 800; line-height: 1.35">⛔ ${escapeHtml(r.text)}${r.note ? `<div style="font-weight: 600; font-size: .85em">${escapeHtml(r.note)}</div>` : ""}<div style="font-weight: 600; font-size: .8em">No lo canceles ni se lo des a otra persona.</div></div>`;
+  }
+  return r.expired
+    ? `<div role="note" style="background: #fff3d6; border: 1px solid #e0b24a; color: #6a4300; border-radius: 10px; padding: 10px 12px; font-weight: 700">⏰ ${escapeHtml(r.text)}<div style="font-weight: 600; font-size: .85em">Pregunta si el cliente viene.</div></div>`
+    : "";
+}
+
 function orderCard(o: WebOrder, local: Charge | undefined, street: Street) {
   const inStreet = street.filter(([, m]) => m > 0);
   const items = o.products.map(p => `<div style="display: flex; align-items: center; gap: 8px">${photo(p)}<span>${p.qty > 1 ? `<b>${p.qty}×</b> ` : ""}${escapeHtml(p.name)}</span></div>`).join("");
@@ -165,6 +179,7 @@ function orderCard(o: WebOrder, local: Charge | undefined, street: Street) {
     ? `<span class="badge ${local.status === "done" ? "badge-ok" : local.status === "refused" ? "badge-out" : "badge-info"}">${local.status === "done" ? "Cobrado aquí" : local.status === "refused" ? "Ya estaba cobrado" : "Cobrado · enviando"}</span>`
     : `<button type="button" class="btn btn-primary" data-charge="${o.id}">${icon("cash", "sm")}Cobrar</button>`;
   return `<div class="panel" style="gap: 6px">
+    ${reservaBanner(o)}
     <div class="kv"><span style="font-weight: 700">#${escapeHtml(o.number)} · ${escapeHtml(o.customer || "Cliente")}</span><span class="num" style="font-weight: 700">${usd(o.totalUsd)}</span></div>
     <div>${badges}</div>
     <div class="t-sm" style="display: grid; gap: 4px">${items}</div>
@@ -192,7 +207,8 @@ async function render() {
     if (o.kind === "pickup") continue;
     streets.set(o.id, await invoke<Street>("web_order_vuelto_outstanding", { orderId: o.id }).catch(() => []));
   }
-  const shown = searchOrders(orders, query);
+  // Pilar 3: las recogidas con reserva vigente van arriba (la tienda no las puede perder de vista).
+  const shown = searchOrders(orders, query).map((o, i) => ({ o, i })).sort((a, b) => Number(!!b.o.reserva?.active) - Number(!!a.o.reserva?.active) || a.i - b.i).map(x => x.o);
   list.innerHTML = loadError
     ? `<div class="notice warn">${icon("alert")}<div><b>No se pudo cargar</b>${escapeHtml(loadError)}</div></div>`
     : shown.length

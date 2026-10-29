@@ -76,6 +76,11 @@ Deno.serve(async req => {
         o.cupRate = rate(o.cupRate);
         o.cupTransferRate = rate(o.cupTransferRate);
         o.cupRateDay = String(o.cupRateDay ?? "").slice(0, 12);
+        // Pilar 3 (Core 3.14.72): reserva de la recogida («Kay pidió guardarlo hasta mañana»), solo textos cortos.
+        const rv = o.reserva as Record<string, unknown> | null | undefined;
+        o.reserva = rv && typeof rv === "object"
+          ? { until: String(rv.until ?? "").slice(0, 10), untilLabel: String(rv.untilLabel ?? "").slice(0, 40), by: String(rv.by ?? "").slice(0, 60), note: String(rv.note ?? "").slice(0, 160), text: String(rv.text ?? "").slice(0, 200), active: rv.active === true, expired: rv.expired === true }
+          : null;
         if (Array.isArray(o.products)) {
           for (const p of o.products as Array<Record<string, unknown>>) {
             const image = String(p.image ?? "");

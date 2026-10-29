@@ -770,6 +770,13 @@ Deno.serve(async req => {
       const month = typeof body.month === "string" && /^\d{4}-\d{2}$/.test(body.month) ? body.month : "";
       return json(200, await core("GET", `panel/supplier-sales?month=${month}`));
     }
+    // Reserva de una recogida (Pilar 3, Core 3.14.72): {action:"reserva", id, params:{until, by, note} | {clear:true}}.
+    if (body.action === "reserva") {
+      const p = (body.params && typeof body.params === "object") ? body.params as Record<string, unknown> : {};
+      return json(200, await core("POST", `panel/orders/${Number(body.id)}/reserva`, {
+        until: String(p.until ?? "").slice(0, 40), by: String(p.by ?? "").slice(0, 60), note: String(p.note ?? "").slice(0, 160), clear: p.clear === true, actor: by,
+      }));
+    }
     if (body.action === "sale_action") {
       const what = body.what === "return" ? "return" : "status";
       const params = (body.params && typeof body.params === "object") ? body.params : {};

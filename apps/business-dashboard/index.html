@@ -2563,7 +2563,7 @@ async function loadSaleActions(sheet, o) {
     const waiting = sale.status === "ready" && sale.fulfillment !== "Recogida en tienda" && ["Por ofertar", "Oferta abierta", "Asignada"].includes(sale.deliveryStatus);
     // Reparto (Core 3.13.48): quién lo lleva y a qué hora, sus pasos, si dice que ya entregó el dinero y el seguimiento del cliente.
     const timeline = sale.timeline || [];
-    box.innerHTML = '<div class="kv"><span>Estado</span><span><b>' + esc(sale.statusLabel) + "</b>" + (sale.deliveryStatus ? " · " + esc(sale.deliveryStatus) : "") + "</span></div>"
+    box.innerHTML = reservaBannerHtml(sale) + '<div class="kv"><span>Estado</span><span><b>' + esc(sale.statusLabel) + "</b>" + (sale.deliveryStatus ? " · " + esc(sale.deliveryStatus) : "") + "</span></div>"
       + (sale.messengerName ? '<p class="t-sm">Lo lleva: <b>' + esc(sale.messengerName) + "</b>" + (sale.eta ? " · Hora: <b>" + esc(sale.eta) + "</b>" : "") + "</p>"
         : sale.preferredMessenger ? '<p class="t-sm">La gestora eligió a <b>' + esc(sale.preferredMessenger) + "</b>: al pulsar «Listo para salir» se le asigna directo (no sale al grupo).</p>" : "")
       + (timeline.length ? '<div class="breakdown">' + timeline.map(t => '<div class="kv"><span class="t-xs muted">' + esc(t.time) + '</span><span class="t-sm">' + esc(t.label) + "</span></div>").join("") + "</div>" : "")
@@ -2575,12 +2575,43 @@ async function loadSaleActions(sheet, o) {
       + (sale.canReturn ? '<button type="button" class="btn btn-secondary btn-block" data-act="return">Registrar devolución</button>' : "")
       + (!acts.length && !sale.canReturn ? '<p class="muted">Este pedido no tiene acciones pendientes.</p>' : "")
       + (sale.canEdit ? '<button type="button" class="btn btn-ghost btn-block" data-edit-order>Cambiar pedido (cliente, dirección, día o productos)</button>' : "")
+      + (sale.isPickup && !["delivered", "cancelled"].includes(sale.status) ? '<button type="button" class="btn btn-secondary btn-block" data-reserva>' + (sale.reserva?.active ? "Quitar o cambiar la reserva" : "Reservar (guardar hasta un día)") + "</button>" : "")
       + '<div data-form></div><p class="msg" data-amsg role="status"></p>';
     box.querySelectorAll("[data-act]").forEach(b => (b.onclick = () => saleActionForm(box, sale, b.dataset.act)));
     box.querySelector("[data-edit-order]")?.addEventListener("click", () => editWebOrder(o));
+    box.querySelector("[data-reserva]")?.addEventListener("click", async () => {
+      // Pilar 3 (28-oct, caso #5551): la reserva vive en el pedido y la tienda la ve en rojo.
+      const msg = box.querySelector("[data-amsg]");
+      let params;
+      if (sale.reserva?.active) {
+        const ans = (window.prompt("Reserva actual: " + sale.reserva.text + "\n\nEscribe un día nuevo (mañana, viernes, 30/10) para cambiarla, o «quitar» para quitarla.", "") || "").trim();
+        if (!ans) return;
+        params = /^quitar/i.test(ans) ? { clear: true } : { until: ans, by: sale.reserva.by || "", note: sale.reserva.note || "" };
+      } else {
+        const until = (window.prompt("Pedido #" + sale.number + "\n\n¿Hasta qué día se guarda? (mañana, viernes o 30/10; máximo 7 días)", "mañana") || "").trim();
+        if (!until) return;
+        const who = window.prompt("¿Quién pidió guardarlo?", sale.gestora || "");
+        if (who === null) return;
+        params = { until, by: who.trim(), note: (window.prompt("Nota para la tienda (opcional)", "") || "").trim() };
+      }
+      msg.textContent = "Guardando…"; msg.dataset.tone = "";
+      try {
+        const r = await panelWeb({ action: "reserva", id: sale.id, params });
+        toast(r.message ?? "Hecho", "ok");
+        box.closest(".sheet, [role=dialog]")?.querySelector("[data-close]")?.click();
+        void loadWebOrders();
+      } catch (err) { msg.textContent = err.message; msg.dataset.tone = "bad"; }
+    });
   } catch (e) {
     box.innerHTML = '<p class="muted">' + esc(e.message) + "</p>";
   }
+}
+// Reserva de una recogida (Core 3.14.72): «Kay pidió guardarlo hasta mañana» en rojo; si ya venció, ámbar.
+function reservaBannerHtml(sale) {
+  const r = sale.reserva;
+  if (!r || ["delivered", "cancelled"].includes(sale.status)) return "";
+  if (r.active) return '<p class="t-sm" role="alert" style="background:#b3261e;color:#fff;border-radius:10px;padding:10px 12px;font-weight:800;margin:0 0 8px">⛔ ' + esc(r.text) + (r.note ? '<br><span style="font-weight:600">' + esc(r.note) + "</span>" : "") + '<br><span style="font-weight:600;font-size:.85em">No lo canceles ni se lo des a otra persona.</span></p>';
+  return r.expired ? '<p class="t-sm" role="note" style="background:#fff3d6;border:1px solid #e0b24a;color:#6a4300;border-radius:10px;padding:10px 12px;font-weight:700;margin:0 0 8px">⏰ ' + esc(r.text) + "<br><span style=\"font-weight:600\">Pregunta si el cliente viene.</span></p>" : "";
 }
 // En una recogida en tienda, "Dinero recibido" significa que la clienta vino, pagó y se lo llevó.
 // Pedido nuevo o confirmado: "Preparando" es el siguiente paso, no un "volver".
@@ -2611,7 +2642,10 @@ function saleActionForm(box, sale, act) {
     : act === "return"
       ? '<label class="field">Motivo<input name="reason" required maxlength="200"></label><div class="grid-2"><label class="field">Devuelto USD<input name="refundUsd" inputmode="decimal" value="0"></label><label class="field">Devuelto CUP<input name="refundCup" inputmode="decimal" value="0"></label></div>'
       : act === "cancelled" ? '<label class="field">¿Por qué se cancela?<input name="reason" required minlength="3" maxlength="200" placeholder="Ej.: el cliente ya no lo quiere"></label><p class="t-sm">Se cancela el pedido, vuelve el stock y se anula la comisión. No se puede deshacer.' + (sale.messengerName ? " Lo tiene <b>" + esc(sale.messengerName) + "</b>: avísale." : "") + "</p>" : "";
-  form.innerHTML = '<form class="form" style="margin-top:8px">' + money + '<button type="submit" class="btn btn-primary btn-block">Confirmar: ' + esc(act === "return" ? "Registrar devolución" : actLabel(act, sale)) + "</button></form>";
+  // Reserva vigente: para cancelar hay que confirmarlo (Core 3.14.72; la dependienta ni puede, administración sí confirmando).
+  const reservaWarn = act === "cancelled" && sale.reserva?.active
+    ? '<p class="t-sm" style="background:#b3261e;color:#fff;border-radius:10px;padding:8px 10px;font-weight:700">⛔ ' + esc(sale.reserva.text) + '</p><label class="t-sm"><input type="checkbox" name="confirmReserva" required> Sé que tiene reserva y lo cancelo igual (se pierde la comisión de quien lo vendió)</label>' : "";
+  form.innerHTML = '<form class="form" style="margin-top:8px">' + reservaWarn + money +'<button type="submit" class="btn btn-primary btn-block">Confirmar: ' + esc(act === "return" ? "Registrar devolución" : actLabel(act, sale)) + "</button></form>";
   if (act === "delivered") {
     // Transferencia o mixto: a qué tarjeta entró (en mixto puede no haber transferencia). Zelle, USDT y Otro: solo el número.
     const f = form.querySelector("form"), acct = f.elements.collectionAccount, ref = f.elements.collectionReference;
@@ -2639,6 +2673,7 @@ function saleActionForm(box, sale, act) {
       ? { reason: f.get("reason"), refundUsd: f.get("refundUsd"), refundCup: f.get("refundCup") }
       : { status: act, idempotencyKey: "panel:" + sale.id + ":" + act + ":" + Date.now() };
     if (act === "cancelled") params.reason = String(f.get("reason") ?? "").trim();
+    if (act === "cancelled" && f.get("confirmReserva")) params.confirmReserva = true;
     if (act === "delivered") Object.assign(params, { collectionMethod: f.get("collectionMethod"), collectionAccount: f.get("collectionAccount") ?? "", collectionReference: String(f.get("collectionReference") ?? "").trim(), collectionCardLabel: String(f.get("collectionCardLabel") ?? "").trim(), collectionCardLast4: String(f.get("collectionCardLast4") ?? "").trim(), collectionSaveCard: f.get("collectionSaveCard") === "on", collectedUsd: f.get("collectedUsd"), collectedCup: f.get("collectedCup"), moneyConfirmed: f.get("moneyConfirmed") === "on", handoverConfirmed: f.get("handoverConfirmed") === "on" });
     const msg = box.querySelector("[data-amsg]");
     const btn = e.target.querySelector("button[type=submit]");
