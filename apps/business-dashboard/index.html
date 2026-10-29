@@ -772,7 +772,8 @@ async function editProduct(p) {
     ${p && !group && !retired && onWeb ? `<div class="note-box"><p><strong>Este producto no tiene colores.</strong> ¿Quieres añadir colores o diseños?</p><button type="button" class="btn btn-secondary btn-block" data-add-colors>Añadir colores o diseños</button></div>` : ""}
     ${p && canCost() && costSheet ? costSection(p) : ""}
     ${p && !group && onWeb ? `<button type="button" class="btn btn-secondary btn-block" data-dup>Duplicar (copia oculta con fotos y descripción)</button>` : ""}
-    ${p && !retired ? `<button type="button" class="btn btn-ghost btn-block btn-danger-text" data-retire>${group ? "Ocultar este diseño" : "Ocultar este producto"}</button>` : ""}`, p ? `Editar ${p.name}` : "Nuevo producto");
+    ${p && !retired ? `<button type="button" class="btn btn-ghost btn-block btn-danger-text" data-retire>${group ? "Ocultar este diseño" : "Ocultar este producto"}</button>` : ""}
+    ${p && isOwner() ? `<button type="button" class="btn btn-ghost btn-block btn-danger-text" data-delete>${group ? "Eliminar este diseño" : "Eliminar producto"}</button>` : ""}`, p ? `Editar ${p.name}` : "Nuevo producto");
   if (p && canCost() && costSheet) wireCostSection(sheet.el, p);
   // Descripción de la web y lo que le falta a la ficha (Core 3.14.40, Lennys 18-oct). Si no se puede leer, no se deja
   // escribir (para no pisar la descripción de la web sin verla).
@@ -788,6 +789,9 @@ async function editProduct(p) {
   const after = () => { sheet.close(); };
   sheet.el.querySelector("[data-sell]")?.addEventListener("click", () => retireFlow([p.product_id], false, after));
   sheet.el.querySelector("[data-retire]")?.addEventListener("click", () => retireFlow([p.product_id], true, after));
+  // Lennys 29-oct: un producto sin diseños es su propio producto en la web; un diseño es su variación (onWeb).
+  sheet.el.querySelector("[data-delete]")?.addEventListener("click", () => deleteFlow({
+    name: p.name, kind: group ? "diseño" : "producto", wooId: onWeb ?? null, cajaIds: [p.product_id], done: after }));
   sheet.el.querySelector("[data-group-open]")?.addEventListener("click", () => { sheet.close(); void editGroup(group); });
   sheet.el.querySelector("[data-new-designs]")?.addEventListener("click", () => { sheet.close(); designsProductSheet(null); });
   sheet.el.querySelector("[data-add-colors]")?.addEventListener("click", () => colorsForSimple(p, inv, sheet));
@@ -949,7 +953,7 @@ async function loadInventory() {
   ]);
   if (error || data?.error) { $("#inventory").innerHTML = '<p class="muted">No se pudo cargar: ' + esc(error?.message ?? data.error) + "</p>"; return; }
   const webBy = new Map(web.products.map(w => [w.wooId, w]));
-  invRows = data.products.map(p => ({ ...p, web: p.wooId ? webBy.get(p.wooId) ?? null : null }));
+  invRows = withoutTrashed(data.products, web.trashed).map(p => ({ ...p, web: p.wooId ? webBy.get(p.wooId) ?? null : null }));
   if (canCost() && !costSheet) await loadCostSheet();
   const diffs = invRows.filter(isDiff).length;
   // "No coincide con la web" solo aparece si hay diferencias (el puente las iguala cada 2 minutos).
@@ -1300,6 +1304,69 @@ function retireFlow(ids, retire, done) {
   };
 }
 
+// ---------- «Eliminar producto» / «Eliminar este diseño» (Lennys 29-oct: «si lo hice mal no me deja eliminarlo») ----------
+// La web decide (nexo-panel-web → Core): con pedidos o ventas en la caja NO se borra, se oculta; si no, a la papelera
+// de la web (Ernesto lo recupera en wp-admin si fue un error). En la caja siempre queda oculto (la caja nunca borra:
+// sus ventas siguen bien). Lo que está en la papelera ya no sale en las listas del panel.
+// <delete-logic>
+function deleteAsk(name) { return "¿Eliminar «" + String(name ?? "").trim() + "»? No se puede deshacer desde el panel."; }
+function deleteExplain(kind) {
+  return (kind === "todo" ? "Se elimina el producto con todos sus diseños y colores. " : "")
+    + "Si ya tiene pedidos o ventas en la caja, no se borra: se oculta, para que esos pedidos sigan bien.";
+}
+function deleteResult(out, name, kind, opts = {}) {
+  const what = kind === "diseño" ? "el diseño «" + name + "»" : "«" + name + "»";
+  let r;
+  if (!out) r = { tone: "ok", title: "Eliminado", text: "Listo: " + what + " ya no sale en la caja. No estaba en la web." };
+  else if (out.result === "hidden") r = { tone: "warn", title: "Oculto, no borrado",
+    text: (out.reason === "caja" ? "Ya tiene ventas en la caja" : out.reason === "notrash" ? "La web no tiene papelera" : "Ya tiene pedidos")
+      + ": lo oculté en vez de borrarlo. No se ve ni se vende en la web, en las tiendas de las gestoras ni en la caja, y sus pedidos siguen igual." };
+  else r = { tone: "ok", title: "Eliminado", text: "Listo: eliminé " + what + ". Ya no está en la web ni en la caja. Si fue un error, Ernesto lo puede recuperar de la papelera de la web." };
+  const notes = [];
+  if (opts.cajaFail) notes.push("en la caja no se quitó: ábrelo en la lista y pulsa «Ocultar»");
+  if (out?.bolsaOk === false) notes.push("no pude marcarlo como retirado en «Proveedores · bajo pedido»");
+  if (notes.length) { r.tone = "bad"; r.text += " Ojo: " + notes.join("; ") + "."; }
+  return r;
+}
+// Productos y diseños en la papelera de la web: ya no salen en la lista (solo si en la caja están ocultos).
+function withoutTrashed(rows, trashed) {
+  const t = new Set((trashed ?? []).map(Number));
+  if (!t.size) return rows;
+  return rows.filter(r => !(r.active === false && (t.has(Number(r.wooId)) || t.has(Number(r.parentWooId)))));
+}
+// </delete-logic>
+function deleteFlow({ name, kind, wooId, marketId, cajaIds = [], done }) {
+  const sheet = openSheet('<div class="sheet-head"><h2>¿Eliminar?</h2><button type="button" class="btn btn-ghost" data-close>Cerrar</button></div>'
+    + '<div data-del-body><p class="t-lg"><strong>' + esc(deleteAsk(name)) + "</strong></p>"
+    + '<p class="t-sm">' + esc(deleteExplain(kind)) + "</p>"
+    + '<p class="msg" data-msg role="status"></p>'
+    + '<button type="button" class="btn btn-danger btn-xl btn-block" data-yes>Sí, eliminar</button>'
+    + '<button type="button" class="btn btn-ghost btn-block" data-close>No, volver atrás</button></div>', "Eliminar");
+  const box = sheet.el.querySelector("[data-del-body]"), msg = box.querySelector("[data-msg]"), yes = box.querySelector("[data-yes]");
+  yes.onclick = async () => {
+    yes.disabled = true; msg.textContent = "Eliminando…"; msg.dataset.tone = "";
+    let out = null;
+    if (wooId || marketId) {
+      try { out = await panelWeb({ action: "product_delete", ...(wooId ? { wooId: Number(wooId) } : { marketId: Number(marketId) }) }); }
+      catch (e) { yes.disabled = false; msg.textContent = "No se eliminó: " + e.message; msg.dataset.tone = "bad"; return; }
+    }
+    let cajaFail = false;
+    if (cajaIds.length) {
+      const { data, error } = await supabase.rpc("nexo_business_products_retire", { p_business: bizId(), p_products: cajaIds, p_retire: true });
+      if (error || data?.error) cajaFail = true;
+    }
+    const r = deleteResult(out, name, kind, { cajaFail });
+    sheet.el.querySelector(".sheet-head h2").textContent = r.title;
+    box.innerHTML = '<p class="note-box ' + (r.tone === "ok" ? "note-calm" : "note-warn") + '" data-del-result>' + esc(r.text) + "</p>"
+      + '<button type="button" class="btn btn-primary btn-xl btn-block" data-close>Listo</button>';
+    box.querySelector("[data-close]").onclick = sheet.close;
+    toast(r.title + ": " + name, r.tone === "bad" ? "bad" : "ok");
+    catalog = null; shop = null;
+    if (page === "catalogo") await loadInventory();
+    done?.(r);
+  };
+}
+
 // ---------- Ficha de un producto con diseños: «Diseños y colores» ----------
 async function editGroup(key) {
   if (canCost() && !costSheet) await loadCostSheet(); // comisión de cada diseño
@@ -1330,7 +1397,8 @@ async function editGroup(key) {
     + '<div data-addform hidden></div>'
     + '<details class="retired-box" data-retired hidden><summary>Diseños ocultos</summary><div data-retired-list></div></details></section>'
     + (parentWooId ? '<button type="button" class="btn btn-secondary btn-block" data-dup>Duplicar (copia oculta con todos sus colores)</button>' : "")
-    + '<button type="button" class="btn btn-ghost btn-block btn-danger-text" data-retire-all>Ocultar todo (el producto con todos sus diseños)</button>', name);
+    + '<button type="button" class="btn btn-ghost btn-block btn-danger-text" data-retire-all>Ocultar todo (el producto con todos sus diseños)</button>'
+    + (isOwner() ? '<button type="button" class="btn btn-ghost btn-block btn-danger-text" data-delete-all>Eliminar producto (con todos sus diseños)</button>' : ""), name);
   const $s = sel => sheet.el.querySelector(sel);
   const list = $s("[data-list]"), msg = $s("[data-msg]"), saveBtn = $s("[data-save]"), addBtn = $s("[data-add]"), addForm = $s("[data-addform]"), webNote = $s("[data-webnote]");
   // Cerrar con cambios sin guardar: preguntar antes.
@@ -1373,7 +1441,8 @@ async function editGroup(key) {
           + '<span class="t-xs" data-cv>' + designVerdict(r, d) + "</span></div>" : "")
         // A la vista (Lennys, 11-oct): quitar UN diseño estaba escondido en «Más», y cada color necesita su foto real.
         + '<div class="row-actions"><label class="btn btn-secondary" style="flex:1 1 150px" data-photo-btn><span data-ph>📷 Cambiar foto</span><input type="file" accept="image/*" data-dphoto aria-label="Cambiar la foto de ' + esc(label) + '" ' + HIDE_INPUT + "></label>"
-        + '<button type="button" class="btn btn-secondary btn-danger-text" style="flex:1 1 150px" data-quit>Ocultar este color</button></div></div>';
+        + '<button type="button" class="btn btn-secondary btn-danger-text" style="flex:1 1 150px" data-quit>Ocultar este color</button>'
+        + (isOwner() ? '<button type="button" class="btn btn-ghost btn-danger-text" style="flex:1 1 150px" data-del>Eliminar este diseño</button>' : "") + "</div></div>";
     }).join("") : '<p class="muted">Este producto no tiene diseños a la venta. Añade uno abajo' + (gone.length ? " o muestra uno oculto" : "") + ".</p>";
     list.querySelectorAll("[data-pid]").forEach(el => {
       const id = el.dataset.pid;
@@ -1400,6 +1469,7 @@ async function editGroup(key) {
       };
       // Mismo camino que «Más → Dejar de vender este diseño»: confirma, no borra nada y queda en «Diseños retirados».
       el.querySelector("[data-quit]").onclick = () => retireFlow([id], true, render);
+      el.querySelector("[data-del]")?.addEventListener("click", () => delDesign(rowById(id)));
       el.querySelector("[data-dphoto]").onchange = async e => {
         const f = e.target.files?.[0];
         if (!f) return;
@@ -1425,10 +1495,12 @@ async function editGroup(key) {
     $s("[data-retired]").hidden = !gone.length && !webOnlyGone.length;
     $s("[data-retired] summary").textContent = "Diseños ocultos (" + (gone.length + webOnlyGone.length) + ")";
     $s("[data-retired-list]").innerHTML = gone.map(r => '<div class="row-item"><span class="grow"><span class="title">' + esc(designLabel(r)) + '</span><span class="meta">Oculto · quedan ' + r.stock + "</span></span>"
-      + '<button type="button" class="btn btn-secondary" data-sell="' + esc(r.productId) + '">Mostrar</button></div>').join("")
+      + '<button type="button" class="btn btn-secondary" data-sell="' + esc(r.productId) + '">Mostrar</button>'
+      + (isOwner() ? '<button type="button" class="btn btn-ghost btn-danger-text" data-gone-del="' + esc(r.productId) + '" aria-label="Eliminar ' + esc(designLabel(r)) + '">Eliminar</button>' : "") + "</div>").join("")
       + webOnlyGone.map(v => '<div class="row-item"><span class="grow"><span class="title">' + esc(v.label) + '</span><span class="meta">Oculto en la web</span></span>'
       + '<button type="button" class="btn btn-secondary" data-websell="' + Number(v.id) + '">Mostrar</button></div>').join("");
     $s("[data-retired-list]").querySelectorAll("[data-sell]").forEach(b => (b.onclick = () => retireFlow([b.dataset.sell], false, render)));
+    $s("[data-retired-list]").querySelectorAll("[data-gone-del]").forEach(b => (b.onclick = () => delDesign(rowById(b.dataset.goneDel))));
     $s("[data-retired-list]").querySelectorAll("[data-websell]").forEach(b => (b.onclick = async () => {
       if (!confirm("¿Mostrar otra vez «" + (webBy.get(Number(b.dataset.websell))?.label ?? "") + "»?")) return;
       b.disabled = true;
@@ -1641,6 +1713,16 @@ async function editGroup(key) {
     if (dirty.size && !confirm("Tienes cambios sin guardar. ¿Seguir sin guardarlos?")) return;
     retireFlow(rowsNow().filter(r => r.active).map(r => r.productId), true, () => sheet.close());
   };
+  // Lennys 29-oct: «Eliminar» un diseño (su variación en la web) o el producto entero (el padre en la web + todos en la caja).
+  function delDesign(r) {
+    if (!r) return toast("No encontré ese diseño. Pulsa actualizar.", "bad");
+    deleteFlow({ name: name + " · " + designLabel(r), kind: "diseño", wooId: r.wooId ?? null, cajaIds: [r.productId],
+      done: async () => { if (parentWooId) await loadWeb(); else render(); } });
+  }
+  $s("[data-delete-all]")?.addEventListener("click", () => {
+    if (dirty.size && !confirm("Tienes cambios sin guardar. ¿Seguir sin guardarlos?")) return;
+    deleteFlow({ name, kind: "todo", wooId: parentWooId ?? null, cajaIds: rowsNow().map(r => r.productId), done: () => sheet.close() });
+  });
 
   // Fotos (Lennys 28-oct: se añaden, ✕ quita, ★ principal), descripción y «Duplicar» (Core 3.14.41, Lennys 20-oct).
   if (parentWooId) mountPhotos($s("[data-photos]"), Number(parentWooId), { ownButton: true, onSaved: () => void loadInventory() });
@@ -2150,6 +2232,8 @@ async function openMarketItem(id) {
     + "</form>"
     + (live ? '<p class="t-sm mk-web-link"><a href="' + esc(web.url) + '" target="_blank" rel="noopener">Ver en la web</a>' + (web.by ? ' · <span class="muted">por ' + esc(web.by) + "</span>" : "") + "</p>"
       + '<button type="button" class="btn btn-secondary btn-block" data-mk-retire>Retirar (agotado)</button>' : "")
+    // Lennys 29-oct: publicado por error → «Eliminar producto» (con pedidos se oculta; si no, a la papelera de la web).
+    + (web ? '<button type="button" class="btn btn-ghost btn-block btn-danger-text" data-mk-delete>Eliminar producto</button>' : "")
     + '<p class="t-xs muted">Sale en la tienda como «Bajo pedido · llega en 24 h». La comisión de la gestora es fija (40 % de la ganancia). '
     + "El precio queda fijado a mano: el bot no lo cambia. A Ernesto le llega un correo; a las gestoras no se les avisa.</p>";
 
@@ -2203,6 +2287,8 @@ async function openMarketItem(id) {
       retire.disabled = false; retire.textContent = "Retirar (agotado)";
     }
   };
+  body.querySelector("[data-mk-delete]")?.addEventListener("click", () => deleteFlow({ name: it.title, kind: "producto", marketId: it.id,
+    done: () => { sheet.close(); void loadMarket(); } }));
 }
 
 // ---------- Pedidos de la web (casaviva.company), vía nexo-panel-web ----------

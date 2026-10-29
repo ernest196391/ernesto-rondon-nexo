@@ -12,6 +12,8 @@
 //                 por la API de WooCommerce (sin cambiar Core)
 //   D121 (Core 3.14.71): market_list, market_item, market_publish, market_unpublish — «Proveedores · bajo pedido»
 //                 (lee crm_market_items sin teléfonos; publicar/retirar por /panel/market/* de la web)
+//   Lennys 29-oct (Core 3.14.77): product_delete — «Eliminar producto / este diseño»: con pedidos o ventas en la caja se
+//                 oculta; si no, a la papelera de la web. Ventas de la caja: RPC nexo_business_web_sold (service_role).
 // Deploy: npx.cmd supabase functions deploy nexo-panel-web --project-ref viwwlriwlwodrfukbgbj --no-verify-jwt --use-api
 // 29-oct: npm: en vez de jsr: (el empaquetador de Supabase no llegaba a jsr.io y no dejaba desplegar). Misma librería.
 import { createClient } from "npm:@supabase/supabase-js@2";
@@ -97,6 +99,14 @@ function photoSetPlan(currentIds: number[], wanted: unknown, prefix: string): { 
   return { images };
 }
 // </photo-set>
+
+// <delete-plan> Lennys 29-oct: ¿la caja ya vendió alguno? Si no se puede saber (error o respuesta rara), se cuenta como
+// vendido: así la web lo OCULTA en vez de borrarlo (nunca se rompe una venta por no poder mirar).
+function cajaSoldOf(sold: unknown, err: unknown): boolean {
+  if (err || !Array.isArray(sold)) return true;
+  return sold.length > 0;
+}
+// </delete-plan>
 
 async function core(method: "GET" | "POST", path: string, body?: unknown) {
   const sep = path.includes("?") ? "&" : "?";
@@ -439,6 +449,34 @@ Deno.serve(async req => {
       const items = (Array.isArray(body.wooIds) ? body.wooIds : []).map(Number).filter(n => n > 0).slice(0, 300);
       if (!items.length) return json(200, { items: [] });
       return json(200, await core("POST", "panel/products/visibility", { items, sell: body.sell === true, by }));
+    }
+
+    // Lennys 29-oct: «Eliminar producto» / «Eliminar este diseño». 1) Core dice qué ids cuentan (el producto y sus
+    // diseños); 2) la caja dice si ya vendió alguno (nexo_business_web_sold); 3) Core decide: con pedidos de la web o
+    // ventas de la caja → se OCULTA; si no → papelera (se recupera en wp-admin). Nunca toca un pedido.
+    // Si era «bajo pedido» (D121), el artículo de la bolsa queda como al «Retirar (agotado)», para que el bot no lo vuelva a publicar.
+    if (body.action === "product_delete") {
+      const wooId = Number(body.wooId) > 0 ? Number(body.wooId) : 0;
+      const marketItem = Number(body.marketId) > 0 ? Number(body.marketId) : 0;
+      if (!wooId && !marketItem) return json(400, { error: "Producto no válido." });
+      const info = await core("POST", "panel/products/delete", { wooId, marketItem, check: true, by });
+      let out = info;
+      if (!info.already) {
+        const ids = (Array.isArray(info.ids) ? info.ids : []).map(Number).filter((n: number) => n > 0);
+        const { data: sold, error: soldErr } = await admin.rpc("nexo_business_web_sold", { p_business: BUSINESS, p_woo_ids: ids });
+        if (soldErr) console.error("product_delete caja", soldErr.message);
+        out = await core("POST", "panel/products/delete", { wooId: Number(info.wooId), check: false, cajaSold: cajaSoldOf(sold, soldErr), by });
+      }
+      let bolsaOk: boolean | null = null;
+      if (Number(out.marketItem) > 0) {
+        const { data: biz } = await admin.from("crm_businesses").select("id").eq("slug", BUSINESS).maybeSingle();
+        const { error } = biz?.id
+          ? await admin.from("crm_market_items").update({ status: "agotado" }).eq("business_id", biz.id).eq("id", Number(out.marketItem)).eq("status", "publicado")
+          : { error: { message: "sin negocio" } };
+        if (error) console.error("product_delete bolsa", out.marketItem, error.message);
+        bolsaOk = !error;
+      }
+      return json(200, { ...out, bolsaOk });
     }
 
     // ---------- Core 3.14.41 (Lennys 20-oct): descripción de productos con diseños, foto principal y «Duplicar» ----------
