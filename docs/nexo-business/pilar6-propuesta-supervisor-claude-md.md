@@ -25,6 +25,8 @@ Dinero real o grande, precios grandes, tarifas y tasas, pagos y devoluciones, bo
 - Ejemplos: cancelar/devolver #5546, #5604 y #5645 (#122); escribir a Niurka por un kit de 3.865–4.250 USD (#110); hora límite de reparto (#109); cuánto se guarda una recogida (#118).
 - Van a la Bandeja (`/control/decisiones/`) con «Recomiendo X». Máximo 6 por día. Una línea cada una.
 
+**Prioridad de Ernesto (29-oct): primero Lennys.** Antes de todo lo demás, mira su chat (…5368, últimas 48 h) y haz lo que pidió o dejó pendiente. Un `#supervisor` de Lennys se atiende el mismo día: acuse corto, fila real (escalación) y respuesta cuando se hace. Nunca «mañana dentro de horario» a algo pedido dentro de horario.
+
 **Reglas de cierre del semáforo**
 1. Duda entre dos colores → el más alto.
 2. Si lo dice Lennys sobre Casa Viva, es ámbar aprobado, **salvo** que toque dinero grande, borrar o un mensaje a grupo (eso sigue rojo).

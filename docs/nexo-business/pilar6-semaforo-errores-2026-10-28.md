@@ -2,6 +2,13 @@
 
 Plan base: `plan-menos-errores-2026-10-28.md` (aprobado por Ernesto el 28-oct). Esta sesión hizo el pilar 6.
 
+## PRIMERO: lo que afecta a Lennys (prioridad de Ernesto, 29-oct)
+Orden del triage: lo de Lennys va arriba, es ámbar (ya cuenta como aprobado) y se hace sin esperar a Ernesto.
+1. **Tasa de hoy sin hacer (error nuevo #127, 29-oct 12:08):** Lennys pidió a las 08:55 y 08:56 «busca la tasa del toque» y «actualiza en el grupo y la página». El bot contestó «Recibido… mañana dentro de horario» y «Anotado», sin crear ninguna fila (no hay escalación a esa hora). A las 11:40 `tasa_hoy` sigue en la de ayer (860 / 1032, sin elToque). Es lo más urgente: afecta los precios en CUP de hoy. Quien lo hace: bot-maraton (tarea de la tasa) o el supervisor, con el valor real de elToque; no inventar el número.
+2. **«Mañana dentro de horario» a pedidos hechos en horario** (08:55, 08:56 y 09:17): regla para el supervisor y el bot: con `#supervisor` de Lennys, acuse corto y fila real antes de decir «anotado»; nunca «mañana» si es hoy y la tienda está abierta. Ya hay arreglo en la rama de bot-maraton (#supervisor, cdeefb9); falta la prueba de la frase.
+3. **«Anotado» sin guardar (#118–#121):** la regla 1 de `test/reglas-pilar6.test.js` (8 pruebas `todo`). Lo de las 09:17 (eliminar productos desde el panel) sí quedó en la escalación #379: ese caso ya es correcto.
+4. **Pendientes de Lennys con responsable:** al final de `ESTADO.md` (lista del vigía). No reabrir el cuadre del día.
+
 ## Qué quedó hecho
 1. **Página de decisiones** (6 preguntas, 2 minutos, casillas Sí / No / Luego): `decisiones-ernesto-2026-10-28.html` (copia publicada como página privada).
 2. **Semáforo** escrito como regla, listo para el CLAUDE.md del supervisor: `pilar6-propuesta-supervisor-claude-md.md` (entregado a bot-maraton, sin aplicar).
