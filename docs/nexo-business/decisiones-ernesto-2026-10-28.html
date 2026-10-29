@@ -1,0 +1,202 @@
+<title>Decisiones de Ernesto</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+/* Layout: una sola columna de lectura en móvil; arriba lo que decide Ernesto (rojo), debajo lo que lleva Lennys (ámbar) y lo que ya está hecho o decidido (verde). Sin fuentes externas: poco internet. */
+:root{
+  --bg:#f3f4f6; --card:#ffffff; --ink:#15202b; --muted:#5b6672; --line:#d9dee4;
+  --accent:#1d4f91; --accent-ink:#ffffff;
+  --red:#b3261e; --red-bg:#fbe9e7; --amber:#8a5a00; --amber-bg:#fff3d6; --green:#1e6b3a; --green-bg:#e3f3e8;
+  --yes:#1e6b3a; --no:#b3261e; --later:#5b6672;
+  --font:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0f151c; --card:#18212b; --ink:#e8edf2; --muted:#9aa7b4; --line:#2b3744;
+  --accent:#7db0f2; --accent-ink:#0b1622;
+  --red:#ff8a80; --red-bg:#3a1f1d; --amber:#f5c15c; --amber-bg:#35290d; --green:#7ad398; --green-bg:#14301e;
+  --yes:#7ad398; --no:#ff8a80; --later:#9aa7b4; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f151c; --card:#18212b; --ink:#e8edf2; --muted:#9aa7b4; --line:#2b3744;
+  --accent:#7db0f2; --accent-ink:#0b1622;
+  --red:#ff8a80; --red-bg:#3a1f1d; --amber:#f5c15c; --amber-bg:#35290d; --green:#7ad398; --green-bg:#14301e;
+  --yes:#7ad398; --no:#ff8a80; --later:#9aa7b4; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.45;
+  padding-block:20px 120px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+main{max-width:640px;margin:0 auto;display:flex;flex-direction:column;gap:20px}
+h1{font-size:24px;line-height:1.2;margin:0;text-wrap:balance}
+h2{font-size:13px;letter-spacing:.08em;text-transform:uppercase;margin:0;display:flex;align-items:center;gap:8px}
+p{margin:0}
+.sub{color:var(--muted);font-size:15px;margin-top:6px}
+.dot{width:12px;height:12px;border-radius:50%;flex:none}
+.sec{display:flex;flex-direction:column;gap:10px}
+.sec-red h2{color:var(--red)} .sec-red .dot{background:var(--red)}
+.sec-amber h2{color:var(--amber)} .sec-amber .dot{background:var(--amber)}
+.sec-green h2{color:var(--green)} .sec-green .dot{background:var(--green)}
+.item{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.item.done{border-color:var(--yes)}
+.top{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
+.chip{font-size:12px;font-weight:600;background:var(--red-bg);color:var(--red);padding:2px 8px;border-radius:999px;white-space:nowrap}
+.sec-amber .chip{background:var(--amber-bg);color:var(--amber)}
+.q{font-weight:650;font-size:17px;min-width:0;overflow-wrap:anywhere}
+.ctx{color:var(--muted);font-size:14.5px;overflow-wrap:anywhere}
+.reco{font-size:14.5px;background:var(--bg);border-radius:8px;padding:8px 10px;overflow-wrap:anywhere}
+.reco b{color:var(--accent)}
+.opts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.opts input{position:absolute;opacity:0;pointer-events:none}
+.opts label{display:flex;align-items:center;justify-content:center;min-height:48px;border:2px solid var(--line);border-radius:10px;font-weight:650;cursor:pointer;user-select:none}
+.opts input:focus-visible+label{outline:3px solid var(--accent);outline-offset:2px}
+.opts input[value="si"]:checked+label{background:var(--green-bg);border-color:var(--yes);color:var(--yes)}
+.opts input[value="no"]:checked+label{background:var(--red-bg);border-color:var(--no);color:var(--no)}
+.opts input[value="luego"]:checked+label{background:var(--bg);border-color:var(--later);color:var(--later)}
+.plain{padding:12px 14px}
+.plain .q{font-size:15.5px}
+details{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+summary{cursor:pointer;font-weight:650}
+details ul{margin:10px 0 0;padding-left:18px;display:flex;flex-direction:column;gap:6px;font-size:14.5px}
+details li{overflow-wrap:anywhere}
+.bar{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);
+  padding:12px max(16px,env(safe-area-inset-right,0px)) calc(12px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));
+  display:flex;gap:12px;align-items:center;justify-content:center}
+.bar-in{width:100%;max-width:640px;display:flex;gap:12px;align-items:center}
+.count{flex:1;font-size:14.5px;color:var(--muted);min-width:0}
+button{font:inherit;font-weight:650;min-height:48px;padding:0 18px;border-radius:10px;border:0;background:var(--accent);color:var(--accent-ink);cursor:pointer}
+button:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+#out{width:100%;min-height:110px;font:inherit;font-size:14px;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:10px}
+.foot{color:var(--muted);font-size:13.5px}
+</style>
+
+<main>
+  <header>
+    <h1>Decisiones de Ernesto</h1>
+    <p class="sub">28-oct-2026 · Son 6 preguntas: unos 2 minutos. Toca <b>Sí</b>, <b>No</b> o <b>Luego</b> y al final copia tus respuestas y pégalas en el chat.</p>
+  </header>
+
+  <section class="sec sec-red" aria-labelledby="h-red">
+    <h2 id="h-red"><span class="dot"></span>Te toca a ti · 6</h2>
+
+    <article class="item" data-key="R1">
+      <div class="top"><span class="chip">R1 · regla nueva</span></div>
+      <p class="q">¿Aprobamos el semáforo para no depender de ti?</p>
+      <p class="ctx">Verde: pequeño y reversible, lo hace el supervisor y te cuenta después. Ámbar: lo decide Lennys (su pedido ya cuenta como aprobado) y te cuenta. Rojo: tú (dinero grande, precios grandes, borrar, pagos, mensajes a grupos, cambiar reglas). Esta semana: 26 errores verdes, 6 ámbar, 6 rojos.</p>
+      <p class="reco"><b>Recomiendo Sí.</b> Con esto, los errores de más de 5 días ya no se quedan esperándote.</p>
+      <div class="opts" role="radiogroup" aria-label="R1"></div>
+    </article>
+
+    <article class="item" data-key="R2">
+      <div class="top"><span class="chip">R2 · error #118</span></div>
+      <p class="q">Si una gestora pide guardar una recogida más de 24 h, ¿decide la tienda y el bot nunca lo promete?</p>
+      <p class="ctx">Kay oyó «se guarda hasta mañana» del bot; Nana canceló el #5551 y la gestora perdió la comisión. Hoy la regla es aviso a las 12 h y cancelación a las 24 h.</p>
+      <p class="reco"><b>Recomiendo Sí.</b> El bot solo dice «se lo paso a la tienda» y avisa a Nana o Zaymi con el número del pedido.</p>
+      <div class="opts" role="radiogroup" aria-label="R2"></div>
+    </article>
+
+    <article class="item" data-key="R3">
+      <div class="top"><span class="chip">R3 · error #109</span></div>
+      <p class="q">¿Sin hora límite fija de reparto? La hora la acuerda el mensajero.</p>
+      <p class="ctx">El bot le dijo a Roxana que se entrega «hasta las 5:00 p. m., horario oficial». Esa regla no existe y Pedri entregó el #5495 a las 17:26.</p>
+      <p class="reco"><b>Recomiendo Sí.</b> El bot anota la hora pedida y se la pasa al mensajero, sin poner límites.</p>
+      <div class="opts" role="radiogroup" aria-label="R3"></div>
+    </article>
+
+    <article class="item" data-key="R4">
+      <div class="top"><span class="chip">R4 · errores #122 #126 #114</span></div>
+      <p class="q">¿Cancelar/devolver en la web el #5546 (26 USD), #5604 (35 USD) y #5645 (120 USD) cuando Nana confirme que el producto está en la tienda?</p>
+      <p class="ctx">El cliente no los quiso y volvieron a la tienda (Nana 10:06; Ale 19:52). En la web siguen como entregados al mensajero. El bot dijo «ya lo registro como cancelados» y no pudo.</p>
+      <p class="reco"><b>Recomiendo Sí</b>, uno por uno y solo con la confirmación de Nana. Los avisos a las gestoras los hace el supervisor.</p>
+      <div class="opts" role="radiogroup" aria-label="R4"></div>
+    </article>
+
+    <article class="item" data-key="R5">
+      <div class="top"><span class="chip">R5 · error #110</span></div>
+      <p class="q">¿Escribo a Niurka (privado, una sola vez) con las 2 fichas correctas del kit solar?</p>
+      <p class="ctx">Kits de 3.865 a 4.250 USD. El bot mezcló 3 productos y dijo «agotado» y «confirmado con el proveedor» sin respuesta del proveedor. Han pasado 2 días.</p>
+      <p class="reco"><b>Recomiendo Sí.</b> Sin la palabra «confirmado» hasta que el proveedor conteste.</p>
+      <div class="opts" role="radiogroup" aria-label="R5"></div>
+    </article>
+
+    <article class="item" data-key="R6">
+      <div class="top"><span class="chip">R6 · error #119</span></div>
+      <p class="q">¿Poner a Todo Market (…2565) en «ignorar»?</p>
+      <p class="ctx">Es un vendedor de Revolico, no una gestora. Su respuesta automática («existen problemas de conexión…») la contestó el bot como si fuera una persona.</p>
+      <p class="reco"><b>Recomiendo Sí.</b> Se puede deshacer cuando quieras.</p>
+      <div class="opts" role="radiogroup" aria-label="R6"></div>
+    </article>
+  </section>
+
+  <section class="sec sec-amber" aria-labelledby="h-amber">
+    <h2 id="h-amber"><span class="dot"></span>Lo lleva Lennys · 6 (no hagas nada)</h2>
+    <p class="ctx">Ya cuenta como aprobado lo que ella decida. El supervisor se lo pregunta en un solo mensaje, de 10:00 a 17:00, y luego te cuenta.</p>
+    <div class="item plain"><p class="q"><span class="chip">#94</span> ¿A cuánto se toma el euro en la tienda? El bot dijo «1 euro = 1 USD» sin saberlo.</p></div>
+    <div class="item plain"><p class="q"><span class="chip">#97</span> La venta del jueves de Nayeli (cortinero, 15 USD, cobrada en caja sin su nombre): ¿se pone a su nombre?</p></div>
+    <div class="item plain"><p class="q"><span class="chip">#98</span> ¿«El Pocho» es Leonardo o Félix? Es para pagar la mensajería del #5428 (1.600 CUP).</p></div>
+    <div class="item plain"><p class="q"><span class="chip">#96</span> ¿Quién entregó de verdad el #5427? Leonardo lo marcó entregado en la tarjeta, pero dijo que no recogió nada.</p></div>
+    <div class="item plain"><p class="q"><span class="chip">#88</span> #5430 (topper, 60 USD): ¿Max ya entregó y dio el dinero? Si sí, se marca entregado.</p></div>
+    <div class="item plain"><p class="q"><span class="chip">#87</span> A Dany la web le muestra 36,20 USD al pedir cobrar 40 de 41,20 aprobados. El supervisor lo mira primero en la web y se lo cuenta a Lennys.</p></div>
+  </section>
+
+  <section class="sec sec-green" aria-labelledby="h-green">
+    <h2 id="h-green"><span class="dot"></span>Ya decidido, solo falta hacerlo · 26</h2>
+    <details>
+      <summary>Ver cuáles son (no tienes que hacer nada)</summary>
+      <ul>
+        <li><b>No afirmar sin dato</b> (ya acordado): #32, #91, #99, #107, #108, #111, #117, #124, #86, #110.</li>
+        <li><b>No decir «hecho/anotado» si no se hizo</b>: #68, #97, #114, #118, #121, #122, #125.</li>
+        <li><b>Entender la orden o no callar</b>: #88, #89, #90, #100, #101, #115, #116, #120, #123, #126.</li>
+        <li><b>Leer el dato en la web, no suponerlo</b>: #93, #96, #113 (la venta es de quien arma el vale: D120).</li>
+        <li><b>No inventar ganchos de venta</b>: #95 («Para los apagones» solo en lo recargable o con batería).</li>
+        <li><b>Arreglos pequeños</b>: fichas de Melany y Ale a línea Casa Viva (#92, #126), avisar a Day del gancho de pared (#116), colores de las fundas Majestic Imperial a Rafael (#108), Sobrecama a Max (#107).</li>
+        <li><b>Ya resuelto</b>: #57 (tarifa de Kevin pedido por pedido, D111).</li>
+      </ul>
+    </details>
+  </section>
+
+  <section class="sec">
+    <textarea id="out" readonly aria-label="Tus respuestas" placeholder="Tus respuestas aparecen aquí"></textarea>
+    <p class="foot">Lo que marques se queda guardado en este teléfono. Pega el texto copiado en el chat con Claude para que se aplique.</p>
+  </section>
+</main>
+
+<div class="bar"><div class="bar-in">
+  <p class="count" id="count" aria-live="polite">0 de 6 contestadas</p>
+  <button type="button" id="copy">Copiar respuestas</button>
+</div></div>
+
+<script>
+(function(){
+  var LABELS={si:'Sí',no:'No',luego:'Luego'};
+  var TITLES={R1:'semáforo',R2:'guardar recogidas (#118)',R3:'sin hora límite de reparto (#109)',R4:'cancelar #5546 #5604 #5645',R5:'escribir a Niurka (#110)',R6:'Todo Market a ignorar (#119)'};
+  var KEY='ernesto-decisiones-2026-10-28';
+  var saved={};
+  try{saved=JSON.parse(localStorage.getItem(KEY)||'{}')||{};}catch(e){saved={};}
+  var items=[].slice.call(document.querySelectorAll('.item[data-key]'));
+  items.forEach(function(it){
+    var k=it.getAttribute('data-key'),box=it.querySelector('.opts');
+    ['si','no','luego'].forEach(function(v){
+      var id=k+'-'+v;
+      var inp=document.createElement('input');inp.type='radio';inp.name=k;inp.value=v;inp.id=id;
+      if(saved[k]===v)inp.checked=true;
+      var lab=document.createElement('label');lab.htmlFor=id;lab.textContent=LABELS[v];
+      box.appendChild(inp);box.appendChild(lab);
+      inp.addEventListener('change',function(){saved[k]=v;try{localStorage.setItem(KEY,JSON.stringify(saved));}catch(e){}render();});
+    });
+  });
+  var out=document.getElementById('out'),count=document.getElementById('count'),btn=document.getElementById('copy');
+  function text(){
+    var parts=items.map(function(it){var k=it.getAttribute('data-key');return k+' '+(saved[k]?LABELS[saved[k]]:'—')+' ('+TITLES[k]+')';});
+    return 'Decisiones de Ernesto 28-oct:\n'+parts.join('\n');
+  }
+  function render(){
+    var n=items.filter(function(it){return saved[it.getAttribute('data-key')];}).length;
+    count.textContent=n+' de '+items.length+' contestadas';
+    items.forEach(function(it){it.classList.toggle('done',!!saved[it.getAttribute('data-key')]);});
+    out.value=text();
+  }
+  btn.addEventListener('click',function(){
+    render();
+    var done=function(){btn.textContent='Copiado ✓';setTimeout(function(){btn.textContent='Copiar respuestas';},2000);};
+    var fallback=function(){out.focus();out.select();btn.textContent='Selecciona y copia';};
+    try{navigator.clipboard.writeText(out.value).then(done,fallback);}catch(e){fallback();}
+  });
+  render();
+})();
+</script>
