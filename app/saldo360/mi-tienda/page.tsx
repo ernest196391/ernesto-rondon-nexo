@@ -41,9 +41,13 @@ export default function MiTienda() {
           <Link className="s360-secondary" href="/saldo360/entrar?rol=vendedor">Ya tengo cuenta</Link>
         </> : profile?.status === "suspended" ? <div className="s360-card"><p className="s360-error">Tu cuenta está suspendida. Escríbenos para revisarla.</p></div>
         : !shop ? <CrearTienda defaultPhone={phoneFromLogin(user.email)} onCreated={async () => { await loadShop(user.id); await refresh(); }}/>
-        : <>
+        // Tienda en revisión: primero verificarla. Ya publicada: lo primero son las ofertas (sin oferta no sale en el buscador).
+        : shop.status === "pending" ? <>
           <Tienda shop={shop} userId={user.id} onChange={() => loadShop(user.id)}/>
           <Ofertas shop={shop}/>
+        </> : <>
+          <Ofertas shop={shop}/>
+          <Tienda shop={shop} userId={user.id} onChange={() => loadShop(user.id)}/>
         </>}
     </section>
   </div></main>;

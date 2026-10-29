@@ -105,14 +105,17 @@ export default function Ofertas({ shop }: { shop: Shop }) {
   });
 
   const live = (o: Offer) => o.status === "active" && Date.parse(o.expires_at) > now.getTime();
+  // Sin ninguna oferta todavía: el formulario sale abierto, porque sin oferta la tienda no aparece en el buscador.
+  const first = offers !== null && offers.length === 0 && mode === "list";
   return <section className="s360-offers-admin">
     <h2 className="s360-heading">Mis ofertas <span>{offers?.filter(live).length ?? 0}</span></h2>
     {msg && <p role={msg.ok ? "status" : "alert"} className={msg.ok ? "s360-success" : "s360-error s360-form-msg"}>{msg.text}</p>}
-    {mode === "new" ? <OfferForm initial={EMPTY} submitLabel="Publicar oferta" busy={busy} onCancel={() => setMode("list")}
+    {first && <p className="s360-preview"><strong>{shop.status === "approved" ? "Último paso:" : "Mientras tanto:"}</strong> publica tu oferta. Sin oferta tu tienda no sale en el buscador.</p>}
+    {mode === "new" || first ? <OfferForm initial={EMPTY} submitLabel="Publicar oferta" busy={busy} onCancel={first ? undefined : () => setMode("list")}
         onSubmit={(d) => run(shop.status === "approved" ? "Oferta publicada." : "Oferta guardada. Saldrá cuando aprobemos tu tienda.", () => sb().rpc("publish_offer", { p_shop_id: shop.id, ...args(d) }))}/>
       : <button className="s360-primary" type="button" onClick={() => { setMsg(null); setMode("new"); }}>Publicar oferta</button>}
     {offers === null ? <div className="s360-empty"><p>Cargando…</p></div>
-      : offers.length === 0 && mode !== "new" ? <div className="s360-empty"><p>Aún no tienes ofertas.</p></div>
+      : offers.length === 0 ? null
       : offers.map((o) => mode === o.id
         ? <OfferForm key={o.id} busy={busy} submitLabel="Guardar cambios" onCancel={() => setMode("list")} initial={draftOf(o)}
             onSubmit={(d) => run("Oferta actualizada.", () => sb().rpc("update_offer", { p_offer_id: o.id, ...args(d) }))}/>
