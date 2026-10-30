@@ -14,9 +14,16 @@ export const db = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SE
 // Comisión «Ganas» exactamente como el mensaje de las 9:00 del bot (fija o % de la ficha; si no, 10 %).
 import { commissionFor, money } from '/root/vivabot/src/grupo-diario-rules.js';
 export { commissionFor, money };
+// 28-oct (Ernesto, mensajes más humanos): como mucho 8 con foto al día, 1 cada 10 min, y el resto en UN mensaje final
+// «Más novedades de hoy:». Reglas puras en VivaBot (src/novedades-rules.js, con prueba): hay que subir VivaBot ANTES.
+import { limitesNovedades, anunciadosEn7Dias, faseNovedades, lineaMasNovedades, textoMasNovedades, FOTOS_MAX_DIA, MIN_ENTRE_FOTOS } from '/root/vivabot/src/novedades-rules.js';
+export { limitesNovedades, anunciadosEn7Dias, faseNovedades, textoMasNovedades, FOTOS_MAX_DIA, MIN_ENTRE_FOTOS };
 
 export const BIZ = '8771c6ed-9dbf-497d-b3df-be6697ba2693';
-export const GRUPO = '120363283827702479@g.us';          // «Actualización de productos»
+export const GRUPO = '120363283827702479@g.us';          // «Actualización de productos» (D101: SOLO productos propios)
+// D101 (Ernesto, 23-oct): los productos de proveedor (SKU MK- / «Bajo pedido») van a «Actualización productos 24h»
+// (antes «48h»), hasta novedades_24h_max_dia (30) al día, 1 por minuto. Interruptor crm_settings novedades_24h = si | no.
+export const GRUPO_24H = '120363425123846351@g.us';
 export const GENERAL = '120363304301144410@g.us';
 export const ERNESTO = '5354056173';
 export const DIR = process.env.NOVEDADES_DIR || '/root/archivos/novedades';
@@ -50,12 +57,16 @@ export async function setSetting(key, value) {
   must(await db.from('crm_settings').upsert({ business_id: BIZ, key, value, updated_at: new Date().toISOString() }, { onConflict: 'business_id,key' }).select('key'));
 }
 export async function ajustes() {
-  const [auto, max, cada] = await Promise.all([setting('novedades_auto'), setting('novedades_max_dia'), setting('novedades_cada_min')]);
-  const n = Number(max);
+  const [auto, max, cada, s24, max24] = await Promise.all([setting('novedades_auto'), setting('novedades_max_dia'), setting('novedades_cada_min'),
+    setting('novedades_24h'), setting('novedades_24h_max_dia')]);
+  const n = Number(max), n24 = Number(max24);
   return {
     auto: String(auto || 'no').trim().toLowerCase(),
     maxDia: Number.isFinite(n) && String(max ?? '').trim() !== '' ? Math.max(0, Math.min(60, Math.round(n))) : 30,
     cadaMin: Math.max(1, Number(cada) || 1),
+    // D101: separar propios (Actualización) y de proveedor (24 h). '--24h' lo fuerza solo en las pruebas.
+    split: ['si', 'sí'].includes(String(s24 || 'no').trim().toLowerCase()) || (process.argv.includes('--24h') && process.argv.includes('--prueba')),
+    max24: Number.isFinite(n24) && String(max24 ?? '').trim() !== '' ? Math.max(0, Math.min(60, Math.round(n24))) : 30,
   };
 }
 
@@ -106,13 +117,20 @@ export function pie(p, item) {
   const antes = p.on_sale && Number(p.regular_price) > Number(p.price) ? ` (antes ${money(p.regular_price)})` : '';
   const lineas = [];
   if (item?.gancho) lineas.push(item.gancho);
-  lineas.push(`${item?.motivo === 'nuevo' ? '🆕 ' : ''}*${limpiaNombre(p.name)}*`);
+  lineas.push(`${['nuevo', 'destacado'].includes(item?.motivo) ? '🆕 ' : ''}*${limpiaNombre(p.name)}*`);
   lineas.push(`Precio: ${desde}*${money(p.price)} USD*${antes}`);
   if (Number(c.amount) > 0) lineas.push(`Ganas: ${rango && !fija ? 'desde ' : ''}*${money(c.amount)} USD* por cada uno`);
   if (esBajoPedido(p)) lineas.push('Bajo pedido (24 h)');
   else if (p.type === 'simple' && p.manage_stock && Number(p.stock_quantity) > 0 && Number(p.stock_quantity) <= 5) lineas.push(`Quedan ${p.stock_quantity} en tienda`);
   else lineas.push('Disponible en tienda');
   return lineas.join('\n');
+}
+
+/** Una línea del mensaje final «Más novedades de hoy:» con el precio de la web y lo que gana la gestora. */
+export function lineaMas(p) {
+  const c = commissionFor(p);
+  const rango = p.type === 'variable' && /&ndash;|–/.test(String(p.price_html || '').replace(/<[^>]+>/g, ''));
+  return lineaMasNovedades({ nombre: limpiaNombre(p.name), precio: money(p.price), ganas: Number(c.amount) > 0 ? money(c.amount) : '', desde: rango, bajoPedido: esBajoPedido(p) });
 }
 
 // ---------- fotos ----------

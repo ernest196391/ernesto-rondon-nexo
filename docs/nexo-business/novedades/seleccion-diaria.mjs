@@ -15,7 +15,7 @@
 import fs from 'fs';
 import crypto from 'crypto';
 import {
-  db, BIZ, GRUPO, GENERAL, ERNESTO, DIAS, NOTICIAS, COLA, must, cuba, addDays, say, setting, setSetting, ajustes, woo, catalogo, meta,
+  db, BIZ, GRUPO, GRUPO_24H, GENERAL, ERNESTO, DIAS, NOTICIAS, COLA, must, cuba, addDays, say, setting, setSetting, ajustes, woo, catalogo, meta,
   esBajoPedido, categoria, marketId, limpiaNombre, vendible, pie, foto, leerEnviados, cerrojo, avisaErnesto, comoObjeto,
 } from './novedades-comun.mjs';
 
@@ -25,6 +25,12 @@ const REHACER = args.includes('--rehacer');
 const hoyCuba = cuba().day;
 const DIA = args.includes('--dia') ? args[args.indexOf('--dia') + 1] : hoyCuba;
 const PLAN = `${DIAS}/${DIA}.json`;
+// D101 (23-oct): con crm_settings novedades_24h = si, la lista principal lleva SOLO productos propios y los de proveedor
+// (SKU MK- / «Bajo pedido») van en otra lista para «Actualización productos 24h»: dias/AAAA-MM-DD-24h.json (hasta
+// novedades_24h_max_dia = 30; primero los recién llegados, luego lo más vendido). --solo-24h = solo esa lista (la usa
+// novedades.mjs si la de la mañana se hizo antes de encenderlo). Prueba: --prueba --24h.
+const PLAN24 = `${DIAS}/${DIA}-24h.json`;
+const SOLO24 = args.includes('--solo-24h');
 const RESERVAS = 6;          // por si alguno se agota antes de salir
 const MAX_NOTICIA = 10, MAX_PEDIDO = 8, MAX_NUEVO = 8, MAX_POR_CATEGORIA = 7, MAX_POR_TIPO = 2;
 
@@ -187,7 +193,7 @@ async function yaAnunciados() {
     for (const [id, d] of Object.entries(gd.productos || {})) if (d > desde) ids.add(Number(id));
   } catch { /* sin estado */ }
   // Lo que otras sesiones mandaron a mano al grupo (por nombre, en el texto de las fotos).
-  const rows = must(await db.from('crm_outbox').select('body').eq('business_id', BIZ).eq('to_group', GRUPO).gte('created_at', `${desde}T00:00:00Z`).limit(2000));
+  const rows = must(await db.from('crm_outbox').select('body').eq('business_id', BIZ).in('to_group', [GRUPO, GRUPO_24H]).gte('created_at', `${desde}T00:00:00Z`).limit(2000));
   const cuerpos = rows.map((r) => norm(r.body)).filter(Boolean);
   return { ids, skus, cuerpos };
 }
@@ -198,9 +204,20 @@ function nombreYaSalio(p, cuerpos) {
 }
 
 // ---------- armar la lista ----------
+/** crm_settings novedades_destacados → { ids: [números], max, razon }. Sin fila o mal escrita: nada. */
+export function destacadosDe(value, objetivo = 30) {
+  let j = null;
+  try { j = typeof value === 'string' ? JSON.parse(value) : value; } catch { j = null; }
+  const ids = [...new Set((Array.isArray(j?.ids) ? j.ids : []).map(Number).filter((n) => Number.isInteger(n) && n > 0))];
+  const max = Math.max(0, Math.min(Number(j?.max_dia) || 12, objetivo));
+  return { ids, max: ids.length ? max : 0, razon: String(j?.razon || 'nuevo: redes y conectividad').slice(0, 80) };
+}
 async function main() {
-  if (fs.existsSync(PLAN) && !REHACER && !PRUEBA) return say(`la lista de ${DIA} ya existe (${PLAN}); para rehacerla: --rehacer`);
-  const { maxDia } = await ajustes();
+  const { maxDia, split, max24 } = await ajustes();
+  const hacer24 = split && (PRUEBA || REHACER || !fs.existsSync(PLAN24));
+  if (SOLO24 && !hacer24) return say(split ? `la lista de 24 h de ${DIA} ya existe (${PLAN24})` : 'novedades_24h no está en «si»: no hay lista de 24 h');
+  if (!SOLO24 && fs.existsSync(PLAN) && !REHACER && !PRUEBA && !hacer24) return say(`la lista de ${DIA} ya existe (${PLAN}); para rehacerla: --rehacer`);
+  const hacerPrincipal = !SOLO24 && (PRUEBA || REHACER || !fs.existsSync(PLAN));
   const objetivo = maxDia;
   const [productos, noticias, dem, ya] = await Promise.all([catalogo(), leerNoticias(), demanda(), yaAnunciados()]);
   // Estado en la bolsa de los «Bajo pedido»
@@ -211,7 +228,7 @@ async function main() {
   const enCola = new Map(cola.items.map((it, i) => [Number(it.product_id), { ...it, orden: i }]));
 
   const descartes = {};
-  const cand = [];
+  const todos = []; // D101: con novedades_24h = si, la lista principal solo ve los propios (cand) y la de 24 h los de proveedor
   for (const p of productos) {
     const mid = marketId(p);
     const no = vendible(p, esBajoPedido(p) ? (bolsa.get(mid) ?? null) || 'no existe' : null)
@@ -223,8 +240,11 @@ async function main() {
     const propio = !esBajoPedido(p);
     const vend = dem.vendidos.get(p.id) || 0;
     const score = (propio ? 3 : 0) + (nuevo ? 1.5 : 0) + (vend ? 2 : 0) + (p.on_sale ? 1 : 0) + (meta(p)._cvd_nexo_image_url ? 1 : 0) + giro(p.id) * 2;
-    cand.push({ p, id: p.id, cat: categoria(p), tipo: tipoDe(p.name) || `id${p.id}`, texto: `${p.name} ${(p.categories || []).map((c) => c.name).join(' ')}`, nuevo, propio, vend, score, cola: enCola.get(p.id) || null });
+    todos.push({ p, id: p.id, cat: categoria(p), tipo: tipoDe(p.name) || `id${p.id}`, texto: `${p.name} ${(p.categories || []).map((c) => c.name).join(' ')}`, nuevo, propio, vend, score, cola: enCola.get(p.id) || null });
   }
+  const cand = split ? todos.filter((c) => c.propio) : todos;
+  const plan24 = hacer24 ? await lista24(todos.filter((c) => !c.propio), max24, descartes) : null;
+  if (!hacerPrincipal) return guardar24(plan24);
 
   const elegidos = [];
   const usados = new Set(), nombres = new Set(), porCat = {}, porTipo = {};
@@ -240,6 +260,22 @@ async function main() {
   }
   const llenos = () => elegidos.filter((e) => !e.reserva).length >= objetivo;
   const orden = (a, b) => b.score - a.score;
+
+  // 0) destacados (29-oct, tanda de redes y conectividad): crm_settings novedades_destacados =
+  //    {"ids":[ids Woo en orden],"max_dia":12,"razon":"nuevo: redes y conectividad"}. Van primero y en su orden, hasta
+  //    max_dia; solo los vendibles, con foto y no anunciados en 7 días (ya filtrados arriba), así lo que no cabe hoy sale
+  //    mañana. Sin el tope por categoría ni por tipo (es una tanda a propósito). Sin la fila: no hace nada.
+  const dest = destacadosDe(await setting('novedades_destacados').catch(() => null), objetivo);
+  for (const id of dest.ids) {
+    if (elegidos.filter((e) => e.motivo === 'destacado').length >= dest.max || llenos()) break;
+    const c = cand.find((x) => x.id === id);
+    if (!c || usados.has(c.id) || nombres.has(norm(c.p.name))) continue;
+    usados.add(c.id);
+    const f = await foto(c.p, { preferida: c.cola?.file_path || null });
+    if (!f) { descartes['sin foto decente'] = (descartes['sin foto decente'] || 0) + 1; continue; }
+    nombres.add(norm(c.p.name)); porCat[c.cat] = (porCat[c.cat] || 0) + 1; porTipo[c.tipo] = (porTipo[c.tipo] || 0) + 1;
+    elegidos.push({ c, motivo: 'destacado', razon: dest.razon, gancho: null, reserva: false, foto: f });
+  }
 
   // 1) noticias: cupo repartido por fuerza (máx. 10; 2+ por necesidad activa); temporada suma fuerza 1.
   const fuerza = { ...noticias.fuerza };
@@ -306,8 +342,8 @@ async function main() {
     if (!alguno) break;
   }
 
-  // Orden de salida: noticias, pedidos, nuevos, categorías (variado), y al final las reservas.
-  const peso = { noticia: 0, pedido: 1, nuevo: 2, categoria: 3 };
+  // Orden de salida: destacados, noticias, pedidos, nuevos, categorías (variado), y al final las reservas.
+  const peso = { destacado: -1, noticia: 0, pedido: 1, nuevo: 2, categoria: 3 };
   const principales = elegidos.filter((e) => !e.reserva).sort((a, b) => peso[a.motivo] - peso[b.motivo]).slice(0, objetivo);
   const reservas = [...elegidos.filter((e) => e.reserva), ...elegidos.filter((e) => !e.reserva).slice(objetivo)].slice(0, RESERVAS);
   const items = [...principales, ...reservas.map((e) => ({ ...e, reserva: true }))].map((e, i) => ({
@@ -317,17 +353,22 @@ async function main() {
   const cuenta = (m) => principales.filter((e) => e.motivo === m).length;
   const plan = {
     dia: DIA, creado: new Date().toISOString(), objetivo: principales.length, max_dia: maxDia,
-    por_motivo: { noticia: cuenta('noticia'), pedido: cuenta('pedido'), nuevo: cuenta('nuevo'), categoria: cuenta('categoria') },
+    por_motivo: { destacado: cuenta('destacado'), noticia: cuenta('noticia'), pedido: cuenta('pedido'), nuevo: cuenta('nuevo'), categoria: cuenta('categoria') },
     noticias: { fuentes: noticias.fuentes, titulares: noticias.titulares, ia: noticias.ia, gasto: noticias.gasto, fuerza, por_necesidad: porNecesidad, titularesDe: Object.fromEntries(Object.entries(noticias.titularesDe || {}).filter(([id]) => fuerza[id])) },
     demanda: { mensajes: dem.mensajes, vendidos_14d: dem.vendidos.size, top: pedidos.slice(0, 15).map((d) => d.tipo ? `${d.tipo} (${d.n} personas)` : `#${d.id} (${d.n} ventas)`) },
     candidatos: cand.length, descartes, items,
   };
 
-  const resumen = resumenErnesto(plan);
-  if (PRUEBA) { fs.writeFileSync(`${DIAS}/prueba-${DIA}.json`, JSON.stringify(plan, null, 1)); return imprimir(plan, resumen); }
+  const resumen = resumenErnesto(plan, plan24);
+  if (PRUEBA) {
+    fs.writeFileSync(`${DIAS}/prueba-${DIA}.json`, JSON.stringify(plan, null, 1));
+    imprimir(plan, resumen);
+    return guardar24(plan24);
+  }
   const libre = cerrojo(`${DIAS}/.seleccion.lock`);
   if (!libre) return say('otra selección en marcha');
   try {
+    if (plan24) await guardar24(plan24);
     const nuevoPlan = !fs.existsSync(PLAN);
     fs.writeFileSync(PLAN, JSON.stringify(plan, null, 1));
     await setSetting('novedades_hoy', JSON.stringify({ dia: DIA, total: plan.objetivo, por_motivo: plan.por_motivo, items: items.filter((i) => !i.reserva).map((i) => ({ id: i.product_id, nombre: i.nombre, motivo: i.motivo, razon: i.razon })) }));
@@ -337,20 +378,60 @@ async function main() {
   } finally { libre(); }
 }
 
+// ---------- D101: lista de proveedores para «Actualización productos 24h» ----------
+/** Hasta `objetivo` productos de proveedor (+ reservas): recién llegados primero (cola y web), luego lo más vendido. */
+async function lista24(prov, objetivo, descartes = {}) {
+  const orden = (a, b) => (b.nuevo - a.nuevo) || ((a.cola?.orden ?? 1e9) - (b.cola?.orden ?? 1e9)) || (b.vend - a.vend) || (b.score - a.score);
+  const out = [], nombres = new Set(), porTipo = {};
+  for (const c of [...prov].sort(orden)) {
+    if (out.length >= objetivo + RESERVAS) break;
+    if (nombres.has(norm(c.p.name)) || (porTipo[c.tipo] || 0) >= 3) continue;
+    const f = await foto(c.p, { preferida: c.cola?.file_path || null });
+    if (!f) { descartes['sin foto decente (24 h)'] = (descartes['sin foto decente (24 h)'] || 0) + 1; continue; }
+    nombres.add(norm(c.p.name)); porTipo[c.tipo] = (porTipo[c.tipo] || 0) + 1;
+    const motivo = c.nuevo ? 'nuevo' : c.vend ? 'pedido' : 'proveedor';
+    const razon = c.nuevo ? (c.cola ? 'recién llegado (electrodomésticos del 20-oct)' : `nuevo en la web (${String(c.p.date_created).slice(0, 10)})`) : c.vend ? `se vendió ${c.vend} ${c.vend === 1 ? 'vez' : 'veces'} en 14 días` : `de proveedor (${c.cat})`;
+    out.push({ c, motivo, razon, gancho: null, reserva: out.length >= objetivo, foto: f });
+  }
+  const items = out.map((e, i) => ({
+    n: i + 1, product_id: e.c.id, sku: e.c.p.sku || null, market_id: marketId(e.c.p), nombre: limpiaNombre(e.c.p.name), categoria: e.c.cat, tipo: e.c.tipo,
+    motivo: e.motivo, razon: e.razon, gancho: e.gancho, reserva: e.reserva, foto: e.foto, pie: pie(e.c.p, e),
+  }));
+  const principales = items.filter((i) => !i.reserva);
+  return { dia: DIA, grupo: GRUPO_24H, creado: new Date().toISOString(), objetivo: principales.length, max_dia: objetivo,
+    por_motivo: { nuevo: principales.filter((i) => i.motivo === 'nuevo').length, pedido: principales.filter((i) => i.motivo === 'pedido').length, proveedor: principales.filter((i) => i.motivo === 'proveedor').length },
+    candidatos: prov.length, items };
+}
+/** Guarda la lista de 24 h (en prueba: dias/prueba-AAAA-MM-DD-24h.json y la enseña). */
+async function guardar24(plan24) {
+  if (!plan24) return;
+  if (PRUEBA) {
+    fs.writeFileSync(`${DIAS}/prueba-${DIA}-24h.json`, JSON.stringify(plan24, null, 1));
+    console.log(`\n=== PRUEBA: lista de 24 h (proveedores) para ${plan24.dia}: ${plan24.objetivo} de ${plan24.candidatos} candidatos · ${JSON.stringify(plan24.por_motivo)} ===`);
+    for (const i of plan24.items) console.log(`${String(i.n).padStart(2)}. ${i.reserva ? '[reserva] ' : ''}${i.nombre} · ${i.sku || ''} · ${i.motivo}: ${i.razon}`);
+    if (plan24.items[0]) console.log(`\n[foto ${plan24.items[0].foto}]\n${plan24.items[0].pie}\n`);
+    return;
+  }
+  fs.writeFileSync(PLAN24, JSON.stringify(plan24, null, 1));
+  say(`lista de 24 h de ${DIA}: ${plan24.objetivo} (+${plan24.items.length - plan24.objetivo} reservas) · ${JSON.stringify(plan24.por_motivo)}`);
+}
+
 const NOMBRE_NEC = { apagones: 'apagones', calor: 'calor', lluvia: 'lluvias', agua: 'falta de agua', gas: 'falta de gas', mosquitos: 'mosquitos', comida: 'comida', escuela: 'escuela', navidad: 'Navidad', frio: 'frío' };
-function resumenErnesto(plan) {
+function resumenErnesto(plan, plan24 = null) {
   const nec = Object.entries(plan.noticias.por_necesidad).filter(([, n]) => n > 0).map(([id, n]) => `${NOMBRE_NEC[id] || id} ${n}`).join(', ');
   const tiposPed = [...new Set(plan.items.filter((i) => !i.reserva && i.motivo === 'pedido').map((i) => i.tipo))].slice(0, 3).join(', ');
   const fuerte = Object.entries(plan.noticias.fuerza || {}).filter(([id]) => plan.noticias.por_necesidad[id] && plan.noticias.titularesDe?.[id]).sort((a, b) => b[1] - a[1])[0];
   const tit = fuerte ? plan.noticias.titularesDe[fuerte[0]][0] : null;
   return [
-    `📣 *Novedades de hoy:* salen ${plan.objetivo}, 1 por minuto desde las 9:02 al grupo «Actualización de productos».`,
+    // 28-oct: como mucho 8 con foto (1 cada 10 min) y el resto en un solo mensaje final (novedades.mjs).
+    `📣 *Novedades de hoy:* ${plan.objetivo} al grupo «Actualización de productos»: ${Math.min(8, plan.objetivo)} con foto (1 cada 10 min desde las 9:02)${plan.objetivo > 8 ? ' y el resto en un solo mensaje «Más novedades de hoy»' : ''}.`,
     `⚡ ${plan.por_motivo.noticia} por noticias${nec ? ` (${nec})` : ''}`,
     `🔥 ${plan.por_motivo.pedido} pedidos por clientes y gestoras${tiposPed ? ` (${tiposPed}…)` : ''}`,
     `🆕 ${plan.por_motivo.nuevo} recién llegados · ${plan.por_motivo.categoria} para variar categorías`,
     tit ? `📰 Noticia usada: «${tit.slice(0, 110)}»` : '📰 Hoy sin noticia clara: van pedidos, nuevos y categorías.',
+    plan24 ? `🕐 Y ${plan24.objetivo} de proveedores (${plan24.por_motivo.nuevo} recién llegados) al grupo «Actualización productos 24h».` : null,
     'Para parar o cambiar cuántos salen, díselo a Claude.',
-  ].join('\n');
+  ].filter(Boolean).join('\n');
 }
 function imprimir(plan, resumen) {
   console.log(`\n=== PRUEBA: lista para ${plan.dia} (no se guarda ni se manda nada) ===`);

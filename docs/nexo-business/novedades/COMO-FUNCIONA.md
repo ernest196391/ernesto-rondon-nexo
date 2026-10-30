@@ -8,7 +8,7 @@
 2. **8:40.** A Ernesto le llega por privado un resumen de 6 líneas, por ejemplo:
    «salen 30: 10 por noticias (agua, apagones…), 8 pedidos por clientes y gestoras, 8 recién llegados, 4 para variar categorías» y la noticia que se usó.
 3. **9:00.** El bot manda su mensaje de siempre, con 3 productos.
-4. **De 9:02 en adelante.** Sale un producto por minuto (foto + texto) hasta acabar la lista, hacia las 9:35. Después se para hasta el día siguiente.
+4. **De 9:02 en adelante.** ~~Sale un producto por minuto (foto + texto) hasta acabar la lista.~~ **Desde el 28-oct (Ernesto, menos mensajes = menos riesgo con WhatsApp):** salen **como mucho 8 con foto**, **uno cada 10 min** (hasta ~10:20), nunca uno que ya salió en los 7 días anteriores; el resto de la lista va en **un solo mensaje** final «*Más novedades de hoy:*» (una línea por producto: nombre, precio y lo que ganan). La comisión sigue en cada anuncio. Reglas en VivaBot `src/novedades-rules.js` (prueba `test/mensajes-1028.test.js`); **hay que subir VivaBot antes que esta tarea** (la importa de `/root/vivabot/src/`).
 
 ## Cómo elige (en este orden)
 
