@@ -1,0 +1,5 @@
+Paso 1 de 5: toca Mis artículos, en el menú ☰.
+Paso 2 de 5: toca Editar en la pieza.
+Paso 3 de 5: escribe el precio en USD.
+Paso 4 de 5: toca Publicar.
+Paso 5 de 5: toca + Nuevo artículo.
