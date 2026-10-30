@@ -1,0 +1,50 @@
+{
+  "titulo": "Tu tienda de piezas",
+  "formato": "1080x1350",
+  "para": "Daykel",
+  "mensaje": "Hola, Daykel 👋 Así pones precio a tus piezas y las publicas en tu tienda, en 5 toques.\nAsí tus clientes te las piden por WhatsApp.\nMira los pasos en las fotos 👇\nSi algo no sale, escríbeme.",
+  "pasos": [
+    {
+      "texto": "Toca **Mis artículos**, en el menú.",
+      "resultado": "Se abre la lista de tus piezas.",
+      "ojo": "No es **Mi tienda**: toca la segunda bolsa, **Mis artículos**.",
+      "captura": "capturas/1-menu.png",
+      "flecha": "der",
+      "zoom": 1.1,
+      "pie": "Paso 1 de 5: toca Mis artículos, en el menú ☰."
+    },
+    {
+      "texto": "Toca **Editar** en la pieza.",
+      "resultado": "Se abre su formulario.",
+      "captura": "capturas/2-lista.png",
+      "flecha": "der",
+      "zoom": 1.1,
+      "pie": "Paso 2 de 5: toca Editar en la pieza."
+    },
+    {
+      "texto": "Escribe el **Precio (USD)**.",
+      "resultado": "Si quieres, pon **Cuántos tienes** al lado.",
+      "captura": "capturas/3-precio.png",
+      "flecha": "arriba",
+      "zoom": 1.1,
+      "pie": "Paso 3 de 5: escribe el precio en USD."
+    },
+    {
+      "texto": "Baja y toca **Publicar**.",
+      "resultado": "La pieza queda a la vista en tu tienda.",
+      "ojo": "Si **Guardarlo pausado** está marcado, quítalo.",
+      "captura": "capturas/4-publicar.png",
+      "flecha": "der",
+      "zoom": 1.1,
+      "pie": "Paso 4 de 5: toca Publicar."
+    },
+    {
+      "texto": "Para otra pieza, toca **+ Nuevo artículo**.",
+      "resultado": "Pones fotos, nombre y precio, y publicas.",
+      "captura": "capturas/5-nuevo.png",
+      "flecha": "der",
+      "zoom": 1.1,
+      "pie": "Paso 5 de 5: toca + Nuevo artículo."
+    }
+  ]
+}
