@@ -1,0 +1,17 @@
+{
+  "name": "Saldo 360",
+  "short_name": "Saldo 360",
+  "description": "Busco saldo. Tengo saldo.",
+  "id": "/saldo360",
+  "start_url": "/saldo360",
+  "scope": "/saldo360",
+  "display": "standalone",
+  "background_color": "#F6F8FB",
+  "theme_color": "#0D3B8E",
+  "lang": "es",
+  "icons": [
+    { "src": "/saldo360/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/saldo360/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/saldo360/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
