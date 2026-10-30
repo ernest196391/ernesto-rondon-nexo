@@ -310,7 +310,7 @@ type Expected = { currency: string; expectedMinor: number; lines: Array<[string,
 /** Billetes de la hoja «CIERRE DE VENTAS DIARIO» (Lennys 20-oct). */
 const BILLS: Record<string, number[]> = {
   USD: [100, 50, 20, 10, 5, 3, 1],
-  CUP: [5000, 2000, 1000, 500, 200, 100, 50, 20, 10, 1],
+  CUP: [20000, 10000, 5000, 2000, 1000, 500, 200, 100, 50, 20, 10, 1],
 };
 /** Transferencias como en la hoja: CUP, saldo (CEL), tarjeta clásica (y Zelle/USD por si acaso). */
 const TRANSFER_TYPES: Array<[string, string]> = [["cup", "Transferencia CUP"], ["saldo", "Saldo (CEL)"], ["clasica", "Clásica"], ["usd", "USD / Zelle"]];
