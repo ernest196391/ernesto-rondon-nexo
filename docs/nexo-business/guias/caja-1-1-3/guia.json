@@ -1,0 +1,33 @@
+{
+  "titulo": "Caja 1.1.3",
+  "formato": "1080x1350",
+  "para": "lennys",
+  "mensaje": "Hola, Lennys. La Caja 1.1.3 ya está lista: las opciones (color, medida) se leen bien, con foto y cuánto queda de cada una.\nInstálala mañana antes de abrir (antes de las 9:30), encima de la que tienes. No pierde el turno ni las ventas.\nLos pasos, en las fotos 👇\n¿Mañana a las 9:00 la instalas tú?\nSi algo no sale, escríbeme.",
+  "pasos": [
+    {
+      "texto": "Baja **Windows (laptop)**.",
+      "resultado": "Se baja un archivo de 4 MB. Ábrelo y pulsa **Instalar**, encima de la caja que ya tienes.",
+      "ojo": "Antes: **Más → Sincronización → Sincronizar ahora** y cierra la caja.",
+      "captura": "capturas/1-descarga.png",
+      "flecha": "arriba",
+      "zoom": 1.1,
+      "pie": "Paso 1 de 3: baja Windows (laptop) en casaviva.company/descargas."
+    },
+    {
+      "texto": "Toca una foto para verla grande.",
+      "resultado": "Cada opción dice **Quedan N** o **Agotado**; las agotadas van al final.",
+      "captura": "capturas/2-selector.png",
+      "flecha": "der",
+      "zoom": 1,
+      "pie": "Paso 2 de 3: al elegir un producto con opciones, toca la foto para ampliarla."
+    },
+    {
+      "texto": "Toca **Lo que queda**, en Inventario.",
+      "resultado": "Ves todos los productos y sus opciones: foto, nombre y cuánto queda.",
+      "captura": "capturas/3-queda.png",
+      "flecha": "abajo",
+      "zoom": 1,
+      "pie": "Paso 3 de 3: Inventario → Lo que queda."
+    }
+  ]
+}
