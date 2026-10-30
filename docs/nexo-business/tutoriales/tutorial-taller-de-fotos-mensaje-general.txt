@@ -1,0 +1,38 @@
+MENSAJE 1 (grupo General) — oferta «Grand Slam»
+────────────────────────────────────────
+📸 *TALLER DE FOTOS*
+*Tu producto listo para vender en 1 minuto. Gratis.*
+
+Hola a todo el equipo 👋 Ya está en su oficina.
+
+*Lo que consiguen:*
+✅ Foto cuadrada y limpia, con el nombre del producto
+✅ Texto para Facebook o su estado, listo para pegar
+✅ Todo desde el móvil, sin saber de diseño
+
+*Lo que ya no tienen que hacer:*
+• Buscar una app para recortar fotos
+• Pensar qué escribir en cada publicación
+• Inventar datos: el texto sale solo de lo que Casa Viva sabe del producto
+
+*Y además, sin costo:*
+🎁 La guía de 5 pasos con fotos (queda guardada en *Aprende*)
+🎁 Fondos nuevos en *Mi estudio de fotos*: de día en la calle, mesa de taller…
+🎁 *Fotos para publicar*: todo con su precio y su enlace
+
+────────────────────────────────────────
+MENSAJE 2 (justo después, mismo grupo)
+────────────────────────────────────────
+*Su tranquilidad:* si algo no les sale, escríbanme y lo resolvemos.
+*Cada día:* 15 textos con IA por gestora.
+*Lo que ganan:* cada venta con su enlace les deja su comisión (el 10 % o la fija del producto).
+
+👉 *Pruébenlo hoy:* Menú → *Taller de fotos*. Elijan 1 producto y cuéntenme cómo les fue.
+Los pasos, en las fotos 👇
+
+────────────────────────────────────────
+Después: las 5 imágenes paso-1.png … paso-5.png, en orden, 6 s entre cada una, con los pies de pies.txt.
+
+
+
+# Guía de 5 pasos con capturas: docs/nexo-business/guias/taller-de-fotos/ (paso-1..5.png). En la oficina: Aprende → «Taller de fotos: tu foto y tu texto listos». En el VPS: /root/archivos/guias/taller-de-fotos/.

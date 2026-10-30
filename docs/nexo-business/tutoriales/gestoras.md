@@ -15,3 +15,4 @@
 13. *Buscar precios*: área → *Buscar precios* → sube la foto de un producto y ves a cuánto lo venden en Revolico y otras tiendas (15 búsquedas al día). *Pregúntale a Curru* te dice precios, medidas y si hay en almacén.
 14. *Entrega*: los productos se pagan en USD; la mensajería la paga el cliente en CUP al mensajero. Recogida en tienda: Calle Conill A esq. 45 #864, Nuevo Vedado, de 9:00 a. m. a 5:00 p. m.
 15. ¿Dudas? Escribe al WhatsApp 5354056173 💛
+16. *Taller de fotos* (30-oct): menú → *Taller de fotos*. Elige el producto, sube tu foto del móvil y te la deja cuadrada, con fondo limpio y el nombre del producto (y el precio si quieres) → *Guardar foto*. Abajo, *Escribir mi texto* te prepara el texto para Facebook, tu estado o la descripción, solo con los datos reales del producto (15 textos con IA al día). La guía de 5 pasos con fotos está en *Aprende*.

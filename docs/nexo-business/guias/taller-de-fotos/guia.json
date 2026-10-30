@@ -1,0 +1,50 @@
+{
+  "titulo": "Taller de fotos",
+  "formato": "1080x1350",
+  "para": "gestoras",
+  "mensaje": "(ver oferta-general.txt)",
+  "pasos": [
+    {
+      "texto": "Abre el menú y toca **Taller de fotos**.",
+      "resultado": "Se abre el **Taller de fotos**, con 3 pasos.",
+      "captura": "capturas/1-menu.png",
+      "flecha": "der",
+      "zoom": 1,
+      "foco_alto": 0.75,
+      "pie": "Paso 1 de 5: abre el menú y toca Taller de fotos."
+    },
+    {
+      "texto": "Escribe el producto y tócalo.",
+      "resultado": "El producto queda elegido, con tu precio.",
+      "ojo": "¿Es una pieza tuya? Toca **Usar este nombre**.",
+      "captura": "capturas/2-buscar.png",
+      "flecha": "arriba",
+      "zoom": 1,
+      "pie": "Paso 2 de 5: escribe el producto y tócalo."
+    },
+    {
+      "texto": "Toca **Elegir foto del móvil**.",
+      "resultado": "Tu foto sale cuadrada, lista para mover con el dedo.",
+      "captura": "capturas/3-foto.png",
+      "flecha": "der",
+      "zoom": 1,
+      "pie": "Paso 3 de 5: toca Elegir foto del móvil."
+    },
+    {
+      "texto": "Toca **Guardar foto**.",
+      "resultado": "La foto queda en tu móvil, lista para publicar.",
+      "captura": "capturas/4-guardar.png",
+      "flecha": "der",
+      "zoom": 1,
+      "pie": "Paso 4 de 5: toca Guardar foto."
+    },
+    {
+      "texto": "Toca **Escribir mi texto**.",
+      "resultado": "Sale tu texto. Toca **Copiar texto** y pégalo.",
+      "captura": "capturas/5-texto.png",
+      "flecha": "der",
+      "zoom": 1,
+      "pie": "Paso 5 de 5: toca Escribir mi texto y copia el texto."
+    }
+  ]
+}
