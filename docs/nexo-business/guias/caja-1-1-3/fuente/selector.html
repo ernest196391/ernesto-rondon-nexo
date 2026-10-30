@@ -1,0 +1,14 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="../../../../../apps/business-pos/src/nexo.css"><link rel="stylesheet" href="../../../../../apps/business-pos/src/themes/casaviva.css"><link rel="stylesheet" href="../../../../../apps/business-pos/src/app.css">
+<style>.vgrid{max-height:none!important;overflow:visible!important}.vphoto .thumb{background-size:cover}.vphoto img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}</style></head>
+<body style="margin:0"><div class="nx app" data-theme="casaviva" style="height:100vh;position:relative"><div class="overlay"><button class="scrim"></button>
+<section class="sheet" role="dialog"><div class="handle"></div>
+<div class="sheet-head"><h2>Edredón con juego de sabana (camero)</h2><button class="btn btn-ghost btn-icon">×</button></div>
+<p class="t-sm muted">Elige la opción · toca la foto para verla grande</p>
+<div class="vgrid" id="g"></div></section></div></div>
+<script>
+const U="https://casaviva.company/wp-content/uploads/2026/10/";
+const opts=[["blanco",U+"tmp-2439-blanco-300x300.jpg",3,2],["Blanco a rallas",U+"70e6c6db-a26f-4995-83f1-734bcfcc6803-300x300.webp",1,2],["rosado",U+"tmp-2439-rosado-300x300.jpg",2,2],["azul",U+"j1Z-product-cover-300x300.webp",0,2],["gris",U+"j1Z-product-cover-300x300.webp",0,2]];
+g.innerHTML=opts.map(([n,u,q,low])=>{const out=q<=0,cls=out?"badge-out":q<=low?"badge-low":"badge-ok",t=out?"Agotado":"Quedan "+q;
+return `<div class="vopt-wrap${out?" is-out":""}"><div class="vphoto"><div class="thumb c2">${n[0].toUpperCase()}<img src="${u}" alt=""></div></div><button class="vopt" ${out?"disabled":""}><span class="vname">${n}</span><span class="num t-sm">$40.00</span><span class="badge ${cls}">${t}</span></button></div>`}).join("");
+</script></body></html>

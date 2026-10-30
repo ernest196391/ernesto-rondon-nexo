@@ -1,0 +1,12 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="../../../../../apps/business-pos/src/nexo.css"><link rel="stylesheet" href="../../../../../apps/business-pos/src/themes/casaviva.css"><link rel="stylesheet" href="../../../../../apps/business-pos/src/app.css">
+<style>.vphoto .thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}body{margin:0}.top{padding:12px 16px}</style></head>
+<body><div class="nx app" data-theme="casaviva" style="display:block;min-height:100vh"><header class="top"><h1 class="title">Inventario</h1></header><div class="stack" style="padding:0 16px">
+<div class="seg"><button type="button" aria-pressed="false">Poco stock</button><button type="button" id="lo" aria-pressed="true">Lo que queda</button><button type="button" aria-pressed="false">Ubicaciones y conteos</button></div>
+<section class="panel"><label class="search-field"><input type="search" placeholder="Buscar producto u opción"></label><div class="stock-all" id="s"></div></section></div></div>
+<script>
+const U="https://casaviva.company/wp-content/uploads/2026/10/";
+const rows=[["blanco",U+"tmp-2439-blanco-300x300.jpg",3],["Blanco a rallas",U+"70e6c6db-a26f-4995-83f1-734bcfcc6803-300x300.webp",1],["rosado",U+"tmp-2439-rosado-300x300.jpg",2],["azul",U+"j1Z-product-cover-300x300.webp",0],["gris",U+"j1Z-product-cover-300x300.webp",0]];
+const row=(n,u,q)=>{const out=q<=0,cls=out?"badge-out":q<=2?"badge-low":"badge-ok";return `<div class="list-row stock-row${out?" is-out":""}"><div class="vphoto" style="width:52px"><div class="thumb c2">${n[0].toUpperCase()}<img src="${u}" alt=""></div></div><span class="grow stock-name">${n}</span><span class="badge ${cls}">${out?"Agotado":"Quedan "+q}</span></div>`};
+s.innerHTML=`<div class="stock-group"><div class="stock-title">Edredón con juego de sabana (camero)</div>${rows.map(r=>row(...r)).join("")}</div>`;
+</script></body></html>
