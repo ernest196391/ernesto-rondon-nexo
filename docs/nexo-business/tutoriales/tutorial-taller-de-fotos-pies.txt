@@ -1,0 +1,5 @@
+Paso 1 de 5: abre el menú y toca Taller de fotos.
+Paso 2 de 5: escribe el producto y tócalo.
+Paso 3 de 5: toca Elegir foto del móvil.
+Paso 4 de 5: toca Guardar foto.
+Paso 5 de 5: toca Escribir mi texto y copia el texto.
