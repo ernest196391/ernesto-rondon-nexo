@@ -83,10 +83,22 @@ body { background: #F6F1E6; }
   .nx .stack { max-width: 880px; width: 100%; margin: 0 auto; }
 }
 
-/* Variant options wrap their badge on narrow phones. */
-.nx .vgrid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
-.nx .vopt { flex-wrap: wrap; row-gap: 2px; padding: 8px var(--nx-s3); }
-.nx .vopt .vname { min-width: 0; overflow-wrap: anywhere; }
+/* Selector de opciones (1.1.3): tarjeta con foto arriba y nombre en horizontal; nunca letra por letra. */
+.nx .vgrid { grid-template-columns: repeat(auto-fill, minmax(min(100%, 150px), 1fr)); max-height: 60vh; overflow-y: auto; }
+.nx .vopt-wrap { display: flex; flex-direction: column; gap: var(--nx-s1); min-width: 0; }
+.nx .vopt-wrap .vphoto { width: 100%; max-width: 96px; margin: 0 auto; cursor: zoom-in; }
+.nx .vopt-wrap.is-out .vphoto, .nx .stock-row.is-out .vphoto { filter: grayscale(1); opacity: .55; }
+.nx .vopt { flex-direction: column; align-items: flex-start; justify-content: flex-start; gap: 4px; min-height: 64px; padding: 8px var(--nx-s3); width: 100%; min-width: 0; }
+.nx .vopt .vname { flex: none; width: 100%; min-width: 0; overflow-wrap: break-word; word-break: normal; hyphens: auto; line-height: 1.2; }
+.nx .vopt .num { flex: none; }
+.nx .vopt[disabled] { opacity: .75; }
+.nx .photo-big { display: flex; justify-content: center; }
+.nx .photo-big img { max-width: 100%; max-height: 60vh; object-fit: contain; border-radius: var(--nx-r-md); }
+.nx .stock-all { display: flex; flex-direction: column; gap: var(--nx-s2); margin-top: var(--nx-s2); }
+.nx .stock-group { border: 1px solid var(--nx-line); border-radius: var(--nx-r-md); padding: 0 var(--nx-s3); }
+.nx .stock-title { font-weight: 700; padding: var(--nx-s2) 0 0; }
+.nx .stock-row .stock-name { font-weight: 700; font-size: var(--nx-fs-sm); overflow-wrap: break-word; }
+.nx .stock-row .vphoto { flex: none; cursor: zoom-in; }
 
 /* Operations forms (finance.css) take the store theme. */
 .nx .fin-form button, .nx .fin-actions button, .nx .fin-load { background: var(--nx-primary); color: var(--nx-on-primary); border-radius: var(--nx-r-md); }

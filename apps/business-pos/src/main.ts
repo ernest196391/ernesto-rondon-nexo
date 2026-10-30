@@ -17,6 +17,7 @@ import { lastMissing, type DeviceIdentity } from "./sync";
 import { openCheckout, describePayments, type PaymentInput } from "./checkout";
 import { icon, ISOTIPO, escapeHtml, openSheet } from "./ui";
 import { openReceive } from "./receive";
+import { sortOptions, stockInfo } from "./variants";
 import { attribution, attributionHtml, resetAttribution, saleAttribution, setGestor, setMessenger, setStaff, toggleExtra } from "./attribution";
 
 type Product = { id: string; name: string; price_minor: number; barcode: string | null };
@@ -105,8 +106,9 @@ app.innerHTML = `
       <header class="top"><h1 class="title">Inventario</h1></header>
       <div class="scroll"><div class="stack">
         <button type="button" class="btn btn-primary btn-xl btn-block" id="recv-open">${icon("plus")}Llegó mercancía</button>
-        <div class="seg" role="group" aria-label="Vista de inventario"><button type="button" data-inv="low" aria-pressed="true">Poco stock</button><button type="button" data-inv="ops" aria-pressed="false">Ubicaciones y conteos</button></div>
+        <div class="seg" role="group" aria-label="Vista de inventario"><button type="button" data-inv="low" aria-pressed="true">Poco stock</button><button type="button" data-inv="all" aria-pressed="false">Lo que queda</button><button type="button" data-inv="ops" aria-pressed="false">Ubicaciones y conteos</button></div>
         <section class="panel" data-inv-pane="low"><div class="low-list" id="low-stock"></div></section>
+        <section class="panel" data-inv-pane="all" hidden><label class="search-field">${icon("search")}<input id="stock-query" type="search" autocomplete="off" placeholder="Buscar producto u opción" aria-label="Buscar en lo que queda"></label><div class="stock-all" id="stock-all"></div></section>
         <section class="panel" data-inv-pane="ops" hidden><div id="fin-locations"></div></section>
       </div></div>
     </section>
@@ -151,7 +153,7 @@ function showView(view: View) {
   document.querySelectorAll<HTMLElement>(".nav .tab").forEach(t =>
     t.dataset.view === view ? t.setAttribute("aria-current", "page") : t.removeAttribute("aria-current")
   );
-  if (view === "inventario") void renderLowStock();
+  if (view === "inventario") { void renderLowStock(); void renderAllStock(); }
   if (view === "web") refreshWebOrders();
 }
 document.querySelectorAll<HTMLButtonElement>(".nav .tab").forEach(t => (t.onclick = () => showView(t.dataset.view as View)));
@@ -337,6 +339,24 @@ function stockBadge(stock: ProductStock | undefined) {
   return "";
 }
 
+/** Siempre dice cuánto queda: «Quedan N», «Agotado» o «Sin dato» (nunca queda vacío). */
+function stockChip(stock: ProductStock | undefined) {
+  const info = stockInfo(stock);
+  const cls = { ok: "badge-ok", low: "badge-low", out: "badge-out", none: "badge-calm" }[info.tone];
+  return `<span class="badge ${cls}">${info.text}</span>`;
+}
+
+const stockRank = (stock: ProductStock | undefined) => stockInfo(stock).rank;
+
+/** Ampliar una foto (opción o producto); sin conexión usa la copia guardada. */
+function openPhoto(url: string, title: string) {
+  const src = photoCache.get(url) ?? url;
+  const sheet = openSheet(`
+    <div class="sheet-head"><h2>${escapeHtml(title)}</h2><button class="btn btn-ghost btn-icon" data-close aria-label="Cerrar">×</button></div>
+    <div class="photo-big"><img src="${escapeHtml(src)}" alt="${escapeHtml(title)}" onerror="this.replaceWith(Object.assign(document.createElement('p'),{className:'muted',textContent:'La foto no se puede ver sin internet.'}))"></div>`, `Foto de ${title}`);
+  sheet.el.querySelector<HTMLButtonElement>("[data-close]")!.onclick = sheet.close;
+}
+
 /** Letter placeholder in the category color, with the photo on top when it loads. */
 function thumb(url: string | null, title: string, category: string | null) {
   const letter = escapeHtml(title.trim().charAt(0).toUpperCase() || "?");
@@ -488,6 +508,10 @@ async function renderProducts(q: string) {
   el.querySelectorAll<HTMLButtonElement>(".fav").forEach(b => (b.onclick = () => void toggleFavorite(b.dataset.fav!)));
 }
 
+function variantOptions(g: ProductGroup) {
+  return sortOptions(g.items, p => p.variant_label?.trim() || p.name, p => stockNow.get(p.id));
+}
+
 function pickGroup(g: ProductGroup) {
   const isVariants = g.items.length > 1 || g.items[0].variant_of !== null;
   if (!isVariants) {
@@ -498,23 +522,64 @@ function pickGroup(g: ProductGroup) {
   }
   const sheet = openSheet(`
     <div class="sheet-head"><h2>${escapeHtml(g.title)}</h2><button class="btn btn-ghost btn-icon" data-close aria-label="Cerrar">×</button></div>
-    <p class="t-sm muted">Elige la opción</p>
-    <div class="vgrid">${g.items.map(p => {
+    <p class="t-sm muted">Elige la opción · toca la foto para verla grande</p>
+    <div class="vgrid">${variantOptions(g).map(p => {
       const s = stockNow.get(p.id);
       const out = !s || s.quantity <= 0;
-      return `<button type="button" class="vopt" data-id="${escapeHtml(p.id)}" ${out ? "disabled" : ""}><span class="vname">${escapeHtml(p.variant_label ?? p.name)}</span><span class="num t-sm">${money(p.price_minor)}</span>${stockBadge(s)}</button>`;
+      const label = p.variant_label?.trim() || p.name;
+      const photo = p.image_url ?? g.items.find(i => i.image_url)?.image_url ?? null;
+      return `<div class="vopt-wrap${out ? " is-out" : ""}">
+        <div class="vphoto" ${photo ? `data-photo="${escapeHtml(photo)}" data-title="${escapeHtml(label)}" role="button" tabindex="0" aria-label="Ver foto de ${escapeHtml(label)}"` : ""}>${thumb(photo, label, p.category)}</div>
+        <button type="button" class="vopt" data-id="${escapeHtml(p.id)}" ${out ? "disabled" : ""}><span class="vname">${escapeHtml(label)}</span><span class="num t-sm">${money(p.price_minor)}</span>${stockChip(s)}</button>
+      </div>`;
     }).join("")}</div>`, `Opciones de ${g.title}`);
   sheet.el.querySelector<HTMLButtonElement>("[data-close]")!.onclick = sheet.close;
   sheet.el.querySelectorAll<HTMLButtonElement>(".vopt").forEach(b => (b.onclick = () => {
     addToCart(g.items.find(p => p.id === b.dataset.id)!);
     sheet.close();
   }));
+  sheet.el.querySelectorAll<HTMLElement>(".vphoto[data-photo]").forEach(el => {
+    const open = () => openPhoto(el.dataset.photo!, el.dataset.title ?? g.title);
+    el.onclick = open;
+    el.onkeydown = e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); } };
+  });
 }
 
 async function refreshCatalog() {
   await renderCategories();
   await renderProducts(queryInput.value);
 }
+
+/** «Lo que queda»: todos los productos y sus opciones, con foto, nombre y cantidad (misma información para todos). */
+async function renderAllStock() {
+  const el = document.querySelector<HTMLElement>("#stock-all");
+  if (!el) return;
+  const q = (document.querySelector<HTMLInputElement>("#stock-query")?.value ?? "").trim().toLowerCase();
+  const rows = await db.select<ListedProduct[]>(
+    `SELECT p.id,p.name,p.category,p.variant_of,p.variant_label,p.image_url,0 AS price_minor,NULL AS barcode
+     FROM local_products p WHERE p.business_id=$1 AND p.active=1`, [BUSINESS_ID]);
+  stockNow = await stockFor();
+  const groups = groupProducts(rows).filter(g => !q || g.title.toLowerCase().includes(q) || g.items.some(p => (p.variant_label ?? "").toLowerCase().includes(q) || p.name.toLowerCase().includes(q)));
+  if (!groups.length) { el.innerHTML = `<p class="empty">Sin productos para esta búsqueda</p>`; return; }
+  const row = (p: ListedProduct, label: string, fallback: string | null) => {
+    const photo = p.image_url ?? fallback;
+    return `<div class="list-row stock-row${stockRank(stockNow.get(p.id)) ? " is-out" : ""}">
+      <div class="vphoto" style="width: 52px" ${photo ? `data-photo="${escapeHtml(photo)}" data-title="${escapeHtml(label)}" role="button" tabindex="0" aria-label="Ver foto de ${escapeHtml(label)}"` : ""}>${thumb(photo, label, p.category)}</div>
+      <span class="grow stock-name">${escapeHtml(label)}</span>${stockChip(stockNow.get(p.id))}</div>`;
+  };
+  el.innerHTML = groups.map(g => {
+    const multi = g.items.length > 1 || g.items[0].variant_of !== null;
+    if (!multi) return row(g.items[0], g.title, null);
+    const fallback = g.items.find(p => p.image_url)?.image_url ?? null;
+    return `<div class="stock-group"><div class="stock-title">${escapeHtml(g.title)}</div>${variantOptions(g).map(p => row(p, p.variant_label?.trim() || p.name, fallback)).join("")}</div>`;
+  }).join("");
+  el.querySelectorAll<HTMLElement>(".vphoto[data-photo]").forEach(b => {
+    const open = () => openPhoto(b.dataset.photo!, b.dataset.title ?? "Producto");
+    b.onclick = open;
+    b.onkeydown = e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); } };
+  });
+}
+document.querySelector<HTMLInputElement>("#stock-query")?.addEventListener("input", () => void renderAllStock());
 
 async function renderLowStock() {
   const stock = await stockFor();
