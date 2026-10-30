@@ -756,6 +756,13 @@ Deno.serve(async req => {
       return json(400, { error: "Acción desconocida." });
     }
 
+    // Artículos de vendedores (Core 3.14.87, 30-oct): Lennys los revisa después de publicar. {action:"vendedores_list", ver:"nuevos"|"todos"} y
+    // {action:"vendedores_review", id, accion:"ok"|"ocultar"|"mostrar"}. Es información de la tienda del vendedor: no mueve dinero.
+    if (body.action === "vendedores_list") return json(200, await core("GET", `panel/vendedores/articulos?ver=${body.ver === "todos" ? "todos" : "nuevos"}`));
+    if (body.action === "vendedores_review") {
+      const accion = ["ok", "ocultar", "mostrar"].includes(String(body.accion)) ? String(body.accion) : "ok";
+      return json(200, await core("POST", `panel/vendedores/articulos/${Number(body.id)}/revisar`, { accion, by }));
+    }
     // Venta de proveedor (Core 3.14.14, D69): reparto del margen apuntado en el pedido. Es información: no mueve dinero.
     if (body.action === "supplier_split") return json(200, await core("GET", `panel/supplier-split/${Number(body.id)}`));
     if (body.action === "supplier_split_save") {

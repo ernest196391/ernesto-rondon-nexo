@@ -201,6 +201,7 @@
       <div class="seg" id="prod-seg" role="group" aria-label="Qué productos" hidden>
         <button type="button" data-psub="propios" aria-pressed="true">Mis productos</button>
         <button type="button" data-psub="proveedores" aria-pressed="false">Proveedores · bajo pedido</button>
+        <button type="button" data-psub="vendedores" aria-pressed="false">Vendedores</button>
       </div>
       <div data-psub-box="propios">
       <p class="inv-help" id="inv-help">Para añadir colores a un producto, ábrelo → <strong>Diseños y colores</strong>. Para mercancía que llegó, usa <strong>Llegó mercancía</strong> (Recibir mercancía).</p>
@@ -226,6 +227,15 @@
       <div class="bulk-bar" id="bulk-bar" hidden><span id="bulk-count">Toca los productos</span><span class="bulk-actions"><button type="button" class="btn btn-secondary" id="bulk-retire" disabled>Ocultar</button><button type="button" class="btn btn-primary" id="bulk-go" disabled>Cambiar precio o comisión</button></span></div>
       <section class="panel" id="inventory"><p class="muted">Cargando…</p></section>
       <button type="button" class="btn btn-ghost btn-block" id="recv-history">Ver mercancía recibida</button>
+      </div>
+      <!-- 30-oct (Core 3.14.87): artículos de los vendedores (Daykel). Lennys los revisa DESPUÉS de publicar: ✓ o ocultar. -->
+      <div data-psub-box="vendedores" hidden>
+        <p class="inv-help">Piezas que ponen los vendedores en su tienda propia. Ya están publicadas: tú las revisas después. <strong>✓</strong> las deja como buenas; <strong>Ocultar</strong> las quita de su tienda y de las gestoras.</p>
+        <div class="chips" id="vd-tab" role="group" aria-label="Mostrar">
+          <button type="button" class="chip" data-t="nuevos" aria-pressed="true">Nuevos</button>
+          <button type="button" class="chip" data-t="todos" aria-pressed="false">Todos</button>
+        </div>
+        <section class="panel" id="vd-list"><p class="muted">Cargando…</p></section>
       </div>
       <div data-psub-box="proveedores" hidden>
         <p class="inv-help">Lo que anuncian los proveedores en los grupos. Eliges el precio y lo publicas en la web como <strong>«Bajo pedido · llega en 24 h»</strong>. La comisión de la gestora es fija: 40 % de la ganancia.</p>
@@ -2156,7 +2166,38 @@ function showProdSub(sub) {
   document.querySelectorAll("#prod-seg [data-psub]").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.psub === sub)));
   document.querySelectorAll("[data-psub-box]").forEach(el => (el.hidden = el.dataset.psubBox !== sub));
   if (sub === "proveedores") void loadMarket();
+  if (sub === "vendedores") void loadSellerItems();
 }
+// 30-oct: artículos de vendedores (Core 3.14.87, /panel/vendedores/*). Revisión después de publicar: ✓ o ocultar.
+let vdTab = "nuevos";
+async function loadSellerItems() {
+  const box = $("#vd-list");
+  box.innerHTML = mkLoading("Buscando artículos de vendedores…");
+  try {
+    const data = await panelWeb({ action: "vendedores_list", ver: vdTab });
+    const items = data.items ?? [];
+    box.innerHTML = items.length ? items.map(it => {
+      const state = it.hidden ? '<span class="badge badge-out">Oculto por Casa Viva</span>' : it.paused ? '<span class="badge badge-low">Pausado</span>' : it.reviewed === "nuevo" ? '<span class="badge badge-ok">Nuevo</span>' : '<span class="badge">Revisado</span>';
+      return '<div class="inv-row" data-vd="' + it.id + '"><span style="display:flex;gap:10px;align-items:center;flex:1;min-width:0">'
+        + (it.photo ? '<img src="' + esc(it.photo) + '" alt="" width="56" height="56" style="border-radius:8px;object-fit:cover">' : "")
+        + '<span style="min-width:0"><strong>' + esc(it.title) + '</strong><br><span class="t-xs muted">' + esc(it.seller) + " · " + (it.price >= 0.5 ? dollars(it.price) : "sin precio")
+        + (it.stock == null ? "" : " · quedan " + it.stock) + (it.offer ? " · gestoras ganan " + dollars(it.gestoraUsd) : "") + "</span><br>" + state
+        + (it.url ? ' · <a href="' + esc(it.url) + '" target="_blank" rel="noopener">Ver</a>' : "") + "</span></span>"
+        + '<span style="display:flex;flex-direction:column;gap:4px"><button type="button" class="btn btn-secondary" data-vd-ok="' + it.id + '">✓</button>'
+        + '<button type="button" class="btn btn-ghost" data-vd-hide="' + it.id + '" data-on="' + (it.hidden ? "mostrar" : "ocultar") + '">' + (it.hidden ? "Mostrar" : "Ocultar") + "</button></span></div>";
+    }).join("") : '<p class="muted">' + (vdTab === "nuevos" ? "Nada nuevo por revisar." : "Todavía no hay artículos de vendedores.") + "</p>";
+    const act = async (id, accion) => { try { await panelWeb({ action: "vendedores_review", id: Number(id), accion }); toast(accion === "ocultar" ? "Oculto." : "Hecho.", "ok"); void loadSellerItems(); } catch (e) { toast(e.message, "bad"); } };
+    box.querySelectorAll("[data-vd-ok]").forEach(b => (b.onclick = () => act(b.dataset.vdOk, "ok")));
+    box.querySelectorAll("[data-vd-hide]").forEach(b => (b.onclick = () => act(b.dataset.vdHide, b.dataset.on)));
+  } catch (e) {
+    box.innerHTML = '<p class="muted">' + esc(e.message) + "</p>";
+  }
+}
+document.querySelectorAll("#vd-tab [data-t]").forEach(b => (b.onclick = () => {
+  vdTab = b.dataset.t;
+  document.querySelectorAll("#vd-tab [data-t]").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+  void loadSellerItems();
+}));
 document.querySelectorAll("#prod-seg [data-psub]").forEach(b => (b.onclick = () => showProdSub(b.dataset.psub)));
 document.querySelectorAll("#mk-tab [data-t]").forEach(b => (b.onclick = () => {
   mkTab = b.dataset.t;
