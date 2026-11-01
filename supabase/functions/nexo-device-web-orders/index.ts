@@ -8,6 +8,12 @@
 //        → Core cierra el pedido con las reglas de Ventas, firmado por la dependienta de «Atiende».
 //          409 already_charged = ya se cobró en Ventas (la caja lo devuelve del cajón).
 //   POST {action:"change", orderId, changeRequired:[{amount, currency}], staffId} → vuelto que lleva el mensajero.
+//   POST {action:"find", number, staffId} → un pedido por su #número (cualquier estado): estado, productos,
+//        lo cobrado y qué se puede hacer («cancel», «return» o nada y por qué). Core 3.14.103.
+//   POST {action:"cancel", orderId, actionId, reason, staffId} → cancelar con causa (reglas de la dependienta).
+//   POST {action:"return", orderId, actionId, reason, lines:[{itemId, qty}], refunds:[{method, currency, amountMinor}], staffId}
+//        → devolución con causa. actionId = idempotencia: un reintento sin red no hace nada dos veces.
+//        409 refused = Core dijo que no para siempre (ya entregado, ya devuelto…): la caja lo enseña tal cual.
 // Los productos de proveedor (SKU MK-) salen aquí como pedidos web: no se importan al catálogo.
 // Caja 1.1.1 (Lennys 21-oct): cada pedido trae su tasa CUP del día del pedido (cupRate, cupTransferRate, cupRateDay;
 // la caja cobra en CUP con ella, nunca con la de hoy) y la miniatura de cada producto (products[].image, solo https).
@@ -41,6 +47,28 @@ const money = (v: unknown) => {
   const n = Number(v);
   return Number.isFinite(n) && n >= 0 ? Math.round(n * 100) / 100 : 0;
 };
+
+
+// Errores de Core (cancelar/devolver) en palabras de la tienda. Core ya escribe en español sencillo:
+// se pasa su mensaje; solo se traducen los códigos que no traen texto claro.
+const STORE_WORDS: Record<string, string> = {
+  rest_forbidden: "La web no dejó hacerlo con esta cuenta. Pide a Lennys que lo haga desde el panel.",
+  cvd_caja_clerk: "No encontré tu usuaria en la web. Pide a Lennys que la enlace en el panel; mientras, hazlo en Ventas.",
+  cvd_return_ledger: "No se pudo anular la ganancia del mensajero. Avisa a Lennys.",
+  cvd_cancel_service: "La web no pudo cancelar ahora. Prueba en un minuto.",
+};
+// Respuestas definitivas: no tiene sentido reintentar (la caja marca la acción como «no aceptada»).
+const FINAL = new Set(["cvd_cancel_blocked", "cvd_cancel_failed", "cvd_cancel_reason", "cvd_return_done", "cvd_return_state", "cvd_return_blocked",
+  "cvd_return_reason", "cvd_return_money", "cvd_return_lines", "cvd_return_paid", "cvd_return_messenger", "cvd_caja_order", "cvd_caja_clerk",
+  "cvd_reserva_confirm", "cvd_reserva_blocked"]);
+const storeError = (r: { status: number; data: Record<string, unknown> }, fallback: string) => {
+  const code = String(r.data.code ?? "");
+  const message = STORE_WORDS[code] ?? String(r.data.message ?? "") ?? "";
+  if (r.status === 404 && code === "rest_no_route") return json(501, { error: "core_old", message: "La web todavía no tiene esta función (falta Core 3.14.103). Hazlo en Ventas como siempre." });
+  if (FINAL.has(code) || (r.status >= 400 && r.status < 500 && r.status !== 429)) return json(409, { error: "refused", code, message: message || fallback });
+  return json(502, { error: "core", code, message: message || fallback });
+};
+const short = (v: unknown, n: number) => String(v ?? "").replace(/\s+/g, " ").trim().slice(0, n);
 
 Deno.serve(async req => {
   if (req.method === "OPTIONS") return new Response(null, { status: 204, headers: cors });
@@ -125,6 +153,55 @@ Deno.serve(async req => {
       });
       if (r.status === 404 && String(r.data.code ?? "") === "rest_no_route") return json(501, { error: "core_old", message: "La web todavía no tiene esta función (falta Core 3.14.42)." });
       if (r.status >= 400) return json(r.status >= 500 ? 502 : 422, { error: "core", message: String(r.data.message ?? "La web no aceptó el vuelto.") });
+      return json(200, r.data);
+    }
+    // Pedido web: cancelar o devolver (Ernesto 31-oct, caso de la olla). Lo firma siempre la dependienta de «Atiende».
+    if (body.action === "find") {
+      const number = short(body.number, 30);
+      if (!/^\s*(#|cv-pedido-)?\s*\d{1,9}\s*$/i.test(number)) return json(400, { error: "invalid", message: "Escribe el número del pedido (el del vale, por ejemplo 5612)." });
+      const person = who.person as { phone: string | null; wooUserId: number | null } | null;
+      const q = new URLSearchParams({ number, clerkWooId: String(person?.wooUserId ?? 0), clerkPhone: person?.phone ?? "" });
+      const r = await core("GET", `panel/caja/web-orders/find?${q}`);
+      if (r.status >= 400) return storeError(r, "No se pudo leer ese pedido de la web.");
+      const o = (r.data.order ?? {}) as Record<string, unknown>;
+      if (Array.isArray(o.products)) {
+        for (const p of o.products as Array<Record<string, unknown>>) {
+          const image = String(p.image ?? "");
+          p.image = /^https:\/\//.test(image) ? image.slice(0, 500) : "";
+        }
+      }
+      return json(200, { order: o, clerkFound: r.data.clerkFound === true });
+    }
+    if (body.action === "cancel" || body.action === "return") {
+      const orderId = Number(body.orderId);
+      const actionId = short(body.actionId, 80);
+      const reason = short(body.reason, 200);
+      if (!Number.isInteger(orderId) || orderId <= 0 || !actionId) return json(400, { error: "invalid", message: "Faltan datos del pedido." });
+      if (reason.length < 3) return json(400, { error: "invalid", message: "Escribe la causa (una frase corta)." });
+      if (!who.person) return json(400, { error: "no_staff", message: "Elige quién atiende antes de cancelar o devolver." });
+      const person = who.person as { name: string; phone: string | null; wooUserId: number | null };
+      const clerk = { clerkName: person.name, clerkPhone: person.phone ?? "", clerkWooId: person.wooUserId ?? 0, device: who.label ?? who.deviceId };
+      if (body.action === "cancel") {
+        const r = await core("POST", `panel/caja/web-orders/${orderId}/cancel`, { actionId, reason, ...clerk });
+        if (r.status >= 400) return storeError(r, "La web no aceptó la cancelación.");
+        return json(200, r.data);
+      }
+      const lines = (Array.isArray(body.lines) ? body.lines : []).slice(0, 50)
+        .map(l => ({ itemId: Number((l as Record<string, unknown>).itemId) || 0, qty: Number((l as Record<string, unknown>).qty) || 0 }))
+        .filter(l => l.itemId > 0 && l.qty > 0);
+      let usdMinor = 0, cupMinor = 0, cash = false, transfer = false;
+      for (const x of (Array.isArray(body.refunds) ? body.refunds : []).slice(0, 4) as Array<Record<string, unknown>>) {
+        const amount = Math.round(Number(x.amountMinor));
+        if (!Number.isFinite(amount) || amount <= 0) continue;
+        const currency = String(x.currency ?? "").toUpperCase();
+        if (currency === "USD") usdMinor += amount; else if (currency === "CUP") cupMinor += amount; else continue;
+        if (x.method === "cash") cash = true; else transfer = true;
+      }
+      const refundMethod = cash && transfer ? "mixed" : cash ? "cash" : transfer ? "transfer" : "none";
+      const r = await core("POST", `panel/caja/web-orders/${orderId}/return`, {
+        actionId, reason, lines, refundUsd: usdMinor / 100, refundCup: cupMinor / 100, refundMethod, ...clerk,
+      });
+      if (r.status >= 400) return storeError(r, "La web no aceptó la devolución.");
       return json(200, r.data);
     }
     return json(400, { error: "unknown_action" });

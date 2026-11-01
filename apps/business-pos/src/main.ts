@@ -12,6 +12,7 @@ import "./themes/casaviva.css";
 import "./app.css";
 import { mountFinance, refreshFinance, startCloseDay } from "./finance";
 import { mountWebOrders, refreshWebOrders } from "./weborders";
+import { mountWebOrderActions } from "./weborder-actions";
 import { openRatesSheet } from "./store-info";
 import { lastMissing, type DeviceIdentity } from "./sync";
 import { openCheckout, describePayments, type PaymentInput } from "./checkout";
@@ -100,6 +101,7 @@ app.innerHTML = `
         <div id="fin-shift"></div>
         <details class="panel" id="fin-today-box"><summary>Ventas de hoy</summary><div id="fin-today" class="stack"></div></details>
         <details class="panel"><summary>Devoluciones</summary><div id="fin-returns"></div></details>
+        <details class="panel"><summary>Pedido web: cancelar o devolver</summary><div id="web-order-actions" class="stack"></div></details>
       </div></div>
     </section>
     <section class="view" data-view="inventario" hidden>
@@ -1028,6 +1030,7 @@ async function init() {
   await renderAudit();
   await mountFinance($(".nx.app"), db);
   mountWebOrders($("#web-orders"));
+  mountWebOrderActions(document.querySelector<HTMLElement>("#web-order-actions"));
   document.querySelectorAll<HTMLButtonElement>("[data-go]").forEach(b => (b.onclick = () => {
     const go = b.dataset.go!;
     if (go === "cerrar") { showView("caja"); void startCloseDay(); } else if (go === "tasas") void openRatesSheet(); else showView(go as View);

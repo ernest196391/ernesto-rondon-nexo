@@ -21,6 +21,7 @@ use nexo_business_db::receivables::{
 use nexo_business_db::sale_returns::{self, RecordSaleReturnInput, SaleReturnSummary};
 use nexo_business_db::sync::{self, OutboxEvent, PushResult, SyncState};
 use nexo_business_db::web_orders::{self, ChargeWebOrderInput, WebOrderCharge};
+use nexo_business_db::web_order_actions::{self, WebOrderAction, WebOrderActionInput};
 use rusqlite::{params, Connection};
 use serde::Serialize;
 use std::fs;
@@ -443,6 +444,46 @@ fn web_order_mark_failure(app: tauri::AppHandle, charge_id: String, error: Strin
     web_orders::record_attempt_failure(&conn, &charge_id, &error).map_err(|e| e.to_string())
 }
 
+/// «Pedido web: cancelar o devolver» (31-oct): records the action (and the drawer exit of a cash refund).
+#[tauri::command]
+fn web_order_action_record(app: tauri::AppHandle, input: WebOrderActionInput) -> Result<WebOrderAction, String> {
+    let mut conn = open_local_db(&app)?;
+    let scope = device_scope(&conn)?;
+    web_order_actions::record_action(&mut conn, &scope, &input).map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+fn web_order_action_queued(app: tauri::AppHandle) -> Result<Vec<WebOrderAction>, String> {
+    let conn = open_local_db(&app)?;
+    let business_id = device_scope(&conn)?.business_id;
+    web_order_actions::queued_actions(&conn, &business_id).map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+fn web_order_action_recent(app: tauri::AppHandle, limit: i64) -> Result<Vec<WebOrderAction>, String> {
+    let conn = open_local_db(&app)?;
+    let business_id = device_scope(&conn)?.business_id;
+    web_order_actions::recent_actions(&conn, &business_id, limit).map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+fn web_order_action_done(app: tauri::AppHandle, action_id: String, message: Option<String>, now: String) -> Result<WebOrderAction, String> {
+    let conn = open_local_db(&app)?;
+    web_order_actions::mark_done(&conn, &action_id, message.as_deref(), &now).map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+fn web_order_action_failure(app: tauri::AppHandle, action_id: String, error: String) -> Result<WebOrderAction, String> {
+    let conn = open_local_db(&app)?;
+    web_order_actions::record_attempt_failure(&conn, &action_id, &error).map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+fn web_order_action_refused(app: tauri::AppHandle, action_id: String, message: String, now: String) -> Result<WebOrderAction, String> {
+    let conn = open_local_db(&app)?;
+    web_order_actions::mark_refused(&conn, &action_id, &message, &now).map_err(|e| e.to_string())
+}
+
 /// «Vuelto en la calle» (out = true) or «Vuelto devuelto» (out = false) of a web order.
 #[tauri::command]
 fn web_order_vuelto(app: tauri::AppHandle, input: web_orders::VueltoInput, out: bool) -> Result<(), String> {
@@ -648,6 +689,12 @@ pub fn run() {
             web_order_mark_done,
             web_order_mark_failure,
             web_order_mark_refused,
+            web_order_action_record,
+            web_order_action_queued,
+            web_order_action_recent,
+            web_order_action_done,
+            web_order_action_failure,
+            web_order_action_refused,
             web_order_vuelto,
             web_order_vuelto_outstanding,
             catalog_checkpoint,

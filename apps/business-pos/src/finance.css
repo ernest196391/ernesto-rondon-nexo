@@ -24,3 +24,6 @@
 .fin-list{margin:6px 0;padding-left:18px}
 @media(max-width:520px){.fin-actions{grid-template-columns:1fr}}
 .fin-load{min-height:48px;border:0;border-radius:12px;background:#111827;color:white;font-weight:700;width:100%}
+
+/* Pedido web: cancelar o devolver (31-oct): importe y forma en una fila. */
+.nx .nx-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }

@@ -30,6 +30,8 @@ Two deployment modes share the same platform:
 - Reusable/white-label is now the primary product architecture, not a later afterthought.
 
 ## Work completed
+
+- **2026-10-31 · Pedido web: cancelar o devolver desde la caja** (branch `claude/pedido-web-cancelar-devolver`, not deployed): local migration 0019 `local_web_order_actions` (offline queue, idempotent by action id), `web_order_actions.rs` (cash refund = `cash_out` category `devolucion_pedido` linked to the order), Tauri commands `web_order_action_*`, screen `weborder-actions.ts`, edge `nexo-device-web-orders` find/cancel/return, cloud migration `20261031120000` (Lennys approves refunds, with order/product/cause). Needs Core 3.14.103. Tests: cargo 125/125, vitest 337/337, build:web OK; Tauri shell not compiled in the cloud (no GTK).
 - Existing NEXO reuse audit: cart, pricing, delivery, checkout/idempotency, Woo connector, admin inventory, Casa Viva contracts.
 - Target Android + Windows package boundaries documented.
 - schema-v0 SQL design created (not applied to production).
