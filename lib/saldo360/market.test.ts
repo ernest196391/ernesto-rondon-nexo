@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { filterOffers, formatMoney, methodsText, offerIsLive, priceFor, reputationLabel, totalCup, whatsAppLink, type MarketOffer } from "./market";
+import { nearestAmount, filterOffers, formatMoney, methodsText, offerIsLive, priceFor, reputationLabel, totalCup, whatsAppLink, type MarketOffer } from "./market";
 
 const now = new Date("2026-10-27T15:00:00Z");
 const base: MarketOffer = {
@@ -33,6 +33,14 @@ describe("Saldo 360 · mercado", () => {
     expect(filterOffers(list, 300, "any", now).map((o) => o.id)).toEqual(["barato", "caro"]);
     expect(filterOffers(list, 300, "transfermovil", now).map((o) => o.id)).toEqual(["caro"]);
     expect(filterOffers(list, 150, "any", now).map((o) => o.id)).toEqual(["barato", "chico", "caro"]);
+  });
+
+  it("sin ofertas para el monto, el más cercano (2-nov: nadie vende 300 → 360)", () => {
+    const list = [offer({ id: "a", minCup: 360, maxCup: 5000 }), offer({ id: "b", minCup: 500, maxCup: 2000 })];
+    expect(filterOffers(list, 300, "any", now)).toEqual([]);
+    expect(nearestAmount(list, 300, "any", now)).toBe(360);
+    expect(nearestAmount([offer({ maxCup: 240 })], 300, "any", now)).toBe(240);
+    expect(nearestAmount([], 300, "any", now)).toBe(null);
   });
 
   it("la reputación nunca se inventa", () => {

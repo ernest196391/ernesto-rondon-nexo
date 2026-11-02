@@ -77,6 +77,18 @@ export function filterOffers(offers: MarketOffer[], amountCup: number, method: P
       || priceFor(a, amountCup) - priceFor(b, amountCup) || Date.parse(b.confirmedAt) - Date.parse(a.confirmedAt));
 }
 
+/**
+ * 2-nov (Ernesto, Naty no veía nada para 300 CUP): si nadie vende ese monto, el monto más cercano que SÍ tiene ofertas
+ * (primero hacia arriba: el mínimo de quien vende más, p. ej. 360; si no, hacia abajo). null si no hay ninguna.
+ */
+export function nearestAmount(offers: MarketOffer[], amountCup: number, method: PaymentMethod | "any", now = new Date()): number | null {
+  const live = offers.filter((o) => offerIsLive(o, now) && (method === "any" || o.paymentMethods.includes(method)));
+  const up = live.filter((o) => o.minCup > amountCup).map((o) => o.minCup).sort((a, b) => a - b)[0];
+  if (up) return up;
+  const down = live.filter((o) => o.maxCup < amountCup).map((o) => o.maxCup).sort((a, b) => b - a)[0];
+  return down || null;
+}
+
 /** «hace 3 h», «hace 20 min»: la frescura se ve sin hacer cuentas. */
 export function ago(iso: string, now = new Date()): string {
   const min = Math.max(0, Math.round((now.getTime() - Date.parse(iso)) / 60_000));
