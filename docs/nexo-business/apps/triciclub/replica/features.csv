@@ -1,0 +1,36 @@
+feature,area,priority,original,clone,notes
+Entrar con el teléfono sin contraseña (código por WhatsApp),cliente,must,yes,no,La Nave usa SMS y a veces no llega; usamos VivaBot
+Elegir servicio Viaje / Paquete / Carga,pedir,must,no,no,La Nave solo tiene viajes (sin triciclos ni paquetes)
+Recoger y llevar con direcciones cubanas («23 y L»),pedir,must,yes,no,reusa CVD_Geo_Direccion (calles de La Habana en nuestro servidor)
+Precio fijo antes de pedir (km reales por calles),pedir,must,partial,no,La Nave da un estimado que sube; usamos OSRM del VPS
+Forma de pago efectivo o transferencia,pedir,must,yes,no,
+Nota para el chofer,pedir,must,no,no,
+Datos del que recibe el paquete (nombre y teléfono),pedir,must,no,no,solo para Paquete
+Reparto al primer chofer que toca «Lo cojo»,asignar,must,yes,no,mismo patrón que Pa'llá (sin choques)
+Ver chofer: nombre / nota / número del triciclo / LOT al día,seguimiento,must,yes,no,
+Código de seguridad de 4 cifras,seguimiento,must,no,no,
+Ver al triciclo en el mapa,seguimiento,must,yes,no,consulta cada 10 s (sin websockets en Hostinger)
+Llamar al chofer,seguimiento,must,yes,no,
+Cancelar antes de que lo recojan,seguimiento,must,yes,no,
+Pedido guardado sin conexión que sale solo,offline,must,no,no,cola con cid como Pa'llá
+App del chofer dentro de Pa'llá (viajes junto a carreras),chofer,must,yes,no,
+Llegué / Recogí / Terminé / Problema / Soltar,chofer,must,yes,no,
+Mandar ubicación durante el viaje,chofer,must,yes,no,
+Confirmar cobro,chofer,must,yes,no,
+Alta de chofer con LOT y licencia A y fotos,chofer,must,yes,no,
+Aprobar choferes,admin,must,yes,no,
+Tarifas editables,admin,must,yes,no,
+Pantalla de carga con logo animado,cliente,must,no,no,regla de Ernesto para todas las apps
+Valorar de 1 a 5 con etiquetas (los dos lados),valorar,should,yes,no,
+Mis viajes,cliente,should,yes,no,
+Lugares guardados,cliente,should,no,no,en el móvil (sin servidor)
+Compartir el viaje con un familiar,seguimiento,should,yes,no,enlace de solo lectura
+Avisos push al chofer de viajes nuevos,chofer,should,yes,no,reusa CVD_Palla_Push
+Viajes del día para Ernesto,admin,should,yes,no,
+Aviso de LOT a punto de vencer,chofer,should,no,no,la Instrucción 1/2026 acaba el 31-dic-2026
+Ofrecer otro precio (regateo),pedir,could,no,no,el chofer acepta o no; modelo inDrive
+Pedir por SMS sin internet,offline,could,no,no,necesita pasarela de SMS y cuesta: decide Ernesto
+Recargo de noche anunciado antes,pedir,could,yes,no,si existe se ve en el precio fijo; nunca sube después
+Factura por correo,cliente,could,yes,skip,en Cuba casi nadie la usa
+Tarifa dinámica en horas pico,pedir,could,yes,skip,choca con «precio fijo»
+Fondo de 10 000 CUP del chofer,chofer,could,yes,skip,es la queja de los choferes de La Nave
