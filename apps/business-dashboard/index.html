@@ -604,11 +604,13 @@ async function openCierre() {
     const label = modo === "mes" ? MESES[m - 1] + " de " + y + (hasta === hoy ? " (hasta hoy)" : "") : d + " de " + MESES[m - 1];
     body.innerHTML = '<p class="muted">Cargando…</p>';
     const [W, caja] = await Promise.all([
-      panelWeb({ action: "contabilidad", desde, hasta }).catch(e => ({ error: e.message })),
+      // Un corte de conexión momentáneo («Failed to fetch», 4-nov): se reintenta una vez.
+      panelWeb({ action: "contabilidad", desde, hasta }).catch(() => panelWeb({ action: "contabilidad", desde, hasta })).catch(e => ({ error: e.message })),
       supabase.rpc("nexo_business_report", { p_business: bizId(), p_from: desde, p_to: hasta }).then(r => (r.error || r.data?.error ? null : r.data)),
     ]);
     if (W.error) { body.innerHTML = '<p class="muted">No se pudo leer la web: ' + esc(W.error) + "</p>"; return; }
     const n = v => Number(v) || 0;
+    const money = v => (v < 0 ? "−$" : "$") + Math.abs(v).toLocaleString("es-ES", { minimumFractionDigits: 2, maximumFractionDigits: 2, useGrouping: "always" });
     const T = W.tienda, B = W.bajo_pedido, pct = W.porcentajes, g = W.gastos_mes ?? { fijos: 0, ia: 0 };
     const cajaVentas = caja ? (n(caja.totals.usdMinor) - n(caja.totals.refundsMinor)) / 100 : 0;
     const cajaGan = caja ? n(caja.totals.profitUsd) : 0;
@@ -628,39 +630,38 @@ async function openCierre() {
       ["Ventas de la caja", cajaVentas, caja ? n(caja.totals.sales) + " ventas en la tienda" : "No se pudo leer la caja"],
       ["Mercancía (web)", -T.costo, "Costo guardado en cada venta"],
       ["Comisiones de gestoras (web)", -T.comision, "Pagadas o no"],
-      ["Dependientas (" + pctTxt(pct.dependientas) + " %)", -T.dependientas, "Sobre " + usd2(T.base_porcentajes) + " (sin la subida de las gestoras)"],
+      ["Dependientas (" + pctTxt(pct.dependientas) + " %)", -T.dependientas, "Sobre " + money(T.base_porcentajes) + " (sin la subida de las gestoras)"],
       ["Ernesto (" + pctTxt(pct.ernesto) + " %)", -T.ernesto, "Sobre la misma base"],
       ["Costo y pagos de la caja", -(cajaVentas - cajaGan), "Mercancía, comisiones y % de la caja"],
-      ["Gastos fijos", -fijos, dias + " de " + diasMes + " días de " + usd2(g.fijos) + " al mes"],
-      ["IA y herramientas", -ia, dias + " de " + diasMes + " días de " + usd2(g.ia) + " al mes"],
+      ["Gastos fijos", -fijos, dias + " de " + diasMes + " días de " + money(n(g.fijos)) + " al mes"],
+      ["IA y herramientas", -ia, dias + " de " + diasMes + " días de " + money(n(g.ia)) + " al mes"],
       ["Lo que deja bajo pedido a la tienda", bp.tienda, "Parte «tienda» del reparto"],
       ["Ganancia de Casa Viva", queda, "Lo que queda"],
     ];
     const cbp = [["Ingresos", bp.ingresos], ["Pagado a proveedores", -bp.proveedor], ["Margen", bp.margen], ["Gestoras", -bp.gestoras], ["Mensajeros", -bp.mensajeros],
       ["Dependientas", -bp.dependientas], ["Tienda Casa Viva", -bp.tienda], ["Ernesto (gestor especial)", bp.ernesto]];
-    const money = v => (v < 0 ? "−" : "") + usd2(Math.abs(v));
     const row = (label, v, sub, strong) => '<div class="kv' + (strong ? " strong" : "") + '"><span>' + esc(label) + (sub ? '<br><span class="t-xs muted">' + esc(sub) + "</span>" : "") + '</span><span class="num"' + (v < 0 ? ' style="color:var(--nx-danger)"' : "") + ">" + money(v) + "</span></div>";
     const tile = (label, value, sub, tone) => '<div class="kpi"><span class="label">' + label + '</span><span class="value num" style="font-size:var(--nx-fs-lg)' + (tone ? ";color:var(--nx-" + tone + ")" : "") + '">' + value + '</span><span class="t-xs muted">' + sub + "</span></div>";
-    const cada = cuenta.filter(([l, v]) => v < 0).map(([l, v]) => [l, entro ? Math.abs(v) / entro * 100 : 0]).concat([["Queda para Casa Viva", entro ? Math.max(0, queda) / entro * 100 : 0]]);
+    const cada = cuenta.filter(([l, v]) => v < 0 && l !== "Ganancia de Casa Viva").map(([l, v]) => [l, entro ? Math.abs(v) / entro * 100 : 0]).concat([["Queda para Casa Viva", entro ? Math.max(0, queda) / entro * 100 : 0]]);
     const mx = Math.max(1, ...cada.map(c => c[1]));
-    const bars = cada.map(([l, v]) => '<div class="kv"><span class="t-sm">' + esc(l) + '</span><span class="num t-sm">' + v.toFixed(1).replace(".", ",") + "</span></div>"
-      + '<div style="height:8px;border-radius:4px;background:var(--nx-surface-2,rgba(127,127,127,.15));margin:-4px 0 6px"><div style="height:100%;border-radius:4px;width:' + (v / mx * 100).toFixed(1) + "%;background:" + (l === "Queda para Casa Viva" ? "var(--nx-ok)" : "var(--nx-muted,#8a9a94)") + '"></div></div>').join("");
+    const bars = cada.map(([l, v]) => '<div style="display:flex;justify-content:space-between;gap:8px;margin-top:10px"><span class="t-sm">' + esc(l) + '</span><span class="num t-sm">' + v.toFixed(1).replace(".", ",") + "</span></div>"
+      + '<div style="height:8px;border-radius:4px;background:var(--nx-surface-2,rgba(127,127,127,.15));margin-top:4px"><div style="height:100%;border-radius:4px;width:' + (v / mx * 100).toFixed(1) + "%;background:" + (l === "Queda para Casa Viva" ? "var(--nx-ok)" : "var(--nx-muted,#8a9a94)") + '"></div></div>').join("");
     const C = W.comisiones ?? { tienda: {}, bajo_pedido: {} };
     const avisos = [
-      T.lineas_sin_costo + B.lineas_sin_costo ? (T.lineas_sin_costo + B.lineas_sin_costo) + " productos de la web vendidos sin costo (" + usd2(T.ventas_sin_costo + B.ventas_sin_costo) + "): su ganancia sale inflada." : "",
-      cajaSinCosto > 0.5 ? "La caja vendió " + usd2(cajaSinCosto) + " en productos sin costo: su ganancia sale inflada." : "",
+      T.lineas_sin_costo + B.lineas_sin_costo ? (T.lineas_sin_costo + B.lineas_sin_costo) + " productos de la web vendidos sin costo (" + money(T.ventas_sin_costo + B.ventas_sin_costo) + "): su ganancia sale inflada." : "",
+      cajaSinCosto > 0.5 ? "La caja vendió " + money(cajaSinCosto) + " en productos sin costo: su ganancia sale inflada." : "",
       rep.some(p => !p.saved) ? rep.filter(p => !p.saved).length + " pedidos de bajo pedido con el reparto «sugerido» (nadie lo guardó)." : "",
       !caja ? "No se pudo leer la caja: faltan sus ventas." : "",
     ].filter(Boolean);
     body.innerHTML = '<div class="chips" role="group" aria-label="Periodo"><button type="button" class="chip" data-modo="dia" aria-pressed="' + (modo === "dia") + '">Día</button><button type="button" class="chip" data-modo="mes" aria-pressed="' + (modo === "mes") + '">Mes</button></div>'
       + '<div class="kv"><button type="button" class="btn btn-ghost" data-mv="-1" aria-label="Anterior">‹</button><b>' + esc(label) + '</b><button type="button" class="btn btn-ghost" data-mv="1" aria-label="Siguiente"' + (hasta >= hoy ? " disabled" : "") + ">›</button></div>"
       + '<div class="kpis">' + tile("Entró", money(entro), "Tienda: web + caja", "") + tile("Salió", money(entro - queda), "Mercancía, comisiones y gastos", "danger") + tile("Quedó", money(queda), entro ? (queda / entro * 100).toFixed(1).replace(".", ",") + " % de lo vendido" : "", "ok") + "</div>"
-      + '<h3 class="t-lg">De cada 100 USD vendidos</h3>' + bars
+      + '<h3 class="t-lg">De cada 100 USD vendidos</h3>' + (entro > 0 ? bars : '<p class="t-sm muted">No se completó ninguna venta en este periodo. Los gastos fijos y de IA del día siguen contando.</p>')
       + '<h3 class="t-lg">La cuenta de la tienda</h3><div class="breakdown">' + cuenta.map(([l, v, s]) => row(l, v, s, l === "Ganancia de Casa Viva")).join("") + "</div>"
       + '<h3 class="t-lg">Bajo pedido, aparte</h3><p class="t-xs muted">Productos de proveedores (MK-). Su margen se reparte en cada pedido; no entra en el 0,5 % ni en el 1,5 %.</p><div class="breakdown">' + cbp.map(([l, v]) => row(l, v, "", l === "Margen" || l.startsWith("Ernesto"))).join("") + "</div>"
       + '<h3 class="t-lg">Comisiones de la web</h3><div class="breakdown">' + row("Tienda · pagadas", n(C.tienda.pagado)) + row("Tienda · por pagar", n(C.tienda.por_pagar)) + row("Bajo pedido · pagadas", n(C.bajo_pedido.pagado)) + row("Bajo pedido · por pagar", n(C.bajo_pedido.por_pagar)) + "</div>"
       + (avisos.length ? '<h3 class="t-lg">Para revisar</h3>' + avisos.map(a => '<p class="t-sm">• ' + esc(a) + "</p>").join("") : "")
-      + '<p class="t-xs muted">Cuenta el día en que el pedido se entregó y se cobró. Cada pedido se puede comprobar en Pedidos.</p>'
+      + '<p class="t-xs muted">Cuenta el día en que el pedido se entregó y se cobró. «A pagar este mes» cuenta por el mes en que se hizo el pedido: un pedido de un mes cobrado al siguiente sale en meses distintos, pero la suma de los meses es la misma. Cada pedido se puede comprobar en Pedidos.</p>'
       + '<button type="button" class="btn btn-secondary btn-block" data-csv>' + icon("download", "sm") + "Bajar en Excel (CSV)</button>";
     body.querySelectorAll("[data-modo]").forEach(b => (b.onclick = () => { cierreState.modo = b.dataset.modo; void draw(); }));
     body.querySelectorAll("[data-mv]").forEach(b => (b.onclick = () => {
@@ -2628,18 +2629,36 @@ async function showSupplierSales(month = "") {
   const MONTHS = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
   const label = MONTHS[mo - 1] + " de " + y;
   const shift = n => { const t = new Date(Date.UTC(y, mo - 1 + n, 15)); return t.toISOString().slice(0, 7); };
+  // 3.14.137 (Ernesto 4-nov): lo que falta pagar de cada parte (sin cancelados).
+  const pend = { clerk: 0, messenger: 0, supplier: 0 };
+  for (const r of d.orders) { if (r.state === "cancelado") continue; if (!r.paid?.clerk) pend.clerk += r.clerkCup; if (!r.paid?.messenger) pend.messenger += r.messengerCup; if (!r.paid?.supplier) pend.supplier += r.costUsd; }
   const people = d.people.map(p => '<div class="kv"><span>' + esc(p.role) + " · " + esc(p.name) + (p.orders > 1 ? ' <span class="t-xs muted">(' + p.orders + " ventas)</span>" : "") + '</span><span class="num">'
     + (p.role === "Proveedor" ? usd2(p.usd) : cupT(p.cup)) + "</span></div>").join("");
   body.innerHTML = '<div class="kv"><button type="button" class="btn btn-ghost" data-m="-1">‹</button><b>' + esc(label) + '</b><button type="button" class="btn btn-ghost" data-m="1">›</button></div>'
     + (d.orders.length ? '<h3 class="t-lg">A quién le toca (sin cancelados)</h3><div class="breakdown">' + people
       + '<div class="kv strong"><span>Margen repartido</span><span class="num">' + cupT(d.totals.marginCup) + "</span></div></div>"
+      + '<h3 class="t-lg">Falta pagar</h3><div class="breakdown"><div class="kv"><span>Dependientas</span><span class="num">' + cupT(pend.clerk) + '</span></div><div class="kv"><span>Mensajeros</span><span class="num">' + cupT(pend.messenger) + '</span></div><div class="kv"><span>Proveedores</span><span class="num">' + usd2(pend.supplier) + "</span></div></div>"
       + '<p class="t-xs muted">«Abierto» = aún no se entregó o no se recibió el dinero; las cifras pueden cambiar. «Cerrado» = ya se puede pagar.</p>'
       + '<h3 class="t-lg">Ventas</h3><div>' + d.orders.map(r => '<div class="split-row"><div class="split-top"><b>#' + esc(r.number) + " · " + esc(r.products) + '</b><span class="badge ' + SPLIT_STATE[r.state][1] + '">' + SPLIT_STATE[r.state][0] + "</span></div>"
         + '<span class="t-xs muted">' + esc(when(r.date)) + " · " + (r.gestora ? "Gestora " + esc(r.gestora) : "Sin gestora") + " · " + esc(r.supplier || "proveedor sin nombre") + (r.saved ? "" : " · sugerido") + "</span>"
         + '<span class="parts">Margen ' + usd2(r.marginUsd) + " = " + cupT(r.marginCup) + " · gestora " + cupT(r.gestoraCup) + " · mensajero " + cupT(r.messengerCup) + " · dependienta " + cupT(r.clerkCup) + " · tienda " + cupT(r.storeCup) + " · <b>Ernesto " + cupT(r.specialCup) + "</b></span>"
-        + (r.warning && r.state !== "cancelado" ? '<span class="t-xs" style="color:var(--nx-danger)">' + esc(r.warning) + "</span>" : "") + "</div>").join("") + "</div>"
+        + (r.warning && r.state !== "cancelado" ? '<span class="t-xs" style="color:var(--nx-danger)">' + esc(r.warning) + "</span>" : "")
+        + (r.state !== "cancelado" ? paidChips(r) : "") + "</div>").join("") + "</div>"
       : '<p class="muted">No hubo ventas de proveedor este mes.</p>');
   body.querySelectorAll("[data-m]").forEach(b => (b.onclick = () => { sheet.close(); void showSupplierSales(shift(Number(b.dataset.m))); }));
+  body.querySelectorAll("[data-paid]").forEach(b => (b.onclick = async () => {
+    b.disabled = true;
+    try { await panelWeb({ action: "supplier_split_paid", id: Number(b.dataset.id), part: b.dataset.paid, paid: b.dataset.on !== "1" }); sheet.close(); void showSupplierSales(d.month); }
+    catch (e) { b.disabled = false; toast(e.message); }
+  }));
+}
+// 3.14.137: «pagado» de dependienta, mensajero y proveedor en cada venta de proveedor. Tocar cambia de «Falta» a «Pagado» y al revés.
+function paidChips(r) {
+  const parts = [["clerk", "Dependienta" + (r.clerkName ? " " + r.clerkName : ""), r.clerkCup ? cupT(r.clerkCup) : ""], ["messenger", "Mensajero" + (r.messengerName ? " " + r.messengerName : ""), r.messengerCup ? cupT(r.messengerCup) : ""], ["supplier", "Proveedor", usd2(r.costUsd)]];
+  return '<div class="chips" style="margin-top:6px;flex-wrap:wrap">' + parts.filter(p => p[2]).map(([k, label, amount]) => {
+    const on = !!r.paid?.[k];
+    return '<button type="button" class="chip" data-paid="' + k + '" data-id="' + r.orderId + '" data-on="' + (on ? "1" : "0") + '" aria-pressed="' + on + '" title="' + (on ? "Pagado. Toca para quitarlo" : "Toca cuando se pague") + '">' + (on ? "✓ " : "Falta · ") + esc(label) + " " + amount + "</button>";
+  }).join("") + "</div>";
 }
 
 // Acciones del pedido: las decide Core según su estado (las mismas que en /ventas/).

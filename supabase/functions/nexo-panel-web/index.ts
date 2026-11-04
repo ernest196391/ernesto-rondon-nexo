@@ -7,6 +7,7 @@
 //   Productos (Core 3.13.52): product_variations, variation_add, product_variable_create, products_visibility
 //   Venta de proveedor (Core 3.14.14, D69): supplier_split, supplier_split_save, supplier_sales
 //   Contabilidad (Core 3.14.127, D135): contabilidad {desde, hasta} → pestaña «Cierre»
+//   Core 3.14.137: supplier_split_paid {id, part, paid} → «pagado» de dependienta, mensajero o proveedor
 //   Core 3.14.41: product_description_save, product_main_photo, product_duplicate, product_copies, product_copy,
 //                 product_copy_publish, product_copy_discard
 //   Lennys 28-oct: product_photos, product_photos_set — fotos de un producto de la web (se añaden, ✕ quita, ★ principal),
@@ -791,6 +792,12 @@ Deno.serve(async req => {
       const desde = day(body.desde), hasta = day(body.hasta) || desde;
       if (!desde) return json(400, { error: "Fecha no válida." });
       return json(200, await core("GET", `panel/contabilidad?desde=${desde}&hasta=${hasta}&detalle=1`));
+    }
+    // «Pagado» de una parte del reparto de proveedor (Core 3.14.137): {action:"supplier_split_paid", id, part:"clerk"|"messenger"|"supplier", paid:bool}.
+    if (body.action === "supplier_split_paid") {
+      const part = ["clerk", "messenger", "supplier"].includes(String(body.part)) ? String(body.part) : "";
+      if (!part || !(Number(body.id) > 0)) return json(400, { error: "Pedido o parte no válidos." });
+      return json(200, await core("POST", `panel/supplier-split/${Number(body.id)}/paid`, { part, paid: body.paid !== false, by }));
     }
     if (body.action === "supplier_sales") {
       const month = typeof body.month === "string" && /^\d{4}-\d{2}$/.test(body.month) ? body.month : "";
