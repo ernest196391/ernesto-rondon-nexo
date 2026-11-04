@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="es" data-tema="claro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pa’llá · sistema de diseño</title>
+<link rel="stylesheet" href="tokens.css">
+<style>
+body{max-width:1080px;margin:0 auto;padding:24px 20px 80px}
+h1{font:800 34px/1.05 var(--letra);font-stretch:125%;margin:8px 0}
+h2{font:var(--t-h1);margin:48px 0 6px;padding-top:16px;border-top:1px solid var(--linea)}
+h2 + p{color:var(--tinta-2);margin:0 0 16px;max-width:680px}
+.dos{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:720px){.dos{grid-template-columns:1fr}}
+.panel{background:var(--fondo);color:var(--tinta);border-radius:20px;padding:20px;box-shadow:0 0 0 1px var(--linea);display:flex;flex-direction:column;gap:12px}
+.panel > small{font:var(--t-mini);text-transform:uppercase;letter-spacing:.08em;color:var(--tinta-2)}
+.muestras{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px}
+.m{border-radius:12px;overflow:hidden;box-shadow:0 0 0 1px var(--linea);font:var(--t-peq)}
+.m i{display:block;height:56px}
+.m span{display:block;padding:8px 10px;color:var(--tinta)}
+.m code{display:block;padding:0 10px 8px;font:11px/1.3 ui-monospace,monospace;color:var(--tinta-2)}
+.fila{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.esc{display:flex;flex-direction:column;gap:12px}
+.esc div{display:flex;align-items:baseline;gap:16px}
+.esc code,.nota code{font:12px ui-monospace,monospace;color:var(--tinta-2)}
+.icos{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:8px}
+.icos div{display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 4px;border-radius:12px;background:var(--fondo-2);font:11px/1.2 var(--letra);color:var(--tinta-2);text-align:center}
+.vehs{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+.vehs div{background:var(--fondo-2);border-radius:16px;padding:10px;display:flex;align-items:center;gap:8px;font:600 13px/1.2 var(--letra)}
+.vehs img.l{width:120px}.vehs img.a{width:16px}
+.esp{display:flex;align-items:flex-end;gap:12px}
+.esp div{background:var(--amarillo);border-radius:3px}
+.cajas{display:flex;flex-wrap:wrap;gap:16px}
+.cajas div{width:88px;height:64px;background:var(--fondo);display:grid;place-items:center;font:var(--t-peq);color:var(--tinta-2)}
+.demo-hoja{position:relative;height:300px;border-radius:20px;overflow:hidden;background:#F3F2EE}
+.p-oscuro .demo-hoja{background:#141518}
+.nota{font:var(--t-peq);color:var(--tinta-2)}
+table{border-collapse:collapse;width:100%;font:var(--t-peq)}
+td,th{text-align:left;padding:8px;border-bottom:1px solid var(--linea);vertical-align:top}
+.anim{width:48px;height:48px;border-radius:12px;background:var(--amarillo)}
+.anim.a1{animation:p-entra var(--m3) var(--curva) infinite alternate}
+</style>
+</head>
+<body>
+<p><a class="p-chip" href="./">← Portada</a></p>
+<h1>Sistema de diseño</h1>
+<p class="p-2" style="max-width:680px">Claro y minimalista: blanco, negro y el amarillo de Pa’llá. Oscuro automático de noche (de 7 p. m. a 7 a. m.). Todo está en <a href="tokens.css"><code>tokens.css</code></a> (11 KB) e <a href="iconos.svg"><code>iconos.svg</code></a> (8 KB): se copia tal cual al código. Clases con prefijo <code>p-</code>.</p>
+
+<h2>Colores</h2><p>Pocos colores. El amarillo solo para lo que se toca o lo que importa (botón principal, tu oferta, el código). El texto siempre negro o casi blanco; contraste AA o mejor.</p>
+<div class="dos" id="colores"></div>
+
+<h2>Colores por servicio</h2><p>Sobrios, para distinguir de un vistazo. Nunca de fondo grande: en sellos, iconos y el mapa. Triciclub sigue el verde de hoy, más sereno.</p>
+<div class="dos" id="servicios"></div>
+
+<h2>Estados</h2><p>Bien, aviso y error. Siempre con icono y texto (no solo color).</p>
+<div class="dos" id="estados"></div>
+
+<h2>Letra</h2><p>Archivo (variable, un solo archivo de 35 KB). Títulos en su ancho expandido (125 %); el resto normal. Cifras de precio tabulares para que no salten al subir y bajar.</p>
+<div class="panel esc">
+<div><span class="p-titulo">Pa’llá</span><code>--t-titulo · 800 30/34 · ancho 125 %</code></div>
+<div><span style="font:var(--t-precio);font-stretch:115%">1.740 <small style="font-size:18px">CUP</small></span><code>--t-precio · 800 40/44 · 115 %</code></div>
+<div><span class="p-h1">¿A dónde vamos?</span><code>--t-h1 · 750 24/30</code></div>
+<div><span class="p-h2">Llega en 2 min</span><code>--t-h2 · 700 19/24</code></div>
+<div><span class="p-cuerpo-g">Calle N e/ 23 y 25, Vedado</span><code>--t-cuerpo-g · 500 17/24</code></div>
+<div><span>Precio fijo. Lo acordado no cambia.</span><code>--t-cuerpo · 450 15/22</code></div>
+<div><span class="p-peq">Llega en 3 min · 212 viajes</span><code>--t-peq · 500 13/18</code></div>
+<div><span class="p-mini">Tu oferta</span><code>--t-mini · 650 11/14 · mayúsculas</code></div>
+</div>
+
+<h2>Espacios, radios y sombras</h2><p>De 4 en 4. Botones de 48 px como mínimo (56 px el principal). Radios redondeados pero no de juguete. Sombras suaves que separan sin ensuciar.</p>
+<div class="panel">
+<div class="esp"><div style="width:4px;height:4px"></div><div style="width:8px;height:8px"></div><div style="width:12px;height:12px"></div><div style="width:16px;height:16px"></div><div style="width:20px;height:20px"></div><div style="width:24px;height:24px"></div><div style="width:32px;height:32px"></div><div style="width:40px;height:40px"></div><div style="width:56px;height:56px"></div><span class="nota"><code>--e1 … --e14</code> = 4, 8, 12, 16, 20, 24, 32, 40, 56 px</span></div>
+<div class="cajas"><div style="border-radius:var(--r1);box-shadow:var(--s1)">r1 · 8</div><div style="border-radius:var(--r2);box-shadow:var(--s1)">r2 · 12</div><div style="border-radius:var(--r3);box-shadow:var(--s2)">r3 · 16 · s2</div><div style="border-radius:var(--r4);box-shadow:var(--s2)">r4 · 24</div><div style="border-radius:999px;box-shadow:var(--s1)">pastilla</div></div>
+</div>
+
+<h2>Piezas</h2><p>Las mismas piezas en claro y en oscuro. Tócalas: funcionan.</p>
+<div class="dos" id="piezas"></div>
+
+<h2>Iconos</h2><p>Propios, línea simple de 1,75 px, puntas redondas, rejilla de 24. Nada de emojis. Uso: <code>&lt;svg class="p-ico"&gt;&lt;use href="iconos.svg#casa"/&gt;&lt;/svg&gt;</code></p>
+<div class="panel"><div class="icos" id="icos"></div></div>
+
+<h2>Vehículos</h2><p>Provisionales en SVG con luz, volumen y sombra (misma luz y escala). De lado para elegir; desde arriba para el mapa, girando con la calle. Mañana se cambian por las imágenes 3D de Higgsfield (<a href="vehiculos/prompts-vehiculos.md">prompts</a>).</p>
+<div class="panel"><div class="vehs" id="vehs"></div></div>
+
+<h2>Mapa propio</h2><p>Nuestro mapa de Cuba del VPS con un estilo nuevo: calles finas sin colores de carretera, agua y parques suaves, nombres de barrio en mayúsculas pequeñas. La ruta es negra de día y amarilla de noche. Si el mapa no carga, queda un fondo de calles dibujadas y la pantalla sigue funcionando.</p>
+<div class="dos">
+<div class="panel"><small>Claro</small><div class="muestras"><div class="m"><i style="background:#F3F2EE"></i><span>Tierra</span><code>#F3F2EE</code></div><div class="m"><i style="background:#FFFFFF;box-shadow:inset 0 0 0 1px #E3E1DA"></i><span>Calle</span><code>#FFF / #E3E1DA</code></div><div class="m"><i style="background:#CFE0E8"></i><span>Agua</span><code>#CFE0E8</code></div><div class="m"><i style="background:#E3EBDD"></i><span>Parques</span><code>#E3EBDD</code></div><div class="m"><i style="background:#0E0E0E"></i><span>Ruta</span><code>#0E0E0E</code></div></div></div>
+<div class="panel p-oscuro"><small>Oscuro</small><div class="muestras"><div class="m"><i style="background:#141518"></i><span>Tierra</span><code>#141518</code></div><div class="m"><i style="background:#24262B"></i><span>Calle</span><code>#24262B</code></div><div class="m"><i style="background:#0C1A22"></i><span>Agua</span><code>#0C1A22</code></div><div class="m"><i style="background:#16201A"></i><span>Parques</span><code>#16201A</code></div><div class="m"><i style="background:#FFC21A"></i><span>Ruta</span><code>#FFC21A</code></div></div></div>
+</div>
+
+<h2>Movimiento</h2><p>Corto y suave: 120, 180 y 240 ms con la curva <code>cubic-bezier(.2,.8,.2,1)</code>. Si el móvil pide «reducir movimiento», todo se queda quieto (también el mapa).</p>
+<div class="panel"><table>
+<tr><th>Qué</th><th>Cómo</th><th>Duración</th></tr>
+<tr><td>Pulsar un botón</td><td>Se encoge un 2 %</td><td>120 ms</td></tr>
+<tr><td>Cambiar de pantalla</td><td>Aparece (fundido)</td><td>180 ms</td></tr>
+<tr><td>Hoja inferior, oferta nueva</td><td>Sube 8–24 px y aparece</td><td>240 ms</td></tr>
+<tr><td>Logo al abrir</td><td>P crece → ruta se dibuja → punto</td><td>3 pasos de ≤ 240 ms (0,7 s en total)</td></tr>
+<tr><td>Mapa entra</td><td>Fundido cuando ya está listo; nunca bloquea</td><td>240 ms</td></tr>
+<tr><td>Ruta</td><td>Se dibuja de la recogida al destino</td><td>600 ms (la única más larga: es el mapa, no la interfaz)</td></tr>
+<tr><td>Vehículos</td><td>Se mueven por la calle y giran con ella (giro suavizado)</td><td>continuo</td></tr>
+<tr><td>Buscando</td><td>3 anillos amarillos que salen de tu punto</td><td>2,4 s en bucle</td></tr>
+</table><div class="fila"><div class="anim a1"></div><span class="nota">p-entra · 240 ms</span></div></div>
+
+<h2>Reglas</h2>
+<div class="panel"><ul style="margin:0;padding-left:20px;line-height:1.7">
+<li>Móvil primero (360–412 px). Un paso por pantalla. Textos cortos, en español de Cuba, precios en CUP con punto de miles: <b>1.740 CUP</b>.</li>
+<li>La primera pantalla se ve y se usa sin esperar al mapa. Nada de fotos pesadas: el prototipo pesa ~200 KB sin el mapa.</li>
+<li>Un solo botón amarillo por pantalla: lo siguiente que hay que hacer.</li>
+<li>Nada de morado, neón, gradientes chillones, robots ni emojis. Premium = espacio, buena letra, sombras suaves, movimientos cortos.</li>
+<li>El precio acordado se escribe siempre como <b>fijo</b>: es nuestra ventaja frente al «estimado» de La Nave.</li>
+</ul></div>
+
+<script>
+(function(){
+  function sw(n,v,t){return '<div class="m"><i style="background:var('+v+')"></i><span>'+n+'</span><code>'+v+'</code></div>';}
+  function dos(id,f){var h='';['','p-oscuro'].forEach(function(c){h+='<div class="panel '+c+'"><small>'+(c?'Oscuro (de noche)':'Claro')+'</small>'+f()+'</div>';});document.getElementById(id).innerHTML=h;}
+  dos('colores',function(){return '<div class="muestras">'+sw('Amarillo','--amarillo')+sw('Amarillo suave','--amarillo-suave')+sw('Fondo','--fondo')+sw('Fondo 2','--fondo-2')+sw('Fondo 3','--fondo-3')+sw('Tinta','--tinta')+sw('Tinta 2','--tinta-2')+sw('Tinta 3','--tinta-3')+sw('Línea','--linea')+'</div>';});
+  dos('servicios',function(){return '<div class="muestras">'+sw('Taxi','--taxi')+sw('Taxi suave','--taxi-suave')+sw('Triciclo','--tric')+sw('Triciclo suave','--tric-suave')+sw('Mensajero','--mens')+sw('Mensajero suave','--mens-suave')+'</div><div class="fila"><span class="p-sello p-sello--taxi">Taxi</span><span class="p-sello p-sello--tric">Triciclub</span><span class="p-sello p-sello--mens">Mensajero</span><span class="p-sello p-sello--ejemplo">Ejemplo</span></div>';});
+  dos('estados',function(){return '<div class="p-aviso p-aviso--bien"><svg class="p-ico"><use href="iconos.svg#check"/></svg><span><b>¡Aceptó 110 CUP!</b> Precio fijo.</span></div><div class="p-aviso p-aviso--aviso"><svg class="p-ico"><use href="iconos.svg#alerta"/></svg><span>Por debajo del justo: puede tardar más.</span></div><div class="p-aviso p-aviso--error"><svg class="p-ico"><use href="iconos.svg#alerta"/></svg><span>No se pudo enviar. Lo guardamos y sale solo al volver la señal.</span></div><div class="p-aviso p-aviso--marca"><svg class="p-ico"><use href="iconos.svg#info"/></svg><span>Comisión 0 % en el piloto.</span></div>';});
+  dos('piezas',function(){return '<div class="fila"><button class="p-btn p-btn--marca">Pedir triciclo · 100 CUP</button></div>'
+   +'<div class="fila"><button class="p-btn p-btn--tinta p-btn--chico">Subir 10 %</button><button class="p-btn p-btn--borde p-btn--chico">No</button><button class="p-btn p-btn--suave p-btn--chico">Repetir</button><button class="p-btn p-btn--redondo" aria-label="Volver"><svg class="p-ico"><use href="iconos.svg#atras"/></svg></button></div>'
+   +'<div class="fila"><button class="p-chip" aria-pressed="true">Triciclo</button><button class="p-chip">Taxi</button><button class="p-chip p-chip--borde"><svg class="p-ico p-ico--16"><use href="iconos.svg#mas"/></svg>Guardar lugar</button></div>'
+   +'<label class="p-campo"><svg class="p-ico"><use href="iconos.svg#buscar"/></svg><input placeholder="¿A dónde vamos?"></label>'
+   +'<div class="fila" style="justify-content:space-between"><span>Coger la 1.ª oferta a este precio</span><button class="p-interruptor" role="switch" aria-checked="false" onclick="this.setAttribute(\'aria-checked\',this.getAttribute(\'aria-checked\')!==\'true\')"></button></div>'
+   +'<article class="p-oferta p-oferta--acepta" style="grid-template-columns:52px 1fr auto"><div style="width:52px;height:52px;border-radius:16px;background:var(--fondo-2);overflow:hidden"><img src="vehiculos/tric-electrico-lado.svg" style="width:72px;margin:8px 0 0 10px" alt=""></div><div><b>Yoandri R.</b><div class="p-peq">★ 4,9 · llega en 2 min</div></div><div><div class="p-oferta__precio">100</div><div class="p-oferta__tipo">Acepta tu precio</div></div><i class="p-oferta__tiempo" style="transform:scaleX(.6)"></i></article>'
+   +'<article class="p-oferta p-oferta--pide" style="grid-template-columns:52px 1fr auto"><div style="width:52px;height:52px;border-radius:16px;background:var(--fondo-2);overflow:hidden"><img src="vehiculos/tric-electrico-lado.svg" style="width:72px;margin:8px 0 0 10px" alt=""></div><div><b>Dayana C.</b><div class="p-peq">★ 4,8 · llega en 1 min</div></div><div><div class="p-oferta__precio">120</div><div class="p-oferta__tipo">Pide +20 %</div></div><i class="p-oferta__tiempo" style="transform:scaleX(.3)"></i></article>'
+   +'<div class="demo-hoja"><section class="p-hoja" style="animation:none"><div class="p-hoja__asa"></div><p class="p-mini" style="margin:0 0 4px">Hoja inferior</p><p class="p-h2" style="margin:0 0 12px">Llega en 2 min</p><button class="p-btn p-btn--marca p-btn--ancho">Confirmar recogida</button></section></div>';});
+  document.getElementById('icos').innerHTML='buscar,casa,trabajo,reloj,pin,mapa,gps,atras,sigue,flecha,cerrar,mas,menos,check,telefono,whatsapp,compartir,escudo,estrella,estrella-llena,efectivo,transfer,usuario,ajustes,lista,sin-senal,alerta,info,paquete,camara,carne,selfie,coche,triciclo,moto,rayo,navegar,ganancias,calendario,encender,editar,llave,luna,sol,menu,campana,moneda,copiar,nota,punto,cuadro,ruta,personas,guardado,salir,caja'.split(',').map(function(i){return '<div><svg class="p-ico"><use href="iconos.svg#'+i+'"/></svg>'+i+'</div>';}).join('');
+  var V=[['taxi-basico','Taxi Básico'],['taxi-clasico','Taxi Clásico'],['taxi-xl','Taxi XL'],['tric-bici','Triciclo Bici'],['tric-electrico','Triciclo Eléctrico'],['tric-xl','Eléctrico XL'],['tric-carga','Carga'],['moto','Moto'],['mensajero','Mensajero']];
+  document.getElementById('vehs').innerHTML=V.map(function(v){return '<div><img class="l" src="vehiculos/'+v[0]+'-lado.svg" alt=""><img class="a" src="vehiculos/'+v[0]+'-arriba.svg" alt=""><span>'+v[1]+'</span></div>';}).join('');
+})();
+</script>
+</body>
+</html>

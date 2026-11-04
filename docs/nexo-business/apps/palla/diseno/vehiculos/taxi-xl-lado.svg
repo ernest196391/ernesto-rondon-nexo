@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 160" width="280" height="160" role="img" aria-label="Taxi XL"><defs>
+<linearGradient id="cu" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6A7079"/><stop offset=".45" stop-color="#41454C"/><stop offset="1" stop-color="#24272C"/></linearGradient>
+<linearGradient id="vi" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3A4452"/><stop offset=".6" stop-color="#1B212A"/><stop offset="1" stop-color="#11151B"/></linearGradient>
+<radialGradient id="ll" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="#F2F4F6"/><stop offset=".55" stop-color="#A9B0B8"/><stop offset="1" stop-color="#5D646C"/></radialGradient>
+<linearGradient id="cr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".5" stop-color="#B9BFC6"/><stop offset="1" stop-color="#7C838B"/></linearGradient>
+<filter id="so" x="-20%" y="-200%" width="140%" height="500%"><feGaussianBlur stdDeviation="4"/></filter>
+</defs><ellipse cx="143.0" cy="140" rx="123.0" ry="6" fill="#000" opacity=".28" filter="url(#so)"/><ellipse cx="143.0" cy="140" rx="98.4" ry="2.5" fill="#000" opacity=".35" filter="url(#so)"/>
+<path d="M20 114V66q0-18 20-18h150q14 0 24 10l26 28 18 4q8 2 8 12v12q0 6-6 6h-28a22 22 0 0 0-44 0H94a22 22 0 0 0-44 0H24q-4 0-4-6z" fill="url(#cu)" stroke="#23262B" stroke-width=".8"/>
+<path d="M30 56h40v28H28V60q0-4 2-4z" fill="url(#vi)"/><path d="M76 56h52v28H76z" fill="url(#vi)"/><path d="M134 56h52q8 0 14 6l22 22h-88z" fill="url(#vi)"/>
+<path d="M150 56 134 76h8l16-20z" fill="#fff" opacity=".14"/><path d="M92 56 80 72h6l12-16z" fill="#fff" opacity=".12"/>
+<path d="M131 88v26M76 88v26" stroke="#24272C" stroke-width=".9"/><path d="M22 100h244" stroke="#202328" stroke-width="1.4" opacity=".6"/>
+<path d="M252 92h10q4 0 4 4v2h-14z" fill="#F7F3E6"/><path d="M21 76h5v12h-5z" fill="#B3261E"/>
+<rect x="140" y="42" width="26" height="7" rx="2" fill="#0E0E0E"/><rect x="143" y="44" width="20" height="3" rx="1" fill="#FFC21A"/><path d="M26 54q4-4 14-4h150q12 0 21 9" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" opacity="0.4"/><circle cx="72" cy="120" r="19" fill="#17191C"/><circle cx="72" cy="120" r="17.5" fill="none" stroke="#2A2D31" stroke-width="1"/><circle cx="72" cy="120" r="10.6" fill="url(#ll)"/><circle cx="72" cy="120" r="10.6" fill="none" stroke="#4A5058" stroke-width=".8"/><circle cx="72" cy="120" r="3.0" fill="#3B4047"/><circle cx="210" cy="120" r="19" fill="#17191C"/><circle cx="210" cy="120" r="17.5" fill="none" stroke="#2A2D31" stroke-width="1"/><circle cx="210" cy="120" r="10.6" fill="url(#ll)"/><circle cx="210" cy="120" r="10.6" fill="none" stroke="#4A5058" stroke-width=".8"/><circle cx="210" cy="120" r="3.0" fill="#3B4047"/></svg>

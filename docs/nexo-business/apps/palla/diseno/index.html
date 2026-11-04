@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="es" data-tema="claro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pa’llá · diseño completo</title>
+<link rel="icon" href="logo/a-icono-oscuro.svg">
+<link rel="stylesheet" href="tokens.css">
+<style>
+body{max-width:760px;margin:0 auto;padding:20px 20px 64px}
+h1{font:800 32px/1.05 var(--letra);font-stretch:125%;margin:20px 0 8px;letter-spacing:-.01em}
+h2{font:var(--t-h1);margin:40px 0 12px}
+p{margin:0 0 12px}
+.ir{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media (max-width:520px){.ir{grid-template-columns:1fr}}
+.ir a{display:flex;gap:12px;align-items:center;padding:16px;border-radius:16px;background:var(--fondo-2);color:var(--tinta);text-decoration:none;min-height:72px}
+.ir a b{display:block;font:700 17px/22px var(--letra)}
+.ir a span{font:var(--t-peq);color:var(--tinta-2)}
+.ir a.prin{background:var(--amarillo);grid-column:1 / -1}
+.ir a.prin span{color:#0E0E0E}
+.logos{display:grid;gap:12px}
+.logo{border-radius:20px;box-shadow:0 0 0 1px var(--linea);overflow:hidden}
+.logo .ver{display:flex;align-items:center;gap:12px;padding:16px;flex-wrap:wrap}
+.logo .ver img.i{width:84px;height:84px}
+.logo .ver img.h{height:44px}
+.logo .neg{background:#0E0E0E;padding:14px 16px;display:flex;gap:16px;align-items:center}
+.logo .neg img{height:40px}
+.logo .txt{padding:0 16px 16px}
+.logo .txt b{font:700 17px/22px var(--letra)}
+.rec{display:inline-flex;align-items:center;gap:4px;height:26px;padding:0 10px;border-radius:999px;background:var(--bien-suave);color:var(--bien);font:700 12px/1 var(--letra);margin-left:6px}
+ol.dec{padding:0;margin:0;list-style:none;counter-reset:d;display:flex;flex-direction:column;gap:10px}
+ol.dec li{counter-increment:d;position:relative;padding:14px 16px 14px 56px;border-radius:16px;background:var(--fondo-2)}
+ol.dec li::before{content:counter(d);position:absolute;left:14px;top:14px;width:28px;height:28px;border-radius:50%;background:var(--tinta);color:var(--amarillo);display:grid;place-items:center;font:800 14px/1 var(--letra)}
+ol.dec b{display:block;font:700 16px/22px var(--letra);margin-bottom:4px}
+ol.dec .r{color:var(--bien);font-weight:600}
+.peq{font:var(--t-peq);color:var(--tinta-2)}
+</style>
+</head>
+<body>
+<img src="logo/a-horizontal-claro.svg" alt="Pa’llá" height="40">
+<h1>El diseño completo de Pa’llá</h1>
+<p class="p-2">Taxi, Triciclo (Triciclub) y Mensajero en una sola app, con precio justo que se puede subir o bajar. Todo es <b>diseño</b>: no se ha programado la app de verdad. Hecho el 4-nov-2026 con tus decisiones de hoy. Los datos son de ejemplo.</p>
+
+<div class="ir">
+  <a class="prin" href="prototipo/"><svg class="p-ico"><use href="iconos.svg#triciclo"/></svg><div><b>Prototipo para tocar en el móvil</b><span>El camino completo: entrar, pedir, ofertas, viaje, pagar. Ábrelo en tu Redmi.</span></div></a>
+  <a href="lienzo.html"><svg class="p-ico"><use href="iconos.svg#lista"/></svg><div><b>Lienzo</b><span>Las 31 pantallas juntas, con el porqué de cada una</span></div></a>
+  <a href="sistema.html"><svg class="p-ico"><use href="iconos.svg#ajustes"/></svg><div><b>Sistema de diseño</b><span>Colores, letra, botones, iconos, mapa</span></div></a>
+  <a href="vehiculos/prompts-vehiculos.md"><svg class="p-ico"><use href="iconos.svg#coche"/></svg><div><b>Vehículos 3D</b><span>Los 10 prompts para Higgsfield (mañana)</span></div></a>
+  <a href="informe.md"><svg class="p-ico"><use href="iconos.svg#nota"/></svg><div><b>Informe</b><span>Qué hice, qué decidí yo y qué falta</span></div></a>
+</div>
+
+<h2>Elige el logo</h2>
+<p class="p-2">Las 3 salen de tu «P» actual (amarilla sobre negro). Cada una en icono de app (oscuro y claro) y en logotipo horizontal.</p>
+<div class="logos">
+  <div class="logo"><div class="ver"><img class="i" src="logo/a-icono-oscuro.svg" alt="Logo A oscuro"><img class="i" src="logo/a-icono-claro.svg" alt="Logo A claro"><img class="h" src="logo/a-horizontal-claro.svg" alt="Logo A horizontal"></div>
+    <div class="neg"><img src="logo/a-horizontal-oscuro.svg" alt="Logo A horizontal oscuro"></div>
+    <div class="txt"><b>A · En ruta</b><span class="rec">Mi recomendación</span><p class="p-2" style="margin:6px 0 0">La P dibuja un viaje de un punto a otro: cuenta lo que hace la app, se anima al abrir sin pesar nada y no rompe con la P que ya conocen los mensajeros.</p></div></div>
+  <div class="logo"><div class="ver"><img class="i" src="logo/b-icono-oscuro.svg" alt="Logo B oscuro"><img class="i" src="logo/b-icono-claro.svg" alt="Logo B claro"><img class="h" src="logo/b-horizontal-claro.svg" alt="Logo B horizontal"></div>
+    <div class="neg"><img src="logo/b-horizontal-oscuro.svg" alt="Logo B horizontal oscuro"></div>
+    <div class="txt"><b>B · Pin</b><p class="p-2" style="margin:6px 0 0">La P es un punto del mapa (el palo termina en punta): se entiende sin leer y sirve también como marcador dentro del mapa.</p></div></div>
+  <div class="logo"><div class="ver"><img class="i" src="logo/c-icono-oscuro.svg" alt="Logo C oscuro"><img class="i" src="logo/c-icono-claro.svg" alt="Logo C claro"><img class="h" src="logo/c-horizontal-claro.svg" alt="Logo C horizontal"></div>
+    <div class="neg"><img src="logo/c-horizontal-oscuro.svg" alt="Logo C horizontal oscuro"></div>
+    <div class="txt"><b>C · Pa’lante</b><p class="p-2" style="margin:6px 0 0">El hueco de la P es una flecha hacia allá: la más simple de todas, la que mejor se ve pequeña en la pantalla del móvil.</p></div></div>
+</div>
+
+<h2>Lo que tienes que decidir</h2>
+<ol class="dec">
+  <li><b>¿Qué logo?</b>A, B o C. <span class="r">Recomiendo A «En ruta».</span></li>
+  <li><b>Tope de deuda del chofer</b>Si debe más que esto, se pausan solo sus viajes en efectivo (después del piloto). <span class="r">Recomiendo 2.000 CUP</span> (≈ 2 semanas y media de comisión de un chofer con 9.800 CUP de viajes por semana), con aviso 2 días antes.</li>
+  <li><b>Precio de la Moto (pasajero)</b>No estaba decidido. <span class="r">Recomiendo 80 % del triciclo eléctrico</span> (2 km = 130 CUP): va 1 persona, pero es rápida.</li>
+  <li><b>Taxi Clásico y Taxi XL</b>Básico = 20 % menos que La Nave (≈ 424 CUP por km; 4,1 km = 1.740 CUP). <span class="r">Recomiendo Clásico +10 % y XL +40 %, y fijar un precio mínimo por viaje con los primeros taxistas del piloto</span> (un viaje de 0,8 km hoy saldría en 360 CUP).</li>
+  <li><b>¿Con qué empieza el cliente: WhatsApp o SMS?</b> <span class="r">Recomiendo el código por WhatsApp primero</span> (gratis, ya lo hace el bot) y SMS solo de reserva, como dice la investigación del SMS.</li>
+</ol>
+
+<h2>Lo que hay que saber</h2>
+<ul class="peq" style="padding-left:18px;line-height:1.6">
+  <li>El prototipo pesa ~216 KB sin el mapa (la meta era menos de 300 KB). El inicio se usa al momento; el mapa entra después.</li>
+  <li>Los vehículos son provisionales (dibujos con luz y sombra). Mañana, desde tu PC, se hacen en 3D con los prompts.</li>
+  <li>El mapa y las rutas son los nuestros, del VPS. Si el mapa no carga, la app sigue funcionando.</li>
+  <li>De noche (de 7 p. m. a 7 a. m.) todo se ve en oscuro solo. En el perfil se puede fijar claro u oscuro.</li>
+</ul>
+<p class="peq" style="margin-top:24px">Hecho por Claude para Ernesto Rondón · 4-nov-2026 · Datos y nombres de ejemplo.</p>
+</body>
+</html>

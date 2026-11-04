@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pa'llá · lienzo con todas las pantallas</title>
+<link rel="stylesheet" href="tokens.css">
+<style>
+body{background:var(--fondo-2);margin:0}
+header{position:sticky;top:0;z-index:5;background:var(--fondo);border-bottom:1px solid var(--linea);padding:12px 20px;display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+header h1{font:800 22px/1 var(--letra);font-stretch:125%;margin:0;flex:1;min-width:200px}
+header a{color:var(--tinta)}
+.grupo{padding:24px 20px 8px}
+.grupo h2{font:var(--t-h1);margin:0 0 4px}
+.grupo > p{margin:0 0 16px;color:var(--tinta-2)}
+.fila{display:flex;gap:24px;overflow-x:auto;padding:4px 4px 24px;scroll-snap-type:x mandatory}
+figure{margin:0;flex:none;width:calc(390px * var(--k));scroll-snap-align:start}
+.tel{width:calc(390px * var(--k));height:calc(844px * var(--k));border-radius:calc(36px * var(--k));overflow:hidden;background:var(--fondo);box-shadow:var(--s2),0 0 0 1px var(--linea)}
+.tel iframe{width:390px;height:844px;border:0;transform:scale(var(--k));transform-origin:0 0;display:block}
+figcaption{padding:12px 2px 0;font:var(--t-peq);color:var(--tinta-2)}
+figcaption b{display:block;font:700 15px/20px var(--letra);color:var(--tinta)}
+figcaption code{font:600 12px/1 ui-monospace,monospace;background:var(--fondo-3);padding:2px 6px;border-radius:6px;color:var(--tinta)}
+figcaption a{color:inherit}
+:root{--k:.62}
+@media (max-width:600px){:root{--k:.72}}
+</style>
+</head>
+<body>
+<header>
+  <h1>Pa’llá · todas las pantallas</h1>
+  <button class="p-chip" id="tema">Ver en oscuro</button>
+  <button class="p-chip" id="mapa">Mapa: encendido</button>
+  <a class="p-chip" href="./">Portada</a>
+  <a class="p-chip" href="prototipo/">Prototipo</a>
+</header>
+<p style="padding:12px 20px 0;margin:0;color:var(--tinta-2)">Cada móvil es el prototipo de verdad (se puede tocar). Desliza de lado en cada grupo. Debajo: <b>por qué</b> está hecha así. Datos de ejemplo.</p>
+<main id="lienzo"></main>
+<script src="prototipo/pantallas.js"></script>
+<script>
+(function(){
+  var q=new URLSearchParams(location.search);
+  var tema=q.get('tema')==='oscuro'?'oscuro':'claro';
+  var mapa=q.has('nomapa')?false:(q.has('mapa')?true:window.innerWidth>700);
+  document.documentElement.dataset.tema=tema;
+  var intro={Cliente:'Quien pide un taxi, un triciclo o una moto, desde la web instalable.',Mensajero:'Quien manda algo (cliente). El mensajero lo ve en su app como «Envío».',Chofer:'Choferes y mensajeros, en la app Pa\'llá de Android que ya existe.'};
+  var h='',g='';
+  PPANTALLAS.forEach(function(p){
+    if(p.g!==g){ if(g){h+='</div></section>';} g=p.g; h+='<section class="grupo"><h2>'+g+'</h2><p>'+intro[g]+'</p><div class="fila">'; }
+    var src='prototipo/?lienzo&tema='+tema+(mapa?'':'&nomapa')+'#'+p.id;
+    h+='<figure><div class="tel"><iframe loading="lazy" title="'+p.t+'" src="'+src+'"></iframe></div><figcaption><b>'+p.t+'</b><a href="prototipo/?tema='+tema+'#'+p.id+'"><code>#'+p.id+'</code></a> · '+p.p+'</figcaption></figure>';
+  });
+  document.getElementById('lienzo').innerHTML=h+'</div></section>';
+  var b=document.getElementById('tema'); b.textContent=tema==='oscuro'?'Ver en claro':'Ver en oscuro';
+  b.onclick=function(){q.set('tema',tema==='oscuro'?'claro':'oscuro');location.search=q.toString();};
+  var m=document.getElementById('mapa'); m.textContent=mapa?'Mapa: encendido':'Mapa: apagado (más rápido)';
+  m.onclick=function(){q.delete('mapa');q.delete('nomapa');q.set(mapa?'nomapa':'mapa','1');location.search=q.toString();};
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,198 @@
+/* Pa'llá · sistema de diseño (tokens + piezas) · 4-nov-2026
+   Claro y minimalista: blanco, negro y el amarillo de Pa'llá. Oscuro automático de noche (html[data-tema="oscuro"]).
+   Copiar tal cual al código: solo variables CSS y clases cortas con prefijo «p-». Sin librerías. */
+
+/* Letra: Archivo variable (pesos 100–900 y ancho 62–125 %) en un solo archivo de 35 KB, solo latín (á, ñ, ¿, ¡…). */
+@font-face{font-family:Archivo;src:url("fonts/Archivo-var-latin.woff2") format("woff2");font-weight:100 900;font-stretch:62% 125%;font-display:swap}
+
+:root{
+  /* Marca */
+  --amarillo:#FFC21A;          /* el de Pa'llá: botón principal, acentos */
+  --amarillo-hondo:#E5A800;    /* al pulsar */
+  --amarillo-suave:#FFF4D1;    /* fondos de aviso de marca */
+  --negro:#0E0E0E;
+  --blanco:#FFFFFF;
+
+  /* Superficies y texto (claro) */
+  --fondo:#FFFFFF;
+  --fondo-2:#F5F5F2;           /* hundido: listas, campos */
+  --fondo-3:#ECECE8;
+  --tinta:#0E0E0E;             /* texto principal · 19,8:1 sobre blanco */
+  --tinta-2:#5C5C57;           /* texto secundario · 6,6:1 */
+  --tinta-3:#8C8C86;           /* ayudas, desactivado (solo textos grandes o iconos) */
+  --linea:#E8E8E3;
+  --linea-fuerte:#CFCFC8;
+  --sobre-amarillo:#0E0E0E;
+  --velo:rgba(14,14,14,.36);   /* detrás de hojas */
+  --cristal:rgba(255,255,255,.86);
+
+  /* Servicios (sobrios, nunca chillones) */
+  --taxi:#2C5BC7;      --taxi-suave:#E7EEFB;
+  --tric:#16855A;      --tric-suave:#E3F3EB;   /* Triciclub: sigue el verde de hoy, más sobrio */
+  --mens:#C9561E;      --mens-suave:#FBEBE2;
+
+  /* Estados */
+  --bien:#18794A;      --bien-suave:#E3F4EA;
+  --aviso:#A35A00;     --aviso-suave:#FDF0DC;
+  --error:#B8261B;     --error-suave:#FCE7E5;
+  --foco:#2C5BC7;
+
+  /* Letra */
+  --letra:Archivo,"Helvetica Neue",Helvetica,Arial,sans-serif;
+  --t-titulo:800 30px/34px var(--letra);   /* + font-stretch:125% */
+  --t-h1:750 24px/30px var(--letra);
+  --t-h2:700 19px/24px var(--letra);
+  --t-cuerpo-g:500 17px/24px var(--letra);
+  --t-cuerpo:450 15px/22px var(--letra);
+  --t-peq:500 13px/18px var(--letra);
+  --t-mini:650 11px/14px var(--letra);      /* + mayúsculas y letter-spacing:.06em */
+  --t-precio:800 40px/44px var(--letra);    /* + font-stretch:115%, cifras tabulares */
+
+  /* Espacios (de 4 en 4) */
+  --e1:4px; --e2:8px; --e3:12px; --e4:16px; --e5:20px; --e6:24px; --e8:32px; --e10:40px; --e14:56px;
+
+  /* Radios */
+  --r1:8px; --r2:12px; --r3:16px; --r4:24px; --r-pastilla:999px;
+
+  /* Sombras suaves */
+  --s1:0 1px 2px rgba(14,14,14,.06),0 1px 1px rgba(14,14,14,.04);
+  --s2:0 2px 6px rgba(14,14,14,.06),0 8px 24px rgba(14,14,14,.08);
+  --s3:0 -2px 10px rgba(14,14,14,.05),0 -12px 40px rgba(14,14,14,.10);   /* hoja inferior */
+  --s-boton:0 6px 18px rgba(229,168,0,.32);
+
+  /* Tamaños táctiles */
+  --toque:48px; --toque-g:56px;
+
+  /* Movimiento: corto (≤ 250 ms) y suave */
+  --m1:120ms; --m2:180ms; --m3:240ms;
+  --curva:cubic-bezier(.2,.8,.2,1);
+  --curva-sale:cubic-bezier(.4,0,1,1);
+
+  color-scheme:light;
+}
+
+/* Oscuro (de noche, solo): negro de verdad, el amarillo se mantiene; servicios un poco más claros para leerse. */
+html[data-tema="oscuro"],.p-oscuro{
+  --fondo:#0F0F10;
+  --fondo-2:#19191B;
+  --fondo-3:#232326;
+  --tinta:#F3F3EF;             /* 17,4:1 */
+  --tinta-2:#A9A9A3;           /* 7,9:1 */
+  --tinta-3:#77776F;
+  --linea:#26262A;
+  --linea-fuerte:#3A3A3F;
+  --amarillo-suave:#2B2410;
+  --velo:rgba(0,0,0,.6);
+  --cristal:rgba(25,25,27,.86);
+  --taxi:#86A6F2;  --taxi-suave:#18213A;
+  --tric:#4CC38A;  --tric-suave:#12271D;
+  --mens:#F08F5C;  --mens-suave:#2D1B12;
+  --bien:#4CC38A;  --bien-suave:#12271D;
+  --aviso:#F2B24C; --aviso-suave:#2B2210;
+  --error:#F27A6E; --error-suave:#2E1513;
+  --foco:#86A6F2;
+  --s1:0 1px 2px rgba(0,0,0,.5);
+  --s2:0 2px 6px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.45);
+  --s3:0 -2px 10px rgba(0,0,0,.4),0 -12px 40px rgba(0,0,0,.5);
+  --s-boton:0 6px 18px rgba(0,0,0,.5);
+  color-scheme:dark;
+}
+
+@media (prefers-reduced-motion:reduce){:root{--m1:0ms;--m2:0ms;--m3:0ms}}
+
+/* ---------- Base ---------- */
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--fondo);color:var(--tinta);font:var(--t-cuerpo);font-feature-settings:"tnum" 0;-webkit-tap-highlight-color:transparent;-webkit-font-smoothing:antialiased}
+button,input,textarea,select{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2.5px solid var(--foco);outline-offset:2px}
+.p-num{font-variant-numeric:tabular-nums}
+.p-titulo{font:var(--t-titulo);font-stretch:125%;letter-spacing:-.01em;margin:0}
+.p-h1{font:var(--t-h1);letter-spacing:-.01em;margin:0}
+.p-h2{font:var(--t-h2);margin:0}
+.p-cuerpo-g{font:var(--t-cuerpo-g)}
+.p-peq{font:var(--t-peq);color:var(--tinta-2)}
+.p-mini{font:var(--t-mini);text-transform:uppercase;letter-spacing:.06em;color:var(--tinta-2)}
+.p-2{color:var(--tinta-2)}
+.p-ico{width:24px;height:24px;flex:none;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}
+.p-ico--20{width:20px;height:20px}
+.p-ico--16{width:16px;height:16px;stroke-width:2}
+
+/* ---------- Botones ---------- */
+.p-btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--e2);min-height:var(--toque-g);padding:0 var(--e6);border:0;border-radius:var(--r3);font:700 17px/1 var(--letra);text-decoration:none;transition:transform var(--m1) var(--curva),background-color var(--m2) var(--curva),box-shadow var(--m2) var(--curva);user-select:none}
+.p-btn:active{transform:scale(.98)}
+.p-btn[disabled]{opacity:.4;pointer-events:none}
+.p-btn--ancho{width:100%}
+.p-btn--marca{background:var(--amarillo);color:var(--sobre-amarillo);box-shadow:var(--s-boton)}
+.p-btn--marca:active{background:var(--amarillo-hondo)}
+.p-btn--tinta{background:var(--tinta);color:var(--fondo)}
+.p-btn--borde{background:transparent;color:var(--tinta);box-shadow:inset 0 0 0 1.5px var(--linea-fuerte)}
+.p-btn--suave{background:var(--fondo-2);color:var(--tinta)}
+.p-btn--peligro{background:var(--error-suave);color:var(--error)}
+.p-btn--chico{min-height:var(--toque);padding:0 var(--e4);font-size:15px;border-radius:var(--r2)}
+.p-btn--redondo{width:var(--toque);height:var(--toque);min-height:0;padding:0;border-radius:50%;background:var(--fondo);color:var(--tinta);box-shadow:var(--s2)}
+
+/* ---------- Chips ---------- */
+.p-chip{text-decoration:none;display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:0 14px;border-radius:var(--r-pastilla);background:var(--fondo-2);color:var(--tinta);border:0;font:600 14px/1 var(--letra);white-space:nowrap;transition:background-color var(--m2) var(--curva)}
+.p-chip[aria-pressed="true"],.p-chip.is-on{background:var(--tinta);color:var(--fondo)}
+.p-chip--borde{background:transparent;box-shadow:inset 0 0 0 1.5px var(--linea)}
+
+/* ---------- Tarjetas ---------- */
+.p-tarjeta{background:var(--fondo);border-radius:var(--r3);box-shadow:var(--s2);padding:var(--e4)}
+.p-tarjeta--plana{box-shadow:none;background:var(--fondo-2)}
+
+/* Oferta (cliente): precio + tiempo + estrellas + vehículo + cuenta atrás */
+.p-oferta{position:relative;display:grid;grid-template-columns:56px 1fr auto;gap:var(--e3);align-items:center;padding:var(--e4);background:var(--fondo);border-radius:var(--r3);box-shadow:var(--s2);overflow:hidden;animation:p-entra var(--m3) var(--curva) both}
+.p-oferta__precio{font:800 22px/1 var(--letra);font-stretch:112%;font-variant-numeric:tabular-nums;text-align:right}
+.p-oferta__tipo{font:var(--t-mini);text-transform:uppercase;letter-spacing:.05em;margin-top:6px;text-align:right}
+.p-oferta--acepta .p-oferta__tipo{color:var(--bien)}
+.p-oferta--pide .p-oferta__tipo{color:var(--aviso)}
+.p-oferta__tiempo{position:absolute;left:0;bottom:0;height:3px;background:var(--amarillo);transform-origin:left;width:100%}
+
+/* ---------- Hoja inferior ---------- */
+.p-hoja{position:absolute;left:0;right:0;bottom:0;background:var(--fondo);border-radius:var(--r4) var(--r4) 0 0;box-shadow:var(--s3);padding:var(--e2) var(--e4) calc(var(--e4) + env(safe-area-inset-bottom));animation:p-sube var(--m3) var(--curva) both}
+.p-hoja__asa{width:40px;height:5px;border-radius:3px;background:var(--linea-fuerte);margin:2px auto var(--e3)}
+
+/* ---------- Campos ---------- */
+.p-campo{display:flex;align-items:center;gap:var(--e3);min-height:var(--toque-g);padding:0 var(--e4);background:var(--fondo-2);border-radius:var(--r3);border:1.5px solid transparent;transition:border-color var(--m2) var(--curva)}
+.p-campo:focus-within{border-color:var(--tinta);background:var(--fondo)}
+.p-campo input{flex:1;min-width:0;border:0;background:none;outline:0;font:var(--t-cuerpo-g);padding:0;height:52px}
+.p-campo input::placeholder{color:var(--tinta-3)}
+
+/* Interruptor */
+.p-interruptor{position:relative;flex:none;width:52px;height:32px;border-radius:16px;background:var(--linea-fuerte);border:0;padding:0;transition:background-color var(--m2) var(--curva)}
+.p-interruptor::after{content:"";position:absolute;top:3px;left:3px;width:26px;height:26px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.3);transition:transform var(--m2) var(--curva)}
+.p-interruptor[aria-checked="true"]{background:var(--tinta)}
+.p-interruptor[aria-checked="true"]::after{transform:translateX(20px);background:var(--amarillo)}
+
+/* Fila de lista */
+.p-fila{text-decoration:none;display:flex;align-items:center;gap:var(--e3);min-height:var(--toque-g);padding:var(--e2) 0;width:100%;background:none;border:0;text-align:left;color:inherit;text-decoration:none}
+.p-fila + .p-fila{border-top:1px solid var(--linea)}
+.p-fila__ico{flex:none;width:40px;height:40px;border-radius:50%;background:var(--fondo-2);display:grid;place-items:center;color:var(--tinta)}
+.p-fila__txt{flex:1;min-width:0}
+.p-fila__txt b{display:block;font:600 16px/21px var(--letra);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.p-fila__txt span{display:block;font:var(--t-peq);color:var(--tinta-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* Avisos (estados) */
+.p-aviso{display:flex;gap:var(--e3);align-items:flex-start;padding:var(--e3) var(--e4);border-radius:var(--r2);font:var(--t-peq)}
+.p-aviso .p-ico{width:20px;height:20px}
+.p-aviso--bien{background:var(--bien-suave);color:var(--bien)}
+.p-aviso--aviso{background:var(--aviso-suave);color:var(--aviso)}
+.p-aviso--error{background:var(--error-suave);color:var(--error)}
+.p-aviso--marca{background:var(--amarillo-suave);color:var(--tinta)}
+.p-aviso b{color:var(--tinta)}
+
+.p-sello{display:inline-flex;align-items:center;gap:4px;height:24px;padding:0 8px;border-radius:var(--r-pastilla);font:700 12px/1 var(--letra)}
+.p-sello--taxi{background:var(--taxi-suave);color:var(--taxi)}
+.p-sello--tric{background:var(--tric-suave);color:var(--tric)}
+.p-sello--mens{background:var(--mens-suave);color:var(--mens)}
+.p-sello--bien{background:var(--bien-suave);color:var(--bien)}
+.p-sello--aviso{background:var(--aviso-suave);color:var(--aviso)}
+.p-sello--ejemplo{background:var(--fondo-3);color:var(--tinta-2)}
+
+/* Movimientos */
+@keyframes p-entra{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes p-sube{from{transform:translateY(24px);opacity:.6}to{transform:none;opacity:1}}
+@keyframes p-aparece{from{opacity:0}to{opacity:1}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:1ms!important;animation-iteration-count:1!important;transition-duration:1ms!important}}

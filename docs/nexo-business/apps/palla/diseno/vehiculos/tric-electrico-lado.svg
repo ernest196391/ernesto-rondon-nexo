@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 160" width="280" height="160" role="img" aria-label="Triciclo Eléctrico"><defs>
+<linearGradient id="cu" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".45" stop-color="#ECEDEA"/><stop offset="1" stop-color="#BFC2C4"/></linearGradient>
+<linearGradient id="vi" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3A4452"/><stop offset=".6" stop-color="#1B212A"/><stop offset="1" stop-color="#11151B"/></linearGradient>
+<radialGradient id="ll" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="#F2F4F6"/><stop offset=".55" stop-color="#A9B0B8"/><stop offset="1" stop-color="#5D646C"/></radialGradient>
+<linearGradient id="cr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".5" stop-color="#B9BFC6"/><stop offset="1" stop-color="#7C838B"/></linearGradient>
+<filter id="so" x="-20%" y="-200%" width="140%" height="500%"><feGaussianBlur stdDeviation="4"/></filter>
+</defs><ellipse cx="143.0" cy="140" rx="113.0" ry="6" fill="#000" opacity=".28" filter="url(#so)"/><ellipse cx="143.0" cy="140" rx="90.4" ry="2.5" fill="#000" opacity=".35" filter="url(#so)"/>
+<path d="M34 40h176q8 0 12 6l2 4H32l-2-4q0-6 4-6z" fill="#2A2D31"/><path d="M36 42h170" stroke="#4E535B" stroke-width="1.4"/>
+<path d="M40 50v52M118 50v52M202 50 222 90" stroke="#2A2D31" stroke-width="3.5" stroke-linecap="round"/>
+<path d="M208 52 228 88h-12l-14-36z" fill="url(#vi)" opacity=".85"/>
+<path d="M30 116V96q0-6 6-6h156q20 0 34 8l20 10q6 4 6 10v4q0 4-4 4h-18a20 20 0 0 0-40 0H98a20 20 0 0 0-40 0H34q-4 0-4-4z" fill="url(#cu)" stroke="#A5A9AD" stroke-width=".8"/>
+<path d="M50 90h60v-12q0-4-4-4H56q-6 0-6 6z" fill="#3A3E45"/><path d="M128 90h52v-12q0-4-4-4h-42q-6 0-6 6z" fill="#3A3E45"/>
+<path d="M32 104h214" stroke="#8D9196" stroke-width="1.2" opacity=".5"/><path d="M244 104h8v6h-8z" fill="#F7F3E6"/><path d="M31 98h5v8h-5z" fill="#B3261E"/>
+<path d="M150 108l6-8h-4l3-6" fill="none" stroke="#16855A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M36 92h154q18 0 30 6" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" opacity="0.55"/><circle cx="78" cy="122" r="17" fill="#17191C"/><circle cx="78" cy="122" r="15.5" fill="none" stroke="#2A2D31" stroke-width="1"/><circle cx="78" cy="122" r="9.5" fill="url(#ll)"/><circle cx="78" cy="122" r="9.5" fill="none" stroke="#4A5058" stroke-width=".8"/><circle cx="78" cy="122" r="2.7" fill="#3B4047"/><circle cx="222" cy="122" r="17" fill="#17191C"/><circle cx="222" cy="122" r="15.5" fill="none" stroke="#2A2D31" stroke-width="1"/><circle cx="222" cy="122" r="9.5" fill="url(#ll)"/><circle cx="222" cy="122" r="9.5" fill="none" stroke="#4A5058" stroke-width=".8"/><circle cx="222" cy="122" r="2.7" fill="#3B4047"/></svg>
