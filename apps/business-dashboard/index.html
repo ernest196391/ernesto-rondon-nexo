@@ -201,6 +201,7 @@
       <div class="seg" id="prod-seg" role="group" aria-label="Qué productos" hidden>
         <button type="button" data-psub="propios" aria-pressed="true">Mis productos</button>
         <button type="button" data-psub="proveedores" aria-pressed="false">Proveedores · bajo pedido</button>
+        <button type="button" data-psub="vendedores" aria-pressed="false">Vendedores</button>
       </div>
       <div data-psub-box="propios">
       <p class="inv-help" id="inv-help">Para añadir colores a un producto, ábrelo → <strong>Diseños y colores</strong>. Para mercancía que llegó, usa <strong>Llegó mercancía</strong> (Recibir mercancía).</p>
@@ -226,6 +227,15 @@
       <div class="bulk-bar" id="bulk-bar" hidden><span id="bulk-count">Toca los productos</span><span class="bulk-actions"><button type="button" class="btn btn-secondary" id="bulk-retire" disabled>Ocultar</button><button type="button" class="btn btn-primary" id="bulk-go" disabled>Cambiar precio o comisión</button></span></div>
       <section class="panel" id="inventory"><p class="muted">Cargando…</p></section>
       <button type="button" class="btn btn-ghost btn-block" id="recv-history">Ver mercancía recibida</button>
+      </div>
+      <!-- 30-oct (Core 3.14.87): artículos de los vendedores (Daykel). Lennys los revisa DESPUÉS de publicar: ✓ o ocultar. -->
+      <div data-psub-box="vendedores" hidden>
+        <p class="inv-help">Piezas que ponen los vendedores en su tienda propia. Ya están publicadas: tú las revisas después. <strong>✓</strong> las deja como buenas; <strong>Ocultar</strong> las quita de su tienda y de las gestoras.</p>
+        <div class="chips" id="vd-tab" role="group" aria-label="Mostrar">
+          <button type="button" class="chip" data-t="nuevos" aria-pressed="true">Nuevos</button>
+          <button type="button" class="chip" data-t="todos" aria-pressed="false">Todos</button>
+        </div>
+        <section class="panel" id="vd-list"><p class="muted">Cargando…</p></section>
       </div>
       <div data-psub-box="proveedores" hidden>
         <p class="inv-help">Lo que anuncian los proveedores en los grupos. Eliges el precio y lo publicas en la web como <strong>«Bajo pedido · llega en 24 h»</strong>. La comisión de la gestora es fija: 40 % de la ganancia.</p>
@@ -510,6 +520,8 @@ async function loadWebMonth() {
       + "</section>";
     box.querySelector("section").insertAdjacentHTML("beforeend", '<button type="button" class="btn btn-secondary btn-block" id="see-history" style="margin-top:8px">' + icon("chart", "sm") + "Meses anteriores</button>");
     $("#see-history").onclick = openHistory;
+    box.querySelector("section").insertAdjacentHTML("beforeend", '<button type="button" class="btn btn-secondary btn-block" id="see-cierre" style="margin-top:8px">' + icon("wallet", "sm") + "Cierre del día y del mes</button>");
+    $("#see-cierre").onclick = () => void openCierre();
     const seeOut = $("#see-out");
     if (seeOut) seeOut.onclick = () => openProducts("out");
     const see = $("#see-web-open");
@@ -571,6 +583,111 @@ async function loadStaffPay() {
     + "Los % se cambian en Ajustes → Costos.</p></section>";
 }
 // Historial por meses (como BizneCubano): web + tienda, número de ventas y promedio por venta.
+// 4-nov (Ernesto, D135): «Cierre» del día o del mes para las dueñas. Tienda (web + caja) y bajo pedido (MK-) aparte;
+// 0,5 % dependientas y 1,5 % Ernesto solo sobre la tienda web; gastos fijos e IA del mes repartidos por día.
+// Datos: Core /panel/contabilidad (pedidos completados ese día de Cuba) + nexo_business_report (caja). Solo lectura.
+let cierreState = { modo: "mes", dia: "" };
+async function openCierre() {
+  const sheet = openSheet('<div class="sheet-head"><h2>Cierre</h2><button type="button" class="btn btn-ghost" data-close>Cerrar</button></div><div data-body><p class="muted">Cargando…</p></div>', "Cierre");
+  const body = sheet.el.querySelector("[data-body]");
+  const hoy = isoDay(new Date());
+  if (!cierreState.dia) cierreState.dia = hoy;
+  const MESES = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
+  const draw = async () => {
+    const { modo, dia } = cierreState;
+    const [y, m, d] = dia.split("-").map(Number);
+    const diasMes = new Date(Date.UTC(y, m, 0)).getUTCDate();
+    const desde = modo === "mes" ? dia.slice(0, 8) + "01" : dia;
+    const finMes = dia.slice(0, 8) + String(diasMes).padStart(2, "0");
+    const hasta = modo === "mes" ? (finMes < hoy ? finMes : hoy) : dia;
+    const dias = modo === "mes" ? Number(hasta.slice(8)) : 1;
+    const label = modo === "mes" ? MESES[m - 1] + " de " + y + (hasta === hoy ? " (hasta hoy)" : "") : d + " de " + MESES[m - 1];
+    body.innerHTML = '<p class="muted">Cargando…</p>';
+    const [W, caja] = await Promise.all([
+      panelWeb({ action: "contabilidad", desde, hasta }).catch(e => ({ error: e.message })),
+      supabase.rpc("nexo_business_report", { p_business: bizId(), p_from: desde, p_to: hasta }).then(r => (r.error || r.data?.error ? null : r.data)),
+    ]);
+    if (W.error) { body.innerHTML = '<p class="muted">No se pudo leer la web: ' + esc(W.error) + "</p>"; return; }
+    const n = v => Number(v) || 0;
+    const T = W.tienda, B = W.bajo_pedido, pct = W.porcentajes, g = W.gastos_mes ?? { fijos: 0, ia: 0 };
+    const cajaVentas = caja ? (n(caja.totals.usdMinor) - n(caja.totals.refundsMinor)) / 100 : 0;
+    const cajaGan = caja ? n(caja.totals.profitUsd) : 0;
+    const cajaSinCosto = caja ? (n(caja.totals.usdMinor) - n(caja.totals.costedMinor)) / 100 : 0;
+    const rep = (W.reparto_bajo_pedido ?? []).map(p => ({ ...p, rate: n(p.rate) || 1 }));
+    const sr = f => rep.reduce((s, p) => s + f(p), 0);
+    const bp = { ingresos: B.ventas, proveedor: rep.length ? sr(p => n(p.costUsd)) : B.proveedor, gestoras: rep.length ? sr(p => n(p.gestoraUsd)) : B.comision,
+      mensajeros: sr(p => n(p.messengerCup) / p.rate), dependientas: sr(p => n(p.clerkCup) / p.rate), tienda: sr(p => n(p.storeCup) / p.rate) };
+    bp.margen = bp.ingresos - bp.proveedor;
+    bp.ernesto = bp.margen - bp.gestoras - bp.mensajeros - bp.dependientas - bp.tienda;
+    const fijos = n(g.fijos) * dias / diasMes, ia = n(g.ia) * dias / diasMes;
+    const entro = T.ventas + cajaVentas;
+    const queda = T.margen + cajaGan - fijos - ia + bp.tienda;
+    const pctTxt = v => String(v).replace(".", ",");
+    const cuenta = [
+      ["Ventas web (sin bajo pedido)", T.ventas, T.pedidos + " pedidos entregados y cobrados"],
+      ["Ventas de la caja", cajaVentas, caja ? n(caja.totals.sales) + " ventas en la tienda" : "No se pudo leer la caja"],
+      ["Mercancía (web)", -T.costo, "Costo guardado en cada venta"],
+      ["Comisiones de gestoras (web)", -T.comision, "Pagadas o no"],
+      ["Dependientas (" + pctTxt(pct.dependientas) + " %)", -T.dependientas, "Sobre " + usd2(T.base_porcentajes) + " (sin la subida de las gestoras)"],
+      ["Ernesto (" + pctTxt(pct.ernesto) + " %)", -T.ernesto, "Sobre la misma base"],
+      ["Costo y pagos de la caja", -(cajaVentas - cajaGan), "Mercancía, comisiones y % de la caja"],
+      ["Gastos fijos", -fijos, dias + " de " + diasMes + " días de " + usd2(g.fijos) + " al mes"],
+      ["IA y herramientas", -ia, dias + " de " + diasMes + " días de " + usd2(g.ia) + " al mes"],
+      ["Lo que deja bajo pedido a la tienda", bp.tienda, "Parte «tienda» del reparto"],
+      ["Ganancia de Casa Viva", queda, "Lo que queda"],
+    ];
+    const cbp = [["Ingresos", bp.ingresos], ["Pagado a proveedores", -bp.proveedor], ["Margen", bp.margen], ["Gestoras", -bp.gestoras], ["Mensajeros", -bp.mensajeros],
+      ["Dependientas", -bp.dependientas], ["Tienda Casa Viva", -bp.tienda], ["Ernesto (gestor especial)", bp.ernesto]];
+    const money = v => (v < 0 ? "−" : "") + usd2(Math.abs(v));
+    const row = (label, v, sub, strong) => '<div class="kv' + (strong ? " strong" : "") + '"><span>' + esc(label) + (sub ? '<br><span class="t-xs muted">' + esc(sub) + "</span>" : "") + '</span><span class="num"' + (v < 0 ? ' style="color:var(--nx-danger)"' : "") + ">" + money(v) + "</span></div>";
+    const tile = (label, value, sub, tone) => '<div class="kpi"><span class="label">' + label + '</span><span class="value num" style="font-size:var(--nx-fs-lg)' + (tone ? ";color:var(--nx-" + tone + ")" : "") + '">' + value + '</span><span class="t-xs muted">' + sub + "</span></div>";
+    const cada = cuenta.filter(([l, v]) => v < 0).map(([l, v]) => [l, entro ? Math.abs(v) / entro * 100 : 0]).concat([["Queda para Casa Viva", entro ? Math.max(0, queda) / entro * 100 : 0]]);
+    const mx = Math.max(1, ...cada.map(c => c[1]));
+    const bars = cada.map(([l, v]) => '<div class="kv"><span class="t-sm">' + esc(l) + '</span><span class="num t-sm">' + v.toFixed(1).replace(".", ",") + "</span></div>"
+      + '<div style="height:8px;border-radius:4px;background:var(--nx-surface-2,rgba(127,127,127,.15));margin:-4px 0 6px"><div style="height:100%;border-radius:4px;width:' + (v / mx * 100).toFixed(1) + "%;background:" + (l === "Queda para Casa Viva" ? "var(--nx-ok)" : "var(--nx-muted,#8a9a94)") + '"></div></div>').join("");
+    const C = W.comisiones ?? { tienda: {}, bajo_pedido: {} };
+    const avisos = [
+      T.lineas_sin_costo + B.lineas_sin_costo ? (T.lineas_sin_costo + B.lineas_sin_costo) + " productos de la web vendidos sin costo (" + usd2(T.ventas_sin_costo + B.ventas_sin_costo) + "): su ganancia sale inflada." : "",
+      cajaSinCosto > 0.5 ? "La caja vendió " + usd2(cajaSinCosto) + " en productos sin costo: su ganancia sale inflada." : "",
+      rep.some(p => !p.saved) ? rep.filter(p => !p.saved).length + " pedidos de bajo pedido con el reparto «sugerido» (nadie lo guardó)." : "",
+      !caja ? "No se pudo leer la caja: faltan sus ventas." : "",
+    ].filter(Boolean);
+    body.innerHTML = '<div class="chips" role="group" aria-label="Periodo"><button type="button" class="chip" data-modo="dia" aria-pressed="' + (modo === "dia") + '">Día</button><button type="button" class="chip" data-modo="mes" aria-pressed="' + (modo === "mes") + '">Mes</button></div>'
+      + '<div class="kv"><button type="button" class="btn btn-ghost" data-mv="-1" aria-label="Anterior">‹</button><b>' + esc(label) + '</b><button type="button" class="btn btn-ghost" data-mv="1" aria-label="Siguiente"' + (hasta >= hoy ? " disabled" : "") + ">›</button></div>"
+      + '<div class="kpis">' + tile("Entró", money(entro), "Tienda: web + caja", "") + tile("Salió", money(entro - queda), "Mercancía, comisiones y gastos", "danger") + tile("Quedó", money(queda), entro ? (queda / entro * 100).toFixed(1).replace(".", ",") + " % de lo vendido" : "", "ok") + "</div>"
+      + '<h3 class="t-lg">De cada 100 USD vendidos</h3>' + bars
+      + '<h3 class="t-lg">La cuenta de la tienda</h3><div class="breakdown">' + cuenta.map(([l, v, s]) => row(l, v, s, l === "Ganancia de Casa Viva")).join("") + "</div>"
+      + '<h3 class="t-lg">Bajo pedido, aparte</h3><p class="t-xs muted">Productos de proveedores (MK-). Su margen se reparte en cada pedido; no entra en el 0,5 % ni en el 1,5 %.</p><div class="breakdown">' + cbp.map(([l, v]) => row(l, v, "", l === "Margen" || l.startsWith("Ernesto"))).join("") + "</div>"
+      + '<h3 class="t-lg">Comisiones de la web</h3><div class="breakdown">' + row("Tienda · pagadas", n(C.tienda.pagado)) + row("Tienda · por pagar", n(C.tienda.por_pagar)) + row("Bajo pedido · pagadas", n(C.bajo_pedido.pagado)) + row("Bajo pedido · por pagar", n(C.bajo_pedido.por_pagar)) + "</div>"
+      + (avisos.length ? '<h3 class="t-lg">Para revisar</h3>' + avisos.map(a => '<p class="t-sm">• ' + esc(a) + "</p>").join("") : "")
+      + '<p class="t-xs muted">Cuenta el día en que el pedido se entregó y se cobró. Cada pedido se puede comprobar en Pedidos.</p>'
+      + '<button type="button" class="btn btn-secondary btn-block" data-csv>' + icon("download", "sm") + "Bajar en Excel (CSV)</button>";
+    body.querySelectorAll("[data-modo]").forEach(b => (b.onclick = () => { cierreState.modo = b.dataset.modo; void draw(); }));
+    body.querySelectorAll("[data-mv]").forEach(b => (b.onclick = () => {
+      const k = Number(b.dataset.mv);
+      const t = modo === "mes" ? new Date(Date.UTC(y, m - 1 + k, 1)) : new Date(Date.UTC(y, m - 1, d + k));
+      let next = t.toISOString().slice(0, 10);
+      if (next > hoy) next = hoy;
+      cierreState.dia = next; void draw();
+    }));
+    body.querySelector("[data-csv]").onclick = () => {
+      const num = v => (Math.round(n(v) * 100) / 100).toFixed(2).replace(".", ",");
+      const cell = v => '"' + String(v ?? "").replace(/"/g, '""') + '"';
+      const rows = [["Cierre de Casa Viva", label], [], ["Partida", "USD", "De dónde sale"], ...cuenta.map(([l, v, s]) => [l, num(v), s]),
+        [], ["Bajo pedido", "USD"], ...cbp.map(([l, v]) => [l, num(v)]),
+        [], ["Pedido bajo pedido", "Producto", "Gestora", "Venta", "Proveedor", "Gestora USD", "Reparto"], ...rep.map(p => [p.number, p.products, p.gestora, num(p.webUsd), num(p.costUsd), num(p.gestoraUsd), p.saved ? "guardado" : "sugerido"]),
+        [], ["Día", "Tienda web USD", "Bajo pedido USD"], ...(W.por_dia ?? []).map(r => [r.dia, num(r.tienda), num(r.bajo_pedido)])];
+      const blob = new Blob(["﻿" + rows.map(r => r.map(cell).join(";")).join("\r\n")], { type: "text/csv;charset=utf-8" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "cierre-casa-viva-" + desde + (hasta !== desde ? "_" + hasta : "") + ".csv";
+      a.click();
+      setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+    };
+  };
+  await draw();
+}
+
 async function openHistory() {
   const sheet = openSheet('<div class="sheet-head"><h2>Meses anteriores</h2><button type="button" class="btn btn-ghost" data-close>Cerrar</button></div><div data-hist><p class="muted">Cargando…</p></div>', "Meses anteriores");
   const box = sheet.el.querySelector("[data-hist]");
@@ -2156,7 +2273,38 @@ function showProdSub(sub) {
   document.querySelectorAll("#prod-seg [data-psub]").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.psub === sub)));
   document.querySelectorAll("[data-psub-box]").forEach(el => (el.hidden = el.dataset.psubBox !== sub));
   if (sub === "proveedores") void loadMarket();
+  if (sub === "vendedores") void loadSellerItems();
 }
+// 30-oct: artículos de vendedores (Core 3.14.87, /panel/vendedores/*). Revisión después de publicar: ✓ o ocultar.
+let vdTab = "nuevos";
+async function loadSellerItems() {
+  const box = $("#vd-list");
+  box.innerHTML = mkLoading("Buscando artículos de vendedores…");
+  try {
+    const data = await panelWeb({ action: "vendedores_list", ver: vdTab });
+    const items = data.items ?? [];
+    box.innerHTML = items.length ? items.map(it => {
+      const state = it.hidden ? '<span class="badge badge-out">Oculto por Casa Viva</span>' : it.paused ? '<span class="badge badge-low">Pausado</span>' : it.reviewed === "nuevo" ? '<span class="badge badge-ok">Nuevo</span>' : '<span class="badge">Revisado</span>';
+      return '<div class="inv-row" data-vd="' + it.id + '"><span style="display:flex;gap:10px;align-items:center;flex:1;min-width:0">'
+        + (it.photo ? '<img src="' + esc(it.photo) + '" alt="" width="56" height="56" style="border-radius:8px;object-fit:cover">' : "")
+        + '<span style="min-width:0"><strong>' + esc(it.title) + '</strong><br><span class="t-xs muted">' + esc(it.seller) + " · " + (it.price >= 0.5 ? dollars(it.price) : "sin precio")
+        + (it.stock == null ? "" : " · quedan " + it.stock) + (it.offer ? " · gestoras ganan " + dollars(it.gestoraUsd) : "") + "</span><br>" + state
+        + (it.url ? ' · <a href="' + esc(it.url) + '" target="_blank" rel="noopener">Ver</a>' : "") + "</span></span>"
+        + '<span style="display:flex;flex-direction:column;gap:4px"><button type="button" class="btn btn-secondary" data-vd-ok="' + it.id + '">✓</button>'
+        + '<button type="button" class="btn btn-ghost" data-vd-hide="' + it.id + '" data-on="' + (it.hidden ? "mostrar" : "ocultar") + '">' + (it.hidden ? "Mostrar" : "Ocultar") + "</button></span></div>";
+    }).join("") : '<p class="muted">' + (vdTab === "nuevos" ? "Nada nuevo por revisar." : "Todavía no hay artículos de vendedores.") + "</p>";
+    const act = async (id, accion) => { try { await panelWeb({ action: "vendedores_review", id: Number(id), accion }); toast(accion === "ocultar" ? "Oculto." : "Hecho.", "ok"); void loadSellerItems(); } catch (e) { toast(e.message, "bad"); } };
+    box.querySelectorAll("[data-vd-ok]").forEach(b => (b.onclick = () => act(b.dataset.vdOk, "ok")));
+    box.querySelectorAll("[data-vd-hide]").forEach(b => (b.onclick = () => act(b.dataset.vdHide, b.dataset.on)));
+  } catch (e) {
+    box.innerHTML = '<p class="muted">' + esc(e.message) + "</p>";
+  }
+}
+document.querySelectorAll("#vd-tab [data-t]").forEach(b => (b.onclick = () => {
+  vdTab = b.dataset.t;
+  document.querySelectorAll("#vd-tab [data-t]").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+  void loadSellerItems();
+}));
 document.querySelectorAll("#prod-seg [data-psub]").forEach(b => (b.onclick = () => showProdSub(b.dataset.psub)));
 document.querySelectorAll("#mk-tab [data-t]").forEach(b => (b.onclick = () => {
   mkTab = b.dataset.t;
