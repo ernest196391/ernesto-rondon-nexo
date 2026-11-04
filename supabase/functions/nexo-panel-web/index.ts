@@ -799,6 +799,12 @@ Deno.serve(async req => {
       if (!part || !(Number(body.id) > 0)) return json(400, { error: "Pedido o parte no válidos." });
       return json(200, await core("POST", `panel/supplier-split/${Number(body.id)}/paid`, { part, paid: body.paid !== false, by }));
     }
+    // Datos del mes de la contabilidad (Core 3.14.138): {action:"contabilidad_mes_save", mes:"AAAA-MM", valores:{campo: valor}}. Queda quién lo cambió.
+    if (body.action === "contabilidad_mes_save") {
+      const mes = typeof body.mes === "string" && /^\d{4}-\d{2}$/.test(body.mes) ? body.mes : "";
+      if (!mes) return json(400, { error: "Mes no válido." });
+      return json(200, await core("POST", "panel/contabilidad/mes", { mes, valores: body.valores ?? {}, by }));
+    }
     if (body.action === "supplier_sales") {
       const month = typeof body.month === "string" && /^\d{4}-\d{2}$/.test(body.month) ? body.month : "";
       return json(200, await core("GET", `panel/supplier-sales?month=${month}`));

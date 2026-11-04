@@ -623,7 +623,12 @@ async function openCierre() {
     bp.ernesto = bp.margen - bp.gestoras - bp.mensajeros - bp.dependientas - bp.tienda;
     const fijos = n(g.fijos) * dias / diasMes, ia = n(g.ia) * dias / diasMes;
     const entro = T.ventas + cajaVentas;
-    const queda = T.margen + cajaGan - fijos - ia + bp.tienda;
+    // 3.14.138 (Ernesto 4-nov): en «Mes», los datos del mes que apunta Lennys (impuestos, cambio, reparaciones, ELIO, inversores).
+    const dm = modo === "mes" ? (W.datos_mes?.valores ?? {}) : {};
+    const dv = k => (dm[k] == null || dm[k] === "" ? 0 : Number(dm[k]));
+    const quedaBase = T.margen + cajaGan - fijos - ia + bp.tienda;
+    const queda = quedaBase - dv("impuestos_usd") - dv("fluctuacion_usd") - dv("reparaciones_usd") - dv("otros_gastos_usd") + dv("elio_usd");
+    const invPct = dv("inversores_pct"), inv = queda > 0 ? queda * invPct / 100 : 0;
     const pctTxt = v => String(v).replace(".", ",");
     const cuenta = [
       ["Ventas web (sin bajo pedido)", T.ventas, T.pedidos + " pedidos entregados y cobrados"],
@@ -636,13 +641,16 @@ async function openCierre() {
       ["Gastos fijos", -fijos, dias + " de " + diasMes + " días de " + money(n(g.fijos)) + " al mes"],
       ["IA y herramientas", -ia, dias + " de " + diasMes + " días de " + money(n(g.ia)) + " al mes"],
       ["Lo que deja bajo pedido a la tienda", bp.tienda, "Parte «tienda» del reparto"],
+      ...(modo === "mes" ? [["Impuestos", -dv("impuestos_usd"), "Datos del mes"], ["Fluctuación del cambio", -dv("fluctuacion_usd"), "Datos del mes"], ["Reparaciones", -dv("reparaciones_usd"), "Datos del mes"],
+        ["Otros gastos", -dv("otros_gastos_usd"), "Datos del mes"], ["Parte de ELIO para Casa Viva", dv("elio_usd"), "Datos del mes"]].filter(r => r[1]) : []),
       ["Ganancia de Casa Viva", queda, "Lo que queda"],
+      ...(inv ? [["Para inversores (" + pctTxt(invPct) + " %)", -inv, "Datos del mes"], ["Queda para Casa Viva", queda - inv, "Después de inversores"]] : []),
     ];
     const cbp = [["Ingresos", bp.ingresos], ["Pagado a proveedores", -bp.proveedor], ["Margen", bp.margen], ["Gestoras", -bp.gestoras], ["Mensajeros", -bp.mensajeros],
       ["Dependientas", -bp.dependientas], ["Tienda Casa Viva", -bp.tienda], ["Ernesto (gestor especial)", bp.ernesto]];
     const row = (label, v, sub, strong) => '<div class="kv' + (strong ? " strong" : "") + '"><span>' + esc(label) + (sub ? '<br><span class="t-xs muted">' + esc(sub) + "</span>" : "") + '</span><span class="num"' + (v < 0 ? ' style="color:var(--nx-danger)"' : "") + ">" + money(v) + "</span></div>";
     const tile = (label, value, sub, tone) => '<div class="kpi"><span class="label">' + label + '</span><span class="value num" style="font-size:var(--nx-fs-lg)' + (tone ? ";color:var(--nx-" + tone + ")" : "") + '">' + value + '</span><span class="t-xs muted">' + sub + "</span></div>";
-    const cada = cuenta.filter(([l, v]) => v < 0 && l !== "Ganancia de Casa Viva").map(([l, v]) => [l, entro ? Math.abs(v) / entro * 100 : 0]).concat([["Queda para Casa Viva", entro ? Math.max(0, queda) / entro * 100 : 0]]);
+    const cada = cuenta.filter(([l, v]) => v < 0 && l !== "Ganancia de Casa Viva").map(([l, v]) => [l, entro ? Math.abs(v) / entro * 100 : 0]).concat([["Queda para Casa Viva", entro ? Math.max(0, queda - inv) / entro * 100 : 0]]);
     const mx = Math.max(1, ...cada.map(c => c[1]));
     const bars = cada.map(([l, v]) => '<div style="display:flex;justify-content:space-between;gap:8px;margin-top:10px"><span class="t-sm">' + esc(l) + '</span><span class="num t-sm">' + v.toFixed(1).replace(".", ",") + "</span></div>"
       + '<div style="height:8px;border-radius:4px;background:var(--nx-surface-2,rgba(127,127,127,.15));margin-top:4px"><div style="height:100%;border-radius:4px;width:' + (v / mx * 100).toFixed(1) + "%;background:" + (l === "Queda para Casa Viva" ? "var(--nx-ok)" : "var(--nx-muted,#8a9a94)") + '"></div></div>').join("");
@@ -655,15 +663,24 @@ async function openCierre() {
     ].filter(Boolean);
     body.innerHTML = '<div class="chips" role="group" aria-label="Periodo"><button type="button" class="chip" data-modo="dia" aria-pressed="' + (modo === "dia") + '">Día</button><button type="button" class="chip" data-modo="mes" aria-pressed="' + (modo === "mes") + '">Mes</button></div>'
       + '<div class="kv"><button type="button" class="btn btn-ghost" data-mv="-1" aria-label="Anterior">‹</button><b>' + esc(label) + '</b><button type="button" class="btn btn-ghost" data-mv="1" aria-label="Siguiente"' + (hasta >= hoy ? " disabled" : "") + ">›</button></div>"
-      + '<div class="kpis">' + tile("Entró", money(entro), "Tienda: web + caja", "") + tile("Salió", money(entro - queda), "Mercancía, comisiones y gastos", "danger") + tile("Quedó", money(queda), entro ? (queda / entro * 100).toFixed(1).replace(".", ",") + " % de lo vendido" : "", "ok") + "</div>"
+      + '<div class="kpis">' + tile("Entró", money(entro), "Tienda: web + caja", "") + tile("Salió", money(entro - queda), "Mercancía, comisiones y gastos", "danger") + tile("Quedó", money(queda), (entro ? (queda / entro * 100).toFixed(1).replace(".", ",") + " % de lo vendido" : "") + (inv ? " · Casa Viva " + money(queda - inv) + " tras inversores" : ""), "ok") + "</div>"
       + '<h3 class="t-lg">De cada 100 USD vendidos</h3>' + (entro > 0 ? bars : '<p class="t-sm muted">No se completó ninguna venta en este periodo. Los gastos fijos y de IA del día siguen contando.</p>')
-      + '<h3 class="t-lg">La cuenta de la tienda</h3><div class="breakdown">' + cuenta.map(([l, v, s]) => row(l, v, s, l === "Ganancia de Casa Viva")).join("") + "</div>"
+      + '<h3 class="t-lg">La cuenta de la tienda</h3><div class="breakdown">' + cuenta.map(([l, v, s]) => row(l, v, s, l === "Ganancia de Casa Viva" || l === "Queda para Casa Viva")).join("") + "</div>"
+      + (modo === "mes" ? datosMesHtml(W.datos_mes) : "")
       + '<h3 class="t-lg">Bajo pedido, aparte</h3><p class="t-xs muted">Productos de proveedores (MK-). Su margen se reparte en cada pedido; no entra en el 0,5 % ni en el 1,5 %.</p><div class="breakdown">' + cbp.map(([l, v]) => row(l, v, "", l === "Margen" || l.startsWith("Ernesto"))).join("") + "</div>"
       + '<h3 class="t-lg">Comisiones de la web</h3><div class="breakdown">' + row("Tienda · pagadas", n(C.tienda.pagado)) + row("Tienda · por pagar", n(C.tienda.por_pagar)) + row("Bajo pedido · pagadas", n(C.bajo_pedido.pagado)) + row("Bajo pedido · por pagar", n(C.bajo_pedido.por_pagar)) + "</div>"
       + (avisos.length ? '<h3 class="t-lg">Para revisar</h3>' + avisos.map(a => '<p class="t-sm">• ' + esc(a) + "</p>").join("") : "")
       + '<p class="t-xs muted">Cuenta el día en que el pedido se entregó y se cobró. «A pagar este mes» cuenta por el mes en que se hizo el pedido: un pedido de un mes cobrado al siguiente sale en meses distintos, pero la suma de los meses es la misma. Cada pedido se puede comprobar en Pedidos.</p>'
       + '<button type="button" class="btn btn-secondary btn-block" data-csv>' + icon("download", "sm") + "Bajar en Excel (CSV)</button>";
     body.querySelectorAll("[data-modo]").forEach(b => (b.onclick = () => { cierreState.modo = b.dataset.modo; void draw(); }));
+    const dmForm = body.querySelector("[data-dm-form]");
+    if (dmForm) dmForm.onsubmit = async ev => {
+      ev.preventDefault();
+      const btn = dmForm.querySelector("button[type=submit]"); btn.disabled = true;
+      const valores = {}; dmForm.querySelectorAll("[data-dm]").forEach(i => (valores[i.dataset.dm] = i.value));
+      try { await panelWeb({ action: "contabilidad_mes_save", mes: desde.slice(0, 7), valores }); toast("Guardado. El cierre se recalcula."); void draw(); }
+      catch (e) { btn.disabled = false; toast(e.message); }
+    };
     body.querySelectorAll("[data-mv]").forEach(b => (b.onclick = () => {
       const k = Number(b.dataset.mv);
       const t = modo === "mes" ? new Date(Date.UTC(y, m - 1 + k, 1)) : new Date(Date.UTC(y, m - 1, d + k));
@@ -689,6 +706,19 @@ async function openCierre() {
   await draw();
 }
 
+// 3.14.138: formulario «Datos del mes» (lo que la web no sabe sola). Cada cambio queda con quién y cuándo.
+function datosMesHtml(dmData) {
+  if (!dmData?.campos) return "";
+  const v = dmData.valores ?? {};
+  const fields = Object.entries(dmData.campos).map(([k, label]) => k === "nota"
+    ? '<label class="field">' + esc(label) + '<textarea data-dm="nota" rows="2" maxlength="600">' + esc(v.nota ?? "") + "</textarea></label>"
+    : '<label class="field">' + esc(label) + (k === "inversores_pct" ? " (%)" : " (USD)") + '<input data-dm="' + k + '" inputmode="decimal" value="' + esc(v[k] ?? "") + '" placeholder="sin dato"></label>').join("");
+  const hist = (dmData.historial ?? []).slice(-6).reverse().map(h => '<p class="t-xs muted">' + esc(new Date(h.at).toLocaleString("es", { timeZone: HAVANA, day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }))
+    + " · " + esc(h.by) + " · " + esc(dmData.campos[h.campo] ?? h.campo) + ": " + esc(h.antes ?? "—") + " → " + esc(h.despues ?? "—") + "</p>").join("");
+  return '<h3 class="t-lg">Datos del mes</h3><p class="t-xs muted">Lo que la web no sabe sola. Déjalo vacío si ese mes no hubo. Gastos fijos e IA: solo si cambian ese mes.</p>'
+    + '<form class="form" data-dm-form>' + fields + '<button type="submit" class="btn btn-primary btn-block">Guardar datos del mes</button></form>'
+    + (hist ? '<h3 class="t-lg">Últimos cambios</h3>' + hist : "");
+}
 async function openHistory() {
   const sheet = openSheet('<div class="sheet-head"><h2>Meses anteriores</h2><button type="button" class="btn btn-ghost" data-close>Cerrar</button></div><div data-hist><p class="muted">Cargando…</p></div>', "Meses anteriores");
   const box = sheet.el.querySelector("[data-hist]");
