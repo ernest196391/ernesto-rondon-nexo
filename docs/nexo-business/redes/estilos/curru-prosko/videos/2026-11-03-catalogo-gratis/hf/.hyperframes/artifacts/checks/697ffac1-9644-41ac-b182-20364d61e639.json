@@ -1,0 +1,914 @@
+{
+  "ok": true,
+  "strict": false,
+  "browserSkipped": false,
+  "lint": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 3,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "duplicate_media_discovery_risk",
+        "severity": "warning",
+        "message": "Detected 2 matching img entries with the same source/start/duration.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\Ernesto\\ernesto-rondon-nexo\\docs\\nexo-business\\redes\\estilos\\curru-prosko\\videos\\2026-11-03-catalogo-gratis\\hf\\index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Avoid duplicated media nodes that can be discovered twice during compilation."
+      },
+      {
+        "code": "nested_structure_needs_subcomposition",
+        "severity": "warning",
+        "message": "<div id=\"escena\"> is a timeline element that contains nested <div id=\"camara\">. The timeline shows one row per top-level element, and the root composition is built only from sub-compositions.",
+        "selector": "#escena",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\Ernesto\\ernesto-rondon-nexo\\docs\\nexo-business\\redes\\estilos\\curru-prosko\\videos\\2026-11-03-catalogo-gratis\\hf\\index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move <div id=\"escena\"> and its contents into a sub-composition file and mount it with data-composition-src."
+      },
+      {
+        "code": "nested_structure_needs_subcomposition",
+        "severity": "warning",
+        "message": "<div id=\"fin\"> is a timeline element that contains nested <div id=\"fin-preg\">. The timeline shows one row per top-level element, and the root composition is built only from sub-compositions.",
+        "selector": "#fin",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\Ernesto\\ernesto-rondon-nexo\\docs\\nexo-business\\redes\\estilos\\curru-prosko\\videos\\2026-11-03-catalogo-gratis\\hf\\index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move <div id=\"fin\"> and its contents into a sub-composition file and mount it with data-composition-src."
+      }
+    ],
+    "filesScanned": 1
+  },
+  "runtime": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 1,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "clip_media_fit",
+        "severity": "warning",
+        "message": "Audio \"fx-tapa\" is 0.57s but its slot (data-duration) is 1.00s — the slot is shortened to the media length when rendered. Set data-duration to ~0.57s if that isn't intended.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "21",
+          "data-width": "1080",
+          "data-height": "1920"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1080,
+          "height": 1920
+        },
+        "time": 0
+      }
+    ]
+  },
+  "layout": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 15,
+    "findings": [
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 1.167,
+        "selector": "#d1 > div:nth-of-type(3)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 917.38,
+          "top": 1424.06,
+          "right": 1105.13,
+          "bottom": 1488.07,
+          "width": 187.75,
+          "height": 64.01
+        },
+        "containerSelector": "#tapa-a",
+        "text": "CASA VIVA",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 0.78,
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 917.38,
+          "y": 1424.06,
+          "width": 187.75,
+          "height": 64.01
+        },
+        "firstSeen": 1.167,
+        "lastSeen": 1.167,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          1.167
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 5.833,
+        "selector": "#i2 > div:nth-of-type(1)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 38.26,
+          "top": 828.79,
+          "right": 132.66,
+          "bottom": 876.26,
+          "width": 94.4,
+          "height": 47.48
+        },
+        "containerSelector": "#g1 > div:nth-of-type(2)",
+        "text": "N.º 2",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 38.26,
+          "y": 828.79,
+          "width": 94.4,
+          "height": 47.48
+        },
+        "firstSeen": 5.833,
+        "lastSeen": 5.833,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          5.833
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 5.833,
+        "selector": "#i2 > div:nth-of-type(2)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 16.07,
+          "top": 838.85,
+          "right": 423.38,
+          "bottom": 998.72,
+          "width": 407.31,
+          "height": 159.87
+        },
+        "containerSelector": "#g1 > div:nth-of-type(2)",
+        "text": "Banqueta roja capitoné",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 16.07,
+          "y": 838.85,
+          "width": 407.31,
+          "height": 159.87
+        },
+        "firstSeen": 5.833,
+        "lastSeen": 5.833,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          5.833
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 5.833,
+        "selector": "#i2 > div:nth-of-type(3)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": -18.41,
+          "top": 1135.24,
+          "right": 104.13,
+          "bottom": 1189.06,
+          "width": 122.54,
+          "height": 53.82
+        },
+        "containerSelector": "#g1 > div:nth-of-type(2)",
+        "text": "Detalles",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 0.78,
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": -18.41,
+          "y": 1135.24,
+          "width": 122.54,
+          "height": 53.82
+        },
+        "firstSeen": 5.833,
+        "lastSeen": 5.833,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          5.833
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 5.833,
+        "selector": "#i2 > div:nth-of-type(4)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": -28.94,
+          "top": 1174.96,
+          "right": 241.05,
+          "bottom": 1247.14,
+          "width": 269.99,
+          "height": 72.18
+        },
+        "containerSelector": "#g1 > div:nth-of-type(2)",
+        "text": "Asiento acolchado",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 0.78,
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": -28.94,
+          "y": 1174.96,
+          "width": 269.99,
+          "height": 72.18
+        },
+        "firstSeen": 5.833,
+        "lastSeen": 5.833,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          5.833
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 5.833,
+        "selector": "#i2 > div:nth-of-type(5)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": -38.89,
+          "top": 1220.52,
+          "right": 297.44,
+          "bottom": 1302.05,
+          "width": 336.33,
+          "height": 81.53
+        },
+        "containerSelector": "#g1 > div:nth-of-type(2)",
+        "text": "Patas de metal con aro",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 0.78,
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": -38.89,
+          "y": 1220.52,
+          "width": 336.33,
+          "height": 81.53
+        },
+        "firstSeen": 5.833,
+        "lastSeen": 5.833,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          5.833
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 5.833,
+        "selector": "#i2 > div:nth-of-type(6)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": -49.32,
+          "top": 1273.74,
+          "right": 306.88,
+          "bottom": 1359.64,
+          "width": 356.2,
+          "height": 85.89
+        },
+        "containerSelector": "#g1 > div:nth-of-type(2)",
+        "text": "Fácil de limpiar y mover",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 0.78,
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": -49.32,
+          "y": 1273.74,
+          "width": 356.2,
+          "height": 85.89
+        },
+        "firstSeen": 5.833,
+        "lastSeen": 5.833,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          5.833
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 5.833,
+        "selector": "#i2 > div:nth-of-type(7)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": -57.53,
+          "top": 1450.83,
+          "right": 187.52,
+          "bottom": 1576.46,
+          "width": 245.05,
+          "height": 125.63
+        },
+        "containerSelector": "#g1 > div:nth-of-type(2)",
+        "text": "24 USD",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 0.67,
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": -57.53,
+          "y": 1450.83,
+          "width": 245.05,
+          "height": 125.63
+        },
+        "firstSeen": 5.833,
+        "lastSeen": 5.833,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          5.833
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 12.833,
+        "selector": "#i4 > div:nth-of-type(1)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 27.04,
+          "top": 802.55,
+          "right": 125.38,
+          "bottom": 848.57,
+          "width": 98.34,
+          "height": 46.02
+        },
+        "containerSelector": "#g3 > div:nth-of-type(2)",
+        "text": "N.º 4",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 27.04,
+          "y": 802.55,
+          "width": 98.34,
+          "height": 46.02
+        },
+        "firstSeen": 12.833,
+        "lastSeen": 12.833,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          12.833
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 12.833,
+        "selector": "#i4 > div:nth-of-type(2)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 1.73,
+          "top": 822.06,
+          "right": 421.85,
+          "bottom": 974.12,
+          "width": 420.11,
+          "height": 152.06
+        },
+        "containerSelector": "#g3 > div:nth-of-type(2)",
+        "text": "Espejo LED 60 × 80 cm",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 1.73,
+          "y": 822.06,
+          "width": 420.11,
+          "height": 152.06
+        },
+        "firstSeen": 12.833,
+        "lastSeen": 12.833,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          12.833
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 12.833,
+        "selector": "#i4 > div:nth-of-type(3)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": -37.61,
+          "top": 1117.59,
+          "right": 89.81,
+          "bottom": 1169.28,
+          "width": 127.42,
+          "height": 51.69
+        },
+        "containerSelector": "#g3 > div:nth-of-type(2)",
+        "text": "Detalles",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 0.67,
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": -37.61,
+          "y": 1117.59,
+          "width": 127.42,
+          "height": 51.69
+        },
+        "firstSeen": 12.833,
+        "lastSeen": 12.833,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          12.833
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 12.833,
+        "selector": "#i4 > div:nth-of-type(4)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": -49.61,
+          "top": 1156.3,
+          "right": 311.28,
+          "bottom": 1228.83,
+          "width": 360.9,
+          "height": 72.53
+        },
+        "containerSelector": "#g3 > div:nth-of-type(2)",
+        "text": "Luz frontal y en el borde",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 0.78,
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": -49.61,
+          "y": 1156.3,
+          "width": 360.9,
+          "height": 72.53
+        },
+        "firstSeen": 12.833,
+        "lastSeen": 12.833,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          12.833
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 12.833,
+        "selector": "#i4 > div:nth-of-type(5)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": -60.96,
+          "top": 1222.88,
+          "right": 145.29,
+          "bottom": 1285.12,
+          "width": 206.25,
+          "height": 62.24
+        },
+        "containerSelector": "#g3 > div:nth-of-type(2)",
+        "text": "Control táctil",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 0.67,
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": -60.96,
+          "y": 1222.88,
+          "width": 206.25,
+          "height": 62.24
+        },
+        "firstSeen": 12.833,
+        "lastSeen": 12.833,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          12.833
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 12.833,
+        "selector": "#i4 > div:nth-of-type(6)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": -72.86,
+          "top": 1267.47,
+          "right": 286.01,
+          "bottom": 1344.17,
+          "width": 358.87,
+          "height": 76.69
+        },
+        "containerSelector": "#g3 > div:nth-of-type(2)",
+        "text": "Baño, tocador o cuarto",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 0.67,
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": -72.86,
+          "y": 1267.47,
+          "width": 358.87,
+          "height": 76.69
+        },
+        "firstSeen": 12.833,
+        "lastSeen": 12.833,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          12.833
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 12.833,
+        "selector": "#i4 > div:nth-of-type(7)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": -85.64,
+          "top": 1445.47,
+          "right": 170.26,
+          "bottom": 1567.44,
+          "width": 255.89,
+          "height": 121.97
+        },
+        "containerSelector": "#g3 > div:nth-of-type(2)",
+        "text": "60 USD",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 0.67,
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": -85.64,
+          "y": 1445.47,
+          "width": 255.89,
+          "height": 121.97
+        },
+        "firstSeen": 12.833,
+        "lastSeen": 12.833,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          12.833
+        ]
+      }
+    ],
+    "duration": 21,
+    "samples": [
+      1.167,
+      3.5,
+      5.833,
+      8.167,
+      10.5,
+      12.833,
+      15.167,
+      17.5,
+      19.833
+    ],
+    "transitionSamples": [],
+    "transitionSamplesDropped": 0,
+    "tolerance": 2,
+    "totalIssueCount": 15,
+    "truncated": false
+  },
+  "motion": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": false,
+    "samples": 0
+  },
+  "contrast": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 1,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "contrast_aa_failure",
+        "severity": "warning",
+        "message": "Contrast is 2.6:1; WCAG AA requires 3:1.",
+        "text": "CASA VIVA",
+        "fg": "rgb(163,90,31)",
+        "bg": "rgb(11,51,60)",
+        "ratio": 2.6,
+        "requiredRatio": 3,
+        "suggestedColor": "rgb(170,103,49)",
+        "large": true,
+        "selector": "div > div:nth-of-type(1) > div > div:nth-of-type(4) > div > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3)",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 917.3821411132812,
+          "y": 1424.058837890625,
+          "width": 187.75018310546875,
+          "height": 64.013671875
+        },
+        "time": 1.167,
+        "times": [
+          1.167
+        ]
+      }
+    ],
+    "enabled": true,
+    "samples": [
+      1.167,
+      5.833,
+      10.5,
+      15.167,
+      19.833
+    ],
+    "checked": 30,
+    "passed": 29
+  },
+  "craft": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 1,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and 24 text elements stay under it for 0.5 s or more, the smallest \"Lo nuevo de la casa\" at 10 px: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "Lo nuevo de la casa",
+        "selector": "#tapa-sub",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 638.77,
+          "y": 1226.84,
+          "width": 294.73,
+          "height": 80.69
+        },
+        "time": 0.5,
+        "times": [
+          0,
+          0.5,
+          1.875,
+          1.875,
+          1.875,
+          1.875,
+          5.25,
+          5.875,
+          5.875,
+          5.875,
+          5.875,
+          9,
+          9.5,
+          9.5,
+          9.5,
+          9.5,
+          12.25,
+          12.875,
+          12.875,
+          12.875,
+          12.875,
+          16,
+          16,
+          16
+        ],
+        "fontPx": 10.12,
+        "floorPx": 28,
+        "seconds": 1.75,
+        "elements": [
+          {
+            "selector": "#tapa-sub",
+            "text": "Lo nuevo de la casa",
+            "fontPx": 10.12,
+            "time": 0.5,
+            "seconds": 1.75
+          },
+          {
+            "selector": "#d1 > div:nth-of-type(3)",
+            "text": "CASA VIVA",
+            "fontPx": 18,
+            "time": 0,
+            "seconds": 5.25
+          },
+          {
+            "selector": "#d2 > div:nth-of-type(5)",
+            "text": "CASA VIVA",
+            "fontPx": 18.42,
+            "time": 5.25,
+            "seconds": 3.75
+          },
+          {
+            "selector": "#d3 > div:nth-of-type(3)",
+            "text": "CASA VIVA",
+            "fontPx": 18.72,
+            "time": 9,
+            "seconds": 3.25
+          },
+          {
+            "selector": "#d4 > div:nth-of-type(3)",
+            "text": "CASA VIVA",
+            "fontPx": 18.98,
+            "time": 12.25,
+            "seconds": 3.125
+          },
+          {
+            "selector": "#i1 > div:nth-of-type(3)",
+            "text": "Detalles",
+            "fontPx": 24.74,
+            "time": 1.875,
+            "seconds": 4
+          },
+          {
+            "selector": "#i1 > div:nth-of-type(4)",
+            "text": "20 cm de alto",
+            "fontPx": 24.74,
+            "time": 1.875,
+            "seconds": 4
+          },
+          {
+            "selector": "#i1 > div:nth-of-type(5)",
+            "text": "Luz suave y cálida",
+            "fontPx": 24.74,
+            "time": 1.875,
+            "seconds": 4
+          },
+          {
+            "selector": "#i1 > div:nth-of-type(6)",
+            "text": "Cristal con manchas blancas",
+            "fontPx": 24.74,
+            "time": 1.875,
+            "seconds": 4
+          },
+          {
+            "selector": "#i2 > div:nth-of-type(3)",
+            "text": "Detalles",
+            "fontPx": 25.18,
+            "time": 5.875,
+            "seconds": 3.625
+          },
+          {
+            "selector": "#i2 > div:nth-of-type(4)",
+            "text": "Asiento acolchado",
+            "fontPx": 25.18,
+            "time": 5.875,
+            "seconds": 3.625
+          },
+          {
+            "selector": "#i2 > div:nth-of-type(5)",
+            "text": "Patas de metal con aro",
+            "fontPx": 25.18,
+            "time": 5.875,
+            "seconds": 3.625
+          },
+          {
+            "selector": "#i2 > div:nth-of-type(6)",
+            "text": "Fácil de limpiar y mover",
+            "fontPx": 25.18,
+            "time": 5.875,
+            "seconds": 3.625
+          },
+          {
+            "selector": "#i3 > div:nth-of-type(3)",
+            "text": "Detalles",
+            "fontPx": 25.58,
+            "time": 9.5,
+            "seconds": 3.375
+          },
+          {
+            "selector": "#i3 > div:nth-of-type(4)",
+            "text": "71 × 48 cm",
+            "fontPx": 25.58,
+            "time": 9.5,
+            "seconds": 3.375
+          },
+          {
+            "selector": "#i3 > div:nth-of-type(5)",
+            "text": "Funda lavable, doble zíper",
+            "fontPx": 25.58,
+            "time": 9.5,
+            "seconds": 3.375
+          },
+          {
+            "selector": "#i3 > div:nth-of-type(6)",
+            "text": "Fresca y transpirable",
+            "fontPx": 25.58,
+            "time": 9.5,
+            "seconds": 3.375
+          },
+          {
+            "selector": "#i4 > div:nth-of-type(3)",
+            "text": "Detalles",
+            "fontPx": 25.94,
+            "time": 12.875,
+            "seconds": 3.125
+          },
+          {
+            "selector": "#i4 > div:nth-of-type(4)",
+            "text": "Luz frontal y en el borde",
+            "fontPx": 25.94,
+            "time": 12.875,
+            "seconds": 3.125
+          },
+          {
+            "selector": "#i4 > div:nth-of-type(5)",
+            "text": "Control táctil",
+            "fontPx": 25.94,
+            "time": 12.875,
+            "seconds": 3.125
+          },
+          {
+            "selector": "#i4 > div:nth-of-type(6)",
+            "text": "Baño, tocador o cuarto",
+            "fontPx": 25.94,
+            "time": 12.875,
+            "seconds": 3.125
+          },
+          {
+            "selector": "#i5 > div:nth-of-type(3)",
+            "text": "Lo revisas delante del mensajero",
+            "fontPx": 26.28,
+            "time": 16,
+            "seconds": 2
+          },
+          {
+            "selector": "#i5 > div:nth-of-type(4)",
+            "text": "Te lo llevamos a casa",
+            "fontPx": 26.28,
+            "time": 16,
+            "seconds": 2
+          },
+          {
+            "selector": "#i5 > div:nth-of-type(5)",
+            "text": "o lo recoges en la tienda",
+            "fontPx": 26.28,
+            "time": 16,
+            "seconds": 2
+          }
+        ]
+      }
+    ],
+    "enabled": true,
+    "step": 0.125,
+    "samples": 168
+  },
+  "hdr": {
+    "autoPromotion": null,
+    "inspection": "available"
+  },
+  "snapshots": {
+    "enabled": false,
+    "files": [],
+    "times": [],
+    "findingFiles": []
+  }
+}

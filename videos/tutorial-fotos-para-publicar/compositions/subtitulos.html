@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+
+        @font-face { font-family: "Cinzel"; src: url("assets/fonts/cinzel-600.woff2") format("woff2"); font-weight: 600; font-style: normal; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-400.woff2") format("woff2"); font-weight: 400; font-style: normal; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-500.woff2") format("woff2"); font-weight: 500; font-style: normal; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-600.woff2") format("woff2"); font-weight: 600; font-style: normal; }
+        #subtitulos-root { position: absolute; inset: 0; z-index: 100; }
+        .sub { position: absolute; left: 70px; right: 70px; bottom: 170px; display: flex; justify-content: center; opacity: 0; }
+        .sub-cap { display: inline-block; max-width: 900px; padding: 18px 34px 20px; border-radius: 30px; background: rgba(13, 59, 69, 0.88); color: #F6F1E6; font-family: "Figtree", sans-serif; font-weight: 600; font-size: 48px; line-height: 1.28; text-align: center; text-wrap: balance; box-shadow: 0 14px 34px rgba(43, 36, 32, 0.22); }
+        .sk { background: #A35A1F; color: #F6F1E6; border-radius: 10px; padding: 0 10px; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+      </style>
+      <div id="subtitulos-root" data-composition-id="subtitulos" data-width="1080" data-height="1920">
+        <div class="sub" id="sub-0"><span class="sub-cap">¿Necesitas <span class="sk">fotos para publicar</span>?</span></div>
+        <div class="sub" id="sub-1"><span class="sub-cap">Ya no tienes que pedírmelas <span class="sk">una a una</span>.</span></div>
+        <div class="sub" id="sub-2"><span class="sub-cap">Entra a tu área, abre el <span class="sk">menú</span>,</span></div>
+        <div class="sub" id="sub-3"><span class="sub-cap">y toca: <span class="sk">Fotos para publicar</span>.</span></div>
+        <div class="sub" id="sub-4"><span class="sub-cap">Si no tienes la sesión abierta,</span></div>
+        <div class="sub" id="sub-5"><span class="sub-cap">escríbeme: <span class="sk">mi acceso</span>.</span></div>
+        <div class="sub" id="sub-6"><span class="sub-cap">Ahí está todo lo que hay <span class="sk">en existencia</span>,</span></div>
+        <div class="sub" id="sub-7"><span class="sub-cap">con <span class="sk">tu precio</span>, el precio en pesos,</span></div>
+        <div class="sub" id="sub-8"><span class="sub-cap">y <span class="sk">cuántos quedan</span>.</span></div>
+        <div class="sub" id="sub-9"><span class="sub-cap">Busca un producto, o abre una <span class="sk">categoría</span>.</span></div>
+        <div class="sub" id="sub-10"><span class="sub-cap">Toca: <span class="sk">Descargar foto</span>.</span></div>
+        <div class="sub" id="sub-11"><span class="sub-cap">Después toca: <span class="sk">Copiar texto</span>,</span></div>
+        <div class="sub" id="sub-12"><span class="sub-cap">y pégalo junto a la foto.</span></div>
+        <div class="sub" id="sub-13"><span class="sub-cap">El texto ya lleva <span class="sk">tu enlace</span>,</span></div>
+        <div class="sub" id="sub-14"><span class="sub-cap">así que la venta <span class="sk">es tuya</span>.</span></div>
+        <div class="sub" id="sub-15"><span class="sub-cap">¿Quieres una <span class="sk">categoría entera</span>?</span></div>
+        <div class="sub" id="sub-16"><span class="sub-cap">Toca: <span class="sk">Descargar todas</span>,</span></div>
+        <div class="sub" id="sub-17"><span class="sub-cap">y te bajas una foto de <span class="sk">cada producto</span>.</span></div>
+        <div class="sub" id="sub-18"><span class="sub-cap">Publica hoy, y comparte <span class="sk">tu enlace</span>.</span></div>
+        <div class="sub" id="sub-19"><span class="sub-cap">¿Dudas? <span class="sk">Escríbeme</span>.</span></div>
+      </div>
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          tl.fromTo("#sub-0", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.14, ease: "power2.out" }, 0.45);
+          tl.fromTo("#sub-0", { opacity: 1 }, { opacity: 0, duration: 0.1, ease: "power1.in", immediateRender: false }, 2.12);
+          tl.fromTo("#sub-1", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.14, ease: "power2.out" }, 2.23);
+          tl.fromTo("#sub-1", { opacity: 1 }, { opacity: 0, duration: 0.1, ease: "power1.in", immediateRender: false }, 4.85);
+          tl.fromTo("#sub-2", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.14, ease: "power2.out" }, 5.35);
+          tl.fromTo("#sub-2", { opacity: 1 }, { opacity: 0, duration: 0.1, ease: "power1.in", immediateRender: false }, 6.9);
+          tl.fromTo("#sub-3", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.14, ease: "power2.out" }, 7.01);
+          tl.fromTo("#sub-3", { opacity: 1 }, { opacity: 0, duration: 0.1, ease: "power1.in", immediateRender: false }, 9.72);
+          tl.fromTo("#sub-4", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.14, ease: "power2.out" }, 9.83);
+          tl.fromTo("#sub-4", { opacity: 1 }, { opacity: 0, duration: 0.1, ease: "power1.in", immediateRender: false }, 11.52);
+          tl.fromTo("#sub-5", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.14, ease: "power2.out" }, 11.63);
+          tl.fromTo("#sub-5", { opacity: 1 }, { opacity: 0, duration: 0.1, ease: "power1.in", immediateRender: false }, 13.55);
+          tl.fromTo("#sub-6", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.14, ease: "power2.out" }, 13.77);
+          tl.fromTo("#sub-6", { opacity: 1 }, { opacity: 0, duration: 0.1, ease: "power1.in", immediateRender: false }, 16.18);
+          tl.fromTo("#sub-7", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.14, ease: "power2.out" }, 16.29);
+          tl.fromTo("#sub-7", { opacity: 1 }, { opacity: 0, duration: 0.1, ease: "power1.in", immediateRender: false }, 18.14);
+          tl.fromTo("#sub-8", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.14, ease: "power2.out" }, 18.25);
+          tl.fromTo("#sub-8", { opacity: 1 }, { opacity: 0, duration: 0.1, ease: "power1.in", immediateRender: false }, 19.82);
+          tl.fromTo("#sub-9", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.14, ease: "power2.out" }, 19.93);
+          tl.fromTo("#sub-9", { opacity: 1 }, { opacity: 0, duration: 0.1, ease: "power1.in", immediateRender: false }, 22.27);
+          tl.fromTo("#sub-10", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.14, ease: "power2.out" }, 22.47);
+          tl.fromTo("#sub-10", { opacity: 1 }, { opacity: 0, duration: 0.1, ease: "power1.in", immediateRender: false }, 24.42);
+          tl.fromTo("#sub-11", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.14, ease: "power2.out" }, 24.53);
+          tl.fromTo("#sub-11", { opacity: 1 }, { opacity: 0, duration: 0.1, ease: "power1.in", immediateRender: false }, 26.2);
+          tl.fromTo("#sub-12", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.14, ease: "power2.out" }, 26.31);
+          tl.fromTo("#sub-12", { opacity: 1 }, { opacity: 0, duration: 0.1, ease: "power1.in", immediateRender: false }, 28.26);
+          tl.fromTo("#sub-13", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.14, ease: "power2.out" }, 28.37);
+          tl.fromTo("#sub-13", { opacity: 1 }, { opacity: 0, duration: 0.1, ease: "power1.in", immediateRender: false }, 30.3);
+          tl.fromTo("#sub-14", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.14, ease: "power2.out" }, 30.41);
+          tl.fromTo("#sub-14", { opacity: 1 }, { opacity: 0, duration: 0.1, ease: "power1.in", immediateRender: false }, 32.41);
+          tl.fromTo("#sub-15", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.14, ease: "power2.out" }, 32.65);
+          tl.fromTo("#sub-15", { opacity: 1 }, { opacity: 0, duration: 0.1, ease: "power1.in", immediateRender: false }, 34.34);
+          tl.fromTo("#sub-16", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.14, ease: "power2.out" }, 34.45);
+          tl.fromTo("#sub-16", { opacity: 1 }, { opacity: 0, duration: 0.1, ease: "power1.in", immediateRender: false }, 35.66);
+          tl.fromTo("#sub-17", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.14, ease: "power2.out" }, 35.77);
+          tl.fromTo("#sub-17", { opacity: 1 }, { opacity: 0, duration: 0.1, ease: "power1.in", immediateRender: false }, 38.44);
+          tl.fromTo("#sub-18", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.14, ease: "power2.out" }, 38.81);
+          tl.fromTo("#sub-18", { opacity: 1 }, { opacity: 0, duration: 0.1, ease: "power1.in", immediateRender: false }, 41.12);
+          tl.fromTo("#sub-19", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.14, ease: "power2.out" }, 41.23);
+          tl.fromTo("#sub-19", { opacity: 1 }, { opacity: 0, duration: 0.1, ease: "power1.in", immediateRender: false }, 42.9);
+          window.__timelines["subtitulos"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

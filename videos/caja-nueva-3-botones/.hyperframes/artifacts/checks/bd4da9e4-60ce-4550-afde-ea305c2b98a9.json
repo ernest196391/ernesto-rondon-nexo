@@ -1,0 +1,2756 @@
+{
+  "ok": false,
+  "strict": false,
+  "browserSkipped": false,
+  "lint": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "filesScanned": 11
+  },
+  "runtime": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": []
+  },
+  "layout": {
+    "ok": false,
+    "errorCount": 10,
+    "warningCount": 0,
+    "infoCount": 58,
+    "findings": [
+      {
+        "code": "content_overlap",
+        "severity": "error",
+        "time": 23.989,
+        "selector": "#s4-h",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 200.96,
+          "top": 639,
+          "right": 574.7,
+          "bottom": 704,
+          "width": 373.74,
+          "height": 65
+        },
+        "containerSelector": "#s4-pg2 > div:nth-of-type(1)",
+        "text": "Pedidos de hoy",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s4-pedido.html",
+        "bbox": {
+          "x": 200.96,
+          "y": 639,
+          "width": 373.74,
+          "height": 65
+        },
+        "firstSeen": 23.989,
+        "lastSeen": 29.815,
+        "occurrences": 18,
+        "heldMs": 5826.000000000001,
+        "times": [
+          23.989,
+          24.331,
+          24.674,
+          25.017,
+          25.36,
+          25.702,
+          26.045,
+          26.388,
+          26.73,
+          27.073,
+          27.416,
+          27.758,
+          28.101,
+          28.444,
+          28.787,
+          29.129,
+          29.472,
+          29.815
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "error",
+        "time": 24.331,
+        "selector": "#s4-c1 > span:nth-of-type(1)",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 178,
+          "top": 871.39,
+          "right": 319.54,
+          "bottom": 905.39,
+          "width": 141.54,
+          "height": 34
+        },
+        "containerSelector": "#s4-pg2 > div:nth-of-type(3) > div:nth-of-type(2) > span:nth-of-type(1)",
+        "text": "Recogida en la tienda",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s4-pedido.html",
+        "bbox": {
+          "x": 178,
+          "y": 871.39,
+          "width": 141.54,
+          "height": 34
+        },
+        "firstSeen": 24.331,
+        "lastSeen": 29.815,
+        "occurrences": 17,
+        "heldMs": 5484.000000000002,
+        "times": [
+          24.331,
+          24.674,
+          25.017,
+          25.36,
+          25.702,
+          26.045,
+          26.388,
+          26.73,
+          27.073,
+          27.416,
+          27.758,
+          28.101,
+          28.444,
+          28.787,
+          29.129,
+          29.472,
+          29.815
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "error",
+        "time": 24.331,
+        "selector": "#s4-c2 > div:nth-of-type(1) > span:nth-of-type(1)",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 178,
+          "top": 991.39,
+          "right": 235.56,
+          "bottom": 1037.39,
+          "width": 57.56,
+          "height": 46
+        },
+        "containerSelector": "#s4-tot > span:nth-of-type(1)",
+        "text": "#4238 · Day",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s4-pedido.html",
+        "bbox": {
+          "x": 178,
+          "y": 991.39,
+          "width": 57.56,
+          "height": 46
+        },
+        "firstSeen": 24.331,
+        "lastSeen": 29.815,
+        "occurrences": 17,
+        "heldMs": 5484.000000000002,
+        "times": [
+          24.331,
+          24.674,
+          25.017,
+          25.36,
+          25.702,
+          26.045,
+          26.388,
+          26.73,
+          27.073,
+          27.416,
+          27.758,
+          28.101,
+          28.444,
+          28.787,
+          29.129,
+          29.472,
+          29.815
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "error",
+        "time": 37.278,
+        "selector": "#s5-grid > div:nth-of-type(3) > div:nth-of-type(3)",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 237,
+          "top": 1393.3,
+          "right": 338.7,
+          "bottom": 1436.3,
+          "width": 101.7,
+          "height": 43
+        },
+        "containerSelector": "#s5-sheet > div:nth-of-type(3)",
+        "text": "6 USD",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s5-rapida.html",
+        "bbox": {
+          "x": 237,
+          "y": 1393.3,
+          "width": 101.7,
+          "height": 43
+        },
+        "firstSeen": 32.899,
+        "lastSeen": 38.382,
+        "occurrences": 18,
+        "heldMs": 5482.999999999997,
+        "times": [
+          32.899,
+          33.242,
+          33.584,
+          33.927,
+          34.27,
+          34.612,
+          34.955,
+          35.298,
+          35.64,
+          35.983,
+          36.326,
+          36.669,
+          37.011,
+          37.278,
+          37.354,
+          37.697,
+          38.039,
+          38.382
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "error",
+        "time": 37.278,
+        "selector": "#s5-grid > div:nth-of-type(4) > div:nth-of-type(2)",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 575,
+          "top": 1346.34,
+          "right": 734.86,
+          "bottom": 1422.3,
+          "width": 159.86,
+          "height": 75.96
+        },
+        "containerSelector": "#s5-ok > div:nth-of-type(3)",
+        "text": "Linterna recargable",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s5-rapida.html",
+        "bbox": {
+          "x": 575,
+          "y": 1346.34,
+          "width": 159.86,
+          "height": 75.96
+        },
+        "firstSeen": 35.983,
+        "lastSeen": 38.382,
+        "occurrences": 9,
+        "heldMs": 2399.000000000001,
+        "times": [
+          35.983,
+          36.326,
+          36.669,
+          37.011,
+          37.278,
+          37.354,
+          37.697,
+          38.039,
+          38.382
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "error",
+        "time": 37.278,
+        "selector": "#s5-sh-big > span:nth-of-type(1)",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 212,
+          "top": 1292,
+          "right": 549.84,
+          "bottom": 1345,
+          "width": 337.84,
+          "height": 53
+        },
+        "containerSelector": "#s5-ok > div:nth-of-type(2)",
+        "text": "Paraguas inverso",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s5-rapida.html",
+        "bbox": {
+          "x": 212,
+          "y": 1292,
+          "width": 337.84,
+          "height": 53
+        },
+        "firstSeen": 35.983,
+        "lastSeen": 38.382,
+        "occurrences": 9,
+        "heldMs": 2399.000000000001,
+        "times": [
+          35.983,
+          36.326,
+          36.669,
+          37.011,
+          37.278,
+          37.354,
+          37.697,
+          38.039,
+          38.382
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "error",
+        "time": 37.278,
+        "selector": "#s5-sh-big > span:nth-of-type(2)",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 699.09,
+          "top": 1285,
+          "right": 868,
+          "bottom": 1347,
+          "width": 168.91,
+          "height": 62
+        },
+        "containerSelector": "#s5-ok > div:nth-of-type(2)",
+        "text": "15 USD",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s5-rapida.html",
+        "bbox": {
+          "x": 699.09,
+          "y": 1285,
+          "width": 168.91,
+          "height": 62
+        },
+        "firstSeen": 35.983,
+        "lastSeen": 38.382,
+        "occurrences": 9,
+        "heldMs": 2399.000000000001,
+        "times": [
+          35.983,
+          36.326,
+          36.669,
+          37.011,
+          37.278,
+          37.354,
+          37.697,
+          38.039,
+          38.382
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "error",
+        "time": 37.278,
+        "selector": "#s5-sheet > div:nth-of-type(3)",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 212,
+          "top": 1368,
+          "right": 460,
+          "bottom": 1409,
+          "width": 248,
+          "height": 41
+        },
+        "containerSelector": "#s5-ok > div:nth-of-type(3)",
+        "text": "¿Quién atiende?",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s5-rapida.html",
+        "bbox": {
+          "x": 212,
+          "y": 1368,
+          "width": 248,
+          "height": 41
+        },
+        "firstSeen": 35.983,
+        "lastSeen": 38.382,
+        "occurrences": 9,
+        "heldMs": 2399.000000000001,
+        "times": [
+          35.983,
+          36.326,
+          36.669,
+          37.011,
+          37.278,
+          37.354,
+          37.697,
+          38.039,
+          38.382
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "error",
+        "time": 44.056,
+        "selector": "#s6-pg1 > div:nth-of-type(3)",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 178,
+          "top": 913.39,
+          "right": 448.72,
+          "bottom": 961.39,
+          "width": 270.72,
+          "height": 48
+        },
+        "containerSelector": "#s6-form > div:nth-of-type(2) > span:nth-of-type(1)",
+        "text": "Entrada de dinero ›",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s6-salida.html",
+        "bbox": {
+          "x": 178,
+          "y": 913.39,
+          "width": 270.72,
+          "height": 48
+        },
+        "firstSeen": 40.781,
+        "lastSeen": 45.579,
+        "occurrences": 16,
+        "heldMs": 4798.000000000002,
+        "times": [
+          40.781,
+          41.124,
+          41.466,
+          41.809,
+          42.152,
+          42.494,
+          42.837,
+          43.18,
+          43.522,
+          43.865,
+          44.056,
+          44.208,
+          44.551,
+          44.893,
+          45.236,
+          45.579
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "error",
+        "time": 52.433,
+        "selector": "#s7-u",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 366.64,
+          "top": 1292.39,
+          "right": 447.05,
+          "bottom": 1340.39,
+          "width": 80.41,
+          "height": 48
+        },
+        "containerSelector": "#s7-ok > div:nth-of-type(2)",
+        "text": "USD",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s7-cerrar.html",
+        "bbox": {
+          "x": 366.64,
+          "y": 1292.39,
+          "width": 80.41,
+          "height": 48
+        },
+        "firstSeen": 52.433,
+        "lastSeen": 54.831,
+        "occurrences": 8,
+        "heldMs": 2398.000000000003,
+        "times": [
+          52.433,
+          52.775,
+          53.118,
+          53.461,
+          53.803,
+          54.146,
+          54.489,
+          54.831
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 23.722,
+        "selector": "#s4-pg2 > div:nth-of-type(2)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 936,
+          "top": 701,
+          "right": 1264.59,
+          "bottom": 766,
+          "width": 328.59,
+          "height": 65
+        },
+        "containerSelector": "#root",
+        "text": "#4249 · Katia",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "right": 184.59
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/s4-pedido.html",
+        "bbox": {
+          "x": 936,
+          "y": 701,
+          "width": 328.59,
+          "height": 65
+        },
+        "firstSeen": 23.722,
+        "lastSeen": 23.722,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          23.722
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 23.722,
+        "selector": "#s4-pg2 > div:nth-of-type(3) > div:nth-of-type(1) > span:nth-of-type(1)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 967,
+          "top": 814.39,
+          "right": 1223.84,
+          "bottom": 860.39,
+          "width": 256.84,
+          "height": 46
+        },
+        "containerSelector": "#root",
+        "text": "Cama plegable",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "right": 143.84
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/s4-pedido.html",
+        "bbox": {
+          "x": 967,
+          "y": 814.39,
+          "width": 256.84,
+          "height": 46
+        },
+        "firstSeen": 23.722,
+        "lastSeen": 23.722,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          23.722
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 23.722,
+        "selector": "#s4-pg2 > div:nth-of-type(3) > div:nth-of-type(1) > span:nth-of-type(2)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 1518.55,
+          "top": 819.39,
+          "right": 1561,
+          "bottom": 858.39,
+          "width": 42.45,
+          "height": 39
+        },
+        "containerSelector": "#root",
+        "text": "1 ×",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "right": 481
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/s4-pedido.html",
+        "bbox": {
+          "x": 1518.55,
+          "y": 819.39,
+          "width": 42.45,
+          "height": 39
+        },
+        "firstSeen": 23.722,
+        "lastSeen": 23.722,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          23.722
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 23.722,
+        "selector": "#s4-pg2 > div:nth-of-type(3) > div:nth-of-type(2) > span:nth-of-type(1)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 967,
+          "top": 877.39,
+          "right": 1285.69,
+          "bottom": 916.39,
+          "width": 318.69,
+          "height": 39
+        },
+        "containerSelector": "#root",
+        "text": "Recogida en la tienda",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "right": 205.69
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/s4-pedido.html",
+        "bbox": {
+          "x": 967,
+          "y": 877.39,
+          "width": 318.69,
+          "height": 39
+        },
+        "firstSeen": 23.722,
+        "lastSeen": 23.722,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          23.722
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 23.722,
+        "selector": "#s4-pg2 > div:nth-of-type(3) > div:nth-of-type(2) > span:nth-of-type(2)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 1422.19,
+          "top": 870.39,
+          "right": 1561,
+          "bottom": 918.39,
+          "width": 138.81,
+          "height": 48
+        },
+        "containerSelector": "#root",
+        "text": "60 USD",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "right": 481
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/s4-pedido.html",
+        "bbox": {
+          "x": 1422.19,
+          "y": 870.39,
+          "width": 138.81,
+          "height": 48
+        },
+        "firstSeen": 23.722,
+        "lastSeen": 23.722,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          23.722
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 23.722,
+        "selector": "#s4-tot > span:nth-of-type(2)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 1358.97,
+          "top": 975.39,
+          "right": 1588,
+          "bottom": 1055.39,
+          "width": 229.03,
+          "height": 80
+        },
+        "containerSelector": "#root",
+        "text": "60 USD",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "right": 508
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/s4-pedido.html",
+        "bbox": {
+          "x": 1358.97,
+          "y": 975.39,
+          "width": 229.03,
+          "height": 80
+        },
+        "firstSeen": 23.722,
+        "lastSeen": 23.722,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          23.722
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 23.722,
+        "selector": "#s4-pg2 > div:nth-of-type(5)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 936,
+          "top": 1078.39,
+          "right": 1145.83,
+          "bottom": 1119.39,
+          "width": 209.83,
+          "height": 41
+        },
+        "containerSelector": "#root",
+        "text": "¿Cómo paga?",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "right": 65.83
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/s4-pedido.html",
+        "bbox": {
+          "x": 936,
+          "y": 1078.39,
+          "width": 209.83,
+          "height": 41
+        },
+        "firstSeen": 23.722,
+        "lastSeen": 23.722,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          23.722
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 23.722,
+        "selector": "#s4-ef",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 962,
+          "top": 1160.19,
+          "right": 1156.03,
+          "bottom": 1198.19,
+          "width": 194.03,
+          "height": 38
+        },
+        "containerSelector": "#root",
+        "text": "Efectivo USD",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "right": 76.03
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/s4-pedido.html",
+        "bbox": {
+          "x": 962,
+          "y": 1160.19,
+          "width": 194.03,
+          "height": 38
+        },
+        "firstSeen": 23.722,
+        "lastSeen": 23.722,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          23.722
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 23.722,
+        "selector": "#s4-pay > span:nth-of-type(2)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 1222.03,
+          "top": 1160.19,
+          "right": 1286.75,
+          "bottom": 1198.19,
+          "width": 64.72,
+          "height": 38
+        },
+        "containerSelector": "#root",
+        "text": "CUP",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "right": 206.75
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/s4-pedido.html",
+        "bbox": {
+          "x": 1222.03,
+          "y": 1160.19,
+          "width": 64.72,
+          "height": 38
+        },
+        "firstSeen": 23.722,
+        "lastSeen": 23.722,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          23.722
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 23.722,
+        "selector": "#s4-pay > span:nth-of-type(3)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 1352.75,
+          "top": 1160.19,
+          "right": 1550.2,
+          "bottom": 1198.19,
+          "width": 197.45,
+          "height": 38
+        },
+        "containerSelector": "#root",
+        "text": "Transferencia",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "right": 470.2
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/s4-pedido.html",
+        "bbox": {
+          "x": 1352.75,
+          "y": 1160.19,
+          "width": 197.45,
+          "height": 38
+        },
+        "firstSeen": 23.722,
+        "lastSeen": 23.722,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          23.722
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 23.722,
+        "selector": "#s4-btn",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 1113.14,
+          "top": 1739.5,
+          "right": 1414.86,
+          "bottom": 1792.5,
+          "width": 301.72,
+          "height": 53
+        },
+        "containerSelector": "#root",
+        "text": "Cobrar 60 USD",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "right": 334.86
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/s4-pedido.html",
+        "bbox": {
+          "x": 1113.14,
+          "y": 1739.5,
+          "width": 301.72,
+          "height": 53
+        },
+        "firstSeen": 23.722,
+        "lastSeen": 23.722,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          23.722
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 23.722,
+        "selector": "#s4-pg2",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 902,
+          "top": 608,
+          "right": 1626,
+          "bottom": 1862,
+          "width": 724,
+          "height": 1254
+        },
+        "containerSelector": "#s4-wrap > div:nth-of-type(3)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 178,
+          "top": 608,
+          "right": 902,
+          "bottom": 1862,
+          "width": 724,
+          "height": 1254
+        },
+        "overflow": {
+          "right": 724
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/s4-pedido.html",
+        "bbox": {
+          "x": 902,
+          "y": 608,
+          "width": 724,
+          "height": 1254
+        },
+        "firstSeen": 23.722,
+        "lastSeen": 23.722,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          23.722
+        ]
+      },
+      {
+        "code": "panel_out_of_canvas",
+        "severity": "info",
+        "time": 23.722,
+        "selector": "#s4-pg2",
+        "message": "Painted panel extends outside the composition canvas.",
+        "rect": {
+          "left": 902,
+          "top": 608,
+          "right": 1626,
+          "bottom": 1862,
+          "width": 724,
+          "height": 1254
+        },
+        "containerSelector": "#root",
+        "text": "‹ Pedidos #4249 · Katia Cama plegable 1 × Recogi",
+        "fixHint": "Move the panel inward, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "right": 546
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/s4-pedido.html",
+        "bbox": {
+          "x": 902,
+          "y": 608,
+          "width": 724,
+          "height": 1254
+        },
+        "firstSeen": 23.722,
+        "lastSeen": 23.722,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          23.722
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 30.5,
+        "selector": "#s5-sh-big > span:nth-of-type(1)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 212,
+          "top": 1996,
+          "right": 549.84,
+          "bottom": 2049,
+          "width": 337.84,
+          "height": 53
+        },
+        "containerSelector": "#root",
+        "text": "Paraguas inverso",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "bottom": 129
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/s5-rapida.html",
+        "bbox": {
+          "x": 212,
+          "y": 1996,
+          "width": 337.84,
+          "height": 53
+        },
+        "firstSeen": 30.5,
+        "lastSeen": 30.5,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          30.5
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 30.5,
+        "selector": "#s5-sh-big > span:nth-of-type(2)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 699.09,
+          "top": 1989,
+          "right": 868,
+          "bottom": 2051,
+          "width": 168.91,
+          "height": 62
+        },
+        "containerSelector": "#root",
+        "text": "15 USD",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "bottom": 131
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/s5-rapida.html",
+        "bbox": {
+          "x": 699.09,
+          "y": 1989,
+          "width": 168.91,
+          "height": 62
+        },
+        "firstSeen": 30.5,
+        "lastSeen": 30.5,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          30.5
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 30.5,
+        "selector": "#s5-sheet > div:nth-of-type(3)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 212,
+          "top": 2072,
+          "right": 460,
+          "bottom": 2113,
+          "width": 248,
+          "height": 41
+        },
+        "containerSelector": "#root",
+        "text": "¿Quién atiende?",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "bottom": 193
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/s5-rapida.html",
+        "bbox": {
+          "x": 212,
+          "y": 2072,
+          "width": 248,
+          "height": 41
+        },
+        "firstSeen": 30.5,
+        "lastSeen": 30.5,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          30.5
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 30.5,
+        "selector": "#s5-nana",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 240,
+          "top": 2151.8,
+          "right": 316.36,
+          "bottom": 2189.8,
+          "width": 76.36,
+          "height": 38
+        },
+        "containerSelector": "#root",
+        "text": "Nana",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "bottom": 269.8
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/s5-rapida.html",
+        "bbox": {
+          "x": 240,
+          "y": 2151.8,
+          "width": 76.36,
+          "height": 38
+        },
+        "firstSeen": 30.5,
+        "lastSeen": 30.5,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          30.5
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 30.5,
+        "selector": "#s5-who > span:nth-of-type(2)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 386.36,
+          "top": 2151.8,
+          "right": 476.55,
+          "bottom": 2189.8,
+          "width": 90.19,
+          "height": 38
+        },
+        "containerSelector": "#root",
+        "text": "Zaymi",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "bottom": 269.8
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/s5-rapida.html",
+        "bbox": {
+          "x": 386.36,
+          "y": 2151.8,
+          "width": 90.19,
+          "height": 38
+        },
+        "firstSeen": 30.5,
+        "lastSeen": 30.5,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          30.5
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 30.5,
+        "selector": "#s5-btn",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 394.02,
+          "top": 2427.5,
+          "right": 685.97,
+          "bottom": 2480.5,
+          "width": 291.95,
+          "height": 53
+        },
+        "containerSelector": "#root",
+        "text": "Cobrar 15 USD",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "bottom": 560.5
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/s5-rapida.html",
+        "bbox": {
+          "x": 394.02,
+          "y": 2427.5,
+          "width": 291.95,
+          "height": 53
+        },
+        "firstSeen": 30.5,
+        "lastSeen": 30.5,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          30.5
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 30.5,
+        "selector": "#s5-sheet",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 178,
+          "top": 1926,
+          "right": 902,
+          "bottom": 2566,
+          "width": 724,
+          "height": 640
+        },
+        "containerSelector": "#s5-wrap > div:nth-of-type(3)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 178,
+          "top": 608,
+          "right": 902,
+          "bottom": 1862,
+          "width": 724,
+          "height": 1254
+        },
+        "overflow": {
+          "bottom": 704
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/s5-rapida.html",
+        "bbox": {
+          "x": 178,
+          "y": 1926,
+          "width": 724,
+          "height": 640
+        },
+        "firstSeen": 30.5,
+        "lastSeen": 30.5,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          30.5
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 37.278,
+        "selector": "#s5-h",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 212,
+          "top": 639,
+          "right": 524.3,
+          "bottom": 704,
+          "width": 312.3,
+          "height": 65
+        },
+        "containerSelector": "#s5-ok",
+        "text": "Venta rápida",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "compositions/s5-rapida.html",
+        "bbox": {
+          "x": 212,
+          "y": 639,
+          "width": 312.3,
+          "height": 65
+        },
+        "firstSeen": 37.278,
+        "lastSeen": 37.278,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          37.278
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 37.278,
+        "selector": "#s5-search",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 297,
+          "top": 750.89,
+          "right": 572.52,
+          "bottom": 791.89,
+          "width": 275.52,
+          "height": 41
+        },
+        "containerSelector": "#s5-ok",
+        "text": "Buscar producto…",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "compositions/s5-rapida.html",
+        "bbox": {
+          "x": 297,
+          "y": 750.89,
+          "width": 275.52,
+          "height": 41
+        },
+        "firstSeen": 37.278,
+        "lastSeen": 37.278,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          37.278
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 37.278,
+        "selector": "#s5-p1 > div:nth-of-type(2)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 237,
+          "top": 1026.39,
+          "right": 490.38,
+          "bottom": 1065.39,
+          "width": 253.38,
+          "height": 39
+        },
+        "containerSelector": "#s5-ok",
+        "text": "Paraguas inverso",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "compositions/s5-rapida.html",
+        "bbox": {
+          "x": 237,
+          "y": 1026.39,
+          "width": 253.38,
+          "height": 39
+        },
+        "firstSeen": 37.278,
+        "lastSeen": 37.278,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          37.278
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 37.278,
+        "selector": "#s5-p1 > div:nth-of-type(3)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 237,
+          "top": 1073.34,
+          "right": 353.94,
+          "bottom": 1116.34,
+          "width": 116.94,
+          "height": 43
+        },
+        "containerSelector": "#s5-ok",
+        "text": "15 USD",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "compositions/s5-rapida.html",
+        "bbox": {
+          "x": 237,
+          "y": 1073.34,
+          "width": 116.94,
+          "height": 43
+        },
+        "firstSeen": 37.278,
+        "lastSeen": 37.278,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          37.278
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 37.278,
+        "selector": "#s5-grid > div:nth-of-type(2) > div:nth-of-type(2)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 575,
+          "top": 1026.39,
+          "right": 774.3,
+          "bottom": 1065.39,
+          "width": 199.3,
+          "height": 39
+        },
+        "containerSelector": "#s5-ok > div:nth-of-type(1)",
+        "text": "Toalla grande",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "compositions/s5-rapida.html",
+        "bbox": {
+          "x": 575,
+          "y": 1026.39,
+          "width": 199.3,
+          "height": 39
+        },
+        "firstSeen": 37.278,
+        "lastSeen": 37.278,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          37.278
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 37.278,
+        "selector": "#s5-grid > div:nth-of-type(2) > div:nth-of-type(3)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 575,
+          "top": 1073.34,
+          "right": 678.11,
+          "bottom": 1116.34,
+          "width": 103.11,
+          "height": 43
+        },
+        "containerSelector": "#s5-ok > div:nth-of-type(1)",
+        "text": "8 USD",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "compositions/s5-rapida.html",
+        "bbox": {
+          "x": 575,
+          "y": 1073.34,
+          "width": 103.11,
+          "height": 43
+        },
+        "firstSeen": 37.278,
+        "lastSeen": 37.278,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          37.278
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 37.278,
+        "selector": "#s5-grid > div:nth-of-type(3) > div:nth-of-type(2)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 237,
+          "top": 1346.34,
+          "right": 458.27,
+          "bottom": 1385.34,
+          "width": 221.27,
+          "height": 39
+        },
+        "containerSelector": "#s5-ok",
+        "text": "Jarra de cristal",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "compositions/s5-rapida.html",
+        "bbox": {
+          "x": 237,
+          "y": 1346.34,
+          "width": 221.27,
+          "height": 39
+        },
+        "firstSeen": 37.278,
+        "lastSeen": 37.278,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          37.278
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 37.278,
+        "selector": "#s5-grid > div:nth-of-type(3) > div:nth-of-type(3)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 237,
+          "top": 1393.3,
+          "right": 338.7,
+          "bottom": 1436.3,
+          "width": 101.7,
+          "height": 43
+        },
+        "containerSelector": "#s5-ok",
+        "text": "6 USD",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "compositions/s5-rapida.html",
+        "bbox": {
+          "x": 237,
+          "y": 1393.3,
+          "width": 101.7,
+          "height": 43
+        },
+        "firstSeen": 37.278,
+        "lastSeen": 37.278,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          37.278
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 37.278,
+        "selector": "#s5-grid > div:nth-of-type(4) > div:nth-of-type(2)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 575,
+          "top": 1346.34,
+          "right": 734.86,
+          "bottom": 1422.3,
+          "width": 159.86,
+          "height": 75.95
+        },
+        "containerSelector": "#s5-ok",
+        "text": "Linterna recargable",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "compositions/s5-rapida.html",
+        "bbox": {
+          "x": 575,
+          "y": 1346.34,
+          "width": 159.86,
+          "height": 75.95
+        },
+        "firstSeen": 37.278,
+        "lastSeen": 37.278,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          37.278
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 37.278,
+        "selector": "#s5-grid > div:nth-of-type(4) > div:nth-of-type(3)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 575,
+          "top": 1430.25,
+          "right": 691.69,
+          "bottom": 1473.25,
+          "width": 116.69,
+          "height": 43
+        },
+        "containerSelector": "#s5-ok",
+        "text": "12 USD",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "compositions/s5-rapida.html",
+        "bbox": {
+          "x": 575,
+          "y": 1430.25,
+          "width": 116.69,
+          "height": 43
+        },
+        "firstSeen": 37.278,
+        "lastSeen": 37.278,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          37.278
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 37.278,
+        "selector": "#s5-sh-big > span:nth-of-type(1)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 212,
+          "top": 1292,
+          "right": 549.84,
+          "bottom": 1345,
+          "width": 337.84,
+          "height": 53
+        },
+        "containerSelector": "#s5-ok",
+        "text": "Paraguas inverso",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "compositions/s5-rapida.html",
+        "bbox": {
+          "x": 212,
+          "y": 1292,
+          "width": 337.84,
+          "height": 53
+        },
+        "firstSeen": 37.278,
+        "lastSeen": 37.278,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          37.278
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 37.278,
+        "selector": "#s5-sh-big > span:nth-of-type(2)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 699.09,
+          "top": 1285,
+          "right": 868,
+          "bottom": 1347,
+          "width": 168.91,
+          "height": 62
+        },
+        "containerSelector": "#s5-ok",
+        "text": "15 USD",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "compositions/s5-rapida.html",
+        "bbox": {
+          "x": 699.09,
+          "y": 1285,
+          "width": 168.91,
+          "height": 62
+        },
+        "firstSeen": 37.278,
+        "lastSeen": 37.278,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          37.278
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 37.278,
+        "selector": "#s5-sheet > div:nth-of-type(3)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 212,
+          "top": 1368,
+          "right": 460,
+          "bottom": 1409,
+          "width": 248,
+          "height": 41
+        },
+        "containerSelector": "#s5-ok",
+        "text": "¿Quién atiende?",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "compositions/s5-rapida.html",
+        "bbox": {
+          "x": 212,
+          "y": 1368,
+          "width": 248,
+          "height": 41
+        },
+        "firstSeen": 37.278,
+        "lastSeen": 37.278,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          37.278
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 37.278,
+        "selector": "#s5-nana",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 240,
+          "top": 1447.8,
+          "right": 316.36,
+          "bottom": 1485.8,
+          "width": 76.36,
+          "height": 38
+        },
+        "containerSelector": "#s5-ok",
+        "text": "Nana",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "compositions/s5-rapida.html",
+        "bbox": {
+          "x": 240,
+          "y": 1447.8,
+          "width": 76.36,
+          "height": 38
+        },
+        "firstSeen": 37.278,
+        "lastSeen": 37.278,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          37.278
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 37.278,
+        "selector": "#s5-who > span:nth-of-type(2)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 386.36,
+          "top": 1447.8,
+          "right": 476.55,
+          "bottom": 1485.8,
+          "width": 90.19,
+          "height": 38
+        },
+        "containerSelector": "#s5-ok",
+        "text": "Zaymi",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "compositions/s5-rapida.html",
+        "bbox": {
+          "x": 386.36,
+          "y": 1447.8,
+          "width": 90.19,
+          "height": 38
+        },
+        "firstSeen": 37.278,
+        "lastSeen": 37.278,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          37.278
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 37.278,
+        "selector": "#s5-btn",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 394.02,
+          "top": 1723.5,
+          "right": 685.97,
+          "bottom": 1776.5,
+          "width": 291.95,
+          "height": 53
+        },
+        "containerSelector": "#s5-ok",
+        "text": "Cobrar 15 USD",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "compositions/s5-rapida.html",
+        "bbox": {
+          "x": 394.02,
+          "y": 1723.5,
+          "width": 291.95,
+          "height": 53
+        },
+        "firstSeen": 37.278,
+        "lastSeen": 37.278,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          37.278
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 44.056,
+        "selector": "#s6-h",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": -5.2,
+          "top": 639,
+          "right": 94.11,
+          "bottom": 704,
+          "width": 99.31,
+          "height": 65
+        },
+        "containerSelector": "#root",
+        "text": "Más",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "left": 5.2
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/s6-salida.html",
+        "bbox": {
+          "x": -5.2,
+          "y": 639,
+          "width": 99.31,
+          "height": 65
+        },
+        "firstSeen": 44.056,
+        "lastSeen": 44.056,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          44.056
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 44.056,
+        "selector": "#s6-i1",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 125.8,
+          "top": 763.39,
+          "right": 416.18,
+          "bottom": 811.39,
+          "width": 290.38,
+          "height": 48
+        },
+        "containerSelector": "#s6-ok",
+        "text": "Salida de dinero",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 0.78,
+        "dataAttributes": {},
+        "sourceFile": "compositions/s6-salida.html",
+        "bbox": {
+          "x": 125.8,
+          "y": 763.39,
+          "width": 290.38,
+          "height": 48
+        },
+        "firstSeen": 44.056,
+        "lastSeen": 44.056,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          44.056
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 44.056,
+        "selector": "#s6-i1 > span:nth-of-type(1)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 602.89,
+          "top": 760.89,
+          "right": 619.8,
+          "bottom": 813.89,
+          "width": 16.91,
+          "height": 53
+        },
+        "containerSelector": "#s6-ok",
+        "text": "›",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "compositions/s6-salida.html",
+        "bbox": {
+          "x": 602.89,
+          "y": 760.89,
+          "width": 16.91,
+          "height": 53
+        },
+        "firstSeen": 44.056,
+        "lastSeen": 44.056,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          44.056
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 44.056,
+        "selector": "#s6-pg1 > div:nth-of-type(3)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 125.8,
+          "top": 913.39,
+          "right": 448.72,
+          "bottom": 961.39,
+          "width": 322.92,
+          "height": 48
+        },
+        "containerSelector": "#s6-ok",
+        "text": "Entrada de dinero",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 0.78,
+        "dataAttributes": {},
+        "sourceFile": "compositions/s6-salida.html",
+        "bbox": {
+          "x": 125.8,
+          "y": 913.39,
+          "width": 322.92,
+          "height": 48
+        },
+        "firstSeen": 44.056,
+        "lastSeen": 44.056,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          44.056
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 44.056,
+        "selector": "#s6-pg1 > div:nth-of-type(3) > span:nth-of-type(1)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 602.89,
+          "top": 910.89,
+          "right": 619.8,
+          "bottom": 963.89,
+          "width": 16.91,
+          "height": 53
+        },
+        "containerSelector": "#s6-ok",
+        "text": "›",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "compositions/s6-salida.html",
+        "bbox": {
+          "x": 602.89,
+          "y": 910.89,
+          "width": 16.91,
+          "height": 53
+        },
+        "firstSeen": 44.056,
+        "lastSeen": 44.056,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          44.056
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 44.056,
+        "selector": "#s6-pg1 > div:nth-of-type(4)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 125.8,
+          "top": 1063.39,
+          "right": 328.8,
+          "bottom": 1111.39,
+          "width": 203,
+          "height": 48
+        },
+        "containerSelector": "#s6-ok",
+        "text": "Devolución",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 0.67,
+        "dataAttributes": {},
+        "sourceFile": "compositions/s6-salida.html",
+        "bbox": {
+          "x": 125.8,
+          "y": 1063.39,
+          "width": 203,
+          "height": 48
+        },
+        "firstSeen": 44.056,
+        "lastSeen": 44.056,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          44.056
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 44.056,
+        "selector": "#s6-pg1 > div:nth-of-type(4) > span:nth-of-type(1)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 602.89,
+          "top": 1060.89,
+          "right": 619.8,
+          "bottom": 1113.89,
+          "width": 16.91,
+          "height": 53
+        },
+        "containerSelector": "#s6-ok > div:nth-of-type(1)",
+        "text": "›",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "compositions/s6-salida.html",
+        "bbox": {
+          "x": 602.89,
+          "y": 1060.89,
+          "width": 16.91,
+          "height": 53
+        },
+        "firstSeen": 44.056,
+        "lastSeen": 44.056,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          44.056
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 44.056,
+        "selector": "#s6-pg1 > div:nth-of-type(5)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 125.8,
+          "top": 1213.39,
+          "right": 384.61,
+          "bottom": 1261.39,
+          "width": 258.81,
+          "height": 48
+        },
+        "containerSelector": "#s6-ok",
+        "text": "Ventas de hoy",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 0.78,
+        "dataAttributes": {},
+        "sourceFile": "compositions/s6-salida.html",
+        "bbox": {
+          "x": 125.8,
+          "y": 1213.39,
+          "width": 258.81,
+          "height": 48
+        },
+        "firstSeen": 44.056,
+        "lastSeen": 44.056,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          44.056
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 44.056,
+        "selector": "#s6-pg1 > div:nth-of-type(5) > span:nth-of-type(1)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 602.89,
+          "top": 1210.89,
+          "right": 619.8,
+          "bottom": 1263.89,
+          "width": 16.91,
+          "height": 53
+        },
+        "containerSelector": "#s6-ok > div:nth-of-type(1)",
+        "text": "›",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "compositions/s6-salida.html",
+        "bbox": {
+          "x": 602.89,
+          "y": 1210.89,
+          "width": 16.91,
+          "height": 53
+        },
+        "firstSeen": 44.056,
+        "lastSeen": 44.056,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          44.056
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 44.056,
+        "selector": "#s6-pg2 > div:nth-of-type(1)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 212,
+          "top": 642,
+          "right": 290.86,
+          "bottom": 680,
+          "width": 78.86,
+          "height": 38
+        },
+        "containerSelector": "#s6-ok",
+        "text": "‹ Más",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "compositions/s6-salida.html",
+        "bbox": {
+          "x": 212,
+          "y": 642,
+          "width": 78.86,
+          "height": 38
+        },
+        "firstSeen": 44.056,
+        "lastSeen": 44.056,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          44.056
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 44.056,
+        "selector": "#s6-pg2 > div:nth-of-type(2)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 212,
+          "top": 699,
+          "right": 604,
+          "bottom": 764,
+          "width": 392,
+          "height": 65
+        },
+        "containerSelector": "#s6-ok",
+        "text": "Salida de dinero",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "compositions/s6-salida.html",
+        "bbox": {
+          "x": 212,
+          "y": 699,
+          "width": 392,
+          "height": 65
+        },
+        "firstSeen": 44.056,
+        "lastSeen": 44.056,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          44.056
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 44.056,
+        "selector": "#s6-form > div:nth-of-type(1) > span:nth-of-type(1)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 243,
+          "top": 820.39,
+          "right": 339.75,
+          "bottom": 858.39,
+          "width": 96.75,
+          "height": 38
+        },
+        "containerSelector": "#s6-ok",
+        "text": "Pago a",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "compositions/s6-salida.html",
+        "bbox": {
+          "x": 243,
+          "y": 820.39,
+          "width": 96.75,
+          "height": 38
+        },
+        "firstSeen": 44.056,
+        "lastSeen": 44.056,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          44.056
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 44.056,
+        "selector": "#s6-form > div:nth-of-type(1) > span:nth-of-type(2)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 526.34,
+          "top": 814.39,
+          "right": 837,
+          "bottom": 860.39,
+          "width": 310.66,
+          "height": 46
+        },
+        "containerSelector": "#s6-ok",
+        "text": "Kevin (proveedor)",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "compositions/s6-salida.html",
+        "bbox": {
+          "x": 526.34,
+          "y": 814.39,
+          "width": 310.66,
+          "height": 46
+        },
+        "firstSeen": 44.056,
+        "lastSeen": 44.056,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          44.056
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 44.056,
+        "selector": "#s6-form > div:nth-of-type(2) > span:nth-of-type(1)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 243,
+          "top": 913.39,
+          "right": 342.84,
+          "bottom": 951.39,
+          "width": 99.84,
+          "height": 38
+        },
+        "containerSelector": "#s6-ok",
+        "text": "Pedido",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "compositions/s6-salida.html",
+        "bbox": {
+          "x": 243,
+          "y": 913.39,
+          "width": 99.84,
+          "height": 38
+        },
+        "firstSeen": 44.056,
+        "lastSeen": 44.056,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          44.056
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 44.056,
+        "selector": "#s6-form > div:nth-of-type(2) > span:nth-of-type(2)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 719.77,
+          "top": 907.39,
+          "right": 837,
+          "bottom": 953.39,
+          "width": 117.23,
+          "height": 46
+        },
+        "containerSelector": "#s6-ok",
+        "text": "#4244",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "compositions/s6-salida.html",
+        "bbox": {
+          "x": 719.77,
+          "y": 907.39,
+          "width": 117.23,
+          "height": 46
+        },
+        "firstSeen": 44.056,
+        "lastSeen": 44.056,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          44.056
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 44.056,
+        "selector": "#s6-form > div:nth-of-type(3) > span:nth-of-type(1)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 243,
+          "top": 1006.39,
+          "right": 387.2,
+          "bottom": 1044.39,
+          "width": 144.2,
+          "height": 38
+        },
+        "containerSelector": "#s6-ok",
+        "text": "Lo recoge",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "compositions/s6-salida.html",
+        "bbox": {
+          "x": 243,
+          "y": 1006.39,
+          "width": 144.2,
+          "height": 38
+        },
+        "firstSeen": 44.056,
+        "lastSeen": 44.056,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          44.056
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 44.056,
+        "selector": "#s6-form > div:nth-of-type(3) > span:nth-of-type(2)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 608.34,
+          "top": 1000.39,
+          "right": 837,
+          "bottom": 1046.39,
+          "width": 228.66,
+          "height": 46
+        },
+        "containerSelector": "#s6-ok",
+        "text": "su mensajero",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "compositions/s6-salida.html",
+        "bbox": {
+          "x": 608.34,
+          "y": 1000.39,
+          "width": 228.66,
+          "height": 46
+        },
+        "firstSeen": 44.056,
+        "lastSeen": 44.056,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          44.056
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 44.056,
+        "selector": "#s6-amt > span:nth-of-type(1)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 243,
+          "top": 1118.39,
+          "right": 442.3,
+          "bottom": 1156.39,
+          "width": 199.3,
+          "height": 38
+        },
+        "containerSelector": "#s6-ok",
+        "text": "Sale del cajón",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "compositions/s6-salida.html",
+        "bbox": {
+          "x": 243,
+          "y": 1118.39,
+          "width": 199.3,
+          "height": 38
+        },
+        "firstSeen": 44.056,
+        "lastSeen": 44.056,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          44.056
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 44.056,
+        "selector": "#s6-amt > span:nth-of-type(2)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 560.8,
+          "top": 1093.39,
+          "right": 837,
+          "bottom": 1163.39,
+          "width": 276.2,
+          "height": 70
+        },
+        "containerSelector": "#s6-ok > div:nth-of-type(1)",
+        "text": "16,40 USD",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "compositions/s6-salida.html",
+        "bbox": {
+          "x": 560.8,
+          "y": 1093.39,
+          "width": 276.2,
+          "height": 70
+        },
+        "firstSeen": 44.056,
+        "lastSeen": 44.056,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          44.056
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 44.056,
+        "selector": "#s6-btn",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 387.75,
+          "top": 1739.5,
+          "right": 692.23,
+          "bottom": 1792.5,
+          "width": 304.48,
+          "height": 53
+        },
+        "containerSelector": "#s6-ok",
+        "text": "Sacar del cajón",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "compositions/s6-salida.html",
+        "bbox": {
+          "x": 387.75,
+          "y": 1739.5,
+          "width": 304.48,
+          "height": 53
+        },
+        "firstSeen": 44.056,
+        "lastSeen": 44.056,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          44.056
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 44.056,
+        "selector": "#s6-pg1",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": -39.2,
+          "top": 608,
+          "right": 684.8,
+          "bottom": 1862,
+          "width": 724,
+          "height": 1254
+        },
+        "containerSelector": "#s6-wrap > div:nth-of-type(3)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 178,
+          "top": 608,
+          "right": 902,
+          "bottom": 1862,
+          "width": 724,
+          "height": 1254
+        },
+        "overflow": {
+          "left": 217.2
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/s6-salida.html",
+        "bbox": {
+          "x": -39.2,
+          "y": 608,
+          "width": 724,
+          "height": 1254
+        },
+        "firstSeen": 44.056,
+        "lastSeen": 44.056,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          44.056
+        ]
+      },
+      {
+        "code": "panel_out_of_canvas",
+        "severity": "info",
+        "time": 44.056,
+        "selector": "#s6-pg1",
+        "message": "Painted panel extends outside the composition canvas.",
+        "rect": {
+          "left": -39.2,
+          "top": 608,
+          "right": 684.8,
+          "bottom": 1862,
+          "width": 724,
+          "height": 1254
+        },
+        "containerSelector": "#root",
+        "text": "Más Salida de dinero › Entrada de dinero › Devol",
+        "fixHint": "Move the panel inward, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "left": 39.2
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/s6-salida.html",
+        "bbox": {
+          "x": -39.2,
+          "y": 608,
+          "width": 724,
+          "height": 1254
+        },
+        "firstSeen": 44.056,
+        "lastSeen": 44.056,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          44.056
+        ]
+      }
+    ],
+    "duration": 61,
+    "samples": [
+      3.389,
+      10.167,
+      16.944,
+      23.722,
+      30.5,
+      37.278,
+      44.056,
+      50.833,
+      57.611
+    ],
+    "transitionSamples": [],
+    "transitionSamplesDropped": 0,
+    "tolerance": 2,
+    "totalIssueCount": 68,
+    "truncated": false
+  },
+  "motion": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": false,
+    "samples": 0
+  },
+  "contrast": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 1,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "contrast_aa_failure",
+        "severity": "warning",
+        "message": "Contrast is 1.02:1; WCAG AA requires 3:1.",
+        "text": "›",
+        "fg": "rgb(107,95,86)",
+        "bg": "rgb(30,112,68)",
+        "ratio": 1.02,
+        "requiredRatio": 3,
+        "suggestedColor": "rgb(187,182,177)",
+        "large": true,
+        "selector": "div > div:nth-of-type(8) > div > div > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(4) > span",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s6-salida.html",
+        "bbox": {
+          "x": 602.8937377929688,
+          "y": 1060.890625,
+          "width": 16.90625,
+          "height": 53
+        },
+        "time": 44.056,
+        "times": [
+          44.056
+        ]
+      }
+    ],
+    "enabled": true,
+    "samples": [
+      3.389,
+      16.944,
+      30.5,
+      44.056,
+      57.611
+    ],
+    "checked": 57,
+    "passed": 56
+  },
+  "hdr": {
+    "autoPromotion": null,
+    "inspection": "available"
+  },
+  "snapshots": {
+    "enabled": false,
+    "files": [],
+    "times": [],
+    "findingFiles": []
+  }
+}

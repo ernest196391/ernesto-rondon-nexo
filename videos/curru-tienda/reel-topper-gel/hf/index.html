@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Reel cama plegable v2</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      /* Reel «Súper Prosko» (14-oct). Lo escribe montaje.mjs: no editar a mano. Encima de la base limpia (cámara
+         de ffmpeg) van los punch-in, un destello crema suave en los cortes y los PNG de textos y logo. */
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #0d3b45; }
+      #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #0d3b45; }
+      #cam { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; will-change: transform; }
+      #base { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; object-fit: cover; }
+      #destello { position: absolute; inset: 0; background: #f6f1e6; opacity: 0; pointer-events: none; }
+      .capa { position: absolute; display: block; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="28.5" data-width="1080" data-height="1920">
+      <!-- el tiempo va en el video, no en el envoltorio #cam -->
+      <div id="cam">
+        <video id="base" class="clip" src="assets/base.mp4" muted playsinline data-start="0" data-duration="28.5" data-track-index="0"></video>
+      </div>
+      <div id="destello"></div>
+      <img id="gancho" class="clip capa" src="assets/gancho.png" style="top:294px; left:0px" data-start="0" data-duration="2" data-track-index="1" />
+      <img id="cta" class="clip capa" src="assets/cta.png" style="top:369px; left:0px" data-start="22.96" data-duration="5.54" data-track-index="2" />
+      <img id="frase" class="clip capa" src="assets/frase.png" style="top:330px; left:0px" data-start="16.95" data-duration="2.35" data-track-index="2" />
+      <img id="sub-01" class="clip capa" src="assets/sub-01.png" style="top:1266px; left:0px" data-start="0" data-duration="1.4" data-track-index="3" />
+      <img id="sub-02" class="clip capa" src="assets/sub-02.png" style="top:1266px; left:0px" data-start="1.4" data-duration="0.6" data-track-index="3" />
+      <img id="sub-03" class="clip capa" src="assets/sub-03.png" style="top:1258px; left:0px" data-start="2.01" data-duration="1.71" data-track-index="3" />
+      <img id="sub-04" class="clip capa" src="assets/sub-04.png" style="top:1258px; left:0px" data-start="3.9167" data-duration="0.7" data-track-index="3" />
+      <img id="sub-05" class="clip capa" src="assets/sub-05.png" style="top:1266px; left:0px" data-start="4.6167" data-duration="0.85" data-track-index="3" />
+      <img id="sub-06" class="clip capa" src="assets/sub-06.png" style="top:1266px; left:0px" data-start="5.5967" data-duration="0.62" data-track-index="3" />
+      <img id="sub-07" class="clip capa" src="assets/sub-07.png" style="top:1266px; left:0px" data-start="6.2167" data-duration="0.9" data-track-index="3" />
+      <img id="sub-08" class="clip capa" src="assets/sub-08.png" style="top:1266px; left:0px" data-start="7.3167" data-duration="0.85" data-track-index="3" />
+      <img id="sub-09" class="clip capa" src="assets/sub-09.png" style="top:1266px; left:0px" data-start="8.1767" data-duration="0.7" data-track-index="3" />
+      <img id="sub-10" class="clip capa" src="assets/sub-10.png" style="top:1266px; left:0px" data-start="8.8767" data-duration="0.64" data-track-index="3" />
+      <img id="sub-11" class="clip capa" src="assets/sub-11.png" style="top:1266px; left:0px" data-start="9.5167" data-duration="0.8" data-track-index="3" />
+      <img id="sub-12" class="clip capa" src="assets/sub-12.png" style="top:1266px; left:0px" data-start="10.5667" data-duration="1.7" data-track-index="3" />
+      <img id="sub-13" class="clip capa" src="assets/sub-13.png" style="top:1266px; left:0px" data-start="12.3767" data-duration="1.89" data-track-index="3" />
+      <img id="sub-14" class="clip capa" src="assets/sub-14.png" style="top:1258px; left:0px" data-start="14.3" data-duration="0.94" data-track-index="3" />
+      <img id="sub-15" class="clip capa" src="assets/sub-15.png" style="top:1258px; left:0px" data-start="15.88" data-duration="1.02" data-track-index="3" />
+      <img id="sub-16" class="clip capa" src="assets/sub-16.png" style="top:1266px; left:0px" data-start="19.68" data-duration="1.42" data-track-index="3" />
+      <img id="sub-17" class="clip capa" src="assets/sub-17.png" style="top:1266px; left:0px" data-start="21.1" data-duration="1.58" data-track-index="3" />
+      <img id="sub-18" class="clip capa" src="assets/sub-18.png" style="top:1266px; left:0px" data-start="24.3" data-duration="0.8" data-track-index="3" />
+      <img id="sub-19" class="clip capa" src="assets/sub-19.png" style="top:1266px; left:0px" data-start="25.1" data-duration="0.5" data-track-index="3" />
+      <img id="sub-20" class="clip capa" src="assets/sub-20.png" style="top:1266px; left:0px" data-start="25.61" data-duration="0.85" data-track-index="3" />
+      <img id="sub-21" class="clip capa" src="assets/sub-21.png" style="top:1266px; left:0px" data-start="26.98" data-duration="0.72" data-track-index="3" />
+      <img id="sub-22" class="clip capa" src="assets/sub-22.png" style="top:1258px; left:0px" data-start="27.7" data-duration="0.75" data-track-index="3" />
+      <img id="logo" class="clip capa" src="assets/logo.png" style="top:1425px; left:350px" data-start="27" data-duration="1.5" data-track-index="4" />
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      tl.set("#cam", { scale: 1, transformOrigin: "540px 960px" }, 0);
+
+      for (const [t, pico] of [[2,0.2],[3.7667,0.2],[5.4667,0.2],[7.1667,0.2],[8.1667,0.32],[10.3667,0.2],[12.3667,0.2],[14.3,0.2],[15.8,0.2],[17.8,0.2],[19.5,0.2],[22.8,0.2],[25.6,0.2]]) {
+        tl.set("#destello", { opacity: pico }, t);
+        tl.to("#destello", { opacity: 0, duration: 0.2, ease: "power1.out" }, t + 0.001);
+      }
+      tl.set("#destello", { opacity: 0 }, 28.49);
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

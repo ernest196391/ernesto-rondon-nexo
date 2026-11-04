@@ -1,0 +1,87 @@
+{
+ "task": "transcribe",
+ "language": "Spanish",
+ "duration": 4.9690624,
+ "text": " Está en tu área, abre el menú y en herramientas toca Mi estudio de fotos.",
+ "words": [
+  {
+   "word": "Está",
+   "start": 0.08,
+   "end": 0.22
+  },
+  {
+   "word": "en",
+   "start": 0.22,
+   "end": 0.36
+  },
+  {
+   "word": "tu",
+   "start": 0.36,
+   "end": 0.46
+  },
+  {
+   "word": "área,",
+   "start": 0.46,
+   "end": 1.1
+  },
+  {
+   "word": "abre",
+   "start": 1.1,
+   "end": 1.18
+  },
+  {
+   "word": "el",
+   "start": 1.18,
+   "end": 1.34
+  },
+  {
+   "word": "menú",
+   "start": 1.34,
+   "end": 1.56
+  },
+  {
+   "word": "y",
+   "start": 1.56,
+   "end": 1.88
+  },
+  {
+   "word": "en",
+   "start": 1.88,
+   "end": 1.96
+  },
+  {
+   "word": "herramientas",
+   "start": 1.96,
+   "end": 2.58
+  },
+  {
+   "word": "toca",
+   "start": 2.58,
+   "end": 3.12
+  },
+  {
+   "word": "Mi",
+   "start": 3.12,
+   "end": 3.58
+  },
+  {
+   "word": "estudio",
+   "start": 3.58,
+   "end": 4.06
+  },
+  {
+   "word": "de",
+   "start": 4.06,
+   "end": 4.3
+  },
+  {
+   "word": "fotos.",
+   "start": 4.3,
+   "end": 4.56
+  }
+ ],
+ "segments": null,
+ "x_groq": {
+  "id": "req_01m535z722eydatd8v43cfwh63"
+ }
+}

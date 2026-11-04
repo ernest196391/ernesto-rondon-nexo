@@ -1,0 +1,31 @@
+<!-- Tutorial «Las piedras»: ?s=menu abre el menú. ?to=<id>&off=<px> deja ese elemento a <off> px de arriba (sin animación).
+     La barra de abajo se esconde. &dbg=1 pinta rectángulos con coordenadas del marco 750x1624. -->
+<style>html body button.cvd-assistant-launcher.cvd-help-chip,html body .cvd-help-chip{display:none!important;visibility:hidden!important;opacity:0!important}html{scroll-behavior:auto!important}.cvga-tabbar,[class^="cvd-curru"],[id^="cvd-curru"],[class*="cvd-help-chip"],[class*="cvd-assistant"],[id*="cvd-contextual"],.cvd-help-chip{display:none!important}.dbgbox{position:absolute;z-index:99999;border:2px solid red;pointer-events:none;font:700 11px/1 monospace;color:#fff;background:rgba(255,0,0,.08)}.dbgbox b{position:absolute;left:0;top:-13px;background:red;padding:1px 2px;white-space:nowrap}</style><script>
+window.addEventListener('load', function () {
+  var q = location.search;
+  var s = (q.match(/s=([\w-]+)/) || [])[1] || '';
+  var to = (q.match(/to=([\w-]+)/) || [])[1] || '';
+  var off = +((q.match(/off=(-?\d+)/) || [])[1] || 0);
+  var dbg = /dbg=1/.test(q);
+  var app = document.querySelector('[data-cvga]');
+  if (s === 'menu' && app) { app.classList.add('is-open'); setTimeout(function(){ app.querySelectorAll('.is-active').forEach(function(a){a.classList.remove('is-active');}); }, 300); }
+  setTimeout(function () {
+    var ns = (q.match(/ns=(\d+)/) || [])[1];
+    if (ns) { var n = document.querySelector('.cvga-nav'); while (n && !(n.scrollHeight > n.clientHeight + 4 && /(auto|scroll)/.test(getComputedStyle(n).overflowY))) n = n.parentElement; if (n) n.scrollTop = +ns; }
+    var yy = (q.match(/[?&]y=(\d+)/) || [])[1]; if (yy) window.scrollTo({ top: +yy, behavior: 'instant' });
+    if (to) { var el = document.getElementById(to) || document.querySelector(to.replace(/^c-/, '.')); if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - off, behavior: 'instant' }); }
+    var pt = (q.match(/pt=(\d+),(\d+)/) || []);
+    if (pt[1]) setTimeout(function () { var e = document.elementFromPoint(+pt[1], +pt[2]); var t = []; while (e && t.length < 6) { t.push(e.tagName + '.' + String(e.className).slice(0, 60) + '#' + e.id); e = e.parentElement; } var d = document.createElement('pre'); d.style.cssText = 'position:fixed;left:0;top:120px;z-index:999999;background:#fff;color:#000;font:11px monospace;white-space:pre-wrap;width:370px'; d.textContent = t.join('\n'); document.body.appendChild(d); }, 300);
+    if (dbg) setTimeout(function () {
+      var sel = s === 'menu' ? '.cvga-nav a, .cvga-nav button, [data-cvga-open]' : '.cvga-view:not([hidden]) .cvga-card, .cvga-view:not([hidden]) .cvga-btn, .cvga-view:not([hidden]) .cvga-vales li, .cvga-view:not([hidden]) h2, .cvga-view:not([hidden]) .cvga-kpi strong, .cvga-view:not([hidden]) .cvga-bonus, .cvga-view:not([hidden]) .cvga-prog-shadow, .cvga-view:not([hidden]) .cvga-stones tr, .cvga-view:not([hidden]) .cvga-stone-name, .cvga-view:not([hidden]) .cvga-team li, .cvga-view:not([hidden]) .cvga-note, [data-cvga-open]';
+      document.querySelectorAll(sel).forEach(function (el) {
+        var r = el.getBoundingClientRect(); if (!r.width || r.bottom < 0 || r.top > 812) return;
+        var d = document.createElement('div'); d.className = 'dbgbox';
+        d.style.cssText = 'left:' + (r.left + window.scrollX) + 'px;top:' + (r.top + window.scrollY) + 'px;width:' + r.width + 'px;height:' + r.height + 'px';
+        d.innerHTML = '<b>' + (el.textContent || '').trim().slice(0, 14) + ' ' + [r.left, r.top, r.right, r.bottom].map(function (n) { return Math.round(n * 2); }).join(',') + '</b>';
+        document.body.appendChild(d);
+      });
+    }, 300);
+  }, 900);
+});
+</script>

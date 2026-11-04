@@ -1,0 +1,162 @@
+{
+ "escena": "10-escena-v1-limpia.mp4",
+ "duracion": 12,
+ "salida": "casa-viva-reel-funda.mp4",
+ "whisper": "10-escena-v1.whisper.json",
+ "gancho": "¿Tus sábanas huelen|a guardado?",
+ "ganchoY": 1250,
+ "ganchoMin": 2,
+ "ganchoHasta": 2.2,
+ "subY": 1250,
+ "logoY": 1400,
+ "logoDur": 1.5,
+ "subs": [
+  {
+   "de": 2.2,
+   "a": 3.75,
+   "texto": "Truco de abuela:"
+  },
+  {
+   "de": 3.75,
+   "a": 6.3,
+   "texto": "todo el juego dentro de su funda…"
+  },
+  {
+   "de": 6.3,
+   "a": 8.3,
+   "texto": "…y un jaboncito de olor."
+  },
+  {
+   "de": 8.8,
+   "a": 10.6,
+   "texto": "¡Huele a casa de abuela!",
+   "y": 640
+  },
+  {
+   "de": 10.75,
+   "a": 12,
+   "texto": "¡Ay, este niño!"
+  }
+ ],
+ "planos": [
+  {
+   "de": 0,
+   "a": 74,
+   "z": [
+    1,
+    1.08
+   ],
+   "f": [
+    0.5,
+    0.25
+   ],
+   "o": [
+    0.5,
+    0.27
+   ],
+   "que": "plano medio: lo huele y pone cara (gancho)"
+  },
+  {
+   "de": 74,
+   "a": 137,
+   "z": [
+    1,
+    1.06
+   ],
+   "f": [
+    0.5,
+    0.55
+   ],
+   "o": [
+    0.5,
+    0.5
+   ],
+   "que": "primer plano de las manos: mete el juego en la funda"
+  },
+  {
+   "de": 137,
+   "a": 186,
+   "z": [
+    1,
+    1.04
+   ],
+   "f": [
+    0.5,
+    0.35
+   ],
+   "o": [
+    0.5,
+    0.35
+   ],
+   "que": "plano medio: la funda llena"
+  },
+  {
+   "de": 186,
+   "a": 235,
+   "z": [
+    1.18,
+    1.24
+   ],
+   "f": [
+    0.45,
+    0.3
+   ],
+   "o": [
+    0.5,
+    0.32
+   ],
+   "que": "acercamiento: el jaboncito"
+  },
+  {
+   "de": 235,
+   "a": 263,
+   "z": [
+    1,
+    1.05
+   ],
+   "f": [
+    0.5,
+    0.5
+   ],
+   "o": [
+    0.5,
+    0.5
+   ],
+   "que": "plano de dos: entra Proskopellin"
+  },
+  {
+   "de": 263,
+   "a": 323,
+   "z": [
+    1,
+    1.06
+   ],
+   "f": [
+    0.62,
+    0.55
+   ],
+   "o": [
+    0.58,
+    0.55
+   ],
+   "que": "primer plano del niño abrazando la funda"
+  },
+  {
+   "de": 323,
+   "a": 360,
+   "z": [
+    1.1,
+    1.14
+   ],
+   "f": [
+    0.5,
+    0.35
+   ],
+   "o": [
+    0.5,
+    0.38
+   ],
+   "que": "primer plano de Cúrru: risa y guiño (corta el broche de abajo)"
+  }
+ ]
+}

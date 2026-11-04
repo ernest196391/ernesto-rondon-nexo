@@ -1,0 +1,38 @@
+<!-- Se pega antes de </body> del HTML limpio (capture-build.py). Estados: ?s=herr|menu|top|play|play2|seen|faq|faqopen (la barra de abajo se esconde: en Chrome sin interfaz salía unas veces sí y otras no) ; &dbg=1 pinta los rectángulos.
+     Nada sale a la web: capture-build.py mete antes, al principio de <head>, un bloqueo de fetch/XHR/sendBeacon que nunca responde
+     (así «Marcar como visto» cambia en pantalla sin guardar nada). -->
+<style>html{scroll-behavior:auto!important}.cvga-tabbar{display:none!important}.dbgbox{position:absolute;z-index:99999;border:2px solid red;pointer-events:none;font:700 11px/1 monospace;color:#fff;background:rgba(255,0,0,.12)}.dbgbox b{position:absolute;left:0;top:-13px;background:red;padding:1px 2px;white-space:nowrap}</style><script>
+window.addEventListener('load', function () {
+  var s = (location.search.match(/s=([\w-]+)/) || [])[1] || '';
+  var dbg = /dbg=1/.test(location.search);
+  var app = document.querySelector('[data-cvga]');
+  var root = document.querySelector('[data-cva]');
+  var card1 = root.querySelector('[data-cva-card]');
+  function fixTo(el, off) { var go = function () { window.scrollTo({ top: Math.max(0, Math.round(el.getBoundingClientRect().top + window.scrollY - off)), behavior: 'instant' }); }; go(); setTimeout(go, 400); setTimeout(go, 1200); }
+  if (s === 'menu') { app.classList.add('is-open'); setTimeout(function(){ app.querySelectorAll('.is-active').forEach(function(a){a.classList.remove('is-active');}); }, 300); }
+  if (s === 'play' || s === 'play2') {
+    card1.querySelector('[data-cva-play]').click();
+    setTimeout(function () { var v = card1.querySelector('video'); if (v) { v.pause(); v.removeAttribute('src'); v.poster = 'poster.jpg'; v.load(); } }, 50);
+  }
+  if (s === 'seen') card1.querySelector('[data-cva-toggle]').click();
+  if (s === 'faqopen') root.querySelector('[data-cva-topic="enlace"]').click();
+  setTimeout(function () {
+    if (s === 'faq') fixTo(root.querySelector('.cva-h2'), 536);
+    if (s === 'faqopen') fixTo(root.querySelector('.cva-h2'), 320); // más arriba: abajo van los subtítulos
+    if (s === 'play2') fixTo(card1, 70);
+    if (dbg) setTimeout(function () {
+      var sel = ['[data-cvga-open]', '.cvga-nav a[data-cvga-go="aprende"]', '.cvga-nav a[data-cvga-go="inicio"]', '.cvga-todo [data-cvga-go="aprende"]', '.cva-hero', '.cva-progress', '[data-cva-play]', '[data-cva-toggle]', '.cva-next', '.cva-card', '.cva-h2', '.cva-chip', '.cva-answer:not([hidden])', '.cva-help', '.cva-media'];
+      sel.forEach(function (q) {
+        document.querySelectorAll(q).forEach(function (el, i) {
+          var r = el.getBoundingClientRect(); if (!r.width || r.bottom < 0 || r.top > 812) return;
+          var d = document.createElement('div'); d.className = 'dbgbox';
+          d.style.cssText = 'left:' + (r.left + window.scrollX) + 'px;top:' + (r.top + window.scrollY) + 'px;width:' + r.width + 'px;height:' + r.height + 'px';
+          d.innerHTML = '<b>' + q.slice(0, 14) + i + ' ' + [r.left, r.top, r.right, r.bottom].map(function (n) { return Math.round(n * 2); }).join(',') + '</b>';
+          document.body.appendChild(d);
+        });
+      });
+    }, 1500);
+    document.querySelectorAll('img[loading=lazy]').forEach(function (i) { i.loading = 'eager'; });
+  }, 500);
+});
+</script>

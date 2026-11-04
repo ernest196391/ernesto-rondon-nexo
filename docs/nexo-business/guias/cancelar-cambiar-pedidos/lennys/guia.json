@@ -1,0 +1,43 @@
+{
+  "titulo": "Panel",
+  "formato": "1080x1350",
+  "para": "Lennys (administradora), en casaviva.company/panel (vista de móvil). Capturas: panel publicado, pedido de PRUEBA #3682 con datos de ejemplo.",
+  "mensaje": "Hola, Lennys. Ya puedes cambiar y cancelar pedidos de la web desde el panel.\nTe sirve para arreglar un pedido sin llamar a nadie, y cada cambio queda anotado en el pedido.\nTe dejo los pasos 👇\nSi algo no sale, escríbeme.",
+  "pasos": [
+    {
+      "texto": "Toca **Pedidos**, abajo.",
+      "resultado": "Salen los pedidos de la web **Por atender**.",
+      "captura": "capturas/l1-pedidos.png",
+      "flecha": "arriba",
+      "zoom": 1.1,
+      "pie": "Paso 1 de 4: toca Pedidos, abajo.",
+      "ver": "entera"
+    },
+    {
+      "texto": "Toca el pedido que quieres arreglar.",
+      "resultado": "Se abre el pedido con sus botones.",
+      "captura": "capturas/l2-pedido.png",
+      "flecha": "abajo",
+      "zoom": 1.1,
+      "pie": "Paso 2 de 4: toca el pedido."
+    },
+    {
+      "texto": "Toca **Cambiar pedido** para arreglar algo.",
+      "resultado": "Cambia cliente, dirección, día o productos y toca **Guardar cambios**.",
+      "ojo": "En el móvil su nombre sale cortado: es el de debajo de **Cancelar pedido**.",
+      "captura": "capturas/l3-cambiar.png",
+      "flecha": "izq",
+      "zoom": 1.1,
+      "pie": "Paso 3 de 4: toca Cambiar pedido (debajo de Cancelar pedido)."
+    },
+    {
+      "texto": "Para anularlo, toca **Cancelar pedido**.",
+      "resultado": "Escribe el motivo y toca **Confirmar: Cancelar pedido**.",
+      "ojo": "Lo ya entregado no se cancela: se usa **Registrar devolución**.",
+      "captura": "capturas/l4-cancelar.png",
+      "flecha": "izq",
+      "zoom": 1.1,
+      "pie": "Paso 4 de 4: toca Cancelar pedido, escribe el motivo y confirma."
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+Hola, Lennys. Ya está lo que pediste: ahora puedes eliminar un producto o un diseño que creaste mal.
+Abre el producto y toca «Eliminar producto» o «Eliminar este diseño». Siempre te pregunta antes.
+Si ya tiene pedidos, no se borra: se oculta, para que esos pedidos sigan bien.
+Si algo no sale, escríbeme.

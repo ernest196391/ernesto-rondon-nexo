@@ -1,0 +1,8 @@
+{
+  "name": "menu-360",
+  "private": true,
+  "description": "Fábrica /menu-360: genera el menú 360°, la página para el dueño, el cartel y la tarjeta de un negocio a partir de docs/clientes/<slug>/negocio.json",
+  "type": "module",
+  "scripts": { "construir": "node construir.mjs" },
+  "dependencies": { "jsqr": "1.4.0", "pngjs": "7.0.0", "qrcode": "1.5.4" }
+}

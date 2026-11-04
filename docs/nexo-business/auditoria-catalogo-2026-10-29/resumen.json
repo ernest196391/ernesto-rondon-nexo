@@ -1,0 +1,358 @@
+{
+  "total": 1129,
+  "publicados": 923,
+  "privados": 199,
+  "borradores": 7,
+  "bajo_pedido": 699,
+  "propios": 224,
+  "con_0_fotos": 1,
+  "con_1_foto": 682,
+  "con_menos_de_3": 785,
+  "sin_foto_real": 813,
+  "propios_sin_foto_real": 130,
+  "con_foto_real": 110,
+  "listos_3fotos_1real": 73,
+  "propios_con_reales_en_biblioteca_sin_subir": 91,
+  "fotos_reales_en_biblioteca_sin_subir": 233,
+  "desc_0": 7,
+  "desc_menos_250": 415,
+  "desc_menos_400": 545,
+  "desc_400_o_mas": 378,
+  "sin_medidas": 285,
+  "sin_material": 736,
+  "sin_garantia": 896,
+  "sin_que_incluye": 771,
+  "titulo_corto": 131,
+  "titulo_largo": 71,
+  "titulo_mayusculas": 13,
+  "titulo_emoji": 1,
+  "titulo_con_problema": 206,
+  "titulos_duplicados_productos": 42,
+  "titulos_duplicados_grupos": 21,
+  "slug_con_problema": 186,
+  "slug_sufijo_numero": 161,
+  "con_seo_title": 7,
+  "con_meta_description": 7,
+  "fotos_total": 1547,
+  "fotos_sin_alt": 1386,
+  "fotos_mas_150kb": 265,
+  "con_ventas_60d": 110,
+  "ventas_60d_uds": 367,
+  "con_preguntas": 144,
+  "preguntas": {
+    "mensajes_pregunta": 1538,
+    "asignadas_a_producto": 226,
+    "por_tema": {
+      "precio": 288,
+      "fotos": 341,
+      "disponibilidad": 406,
+      "medidas": 133,
+      "color": 79,
+      "garantia": 32,
+      "funcionamiento": 62,
+      "material": 30
+    },
+    "por_tipo_sin_producto_concreto": [
+      [
+        "mochila",
+        7
+      ],
+      [
+        "alfombras",
+        3
+      ],
+      [
+        "bola",
+        1
+      ]
+    ]
+  },
+  "biblioteca": {
+    "total": 862,
+    "por_carpeta": {
+      "con producto": 473,
+      "descartadas": 1,
+      "otras": 157,
+      "sin-producto": 231
+    }
+  },
+  "por_categoria": {
+    "Habitación": {
+      "productos": 66,
+      "bajo_pedido": 6,
+      "sin_foto_real": 40,
+      "menos_3_fotos": 35,
+      "desc_menos_400": 28,
+      "titulo_problema": 19,
+      "ventas60": 207,
+      "preguntas": 57.00000000000001
+    },
+    "Sala y muebles": {
+      "productos": 54,
+      "bajo_pedido": 30,
+      "sin_foto_real": 39,
+      "menos_3_fotos": 37,
+      "desc_menos_400": 37,
+      "titulo_problema": 10,
+      "ventas60": 109,
+      "preguntas": 18.6
+    },
+    "Apagones y energía": {
+      "productos": 205,
+      "bajo_pedido": 198,
+      "sin_foto_real": 201,
+      "menos_3_fotos": 194,
+      "desc_menos_400": 166,
+      "titulo_problema": 44,
+      "ventas60": 12,
+      "preguntas": 28.900000000000002
+    },
+    "Baño": {
+      "productos": 43,
+      "bajo_pedido": 8,
+      "sin_foto_real": 28,
+      "menos_3_fotos": 27,
+      "desc_menos_400": 21,
+      "titulo_problema": 15,
+      "ventas60": 35,
+      "preguntas": 20.900000000000006
+    },
+    "Movilidad": {
+      "productos": 26,
+      "bajo_pedido": 19,
+      "sin_foto_real": 23,
+      "menos_3_fotos": 20,
+      "desc_menos_400": 16,
+      "titulo_problema": 3,
+      "ventas60": 14,
+      "preguntas": 9
+    },
+    "Cocina": {
+      "productos": 61,
+      "bajo_pedido": 29,
+      "sin_foto_real": 50,
+      "menos_3_fotos": 47,
+      "desc_menos_400": 35,
+      "titulo_problema": 18,
+      "ventas60": 20,
+      "preguntas": 8.399999999999999
+    },
+    "Accesorios": {
+      "productos": 45,
+      "bajo_pedido": 29,
+      "sin_foto_real": 39,
+      "menos_3_fotos": 38,
+      "desc_menos_400": 19,
+      "titulo_problema": 22,
+      "ventas60": 15,
+      "preguntas": 10
+    },
+    "Organización": {
+      "productos": 86,
+      "bajo_pedido": 74,
+      "sin_foto_real": 75,
+      "menos_3_fotos": 78,
+      "desc_menos_400": 74,
+      "titulo_problema": 9,
+      "ventas60": 9,
+      "preguntas": 7.5
+    },
+    "Cuidado personal": {
+      "productos": 35,
+      "bajo_pedido": 11,
+      "sin_foto_real": 22,
+      "menos_3_fotos": 18,
+      "desc_menos_400": 9,
+      "titulo_problema": 11,
+      "ventas60": 18,
+      "preguntas": 11
+    },
+    "Aires acondicionados": {
+      "productos": 1,
+      "bajo_pedido": 0,
+      "sin_foto_real": 1,
+      "menos_3_fotos": 1,
+      "desc_menos_400": 1,
+      "titulo_problema": 0,
+      "ventas60": 0,
+      "preguntas": 2
+    },
+    "Navidad": {
+      "productos": 11,
+      "bajo_pedido": 4,
+      "sin_foto_real": 10,
+      "menos_3_fotos": 8,
+      "desc_menos_400": 5,
+      "titulo_problema": 3,
+      "ventas60": 9,
+      "preguntas": 8.3
+    },
+    "Baño, cocina": {
+      "productos": 1,
+      "bajo_pedido": 0,
+      "sin_foto_real": 1,
+      "menos_3_fotos": 0,
+      "desc_menos_400": 0,
+      "titulo_problema": 0,
+      "ventas60": 1,
+      "preguntas": 1.5
+    },
+    "Ferretería": {
+      "productos": 42,
+      "bajo_pedido": 37,
+      "sin_foto_real": 41,
+      "menos_3_fotos": 39,
+      "desc_menos_400": 33,
+      "titulo_problema": 4,
+      "ventas60": 2,
+      "preguntas": 4.5
+    },
+    "Electrodomésticos": {
+      "productos": 115,
+      "bajo_pedido": 114,
+      "sin_foto_real": 111,
+      "menos_3_fotos": 111,
+      "desc_menos_400": 94,
+      "titulo_problema": 17,
+      "ventas60": 1,
+      "preguntas": 13.200000000000003
+    },
+    "Juguetes": {
+      "productos": 1,
+      "bajo_pedido": 0,
+      "sin_foto_real": 1,
+      "menos_3_fotos": 1,
+      "desc_menos_400": 0,
+      "titulo_problema": 1,
+      "ventas60": 1,
+      "preguntas": 0
+    },
+    "Tecnología": {
+      "productos": 164,
+      "bajo_pedido": 161,
+      "sin_foto_real": 160,
+      "menos_3_fotos": 152,
+      "desc_menos_400": 28,
+      "titulo_problema": 41,
+      "ventas60": 1,
+      "preguntas": 17
+    },
+    "Sin categorizar": {
+      "productos": 7,
+      "bajo_pedido": 0,
+      "sin_foto_real": 0,
+      "menos_3_fotos": 3,
+      "desc_menos_400": 7,
+      "titulo_problema": 0,
+      "ventas60": 6,
+      "preguntas": 17
+    },
+    "Sala": {
+      "productos": 2,
+      "bajo_pedido": 0,
+      "sin_foto_real": 0,
+      "menos_3_fotos": 2,
+      "desc_menos_400": 0,
+      "titulo_problema": 0,
+      "ventas60": 2,
+      "preguntas": 4.6
+    }
+  },
+  "categorias_texto": [
+    {
+      "nombre": "Accesorios",
+      "productos": 40,
+      "letras_texto": 0
+    },
+    {
+      "nombre": "Aires acondicionados",
+      "productos": 1,
+      "letras_texto": 0
+    },
+    {
+      "nombre": "Bajo pedido",
+      "productos": 699,
+      "letras_texto": 0
+    },
+    {
+      "nombre": "Baño, cocina",
+      "productos": 1,
+      "letras_texto": 0
+    },
+    {
+      "nombre": "Juguetes",
+      "productos": 1,
+      "letras_texto": 0
+    },
+    {
+      "nombre": "Movilidad",
+      "productos": 26,
+      "letras_texto": 0
+    },
+    {
+      "nombre": "Navidad",
+      "productos": 10,
+      "letras_texto": 0
+    },
+    {
+      "nombre": "Sala",
+      "productos": 2,
+      "letras_texto": 0
+    },
+    {
+      "nombre": "Sin categorizar",
+      "productos": 5,
+      "letras_texto": 0
+    },
+    {
+      "nombre": "Tecnología",
+      "productos": 164,
+      "letras_texto": 0
+    },
+    {
+      "nombre": "Apagones y energía",
+      "productos": 203,
+      "letras_texto": 34
+    },
+    {
+      "nombre": "Baño",
+      "productos": 43,
+      "letras_texto": 23
+    },
+    {
+      "nombre": "Cocina",
+      "productos": 59,
+      "letras_texto": 33
+    },
+    {
+      "nombre": "Cuidado personal",
+      "productos": 34,
+      "letras_texto": 28
+    },
+    {
+      "nombre": "Electrodomésticos",
+      "productos": 115,
+      "letras_texto": 28
+    },
+    {
+      "nombre": "Ferretería",
+      "productos": 41,
+      "letras_texto": 0
+    },
+    {
+      "nombre": "Habitación",
+      "productos": 59,
+      "letras_texto": 28
+    },
+    {
+      "nombre": "Organización",
+      "productos": 86,
+      "letras_texto": 27
+    },
+    {
+      "nombre": "Sala y muebles",
+      "productos": 51,
+      "letras_texto": 35
+    }
+  ]
+}

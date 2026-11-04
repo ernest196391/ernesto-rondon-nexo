@@ -1,0 +1,50 @@
+{
+  "titulo": "Pa'llá",
+  "formato": "1080x1350",
+  "para": "mensajeros",
+  "mensaje": "Hola a todo el equipo 👋 Desde hoy todos pueden usar *Pa'llá*, la app de las carreras.\nCon ella el bot les escribe mucho menos: cada paso es un botón.\nPara entrar, escríbanme *Pa'llá* y les mando su enlace (es solo suyo).\nPara probarla sin riesgo, con carreras inventadas: https://casaviva.company/palla/?practica=1\nMira los pasos en las fotos 👇\nSi algo no sale, escríbanme.",
+  "pasos": [
+    {
+      "texto": "Toca **Activar sonido**.",
+      "resultado": "Te suena cada carrera libre mientras Pa'llá está abierta.",
+      "captura": "capturas/0-sonido.png",
+      "flecha": "abajo",
+      "zoom": 1.1,
+      "pie": "Paso 1 de 5: toca Activar sonido."
+    },
+    {
+      "texto": "Toca **La cojo** en una carrera libre.",
+      "resultado": "Sale «es tuya. Ve a recogerla a la tienda».",
+      "ojo": "El primero que toca, la gana, igual que el «Yo» del grupo.",
+      "captura": "capturas/1-cojo.png",
+      "flecha": "arriba",
+      "zoom": 1.1,
+      "pie": "Paso 2 de 5: toca La cojo."
+    },
+    {
+      "texto": "Al coger el paquete, toca **Recogí**.",
+      "resultado": "La tienda ve que ya lo llevas.",
+      "captura": "capturas/2-recogi.png",
+      "flecha": "no",
+      "zoom": 1.1,
+      "pie": "Paso 3 de 5: al coger el paquete, toca Recogí."
+    },
+    {
+      "texto": "Al dar el paquete, toca **Entregado**.",
+      "resultado": "Queda apuntado lo que cobraste según el vale.",
+      "ojo": "¿Te equivocaste? Tienes 5 segundos para tocar **Deshacer**.",
+      "captura": "capturas/3-entregado.png",
+      "flecha": "no",
+      "zoom": 1.1,
+      "pie": "Paso 4 de 5: al dar el paquete, toca Entregado."
+    },
+    {
+      "texto": "Toca **Mi dinero**.",
+      "resultado": "Ves lo que ganaste y lo que llevas a la tienda.",
+      "captura": "capturas/4-dinero.png",
+      "flecha": "arriba",
+      "zoom": 1.1,
+      "pie": "Paso 5 de 5: toca Mi dinero."
+    }
+  ]
+}

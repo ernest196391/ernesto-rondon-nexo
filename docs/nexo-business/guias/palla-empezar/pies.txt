@@ -1,0 +1,5 @@
+Paso 1 de 5: toca Activar sonido.
+Paso 2 de 5: toca La cojo.
+Paso 3 de 5: al coger el paquete, toca Recogí.
+Paso 4 de 5: al dar el paquete, toca Entregado.
+Paso 5 de 5: toca Mi dinero.

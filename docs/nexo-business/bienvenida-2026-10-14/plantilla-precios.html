@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Precios de mensajería · Casa Viva</title>
+<!-- Plantilla del PDF de precios de mensajería. La rellena generar-pdf.mjs ({{...}}); no la edites a mano para cambiar precios. -->
+<style>
+{{FUENTES}}
+:root {
+  --crema: #F6F1E6;
+  --marron: #2B2420;
+  --petroleo: #0D3B45;
+  --ambar: #A35A1F;   /* solo para cifras */
+  --linea: rgba(43, 36, 32, .14);
+  --suave: rgba(13, 59, 69, .07);
+}
+@page { size: A4; margin: 0; }
+/* Margen de cada hoja con relleno «clonado» en cada página: así el fondo crema llega hasta el borde. */
+.hoja { padding: 12mm 12mm 12mm; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+* { box-sizing: border-box; }
+html, body { background: var(--crema); margin: 0; }
+html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+body { font-family: 'Figtree', system-ui, sans-serif; color: var(--marron); font-size: 10.5pt; line-height: 1.35; }
+
+
+/* Cabecera */
+.cabecera { display: flex; align-items: center; justify-content: space-between; gap: 8mm; padding-bottom: 4mm; border-bottom: 2px solid var(--petroleo); }
+.cabecera img { height: 13mm; width: auto; display: block; }
+.cabecera .fecha { font-size: 10pt; color: var(--petroleo); text-align: right; }
+h1 { font-family: 'Cinzel', serif; font-weight: 700; color: var(--petroleo); font-size: 26pt; letter-spacing: .02em; margin: 5mm 0 2mm; line-height: 1.1; }
+
+/* Nota */
+.nota { background: var(--suave); border-left: 4px solid var(--petroleo); border-radius: 2mm; padding: 3mm 4mm; margin: 3mm 0 5mm; font-size: 10.5pt; }
+.nota p { margin: 0 0 1.5mm; }
+.nota p:last-child { margin-bottom: 0; }
+.nota a { color: var(--petroleo); font-weight: 700; text-decoration: none; }
+.nota b { color: var(--petroleo); }
+
+/* Lista a dos columnas */
+.lista { column-count: 2; column-gap: 8mm; column-rule: 1px solid var(--linea); }
+.bloque-titulo { column-span: all; font-weight: 800; color: var(--petroleo); font-size: 12pt; text-transform: uppercase; letter-spacing: .06em; margin: 4mm 0 2mm; padding-top: 2mm; border-top: 2px solid var(--petroleo); }
+.municipio { break-inside: auto; margin: 0 0 4mm; }
+.municipio h2 { font-size: 12.5pt; font-weight: 800; color: var(--petroleo); margin: 0; padding: 1.5mm 0 .5mm; break-after: avoid; }
+.municipio .ref { font-size: 9.5pt; color: var(--marron); opacity: .85; margin: 0 0 1mm; break-after: avoid; }
+.municipio .ref .cifra { font-size: 9.5pt; }
+table { width: 100%; border-collapse: collapse; }
+tr { break-inside: avoid; }
+td { padding: 1.05mm 0; border-bottom: 1px solid var(--linea); vertical-align: baseline; }
+td.zona { padding-right: 2mm; }
+td.precio { text-align: right; white-space: nowrap; }
+.cifra { color: var(--ambar); font-weight: 700; font-variant-numeric: tabular-nums; }
+.final { margin: 5mm 0 0; padding-top: 2mm; border-top: 1px solid var(--linea); font-size: 10pt; color: var(--petroleo); text-align: center; }
+.cup { font-size: 8.5pt; font-weight: 600; color: var(--ambar); margin-left: .6mm; }
+</style>
+</head>
+<body>
+<div class="hoja">
+
+<header class="cabecera">
+  <img src="{{LOGO}}" alt="Casa Viva">
+  <div class="fecha">Actualizado: <b>{{FECHA}}</b><br>{{TOTAL}} repartos en {{MUNICIPIOS}} municipios</div>
+</header>
+
+<h1>Precios de mensajería</h1>
+
+<section class="nota">
+  <p><b>Precio exacto:</b> entra en <a href="https://casaviva.company/cotizar-mensajeria/">casaviva.company/cotizar-mensajeria/</a>, elige el municipio y el reparto, y la web te da el precio. Al comprar en la web, el precio sale solo al poner la dirección.</p>
+  <p><b>La mensajería es del mensajero</b> y se le paga a él, <b>en CUP</b>.</p>
+  <p>Si el reparto no está en la lista, el precio de referencia del municipio es aproximado: lo confirma la tienda.</p>
+</section>
+
+<main class="lista">
+{{CONTENIDO}}
+</main>
+<p class="final">Precio exacto siempre en <b>casaviva.company/cotizar-mensajeria/</b> · Actualizado: {{FECHA}}</p>
+</div>
+</body>
+</html>

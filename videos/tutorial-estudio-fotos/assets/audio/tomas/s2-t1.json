@@ -1,0 +1,117 @@
+{
+ "task": "transcribe",
+ "language": "Spanish",
+ "duration": 5.665687552,
+ "text": " Ahora tienes tu estudio de fotos. De una foto normal sale una foto bonita para vender. Mira esta, la hizo Dani.",
+ "words": [
+  {
+   "word": "Ahora",
+   "start": 0.02,
+   "end": 0.22
+  },
+  {
+   "word": "tienes",
+   "start": 0.22,
+   "end": 0.48
+  },
+  {
+   "word": "tu",
+   "start": 0.48,
+   "end": 0.62
+  },
+  {
+   "word": "estudio",
+   "start": 0.62,
+   "end": 0.88
+  },
+  {
+   "word": "de",
+   "start": 0.88,
+   "end": 1.06
+  },
+  {
+   "word": "fotos.",
+   "start": 1.06,
+   "end": 1.82
+  },
+  {
+   "word": "De",
+   "start": 1.84,
+   "end": 1.9
+  },
+  {
+   "word": "una",
+   "start": 1.9,
+   "end": 2.04
+  },
+  {
+   "word": "foto",
+   "start": 2.04,
+   "end": 2.24
+  },
+  {
+   "word": "normal",
+   "start": 2.24,
+   "end": 2.58
+  },
+  {
+   "word": "sale",
+   "start": 2.58,
+   "end": 2.82
+  },
+  {
+   "word": "una",
+   "start": 2.82,
+   "end": 2.96
+  },
+  {
+   "word": "foto",
+   "start": 2.96,
+   "end": 3.22
+  },
+  {
+   "word": "bonita",
+   "start": 3.22,
+   "end": 3.52
+  },
+  {
+   "word": "para",
+   "start": 3.52,
+   "end": 3.72
+  },
+  {
+   "word": "vender.",
+   "start": 3.72,
+   "end": 4.34
+  },
+  {
+   "word": "Mira",
+   "start": 4.38,
+   "end": 4.52
+  },
+  {
+   "word": "esta,",
+   "start": 4.52,
+   "end": 4.86
+  },
+  {
+   "word": "la",
+   "start": 4.86,
+   "end": 5
+  },
+  {
+   "word": "hizo",
+   "start": 5,
+   "end": 5.16
+  },
+  {
+   "word": "Dani.",
+   "start": 5.16,
+   "end": 5.84
+  }
+ ],
+ "segments": null,
+ "x_groq": {
+  "id": "req_01m535z5tred6941m470ed92z4"
+ }
+}

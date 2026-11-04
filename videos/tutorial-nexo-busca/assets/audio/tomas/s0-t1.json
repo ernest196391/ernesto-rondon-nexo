@@ -1,0 +1,67 @@
+{
+ "task": "transcribe",
+ "language": "Spanish",
+ "duration": 2.55418752,
+ "text": " ¿Tu cliente te pide algo que no tenemos en Casa Viva?",
+ "words": [
+  {
+   "word": "¿Tu",
+   "start": 0.08,
+   "end": 0.18
+  },
+  {
+   "word": "cliente",
+   "start": 0.18,
+   "end": 0.52
+  },
+  {
+   "word": "te",
+   "start": 0.52,
+   "end": 0.66
+  },
+  {
+   "word": "pide",
+   "start": 0.66,
+   "end": 0.84
+  },
+  {
+   "word": "algo",
+   "start": 0.84,
+   "end": 1.06
+  },
+  {
+   "word": "que",
+   "start": 1.06,
+   "end": 1.22
+  },
+  {
+   "word": "no",
+   "start": 1.22,
+   "end": 1.34
+  },
+  {
+   "word": "tenemos",
+   "start": 1.34,
+   "end": 1.62
+  },
+  {
+   "word": "en",
+   "start": 1.62,
+   "end": 1.86
+  },
+  {
+   "word": "Casa",
+   "start": 1.86,
+   "end": 2.04
+  },
+  {
+   "word": "Viva?",
+   "start": 2.04,
+   "end": 2.26
+  }
+ ],
+ "segments": null,
+ "x_groq": {
+  "id": "req_01m532j9bce5r8nzwvky5wtpcf"
+ }
+}

@@ -1,0 +1,172 @@
+{
+ "task": "transcribe",
+ "language": "Spanish",
+ "duration": 13.096062976,
+ "text": " Hoy mismo nos lo pidieron. Dayami. Muchos clientes me piden cortinas de baño con teflón. Nadie Liz. De casualidad, ¿sabes dónde hay estos ventiladores? Un cliente en Calabasar quiere dos. Las escuchamos.",
+ "words": [
+  {
+   "word": "Hoy",
+   "start": 0,
+   "end": 0.16
+  },
+  {
+   "word": "mismo",
+   "start": 0.16,
+   "end": 0.44
+  },
+  {
+   "word": "nos",
+   "start": 0.44,
+   "end": 0.8
+  },
+  {
+   "word": "lo",
+   "start": 0.8,
+   "end": 0.92
+  },
+  {
+   "word": "pidieron.",
+   "start": 0.92,
+   "end": 1.82
+  },
+  {
+   "word": "Dayami.",
+   "start": 1.82,
+   "end": 2.82
+  },
+  {
+   "word": "Muchos",
+   "start": 2.82,
+   "end": 2.96
+  },
+  {
+   "word": "clientes",
+   "start": 2.96,
+   "end": 3.4
+  },
+  {
+   "word": "me",
+   "start": 3.4,
+   "end": 3.56
+  },
+  {
+   "word": "piden",
+   "start": 3.56,
+   "end": 3.84
+  },
+  {
+   "word": "cortinas",
+   "start": 3.84,
+   "end": 4.3
+  },
+  {
+   "word": "de",
+   "start": 4.3,
+   "end": 4.5
+  },
+  {
+   "word": "baño",
+   "start": 4.5,
+   "end": 4.8
+  },
+  {
+   "word": "con",
+   "start": 4.8,
+   "end": 5.16
+  },
+  {
+   "word": "teflón.",
+   "start": 5.16,
+   "end": 6.06
+  },
+  {
+   "word": "Nadie",
+   "start": 6.22,
+   "end": 6.5
+  },
+  {
+   "word": "Liz.",
+   "start": 6.5,
+   "end": 7.34
+  },
+  {
+   "word": "De",
+   "start": 7.34,
+   "end": 7.6
+  },
+  {
+   "word": "casualidad,",
+   "start": 7.6,
+   "end": 8.24
+  },
+  {
+   "word": "¿sabes",
+   "start": 8.24,
+   "end": 8.36
+  },
+  {
+   "word": "dónde",
+   "start": 8.36,
+   "end": 8.58
+  },
+  {
+   "word": "hay",
+   "start": 8.58,
+   "end": 8.78
+  },
+  {
+   "word": "estos",
+   "start": 8.78,
+   "end": 8.98
+  },
+  {
+   "word": "ventiladores?",
+   "start": 8.98,
+   "end": 10.02
+  },
+  {
+   "word": "Un",
+   "start": 10.16,
+   "end": 10.3
+  },
+  {
+   "word": "cliente",
+   "start": 10.3,
+   "end": 10.62
+  },
+  {
+   "word": "en",
+   "start": 10.62,
+   "end": 10.74
+  },
+  {
+   "word": "Calabasar",
+   "start": 10.74,
+   "end": 11.2
+  },
+  {
+   "word": "quiere",
+   "start": 11.2,
+   "end": 11.48
+  },
+  {
+   "word": "dos.",
+   "start": 11.48,
+   "end": 12.06
+  },
+  {
+   "word": "Las",
+   "start": 12.06,
+   "end": 12.16
+  },
+  {
+   "word": "escuchamos.",
+   "start": 12.16,
+   "end": 12.74
+  }
+ ],
+ "segments": null,
+ "x_groq": {
+  "id": "req_01m532jb3xe4bbhqa55mfhhz14"
+ }
+}

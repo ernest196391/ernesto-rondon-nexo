@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #s6-root {
+          position: absolute;
+          inset: 0;
+        }
+        #s6-card {
+          position: absolute;
+          left: 60px;
+          right: 60px;
+          top: 300px;
+          height: 1060px;
+          border-radius: 32px;
+          background: #0f3d3a;
+          padding: 80px 70px;
+          overflow: hidden;
+          box-shadow: 0 40px 80px rgba(15, 61, 58, 0.28);
+        }
+        #s6-ring {
+          position: absolute;
+          right: -180px;
+          top: -180px;
+          width: 520px;
+          height: 520px;
+          border-radius: 50%;
+          border: 40px solid rgba(195, 148, 67, 0.22);
+        }
+        #s6-eyebrow {
+          display: inline-block;
+          padding: 12px 26px;
+          border-radius: 999px;
+          background: #c39443;
+          color: #0f3d3a;
+          font-weight: 800;
+          font-size: 34px;
+        }
+        #s6-lines {
+          position: relative;
+          margin-top: 54px;
+          display: flex;
+          flex-direction: column;
+          gap: 18px;
+        }
+        .s6-big {
+          display: block;
+          font-weight: 800;
+          font-size: 108px;
+          line-height: 1.02;
+          letter-spacing: -0.025em;
+          color: #f6f1e6;
+        }
+        #s6-l2 {
+          color: #e0b86a;
+        }
+        #s6-l3 {
+          display: block;
+          margin-top: 26px;
+          font-weight: 700;
+          font-size: 70px;
+          line-height: 1.12;
+          color: #f6f1e6;
+        }
+        #s6-chat {
+          position: absolute;
+          left: 70px;
+          right: 70px;
+          bottom: 70px;
+          height: 150px;
+          border-radius: 22px;
+          background: rgba(228, 236, 232, 0.12);
+          display: flex;
+          align-items: center;
+          gap: 22px;
+          padding: 0 28px;
+        }
+        #s6-chat-ic {
+          width: 86px;
+          height: 86px;
+          border-radius: 50%;
+          background: #e4ece8;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 40px;
+        }
+        #s6-chat-label {
+          font-weight: 600;
+          font-size: 30px;
+          color: #e4ece8;
+        }
+        #s6-yo {
+          margin-left: auto;
+          padding: 16px 30px;
+          border-radius: 22px;
+          border-top-right-radius: 6px;
+          background: #fffdf9;
+          color: #0f3d3a;
+          font-weight: 800;
+          font-size: 50px;
+          opacity: 0;
+        }
+        #s6-foot {
+          position: absolute;
+          left: 60px;
+          right: 60px;
+          top: 1430px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 18px;
+        }
+        #s6-brand {
+          display: flex;
+          align-items: center;
+          gap: 16px;
+          font-weight: 800;
+          font-size: 54px;
+          letter-spacing: 0.12em;
+          color: #0f3d3a;
+        }
+        #s6-brand-dot {
+          display: block;
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          background: #c39443;
+        }
+        #s6-url {
+          padding: 14px 34px;
+          border-radius: 999px;
+          border: 3px solid rgba(15, 61, 58, 0.25);
+          background: #fffdf9;
+          font-weight: 700;
+          font-size: 38px;
+          color: #0f3d3a;
+        }
+      </style>
+      <div id="s6-root" data-composition-id="s6-cierre" data-width="1080" data-height="1920">
+        <div id="s6-wrap" class="scene-wrap">
+          <div id="s6-card">
+            <div id="s6-ring" data-layout-allow-overflow></div>
+            <div id="s6-eyebrow">Recuerda</div>
+            <div id="s6-lines">
+              <span class="s6-big" id="s6-l1">Si no eliges,</span>
+              <span class="s6-big" id="s6-l2">sale al grupo</span>
+              <span id="s6-l3">y lo coge el primero que diga «Yo».</span>
+            </div>
+            <div id="s6-chat">
+              <div id="s6-chat-ic">👥</div>
+              <div id="s6-chat-label">Mensajerías CASA Viva</div>
+              <div id="s6-yo">Yo 🙋</div>
+            </div>
+          </div>
+          <div id="s6-foot">
+            <div id="s6-brand"><span id="s6-brand-dot"></span>CASA VIVA</div>
+            <div id="s6-url">casaviva.company</div>
+          </div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          tl.fromTo("#s6-card", { opacity: 0, y: 90, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: "power3.out" }, 0);
+          tl.fromTo("#s6-ring", { rotation: 0, scale: 0.9 }, { rotation: 40, scale: 1.05, duration: 7.7, ease: "sine.inOut" }, 0);
+          tl.fromTo("#s6-eyebrow", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.4, ease: "power2.out" }, 0.2);
+          tl.fromTo("#s6-l1", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.5, ease: "power4.out" }, 0.25);
+          tl.fromTo("#s6-l2", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.5, ease: "power4.out" }, 1.35);
+          tl.fromTo("#s6-l3", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.55, ease: "power3.out" }, 3.4);
+          tl.fromTo("#s6-chat", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }, 1.6);
+          tl.fromTo("#s6-foot", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 4.4);
+          // the first "Yo" wins
+          tl.fromTo("#s6-yo", { opacity: 0, scale: 0.3, rotation: 8 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.45, ease: "back.out(2.4)" }, 6.85);
+          window.__timelines["s6-cierre"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

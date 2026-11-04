@@ -1,0 +1,124 @@
+{
+  "nota": "Calendario de la Abuela Nena. 'voz' = lo que dice (números en letras, para la voz). 'texto' = subtítulos (mismo texto, números en cifras; *palabra* = palabra grande en rojo). Fichas de historias: *rojo*  !grande!  _pequeño_  _*pequeño rojo*_. 'foto_nueva' la hace la rutina con Higgsfield antes de montar (2 créditos). Estado de cada día en estado.json.",
+  "dias": [
+    {
+      "dia": 2,
+      "tema": "Costumbre #1: un vaso de agua antes del café",
+      "voz": "¡Arriba, mi gente! Costumbre número uno, y es la más fácil. Antes del cafecito, un vaso de agua. Grande. Fresquecita si hay, y si no, como salga de la jarra. Yo lo dejo servido desde por la noche al lado de la cafetera, para no olvidarme. Pruébalo una semana y me cuentas. La energía no es cosa de edad: es cosa de costumbre.",
+      "texto": "¡Arriba, mi gente! Costumbre número 1, y es la más fácil. Antes del cafecito, un vaso de *agua.* Grande. Fresquecita si hay, y si no, como salga de la jarra. Yo lo dejo servido desde por la noche al lado de la cafetera, para no olvidarme. Pruébalo una semana y me cuentas. La energía no es cosa de edad: es cosa de costumbre.",
+      "foto_nueva": {"nombre": "N18-vaso-cafetera", "escena": "at night in her small Cuban kitchen with blue and white tiles, she places a full glass of water next to the aluminum stovetop moka pot on the counter, looking at the camera with a knowing smile, warm dim kitchen light"},
+      "fotos": ["N04-agua-ventana", "N09-selfie-cocina", "N18-vaso-cafetera", "N03-cafetera", "N15-apunta", "N05-balcon-sol"],
+      "cierre": {"frase": "Costumbre #1: agua antes del café", "boton": "Sígueme", "debajo": "mañana: la caminata de las 7"},
+      "historias": [
+        {"foto": "N04-agua-ventana", "fichas": ["Costumbre", "!#1!", "_un vaso de agua_", "_antes del café_"], "debajo": "La más fácil de todas"},
+        {"foto": "N09-selfie-cocina", "fichas": ["¿Cuántos", "vasos de", "*agua*", "tomas", "al día?"], "debajo": "Respóndeme con un número"},
+        {"foto": "N18-vaso-cafetera", "fichas": ["Truco:", "déjalo", "*servido*", "desde la noche"], "debajo": "Así no se te olvida"},
+        {"foto": "N03-cafetera", "fichas": ["Primero", "el agua.", "Después,", "*el cafecito.*"], "debajo": "En ese orden, mi'jo"},
+        {"foto": "N11-silbato", "fichas": ["Reto de", "!7 días!"], "debajo": "Mañana: la caminata · Sígueme"}
+      ],
+      "descripcion": "Costumbre #1 de la Abuela Nena: un vaso de agua antes del cafecito. ¿Te animas al reto de 7 días? 💧\n\nEsto es lo que a mí me funciona; si tienes alguna condición de salud, consulta a tu médico.\n\n¿Quieres que te oriente en lo natural? Escríbele a Ernesto por WhatsApp (el número está en la bio).\n\n#costumbres #bienestar #cuba #lahabana #energía #abuelanena"
+    },
+    {
+      "dia": 3,
+      "tema": "Costumbre #2: caminar antes del calor",
+      "voz": "¡Arriba, mi gente! Costumbre número dos: caminar antes de que apriete el calor. A las siete de la mañana La Habana todavía es buena gente. Veinte minutos, a tu paso, sin correr. Yo le doy la vuelta al parque tres veces y saludo a todo el mundo, que eso también cuenta. Si tienes alguna condición, pregúntale primero a tu médico, ¿eh? La energía no es cosa de edad: es cosa de costumbre.",
+      "texto": "¡Arriba, mi gente! Costumbre número 2: *caminar* antes de que apriete el calor. A las 7 de la mañana La Habana todavía es buena gente. 20 minutos, a tu paso, sin correr. Yo le doy la vuelta al parque 3 veces y saludo a todo el mundo, que eso también cuenta. Si tienes alguna condición, pregúntale primero a tu médico, ¿eh? La energía no es cosa de edad: es cosa de costumbre.",
+      "foto_nueva": {"nombre": "N19-caminando-parque", "escena": "walking briskly along a paved path in a leafy Havana neighborhood park at sunrise, arms swinging, white canvas sneakers, mid-stride, smiling ahead, golden low light through laurel trees"},
+      "fotos": ["N19-caminando-parque", "N13-calle-jaba", "N01-parque-estirando", "N10-parque-vecinos", "N08-selfie-sala", "N05-balcon-sol"],
+      "cierre": {"frase": "Costumbre #2: caminar antes del calor", "boton": "Sígueme", "debajo": "mañana: el desayuno"},
+      "historias": [
+        {"foto": "N19-caminando-parque", "fichas": ["Costumbre", "!#2!", "_caminar 20 minutos_", "_antes del calor_"], "debajo": "A tu paso, sin correr"},
+        {"foto": "N01-parque-estirando", "fichas": ["¿A qué hora", "*sales tú*", "a caminar?"], "debajo": "Respóndeme"},
+        {"foto": "N10-parque-vecinos", "fichas": ["Caminar", "con *alguien*", "se hace", "más fácil"], "debajo": "Invita a una vecina"},
+        {"foto": "N13-calle-jaba", "fichas": ["3 vueltas", "al parque", "y *saludo*", "a todo el mundo"], "debajo": "Eso también cuenta"},
+        {"foto": "N11-silbato", "fichas": ["Mañana:", "!el desayuno!"], "debajo": "Fruta de aquí · Sígueme"}
+      ],
+      "descripcion": "Costumbre #2: 20 minutos caminando antes de que apriete el calor. ¿A qué hora sales tú? 🚶‍♀️\n\nEsto es lo que a mí me funciona; si tienes alguna condición de salud, consulta a tu médico.\n\n¿Quieres que te oriente en lo natural? Escríbele a Ernesto por WhatsApp (el número está en la bio).\n\n#costumbres #bienestar #cuba #lahabana #caminar #abuelanena"
+    },
+    {
+      "dia": 4,
+      "tema": "Costumbre #3: desayunar sentada, con fruta de aquí",
+      "voz": "¡Arriba, mi gente! Costumbre número tres: el desayuno. No hace falta nada raro ni caro. Fruta bomba, guayaba, un platanito, lo que haya en el agro. Yo como sentada, despacito, sin el teléfono en la mano. Desayunar de pie y corriendo no es desayunar, eso me lo enseñó mi mamá. La energía no es cosa de edad: es cosa de costumbre.",
+      "texto": "¡Arriba, mi gente! Costumbre número 3: el *desayuno.* No hace falta nada raro ni caro. Fruta bomba, guayaba, un platanito, lo que haya en el agro. Yo como sentada, despacito, sin el teléfono en la mano. Desayunar de pie y corriendo no es desayunar, eso me lo enseñó mi mamá. La energía no es cosa de edad: es cosa de costumbre.",
+      "foto_nueva": {"nombre": "N20-agro-frutas", "escena": "at a small open-air Cuban farmers market stall (agro) choosing a ripe papaya and guavas from wooden crates, holding a cloth bag, smiling at the camera; the vendor and other shoppers only at the frame edges, blurred, faces not visible; morning light"},
+      "fotos": ["N06-desayuno", "N20-agro-frutas", "N13-calle-jaba", "N09-selfie-cocina", "N15-apunta", "N05-balcon-sol"],
+      "cierre": {"frase": "Costumbre #3: desayunar sentada", "boton": "Sígueme", "debajo": "mañana: ¡a bailar!"},
+      "historias": [
+        {"foto": "N06-desayuno", "fichas": ["Costumbre", "!#3!", "_desayunar_", "_*sentada*_"], "debajo": "Fruta de aquí, sin apuro"},
+        {"foto": "N20-agro-frutas", "fichas": ["¿Cuál es", "*tu fruta*", "favorita?"], "debajo": "Respóndeme"},
+        {"foto": "N13-calle-jaba", "fichas": ["Nada", "*raro.*", "Nada", "*caro.*"], "debajo": "Lo que haya en el agro"},
+        {"foto": "N09-selfie-cocina", "fichas": ["Sin el", "*teléfono*", "en la mano"], "debajo": "Aunque sea 10 minutos"},
+        {"foto": "N11-silbato", "fichas": ["Mañana:", "!a bailar!"], "debajo": "En la cocina, como sea · Sígueme"}
+      ],
+      "descripcion": "Costumbre #3: desayunar sentada, despacito y con fruta de aquí. ¿Cuál es tu fruta favorita? 🍈\n\nEsto es lo que a mí me funciona; si tienes alguna condición de salud, consulta a tu médico.\n\n¿Quieres que te oriente en lo natural? Escríbele a Ernesto por WhatsApp (el número está en la bio).\n\n#costumbres #bienestar #cuba #lahabana #desayuno #abuelanena"
+    },
+    {
+      "dia": 5,
+      "tema": "Costumbre #4: una canción al día, y la bailas",
+      "voz": "¡Arriba, mi gente! Costumbre número cuatro: una canción al día, y la bailas. En la cocina, en la sala, con la escoba si hace falta. Yo pongo un casino y no me paro hasta que se acaba. Mover el cuerpo con música alegra el día, y nadie se aburre. ¿Cuál es tu canción? La energía no es cosa de edad: es cosa de costumbre.",
+      "texto": "¡Arriba, mi gente! Costumbre número 4: una canción al día, y la *bailas.* En la cocina, en la sala, con la escoba si hace falta. Yo pongo un casino y no me paro hasta que se acaba. Mover el cuerpo con música alegra el día, y nadie se aburre. ¿Cuál es tu canción? La energía no es cosa de edad: es cosa de costumbre.",
+      "foto_nueva": {"nombre": "N21-baila-escoba", "escena": "in her small Cuban kitchen with blue and white tiles, she dances holding a broom like a dance partner, laughing out loud, one foot lifted, slight motion blur on the broom"},
+      "fotos": ["N07-baila-casino", "N21-baila-escoba", "N08-selfie-sala", "N16-sillon", "N15-apunta", "N05-balcon-sol"],
+      "cierre": {"frase": "Costumbre #4: una canción al día", "boton": "Sígueme", "debajo": "mañana: dormir con calor"},
+      "historias": [
+        {"foto": "N07-baila-casino", "fichas": ["Costumbre", "!#4!", "_una canción_", "_y la bailas_"], "debajo": "Todos los días"},
+        {"foto": "N21-baila-escoba", "fichas": ["Con la", "*escoba*", "si hace", "falta"], "debajo": "Nadie te está mirando"},
+        {"foto": "N08-selfie-sala", "fichas": ["¿Cuál es", "*tu canción*", "para bailar?"], "debajo": "Respóndeme y la pongo"},
+        {"foto": "N16-sillon", "fichas": ["Y después,", "un *descansito*"], "debajo": "Con tu vaso de agua (costumbre #1)"},
+        {"foto": "N11-silbato", "fichas": ["Mañana:", "!dormir!", "*con calor*"], "debajo": "y con apagón · Sígueme"}
+      ],
+      "descripcion": "Costumbre #4: una canción al día, y la bailas. En la cocina, en la sala, con la escoba… ¿Cuál es tu canción? 💃\n\nEsto es lo que a mí me funciona; si tienes alguna condición de salud, consulta a tu médico.\n\n¿Quieres que te oriente en lo natural? Escríbele a Ernesto por WhatsApp (el número está en la bio).\n\n#costumbres #bienestar #cuba #lahabana #casino #abuelanena"
+    },
+    {
+      "dia": 6,
+      "tema": "Costumbre #5: dormir bien con calor y apagón",
+      "voz": "¡Arriba, mi gente! Costumbre número cinco: dormir bien aunque haya calor, y aunque se vaya la corriente. Cena ligera y temprano. Un baño tibio antes de acostarte, no frío. El abanico al lado de la cama, por si acaso. Y a la misma hora todos los días, hasta los domingos. El cuerpo agradece la rutina. La energía no es cosa de edad: es cosa de costumbre.",
+      "texto": "¡Arriba, mi gente! Costumbre número 5: *dormir* bien aunque haya calor, y aunque se vaya la corriente. Cena ligera y temprano. Un baño tibio antes de acostarte, no frío. El abanico al lado de la cama, por si acaso. Y a la misma hora todos los días, hasta los domingos. El cuerpo agradece la rutina. La energía no es cosa de edad: es cosa de costumbre.",
+      "foto_nueva": {"nombre": "N22-cena-ligera", "escena": "early evening at a small wooden table in her Havana home, eating a light dinner of vegetable soup from a simple bowl, a glass of water beside it, warm golden window light, relaxed smile at the camera"},
+      "fotos": ["N12-apagon-noche", "N22-cena-ligera", "N16-sillon", "N08-selfie-sala", "N15-apunta", "N05-balcon-sol"],
+      "cierre": {"frase": "Costumbre #5: dormir a la misma hora", "boton": "Sígueme", "debajo": "mañana: la siesta cortica"},
+      "historias": [
+        {"foto": "N12-apagon-noche", "fichas": ["Costumbre", "!#5!", "_dormir bien_", "_*con calor*_"], "debajo": "Y aunque se vaya la corriente"},
+        {"foto": "N22-cena-ligera", "fichas": ["Cena", "*ligera*", "y temprano"], "debajo": "Antes de las 8, si puedes"},
+        {"foto": "N12-apagon-noche", "fichas": ["El *abanico*", "al lado", "de la cama"], "debajo": "Por si acaso, mi'jo"},
+        {"foto": "N15-apunta", "fichas": ["¿A qué hora", "te *acuestas*", "tú?"], "debajo": "Respóndeme"},
+        {"foto": "N11-silbato", "fichas": ["Mañana:", "!la siesta!"], "debajo": "Cortica · Sígueme"}
+      ],
+      "descripcion": "Costumbre #5: dormir bien aunque haya calor y apagón. Cena ligera, baño tibio, el abanico cerca y siempre a la misma hora. ¿A qué hora te acuestas tú? 🌙\n\nEsto es lo que a mí me funciona; si tienes alguna condición de salud, consulta a tu médico.\n\n¿Quieres que te oriente en lo natural? Escríbele a Ernesto por WhatsApp (el número está en la bio).\n\n#costumbres #bienestar #cuba #lahabana #dormir #abuelanena"
+    },
+    {
+      "dia": 7,
+      "tema": "Costumbre #6: la siesta, pero cortica",
+      "voz": "¡Arriba, mi gente! Costumbre número seis: la siesta, pero cortica. Veinte minutos, no dos horas. Yo me siento en mi sillón después del almuerzo, cierro los ojos y pongo la alarma. Si duermes mucho por la tarde, por la noche das más vueltas que un trompo. La energía no es cosa de edad: es cosa de costumbre.",
+      "texto": "¡Arriba, mi gente! Costumbre número 6: la siesta, pero *cortica.* 20 minutos, no 2 horas. Yo me siento en mi sillón después del almuerzo, cierro los ojos y pongo la alarma. Si duermes mucho por la tarde, por la noche das más vueltas que un trompo. La energía no es cosa de edad: es cosa de costumbre.",
+      "foto_nueva": {"nombre": "N23-siesta-sillon", "escena": "dozing peacefully with eyes closed in a wooden rocking chair with a cane seat in her living room after lunch, hands folded, a small simple alarm clock without any brand on the side table, soft afternoon light through louvered shutters"},
+      "fotos": ["N23-siesta-sillon", "N16-sillon", "N08-selfie-sala", "N15-apunta", "N12-apagon-noche", "N05-balcon-sol"],
+      "cierre": {"frase": "Costumbre #6: siesta de 20 minutos", "boton": "Sígueme", "debajo": "mañana: tu gimnasio gratis"},
+      "historias": [
+        {"foto": "N23-siesta-sillon", "fichas": ["Costumbre", "!#6!", "_siesta_", "_*cortica*_"], "debajo": "20 minutos, no 2 horas"},
+        {"foto": "N16-sillon", "fichas": ["Pon la", "*alarma*"], "debajo": "Y cuando suene, ¡arriba!"},
+        {"foto": "N15-apunta", "fichas": ["¿Tú eres", "de *siesta*", "o no?"], "debajo": "Respóndeme"},
+        {"foto": "N12-apagon-noche", "fichas": ["Siesta larga,", "noche de", "*vueltas*"], "debajo": "Como un trompo"},
+        {"foto": "N11-silbato", "fichas": ["Mañana:", "!la escalera!"], "debajo": "Tu gimnasio gratis · Sígueme"}
+      ],
+      "descripcion": "Costumbre #6: la siesta, pero cortica: 20 minutos y con alarma. ¿Tú eres de siesta o no? 😴\n\nEsto es lo que a mí me funciona; si tienes alguna condición de salud, consulta a tu médico.\n\n¿Quieres que te oriente en lo natural? Escríbele a Ernesto por WhatsApp (el número está en la bio).\n\n#costumbres #bienestar #cuba #lahabana #siesta #abuelanena"
+    },
+    {
+      "dia": 8,
+      "tema": "Costumbre #7: la escalera es tu gimnasio gratis",
+      "voz": "¡Arriba, mi gente! Costumbre número siete: la escalera es tu gimnasio gratis. Yo subo mis cuatro pisos agarrada del pasamanos, despacio, y en cada piso respiro. No es una carrera. Y si vives en planta baja, levántate de la silla cada hora y camina un poquito por la casa. La energía no es cosa de edad: es cosa de costumbre.",
+      "texto": "¡Arriba, mi gente! Costumbre número 7: la escalera es tu *gimnasio* gratis. Yo subo mis 4 pisos agarrada del pasamanos, despacio, y en cada piso respiro. No es una carrera. Y si vives en planta baja, levántate de la silla cada hora y camina un poquito por la casa. La energía no es cosa de edad: es cosa de costumbre.",
+      "foto_nueva": {"nombre": "N24-escalera-pasamanos", "escena": "slowly climbing the worn marble stairs of an old Havana apartment building, one hand firmly on the iron handrail, pausing on a landing to take a deep breath, calm proud smile, light from a stairwell window"},
+      "fotos": ["N02-escalera", "N24-escalera-pasamanos", "N16-sillon", "N13-calle-jaba", "N15-apunta", "N05-balcon-sol"],
+      "cierre": {"frase": "Costumbre #7: la escalera, a tu paso", "boton": "Sígueme", "debajo": "mañana: el resumen de la semana"},
+      "historias": [
+        {"foto": "N02-escalera", "fichas": ["Costumbre", "!#7!", "_la escalera:_", "_*gimnasio gratis*_"], "debajo": "A tu paso"},
+        {"foto": "N24-escalera-pasamanos", "fichas": ["Agarrada", "del", "*pasamanos*"], "debajo": "Y despacio, que no es carrera"},
+        {"foto": "N16-sillon", "fichas": ["¿Y si vives", "en *planta baja*?"], "debajo": "Levántate cada hora y camina"},
+        {"foto": "N15-apunta", "fichas": ["¿Cuántos", "*pisos*", "subes tú?"], "debajo": "Respóndeme"},
+        {"foto": "N11-silbato", "fichas": ["¡Una semana", "!juntos!"], "debajo": "Mañana: el resumen · Sígueme"}
+      ],
+      "descripcion": "Costumbre #7: la escalera es tu gimnasio gratis. Despacio, agarrada del pasamanos y respirando en cada piso. ¿Cuántos pisos subes tú? 🏃‍♀️\n\nEsto es lo que a mí me funciona; si tienes alguna condición de salud, consulta a tu médico.\n\n¿Quieres que te oriente en lo natural? Escríbele a Ernesto por WhatsApp (el número está en la bio).\n\n#costumbres #bienestar #cuba #lahabana #escaleras #abuelanena"
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+
+        @font-face { font-family: "Cinzel"; src: url("assets/fonts/cinzel-600.woff2") format("woff2"); font-weight: 600; font-style: normal; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-400.woff2") format("woff2"); font-weight: 400; font-style: normal; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-500.woff2") format("woff2"); font-weight: 500; font-style: normal; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-600.woff2") format("woff2"); font-weight: 600; font-style: normal; }
+        #s06-si-cambias-root { position: absolute; inset: 0; }
+
+        #s06-title { position: absolute; left: 70px; right: 70px; top: 300px; text-align: center; font-weight: 600; font-size: 78px; line-height: 1.1; color: #0D3B45; }
+        .s06-row { position: absolute; left: 90px; right: 90px; height: 190px; padding: 0 40px; border-radius: 34px; background: #0D3B45; color: #F6F1E6; display: flex; align-items: center; justify-content: space-between; gap: 24px; box-shadow: 0 22px 50px rgba(43, 36, 32, 0.22); }
+        #s06-ra { top: 520px; }
+        #s06-rb { top: 750px; }
+        .s06-l { font-weight: 600; font-size: 46px; line-height: 1.1; }
+        .s06-ar { font-weight: 600; font-size: 54px; opacity: 0.7; }
+        .s06-r { display: flex; flex-direction: column; align-items: flex-end; gap: 10px; font-weight: 500; font-size: 32px; }
+        .s06-p { display: inline-block; padding: 6px 22px; border-radius: 16px; background: #F6F1E6; color: #A35A1F; font-weight: 600; font-size: 52px; }
+        #s06-note { position: absolute; left: 110px; right: 110px; top: 1030px; text-align: center; font-weight: 500; font-size: 52px; line-height: 1.25; color: #2B2420; }
+        #s06-note b { font-weight: 600; color: #0D3B45; }
+      </style>
+      <div id="s06-si-cambias-root" data-composition-id="s06-si-cambias" data-width="1080" data-height="1920">
+<div class="eyebrow" id="s06-si-cambias-eb"><span class="eb-n">5</span>Si lo cambias</div>
+
+        <div id="s06-title">Si cambias tu precio</div>
+        <div class="s06-row" id="s06-ra"><span class="s06-l">Guardas 35</span><span class="s06-ar">→</span><span class="s06-r">Tu cliente ve<span class="s06-p" id="s06-pa">35 USD</span></span></div>
+        <div class="s06-row" id="s06-rb"><span class="s06-l">Quitas<br>tu aumento</span><span class="s06-ar">→</span><span class="s06-r">Tu cliente ve<span class="s06-p" id="s06-pb">30 USD</span></span></div>
+        <div id="s06-note">Tu enlace enseña siempre<br><b>el precio que tienes guardado</b>.</div>
+      </div>
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          tl.fromTo("#s06-si-cambias-eb", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.4, ease: "power3.out" }, 0.05);
+          tl.fromTo("#s06-si-cambias-eb", { opacity: 1 }, { opacity: 0, duration: 0.22, ease: "power1.in", immediateRender: false }, 5.19);
+          
+          tl.fromTo("#s06-title", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 0.1);
+          tl.fromTo("#s06-ra", { opacity: 0, x: -50 }, { opacity: 1, x: 0, duration: 0.45, ease: "back.out(1.5)" }, 0.3);
+          tl.fromTo("#s06-rb", { opacity: 0, x: -50 }, { opacity: 1, x: 0, duration: 0.45, ease: "back.out(1.5)" }, 0.75);
+          tl.fromTo("#s06-pb", { scale: 0.6 }, { scale: 1, duration: 0.4, ease: "back.out(2)" }, 1.55);
+          tl.fromTo("#s06-note", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }, 2.6);
+          tl.fromTo("#s06-title, #s06-ra, #s06-rb, #s06-note", { opacity: 1 }, { opacity: 0, duration: 0.28, ease: "power2.in", immediateRender: false }, 5.19);
+          window.__timelines["s06-si-cambias"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

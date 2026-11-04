@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="es">
+  <head><meta charset="UTF-8" /></head>
+  <body>
+    <template>
+      <style>
+        #s7-root { position: absolute; inset: 0; }
+        #s7-wrap { position: absolute; inset: 0; }
+        #s7-ok path { stroke-dasharray: 21; }
+        #s7-pg { gap: 20px; }
+        #s7-sum { padding: 14px 28px 20px; }
+        .s7-ln { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 12px 0; }
+        .s7-ln .t2 { font-size: 34px; color: #2B2420; }
+        .s7-ln .n { font-weight: 600; font-size: 36px; color: #2B2420; white-space: nowrap; font-variant-numeric: tabular-nums; }
+        .s7-ln .sg { display: inline-block; width: 34px; font-weight: 600; color: #A35A1F; }
+        .s7-ln.minus .sg, .s7-ln.minus .n { color: #B42318; }
+        #s7-div { height: 4px; border-radius: 2px; background: #2B2420; margin: 8px 0 6px; transform-origin: right center; }
+        #s7-tot { display: flex; align-items: baseline; justify-content: space-between; padding-top: 8px; }
+        #s7-tot .t1 { font-size: 40px; }
+        #s7-tot .big { font-weight: 600; font-size: 64px; color: #0D3B45; white-space: nowrap; }
+        #s7-fld .vl { gap: 0; }
+        #s7-fld .vl .u { font-weight: 600; font-size: 40px; color: #574C44; margin-left: 16px; }
+      </style>
+      <div id="s7-root" data-composition-id="s7-cerrar" data-width="1080" data-height="1920">
+        <div id="s7-wrap">
+          <div id="s7-when" class="when">18:30 · AL CERRAR</div>
+          <div id="s7-cap" class="cap"><span class="ci">Un solo cuadre de verdad: <span class="k">todo junto</span></span></div>
+          <div class="bd" data-layout-allow-overlap data-layout-allow-occlusion>
+            <div id="s7-pg" class="pg">
+              <div id="s7-h" class="h1">Cerrar el día</div>
+              <div id="s7-sum" class="card">
+                <div class="s7-ln"><span class="t2"><span class="sg"></span>Al abrir el día</span><span class="n">80,00</span></div>
+                <div class="s7-ln"><span class="t2"><span class="sg">+</span>Caja (ventas rápidas)</span><span class="n">33,40</span></div>
+                <div class="s7-ln"><span class="t2"><span class="sg">+</span>Pedidos web</span><span class="n">60,00</span></div>
+                <div class="s7-ln"><span class="t2"><span class="sg">+</span>Dinero de mensajeros</span><span class="n">88,00</span></div>
+                <div class="s7-ln minus"><span class="t2"><span class="sg">−</span>Salidas</span><span class="n">16,40</span></div>
+                <div id="s7-div"></div>
+                <div id="s7-tot"><span class="t1">Debería haber</span><span class="big">245 USD</span></div>
+              </div>
+              <div id="s7-fld" class="fld">
+                <div class="lb">¿Cuánto contaste en el cajón?</div>
+                <div class="vl"><span id="s7-a1">2</span><span id="s7-a2">4</span><span id="s7-a3">5</span><span id="s7-u" class="u">USD</span></div>
+                <i class="tap" id="s7-t1" style="left:78%"><b class="td"></b><b class="tr"></b></i>
+              </div>
+              <div class="spacer"></div>
+              <div id="s7-btn" class="btn brown">Cerrar el día<i class="tap" id="s7-t2"><b class="td"></b><b class="tr"></b></i></div>
+            </div>
+            <div id="s7-ok" class="ok-ov">
+              <div class="ok-ci"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="#FFFDF8" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+              <div class="ok-t">Cuadra</div>
+              <div class="ok-s">Debería haber: 245 USD</div><div class="ok-s">Contado: 245 USD</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          const tap = (id, t) => {
+            tl.fromTo(id + " .td", { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.25, ease: "power2.out", immediateRender: false }, t - 0.3);
+            tl.to(id + " .td", { opacity: 0, scale: 0.8, duration: 0.3, ease: "power1.in" }, t + 0.25);
+            tl.fromTo(id + " .tr", { opacity: 0.9, scale: 0.4 }, { opacity: 0, scale: 1.8, duration: 0.6, ease: "power2.out", immediateRender: false }, t);
+          };
+          const press = (sel, t) => {
+            tl.fromTo(sel, { scale: 1 }, { scale: 0.96, duration: 0.1, ease: "power1.out", immediateRender: false }, t);
+            tl.to(sel, { scale: 1, duration: 0.25, ease: "back.out(3)" }, t + 0.1);
+          };
+          const ok = (pre, t) => {
+            tl.fromTo(pre, { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, t);
+            tl.fromTo(pre + " .ok-ci", { scale: 0.4 }, { scale: 1, duration: 0.55, ease: "back.out(2)" }, t + 0.1);
+            tl.fromTo(pre + " path", { strokeDashoffset: 21 }, { strokeDashoffset: 0, duration: 0.4, ease: "power2.out" }, t + 0.35);
+            tl.fromTo(pre + " .ok-t", { opacity: 0, y: 30, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "back.out(2)" }, t + 0.4);
+            tl.fromTo(pre + " .ok-s", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, t + 0.65);
+          };
+          tl.fromTo("#s7-when", { opacity: 0, y: -16 }, { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }, 0.05);
+          tl.fromTo("#s7-cap .ci", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0.15);
+          tl.fromTo("#s7-h", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.45, ease: "power2.out" }, 0.3);
+          tl.fromTo("#s7-sum", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 0.4);
+          tl.fromTo("#s7-sum .s7-ln", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.35, ease: "power2.out", stagger: 0.3 }, 0.6);
+          tl.fromTo("#s7-div", { scaleX: 0 }, { scaleX: 1, duration: 0.4, ease: "power2.inOut" }, 2.15);
+          tl.fromTo("#s7-tot", { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(2)" }, 2.45);
+          tl.fromTo("#s7-fld, #s7-btn", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out", stagger: 0.12 }, 2.8);
+          // count
+          tap("#s7-t1", 3.7);
+          tl.fromTo("#s7-fld", { borderColor: "#DCD2C1" }, { borderColor: "#0D3B45", duration: 0.15, immediateRender: false }, 3.7);
+          tl.fromTo("#s7-a1, #s7-a2, #s7-a3, #s7-u", { opacity: 0 }, { opacity: 1, duration: 0.01, stagger: 0.25 }, 4.0);
+          tl.to("#s7-fld", { borderColor: "#1E7044", duration: 0.2 }, 4.9);
+          // close
+          tap("#s7-t2", 5.3);
+          press("#s7-btn", 5.3);
+          ok("#s7-ok", 5.7);
+          tl.to("#s7-root .bd > :not(.ok-ov)", { opacity: 0, duration: 0.01 }, 5.7 + 0.35);
+          tl.to("#s7-wrap", { opacity: 0, duration: 0.35, ease: "power1.in" }, 8.6);
+          window.__timelines["s7-cerrar"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

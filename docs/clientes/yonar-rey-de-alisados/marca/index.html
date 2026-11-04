@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rey de Alisados — Identidad</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Italiana&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ebano: #1B1416; --ambar: #C8812E; --canela: #9C5B3C; --perla: #F3F1EF; --humo: #8A817C;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--perla); color: var(--ebano); font-family: "Instrument Sans", system-ui, sans-serif; line-height: 1.55; }
+  a { color: inherit; }
+
+  .hero { background: var(--ebano); color: var(--perla); min-height: 88vh; display: grid; place-items: center; padding: 48px 16px; position: relative; overflow: hidden; }
+  .hero-inner { text-align: center; max-width: 640px; position: relative; z-index: 1; }
+  .hero svg.mark { width: min(240px, 60vw); height: auto; }
+  .hero h1 { font-family: Italiana, serif; font-weight: 400; font-size: clamp(44px, 10vw, 88px); letter-spacing: .06em; margin: 28px 0 6px; line-height: 1; }
+  .hero p { color: var(--humo); margin: 0 auto; max-width: 30ch; font-size: 18px; }
+  .strand { transform-origin: bottom; animation: fall 1.4s cubic-bezier(.2,.7,.2,1) both; }
+  @keyframes fall { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+  @media (prefers-reduced-motion: reduce) { .strand { animation: none; } }
+
+  main { max-width: 1080px; margin: 0 auto; padding: 0 16px 80px; }
+  section { padding: 72px 0 0; }
+  h2 { font-family: Italiana, serif; font-weight: 400; font-size: clamp(32px, 6vw, 48px); margin: 0 0 12px; letter-spacing: .02em; }
+  .intro { max-width: 62ch; color: #4a4245; font-size: 17px; margin: 0 0 32px; }
+
+  .logos { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 28px; }
+  .logo { display: grid; gap: 10px; }
+  .logo .stage { background: var(--ebano); border-radius: 4px; aspect-ratio: 4 / 3; display: grid; place-items: center; }
+  .logo .stage.light { background: #fff; outline: 1px solid #e3dedb; }
+  .logo .pair { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 10px; }
+  .logo .stage svg { max-width: 100%; height: auto; }
+  .logo h3 { font-family: Italiana, serif; font-weight: 400; font-size: 28px; margin: 6px 0 0; }
+  .logo p { margin: 0; color: #4a4245; }
+  .recommend { display: inline-block; margin-top: 4px; color: var(--ambar); font-weight: 600; }
+
+  .palette { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(170px, 100%), 1fr)); gap: 0; border-radius: 4px; overflow: hidden; }
+  .chip { padding: 18px 16px 16px; min-height: 160px; display: flex; flex-direction: column; justify-content: flex-end; }
+  .chip b { font-weight: 600; }
+  .chip span { font-size: 14px; opacity: .8; }
+
+  .type { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr)); gap: 32px; align-items: end; }
+  .type .big { font-family: Italiana, serif; font-size: clamp(56px, 12vw, 104px); line-height: .95; }
+  .type .body { font-size: 18px; max-width: 46ch; }
+  .type small { display: block; color: var(--humo); margin-top: 8px; font-size: 14px; }
+
+  .rules { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr)); gap: 20px; }
+  .rule { border-top: 2px solid var(--ebano); padding-top: 12px; }
+  .rule.no { border-color: var(--canela); }
+  .rule h4 { margin: 0 0 4px; font-size: 16px; }
+  .rule p { margin: 0; color: #4a4245; font-size: 15px; }
+
+  .voice { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr)); gap: 20px; }
+  .bubble { background: #fff; border-radius: 18px 18px 18px 4px; padding: 14px 16px; box-shadow: 0 1px 0 #e3dedb; max-width: 40ch; }
+  .bubble.me { background: var(--ebano); color: var(--perla); border-radius: 18px 18px 4px 18px; justify-self: end; }
+  .chat { display: grid; gap: 10px; }
+  .voice h4 { margin: 0 0 10px; font-size: 16px; }
+
+  .apps { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 24px; align-items: start; }
+  .phone { background: #fff; border-radius: 22px; padding: 18px; outline: 1px solid #e3dedb; }
+  .profile { display: flex; gap: 14px; align-items: center; }
+  .avatar { width: 76px; height: 76px; border-radius: 50%; background: var(--ebano); display: grid; place-items: center; flex: none; }
+  .profile b { font-size: 16px; }
+  .profile p { margin: 2px 0 0; font-size: 14px; color: #4a4245; }
+  .btn { display: inline-block; margin-top: 14px; background: var(--ambar); color: var(--ebano); font-weight: 600; padding: 10px 16px; border-radius: 10px; text-decoration: none; }
+  .highlights { display: flex; gap: 14px; margin-top: 16px; flex-wrap: wrap; }
+  .hl { text-align: center; font-size: 12px; width: 62px; }
+  .hl i { display: grid; place-items: center; width: 62px; height: 62px; border-radius: 50%; background: var(--ebano); outline: 2px solid var(--ambar); outline-offset: 2px; margin-bottom: 6px; }
+  .label { background: var(--ebano); color: var(--perla); border-radius: 6px; padding: 22px; display: grid; gap: 6px; aspect-ratio: 3 / 4; align-content: end; max-width: 260px; }
+  .label .n { font-family: Italiana, serif; font-size: 30px; line-height: 1; }
+  .label small { color: var(--humo); }
+
+  footer { background: var(--ebano); color: var(--humo); text-align: center; padding: 28px 16px; font-size: 14px; }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <svg class="mark" viewBox="0 0 200 180" role="img" aria-label="Símbolo Rey de Alisados">
+      <g stroke="#C8812E" stroke-width="4" stroke-linecap="round">
+        <line class="strand" style="animation-delay:.00s" x1="40" y1="46" x2="40" y2="150"/>
+        <line class="strand" style="animation-delay:.04s" x1="50" y1="62" x2="50" y2="150"/>
+        <line class="strand" style="animation-delay:.08s" x1="60" y1="74" x2="60" y2="150"/>
+        <line class="strand" style="animation-delay:.12s" x1="70" y1="66" x2="70" y2="150"/>
+        <line class="strand" style="animation-delay:.16s" x1="80" y1="52" x2="80" y2="150"/>
+        <line class="strand" style="animation-delay:.20s" x1="90" y1="38" x2="90" y2="150"/>
+        <line class="strand" style="animation-delay:.24s" x1="100" y1="26" x2="100" y2="150"/>
+        <line class="strand" style="animation-delay:.28s" x1="110" y1="38" x2="110" y2="150"/>
+        <line class="strand" style="animation-delay:.32s" x1="120" y1="52" x2="120" y2="150"/>
+        <line class="strand" style="animation-delay:.36s" x1="130" y1="66" x2="130" y2="150"/>
+        <line class="strand" style="animation-delay:.40s" x1="140" y1="74" x2="140" y2="150"/>
+        <line class="strand" style="animation-delay:.44s" x1="150" y1="62" x2="150" y2="150"/>
+        <line class="strand" style="animation-delay:.48s" x1="160" y1="46" x2="160" y2="150"/>
+      </g>
+      <g fill="#F3F1EF"><circle cx="40" cy="34" r="4"/><circle cx="100" cy="14" r="4"/><circle cx="160" cy="34" r="4"/></g>
+    </svg>
+    <h1>Rey de Alisados</h1>
+    <p>Pelo liso como un espejo, sin formol. Identidad propuesta para Yonar.</p>
+  </div>
+</header>
+
+<main>
+
+<section>
+  <h2>La idea</h2>
+  <p class="intro">Muchas hebras rectas, todas iguales, que juntas dibujan una corona. Es el oficio de Yonar convertido en forma: disciplina, paciencia y un brillo que se gana con orden. El color sale del pelo oscuro y del calor de la plancha; nada de dorados de catálogo.</p>
+</section>
+
+<section>
+  <h2>Tres direcciones</h2>
+  <p class="intro">Elige una; las otras se descartan. Cada una funciona sobre oscuro, sobre claro y como foto de perfil.</p>
+  <div class="logos">
+
+    <div class="logo">
+      <div class="pair">
+        <div class="stage">
+          <svg viewBox="0 0 200 180" width="70%" aria-label="Logo A"><g stroke="#C8812E" stroke-width="4" stroke-linecap="round"><line x1="40" y1="46" x2="40" y2="150"/><line x1="50" y1="62" x2="50" y2="150"/><line x1="60" y1="74" x2="60" y2="150"/><line x1="70" y1="66" x2="70" y2="150"/><line x1="80" y1="52" x2="80" y2="150"/><line x1="90" y1="38" x2="90" y2="150"/><line x1="100" y1="26" x2="100" y2="150"/><line x1="110" y1="38" x2="110" y2="150"/><line x1="120" y1="52" x2="120" y2="150"/><line x1="130" y1="66" x2="130" y2="150"/><line x1="140" y1="74" x2="140" y2="150"/><line x1="150" y1="62" x2="150" y2="150"/><line x1="160" y1="46" x2="160" y2="150"/></g><g fill="#F3F1EF"><circle cx="40" cy="34" r="4"/><circle cx="100" cy="14" r="4"/><circle cx="160" cy="34" r="4"/></g></svg>
+        </div>
+        <div class="stage light">
+          <svg viewBox="0 0 200 180" width="70%" aria-label="Logo A claro"><g stroke="#1B1416" stroke-width="4" stroke-linecap="round"><line x1="40" y1="46" x2="40" y2="150"/><line x1="50" y1="62" x2="50" y2="150"/><line x1="60" y1="74" x2="60" y2="150"/><line x1="70" y1="66" x2="70" y2="150"/><line x1="80" y1="52" x2="80" y2="150"/><line x1="90" y1="38" x2="90" y2="150"/><line x1="100" y1="26" x2="100" y2="150"/><line x1="110" y1="38" x2="110" y2="150"/><line x1="120" y1="52" x2="120" y2="150"/><line x1="130" y1="66" x2="130" y2="150"/><line x1="140" y1="74" x2="140" y2="150"/><line x1="150" y1="62" x2="150" y2="150"/><line x1="160" y1="46" x2="160" y2="150"/></g><g fill="#C8812E"><circle cx="40" cy="34" r="4"/><circle cx="100" cy="14" r="4"/><circle cx="160" cy="34" r="4"/></g></svg>
+        </div>
+      </div>
+      <h3>A. Corona de hebras</h3>
+      <p>Trece hebras rectas cuyas puntas dibujan una corona. Se entiende en un segundo y no se parece a ningún otro salón.</p>
+      <span class="recommend">La que recomiendo</span>
+    </div>
+
+    <div class="logo">
+      <div class="pair">
+        <div class="stage">
+          <svg viewBox="0 0 200 200" width="62%" aria-label="Logo B"><circle cx="100" cy="100" r="84" fill="none" stroke="#8A817C" stroke-width="1.2"/><g stroke="#C8812E" stroke-width="3" stroke-linecap="round"><line x1="88" y1="50" x2="88" y2="60"/><line x1="94" y1="44" x2="94" y2="60"/><line x1="100" y1="38" x2="100" y2="60"/><line x1="106" y1="44" x2="106" y2="60"/><line x1="112" y1="50" x2="112" y2="60"/></g><text x="100" y="134" text-anchor="middle" font-family="Italiana, serif" font-size="78" fill="#F3F1EF">R</text><text x="100" y="162" text-anchor="middle" font-family="Instrument Sans, sans-serif" font-weight="500" font-size="10.5" letter-spacing="2.2" fill="#8A817C">rey de alisados</text></svg>
+        </div>
+        <div class="stage light">
+          <svg viewBox="0 0 200 200" width="80%" aria-label="Logo B claro"><circle cx="100" cy="100" r="84" fill="none" stroke="#1B1416" stroke-width="1.2"/><g stroke="#C8812E" stroke-width="3" stroke-linecap="round"><line x1="88" y1="50" x2="88" y2="60"/><line x1="94" y1="44" x2="94" y2="60"/><line x1="100" y1="38" x2="100" y2="60"/><line x1="106" y1="44" x2="106" y2="60"/><line x1="112" y1="50" x2="112" y2="60"/></g><text x="100" y="134" text-anchor="middle" font-family="Italiana, serif" font-size="78" fill="#1B1416">R</text></svg>
+        </div>
+      </div>
+      <h3>B. Sello</h3>
+      <p>Una R fina coronada por cinco hebras cortas, dentro de un círculo que recuerda el espejo. Ideal para foto de perfil y etiquetas.</p>
+    </div>
+
+    <div class="logo">
+      <div class="pair">
+        <div class="stage">
+          <svg viewBox="0 0 320 160" width="90%" aria-label="Logo C"><text x="160" y="92" text-anchor="middle" font-family="Italiana, serif" font-size="76" letter-spacing="10" fill="#F3F1EF">REY</text><line x1="70" y1="108" x2="250" y2="108" stroke="#8A817C" stroke-width="1"/><line x1="148" y1="108" x2="196" y2="108" stroke="#C8812E" stroke-width="2.5" stroke-linecap="round"/><text x="160" y="132" text-anchor="middle" font-family="Instrument Sans, sans-serif" font-weight="500" font-size="13" letter-spacing="4" fill="#F3F1EF">de alisados</text></svg>
+        </div>
+        <div class="stage light">
+          <svg viewBox="0 0 320 160" width="95%" aria-label="Logo C claro"><text x="160" y="92" text-anchor="middle" font-family="Italiana, serif" font-size="76" letter-spacing="10" fill="#1B1416">REY</text><line x1="70" y1="108" x2="250" y2="108" stroke="#8A817C" stroke-width="1"/><line x1="148" y1="108" x2="196" y2="108" stroke="#C8812E" stroke-width="2.5" stroke-linecap="round"/></svg>
+        </div>
+      </div>
+      <h3>C. Logotipo</h3>
+      <p>El nombre manda, con letras altas y finas como hebras. Una línea recta con un destello ámbar: el brillo después de la plancha.</p>
+    </div>
+
+  </div>
+</section>
+
+<section>
+  <h2>Color</h2>
+  <p class="intro">Un solo acento, el ámbar, aparece solo donde algo debe brillar: botones, precios, la corona.</p>
+  <div class="palette">
+    <div class="chip" style="background:#1B1416;color:#F3F1EF"><b>Ébano</b><span>#1B1416 · fondo y texto</span></div>
+    <div class="chip" style="background:#C8812E;color:#1B1416"><b>Ámbar plancha</b><span>#C8812E · el acento</span></div>
+    <div class="chip" style="background:#9C5B3C;color:#F3F1EF"><b>Canela</b><span>#9C5B3C · apoyo cálido</span></div>
+    <div class="chip" style="background:#F3F1EF;color:#1B1416;outline:1px solid #e3dedb"><b>Perla</b><span>#F3F1EF · fondo claro</span></div>
+    <div class="chip" style="background:#8A817C;color:#1B1416"><b>Humo</b><span>#8A817C · secundario</span></div>
+  </div>
+</section>
+
+<section>
+  <h2>Letras</h2>
+  <div class="type">
+    <div><div class="big">Italiana</div><small>Para títulos y el nombre. Trazos finos y largos, como hebras.</small></div>
+    <div><p class="body">Instrument Sans para todo lo demás: precios, servicios, mensajes del bot y botones. Se lee bien en el móvil incluso con mala conexión.</p><small>Las dos son gratuitas (Google Fonts).</small></div>
+  </div>
+</section>
+
+<section>
+  <h2>Cómo usarlo</h2>
+  <div class="rules">
+    <div class="rule"><h4>Espacio de respeto</h4><p>Deja alrededor del logo un margen igual a la altura de la corona.</p></div>
+    <div class="rule"><h4>Tamaño mínimo</h4><p>El símbolo nunca por debajo de 24 px de alto; en perfil, usa el sello.</p></div>
+    <div class="rule"><h4>Sobre fotos</h4><p>Logo pequeño abajo a la derecha, en perla, sobre la parte más oscura de la foto.</p></div>
+    <div class="rule no"><h4>No hacer</h4><p>Estirar, girar, cambiar los colores, ponerle sombra o brillo dorado.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2>Cómo habla la marca</h2>
+  <p class="intro">Experto, cercano y orgulloso de ser cubano. Habla de tú, va al grano y siempre deja claro el siguiente paso.</p>
+  <div class="voice">
+    <div class="chat">
+      <h4>El bot, por WhatsApp</h4>
+      <div class="bubble me">Hola, ¿cuánto cuesta el alisado?</div>
+      <div class="bubble">¡Hola! Depende del largo de tu pelo. Mándame una foto y te digo el precio exacto y qué alisado te va. Todos son sin formol.</div>
+    </div>
+    <div class="chat">
+      <h4>Biografía de Instagram</h4>
+      <div class="bubble">Alisados sin formol en el Vedado, La Habana. Pelo liso como un espejo. Reserva tu cita aquí.</div>
+      <h4>Pie de foto de un antes y después</h4>
+      <div class="bubble">De rizo rebelde a espejo en 3 horas. Y sin formol. ¿Te toca a ti? Escribe ALISADO.</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>En la práctica</h2>
+  <div class="apps">
+    <div class="phone">
+      <div class="profile">
+        <div class="avatar"><svg viewBox="0 0 200 180" width="54" aria-hidden="true"><g stroke="#C8812E" stroke-width="7" stroke-linecap="round"><line x1="40" y1="46" x2="40" y2="150"/><line x1="60" y1="74" x2="60" y2="150"/><line x1="80" y1="52" x2="80" y2="150"/><line x1="100" y1="26" x2="100" y2="150"/><line x1="120" y1="52" x2="120" y2="150"/><line x1="140" y1="74" x2="140" y2="150"/><line x1="160" y1="46" x2="160" y2="150"/></g></svg></div>
+        <div><b>Rey de Alisados</b><p>Alisados sin formol en el Vedado, La Habana.</p></div>
+      </div>
+      <a class="btn" href="#">Reservar cita</a>
+      <div class="highlights">
+        <div class="hl"><i><svg viewBox="0 0 24 24" width="22" fill="none" stroke="#C8812E" stroke-width="1.6"><path d="M12 4v16M8 8h6a3 3 0 0 1 0 6H9"/></svg></i>Precios</div>
+        <div class="hl"><i><svg viewBox="0 0 24 24" width="22" fill="none" stroke="#C8812E" stroke-width="1.6"><path d="M6 5c2 3 2 6 0 9M12 5v14M18 5v14"/></svg></i>Antes y después</div>
+        <div class="hl"><i><svg viewBox="0 0 24 24" width="22" fill="none" stroke="#C8812E" stroke-width="1.6"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg></i>Reservar</div>
+        <div class="hl"><i><svg viewBox="0 0 24 24" width="22" fill="none" stroke="#C8812E" stroke-width="1.6"><path d="M12 4l2.4 5 5.6.6-4.2 3.7 1.2 5.5L12 16l-5 2.8 1.2-5.5L4 9.6 9.6 9z"/></svg></i>Opiniones</div>
+      </div>
+    </div>
+    <div class="label">
+      <svg viewBox="0 0 200 180" width="64" aria-hidden="true"><g stroke="#C8812E" stroke-width="5" stroke-linecap="round"><line x1="40" y1="46" x2="40" y2="150"/><line x1="60" y1="74" x2="60" y2="150"/><line x1="80" y1="52" x2="80" y2="150"/><line x1="100" y1="26" x2="100" y2="150"/><line x1="120" y1="52" x2="120" y2="150"/><line x1="140" y1="74" x2="140" y2="150"/><line x1="160" y1="46" x2="160" y2="150"/></g></svg>
+      <div class="n">Mascarilla post alisado</div>
+      <small>Sin sal, sin sulfatos. 250 ml.</small>
+    </div>
+  </div>
+</section>
+
+</main>
+<footer>Propuesta de identidad preparada por NEXO para Yonar, octubre de 2026. Borrador para elegir.</footer>
+</body>
+</html>

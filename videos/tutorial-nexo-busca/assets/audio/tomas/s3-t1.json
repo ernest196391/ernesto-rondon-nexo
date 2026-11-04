@@ -1,0 +1,77 @@
+{
+ "task": "transcribe",
+ "language": "Spanish",
+ "duration": 4.365374976,
+ "text": " Está en tu área, abre el menú y en Herramientas toca Nexo Busca.",
+ "words": [
+  {
+   "word": "Está",
+   "start": 0,
+   "end": 0.22
+  },
+  {
+   "word": "en",
+   "start": 0.22,
+   "end": 0.34
+  },
+  {
+   "word": "tu",
+   "start": 0.34,
+   "end": 0.44
+  },
+  {
+   "word": "área,",
+   "start": 0.44,
+   "end": 0.92
+  },
+  {
+   "word": "abre",
+   "start": 0.92,
+   "end": 1.02
+  },
+  {
+   "word": "el",
+   "start": 1.02,
+   "end": 1.16
+  },
+  {
+   "word": "menú",
+   "start": 1.16,
+   "end": 1.36
+  },
+  {
+   "word": "y",
+   "start": 1.36,
+   "end": 1.76
+  },
+  {
+   "word": "en",
+   "start": 1.76,
+   "end": 1.88
+  },
+  {
+   "word": "Herramientas",
+   "start": 1.88,
+   "end": 2.48
+  },
+  {
+   "word": "toca",
+   "start": 2.48,
+   "end": 2.76
+  },
+  {
+   "word": "Nexo",
+   "start": 2.76,
+   "end": 3.5
+  },
+  {
+   "word": "Busca.",
+   "start": 3.5,
+   "end": 4.1
+  }
+ ],
+ "segments": null,
+ "x_groq": {
+  "id": "req_01m532je6zewjr3zrn5dd2tt4e"
+ }
+}

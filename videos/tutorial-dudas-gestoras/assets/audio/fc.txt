@@ -1,0 +1,8 @@
+[1:a]atrim=0:3.7,asetpts=PTS-STARTPTS,afade=t=in:d=0.02,afade=t=out:st=3.670:d=0.03,adelay=400:all=1[s0];
+[1:a]atrim=4.15:17.65,asetpts=PTS-STARTPTS,afade=t=in:d=0.02,afade=t=out:st=13.470:d=0.03,adelay=4500:all=1[s1];
+[0:a]atrim=19.59:30.25,asetpts=PTS-STARTPTS,afade=t=in:d=0.02,afade=t=out:st=10.630:d=0.03,adelay=18400:all=1[s2];
+[1:a]atrim=28.43:39.36,asetpts=PTS-STARTPTS,afade=t=in:d=0.02,afade=t=out:st=10.900:d=0.03,adelay=29460:all=1[s3];
+[1:a]atrim=39.64:54.83,asetpts=PTS-STARTPTS,afade=t=in:d=0.02,afade=t=out:st=15.160:d=0.03,adelay=40790:all=1[s4];
+[1:a]atrim=55.07:65.8,asetpts=PTS-STARTPTS,afade=t=in:d=0.02,afade=t=out:st=10.700:d=0.03,adelay=56380:all=1[s5];
+[1:a]atrim=65.95:67.71,asetpts=PTS-STARTPTS,afade=t=in:d=0.02,afade=t=out:st=1.730:d=0.03,adelay=68110:all=1[s6];
+[s0][s1][s2][s3][s4][s5][s6]amix=inputs=7:normalize=0:dropout_transition=0,apad=whole_dur=72.3,atrim=0:72.3,volume=-1.5dB[out]

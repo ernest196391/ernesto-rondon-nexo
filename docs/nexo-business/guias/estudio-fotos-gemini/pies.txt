@@ -1,0 +1,5 @@
+Paso 1 de 5: en Mi estudio de fotos, toca tu producto.
+Paso 2 de 5: toca Copiar instrucción.
+Paso 3 de 5: toca Guardar foto del producto.
+Paso 4 de 5: toca Abrir Gemini, adjunta la foto, pega y envía.
+Paso 5 de 5: toca Subir mi foto de Gemini.

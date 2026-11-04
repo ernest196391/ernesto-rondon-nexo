@@ -1,0 +1,105 @@
+{
+  "version": 1,
+  "historyId": "4374dd62-3ec8-44b9-b015-82a017cd4745",
+  "currentRevision": null,
+  "pendingChanges": false,
+  "files": {
+    "assets/gancho.png": {
+      "hash": "ac752369943607b17c9179eb09156de14ab857366bceda1ad58e0cc0227a8a6f",
+      "content": "C:\\Users\\Ernesto\\.cache\\hyperframes\\history\\4374dd62-3ec8-44b9-b015-82a017cd4745\\blobs\\ac\\ac752369943607b17c9179eb09156de14ab857366bceda1ad58e0cc0227a8a6f"
+    },
+    "assets/logo.png": {
+      "hash": "9b221ea83995f58e915cd27f009654ffd3dba23ba21d149b2b830168d9b0f30d",
+      "content": "C:\\Users\\Ernesto\\.cache\\hyperframes\\history\\4374dd62-3ec8-44b9-b015-82a017cd4745\\blobs\\9b\\9b221ea83995f58e915cd27f009654ffd3dba23ba21d149b2b830168d9b0f30d"
+    },
+    "assets/sub-01.png": {
+      "hash": "6c972a802b3674631c7da2e05dfcbc0be76ef48b8afb56b147094bf06f67197f",
+      "content": "C:\\Users\\Ernesto\\.cache\\hyperframes\\history\\4374dd62-3ec8-44b9-b015-82a017cd4745\\blobs\\6c\\6c972a802b3674631c7da2e05dfcbc0be76ef48b8afb56b147094bf06f67197f"
+    },
+    "assets/sub-02.png": {
+      "hash": "e9baacd722daf281d11df530fde6e579399d44a89de9e83c526291539ca0b169",
+      "content": "C:\\Users\\Ernesto\\.cache\\hyperframes\\history\\4374dd62-3ec8-44b9-b015-82a017cd4745\\blobs\\e9\\e9baacd722daf281d11df530fde6e579399d44a89de9e83c526291539ca0b169"
+    },
+    "assets/sub-03.png": {
+      "hash": "a02d7eb33aa0e1b7ed1842426eb6055fa63caafa7cf5dfea222bfe306271faf0",
+      "content": "C:\\Users\\Ernesto\\.cache\\hyperframes\\history\\4374dd62-3ec8-44b9-b015-82a017cd4745\\blobs\\a0\\a02d7eb33aa0e1b7ed1842426eb6055fa63caafa7cf5dfea222bfe306271faf0"
+    },
+    "assets/sub-04.png": {
+      "hash": "d3fb9719cad7681a77a5e22974a19510f89d4deade9e22505e00e0efc4085424",
+      "content": "C:\\Users\\Ernesto\\.cache\\hyperframes\\history\\4374dd62-3ec8-44b9-b015-82a017cd4745\\blobs\\d3\\d3fb9719cad7681a77a5e22974a19510f89d4deade9e22505e00e0efc4085424"
+    },
+    "assets/sub-05.png": {
+      "hash": "deed602dee46c5dd8c17e5ed1471bb8253ba38a868c4341b9a5f1402a2b93e82",
+      "content": "C:\\Users\\Ernesto\\.cache\\hyperframes\\history\\4374dd62-3ec8-44b9-b015-82a017cd4745\\blobs\\de\\deed602dee46c5dd8c17e5ed1471bb8253ba38a868c4341b9a5f1402a2b93e82"
+    },
+    "hyperframes.json": {
+      "hash": "9f6911a7483720a2d3f3b9953e10cce6347895b2d8693cdc70a66988b33fa22d",
+      "content": "C:\\Users\\Ernesto\\.cache\\hyperframes\\history\\4374dd62-3ec8-44b9-b015-82a017cd4745\\blobs\\9f\\9f6911a7483720a2d3f3b9953e10cce6347895b2d8693cdc70a66988b33fa22d"
+    },
+    "index.html": {
+      "hash": "e0e10e69840b2b108786c5d7ebe3921fdab9d8acb55ae051fff00c58bd02495d",
+      "content": "C:\\Users\\Ernesto\\.cache\\hyperframes\\history\\4374dd62-3ec8-44b9-b015-82a017cd4745\\blobs\\e0\\e0e10e69840b2b108786c5d7ebe3921fdab9d8acb55ae051fff00c58bd02495d"
+    },
+    "package.json": {
+      "hash": "aba5c8402b1684f2b312582adf8e8cb3fa16ac35526ee1a9616f8fc870aff530",
+      "content": "C:\\Users\\Ernesto\\.cache\\hyperframes\\history\\4374dd62-3ec8-44b9-b015-82a017cd4745\\blobs\\ab\\aba5c8402b1684f2b312582adf8e8cb3fa16ac35526ee1a9616f8fc870aff530"
+    },
+    "assets/base.mp4": {
+      "hash": "a0a1a9d29e40f754d3b1dd1a9f20fad8c3c3601b5c957abb3e664577f13f5f51",
+      "content": "C:\\Users\\Ernesto\\.cache\\hyperframes\\history\\4374dd62-3ec8-44b9-b015-82a017cd4745\\blobs\\a0\\a0a1a9d29e40f754d3b1dd1a9f20fad8c3c3601b5c957abb3e664577f13f5f51"
+    }
+  },
+  "revisions": {},
+  "checks": {
+    "latest": {
+      "revision": null,
+      "id": "a92b2c40-48a3-46a3-acc3-96982006d057"
+    },
+    "revisions": {},
+    "unversioned": [
+      {
+        "id": "a92b2c40-48a3-46a3-acc3-96982006d057",
+        "scope": "project",
+        "report": "C:\\Users\\Ernesto\\ernesto-rondon-nexo\\videos\\curru-tienda\\reel-funda\\hf\\.hyperframes\\artifacts\\checks\\a92b2c40-48a3-46a3-acc3-96982006d057.json",
+        "metadata": {
+          "ok": false,
+          "browserSkipped": true,
+          "options": {
+            "samples": 9,
+            "atTransitions": false,
+            "maxIssues": 80,
+            "collapseStatic": true,
+            "tolerance": 2,
+            "timeout": 3000,
+            "contrast": true,
+            "strict": false,
+            "snapshots": false,
+            "browserGpuMode": "auto"
+          }
+        },
+        "createdAt": 1791930236993,
+        "contentHash": "875e92c8bebe044c6c39a729220aa6a17128dcfd46c5b43593cedafb544cb05f",
+        "revision": null,
+        "inputFingerprint": "69ac07e768b449d3366edda1f0f456b4af2eb29bb10b34fe534eda38976306f5",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      }
+    ]
+  },
+  "snapshots": {
+    "latest": null,
+    "revisions": {},
+    "unversioned": []
+  },
+  "renders": {
+    "latest": {
+      "id": "05d11f0e-766c-4ad3-9eb9-a56c9699692d",
+      "completedAt": 1791930417825,
+      "output": "C:\\Users\\Ernesto\\ernesto-rondon-nexo\\videos\\curru-tienda\\reel-funda\\hf\\renders\\v2-video.mp4",
+      "status": "completed",
+      "revision": null
+    },
+    "retainedRevisions": []
+  },
+  "pendingArtifactCleanup": []
+}

@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="es">
+  <head><meta charset="UTF-8" /></head>
+  <body>
+    <template>
+      <style>
+        #s6-root { position: absolute; inset: 0; }
+        #s6-wrap { position: absolute; inset: 0; }
+        #s6-ok path { stroke-dasharray: 21; }
+        .s6-it { position: relative; display: flex; align-items: center; gap: 24px; height: 128px; padding: 0 28px; background: #FFFDF8; border: 3px solid #DCD2C1; border-radius: 26px;
+          font-weight: 600; font-size: 40px; color: #2B2420; }
+        .s6-ic { width: 76px; height: 76px; flex: none; border-radius: 22px; display: flex; align-items: center; justify-content: center; }
+        .s6-ic svg { width: 46px; height: 46px; display: block; }
+        .s6-ar { margin-left: auto; color: #6B5F56; font-size: 44px; }
+        #s6-form { display: flex; flex-direction: column; gap: 0; padding: 6px 28px; }
+        .s6-fr { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding: 22px 0; border-bottom: 3px solid #EFE8DA; }
+        .s6-fr:last-child { border-bottom: 0; }
+        .s6-fr .t2 { font-size: 34px; }
+        .s6-fr .t1 { font-size: 40px; text-align: right; }
+        #s6-amt .amt { font-size: 58px; }
+      </style>
+      <div id="s6-root" data-composition-id="s6-salida" data-width="1080" data-height="1920">
+        <div id="s6-wrap">
+          <div id="s6-when" class="when">15:10 · PAGO A UN PROVEEDOR</div>
+          <div id="s6-cap" class="cap"><span class="ci">Si viene el mensajero de un proveedor: sale del cajón y <span class="k">queda apuntado</span></span></div>
+          <div class="bd" data-layout-allow-overlap data-layout-allow-occlusion>
+            <div id="s6-pg1" class="pg">
+              <div id="s6-h" class="h1">Más</div>
+              <div id="s6-i1" class="s6-it">
+                <div class="s6-ic" style="background:#FFEFD2"><svg viewBox="0 0 24 24" fill="none" stroke="#8A4B00" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v13M6 11l6 6 6-6" /><path d="M5 21h14" /></svg></div>
+                Salida de dinero<span class="s6-ar">›</span>
+                <i class="tap" id="s6-t1" style="left:84%"><b class="td"></b><b class="tr"></b></i>
+              </div>
+              <div class="s6-it">
+                <div class="s6-ic" style="background:#E2F2E8"><svg viewBox="0 0 24 24" fill="none" stroke="#1E7044" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V7M6 13l6-6 6 6" /><path d="M5 3h14" /></svg></div>
+                Entrada de dinero<span class="s6-ar">›</span>
+              </div>
+              <div class="s6-it">
+                <div class="s6-ic" style="background:#DCE8EA"><svg viewBox="0 0 24 24" fill="none" stroke="#0D3B45" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14L4 9l5-5" /><path d="M4 9h11a5 5 0 0 1 0 10h-3" /></svg></div>
+                Devolución<span class="s6-ar">›</span>
+              </div>
+              <div class="s6-it">
+                <div class="s6-ic" style="background:#EFE8DA"><svg viewBox="0 0 24 24" fill="none" stroke="#574C44" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2" /></svg></div>
+                Ventas de hoy<span class="s6-ar">›</span>
+              </div>
+            </div>
+            <div id="s6-pg2" class="pg">
+              <div class="back">‹ Más</div>
+              <div class="h1">Salida de dinero</div>
+              <div id="s6-form" class="card">
+                <div class="s6-fr"><span class="t2">Pago a</span><span class="t1">Kevin (proveedor)</span></div>
+                <div class="s6-fr"><span class="t2">Pedido</span><span class="t1">#4244</span></div>
+                <div class="s6-fr"><span class="t2">Lo recoge</span><span class="t1">su mensajero</span></div>
+                <div id="s6-amt" class="s6-fr"><span class="t2">Sale del cajón</span><span class="amt">16,40 USD</span></div>
+              </div>
+              <div class="spacer"></div>
+              <div id="s6-btn" class="btn">Sacar del cajón<i class="tap" id="s6-t2"><b class="td"></b><b class="tr"></b></i></div>
+            </div>
+            <div id="s6-ok" class="ok-ov">
+              <div class="ok-ci"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="#FFFDF8" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+              <div class="ok-t">Apuntado</div>
+              <div class="ok-s">Pago a Kevin #4244 · 16,40 USD</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          const tap = (id, t) => {
+            tl.fromTo(id + " .td", { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.25, ease: "power2.out", immediateRender: false }, t - 0.3);
+            tl.to(id + " .td", { opacity: 0, scale: 0.8, duration: 0.3, ease: "power1.in" }, t + 0.25);
+            tl.fromTo(id + " .tr", { opacity: 0.9, scale: 0.4 }, { opacity: 0, scale: 1.8, duration: 0.6, ease: "power2.out", immediateRender: false }, t);
+          };
+          const press = (sel, t) => {
+            tl.fromTo(sel, { scale: 1 }, { scale: 0.96, duration: 0.1, ease: "power1.out", immediateRender: false }, t);
+            tl.to(sel, { scale: 1, duration: 0.25, ease: "back.out(3)" }, t + 0.1);
+          };
+          const ok = (pre, t) => {
+            tl.fromTo(pre, { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, t);
+            tl.fromTo(pre + " .ok-ci", { scale: 0.4 }, { scale: 1, duration: 0.55, ease: "back.out(2)" }, t + 0.1);
+            tl.fromTo(pre + " path", { strokeDashoffset: 21 }, { strokeDashoffset: 0, duration: 0.4, ease: "power2.out" }, t + 0.35);
+            tl.fromTo(pre + " .ok-t", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, t + 0.4);
+            tl.fromTo(pre + " .ok-s", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, t + 0.6);
+          };
+          tl.fromTo("#s6-when", { opacity: 0, y: -16 }, { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }, 0.05);
+          tl.fromTo("#s6-cap .ci", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0.15);
+          tl.fromTo("#s6-pg2", { xPercent: 100 }, { xPercent: 100, duration: 0.01 }, 0);
+          tl.fromTo("#s6-h", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.45, ease: "power2.out" }, 0.3);
+          tl.fromTo("#s6-pg1 .s6-it", { opacity: 0, x: 60 }, { opacity: 1, x: 0, duration: 0.45, ease: "power3.out", stagger: 0.1 }, 0.45);
+          // Más -> Salida de dinero
+          tl.fromTo("#s6-i1", { borderColor: "#DCD2C1" }, { borderColor: "#A35A1F", duration: 0.2, immediateRender: false }, 1.6);
+          tap("#s6-t1", 1.7);
+          press("#s6-i1", 1.7);
+          tl.to("#s6-pg1", { xPercent: -30, opacity: 0, duration: 0.5, ease: "power2.inOut" }, 2.1);
+          tl.to("#s6-pg2", { xPercent: 0, duration: 0.5, ease: "power3.out" }, 2.1);
+          tl.fromTo("#s6-amt", { backgroundColor: "rgba(163,90,31,0)" }, { backgroundColor: "rgba(163,90,31,0.12)", duration: 0.4, ease: "power1.out", immediateRender: false }, 2.9);
+          tap("#s6-t2", 4.1);
+          press("#s6-btn", 4.1);
+          ok("#s6-ok", 4.5);
+          tl.to("#s6-root .bd > :not(.ok-ov)", { opacity: 0, duration: 0.01 }, 4.5 + 0.35);
+          tl.to("#s6-wrap", { opacity: 0, duration: 0.35, ease: "power1.in" }, 7.1);
+          window.__timelines["s6-salida"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Panda26 · QR de mesa</title>
+<style>
+  @page { size: A4; margin: 10mm; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: "Segoe UI", system-ui, sans-serif; }
+  .hoja { display: grid; grid-template-columns: 1fr 1fr; gap: 8mm; }
+  .tarjeta {
+    height: 135mm; border-radius: 6mm; padding: 8mm 7mm;
+    background: #111; color: #f6efe4; text-align: center;
+    display: flex; flex-direction: column; align-items: center; justify-content: space-between;
+    border: 0.4mm dashed #999;
+  }
+  .logo { width: 26mm; border-radius: 4mm; }
+  h1 { margin: 2mm 0 0; font-size: 17pt; color: #ff7a3d; line-height: 1.1; }
+  .sub { margin: 1mm 0 0; font-size: 10pt; color: #d8b585; font-weight: 600; }
+  .qr { background: #fff; padding: 3mm; border-radius: 3mm; width: 48mm; height: 48mm; }
+  .qr img { width: 100%; height: 100%; display: block; }
+  .pasos { font-size: 9pt; line-height: 1.45; margin: 0; }
+  .pasos b { color: #ff7a3d; }
+  .pie { font-size: 8.5pt; color: #a7a19a; margin: 0; }
+</style>
+</head>
+<body>
+  <div class="hoja">
+    <!-- 4 tarjetas por hoja: se recortan por la línea de puntos -->
+    <section class="tarjeta">
+      <img class="logo" src="logo.png" alt="Panda26">
+      <div><h1>Mira el menú en 3D</h1><p class="sub">y pide sin levantarte 🐼</p></div>
+      <div class="qr"><img src="qr-menu.svg" alt="QR del menú"></div>
+      <p class="pasos"><b>1</b> Abre la cámara · <b>2</b> Escanea · <b>3</b> Pide por WhatsApp</p>
+      <p class="pie">Combos con papas + salsas gratis · +53 6369 4210</p>
+    </section>
+    <section class="tarjeta">
+      <img class="logo" src="logo.png" alt="Panda26">
+      <div><h1>Mira el menú en 3D</h1><p class="sub">y pide sin levantarte 🐼</p></div>
+      <div class="qr"><img src="qr-menu.svg" alt="QR del menú"></div>
+      <p class="pasos"><b>1</b> Abre la cámara · <b>2</b> Escanea · <b>3</b> Pide por WhatsApp</p>
+      <p class="pie">Combos con papas + salsas gratis · +53 6369 4210</p>
+    </section>
+    <section class="tarjeta">
+      <img class="logo" src="logo.png" alt="Panda26">
+      <div><h1>Mira el menú en 3D</h1><p class="sub">y pide sin levantarte 🐼</p></div>
+      <div class="qr"><img src="qr-menu.svg" alt="QR del menú"></div>
+      <p class="pasos"><b>1</b> Abre la cámara · <b>2</b> Escanea · <b>3</b> Pide por WhatsApp</p>
+      <p class="pie">Combos con papas + salsas gratis · +53 6369 4210</p>
+    </section>
+    <section class="tarjeta">
+      <img class="logo" src="logo.png" alt="Panda26">
+      <div><h1>Mira el menú en 3D</h1><p class="sub">y pide sin levantarte 🐼</p></div>
+      <div class="qr"><img src="qr-menu.svg" alt="QR del menú"></div>
+      <p class="pasos"><b>1</b> Abre la cámara · <b>2</b> Escanea · <b>3</b> Pide por WhatsApp</p>
+      <p class="pie">Combos con papas + salsas gratis · +53 6369 4210</p>
+    </section>
+  </div>
+</body>
+</html>

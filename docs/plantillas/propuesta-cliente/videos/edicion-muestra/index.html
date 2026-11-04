@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Gloock"; src: url("fonts/Gloock-Regular.ttf") format("truetype"); }
+      @font-face { font-family: "Great Vibes"; src: url("fonts/GreatVibes-Regular.ttf") format("truetype"); }
+      @font-face { font-family: "Instrument Sans"; src: url("fonts/InstrumentSans-Regular.ttf") format("truetype"); font-weight: 400; }
+      @font-face { font-family: "Instrument Sans"; src: url("fonts/InstrumentSans-Bold.ttf") format("truetype"); font-weight: 700; }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #111; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: #111; font-family: "Instrument Sans", sans-serif; }
+      .clip { position: absolute; inset: 0; }
+      #footage { width: 100%; height: 100%; object-fit: cover; }
+
+      /* Letrero: corona + REY / DE / ALISADOS / en cuba, con luz dorada cálida */
+      .sign { display: flex; flex-direction: column; align-items: center; justify-content: center; background: radial-gradient(ellipse 66% 50% at 50% 48%, #d9a35a 0%, #a8763a 38%, #3a2c1e 72%, #141210 100%); }
+      .glow { filter: drop-shadow(0 0 18px rgba(255, 196, 102, 0.85)) drop-shadow(0 0 48px rgba(255, 170, 60, 0.45)); }
+      .rey { font-family: "Gloock", serif; color: #1a1714; font-size: 250px; line-height: 0.9; letter-spacing: 6px; }
+      .de-row { display: flex; align-items: center; gap: 30px; margin: 22px 0 8px; }
+      .de-row i { display: block; width: 190px; height: 12px; background: #1a1714; }
+      .de { font-family: "Gloock", serif; color: #1a1714; font-size: 92px; line-height: 1; }
+      .alis { font-family: "Gloock", serif; color: #1a1714; font-size: 150px; line-height: 1; letter-spacing: 4px; }
+      .cuba { font-family: "Great Vibes", cursive; color: #1a1714; font-size: 150px; line-height: 1; margin-top: 4px; }
+
+      /* Tarjetas sobre el video (zona superior, sin tapar subtítulos) */
+      .chip { position: absolute; left: 60px; top: 150px; right: auto; bottom: auto; background: rgba(20, 18, 16, 0.88); border: 2px solid #E0A957; border-radius: 22px; padding: 26px 34px; color: #F6EEE2; font-size: 44px; font-weight: 700; line-height: 1.15; max-width: 640px; }
+      .chip small { display: block; font-size: 30px; font-weight: 400; color: #E0C79B; margin-top: 8px; }
+      .step { position: absolute; left: 60px; top: 1458px; right: auto; bottom: auto; width: 620px; background: rgba(20, 18, 16, 0.9); border-left: 10px solid #E0A957; border-radius: 18px; padding: 26px 30px; color: #F6EEE2; }
+      .step .n { font-family: "Gloock", serif; font-size: 70px; color: #E0A957; line-height: 1; }
+      .step b { display: block; font-size: 46px; margin-top: 6px; }
+      .step span { display: block; font-size: 32px; color: #E0C79B; margin-top: 4px; }
+      #bar { position: absolute; left: 60px; top: 1420px; right: auto; bottom: auto; display: flex; gap: 12px; }
+      #bar div { width: 120px; height: 10px; border-radius: 6px; background: rgba(246, 238, 226, 0.35); }
+      #bar div.on { background: #E0A957; }
+      .cta { position: absolute; left: 60px; right: 60px; top: 150px; bottom: auto; background: #E0A957; color: #141210; border-radius: 26px; padding: 34px 38px; }
+      .cta b { display: block; font-size: 56px; line-height: 1.05; }
+      .cta span { display: block; font-size: 38px; margin-top: 10px; }
+
+      .end { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 56px; background: radial-gradient(ellipse 62% 30% at 50% 36%, #d9a35a 0%, #a8763a 38%, #3a2c1e 72%, #141210 100%); }
+      .btns { display: flex; flex-direction: column; gap: 22px; width: 760px; }
+      .btn { text-align: center; font-size: 46px; font-weight: 700; padding: 30px 0; border-radius: 22px; }
+      .btn.gold { background: #E0A957; color: #141210; }
+      .btn.line { border: 3px solid #E0A957; color: #F6EEE2; }
+      .tel { color: #E0C79B; font-size: 44px; letter-spacing: 1px; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="37.2" data-width="1080" data-height="1920">
+
+      <!-- 1. Intro: el letrero se enciende -->
+      <section id="intro" class="clip sign" data-start="0" data-duration="2.6" data-track-index="0">
+        <div id="intro-sign" class="glow" style="display:flex;flex-direction:column;align-items:center">
+          <svg id="intro-crown" viewBox="0 0 300 150" width="360" aria-label="Corona">
+            <path d="M20 120 L10 30 L80 80 L150 10 L220 80 L290 30 L280 120 Z" fill="#1a1714" />
+            <rect x="20" y="124" width="260" height="20" fill="#1a1714" />
+            <path d="M130 92 L150 70 L170 92 L150 114 Z" fill="#E0A957" />
+            <path d="M70 100 L84 86 L98 100 L84 114 Z" fill="#E0A957" />
+            <path d="M202 100 L216 86 L230 100 L216 114 Z" fill="#E0A957" />
+          </svg>
+          <div class="rey">REY</div>
+          <div class="de-row"><i></i><div class="de">DE</div><i></i></div>
+          <div class="alis">ALISADOS</div>
+          <div class="cuba">en cuba</div>
+        </div>
+      </section>
+
+      <!-- 2. Su video, intacto y con su sonido -->
+      <video id="footage" class="clip" src="assets/original.mp4" playsinline data-has-audio="true" data-start="2.6" data-duration="30.6" data-track-index="1"></video>
+
+      <!-- Mensajes clave -->
+      <div id="c1" class="chip clip" data-start="2.9" data-duration="4.2" data-track-index="2">Ya disponible en Estados Unidos<small>Alisado oxiplastia</small></div>
+      <div id="c2" class="chip clip" data-start="7.2" data-duration="5.3" data-track-index="2">100 % sin formol<small>Liso total, afro u ondulado</small></div>
+
+      <!-- Los 3 pasos -->
+      <div id="bar" class="clip" data-start="12.8" data-duration="15.0" data-track-index="3"><div id="b1"></div><div id="b2"></div><div id="b3"></div></div>
+      <div id="s1" class="step clip" data-start="12.8" data-duration="6.4" data-track-index="2"><div class="n">1</div><b>Champú detox</b><span>Limpia y prepara la hebra</span></div>
+      <div id="s2" class="step clip" data-start="19.2" data-duration="2.6" data-track-index="2"><div class="n">2</div><b>Oxiplastia</b><span>Alisa sin formol</span></div>
+      <div id="s3" class="step clip" data-start="21.8" data-duration="6.0" data-track-index="2"><div class="n">3</div><b>Finalizador</b><span>Toque suave y brillo</span></div>
+
+      <!-- Llamada a la acción -->
+      <div id="cta" class="cta clip" data-start="27.9" data-duration="5.3" data-track-index="2"><b>Pídelo por WhatsApp</b><span>Envíos en todo el país</span></div>
+
+      <!-- 3. Cierre con su marca -->
+      <section id="end" class="clip end" data-start="33.2" data-duration="4.0" data-track-index="0">
+        <div id="end-sign" class="glow" style="display:flex;flex-direction:column;align-items:center;transform-origin:50% 50%">
+          <svg viewBox="0 0 300 150" width="240" aria-hidden="true">
+            <path d="M20 120 L10 30 L80 80 L150 10 L220 80 L290 30 L280 120 Z" fill="#1a1714" />
+            <rect x="20" y="124" width="260" height="20" fill="#1a1714" />
+            <path d="M130 92 L150 70 L170 92 L150 114 Z" fill="#E0A957" />
+          </svg>
+          <div class="rey" style="font-size:170px">REY</div>
+          <div class="alis" style="font-size:100px">DE ALISADOS</div>
+          <div class="cuba" style="font-size:100px">en cuba</div>
+        </div>
+        <div id="end-btns" class="btns">
+          <div class="btn gold">Pide tus productos</div>
+          <div class="btn line">Reserva tu alisado</div>
+        </div>
+        <div id="end-tel" class="tel">WhatsApp +1 (786) 705-9450</div>
+      </section>
+      <audio id="musica" src="assets/musica.mp3" data-start="0" data-duration="37.2" data-track-index="3" data-volume="0.14"></audio>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      // Intro: se enciende el letrero
+      tl.fromTo("#intro-sign", { opacity: 0, scale: 0.94 }, { opacity: 1, scale: 1, duration: 0.9, ease: "power2.out" }, 0.1);
+      tl.fromTo("#intro-sign", { filter: "drop-shadow(0 0 0px rgba(255,196,102,0)) drop-shadow(0 0 0px rgba(255,170,60,0))" }, { filter: "drop-shadow(0 0 18px rgba(255,196,102,0.85)) drop-shadow(0 0 48px rgba(255,170,60,0.45))", duration: 1.0, ease: "power1.in" }, 0.5);
+      tl.to("#intro-sign", { opacity: 0, scale: 1.04, duration: 0.4, ease: "power2.in" }, 2.15);
+      // Entradas de tarjetas
+      const enter = (sel, at) => tl.fromTo(sel, { opacity: 0, x: -60 }, { opacity: 1, x: 0, duration: 0.45, ease: "power3.out" }, at);
+      const leave = (sel, at) => tl.to(sel, { opacity: 0, x: -40, duration: 0.3, ease: "power2.in" }, at);
+      enter("#c1", 2.95); leave("#c1", 6.8);
+      enter("#c2", 7.25); leave("#c2", 12.2);
+      tl.fromTo("#bar", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 12.8);
+      enter("#s1", 12.85); tl.set("#b1", { className: "on" }, 12.85); leave("#s1", 18.9);
+      enter("#s2", 19.25); tl.set("#b2", { className: "on" }, 19.25); leave("#s2", 21.5);
+      enter("#s3", 21.85); tl.set("#b3", { className: "on" }, 21.85); leave("#s3", 27.5);
+      tl.to("#bar", { opacity: 0, duration: 0.3 }, 27.5);
+      tl.fromTo("#cta", { opacity: 0, y: -40, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "back.out(1.6)" }, 27.95);
+      tl.to("#cta", { scale: 1.03, duration: 0.6, yoyo: true, repeat: 3, ease: "sine.inOut" }, 28.6);
+      // Cierre
+      tl.fromTo("#end-sign", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, 33.3);
+      tl.fromTo("#end-btns .btn", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.45, ease: "power2.out", stagger: 0.15 }, 33.8);
+      tl.fromTo("#end-tel", { opacity: 0 }, { opacity: 1, duration: 0.5 }, 34.3);
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+
+        @font-face { font-family: "Cinzel"; src: url("assets/fonts/cinzel-600.woff2") format("woff2"); font-weight: 600; font-style: normal; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-400.woff2") format("woff2"); font-weight: 400; font-style: normal; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-500.woff2") format("woff2"); font-weight: 500; font-style: normal; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-600.woff2") format("woff2"); font-weight: 600; font-style: normal; }
+        #subtitulos-root { position: absolute; inset: 0; z-index: 100; }
+        .sub { position: absolute; left: 70px; right: 70px; bottom: 170px; display: flex; justify-content: center; opacity: 0; }
+        .sub-cap { display: inline-block; max-width: 900px; padding: 18px 34px 20px; border-radius: 30px; background: rgba(13, 59, 69, 0.88); color: #F6F1E6; font-family: "Figtree", sans-serif; font-weight: 600; font-size: 48px; line-height: 1.28; text-align: center; text-wrap: balance; box-shadow: 0 14px 34px rgba(43, 36, 32, 0.22); }
+        .sk { background: #A35A1F; color: #F6F1E6; border-radius: 10px; padding: 0 10px; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+      </style>
+      <div id="subtitulos-root" data-composition-id="subtitulos" data-width="1080" data-height="1920">
+        <div class="sub" id="sub-0"><span class="sub-cap">Estas son las <span class="sk">dudas</span> que más me preguntaron el primer día.</span></div>
+        <div class="sub" id="sub-1"><span class="sub-cap">Para entrar a tu área, escríbeme: <span class="sk">mi acceso</span>.</span></div>
+        <div class="sub" id="sub-2"><span class="sub-cap">El enlace sirve <span class="sk">7 días</span>, y una sola vez.</span></div>
+        <div class="sub" id="sub-3"><span class="sub-cap">Dentro, pon tu contraseña en <span class="sk">Mi perfil</span>.</span></div>
+        <div class="sub" id="sub-4"><span class="sub-cap">Después entras con tu número de WhatsApp y <span class="sk">esa contraseña</span>.</span></div>
+        <div class="sub" id="sub-5"><span class="sub-cap">Tu enlace de la tienda <span class="sk">no caduca nunca</span>.</span></div>
+        <div class="sub" id="sub-6"><span class="sub-cap">Pídelo escribiendo: <span class="sk">mi enlace</span>.</span></div>
+        <div class="sub" id="sub-7"><span class="sub-cap">Todo lo que compren por ahí <span class="sk">es tuyo</span>,</span></div>
+        <div class="sub" id="sub-8"><span class="sub-cap">y no tienes que añadir al cliente en <span class="sk">Clientes</span>.</span></div>
+        <div class="sub" id="sub-9"><span class="sub-cap">¿Cómo va un pedido?</span></div>
+        <div class="sub" id="sub-10"><span class="sub-cap">Escríbeme su número, o: <span class="sk">mis pedidos</span>,</span></div>
+        <div class="sub" id="sub-11"><span class="sub-cap">y te digo cómo está.</span></div>
+        <div class="sub" id="sub-12"><span class="sub-cap">Y te avisamos cuando la tienda lo tiene <span class="sk">listo</span>,</span></div>
+        <div class="sub" id="sub-13"><span class="sub-cap">cuando lo coge un <span class="sk">mensajero</span>,</span></div>
+        <div class="sub" id="sub-14"><span class="sub-cap">y cuando <span class="sk">se entrega</span>.</span></div>
+        <div class="sub" id="sub-15"><span class="sub-cap">¿Tienes un mensajero de confianza?</span></div>
+        <div class="sub" id="sub-16"><span class="sub-cap">En la nota del pedido pon: <span class="sk">mensajero, y su nombre</span>.</span></div>
+        <div class="sub" id="sub-17"><span class="sub-cap">En tu área, la <span class="sk">calculadora</span> te da el precio en pesos,</span></div>
+        <div class="sub" id="sub-18"><span class="sub-cap">con la <span class="sk">tasa del día</span>.</span></div>
+        <div class="sub" id="sub-19"><span class="sub-cap">Y si me escribes: <span class="sk">tasa de hoy</span>,</span></div>
+        <div class="sub" id="sub-20"><span class="sub-cap">te la mando, con los datos para pagar.</span></div>
+        <div class="sub" id="sub-21"><span class="sub-cap">Para recoger en la tienda:</span></div>
+        <div class="sub" id="sub-22"><span class="sub-cap">de <span class="sk">10 de la mañana a 5 de la tarde</span>.</span></div>
+        <div class="sub" id="sub-23"><span class="sub-cap">De una a una y media es el <span class="sk">almuerzo</span>.</span></div>
+        <div class="sub" id="sub-24"><span class="sub-cap">Pásale a tu cliente la página <span class="sk">Cómo llegar</span>.</span></div>
+        <div class="sub" id="sub-25"><span class="sub-cap">¿Dudas? <span class="sk">Escríbeme</span>.</span></div>
+      </div>
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          tl.fromTo("#sub-0", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.14, ease: "power2.out" }, 0.35);
+          tl.fromTo("#sub-0", { opacity: 1 }, { opacity: 0, duration: 0.1, ease: "power1.in", immediateRender: false }, 4.3);
+          tl.fromTo("#sub-1", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.14, ease: "power2.out" }, 4.45);
+          tl.fromTo("#sub-1", { opacity: 1 }, { opacity: 0, duration: 0.1, ease: "power1.in", immediateRender: false }, 7.48);
+          tl.fromTo("#sub-2", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.14, ease: "power2.out" }, 7.59);
+          tl.fromTo("#sub-2", { opacity: 1 }, { opacity: 0, duration: 0.1, ease: "power1.in", immediateRender: false }, 11.18);
+          tl.fromTo("#sub-3", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.14, ease: "power2.out" }, 11.29);
+          tl.fromTo("#sub-3", { opacity: 1 }, { opacity: 0, duration: 0.1, ease: "power1.in", immediateRender: false }, 13.94);
+          tl.fromTo("#sub-4", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.14, ease: "power2.out" }, 14.05);
+          tl.fromTo("#sub-4", { opacity: 1 }, { opacity: 0, duration: 0.1, ease: "power1.in", immediateRender: false }, 18.2);
+          tl.fromTo("#sub-5", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.14, ease: "power2.out" }, 18.35);
+          tl.fromTo("#sub-5", { opacity: 1 }, { opacity: 0, duration: 0.1, ease: "power1.in", immediateRender: false }, 21.06);
+          tl.fromTo("#sub-6", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.14, ease: "power2.out" }, 21.17);
+          tl.fromTo("#sub-6", { opacity: 1 }, { opacity: 0, duration: 0.1, ease: "power1.in", immediateRender: false }, 23.64);
+          tl.fromTo("#sub-7", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.14, ease: "power2.out" }, 23.75);
+          tl.fromTo("#sub-7", { opacity: 1 }, { opacity: 0, duration: 0.1, ease: "power1.in", immediateRender: false }, 26.14);
+          tl.fromTo("#sub-8", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.14, ease: "power2.out" }, 26.25);
+          tl.fromTo("#sub-8", { opacity: 1 }, { opacity: 0, duration: 0.1, ease: "power1.in", immediateRender: false }, 29.26);
+          tl.fromTo("#sub-9", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.14, ease: "power2.out" }, 29.55);
+          tl.fromTo("#sub-9", { opacity: 1 }, { opacity: 0, duration: 0.1, ease: "power1.in", immediateRender: false }, 30.4);
+          tl.fromTo("#sub-10", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.14, ease: "power2.out" }, 30.51);
+          tl.fromTo("#sub-10", { opacity: 1 }, { opacity: 0, duration: 0.1, ease: "power1.in", immediateRender: false }, 32.72);
+          tl.fromTo("#sub-11", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.14, ease: "power2.out" }, 32.83);
+          tl.fromTo("#sub-11", { opacity: 1 }, { opacity: 0, duration: 0.1, ease: "power1.in", immediateRender: false }, 34.74);
+          tl.fromTo("#sub-12", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.14, ease: "power2.out" }, 34.85);
+          tl.fromTo("#sub-12", { opacity: 1 }, { opacity: 0, duration: 0.1, ease: "power1.in", immediateRender: false }, 37.48);
+          tl.fromTo("#sub-13", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.14, ease: "power2.out" }, 37.59);
+          tl.fromTo("#sub-13", { opacity: 1 }, { opacity: 0, duration: 0.1, ease: "power1.in", immediateRender: false }, 39.1);
+          tl.fromTo("#sub-14", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.14, ease: "power2.out" }, 39.21);
+          tl.fromTo("#sub-14", { opacity: 1 }, { opacity: 0, duration: 0.1, ease: "power1.in", immediateRender: false }, 40.59);
+          tl.fromTo("#sub-15", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.14, ease: "power2.out" }, 41.11);
+          tl.fromTo("#sub-15", { opacity: 1 }, { opacity: 0, duration: 0.1, ease: "power1.in", immediateRender: false }, 42.6);
+          tl.fromTo("#sub-16", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.14, ease: "power2.out" }, 42.71);
+          tl.fromTo("#sub-16", { opacity: 1 }, { opacity: 0, duration: 0.1, ease: "power1.in", immediateRender: false }, 46.02);
+          tl.fromTo("#sub-17", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.14, ease: "power2.out" }, 46.13);
+          tl.fromTo("#sub-17", { opacity: 1 }, { opacity: 0, duration: 0.1, ease: "power1.in", immediateRender: false }, 49.72);
+          tl.fromTo("#sub-18", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.14, ease: "power2.out" }, 49.83);
+          tl.fromTo("#sub-18", { opacity: 1 }, { opacity: 0, duration: 0.1, ease: "power1.in", immediateRender: false }, 51.4);
+          tl.fromTo("#sub-19", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.14, ease: "power2.out" }, 51.51);
+          tl.fromTo("#sub-19", { opacity: 1 }, { opacity: 0, duration: 0.1, ease: "power1.in", immediateRender: false }, 53.18);
+          tl.fromTo("#sub-20", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.14, ease: "power2.out" }, 53.29);
+          tl.fromTo("#sub-20", { opacity: 1 }, { opacity: 0, duration: 0.1, ease: "power1.in", immediateRender: false }, 56.18);
+          tl.fromTo("#sub-21", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.14, ease: "power2.out" }, 56.59);
+          tl.fromTo("#sub-21", { opacity: 1 }, { opacity: 0, duration: 0.1, ease: "power1.in", immediateRender: false }, 57.92);
+          tl.fromTo("#sub-22", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.14, ease: "power2.out" }, 58.03);
+          tl.fromTo("#sub-22", { opacity: 1 }, { opacity: 0, duration: 0.1, ease: "power1.in", immediateRender: false }, 60.88);
+          tl.fromTo("#sub-23", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.14, ease: "power2.out" }, 60.99);
+          tl.fromTo("#sub-23", { opacity: 1 }, { opacity: 0, duration: 0.1, ease: "power1.in", immediateRender: false }, 64.42);
+          tl.fromTo("#sub-24", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.14, ease: "power2.out" }, 64.53);
+          tl.fromTo("#sub-24", { opacity: 1 }, { opacity: 0, duration: 0.1, ease: "power1.in", immediateRender: false }, 67.36);
+          tl.fromTo("#sub-25", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.14, ease: "power2.out" }, 68.15);
+          tl.fromTo("#sub-25", { opacity: 1 }, { opacity: 0, duration: 0.1, ease: "power1.in", immediateRender: false }, 70.12);
+          window.__timelines["subtitulos"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

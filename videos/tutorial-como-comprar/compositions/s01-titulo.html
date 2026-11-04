@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #s01-titulo-root { position: absolute; inset: 0; }
+
+        #s01-block { position: absolute; left: 80px; right: 80px; top: 430px; display: flex; flex-direction: column; gap: 34px; }
+        #s01-eyebrow { display: inline-flex; align-self: flex-start; padding: 14px 28px; border-radius: 999px; background: #0f3d3e; color: #f6f1e6; font-weight: 700; font-size: 34px; }
+        #s01-head { font-weight: 800; font-size: 128px; line-height: 1.02; letter-spacing: -0.03em; color: #0f3d3e; }
+        .s01-line { display: block; }
+        #s01-rule { display: block; width: 300px; height: 14px; border-radius: 7px; background: #a35a24; transform-origin: left center; }
+        #s01-sub { font-weight: 600; font-size: 56px; color: #6f6a62; }
+        #s01-card { position: absolute; left: 80px; top: 1380px; width: 560px; padding: 30px 34px; border-radius: 18px; background: #fffdf9; border: 3px solid rgba(15, 61, 62, 0.16); box-shadow: 0 18px 40px rgba(15, 61, 62, 0.12); display: flex; flex-direction: column; gap: 10px; }
+        #s01-card-l { font-weight: 600; font-size: 28px; color: #6f6a62; }
+        #s01-card-v { font-weight: 800; font-size: 44px; color: #0f3d3e; }
+        #s01-badge { position: absolute; right: 90px; top: 1300px; width: 300px; height: 300px; border-radius: 50%; background: #e4ece8; border: 6px solid #0f3d3e; display: flex; align-items: center; justify-content: center; font-size: 150px; }
+      </style>
+      <div id="s01-titulo-root" data-composition-id="s01-titulo" data-width="1080" data-height="1920">
+
+        <div id="s01-block">
+          <div id="s01-eyebrow">Para clientes · Casa Viva</div>
+          <h1 id="s01-head"><span class="s01-line" id="s01-l1">Cómo</span><span class="s01-line" id="s01-l2">comprar en</span><span class="s01-line" id="s01-l3">Casa Viva</span></h1>
+          <span id="s01-rule"></span>
+          <div id="s01-sub">Mira qué fácil es.</div>
+        </div>
+        <div id="s01-card"><div id="s01-card-l">Desde tu teléfono</div><div id="s01-card-v">Paso a paso 📱</div></div>
+        <div id="s01-badge">🛍️</div>
+      </div>
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          
+          tl.fromTo("#s01-eyebrow", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 0.1);
+          tl.fromTo("#s01-l1", { opacity: 0, y: 70 }, { opacity: 1, y: 0, duration: 0.55, ease: "power4.out" }, 0.25);
+          tl.fromTo("#s01-l2", { opacity: 0, y: 70 }, { opacity: 1, y: 0, duration: 0.55, ease: "power4.out" }, 0.4);
+          tl.fromTo("#s01-l3", { opacity: 0, y: 70 }, { opacity: 1, y: 0, duration: 0.55, ease: "power4.out" }, 0.55);
+          tl.fromTo("#s01-rule", { scaleX: 0 }, { scaleX: 1, duration: 0.6, ease: "expo.out" }, 0.95);
+          tl.fromTo("#s01-badge", { opacity: 0, scale: 0.4, rotation: -20 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.7, ease: "back.out(1.8)" }, 0.8);
+          tl.fromTo("#s01-badge", { y: 0 }, { y: -18, duration: 1.2, ease: "sine.inOut", yoyo: true, repeat: 1, immediateRender: false }, 1.5);
+          tl.fromTo("#s01-card", { opacity: 0, x: -60 }, { opacity: 1, x: 0, duration: 0.55, ease: "power3.out" }, 1.2);
+          tl.fromTo("#s01-sub", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.45, ease: "power2.out" }, 2.75);
+          tl.fromTo("#s01-block", { opacity: 1, y: 0 }, { opacity: 0, y: -40, duration: 0.35, ease: "power2.in", immediateRender: false }, 4.2);
+          tl.fromTo("#s01-card", { opacity: 1 }, { opacity: 0, duration: 0.3, ease: "power2.in", immediateRender: false }, 4.25);
+          tl.fromTo("#s01-badge", { opacity: 1 }, { opacity: 0, duration: 0.3, ease: "power2.in", immediateRender: false }, 4.25);
+          window.__timelines["s01-titulo"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

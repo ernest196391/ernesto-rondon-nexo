@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+
+        @font-face { font-family: "Cinzel"; src: url("assets/fonts/cinzel-600.woff2") format("woff2"); font-weight: 600; font-style: normal; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-400.woff2") format("woff2"); font-weight: 400; font-style: normal; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-500.woff2") format("woff2"); font-weight: 500; font-style: normal; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-600.woff2") format("woff2"); font-weight: 600; font-style: normal; }
+        #s03-ver-root { position: absolute; inset: 0; }
+
+        #s03-dim { z-index: 11; }
+        #s03-card { top: 330px; z-index: 12; }
+        #s03-card .tri { width: 34px; height: 34px; margin-left: 4px; display: block; }
+      </style>
+      <div id="s03-ver-root" data-composition-id="s03-ver" data-width="1080" data-height="1920">
+<div class="eyebrow" id="s03-ver-eb"><span class="eb-n">2</span>Ver un video</div>
+<div class="cap" id="s03-ver-c0"><span class="ci">Los videos, <span class="k">en orden</span></span></div>
+<div class="cap" id="s03-ver-c1"><span class="ci">Toca el <span class="k">botón redondo</span></span></div>
+<div class="cap" id="s03-ver-c2"><span class="ci">Se descarga <span class="k">solo si lo tocas</span></span></div>
+<div class="scr" id="s03-ver-scr"><div class="sb" id="s03-ver-sb"><span>10:24</span><span class="sb-icons"><span class="sb-bar" style="height:9px"></span><span class="sb-bar" style="height:13px"></span><span class="sb-bar" style="height:17px"></span><span class="sb-batt"></span></span></div>
+<img class="shot" id="s03-ver-s0" src="assets/screens/a-top.jpg" alt="" />
+<img class="shot" id="s03-ver-s1" src="assets/screens/a-play.jpg" alt="" />
+<img class="shot" id="s03-ver-s2" src="assets/screens/a-play2.jpg" alt="" />
+<div class="hl" id="s03-ver-h0" style="left:20px;top:500px;width:580px;height:688px"></div>
+<div class="hl" id="s03-ver-h1" style="left:121px;top:601px;width:102px;height:47px"></div>
+<div class="hl" id="s03-ver-h2" style="left:45px;top:411px;width:533px;height:938px"></div>
+<div class="tap" id="s03-ver-t0" style="left:486px;top:590px"><span class="tap-dot"></span><span class="tap-ring" id="s03-ver-t0r"></span></div>
+
+        <div class="dim" data-layout-allow-occlusion id="s03-dim"></div>
+        <div class="card" data-layout-allow-occlusion data-layout-allow-overlap id="s03-card"><div class="card-ic"><svg class="tri" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5 L19 12 L8 19 Z" fill="currentColor"></path></svg></div><div class="card-t">No gasta datos <b>hasta que lo tocas</b>.</div></div></div>
+      </div>
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          tl.fromTo("#s03-ver-scr", { opacity: 0 }, { opacity: 1, duration: 0.2, ease: "power1.out" }, 0);
+          tl.fromTo("#s03-ver-eb", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.4, ease: "power3.out" }, 0.05);
+          tl.fromTo("#s03-ver-eb", { opacity: 1 }, { opacity: 0, duration: 0.22, ease: "power1.in", immediateRender: false }, 9.15);
+          tl.fromTo("#s03-ver-c0", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 0.1);
+          tl.fromTo("#s03-ver-c0", { opacity: 1 }, { opacity: 0, duration: 0.22, ease: "power2.in", immediateRender: false }, 4.4);
+          tl.fromTo("#s03-ver-c0 .k", { backgroundSize: "0% 100%" }, { backgroundSize: "100% 100%", duration: 0.45, ease: "power2.out" }, 0.45);
+          tl.fromTo("#s03-ver-c1", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 4.55);
+          tl.fromTo("#s03-ver-c1", { opacity: 1 }, { opacity: 0, duration: 0.22, ease: "power2.in", immediateRender: false }, 7.3);
+          tl.fromTo("#s03-ver-c1 .k", { backgroundSize: "0% 100%" }, { backgroundSize: "100% 100%", duration: 0.45, ease: "power2.out" }, 4.9);
+          tl.fromTo("#s03-ver-c2", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 7.45);
+          tl.fromTo("#s03-ver-c2", { opacity: 1 }, { opacity: 0, duration: 0.22, ease: "power2.in", immediateRender: false }, 9.17);
+          tl.fromTo("#s03-ver-c2 .k", { backgroundSize: "0% 100%" }, { backgroundSize: "100% 100%", duration: 0.45, ease: "power2.out" }, 7.8);
+          tl.fromTo("#s03-ver-s1", { opacity: 0 }, { opacity: 1, duration: 0.15, ease: "power1.out" }, 4.95);
+          tl.fromTo("#s03-ver-s1", { opacity: 1 }, { opacity: 0, duration: 0.25, ease: "power1.in", immediateRender: false }, 6.55);
+          tl.fromTo("#s03-ver-s2", { opacity: 0 }, { opacity: 1, duration: 0.15, ease: "power1.out" }, 6.4);
+          tl.fromTo("#s03-ver-h0", { opacity: 0, scale: 1.08 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }, 0.5);
+          tl.fromTo("#s03-ver-h0", { opacity: 1 }, { opacity: 0, duration: 0.25, ease: "power1.in", immediateRender: false }, 2.1);
+          tl.fromTo("#s03-ver-h1", { opacity: 0, scale: 1.08 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }, 2.45);
+          tl.fromTo("#s03-ver-h1", { opacity: 1 }, { opacity: 0, duration: 0.25, ease: "power1.in", immediateRender: false }, 4.4);
+          tl.fromTo("#s03-ver-h2", { opacity: 0, scale: 1.08 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }, 6.8);
+          tl.fromTo("#s03-ver-h2", { opacity: 1 }, { opacity: 0, duration: 0.25, ease: "power1.in", immediateRender: false }, 7.4);
+          tl.fromTo("#s03-ver-t0", { opacity: 0, scale: 1.5 }, { opacity: 1, scale: 1, duration: 0.25, ease: "power2.out" }, 4.5);
+          tl.fromTo("#s03-ver-t0 .tap-dot", { scale: 1 }, { scale: 0.82, duration: 0.1, ease: "power2.in", yoyo: true, repeat: 1 }, 4.8);
+          tl.fromTo("#s03-ver-t0r", { opacity: 0.9, scale: 1 }, { opacity: 0, scale: 2.1, duration: 0.5, ease: "power2.out" }, 4.8);
+          tl.fromTo("#s03-ver-t0", { opacity: 1 }, { opacity: 0, duration: 0.2, ease: "power1.in", immediateRender: false }, 5.15);
+          
+          tl.fromTo("#s03-dim", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, 7.45);
+          tl.fromTo("#s03-card", { opacity: 0, y: -60 }, { opacity: 1, y: 0, duration: 0.5, ease: "back.out(1.5)" }, 7.5);
+          window.__timelines["s03-ver"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

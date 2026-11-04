@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Vista previa</title>
+<style>
+  @font-face { font-family: "Anton"; src: url("anton.woff2") format("woff2"); }
+  @font-face { font-family: "Inter"; src: url("inter.woff2") format("woff2"); font-weight: 100 900; }
+  html, body { margin: 0; }
+  body {
+    width: 1200px; height: 630px; overflow: hidden; position: relative; font-family: "Inter", sans-serif; color: #f7efe4;
+    background: radial-gradient(60% 90% at 78% 60%, rgba(var(--acento-rgb), .45), transparent 70%), #0b0908;
+  }
+  .texto { position: absolute; left: 70px; top: 110px; }
+  .marca { font: 800 34px "Inter"; letter-spacing: .14em; color: var(--acento-claro); }
+  h1 { margin: 14px 0 0; font: 400 104px/1.02 "Anton"; text-transform: uppercase; }
+  h1 em { font-style: normal; color: var(--acento-claro); }
+  p { margin: 22px 0 0; font-size: 28px; color: #dccfc3; }
+  p small { display: block; font-size: 24px; color: #a79e94; margin-top: 6px; }
+  img { position: absolute; right: -10px; top: -10px; width: 650px; height: 650px; object-fit: cover;
+    -webkit-mask: radial-gradient(circle, #000 50%, transparent 70%); mask: radial-gradient(circle, #000 50%, transparent 70%); }
+</style>
+<style>{{COLORES_CSS}}</style>
+</head>
+<body>
+  <img src="heroe.png" alt="">
+  <div class="texto">
+    <div class="marca">{{MARCA_TXT}}</div>
+    <h1>Esto ya<br><em>es suyo</em></h1>
+    <p>Menú 360° · video · cartel · tarjetas<small>Hecho para ustedes por NEXO</small></p>
+  </div>
+</body>
+</html>

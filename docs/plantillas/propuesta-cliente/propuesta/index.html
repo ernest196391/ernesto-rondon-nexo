@@ -1,0 +1,267 @@
+<title>Agenda Llena Rey</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Gloock&family=Great+Vibes&family=Instrument+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  /* Historias verticales a pantalla completa, una idea por pantalla; marca de su letrero: pared negra, luz dorada. */
+  :root {
+    --pared: #141210;
+    --pared-2: #1f1b17;
+    --oro: #E0A957;
+    --oro-suave: #E0C79B;
+    --crema: #F6EEE2;
+    --gris: #B3A895;
+    --raya: #3a332b;
+    --display: "Gloock", Georgia, serif;
+    --script: "Great Vibes", "Brush Script MT", cursive;
+    --texto: "Instrument Sans", "Segoe UI", Arial, sans-serif;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body { margin: 0; background: var(--pared); color: var(--crema); font-family: var(--texto); font-size: 17px; line-height: 1.5; }
+  .deck { height: 100%; overflow-y: auto; scroll-snap-type: y mandatory; scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { .deck { scroll-behavior: auto; } }
+  .s { min-height: 100%; scroll-snap-align: start; display: flex; flex-direction: column; justify-content: center; gap: 20px; padding-block: 56px 72px; padding-inline: 20px; max-width: 520px; margin: 0 auto; position: relative; }
+  .s + .s { border-top: 1px solid var(--raya); }
+  .tag { color: var(--oro); font-weight: 700; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; }
+  h1, h2 { font-family: var(--display); font-weight: 400; margin: 0; text-wrap: balance; line-height: 1.05; }
+  h1 { font-size: clamp(40px, 11vw, 56px); }
+  h2 { font-size: clamp(32px, 8.5vw, 42px); }
+  p { margin: 0; color: var(--gris); }
+  .lead { font-size: 19px; color: var(--crema); }
+  .media { position: relative; border-radius: 22px; overflow: hidden; background: #000; max-width: 100%; }
+  .media video, .media img { display: block; width: 100%; height: auto; }
+  .vert { aspect-ratio: 9 / 16; max-height: 62vh; margin: 0 auto; }
+  .vert video { height: 100%; object-fit: cover; }
+  .sound { position: absolute; right: 12px; bottom: 12px; background: rgba(20,18,16,.82); color: var(--crema); border: 1px solid var(--oro); border-radius: 999px; padding: 8px 14px; font: 600 14px var(--texto); cursor: pointer; }
+  .sound:focus-visible, button:focus-visible, a:focus-visible { outline: 2px solid var(--oro); outline-offset: 3px; }
+
+  /* Portada: el letrero */
+  .cover { text-align: center; align-items: center; }
+  .cover .cuba { font-family: var(--script); color: var(--oro); font-size: 40px; line-height: 1; }
+  .scroll-hint { color: var(--oro-suave); font-size: 14px; margin-top: 6px; }
+
+  /* Hoy: números reales */
+  .nums { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+  .num b { display: block; font-family: var(--display); font-weight: 400; font-size: clamp(26px, 8vw, 36px); color: var(--oro); line-height: 1; font-variant-numeric: tabular-nums; }
+  .num span { font-size: 13px; color: var(--gris); }
+  .shot { border: 1px solid var(--raya); }
+  .note { font-size: 13px; color: var(--gris); }
+
+  /* Lo que se pierde: cada problema se tacha al resolverse */
+  .losses { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+  .losses li { font-size: 20px; color: var(--crema); position: relative; padding-left: 26px; }
+  .losses li::before { content: ""; position: absolute; left: 0; top: .62em; width: 12px; height: 2px; background: var(--oro); }
+  .losses li .fix { display: block; font-size: 15px; color: var(--oro-suave); }
+  .on .losses li { animation: rise .5s ease both; }
+  .on .losses li:nth-child(2) { animation-delay: .12s; } .on .losses li:nth-child(3) { animation-delay: .24s; } .on .losses li:nth-child(4) { animation-delay: .36s; }
+
+  /* Regalos que se suman */
+  .gifts { display: grid; gap: 10px; }
+  .gift { display: grid; grid-template-columns: 1fr auto; gap: 2px 12px; align-items: baseline; padding: 14px 16px; border: 1px solid var(--raya); border-radius: 16px; background: var(--pared-2); }
+  .gift b { font-size: 17px; color: var(--crema); }
+  .gift em { font-style: normal; color: var(--oro); font-variant-numeric: tabular-nums; font-weight: 700; }
+  .gift small { grid-column: 1 / -1; color: var(--gris); font-size: 14px; }
+  .total { display: flex; justify-content: space-between; align-items: baseline; padding: 4px 4px 0; }
+  .total b { font-family: var(--display); font-weight: 400; font-size: 34px; color: var(--oro); font-variant-numeric: tabular-nums; }
+  .on .gift { animation: rise .45s ease both; }
+  .on .gift:nth-child(2) { animation-delay: .1s; } .on .gift:nth-child(3) { animation-delay: .2s; } .on .gift:nth-child(4) { animation-delay: .3s; }
+
+  /* Prueba */
+  .trial { background: var(--oro); color: var(--pared); border-radius: 26px; padding: 26px 22px; display: grid; gap: 14px; }
+  .trial h2 { color: var(--pared); }
+  .trial p { color: #3a2c18; font-size: 16px; }
+  .trial ul { margin: 0; padding-left: 20px; display: grid; gap: 6px; font-weight: 600; }
+
+  /* Precio: primero el valor, después el precio pequeño */
+  .scale { display: grid; gap: 12px; }
+  .row { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid var(--raya); padding-bottom: 10px; }
+  .row span { color: var(--gris); }
+  .row b { font-family: var(--display); font-weight: 400; font-size: 34px; font-variant-numeric: tabular-nums; }
+  .row.big b { color: var(--crema); font-size: 44px; }
+  .row.price b { color: var(--oro); font-size: 60px; }
+  .guar { border: 1px solid var(--oro); border-radius: 18px; padding: 16px; }
+  .guar b { color: var(--oro); }
+
+  /* Problema → solución */
+  .pain { border-left: 3px solid var(--oro); padding-left: 16px; display: grid; gap: 8px; }
+  .pain .k { color: var(--oro); font-weight: 700; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; }
+  .pain p { color: var(--crema); font-size: 19px; }
+  .fixlbl { color: var(--oro-suave); font-weight: 700; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; }
+  .on .pain { animation: rise .5s ease both; }
+  .on .fixlbl, .on .fixlbl + * { animation: rise .5s ease .25s both; }
+  .shop { display: grid; gap: 8px; }
+  .shop div { display: flex; justify-content: space-between; gap: 12px; padding: 12px 14px; border: 1px solid var(--raya); border-radius: 14px; background: var(--pared-2); }
+  .shop span { color: var(--gris); font-size: 14px; text-align: right; }
+
+  /* Pila de valor tachada */
+  .stack { display: grid; gap: 8px; }
+  .item { display: grid; grid-template-columns: 1fr auto; gap: 2px 12px; align-items: baseline; padding: 12px 14px; border: 1px solid var(--raya); border-radius: 14px; background: var(--pared-2); }
+  .item b { font-size: 16px; color: var(--crema); }
+  .item s { color: var(--gris); font-variant-numeric: tabular-nums; text-decoration-color: var(--oro); text-decoration-thickness: 2px; }
+  .item small { grid-column: 1 / -1; color: var(--gris); font-size: 13px; }
+  .on .item { animation: rise .4s ease both; }
+  .on .item:nth-child(2) { animation-delay: .07s; } .on .item:nth-child(3) { animation-delay: .14s; } .on .item:nth-child(4) { animation-delay: .21s; } .on .item:nth-child(5) { animation-delay: .28s; } .on .item:nth-child(6) { animation-delay: .35s; } .on .item:nth-child(7) { animation-delay: .42s; } .on .item:nth-child(8) { animation-delay: .49s; }
+  .sum { display: flex; justify-content: space-between; align-items: baseline; padding: 6px 4px 0; color: var(--gris); }
+  .sum s { font-family: var(--display); font-size: 26px; color: var(--gris); text-decoration-color: var(--oro); text-decoration-thickness: 2px; font-variant-numeric: tabular-nums; }
+  .offer { background: var(--oro); color: var(--pared); border-radius: 26px; padding: 26px 22px; display: grid; gap: 6px; }
+  .offer .lbl { font-weight: 700; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: #3a2c18; }
+  .offer .big { font-family: var(--display); font-size: clamp(56px, 16vw, 76px); line-height: 1; font-variant-numeric: tabular-nums; }
+  .offer .mid { font-family: var(--display); font-size: 34px; line-height: 1.1; }
+  .offer p { color: #3a2c18; font-size: 15px; }
+  @media (prefers-reduced-motion: reduce) { .on .pain, .on .fixlbl, .on .fixlbl + *, .on .item { animation: none; } }
+
+  .steps { margin: 0; padding-left: 22px; display: grid; gap: 10px; color: var(--crema); font-size: 17px; }
+  .close { font-family: var(--display); font-size: 30px; color: var(--oro); line-height: 1.15; }
+
+  /* Navegación */
+  .dots { position: fixed; right: 8px; top: 50%; transform: translateY(-50%); display: grid; gap: 8px; z-index: 5; }
+  .dots button { width: 8px; height: 8px; border-radius: 50%; border: 0; padding: 0; background: var(--raya); cursor: pointer; }
+  .dots button[aria-current="true"] { background: var(--oro); height: 20px; border-radius: 6px; }
+
+  @keyframes rise { from { transform: translateY(14px); } to { transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .on .losses li, .on .gift { animation: none; } }
+</style>
+
+<nav class="dots" id="dots" aria-label="Pantallas"></nav>
+<main class="deck" id="deck">
+
+  <section class="s cover" id="inicio">
+    <div class="media vert">
+      <video src="media/intro.mp4" poster="img/poster-intro.png" autoplay muted loop playsinline aria-label="Tu letrero Rey de Alisados encendiéndose"></video>
+      <button class="sound" type="button">Activar sonido</button>
+    </div>
+    <h1>Agenda Llena Rey</h1>
+    <p class="lead">Tus mensajes contestados y tus citas con depósito, en 7 días.</p>
+    <p class="scroll-hint">Desliza hacia arriba</p>
+  </section>
+
+  <section class="s" id="asi">
+    <span class="tag">Así quedaría</span>
+    <h2>Tu propio video, con tu marca y listo para vender</h2>
+    <p>Tu video de la oxiplastia, con tu letrero, los 3 pasos marcados y un cierre para pedir por WhatsApp. Esto ya está hecho.</p>
+    <div class="media vert">
+      <video src="media/edicion.mp4" poster="img/poster-edicion.png" autoplay muted loop playsinline aria-label="Tu video de oxiplastia editado con tu marca"></video>
+      <button class="sound" type="button">Activar sonido</button>
+    </div>
+  </section>
+
+  <section class="s" id="p1">
+    <div class="pain">
+      <span class="k">Problema 1</span>
+      <h2>Te escriben en tres apps y las clientas se quedan esperando</h2>
+      <p>499 mil seguidores en Facebook y 88 mil en Instagram escribiéndote, y solo contestas tú, entre alisado y alisado.</p>
+    </div>
+    <span class="fixlbl">La solución</span>
+    <div class="media vert">
+      <video src="media/clienta.mp4" poster="img/poster-clienta.png" autoplay muted loop playsinline aria-label="Un asistente contesta, la clienta elige su hora y deja el depósito"></video>
+      <button class="sound" type="button">Activar sonido</button>
+    </div>
+  </section>
+
+  <section class="s" id="p2">
+    <div class="pain">
+      <span class="k">Problema 2</span>
+      <h2>Tu perfil no lleva a reservar</h2>
+      <p>De tus 7 destacadas, solo una enseña tu trabajo. No hay botón de WhatsApp ni de reservas, y la bio habla de ti, no de tu servicio.</p>
+    </div>
+    <div class="media shot"><img src="img/instagram.webp" alt="Tu perfil de Instagram hoy: bio personal y destacadas de viajes"></div>
+    <span class="fixlbl">La solución</span>
+    <div class="media vert">
+      <video src="media/perfil.mp4" poster="img/poster-perfil.png" autoplay muted loop playsinline aria-label="Tu perfil con botón de reserva y destacadas que venden"></video>
+      <button class="sound" type="button">Activar sonido</button>
+    </div>
+  </section>
+
+  <section class="s" id="p3">
+    <div class="pain">
+      <span class="k">Problema 3</span>
+      <h2>Vendes productos y formación, pero no tienes dónde cobrarlos</h2>
+      <p>Tu línea QBella con envíos, tus cursos para estilistas y las clientas de fuera que quieren reservar antes de venir: todo pasa por mensajes sueltos.</p>
+    </div>
+    <span class="fixlbl">La solución</span>
+    <div class="shop">
+      <div><b>Tienda online con tu marca</b><span>Detox, Oxiplastia y Elixir</span></div>
+      <div><b>Tu curso para estilistas</b><span>Se vende solo, en Cuba y fuera</span></div>
+      <div><b>Reserva o regala un alisado</b><span>Pagan por Zelle desde fuera</span></div>
+      <div><b>Pedidos a tu WhatsApp</b><span>Envíos en todo el país</span></div>
+    </div>
+  </section>
+
+  <section class="s" id="todo">
+    <span class="tag">Todo lo que te preparo</span>
+    <h2>Lo que costaría por separado</h2>
+    <div class="stack">
+      <div class="item"><b>Tu marca en vectorial y su manual</b><s>250 USD</s></div>
+      <div class="item"><b>Auditoría de Instagram y Facebook</b><s>150 USD</s></div>
+      <div class="item"><b>Bandeja única y asistente que responde solo</b><s>800 USD</s></div>
+      <div class="item"><b>Calendario de citas con depósito</b><s>700 USD</s></div>
+      <div class="item"><b>Tienda online</b><s>1 500 USD</s></div>
+      <div class="item"><b>Videos editados con tu marca</b><s>400 USD/mes</s><small>Como el de la oxiplastia</small></div>
+      <div class="item"><b>Gestión de tus redes sociales</b><s>500 USD/mes</s></div>
+      <div class="item"><b>Mantenimiento, servidor y soporte</b><s>150 USD/mes</s></div>
+    </div>
+    <div class="sum"><span>Total por separado</span><s>3 400 USD + 1 050 USD/mes</s></div>
+  </section>
+
+  <section class="s" id="precio">
+    <span class="tag">Tu precio</span>
+    <div class="offer">
+      <span class="lbl">Instalación de todo, una sola vez</span>
+      <div class="big">1 600 USD</div>
+      <span class="lbl" style="margin-top:10px">Mantenimiento y redes, al mes</span>
+      <div class="mid">550 USD</div>
+      <p>Pagas por Zelle, en efectivo o por Transfermóvil. La instalación puede ir en dos partes.</p>
+    </div>
+    <div class="guar"><b>Garantía.</b> Pruébalo todo 7 días. Si no funciona, no pagas nada y te quedas con todo lo que te hice.</div>
+  </section>
+
+  <section class="s" id="pasos">
+    <span class="tag">Para empezar</span>
+    <h2>Solo necesito esto de ti</h2>
+    <ol class="steps">
+      <li>Tus servicios, precios y cuánto dura cada uno</li>
+      <li>Las 10 preguntas que más te hacen</li>
+      <li>Tus días y horas de trabajo</li>
+      <li>Invitarme como administrador en Meta Business Suite (nunca tu contraseña)</li>
+    </ol>
+    <p class="close">¿Empezamos la prueba esta semana?</p>
+    <p class="note">Respóndeme por WhatsApp y lo montamos.</p>
+  </section>
+</main>
+
+<script>
+  const deck = document.getElementById('deck');
+  const screens = Array.from(document.querySelectorAll('.s'));
+  const dots = document.getElementById('dots');
+  screens.forEach((s, i) => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.setAttribute('aria-label', 'Ir a la pantalla ' + (i + 1));
+    b.addEventListener('click', () => s.scrollIntoView());
+    dots.appendChild(b);
+  });
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      const i = screens.indexOf(e.target);
+      const v = e.target.querySelector('video');
+      if (e.isIntersecting && e.intersectionRatio > 0.55) {
+        e.target.classList.add('on');
+        dots.children[i].setAttribute('aria-current', 'true');
+        if (v) { v.currentTime = 0; v.play().catch(() => {}); }
+      } else {
+        dots.children[i].removeAttribute('aria-current');
+        if (v) v.pause();
+      }
+    });
+  }, { root: deck, threshold: [0, 0.55, 1] });
+  screens.forEach(s => io.observe(s));
+  document.querySelectorAll('.sound').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const v = btn.parentElement.querySelector('video');
+      v.muted = !v.muted;
+      if (!v.muted) { v.currentTime = 0; v.play().catch(() => {}); }
+      btn.textContent = v.muted ? 'Activar sonido' : 'Silenciar';
+    });
+  });
+</script>

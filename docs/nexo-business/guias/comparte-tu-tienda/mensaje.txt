@@ -1,0 +1,6 @@
+Hola, {nombre} 👋 Te enseño a compartir tu tienda en 4 toques, desde tu área de gestora.
+Así tus clientes compran con tu enlace y la venta cuenta para ti.
+Mira los pasos en las fotos 👇
+Si algo no sale, escríbeme.
+
+(Para el grupo General: cambia «Hola, {nombre}» por «Hola a todo el equipo» y «escríbeme» por «escríbanme».)

@@ -1,0 +1,51 @@
+{
+  "titulo": "Pedidos",
+  "formato": "1080x1350",
+  "para": "dependientas (Zaymi y Nana), en casaviva.company/ventas/. Mandar solo de 10:00 a 17:00. Capturas: Core 3.13.97 publicado, pedido de PRUEBA #3682 con datos de ejemplo.",
+  "mensaje": "Hola, {nombre} 🙏 Un cambio en Pedidos (casaviva.company/ventas/): ahora puedes cambiar y cancelar pedidos tú misma, desde la tarjeta de cada pedido.\nAsí no hay que esperar por nadie y las existencias se arreglan solas.\nLos pasos, en las fotos.\nSi algo no sale, escríbeme.",
+  "pasos": [
+    {
+      "texto": "Escribe el número en **Buscar pedido**.",
+      "resultado": "Toca la tecla de buscar del teclado: sale solo ese pedido.",
+      "captura": "capturas/v1-buscar.png",
+      "flecha": "arriba",
+      "zoom": 1.1,
+      "pie": "Paso 1 de 5: escribe el número del pedido en Buscar pedido."
+    },
+    {
+      "texto": "Toca **Cambiar pedido** para arreglar algo.",
+      "resultado": "Se abre el pedido: nombre, teléfono, dirección, día, nota y productos.",
+      "captura": "capturas/v2-cambiar.png",
+      "flecha": "arriba",
+      "zoom": 1.1,
+      "pie": "Paso 2 de 5: toca Cambiar pedido."
+    },
+    {
+      "texto": "Cambia lo necesario y toca **Guardar cambios**.",
+      "resultado": "Arriba sale «Pedido #… cambiado». El total y las existencias se arreglan solos.",
+      "ojo": "Pon **0** en la cantidad para quitar un producto.",
+      "captura": "capturas/v3-guardar.png",
+      "flecha": "arriba",
+      "zoom": 1.1,
+      "pie": "Paso 3 de 5: cambia lo necesario y toca Guardar cambios."
+    },
+    {
+      "texto": "Para anularlo, toca **Cancelar pedido**.",
+      "resultado": "Te pide el motivo: escríbelo, toca **Aceptar** y confirma con **Aceptar**.",
+      "ojo": "En esa ventanita, «Cancelar» es para no hacer nada.",
+      "captura": "capturas/v4-cancelar.png",
+      "flecha": "izq",
+      "zoom": 1.1,
+      "pie": "Paso 4 de 5: toca Cancelar pedido, escribe el motivo y acepta."
+    },
+    {
+      "texto": "Si sale **Avísale a…**, escríbele tú al mensajero.",
+      "resultado": "Al mensajero todavía no le llega aviso solo: díselo por WhatsApp.",
+      "ojo": "¿No sale **Cancelar pedido**? El mensajero ya tiene el paquete: que lo devuelva a la tienda y lo cancela Lennys.",
+      "captura": "capturas/v5-avisar.png",
+      "flecha": "izq",
+      "zoom": 1.1,
+      "pie": "Paso 5 de 5: si sale «Avísale a…», escríbele tú al mensajero."
+    }
+  ]
+}

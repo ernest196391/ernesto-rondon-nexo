@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Catálogo vivo · Casa Viva</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      /* «Catálogo vivo» 3-nov-2026 (estilo clonado del reel De_3R0fJb5V, versión GRATIS):
+         catálogo de Casa Viva abierto en una mesa; en cada página un producto real sale del papel
+         como un libro desplegable. Fotos reales de la web recortadas con rembg; Cúrru y Prosko
+         recortados de tomas que ya teníamos. 0 créditos. Sin enlace ni teléfono (D96). */
+      @font-face { font-family: "Figtree"; src: url("assets/fuentes/figtree.ttf") format("truetype"); font-weight: 300 900; }
+      @font-face { font-family: "Cinzel"; src: url("assets/fuentes/cinzel.ttf") format("truetype"); font-weight: 400 900; }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #2b1a10; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: #2b1a10; font-family: "Figtree", sans-serif; }
+
+      /* Mesa de madera con luz de ventana (todo CSS) */
+      #camara { position: absolute; inset: -60px; }
+      #mesa { position: absolute; inset: 0;
+        background:
+          radial-gradient(ellipse 70% 40% at 25% 18%, rgba(255, 214, 160, 0.55), rgba(255, 214, 160, 0) 70%),
+          repeating-linear-gradient(94deg, rgba(0,0,0,0.10) 0 3px, rgba(0,0,0,0) 3px 19px, rgba(255,255,255,0.04) 19px 22px, rgba(0,0,0,0) 22px 47px),
+          linear-gradient(180deg, #3a2416 0%, #6b4127 30%, #7d4d2d 55%, #5a3520 100%); }
+      #pared { position: absolute; left: 0; top: 0; width: 100%; height: 640px;
+        background: linear-gradient(180deg, #d9c6a8 0%, #b89a76 55%, rgba(120, 85, 55, 0) 100%); opacity: 0.55; }
+      #ventana { position: absolute; left: 90px; top: 40px; width: 380px; height: 420px; border-radius: 12px;
+        background: linear-gradient(180deg, rgba(255, 246, 225, 0.9), rgba(255, 230, 190, 0.35)); }
+      #persp { position: absolute; inset: 0; perspective: 1700px; perspective-origin: 50% 35%; }
+
+      /* El libro */
+      #libro { position: absolute; left: 85px; top: 760px; width: 940px; height: 700px; transform-style: preserve-3d; }
+      .pag { position: absolute; top: 0; width: 470px; height: 700px; transform-style: preserve-3d; }
+      #pag-izq { left: 0; background: linear-gradient(90deg, #f3ece0 0%, #f6f1e6 80%, #ddd2c0 100%); border-radius: 10px 0 0 10px; }
+      #pag-der { left: 470px; background: linear-gradient(90deg, #d8ccb8 0%, #f6f1e6 18%, #f1e9dc 100%); border-radius: 0 10px 10px 0; }
+      #grosor { position: absolute; left: 6px; top: 700px; width: 928px; height: 18px; background: linear-gradient(180deg, #e4dac9, #b9ab94); border-radius: 0 0 8px 8px; }
+      .esp { position: absolute; inset: 0; transform-style: preserve-3d; opacity: 0; }
+
+      /* Página izquierda: ficha del producto */
+      .num { position: absolute; left: 44px; top: 40px; font-family: "Cinzel"; font-weight: 700; font-size: 38px; color: #a35a1f; letter-spacing: 4px; }
+      .nom { position: absolute; left: 44px; top: 100px; width: 400px; font-family: "Cinzel"; font-weight: 700; font-size: 56px; line-height: 1.08; color: #2b2420; }
+      .esp-t { position: absolute; left: 44px; top: 330px; font-weight: 800; font-size: 38px; color: #2b2420; }
+      .dato { position: absolute; left: 44px; width: 420px; font-weight: 600; font-size: 36px; white-space: nowrap; line-height: 1.25; color: #3d342d; }
+      .precio { position: absolute; left: 44px; top: 580px; padding: 4px 26px; border-radius: 16px; background: #a35a1f; color: #f6f1e6; font-weight: 800; font-size: 56px; }
+      .muestras { position: absolute; left: 300px; top: 592px; display: flex; gap: 12px; }
+      .muestras i { display: block; width: 46px; height: 46px; border-radius: 8px; border: 2px solid rgba(0,0,0,0.12); }
+
+      /* Página derecha: el desplegable */
+      .pop { position: absolute; transform-style: preserve-3d; }
+      .pop img { position: absolute; left: 0; bottom: 0; width: 100%; height: auto; display: block; }
+      .sombra { position: absolute; border-radius: 50%; background: radial-gradient(ellipse at center, rgba(40, 25, 15, 0.45), rgba(40, 25, 15, 0) 70%); }
+      .marca-pag { position: absolute; right: 34px; bottom: 26px; font-family: "Cinzel"; font-weight: 700; font-size: 30px; letter-spacing: 3px; color: #a35a1f; opacity: 0.8; }
+
+      /* Hoja que pasa y tapa */
+      .giro { position: absolute; left: 470px; top: 0; width: 470px; height: 700px; transform-style: preserve-3d; opacity: 0; }
+      .cara { position: absolute; inset: 0; backface-visibility: hidden; border-radius: 0 10px 10px 0; }
+      .cara-a { background: linear-gradient(90deg, #d8ccb8 0%, #f6f1e6 25%, #efe6d7 100%); }
+      .cara-b { background: linear-gradient(270deg, #ddd2c0 0%, #f6f1e6 30%, #f3ece0 100%); transform: rotateY(180deg); border-radius: 10px 0 0 10px; }
+      #tapa-a { background: linear-gradient(135deg, #0f4652 0%, #0d3b45 60%, #0a2f37 100%); border-radius: 0 14px 14px 0; }
+      #tapa-logo { position: absolute; left: 85px; top: 130px; width: 300px; height: auto; }
+      #tapa-txt { position: absolute; left: 0; width: 470px; top: 420px; text-align: center; font-family: "Cinzel"; font-weight: 700; font-size: 44px; letter-spacing: 4px; color: #f6f1e6; }
+      #tapa-sub { position: absolute; left: 0; width: 470px; top: 495px; text-align: center; font-weight: 600; font-size: 38px; color: #e8c9a4; }
+
+      /* Cierre */
+      #fin { background: #0d3b45; }
+      #fin-preg { position: absolute; left: 60px; width: 960px; top: 430px; text-align: center; font-weight: 800; font-size: 104px; line-height: 1.06; color: #f6f1e6; }
+      #fin-caja { position: absolute; left: 110px; width: 860px; top: 720px; padding: 26px 0; border-radius: 28px; background: #a35a1f; text-align: center; font-weight: 800; font-size: 80px; color: #f6f1e6; }
+      #fin-sub { position: absolute; left: 60px; width: 960px; top: 930px; text-align: center; font-weight: 500; font-size: 52px; line-height: 1.2; color: #f6f1e6; }
+      #fin-logo { position: absolute; left: 290px; top: 1180px; width: 500px; height: auto; }
+      #arriba { position: absolute; left: 60px; width: 960px; top: 300px; height: 360px; }
+      .frase { position: absolute; left: 0; width: 960px; top: 0; text-align: center; color: #f6f1e6; opacity: 0;
+        text-shadow: 0 4px 18px rgba(30, 15, 5, 0.55); }
+      .frase .k { display: block; font-family: "Cinzel"; font-weight: 700; font-size: 46px; letter-spacing: 6px; color: #f2c98a; }
+      .frase .g { display: block; margin-top: 10px; font-weight: 800; font-size: 96px; line-height: 1.04; }
+      #destello { position: absolute; inset: 0; background: #fff3dc; opacity: 0; pointer-events: none; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="21" data-width="1080" data-height="1920">
+
+      <!-- Catálogo (0–18 s) -->
+      <div id="escena" class="clip" data-start="0" data-duration="18" data-track-index="1" data-layout-allow-overflow data-layout-allow-overlap>
+        <div id="camara">
+          <div id="mesa"></div>
+          <div id="pared"></div>
+                    <div id="persp">
+            <div id="libro">
+              <div id="grosor"></div>
+
+              <div class="pag" id="pag-izq">
+                <!-- 1 · Lámpara #3882 -->
+                <div class="esp" id="i1">
+                  <div class="num">N.º 1</div>
+                  <div class="nom">Lámpara hongo de cristal</div>
+                  <div class="esp-t">Detalles</div>
+                  <div class="dato" style="top: 385px">20 cm de alto</div>
+                  <div class="dato" style="top: 440px">Luz suave y cálida</div>
+                  <div class="dato" style="top: 495px">Cristal con manchas</div>
+                  <div class="precio">18 USD</div>
+                  <div class="muestras"><i style="background:#f4efe6"></i><i style="background:#d8d2c6"></i><i style="background:#f2c98a"></i></div>
+                </div>
+                <!-- 2 · Banqueta #3880 -->
+                <div class="esp" id="i2">
+                  <div class="num">N.º 2</div>
+                  <div class="nom">Banqueta roja capitoné</div>
+                  <div class="esp-t">Detalles</div>
+                  <div class="dato" style="top: 385px">Asiento acolchado</div>
+                  <div class="dato" style="top: 440px">Patas de metal con aro</div>
+                  <div class="dato" style="top: 495px">Fácil de limpiar y mover</div>
+                  <div class="precio">24 USD</div>
+                  <div class="muestras"><i style="background:#c8202a"></i><i style="background:#c9cdd2"></i><i style="background:#2b2420"></i></div>
+                </div>
+                <!-- 3 · Almohada #4264 -->
+                <div class="esp" id="i3">
+                  <div class="num">N.º 3</div>
+                  <div class="nom">Almohada de bambú</div>
+                  <div class="esp-t">Detalles</div>
+                  <div class="dato" style="top: 385px">71 × 48 cm</div>
+                  <div class="dato" style="top: 440px">Funda lavable</div>
+                  <div class="dato" style="top: 495px">Fresca y transpirable</div>
+                  <div class="precio">20 USD</div>
+                  <div class="muestras"><i style="background:#fbfbf7"></i><i style="background:#7fae5a"></i><i style="background:#e7e2d6"></i></div>
+                </div>
+                <!-- 4 · Espejo LED #2459 -->
+                <div class="esp" id="i4">
+                  <div class="num">N.º 4</div>
+                  <div class="nom">Espejo LED 60 × 80 cm</div>
+                  <div class="esp-t">Detalles</div>
+                  <div class="dato" style="top: 385px">Luz frontal y de borde</div>
+                  <div class="dato" style="top: 440px">Control táctil</div>
+                  <div class="dato" style="top: 495px">Para baño o tocador</div>
+                  <div class="precio">60 USD</div>
+                  <div class="muestras"><i style="background:#f3d9a4"></i><i style="background:#c9c3b8"></i><i style="background:#2b2420"></i></div>
+                </div>
+                <!-- 5 · Final -->
+                <div class="esp" id="i5">
+                  <div class="num">CASA VIVA</div>
+                  <div class="nom">Y mucho más para tu casa</div>
+                  <div class="dato" style="top: 330px">Lo revisas delante</div>
+                  <div class="dato" style="top: 375px">del mensajero</div>
+                  <div class="dato" style="top: 450px">Te lo llevamos a casa</div>
+                  <div class="dato" style="top: 495px">o lo recoges en la tienda</div>
+                </div>
+              </div>
+
+              <div class="pag" id="pag-der">
+                <div class="esp" id="d1">
+                  <div class="sombra" id="d1-s" style="left: 60px; top: 520px; width: 360px; height: 110px"></div>
+                  <div class="pop" id="d1-p" style="left: 70px; top: 0px; width: 340px; height: 590px"><img src="assets/usar/lampara.png" alt="" /></div>
+                  <div class="marca-pag">CASA VIVA</div>
+                </div>
+                <div class="esp" id="d2">
+                  <div class="sombra" id="d2-s" style="left: 20px; top: 530px; width: 330px; height: 110px"></div>
+                  <div class="pop" id="d2-p" style="left: 40px; top: 40px; width: 280px; height: 560px"><img src="assets/usar/banqueta.png" alt="" /></div>
+                  <div class="sombra" id="d2-s2" style="left: 300px; top: 560px; width: 170px; height: 70px"></div>
+                  <div class="pop" id="d2-k" style="left: 310px; top: 200px; width: 150px; height: 400px"><img src="assets/usar/prosko.png" alt="" /></div>
+                  <div class="marca-pag">CASA VIVA</div>
+                </div>
+                <div class="esp" id="d3">
+                  <div class="sombra" id="d3-s" style="left: 10px; top: 500px; width: 450px; height: 130px"></div>
+                  <div class="pop" id="d3-p" style="left: 20px; top: 180px; width: 430px; height: 420px"><img src="assets/usar/almohada.png" alt="" /></div>
+                  <div class="marca-pag">CASA VIVA</div>
+                </div>
+                <div class="esp" id="d4">
+                  <div class="sombra" id="d4-s" style="left: 50px; top: 520px; width: 370px; height: 110px"></div>
+                  <div class="pop" id="d4-p" style="left: 80px; top: 20px; width: 310px; height: 580px"><img src="assets/usar/espejo.png" style="border-radius: 6px" alt="" /></div>
+                  <div class="marca-pag">CASA VIVA</div>
+                </div>
+                <div class="esp" id="d5">
+                  <div class="sombra" id="d5-s" style="left: 10px; top: 540px; width: 290px; height: 100px"></div>
+                  <div class="pop" id="d5-p" style="left: 30px; top: 0px; width: 250px; height: 610px"><img src="assets/usar/curru.png" alt="" /></div>
+                  <div class="sombra" id="d5-s2" style="left: 250px; top: 560px; width: 220px; height: 80px"></div>
+                  <div class="pop" id="d5-k" style="left: 265px; top: 230px; width: 195px; height: 380px"><img src="assets/usar/prosko-flor.png" alt="" /></div>
+                </div>
+              </div>
+
+              <!-- Hojas que pasan (una por cambio de página) -->
+              <div class="giro" id="g1"><div class="cara cara-a"></div><div class="cara cara-b"></div></div>
+              <div class="giro" id="g2"><div class="cara cara-a"></div><div class="cara cara-b"></div></div>
+              <div class="giro" id="g3"><div class="cara cara-a"></div><div class="cara cara-b"></div></div>
+              <div class="giro" id="g4"><div class="cara cara-a"></div><div class="cara cara-b"></div></div>
+
+              <!-- Tapa del catálogo -->
+              <div class="giro" id="tapa">
+                <div class="cara" id="tapa-a">
+                  <img id="tapa-logo" src="assets/logo-vertical-crema.svg" alt="Casa Viva" />
+                  <div id="tapa-txt">CATÁLOGO</div>
+                  <div id="tapa-sub">Lo nuevo de la casa</div>
+                </div>
+                <div class="cara cara-b"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="arriba">
+          <div class="frase" id="f0"><span class="k">CASA VIVA</span><span class="g">¿Qué hay de nuevo?</span></div>
+          <div class="frase" id="f1"><span class="k">1 · 4</span><span class="g">Luz suave para dormir</span></div>
+          <div class="frase" id="f2"><span class="k">2 · 4</span><span class="g">Un toque de color</span></div>
+          <div class="frase" id="f3"><span class="k">3 · 4</span><span class="g">Duerme más fresco</span></div>
+          <div class="frase" id="f4"><span class="k">4 · 4</span><span class="g">Arréglate con buena luz</span></div>
+        </div>
+      </div>
+
+      <!-- Cierre (18–21 s) -->
+      <div id="fin" class="clip" data-start="18" data-duration="3" data-track-index="2" style="position:absolute; inset:0;">
+        <div id="fin-preg">¿Cuál te llevas?</div>
+        <div id="fin-caja">Comenta CATÁLOGO</div>
+        <div id="fin-sub">y te lo pasamos por WhatsApp</div>
+        <img id="fin-logo" src="assets/logo-vertical-crema.svg" alt="Casa Viva" />
+      </div>
+      <div id="destello"></div>
+
+      <audio id="musica" src="assets/musica.mp3" data-start="0" data-media-start="0" data-duration="21" data-track-index="10" data-volume="0.6"></audio>
+      <audio id="fx-tapa" src="assets/sfx/whoosh.mp3" data-start="1.3" data-duration="0.57" data-track-index="11" data-volume="0.45"></audio>
+      <audio id="fx-pop1" src="assets/sfx/pop.mp3" data-start="2.3" data-duration="0.6" data-track-index="12" data-volume="0.6"></audio>
+      <audio id="fx-hoja1" src="assets/sfx/whoosh-short.mp3" data-start="5.2" data-duration="0.57" data-track-index="11" data-volume="0.4"></audio>
+      <audio id="fx-pop2" src="assets/sfx/pop.mp3" data-start="5.9" data-duration="0.6" data-track-index="12" data-volume="0.6"></audio>
+      <audio id="fx-pop2k" src="assets/sfx/pop.mp3" data-start="6.65" data-duration="0.6" data-track-index="13" data-volume="0.5"></audio>
+      <audio id="fx-hoja2" src="assets/sfx/whoosh-short.mp3" data-start="8.9" data-duration="0.57" data-track-index="11" data-volume="0.4"></audio>
+      <audio id="fx-pop3" src="assets/sfx/pop.mp3" data-start="9.6" data-duration="0.6" data-track-index="12" data-volume="0.6"></audio>
+      <audio id="fx-hoja3" src="assets/sfx/whoosh-short.mp3" data-start="12.2" data-duration="0.57" data-track-index="11" data-volume="0.4"></audio>
+      <audio id="fx-pop4" src="assets/sfx/pop.mp3" data-start="12.9" data-duration="0.6" data-track-index="12" data-volume="0.6"></audio>
+      <audio id="fx-hoja4" src="assets/sfx/whoosh-short.mp3" data-start="15.3" data-duration="0.57" data-track-index="11" data-volume="0.4"></audio>
+      <audio id="fx-pop5" src="assets/sfx/pop.mp3" data-start="16.0" data-duration="0.6" data-track-index="12" data-volume="0.6"></audio>
+      <audio id="fx-pop5k" src="assets/sfx/pop.mp3" data-start="16.4" data-duration="0.6" data-track-index="13" data-volume="0.5"></audio>
+      <audio id="fx-brillo" src="assets/sfx/sparkle.mp3" data-start="18.35" data-duration="1.8" data-track-index="14" data-volume="0.45"></audio>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      const INCL = 34;            // inclinación del libro sobre la mesa
+      const DE_PIE = -INCL;       // un desplegable «de pie» mira a la cámara
+
+      // Cámara: se acerca despacio todo el rato
+      tl.fromTo("#camara", { scale: 1.0, y: 0 }, { scale: 1.08, y: -30, duration: 18, ease: "none" }, 0);
+      tl.set("#libro", { rotationX: INCL, rotationZ: -5, y: 0, transformOrigin: "50% 50%" }, 0);
+      tl.fromTo("#libro", { rotationZ: -5 }, { rotationZ: -2, duration: 18, ease: "sine.inOut" }, 0);
+
+      // Estado inicial: catálogo cerrado (solo la tapa sobre la página derecha)
+      tl.set(["#pag-izq", "#grosor"], { opacity: 0 }, 0);
+      tl.set("#tapa", { opacity: 1, rotationY: 0, transformOrigin: "0% 50%" }, 0);
+      ["#d1-p", "#d2-p", "#d2-k", "#d3-p", "#d4-p", "#d5-p", "#d5-k"].forEach((id) => tl.set(id, { rotationX: 85, opacity: 0, transformOrigin: "50% 100%" }, 0));
+      ["#d1-s", "#d2-s", "#d2-s2", "#d3-s", "#d4-s", "#d5-s", "#d5-s2"].forEach((id) => tl.set(id, { scale: 0.3, opacity: 0 }, 0));
+      tl.set("#d1", { opacity: 1 }, 0);
+
+      // La tapa se abre (1,3–2,2 s)
+      tl.fromTo("#tapa-txt", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "power2.out" }, 0.15);
+      tl.fromTo("#tapa-sub", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 0.35);
+      tl.to("#tapa", { rotationY: -180, duration: 0.9, ease: "power2.inOut" }, 1.3);
+      tl.set(["#pag-izq", "#grosor", "#i1"], { opacity: 1 }, 1.75);
+      tl.set("#tapa", { opacity: 0 }, 2.2);
+
+      // Un desplegable sube del papel (y su sombra crece)
+      function sube(pop, sombra, t) {
+        tl.fromTo(pop, { rotationX: 85, scale: 0.85 }, { rotationX: DE_PIE, scale: 1, duration: 0.7, ease: "back.out(1.5)" }, t);
+        tl.fromTo(pop, { opacity: 0 }, { opacity: 1, duration: 0.15, ease: "none" }, t);
+        tl.fromTo(sombra, { scale: 0.3, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: "power2.out" }, t + 0.05);
+      }
+      function baja(pop, sombra, t) {
+        tl.to(pop, { rotationX: 85, scale: 0.85, duration: 0.3, ease: "power2.in" }, t);
+        tl.to(pop, { opacity: 0, duration: 0.1, ease: "none" }, t + 0.2);
+        tl.to(sombra, { scale: 0.3, opacity: 0, duration: 0.3 }, t);
+      }
+      // Pasa la página: la hoja gira de derecha a izquierda y deja la siguiente ficha
+      function pasa(g, de, a, t) {
+        tl.set("#d" + de, { opacity: 0 }, t);
+        tl.set("#d" + a, { opacity: 1 }, t);
+        tl.set(g, { opacity: 1, rotationY: 0, transformOrigin: "0% 50%" }, t);
+        tl.to(g, { rotationY: -180, duration: 0.6, ease: "power2.inOut" }, t);
+        tl.set("#i" + de, { opacity: 0 }, t + 0.6);
+        tl.set("#i" + a, { opacity: 1 }, t + 0.6);
+        tl.set(g, { opacity: 0 }, t + 0.62);
+      }
+      // Pequeño vaivén de un personaje
+      function saluda(pop, t) {
+        tl.to(pop, { rotationZ: 6, duration: 0.18, ease: "sine.inOut", yoyo: true, repeat: 3 }, t);
+      }
+
+      sube("#d1-p", "#d1-s", 2.25);
+      baja("#d1-p", "#d1-s", 4.9);
+      pasa("#g1", 1, 2, 5.2);
+
+      sube("#d2-p", "#d2-s", 5.85);
+      sube("#d2-k", "#d2-s2", 6.6);
+      saluda("#d2-k", 7.3);
+      baja("#d2-p", "#d2-s", 8.6);
+      baja("#d2-k", "#d2-s2", 8.6);
+      pasa("#g2", 2, 3, 8.9);
+
+      sube("#d3-p", "#d3-s", 9.55);
+      baja("#d3-p", "#d3-s", 11.9);
+      pasa("#g3", 3, 4, 12.2);
+
+      sube("#d4-p", "#d4-s", 12.85);
+      baja("#d4-p", "#d4-s", 15.0);
+      pasa("#g4", 4, 5, 15.3);
+
+      sube("#d5-p", "#d5-s", 15.95);
+      sube("#d5-k", "#d5-s2", 16.35);
+      saluda("#d5-k", 17.0);
+
+      // Frases de arriba: gancho y beneficio de cada página
+      const frases = [["#f0", 0, 2.1], ["#f1", 2.2, 5.1], ["#f2", 5.8, 8.8], ["#f3", 9.5, 12.1], ["#f4", 12.8, 15.4]];
+      for (const [id, a, b] of frases) {
+        tl.fromTo(id, { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power3.out" }, a);
+        if (b < 18) tl.to(id, { y: -20, opacity: 0, duration: 0.2, ease: "power2.in" }, b - 0.2);
+      }
+
+      // Cierre
+      tl.set("#destello", { opacity: 0.5 }, 18);
+      tl.to("#destello", { opacity: 0, duration: 0.3, ease: "power1.out" }, 18.001);
+      tl.fromTo("#fin-preg", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power3.out" }, 18.05);
+      tl.fromTo("#fin-caja", { scale: 0.5, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(2.2)" }, 18.35);
+      tl.to("#fin-caja", { scale: 1.06, duration: 0.25, ease: "sine.inOut", yoyo: true, repeat: 3 }, 18.8);
+      tl.fromTo("#fin-sub", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 18.6);
+      tl.fromTo("#fin-logo", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power2.out" }, 18.8);
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

@@ -1,0 +1,1335 @@
+{
+ "task": "transcribe",
+ "language": "Spanish",
+ "duration": 58.467876864,
+ "text": " Oye, ¿quieres ver lo fácil que es vender con Casa Viva? Mira, te enseño tu primera venta, paso a paso. Tú le mandas tu enlace a tu cliente por WhatsApp y él ve tu tienda con tu nombre arriba. Así sabe que lo atiendes tú. Busca lo que quiere, por ejemplo, un cesto de basura. Toca el que le gusta y aprieta comprar ahora. Ahí escoge cómo lo quiere recibir. ¿Por mensajería o lo recoge en la tienda? Pone su nombre y su WhatsApp. escoge el municipio y el reparto y el precio de la mensajería sale solito después elige el día hoy o mañana revisa que todo esté bien toca finalizar y listo su pedido está hecho y tú no tienes que estar llamando a nadie te llega un aviso con quien lo lleva y a qué hora cuando lo entregan te avisamos también y tu comisión queda apuntada para el cierre de caja así de fácil Manda tu enlace hoy y haz tu primera venta. Cualquier duda me escribes.",
+ "words": [
+  {
+   "word": "Oye,",
+   "start": 0,
+   "end": 0.96
+  },
+  {
+   "word": "¿quieres",
+   "start": 0.96,
+   "end": 1.06
+  },
+  {
+   "word": "ver",
+   "start": 1.06,
+   "end": 1.3
+  },
+  {
+   "word": "lo",
+   "start": 1.3,
+   "end": 1.38
+  },
+  {
+   "word": "fácil",
+   "start": 1.38,
+   "end": 1.72
+  },
+  {
+   "word": "que",
+   "start": 1.72,
+   "end": 1.9
+  },
+  {
+   "word": "es",
+   "start": 1.9,
+   "end": 2.08
+  },
+  {
+   "word": "vender",
+   "start": 2.08,
+   "end": 2.48
+  },
+  {
+   "word": "con",
+   "start": 2.48,
+   "end": 2.78
+  },
+  {
+   "word": "Casa",
+   "start": 2.78,
+   "end": 3.02
+  },
+  {
+   "word": "Viva?",
+   "start": 3.02,
+   "end": 3.48
+  },
+  {
+   "word": "Mira,",
+   "start": 3.54,
+   "end": 3.84
+  },
+  {
+   "word": "te",
+   "start": 3.84,
+   "end": 3.96
+  },
+  {
+   "word": "enseño",
+   "start": 3.96,
+   "end": 4.36
+  },
+  {
+   "word": "tu",
+   "start": 4.36,
+   "end": 4.78
+  },
+  {
+   "word": "primera",
+   "start": 4.78,
+   "end": 5.14
+  },
+  {
+   "word": "venta,",
+   "start": 5.14,
+   "end": 5.58
+  },
+  {
+   "word": "paso",
+   "start": 5.58,
+   "end": 5.94
+  },
+  {
+   "word": "a",
+   "start": 5.94,
+   "end": 6.08
+  },
+  {
+   "word": "paso.",
+   "start": 6.08,
+   "end": 6.8
+  },
+  {
+   "word": "Tú",
+   "start": 6.84,
+   "end": 6.92
+  },
+  {
+   "word": "le",
+   "start": 6.92,
+   "end": 7.06
+  },
+  {
+   "word": "mandas",
+   "start": 7.06,
+   "end": 7.46
+  },
+  {
+   "word": "tu",
+   "start": 7.46,
+   "end": 7.64
+  },
+  {
+   "word": "enlace",
+   "start": 7.64,
+   "end": 8.04
+  },
+  {
+   "word": "a",
+   "start": 8.04,
+   "end": 8.26
+  },
+  {
+   "word": "tu",
+   "start": 8.26,
+   "end": 8.38
+  },
+  {
+   "word": "cliente",
+   "start": 8.38,
+   "end": 8.86
+  },
+  {
+   "word": "por",
+   "start": 8.86,
+   "end": 9.22
+  },
+  {
+   "word": "WhatsApp",
+   "start": 9.22,
+   "end": 9.68
+  },
+  {
+   "word": "y",
+   "start": 9.68,
+   "end": 10.1
+  },
+  {
+   "word": "él",
+   "start": 10.1,
+   "end": 10.26
+  },
+  {
+   "word": "ve",
+   "start": 10.26,
+   "end": 10.34
+  },
+  {
+   "word": "tu",
+   "start": 10.34,
+   "end": 10.48
+  },
+  {
+   "word": "tienda",
+   "start": 10.48,
+   "end": 10.86
+  },
+  {
+   "word": "con",
+   "start": 10.86,
+   "end": 11.08
+  },
+  {
+   "word": "tu",
+   "start": 11.08,
+   "end": 11.28
+  },
+  {
+   "word": "nombre",
+   "start": 11.28,
+   "end": 11.58
+  },
+  {
+   "word": "arriba.",
+   "start": 11.58,
+   "end": 12.7
+  },
+  {
+   "word": "Así",
+   "start": 12.82,
+   "end": 13
+  },
+  {
+   "word": "sabe",
+   "start": 13,
+   "end": 13.36
+  },
+  {
+   "word": "que",
+   "start": 13.36,
+   "end": 13.56
+  },
+  {
+   "word": "lo",
+   "start": 13.56,
+   "end": 13.72
+  },
+  {
+   "word": "atiendes",
+   "start": 13.72,
+   "end": 14.2
+  },
+  {
+   "word": "tú.",
+   "start": 14.2,
+   "end": 14.66
+  },
+  {
+   "word": "Busca",
+   "start": 14.7,
+   "end": 14.88
+  },
+  {
+   "word": "lo",
+   "start": 14.88,
+   "end": 15.02
+  },
+  {
+   "word": "que",
+   "start": 15.02,
+   "end": 15.18
+  },
+  {
+   "word": "quiere,",
+   "start": 15.18,
+   "end": 15.46
+  },
+  {
+   "word": "por",
+   "start": 15.46,
+   "end": 15.64
+  },
+  {
+   "word": "ejemplo,",
+   "start": 15.64,
+   "end": 16.12
+  },
+  {
+   "word": "un",
+   "start": 16.12,
+   "end": 16.28
+  },
+  {
+   "word": "cesto",
+   "start": 16.28,
+   "end": 16.56
+  },
+  {
+   "word": "de",
+   "start": 16.56,
+   "end": 16.7
+  },
+  {
+   "word": "basura.",
+   "start": 16.7,
+   "end": 17.56
+  },
+  {
+   "word": "Toca",
+   "start": 17.42,
+   "end": 17.6
+  },
+  {
+   "word": "el",
+   "start": 17.6,
+   "end": 17.84
+  },
+  {
+   "word": "que",
+   "start": 17.84,
+   "end": 17.96
+  },
+  {
+   "word": "le",
+   "start": 17.96,
+   "end": 18.08
+  },
+  {
+   "word": "gusta",
+   "start": 18.08,
+   "end": 18.4
+  },
+  {
+   "word": "y",
+   "start": 18.4,
+   "end": 18.7
+  },
+  {
+   "word": "aprieta",
+   "start": 18.7,
+   "end": 19.2
+  },
+  {
+   "word": "comprar",
+   "start": 19.2,
+   "end": 19.62
+  },
+  {
+   "word": "ahora.",
+   "start": 19.62,
+   "end": 20.64
+  },
+  {
+   "word": "Ahí",
+   "start": 20.7,
+   "end": 20.98
+  },
+  {
+   "word": "escoge",
+   "start": 20.98,
+   "end": 21.68
+  },
+  {
+   "word": "cómo",
+   "start": 21.68,
+   "end": 22.08
+  },
+  {
+   "word": "lo",
+   "start": 22.08,
+   "end": 22.4
+  },
+  {
+   "word": "quiere",
+   "start": 22.4,
+   "end": 22.66
+  },
+  {
+   "word": "recibir.",
+   "start": 22.66,
+   "end": 23.6
+  },
+  {
+   "word": "¿Por",
+   "start": 23.4,
+   "end": 23.52
+  },
+  {
+   "word": "mensajería",
+   "start": 23.52,
+   "end": 24.26
+  },
+  {
+   "word": "o",
+   "start": 24.26,
+   "end": 24.78
+  },
+  {
+   "word": "lo",
+   "start": 24.78,
+   "end": 24.92
+  },
+  {
+   "word": "recoge",
+   "start": 24.92,
+   "end": 25.24
+  },
+  {
+   "word": "en",
+   "start": 25.24,
+   "end": 25.32
+  },
+  {
+   "word": "la",
+   "start": 25.32,
+   "end": 25.44
+  },
+  {
+   "word": "tienda?",
+   "start": 25.44,
+   "end": 26.2
+  },
+  {
+   "word": "Pone",
+   "start": 25.22,
+   "end": 26.32
+  },
+  {
+   "word": "su",
+   "start": 26.32,
+   "end": 26.46
+  },
+  {
+   "word": "nombre",
+   "start": 26.46,
+   "end": 26.82
+  },
+  {
+   "word": "y",
+   "start": 26.82,
+   "end": 27.18
+  },
+  {
+   "word": "su",
+   "start": 27.18,
+   "end": 27.3
+  },
+  {
+   "word": "WhatsApp.",
+   "start": 27.3,
+   "end": 28.32
+  },
+  {
+   "word": "escoge",
+   "start": 27.84,
+   "end": 28.56
+  },
+  {
+   "word": "el",
+   "start": 28.56,
+   "end": 28.74
+  },
+  {
+   "word": "municipio",
+   "start": 28.74,
+   "end": 29.28
+  },
+  {
+   "word": "y",
+   "start": 29.28,
+   "end": 29.54
+  },
+  {
+   "word": "el",
+   "start": 29.54,
+   "end": 29.62
+  },
+  {
+   "word": "reparto",
+   "start": 29.62,
+   "end": 30.1
+  },
+  {
+   "word": "y",
+   "start": 30.1,
+   "end": 30.62
+  },
+  {
+   "word": "el",
+   "start": 30.62,
+   "end": 30.74
+  },
+  {
+   "word": "precio",
+   "start": 30.74,
+   "end": 31.1
+  },
+  {
+   "word": "de",
+   "start": 31.1,
+   "end": 31.24
+  },
+  {
+   "word": "la",
+   "start": 31.24,
+   "end": 31.38
+  },
+  {
+   "word": "mensajería",
+   "start": 31.38,
+   "end": 31.88
+  },
+  {
+   "word": "sale",
+   "start": 31.88,
+   "end": 32.16
+  },
+  {
+   "word": "solito",
+   "start": 32.16,
+   "end": 32.54
+  },
+  {
+   "word": "después",
+   "start": 32.42,
+   "end": 33.3
+  },
+  {
+   "word": "elige",
+   "start": 33.3,
+   "end": 33.64
+  },
+  {
+   "word": "el",
+   "start": 33.64,
+   "end": 33.8
+  },
+  {
+   "word": "día",
+   "start": 33.8,
+   "end": 34.14
+  },
+  {
+   "word": "hoy",
+   "start": 34.14,
+   "end": 34.68
+  },
+  {
+   "word": "o",
+   "start": 34.68,
+   "end": 34.96
+  },
+  {
+   "word": "mañana",
+   "start": 34.96,
+   "end": 35.36
+  },
+  {
+   "word": "revisa",
+   "start": 35.36,
+   "end": 36.28
+  },
+  {
+   "word": "que",
+   "start": 36.28,
+   "end": 36.44
+  },
+  {
+   "word": "todo",
+   "start": 36.44,
+   "end": 36.74
+  },
+  {
+   "word": "esté",
+   "start": 36.74,
+   "end": 36.96
+  },
+  {
+   "word": "bien",
+   "start": 36.96,
+   "end": 37.24
+  },
+  {
+   "word": "toca",
+   "start": 37.24,
+   "end": 37.6
+  },
+  {
+   "word": "finalizar",
+   "start": 37.6,
+   "end": 38.24
+  },
+  {
+   "word": "y",
+   "start": 38.24,
+   "end": 38.48
+  },
+  {
+   "word": "listo",
+   "start": 37.96,
+   "end": 38.88
+  },
+  {
+   "word": "su",
+   "start": 38.88,
+   "end": 39.06
+  },
+  {
+   "word": "pedido",
+   "start": 39.06,
+   "end": 39.5
+  },
+  {
+   "word": "está",
+   "start": 39.5,
+   "end": 39.86
+  },
+  {
+   "word": "hecho",
+   "start": 39.86,
+   "end": 40.34
+  },
+  {
+   "word": "y",
+   "start": 40.34,
+   "end": 40.68
+  },
+  {
+   "word": "tú",
+   "start": 40.68,
+   "end": 40.94
+  },
+  {
+   "word": "no",
+   "start": 40.94,
+   "end": 41.22
+  },
+  {
+   "word": "tienes",
+   "start": 41.22,
+   "end": 41.48
+  },
+  {
+   "word": "que",
+   "start": 41.48,
+   "end": 41.6
+  },
+  {
+   "word": "estar",
+   "start": 41.6,
+   "end": 42.04
+  },
+  {
+   "word": "llamando",
+   "start": 42.04,
+   "end": 42.88
+  },
+  {
+   "word": "a",
+   "start": 42.88,
+   "end": 42.98
+  },
+  {
+   "word": "nadie",
+   "start": 42.98,
+   "end": 43.28
+  },
+  {
+   "word": "te",
+   "start": 43.28,
+   "end": 43.8
+  },
+  {
+   "word": "llega",
+   "start": 43.26,
+   "end": 44
+  },
+  {
+   "word": "un",
+   "start": 44,
+   "end": 44.2
+  },
+  {
+   "word": "aviso",
+   "start": 44.2,
+   "end": 44.44
+  },
+  {
+   "word": "con",
+   "start": 44.44,
+   "end": 44.7
+  },
+  {
+   "word": "quien",
+   "start": 44.7,
+   "end": 44.86
+  },
+  {
+   "word": "lo",
+   "start": 44.86,
+   "end": 45.04
+  },
+  {
+   "word": "lleva",
+   "start": 45.04,
+   "end": 45.4
+  },
+  {
+   "word": "y",
+   "start": 45.4,
+   "end": 45.62
+  },
+  {
+   "word": "a",
+   "start": 45.62,
+   "end": 45.78
+  },
+  {
+   "word": "qué",
+   "start": 45.78,
+   "end": 45.88
+  },
+  {
+   "word": "hora",
+   "start": 45.88,
+   "end": 46.12
+  },
+  {
+   "word": "cuando",
+   "start": 46.12,
+   "end": 46.76
+  },
+  {
+   "word": "lo",
+   "start": 46.76,
+   "end": 46.94
+  },
+  {
+   "word": "entregan",
+   "start": 46.94,
+   "end": 47.32
+  },
+  {
+   "word": "te",
+   "start": 47.32,
+   "end": 47.52
+  },
+  {
+   "word": "avisamos",
+   "start": 47.52,
+   "end": 47.9
+  },
+  {
+   "word": "también",
+   "start": 47.3,
+   "end": 48.34
+  },
+  {
+   "word": "y",
+   "start": 48.34,
+   "end": 48.72
+  },
+  {
+   "word": "tu",
+   "start": 48.72,
+   "end": 48.88
+  },
+  {
+   "word": "comisión",
+   "start": 48.88,
+   "end": 49.3
+  },
+  {
+   "word": "queda",
+   "start": 49.3,
+   "end": 49.62
+  },
+  {
+   "word": "apuntada",
+   "start": 49.62,
+   "end": 50.4
+  },
+  {
+   "word": "para",
+   "start": 50.4,
+   "end": 50.82
+  },
+  {
+   "word": "el",
+   "start": 50.82,
+   "end": 51
+  },
+  {
+   "word": "cierre",
+   "start": 51,
+   "end": 51.38
+  },
+  {
+   "word": "de",
+   "start": 51.38,
+   "end": 51.54
+  },
+  {
+   "word": "caja",
+   "start": 51.54,
+   "end": 51.86
+  },
+  {
+   "word": "así",
+   "start": 51.86,
+   "end": 52.2
+  },
+  {
+   "word": "de",
+   "start": 52.2,
+   "end": 52.36
+  },
+  {
+   "word": "fácil",
+   "start": 52.36,
+   "end": 52.7
+  },
+  {
+   "word": "Manda",
+   "start": 53.22,
+   "end": 53.48
+  },
+  {
+   "word": "tu",
+   "start": 53.48,
+   "end": 53.66
+  },
+  {
+   "word": "enlace",
+   "start": 53.66,
+   "end": 53.98
+  },
+  {
+   "word": "hoy",
+   "start": 53.98,
+   "end": 54.3
+  },
+  {
+   "word": "y",
+   "start": 54.3,
+   "end": 54.58
+  },
+  {
+   "word": "haz",
+   "start": 54.58,
+   "end": 54.8
+  },
+  {
+   "word": "tu",
+   "start": 54.8,
+   "end": 55.18
+  },
+  {
+   "word": "primera",
+   "start": 55.18,
+   "end": 55.58
+  },
+  {
+   "word": "venta.",
+   "start": 55.58,
+   "end": 56.46
+  },
+  {
+   "word": "Cualquier",
+   "start": 56.46,
+   "end": 56.86
+  },
+  {
+   "word": "duda",
+   "start": 56.86,
+   "end": 57.24
+  },
+  {
+   "word": "me",
+   "start": 57.24,
+   "end": 57.6
+  },
+  {
+   "word": "escribes.",
+   "start": 57.6,
+   "end": 58.66
+  }
+ ],
+ "segments": [
+  {
+   "id": 0,
+   "seek": 0,
+   "start": 0,
+   "end": 3.34,
+   "text": " Oye, ¿quieres ver lo fácil que es vender con Casa Viva?",
+   "tokens": [
+    50365,
+    422,
+    1200,
+    11,
+    3841,
+    16622,
+    279,
+    1306,
+    450,
+    17474,
+    631,
+    785,
+    44281,
+    416,
+    44843,
+    691,
+    5931,
+    30,
+    50532
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.10360071,
+   "compression_ratio": 1.5296167,
+   "no_speech_prob": 0.0006995201
+  },
+  {
+   "id": 1,
+   "seek": 0,
+   "start": 3.46,
+   "end": 6.3599997,
+   "text": " Mira, te enseño tu primera venta, paso a paso.",
+   "tokens": [
+    50538,
+    28394,
+    11,
+    535,
+    12567,
+    7716,
+    2604,
+    17382,
+    6931,
+    64,
+    11,
+    29212,
+    257,
+    29212,
+    13,
+    50683
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.10360071,
+   "compression_ratio": 1.5296167,
+   "no_speech_prob": 0.0006995201
+  },
+  {
+   "id": 2,
+   "seek": 0,
+   "start": 6.7999997,
+   "end": 12.219999,
+   "text": " Tú le mandas tu enlace a tu cliente por WhatsApp y él ve tu tienda con tu nombre arriba.",
+   "tokens": [
+    50705,
+    46341,
+    476,
+    7411,
+    296,
+    2604,
+    465,
+    19837,
+    257,
+    2604,
+    6423,
+    68,
+    1515,
+    30513,
+    288,
+    11810,
+    1241,
+    2604,
+    256,
+    30498,
+    416,
+    2604,
+    13000,
+    28469,
+    13,
+    50976
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.10360071,
+   "compression_ratio": 1.5296167,
+   "no_speech_prob": 0.0006995201
+  },
+  {
+   "id": 3,
+   "seek": 0,
+   "start": 12.78,
+   "end": 14.44,
+   "text": " Así sabe que lo atiendes tú.",
+   "tokens": [
+    51004,
+    17419,
+    12275,
+    631,
+    450,
+    412,
+    1174,
+    279,
+    15056,
+    13,
+    51087
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.10360071,
+   "compression_ratio": 1.5296167,
+   "no_speech_prob": 0.0006995201
+  },
+  {
+   "id": 4,
+   "seek": 0,
+   "start": 14.679999,
+   "end": 17.08,
+   "text": " Busca lo que quiere, por ejemplo, un cesto de basura.",
+   "tokens": [
+    51099,
+    8006,
+    496,
+    450,
+    631,
+    23877,
+    11,
+    1515,
+    13358,
+    11,
+    517,
+    269,
+    18465,
+    368,
+    987,
+    2991,
+    13,
+    51219
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.10360071,
+   "compression_ratio": 1.5296167,
+   "no_speech_prob": 0.0006995201
+  },
+  {
+   "id": 5,
+   "seek": 0,
+   "start": 17.34,
+   "end": 20.16,
+   "text": " Toca el que le gusta y aprieta comprar ahora.",
+   "tokens": [
+    51232,
+    1407,
+    496,
+    806,
+    631,
+    476,
+    20576,
+    288,
+    1882,
+    470,
+    7664,
+    22077,
+    9923,
+    13,
+    51373
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.10360071,
+   "compression_ratio": 1.5296167,
+   "no_speech_prob": 0.0006995201
+  },
+  {
+   "id": 6,
+   "seek": 0,
+   "start": 20.66,
+   "end": 23.119999,
+   "text": " Ahí escoge cómo lo quiere recibir.",
+   "tokens": [
+    51398,
+    49924,
+    785,
+    1291,
+    432,
+    12826,
+    450,
+    23877,
+    49703,
+    13,
+    51521
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.10360071,
+   "compression_ratio": 1.5296167,
+   "no_speech_prob": 0.0006995201
+  },
+  {
+   "id": 7,
+   "seek": 0,
+   "start": 23.359999,
+   "end": 25.72,
+   "text": " ¿Por mensajería o lo recoge en la tienda?",
+   "tokens": [
+    51533,
+    3841,
+    24907,
+    10923,
+    1805,
+    260,
+    2686,
+    277,
+    450,
+    7759,
+    432,
+    465,
+    635,
+    256,
+    30498,
+    30,
+    51651
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.10360071,
+   "compression_ratio": 1.5296167,
+   "no_speech_prob": 0.0006995201
+  },
+  {
+   "id": 8,
+   "seek": 0,
+   "start": 25.72,
+   "end": 27.84,
+   "text": " Pone su nombre y su WhatsApp.",
+   "tokens": [
+    51651,
+    430,
+    546,
+    459,
+    13000,
+    288,
+    459,
+    30513,
+    13,
+    51757
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.10360071,
+   "compression_ratio": 1.5296167,
+   "no_speech_prob": 0.0006995201
+  },
+  {
+   "id": 9,
+   "seek": 2784,
+   "start": 27.84,
+   "end": 32.56,
+   "text": " escoge el municipio y el reparto y el precio de la mensajería sale solito",
+   "tokens": [
+    50365,
+    785,
+    1291,
+    432,
+    806,
+    14998,
+    1004,
+    288,
+    806,
+    1085,
+    15864,
+    288,
+    806,
+    46916,
+    368,
+    635,
+    10923,
+    1805,
+    260,
+    2686,
+    8680,
+    1404,
+    3528,
+    50601
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.08683317,
+   "compression_ratio": 1.5950413,
+   "no_speech_prob": 0.0048332214
+  },
+  {
+   "id": 10,
+   "seek": 2784,
+   "start": 32.56,
+   "end": 38.44,
+   "text": " después elige el día hoy o mañana revisa que todo esté bien toca finalizar y",
+   "tokens": [
+    50601,
+    15283,
+    806,
+    3969,
+    806,
+    12271,
+    13775,
+    277,
+    33573,
+    3698,
+    3837,
+    631,
+    5149,
+    34584,
+    3610,
+    43514,
+    2572,
+    9736,
+    288,
+    50895
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.08683317,
+   "compression_ratio": 1.5950413,
+   "no_speech_prob": 0.0048332214
+  },
+  {
+   "id": 11,
+   "seek": 2784,
+   "start": 38.44,
+   "end": 43.74,
+   "text": " listo su pedido está hecho y tú no tienes que estar llamando a nadie te",
+   "tokens": [
+    50895,
+    1329,
+    78,
+    459,
+    5670,
+    2925,
+    3192,
+    13064,
+    288,
+    15056,
+    572,
+    20716,
+    631,
+    8755,
+    16848,
+    1806,
+    257,
+    28060,
+    535,
+    51160
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.08683317,
+   "compression_ratio": 1.5950413,
+   "no_speech_prob": 0.0048332214
+  },
+  {
+   "id": 12,
+   "seek": 2784,
+   "start": 43.74,
+   "end": 47.8,
+   "text": " llega un aviso con quien lo lleva y a qué hora cuando lo entregan te avisamos",
+   "tokens": [
+    51160,
+    40423,
+    517,
+    1305,
+    19227,
+    416,
+    20108,
+    450,
+    37681,
+    288,
+    257,
+    8057,
+    15098,
+    7767,
+    450,
+    3962,
+    1275,
+    535,
+    34588,
+    2151,
+    51363
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.08683317,
+   "compression_ratio": 1.5950413,
+   "no_speech_prob": 0.0048332214
+  },
+  {
+   "id": 13,
+   "seek": 2784,
+   "start": 47.8,
+   "end": 52.68,
+   "text": " también y tu comisión queda apuntada para el cierre de caja así de fácil",
+   "tokens": [
+    51363,
+    6407,
+    288,
+    2604,
+    395,
+    36515,
+    23314,
+    1882,
+    2760,
+    1538,
+    1690,
+    806,
+    39769,
+    265,
+    368,
+    1335,
+    2938,
+    8582,
+    368,
+    17474,
+    51607
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.08683317,
+   "compression_ratio": 1.5950413,
+   "no_speech_prob": 0.0048332214
+  },
+  {
+   "id": 14,
+   "seek": 5268,
+   "start": 52.68,
+   "end": 58.18,
+   "text": " Manda tu enlace hoy y haz tu primera venta. Cualquier duda me escribes.",
+   "tokens": [
+    50365,
+    376,
+    5575,
+    2604,
+    465,
+    19837,
+    13775,
+    288,
+    11008,
+    2604,
+    17382,
+    6931,
+    64,
+    13,
+    383,
+    901,
+    16622,
+    43881,
+    385,
+    30598,
+    6446,
+    13,
+    50640
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.104112364,
+   "compression_ratio": 0.98630136,
+   "no_speech_prob": 0.0009703636
+  }
+ ],
+ "x_groq": {
+  "id": "req_01m4pe833nepgr6bpsm0vbpzn1"
+ }
+}

@@ -1,0 +1,557 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #s2-root {
+          position: absolute;
+          inset: 0;
+        }
+        .burger-ic {
+          display: inline-flex;
+          flex-direction: column;
+          justify-content: space-between;
+          width: 72px;
+          height: 58px;
+          padding: 8px 6px;
+          margin-left: 22px;
+          border-radius: 14px;
+          background: #0f3d3a;
+          vertical-align: middle;
+        }
+        .burger-ic i {
+          display: block;
+          height: 7px;
+          border-radius: 4px;
+          background: #f6f1e6;
+        }
+        #s2-header {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 0;
+          height: 170px;
+          background: #0f3d3a;
+        }
+        #s2-burger {
+          position: absolute;
+          left: 28px;
+          top: 72px;
+          width: 80px;
+          height: 80px;
+          border-radius: 18px;
+          background: rgba(246, 241, 230, 0.12);
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          gap: 9px;
+          padding: 0 20px;
+        }
+        #s2-burger i {
+          display: block;
+          height: 6px;
+          border-radius: 3px;
+          background: #f6f1e6;
+        }
+        .s2-htitle {
+          position: absolute;
+          left: 132px;
+          top: 82px;
+          font-weight: 800;
+          font-size: 44px;
+          color: #f6f1e6;
+        }
+        #s2-ht-ventas {
+          opacity: 0;
+        }
+        .s2-view {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 170px;
+          bottom: 0;
+        }
+        #s2-ventas {
+          opacity: 0;
+        }
+        #s2-hello {
+          position: absolute;
+          left: 36px;
+          top: 44px;
+          font-weight: 800;
+          font-size: 50px;
+          color: #0f3d3a;
+        }
+        #s2-hello-sub {
+          position: absolute;
+          left: 36px;
+          top: 112px;
+          font-weight: 400;
+          font-size: 32px;
+          color: #6f6a62;
+        }
+        .s2-tile {
+          position: absolute;
+          top: 200px;
+          width: 326px;
+          height: 200px;
+          border-radius: 14px;
+          background: #e4ece8;
+          padding: 26px;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+        }
+        .s2-tile b {
+          font-weight: 800;
+          font-size: 64px;
+          color: #0f3d3a;
+        }
+        .s2-tile span {
+          font-weight: 600;
+          font-size: 28px;
+          color: #25231f;
+        }
+        .s2-card {
+          position: absolute;
+          left: 28px;
+          right: 28px;
+          border-radius: 14px;
+          background: #fffdf9;
+          border: 3px solid rgba(15, 61, 58, 0.14);
+          padding: 30px;
+          display: flex;
+          flex-direction: column;
+          gap: 18px;
+        }
+        #s2-order {
+          position: absolute;
+          left: 28px;
+          right: 28px;
+          top: 40px;
+          height: 316px;
+          border-radius: 14px;
+          background: #fffdf9;
+          border: 4px solid #c39443;
+          box-shadow: 0 14px 30px rgba(15, 61, 58, 0.14);
+        }
+        #s2-o-title {
+          position: absolute;
+          left: 28px;
+          top: 26px;
+          font-weight: 800;
+          font-size: 38px;
+          color: #25231f;
+        }
+        #s2-o-chip {
+          position: absolute;
+          right: 26px;
+          top: 26px;
+          padding: 6px 18px;
+          border-radius: 999px;
+          background: #e4ece8;
+          color: #0f3d3a;
+          font-weight: 700;
+          font-size: 26px;
+        }
+        #s2-o-client {
+          position: absolute;
+          left: 28px;
+          top: 86px;
+          font-weight: 400;
+          font-size: 32px;
+          color: #6f6a62;
+        }
+        #s2-o-label {
+          position: absolute;
+          left: 28px;
+          top: 142px;
+          font-weight: 700;
+          font-size: 30px;
+          color: #0f3d3a;
+        }
+        #s2-select {
+          position: absolute;
+          left: 26px;
+          right: 26px;
+          top: 186px;
+          height: 96px;
+          border-radius: 14px;
+          border: 3px solid rgba(15, 61, 58, 0.35);
+          background: #f6f1e6;
+        }
+        #s2-select-on {
+          position: absolute;
+          inset: -3px;
+          border-radius: 14px;
+          border: 5px solid #0f3d3a;
+          background: #e4ece8;
+          opacity: 0;
+        }
+        .s2-val {
+          position: absolute;
+          left: 26px;
+          top: 24px;
+          font-weight: 700;
+          font-size: 36px;
+          color: #25231f;
+        }
+        #s2-val-pedri {
+          opacity: 0;
+          color: #0f3d3a;
+          font-weight: 800;
+        }
+        #s2-caret {
+          position: absolute;
+          right: 26px;
+          top: 22px;
+          font-size: 34px;
+          color: #0f3d3a;
+          font-weight: 800;
+        }
+        #s2-dd {
+          position: absolute;
+          left: 54px;
+          right: 54px;
+          top: 336px;
+          border-radius: 14px;
+          background: #fffdf9;
+          border: 3px solid rgba(15, 61, 58, 0.25);
+          box-shadow: 0 24px 50px rgba(37, 35, 31, 0.25);
+          overflow: hidden;
+          opacity: 0;
+          transform-origin: top center;
+          z-index: 12;
+        }
+        .s2-opt {
+          position: relative;
+          height: 92px;
+          padding: 0 28px;
+          display: flex;
+          align-items: center;
+          font-weight: 600;
+          font-size: 36px;
+          color: #25231f;
+          border-bottom: 2px solid #e4ece8;
+        }
+        .s2-opt:last-child {
+          border-bottom: none;
+        }
+        #s2-opt-pedri-hl {
+          position: absolute;
+          inset: 0;
+          background: #e4ece8;
+          opacity: 0;
+        }
+        #s2-opt-pedri-txt {
+          position: relative;
+          font-weight: 800;
+          color: #0f3d3a;
+        }
+        .s2-skel-card {
+          position: absolute;
+          left: 28px;
+          right: 28px;
+          height: 200px;
+          border-radius: 14px;
+          background: #fffdf9;
+          border: 3px solid rgba(15, 61, 58, 0.1);
+          padding: 34px 30px;
+          display: flex;
+          flex-direction: column;
+          gap: 22px;
+        }
+        #s2-scrim {
+          position: absolute;
+          inset: 0;
+          background: rgba(37, 35, 31, 0.42);
+          opacity: 0;
+          z-index: 15;
+        }
+        #s2-drawer {
+          position: absolute;
+          left: 0;
+          top: 0;
+          bottom: 0;
+          width: 560px;
+          background: #0f3d3a;
+          z-index: 20;
+          box-shadow: 20px 0 40px rgba(0, 0, 0, 0.2);
+        }
+        #s2-d-head {
+          position: absolute;
+          left: 36px;
+          top: 96px;
+          display: flex;
+          align-items: center;
+          gap: 20px;
+        }
+        #s2-d-av {
+          width: 92px;
+          height: 92px;
+          border-radius: 50%;
+          background: #c39443;
+          color: #0f3d3a;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: 800;
+          font-size: 40px;
+        }
+        #s2-d-name {
+          font-weight: 800;
+          font-size: 38px;
+          color: #f6f1e6;
+        }
+        #s2-d-role {
+          font-weight: 400;
+          font-size: 28px;
+          color: #e4ece8;
+        }
+        .s2-item {
+          position: absolute;
+          left: 20px;
+          right: 20px;
+          height: 96px;
+          padding: 0 22px;
+          border-radius: 14px;
+          display: flex;
+          align-items: center;
+          gap: 22px;
+          font-weight: 700;
+          font-size: 36px;
+          color: #f6f1e6;
+        }
+        .s2-item em {
+          font-style: normal;
+          font-size: 36px;
+          width: 48px;
+          text-align: center;
+        }
+        #s2-item-ventas-hl {
+          position: absolute;
+          inset: 0;
+          border-radius: 14px;
+          background: #c39443;
+          opacity: 0;
+        }
+        #s2-item-ventas span,
+        #s2-item-ventas em {
+          position: relative;
+        }
+        #s2-toast {
+          position: absolute;
+          left: 56px;
+          right: 56px;
+          bottom: 70px;
+          height: 112px;
+          border-radius: 18px;
+          background: #0f3d3a;
+          color: #f6f1e6;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 18px;
+          font-weight: 800;
+          font-size: 44px;
+          opacity: 0;
+          z-index: 30;
+          box-shadow: 0 18px 40px rgba(15, 61, 58, 0.35);
+        }
+        #s2-toast-check {
+          width: 64px;
+          height: 64px;
+          border-radius: 50%;
+          background: #c39443;
+          color: #0f3d3a;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 40px;
+        }
+      </style>
+      <div id="s2-root" data-composition-id="s2-app" data-width="1080" data-height="1920">
+        <div id="s2-wrap" class="scene-wrap">
+          <div class="cap" id="s2-c0"><span class="ci">Entra en tu área de gestora</span></div>
+          <div class="cap" id="s2-c1"><span class="ci">Toca el menú <span class="burger-ic"><i></i><i></i><i></i></span></span></div>
+          <div class="cap" id="s2-c2"><span class="ci">Abre <span class="k">Ventas</span></span></div>
+          <div class="cap" id="s2-c3"><span class="ci">Busca tu pedido</span></div>
+          <div class="cap" id="s2-c4"><span class="ci">Toca «Mensajero que lo lleva»</span></div>
+          <div class="cap" id="s2-c5"><span class="ci">Elige a tu mensajero</span></div>
+          <div class="cap" id="s2-c6"><span class="ci">¡Listo! Queda guardado ✓</span></div>
+
+          <div class="phone" id="s2-phone">
+            <div class="screen">
+              <div class="statusbar on-dark">
+                <span>4:12</span>
+                <span class="sb-icons"
+                  ><span class="sb-bar" style="height: 10px"></span><span class="sb-bar" style="height: 15px"></span
+                  ><span class="sb-bar" style="height: 20px"></span><span class="sb-batt"></span
+                ></span>
+              </div>
+              <div id="s2-header">
+                <div id="s2-burger"><i></i><i></i><i></i></div>
+                <div class="s2-htitle" id="s2-ht-home">Inicio</div>
+                <div class="s2-htitle" id="s2-ht-ventas">Ventas</div>
+              </div>
+
+              <div class="s2-view" id="s2-home">
+                <div id="s2-hello">Hola, Dayami 👋</div>
+                <div id="s2-hello-sub">Tu área de gestora</div>
+                <div class="s2-tile" style="left: 28px"><span>Pedidos hoy</span><b>3</b></div>
+                <div class="s2-tile" style="right: 28px"><span>Por cobrar</span><b>2</b></div>
+                <div class="s2-card" style="top: 440px">
+                  <span class="skel" style="width: 60%"></span><span class="skel" style="width: 85%"></span
+                  ><span class="skel" style="width: 40%"></span>
+                </div>
+                <div class="s2-card" style="top: 660px">
+                  <span class="skel" style="width: 70%"></span><span class="skel" style="width: 50%"></span
+                  ><span class="skel" style="width: 80%"></span>
+                </div>
+              </div>
+
+              <div class="s2-view" id="s2-ventas">
+                <div id="s2-order">
+                  <div id="s2-o-title">#2896 · Cama plegable</div>
+                  <div id="s2-o-chip">Nuevo</div>
+                  <div id="s2-o-client">Cliente: Duniel</div>
+                  <div id="s2-o-label">Mensajero que lo lleva</div>
+                  <div id="s2-select">
+                    <div id="s2-select-on"></div>
+                    <div class="s2-val" id="s2-val-any">Cualquiera (grupo)</div>
+                    <div class="s2-val" id="s2-val-pedri">Pedri ✓</div>
+                    <div id="s2-caret">▾</div>
+                  </div>
+                </div>
+                <div class="s2-skel-card" style="top: 390px">
+                  <span class="skel" style="width: 55%"></span><span class="skel" style="width: 35%"></span
+                  ><span class="skel" style="width: 75%"></span>
+                </div>
+                <div class="s2-skel-card" style="top: 620px">
+                  <span class="skel" style="width: 65%"></span><span class="skel" style="width: 40%"></span
+                  ><span class="skel" style="width: 70%"></span>
+                </div>
+                <div class="s2-skel-card" style="top: 850px">
+                  <span class="skel" style="width: 50%"></span><span class="skel" style="width: 30%"></span
+                  ><span class="skel" style="width: 60%"></span>
+                </div>
+                <div id="s2-dd">
+                  <div class="s2-opt">Cualquiera (grupo)</div>
+                  <div class="s2-opt" id="s2-opt-pedri"><span id="s2-opt-pedri-hl"></span><span id="s2-opt-pedri-txt">Pedri</span></div>
+                  <div class="s2-opt">Melany</div>
+                  <div class="s2-opt">Ela</div>
+                </div>
+              </div>
+
+              <div id="s2-scrim"></div>
+              <div id="s2-drawer" data-layout-allow-overflow data-layout-allow-occlusion>
+                <div id="s2-d-head">
+                  <div id="s2-d-av">D</div>
+                  <div>
+                    <div id="s2-d-name">Dayami</div>
+                    <div id="s2-d-role">Gestora</div>
+                  </div>
+                </div>
+                <div class="s2-item" style="top: 300px"><em>🏠</em><span>Inicio</span></div>
+                <div class="s2-item" style="top: 396px"><em>🏪</em><span>Mi tienda</span></div>
+                <div class="s2-item" style="top: 492px"><em>🏷️</em><span>Mis precios</span></div>
+                <div class="s2-item" style="top: 588px"><em>👥</em><span>Clientes</span></div>
+                <div class="s2-item" id="s2-item-ventas" style="top: 684px">
+                  <span id="s2-item-ventas-hl"></span><em>🧾</em><span>Ventas</span>
+                </div>
+                <div class="s2-item" style="top: 780px"><em>💵</em><span>Cobrar</span></div>
+                <div class="s2-item" style="top: 876px"><em>📤</em><span>Pedir mi pago</span></div>
+                <div class="s2-item" style="top: 972px"><em>🔎</em><span>Buscar precios</span></div>
+              </div>
+
+              <div id="s2-toast"><span id="s2-toast-check">✓</span>Guardado</div>
+
+              <div class="tap" id="s2-tap"><div class="tap-ring" id="s2-ring"></div><div class="tap-dot" id="s2-dot"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          const capIn = (sel, t) => tl.fromTo(sel, { opacity: 0, y: 34 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, t);
+          const capOut = (sel, t) =>
+            tl.fromTo(sel, { opacity: 1, y: 0 }, { opacity: 0, y: -26, duration: 0.22, ease: "power2.in", immediateRender: false }, t);
+          const caps = [
+            ["#s2-c0", 0.1, 1.45],
+            ["#s2-c1", 1.45, 2.3],
+            ["#s2-c2", 2.3, 3.3],
+            ["#s2-c3", 3.3, 4.75],
+            ["#s2-c4", 4.75, 6.0],
+            ["#s2-c5", 6.0, 9.2],
+            ["#s2-c6", 9.2, null],
+          ];
+          caps.forEach(([sel, a, b]) => {
+            capIn(sel, a + (a > 0.1 ? 0.12 : 0));
+            if (b !== null) capOut(sel, b - 0.1);
+          });
+
+          // phone enters
+          tl.fromTo("#s2-phone", { opacity: 0, y: 120 }, { opacity: 1, y: 0, duration: 0.65, ease: "power3.out" }, 0);
+
+          // tap helper: centre of a 104px marker on (cx, cy) screen coords
+          const P = (cx, cy) => ({ x: cx - 52, y: cy - 52 });
+          const press = (t) => {
+            tl.fromTo("#s2-dot", { scale: 1 }, { scale: 0.78, duration: 0.1, ease: "power1.in" }, t);
+            tl.fromTo("#s2-dot", { scale: 0.78 }, { scale: 1, duration: 0.3, ease: "back.out(3)", immediateRender: false }, t + 0.1);
+            tl.fromTo("#s2-ring", { opacity: 0.9, scale: 1 }, { opacity: 0, scale: 2.1, duration: 0.5, ease: "power2.out" }, t + 0.08);
+          };
+
+          // 1) tap the burger
+          tl.fromTo("#s2-tap", { opacity: 0, scale: 1.4, ...P(68, 112) }, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }, 1.25);
+          press(1.6);
+          // drawer opens
+          tl.fromTo("#s2-scrim", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power1.out" }, 1.72);
+          tl.fromTo("#s2-drawer", { x: -600 }, { x: 0, duration: 0.42, ease: "power3.out" }, 1.72);
+          tl.fromTo("#s2-ht-home", { opacity: 1 }, { opacity: 0, duration: 0.2 }, 1.72);
+
+          // 2) move to Ventas and tap
+          tl.fromTo("#s2-tap", P(68, 112), { ...P(230, 732), duration: 0.38, ease: "power2.inOut", immediateRender: false }, 2.05);
+          tl.fromTo("#s2-item-ventas-hl", { opacity: 0 }, { opacity: 1, duration: 0.2, ease: "power1.out" }, 2.42);
+          press(2.48);
+          // drawer closes, Ventas view in
+          tl.fromTo("#s2-tap", { opacity: 1 }, { opacity: 0, duration: 0.2, immediateRender: false }, 2.75);
+          tl.fromTo("#s2-drawer", { x: 0 }, { x: -600, duration: 0.35, ease: "power2.in", immediateRender: false }, 2.8);
+          tl.fromTo("#s2-scrim", { opacity: 1 }, { opacity: 0, duration: 0.3, immediateRender: false }, 2.85);
+          tl.fromTo("#s2-home", { opacity: 1 }, { opacity: 0, duration: 0.2, immediateRender: false }, 2.95);
+          tl.fromTo("#s2-ht-ventas", { opacity: 0 }, { opacity: 1, duration: 0.25 }, 3.05);
+          tl.fromTo("#s2-ventas", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 3.05);
+          // order card pulse ("En tu pedido")
+          tl.fromTo("#s2-order", { scale: 1 }, { scale: 1.035, duration: 0.25, ease: "power2.out" }, 3.45);
+          tl.fromTo("#s2-order", { scale: 1.035 }, { scale: 1, duration: 0.4, ease: "power2.inOut", immediateRender: false }, 3.7);
+
+          // 3) tap the select (screen centre ~ 372, 448)
+          tl.fromTo("#s2-tap", { opacity: 0, scale: 1.4, ...P(372, 448) }, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out", immediateRender: false }, 4.6);
+          press(4.92);
+          tl.fromTo("#s2-dd", { opacity: 0, scaleY: 0.6 }, { opacity: 1, scaleY: 1, duration: 0.32, ease: "power3.out" }, 5.02);
+
+          // 4) choose Pedri (option centre ~ 300, 644)
+          tl.fromTo("#s2-tap", P(372, 448), { ...P(300, 644), duration: 0.4, ease: "power2.inOut", immediateRender: false }, 6.1);
+          tl.fromTo("#s2-opt-pedri-hl", { opacity: 0 }, { opacity: 1, duration: 0.2 }, 6.5);
+          press(6.85);
+          tl.fromTo("#s2-dd", { opacity: 1, scaleY: 1 }, { opacity: 0, scaleY: 0.7, duration: 0.25, ease: "power2.in", immediateRender: false }, 7.05);
+          tl.fromTo("#s2-val-any", { opacity: 1 }, { opacity: 0, duration: 0.15, immediateRender: false }, 7.12);
+          tl.fromTo("#s2-select-on", { opacity: 0 }, { opacity: 1, duration: 0.25 }, 7.15);
+          tl.fromTo("#s2-val-pedri", { opacity: 0, x: -16 }, { opacity: 1, x: 0, duration: 0.3, ease: "power3.out" }, 7.18);
+          tl.fromTo("#s2-tap", { opacity: 1 }, { opacity: 0, duration: 0.25, immediateRender: false }, 7.5);
+
+          // 5) toast "Guardado"
+          tl.fromTo("#s2-toast", { opacity: 0, y: 60, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "back.out(1.7)" }, 9.25);
+          tl.fromTo("#s2-toast-check", { rotation: -90, scale: 0.4 }, { rotation: 0, scale: 1, duration: 0.45, ease: "back.out(2.2)" }, 9.4);
+
+          // exit
+          tl.fromTo("#s2-wrap", { opacity: 1 }, { opacity: 0, duration: 0.3, ease: "power2.in", immediateRender: false }, 10.7);
+          window.__timelines["s2-app"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

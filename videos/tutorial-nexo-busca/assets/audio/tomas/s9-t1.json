@@ -1,0 +1,47 @@
+{
+ "task": "transcribe",
+ "language": "Spanish",
+ "duration": 2.461312512,
+ "text": " 20 búsquedas al día, gratis. ¿Dudas? Escríbeme.",
+ "words": [
+  {
+   "word": "20",
+   "start": 0.02,
+   "end": 0.26
+  },
+  {
+   "word": "búsquedas",
+   "start": 0.26,
+   "end": 0.66
+  },
+  {
+   "word": "al",
+   "start": 0.66,
+   "end": 0.76
+  },
+  {
+   "word": "día,",
+   "start": 0.76,
+   "end": 0.98
+  },
+  {
+   "word": "gratis.",
+   "start": 0.98,
+   "end": 1.58
+  },
+  {
+   "word": "¿Dudas?",
+   "start": 1.5,
+   "end": 1.88
+  },
+  {
+   "word": "Escríbeme.",
+   "start": 1.88,
+   "end": 2.64
+  }
+ ],
+ "segments": null,
+ "x_groq": {
+  "id": "req_01m532jrd6exdabbz96evpr65c"
+ }
+}

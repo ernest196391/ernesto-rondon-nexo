@@ -1,0 +1,9 @@
+[0:a]asplit=7[t0_0][t0_1][t0_2][t0_3][t0_4][t0_5][t0_6];
+[t0_0]atrim=0:3.17,asetpts=PTS-STARTPTS,afade=t=in:d=0.02,afade=t=out:st=3.140:d=0.03,adelay=500:all=1[s0];
+[t0_1]atrim=3.2:11.32,asetpts=PTS-STARTPTS,afade=t=in:d=0.02,afade=t=out:st=8.090:d=0.03,adelay=4120:all=1[s1];
+[t0_2]atrim=11.35:19.05,asetpts=PTS-STARTPTS,afade=t=in:d=0.02,afade=t=out:st=7.670:d=0.03,adelay=12690:all=1[s2];
+[t0_3]atrim=19.1:30.15,asetpts=PTS-STARTPTS,afade=t=in:d=0.02,afade=t=out:st=11.020:d=0.03,adelay=20840:all=1[s3];
+[t0_4]atrim=30.3:36.62,asetpts=PTS-STARTPTS,afade=t=in:d=0.02,afade=t=out:st=6.290:d=0.03,adelay=32340:all=1[s4];
+[t0_5]atrim=36.65:41.62,asetpts=PTS-STARTPTS,afade=t=in:d=0.02,afade=t=out:st=4.940:d=0.03,adelay=39110:all=1[s5];
+[t0_6]atrim=41.64:42.8,asetpts=PTS-STARTPTS,afade=t=in:d=0.02,afade=t=out:st=1.130:d=0.03,adelay=44680:all=1[s6];
+[s0][s1][s2][s3][s4][s5][s6]amix=inputs=7:normalize=0:dropout_transition=0,apad=whole_dur=48.84,atrim=0:48.84,volume=-1.5dB[out]

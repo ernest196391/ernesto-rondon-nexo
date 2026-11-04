@@ -3,6 +3,7 @@
 **PRIMERO, SIEMPRE:** lee `docs/00-FUENTE-DE-VERDAD/LEEME.md` y su orden de lectura. Es la única fuente de verdad.
 Al terminar un bloque: actualiza `docs/00-FUENTE-DE-VERDAD/ESTADO.md` (y `DECISIONES.md` si decidiste algo).
 Español sencillo para Ernesto, paso a paso.
+**Pedido nuevo de Ernesto (más de un paso, ambiguo o que crea algo):** usa la skill `mejorar-pedido` antes de ejecutar: plantilla de 6 puntos, 2–4 preguntas clave con recomendación, máximo 3 sugerencias. Lo urgente en chats se arregla primero y sin preguntas.
 
 Después, según el módulo:
 

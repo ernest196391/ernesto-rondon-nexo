@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="es">
+  <head><meta charset="UTF-8" /></head>
+  <body>
+    <template>
+      <style>
+        #s8-root { position: absolute; inset: 0; }
+        #s8-wrap { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0 70px 60px; text-align: center; }
+        #s8-t1 { font-weight: 600; font-size: 100px; line-height: 1.04; letter-spacing: -0.025em; color: #0D3B45; width: 920px; text-wrap: balance; }
+        #s8-t2 { font-weight: 600; font-size: 60px; line-height: 1.16; color: #2B2420; width: 900px; text-wrap: balance; margin-top: 44px; }
+        #s8-panel { margin-top: 70px; width: 760px; background: #FFFDF8; border: 3px solid #DCD2C1; border-radius: 30px; padding: 30px 36px; display: flex; flex-direction: column; gap: 18px; text-align: left;
+          box-shadow: 0 24px 60px rgba(13, 59, 69, 0.14); }
+        #s8-ph { display: flex; align-items: center; justify-content: space-between; font-weight: 600; font-size: 32px; color: #574C44; }
+        #s8-ph .chip { height: 48px; font-size: 26px; }
+        .s8-r { display: flex; align-items: center; justify-content: space-between; font-weight: 600; font-size: 38px; color: #2B2420; }
+        .s8-r .chip { height: 56px; font-size: 30px; }
+        #s8-logo { width: 380px; height: 78px; margin-top: 90px; }
+        #s8-logo img { width: 100%; height: 100%; display: block; }
+        #s8-note { margin-top: 26px; font-weight: 500; font-size: 30px; color: #6B5F56; }
+      </style>
+      <div id="s8-root" data-composition-id="s8-cierre" data-width="1080" data-height="1920">
+        <div id="s8-wrap">
+          <div id="s8-t1">Todo en un solo lugar</div>
+          <div id="s8-t2">Lennys lo ve en su panel <span class="k">al momento</span></div>
+          <div id="s8-panel">
+            <div id="s8-ph"><span>Panel de Lennys · Hoy</span><span class="chip info">En vivo</span></div>
+            <div class="s8-r"><span>Cierre de Nana</span><span class="chip ok">Cuadra · 245 USD</span></div>
+            <div class="s8-r"><span>Pedidos cobrados</span><span>2</span></div>
+            <div class="s8-r"><span>Salidas</span><span>16,40 USD</span></div>
+          </div>
+          <div id="s8-logo"><img src="assets/logo/casa-viva-horizontal-marron.svg" alt="Casa Viva" /></div>
+          <div id="s8-note">Propuesta · números de ejemplo</div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          tl.fromTo("#s8-t1", { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, 0.45);
+          tl.fromTo("#s8-t2", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 1.1);
+          tl.fromTo("#s8-panel", { opacity: 0, y: 60, scale: 0.95 }, { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: "back.out(1.6)" }, 1.7);
+          tl.fromTo("#s8-panel .s8-r", { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.35, ease: "power2.out", stagger: 0.18 }, 2.1);
+          tl.fromTo("#s8-logo", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.6, ease: "power2.out" }, 2.9);
+          tl.fromTo("#s8-note", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power1.out" }, 3.3);
+          tl.to("#s8-wrap", { opacity: 0, duration: 0.6, ease: "power1.in" }, 5.35);
+          window.__timelines["s8-cierre"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

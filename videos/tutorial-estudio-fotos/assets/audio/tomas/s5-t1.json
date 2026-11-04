@@ -1,0 +1,157 @@
+{
+ "task": "transcribe",
+ "language": "Spanish",
+ "duration": 9.520187392,
+ "text": " Copia la instrucción y guarda la foto del producto. Abre Gemini, que es gratis con tu Gmail. En Cuba necesita VPN. Adjunta la foto, pega la instrucción y envía.",
+ "words": [
+  {
+   "word": "Copia",
+   "start": 0.02,
+   "end": 0.32
+  },
+  {
+   "word": "la",
+   "start": 0.32,
+   "end": 0.48
+  },
+  {
+   "word": "instrucción",
+   "start": 0.48,
+   "end": 1
+  },
+  {
+   "word": "y",
+   "start": 1,
+   "end": 1.38
+  },
+  {
+   "word": "guarda",
+   "start": 1.38,
+   "end": 1.58
+  },
+  {
+   "word": "la",
+   "start": 1.58,
+   "end": 1.7
+  },
+  {
+   "word": "foto",
+   "start": 1.7,
+   "end": 1.88
+  },
+  {
+   "word": "del",
+   "start": 1.88,
+   "end": 2.02
+  },
+  {
+   "word": "producto.",
+   "start": 2.02,
+   "end": 2.78
+  },
+  {
+   "word": "Abre",
+   "start": 2.74,
+   "end": 2.9
+  },
+  {
+   "word": "Gemini,",
+   "start": 2.9,
+   "end": 3.26
+  },
+  {
+   "word": "que",
+   "start": 3.26,
+   "end": 3.4
+  },
+  {
+   "word": "es",
+   "start": 3.4,
+   "end": 3.54
+  },
+  {
+   "word": "gratis",
+   "start": 3.54,
+   "end": 3.82
+  },
+  {
+   "word": "con",
+   "start": 3.82,
+   "end": 3.98
+  },
+  {
+   "word": "tu",
+   "start": 3.98,
+   "end": 4.1
+  },
+  {
+   "word": "Gmail.",
+   "start": 4.1,
+   "end": 4.54
+  },
+  {
+   "word": "En",
+   "start": 4.54,
+   "end": 4.7
+  },
+  {
+   "word": "Cuba",
+   "start": 4.7,
+   "end": 4.94
+  },
+  {
+   "word": "necesita",
+   "start": 4.94,
+   "end": 5.58
+  },
+  {
+   "word": "VPN.",
+   "start": 5.58,
+   "end": 6.66
+  },
+  {
+   "word": "Adjunta",
+   "start": 6.74,
+   "end": 7.02
+  },
+  {
+   "word": "la",
+   "start": 7.02,
+   "end": 7.14
+  },
+  {
+   "word": "foto,",
+   "start": 7.14,
+   "end": 7.82
+  },
+  {
+   "word": "pega",
+   "start": 7.82,
+   "end": 7.96
+  },
+  {
+   "word": "la",
+   "start": 7.96,
+   "end": 8.1
+  },
+  {
+   "word": "instrucción",
+   "start": 8.1,
+   "end": 8.56
+  },
+  {
+   "word": "y",
+   "start": 8.56,
+   "end": 8.92
+  },
+  {
+   "word": "envía.",
+   "start": 8.92,
+   "end": 9.74
+  }
+ ],
+ "segments": null,
+ "x_groq": {
+  "id": "req_01m535z9zjeawaxtm8a1v3hamx"
+ }
+}

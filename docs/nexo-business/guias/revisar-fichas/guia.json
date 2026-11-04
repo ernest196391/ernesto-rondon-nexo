@@ -1,0 +1,41 @@
+{
+  "titulo": "Revisar fichas",
+  "formato": "1080x1350",
+  "para": "Lennys",
+  "mensaje": "Hola, Lennys 🙏 Ya puedes revisar las fichas nuevas de la web desde un enlace, sin contraseña.\nEl bot está mejorando los títulos, las descripciones y las fotos de todos los productos; tú solo marcas ✓ si está bien o ✗ si hay algo que corregir.\nMira los pasos en las fotos 👇\nSi algo no sale, escríbeme.",
+  "pasos": [
+    {
+      "texto": "Toca **Ver cómo quedó en la web**.",
+      "resultado": "Se abre el producto como lo ve el cliente.",
+      "captura": "capturas/1-ver.png",
+      "flecha": "der",
+      "zoom": 1.1,
+      "pie": "Paso 1 de 4: toca Ver cómo quedó en la web."
+    },
+    {
+      "texto": "Si está bien, toca **✓ Bien**.",
+      "resultado": "Arriba sale **✓ Guardado** y pasa al siguiente.",
+      "captura": "capturas/2-bien.png",
+      "flecha": "arriba",
+      "zoom": 1.1,
+      "pie": "Paso 2 de 4: si está bien, toca ✓ Bien."
+    },
+    {
+      "texto": "Si algo está mal, escríbelo aquí.",
+      "resultado": "Por ejemplo: una medida, un color o el material.",
+      "captura": "capturas/3-nota.png",
+      "flecha": "arriba",
+      "zoom": 1.1,
+      "pie": "Paso 3 de 4: si algo está mal, escríbelo en el recuadro."
+    },
+    {
+      "texto": "Toca **✗ Corregir**.",
+      "resultado": "Sale **✗ Anotado** y el bot rehace la ficha con tu nota.",
+      "ojo": "¿Prefieres el texto viejo? Marca **Volver al texto de antes**.",
+      "captura": "capturas/4-corregir.png",
+      "flecha": "arriba",
+      "zoom": 1.1,
+      "pie": "Paso 4 de 4: toca ✗ Corregir."
+    }
+  ]
+}

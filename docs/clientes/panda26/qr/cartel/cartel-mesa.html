@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Panda26 · Cartel de mesa (2 caras)</title>
+<style>
+  @font-face { font-family: "Anton"; src: url("anton.woff2") format("woff2"); }
+  @font-face { font-family: "Inter"; src: url("inter.woff2") format("woff2"); font-weight: 100 900; }
+  @page { size: A4; margin: 0; }
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  html, body { margin: 0; background: #fff; }
+  body { font-family: "Inter", "Segoe UI", sans-serif; color: #f7efe4; }
+
+  /* Hoja A4: 2 carteles uno al lado del otro. Cada cartel = 2 caras de 105 × 148,5 mm.
+     Se corta por la línea vertical, se dobla por la horizontal y queda de pie en la mesa.
+     La cara de arriba va girada 180° para que, doblada, se lea derecha. */
+  .hoja { width: 210mm; height: 297mm; display: grid; grid-template-columns: 105mm 105mm; position: relative; overflow: hidden; }
+  .cartel { display: grid; grid-template-rows: 148.5mm 148.5mm; }
+  .cara {
+    position: relative; overflow: hidden; padding: 9mm 8mm 8mm;
+    display: flex; flex-direction: column; align-items: center; text-align: center;
+    background:
+      radial-gradient(90% 55% at 50% 100%, rgba(232, 87, 30, .38), transparent 70%),
+      radial-gradient(70% 40% at 50% 0%, #22160d, transparent 70%),
+      #0b0908;
+  }
+  .arriba { transform: rotate(180deg); }
+  .cara::before { /* borde fino dorado */
+    content: ""; position: absolute; inset: 3.5mm; border-radius: 4mm;
+    border: .3mm solid rgba(220, 187, 140, .35); pointer-events: none;
+  }
+
+  .marca { display: flex; align-items: center; gap: 2.5mm; }
+  .marca img { width: 11mm; height: 11mm; border-radius: 2.5mm; }
+  .marca span { font-family: "Anton", Impact, sans-serif; font-size: 15pt; letter-spacing: .14em; }
+  .marca b { color: #e8571e; font-weight: 400; }
+
+  .titulo { font-family: "Anton", Impact, sans-serif; text-transform: uppercase; line-height: 1.02; margin: 5mm 0 1.5mm; font-size: 23pt; letter-spacing: .02em; }
+  .titulo em { font-style: normal; color: #ff8a4c; }
+  .sub { margin: 0; font-size: 8.6pt; color: #d9cfc3; line-height: 1.35; }
+
+  .platos { display: flex; justify-content: center; gap: 2.5mm; margin: 4mm 0 3mm; }
+  .platos img { width: 17mm; height: 17mm; border-radius: 50%; object-fit: cover; border: .4mm solid rgba(255, 138, 76, .7); box-shadow: 0 0 4mm rgba(232, 87, 30, .5); }
+
+  .qr { position: relative; width: 44mm; height: 44mm; padding: 2.6mm; border-radius: 3.5mm; background: #fff; box-shadow: 0 0 0 .8mm rgba(232, 87, 30, .9), 0 0 9mm rgba(232, 87, 30, .55); margin-top: auto; }
+  .qr img { width: 100%; height: 100%; display: block; }
+  .qr .centro { position: absolute; left: 50%; top: 50%; width: 10mm; height: 10mm; transform: translate(-50%, -50%); border-radius: 2.2mm; background: #fff; padding: .8mm; }
+  .qr .centro img { border-radius: 1.6mm; }
+  .qr.wa { box-shadow: 0 0 0 .8mm #25d366, 0 0 9mm rgba(37, 211, 102, .45); }
+
+  .pasos { margin: 4mm 0 0; font-size: 7.8pt; letter-spacing: .06em; color: #f7efe4; }
+  .pasos b { color: #ff8a4c; }
+  .pie { margin: 2mm 0 0; font-size: 7pt; color: #a79e94; letter-spacing: .04em; }
+
+  .lista { list-style: none; padding: 0; margin: 4mm 0 2mm; text-align: left; display: grid; gap: 1.8mm; font-size: 8.6pt; }
+  .lista li { display: flex; gap: 2mm; align-items: center; }
+  .lista i { font-style: normal; width: 6mm; height: 6mm; border-radius: 50%; display: grid; place-items: center; background: rgba(232, 87, 30, .18); border: .3mm solid rgba(255, 138, 76, .6); font-size: 8pt; }
+  .wa-chip { display: inline-flex; align-items: center; gap: 1.5mm; margin-top: 2mm; padding: 1.2mm 3mm; border-radius: 99px; background: #25d366; color: #052a14; font-weight: 800; font-size: 8pt; }
+  .wa-chip svg { width: 3.6mm; height: 3.6mm; fill: currentColor; }
+
+  /* guías de corte y doblez (fuera de la zona de dibujo) */
+  .guia-corte { position: absolute; left: 105mm; top: 0; bottom: 0; border-left: .25mm dashed #888; }
+  .guia-doblez { position: absolute; left: 0; right: 0; top: 148.5mm; border-top: .25mm dashed #888; }
+  .nota-guia { position: absolute; font: 6pt "Inter", sans-serif; color: #888; background: #fff; padding: 0 1mm; }
+</style>
+</head>
+<body>
+  <div class="hoja">
+    <!-- 2 carteles iguales por hoja -->
+    <section class="cartel">
+      <div class="cara arriba">
+        <div class="marca"><img src="logo.webp" alt=""><span>PANDA<b>26</b></span></div>
+        <h1 class="titulo">Míralo antes<br><em>de pedirlo</em></h1>
+        <p class="sub">Gira cada combo en 360° con el dedo<br>y arma tu pedido sin levantarte.</p>
+        <div class="platos"><img src="hotdog-res.webp" alt=""><img src="pan-croquetas.webp" alt=""><img src="frappe.webp" alt=""></div>
+        <div class="qr"><img src="qr-menu.svg" alt="QR del menú"></div>
+        <p class="pasos"><b>1</b> Abre la cámara · <b>2</b> Escanea · <b>3</b> Pide</p>
+        <p class="pie">Combos con papas + salsas gratis</p>
+      </div>
+      <div class="cara">
+        <div class="marca"><img src="logo.webp" alt=""><span>PANDA<b>26</b></span></div>
+        <h1 class="titulo">Únete al<br><em>grupo</em></h1>
+        <span class="wa-chip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5a9.5 9.5 0 0 0-8.2 14.3L2.5 21.5l4.8-1.3A9.5 9.5 0 1 0 12 2.5z"/></svg>Panda 26 Delivery</span>
+        <ul class="lista">
+          <li><i>🛵</i>Pide a domicilio por el grupo</li>
+          <li><i>🔥</i>Las ofertas del día, primero</li>
+          <li><i>⏰</i>Todos los días · 10 a.m. – 8 p.m.</li>
+        </ul>
+        <div class="qr wa"><img src="qr-grupo.svg" alt="QR del grupo de WhatsApp"></div>
+        <p class="pasos"><b>Escanea</b> y toca «Unirme al grupo»</p>
+        <p class="pie">¿Prefieres escribir? +53 6369 4210</p>
+      </div>
+    </section>
+    <section class="cartel">
+      <div class="cara arriba">
+        <div class="marca"><img src="logo.webp" alt=""><span>PANDA<b>26</b></span></div>
+        <h1 class="titulo">Míralo antes<br><em>de pedirlo</em></h1>
+        <p class="sub">Gira cada combo en 360° con el dedo<br>y arma tu pedido sin levantarte.</p>
+        <div class="platos"><img src="hotdog-res.webp" alt=""><img src="pan-croquetas.webp" alt=""><img src="frappe.webp" alt=""></div>
+        <div class="qr"><img src="qr-menu.svg" alt="QR del menú"></div>
+        <p class="pasos"><b>1</b> Abre la cámara · <b>2</b> Escanea · <b>3</b> Pide</p>
+        <p class="pie">Combos con papas + salsas gratis</p>
+      </div>
+      <div class="cara">
+        <div class="marca"><img src="logo.webp" alt=""><span>PANDA<b>26</b></span></div>
+        <h1 class="titulo">Únete al<br><em>grupo</em></h1>
+        <span class="wa-chip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5a9.5 9.5 0 0 0-8.2 14.3L2.5 21.5l4.8-1.3A9.5 9.5 0 1 0 12 2.5z"/></svg>Panda 26 Delivery</span>
+        <ul class="lista">
+          <li><i>🛵</i>Pide a domicilio por el grupo</li>
+          <li><i>🔥</i>Las ofertas del día, primero</li>
+          <li><i>⏰</i>Todos los días · 10 a.m. – 8 p.m.</li>
+        </ul>
+        <div class="qr wa"><img src="qr-grupo.svg" alt="QR del grupo de WhatsApp"></div>
+        <p class="pasos"><b>Escanea</b> y toca «Unirme al grupo»</p>
+        <p class="pie">¿Prefieres escribir? +53 6369 4210</p>
+      </div>
+    </section>
+    <div class="guia-corte"></div>
+    <div class="guia-doblez"></div>
+    <span class="nota-guia" style="left:107mm;top:2mm">✂ cortar</span>
+    <span class="nota-guia" style="left:2mm;top:146mm">doblar</span>
+  </div>
+</body>
+</html>

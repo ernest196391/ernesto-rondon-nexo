@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="es">
+  <head><meta charset="UTF-8" /></head>
+  <body>
+    <template>
+      <style>
+        #s1-root { position: absolute; inset: 0; }
+        #s1-wrap { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0 70px 80px; gap: 0; text-align: center; }
+        #s1-logo { width: 300px; height: 207px; display: block; margin-bottom: 56px; }
+        #s1-logo img { width: 100%; height: 100%; display: block; }
+        #s1-tag { display: inline-flex; align-items: center; height: 60px; padding: 0 30px; border-radius: 999px; border: 3px solid #A35A1F;
+          color: #A35A1F; font-weight: 600; font-size: 32px; letter-spacing: 0.12em; margin-bottom: 40px; }
+        #s1-title { font-weight: 600; font-size: 104px; line-height: 1.04; letter-spacing: -0.025em; color: #0D3B45; width: 940px; text-wrap: balance; }
+        #s1-title .w { display: inline-block; }
+        #s1-rule { width: 220px; height: 6px; border-radius: 3px; background: #A35A1F; margin: 54px 0 46px; }
+        #s1-sub { font-weight: 600; font-size: 66px; line-height: 1.15; color: #2B2420; width: 900px; text-wrap: balance; }
+        #s1-pills { display: flex; gap: 26px; margin-top: 70px; }
+        #s1-pills b { display: block; width: 190px; height: 92px; border-radius: 26px; }
+        #s1-p1 { background: #0D3B45; }
+        #s1-p2 { background: #A35A1F; }
+        #s1-p3 { background: #2B2420; }
+      </style>
+      <div id="s1-root" data-composition-id="s1-titulo" data-width="1080" data-height="1920">
+        <div id="s1-wrap">
+          <div id="s1-logo"><img src="assets/logo/casa-viva-vertical-marron.svg" alt="Casa Viva" /></div>
+          <div id="s1-tag">PROPUESTA</div>
+          <div id="s1-title"><span class="w">La caja nueva</span> <span class="w">de Casa Viva</span></div>
+          <div id="s1-rule"></div>
+          <div id="s1-sub">Un día de trabajo en <span class="k">3 botones</span></div>
+          <div id="s1-pills"><b id="s1-p1"></b><b id="s1-p2"></b><b id="s1-p3"></b></div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          tl.fromTo("#s1-logo", { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.8, ease: "power3.out" }, 0.15);
+          tl.fromTo("#s1-tag", { opacity: 0, y: -14 }, { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }, 0.55);
+          tl.fromTo("#s1-title .w", { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out", stagger: 0.22 }, 0.75);
+          tl.fromTo("#s1-rule", { scaleX: 0 }, { scaleX: 1, duration: 0.6, ease: "power2.inOut" }, 1.5);
+          tl.fromTo("#s1-sub", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 1.8);
+          tl.fromTo("#s1-pills b", { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(2.2)", stagger: 0.16 }, 2.5);
+          tl.fromTo("#s1-pills b", { y: 0 }, { y: -12, duration: 0.35, ease: "sine.inOut", yoyo: true, repeat: 1, stagger: 0.18, immediateRender: false }, 3.6);
+          tl.to("#s1-wrap", { opacity: 0, y: -40, duration: 0.45, ease: "power2.in" }, 5.45);
+          window.__timelines["s1-titulo"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

@@ -1,0 +1,5 @@
+Paso 1 de 5: en Llegó mercancía, lo que no conoce sale en rojo. Toca tu producto si es uno de estos.
+Paso 2 de 5: si no lo tienes, toca «Es nuevo». Si no lo quieres en el stock, toca «Saltar».
+Paso 3 de 5: el nuevo queda en borrador para completarlo después. Los saltados no tocan el stock.
+Paso 4 de 5: abre el producto y toca «Añadir fotos». Se suman a las que ya tiene.
+Paso 5 de 5: ★ = foto principal, ✕ = quitar. Caben hasta 9 fotos.

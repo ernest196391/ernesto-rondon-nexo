@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head><script data-hf-gsap-fallback>
+(function(){
+  var cdnBase="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/";
+  var loaded={};
+  function loadFallback(file){
+    if(loaded[file])return loaded[file];
+    return loaded[file]=new Promise(function(ok,fail){
+      var s=document.createElement("script");
+      s.src=cdnBase+file;s.hfGsapFallback=true;s.onload=ok;s.onerror=fail;
+      document.head.appendChild(s);
+    });
+  }
+  document.addEventListener("error",function(e){
+    var t=e.target;
+    if(!t||t.tagName!=="SCRIPT"||!t.src||t.hfGsapFallback)return;
+    var m=t.src.match(/gsap[^/]*\/dist\/(.+\.js)/);
+    if(m)loadFallback(m[1]).catch(function(){
+      reportError(new Error("GSAP could not load from "+t.src+" or "+cdnBase+m[1]+", so this preview's animations will not play."));
+    });
+  },true);
+})();
+</script>
+<meta name="hyperframes-studio-preview"><script>(function(){var seen=window.__hfPreviewErrors=[];
+addEventListener("error",function(e){seen.push(e.message||String(e))});})();</script>
+<base href="/api/projects/intro-marca/preview/"><style data-hyperframes-text-rendering="true">html,body,*{text-rendering:geometricPrecision}</style><script data-hf-after-fonts-fallback="">document.addEventListener("DOMContentLoaded", function () {
+  if (window.__hfAfterFontsClaimed) return;
+  var T = "text/hf-after-fonts";
+  var all = [].slice.call(document.querySelectorAll('script[type="text/hf-after-fonts"], script[type="text/hf-after-fonts+module"]'));
+  if (!all.length) return;
+  console.warn("[hyperframes] the runtime has no web-font gate; composition scripts run without waiting for fonts");
+  var late = function (el) { return el.type !== T || el.matches('[defer][src], [defer][data-hf-inlined-src]'); };
+  var queue = all.filter(function (el) { return !late(el); }).concat(all.filter(late));
+  (function next() {
+    var el = queue.shift();
+    if (!el) return;
+    var s = document.createElement("script");
+    for (var i = 0; i < el.attributes.length; i++) s.setAttribute(el.attributes[i].name, el.attributes[i].value);
+    if (el.type === T) s.removeAttribute("type"); else s.type = "module";
+    s.async = el.hasAttribute("async");
+    s.text = el.text;
+    var waits = s.type !== "module" && s.hasAttribute("src") && !s.async && !s.noModule;
+    if (waits) { s.addEventListener("load", next); s.addEventListener("error", next); }
+    el.replaceWith(s);
+    if (!waits) next();
+  })();
+});
+//# sourceURL=hyperframes://after-fonts-fallback</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1080, height=1920">
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Italiana"; src: url("fonts/Italiana-Regular.ttf") format("truetype"); font-weight: 400; }
+      @font-face { font-family: "Instrument Sans"; src: url("fonts/InstrumentSans-Regular.ttf") format("truetype"); font-weight: 400; }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #1B1416; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: #1B1416; }
+      .clip { position: absolute; inset: 0; }
+      #stage { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 72px; }
+      #mark { width: 640px; height: 576px; display: block; }
+      #words { display: flex; flex-direction: column; align-items: center; gap: 28px; }
+      #title { font-family: "Italiana", serif; font-weight: 400; color: #F3F1EF; font-size: 132px; line-height: 1; letter-spacing: 6px; text-align: center; }
+      #tagline { font-family: "Instrument Sans", sans-serif; color: #8A817C; font-size: 40px; letter-spacing: 2px; text-align: center; }
+      #rule { width: 420px; height: 3px; background: #8A817C; position: relative; overflow: hidden; }
+      #shine { position: absolute; top: 0; left: 0; width: 140px; height: 3px; background: #C8812E; }
+    </style>
+  
+<script data-hyperframes-preview-runtime="1" src="/api/runtime.js"></script>
+<meta name="hyperframes-project-signature" content="5c32d6c61f7269f7c98df241">
+</head>
+  <body>
+    <div data-hf-id="hf-gr2s" id="root" data-composition-id="main" data-start="0" data-duration="8" data-width="1080" data-height="1920">
+      <section data-hf-id="hf-bzha" id="stage" class="clip" data-start="0" data-duration="8" data-track-index="0">
+        <svg data-hf-id="hf-s455" id="mark" viewBox="0 0 200 180" aria-label="Rey de Alisados">
+          <g data-hf-id="hf-n9at" id="strands" stroke="#C8812E" stroke-width="4" stroke-linecap="round">
+            <line data-hf-id="hf-tzfl" data-top="46" x1="40" y1="150" x2="40" y2="150" />
+            <line data-hf-id="hf-d07j" data-top="62" x1="50" y1="150" x2="50" y2="150" />
+            <line data-hf-id="hf-b1cy" data-top="74" x1="60" y1="150" x2="60" y2="150" />
+            <line data-hf-id="hf-2usr" data-top="66" x1="70" y1="150" x2="70" y2="150" />
+            <line data-hf-id="hf-o00i" data-top="52" x1="80" y1="150" x2="80" y2="150" />
+            <line data-hf-id="hf-0g9e" data-top="38" x1="90" y1="150" x2="90" y2="150" />
+            <line data-hf-id="hf-1e8r" data-top="26" x1="100" y1="150" x2="100" y2="150" />
+            <line data-hf-id="hf-u7bc" data-top="38" x1="110" y1="150" x2="110" y2="150" />
+            <line data-hf-id="hf-rvqq" data-top="52" x1="120" y1="150" x2="120" y2="150" />
+            <line data-hf-id="hf-5g6p" data-top="66" x1="130" y1="150" x2="130" y2="150" />
+            <line data-hf-id="hf-z5lu" data-top="74" x1="140" y1="150" x2="140" y2="150" />
+            <line data-hf-id="hf-ztmd" data-top="62" x1="150" y1="150" x2="150" y2="150" />
+            <line data-hf-id="hf-3fu1" data-top="46" x1="160" y1="150" x2="160" y2="150" />
+          </g>
+          <g data-hf-id="hf-32ej" id="jewels" fill="#F3F1EF">
+            <circle data-hf-id="hf-qqwv" cx="40" cy="34" r="4" />
+            <circle data-hf-id="hf-bbr4" cx="100" cy="14" r="4" />
+            <circle data-hf-id="hf-0qq0" cx="160" cy="34" r="4" />
+          </g>
+        </svg>
+        <div data-hf-id="hf-dn54" id="words">
+          <h1 data-hf-id="hf-rtke" id="title">Rey de Alisados</h1>
+          <div data-hf-id="hf-8e4z" id="rule"><div data-hf-id="hf-d2nx" id="shine" data-layout-allow-overflow=""></div></div>
+          <p data-hf-id="hf-dc5p" id="tagline">Pelo liso como un espejo. Sin formol.</p>
+        </div>
+      </section>
+      <audio data-hf-id="hf-triw" id="voz" src="assets/voz-intro.mp3" data-start="2.4" data-duration="4.23" data-track-index="2" data-volume="1" data-end="6.630000000000001"></audio>
+    </div>
+    
+  <script type="text/hf-after-fonts">const tl = gsap.timeline({ paused: true });
+const lines = Array.from(document.querySelectorAll("#strands line"));
+const order = lines.map((l, i) => ({ l, d: Math.abs(i - 6) })).sort((a, b) => a.d - b.d);
+order.forEach(({ l, d }) => {
+  tl.fromTo(l, { attr: { y1: 150 } }, { attr: { y1: Number(l.dataset.top) }, duration: 1.1, ease: "power3.out" }, 0.3 + d * 0.09);
+});
+tl.fromTo("#jewels circle", { scale: 0, opacity: 0, transformOrigin: "50% 50%" }, { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(2.4)", stagger: 0.12 }, 1.9);
+tl.fromTo("#title", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 1, ease: "power3.out" }, 2.6);
+tl.fromTo("#rule", { opacity: 0, scaleX: 0 }, { opacity: 1, scaleX: 1, duration: 0.8, ease: "power2.inOut" }, 3.3);
+tl.fromTo("#shine", { x: -140 }, { x: 420, duration: 1.4, ease: "power2.inOut" }, 4);
+tl.fromTo("#tagline", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.9, ease: "power2.out" }, 4.2);
+tl.to("#mark", { scale: 1.03, duration: 2.6, ease: "sine.inOut", transformOrigin: "50% 100%" }, 5.2);
+window.__timelines["main"] = tl;
+tl.seek(0);</script></body>
+</html>

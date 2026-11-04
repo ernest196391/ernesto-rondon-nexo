@@ -1,0 +1,16 @@
+SIN ENVIAR. Mandar primero a Dany; a Dayra cuando Dany haya hecho su primera foto (regla «probar con Dany primero»).
+Ya está encendido para las dos en la web (Core 3.14.4, opción cvd_estudio_usuarios = 18,33).
+Orden por WhatsApp: este texto → paso-1.png … paso-5.png, 6 s entre envíos, cada imagen con su pie de pies.txt.
+Teléfonos: sacarlos con `cv contacto 4351` (Dany) y `cv contacto <Dayra>` antes de enviar; nunca adivinarlos.
+
+--- Para Dany ---
+Hola, Dany 👋 Ya tienes «Mi estudio de fotos» en tu área de gestora, y es gratis: Casa Viva te prepara la instrucción y la foto del producto, y la app de Gemini te hace una foto bonita para vender.
+Eres la primera en probarlo. Mira los pasos en las fotos 👇 Solo necesitas la app de Gemini (o gemini.google.com) con tu Gmail.
+Cuando hagas tu primera foto, mándamela por aquí para verla, y dime qué paso te costó más.
+Si algo no sale, escríbeme.
+
+--- Para Dayra ---
+Hola, Dayra 👋 Ya tienes «Mi estudio de fotos» en tu área de gestora, y es gratis: Casa Viva te prepara la instrucción y la foto del producto, y la app de Gemini te hace una foto bonita para vender.
+Mira los pasos en las fotos 👇 Solo necesitas la app de Gemini (o gemini.google.com) con tu Gmail.
+Cuando hagas tu primera foto, mándamela por aquí para verla.
+Si algo no sale, escríbeme.

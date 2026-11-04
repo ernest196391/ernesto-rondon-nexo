@@ -1,0 +1,29 @@
+<!-- Tutorial «Tu precio»: estados de captura. ?s=menu|top|list|typed|saved (área) · ?s=top|price|cart (ficha) -->
+<style>html{scroll-behavior:auto!important}</style><script>
+window.addEventListener('load', function () {
+  var s = (location.search.match(/s=([\w-]+)/) || [])[1] || '';
+  var app = document.querySelector('[data-cvga]');
+  document.querySelectorAll('img[loading=lazy]').forEach(function (i) { i.loading = 'eager'; });
+  if (s === 'menu' && app) { app.classList.add('is-open'); }
+  var item = null;
+  if (s === 'list' || s === 'typed' || s === 'saved') {
+    var d = document.querySelector('.cvd-price-details'); d.open = true;
+    var q = document.getElementById('cvd-price-search'); q.value = 'organizador multifuncional'; q.dispatchEvent(new Event('input', { bubbles: true }));
+    item = document.querySelector('article[data-product-name^="organizador multifuncional con ruedas"]');
+    var inp = item.querySelector('.cvd-price-input');
+    inp.value = s === 'list' ? '' : '35';
+    if (s === 'typed') { inp.classList.add('is-dirty'); }
+    if (s === 'saved') { item.querySelector('.cvd-save-status').textContent = 'Precio guardado.'; }
+  }
+  setTimeout(function () {
+    if (s === 'menu' && app) { app.querySelectorAll('.is-active').forEach(function (a) { a.classList.remove('is-active'); }); }
+    var fix = null;
+    if (item) fix = function () { var r = document.querySelector('.cvd-product-search'); window.scrollTo({ top: Math.round(r.getBoundingClientRect().top + window.scrollY - 70), behavior: 'instant' }); };
+    if (s === 'cart') { var sel = document.querySelector('.variations select'); sel.value = 'Rosa'; if (window.jQuery) jQuery(sel).trigger('change'); else sel.dispatchEvent(new Event('change', { bubbles: true })); window.__off = 0; }
+    if (s === 'cart') fix = function () { var r = document.querySelector('.variations'); window.scrollTo({ top: Math.round(r.getBoundingClientRect().top + window.scrollY - 330), behavior: 'instant' }); };
+    if (s === 'mid') fix = function () { window.scrollTo({ top: 150, behavior: 'instant' }); };
+    if (s === 'price') fix = function () { var r = document.querySelector('.product_title') || document.querySelector('h1'); window.scrollTo({ top: Math.round(r.getBoundingClientRect().top + window.scrollY - (window.__off || 330)), behavior: 'instant' }); };
+    if (fix) { fix(); setTimeout(fix, 400); setTimeout(fix, 1200); }
+  }, 500);
+});
+</script>

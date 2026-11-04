@@ -1,0 +1,989 @@
+{
+  "ok": true,
+  "strict": false,
+  "browserSkipped": false,
+  "lint": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "filesScanned": 13
+  },
+  "runtime": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": []
+  },
+  "layout": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 27,
+    "findings": [
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 9.128,
+        "selector": "#s02-lo-pidieron-sb > span:nth-of-type(1)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 268,
+          "top": 427.5,
+          "right": 324,
+          "bottom": 454.5,
+          "width": 56,
+          "height": 27
+        },
+        "containerSelector": "#s02b-chat > div:nth-of-type(1)",
+        "text": "10:24",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "compositions/s02-lo-pidieron.html",
+        "bbox": {
+          "x": 268,
+          "y": 427.5,
+          "width": 56,
+          "height": 27
+        },
+        "firstSeen": 9.128,
+        "lastSeen": 9.128,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          9.128
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 9.128,
+        "selector": "#s02a-chat > div:nth-of-type(1) > div:nth-of-type(1)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 268,
+          "top": 428,
+          "right": 324,
+          "bottom": 455,
+          "width": 56,
+          "height": 27
+        },
+        "containerSelector": "#s02b-chat > div:nth-of-type(1)",
+        "text": "10:24",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "compositions/s02-lo-pidieron.html",
+        "bbox": {
+          "x": 268,
+          "y": 428,
+          "width": 56,
+          "height": 27
+        },
+        "firstSeen": 9.128,
+        "lastSeen": 9.128,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          9.128
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 9.128,
+        "selector": "#s02a-chat > div:nth-of-type(1) > div:nth-of-type(2)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 282.83,
+          "top": 495.5,
+          "right": 309.16,
+          "bottom": 536.5,
+          "width": 26.33,
+          "height": 41
+        },
+        "containerSelector": "#s02b-chat > div:nth-of-type(1) > div:nth-of-type(2)",
+        "text": "N",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "compositions/s02-lo-pidieron.html",
+        "bbox": {
+          "x": 282.83,
+          "y": 495.5,
+          "width": 26.33,
+          "height": 41
+        },
+        "firstSeen": 9.128,
+        "lastSeen": 9.128,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          9.128
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 9.128,
+        "selector": "#s02a-chat > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 354,
+          "top": 480.8,
+          "right": 435.13,
+          "bottom": 521.8,
+          "width": 81.13,
+          "height": 41
+        },
+        "containerSelector": "#s02b-chat > div:nth-of-type(1)",
+        "text": "Nana",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "compositions/s02-lo-pidieron.html",
+        "bbox": {
+          "x": 354,
+          "y": 480.8,
+          "width": 81.13,
+          "height": 41
+        },
+        "firstSeen": 9.128,
+        "lastSeen": 9.128,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          9.128
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 9.128,
+        "selector": "#s02a-chat > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 354,
+          "top": 520.19,
+          "right": 532.91,
+          "bottom": 549.19,
+          "width": 178.91,
+          "height": 29
+        },
+        "containerSelector": "#s02b-chat > div:nth-of-type(1)",
+        "text": "tienda Casa Viva",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "compositions/s02-lo-pidieron.html",
+        "bbox": {
+          "x": 354,
+          "y": 520.19,
+          "width": 178.91,
+          "height": 29
+        },
+        "firstSeen": 9.128,
+        "lastSeen": 9.128,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          9.128
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 9.128,
+        "selector": "#s02-a1 > span:nth-of-type(1)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 699.38,
+          "top": 714.09,
+          "right": 748.39,
+          "bottom": 739.09,
+          "width": 49.02,
+          "height": 25
+        },
+        "containerSelector": "#s02-b1",
+        "text": "11:08",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "compositions/s02-lo-pidieron.html",
+        "bbox": {
+          "x": 699.38,
+          "y": 714.09,
+          "width": 49.02,
+          "height": 25
+        },
+        "firstSeen": 9.128,
+        "lastSeen": 9.128,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          9.128
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 9.128,
+        "selector": "span.vn-t",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 702.16,
+          "top": 789.09,
+          "right": 748.39,
+          "bottom": 816.09,
+          "width": 46.23,
+          "height": 27
+        },
+        "containerSelector": "#s02b-chat > div:nth-of-type(2)",
+        "text": "0:09",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "compositions/s02-lo-pidieron.html",
+        "bbox": {
+          "x": 702.16,
+          "y": 789.09,
+          "width": 46.23,
+          "height": 27
+        },
+        "firstSeen": 9.128,
+        "lastSeen": 9.128,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          9.128
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 9.128,
+        "selector": "span.vn-tx",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 274,
+          "top": 830.39,
+          "right": 741.2,
+          "bottom": 896.19,
+          "width": 467.2,
+          "height": 65.8
+        },
+        "containerSelector": "#s02b-chat > div:nth-of-type(2)",
+        "text": "«…mi teléfono no tira buenas fotos, pero bueno, ya se las tiro así»",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "compositions/s02-lo-pidieron.html",
+        "bbox": {
+          "x": 274,
+          "y": 830.39,
+          "width": 467.2,
+          "height": 65.8
+        },
+        "firstSeen": 9.128,
+        "lastSeen": 9.128,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          9.128
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 9.128,
+        "selector": "#s02-a2 > span:nth-of-type(3)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 700.38,
+          "top": 904.98,
+          "right": 748.39,
+          "bottom": 929.98,
+          "width": 48.02,
+          "height": 25
+        },
+        "containerSelector": "#s02b-chat > div:nth-of-type(2)",
+        "text": "11:09",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "compositions/s02-lo-pidieron.html",
+        "bbox": {
+          "x": 700.38,
+          "y": 904.98,
+          "width": 48.02,
+          "height": 25
+        },
+        "firstSeen": 9.128,
+        "lastSeen": 9.128,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          9.128
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "info",
+        "time": 15.47,
+        "selector": "#s03-antes-despues-c0 > span:nth-of-type(1)",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 60,
+          "top": 271.44,
+          "right": 142.63,
+          "bottom": 348.44,
+          "width": 82.63,
+          "height": 77
+        },
+        "containerSelector": "#s03-antes-despues-c1 > span:nth-of-type(1)",
+        "text": "Tu estudio de fotos",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s03-antes-despues.html",
+        "bbox": {
+          "x": 60,
+          "y": 271.44,
+          "width": 82.63,
+          "height": 77
+        },
+        "firstSeen": 15.47,
+        "lastSeen": 15.47,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          15.47
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "info",
+        "time": 15.47,
+        "selector": "#s03-antes-despues-c0 > span:nth-of-type(1) > span:nth-of-type(1)",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 150.63,
+          "top": 271.44,
+          "right": 609.52,
+          "bottom": 348.44,
+          "width": 458.89,
+          "height": 77
+        },
+        "containerSelector": "#s03-antes-despues-c1 > span:nth-of-type(1)",
+        "text": "estudio de fotos",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s03-antes-despues.html",
+        "bbox": {
+          "x": 150.63,
+          "y": 271.44,
+          "width": 458.89,
+          "height": 77
+        },
+        "firstSeen": 15.47,
+        "lastSeen": 15.47,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          15.47
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "info",
+        "time": 17.966,
+        "selector": "#s03-antes-despues-c1 > span:nth-of-type(1)",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 60,
+          "top": 271.44,
+          "right": 482.39,
+          "bottom": 348.44,
+          "width": 422.39,
+          "height": 77
+        },
+        "containerSelector": "#s03-antes-despues-c2 > span:nth-of-type(1)",
+        "text": "Foto normal → foto bonita",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s03-antes-despues.html",
+        "bbox": {
+          "x": 60,
+          "y": 271.44,
+          "width": 422.39,
+          "height": 77
+        },
+        "firstSeen": 17.966,
+        "lastSeen": 17.966,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          17.966
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "info",
+        "time": 32.687,
+        "selector": "#s06-gemini-c0 > span:nth-of-type(1)",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 60,
+          "top": 271.44,
+          "right": 302.06,
+          "bottom": 348.44,
+          "width": 242.06,
+          "height": 77
+        },
+        "containerSelector": "#s06-gemini-c1 > span:nth-of-type(1)",
+        "text": "Copia la instrucción",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s06-gemini.html",
+        "bbox": {
+          "x": 60,
+          "y": 271.44,
+          "width": 242.06,
+          "height": 77
+        },
+        "firstSeen": 32.687,
+        "lastSeen": 32.687,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          32.687
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "info",
+        "time": 32.687,
+        "selector": "#s06-gemini-c0 > span:nth-of-type(1) > span:nth-of-type(1)",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 310.06,
+          "top": 271.44,
+          "right": 624.83,
+          "bottom": 348.44,
+          "width": 314.77,
+          "height": 77
+        },
+        "containerSelector": "#s06-gemini-c1 > span:nth-of-type(1) > span:nth-of-type(1)",
+        "text": "instrucción",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s06-gemini.html",
+        "bbox": {
+          "x": 310.06,
+          "y": 271.44,
+          "width": 314.77,
+          "height": 77
+        },
+        "firstSeen": 32.687,
+        "lastSeen": 32.687,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          32.687
+        ]
+      },
+      {
+        "code": "escaped_container",
+        "severity": "info",
+        "time": 33.471,
+        "selector": "#s06-gemini-t1r",
+        "message": "Positioned element renders far outside its offset parent — its coordinates were likely computed in a different frame (canvas/viewport pixels).",
+        "rect": {
+          "left": 472.7,
+          "top": 1094.7,
+          "right": 643.3,
+          "bottom": 1265.3,
+          "width": 170.6,
+          "height": 170.6
+        },
+        "containerSelector": "#s06-gemini-t1",
+        "text": "",
+        "fixHint": "Compute left/top in the offset parent's frame (subtract its rect), or mark intentional placement with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 512,
+          "top": 1134,
+          "right": 604,
+          "bottom": 1226,
+          "width": 92,
+          "height": 92
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/s06-gemini.html",
+        "bbox": {
+          "x": 472.7,
+          "y": 1094.7,
+          "width": 170.6,
+          "height": 170.6
+        },
+        "firstSeen": 33.471,
+        "lastSeen": 33.471,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          33.471
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "info",
+        "time": 34.06,
+        "selector": "#s06-gemini-c1 > span:nth-of-type(1)",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 60,
+          "top": 271.44,
+          "right": 342.13,
+          "bottom": 348.44,
+          "width": 282.13,
+          "height": 77
+        },
+        "containerSelector": "#s06-gemini-c2 > span:nth-of-type(1)",
+        "text": "Guarda la foto del producto",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s06-gemini.html",
+        "bbox": {
+          "x": 60,
+          "y": 271.44,
+          "width": 282.13,
+          "height": 77
+        },
+        "firstSeen": 34.06,
+        "lastSeen": 34.06,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          34.06
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "info",
+        "time": 34.06,
+        "selector": "#s06-gemini-c1 > span:nth-of-type(1) > span:nth-of-type(1)",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 350.13,
+          "top": 271.44,
+          "right": 845.3,
+          "bottom": 348.44,
+          "width": 495.17,
+          "height": 77
+        },
+        "containerSelector": "#s06-gemini-c2 > span:nth-of-type(1)",
+        "text": "foto del producto",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s06-gemini.html",
+        "bbox": {
+          "x": 350.13,
+          "y": 271.44,
+          "width": 495.17,
+          "height": 77
+        },
+        "firstSeen": 34.06,
+        "lastSeen": 34.06,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          34.06
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "info",
+        "time": 35.806,
+        "selector": "#s06-gemini-c2 > span:nth-of-type(1)",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 60,
+          "top": 271.44,
+          "right": 930.55,
+          "bottom": 348.44,
+          "width": 870.55,
+          "height": 77
+        },
+        "containerSelector": "#s06-gemini-c3 > span:nth-of-type(1)",
+        "text": "Abre Gemini · gratis con Gmail",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s06-gemini.html",
+        "bbox": {
+          "x": 60,
+          "y": 271.44,
+          "width": 870.55,
+          "height": 77
+        },
+        "firstSeen": 35.806,
+        "lastSeen": 35.806,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          35.806
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "info",
+        "time": 35.806,
+        "selector": "#s06-gemini-c2 > span:nth-of-type(1) > span:nth-of-type(1)",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 219.75,
+          "top": 271.44,
+          "right": 420.66,
+          "bottom": 348.44,
+          "width": 200.91,
+          "height": 77
+        },
+        "containerSelector": "#s06-gemini-c3 > span:nth-of-type(1)",
+        "text": "Gemini",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s06-gemini.html",
+        "bbox": {
+          "x": 219.75,
+          "y": 271.44,
+          "width": 200.91,
+          "height": 77
+        },
+        "firstSeen": 35.806,
+        "lastSeen": 35.806,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          35.806
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "info",
+        "time": 37.927,
+        "selector": "#s06-gemini-c3 > span:nth-of-type(1)",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 60,
+          "top": 271.44,
+          "right": 327.91,
+          "bottom": 348.44,
+          "width": 267.91,
+          "height": 77
+        },
+        "containerSelector": "#s06-gemini-c4 > span:nth-of-type(1)",
+        "text": "En Cuba: con VPN",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s06-gemini.html",
+        "bbox": {
+          "x": 60,
+          "y": 271.44,
+          "width": 267.91,
+          "height": 77
+        },
+        "firstSeen": 37.927,
+        "lastSeen": 37.927,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          37.927
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "info",
+        "time": 37.927,
+        "selector": "#s06-gemini-c3 > span:nth-of-type(1) > span:nth-of-type(1)",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 335.91,
+          "top": 271.44,
+          "right": 585.77,
+          "bottom": 348.44,
+          "width": 249.86,
+          "height": 77
+        },
+        "containerSelector": "#s06-gemini-c4 > span:nth-of-type(1)",
+        "text": "con VPN",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s06-gemini.html",
+        "bbox": {
+          "x": 335.91,
+          "y": 271.44,
+          "width": 249.86,
+          "height": 77
+        },
+        "firstSeen": 37.927,
+        "lastSeen": 37.927,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          37.927
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "info",
+        "time": 42.793,
+        "selector": "#s07-subir-c0 > span:nth-of-type(1)",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 60,
+          "top": 271.44,
+          "right": 837.11,
+          "bottom": 348.44,
+          "width": 777.11,
+          "height": 77
+        },
+        "containerSelector": "#s07-subir-c1 > span:nth-of-type(1)",
+        "text": "Descarga la foto de Gemini",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s07-subir.html",
+        "bbox": {
+          "x": 60,
+          "y": 271.44,
+          "width": 777.11,
+          "height": 77
+        },
+        "firstSeen": 42.793,
+        "lastSeen": 42.793,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          42.793
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "info",
+        "time": 42.793,
+        "selector": "#s07-subir-c0 > span:nth-of-type(1) > span:nth-of-type(1)",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 347.63,
+          "top": 271.44,
+          "right": 528.11,
+          "bottom": 348.44,
+          "width": 180.48,
+          "height": 77
+        },
+        "containerSelector": "#s07-subir-c1 > span:nth-of-type(1)",
+        "text": "la foto",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s07-subir.html",
+        "bbox": {
+          "x": 347.63,
+          "y": 271.44,
+          "width": 180.48,
+          "height": 77
+        },
+        "firstSeen": 42.793,
+        "lastSeen": 42.793,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          42.793
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "info",
+        "time": 46.91,
+        "selector": "#s08-galeria-c0 > span:nth-of-type(1)",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 60,
+          "top": 271.44,
+          "right": 359.2,
+          "bottom": 348.44,
+          "width": 299.2,
+          "height": 77
+        },
+        "containerSelector": "#s08-galeria-c1 > span:nth-of-type(1)",
+        "text": "Ya está en tu galería",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s08-galeria.html",
+        "bbox": {
+          "x": 60,
+          "y": 271.44,
+          "width": 299.2,
+          "height": 77
+        },
+        "firstSeen": 46.91,
+        "lastSeen": 46.91,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          46.91
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "info",
+        "time": 46.91,
+        "selector": "#s08-galeria-c0 > span:nth-of-type(1) > span:nth-of-type(1)",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 367.2,
+          "top": 271.44,
+          "right": 629.09,
+          "bottom": 348.44,
+          "width": 261.89,
+          "height": 77
+        },
+        "containerSelector": "#s08-galeria-c1 > span:nth-of-type(1)",
+        "text": "tu galería",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s08-galeria.html",
+        "bbox": {
+          "x": 367.2,
+          "y": 271.44,
+          "width": 261.89,
+          "height": 77
+        },
+        "firstSeen": 46.91,
+        "lastSeen": 46.91,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          46.91
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "info",
+        "time": 48.407,
+        "selector": "#s08-galeria-c1 > span:nth-of-type(1)",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 60,
+          "top": 271.44,
+          "right": 436.78,
+          "bottom": 348.44,
+          "width": 376.78,
+          "height": 77
+        },
+        "containerSelector": "#s08-galeria-c2 > span:nth-of-type(1)",
+        "text": "Descárgala o compártela",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s08-galeria.html",
+        "bbox": {
+          "x": 60,
+          "y": 271.44,
+          "width": 376.78,
+          "height": 77
+        },
+        "firstSeen": 48.407,
+        "lastSeen": 48.407,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          48.407
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "info",
+        "time": 48.407,
+        "selector": "#s08-galeria-c1 > span:nth-of-type(1) > span:nth-of-type(1)",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 444.78,
+          "top": 271.44,
+          "right": 765.88,
+          "bottom": 348.44,
+          "width": 321.1,
+          "height": 77
+        },
+        "containerSelector": "#s08-galeria-c2 > span:nth-of-type(1) > span:nth-of-type(1)",
+        "text": "compártela",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s08-galeria.html",
+        "bbox": {
+          "x": 444.78,
+          "y": 271.44,
+          "width": 321.1,
+          "height": 77
+        },
+        "firstSeen": 48.407,
+        "lastSeen": 48.407,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          48.407
+        ]
+      }
+    ],
+    "duration": 54.77,
+    "samples": [
+      3.043,
+      9.128,
+      15.214,
+      21.299,
+      27.385,
+      33.471,
+      39.556,
+      45.642,
+      51.727
+    ],
+    "transitionSamples": [],
+    "transitionSamplesDropped": 0,
+    "tolerance": 2,
+    "totalIssueCount": 27,
+    "truncated": false
+  },
+  "motion": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": false,
+    "samples": 0
+  },
+  "contrast": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": true,
+    "samples": [
+      3.043,
+      15.214,
+      27.385,
+      39.556,
+      51.727
+    ],
+    "checked": 41,
+    "passed": 41
+  },
+  "hdr": {
+    "autoPromotion": null,
+    "inspection": "available"
+  },
+  "snapshots": {
+    "enabled": false,
+    "files": [],
+    "times": [],
+    "findingFiles": []
+  }
+}

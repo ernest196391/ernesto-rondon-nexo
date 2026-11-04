@@ -1,0 +1,44 @@
+{
+  "slug": "yonar-rey-de-alisados",
+  "negocio": "Rey de Alisados",
+  "dueno": "Yonar",
+  "rubro": "salón de alisados",
+  "ciudad": "La Habana (Vedado) y Estados Unidos",
+  "local": "Salón Capadocia, Vedado",
+  "redes": {
+    "instagram": "https://instagram.com/rey.de.alisados.en.cuba",
+    "facebook": "",
+    "whatsapp": ""
+  },
+  "marca": {
+    "tiene_marca": true,
+    "color_fondo": "#141210",
+    "color_principal": "#1a1714",
+    "color_acento": "#E0A957",
+    "color_texto_suave": "#E0C79B",
+    "fuente_titulo": "Gloock",
+    "fuente_script": "Great Vibes",
+    "fuente_texto": "Instrument Sans",
+    "lema": "Alisados sin formol · La Habana y Estados Unidos"
+  },
+  "servicios": [
+    { "nombre": "Oxiplastia", "precio": "", "duracion": "3 h" }
+  ],
+  "productos": [
+    { "nombre": "QBella — kit", "precio": "" }
+  ],
+  "problemas": [
+    { "dolor": "Pierde clientas porque responde tarde", "solucion": "Agenda y respuestas automáticas 24 h", "prueba": "video:asi-llega-clienta" },
+    { "dolor": "Perfil sin orden ni llamada a la acción", "solucion": "Perfil y destacadas con su marca", "prueba": "video:perfil-antes-despues" },
+    { "dolor": "No vende productos en línea", "solucion": "Tienda con pedido por WhatsApp", "prueba": "demo:tienda" }
+  ],
+  "oferta": {
+    "valor_tachado_instalacion": 3400,
+    "valor_tachado_mensual": 1050,
+    "precio_instalacion": 1600,
+    "precio_mensual": 550,
+    "moneda": "USD",
+    "garantia": "Pruébalo todo 7 días. Si no funciona, no pagas nada y te quedas con todo lo que te hice."
+  },
+  "video_muestra_url": "https://fb.watch/v/7NJqfeSqZ"
+}

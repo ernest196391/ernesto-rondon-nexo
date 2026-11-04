@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #s07-direccion-root { position: absolute; inset: 0; }
+
+      </style>
+      <div id="s07-direccion-root" data-composition-id="s07-direccion" data-width="1080" data-height="1920">
+<div class="cap" id="s07-direccion-c0"><span class="ci">Tu <span class="k">dirección</span></span></div>
+<div class="cap" id="s07-direccion-c1"><span class="ci">y el <span class="k">día</span> de entrega</span></div>
+<div class="scr" id="s07-direccion-scr"><div class="sb" id="s07-direccion-sb"><span>10:24</span><span class="sb-icons"><span class="sb-bar" style="height:9px"></span><span class="sb-bar" style="height:13px"></span><span class="sb-bar" style="height:17px"></span><span class="sb-batt"></span></span></div>
+<img class="shot" id="s07-direccion-s0" src="assets/screens/t11-direccion.jpg" alt="" />
+<img class="shot" id="s07-direccion-s1" src="assets/screens/t12-dia.jpg" alt="" />
+<div class="hl" id="s07-direccion-h0" style="left:19px;top:445px;width:582px;height:285px"></div>
+<div class="hl" id="s07-direccion-h1" style="left:19px;top:991px;width:582px;height:90px"></div>
+<div class="hl" id="s07-direccion-h2" style="left:15px;top:629px;width:590px;height:217px"></div>
+<div class="tap" id="s07-direccion-t0" style="left:144px;top:723px"><span class="tap-dot"></span><span class="tap-ring" id="s07-direccion-t0r"></span></div></div>
+      </div>
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          tl.fromTo("#s07-direccion-scr", { opacity: 0 }, { opacity: 1, duration: 0.2, ease: "power1.out" }, 0);
+          tl.fromTo("#s07-direccion-c0", { opacity: 0, y: 34 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 0.1);
+          tl.fromTo("#s07-direccion-c0", { opacity: 1 }, { opacity: 0, duration: 0.22, ease: "power2.in", immediateRender: false }, 2.25);
+          tl.fromTo("#s07-direccion-c0 .k", { backgroundSize: "0% 100%" }, { backgroundSize: "100% 100%", duration: 0.45, ease: "power2.out" }, 0.45);
+          tl.fromTo("#s07-direccion-c1", { opacity: 0, y: 34 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 2.4);
+          tl.fromTo("#s07-direccion-c1", { opacity: 1 }, { opacity: 0, duration: 0.22, ease: "power2.in", immediateRender: false }, 3.52);
+          tl.fromTo("#s07-direccion-c1 .k", { backgroundSize: "0% 100%" }, { backgroundSize: "100% 100%", duration: 0.45, ease: "power2.out" }, 2.75);
+          tl.fromTo("#s07-direccion-s1", { opacity: 0 }, { opacity: 1, duration: 0.25, ease: "power1.out" }, 2.3);
+          tl.fromTo("#s07-direccion-h0", { opacity: 0, scale: 1.08 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }, 0.35);
+          tl.fromTo("#s07-direccion-h0", { opacity: 1 }, { opacity: 0, duration: 0.25, ease: "power1.in", immediateRender: false }, 1.2);
+          tl.fromTo("#s07-direccion-h1", { opacity: 0, scale: 1.08 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }, 1.3);
+          tl.fromTo("#s07-direccion-h1", { opacity: 1 }, { opacity: 0, duration: 0.25, ease: "power1.in", immediateRender: false }, 2.2);
+          tl.fromTo("#s07-direccion-h2", { opacity: 0, scale: 1.08 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }, 2.95);
+          tl.fromTo("#s07-direccion-h2", { opacity: 1 }, { opacity: 0, duration: 0.25, ease: "power1.in", immediateRender: false }, 3.5);
+          tl.fromTo("#s07-direccion-t0", { opacity: 0, scale: 1.5 }, { opacity: 1, scale: 1, duration: 0.25, ease: "power2.out" }, 2.4);
+          tl.fromTo("#s07-direccion-t0 .tap-dot", { scale: 1 }, { scale: 0.82, duration: 0.1, ease: "power2.in", yoyo: true, repeat: 1 }, 2.7);
+          tl.fromTo("#s07-direccion-t0r", { opacity: 0.9, scale: 1 }, { opacity: 0, scale: 2.1, duration: 0.5, ease: "power2.out" }, 2.7);
+          tl.fromTo("#s07-direccion-t0", { opacity: 1 }, { opacity: 0, duration: 0.2, ease: "power1.in", immediateRender: false }, 3);
+          window.__timelines["s07-direccion"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

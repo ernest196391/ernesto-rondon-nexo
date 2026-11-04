@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="es">
+  <head><meta charset="UTF-8" /></head>
+  <body>
+    <template>
+      <style>
+        #bg-root { position: absolute; inset: 0; }
+      </style>
+      <div id="bg-root" data-composition-id="bg" data-width="1080" data-height="1920">
+          <div id="bg-glow-a"></div>
+          <div id="bg-glow-b"></div>
+          <div id="bg-ghost"><img src="assets/logo/casa-viva-isotipo-marron.svg" alt="" /></div>
+          <div id="bg-rule-a" class="bg-rule"></div>
+          <div id="bg-rule-b" class="bg-rule"></div>
+            </div>
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          tl.fromTo("#bg-glow-a", { scale: 0.92, x: 0 }, { scale: 1.08, x: 60, duration: 30, ease: "sine.inOut", yoyo: true, repeat: 1 }, 0);
+          tl.fromTo("#bg-glow-b", { scale: 1.06, y: 0 }, { scale: 0.94, y: -80, duration: 30, ease: "sine.inOut", yoyo: true, repeat: 1 }, 0);
+          tl.fromTo("#bg-ghost", { rotation: -6, y: 0 }, { rotation: 6, y: -120, duration: 61, ease: "none" }, 0);
+          tl.fromTo(".bg-rule", { scaleX: 0 }, { scaleX: 1, duration: 1.2, ease: "power2.out", stagger: 0.2 }, 0.2);
+          window.__timelines["bg"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

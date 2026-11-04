@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>{{NOMBRE}} · Menú</title>
+  <meta name="description" content="Menú de {{NOMBRE}}: gira cada producto en 360°, arma tu pedido y pide por WhatsApp. {{AVISO}}">
+  <meta name="theme-color" content="#0a0807">
+  <meta property="og:title" content="{{NOMBRE}} · Míralo antes de pedirlo">
+  <meta property="og:description" content="Gira cada producto en 360° y pide por WhatsApp. {{HORARIO_TEXTO}}">
+  <meta property="og:image" content="img/portada.jpg">
+  <link rel="icon" href="img/logo.webp">
+  <link rel="apple-touch-icon" href="img/icono-192.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="preload" href="fonts/anton.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="styles.css">
+  <style>{{COLORES_CSS}}</style>
+</head>
+<body>
+  <!-- Entrada con el logo (regla: toda app muestra el logo animado mientras carga) -->
+  <div id="intro" class="intro" aria-hidden="true">
+    <div class="intro-anillo"></div>
+    <img src="img/logo.webp" alt="" class="intro-logo">
+    <p class="intro-marca">{{INTRO_LETRAS}}</p>
+  </div>
+
+  <header class="top">
+    <img src="img/logo.webp" alt="{{NOMBRE}}" class="top-logo">
+    <div class="top-texto">
+      <strong>{{MARCA_TXT}}</strong>
+      <span id="abierto" class="estado"></span>
+    </div>
+    <button id="sonido" class="icono-btn" aria-label="Sonido" aria-pressed="true">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path class="on" d="M4 9v6h4l5 4V5L8 9H4zm12.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4z"/><path class="off" d="M4 9v6h4l5 4V5L8 9H4zm15.6-.4-1.4-1.4-2.2 2.2-2.2-2.2-1.4 1.4 2.2 2.2-2.2 2.2 1.4 1.4 2.2-2.2 2.2 2.2 1.4-1.4-2.2-2.2z"/></svg>
+    </button>
+  </header>
+
+  <main>
+    <!-- Escenario holograma -->
+    <section class="escena" aria-roledescription="carrusel" aria-label="Productos destacados">
+      <div class="escena-luz" aria-hidden="true"></div>
+      <div class="particulas" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+
+      <div class="etiqueta" id="etiqueta" aria-live="polite">
+        <span class="etiqueta-cat" id="et-cat"></span>
+        <h1 id="et-nombre"></h1>
+        <p id="et-frase"></p>
+        <span class="etiqueta-precio" id="et-precio"></span>
+      </div>
+
+      <div class="giro" id="giro">
+        <img id="giro-foto" class="giro-foto" alt="">
+        <canvas id="giro-lienzo" class="giro-lienzo" width="400" height="400" aria-hidden="true"></canvas>
+        <div class="giro-carga" id="giro-carga" aria-hidden="true"></div>
+      </div>
+      <p class="pista" id="pista"><span class="mano" aria-hidden="true">↔</span> Gíralo con el dedo</p>
+
+      <div class="mandos">
+        <button class="mando" id="anterior" aria-label="Producto anterior">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 5 8.5 12l7 7"/></svg>
+        </button>
+        <button class="mando mando-centro" id="pausa" aria-label="Pausar el giro" aria-pressed="false">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path class="p" d="M9 6v12M15 6v12"/><path class="r" d="m9 6 9 6-9 6z"/></svg>
+        </button>
+        <button class="mando" id="siguiente" aria-label="Producto siguiente">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8.5 5 7 7-7 7"/></svg>
+        </button>
+      </div>
+      <div class="puntos" id="puntos" role="tablist" aria-label="Elegir producto"></div>
+
+      <button class="anadir" id="anadir">
+        <span>Añadir al pedido</span>
+        <strong id="anadir-precio"></strong>
+      </button>
+    </section>
+
+    <div class="cinta" aria-label="Aviso">
+      <div class="cinta-pista" id="cinta"></div>
+    </div>
+
+    <!-- La carta -->
+    <section class="carta" aria-labelledby="t-carta">
+      <div class="carta-cabeza">
+        <h2 id="t-carta">La carta</h2>
+        <label class="buscar">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg>
+          <input id="buscar" type="search" placeholder="Buscar" autocomplete="off" aria-label="Buscar en la carta">
+        </label>
+      </div>
+      <nav id="cats" class="cats" aria-label="Categorías"></nav>
+      <div id="menu"></div>
+      <p id="vacio" class="vacio" hidden>No encontramos eso en la carta.</p>
+    </section>
+  </main>
+
+  <footer class="pie">
+    <img src="img/logo.webp" alt="" class="pie-logo">
+    <p id="horario"></p>
+    <p>{{PIE_DOMICILIO}}<a id="wa-pie" href="#">{{WA_VISIBLE}}</a></p>
+    <p class="pie-precios">Precios en CUP</p>
+    <p class="nexo">Experiencia digital por <b>NEXO</b></p>
+  </footer>
+
+  <button id="barra" class="barra" hidden>
+    <span class="barra-cant" id="barra-cant">0</span>
+    <span class="barra-txt">Ver mi pedido</span>
+    <strong id="barra-total">0 CUP</strong>
+  </button>
+
+  <div id="hoja" class="hoja" hidden role="dialog" aria-modal="true" aria-labelledby="t-pedido">
+    <div class="hoja-caja">
+      <div class="hoja-asa" aria-hidden="true"></div>
+      <div class="hoja-top">
+        <h2 id="t-pedido">Tu pedido</h2>
+        <button class="cerrar" data-cerrar aria-label="Cerrar">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+        </button>
+      </div>
+      <ul id="lineas" class="lineas"></ul>
+      <div class="total"><span>Total</span><strong id="total">0 CUP</strong></div>
+      <div class="segmento" role="radiogroup" aria-label="Entrega">
+        <label><input type="radio" name="entrega" value="domicilio" checked><span>🛵 A domicilio</span></label>
+        <label><input type="radio" name="entrega" value="recoger"><span>🏃 Lo recojo</span></label>
+      </div>
+      <label class="campo" id="campo-dir"><span>Dirección</span>
+        <input id="direccion" type="text" placeholder="Calle, número, entre calles" autocomplete="street-address">
+      </label>
+      <label class="campo"><span>Nota (opcional)</span>
+        <input id="nota" type="text" placeholder="Sin mostaza, extra salsa…">
+      </label>
+      <button id="pedir" class="btn-wa">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5a9.5 9.5 0 0 0-8.2 14.3L2.5 21.5l4.8-1.3A9.5 9.5 0 1 0 12 2.5zm5.3 13.3c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.2-.7-2.7-1.1-4.4-3.8-4.5-4-.1-.2-1.1-1.4-1.1-2.7s.7-1.9.9-2.2c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.1.1.3 0 .5l-.3.5-.4.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.1 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l1.8.9c.3.1.5.2.5.3.1.2.1.7-.1 1.2z"/></svg>
+        Pedir por WhatsApp
+      </button>
+      <p class="letra">Se abre WhatsApp con tu pedido escrito. Tú lo envías.</p>
+    </div>
+  </div>
+
+  <script src="menu.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

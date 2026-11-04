@@ -1,0 +1,45 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><link rel="stylesheet" href="base.css">
+<style>
+.cadena{margin-top:28px;display:flex;flex-direction:column}
+.fila{display:flex;align-items:center;background:var(--blanco);border:3px solid var(--linea);border-radius:22px;padding:16px 26px;gap:22px}
+.quien{width:132px;height:84px;border-radius:42px;background:var(--petroleo);color:var(--crema);font-size:36px;font-weight:700;display:flex;align-items:center;justify-content:center;flex:none}
+.que{flex:1;font-size:32px;line-height:1.2}
+.que b{font-weight:700}
+.pct{flex:none;text-align:right;font-size:52px;font-weight:700;color:var(--ambar);line-height:1}
+.pct small{display:block;font-size:24px;font-weight:600;color:var(--marron);margin-top:4px}
+.flecha{height:40px;display:flex;align-items:center;padding-left:84px;font-size:28px;font-weight:600;color:var(--petroleo)}
+.flecha span{font-size:36px;margin-right:14px}
+.ej{margin-top:24px;border:3px solid var(--petroleo);border-radius:22px;padding:22px 30px 18px;background:var(--blanco)}
+.ej h2{font-size:34px;font-weight:700;color:var(--petroleo);line-height:1.2}
+.ej h2 span{font-weight:500;color:var(--marron)}
+table{width:100%;border-collapse:collapse;margin-top:10px;font-size:34px}
+td{padding:7px 0;border-bottom:2px solid var(--linea)}
+td.n{font-weight:700;width:200px}
+td.v{text-align:right;font-weight:700;color:var(--ambar);font-size:40px}
+tr.cv td{border-bottom:none;padding-top:13px}
+tr.cv td.n,tr.cv td.d{color:var(--petroleo);font-weight:700}
+</style></head><body>
+<div class="top"><img src="logo.svg" alt="Casa Viva"><div class="pag">1 / 2</div></div>
+<h1>Madrinas Casa Viva</h1>
+<div class="sub">en 1 minuto · la gestora que invita, enseña y gana</div>
+
+<div class="cadena">
+  <div class="fila"><div class="quien">Marta</div><div class="que"><b>Madrina de Ana.</b><br>Gana de lo que vende Rosa.</div><div class="pct">0,5&nbsp;%<small>2.º nivel</small></div></div>
+  <div class="flecha"><span>&#9660;</span>invita a Ana</div>
+  <div class="fila"><div class="quien">Ana</div><div class="que"><b>Madrina de Rosa.</b><br>Gana de lo que vende Rosa.</div><div class="pct">1&nbsp;%<small>1.er nivel</small></div></div>
+  <div class="flecha"><span>&#9660;</span>invita a Rosa</div>
+  <div class="fila"><div class="quien">Rosa</div><div class="que"><b>Vende</b> y cobra su comisión <b>completa</b>, como siempre.</div></div>
+</div>
+
+<div class="ej">
+  <h2>Ejemplo: Rosa vende una alfombra de 30 USD <span>(ganancia 10)</span></h2>
+  <table>
+    <tr><td class="n">Rosa</td><td class="d">su comisión normal</td><td class="v">3,00</td></tr>
+    <tr><td class="n">Ana</td><td class="d">1&nbsp;% · lo pone Casa Viva</td><td class="v">0,30</td></tr>
+    <tr><td class="n">Marta</td><td class="d">0,5&nbsp;% · lo pone Casa Viva</td><td class="v">0,15</td></tr>
+    <tr class="cv"><td class="n">Casa Viva</td><td class="d">se queda</td><td class="v">6,55</td></tr>
+  </table>
+</div>
+
+<div class="banda">Dura 12 meses. Solo 2 niveles: no hay nivel 3.<br>Por invitar no se cobra nada: solo cuando la invitada vende.</div>
+</body></html>

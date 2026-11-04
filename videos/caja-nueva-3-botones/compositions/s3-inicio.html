@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="es">
+  <head><meta charset="UTF-8" /></head>
+  <body>
+    <template>
+      <style>
+        #s3-root { position: absolute; inset: 0; }
+        #s3-wrap { position: absolute; inset: 0; }
+        #s3-pg { gap: 28px; }
+        .s3-big { position: relative; height: 248px; border-radius: 34px; display: flex; align-items: center; gap: 28px; padding: 0 36px; color: #F6F1E6; }
+        #s3-b1 { background: #0D3B45; }
+        #s3-b2 { background: #A35A1F; }
+        #s3-b3 { background: #2B2420; }
+        .s3-ic { width: 104px; height: 104px; flex: none; border-radius: 28px; background: rgba(246, 241, 230, 0.16); display: flex; align-items: center; justify-content: center; }
+        .s3-ic svg { width: 64px; height: 64px; display: block; }
+        .s3-tx { display: flex; flex-direction: column; gap: 6px; }
+        .s3-l { font-weight: 600; font-size: 56px; line-height: 1.05; }
+        .s3-d { font-weight: 500; font-size: 31px; color: #F6F1E6; opacity: 0.88; }
+        .s3-glow { position: absolute; inset: -12px; border-radius: 44px; border: 8px solid #A35A1F; opacity: 0; }
+        #s3-b2 .s3-glow { border-color: #0D3B45; }
+        #s3-more { align-self: center; display: flex; align-items: center; gap: 14px; height: 84px; padding: 0 44px; border-radius: 999px;
+          border: 3px solid #DCD2C1; background: #FFFDF8; font-weight: 600; font-size: 36px; color: #0D3B45; }
+        #s3-more i { font-style: normal; letter-spacing: 0.15em; }
+      </style>
+      <div id="s3-root" data-composition-id="s3-inicio" data-width="1080" data-height="1920">
+        <div id="s3-wrap">
+          <div id="s3-when" class="when">9:05 · LA PANTALLA DE INICIO</div>
+          <div id="s3-cap" class="cap"><span class="ci">Solo <span class="k">3 botones</span></span></div>
+          <div class="bd">
+            <div id="s3-pg" class="pg">
+              <div id="s3-hi" class="sub">Buenos días, Nana</div>
+              <div id="s3-b1" class="s3-big">
+                <div class="s3-ic"><svg viewBox="0 0 24 24" fill="none" stroke="#F6F1E6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z" /><path d="M9 8h6M9 12h6" /></svg></div>
+                <div class="s3-tx"><div class="s3-l">Cobrar pedido</div><div class="s3-d">Pedidos de las gestoras</div></div>
+                <b class="s3-glow"></b>
+              </div>
+              <div id="s3-b2" class="s3-big">
+                <div class="s3-ic"><svg viewBox="0 0 24 24" fill="none" stroke="#F6F1E6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h7l-1 8 9-12h-7z" /></svg></div>
+                <div class="s3-tx"><div class="s3-l">Venta rápida</div><div class="s3-d">Cliente en la tienda</div></div>
+                <b class="s3-glow"></b>
+              </div>
+              <div id="s3-b3" class="s3-big">
+                <div class="s3-ic"><svg viewBox="0 0 24 24" fill="none" stroke="#F6F1E6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2" /><path d="M8 11V8a4 4 0 0 1 8 0v3" /></svg></div>
+                <div class="s3-tx"><div class="s3-l">Cerrar el día</div><div class="s3-d">Contar y cuadrar</div></div>
+                <b class="s3-glow"></b>
+              </div>
+              <div id="s3-more"><i>···</i> Más</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          tl.fromTo("#s3-when", { opacity: 0, y: -16 }, { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }, 0.05);
+          tl.fromTo("#s3-cap .ci", { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.6, ease: "back.out(1.8)" }, 0.15);
+          tl.fromTo("#s3-hi", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.45, ease: "power2.out" }, 0.3);
+          tl.fromTo("#s3-b1, #s3-b2, #s3-b3", { opacity: 0, y: 60, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.55, ease: "back.out(1.6)", stagger: 0.22 }, 0.5);
+          // one by one: highlight each big button
+          [["#s3-b1", 2.0], ["#s3-b2", 2.9], ["#s3-b3", 3.8]].forEach(([id, t]) => {
+            tl.fromTo(id + " .s3-glow", { opacity: 0, scale: 0.96 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }, t);
+            tl.fromTo(id, { scale: 1 }, { scale: 1.03, duration: 0.3, ease: "power2.out", immediateRender: false }, t);
+            tl.to(id, { scale: 1, duration: 0.35, ease: "power2.inOut" }, t + 0.55);
+            tl.to(id + " .s3-glow", { opacity: 0, duration: 0.35, ease: "power1.in" }, t + 0.55);
+          });
+          tl.fromTo("#s3-more", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }, 4.8);
+          tl.to("#s3-wrap", { opacity: 0, duration: 0.35, ease: "power1.in" }, 6.6);
+          window.__timelines["s3-inicio"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

@@ -1,0 +1,2198 @@
+[
+ {
+  "municipality": "Arroyo Naranjo",
+  "zone": "",
+  "fee": 3000,
+  "active": true
+ },
+ {
+  "municipality": "Arroyo Naranjo",
+  "zone": "Arroyo Apolo",
+  "fee": 2000,
+  "active": true
+ },
+ {
+  "municipality": "Arroyo Naranjo",
+  "zone": "Arroyo Naranjo",
+  "fee": 3000,
+  "active": true
+ },
+ {
+  "municipality": "Arroyo Naranjo",
+  "zone": "Café Colón",
+  "fee": 2400,
+  "active": true
+ },
+ {
+  "municipality": "Arroyo Naranjo",
+  "zone": "Callejas",
+  "fee": 2000,
+  "active": true
+ },
+ {
+  "municipality": "Arroyo Naranjo",
+  "zone": "Calvario",
+  "fee": 2500,
+  "active": true
+ },
+ {
+  "municipality": "Arroyo Naranjo",
+  "zone": "Capri",
+  "fee": 2400,
+  "active": true
+ },
+ {
+  "municipality": "Arroyo Naranjo",
+  "zone": "Comodoro",
+  "fee": 2500,
+  "active": true
+ },
+ {
+  "municipality": "Arroyo Naranjo",
+  "zone": "El Moro",
+  "fee": 2300,
+  "active": true
+ },
+ {
+  "municipality": "Arroyo Naranjo",
+  "zone": "El Retiro",
+  "fee": 2500,
+  "active": true
+ },
+ {
+  "municipality": "Arroyo Naranjo",
+  "zone": "Eléctrico",
+  "fee": 2700,
+  "active": true
+ },
+ {
+  "municipality": "Arroyo Naranjo",
+  "zone": "Gavilán",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "Arroyo Naranjo",
+  "zone": "Güinera",
+  "fee": 2500,
+  "active": true
+ },
+ {
+  "municipality": "Arroyo Naranjo",
+  "zone": "La Fortuna",
+  "fee": 2300,
+  "active": true
+ },
+ {
+  "municipality": "Arroyo Naranjo",
+  "zone": "La Palma",
+  "fee": 2000,
+  "active": true
+ },
+ {
+  "municipality": "Arroyo Naranjo",
+  "zone": "Las Guásimas",
+  "fee": 3300,
+  "active": true
+ },
+ {
+  "municipality": "Arroyo Naranjo",
+  "zone": "Las Lajas",
+  "fee": 3000,
+  "active": true
+ },
+ {
+  "municipality": "Arroyo Naranjo",
+  "zone": "Los Pinos",
+  "fee": 2300,
+  "active": true
+ },
+ {
+  "municipality": "Arroyo Naranjo",
+  "zone": "Managua",
+  "fee": 3900,
+  "active": true
+ },
+ {
+  "municipality": "Arroyo Naranjo",
+  "zone": "Mantilla",
+  "fee": 2500,
+  "active": true
+ },
+ {
+  "municipality": "Arroyo Naranjo",
+  "zone": "Montejo",
+  "fee": 2300,
+  "active": true
+ },
+ {
+  "municipality": "Arroyo Naranjo",
+  "zone": "Naranjito",
+  "fee": 3000,
+  "active": true
+ },
+ {
+  "municipality": "Arroyo Naranjo",
+  "zone": "Parcelación Moderna",
+  "fee": 2900,
+  "active": true
+ },
+ {
+  "municipality": "Arroyo Naranjo",
+  "zone": "Párraga",
+  "fee": 2400,
+  "active": true
+ },
+ {
+  "municipality": "Arroyo Naranjo",
+  "zone": "Poey",
+  "fee": 2500,
+  "active": true
+ },
+ {
+  "municipality": "Arroyo Naranjo",
+  "zone": "Porvenir",
+  "fee": 2300,
+  "active": true
+ },
+ {
+  "municipality": "Arroyo Naranjo",
+  "zone": "Reparto Eléctrico",
+  "fee": 3300,
+  "active": true
+ },
+ {
+  "municipality": "Arroyo Naranjo",
+  "zone": "Reparto La Solita",
+  "fee": 2300,
+  "active": true
+ },
+ {
+  "municipality": "Arroyo Naranjo",
+  "zone": "Rosario",
+  "fee": 2400,
+  "active": true
+ },
+ {
+  "municipality": "Arroyo Naranjo",
+  "zone": "Santa Amalia",
+  "fee": 2500,
+  "active": true
+ },
+ {
+  "municipality": "Arroyo Naranjo",
+  "zone": "Víbora Park",
+  "fee": 2500,
+  "active": true
+ },
+ {
+  "municipality": "Arroyo Naranjo",
+  "zone": "Vieja Linda",
+  "fee": 2300,
+  "active": true
+ },
+ {
+  "municipality": "Boyeros",
+  "zone": "",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "Boyeros",
+  "zone": "1ro. de Mayo",
+  "fee": 2700,
+  "active": true
+ },
+ {
+  "municipality": "Boyeros",
+  "zone": "Abel Santamaría",
+  "fee": 2700,
+  "active": true
+ },
+ {
+  "municipality": "Boyeros",
+  "zone": "Aeropuerto Terminal 1",
+  "fee": 3000,
+  "active": true
+ },
+ {
+  "municipality": "Boyeros",
+  "zone": "Aeropuerto Terminal 2",
+  "fee": 3000,
+  "active": true
+ },
+ {
+  "municipality": "Boyeros",
+  "zone": "Aeropuerto Terminal 3",
+  "fee": 3000,
+  "active": true
+ },
+ {
+  "municipality": "Boyeros",
+  "zone": "Aeropuerto Terminal 5",
+  "fee": 3000,
+  "active": true
+ },
+ {
+  "municipality": "Boyeros",
+  "zone": "Aerovaradero",
+  "fee": 3000,
+  "active": true
+ },
+ {
+  "municipality": "Boyeros",
+  "zone": "Aldabó",
+  "fee": 2000,
+  "active": true
+ },
+ {
+  "municipality": "Boyeros",
+  "zone": "Altahabana",
+  "fee": 1900,
+  "active": true
+ },
+ {
+  "municipality": "Boyeros",
+  "zone": "Alturas de La Habana",
+  "fee": 2600,
+  "active": true
+ },
+ {
+  "municipality": "Boyeros",
+  "zone": "Ampliación de Mulgoba",
+  "fee": 3200,
+  "active": true
+ },
+ {
+  "municipality": "Boyeros",
+  "zone": "Armada-Aldabó",
+  "fee": 2700,
+  "active": true
+ },
+ {
+  "municipality": "Boyeros",
+  "zone": "Aurora",
+  "fee": 2700,
+  "active": true
+ },
+ {
+  "municipality": "Boyeros",
+  "zone": "Baluarte",
+  "fee": 2700,
+  "active": true
+ },
+ {
+  "municipality": "Boyeros",
+  "zone": "Bejucal",
+  "fee": 5000,
+  "active": true
+ },
+ {
+  "municipality": "Boyeros",
+  "zone": "Berenguer",
+  "fee": 2900,
+  "active": true
+ },
+ {
+  "municipality": "Boyeros",
+  "zone": "Boyeros",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "Boyeros",
+  "zone": "Cacahual",
+  "fee": 2800,
+  "active": true
+ },
+ {
+  "municipality": "Boyeros",
+  "zone": "Calabazar",
+  "fee": 2700,
+  "active": true
+ },
+ {
+  "municipality": "Boyeros",
+  "zone": "Capdevila",
+  "fee": 2000,
+  "active": true
+ },
+ {
+  "municipality": "Boyeros",
+  "zone": "Cepero Bonilla",
+  "fee": 2700,
+  "active": true
+ },
+ {
+  "municipality": "Boyeros",
+  "zone": "El Chico",
+  "fee": 3100,
+  "active": true
+ },
+ {
+  "municipality": "Boyeros",
+  "zone": "El Especial",
+  "fee": 2700,
+  "active": true
+ },
+ {
+  "municipality": "Boyeros",
+  "zone": "El Globo",
+  "fee": 3000,
+  "active": true
+ },
+ {
+  "municipality": "Boyeros",
+  "zone": "El Rincón",
+  "fee": 3800,
+  "active": true
+ },
+ {
+  "municipality": "Boyeros",
+  "zone": "El Trigal",
+  "fee": 2400,
+  "active": true
+ },
+ {
+  "municipality": "Boyeros",
+  "zone": "Embil",
+  "fee": 2800,
+  "active": true
+ },
+ {
+  "municipality": "Boyeros",
+  "zone": "Fontanar",
+  "fee": 2600,
+  "active": true
+ },
+ {
+  "municipality": "Boyeros",
+  "zone": "José Antonio Saco",
+  "fee": 2700,
+  "active": true
+ },
+ {
+  "municipality": "Boyeros",
+  "zone": "Juan Manuel Márquez",
+  "fee": 2700,
+  "active": true
+ },
+ {
+  "municipality": "Boyeros",
+  "zone": "La Catalina",
+  "fee": 3200,
+  "active": true
+ },
+ {
+  "municipality": "Boyeros",
+  "zone": "La Fortuna",
+  "fee": 2300,
+  "active": true
+ },
+ {
+  "municipality": "Boyeros",
+  "zone": "Las Cañas",
+  "fee": 2600,
+  "active": true
+ },
+ {
+  "municipality": "Boyeros",
+  "zone": "Lídice",
+  "fee": 2700,
+  "active": true
+ },
+ {
+  "municipality": "Boyeros",
+  "zone": "Los Cocos",
+  "fee": 3600,
+  "active": true
+ },
+ {
+  "municipality": "Boyeros",
+  "zone": "Lugardita",
+  "fee": 2900,
+  "active": true
+ },
+ {
+  "municipality": "Boyeros",
+  "zone": "María del Carmen",
+  "fee": 2300,
+  "active": true
+ },
+ {
+  "municipality": "Boyeros",
+  "zone": "Mazorra",
+  "fee": 2600,
+  "active": true
+ },
+ {
+  "municipality": "Boyeros",
+  "zone": "Miraflores Viejos",
+  "fee": 2800,
+  "active": true
+ },
+ {
+  "municipality": "Boyeros",
+  "zone": "Mulgoba",
+  "fee": 3200,
+  "active": true
+ },
+ {
+  "municipality": "Boyeros",
+  "zone": "Nazareno",
+  "fee": 2700,
+  "active": true
+ },
+ {
+  "municipality": "Boyeros",
+  "zone": "Nueva Aurora",
+  "fee": 2700,
+  "active": true
+ },
+ {
+  "municipality": "Boyeros",
+  "zone": "Nuevo Santiago",
+  "fee": 2900,
+  "active": true
+ },
+ {
+  "municipality": "Boyeros",
+  "zone": "Panamérica",
+  "fee": 2700,
+  "active": true
+ },
+ {
+  "municipality": "Boyeros",
+  "zone": "Rancho Boyeros",
+  "fee": 3000,
+  "active": true
+ },
+ {
+  "municipality": "Boyeros",
+  "zone": "Reloj Club",
+  "fee": 1900,
+  "active": true
+ },
+ {
+  "municipality": "Boyeros",
+  "zone": "Río Cristal",
+  "fee": 2400,
+  "active": true
+ },
+ {
+  "municipality": "Boyeros",
+  "zone": "Río Verde",
+  "fee": 2600,
+  "active": true
+ },
+ {
+  "municipality": "Boyeros",
+  "zone": "Santiago de las Vegas",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "Boyeros",
+  "zone": "Sierra Maestra",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "Boyeros",
+  "zone": "Trébol",
+  "fee": 2600,
+  "active": true
+ },
+ {
+  "municipality": "Boyeros",
+  "zone": "Villa Nueva",
+  "fee": 2700,
+  "active": true
+ },
+ {
+  "municipality": "Boyeros",
+  "zone": "Wajay",
+  "fee": 2900,
+  "active": true
+ },
+ {
+  "municipality": "Centro Habana",
+  "zone": "",
+  "fee": 1600,
+  "active": true
+ },
+ {
+  "municipality": "Centro Habana",
+  "zone": "Cayo Hueso",
+  "fee": 1600,
+  "active": true
+ },
+ {
+  "municipality": "Centro Habana",
+  "zone": "Centro Habana",
+  "fee": 1600,
+  "active": true
+ },
+ {
+  "municipality": "Centro Habana",
+  "zone": "Colón",
+  "fee": 1700,
+  "active": true
+ },
+ {
+  "municipality": "Centro Habana",
+  "zone": "Dragones (Barrio Chino)",
+  "fee": 1600,
+  "active": true
+ },
+ {
+  "municipality": "Centro Habana",
+  "zone": "Los Sitios",
+  "fee": 1600,
+  "active": true
+ },
+ {
+  "municipality": "Centro Habana",
+  "zone": "Pueblo Nuevo",
+  "fee": 1600,
+  "active": true
+ },
+ {
+  "municipality": "Cerro",
+  "zone": "",
+  "fee": 1700,
+  "active": true
+ },
+ {
+  "municipality": "Cerro",
+  "zone": "20 de Mayo",
+  "fee": 1600,
+  "active": true
+ },
+ {
+  "municipality": "Cerro",
+  "zone": "Atarés",
+  "fee": 1650,
+  "active": true
+ },
+ {
+  "municipality": "Cerro",
+  "zone": "Ayestarán",
+  "fee": 1600,
+  "active": true
+ },
+ {
+  "municipality": "Cerro",
+  "zone": "Casino Deportivo",
+  "fee": 1650,
+  "active": true
+ },
+ {
+  "municipality": "Cerro",
+  "zone": "El Canal",
+  "fee": 1650,
+  "active": true
+ },
+ {
+  "municipality": "Cerro",
+  "zone": "El Cerro",
+  "fee": 1700,
+  "active": true
+ },
+ {
+  "municipality": "Cerro",
+  "zone": "Esquina de Tejas",
+  "fee": 1650,
+  "active": true
+ },
+ {
+  "municipality": "Cerro",
+  "zone": "Las Cañas",
+  "fee": 1700,
+  "active": true
+ },
+ {
+  "municipality": "Cerro",
+  "zone": "Palatino",
+  "fee": 1650,
+  "active": true
+ },
+ {
+  "municipality": "Cerro",
+  "zone": "Puentes Grandes",
+  "fee": 1600,
+  "active": true
+ },
+ {
+  "municipality": "Cerro",
+  "zone": "Reparto Martí",
+  "fee": 1700,
+  "active": true
+ },
+ {
+  "municipality": "Cotorro",
+  "zone": "",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "Cotorro",
+  "zone": "Alberro",
+  "fee": 3600,
+  "active": true
+ },
+ {
+  "municipality": "Cotorro",
+  "zone": "Alberro Nuevo",
+  "fee": 3600,
+  "active": true
+ },
+ {
+  "municipality": "Cotorro",
+  "zone": "Alberro Viejo",
+  "fee": 3600,
+  "active": true
+ },
+ {
+  "municipality": "Cotorro",
+  "zone": "Alturas de Lotería",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "Cotorro",
+  "zone": "Bello Palmar",
+  "fee": 3300,
+  "active": true
+ },
+ {
+  "municipality": "Cotorro",
+  "zone": "Blanco",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "Cotorro",
+  "zone": "Cotorro",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "Cotorro",
+  "zone": "Cruz Verde",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "Cotorro",
+  "zone": "Cuatro Caminos",
+  "fee": 4000,
+  "active": true
+ },
+ {
+  "municipality": "Cotorro",
+  "zone": "Dulce Nombre",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "Cotorro",
+  "zone": "El Águila Hatuey",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "Cotorro",
+  "zone": "El Cafetal",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "Cotorro",
+  "zone": "El Dique",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "Cotorro",
+  "zone": "Finca Los Espiritistas",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "Cotorro",
+  "zone": "La Caridad",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "Cotorro",
+  "zone": "La Coubre",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "Cotorro",
+  "zone": "La Gomera",
+  "fee": 3000,
+  "active": true
+ },
+ {
+  "municipality": "Cotorro",
+  "zone": "La Granada",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "Cotorro",
+  "zone": "La Guarapeta",
+  "fee": 3700,
+  "active": true
+ },
+ {
+  "municipality": "Cotorro",
+  "zone": "La Lima",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "Cotorro",
+  "zone": "La Portada",
+  "fee": 3600,
+  "active": true
+ },
+ {
+  "municipality": "Cotorro",
+  "zone": "La Purísima",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "Cotorro",
+  "zone": "La Torre",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "Cotorro",
+  "zone": "Las Delicias",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "Cotorro",
+  "zone": "Las Granjas",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "Cotorro",
+  "zone": "Loma de Tierra",
+  "fee": 3600,
+  "active": true
+ },
+ {
+  "municipality": "Cotorro",
+  "zone": "Lotería",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "Cotorro",
+  "zone": "Magdalena",
+  "fee": 3200,
+  "active": true
+ },
+ {
+  "municipality": "Cotorro",
+  "zone": "Magdalena - Torriente",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "Cotorro",
+  "zone": "Modelo",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "Cotorro",
+  "zone": "Paraíso",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "Cotorro",
+  "zone": "Parajón",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "Cotorro",
+  "zone": "Residencial América",
+  "fee": 3100,
+  "active": true
+ },
+ {
+  "municipality": "Cotorro",
+  "zone": "Residencial Paraíso",
+  "fee": 3000,
+  "active": true
+ },
+ {
+  "municipality": "Cotorro",
+  "zone": "San Pedro",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "Cotorro",
+  "zone": "San Pedro - Centro Cotorro",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "Cotorro",
+  "zone": "Santa Ana",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "Cotorro",
+  "zone": "Santa María del Rosario",
+  "fee": 3300,
+  "active": true
+ },
+ {
+  "municipality": "Cotorro",
+  "zone": "Torriente",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "Cotorro",
+  "zone": "Vedado Cotorro",
+  "fee": 3300,
+  "active": true
+ },
+ {
+  "municipality": "Cotorro",
+  "zone": "Vista Alegre",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "Diez de Octubre",
+  "zone": "",
+  "fee": 1700,
+  "active": true
+ },
+ {
+  "municipality": "Diez de Octubre",
+  "zone": "La Lira",
+  "fee": 1650,
+  "active": true
+ },
+ {
+  "municipality": "Diez de Octubre",
+  "zone": "Lawton",
+  "fee": 2000,
+  "active": true
+ },
+ {
+  "municipality": "Diez de Octubre",
+  "zone": "Luyanó",
+  "fee": 1700,
+  "active": true
+ },
+ {
+  "municipality": "Diez de Octubre",
+  "zone": "Mónaco",
+  "fee": 1650,
+  "active": true
+ },
+ {
+  "municipality": "Diez de Octubre",
+  "zone": "Santos Suárez",
+  "fee": 1600,
+  "active": true
+ },
+ {
+  "municipality": "Diez de Octubre",
+  "zone": "Sevillano",
+  "fee": 1800,
+  "active": true
+ },
+ {
+  "municipality": "Diez de Octubre",
+  "zone": "Tamarindo",
+  "fee": 1600,
+  "active": true
+ },
+ {
+  "municipality": "Diez de Octubre",
+  "zone": "Víbora",
+  "fee": 1700,
+  "active": true
+ },
+ {
+  "municipality": "Diez de Octubre",
+  "zone": "Vista Alegre",
+  "fee": 2000,
+  "active": true
+ },
+ {
+  "municipality": "Guanabacoa",
+  "zone": "",
+  "fee": 3000,
+  "active": true
+ },
+ {
+  "municipality": "Guanabacoa",
+  "zone": "Altura de Vía Blanca",
+  "fee": 3000,
+  "active": true
+ },
+ {
+  "municipality": "Guanabacoa",
+  "zone": "Arango",
+  "fee": 3300,
+  "active": true
+ },
+ {
+  "municipality": "Guanabacoa",
+  "zone": "Aranguito",
+  "fee": 3700,
+  "active": true
+ },
+ {
+  "municipality": "Guanabacoa",
+  "zone": "Azotea",
+  "fee": 3000,
+  "active": true
+ },
+ {
+  "municipality": "Guanabacoa",
+  "zone": "Bacuranao",
+  "fee": 3000,
+  "active": true
+ },
+ {
+  "municipality": "Guanabacoa",
+  "zone": "Balero",
+  "fee": 3600,
+  "active": true
+ },
+ {
+  "municipality": "Guanabacoa",
+  "zone": "Barreras",
+  "fee": 3800,
+  "active": true
+ },
+ {
+  "municipality": "Guanabacoa",
+  "zone": "Campo Florido",
+  "fee": 3200,
+  "active": true
+ },
+ {
+  "municipality": "Guanabacoa",
+  "zone": "Chibás",
+  "fee": 3000,
+  "active": true
+ },
+ {
+  "municipality": "Guanabacoa",
+  "zone": "Cruz de Piedra",
+  "fee": 3200,
+  "active": true
+ },
+ {
+  "municipality": "Guanabacoa",
+  "zone": "D'Beche",
+  "fee": 3000,
+  "active": true
+ },
+ {
+  "municipality": "Guanabacoa",
+  "zone": "El Mikito",
+  "fee": 3000,
+  "active": true
+ },
+ {
+  "municipality": "Guanabacoa",
+  "zone": "El Roble",
+  "fee": 3400,
+  "active": true
+ },
+ {
+  "municipality": "Guanabacoa",
+  "zone": "Guanabacoa",
+  "fee": 3000,
+  "active": true
+ },
+ {
+  "municipality": "Guanabacoa",
+  "zone": "Habana Nueva",
+  "fee": 3000,
+  "active": true
+ },
+ {
+  "municipality": "Guanabacoa",
+  "zone": "La Federal",
+  "fee": 3000,
+  "active": true
+ },
+ {
+  "municipality": "Guanabacoa",
+  "zone": "La Gallega",
+  "fee": 3200,
+  "active": true
+ },
+ {
+  "municipality": "Guanabacoa",
+  "zone": "La Jata",
+  "fee": 3400,
+  "active": true
+ },
+ {
+  "municipality": "Guanabacoa",
+  "zone": "La Lima",
+  "fee": 3000,
+  "active": true
+ },
+ {
+  "municipality": "Guanabacoa",
+  "zone": "La Sepultura",
+  "fee": 3600,
+  "active": true
+ },
+ {
+  "municipality": "Guanabacoa",
+  "zone": "Minas",
+  "fee": 3400,
+  "active": true
+ },
+ {
+  "municipality": "Guanabacoa",
+  "zone": "Nalón",
+  "fee": 3400,
+  "active": true
+ },
+ {
+  "municipality": "Guanabacoa",
+  "zone": "Naranjo",
+  "fee": 3400,
+  "active": true
+ },
+ {
+  "municipality": "Guanabacoa",
+  "zone": "Reparto Mañana",
+  "fee": 3000,
+  "active": true
+ },
+ {
+  "municipality": "Guanabacoa",
+  "zone": "Reparto Vía Blanca",
+  "fee": 3600,
+  "active": true
+ },
+ {
+  "municipality": "Guanabacoa",
+  "zone": "Repollo",
+  "fee": 3700,
+  "active": true
+ },
+ {
+  "municipality": "Guanabacoa",
+  "zone": "Ricobar",
+  "fee": 3000,
+  "active": true
+ },
+ {
+  "municipality": "Guanabacoa",
+  "zone": "Rotonda de Shell",
+  "fee": 3000,
+  "active": true
+ },
+ {
+  "municipality": "Guanabacoa",
+  "zone": "Santa Fe",
+  "fee": 3300,
+  "active": true
+ },
+ {
+  "municipality": "Guanabacoa",
+  "zone": "Semáforo de Guanabacoa",
+  "fee": 3000,
+  "active": true
+ },
+ {
+  "municipality": "Guanabacoa",
+  "zone": "Villa María",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "Habana del Este",
+  "zone": "",
+  "fee": 3000,
+  "active": true
+ },
+ {
+  "municipality": "Habana del Este",
+  "zone": "Alamar",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "Habana del Este",
+  "zone": "Ampliación y alturas de Marbella",
+  "fee": 3200,
+  "active": true
+ },
+ {
+  "municipality": "Habana del Este",
+  "zone": "Antonio Guiteras",
+  "fee": 3000,
+  "active": true
+ },
+ {
+  "municipality": "Habana del Este",
+  "zone": "Bacuranao",
+  "fee": 3000,
+  "active": true
+ },
+ {
+  "municipality": "Habana del Este",
+  "zone": "Bahía",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "Habana del Este",
+  "zone": "Bajurayabo",
+  "fee": 3200,
+  "active": true
+ },
+ {
+  "municipality": "Habana del Este",
+  "zone": "Boca Ciega",
+  "fee": 4000,
+  "active": true
+ },
+ {
+  "municipality": "Habana del Este",
+  "zone": "Brisas del Mar",
+  "fee": 4500,
+  "active": true
+ },
+ {
+  "municipality": "Habana del Este",
+  "zone": "Camilo Cienfuegos",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "Habana del Este",
+  "zone": "Campo Florido",
+  "fee": 7500,
+  "active": true
+ },
+ {
+  "municipality": "Habana del Este",
+  "zone": "Celimar",
+  "fee": 4500,
+  "active": true
+ },
+ {
+  "municipality": "Habana del Este",
+  "zone": "Cojímar",
+  "fee": 3700,
+  "active": true
+ },
+ {
+  "municipality": "Habana del Este",
+  "zone": "El Trébol",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "Habana del Este",
+  "zone": "Guanabo",
+  "fee": 6000,
+  "active": true
+ },
+ {
+  "municipality": "Habana del Este",
+  "zone": "Guanabo Viejo",
+  "fee": 6000,
+  "active": true
+ },
+ {
+  "municipality": "Habana del Este",
+  "zone": "Guiteras",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "Habana del Este",
+  "zone": "Juztis",
+  "fee": 5200,
+  "active": true
+ },
+ {
+  "municipality": "Habana del Este",
+  "zone": "Mégano",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "Habana del Este",
+  "zone": "Peñas Altas",
+  "fee": 4500,
+  "active": true
+ },
+ {
+  "municipality": "Habana del Este",
+  "zone": "Playa del Este",
+  "fee": 4500,
+  "active": true
+ },
+ {
+  "municipality": "Habana del Este",
+  "zone": "Santa María",
+  "fee": 3800,
+  "active": true
+ },
+ {
+  "municipality": "Habana del Este",
+  "zone": "Santa María del Mar",
+  "fee": 4500,
+  "active": true
+ },
+ {
+  "municipality": "Habana del Este",
+  "zone": "Sibalimar",
+  "fee": 6000,
+  "active": true
+ },
+ {
+  "municipality": "Habana del Este",
+  "zone": "Tarará",
+  "fee": 5000,
+  "active": true
+ },
+ {
+  "municipality": "Habana del Este",
+  "zone": "Via Blanca",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "Habana del Este",
+  "zone": "Villa Panamericana",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "Habana del Este",
+  "zone": "Zona 1",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "Habana del Este",
+  "zone": "Zona 10",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "Habana del Este",
+  "zone": "Zona 11",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "Habana del Este",
+  "zone": "Zona 12",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "Habana del Este",
+  "zone": "Zona 13",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "Habana del Este",
+  "zone": "Zona 14",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "Habana del Este",
+  "zone": "Zona 15",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "Habana del Este",
+  "zone": "Zona 16",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "Habana del Este",
+  "zone": "Zona 17",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "Habana del Este",
+  "zone": "Zona 18",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "Habana del Este",
+  "zone": "Zona 19",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "Habana del Este",
+  "zone": "Zona 2",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "Habana del Este",
+  "zone": "Zona 20",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "Habana del Este",
+  "zone": "Zona 21",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "Habana del Este",
+  "zone": "Zona 22",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "Habana del Este",
+  "zone": "Zona 23",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "Habana del Este",
+  "zone": "Zona 24",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "Habana del Este",
+  "zone": "Zona 3",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "Habana del Este",
+  "zone": "Zona 4",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "Habana del Este",
+  "zone": "Zona 5",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "Habana del Este",
+  "zone": "Zona 6",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "Habana del Este",
+  "zone": "Zona 7",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "Habana del Este",
+  "zone": "Zona 8",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "Habana del Este",
+  "zone": "Zona 9",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "Habana Vieja",
+  "zone": "",
+  "fee": 1800,
+  "active": true
+ },
+ {
+  "municipality": "Habana Vieja",
+  "zone": "Atarés",
+  "fee": 1600,
+  "active": true
+ },
+ {
+  "municipality": "Habana Vieja",
+  "zone": "Casco Histórico",
+  "fee": 1900,
+  "active": true
+ },
+ {
+  "municipality": "Habana Vieja",
+  "zone": "Jesús María",
+  "fee": 1700,
+  "active": true
+ },
+ {
+  "municipality": "Habana Vieja",
+  "zone": "La Habana Vieja",
+  "fee": 1800,
+  "active": true
+ },
+ {
+  "municipality": "La Lisa",
+  "zone": "",
+  "fee": 3000,
+  "active": true
+ },
+ {
+  "municipality": "La Lisa",
+  "zone": "Alturas de La Lisa",
+  "fee": 2300,
+  "active": true
+ },
+ {
+  "municipality": "La Lisa",
+  "zone": "Arimao",
+  "fee": 2400,
+  "active": true
+ },
+ {
+  "municipality": "La Lisa",
+  "zone": "Arroyo Arenas",
+  "fee": 2500,
+  "active": true
+ },
+ {
+  "municipality": "La Lisa",
+  "zone": "Bello",
+  "fee": 2400,
+  "active": true
+ },
+ {
+  "municipality": "La Lisa",
+  "zone": "El Cano",
+  "fee": 2700,
+  "active": true
+ },
+ {
+  "municipality": "La Lisa",
+  "zone": "El Guatao",
+  "fee": 3300,
+  "active": true
+ },
+ {
+  "municipality": "La Lisa",
+  "zone": "El Hueco",
+  "fee": 2000,
+  "active": true
+ },
+ {
+  "municipality": "La Lisa",
+  "zone": "El Morado",
+  "fee": 3300,
+  "active": true
+ },
+ {
+  "municipality": "La Lisa",
+  "zone": "El Pedregal",
+  "fee": 2100,
+  "active": true
+ },
+ {
+  "municipality": "La Lisa",
+  "zone": "Juan de Dios",
+  "fee": 2700,
+  "active": true
+ },
+ {
+  "municipality": "La Lisa",
+  "zone": "La Concepción",
+  "fee": 2900,
+  "active": true
+ },
+ {
+  "municipality": "La Lisa",
+  "zone": "La Coronela",
+  "fee": 2400,
+  "active": true
+ },
+ {
+  "municipality": "La Lisa",
+  "zone": "La Lisa",
+  "fee": 2700,
+  "active": true
+ },
+ {
+  "municipality": "La Lisa",
+  "zone": "La Vereda",
+  "fee": 2100,
+  "active": true
+ },
+ {
+  "municipality": "La Lisa",
+  "zone": "Novia del Mediodía",
+  "fee": 3300,
+  "active": true
+ },
+ {
+  "municipality": "La Lisa",
+  "zone": "Punta Brava",
+  "fee": 3200,
+  "active": true
+ },
+ {
+  "municipality": "La Lisa",
+  "zone": "San Agustín",
+  "fee": 2500,
+  "active": true
+ },
+ {
+  "municipality": "La Lisa",
+  "zone": "UCI",
+  "fee": 3100,
+  "active": true
+ },
+ {
+  "municipality": "La Lisa",
+  "zone": "Valle Grande",
+  "fee": 3100,
+  "active": true
+ },
+ {
+  "municipality": "La Lisa",
+  "zone": "Versalles",
+  "fee": 2000,
+  "active": true
+ },
+ {
+  "municipality": "La Lisa",
+  "zone": "XX Aniversario",
+  "fee": 3000,
+  "active": true
+ },
+ {
+  "municipality": "Marianao",
+  "zone": "",
+  "fee": 2000,
+  "active": true
+ },
+ {
+  "municipality": "Marianao",
+  "zone": "Avenida 25",
+  "fee": 1900,
+  "active": true
+ },
+ {
+  "municipality": "Marianao",
+  "zone": "Avenida 35",
+  "fee": 1900,
+  "active": true
+ },
+ {
+  "municipality": "Marianao",
+  "zone": "Belén",
+  "fee": 1900,
+  "active": true
+ },
+ {
+  "municipality": "Marianao",
+  "zone": "Ceiba (Puentes Grandes)",
+  "fee": 1800,
+  "active": true
+ },
+ {
+  "municipality": "Marianao",
+  "zone": "Coco Solo",
+  "fee": 1900,
+  "active": true
+ },
+ {
+  "municipality": "Marianao",
+  "zone": "CUJAE",
+  "fee": 2000,
+  "active": true
+ },
+ {
+  "municipality": "Marianao",
+  "zone": "El Palmar",
+  "fee": 2000,
+  "active": true
+ },
+ {
+  "municipality": "Marianao",
+  "zone": "Finlay",
+  "fee": 1700,
+  "active": true
+ },
+ {
+  "municipality": "Marianao",
+  "zone": "Los Ángeles",
+  "fee": 1900,
+  "active": true
+ },
+ {
+  "municipality": "Marianao",
+  "zone": "Los Pocitos",
+  "fee": 1900,
+  "active": true
+ },
+ {
+  "municipality": "Marianao",
+  "zone": "Los Quemados",
+  "fee": 1800,
+  "active": true
+ },
+ {
+  "municipality": "Marianao",
+  "zone": "Marianao",
+  "fee": 2000,
+  "active": true
+ },
+ {
+  "municipality": "Marianao",
+  "zone": "Pogolotti",
+  "fee": 1700,
+  "active": true
+ },
+ {
+  "municipality": "Marianao",
+  "zone": "Santa Felicia",
+  "fee": 1700,
+  "active": true
+ },
+ {
+  "municipality": "Marianao",
+  "zone": "Zamora",
+  "fee": 1800,
+  "active": true
+ },
+ {
+  "municipality": "Playa",
+  "zone": "",
+  "fee": 1800,
+  "active": true
+ },
+ {
+  "municipality": "Playa",
+  "zone": "Almendares",
+  "fee": 1600,
+  "active": true
+ },
+ {
+  "municipality": "Playa",
+  "zone": "Atabey",
+  "fee": 2300,
+  "active": true
+ },
+ {
+  "municipality": "Playa",
+  "zone": "Barbosa",
+  "fee": 2700,
+  "active": true
+ },
+ {
+  "municipality": "Playa",
+  "zone": "Buenavista",
+  "fee": 1600,
+  "active": true
+ },
+ {
+  "municipality": "Playa",
+  "zone": "Cangrejera",
+  "fee": 2800,
+  "active": true
+ },
+ {
+  "municipality": "Playa",
+  "zone": "Cubanacán",
+  "fee": 1900,
+  "active": true
+ },
+ {
+  "municipality": "Playa",
+  "zone": "El Basurero",
+  "fee": 2000,
+  "active": true
+ },
+ {
+  "municipality": "Playa",
+  "zone": "El Bosque",
+  "fee": 1600,
+  "active": true
+ },
+ {
+  "municipality": "Playa",
+  "zone": "El Bote",
+  "fee": 2300,
+  "active": true
+ },
+ {
+  "municipality": "Playa",
+  "zone": "El Náutico",
+  "fee": 2000,
+  "active": true
+ },
+ {
+  "municipality": "Playa",
+  "zone": "ELAM",
+  "fee": 3000,
+  "active": true
+ },
+ {
+  "municipality": "Playa",
+  "zone": "Fanguito",
+  "fee": 1800,
+  "active": true
+ },
+ {
+  "municipality": "Playa",
+  "zone": "Flores",
+  "fee": 2200,
+  "active": true
+ },
+ {
+  "municipality": "Playa",
+  "zone": "Jaimanitas",
+  "fee": 2500,
+  "active": true
+ },
+ {
+  "municipality": "Playa",
+  "zone": "Jesús María",
+  "fee": 2000,
+  "active": true
+ },
+ {
+  "municipality": "Playa",
+  "zone": "Kholy",
+  "fee": 1600,
+  "active": true
+ },
+ {
+  "municipality": "Playa",
+  "zone": "La Ceiba",
+  "fee": 1600,
+  "active": true
+ },
+ {
+  "municipality": "Playa",
+  "zone": "La Sierra",
+  "fee": 1600,
+  "active": true
+ },
+ {
+  "municipality": "Playa",
+  "zone": "Lido",
+  "fee": 1700,
+  "active": true
+ },
+ {
+  "municipality": "Playa",
+  "zone": "Loma Tanque",
+  "fee": 2200,
+  "active": true
+ },
+ {
+  "municipality": "Playa",
+  "zone": "Los Sitios",
+  "fee": 2000,
+  "active": true
+ },
+ {
+  "municipality": "Playa",
+  "zone": "Marina Hemingway",
+  "fee": 2400,
+  "active": true
+ },
+ {
+  "municipality": "Playa",
+  "zone": "Miramar",
+  "fee": 1800,
+  "active": true
+ },
+ {
+  "municipality": "Playa",
+  "zone": "Náutico",
+  "fee": 2100,
+  "active": true
+ },
+ {
+  "municipality": "Playa",
+  "zone": "Paradero de Playa",
+  "fee": 2000,
+  "active": true
+ },
+ {
+  "municipality": "Playa",
+  "zone": "Playa",
+  "fee": 1800,
+  "active": true
+ },
+ {
+  "municipality": "Playa",
+  "zone": "Puentes Grandes",
+  "fee": 1600,
+  "active": true
+ },
+ {
+  "municipality": "Playa",
+  "zone": "Ramirito",
+  "fee": 2000,
+  "active": true
+ },
+ {
+  "municipality": "Playa",
+  "zone": "Reparto Cubanacán",
+  "fee": 1900,
+  "active": true
+ },
+ {
+  "municipality": "Playa",
+  "zone": "Reparto Juan Manuel Márquez",
+  "fee": 2800,
+  "active": true
+ },
+ {
+  "municipality": "Playa",
+  "zone": "Romerillo",
+  "fee": 1800,
+  "active": true
+ },
+ {
+  "municipality": "Playa",
+  "zone": "Santa Fe",
+  "fee": 2800,
+  "active": true
+ },
+ {
+  "municipality": "Playa",
+  "zone": "Siboney",
+  "fee": 2300,
+  "active": true
+ },
+ {
+  "municipality": "Plaza de la Revolución",
+  "zone": "",
+  "fee": 1500,
+  "active": true
+ },
+ {
+  "municipality": "Plaza de la Revolución",
+  "zone": "El Vedado",
+  "fee": 1500,
+  "active": true
+ },
+ {
+  "municipality": "Plaza de la Revolución",
+  "zone": "Nuevo Vedado",
+  "fee": 1500,
+  "active": true
+ },
+ {
+  "municipality": "Plaza de la Revolución",
+  "zone": "Plaza",
+  "fee": 1600,
+  "active": true
+ },
+ {
+  "municipality": "Plaza de la Revolución",
+  "zone": "Príncipe",
+  "fee": 1700,
+  "active": true
+ },
+ {
+  "municipality": "Plaza de la Revolución",
+  "zone": "Puentes Grandes",
+  "fee": 1700,
+  "active": true
+ },
+ {
+  "municipality": "Regla",
+  "zone": "",
+  "fee": 3100,
+  "active": true
+ },
+ {
+  "municipality": "Regla",
+  "zone": "Casablanca",
+  "fee": 4500,
+  "active": true
+ },
+ {
+  "municipality": "Regla",
+  "zone": "Regla",
+  "fee": 3100,
+  "active": true
+ },
+ {
+  "municipality": "San Miguel del Padrón",
+  "zone": "",
+  "fee": 3700,
+  "active": true
+ },
+ {
+  "municipality": "San Miguel del Padrón",
+  "zone": "Alturas de Luyanó",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "San Miguel del Padrón",
+  "zone": "Balear",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "San Miguel del Padrón",
+  "zone": "Barrio Obrero",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "San Miguel del Padrón",
+  "zone": "Bella Vista",
+  "fee": 3700,
+  "active": true
+ },
+ {
+  "municipality": "San Miguel del Padrón",
+  "zone": "Caballo Blanco",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "San Miguel del Padrón",
+  "zone": "California",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "San Miguel del Padrón",
+  "zone": "Ciudamar",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "San Miguel del Padrón",
+  "zone": "Diezmero",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "San Miguel del Padrón",
+  "zone": "Doble Vía",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "San Miguel del Padrón",
+  "zone": "Dolores",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "San Miguel del Padrón",
+  "zone": "Jacomino",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "San Miguel del Padrón",
+  "zone": "Juanelo",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "San Miguel del Padrón",
+  "zone": "La Corea",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "San Miguel del Padrón",
+  "zone": "La Cuevita",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "San Miguel del Padrón",
+  "zone": "La Cumbre",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "San Miguel del Padrón",
+  "zone": "La Fernanda",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "San Miguel del Padrón",
+  "zone": "La Prosperidad",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "San Miguel del Padrón",
+  "zone": "La Rosalía",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "San Miguel del Padrón",
+  "zone": "La Rosita",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "San Miguel del Padrón",
+  "zone": "Las Palmas",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "San Miguel del Padrón",
+  "zone": "María Luisa",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "San Miguel del Padrón",
+  "zone": "Mirta",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "San Miguel del Padrón",
+  "zone": "Monterrey",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "San Miguel del Padrón",
+  "zone": "Reboledo",
+  "fee": 3900,
+  "active": true
+ },
+ {
+  "municipality": "San Miguel del Padrón",
+  "zone": "Rocafort",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "San Miguel del Padrón",
+  "zone": "Ruta 12",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "San Miguel del Padrón",
+  "zone": "San Francisco de Paula",
+  "fee": 3700,
+  "active": true
+ },
+ {
+  "municipality": "San Miguel del Padrón",
+  "zone": "San Matías",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "San Miguel del Padrón",
+  "zone": "San Miguel",
+  "fee": 3700,
+  "active": true
+ },
+ {
+  "municipality": "San Miguel del Padrón",
+  "zone": "Tejas",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "San Miguel del Padrón",
+  "zone": "Virgen del Camino",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "San Miguel del Padrón",
+  "zone": "Vista Hermosa",
+  "fee": 3500,
+  "active": true
+ },
+ {
+  "municipality": "Habana del Este",
+  "zone": "Casa Blanca",
+  "fee": 4500,
+  "active": true
+ },
+ {
+  "municipality": "Playa",
+  "zone": "Playa Baracoa",
+  "fee": 5000,
+  "active": true
+ },
+ {
+  "municipality": "Bauta",
+  "zone": "",
+  "fee": 5500,
+  "active": true
+ },
+ {
+  "municipality": "Bauta",
+  "zone": "Bauta",
+  "fee": 5500,
+  "active": true
+ },
+ {
+  "municipality": "Bauta",
+  "zone": "Playa Baracoa",
+  "fee": 5000,
+  "active": true
+ },
+ {
+  "municipality": "Mariel",
+  "zone": "",
+  "fee": 12000,
+  "active": true
+ },
+ {
+  "municipality": "Mariel",
+  "zone": "Mariel",
+  "fee": 12000,
+  "active": true
+ }
+]

@@ -1,0 +1,147 @@
+{
+ "task": "transcribe",
+ "language": "Spanish",
+ "duration": 7.616124928,
+ "text": " Pregúntale al proveedor por WhatsApp si lo tiene. Hazle una foto bonita en tu estudio de fotos. Y mándasela a tu cliente, sin decir dónde lo compras.",
+ "words": [
+  {
+   "word": "Pregúntale",
+   "start": 0.1,
+   "end": 0.4
+  },
+  {
+   "word": "al",
+   "start": 0.4,
+   "end": 0.5
+  },
+  {
+   "word": "proveedor",
+   "start": 0.5,
+   "end": 0.9
+  },
+  {
+   "word": "por",
+   "start": 0.9,
+   "end": 1.1
+  },
+  {
+   "word": "WhatsApp",
+   "start": 1.1,
+   "end": 1.4
+  },
+  {
+   "word": "si",
+   "start": 1.4,
+   "end": 1.64
+  },
+  {
+   "word": "lo",
+   "start": 1.64,
+   "end": 1.76
+  },
+  {
+   "word": "tiene.",
+   "start": 1.76,
+   "end": 2.22
+  },
+  {
+   "word": "Hazle",
+   "start": 2.22,
+   "end": 2.32
+  },
+  {
+   "word": "una",
+   "start": 2.32,
+   "end": 2.48
+  },
+  {
+   "word": "foto",
+   "start": 2.48,
+   "end": 2.76
+  },
+  {
+   "word": "bonita",
+   "start": 2.76,
+   "end": 3.08
+  },
+  {
+   "word": "en",
+   "start": 3.08,
+   "end": 3.28
+  },
+  {
+   "word": "tu",
+   "start": 3.28,
+   "end": 3.38
+  },
+  {
+   "word": "estudio",
+   "start": 3.38,
+   "end": 3.68
+  },
+  {
+   "word": "de",
+   "start": 3.68,
+   "end": 3.82
+  },
+  {
+   "word": "fotos.",
+   "start": 3.82,
+   "end": 4.46
+  },
+  {
+   "word": "Y",
+   "start": 4.46,
+   "end": 4.66
+  },
+  {
+   "word": "mándasela",
+   "start": 4.66,
+   "end": 4.98
+  },
+  {
+   "word": "a",
+   "start": 4.98,
+   "end": 5.12
+  },
+  {
+   "word": "tu",
+   "start": 5.12,
+   "end": 5.24
+  },
+  {
+   "word": "cliente,",
+   "start": 5.24,
+   "end": 5.7
+  },
+  {
+   "word": "sin",
+   "start": 5.7,
+   "end": 5.96
+  },
+  {
+   "word": "decir",
+   "start": 5.96,
+   "end": 6.32
+  },
+  {
+   "word": "dónde",
+   "start": 6.32,
+   "end": 6.8
+  },
+  {
+   "word": "lo",
+   "start": 6.8,
+   "end": 6.94
+  },
+  {
+   "word": "compras.",
+   "start": 6.94,
+   "end": 7.82
+  }
+ ],
+ "segments": null,
+ "x_groq": {
+  "id": "req_01m532jn7ze1tbrx0785bkwbpb"
+ }
+}

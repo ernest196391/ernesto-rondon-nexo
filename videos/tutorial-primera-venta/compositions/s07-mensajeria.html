@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #s07-mensajeria-root { position: absolute; inset: 0; }
+
+        #s07-badge { position: absolute; right: 26px; top: 906px; padding: 12px 24px; border-radius: 999px; background: #0f3d3e; color: #f6f1e6; font-weight: 800; font-size: 30px; box-shadow: 0 10px 24px rgba(15, 61, 62, 0.28); opacity: 0; }
+      </style>
+      <div id="s07-mensajeria-root" data-composition-id="s07-mensajeria" data-width="1080" data-height="1920">
+<div class="cap" id="s07-mensajeria-c0"><span class="ci">El precio sale <span class="k">solito</span></span></div>
+<div class="scr" id="s07-mensajeria-scr"><div class="sb" id="s07-mensajeria-sb"><span>10:24</span><span class="sb-icons"><span class="sb-bar" style="height:9px"></span><span class="sb-bar" style="height:13px"></span><span class="sb-bar" style="height:17px"></span><span class="sb-batt"></span></span></div>
+<img class="shot" id="s07-mensajeria-s0" src="assets/screens/h07-municipio.jpg" alt="" />
+<div class="hl" id="s07-mensajeria-h0" style="left:19px;top:491px;width:582px;height:71px"></div>
+<div class="hl" id="s07-mensajeria-h1" style="left:19px;top:637px;width:582px;height:90px"></div>
+<div class="hl" id="s07-mensajeria-h2" style="left:15px;top:744px;width:590px;height:149px"></div>
+<div id="s07-badge">Sale solo ✓</div></div>
+      </div>
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          tl.fromTo("#s07-mensajeria-scr", { opacity: 0 }, { opacity: 1, duration: 0.2, ease: "power1.out" }, 0);
+          tl.fromTo("#s07-mensajeria-c0", { opacity: 0, y: 34 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 0.1);
+          tl.fromTo("#s07-mensajeria-c0", { opacity: 1 }, { opacity: 0, duration: 0.22, ease: "power2.in", immediateRender: false }, 4.9);
+          tl.fromTo("#s07-mensajeria-c0 .k", { backgroundSize: "0% 100%" }, { backgroundSize: "100% 100%", duration: 0.45, ease: "power2.out" }, 0.45);
+          tl.fromTo("#s07-mensajeria-h0", { opacity: 0, scale: 1.08 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }, 0.85);
+          tl.fromTo("#s07-mensajeria-h0", { opacity: 1 }, { opacity: 0, duration: 0.25, ease: "power1.in", immediateRender: false }, 2.75);
+          tl.fromTo("#s07-mensajeria-h1", { opacity: 0, scale: 1.08 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }, 1.8);
+          tl.fromTo("#s07-mensajeria-h1", { opacity: 1 }, { opacity: 0, duration: 0.25, ease: "power1.in", immediateRender: false }, 2.75);
+          tl.fromTo("#s07-mensajeria-h2", { opacity: 0, scale: 1.08 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }, 2.9);
+          tl.fromTo("#s07-mensajeria-h2", { opacity: 1 }, { opacity: 0, duration: 0.25, ease: "power1.in", immediateRender: false }, 4.88);
+          
+          tl.fromTo("#s07-mensajeria-h2", { boxShadow: "0 0 0 0 rgba(163,90,36,0.5)" }, { boxShadow: "0 0 0 22px rgba(163,90,36,0)", duration: 0.8, ease: "power2.out", immediateRender: false }, 3.3);
+          tl.fromTo("#s07-badge", { opacity: 0, scale: 0.5, y: 20 }, { opacity: 1, scale: 1, y: 0, duration: 0.45, ease: "back.out(1.8)" }, 4.0);
+          window.__timelines["s07-mensajeria"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

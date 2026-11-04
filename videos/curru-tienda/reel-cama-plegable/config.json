@@ -1,0 +1,32 @@
+{
+ "salida": "casa-viva-reel-cama-plegable.mp4",
+ "fuentes": {
+  "B": "00-arranque-b-gancho.png",
+  "e1": "10-escena1-v1.mp4",
+  "e2": "20-escena2-v1.mp4"
+ },
+ "ganchoRecorte": { "zoom": 1.1, "cx": 0.5, "cy": 0.55 },
+ "planos": [
+  { "src": "B",  "de": 0,     "a": 1.5,   "vel": 1,   "z": [1.0, 1.07], "f": [0.5, 0.25], "que": "GANCHO congelado: Prosko en el aire sobre la cama cerrada (zoom lento hacia dentro)" },
+  { "src": "e1", "de": 0.35,  "a": 3.0,   "vel": 1,   "z": [1.0, 1.06], "f": [0.3, 0.25], "que": "plano medio: Cúrru al teléfono, tranquila; Prosko al fondo en el banquito" },
+  { "src": "e1", "de": 3.0,   "a": 4.75,  "vel": 1,   "z": [1.04, 1.12], "f": [0.5, 0.42], "que": "primer plano: «¡Súper Prosko!»" },
+  { "src": "e1", "de": 5.3,   "a": 7.25,  "vel": 1,   "z": [1.0, 1.06], "f": [0.5, 0.6], "que": "detalle de las manos: sin colgar ni mirar, abre la cama («clac»)" },
+  { "src": "e1", "de": 7.75,  "a": 8.65,  "vel": 1,   "z": [1.0, 1.12], "f": [0.62, 0.35], "que": "plano general: se agacha para saltar — corte justo antes de caer" },
+  { "src": "e2", "de": 0.15,  "a": 1.25,  "vel": 0.6, "z": [1.1, 1.0], "f": [0.5, 0.42], "que": "desde arriba, cámara lenta: cae en la cama abierta, el cojín sale volando" },
+  { "src": "e2", "de": 2.3,   "a": 3.667, "vel": 1,   "z": [1.0, 1.06], "f": [0.62, 0.62], "que": "plano medio: boca arriba, pulgar arriba" },
+  { "src": "e2", "de": 3.667, "a": 5.92,  "vel": 1,   "z": [1.0, 1.1], "f": [0.42, 0.38], "que": "primer plano de Cúrru: «…Que no, mija, aquí no pasa nada» + guiño" }
+ ],
+ "gancho": "¿Tu niño también|hace esto?",
+ "ganchoY": 839,
+ "etiqueta": { "texto": "10 SEGUNDOS ANTES", "de": 1.5, "a": 3.0, "y": 1100 },
+ "frase": { "texto": "Sin colgar. Sin mirar.", "de": 5.95, "a": 7.55, "y": 430 },
+ "subs": [
+  { "src": "e1", "de": 0.44, "a": 1.30, "texto": "Sí, mija,", "y": 1250 },
+  { "src": "e1", "de": 1.30, "a": 3.0,  "texto": "aquí todo tranquilo…", "y": 1250 },
+  { "src": "e1", "de": 3.44, "a": 4.75, "texto": "¡Súper Prosko!", "y": 1430, "grande": true },
+  { "src": "e2", "de": 4.10, "a": 4.96, "texto": "…Que no, mija,", "y": 1310 },
+  { "src": "e2", "de": 4.96, "a": 5.92, "texto": "aquí no pasa nada.", "y": 1310 }
+ ],
+ "logoY": 1425,
+ "logoDur": 1.5
+}

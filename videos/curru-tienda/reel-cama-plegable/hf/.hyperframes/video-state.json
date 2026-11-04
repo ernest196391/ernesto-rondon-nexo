@@ -1,0 +1,82 @@
+{
+  "version": 1,
+  "historyId": "256b0b63-2601-4a59-b1b3-86534afeea3a",
+  "currentRevision": null,
+  "pendingChanges": false,
+  "files": {
+    "assets/etiqueta.png": {
+      "hash": "c28377e5e0c287929f6481554b2de7f929364f70c37ec6435c1cb180786a3243",
+      "content": "C:\\Users\\Ernesto\\.cache\\hyperframes\\history\\256b0b63-2601-4a59-b1b3-86534afeea3a\\blobs\\c2\\c28377e5e0c287929f6481554b2de7f929364f70c37ec6435c1cb180786a3243"
+    },
+    "assets/frase.png": {
+      "hash": "d34ff721a019438a498e95eb69445bc0c58760d408f2fc697781d9f0401344df",
+      "content": "C:\\Users\\Ernesto\\.cache\\hyperframes\\history\\256b0b63-2601-4a59-b1b3-86534afeea3a\\blobs\\d3\\d34ff721a019438a498e95eb69445bc0c58760d408f2fc697781d9f0401344df"
+    },
+    "assets/gancho.png": {
+      "hash": "5c5c39e55dfa91c97819ba3e1f2a485dd5ee5a436854e133125471ab8e5ec2d5",
+      "content": "C:\\Users\\Ernesto\\.cache\\hyperframes\\history\\256b0b63-2601-4a59-b1b3-86534afeea3a\\blobs\\5c\\5c5c39e55dfa91c97819ba3e1f2a485dd5ee5a436854e133125471ab8e5ec2d5"
+    },
+    "assets/logo.png": {
+      "hash": "9b221ea83995f58e915cd27f009654ffd3dba23ba21d149b2b830168d9b0f30d",
+      "content": "C:\\Users\\Ernesto\\.cache\\hyperframes\\history\\256b0b63-2601-4a59-b1b3-86534afeea3a\\blobs\\9b\\9b221ea83995f58e915cd27f009654ffd3dba23ba21d149b2b830168d9b0f30d"
+    },
+    "assets/sub-01.png": {
+      "hash": "7359d246b0a43b3a6b369fa41b73b4078fd4ccb7b9152ff0fe801279dcfafdb3",
+      "content": "C:\\Users\\Ernesto\\.cache\\hyperframes\\history\\256b0b63-2601-4a59-b1b3-86534afeea3a\\blobs\\73\\7359d246b0a43b3a6b369fa41b73b4078fd4ccb7b9152ff0fe801279dcfafdb3"
+    },
+    "assets/sub-02.png": {
+      "hash": "b07f4c895e8f5a68b0bf4721c54be218fbd70f4bb71ad21ec1ed7cf563427f27",
+      "content": "C:\\Users\\Ernesto\\.cache\\hyperframes\\history\\256b0b63-2601-4a59-b1b3-86534afeea3a\\blobs\\b0\\b07f4c895e8f5a68b0bf4721c54be218fbd70f4bb71ad21ec1ed7cf563427f27"
+    },
+    "assets/sub-03.png": {
+      "hash": "ea127af10714eeeb9fa86bdee7b6239945b1738a1592a2167f6a9a4260fe1882",
+      "content": "C:\\Users\\Ernesto\\.cache\\hyperframes\\history\\256b0b63-2601-4a59-b1b3-86534afeea3a\\blobs\\ea\\ea127af10714eeeb9fa86bdee7b6239945b1738a1592a2167f6a9a4260fe1882"
+    },
+    "assets/sub-04.png": {
+      "hash": "157c31f6bbf2a1ee8864e97d41262711ae421dc67671550866c373815105eb08",
+      "content": "C:\\Users\\Ernesto\\.cache\\hyperframes\\history\\256b0b63-2601-4a59-b1b3-86534afeea3a\\blobs\\15\\157c31f6bbf2a1ee8864e97d41262711ae421dc67671550866c373815105eb08"
+    },
+    "assets/sub-05.png": {
+      "hash": "a6d1d6577ecfae6d80b3db9464954876d0e273dcbc9d4a6cca7539c78ad30d24",
+      "content": "C:\\Users\\Ernesto\\.cache\\hyperframes\\history\\256b0b63-2601-4a59-b1b3-86534afeea3a\\blobs\\a6\\a6d1d6577ecfae6d80b3db9464954876d0e273dcbc9d4a6cca7539c78ad30d24"
+    },
+    "hyperframes.json": {
+      "hash": "9f6911a7483720a2d3f3b9953e10cce6347895b2d8693cdc70a66988b33fa22d",
+      "content": "C:\\Users\\Ernesto\\.cache\\hyperframes\\history\\256b0b63-2601-4a59-b1b3-86534afeea3a\\blobs\\9f\\9f6911a7483720a2d3f3b9953e10cce6347895b2d8693cdc70a66988b33fa22d"
+    },
+    "index.html": {
+      "hash": "a175b634055e1911ee9151178a52c7b96a2ea3a459b0745d2ea1ac4cc519d2d4",
+      "content": "C:\\Users\\Ernesto\\.cache\\hyperframes\\history\\256b0b63-2601-4a59-b1b3-86534afeea3a\\blobs\\a1\\a175b634055e1911ee9151178a52c7b96a2ea3a459b0745d2ea1ac4cc519d2d4"
+    },
+    "package.json": {
+      "hash": "82611926f4f0d216e423bc6db7d75b8e179908942781063e66ee333de27d3cd0",
+      "content": "C:\\Users\\Ernesto\\.cache\\hyperframes\\history\\256b0b63-2601-4a59-b1b3-86534afeea3a\\blobs\\82\\82611926f4f0d216e423bc6db7d75b8e179908942781063e66ee333de27d3cd0"
+    },
+    "assets/base.mp4": {
+      "hash": "52e30556570f3202454900f7ccb7a6bdbc082de8da929579960fe2f519245d09",
+      "content": "C:\\Users\\Ernesto\\.cache\\hyperframes\\history\\256b0b63-2601-4a59-b1b3-86534afeea3a\\blobs\\52\\52e30556570f3202454900f7ccb7a6bdbc082de8da929579960fe2f519245d09"
+    }
+  },
+  "revisions": {},
+  "checks": {
+    "latest": null,
+    "revisions": {},
+    "unversioned": []
+  },
+  "snapshots": {
+    "latest": null,
+    "revisions": {},
+    "unversioned": []
+  },
+  "renders": {
+    "latest": {
+      "id": "6d58c50d-d9e2-4a7f-a86f-48b570285c66",
+      "completedAt": 1792009378414,
+      "output": "C:\\Users\\Ernesto\\ernesto-rondon-nexo\\videos\\curru-tienda\\reel-cama-plegable\\hf\\renders\\v2-video.mp4",
+      "status": "completed",
+      "revision": null
+    },
+    "retainedRevisions": []
+  },
+  "pendingArtifactCleanup": []
+}

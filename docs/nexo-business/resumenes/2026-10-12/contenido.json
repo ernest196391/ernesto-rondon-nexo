@@ -1,0 +1,122 @@
+{
+  "fecha": "Lunes 12 de octubre",
+  "tarjetas": [
+    {
+      "archivo": "resumen-ernesto.png",
+      "para": "Para Ernesto",
+      "secciones": [
+        { "titulo": "Hecho hoy", "items": [
+          "11 pedidos reales · 349 USD (5 cerrados, 6 en camino o por recoger)",
+          "Mensajero preferido funcionando: Rafael eligió a Ely y Dany a Max",
+          "Bot de proveedores en vivo: ofrece «bajo pedido» y pregunta solo",
+          "Comisión en CUP con la tasa del día de la venta",
+          "La tienda ve quién lleva cada pedido · apellidos opcionales",
+          "Facebook con la marca: reel y 5 historias publicados"
+        ]},
+        { "titulo": "Incidencias", "items": [
+          "Envío #7: tu mensaje para Lennys salió a 13 desconocidos (arreglado)",
+          "OpenAI sin saldo desde las 16:37: el bot está sin IA",
+          "«Ya lo entregué» y «Pedido entregado» no contaban (arreglado)",
+          "El bot inventó 3 respuestas (ya tiene reglas nuevas)"
+        ]},
+        { "titulo": "Falta (tú)", "items": [
+          "Recargar OpenAI (lo más urgente)",
+          "Meter a Albertico en el grupo de Mensajerías",
+          "Instagram y botón de WhatsApp en Facebook",
+          "Decidir: recogidas al grupo solas y cobro de comisión por la web"
+        ]},
+        { "titulo": "Mejoras", "items": [
+          "Aviso antes de quedarnos sin saldo + IA de respaldo",
+          "Este resumen, automático cada día y por rol"
+        ]}
+      ]
+    },
+    {
+      "archivo": "resumen-lennys.png",
+      "para": "Para Lennys",
+      "secciones": [
+        { "titulo": "Hoy", "items": [
+          "11 pedidos reales · 349 USD",
+          "5 cerrados · 3 en camino · 2 para recoger · 1 para mañana",
+          "Las gestoras ya eligen mensajero y el vale le llega directo",
+          "La comisión en CUP se calcula con la tasa del día de la venta"
+        ]},
+        { "titulo": "Incidencias", "items": [
+          "Un mensaje de Ernesto salió por error a 13 personas (arreglado)",
+          "El asistente se quedó sin IA a las 16:37 (falta recargar)",
+          "Oliuska: pedidos del sistema viejo con errores (lo llevas tú)"
+        ]},
+        { "titulo": "Para decidir", "items": [
+          "¿Las recogidas salen solas en el grupo «Recogida en tienda»?",
+          "¿Las gestoras piden su comisión por la web o por WhatsApp?",
+          "La fórmula definitiva de precios para la entrada de productos"
+        ]},
+        { "titulo": "Mañana", "items": [
+          "#2968 con Ely a las 9:30 · #2970 con Max de 10 a 12",
+          "Recogidas listas: #2963 (Maura) y #2969 (María Luisa)",
+          "#2964: confirmar con Félix la entrega y el dinero"
+        ]}
+      ]
+    },
+    {
+      "archivo": "resumen-dependientas.png",
+      "para": "Para Nana y Zaymi",
+      "secciones": [
+        { "titulo": "Nuevo en la tienda", "items": [
+          "En Pedidos, cada pedido dice quién lo lleva y de qué gestora es",
+          "Si les piden una foto, mándenla: sale sola en el General",
+          "Set de alfombras de baño azul: se vendieron 2, queda 1"
+        ]},
+        { "titulo": "Mañana", "items": [
+          "Listos para recoger: #2963 (Maura) y #2969 (María Luisa)",
+          "#2968 sale con Ely a las 9:30 · #2970 con Max de 10 a 12",
+          "#2964: cuando Félix traiga el dinero, cerrar el pedido"
+        ]},
+        { "titulo": "Recuerden", "items": [
+          "Marcar «Entregado al mensajero» al dar cada paquete",
+          "El dinero de los productos llega antes de las 4:00 p. m."
+        ]},
+        { "titulo": "Gracias", "items": [
+          "Hoy se arreglaron 3 cosas que ustedes pidieron. ¡Gracias!"
+        ]}
+      ]
+    },
+    {
+      "archivo": "resumen-gestoras.png",
+      "para": "Para las gestoras",
+      "secciones": [
+        { "titulo": "Nuevo hoy", "items": [
+          "Al hacer el pedido puedes elegir mensajero: el vale le llega directo",
+          "Los apellidos del cliente ya son opcionales",
+          "Productos «bajo pedido»: te digo el precio y tu parte, y confirmo con el proveedor",
+          "Tu comisión en CUP se calcula con la tasa del día de la venta"
+        ]},
+        { "titulo": "Recuerda", "items": [
+          "Tus pedidos y comisiones: en tu área, en «Ventas»",
+          "Recogidas: por ahora ponlas también en el grupo «Recogida en tienda»",
+          "Para cobrar tu comisión, avisa a la tienda (CUP, USD o transferencia)"
+        ]},
+        { "titulo": "Aviso", "items": [
+          "Esta tarde el asistente falló un rato. Si no te responde, escribe a la tienda"
+        ]}
+      ]
+    },
+    {
+      "archivo": "resumen-mensajeros.png",
+      "para": "Para los mensajeros",
+      "secciones": [
+        { "titulo": "Nuevo hoy", "items": [
+          "Si una gestora te elige, el vale te llega directo (no sale al grupo)",
+          "Al entregar escribe «entregado». También vale «ya lo entregué»",
+          "Con varias carreras: «entregado #NÚMERO»"
+        ]},
+        { "titulo": "Recuerda", "items": [
+          "Recoges en la tienda de 10:00 a 5:00 (almuerzo de 1:00 a 1:30)",
+          "La dependienta marca «Entregado al mensajero» al darte el paquete",
+          "El dinero de los productos, en la tienda antes de las 4:00 p. m.",
+          "La mensajería es toda tuya"
+        ]}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,396 @@
+{
+ "salida": "casa-viva-reel-topper-gel.mp4",
+ "fuentes": {
+  "e1": "10-escena1-v1.mp4",
+  "e2": "20-escena2-v1.mp4"
+ },
+ "planos": [
+  {
+   "src": "e1",
+   "de": 0,
+   "a": 2,
+   "vel": 1,
+   "z": [
+    1,
+    1.08
+   ],
+   "f": [
+    0.5,
+    0.42
+   ],
+   "que": "GANCHO: se incorpora en la cama a oscuras, abanicándose con el cartón"
+  },
+  {
+   "src": "e1",
+   "de": 2,
+   "a": 3.75,
+   "vel": 1,
+   "z": [
+    1.12,
+    1.18
+   ],
+   "f": [
+    0.5,
+    0.36
+   ],
+   "que": "más cerca: «y la cama hirviendo»"
+  },
+  {
+   "src": "e1",
+   "de": 4.05,
+   "a": 5.75,
+   "vel": 1,
+   "z": [
+    1,
+    1.06
+   ],
+   "f": [
+    0.5,
+    0.45
+   ],
+   "que": "primer plano: tres dedos a cámara"
+  },
+  {
+   "src": "e1",
+   "de": 5.75,
+   "a": 7.45,
+   "vel": 1,
+   "z": [
+    1.08,
+    1
+   ],
+   "f": [
+    0.5,
+    0.4
+   ],
+   "que": "primer plano: «el tercero casi nadie lo hace»"
+  },
+  {
+   "src": "e1",
+   "de": 7.55,
+   "a": 8.55,
+   "vel": 1,
+   "z": [
+    1,
+    1.05
+   ],
+   "f": [
+    0.45,
+    0.55
+   ],
+   "que": "detalle: la mano en la sábana de algodón"
+  },
+  {
+   "src": "e1",
+   "de": 8.55,
+   "a": 10.75,
+   "vel": 1,
+   "z": [
+    1.04,
+    1.12
+   ],
+   "f": [
+    0.5,
+    0.38
+   ],
+   "que": "cara: «el poliéster guarda el calor»"
+  },
+  {
+   "src": "e1",
+   "de": 11,
+   "a": 13,
+   "vel": 1,
+   "z": [
+    1,
+    1.06
+   ],
+   "f": [
+    0.55,
+    0.5
+   ],
+   "que": "de lado: la botella congelada delante del ventilador"
+  },
+  {
+   "src": "e1",
+   "de": 13,
+   "a": 14.95,
+   "vel": 1,
+   "z": [
+    1.1,
+    1
+   ],
+   "f": [
+    0.62,
+    0.45
+   ],
+   "que": "el ventilador gira, ella aliviada"
+  },
+  {
+   "src": "e2",
+   "de": 0,
+   "a": 1.5,
+   "vel": 1,
+   "z": [
+    1,
+    1.08
+   ],
+   "f": [
+    0.3,
+    0.45
+   ],
+   "que": "Prosko con la linterna: «¿Y esto?»"
+  },
+  {
+   "src": "e2",
+   "de": 1.6,
+   "a": 3.6,
+   "vel": 1,
+   "z": [
+    1,
+    1.06
+   ],
+   "f": [
+    0.5,
+    0.5
+   ],
+   "que": "abren el plástico y desenrollan el topper"
+  },
+  {
+   "src": "e2",
+   "de": 3.6,
+   "a": 5.3,
+   "vel": 1,
+   "z": [
+    1.06,
+    1.12
+   ],
+   "f": [
+    0.5,
+    0.55
+   ],
+   "que": "el topper azul sobre la cama"
+  },
+  {
+   "src": "e2",
+   "de": 5.4,
+   "a": 8.7,
+   "vel": 1,
+   "z": [
+    1,
+    1.06
+   ],
+   "f": [
+    0.6,
+    0.5
+   ],
+   "que": "ella lo palmea: «se siente fresquito»"
+  },
+  {
+   "src": "e2",
+   "de": 9.3,
+   "a": 12.1,
+   "vel": 1,
+   "z": [
+    1,
+    1.06
+   ],
+   "f": [
+    0.5,
+    0.42
+   ],
+   "que": "desde arriba, acostados: «Comenta CALOR…»"
+  },
+  {
+   "src": "e2",
+   "de": 12.1,
+   "a": 15,
+   "vel": 1,
+   "z": [
+    1.06,
+    1.14
+   ],
+   "f": [
+    0.45,
+    0.35
+   ],
+   "que": "más cerca: «…para que a las dos ya no sudes» (bucle con el inicio)"
+  }
+ ],
+ "gancho": "POV: 2 AM|SIN CORRIENTE",
+ "ganchoY": 420,
+ "frase": {
+  "texto": "El colchón guarda|el calor del día",
+  "de": 16.95,
+  "a": 19.3,
+  "y": 430
+ },
+ "cta": {
+  "texto": "Comenta CALOR",
+  "src": "e2",
+  "de": 9.46,
+  "y": 430
+ },
+ "subs": [
+  {
+   "src": "e1",
+   "de": 0,
+   "a": 1.4,
+   "texto": "Dos de la mañana,",
+   "y": 1330
+  },
+  {
+   "src": "e1",
+   "de": 1.4,
+   "a": 2,
+   "texto": "sin corriente…",
+   "y": 1330
+  },
+  {
+   "src": "e1",
+   "de": 2.01,
+   "a": 3.72,
+   "texto": "y la cama HIRVIENDO",
+   "y": 1330,
+   "grande": true
+  },
+  {
+   "src": "e1",
+   "de": 4.2,
+   "a": 4.9,
+   "texto": "Tres trucos",
+   "y": 1330,
+   "grande": true
+  },
+  {
+   "src": "e1",
+   "de": 4.9,
+   "a": 5.75,
+   "texto": "para dormir fresca",
+   "y": 1330
+  },
+  {
+   "src": "e1",
+   "de": 5.88,
+   "a": 6.5,
+   "texto": "El tercero",
+   "y": 1330
+  },
+  {
+   "src": "e1",
+   "de": 6.5,
+   "a": 7.4,
+   "texto": "casi nadie lo hace",
+   "y": 1330
+  },
+  {
+   "src": "e1",
+   "de": 7.7,
+   "a": 8.55,
+   "texto": "1. Sábana de algodón",
+   "y": 1330
+  },
+  {
+   "src": "e1",
+   "de": 8.56,
+   "a": 9.26,
+   "texto": "1. Sábana de algodón",
+   "y": 1330
+  },
+  {
+   "src": "e1",
+   "de": 9.26,
+   "a": 9.9,
+   "texto": "El poliéster",
+   "y": 1330
+  },
+  {
+   "src": "e1",
+   "de": 9.9,
+   "a": 10.7,
+   "texto": "guarda el calor",
+   "y": 1330
+  },
+  {
+   "src": "e1",
+   "de": 11.2,
+   "a": 12.9,
+   "texto": "2. Botella congelada",
+   "y": 1330
+  },
+  {
+   "src": "e1",
+   "de": 13.01,
+   "a": 14.9,
+   "texto": "delante del ventilador",
+   "y": 1330
+  },
+  {
+   "src": "e2",
+   "de": 0,
+   "a": 0.94,
+   "texto": "¿Y esto?",
+   "y": 1330,
+   "grande": true
+  },
+  {
+   "src": "e2",
+   "de": 1.68,
+   "a": 2.7,
+   "texto": "3. El truco",
+   "y": 1330,
+   "grande": true
+  },
+  {
+   "src": "e2",
+   "de": 5.58,
+   "a": 7,
+   "texto": "Esto tiene gel",
+   "y": 1330
+  },
+  {
+   "src": "e2",
+   "de": 7,
+   "a": 8.58,
+   "texto": "y se siente fresquito",
+   "y": 1330
+  },
+  {
+   "src": "e2",
+   "de": 10.8,
+   "a": 11.6,
+   "texto": "y te digo gratis",
+   "y": 1330
+  },
+  {
+   "src": "e2",
+   "de": 11.6,
+   "a": 12.1,
+   "texto": "cómo refrescar",
+   "y": 1330
+  },
+  {
+   "src": "e2",
+   "de": 12.11,
+   "a": 12.96,
+   "texto": "tu cuarto",
+   "y": 1330
+  },
+  {
+   "src": "e2",
+   "de": 13.48,
+   "a": 14.2,
+   "texto": "para que a las dos",
+   "y": 1330
+  },
+  {
+   "src": "e2",
+   "de": 14.2,
+   "a": 14.95,
+   "texto": "ya no sudes",
+   "y": 1330,
+   "grande": true
+  }
+ ],
+ "logoY": 1425,
+ "logoDur": 1.5
+}

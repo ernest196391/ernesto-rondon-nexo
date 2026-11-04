@@ -1,0 +1,20 @@
+<!-- Tutorial «NEXO Busca»: ?s=menu abre el menú (sin pestaña activa). La barra de abajo se esconde. &dbg=1 pinta rectángulos (marco 750x1624). -->
+<style>html{scroll-behavior:auto!important}.cvga-tabbar{display:none!important}.dbgbox{position:absolute;z-index:99999;border:2px solid red;pointer-events:none;font:700 11px/1 monospace;color:#fff;background:rgba(255,0,0,.12)}.dbgbox b{position:absolute;left:0;top:-13px;background:red;padding:1px 2px;white-space:nowrap}</style><script>
+window.addEventListener('load', function () {
+  var s = (location.search.match(/s=([\w-]+)/) || [])[1] || '';
+  var dbg = /dbg=1/.test(location.search);
+  var app = document.querySelector('[data-cvga]');
+  if (s === 'menu' && app) { app.classList.add('is-open'); setTimeout(function(){ app.querySelectorAll('.is-active').forEach(function(a){a.classList.remove('is-active');}); }, 300); }
+  setTimeout(function () {
+    if (dbg) {
+      document.querySelectorAll('.cvga-nav a, .cvga-nav button, [data-cvga-open]').forEach(function (el, i) {
+        var r = el.getBoundingClientRect(); if (!r.width || r.bottom < 0 || r.top > 812) return;
+        var d = document.createElement('div'); d.className = 'dbgbox';
+        d.style.cssText = 'left:' + (r.left + window.scrollX) + 'px;top:' + (r.top + window.scrollY) + 'px;width:' + r.width + 'px;height:' + r.height + 'px';
+        d.innerHTML = '<b>' + (el.textContent || '').trim().slice(0, 12) + ' ' + [r.left, r.top, r.right, r.bottom].map(function (n) { return Math.round(n * 2); }).join(',') + '</b>';
+        document.body.appendChild(d);
+      });
+    }
+  }, 900);
+});
+</script>

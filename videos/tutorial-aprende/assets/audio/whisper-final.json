@@ -1,0 +1,957 @@
+{
+ "task": "transcribe",
+ "language": "Spanish",
+ "duration": 45.710000128,
+ "text": " ¿Te perdiste algún video? Ahora están todos juntos en tu área, en Aprende. Abre el menú y toca Aprende. Está debajo de Inicio y te dice cuántos llevas. Ahí están los videos, en orden. El que dice Te toca es el siguiente. Toca el botón redondo y el video se abre ahí mismo. No gasta datos hasta que lo tocas. Cuando terminas un video, se marca solo. Si no, toca Marcar como visto. Cambia a Ya lo vi y sube tu avance. Abajo del todo están las dudas rápidas. Toca una y te sale la respuesta. ¿No está tu duda? Escríbele al asistente por WhatsApp. Mensajeros, ustedes la tienen abajo, en la pestaña. Aprende. Dudas, escríbeme.",
+ "words": [
+  {
+   "word": "¿Te",
+   "start": 0.82,
+   "end": 0.94
+  },
+  {
+   "word": "perdiste",
+   "start": 0.94,
+   "end": 1.3
+  },
+  {
+   "word": "algún",
+   "start": 1.3,
+   "end": 1.52
+  },
+  {
+   "word": "video?",
+   "start": 1.52,
+   "end": 2.08
+  },
+  {
+   "word": "Ahora",
+   "start": 2.08,
+   "end": 2.3
+  },
+  {
+   "word": "están",
+   "start": 2.3,
+   "end": 2.54
+  },
+  {
+   "word": "todos",
+   "start": 2.54,
+   "end": 2.8
+  },
+  {
+   "word": "juntos",
+   "start": 2.8,
+   "end": 3.1
+  },
+  {
+   "word": "en",
+   "start": 3.1,
+   "end": 3.3
+  },
+  {
+   "word": "tu",
+   "start": 3.3,
+   "end": 3.44
+  },
+  {
+   "word": "área,",
+   "start": 3.44,
+   "end": 3.86
+  },
+  {
+   "word": "en",
+   "start": 3.86,
+   "end": 4.02
+  },
+  {
+   "word": "Aprende.",
+   "start": 4.02,
+   "end": 4.74
+  },
+  {
+   "word": "Abre",
+   "start": 5.56,
+   "end": 5.72
+  },
+  {
+   "word": "el",
+   "start": 5.72,
+   "end": 5.84
+  },
+  {
+   "word": "menú",
+   "start": 5.84,
+   "end": 6.16
+  },
+  {
+   "word": "y",
+   "start": 6.16,
+   "end": 6.52
+  },
+  {
+   "word": "toca",
+   "start": 6.52,
+   "end": 6.78
+  },
+  {
+   "word": "Aprende.",
+   "start": 6.78,
+   "end": 7.74
+  },
+  {
+   "word": "Está",
+   "start": 7.74,
+   "end": 7.8
+  },
+  {
+   "word": "debajo",
+   "start": 7.8,
+   "end": 8.16
+  },
+  {
+   "word": "de",
+   "start": 8.16,
+   "end": 8.36
+  },
+  {
+   "word": "Inicio",
+   "start": 8.36,
+   "end": 8.66
+  },
+  {
+   "word": "y",
+   "start": 8.66,
+   "end": 8.92
+  },
+  {
+   "word": "te",
+   "start": 8.92,
+   "end": 9.04
+  },
+  {
+   "word": "dice",
+   "start": 9.04,
+   "end": 9.26
+  },
+  {
+   "word": "cuántos",
+   "start": 9.26,
+   "end": 9.64
+  },
+  {
+   "word": "llevas.",
+   "start": 9.64,
+   "end": 10.44
+  },
+  {
+   "word": "Ahí",
+   "start": 10.74,
+   "end": 10.88
+  },
+  {
+   "word": "están",
+   "start": 10.88,
+   "end": 11.14
+  },
+  {
+   "word": "los",
+   "start": 11.14,
+   "end": 11.3
+  },
+  {
+   "word": "videos,",
+   "start": 11.3,
+   "end": 11.94
+  },
+  {
+   "word": "en",
+   "start": 11.94,
+   "end": 12.08
+  },
+  {
+   "word": "orden.",
+   "start": 12.08,
+   "end": 12.6
+  },
+  {
+   "word": "El",
+   "start": 12.6,
+   "end": 12.68
+  },
+  {
+   "word": "que",
+   "start": 12.68,
+   "end": 12.8
+  },
+  {
+   "word": "dice",
+   "start": 12.8,
+   "end": 13.12
+  },
+  {
+   "word": "Te",
+   "start": 13.12,
+   "end": 13.44
+  },
+  {
+   "word": "toca",
+   "start": 13.44,
+   "end": 13.74
+  },
+  {
+   "word": "es",
+   "start": 13.74,
+   "end": 14.08
+  },
+  {
+   "word": "el",
+   "start": 14.08,
+   "end": 14.22
+  },
+  {
+   "word": "siguiente.",
+   "start": 14.22,
+   "end": 14.94
+  },
+  {
+   "word": "Toca",
+   "start": 15.04,
+   "end": 15.16
+  },
+  {
+   "word": "el",
+   "start": 15.16,
+   "end": 15.28
+  },
+  {
+   "word": "botón",
+   "start": 15.28,
+   "end": 15.62
+  },
+  {
+   "word": "redondo",
+   "start": 15.62,
+   "end": 16.06
+  },
+  {
+   "word": "y",
+   "start": 16.06,
+   "end": 16.34
+  },
+  {
+   "word": "el",
+   "start": 16.34,
+   "end": 16.48
+  },
+  {
+   "word": "video",
+   "start": 16.48,
+   "end": 16.74
+  },
+  {
+   "word": "se",
+   "start": 16.74,
+   "end": 16.92
+  },
+  {
+   "word": "abre",
+   "start": 16.92,
+   "end": 17.1
+  },
+  {
+   "word": "ahí",
+   "start": 17.1,
+   "end": 17.38
+  },
+  {
+   "word": "mismo.",
+   "start": 17.38,
+   "end": 17.94
+  },
+  {
+   "word": "No",
+   "start": 17.94,
+   "end": 18.06
+  },
+  {
+   "word": "gasta",
+   "start": 18.06,
+   "end": 18.3
+  },
+  {
+   "word": "datos",
+   "start": 18.3,
+   "end": 18.6
+  },
+  {
+   "word": "hasta",
+   "start": 18.6,
+   "end": 18.88
+  },
+  {
+   "word": "que",
+   "start": 18.88,
+   "end": 19
+  },
+  {
+   "word": "lo",
+   "start": 19,
+   "end": 19.14
+  },
+  {
+   "word": "tocas.",
+   "start": 19.14,
+   "end": 19.44
+  },
+  {
+   "word": "Cuando",
+   "start": 20.24,
+   "end": 20.4
+  },
+  {
+   "word": "terminas",
+   "start": 20.4,
+   "end": 20.78
+  },
+  {
+   "word": "un",
+   "start": 20.78,
+   "end": 20.92
+  },
+  {
+   "word": "video,",
+   "start": 20.92,
+   "end": 21.56
+  },
+  {
+   "word": "se",
+   "start": 21.56,
+   "end": 21.74
+  },
+  {
+   "word": "marca",
+   "start": 21.74,
+   "end": 21.96
+  },
+  {
+   "word": "solo.",
+   "start": 21.96,
+   "end": 22.5
+  },
+  {
+   "word": "Si",
+   "start": 22.5,
+   "end": 22.66
+  },
+  {
+   "word": "no,",
+   "start": 22.66,
+   "end": 23.02
+  },
+  {
+   "word": "toca",
+   "start": 23.02,
+   "end": 23.28
+  },
+  {
+   "word": "Marcar",
+   "start": 23.28,
+   "end": 24
+  },
+  {
+   "word": "como",
+   "start": 24,
+   "end": 24.38
+  },
+  {
+   "word": "visto.",
+   "start": 24.38,
+   "end": 24.98
+  },
+  {
+   "word": "Cambia",
+   "start": 25,
+   "end": 25.4
+  },
+  {
+   "word": "a",
+   "start": 25.4,
+   "end": 25.7
+  },
+  {
+   "word": "Ya",
+   "start": 25.7,
+   "end": 26.04
+  },
+  {
+   "word": "lo",
+   "start": 26.04,
+   "end": 26.2
+  },
+  {
+   "word": "vi",
+   "start": 26.2,
+   "end": 26.32
+  },
+  {
+   "word": "y",
+   "start": 26.32,
+   "end": 26.68
+  },
+  {
+   "word": "sube",
+   "start": 26.68,
+   "end": 26.86
+  },
+  {
+   "word": "tu",
+   "start": 26.86,
+   "end": 27
+  },
+  {
+   "word": "avance.",
+   "start": 27,
+   "end": 27.3
+  },
+  {
+   "word": "Abajo",
+   "start": 28.06,
+   "end": 28.34
+  },
+  {
+   "word": "del",
+   "start": 28.34,
+   "end": 28.58
+  },
+  {
+   "word": "todo",
+   "start": 28.58,
+   "end": 28.8
+  },
+  {
+   "word": "están",
+   "start": 28.8,
+   "end": 29.16
+  },
+  {
+   "word": "las",
+   "start": 29.16,
+   "end": 29.34
+  },
+  {
+   "word": "dudas",
+   "start": 29.34,
+   "end": 29.64
+  },
+  {
+   "word": "rápidas.",
+   "start": 29.64,
+   "end": 30.58
+  },
+  {
+   "word": "Toca",
+   "start": 30.64,
+   "end": 30.8
+  },
+  {
+   "word": "una",
+   "start": 30.8,
+   "end": 31.02
+  },
+  {
+   "word": "y",
+   "start": 31.02,
+   "end": 31.28
+  },
+  {
+   "word": "te",
+   "start": 31.28,
+   "end": 31.4
+  },
+  {
+   "word": "sale",
+   "start": 31.4,
+   "end": 31.6
+  },
+  {
+   "word": "la",
+   "start": 31.6,
+   "end": 31.72
+  },
+  {
+   "word": "respuesta.",
+   "start": 31.72,
+   "end": 32.56
+  },
+  {
+   "word": "¿No",
+   "start": 32.58,
+   "end": 32.66
+  },
+  {
+   "word": "está",
+   "start": 32.66,
+   "end": 32.82
+  },
+  {
+   "word": "tu",
+   "start": 32.82,
+   "end": 32.96
+  },
+  {
+   "word": "duda?",
+   "start": 32.96,
+   "end": 33.52
+  },
+  {
+   "word": "Escríbele",
+   "start": 33.52,
+   "end": 33.9
+  },
+  {
+   "word": "al",
+   "start": 33.9,
+   "end": 34.02
+  },
+  {
+   "word": "asistente",
+   "start": 34.02,
+   "end": 34.4
+  },
+  {
+   "word": "por",
+   "start": 34.4,
+   "end": 34.58
+  },
+  {
+   "word": "WhatsApp.",
+   "start": 34.58,
+   "end": 34.86
+  },
+  {
+   "word": "Mensajeros,",
+   "start": 35.68,
+   "end": 36.58
+  },
+  {
+   "word": "ustedes",
+   "start": 36.58,
+   "end": 36.82
+  },
+  {
+   "word": "la",
+   "start": 36.82,
+   "end": 36.94
+  },
+  {
+   "word": "tienen",
+   "start": 36.94,
+   "end": 37.14
+  },
+  {
+   "word": "abajo,",
+   "start": 37.14,
+   "end": 37.68
+  },
+  {
+   "word": "en",
+   "start": 37.68,
+   "end": 37.7
+  },
+  {
+   "word": "la",
+   "start": 37.7,
+   "end": 37.8
+  },
+  {
+   "word": "pestaña.",
+   "start": 37.8,
+   "end": 38.7
+  },
+  {
+   "word": "Aprende.",
+   "start": 38.42,
+   "end": 38.8
+  },
+  {
+   "word": "Dudas,",
+   "start": 41.88,
+   "end": 42.46
+  },
+  {
+   "word": "escríbeme.",
+   "start": 42.46,
+   "end": 43.26
+  }
+ ],
+ "segments": [
+  {
+   "id": 0,
+   "seek": 0,
+   "start": 0.42,
+   "end": 4.74,
+   "text": " ¿Te perdiste algún video? Ahora están todos juntos en tu área, en Aprende.",
+   "tokens": [
+    50386,
+    3841,
+    14233,
+    12611,
+    8375,
+    26300,
+    960,
+    30,
+    18840,
+    10368,
+    6321,
+    33868,
+    465,
+    2604,
+    25701,
+    11,
+    465,
+    316,
+    3712,
+    16404,
+    13,
+    50602
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.0792153,
+   "compression_ratio": 1.5471015,
+   "no_speech_prob": 0.0030765533
+  },
+  {
+   "id": 1,
+   "seek": 0,
+   "start": 5.46,
+   "end": 9.96,
+   "text": " Abre el menú y toca Aprende. Está debajo de Inicio y te dice cuántos llevas.",
+   "tokens": [
+    50638,
+    316,
+    2672,
+    806,
+    1706,
+    2481,
+    288,
+    43514,
+    316,
+    3712,
+    16404,
+    13,
+    27304,
+    3001,
+    13440,
+    368,
+    682,
+    18322,
+    288,
+    535,
+    10313,
+    44256,
+    329,
+    12038,
+    7967,
+    13,
+    50863
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.0792153,
+   "compression_ratio": 1.5471015,
+   "no_speech_prob": 0.0030765533
+  },
+  {
+   "id": 2,
+   "seek": 0,
+   "start": 10.719999,
+   "end": 14.62,
+   "text": " Ahí están los videos, en orden. El que dice Te toca es el siguiente.",
+   "tokens": [
+    50901,
+    49924,
+    10368,
+    1750,
+    2145,
+    11,
+    465,
+    28615,
+    13,
+    2699,
+    631,
+    10313,
+    1989,
+    43514,
+    785,
+    806,
+    25666,
+    13,
+    51096
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.0792153,
+   "compression_ratio": 1.5471015,
+   "no_speech_prob": 0.0030765533
+  },
+  {
+   "id": 3,
+   "seek": 0,
+   "start": 14.96,
+   "end": 19.46,
+   "text": " Toca el botón redondo y el video se abre ahí mismo. No gasta datos hasta que lo tocas.",
+   "tokens": [
+    51113,
+    1407,
+    496,
+    806,
+    10592,
+    1801,
+    2182,
+    27720,
+    288,
+    806,
+    960,
+    369,
+    41594,
+    12571,
+    12461,
+    13,
+    883,
+    290,
+    12468,
+    27721,
+    10764,
+    631,
+    450,
+    281,
+    16369,
+    13,
+    51338
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.0792153,
+   "compression_ratio": 1.5471015,
+   "no_speech_prob": 0.0030765533
+  },
+  {
+   "id": 4,
+   "seek": 0,
+   "start": 20.22,
+   "end": 24.66,
+   "text": " Cuando terminas un video, se marca solo. Si no, toca Marcar como visto.",
+   "tokens": [
+    51376,
+    21907,
+    10761,
+    296,
+    517,
+    960,
+    11,
+    369,
+    30582,
+    6944,
+    13,
+    4909,
+    572,
+    11,
+    43514,
+    2039,
+    6166,
+    2617,
+    17558,
+    13,
+    51598
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.0792153,
+   "compression_ratio": 1.5471015,
+   "no_speech_prob": 0.0030765533
+  },
+  {
+   "id": 5,
+   "seek": 0,
+   "start": 25,
+   "end": 27.3,
+   "text": " Cambia a Ya lo vi y sube tu avance.",
+   "tokens": [
+    51615,
+    29287,
+    654,
+    257,
+    6080,
+    450,
+    1932,
+    288,
+    459,
+    650,
+    2604,
+    1305,
+    719,
+    13,
+    51730
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.0792153,
+   "compression_ratio": 1.5471015,
+   "no_speech_prob": 0.0030765533
+  },
+  {
+   "id": 6,
+   "seek": 2730,
+   "start": 27.3,
+   "end": 30.32,
+   "text": " Abajo del todo están las dudas rápidas.",
+   "tokens": [
+    50365,
+    2847,
+    13440,
+    1103,
+    5149,
+    10368,
+    2439,
+    38512,
+    296,
+    18213,
+    11382,
+    13,
+    50516
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.13830431,
+   "compression_ratio": 1.304878,
+   "no_speech_prob": 0.014503479
+  },
+  {
+   "id": 7,
+   "seek": 2730,
+   "start": 30.599998,
+   "end": 32.12,
+   "text": " Toca una y te sale la respuesta.",
+   "tokens": [
+    50530,
+    1407,
+    496,
+    2002,
+    288,
+    535,
+    8680,
+    635,
+    40585,
+    13,
+    50606
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.13830431,
+   "compression_ratio": 1.304878,
+   "no_speech_prob": 0.014503479
+  },
+  {
+   "id": 8,
+   "seek": 2730,
+   "start": 32.579998,
+   "end": 34.92,
+   "text": " ¿No está tu duda? Escríbele al asistente por WhatsApp.",
+   "tokens": [
+    50629,
+    3841,
+    4540,
+    3192,
+    2604,
+    43881,
+    30,
+    2313,
+    10757,
+    870,
+    650,
+    306,
+    419,
+    382,
+    468,
+    1576,
+    1515,
+    30513,
+    13,
+    50746
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.13830431,
+   "compression_ratio": 1.304878,
+   "no_speech_prob": 0.014503479
+  },
+  {
+   "id": 9,
+   "seek": 2730,
+   "start": 35.62,
+   "end": 38.219997,
+   "text": " Mensajeros, ustedes la tienen abajo, en la pestaña.",
+   "tokens": [
+    50781,
+    7364,
+    1805,
+    16771,
+    11,
+    17110,
+    635,
+    12536,
+    30613,
+    11,
+    465,
+    635,
+    280,
+    7841,
+    12150,
+    13,
+    50911
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.13830431,
+   "compression_ratio": 1.304878,
+   "no_speech_prob": 0.014503479
+  },
+  {
+   "id": 10,
+   "seek": 2730,
+   "start": 38.399998,
+   "end": 38.719997,
+   "text": " Aprende.",
+   "tokens": [
+    50920,
+    316,
+    3712,
+    16404,
+    13,
+    50936
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.13830431,
+   "compression_ratio": 1.304878,
+   "no_speech_prob": 0.014503479
+  },
+  {
+   "id": 11,
+   "seek": 2730,
+   "start": 41.66,
+   "end": 42.78,
+   "text": " Dudas, escríbeme.",
+   "tokens": [
+    51083,
+    42622,
+    296,
+    11,
+    4721,
+    40577,
+    65,
+    5729,
+    13,
+    51139
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.13830431,
+   "compression_ratio": 1.304878,
+   "no_speech_prob": 0.014503479
+  }
+ ],
+ "x_groq": {
+  "id": "req_01m4x63r8her9v24ye958ay9rv"
+ }
+}

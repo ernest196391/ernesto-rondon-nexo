@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #s03-producto-root { position: absolute; inset: 0; }
+
+      </style>
+      <div id="s03-producto-root" data-composition-id="s03-producto" data-width="1080" data-height="1920">
+<div class="cap" id="s03-producto-c0"><span class="ci">Elige el <span class="k">color</span></span></div>
+<div class="cap" id="s03-producto-c1"><span class="ci"><span class="k">Añadir al carrito</span></span></div>
+<div class="scr" id="s03-producto-scr"><div class="sb" id="s03-producto-sb"><span>10:24</span><span class="sb-icons"><span class="sb-bar" style="height:9px"></span><span class="sb-bar" style="height:13px"></span><span class="sb-bar" style="height:17px"></span><span class="sb-batt"></span></span></div>
+<img class="shot" id="s03-producto-s0" src="assets/screens/t02-producto.jpg" alt="" />
+<img class="shot" id="s03-producto-s1" src="assets/screens/t03-color.jpg" alt="" />
+<img class="shot" id="s03-producto-s2" src="assets/screens/t04-color-elegido.jpg" alt="" />
+<img class="shot" id="s03-producto-s3" src="assets/screens/t05-anadido.jpg" alt="" />
+<div class="hl" id="s03-producto-h0" style="left:42px;top:564px;width:536px;height:98px"></div>
+<div class="hl" id="s03-producto-h1" style="left:42px;top:925px;width:536px;height:89px"></div>
+<div class="hl" id="s03-producto-h2" style="left:12px;top:247px;width:596px;height:228px"></div>
+<div class="tap" id="s03-producto-t0" style="left:264px;top:529px"><span class="tap-dot"></span><span class="tap-ring" id="s03-producto-t0r"></span></div>
+<div class="tap" id="s03-producto-t1" style="left:264px;top:567px"><span class="tap-dot"></span><span class="tap-ring" id="s03-producto-t1r"></span></div>
+<div class="tap" id="s03-producto-t2" style="left:264px;top:923px"><span class="tap-dot"></span><span class="tap-ring" id="s03-producto-t2r"></span></div></div>
+      </div>
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          tl.fromTo("#s03-producto-scr", { opacity: 0 }, { opacity: 1, duration: 0.2, ease: "power1.out" }, 0);
+          tl.fromTo("#s03-producto-c0", { opacity: 0, y: 34 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 0.1);
+          tl.fromTo("#s03-producto-c0", { opacity: 1 }, { opacity: 0, duration: 0.22, ease: "power2.in", immediateRender: false }, 2.8);
+          tl.fromTo("#s03-producto-c0 .k", { backgroundSize: "0% 100%" }, { backgroundSize: "100% 100%", duration: 0.45, ease: "power2.out" }, 0.45);
+          tl.fromTo("#s03-producto-c1", { opacity: 0, y: 34 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 3.1);
+          tl.fromTo("#s03-producto-c1", { opacity: 1 }, { opacity: 0, duration: 0.22, ease: "power2.in", immediateRender: false }, 4.67);
+          tl.fromTo("#s03-producto-c1 .k", { backgroundSize: "0% 100%" }, { backgroundSize: "100% 100%", duration: 0.45, ease: "power2.out" }, 3.45);
+          tl.fromTo("#s03-producto-s1", { opacity: 0 }, { opacity: 1, duration: 0.25, ease: "power1.out" }, 1.3);
+          tl.fromTo("#s03-producto-s2", { opacity: 0 }, { opacity: 1, duration: 0.25, ease: "power1.out" }, 2.35);
+          tl.fromTo("#s03-producto-s3", { opacity: 0 }, { opacity: 1, duration: 0.25, ease: "power1.out" }, 3.85);
+          tl.fromTo("#s03-producto-h0", { opacity: 0, scale: 1.08 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }, 1.5);
+          tl.fromTo("#s03-producto-h0", { opacity: 1 }, { opacity: 0, duration: 0.25, ease: "power1.in", immediateRender: false }, 2.3);
+          tl.fromTo("#s03-producto-h1", { opacity: 0, scale: 1.08 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }, 2.55);
+          tl.fromTo("#s03-producto-h1", { opacity: 1 }, { opacity: 0, duration: 0.25, ease: "power1.in", immediateRender: false }, 3.75);
+          tl.fromTo("#s03-producto-h2", { opacity: 0, scale: 1.08 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }, 4.05);
+          tl.fromTo("#s03-producto-h2", { opacity: 1 }, { opacity: 0, duration: 0.25, ease: "power1.in", immediateRender: false }, 4.65);
+          tl.fromTo("#s03-producto-t0", { opacity: 0, scale: 1.5 }, { opacity: 1, scale: 1, duration: 0.25, ease: "power2.out" }, 0.45);
+          tl.fromTo("#s03-producto-t0 .tap-dot", { scale: 1 }, { scale: 0.82, duration: 0.1, ease: "power2.in", yoyo: true, repeat: 1 }, 0.75);
+          tl.fromTo("#s03-producto-t0r", { opacity: 0.9, scale: 1 }, { opacity: 0, scale: 2.1, duration: 0.5, ease: "power2.out" }, 0.75);
+          tl.fromTo("#s03-producto-t0", { opacity: 1 }, { opacity: 0, duration: 0.2, ease: "power1.in", immediateRender: false }, 1.1);
+          tl.fromTo("#s03-producto-t1", { opacity: 0, scale: 1.5 }, { opacity: 1, scale: 1, duration: 0.25, ease: "power2.out" }, 1.65);
+          tl.fromTo("#s03-producto-t1 .tap-dot", { scale: 1 }, { scale: 0.82, duration: 0.1, ease: "power2.in", yoyo: true, repeat: 1 }, 1.95);
+          tl.fromTo("#s03-producto-t1r", { opacity: 0.9, scale: 1 }, { opacity: 0, scale: 2.1, duration: 0.5, ease: "power2.out" }, 1.95);
+          tl.fromTo("#s03-producto-t1", { opacity: 1 }, { opacity: 0, duration: 0.2, ease: "power1.in", immediateRender: false }, 2.25);
+          tl.fromTo("#s03-producto-t2", { opacity: 0, scale: 1.5 }, { opacity: 1, scale: 1, duration: 0.25, ease: "power2.out" }, 3.15);
+          tl.fromTo("#s03-producto-t2 .tap-dot", { scale: 1 }, { scale: 0.82, duration: 0.1, ease: "power2.in", yoyo: true, repeat: 1 }, 3.45);
+          tl.fromTo("#s03-producto-t2r", { opacity: 0.9, scale: 1 }, { opacity: 0, scale: 2.1, duration: 0.5, ease: "power2.out" }, 3.45);
+          tl.fromTo("#s03-producto-t2", { opacity: 1 }, { opacity: 0, duration: 0.2, ease: "power1.in", immediateRender: false }, 3.75);
+          window.__timelines["s03-producto"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+
+        @font-face { font-family: "Cinzel"; src: url("assets/fonts/cinzel-600.woff2") format("woff2"); font-weight: 600; font-style: normal; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-400.woff2") format("woff2"); font-weight: 400; font-style: normal; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-500.woff2") format("woff2"); font-weight: 500; font-style: normal; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-600.woff2") format("woff2"); font-weight: 600; font-style: normal; }
+        #s02-lo-pidieron-root { position: absolute; inset: 0; }
+
+        #s02a-chat, #s02b-chat { position: absolute; left: 0; top: 0; width: 620px; height: 1388px; z-index: 10; }
+        #s02-card { z-index: 12; }
+        .vnote { min-width: 420px; }
+        .vn { display: flex; align-items: center; gap: 14px; color: #0D3B45; margin-bottom: 10px; }
+        .vn .mic { width: 34px; height: 34px; flex: 0 0 auto; }
+        .vn-wave { flex: 1 1 auto; height: 26px; border-radius: 13px; background: repeating-linear-gradient(90deg, rgba(13, 59, 69, 0.55) 0 4px, transparent 4px 9px); }
+        .vn-t { font-size: 22px; color: #6b5f57; }
+        .vn-tx { display: block; font-style: italic; font-size: 26px; color: #2B2420; }
+      </style>
+      <div id="s02-lo-pidieron-root" data-composition-id="s02-lo-pidieron" data-width="1080" data-height="1920">
+<div class="eyebrow" id="s02-lo-pidieron-eb">Nos lo dijeron</div>
+<div class="cap" id="s02-lo-pidieron-c0"><span class="ci">Nana: <span class="k">la tienda está oscura</span></span></div>
+<div class="cap" id="s02-lo-pidieron-c1"><span class="ci">Dayami: <span class="k">fotos para un cliente</span></span></div>
+<div class="cap" id="s02-lo-pidieron-c2"><span class="ci">Las <span class="k">escuchamos</span></span></div>
+<div class="scr" id="s02-lo-pidieron-scr"><div class="sb" id="s02-lo-pidieron-sb"><span>10:24</span><span class="sb-icons"><span class="sb-bar" style="height:9px"></span><span class="sb-bar" style="height:13px"></span><span class="sb-bar" style="height:17px"></span><span class="sb-batt"></span></span></div>
+
+        <div class="chat" data-layout-allow-occlusion data-layout-allow-overlap id="s02a-chat">
+          <div class="chat-head" data-layout-allow-occlusion data-layout-allow-overlap><div class="chat-sb">10:24</div><div class="avatar">N</div><div><div class="chat-title">Nana</div><div class="chat-sub">tienda Casa Viva</div></div></div>
+          <div class="chat-body"><div class="chat-col" id="s02a-col">
+            <div class="day-chip" data-layout-allow-occlusion data-layout-allow-overlap>12 oct</div>
+            <div class="bubble" data-layout-allow-occlusion data-layout-allow-overlap id="s02-a1">La tienda está oscura ahora mismo 😂<span class="time">11:08</span></div>
+            <div class="bubble vnote" data-layout-allow-occlusion data-layout-allow-overlap id="s02-a2"><span class="vn"><svg class="mic" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3" fill="currentColor"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span class="vn-wave"></span><span class="vn-t">0:09</span></span><span class="vn-tx">«…mi teléfono no tira buenas fotos, pero bueno, ya se las tiro así»</span><span class="time">11:09</span></div>
+          </div></div>
+        </div>
+        <div class="chat" data-layout-allow-occlusion data-layout-allow-overlap id="s02b-chat" style="opacity:0">
+          <div class="chat-head" data-layout-allow-occlusion data-layout-allow-overlap><div class="chat-sb">10:24</div><div class="avatar">D</div><div><div class="chat-title">Dayami</div><div class="chat-sub">gestora</div></div></div>
+          <div class="chat-body"><div class="chat-col" id="s02b-col">
+            <div class="day-chip" data-layout-allow-occlusion data-layout-allow-overlap>13 oct</div>
+            <div class="bubble" data-layout-allow-occlusion data-layout-allow-overlap id="s02-b1">Fotos de todas las cortinas de Baño para enviar a un cliente<span class="time">16:13</span></div>
+          </div></div>
+        </div>
+          <div class="card" id="s02-card" style="top:520px"><span class="card-ic">✓</span><span class="card-t"><b>Las escuchamos.</b><br>Ahora haces tú las fotos bonitas.</span></div></div>
+      </div>
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          tl.fromTo("#s02-lo-pidieron-scr", { opacity: 0, y: 160 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0);
+          tl.fromTo("#s02-lo-pidieron-eb", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.4, ease: "power3.out" }, 0.05);
+          tl.fromTo("#s02-lo-pidieron-eb", { opacity: 1 }, { opacity: 0, duration: 0.22, ease: "power1.in", immediateRender: false }, 9.78);
+          tl.fromTo("#s02-lo-pidieron-c0", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 0.15);
+          tl.fromTo("#s02-lo-pidieron-c0", { opacity: 1 }, { opacity: 0, duration: 0.22, ease: "power2.in", immediateRender: false }, 5.05);
+          tl.fromTo("#s02-lo-pidieron-c0 .k", { backgroundSize: "0% 100%" }, { backgroundSize: "100% 100%", duration: 0.45, ease: "power2.out" }, 0.5);
+          tl.fromTo("#s02-lo-pidieron-c1", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 5.25);
+          tl.fromTo("#s02-lo-pidieron-c1", { opacity: 1 }, { opacity: 0, duration: 0.22, ease: "power2.in", immediateRender: false }, 8.7);
+          tl.fromTo("#s02-lo-pidieron-c1 .k", { backgroundSize: "0% 100%" }, { backgroundSize: "100% 100%", duration: 0.45, ease: "power2.out" }, 5.6);
+          tl.fromTo("#s02-lo-pidieron-c2", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 8.9);
+          tl.fromTo("#s02-lo-pidieron-c2", { opacity: 1 }, { opacity: 0, duration: 0.22, ease: "power2.in", immediateRender: false }, 9.8);
+          tl.fromTo("#s02-lo-pidieron-c2 .k", { backgroundSize: "0% 100%" }, { backgroundSize: "100% 100%", duration: 0.45, ease: "power2.out" }, 9.25);
+          
+          tl.fromTo("#s02-a1", { opacity: 0, scale: 0.7, y: 24 }, { opacity: 1, scale: 1, y: 0, duration: 0.4, ease: "back.out(1.6)", transformOrigin: "top left" }, 0.5);
+          tl.fromTo("#s02-a2", { opacity: 0, scale: 0.7, y: 24 }, { opacity: 1, scale: 1, y: 0, duration: 0.4, ease: "back.out(1.6)", transformOrigin: "top left" }, 2.9);
+          tl.fromTo("#s02b-chat", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, 5.3);
+          tl.fromTo("#s02-b1", { opacity: 0, scale: 0.7, y: 24 }, { opacity: 1, scale: 1, y: 0, duration: 0.4, ease: "back.out(1.6)", transformOrigin: "top left" }, 5.6);
+          tl.fromTo("#s02-card", { opacity: 0, y: 40, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "back.out(1.5)" }, 8.9);
+          window.__timelines["s02-lo-pidieron"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

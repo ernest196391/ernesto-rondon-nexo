@@ -1,0 +1,23 @@
+{
+  "nota": "Lo actualiza la skill nena-hoy. ultimo_hecho = último día producido y enviado a Ernesto para aprobar.",
+  "ultimo_hecho": 2,
+  "dias": {
+    "1": {
+      "estado": "enviado_padre",
+      "fecha": "2026-10-12",
+      "creditos": 0,
+      "nota": "Presentación. Video + 5 historias + instrucciones enviados a Ernesto Padre (#885–#891) el 13-oct a petición de Ernesto.",
+      "fecha_padre": "2026-10-13"
+    },
+    "2": {
+      "estado": "enviado",
+      "fecha": "2026-10-12",
+      "creditos": 4.2,
+      "nota": "Prueba completa del sistema: foto N18 + voz (98 % Whisper) + fábrica + WhatsApp #708–#714 aceptados."
+    }
+  },
+  "pausa": {
+    "desde": "2026-10-13",
+    "motivo": "Ernesto: pausa hasta que dé dinero o haya un modo casi gratis. Tarea programada desactivada; la ejecución del día 3 se detuvo tras gastar 2 créditos (foto)."
+  }
+}

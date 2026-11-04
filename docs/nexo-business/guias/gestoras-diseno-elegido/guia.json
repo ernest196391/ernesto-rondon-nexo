@@ -1,0 +1,42 @@
+{
+  "titulo": "El diseño elegido",
+  "formato": "1080x1350",
+  "para": "Gestoras (primero Dany, después todas). Core 3.14.74, en vivo desde el 29-oct. Capturas: pasos 1-2 = área de gestora renderizada en el servidor (versión 3.14.74.2) como gestora aprobada, limpiada con limpiar.py (nombre, código y zona = 0), búsqueda «cortina alfombra», miniatura Amarillo tocada; pasos 3-4 = ficha pública en vivo https://casaviva.company/producto/set-de-cortina-de-bano-alfombra/ con el color Amarillo elegido (sin sesión, sin carrito).",
+  "mensaje": "Hola, Dany 👋 Ahora cada diseño de un producto se ve con su foto y su nombre, en la web y en tus Fotos para publicar.\nAsí el cliente recibe justo el color que quiere. Tu comisión no cambia.\nMira los pasos en las fotos 👇\nSi algo no sale, escríbeme.",
+  "pasos": [
+    {
+      "texto": "En **Fotos para publicar**, toca la foto del diseño.",
+      "resultado": "Sale **Elegiste: Amarillo** sobre la foto grande.",
+      "captura": "capturas/1-app-elegiste.png",
+      "forma": "recuadro",
+      "flecha": "abajo",
+      "zoom": 1.1,
+      "pie": "Paso 1 de 4: en Fotos para publicar, toca la foto del diseño. Arriba sale «Elegiste» con su nombre."
+    },
+    {
+      "texto": "Toca **Copiar texto**.",
+      "resultado": "El texto ya dice **Amarillo** y el enlace abre ese diseño.",
+      "captura": "capturas/2-app-copiar.png",
+      "flecha": "abajo",
+      "zoom": 1.1,
+      "pie": "Paso 2 de 4: toca Copiar texto. El texto lleva el color y el enlace abre la web con ese diseño ya elegido."
+    },
+    {
+      "texto": "En la web, elige el color en **Elige el color**.",
+      "resultado": "Sale el recuadro **ELEGISTE** con la foto de ese diseño.",
+      "captura": "capturas/3-web-color.png",
+      "flecha": "arriba",
+      "zoom": 1.1,
+      "pie": "Paso 3 de 4: en la web, elige el color. Sale el recuadro ELEGISTE con la foto de ese diseño."
+    },
+    {
+      "texto": "Mira la foto de **ELEGISTE** antes de confirmar.",
+      "resultado": "Así el cliente recibe justo lo que quiere. El vale dice **Color: Amarillo**.",
+      "ojo": "¿Ese color no tiene foto propia? Sale la foto del producto con el nombre.",
+      "captura": "capturas/4-web-elegiste.png",
+      "flecha": "abajo",
+      "zoom": 1.1,
+      "pie": "Paso 4 de 4: mira la foto de ELEGISTE antes de confirmar. Así el cliente recibe justo el diseño que quiere."
+    }
+  ]
+}

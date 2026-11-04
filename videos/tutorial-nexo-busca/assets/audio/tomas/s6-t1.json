@@ -1,0 +1,142 @@
+{
+ "task": "transcribe",
+ "language": "Spanish",
+ "duration": 8.777124864,
+ "text": " Ahora define tu precio. Sumar dólares, sumar un porcentaje o el precio final. Por ejemplo, el proveedor pide 10, tú pides 12 y ganas 2 dólares.",
+ "words": [
+  {
+   "word": "Ahora",
+   "start": 0,
+   "end": 0.28
+  },
+  {
+   "word": "define",
+   "start": 0.28,
+   "end": 0.54
+  },
+  {
+   "word": "tu",
+   "start": 0.54,
+   "end": 0.66
+  },
+  {
+   "word": "precio.",
+   "start": 0.66,
+   "end": 1.46
+  },
+  {
+   "word": "Sumar",
+   "start": 1.32,
+   "end": 1.64
+  },
+  {
+   "word": "dólares,",
+   "start": 1.64,
+   "end": 2.26
+  },
+  {
+   "word": "sumar",
+   "start": 2.26,
+   "end": 2.52
+  },
+  {
+   "word": "un",
+   "start": 2.52,
+   "end": 2.6
+  },
+  {
+   "word": "porcentaje",
+   "start": 2.6,
+   "end": 3.18
+  },
+  {
+   "word": "o",
+   "start": 3.18,
+   "end": 3.48
+  },
+  {
+   "word": "el",
+   "start": 3.48,
+   "end": 3.6
+  },
+  {
+   "word": "precio",
+   "start": 3.6,
+   "end": 3.82
+  },
+  {
+   "word": "final.",
+   "start": 3.82,
+   "end": 4.64
+  },
+  {
+   "word": "Por",
+   "start": 4.58,
+   "end": 4.66
+  },
+  {
+   "word": "ejemplo,",
+   "start": 4.66,
+   "end": 5.34
+  },
+  {
+   "word": "el",
+   "start": 5.34,
+   "end": 5.44
+  },
+  {
+   "word": "proveedor",
+   "start": 5.44,
+   "end": 5.8
+  },
+  {
+   "word": "pide",
+   "start": 5.8,
+   "end": 6.06
+  },
+  {
+   "word": "10,",
+   "start": 6.06,
+   "end": 6.54
+  },
+  {
+   "word": "tú",
+   "start": 6.54,
+   "end": 6.66
+  },
+  {
+   "word": "pides",
+   "start": 6.66,
+   "end": 6.86
+  },
+  {
+   "word": "12",
+   "start": 6.86,
+   "end": 7.16
+  },
+  {
+   "word": "y",
+   "start": 7.16,
+   "end": 7.42
+  },
+  {
+   "word": "ganas",
+   "start": 7.42,
+   "end": 7.76
+  },
+  {
+   "word": "2",
+   "start": 7.76,
+   "end": 8.06
+  },
+  {
+   "word": "dólares.",
+   "start": 8.06,
+   "end": 8.34
+  }
+ ],
+ "segments": null,
+ "x_groq": {
+  "id": "req_01m532jka8ebeaxp246y6ndrea"
+ }
+}

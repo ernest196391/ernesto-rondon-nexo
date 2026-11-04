@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      /* Abuela Nena — 5 historias del día 1 (7 s cada una; se cortan en archivos sueltos después del render)
+         Paleta: azul marino #1B2A41 · crema #F6F1E4 · rojo silbato #C8372B · verde salvia #8BA889
+         Letras: Archivo Black (marcador deportivo) + Space Mono (libreta de la maestra) */
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #1B2A41; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: #1B2A41; }
+      .clip { position: absolute; inset: 0; }
+
+      .shot { overflow: hidden; }
+      .shot .frame { position: absolute; inset: 0; transform-origin: 50% 40%; }
+      .shot img { display: block; width: 100%; height: 100%; object-fit: cover; transform-origin: 50% 35%; }
+      .shot .shade { position: absolute; inset: 0; background: radial-gradient(ellipse 130% 48% at 50% 100%, rgba(27, 42, 65, 0.7) 0%, rgba(27, 42, 65, 0.3) 55%, rgba(27, 42, 65, 0) 82%); }
+
+      .day { position: absolute; left: 70px; top: 220px; font-family: "Space Mono", monospace; font-weight: 700; font-size: 34px; letter-spacing: 0.06em; padding: 14px 24px; border-radius: 14px; background: #1B2A41; color: #F6F1E4; border: 3px solid #F6F1E4; }
+
+      .txt { position: absolute; left: 70px; right: 120px; top: 960px; display: flex; flex-wrap: wrap; align-content: flex-start; gap: 16px 14px; }
+      .t { display: inline-block; font-family: "Archivo Black", sans-serif; font-size: 96px; line-height: 1.06; letter-spacing: -0.02em; text-transform: uppercase; color: #F6F1E4; background: #1B2A41; padding: 8px 22px 12px; border-radius: 18px; }
+      .t.red { background: #C8372B; }
+      .t.xl { font-size: 128px; }
+      .t.sm { font-size: 70px; }
+      #h4 .txt { top: 880px; }
+      .sub { flex-basis: 100%; margin-top: 18px; }
+      .sub span { display: inline-block; font-family: "Space Mono", monospace; font-weight: 700; font-size: 40px; line-height: 1.3; color: #1B2A41; background: #F6F1E4; padding: 14px 22px; border-radius: 14px; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="35" data-width="1080" data-height="1920">
+
+      <!-- Historia 1 -->
+      <section id="h1" class="clip shot" data-start="0" data-duration="7" data-track-index="0">
+        <div class="frame"><img src="assets/N08-selfie-sala.png" alt="Nena habla a la cámara en su sala" /></div>
+        <div class="shade"></div>
+        <div class="day">DÍA 1</div>
+        <div class="txt">
+          <span class="t">¿Ya</span><span class="t">conoces</span><span class="t">a la</span><span class="t red">Abuela</span><span class="t red">Nena?</span>
+          <div class="sub"><span>68 años y más energía que sus nietos</span></div>
+        </div>
+      </section>
+
+      <!-- Historia 2 -->
+      <section id="h2" class="clip shot" data-start="7" data-duration="7" data-track-index="0">
+        <div class="frame"><img src="assets/N01-parque-estirando.png" alt="Nena estira en el parque al amanecer" /></div>
+        <div class="shade"></div>
+        <div class="day">DÍA 1</div>
+        <div class="txt">
+          <span class="t sm">Yo, a las</span><span class="t sm red">6:00,</span><span class="t sm">ya estoy</span><span class="t sm">en el parque.</span>
+          <span class="t xl red">¿Y tú?</span>
+          <div class="sub"><span>Respóndeme: ¿a qué hora te levantas?</span></div>
+        </div>
+      </section>
+
+      <!-- Historia 3 -->
+      <section id="h3" class="clip shot" data-start="14" data-duration="7" data-track-index="0">
+        <div class="frame"><img src="assets/N02-escalera.png" alt="Nena sube la escalera de su edificio" /></div>
+        <div class="shade"></div>
+        <div class="day">DÍA 1</div>
+        <div class="txt">
+          <span class="t xl red">4 pisos.</span><span class="t">Sin ascensor.</span><span class="t">Todos los días.</span>
+          <div class="sub"><span>Y no tengo ningún secreto raro.</span></div>
+        </div>
+      </section>
+
+      <!-- Historia 4 -->
+      <section id="h4" class="clip shot" data-start="21" data-duration="7" data-track-index="0">
+        <div class="frame"><img src="assets/N03-cafetera.png" alt="Nena sirve su café de la mañana" /></div>
+        <div class="shade"></div>
+        <div class="day">DÍA 1</div>
+        <div class="txt">
+          <span class="t">Mi cafecito</span><span class="t red">de las 7…</span>
+          <span class="t sm">pero eso no es</span><span class="t sm">lo que me da</span><span class="t sm red">energía.</span>
+          <div class="sub"><span>Mañana te cuento qué es.</span></div>
+        </div>
+      </section>
+
+      <!-- Historia 5 -->
+      <section id="h5" class="clip shot" data-start="28" data-duration="7" data-track-index="0">
+        <div class="frame"><img src="assets/N11-silbato.png" alt="Nena sopla su silbato de maestra" /></div>
+        <div class="shade"></div>
+        <div class="day">DÍA 1</div>
+        <div class="txt">
+          <span class="t">¡Mañana</span><span class="t">empieza</span><span class="t xl red">la clase!</span>
+          <div class="sub"><span>Una costumbre cada día · Sígueme</span></div>
+        </div>
+      </section>
+
+      <audio id="musica" src="assets/musica.mp3" data-start="0" data-duration="35" data-track-index="5" data-volume="0.35"></audio>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      document.querySelectorAll(".shot").forEach((shot, i) => {
+        const s = parseFloat(shot.dataset.start), d = parseFloat(shot.dataset.duration);
+        tl.fromTo(shot.querySelector(".frame"), { scale: 1.08 }, { scale: 1, duration: 0.45, ease: "power3.out" }, s);
+        tl.fromTo(shot.querySelector("img"), { scale: 1, yPercent: 0 }, { scale: 1.1, yPercent: i % 2 ? -2 : 2, duration: d, ease: "none" }, s);
+        tl.fromTo(shot.querySelector(".day"), { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, s + 0.2);
+        // Las fichas entran una tras otra; la ficha grande roja entra con golpe
+        shot.querySelectorAll(".t").forEach((t, j) => {
+          const big = t.classList.contains("xl");
+          tl.fromTo(t, { opacity: 0, y: 26, scale: big ? 0.6 : 0.88, rotation: big ? -6 : 0 },
+            { opacity: 1, y: 0, scale: 1, rotation: big ? -2 : 0, duration: big ? 0.35 : 0.2, ease: big ? "back.out(2.4)" : "back.out(2)" },
+            s + 0.5 + j * (big ? 0.45 : 0.28));
+        });
+        tl.fromTo(shot.querySelector(".sub span"), { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: 0.4, ease: "power2.out" }, s + 3.2);
+      });
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

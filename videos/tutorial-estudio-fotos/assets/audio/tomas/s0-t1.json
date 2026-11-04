@@ -1,0 +1,67 @@
+{
+ "task": "transcribe",
+ "language": "Spanish",
+ "duration": 2.879250176,
+ "text": " ¿Tu foto sale oscura o el producto sale en su caja?",
+ "words": [
+  {
+   "word": "¿Tu",
+   "start": 0.08,
+   "end": 0.2
+  },
+  {
+   "word": "foto",
+   "start": 0.2,
+   "end": 0.44
+  },
+  {
+   "word": "sale",
+   "start": 0.44,
+   "end": 0.66
+  },
+  {
+   "word": "oscura",
+   "start": 0.66,
+   "end": 1.14
+  },
+  {
+   "word": "o",
+   "start": 1.14,
+   "end": 1.36
+  },
+  {
+   "word": "el",
+   "start": 1.36,
+   "end": 1.48
+  },
+  {
+   "word": "producto",
+   "start": 1.48,
+   "end": 1.84
+  },
+  {
+   "word": "sale",
+   "start": 1.84,
+   "end": 2.1
+  },
+  {
+   "word": "en",
+   "start": 2.1,
+   "end": 2.22
+  },
+  {
+   "word": "su",
+   "start": 2.22,
+   "end": 2.36
+  },
+  {
+   "word": "caja?",
+   "start": 2.36,
+   "end": 2.62
+  }
+ ],
+ "segments": null,
+ "x_groq": {
+  "id": "req_01m535z2vfe9yajjjr9rs2nfbk"
+ }
+}

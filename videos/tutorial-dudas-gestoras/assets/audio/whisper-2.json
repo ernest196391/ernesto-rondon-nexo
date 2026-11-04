@@ -1,0 +1,1376 @@
+{
+ "task": "transcribe",
+ "language": "Spanish",
+ "duration": 67.709374464,
+ "text": " Estas son las dudas que más me preguntaron el primer día. Para entrar a tu área, escríbeme mi acceso. El enlace sirve 7 días y una sola vez. Dentro pon tu contraseña en mi perfil. Después entras con tu número de WhatsApp y esa contraseña. Tu enlace de la tienda no caduca nunca. Pídelo escribiendo mi enlace. Todo lo que compren por ahí es tuyo, sin añadir al cliente en cliente. ¿Cómo va un pedido? Escríbeme su número o mis pedidos y te digo cómo está. Y te avisamos cuando la tienda lo tiene listo, cuando lo coge un mensajero y cuando se entrega. Tienes un mensajero de confianza, en la nota del pedido pon mensajero y su nombre. En tu área la calculadora te da el precio en pesos con la tasa del día. Y si me escribes TASA DE HOY, te la mando con los datos para pagar para recoger en la tienda de 10 de la mañana a 5 de la tarde. De una a una y media es el almuerzo. Pásale a tu cliente la página Cómo Llegar. ¿Dudas? Escríbeme.",
+ "words": [
+  {
+   "word": "Estas",
+   "start": 0,
+   "end": 0.38
+  },
+  {
+   "word": "son",
+   "start": 0.38,
+   "end": 0.86
+  },
+  {
+   "word": "las",
+   "start": 0.86,
+   "end": 1.18
+  },
+  {
+   "word": "dudas",
+   "start": 1.18,
+   "end": 1.54
+  },
+  {
+   "word": "que",
+   "start": 1.54,
+   "end": 1.68
+  },
+  {
+   "word": "más",
+   "start": 1.68,
+   "end": 1.86
+  },
+  {
+   "word": "me",
+   "start": 1.86,
+   "end": 1.98
+  },
+  {
+   "word": "preguntaron",
+   "start": 1.98,
+   "end": 2.64
+  },
+  {
+   "word": "el",
+   "start": 2.64,
+   "end": 2.96
+  },
+  {
+   "word": "primer",
+   "start": 2.96,
+   "end": 3.26
+  },
+  {
+   "word": "día.",
+   "start": 3.26,
+   "end": 4.12
+  },
+  {
+   "word": "Para",
+   "start": 4.18,
+   "end": 4.32
+  },
+  {
+   "word": "entrar",
+   "start": 4.32,
+   "end": 4.62
+  },
+  {
+   "word": "a",
+   "start": 4.62,
+   "end": 4.8
+  },
+  {
+   "word": "tu",
+   "start": 4.8,
+   "end": 4.96
+  },
+  {
+   "word": "área,",
+   "start": 4.96,
+   "end": 5.8
+  },
+  {
+   "word": "escríbeme",
+   "start": 5.8,
+   "end": 6.18
+  },
+  {
+   "word": "mi",
+   "start": 6.18,
+   "end": 6.6
+  },
+  {
+   "word": "acceso.",
+   "start": 6.6,
+   "end": 7.66
+  },
+  {
+   "word": "El",
+   "start": 7.8,
+   "end": 7.94
+  },
+  {
+   "word": "enlace",
+   "start": 7.94,
+   "end": 8.32
+  },
+  {
+   "word": "sirve",
+   "start": 8.32,
+   "end": 8.8
+  },
+  {
+   "word": "7",
+   "start": 8.8,
+   "end": 9.38
+  },
+  {
+   "word": "días",
+   "start": 9.38,
+   "end": 9.78
+  },
+  {
+   "word": "y",
+   "start": 9.78,
+   "end": 10.2
+  },
+  {
+   "word": "una",
+   "start": 10.2,
+   "end": 10.4
+  },
+  {
+   "word": "sola",
+   "start": 10.4,
+   "end": 10.66
+  },
+  {
+   "word": "vez.",
+   "start": 10.66,
+   "end": 11.12
+  },
+  {
+   "word": "Dentro",
+   "start": 11.16,
+   "end": 11.48
+  },
+  {
+   "word": "pon",
+   "start": 11.48,
+   "end": 11.78
+  },
+  {
+   "word": "tu",
+   "start": 11.78,
+   "end": 11.92
+  },
+  {
+   "word": "contraseña",
+   "start": 11.92,
+   "end": 12.58
+  },
+  {
+   "word": "en",
+   "start": 12.58,
+   "end": 12.86
+  },
+  {
+   "word": "mi",
+   "start": 12.86,
+   "end": 13.02
+  },
+  {
+   "word": "perfil.",
+   "start": 13.02,
+   "end": 13.54
+  },
+  {
+   "word": "Después",
+   "start": 14.22,
+   "end": 14.52
+  },
+  {
+   "word": "entras",
+   "start": 14.52,
+   "end": 15.08
+  },
+  {
+   "word": "con",
+   "start": 15.08,
+   "end": 15.26
+  },
+  {
+   "word": "tu",
+   "start": 15.26,
+   "end": 15.4
+  },
+  {
+   "word": "número",
+   "start": 15.4,
+   "end": 15.7
+  },
+  {
+   "word": "de",
+   "start": 15.7,
+   "end": 15.92
+  },
+  {
+   "word": "WhatsApp",
+   "start": 15.92,
+   "end": 16.24
+  },
+  {
+   "word": "y",
+   "start": 16.24,
+   "end": 16.68
+  },
+  {
+   "word": "esa",
+   "start": 16.68,
+   "end": 16.88
+  },
+  {
+   "word": "contraseña.",
+   "start": 16.88,
+   "end": 18.08
+  },
+  {
+   "word": "Tu",
+   "start": 18.14,
+   "end": 18.18
+  },
+  {
+   "word": "enlace",
+   "start": 18.18,
+   "end": 18.56
+  },
+  {
+   "word": "de",
+   "start": 18.56,
+   "end": 18.72
+  },
+  {
+   "word": "la",
+   "start": 18.72,
+   "end": 18.92
+  },
+  {
+   "word": "tienda",
+   "start": 18.92,
+   "end": 19.24
+  },
+  {
+   "word": "no",
+   "start": 19.24,
+   "end": 19.64
+  },
+  {
+   "word": "caduca",
+   "start": 19.64,
+   "end": 20.3
+  },
+  {
+   "word": "nunca.",
+   "start": 20.3,
+   "end": 21.18
+  },
+  {
+   "word": "Pídelo",
+   "start": 20.86,
+   "end": 21.24
+  },
+  {
+   "word": "escribiendo",
+   "start": 21.24,
+   "end": 22.14
+  },
+  {
+   "word": "mi",
+   "start": 22.14,
+   "end": 22.52
+  },
+  {
+   "word": "enlace.",
+   "start": 22.52,
+   "end": 23.44
+  },
+  {
+   "word": "Todo",
+   "start": 23.56,
+   "end": 23.7
+  },
+  {
+   "word": "lo",
+   "start": 23.7,
+   "end": 23.88
+  },
+  {
+   "word": "que",
+   "start": 23.88,
+   "end": 24.04
+  },
+  {
+   "word": "compren",
+   "start": 24.04,
+   "end": 24.44
+  },
+  {
+   "word": "por",
+   "start": 24.44,
+   "end": 24.8
+  },
+  {
+   "word": "ahí",
+   "start": 24.8,
+   "end": 25.02
+  },
+  {
+   "word": "es",
+   "start": 25.02,
+   "end": 25.5
+  },
+  {
+   "word": "tuyo,",
+   "start": 25.5,
+   "end": 26.08
+  },
+  {
+   "word": "sin",
+   "start": 26.08,
+   "end": 26.16
+  },
+  {
+   "word": "añadir",
+   "start": 26.16,
+   "end": 26.7
+  },
+  {
+   "word": "al",
+   "start": 26.7,
+   "end": 26.86
+  },
+  {
+   "word": "cliente",
+   "start": 26.86,
+   "end": 27.28
+  },
+  {
+   "word": "en",
+   "start": 27.28,
+   "end": 27.5
+  },
+  {
+   "word": "cliente.",
+   "start": 27.5,
+   "end": 28.5
+  },
+  {
+   "word": "¿Cómo",
+   "start": 28.46,
+   "end": 28.64
+  },
+  {
+   "word": "va",
+   "start": 28.64,
+   "end": 28.8
+  },
+  {
+   "word": "un",
+   "start": 28.8,
+   "end": 28.92
+  },
+  {
+   "word": "pedido?",
+   "start": 28.92,
+   "end": 29.54
+  },
+  {
+   "word": "Escríbeme",
+   "start": 29.54,
+   "end": 30.04
+  },
+  {
+   "word": "su",
+   "start": 30.04,
+   "end": 30.22
+  },
+  {
+   "word": "número",
+   "start": 30.22,
+   "end": 30.6
+  },
+  {
+   "word": "o",
+   "start": 30.6,
+   "end": 30.98
+  },
+  {
+   "word": "mis",
+   "start": 30.98,
+   "end": 31.38
+  },
+  {
+   "word": "pedidos",
+   "start": 31.38,
+   "end": 31.86
+  },
+  {
+   "word": "y",
+   "start": 31.86,
+   "end": 32.14
+  },
+  {
+   "word": "te",
+   "start": 32.14,
+   "end": 32.26
+  },
+  {
+   "word": "digo",
+   "start": 32.26,
+   "end": 32.58
+  },
+  {
+   "word": "cómo",
+   "start": 32.58,
+   "end": 32.92
+  },
+  {
+   "word": "está.",
+   "start": 32.92,
+   "end": 33.88
+  },
+  {
+   "word": "Y",
+   "start": 33.88,
+   "end": 33.96
+  },
+  {
+   "word": "te",
+   "start": 33.96,
+   "end": 34.06
+  },
+  {
+   "word": "avisamos",
+   "start": 34.06,
+   "end": 34.6
+  },
+  {
+   "word": "cuando",
+   "start": 34.6,
+   "end": 35
+  },
+  {
+   "word": "la",
+   "start": 35,
+   "end": 35.18
+  },
+  {
+   "word": "tienda",
+   "start": 35.18,
+   "end": 35.52
+  },
+  {
+   "word": "lo",
+   "start": 35.52,
+   "end": 35.8
+  },
+  {
+   "word": "tiene",
+   "start": 35.8,
+   "end": 36.08
+  },
+  {
+   "word": "listo,",
+   "start": 36.08,
+   "end": 36.62
+  },
+  {
+   "word": "cuando",
+   "start": 36.62,
+   "end": 36.74
+  },
+  {
+   "word": "lo",
+   "start": 36.74,
+   "end": 36.92
+  },
+  {
+   "word": "coge",
+   "start": 36.92,
+   "end": 37.16
+  },
+  {
+   "word": "un",
+   "start": 37.16,
+   "end": 37.56
+  },
+  {
+   "word": "mensajero",
+   "start": 37.56,
+   "end": 38.2
+  },
+  {
+   "word": "y",
+   "start": 38.2,
+   "end": 38.42
+  },
+  {
+   "word": "cuando",
+   "start": 38.42,
+   "end": 38.74
+  },
+  {
+   "word": "se",
+   "start": 38.74,
+   "end": 38.9
+  },
+  {
+   "word": "entrega.",
+   "start": 38.9,
+   "end": 39.38
+  },
+  {
+   "word": "Tienes",
+   "start": 40.06,
+   "end": 40.24
+  },
+  {
+   "word": "un",
+   "start": 40.24,
+   "end": 40.38
+  },
+  {
+   "word": "mensajero",
+   "start": 40.38,
+   "end": 40.84
+  },
+  {
+   "word": "de",
+   "start": 40.84,
+   "end": 40.98
+  },
+  {
+   "word": "confianza,",
+   "start": 40.98,
+   "end": 41.58
+  },
+  {
+   "word": "en",
+   "start": 41.58,
+   "end": 41.66
+  },
+  {
+   "word": "la",
+   "start": 41.66,
+   "end": 41.8
+  },
+  {
+   "word": "nota",
+   "start": 41.8,
+   "end": 41.98
+  },
+  {
+   "word": "del",
+   "start": 41.98,
+   "end": 42.2
+  },
+  {
+   "word": "pedido",
+   "start": 42.2,
+   "end": 42.54
+  },
+  {
+   "word": "pon",
+   "start": 42.54,
+   "end": 42.82
+  },
+  {
+   "word": "mensajero",
+   "start": 42.82,
+   "end": 43.56
+  },
+  {
+   "word": "y",
+   "start": 43.56,
+   "end": 43.82
+  },
+  {
+   "word": "su",
+   "start": 43.82,
+   "end": 43.98
+  },
+  {
+   "word": "nombre.",
+   "start": 43.98,
+   "end": 45.04
+  },
+  {
+   "word": "En",
+   "start": 45.04,
+   "end": 45.16
+  },
+  {
+   "word": "tu",
+   "start": 45.16,
+   "end": 45.42
+  },
+  {
+   "word": "área",
+   "start": 45.42,
+   "end": 45.72
+  },
+  {
+   "word": "la",
+   "start": 45.72,
+   "end": 46.02
+  },
+  {
+   "word": "calculadora",
+   "start": 46.02,
+   "end": 46.68
+  },
+  {
+   "word": "te",
+   "start": 46.68,
+   "end": 47.02
+  },
+  {
+   "word": "da",
+   "start": 47.02,
+   "end": 47.18
+  },
+  {
+   "word": "el",
+   "start": 47.18,
+   "end": 47.5
+  },
+  {
+   "word": "precio",
+   "start": 47.5,
+   "end": 47.9
+  },
+  {
+   "word": "en",
+   "start": 47.9,
+   "end": 48.46
+  },
+  {
+   "word": "pesos",
+   "start": 48.46,
+   "end": 48.7
+  },
+  {
+   "word": "con",
+   "start": 48.7,
+   "end": 49.02
+  },
+  {
+   "word": "la",
+   "start": 49.02,
+   "end": 49.22
+  },
+  {
+   "word": "tasa",
+   "start": 49.22,
+   "end": 49.48
+  },
+  {
+   "word": "del",
+   "start": 49.48,
+   "end": 49.72
+  },
+  {
+   "word": "día.",
+   "start": 49.72,
+   "end": 50.46
+  },
+  {
+   "word": "Y",
+   "start": 50.4,
+   "end": 50.52
+  },
+  {
+   "word": "si",
+   "start": 50.52,
+   "end": 50.68
+  },
+  {
+   "word": "me",
+   "start": 50.68,
+   "end": 50.86
+  },
+  {
+   "word": "escribes",
+   "start": 50.86,
+   "end": 51.28
+  },
+  {
+   "word": "TASA",
+   "start": 51.28,
+   "end": 51.82
+  },
+  {
+   "word": "DE",
+   "start": 51.82,
+   "end": 51.98
+  },
+  {
+   "word": "HOY,",
+   "start": 51.98,
+   "end": 52.46
+  },
+  {
+   "word": "te",
+   "start": 52.46,
+   "end": 52.58
+  },
+  {
+   "word": "la",
+   "start": 52.58,
+   "end": 52.8
+  },
+  {
+   "word": "mando",
+   "start": 52.8,
+   "end": 53.12
+  },
+  {
+   "word": "con",
+   "start": 53.12,
+   "end": 53.44
+  },
+  {
+   "word": "los",
+   "start": 53.44,
+   "end": 53.64
+  },
+  {
+   "word": "datos",
+   "start": 53.64,
+   "end": 53.94
+  },
+  {
+   "word": "para",
+   "start": 53.94,
+   "end": 54.42
+  },
+  {
+   "word": "pagar",
+   "start": 54.42,
+   "end": 54.72
+  },
+  {
+   "word": "para",
+   "start": 54.72,
+   "end": 55.42
+  },
+  {
+   "word": "recoger",
+   "start": 55.42,
+   "end": 55.84
+  },
+  {
+   "word": "en",
+   "start": 55.84,
+   "end": 56.16
+  },
+  {
+   "word": "la",
+   "start": 56.16,
+   "end": 56.32
+  },
+  {
+   "word": "tienda",
+   "start": 56.32,
+   "end": 56.76
+  },
+  {
+   "word": "de",
+   "start": 56.76,
+   "end": 57.1
+  },
+  {
+   "word": "10",
+   "start": 57.1,
+   "end": 57.36
+  },
+  {
+   "word": "de",
+   "start": 57.36,
+   "end": 57.48
+  },
+  {
+   "word": "la",
+   "start": 57.48,
+   "end": 57.6
+  },
+  {
+   "word": "mañana",
+   "start": 57.6,
+   "end": 58.04
+  },
+  {
+   "word": "a",
+   "start": 58.04,
+   "end": 58.34
+  },
+  {
+   "word": "5",
+   "start": 58.34,
+   "end": 58.62
+  },
+  {
+   "word": "de",
+   "start": 58.62,
+   "end": 58.74
+  },
+  {
+   "word": "la",
+   "start": 58.74,
+   "end": 58.88
+  },
+  {
+   "word": "tarde.",
+   "start": 58.88,
+   "end": 59.74
+  },
+  {
+   "word": "De",
+   "start": 59.74,
+   "end": 59.82
+  },
+  {
+   "word": "una",
+   "start": 59.82,
+   "end": 60.3
+  },
+  {
+   "word": "a",
+   "start": 60.3,
+   "end": 60.56
+  },
+  {
+   "word": "una",
+   "start": 60.56,
+   "end": 60.9
+  },
+  {
+   "word": "y",
+   "start": 60.9,
+   "end": 61.28
+  },
+  {
+   "word": "media",
+   "start": 61.28,
+   "end": 61.66
+  },
+  {
+   "word": "es",
+   "start": 61.66,
+   "end": 61.98
+  },
+  {
+   "word": "el",
+   "start": 61.98,
+   "end": 62.14
+  },
+  {
+   "word": "almuerzo.",
+   "start": 62.14,
+   "end": 63.26
+  },
+  {
+   "word": "Pásale",
+   "start": 63.26,
+   "end": 63.56
+  },
+  {
+   "word": "a",
+   "start": 63.56,
+   "end": 63.7
+  },
+  {
+   "word": "tu",
+   "start": 63.7,
+   "end": 63.8
+  },
+  {
+   "word": "cliente",
+   "start": 63.8,
+   "end": 64.3
+  },
+  {
+   "word": "la",
+   "start": 64.3,
+   "end": 64.58
+  },
+  {
+   "word": "página",
+   "start": 64.58,
+   "end": 65
+  },
+  {
+   "word": "Cómo",
+   "start": 65,
+   "end": 65.36
+  },
+  {
+   "word": "Llegar.",
+   "start": 65.36,
+   "end": 66.04
+  },
+  {
+   "word": "¿Dudas?",
+   "start": 66.04,
+   "end": 66.66
+  },
+  {
+   "word": "Escríbeme.",
+   "start": 66.66,
+   "end": 67.74
+  }
+ ],
+ "segments": [
+  {
+   "id": 0,
+   "seek": 0,
+   "start": 0,
+   "end": 3.6399999,
+   "text": " Estas son las dudas que más me preguntaron el primer día.",
+   "tokens": [
+    50365,
+    4410,
+    296,
+    1872,
+    2439,
+    38512,
+    296,
+    631,
+    3573,
+    385,
+    19860,
+    6372,
+    806,
+    12595,
+    12271,
+    13,
+    50547
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.11604823,
+   "compression_ratio": 1.53125,
+   "no_speech_prob": 0.0005803108
+  },
+  {
+   "id": 1,
+   "seek": 0,
+   "start": 4.1,
+   "end": 7.18,
+   "text": " Para entrar a tu área, escríbeme mi acceso.",
+   "tokens": [
+    50570,
+    11107,
+    20913,
+    257,
+    2604,
+    25701,
+    11,
+    4721,
+    40577,
+    65,
+    5729,
+    2752,
+    49284,
+    13,
+    50724
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.11604823,
+   "compression_ratio": 1.53125,
+   "no_speech_prob": 0.0005803108
+  },
+  {
+   "id": 2,
+   "seek": 0,
+   "start": 7.74,
+   "end": 10.88,
+   "text": " El enlace sirve 7 días y una sola vez.",
+   "tokens": [
+    50752,
+    2699,
+    465,
+    19837,
+    4735,
+    303,
+    1614,
+    19527,
+    288,
+    2002,
+    34162,
+    5715,
+    13,
+    50909
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.11604823,
+   "compression_ratio": 1.53125,
+   "no_speech_prob": 0.0005803108
+  },
+  {
+   "id": 3,
+   "seek": 0,
+   "start": 11.139999,
+   "end": 13.559999,
+   "text": " Dentro pon tu contraseña en mi perfil.",
+   "tokens": [
+    50922,
+    41622,
+    340,
+    9224,
+    2604,
+    10273,
+    651,
+    12150,
+    465,
+    2752,
+    13826,
+    388,
+    13,
+    51043
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.11604823,
+   "compression_ratio": 1.53125,
+   "no_speech_prob": 0.0005803108
+  },
+  {
+   "id": 4,
+   "seek": 0,
+   "start": 14.099999,
+   "end": 17.6,
+   "text": " Después entras con tu número de WhatsApp y esa contraseña.",
+   "tokens": [
+    51070,
+    40995,
+    948,
+    3906,
+    416,
+    2604,
+    14959,
+    368,
+    30513,
+    288,
+    11342,
+    10273,
+    651,
+    12150,
+    13,
+    51245
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.11604823,
+   "compression_ratio": 1.53125,
+   "no_speech_prob": 0.0005803108
+  },
+  {
+   "id": 5,
+   "seek": 0,
+   "start": 17.6,
+   "end": 20.699999,
+   "text": " Tu enlace de la tienda no caduca nunca.",
+   "tokens": [
+    51245,
+    7836,
+    465,
+    19837,
+    368,
+    635,
+    256,
+    30498,
+    572,
+    12209,
+    32072,
+    13768,
+    13,
+    51400
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.11604823,
+   "compression_ratio": 1.53125,
+   "no_speech_prob": 0.0005803108
+  },
+  {
+   "id": 6,
+   "seek": 0,
+   "start": 20.9,
+   "end": 22.96,
+   "text": " Pídelo escribiendo mi enlace.",
+   "tokens": [
+    51410,
+    430,
+    24455,
+    10590,
+    30598,
+    65,
+    7304,
+    2752,
+    465,
+    19837,
+    13,
+    51513
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.11604823,
+   "compression_ratio": 1.53125,
+   "no_speech_prob": 0.0005803108
+  },
+  {
+   "id": 7,
+   "seek": 0,
+   "start": 23.519999,
+   "end": 28.019999,
+   "text": " Todo lo que compren por ahí es tuyo, sin añadir al cliente en cliente.",
+   "tokens": [
+    51541,
+    26466,
+    450,
+    631,
+    715,
+    1095,
+    1515,
+    12571,
+    785,
+    2604,
+    8308,
+    11,
+    3343,
+    44980,
+    347,
+    419,
+    6423,
+    68,
+    465,
+    6423,
+    68,
+    13,
+    51766
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.11604823,
+   "compression_ratio": 1.53125,
+   "no_speech_prob": 0.0005803108
+  },
+  {
+   "id": 8,
+   "seek": 2802,
+   "start": 28.019999,
+   "end": 39.399998,
+   "text": " ¿Cómo va un pedido? Escríbeme su número o mis pedidos y te digo cómo está. Y te avisamos cuando la tienda lo tiene listo, cuando lo coge un mensajero y cuando se entrega.",
+   "tokens": [
+    50365,
+    3841,
+    28342,
+    2773,
+    517,
+    5670,
+    2925,
+    30,
+    2313,
+    10757,
+    49662,
+    5729,
+    459,
+    14959,
+    277,
+    3346,
+    5670,
+    7895,
+    288,
+    535,
+    22990,
+    12826,
+    3192,
+    13,
+    398,
+    535,
+    34588,
+    2151,
+    7767,
+    635,
+    256,
+    30498,
+    450,
+    7066,
+    1329,
+    78,
+    11,
+    7767,
+    450,
+    598,
+    432,
+    517,
+    10923,
+    1805,
+    2032,
+    288,
+    7767,
+    369,
+    32843,
+    64,
+    13,
+    50934
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.06887278,
+   "compression_ratio": 1.5607476,
+   "no_speech_prob": 0.0007324219
+  },
+  {
+   "id": 9,
+   "seek": 2802,
+   "start": 39.879997,
+   "end": 49.98,
+   "text": " Tienes un mensajero de confianza, en la nota del pedido pon mensajero y su nombre. En tu área la calculadora te da el precio en pesos con la tasa del día.",
+   "tokens": [
+    50958,
+    314,
+    1053,
+    279,
+    517,
+    10923,
+    1805,
+    2032,
+    368,
+    49081,
+    2394,
+    11,
+    465,
+    635,
+    36192,
+    1103,
+    5670,
+    2925,
+    9224,
+    10923,
+    1805,
+    2032,
+    288,
+    459,
+    13000,
+    13,
+    2193,
+    2604,
+    25701,
+    635,
+    4322,
+    23020,
+    535,
+    1120,
+    806,
+    46916,
+    465,
+    33204,
+    416,
+    635,
+    8023,
+    64,
+    1103,
+    12271,
+    13,
+    51463
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.06887278,
+   "compression_ratio": 1.5607476,
+   "no_speech_prob": 0.0007324219
+  },
+  {
+   "id": 10,
+   "seek": 4998,
+   "start": 49.98,
+   "end": 67.259995,
+   "text": " Y si me escribes TASA DE HOY, te la mando con los datos para pagar para recoger en la tienda de 10 de la mañana a 5 de la tarde. De una a una y media es el almuerzo. Pásale a tu cliente la página Cómo Llegar. ¿Dudas? Escríbeme.",
+   "tokens": [
+    50365,
+    398,
+    1511,
+    385,
+    30598,
+    6446,
+    314,
+    3160,
+    32,
+    10113,
+    46120,
+    11,
+    535,
+    635,
+    7411,
+    78,
+    416,
+    1750,
+    27721,
+    1690,
+    28024,
+    1690,
+    850,
+    42719,
+    465,
+    635,
+    256,
+    30498,
+    368,
+    1266,
+    368,
+    635,
+    33573,
+    257,
+    1025,
+    368,
+    635,
+    27367,
+    13,
+    1346,
+    2002,
+    257,
+    2002,
+    288,
+    3021,
+    785,
+    806,
+    18667,
+    5486,
+    4765,
+    13,
+    430,
+    2490,
+    1220,
+    257,
+    2604,
+    6423,
+    68,
+    635,
+    36960,
+    383,
+    20436,
+    441,
+    306,
+    2976,
+    13,
+    3841,
+    35,
+    532,
+    296,
+    30,
+    2313,
+    10757,
+    49662,
+    5729,
+    13,
+    51229
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.08075805,
+   "compression_ratio": 1.2580645,
+   "no_speech_prob": 0.0010843277
+  }
+ ],
+ "x_groq": {
+  "id": "req_01m4pw0np9eswspwjeed2t5r40"
+ }
+}

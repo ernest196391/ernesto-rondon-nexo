@@ -1,0 +1,44 @@
+{
+  "fuentes": {
+    "v1": "https://www.instagram.com/reel/De_3R0fJb5V/"
+  },
+  "videos": {
+    "v1": {
+      "duracion_s": 15.17,
+      "ancho": 720,
+      "alto": 1280,
+      "fps": 30.0,
+      "audio": true,
+      "cortes_s": [
+        2.57,
+        5.33,
+        7.87,
+        10.9,
+        13.43
+      ],
+      "ritmo": {
+        "cortes": 5,
+        "seg_por_plano": 2.53,
+        "plano_mas_corto": 1.74,
+        "plano_mas_largo": 3.03
+      },
+      "volumen": {
+        "media_db": -16.8,
+        "max_db": -0.0
+      },
+      "fotogramas": 15,
+      "hojas": 2,
+      "voz": {
+        "idioma": "en",
+        "prob_idioma": 0.43,
+        "frases": [
+          {
+            "ini": 0.7,
+            "fin": 2.7,
+            "texto": "You"
+          }
+        ]
+      }
+    }
+  }
+}

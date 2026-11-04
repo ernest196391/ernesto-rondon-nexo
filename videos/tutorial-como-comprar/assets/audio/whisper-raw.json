@@ -1,0 +1,1043 @@
+{
+ "task": "transcribe",
+ "language": "Spanish",
+ "duration": 51.083874304,
+ "text": " Hola, ¿quieres comprar en casa viva? Mira qué fácil es. Abre el enlace que te mandó tu gestora. Esa es su tienda. Toca el producto que te gusta, elige el color y aprieta añadir al carrito. Luego entra al carrito y toca finalizar compra. Escribe tu nombre y tu WhatsApp. Ahora escoge, lo recoges en la tienda o te lo lleva un mensajero. Si te lo llevan, pon tu dirección y elige el día. Puedes pagar en efectivo o por transferencia en dólares, en pesos o en euros. Si es en pesos, tu gestora te dice el cambio del día. Revisa que todo esté bien. Toca finalizar y listo. Tu gestora te escribe por WhatsApp para confirmarlo. ¿Dudas? Escríbele a tu gestora. Te esperamos en Casa Viva.",
+ "words": [
+  {
+   "word": "Hola,",
+   "start": 0,
+   "end": 0.8
+  },
+  {
+   "word": "¿quieres",
+   "start": 0.8,
+   "end": 0.96
+  },
+  {
+   "word": "comprar",
+   "start": 0.96,
+   "end": 1.44
+  },
+  {
+   "word": "en",
+   "start": 1.44,
+   "end": 1.82
+  },
+  {
+   "word": "casa",
+   "start": 1.82,
+   "end": 2.1
+  },
+  {
+   "word": "viva?",
+   "start": 2.1,
+   "end": 2.9
+  },
+  {
+   "word": "Mira",
+   "start": 2.9,
+   "end": 3.1
+  },
+  {
+   "word": "qué",
+   "start": 3.1,
+   "end": 3.24
+  },
+  {
+   "word": "fácil",
+   "start": 3.24,
+   "end": 3.6
+  },
+  {
+   "word": "es.",
+   "start": 3.6,
+   "end": 4.46
+  },
+  {
+   "word": "Abre",
+   "start": 4.72,
+   "end": 5
+  },
+  {
+   "word": "el",
+   "start": 5,
+   "end": 5.3
+  },
+  {
+   "word": "enlace",
+   "start": 5.3,
+   "end": 5.74
+  },
+  {
+   "word": "que",
+   "start": 5.74,
+   "end": 5.94
+  },
+  {
+   "word": "te",
+   "start": 5.94,
+   "end": 6.08
+  },
+  {
+   "word": "mandó",
+   "start": 6.08,
+   "end": 6.56
+  },
+  {
+   "word": "tu",
+   "start": 6.56,
+   "end": 6.98
+  },
+  {
+   "word": "gestora.",
+   "start": 6.98,
+   "end": 8.34
+  },
+  {
+   "word": "Esa",
+   "start": 8.34,
+   "end": 8.42
+  },
+  {
+   "word": "es",
+   "start": 8.42,
+   "end": 8.68
+  },
+  {
+   "word": "su",
+   "start": 8.68,
+   "end": 8.84
+  },
+  {
+   "word": "tienda.",
+   "start": 8.84,
+   "end": 9.7
+  },
+  {
+   "word": "Toca",
+   "start": 9.74,
+   "end": 9.86
+  },
+  {
+   "word": "el",
+   "start": 9.86,
+   "end": 9.98
+  },
+  {
+   "word": "producto",
+   "start": 9.98,
+   "end": 10.44
+  },
+  {
+   "word": "que",
+   "start": 10.44,
+   "end": 10.62
+  },
+  {
+   "word": "te",
+   "start": 10.62,
+   "end": 10.8
+  },
+  {
+   "word": "gusta,",
+   "start": 10.8,
+   "end": 11.4
+  },
+  {
+   "word": "elige",
+   "start": 11.4,
+   "end": 11.6
+  },
+  {
+   "word": "el",
+   "start": 11.6,
+   "end": 11.72
+  },
+  {
+   "word": "color",
+   "start": 11.72,
+   "end": 12.08
+  },
+  {
+   "word": "y",
+   "start": 12.08,
+   "end": 12.62
+  },
+  {
+   "word": "aprieta",
+   "start": 12.62,
+   "end": 13.24
+  },
+  {
+   "word": "añadir",
+   "start": 13.24,
+   "end": 14.04
+  },
+  {
+   "word": "al",
+   "start": 14.04,
+   "end": 14.4
+  },
+  {
+   "word": "carrito.",
+   "start": 14.4,
+   "end": 15.12
+  },
+  {
+   "word": "Luego",
+   "start": 15.06,
+   "end": 15.44
+  },
+  {
+   "word": "entra",
+   "start": 15.44,
+   "end": 15.88
+  },
+  {
+   "word": "al",
+   "start": 15.88,
+   "end": 16.06
+  },
+  {
+   "word": "carrito",
+   "start": 16.06,
+   "end": 16.54
+  },
+  {
+   "word": "y",
+   "start": 16.54,
+   "end": 17.06
+  },
+  {
+   "word": "toca",
+   "start": 17.06,
+   "end": 17.4
+  },
+  {
+   "word": "finalizar",
+   "start": 17.4,
+   "end": 18.3
+  },
+  {
+   "word": "compra.",
+   "start": 18.3,
+   "end": 19.22
+  },
+  {
+   "word": "Escribe",
+   "start": 19.28,
+   "end": 19.6
+  },
+  {
+   "word": "tu",
+   "start": 19.6,
+   "end": 19.8
+  },
+  {
+   "word": "nombre",
+   "start": 19.8,
+   "end": 20.2
+  },
+  {
+   "word": "y",
+   "start": 20.2,
+   "end": 20.48
+  },
+  {
+   "word": "tu",
+   "start": 20.48,
+   "end": 20.66
+  },
+  {
+   "word": "WhatsApp.",
+   "start": 20.66,
+   "end": 21.4
+  },
+  {
+   "word": "Ahora",
+   "start": 21.38,
+   "end": 21.78
+  },
+  {
+   "word": "escoge,",
+   "start": 21.78,
+   "end": 23.08
+  },
+  {
+   "word": "lo",
+   "start": 23.08,
+   "end": 23.18
+  },
+  {
+   "word": "recoges",
+   "start": 23.18,
+   "end": 23.6
+  },
+  {
+   "word": "en",
+   "start": 23.6,
+   "end": 23.74
+  },
+  {
+   "word": "la",
+   "start": 23.74,
+   "end": 23.88
+  },
+  {
+   "word": "tienda",
+   "start": 23.88,
+   "end": 24.34
+  },
+  {
+   "word": "o",
+   "start": 24.34,
+   "end": 24.7
+  },
+  {
+   "word": "te",
+   "start": 24.7,
+   "end": 24.94
+  },
+  {
+   "word": "lo",
+   "start": 24.94,
+   "end": 25.1
+  },
+  {
+   "word": "lleva",
+   "start": 25.1,
+   "end": 25.34
+  },
+  {
+   "word": "un",
+   "start": 25.34,
+   "end": 25.58
+  },
+  {
+   "word": "mensajero.",
+   "start": 25.58,
+   "end": 26.64
+  },
+  {
+   "word": "Si",
+   "start": 26.68,
+   "end": 26.8
+  },
+  {
+   "word": "te",
+   "start": 26.8,
+   "end": 26.96
+  },
+  {
+   "word": "lo",
+   "start": 26.96,
+   "end": 27.08
+  },
+  {
+   "word": "llevan,",
+   "start": 27.08,
+   "end": 27.66
+  },
+  {
+   "word": "pon",
+   "start": 27.66,
+   "end": 27.76
+  },
+  {
+   "word": "tu",
+   "start": 27.76,
+   "end": 27.9
+  },
+  {
+   "word": "dirección",
+   "start": 27.9,
+   "end": 28.4
+  },
+  {
+   "word": "y",
+   "start": 28.4,
+   "end": 28.68
+  },
+  {
+   "word": "elige",
+   "start": 28.68,
+   "end": 28.98
+  },
+  {
+   "word": "el",
+   "start": 28.98,
+   "end": 29.28
+  },
+  {
+   "word": "día.",
+   "start": 29.28,
+   "end": 29.98
+  },
+  {
+   "word": "Puedes",
+   "start": 29.8,
+   "end": 30.06
+  },
+  {
+   "word": "pagar",
+   "start": 30.06,
+   "end": 30.36
+  },
+  {
+   "word": "en",
+   "start": 30.36,
+   "end": 30.7
+  },
+  {
+   "word": "efectivo",
+   "start": 30.7,
+   "end": 31.32
+  },
+  {
+   "word": "o",
+   "start": 31.32,
+   "end": 31.86
+  },
+  {
+   "word": "por",
+   "start": 31.86,
+   "end": 32.06
+  },
+  {
+   "word": "transferencia",
+   "start": 32.06,
+   "end": 32.82
+  },
+  {
+   "word": "en",
+   "start": 32.82,
+   "end": 33.1
+  },
+  {
+   "word": "dólares,",
+   "start": 33.1,
+   "end": 33.82
+  },
+  {
+   "word": "en",
+   "start": 33.82,
+   "end": 33.88
+  },
+  {
+   "word": "pesos",
+   "start": 33.88,
+   "end": 34.26
+  },
+  {
+   "word": "o",
+   "start": 34.26,
+   "end": 34.62
+  },
+  {
+   "word": "en",
+   "start": 34.62,
+   "end": 34.76
+  },
+  {
+   "word": "euros.",
+   "start": 34.76,
+   "end": 35.6
+  },
+  {
+   "word": "Si",
+   "start": 35.64,
+   "end": 35.74
+  },
+  {
+   "word": "es",
+   "start": 35.74,
+   "end": 35.9
+  },
+  {
+   "word": "en",
+   "start": 35.9,
+   "end": 36.12
+  },
+  {
+   "word": "pesos,",
+   "start": 36.12,
+   "end": 36.62
+  },
+  {
+   "word": "tu",
+   "start": 36.62,
+   "end": 36.74
+  },
+  {
+   "word": "gestora",
+   "start": 36.74,
+   "end": 37.14
+  },
+  {
+   "word": "te",
+   "start": 37.14,
+   "end": 37.42
+  },
+  {
+   "word": "dice",
+   "start": 37.42,
+   "end": 37.7
+  },
+  {
+   "word": "el",
+   "start": 37.7,
+   "end": 38.08
+  },
+  {
+   "word": "cambio",
+   "start": 38.08,
+   "end": 38.52
+  },
+  {
+   "word": "del",
+   "start": 38.52,
+   "end": 38.78
+  },
+  {
+   "word": "día.",
+   "start": 38.78,
+   "end": 39.52
+  },
+  {
+   "word": "Revisa",
+   "start": 39.72,
+   "end": 39.96
+  },
+  {
+   "word": "que",
+   "start": 39.96,
+   "end": 40.2
+  },
+  {
+   "word": "todo",
+   "start": 40.2,
+   "end": 40.72
+  },
+  {
+   "word": "esté",
+   "start": 40.72,
+   "end": 41.02
+  },
+  {
+   "word": "bien.",
+   "start": 41.02,
+   "end": 41.58
+  },
+  {
+   "word": "Toca",
+   "start": 41.58,
+   "end": 41.68
+  },
+  {
+   "word": "finalizar",
+   "start": 41.68,
+   "end": 42.3
+  },
+  {
+   "word": "y",
+   "start": 42.3,
+   "end": 42.52
+  },
+  {
+   "word": "listo.",
+   "start": 42.52,
+   "end": 42.86
+  },
+  {
+   "word": "Tu",
+   "start": 43.26,
+   "end": 43.34
+  },
+  {
+   "word": "gestora",
+   "start": 43.34,
+   "end": 43.78
+  },
+  {
+   "word": "te",
+   "start": 43.78,
+   "end": 43.94
+  },
+  {
+   "word": "escribe",
+   "start": 43.94,
+   "end": 44.26
+  },
+  {
+   "word": "por",
+   "start": 44.26,
+   "end": 44.52
+  },
+  {
+   "word": "WhatsApp",
+   "start": 44.52,
+   "end": 44.94
+  },
+  {
+   "word": "para",
+   "start": 44.94,
+   "end": 45.36
+  },
+  {
+   "word": "confirmarlo.",
+   "start": 45.36,
+   "end": 46.04
+  },
+  {
+   "word": "¿Dudas?",
+   "start": 46.54,
+   "end": 47.22
+  },
+  {
+   "word": "Escríbele",
+   "start": 47.22,
+   "end": 47.78
+  },
+  {
+   "word": "a",
+   "start": 47.78,
+   "end": 48.02
+  },
+  {
+   "word": "tu",
+   "start": 48.02,
+   "end": 48.14
+  },
+  {
+   "word": "gestora.",
+   "start": 48.14,
+   "end": 49.06
+  },
+  {
+   "word": "Te",
+   "start": 49.14,
+   "end": 49.22
+  },
+  {
+   "word": "esperamos",
+   "start": 49.22,
+   "end": 49.86
+  },
+  {
+   "word": "en",
+   "start": 49.86,
+   "end": 50.22
+  },
+  {
+   "word": "Casa",
+   "start": 50.22,
+   "end": 50.5
+  },
+  {
+   "word": "Viva.",
+   "start": 50.5,
+   "end": 51.3
+  }
+ ],
+ "segments": [
+  {
+   "id": 0,
+   "seek": 0,
+   "start": 0,
+   "end": 3.98,
+   "text": " Hola, ¿quieres comprar en casa viva? Mira qué fácil es.",
+   "tokens": [
+    50365,
+    22637,
+    11,
+    3841,
+    16622,
+    279,
+    22077,
+    465,
+    9022,
+    371,
+    5931,
+    30,
+    28394,
+    8057,
+    17474,
+    785,
+    13,
+    50564
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.08908574,
+   "compression_ratio": 1.5057471,
+   "no_speech_prob": 0.000831604
+  },
+  {
+   "id": 1,
+   "seek": 0,
+   "start": 4.48,
+   "end": 9.24,
+   "text": " Abre el enlace que te mandó tu gestora. Esa es su tienda.",
+   "tokens": [
+    50589,
+    316,
+    2672,
+    806,
+    465,
+    19837,
+    631,
+    535,
+    7411,
+    812,
+    2604,
+    7219,
+    3252,
+    13,
+    2313,
+    64,
+    785,
+    459,
+    256,
+    30498,
+    13,
+    50827
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.08908574,
+   "compression_ratio": 1.5057471,
+   "no_speech_prob": 0.000831604
+  },
+  {
+   "id": 2,
+   "seek": 0,
+   "start": 9.679999,
+   "end": 14.96,
+   "text": " Toca el producto que te gusta, elige el color y aprieta añadir al carrito.",
+   "tokens": [
+    50849,
+    1407,
+    496,
+    806,
+    47583,
+    631,
+    535,
+    20576,
+    11,
+    806,
+    3969,
+    806,
+    2017,
+    288,
+    1882,
+    470,
+    7664,
+    44980,
+    347,
+    419,
+    1032,
+    17492,
+    13,
+    51113
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.08908574,
+   "compression_ratio": 1.5057471,
+   "no_speech_prob": 0.000831604
+  },
+  {
+   "id": 3,
+   "seek": 0,
+   "start": 15.099999,
+   "end": 18.96,
+   "text": " Luego entra al carrito y toca finalizar compra.",
+   "tokens": [
+    51120,
+    45665,
+    22284,
+    419,
+    1032,
+    17492,
+    288,
+    43514,
+    2572,
+    9736,
+    39323,
+    13,
+    51313
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.08908574,
+   "compression_ratio": 1.5057471,
+   "no_speech_prob": 0.000831604
+  },
+  {
+   "id": 4,
+   "seek": 0,
+   "start": 19.22,
+   "end": 21,
+   "text": " Escribe tu nombre y tu WhatsApp.",
+   "tokens": [
+    51326,
+    2313,
+    8056,
+    2604,
+    13000,
+    288,
+    2604,
+    30513,
+    13,
+    51415
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.08908574,
+   "compression_ratio": 1.5057471,
+   "no_speech_prob": 0.000831604
+  },
+  {
+   "id": 5,
+   "seek": 0,
+   "start": 21.359999,
+   "end": 26.16,
+   "text": " Ahora escoge, lo recoges en la tienda o te lo lleva un mensajero.",
+   "tokens": [
+    51433,
+    18840,
+    785,
+    1291,
+    432,
+    11,
+    450,
+    850,
+    664,
+    279,
+    465,
+    635,
+    256,
+    30498,
+    277,
+    535,
+    450,
+    37681,
+    517,
+    10923,
+    1805,
+    2032,
+    13,
+    51673
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.08908574,
+   "compression_ratio": 1.5057471,
+   "no_speech_prob": 0.000831604
+  },
+  {
+   "id": 6,
+   "seek": 0,
+   "start": 26.66,
+   "end": 29.56,
+   "text": " Si te lo llevan, pon tu dirección y elige el día.",
+   "tokens": [
+    51698,
+    4909,
+    535,
+    450,
+    12038,
+    9768,
+    11,
+    9224,
+    2604,
+    1264,
+    14735,
+    288,
+    806,
+    3969,
+    806,
+    12271,
+    13,
+    51843
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.08908574,
+   "compression_ratio": 1.5057471,
+   "no_speech_prob": 0.000831604
+  },
+  {
+   "id": 7,
+   "seek": 2956,
+   "start": 29.56,
+   "end": 35.12,
+   "text": " Puedes pagar en efectivo o por transferencia en dólares, en pesos o en euros.",
+   "tokens": [
+    50365,
+    430,
+    5827,
+    279,
+    28024,
+    465,
+    22565,
+    6340,
+    277,
+    1515,
+    5003,
+    10974,
+    465,
+    32596,
+    11,
+    465,
+    33204,
+    277,
+    465,
+    14160,
+    13,
+    50643
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.072694145,
+   "compression_ratio": 1.4150944,
+   "no_speech_prob": 0.00010097027
+  },
+  {
+   "id": 8,
+   "seek": 2956,
+   "start": 35.64,
+   "end": 39.04,
+   "text": " Si es en pesos, tu gestora te dice el cambio del día.",
+   "tokens": [
+    50669,
+    4909,
+    785,
+    465,
+    33204,
+    11,
+    2604,
+    7219,
+    3252,
+    535,
+    10313,
+    806,
+    28731,
+    1103,
+    12271,
+    13,
+    50839
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.072694145,
+   "compression_ratio": 1.4150944,
+   "no_speech_prob": 0.00010097027
+  },
+  {
+   "id": 9,
+   "seek": 2956,
+   "start": 39.66,
+   "end": 42.92,
+   "text": " Revisa que todo esté bien. Toca finalizar y listo.",
+   "tokens": [
+    50870,
+    12127,
+    3837,
+    631,
+    5149,
+    34584,
+    3610,
+    13,
+    1407,
+    496,
+    2572,
+    9736,
+    288,
+    1329,
+    78,
+    13,
+    51033
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.072694145,
+   "compression_ratio": 1.4150944,
+   "no_speech_prob": 0.00010097027
+  },
+  {
+   "id": 10,
+   "seek": 2956,
+   "start": 43.26,
+   "end": 45.559998,
+   "text": " Tu gestora te escribe por WhatsApp para confirmarlo.",
+   "tokens": [
+    51050,
+    7836,
+    7219,
+    3252,
+    535,
+    785,
+    8056,
+    1515,
+    30513,
+    1690,
+    9064,
+    19457,
+    13,
+    51165
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.072694145,
+   "compression_ratio": 1.4150944,
+   "no_speech_prob": 0.00010097027
+  },
+  {
+   "id": 11,
+   "seek": 2956,
+   "start": 46.52,
+   "end": 48.579998,
+   "text": " ¿Dudas? Escríbele a tu gestora.",
+   "tokens": [
+    51213,
+    3841,
+    35,
+    532,
+    296,
+    30,
+    2313,
+    10757,
+    870,
+    650,
+    306,
+    257,
+    2604,
+    7219,
+    3252,
+    13,
+    51316
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.072694145,
+   "compression_ratio": 1.4150944,
+   "no_speech_prob": 0.00010097027
+  },
+  {
+   "id": 12,
+   "seek": 2956,
+   "start": 49.12,
+   "end": 50.82,
+   "text": " Te esperamos en Casa Viva.",
+   "tokens": [
+    51343,
+    1989,
+    10045,
+    2151,
+    465,
+    44843,
+    691,
+    5931,
+    13,
+    51428
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.072694145,
+   "compression_ratio": 1.4150944,
+   "no_speech_prob": 0.00010097027
+  }
+ ],
+ "x_groq": {
+  "id": "req_01m4pt74n8exzv7drkk2a7abs7"
+ }
+}

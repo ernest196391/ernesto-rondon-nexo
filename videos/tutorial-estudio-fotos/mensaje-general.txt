@@ -1,0 +1,9 @@
+== ANTES DE MANDARLO (sesión principal) ==
+El estudio hoy solo está abierto para Dany (18), Dayra (33) y Lennys (14). Para las demás sale «todavía no está abierto en tu cuenta».
+Con el sí de Ernesto, primero ábrelo a todas (Hostinger, carpeta public_html):  wp option update cvd_estudio_acceso all
+(Para volver atrás: wp option delete cvd_estudio_acceso)
+
+== MENSAJE PARA EL GENERAL (va con el video) ==
+📸 *Nuevo en tu área: Mi estudio de fotos* (menú → Herramientas)
+Eliges tu producto y cómo quieres la foto, y Gemini te la hace bonita: en una sala, un baño o un cuarto. La subes y la descargas, la compartes con tu cliente o la pones en tu tienda.
+Gratis con tu Gmail (en Cuba, Gemini necesita VPN). Mira cómo se usa 👆

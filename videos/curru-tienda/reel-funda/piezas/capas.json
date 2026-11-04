@@ -1,0 +1,256 @@
+{
+  "planos": [
+    {
+      "de": 0,
+      "a": 74,
+      "z": [
+        1,
+        1.08
+      ],
+      "f": [
+        0.5,
+        0.25
+      ],
+      "o": [
+        0.5,
+        0.27
+      ],
+      "que": "plano medio: lo huele y pone cara (gancho)",
+      "c": [
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.4629629629629629
+        ]
+      ]
+    },
+    {
+      "de": 74,
+      "a": 137,
+      "z": [
+        1,
+        1.06
+      ],
+      "f": [
+        0.5,
+        0.55
+      ],
+      "o": [
+        0.5,
+        0.5
+      ],
+      "que": "primer plano de las manos: mete el juego en la funda",
+      "c": [
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5283018867924529
+        ]
+      ]
+    },
+    {
+      "de": 137,
+      "a": 186,
+      "z": [
+        1,
+        1.04
+      ],
+      "f": [
+        0.5,
+        0.35
+      ],
+      "o": [
+        0.5,
+        0.35
+      ],
+      "que": "plano medio: la funda llena",
+      "c": [
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.4942307692307692
+        ]
+      ]
+    },
+    {
+      "de": 186,
+      "a": 235,
+      "z": [
+        1.18,
+        1.24
+      ],
+      "f": [
+        0.45,
+        0.3
+      ],
+      "o": [
+        0.5,
+        0.32
+      ],
+      "que": "acercamiento: el jaboncito",
+      "c": [
+        [
+          0.45,
+          0.45254237288135596
+        ],
+        [
+          0.45,
+          0.44516129032258067
+        ]
+      ]
+    },
+    {
+      "de": 235,
+      "a": 263,
+      "z": [
+        1,
+        1.05
+      ],
+      "f": [
+        0.5,
+        0.5
+      ],
+      "o": [
+        0.5,
+        0.5
+      ],
+      "que": "plano de dos: entra Proskopellin",
+      "c": [
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ]
+      ]
+    },
+    {
+      "de": 263,
+      "a": 323,
+      "z": [
+        1,
+        1.06
+      ],
+      "f": [
+        0.62,
+        0.55
+      ],
+      "o": [
+        0.58,
+        0.55
+      ],
+      "que": "primer plano del niño abrazando la funda",
+      "c": [
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5283018867924529,
+          0.5028301886792452
+        ]
+      ]
+    },
+    {
+      "de": 323,
+      "a": 360,
+      "z": [
+        1.1,
+        1.14
+      ],
+      "f": [
+        0.5,
+        0.35
+      ],
+      "o": [
+        0.5,
+        0.38
+      ],
+      "que": "primer plano de Cúrru: risa y guiño (corta el broche de abajo)",
+      "c": [
+        [
+          0.5,
+          0.4590909090909091
+        ],
+        [
+          0.5,
+          0.4552631578947368
+        ]
+      ]
+    }
+  ],
+  "capas": [
+    {
+      "file": "piezas/gancho.png",
+      "x": 0,
+      "y": 1124,
+      "de": 0,
+      "a": 2.2,
+      "texto": "[gancho] ¿Tus sábanas huelen|a guardado?"
+    },
+    {
+      "file": "piezas/sub-01.png",
+      "x": 0,
+      "y": 1186,
+      "de": 2.2,
+      "a": 3.75,
+      "texto": "Truco de abuela:",
+      "alto": 128
+    },
+    {
+      "file": "piezas/sub-02.png",
+      "x": 0,
+      "y": 1140,
+      "de": 3.75,
+      "a": 6.3,
+      "texto": "todo el juego / dentro de su funda…",
+      "alto": 220
+    },
+    {
+      "file": "piezas/sub-03.png",
+      "x": 0,
+      "y": 1186,
+      "de": 6.3,
+      "a": 8.3,
+      "texto": "…y un jaboncito de olor.",
+      "alto": 128
+    },
+    {
+      "file": "piezas/sub-04.png",
+      "x": 0,
+      "y": 576,
+      "de": 8.8,
+      "a": 10.6,
+      "texto": "¡Huele a casa de abuela!",
+      "alto": 128
+    },
+    {
+      "file": "piezas/sub-05.png",
+      "x": 0,
+      "y": 1186,
+      "de": 10.75,
+      "a": 12,
+      "texto": "¡Ay, este niño!",
+      "alto": 128
+    },
+    {
+      "file": "piezas/logo.png",
+      "x": 350,
+      "y": 1400,
+      "de": 10.5,
+      "a": 13,
+      "texto": "[logo]"
+    }
+  ]
+}

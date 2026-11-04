@@ -1,0 +1,97 @@
+{
+ "task": "transcribe",
+ "language": "Spanish",
+ "duration": 4.179562496,
+ "text": " Descarga la foto que te hizo Gemini, apaga la VPN y toca subir mi foto de Gemini.",
+ "words": [
+  {
+   "word": "Descarga",
+   "start": 0.02,
+   "end": 0.34
+  },
+  {
+   "word": "la",
+   "start": 0.34,
+   "end": 0.44
+  },
+  {
+   "word": "foto",
+   "start": 0.44,
+   "end": 0.62
+  },
+  {
+   "word": "que",
+   "start": 0.62,
+   "end": 0.76
+  },
+  {
+   "word": "te",
+   "start": 0.76,
+   "end": 0.9
+  },
+  {
+   "word": "hizo",
+   "start": 0.9,
+   "end": 1.04
+  },
+  {
+   "word": "Gemini,",
+   "start": 1.04,
+   "end": 1.64
+  },
+  {
+   "word": "apaga",
+   "start": 1.64,
+   "end": 1.82
+  },
+  {
+   "word": "la",
+   "start": 1.82,
+   "end": 1.98
+  },
+  {
+   "word": "VPN",
+   "start": 1.98,
+   "end": 2.18
+  },
+  {
+   "word": "y",
+   "start": 2.18,
+   "end": 2.5
+  },
+  {
+   "word": "toca",
+   "start": 2.5,
+   "end": 2.72
+  },
+  {
+   "word": "subir",
+   "start": 2.72,
+   "end": 3.1
+  },
+  {
+   "word": "mi",
+   "start": 3.1,
+   "end": 3.28
+  },
+  {
+   "word": "foto",
+   "start": 3.28,
+   "end": 3.48
+  },
+  {
+   "word": "de",
+   "start": 3.48,
+   "end": 3.62
+  },
+  {
+   "word": "Gemini.",
+   "start": 3.62,
+   "end": 3.88
+  }
+ ],
+ "segments": null,
+ "x_groq": {
+  "id": "req_01m535zb7zegv90xbd9184vtqk"
+ }
+}

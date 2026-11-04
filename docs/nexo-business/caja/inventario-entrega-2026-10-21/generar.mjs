@@ -31,6 +31,7 @@ const INICIO_CUBA = arg("--inicio", "2026-10-15 10:00");
 const DE = arg("--de", "Zaymi"), A = arg("--a", "Daniela");
 const FECHA = arg("--fecha", new Date(Date.now() - 4 * 3600e3).toISOString().slice(0, 10));
 const SIN_RED = args.includes("--sin-red");
+const AGRUPAR = args.includes("--agrupar");   // suma colores/diseños del mismo producto y medida en una sola línea
 const CACHE = join(tmpdir(), "cv-inventario-entrega"); mkdirSync(CACHE, { recursive: true });
 
 const toUtc = (cuba) => { const [d, t = "00:00"] = cuba.split(" "); const ms = Date.parse(`${d}T${t.length === 5 ? t + ":00" : t}-04:00`); return new Date(ms).toISOString().slice(0, 19).replace("T", " "); };
@@ -59,11 +60,12 @@ const reasonByKey = new Map(cajaReasons.map((r) => [r.stock_key, r.reason || ""]
 
 // ---------- 2. Productos con stock propio ----------
 const GENERIC = /^(sin categor|uncategor)/i;
+const REVISAR = "Revisar: productos NEXO (energía y tecnología) — contar solo si están en la tienda";
 const own = woo.products.filter((p) => p.manage && !/^MK-/i.test(p.sku || "") && !/^MK-/i.test(p.parent_sku || "") && !p.cats.some((c) => /bajo pedido/i.test(c)));
 const prod = new Map();
 for (const p of own) {
-  const cat = p.cats.find((c) => !GENERIC.test(c)) || "Otros";
-  prod.set(String(p.id), { id: p.id, name: p.name, sku: p.sku, cat, status: p.status, now: Number(p.stock || 0),
+  const cat = /^NEXO-/i.test(p.sku || p.parent_sku || "") ? REVISAR : (p.cats.find((c) => !GENERIC.test(c)) || "Otros");
+  prod.set(String(p.id), { id: p.id, isVar: p.id !== p.parent, name: p.name, sku: p.sku, cat, status: p.status, now: Number(p.stock || 0),
     webDelta: 0, cajaDelta: 0, salioWeb: 0, salioCaja: 0, entro: 0, ajuste: 0, heldStart: 0, heldNow: 0 });
 }
 const sid = (m) => String(Number(m.variation_id) || Number(m.product_id));
@@ -140,17 +142,41 @@ for (const p of prod.values()) {
   if (p.start === 0 && p.debe === 0 && p.entro === 0 && p.salio === 0 && p.ajuste === 0) continue;
   rows.push(p);
 }
+// ---------- 5b. Agrupar por producto + medida/tipo (sin color ni diseño) ----------
+const COLOR = "(?:azul|gris|rosad[ao]|rosa|beige|negr[ao]|blanc[ao]|roj[ao]|verde|naranja|morad[ao]|amarill[ao]|carmelita|crema|dorad[ao]|platead[ao]|arena|turquesa|salm[oó]n|vino|oscur[ao]|clar[ao]|marino|palo|menta)";
+const reTailColor = new RegExp(String.raw`(?:\s*[—–-]\s*|\s+)\(?${COLOR}(?:[\s-]+(?:${COLOR}|y))*\)?$`, "i");
+const baseName = (p) => {
+  let b = p.name;
+  if (p.isVar && b.lastIndexOf(" - ") > 0) b = b.slice(0, b.lastIndexOf(" - "));   // quita color/diseño de la variación
+  b = b.replace(/\s+[—–-]\s+dise[ñn]o\b.*$/i, "");                                // « — Diseño 2», « — diseño limones»
+  if (/^Cortina de baño\s/i.test(b) && !/\d/.test(b)) b = "Cortina de baño (sin medida, varios diseños)";   // «diseño de flores», «flores amarillas y rosa»
+  b = b.replace(/^(Tabla de planchar con soporte para plancha).*$/i, "$1");
+  b = b.replace(reTailColor, "");                                                   // « azul», « (gris)», « Rojo Vino», « — crema»
+  return b.trim();
+};
+const normKey = (b) => b.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/×/g, "x").replace(/\s+/g, " ").trim();
+if (AGRUPAR) {
+  const g = new Map();
+  for (const r of rows) {
+    const b = baseName(r), k = normKey(b);
+    if (!g.has(k)) g.set(k, { name: b, sku: "", cat: r.cat, start: 0, entro: 0, salio: 0, salioWeb: 0, salioCaja: 0, ajuste: 0, heldNow: 0, debe: 0, now: 0, check: 0, n: 0, miembros: [] });
+    const x = g.get(k);
+    for (const f of ["start", "entro", "salio", "salioWeb", "salioCaja", "ajuste", "heldNow", "debe", "now", "check"]) x[f] += r[f];
+    x.n++; x.miembros.push(r.name); if (/[^\x00-\x7f]/.test(b) && !/[^\x00-\x7f]/.test(x.name)) x.name = b;   // preferir el nombre con tildes
+  }
+  rows.length = 0; rows.push(...g.values());
+}
 const coll = new Intl.Collator("es", { sensitivity: "base", numeric: true });
-rows.sort((a, b) => coll.compare(a.cat, b.cat) || coll.compare(a.name, b.name));
+rows.sort((a, b) => (a.cat === REVISAR) - (b.cat === REVISAR) || coll.compare(a.cat, b.cat) || coll.compare(a.name, b.name));
 const cats = [...new Set(rows.map((r) => r.cat))];
 const bad = rows.filter((r) => Math.abs(r.check) > 1e-9);
-const T = (k) => rows.reduce((s, r) => s + r[k], 0);
+const T = (k) => rows.filter((r) => r.cat !== REVISAR).reduce((s, r) => s + r[k], 0);
 
 // ---------- 6. CSV ----------
 const esc = (v) => { const s = String(v ?? ""); return /[",;\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s; };
 const csv = [["Categoría", "Producto", "SKU", "ID web", "Al empezar", "Entró", "Salió", "Ajuste", "Apartado", "Debe haber", "Stock web ahora", "Contado", "Diferencia"].join(";")]
   .concat(rows.map((r) => [r.cat, r.name, r.sku, r.id, r.start, r.entro, r.salio, r.ajuste, r.heldNow, r.debe, r.now, "", ""].map(esc).join(";")));
-const BASE = join(HERE, `entrega-${FECHA}`);
+const BASE = join(HERE, `entrega-${FECHA}${AGRUPAR ? "-agrupado" : ""}`);
 writeFileSync(BASE + ".csv", "\ufeff" + csv.join("\r\n"), "utf8");
 
 // ---------- 7. HTML → PDF ----------
@@ -167,7 +193,7 @@ let body = "";
 for (const c of cats) {
   const rs = rows.filter((r) => r.cat === c);
   body += `<h2>${h(c)} <small>(${rs.length})</small></h2><table><thead>${head}</thead><tbody>`;
-  for (const r of rs) body += `<tr${r.debe < 0 ? ' class="neg"' : ""}><td class="p">${h(r.name)}${r.sku ? ` <span class="sku">${h(r.sku)}</span>` : ""}</td><td>${n(r.start)}</td><td>${r.entro ? "+" + r.entro : ""}</td><td>${r.salio ? "−" + r.salio : ""}</td><td>${sg(r.ajuste)}</td><td>${r.heldNow || ""}</td><td class="dh">${r.debe}</td><td class="w"></td><td class="w"></td></tr>`;
+  for (const r of rs) body += `<tr${r.debe < 0 ? ' class="neg"' : ""}><td class="p">${h(r.name)}${r.sku ? ` <span class="sku">${h(r.sku)}</span>` : ""}${r.n > 1 ? ` <span class="sku">(${r.n} colores/diseños juntos)</span>` : ""}</td><td>${n(r.start)}</td><td>${r.entro ? "+" + r.entro : ""}</td><td>${r.salio ? "−" + r.salio : ""}</td><td>${sg(r.ajuste)}</td><td>${r.heldNow || ""}</td><td class="dh">${r.debe}</td><td class="w"></td><td class="w"></td></tr>`;
   body += `<tr class="tot"><td class="p">Total ${h(c)}</td><td>${rs.reduce((s, r) => s + r.start, 0)}</td><td>+${rs.reduce((s, r) => s + r.entro, 0)}</td><td>−${rs.reduce((s, r) => s + r.salio, 0)}</td><td>${sg(rs.reduce((s, r) => s + r.ajuste, 0)) || 0}</td><td>${rs.reduce((s, r) => s + r.heldNow, 0)}</td><td class="dh">${rs.reduce((s, r) => s + r.debe, 0)}</td><td class="w"></td><td class="w"></td></tr></tbody></table>`;
 }
 const wl = { morning: "mañana", afternoon: "tarde", evening: "noche" };
@@ -199,7 +225,7 @@ tr.tot td { font-weight: bold; background: #f3f3f3; } tr.neg td.dh { background:
 <p class="sub">Desde el ${fmtDia(di)} a las ${h(hi)} (hora de Cuba) hasta hoy ${fmtDia(FECHA)} a las ${nowCuba}. Solo productos de la tienda (sin «Bajo pedido» ni productos de proveedor MK-).</p>
 <div class="box"><b>Cómo se lee:</b> <b>Al empezar</b> = lo que había cuando empezó ${h(DE)}. <b>Entró</b> = mercancía que entró (entradas y devoluciones). <b>Salió</b> = vendido y entregado o recogido (web y mostrador). <b>Ajuste</b> = correcciones de conteo hechas en la caja. <b>Apartado</b> = pedidos web todavía en la tienda (ver lista al final). <b>Debe haber</b> = lo que tiene que estar físicamente en la tienda ahora, contando lo apartado.<br>
 <b>Qué hacer:</b> cuenten juntas cada producto (incluido lo apartado), escriban el número en <b>Contado</b> y en <b>Diferencia</b> pongan Contado − Debe haber (falta = número con −).</div>
-<p class="gt"><b>Totales:</b> Al empezar ${T("start")} · Entró +${T("entro")} · Salió −${T("salio")} · Ajuste ${sg(T("ajuste")) || 0} · Apartado ${T("heldNow")} · <b>Debe haber ${T("debe")}</b> unidades en ${rows.length} productos.</p>
+<p class="gt"><b>Totales:</b> Al empezar ${T("start")} · Entró +${T("entro")} · Salió −${T("salio")} · Ajuste ${sg(T("ajuste")) || 0} · Apartado ${T("heldNow")} · <b>Debe haber ${T("debe")}</b> unidades en ${rows.filter((r) => r.cat !== REVISAR).length} líneas (sin la sección «Revisar» del final).</p>
 ${body}
 <div class="sec"><h1>Pedidos apartados en la tienda (${openOrders.length})</h1>
 <p class="sub">Pedidos web que ya descontaron stock de la web pero todavía están físicamente en la tienda (no entregados ni recogidos, ni con mensajero). Búsquenlos y márquenlos con ✓.</p>

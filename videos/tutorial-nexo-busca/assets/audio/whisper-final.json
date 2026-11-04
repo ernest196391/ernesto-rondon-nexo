@@ -1,0 +1,970 @@
+{
+ "text": "¿Tu cliente te pide algo que no tenemos en Casa Viva? Hoy mismo nos lo pidieron. Dayami. Muchos clientes me piden cortinas de baño con teflón. Nadie Liz. De casualidad, ¿sabes dónde hay estos ventiladores? Un cliente en Calabasar quiere dos. Las escuchamos. Ahora lo puedes vender. Con Nexo Busca subes una foto y te decimos quién lo vende en Cuba y a qué precio. Está en tu área, abre el menú y en Herramientas toca Nexo Busca. Sube la foto que te mandó el cliente o escribe qué buscas. Y toca buscar quién lo vende. En segundos salen los vendedores con su precio. Elige uno y toca usar esta. Ahora define tu precio. Sumar dólares, sumar un porcentaje o el precio final. Por ejemplo, el proveedor pide 10, tú pides 12 y ganas 2 dólares. Pregúntale al proveedor por WhatsApp si lo tiene. Hazle una foto bonita en tu estudio de fotos. Y mándasela a tu cliente, sin decir dónde lo compras. ¿Prefieres venderlo por Casa Viva? Manda la solicitud. Casa Viva lo confirma con el proveedor y te avisa por WhatsApp con tu comisión. 20 búsquedas al día, gratis. ¿Dudas? Escríbeme.",
+ "words": [
+  {
+   "word": "¿Tu",
+   "start": 0.28,
+   "end": 0.38
+  },
+  {
+   "word": "cliente",
+   "start": 0.38,
+   "end": 0.72
+  },
+  {
+   "word": "te",
+   "start": 0.72,
+   "end": 0.86
+  },
+  {
+   "word": "pide",
+   "start": 0.86,
+   "end": 1.04
+  },
+  {
+   "word": "algo",
+   "start": 1.04,
+   "end": 1.26
+  },
+  {
+   "word": "que",
+   "start": 1.26,
+   "end": 1.42
+  },
+  {
+   "word": "no",
+   "start": 1.42,
+   "end": 1.54
+  },
+  {
+   "word": "tenemos",
+   "start": 1.54,
+   "end": 1.82
+  },
+  {
+   "word": "en",
+   "start": 1.82,
+   "end": 2.06
+  },
+  {
+   "word": "Casa",
+   "start": 2.06,
+   "end": 2.24
+  },
+  {
+   "word": "Viva?",
+   "start": 2.24,
+   "end": 2.46
+  },
+  {
+   "word": "Hoy",
+   "start": 3.25,
+   "end": 3.41
+  },
+  {
+   "word": "mismo",
+   "start": 3.41,
+   "end": 3.69
+  },
+  {
+   "word": "nos",
+   "start": 3.69,
+   "end": 4.05
+  },
+  {
+   "word": "lo",
+   "start": 4.05,
+   "end": 4.17
+  },
+  {
+   "word": "pidieron.",
+   "start": 4.17,
+   "end": 5.07
+  },
+  {
+   "word": "Dayami.",
+   "start": 5.07,
+   "end": 6.07
+  },
+  {
+   "word": "Muchos",
+   "start": 6.07,
+   "end": 6.21
+  },
+  {
+   "word": "clientes",
+   "start": 6.21,
+   "end": 6.65
+  },
+  {
+   "word": "me",
+   "start": 6.65,
+   "end": 6.81
+  },
+  {
+   "word": "piden",
+   "start": 6.81,
+   "end": 7.09
+  },
+  {
+   "word": "cortinas",
+   "start": 7.09,
+   "end": 7.55
+  },
+  {
+   "word": "de",
+   "start": 7.55,
+   "end": 7.75
+  },
+  {
+   "word": "baño",
+   "start": 7.75,
+   "end": 8.05
+  },
+  {
+   "word": "con",
+   "start": 8.05,
+   "end": 8.41
+  },
+  {
+   "word": "teflón.",
+   "start": 8.41,
+   "end": 9.31
+  },
+  {
+   "word": "Nadie",
+   "start": 9.47,
+   "end": 9.75
+  },
+  {
+   "word": "Liz.",
+   "start": 9.75,
+   "end": 10.59
+  },
+  {
+   "word": "De",
+   "start": 10.59,
+   "end": 10.85
+  },
+  {
+   "word": "casualidad,",
+   "start": 10.85,
+   "end": 11.49
+  },
+  {
+   "word": "¿sabes",
+   "start": 11.49,
+   "end": 11.61
+  },
+  {
+   "word": "dónde",
+   "start": 11.61,
+   "end": 11.83
+  },
+  {
+   "word": "hay",
+   "start": 11.83,
+   "end": 12.03
+  },
+  {
+   "word": "estos",
+   "start": 12.03,
+   "end": 12.23
+  },
+  {
+   "word": "ventiladores?",
+   "start": 12.23,
+   "end": 13.27
+  },
+  {
+   "word": "Un",
+   "start": 13.41,
+   "end": 13.55
+  },
+  {
+   "word": "cliente",
+   "start": 13.55,
+   "end": 13.87
+  },
+  {
+   "word": "en",
+   "start": 13.87,
+   "end": 13.99
+  },
+  {
+   "word": "Calabasar",
+   "start": 13.99,
+   "end": 14.45
+  },
+  {
+   "word": "quiere",
+   "start": 14.45,
+   "end": 14.73
+  },
+  {
+   "word": "dos.",
+   "start": 14.73,
+   "end": 15.31
+  },
+  {
+   "word": "Las",
+   "start": 15.31,
+   "end": 15.41
+  },
+  {
+   "word": "escuchamos.",
+   "start": 15.41,
+   "end": 15.99
+  },
+  {
+   "word": "Ahora",
+   "start": 16.75,
+   "end": 16.95
+  },
+  {
+   "word": "lo",
+   "start": 16.95,
+   "end": 17.07
+  },
+  {
+   "word": "puedes",
+   "start": 17.07,
+   "end": 17.35
+  },
+  {
+   "word": "vender.",
+   "start": 17.35,
+   "end": 18.01
+  },
+  {
+   "word": "Con",
+   "start": 18.01,
+   "end": 18.13
+  },
+  {
+   "word": "Nexo",
+   "start": 18.13,
+   "end": 18.39
+  },
+  {
+   "word": "Busca",
+   "start": 18.39,
+   "end": 18.73
+  },
+  {
+   "word": "subes",
+   "start": 18.73,
+   "end": 19.01
+  },
+  {
+   "word": "una",
+   "start": 19.01,
+   "end": 19.17
+  },
+  {
+   "word": "foto",
+   "start": 19.17,
+   "end": 19.47
+  },
+  {
+   "word": "y",
+   "start": 19.47,
+   "end": 19.63
+  },
+  {
+   "word": "te",
+   "start": 19.63,
+   "end": 19.73
+  },
+  {
+   "word": "decimos",
+   "start": 19.73,
+   "end": 20.05
+  },
+  {
+   "word": "quién",
+   "start": 20.05,
+   "end": 20.25
+  },
+  {
+   "word": "lo",
+   "start": 20.25,
+   "end": 20.39
+  },
+  {
+   "word": "vende",
+   "start": 20.39,
+   "end": 20.61
+  },
+  {
+   "word": "en",
+   "start": 20.61,
+   "end": 20.77
+  },
+  {
+   "word": "Cuba",
+   "start": 20.77,
+   "end": 21.01
+  },
+  {
+   "word": "y",
+   "start": 21.01,
+   "end": 21.19
+  },
+  {
+   "word": "a",
+   "start": 21.19,
+   "end": 21.27
+  },
+  {
+   "word": "qué",
+   "start": 21.27,
+   "end": 21.35
+  },
+  {
+   "word": "precio.",
+   "start": 21.35,
+   "end": 22.13
+  },
+  {
+   "word": "Está",
+   "start": 22.25,
+   "end": 22.47
+  },
+  {
+   "word": "en",
+   "start": 22.47,
+   "end": 22.59
+  },
+  {
+   "word": "tu",
+   "start": 22.59,
+   "end": 22.69
+  },
+  {
+   "word": "área,",
+   "start": 22.69,
+   "end": 23.17
+  },
+  {
+   "word": "abre",
+   "start": 23.17,
+   "end": 23.27
+  },
+  {
+   "word": "el",
+   "start": 23.27,
+   "end": 23.41
+  },
+  {
+   "word": "menú",
+   "start": 23.41,
+   "end": 23.61
+  },
+  {
+   "word": "y",
+   "start": 23.61,
+   "end": 24.01
+  },
+  {
+   "word": "en",
+   "start": 24.01,
+   "end": 24.13
+  },
+  {
+   "word": "Herramientas",
+   "start": 24.13,
+   "end": 24.73
+  },
+  {
+   "word": "toca",
+   "start": 24.73,
+   "end": 25.01
+  },
+  {
+   "word": "Nexo",
+   "start": 25.01,
+   "end": 25.75
+  },
+  {
+   "word": "Busca.",
+   "start": 25.75,
+   "end": 26.35
+  },
+  {
+   "word": "Sube",
+   "start": 27,
+   "end": 27.22
+  },
+  {
+   "word": "la",
+   "start": 27.22,
+   "end": 27.36
+  },
+  {
+   "word": "foto",
+   "start": 27.36,
+   "end": 27.62
+  },
+  {
+   "word": "que",
+   "start": 27.62,
+   "end": 27.76
+  },
+  {
+   "word": "te",
+   "start": 27.76,
+   "end": 27.88
+  },
+  {
+   "word": "mandó",
+   "start": 27.88,
+   "end": 28.1
+  },
+  {
+   "word": "el",
+   "start": 28.1,
+   "end": 28.26
+  },
+  {
+   "word": "cliente",
+   "start": 28.26,
+   "end": 28.64
+  },
+  {
+   "word": "o",
+   "start": 28.64,
+   "end": 28.94
+  },
+  {
+   "word": "escribe",
+   "start": 28.94,
+   "end": 29.42
+  },
+  {
+   "word": "qué",
+   "start": 29.42,
+   "end": 29.58
+  },
+  {
+   "word": "buscas.",
+   "start": 29.58,
+   "end": 30.32
+  },
+  {
+   "word": "Y",
+   "start": 30.32,
+   "end": 30.48
+  },
+  {
+   "word": "toca",
+   "start": 30.48,
+   "end": 30.74
+  },
+  {
+   "word": "buscar",
+   "start": 30.74,
+   "end": 31.34
+  },
+  {
+   "word": "quién",
+   "start": 31.34,
+   "end": 31.66
+  },
+  {
+   "word": "lo",
+   "start": 31.66,
+   "end": 31.82
+  },
+  {
+   "word": "vende.",
+   "start": 31.82,
+   "end": 32.6
+  },
+  {
+   "word": "En",
+   "start": 32.74,
+   "end": 32.86
+  },
+  {
+   "word": "segundos",
+   "start": 32.86,
+   "end": 33.18
+  },
+  {
+   "word": "salen",
+   "start": 33.18,
+   "end": 33.46
+  },
+  {
+   "word": "los",
+   "start": 33.46,
+   "end": 33.62
+  },
+  {
+   "word": "vendedores",
+   "start": 33.62,
+   "end": 34.06
+  },
+  {
+   "word": "con",
+   "start": 34.06,
+   "end": 34.24
+  },
+  {
+   "word": "su",
+   "start": 34.24,
+   "end": 34.38
+  },
+  {
+   "word": "precio.",
+   "start": 34.38,
+   "end": 35.18
+  },
+  {
+   "word": "Elige",
+   "start": 35.02,
+   "end": 35.18
+  },
+  {
+   "word": "uno",
+   "start": 35.18,
+   "end": 35.4
+  },
+  {
+   "word": "y",
+   "start": 35.4,
+   "end": 35.62
+  },
+  {
+   "word": "toca",
+   "start": 35.62,
+   "end": 35.86
+  },
+  {
+   "word": "usar",
+   "start": 35.86,
+   "end": 36.34
+  },
+  {
+   "word": "esta.",
+   "start": 36.34,
+   "end": 37.2
+  },
+  {
+   "word": "Ahora",
+   "start": 37.29,
+   "end": 37.57
+  },
+  {
+   "word": "define",
+   "start": 37.57,
+   "end": 37.83
+  },
+  {
+   "word": "tu",
+   "start": 37.83,
+   "end": 37.95
+  },
+  {
+   "word": "precio.",
+   "start": 37.95,
+   "end": 38.75
+  },
+  {
+   "word": "Sumar",
+   "start": 38.61,
+   "end": 38.93
+  },
+  {
+   "word": "dólares,",
+   "start": 38.93,
+   "end": 39.55
+  },
+  {
+   "word": "sumar",
+   "start": 39.55,
+   "end": 39.81
+  },
+  {
+   "word": "un",
+   "start": 39.81,
+   "end": 39.89
+  },
+  {
+   "word": "porcentaje",
+   "start": 39.89,
+   "end": 40.47
+  },
+  {
+   "word": "o",
+   "start": 40.47,
+   "end": 40.77
+  },
+  {
+   "word": "el",
+   "start": 40.77,
+   "end": 40.89
+  },
+  {
+   "word": "precio",
+   "start": 40.89,
+   "end": 41.11
+  },
+  {
+   "word": "final.",
+   "start": 41.11,
+   "end": 41.93
+  },
+  {
+   "word": "Por",
+   "start": 41.87,
+   "end": 41.95
+  },
+  {
+   "word": "ejemplo,",
+   "start": 41.95,
+   "end": 42.63
+  },
+  {
+   "word": "el",
+   "start": 42.63,
+   "end": 42.73
+  },
+  {
+   "word": "proveedor",
+   "start": 42.73,
+   "end": 43.09
+  },
+  {
+   "word": "pide",
+   "start": 43.09,
+   "end": 43.35
+  },
+  {
+   "word": "10,",
+   "start": 43.35,
+   "end": 43.83
+  },
+  {
+   "word": "tú",
+   "start": 43.83,
+   "end": 43.95
+  },
+  {
+   "word": "pides",
+   "start": 43.95,
+   "end": 44.15
+  },
+  {
+   "word": "12",
+   "start": 44.15,
+   "end": 44.45
+  },
+  {
+   "word": "y",
+   "start": 44.45,
+   "end": 44.71
+  },
+  {
+   "word": "ganas",
+   "start": 44.71,
+   "end": 45.05
+  },
+  {
+   "word": "2",
+   "start": 45.05,
+   "end": 45.35
+  },
+  {
+   "word": "dólares.",
+   "start": 45.35,
+   "end": 45.63
+  },
+  {
+   "word": "Pregúntale",
+   "start": 46.41,
+   "end": 46.71
+  },
+  {
+   "word": "al",
+   "start": 46.71,
+   "end": 46.81
+  },
+  {
+   "word": "proveedor",
+   "start": 46.81,
+   "end": 47.21
+  },
+  {
+   "word": "por",
+   "start": 47.21,
+   "end": 47.41
+  },
+  {
+   "word": "WhatsApp",
+   "start": 47.41,
+   "end": 47.71
+  },
+  {
+   "word": "si",
+   "start": 47.71,
+   "end": 47.95
+  },
+  {
+   "word": "lo",
+   "start": 47.95,
+   "end": 48.07
+  },
+  {
+   "word": "tiene.",
+   "start": 48.07,
+   "end": 48.53
+  },
+  {
+   "word": "Hazle",
+   "start": 48.53,
+   "end": 48.63
+  },
+  {
+   "word": "una",
+   "start": 48.63,
+   "end": 48.79
+  },
+  {
+   "word": "foto",
+   "start": 48.79,
+   "end": 49.07
+  },
+  {
+   "word": "bonita",
+   "start": 49.07,
+   "end": 49.39
+  },
+  {
+   "word": "en",
+   "start": 49.39,
+   "end": 49.59
+  },
+  {
+   "word": "tu",
+   "start": 49.59,
+   "end": 49.69
+  },
+  {
+   "word": "estudio",
+   "start": 49.69,
+   "end": 49.99
+  },
+  {
+   "word": "de",
+   "start": 49.99,
+   "end": 50.13
+  },
+  {
+   "word": "fotos.",
+   "start": 50.13,
+   "end": 50.77
+  },
+  {
+   "word": "Y",
+   "start": 50.77,
+   "end": 50.97
+  },
+  {
+   "word": "mándasela",
+   "start": 50.97,
+   "end": 51.29
+  },
+  {
+   "word": "a",
+   "start": 51.29,
+   "end": 51.43
+  },
+  {
+   "word": "tu",
+   "start": 51.43,
+   "end": 51.55
+  },
+  {
+   "word": "cliente,",
+   "start": 51.55,
+   "end": 52.01
+  },
+  {
+   "word": "sin",
+   "start": 52.01,
+   "end": 52.27
+  },
+  {
+   "word": "decir",
+   "start": 52.27,
+   "end": 52.63
+  },
+  {
+   "word": "dónde",
+   "start": 52.63,
+   "end": 53.11
+  },
+  {
+   "word": "lo",
+   "start": 53.11,
+   "end": 53.25
+  },
+  {
+   "word": "compras.",
+   "start": 53.25,
+   "end": 54.13
+  },
+  {
+   "word": "¿Prefieres",
+   "start": 54.31,
+   "end": 54.59
+  },
+  {
+   "word": "venderlo",
+   "start": 54.59,
+   "end": 55.03
+  },
+  {
+   "word": "por",
+   "start": 55.03,
+   "end": 55.21
+  },
+  {
+   "word": "Casa",
+   "start": 55.21,
+   "end": 55.37
+  },
+  {
+   "word": "Viva?",
+   "start": 55.37,
+   "end": 56.31
+  },
+  {
+   "word": "Manda",
+   "start": 56.31,
+   "end": 56.57
+  },
+  {
+   "word": "la",
+   "start": 56.57,
+   "end": 56.69
+  },
+  {
+   "word": "solicitud.",
+   "start": 56.69,
+   "end": 57.65
+  },
+  {
+   "word": "Casa",
+   "start": 57.65,
+   "end": 57.71
+  },
+  {
+   "word": "Viva",
+   "start": 57.71,
+   "end": 58.03
+  },
+  {
+   "word": "lo",
+   "start": 58.03,
+   "end": 58.19
+  },
+  {
+   "word": "confirma",
+   "start": 58.19,
+   "end": 58.59
+  },
+  {
+   "word": "con",
+   "start": 58.59,
+   "end": 58.73
+  },
+  {
+   "word": "el",
+   "start": 58.73,
+   "end": 58.87
+  },
+  {
+   "word": "proveedor",
+   "start": 58.87,
+   "end": 59.29
+  },
+  {
+   "word": "y",
+   "start": 59.29,
+   "end": 59.67
+  },
+  {
+   "word": "te",
+   "start": 59.67,
+   "end": 59.81
+  },
+  {
+   "word": "avisa",
+   "start": 59.81,
+   "end": 60.03
+  },
+  {
+   "word": "por",
+   "start": 60.03,
+   "end": 60.21
+  },
+  {
+   "word": "WhatsApp",
+   "start": 60.21,
+   "end": 60.59
+  },
+  {
+   "word": "con",
+   "start": 60.59,
+   "end": 60.97
+  },
+  {
+   "word": "tu",
+   "start": 60.97,
+   "end": 61.09
+  },
+  {
+   "word": "comisión.",
+   "start": 61.09,
+   "end": 61.97
+  },
+  {
+   "word": "20",
+   "start": 62.31,
+   "end": 62.55
+  },
+  {
+   "word": "búsquedas",
+   "start": 62.55,
+   "end": 62.95
+  },
+  {
+   "word": "al",
+   "start": 62.95,
+   "end": 63.05
+  },
+  {
+   "word": "día,",
+   "start": 63.05,
+   "end": 63.27
+  },
+  {
+   "word": "gratis.",
+   "start": 63.27,
+   "end": 63.87
+  },
+  {
+   "word": "¿Dudas?",
+   "start": 63.79,
+   "end": 64.17
+  },
+  {
+   "word": "Escríbeme.",
+   "start": 64.17,
+   "end": 64.93
+  }
+ ]
+}

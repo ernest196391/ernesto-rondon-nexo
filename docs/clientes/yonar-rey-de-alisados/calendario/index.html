@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reserva tu cita — Rey de Alisados</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Gloock&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root { --ebano:#141210; --ambar:#E0A957; --canela:#A67C3D; --perla:#F6EEE2; --humo:#9A8F80; --linea:#e3dedb; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--perla); color:var(--ebano); font-family:"Instrument Sans",system-ui,sans-serif; line-height:1.5; }
+  button { font:inherit; cursor:pointer; }
+  button:focus-visible, input:focus-visible { outline:2px solid var(--ambar); outline-offset:2px; }
+  header { background:var(--ebano); color:var(--perla); padding:18px 16px; display:flex; align-items:center; gap:12px; justify-content:space-between; flex-wrap:wrap; }
+  .brand { display:flex; align-items:center; gap:10px; }
+  .brand b { font-family:Gloock,serif; font-weight:400; font-size:26px; letter-spacing:.04em; }
+  .view-toggle { display:flex; background:#24201c; border-radius:999px; padding:3px; }
+  .view-toggle button { border:0; background:none; color:var(--humo); padding:7px 14px; border-radius:999px; }
+  .view-toggle button[aria-pressed="true"] { background:var(--perla); color:var(--ebano); font-weight:600; }
+  .demo-note { background:#efe6dc; color:#5a4a3f; font-size:14px; padding:10px 16px; text-align:center; }
+  main { max-width:860px; margin:0 auto; padding:24px 16px 64px; }
+  h1 { font-family:Gloock,serif; font-weight:400; font-size:clamp(34px,7vw,52px); margin:8px 0 4px; }
+  .sub { color:#5c5356; margin:0 0 24px; }
+  h2 { font-size:18px; margin:28px 0 12px; }
+  .services { display:grid; gap:10px; }
+  .service { text-align:left; background:#fff; border:1px solid var(--linea); border-radius:12px; padding:14px 16px; display:grid; grid-template-columns:1fr auto; gap:2px 12px; }
+  .service small { color:#6b6265; grid-column:1; }
+  .service .price { grid-row:1 / span 2; grid-column:2; align-self:center; font-weight:600; }
+  .service[aria-pressed="true"] { border-color:var(--ebano); box-shadow:inset 0 0 0 1px var(--ebano); }
+  .stylists { display:flex; gap:10px; flex-wrap:wrap; }
+  .chip { border:1px solid var(--linea); background:#fff; border-radius:999px; padding:9px 16px; }
+  .chip[aria-pressed="true"] { background:var(--ebano); color:var(--perla); border-color:var(--ebano); }
+  .days { display:flex; gap:8px; overflow-x:auto; padding-bottom:6px; scrollbar-width:thin; }
+  .day { flex:none; width:64px; border:1px solid var(--linea); background:#fff; border-radius:12px; padding:8px 0; text-align:center; }
+  .day b { display:block; font-size:20px; }
+  .day small { color:#6b6265; font-size:12px; }
+  .day[aria-pressed="true"] { background:var(--ebano); color:var(--perla); border-color:var(--ebano); }
+  .day[aria-pressed="true"] small { color:var(--humo); }
+  .day:disabled { opacity:.35; cursor:not-allowed; }
+  .slots { display:grid; grid-template-columns:repeat(auto-fill,minmax(88px,1fr)); gap:8px; }
+  .slot { border:1px solid var(--linea); background:#fff; border-radius:10px; padding:10px 0; }
+  .slot[aria-pressed="true"] { background:var(--ambar); border-color:var(--ambar); font-weight:600; }
+  .slot:disabled { background:transparent; color:#b3abae; text-decoration:line-through; cursor:not-allowed; }
+  .empty { color:#6b6265; }
+  form { display:grid; gap:12px; background:#fff; border:1px solid var(--linea); border-radius:14px; padding:18px; }
+  label { display:grid; gap:4px; font-weight:500; font-size:15px; }
+  input { font:inherit; padding:11px 12px; border:1px solid var(--linea); border-radius:10px; background:var(--perla); }
+  .pay { display:flex; gap:8px; flex-wrap:wrap; }
+  .summary { background:var(--ebano); color:var(--perla); border-radius:14px; padding:16px 18px; display:grid; gap:4px; }
+  .summary span { color:var(--humo); }
+  .cta { background:var(--ambar); color:var(--ebano); border:0; border-radius:12px; padding:14px; font-weight:600; font-size:17px; }
+  .cta:disabled { opacity:.45; cursor:not-allowed; }
+  .done { text-align:center; background:#fff; border:1px solid var(--linea); border-radius:14px; padding:28px 18px; }
+  .done h2 { font-family:Gloock,serif; font-weight:400; font-size:34px; margin:10px 0 6px; }
+  .wa { background:#e8f3ea; border-radius:12px; padding:12px 14px; text-align:left; margin:16px auto 0; max-width:420px; font-size:15px; }
+  .owner-day { display:grid; gap:8px; }
+  .row { display:grid; grid-template-columns:64px 1fr; gap:12px; align-items:center; background:#fff; border:1px solid var(--linea); border-radius:12px; padding:10px 14px; }
+  .row.free { background:transparent; border-style:dashed; color:#9c9396; }
+  .row b { font-size:15px; }
+  .row small { color:#6b6265; display:block; }
+  .tag { display:inline-block; font-size:12px; padding:2px 8px; border-radius:999px; background:#efe6dc; color:#5a4a3f; margin-left:6px; }
+  .tag.ok { background:#e2f0e4; color:#2f6b3a; }
+  .stats { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; margin-bottom:16px; }
+  .stat { background:#fff; border:1px solid var(--linea); border-radius:12px; padding:12px; }
+  .stat b { font-size:24px; display:block; }
+  .stat small { color:#6b6265; }
+  .live { color:#2f6b3a; font-size:14px; }
+  .hidden { display:none !important; }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <svg viewBox="0 0 300 150" width="84" aria-hidden="true"><path d="M20 120 L10 30 L80 80 L150 10 L220 80 L290 30 L280 120 Z" fill="#E0A957"/><rect x="20" y="124" width="260" height="20" fill="#E0A957"/><path d="M130 92 L150 70 L170 92 L150 114 Z" fill="#141210"/></svg>
+    <b>Rey de Alisados</b>
+  </div>
+  <div class="view-toggle" role="group" aria-label="Vista">
+    <button id="vClient" aria-pressed="true">Clienta</button>
+    <button id="vOwner" aria-pressed="false">Yonar</button>
+  </div>
+</header>
+<p class="demo-note">Demo con precios y horarios de ejemplo. Ábrelo en dos pestañas: reserva en una y mira la agenda de Yonar en la otra.</p>
+
+<main>
+  <!-- VISTA CLIENTA -->
+  <section id="client">
+    <div id="booking">
+      <h1>Reserva tu cita</h1>
+      <p class="sub">Salón Capadocia, Vedado. Elige servicio, día y hora; el turno queda tuyo al momento.</p>
+
+      <h2>1. ¿Qué te quieres hacer?</h2>
+      <div class="services" id="services"></div>
+
+      <h2>2. ¿Con quién?</h2>
+      <div class="stylists" id="stylists"></div>
+
+      <h2>3. Elige el día</h2>
+      <div class="days" id="days"></div>
+
+      <h2>4. Elige la hora</h2>
+      <div class="slots" id="slots"><p class="empty">Primero elige servicio y día.</p></div>
+
+      <h2>5. Tus datos y el depósito</h2>
+      <form id="form" novalidate>
+        <label>Nombre <input id="name" autocomplete="name" placeholder="Ej. Daniela"></label>
+        <label>WhatsApp <input id="phone" inputmode="tel" autocomplete="tel" placeholder="+53 5…"></label>
+        <div>
+          <b style="font-size:15px">Depósito de 10 USD para guardar el turno</b>
+          <div class="pay" id="pay" style="margin-top:8px"></div>
+          <p id="payHelp" class="empty" style="margin:8px 0 0;font-size:14px"></p>
+        </div>
+        <div class="summary" id="summary"><span>Tu cita</span><b>Elige servicio, día y hora</b></div>
+        <button class="cta" id="confirm" type="submit" disabled>Reservar y enviar depósito</button>
+      </form>
+    </div>
+
+    <div id="done" class="done hidden" aria-live="polite">
+      <svg viewBox="0 0 300 150" width="84" aria-hidden="true"><path d="M20 120 L10 30 L80 80 L150 10 L220 80 L290 30 L280 120 Z" fill="#E0A957"/><rect x="20" y="124" width="260" height="20" fill="#E0A957"/><path d="M130 92 L150 70 L170 92 L150 114 Z" fill="#141210"/></svg>
+      <h2>Cita guardada</h2>
+      <p id="doneText"></p>
+      <div class="wa" id="waText"></div>
+      <button class="chip" id="again" style="margin-top:18px">Hacer otra reserva</button>
+    </div>
+  </section>
+
+  <!-- VISTA YONAR -->
+  <section id="owner" class="hidden">
+    <h1>Agenda</h1>
+    <p class="sub"><span class="live">● En vivo</span>: cada reserva aparece aquí al momento y el turno se bloquea para todas.</p>
+    <div class="stats">
+      <div class="stat"><b id="sCount">0</b><small>citas este día</small></div>
+      <div class="stat"><b id="sDep">0</b><small>depósitos por confirmar</small></div>
+      <div class="stat"><b id="sMoney">0</b><small>USD previstos</small></div>
+    </div>
+    <div class="stylists" id="ownerStylists"></div>
+    <h2>Día</h2>
+    <div class="days" id="ownerDays"></div>
+    <h2 id="ownerTitle">Turnos</h2>
+    <div class="owner-day" id="ownerDay"></div>
+    <p class="empty" style="margin-top:16px;font-size:14px">En la versión real, a cada clienta le llega un recordatorio por WhatsApp el día antes y 2 horas antes.</p>
+  </section>
+</main>
+
+<script>
+const SERVICES = [
+  { id:'alisado-corto', name:'Alisado sin formol, pelo corto', mins:150, price:40 },
+  { id:'alisado-medio', name:'Alisado sin formol, pelo medio', mins:180, price:50 },
+  { id:'alisado-largo', name:'Alisado sin formol, pelo largo', mins:210, price:65 },
+  { id:'retoque', name:'Retoque de raíz', mins:90, price:30 },
+  { id:'hidratacion', name:'Diagnóstico + hidratación', mins:45, price:5 },
+];
+const STYLISTS = ['Yonar', 'William'];
+const OPEN = 9 * 60, CLOSE = 18 * 60, STEP = 30;
+const KEY = 'rey-citas-demo';
+
+const state = { view:'client', service:null, stylist:'Yonar', day:null, slot:null, pay:'Transfermóvil', ownerStylist:'Yonar', ownerDay:null };
+
+const $ = id => document.getElementById(id);
+const fmt = m => `${String(Math.floor(m/60)).padStart(2,'0')}:${String(m%60).padStart(2,'0')}`;
+const dayKey = d => d.toISOString().slice(0,10);
+const DAYS = Array.from({ length: 14 }, (_, i) => { const d = new Date(); d.setHours(12,0,0,0); d.setDate(d.getDate() + i); return d; });
+const isClosed = d => d.getDay() === 0;
+
+function load() {
+  try { const v = JSON.parse(localStorage.getItem(KEY)); if (Array.isArray(v)) return v; } catch (e) {}
+  return seed();
+}
+function save(list) { try { localStorage.setItem(KEY, JSON.stringify(list)); } catch (e) {} memory = list; }
+let memory = null;
+function bookings() { return memory || (memory = load()); }
+
+function seed() {
+  // Citas de ejemplo para que la agenda no esté vacía.
+  const out = [];
+  const first = DAYS.find(d => !isClosed(d));
+  const second = DAYS.filter(d => !isClosed(d))[1];
+  out.push({ day: dayKey(first), start: 9*60, mins: 180, stylist: 'Yonar', service: 'Alisado sin formol, pelo medio', name: 'Mariela', phone: '+53 5xx', pay: 'Zelle', price: 50, deposit: 'confirmado' });
+  out.push({ day: dayKey(first), start: 14*60, mins: 90, stylist: 'Yonar', service: 'Retoque de raíz', name: 'Yanet', phone: '+53 5xx', pay: 'Transfermóvil', price: 30, deposit: 'confirmado' });
+  out.push({ day: dayKey(second), start: 10*60, mins: 210, stylist: 'William', service: 'Alisado sin formol, pelo largo', name: 'Laura (Miami)', phone: '+1 305', pay: 'Zelle', price: 65, deposit: 'confirmado' });
+  save(out);
+  return out;
+}
+
+function taken(day, stylist, start, mins) {
+  return bookings().some(b => b.day === day && b.stylist === stylist && start < b.start + b.mins && b.start < start + mins);
+}
+
+function pressedGroup(container, matchFn) {
+  [...container.children].forEach(el => el.setAttribute('aria-pressed', String(matchFn(el))));
+}
+
+function renderServices() {
+  const box = $('services'); box.innerHTML = '';
+  SERVICES.forEach(s => {
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'service'; b.dataset.id = s.id;
+    b.innerHTML = `<b>${s.name}</b><small>${Math.floor(s.mins/60)} h${s.mins%60 ? ' ' + s.mins%60 + ' min' : ''}</small><span class="price">${s.price} USD</span>`;
+    b.onclick = () => { state.service = s; state.slot = null; render(); };
+    box.appendChild(b);
+  });
+}
+function renderStylists(boxId, key) {
+  const box = $(boxId); box.innerHTML = '';
+  STYLISTS.forEach(n => {
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'chip'; b.textContent = n; b.dataset.n = n;
+    b.onclick = () => { state[key] = n; if (key === 'stylist') state.slot = null; render(); };
+    box.appendChild(b);
+  });
+}
+function renderDays(boxId, key) {
+  const box = $(boxId); box.innerHTML = '';
+  DAYS.forEach(d => {
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'day'; b.dataset.k = dayKey(d);
+    b.disabled = isClosed(d);
+    b.innerHTML = `<small>${d.toLocaleDateString('es', { weekday:'short' })}</small><b>${d.getDate()}</b><small>${d.toLocaleDateString('es', { month:'short' })}</small>`;
+    b.onclick = () => { state[key] = dayKey(d); if (key === 'day') state.slot = null; render(); };
+    box.appendChild(b);
+  });
+}
+
+function render() {
+  // Vista
+  $('client').classList.toggle('hidden', state.view !== 'client');
+  $('owner').classList.toggle('hidden', state.view !== 'owner');
+  $('vClient').setAttribute('aria-pressed', String(state.view === 'client'));
+  $('vOwner').setAttribute('aria-pressed', String(state.view === 'owner'));
+
+  pressedGroup($('services'), el => state.service && el.dataset.id === state.service.id);
+  pressedGroup($('stylists'), el => el.dataset.n === state.stylist);
+  pressedGroup($('days'), el => el.dataset.k === state.day);
+  pressedGroup($('pay'), el => el.dataset.p === state.pay);
+
+  // Horas
+  const slots = $('slots');
+  if (!state.service || !state.day) {
+    slots.innerHTML = '<p class="empty">Primero elige servicio y día.</p>';
+  } else {
+    slots.innerHTML = '';
+    let any = false;
+    for (let m = OPEN; m + state.service.mins <= CLOSE; m += STEP) {
+      const b = document.createElement('button');
+      b.type = 'button'; b.className = 'slot'; b.textContent = fmt(m);
+      b.disabled = taken(state.day, state.stylist, m, state.service.mins);
+      if (!b.disabled) any = true;
+      b.setAttribute('aria-pressed', String(state.slot === m));
+      b.onclick = () => { state.slot = m; render(); };
+      slots.appendChild(b);
+    }
+    if (!any) slots.innerHTML = `<p class="empty">${state.stylist} no tiene huecos ese día. Prueba otro día o con otro estilista.</p>`;
+  }
+
+  // Pago
+  $('payHelp').textContent = state.pay === 'Transfermóvil'
+    ? 'Transfiere 10 USD (al cambio del día en CUP) a la cuenta que te llega por WhatsApp y manda la captura.'
+    : 'Envía 10 USD por Zelle al correo que te llega por WhatsApp. Ideal si reservas desde fuera de Cuba.';
+
+  // Resumen
+  const ready = state.service && state.day && state.slot !== null;
+  const d = state.day && DAYS.find(x => dayKey(x) === state.day);
+  $('summary').innerHTML = ready
+    ? `<span>Tu cita</span><b>${state.service.name}</b><div>${d.toLocaleDateString('es', { weekday:'long', day:'numeric', month:'long' })}, ${fmt(state.slot)} con ${state.stylist}</div><div>Total ${state.service.price} USD · depósito 10 USD hoy</div>`
+    : '<span>Tu cita</span><b>Elige servicio, día y hora</b>';
+  $('confirm').disabled = !(ready && $('name').value.trim() && $('phone').value.trim());
+
+  renderOwner();
+}
+
+function renderOwner() {
+  pressedGroup($('ownerStylists'), el => el.dataset.n === state.ownerStylist);
+  pressedGroup($('ownerDays'), el => el.dataset.k === state.ownerDay);
+  const list = bookings().filter(b => b.day === state.ownerDay && b.stylist === state.ownerStylist).sort((a,b) => a.start - b.start);
+  const d = DAYS.find(x => dayKey(x) === state.ownerDay);
+  $('ownerTitle').textContent = d ? `Turnos de ${state.ownerStylist}, ${d.toLocaleDateString('es', { weekday:'long', day:'numeric', month:'long' })}` : 'Turnos';
+  $('sCount').textContent = list.length;
+  $('sDep').textContent = list.filter(b => b.deposit !== 'confirmado').length;
+  $('sMoney').textContent = list.reduce((s,b) => s + b.price, 0);
+  const box = $('ownerDay'); box.innerHTML = '';
+  let cursor = OPEN;
+  const freeRow = (from, to) => { const r = document.createElement('div'); r.className = 'row free'; r.innerHTML = `<b>${fmt(from)}</b><span>Libre hasta las ${fmt(to)}</span>`; box.appendChild(r); };
+  list.forEach(b => {
+    if (b.start > cursor) freeRow(cursor, b.start);
+    const r = document.createElement('div'); r.className = 'row';
+    const ok = b.deposit === 'confirmado';
+    r.innerHTML = `<b>${fmt(b.start)}</b><div>${b.name}<span class="tag ${ok ? 'ok' : ''}">${ok ? 'Depósito confirmado' : 'Revisar comprobante'}</span><small>${b.service} · hasta las ${fmt(b.start + b.mins)} · ${b.pay}</small></div>`;
+    box.appendChild(r);
+    cursor = Math.max(cursor, b.start + b.mins);
+  });
+  if (cursor < CLOSE) freeRow(cursor, CLOSE);
+}
+
+$('form').addEventListener('input', render);
+$('form').addEventListener('submit', e => {
+  e.preventDefault();
+  if ($('confirm').disabled) return;
+  if (taken(state.day, state.stylist, state.slot, state.service.mins)) { alert('Ese turno se acaba de ocupar. Elige otra hora.'); state.slot = null; return render(); }
+  const b = { day: state.day, start: state.slot, mins: state.service.mins, stylist: state.stylist, service: state.service.name, name: $('name').value.trim(), phone: $('phone').value.trim(), pay: state.pay, price: state.service.price, deposit: 'pendiente' };
+  save([...bookings(), b]);
+  const d = DAYS.find(x => dayKey(x) === state.day);
+  const when = `${d.toLocaleDateString('es', { weekday:'long', day:'numeric', month:'long' })} a las ${fmt(state.slot)}`;
+  $('doneText').textContent = `${b.name}, tu ${b.service.toLowerCase()} con ${b.stylist} es el ${when}. El turno ya está bloqueado para ti.`;
+  $('waText').innerHTML = `<b>Te llega por WhatsApp:</b><br>Hola ${b.name}, soy el asistente de Rey de Alisados. Tu cita es el ${when}. Para confirmarla manda la captura del depósito de 10 USD por ${b.pay}. Te recordamos un día antes.`;
+  $('booking').classList.add('hidden'); $('done').classList.remove('hidden');
+  state.ownerDay = state.day; state.ownerStylist = state.stylist;
+  renderOwner();
+});
+$('again').onclick = () => { state.slot = null; $('done').classList.add('hidden'); $('booking').classList.remove('hidden'); render(); };
+$('vClient').onclick = () => { state.view = 'client'; render(); };
+$('vOwner').onclick = () => { state.view = 'owner'; render(); };
+
+// Tiempo real entre pestañas: si otra pestaña reserva, esta se actualiza sola.
+window.addEventListener('storage', e => { if (e.key === KEY) { memory = null; render(); } });
+
+// Pago
+['Transfermóvil','Zelle'].forEach(p => {
+  const b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.textContent = p; b.dataset.p = p;
+  b.onclick = () => { state.pay = p; render(); };
+  $('pay').appendChild(b);
+});
+
+renderServices();
+renderStylists('stylists', 'stylist');
+renderStylists('ownerStylists', 'ownerStylist');
+renderDays('days', 'day');
+renderDays('ownerDays', 'ownerDay');
+state.ownerDay = dayKey(DAYS.find(d => !isClosed(d)));
+render();
+</script>
+</body>
+</html>

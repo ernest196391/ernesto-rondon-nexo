@@ -1,0 +1,865 @@
+{
+  "ok": false,
+  "strict": false,
+  "browserSkipped": false,
+  "lint": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 1,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "duplicate_media_discovery_risk",
+        "severity": "warning",
+        "message": "Detected 2 matching img entries with the same source/start/duration.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\Ernesto\\ernesto-rondon-nexo\\videos\\tutorial-tu-precio\\compositions\\s04-quien-lo-ve.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Avoid duplicated media nodes that can be discovered twice during compilation."
+      }
+    ],
+    "filesScanned": 11
+  },
+  "runtime": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 1,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "clip_media_fit",
+        "severity": "warning",
+        "message": "Audio \"voz\" is 45.84s but its slot (data-duration) is 46.04s — the slot is shortened to the media length when rendered. Set data-duration to ~45.84s if that isn't intended.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "48.84",
+          "data-width": "1080",
+          "data-height": "1920"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1080,
+          "height": 1920
+        },
+        "time": 0
+      }
+    ]
+  },
+  "layout": {
+    "ok": false,
+    "errorCount": 5,
+    "warningCount": 2,
+    "infoCount": 7,
+    "findings": [
+      {
+        "code": "content_overlap",
+        "severity": "error",
+        "time": 24.42,
+        "selector": "#s04-quien-lo-ve-a0 > span:nth-of-type(1)",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 268,
+          "top": 479,
+          "right": 628.52,
+          "bottom": 507,
+          "width": 360.52,
+          "height": 28
+        },
+        "containerSelector": "#s04-quien-lo-ve-a1 > span:nth-of-type(1)",
+        "text": "casaviva.company/…/organizador…?ref=TUCODIGO",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s04-quien-lo-ve.html",
+        "bbox": {
+          "x": 268,
+          "y": 479,
+          "width": 360.52,
+          "height": 28
+        },
+        "firstSeen": 23.733,
+        "lastSeen": 32.102,
+        "occurrences": 70,
+        "heldMs": 8368.999999999996,
+        "times": [
+          23.733,
+          23.858,
+          23.983,
+          24.108,
+          24.233,
+          24.358,
+          24.42,
+          24.482,
+          24.607,
+          24.732,
+          24.857,
+          24.982,
+          25.107,
+          25.232,
+          25.357,
+          25.482,
+          25.607,
+          25.732,
+          25.856,
+          25.981,
+          26.106,
+          26.231,
+          26.356,
+          26.481,
+          26.606,
+          26.731,
+          26.856,
+          26.981,
+          27.106,
+          27.23,
+          27.355,
+          27.48,
+          27.605,
+          27.73,
+          27.855,
+          27.98,
+          28.105,
+          28.23,
+          28.355,
+          28.48,
+          28.605,
+          28.729,
+          28.854,
+          28.979,
+          29.104,
+          29.229,
+          29.354,
+          29.479,
+          29.604,
+          29.729,
+          29.847,
+          29.854,
+          29.979,
+          30.103,
+          30.228,
+          30.353,
+          30.478,
+          30.603,
+          30.728,
+          30.853,
+          30.978,
+          31.103,
+          31.228,
+          31.353,
+          31.477,
+          31.602,
+          31.727,
+          31.852,
+          31.977,
+          32.102
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "error",
+        "time": 24.42,
+        "selector": "#s04-quien-lo-ve-a0 > span:nth-of-type(1) > b:nth-of-type(1)",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 628.52,
+          "top": 479,
+          "right": 806.3,
+          "bottom": 507,
+          "width": 177.78,
+          "height": 28
+        },
+        "containerSelector": "#s04-quien-lo-ve-a1 > span:nth-of-type(1)",
+        "text": "?ref=TUCODIGO",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s04-quien-lo-ve.html",
+        "bbox": {
+          "x": 628.52,
+          "y": 479,
+          "width": 177.78,
+          "height": 28
+        },
+        "firstSeen": 23.733,
+        "lastSeen": 32.102,
+        "occurrences": 70,
+        "heldMs": 8368.999999999996,
+        "times": [
+          23.733,
+          23.858,
+          23.983,
+          24.108,
+          24.233,
+          24.358,
+          24.42,
+          24.482,
+          24.607,
+          24.732,
+          24.857,
+          24.982,
+          25.107,
+          25.232,
+          25.357,
+          25.482,
+          25.607,
+          25.732,
+          25.856,
+          25.981,
+          26.106,
+          26.231,
+          26.356,
+          26.481,
+          26.606,
+          26.731,
+          26.856,
+          26.981,
+          27.106,
+          27.23,
+          27.355,
+          27.48,
+          27.605,
+          27.73,
+          27.855,
+          27.98,
+          28.105,
+          28.23,
+          28.355,
+          28.48,
+          28.605,
+          28.729,
+          28.854,
+          28.979,
+          29.104,
+          29.229,
+          29.354,
+          29.479,
+          29.604,
+          29.729,
+          29.847,
+          29.854,
+          29.979,
+          30.103,
+          30.228,
+          30.353,
+          30.478,
+          30.603,
+          30.728,
+          30.853,
+          30.978,
+          31.103,
+          31.228,
+          31.353,
+          31.477,
+          31.602,
+          31.727,
+          31.852,
+          31.977,
+          32.102
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "error",
+        "time": 29.847,
+        "selector": "#s04-quien-lo-ve-a1 > span:nth-of-type(1)",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 268,
+          "top": 479,
+          "right": 709.8,
+          "bottom": 507,
+          "width": 441.8,
+          "height": 28
+        },
+        "containerSelector": "#s04-quien-lo-ve-a2 > span:nth-of-type(1)",
+        "text": "casaviva.company/producto/organizador…",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s04-quien-lo-ve.html",
+        "bbox": {
+          "x": 268,
+          "y": 479,
+          "width": 441.8,
+          "height": 28
+        },
+        "firstSeen": 29.729,
+        "lastSeen": 32.102,
+        "occurrences": 21,
+        "heldMs": 2372.9999999999977,
+        "times": [
+          29.729,
+          29.847,
+          29.854,
+          29.979,
+          30.103,
+          30.228,
+          30.353,
+          30.478,
+          30.603,
+          30.728,
+          30.853,
+          30.978,
+          31.103,
+          31.228,
+          31.353,
+          31.477,
+          31.602,
+          31.727,
+          31.852,
+          31.977,
+          32.102
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "error",
+        "time": 35.849,
+        "selector": "#s05-tu-pedido-a1 > span:nth-of-type(1)",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 268,
+          "top": 479,
+          "right": 628.52,
+          "bottom": 507,
+          "width": 360.52,
+          "height": 28
+        },
+        "containerSelector": "#s05-tu-pedido-a2 > span:nth-of-type(1)",
+        "text": "casaviva.company/…/organizador…?ref=TUCODIGO",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s05-tu-pedido.html",
+        "bbox": {
+          "x": 268,
+          "y": 479,
+          "width": 360.52,
+          "height": 28
+        },
+        "firstSeen": 35.849,
+        "lastSeen": 38.847,
+        "occurrences": 25,
+        "heldMs": 2998.0000000000045,
+        "times": [
+          35.849,
+          35.974,
+          36.099,
+          36.224,
+          36.349,
+          36.474,
+          36.599,
+          36.724,
+          36.849,
+          36.974,
+          37.098,
+          37.223,
+          37.348,
+          37.473,
+          37.598,
+          37.723,
+          37.848,
+          37.973,
+          38.098,
+          38.223,
+          38.348,
+          38.472,
+          38.597,
+          38.722,
+          38.847
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "error",
+        "time": 35.849,
+        "selector": "#s05-tu-pedido-a1 > span:nth-of-type(1) > b:nth-of-type(1)",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 628.52,
+          "top": 479,
+          "right": 806.3,
+          "bottom": 507,
+          "width": 177.78,
+          "height": 28
+        },
+        "containerSelector": "#s05-tu-pedido-a2 > span:nth-of-type(1) > b:nth-of-type(1)",
+        "text": "?ref=TUCODIGO",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s05-tu-pedido.html",
+        "bbox": {
+          "x": 628.52,
+          "y": 479,
+          "width": 177.78,
+          "height": 28
+        },
+        "firstSeen": 35.849,
+        "lastSeen": 38.847,
+        "occurrences": 25,
+        "heldMs": 2998.0000000000045,
+        "times": [
+          35.849,
+          35.974,
+          36.099,
+          36.224,
+          36.349,
+          36.474,
+          36.599,
+          36.724,
+          36.849,
+          36.974,
+          37.098,
+          37.223,
+          37.348,
+          37.473,
+          37.598,
+          37.723,
+          37.848,
+          37.973,
+          38.098,
+          38.223,
+          38.348,
+          38.472,
+          38.597,
+          38.722,
+          38.847
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "warning",
+        "time": 24.42,
+        "selector": "#s04-quien-lo-ve-s0",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 230,
+          "top": 524,
+          "right": 850,
+          "bottom": 1866,
+          "width": 620,
+          "height": 1342
+        },
+        "containerSelector": "#s04-quien-lo-ve-scr",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 230,
+          "top": 418,
+          "right": 850,
+          "bottom": 1806,
+          "width": 620,
+          "height": 1388
+        },
+        "overflow": {
+          "bottom": 60
+        },
+        "dataAttributes": {
+          "data-hf-authored-opacity": ""
+        },
+        "sourceFile": "compositions/s04-quien-lo-ve.html",
+        "bbox": {
+          "x": 230,
+          "y": 524,
+          "width": 620,
+          "height": 1342
+        },
+        "firstSeen": 24.42,
+        "lastSeen": 29.847,
+        "occurrences": 2,
+        "heldMs": 0,
+        "times": [
+          24.42,
+          29.847
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "warning",
+        "time": 24.42,
+        "selector": "#s04-quien-lo-ve-s1",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 230,
+          "top": 524,
+          "right": 850,
+          "bottom": 1866,
+          "width": 620,
+          "height": 1342
+        },
+        "containerSelector": "#s04-quien-lo-ve-scr",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 230,
+          "top": 418,
+          "right": 850,
+          "bottom": 1806,
+          "width": 620,
+          "height": 1388
+        },
+        "overflow": {
+          "bottom": 60
+        },
+        "dataAttributes": {
+          "data-hf-authored-opacity": ""
+        },
+        "sourceFile": "compositions/s04-quien-lo-ve.html",
+        "bbox": {
+          "x": 230,
+          "y": 524,
+          "width": 620,
+          "height": 1342
+        },
+        "firstSeen": 24.42,
+        "lastSeen": 29.847,
+        "occurrences": 2,
+        "heldMs": 0,
+        "times": [
+          24.42,
+          29.847
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 24.42,
+        "selector": "#s04-quien-lo-ve-a0 > span:nth-of-type(1)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 268,
+          "top": 479,
+          "right": 628.52,
+          "bottom": 507,
+          "width": 360.52,
+          "height": 28
+        },
+        "containerSelector": "#s04-quien-lo-ve-a1 > span:nth-of-type(1)",
+        "text": "casaviva.company/…/organizador…",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "compositions/s04-quien-lo-ve.html",
+        "bbox": {
+          "x": 268,
+          "y": 479,
+          "width": 360.52,
+          "height": 28
+        },
+        "firstSeen": 24.42,
+        "lastSeen": 29.847,
+        "occurrences": 2,
+        "heldMs": 0,
+        "times": [
+          24.42,
+          29.847
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 24.42,
+        "selector": "#s04-quien-lo-ve-a0 > span:nth-of-type(1) > b:nth-of-type(1)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 628.52,
+          "top": 479,
+          "right": 806.3,
+          "bottom": 507,
+          "width": 177.78,
+          "height": 28
+        },
+        "containerSelector": "#s04-quien-lo-ve-a1 > span:nth-of-type(1)",
+        "text": "?ref=TUCODIGO",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "compositions/s04-quien-lo-ve.html",
+        "bbox": {
+          "x": 628.52,
+          "y": 479,
+          "width": 177.78,
+          "height": 28
+        },
+        "firstSeen": 24.42,
+        "lastSeen": 29.847,
+        "occurrences": 2,
+        "heldMs": 0,
+        "times": [
+          24.42,
+          29.847
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 24.42,
+        "selector": "#s04-quien-lo-ve-h2",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 224,
+          "top": 458,
+          "right": 856,
+          "bottom": 530,
+          "width": 632,
+          "height": 72
+        },
+        "containerSelector": "#s04-quien-lo-ve-scr",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 230,
+          "top": 418,
+          "right": 850,
+          "bottom": 1806,
+          "width": 620,
+          "height": 1388
+        },
+        "overflow": {
+          "left": 6,
+          "right": 6
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/s04-quien-lo-ve.html",
+        "bbox": {
+          "x": 224,
+          "y": 458,
+          "width": 632,
+          "height": 72
+        },
+        "firstSeen": 24.42,
+        "lastSeen": 24.42,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          24.42
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 29.847,
+        "selector": "#s04-quien-lo-ve-a1 > span:nth-of-type(1)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 268,
+          "top": 479,
+          "right": 709.8,
+          "bottom": 507,
+          "width": 441.8,
+          "height": 28
+        },
+        "containerSelector": "#s04-quien-lo-ve-a2 > span:nth-of-type(1)",
+        "text": "casaviva.company/producto/organizador…",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "compositions/s04-quien-lo-ve.html",
+        "bbox": {
+          "x": 268,
+          "y": 479,
+          "width": 441.8,
+          "height": 28
+        },
+        "firstSeen": 29.847,
+        "lastSeen": 29.847,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          29.847
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 29.847,
+        "selector": "#s04-quien-lo-ve-s2",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 230,
+          "top": 524,
+          "right": 850,
+          "bottom": 1866,
+          "width": 620,
+          "height": 1342
+        },
+        "containerSelector": "#s04-quien-lo-ve-scr",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 230,
+          "top": 418,
+          "right": 850,
+          "bottom": 1806,
+          "width": 620,
+          "height": 1388
+        },
+        "overflow": {
+          "bottom": 60
+        },
+        "dataAttributes": {
+          "data-hf-authored-opacity": ""
+        },
+        "sourceFile": "compositions/s04-quien-lo-ve.html",
+        "bbox": {
+          "x": 230,
+          "y": 524,
+          "width": 620,
+          "height": 1342
+        },
+        "firstSeen": 29.847,
+        "lastSeen": 29.847,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          29.847
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 35.273,
+        "selector": "#s05-tu-pedido-s1",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 230,
+          "top": 524,
+          "right": 850,
+          "bottom": 1866,
+          "width": 620,
+          "height": 1342
+        },
+        "containerSelector": "#s05-tu-pedido-scr",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 230,
+          "top": 418,
+          "right": 850,
+          "bottom": 1806,
+          "width": 620,
+          "height": 1388
+        },
+        "overflow": {
+          "bottom": 60
+        },
+        "dataAttributes": {
+          "data-hf-authored-opacity": ""
+        },
+        "sourceFile": "compositions/s05-tu-pedido.html",
+        "bbox": {
+          "x": 230,
+          "y": 524,
+          "width": 620,
+          "height": 1342
+        },
+        "firstSeen": 35.273,
+        "lastSeen": 35.273,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          35.273
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 35.273,
+        "selector": "#s05-tu-pedido-h1",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 223.87,
+          "top": 457.99,
+          "right": 856.13,
+          "bottom": 530.01,
+          "width": 632.25,
+          "height": 72.03
+        },
+        "containerSelector": "#s05-tu-pedido-scr",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 230,
+          "top": 418,
+          "right": 850,
+          "bottom": 1806,
+          "width": 620,
+          "height": 1388
+        },
+        "overflow": {
+          "left": 6.13,
+          "right": 6.13
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/s05-tu-pedido.html",
+        "bbox": {
+          "x": 223.87,
+          "y": 457.99,
+          "width": 632.25,
+          "height": 72.03
+        },
+        "firstSeen": 35.273,
+        "lastSeen": 35.273,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          35.273
+        ]
+      }
+    ],
+    "duration": 48.84,
+    "samples": [
+      2.713,
+      8.14,
+      13.567,
+      18.993,
+      24.42,
+      29.847,
+      35.273,
+      40.7,
+      46.127
+    ],
+    "transitionSamples": [],
+    "transitionSamplesDropped": 0,
+    "tolerance": 2,
+    "totalIssueCount": 14,
+    "truncated": false
+  },
+  "motion": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": false,
+    "samples": 0
+  },
+  "contrast": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": true,
+    "samples": [
+      2.713,
+      13.567,
+      24.42,
+      35.273,
+      46.127
+    ],
+    "checked": 45,
+    "passed": 45
+  },
+  "hdr": {
+    "autoPromotion": null,
+    "inspection": "available"
+  },
+  "snapshots": {
+    "enabled": false,
+    "files": [],
+    "times": [],
+    "findingFiles": []
+  }
+}

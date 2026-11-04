@@ -1,0 +1,5 @@
+Paso 1 de 5: escribe el número del pedido en Buscar pedido.
+Paso 2 de 5: toca Cambiar pedido.
+Paso 3 de 5: cambia lo necesario y toca Guardar cambios.
+Paso 4 de 5: toca Cancelar pedido, escribe el motivo y acepta.
+Paso 5 de 5: si sale «Avísale a…», escríbele tú al mensajero.

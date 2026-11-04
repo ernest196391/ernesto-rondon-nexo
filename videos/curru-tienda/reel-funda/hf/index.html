@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Reel funda v2</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      /* Reel «¿Tus sábanas huelen a guardado?» v2 (13-oct): encima de la v1 limpia (cámara de ffmpeg, sin textos)
+         se añaden 2 «punch-in» rápidos en los 2,5 primeros segundos, un destello crema muy suave en cada corte y
+         los mismos PNG de gancho, subtítulos y logo de la v1 (por eso se ven idénticos). El audio se mezcla aparte. */
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #0d3b45; }
+      #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #0d3b45; }
+      #cam { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; transform-origin: 530px 380px; will-change: transform; }
+      #base { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; object-fit: cover; }
+      #destello { position: absolute; inset: 0; background: #f6f1e6; opacity: 0; pointer-events: none; }
+      .capa { position: absolute; left: 0; display: block; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="12" data-width="1080" data-height="1920">
+      <!-- Cámara: el envoltorio no lleva tiempo (la regla: el tiempo va en el video o en el envoltorio, no en los dos) -->
+      <div id="cam">
+        <video id="base" class="clip" src="assets/base.mp4" muted playsinline
+               data-start="0" data-duration="12" data-track-index="0"></video>
+      </div>
+      <div id="destello"></div>
+
+      <!-- Textos de la v1 (PNG de resvg con las letras del manual), mismos tiempos y posiciones -->
+      <img id="gancho" class="clip capa" src="assets/gancho.png" style="top:1124px" data-start="0" data-duration="2.2" data-track-index="1" />
+      <img id="sub1" class="clip capa" src="assets/sub-01.png" style="top:1186px" data-start="2.2" data-duration="1.55" data-track-index="2" />
+      <img id="sub2" class="clip capa" src="assets/sub-02.png" style="top:1140px" data-start="3.75" data-duration="2.55" data-track-index="2" />
+      <img id="sub3" class="clip capa" src="assets/sub-03.png" style="top:1186px" data-start="6.3" data-duration="2.0" data-track-index="2" />
+      <img id="sub4" class="clip capa" src="assets/sub-04.png" style="top:576px" data-start="8.8" data-duration="1.8" data-track-index="2" />
+      <img id="sub5" class="clip capa" src="assets/sub-05.png" style="top:1186px" data-start="10.75" data-duration="1.25" data-track-index="2" />
+      <img id="logo" class="clip capa" src="assets/logo.png" style="top:1400px; left:350px" data-start="10.5" data-duration="1.5" data-track-index="3" />
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      // Punch-in en los primeros 2,5 s (centro en la cara de Cúrru): plano → cara (0,70 s) → plano medio (1,50 s).
+      tl.set("#cam", { scale: 1 }, 0);
+      tl.to("#cam", { scale: 1.32, duration: 0.13, ease: "power3.out" }, 0.7);
+      tl.to("#cam", { scale: 1.12, duration: 0.13, ease: "power3.out" }, 1.5);
+      tl.to("#cam", { scale: 1.0, duration: 0.2, ease: "power2.out" }, 2.46);
+      // Destello crema muy suave en los cortes de la escena (no en cada punch-in).
+      for (const [t, pico] of [[2.46, 0.3], [4.54, 0.22], [7.83, 0.28], [10.75, 0.22]]) {
+        tl.set("#destello", { opacity: pico }, t);
+        tl.to("#destello", { opacity: 0, duration: 0.22, ease: "power1.out" }, t + 0.001);
+      }
+      tl.set("#destello", { opacity: 0 }, 11.99);
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

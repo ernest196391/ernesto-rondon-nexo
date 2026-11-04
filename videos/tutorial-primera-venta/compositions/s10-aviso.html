@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #s10-aviso-root { position: absolute; inset: 0; }
+
+      </style>
+      <div id="s10-aviso-root" data-composition-id="s10-aviso" data-width="1080" data-height="1920">
+<div class="cap" id="s10-aviso-c0"><span class="ci">Tú no llamas <span class="k">a nadie</span></span></div>
+<div class="cap" id="s10-aviso-c1"><span class="ci">Te avisamos <span class="k">quién lo lleva</span></span></div>
+<div class="scr" id="s10-aviso-scr"><div class="sb" id="s10-aviso-sb"><span>10:24</span><span class="sb-icons"><span class="sb-bar" style="height:9px"></span><span class="sb-bar" style="height:13px"></span><span class="sb-bar" style="height:17px"></span><span class="sb-batt"></span></span></div>
+<img class="shot cover" id="s10-aviso-s0" src="assets/screens/gestora-inicio.jpg" alt="" />
+<div class="dim" id="s10-dim"></div><div class="ntf" id="s10-n1"><div class="ntf-ic"><svg viewBox="0 0 24 24" width="40" height="40" aria-hidden="true"><path fill="#ffffff" d="M12 3C6.9 3 3 6.6 3 11c0 2.3 1.1 4.4 2.9 5.9L5 21l4.3-2.1c.9.2 1.8.3 2.7.3 5.1 0 9-3.6 9-8.1S17.1 3 12 3Z"/></svg></div><div class="ntf-b"><div class="ntf-h"><b>Casa Viva</b><span>ahora</span></div><div class="ntf-t">🛵 Tu pedido #2925 lo lleva <span class="mk" id="s10-m1"><i class="mk-bar" id="s10-m1-b"></i><span class="mk-t">Pedri</span></span>, dice que va <span class="mk" id="s10-m2"><i class="mk-bar" id="s10-m2-b"></i><span class="mk-t">hoy 4pm</span></span></div></div></div></div>
+      </div>
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          tl.fromTo("#s10-aviso-scr", { opacity: 0 }, { opacity: 1, duration: 0.2, ease: "power1.out" }, 0);
+          tl.fromTo("#s10-aviso-c0", { opacity: 0, y: 34 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 0.15);
+          tl.fromTo("#s10-aviso-c0", { opacity: 1 }, { opacity: 0, duration: 0.22, ease: "power2.in", immediateRender: false }, 3.25);
+          tl.fromTo("#s10-aviso-c0 .k", { backgroundSize: "0% 100%" }, { backgroundSize: "100% 100%", duration: 0.45, ease: "power2.out" }, 0.5);
+          tl.fromTo("#s10-aviso-c1", { opacity: 0, y: 34 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 3.45);
+          tl.fromTo("#s10-aviso-c1", { opacity: 1 }, { opacity: 0, duration: 0.22, ease: "power2.in", immediateRender: false }, 6.17);
+          tl.fromTo("#s10-aviso-c1 .k", { backgroundSize: "0% 100%" }, { backgroundSize: "100% 100%", duration: 0.45, ease: "power2.out" }, 3.8);
+          
+          tl.fromTo("#s10-dim", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power1.out" }, 3.5);
+          tl.fromTo("#s10-n1", { opacity: 0, y: -90 }, { opacity: 1, y: 0, duration: 0.5, ease: "back.out(1.5)" }, 3.6);
+          tl.fromTo("#s10-m1-b", { scaleX: 0 }, { scaleX: 1, duration: 0.35, ease: "power2.out" }, 4.9);
+          tl.fromTo("#s10-m2-b", { scaleX: 0 }, { scaleX: 1, duration: 0.35, ease: "power2.out" }, 5.6);
+          window.__timelines["s10-aviso"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

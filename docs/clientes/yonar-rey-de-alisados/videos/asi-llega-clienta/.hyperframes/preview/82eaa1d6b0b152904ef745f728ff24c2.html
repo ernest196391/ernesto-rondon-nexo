@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head><script data-hf-gsap-fallback>
+(function(){
+  var cdnBase="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/";
+  var loaded={};
+  function loadFallback(file){
+    if(loaded[file])return loaded[file];
+    return loaded[file]=new Promise(function(ok,fail){
+      var s=document.createElement("script");
+      s.src=cdnBase+file;s.hfGsapFallback=true;s.onload=ok;s.onerror=fail;
+      document.head.appendChild(s);
+    });
+  }
+  document.addEventListener("error",function(e){
+    var t=e.target;
+    if(!t||t.tagName!=="SCRIPT"||!t.src||t.hfGsapFallback)return;
+    var m=t.src.match(/gsap[^/]*\/dist\/(.+\.js)/);
+    if(m)loadFallback(m[1]).catch(function(){
+      reportError(new Error("GSAP could not load from "+t.src+" or "+cdnBase+m[1]+", so this preview's animations will not play."));
+    });
+  },true);
+})();
+</script>
+<meta name="hyperframes-studio-preview"><script>(function(){var seen=window.__hfPreviewErrors=[];
+addEventListener("error",function(e){seen.push(e.message||String(e))});})();</script>
+<base href="/api/projects/asi-llega-clienta/preview/"><style data-hyperframes-text-rendering="true">html,body,*{text-rendering:geometricPrecision}</style><script data-hf-after-fonts-fallback="">document.addEventListener("DOMContentLoaded", function () {
+  if (window.__hfAfterFontsClaimed) return;
+  var T = "text/hf-after-fonts";
+  var all = [].slice.call(document.querySelectorAll('script[type="text/hf-after-fonts"], script[type="text/hf-after-fonts+module"]'));
+  if (!all.length) return;
+  console.warn("[hyperframes] the runtime has no web-font gate; composition scripts run without waiting for fonts");
+  var late = function (el) { return el.type !== T || el.matches('[defer][src], [defer][data-hf-inlined-src]'); };
+  var queue = all.filter(function (el) { return !late(el); }).concat(all.filter(late));
+  (function next() {
+    var el = queue.shift();
+    if (!el) return;
+    var s = document.createElement("script");
+    for (var i = 0; i < el.attributes.length; i++) s.setAttribute(el.attributes[i].name, el.attributes[i].value);
+    if (el.type === T) s.removeAttribute("type"); else s.type = "module";
+    s.async = el.hasAttribute("async");
+    s.text = el.text;
+    var waits = s.type !== "module" && s.hasAttribute("src") && !s.async && !s.noModule;
+    if (waits) { s.addEventListener("load", next); s.addEventListener("error", next); }
+    el.replaceWith(s);
+    if (!waits) next();
+  })();
+});
+//# sourceURL=hyperframes://after-fonts-fallback</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1080, height=1920">
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Italiana"; src: url("fonts/Italiana-Regular.ttf") format("truetype"); font-weight: 400; }
+      @font-face { font-family: "Instrument Sans"; src: url("fonts/InstrumentSans-Regular.ttf") format("truetype"); font-weight: 400; }
+      @font-face { font-family: "Instrument Sans"; src: url("fonts/InstrumentSans-Bold.ttf") format("truetype"); font-weight: 700; }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #1B1416; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: #1B1416; font-family: "Instrument Sans", sans-serif; color: #F3F1EF; }
+      .clip { position: absolute; inset: 0; }
+      .head { position: absolute; left: 90px; right: 90px; top: 150px; }
+      .step { font-size: 34px; color: #C8812E; font-weight: 700; }
+      .head h2 { font-family: "Italiana", serif; font-weight: 400; font-size: 84px; line-height: 1.05; margin-top: 14px; }
+      .phone { position: absolute; left: 140px; right: 140px; top: 560px; height: 1180px; background: #F3F1EF; border-radius: 64px; padding: 44px 36px; color: #1B1416; overflow: hidden; }
+      .bar { display: flex; align-items: center; gap: 18px; padding-bottom: 28px; border-bottom: 2px solid #e3dedb; margin-bottom: 30px; }
+      .av { width: 76px; height: 76px; border-radius: 50%; background: #1B1416; display: flex; align-items: center; justify-content: center; flex: none; }
+      .bar b { font-size: 34px; }
+      .bar small { display: block; font-size: 24px; color: #6b6265; }
+      .msgs { display: flex; flex-direction: column; gap: 22px; }
+      .b { max-width: 82%; font-size: 32px; line-height: 1.35; padding: 22px 26px; border-radius: 30px; }
+      .them { align-self: flex-end; background: #1B1416; color: #F3F1EF; border-bottom-right-radius: 8px; }
+      .bot { align-self: flex-start; background: #fff; border-bottom-left-radius: 8px; }
+      .tag { font-size: 22px; color: #C8812E; font-weight: 700; display: block; margin-bottom: 6px; }
+      .slots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 10px; }
+      .slot { background: #fff; border-radius: 22px; padding: 26px 0; text-align: center; font-size: 34px; font-weight: 700; }
+      .slot.off { background: transparent; color: #7a7175; text-decoration: line-through; font-weight: 400; }
+      .slot.pick { background: #C8812E; color: #1B1416; }
+      .day { font-size: 30px; color: #6b6265; margin: 6px 0 20px; }
+      .card { background: #1B1416; color: #F3F1EF; border-radius: 34px; padding: 40px; margin-top: 30px; }
+      .card h3 { font-family: "Italiana", serif; font-weight: 400; font-size: 60px; }
+      .card p { font-size: 30px; color: #cfc7c2; margin-top: 12px; line-height: 1.4; }
+      .ok { display: inline-block; margin-top: 22px; background: #2f6b3a; color: #fff; font-size: 26px; font-weight: 700; padding: 10px 20px; border-radius: 999px; }
+      .end { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 40px; text-align: center; }
+      .end h2 { font-family: "Italiana", serif; font-weight: 400; font-size: 96px; line-height: 1.05; padding: 0 80px; }
+      .end p { font-size: 40px; color: #8A817C; padding: 0 100px; line-height: 1.35; }
+    </style>
+  
+<script data-hyperframes-preview-runtime="1" src="/api/runtime.js"></script>
+<meta name="hyperframes-project-signature" content="edd44cad6f0e15f6af9faef7">
+</head>
+  <body>
+    <div data-hf-id="hf-wtrm" id="root" data-composition-id="main" data-start="0" data-duration="20" data-width="1080" data-height="1920">
+
+      <!-- 1. Mensaje y respuesta del bot -->
+      <section data-hf-id="hf-5yau" id="s1" class="clip" data-start="0" data-duration="6" data-track-index="0">
+        <div data-hf-id="hf-z992" class="head"><div data-hf-id="hf-fs4s" class="step">1. Las 11 de la noche</div><h2 data-hf-id="hf-v9sk" id="s1-h">Una clienta escribe y nadie la deja esperando</h2></div>
+        <div data-hf-id="hf-njsl" class="phone" id="s1-phone">
+          <div data-hf-id="hf-ufsv" class="bar"><div data-hf-id="hf-pvrx" class="av"><svg data-hf-id="hf-3sz7" viewBox="0 0 200 180" width="48"><g data-hf-id="hf-9cap" stroke="#C8812E" stroke-width="9" stroke-linecap="round"><line data-hf-id="hf-q47q" x1="40" y1="46" x2="40" y2="150" /><line data-hf-id="hf-lh50" x1="70" y1="66" x2="70" y2="150" /><line data-hf-id="hf-n4k8" x1="100" y1="26" x2="100" y2="150" /><line data-hf-id="hf-no82" x1="130" y1="66" x2="130" y2="150" /><line data-hf-id="hf-eygu" x1="160" y1="46" x2="160" y2="150" /></g></svg></div><div data-hf-id="hf-yeow"><b data-hf-id="hf-v48w">Rey de Alisados</b><small data-hf-id="hf-upa4">responde al momento</small></div></div>
+          <div data-hf-id="hf-1w6y" class="msgs">
+            <div data-hf-id="hf-1bal" class="b them" id="s1-m1">Hola, ¿cuánto cuesta el alisado? Tengo el pelo por los hombros</div>
+            <div data-hf-id="hf-vqtr" class="b bot" id="s1-m2"><span data-hf-id="hf-s3ex" class="tag">Asistente</span>¡Hola! Para pelo medio son 50 USD y dura unas 3 horas. Todo sin formol.</div>
+            <div data-hf-id="hf-s69o" class="b bot" id="s1-m3">¿Te busco un turno? Toca aquí y eliges la hora.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. Elige la hora -->
+      <section data-hf-id="hf-b2ek" id="s2" class="clip" data-start="6" data-duration="5" data-track-index="0">
+        <div data-hf-id="hf-gwvu" class="head"><div data-hf-id="hf-ggld" class="step">2. Elige ella misma</div><h2 data-hf-id="hf-sbk4" id="s2-h">Solo ve las horas libres</h2></div>
+        <div data-hf-id="hf-r5ea" class="phone" id="s2-phone">
+          <div data-hf-id="hf-c51b" class="bar"><div data-hf-id="hf-y7yw"><b data-hf-id="hf-elwp">Reserva tu cita</b><small data-hf-id="hf-qlsr">Alisado pelo medio · 3 h</small></div></div>
+          <div data-hf-id="hf-itfr" class="day">Sábado 18 de octubre, con Yonar</div>
+          <div data-hf-id="hf-hodr" class="slots">
+            <div data-hf-id="hf-ai1i" class="slot off">09:00</div><div data-hf-id="hf-x0kt" class="slot off">09:30</div><div data-hf-id="hf-o1gw" class="slot off">10:00</div>
+            <div data-hf-id="hf-noht" class="slot off">12:30</div><div data-hf-id="hf-w23p" class="slot" id="s2-pick">13:00</div><div data-hf-id="hf-6bc1" class="slot">13:30</div>
+            <div data-hf-id="hf-rgu1" class="slot">14:00</div><div data-hf-id="hf-zko7" class="slot off">14:30</div><div data-hf-id="hf-h7cc" class="slot">15:00</div>
+          </div>
+          <div data-hf-id="hf-7z7j" class="card" id="s2-dep"><h3 data-hf-id="hf-690g">Depósito 10 USD</h3><p data-hf-id="hf-lquq">Transfermóvil o Zelle. El turno queda bloqueado para ti.</p></div>
+        </div>
+      </section>
+
+      <!-- 3. Cita confirmada + recordatorio -->
+      <section data-hf-id="hf-j36b" id="s3" class="clip" data-start="11" data-duration="5" data-track-index="0">
+        <div data-hf-id="hf-hb6v" class="head"><div data-hf-id="hf-48bh" class="step">3. Sin llamadas ni olvidos</div><h2 data-hf-id="hf-vrba" id="s3-h">Cita guardada y recordatorio solo</h2></div>
+        <div data-hf-id="hf-pvsb" class="phone" id="s3-phone">
+          <div data-hf-id="hf-4ue9" class="card" id="s3-card" style="margin-top:0"><h3 data-hf-id="hf-73pu">Cita guardada</h3><p data-hf-id="hf-3sq6">Sábado 18, 13:00 con Yonar. Salón Capadocia, Vedado.</p><span data-hf-id="hf-v46a" class="ok">Depósito confirmado</span></div>
+          <div data-hf-id="hf-7wis" class="msgs" style="margin-top:40px">
+            <div data-hf-id="hf-dcbn" class="b bot" id="s3-m1"><span data-hf-id="hf-jjg7" class="tag">Viernes, 1 día antes</span>Hola Daniela, te esperamos mañana a las 13:00. Ven con el pelo limpio y seco.</div>
+            <div data-hf-id="hf-8qwa" class="b them" id="s3-m2">¡Perfecto, allí estaré!</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. Cierre -->
+      <section data-hf-id="hf-ukr3" id="s4" class="clip end" data-start="16" data-duration="4" data-track-index="0">
+        <svg data-hf-id="hf-ld6d" id="s4-mark" viewBox="0 0 200 180" width="300"><g data-hf-id="hf-2bfo" stroke="#C8812E" stroke-width="4" stroke-linecap="round"><line data-hf-id="hf-y0fu" x1="40" y1="46" x2="40" y2="150" /><line data-hf-id="hf-qxps" x1="50" y1="62" x2="50" y2="150" /><line data-hf-id="hf-iwdf" x1="60" y1="74" x2="60" y2="150" /><line data-hf-id="hf-ksos" x1="70" y1="66" x2="70" y2="150" /><line data-hf-id="hf-s4pj" x1="80" y1="52" x2="80" y2="150" /><line data-hf-id="hf-bjx7" x1="90" y1="38" x2="90" y2="150" /><line data-hf-id="hf-nz1s" x1="100" y1="26" x2="100" y2="150" /><line data-hf-id="hf-9a7d" x1="110" y1="38" x2="110" y2="150" /><line data-hf-id="hf-82mv" x1="120" y1="52" x2="120" y2="150" /><line data-hf-id="hf-2ukm" x1="130" y1="66" x2="130" y2="150" /><line data-hf-id="hf-tizn" x1="140" y1="74" x2="140" y2="150" /><line data-hf-id="hf-6pdm" x1="150" y1="62" x2="150" y2="150" /><line data-hf-id="hf-gc82" x1="160" y1="46" x2="160" y2="150" /></g><g data-hf-id="hf-hvw1" fill="#F3F1EF"><circle data-hf-id="hf-qqwv" cx="40" cy="34" r="4" /><circle data-hf-id="hf-bbr4" cx="100" cy="14" r="4" /><circle data-hf-id="hf-0qq0" cx="160" cy="34" r="4" /></g></svg>
+        <h2 data-hf-id="hf-mmuv" id="s4-h">Tú alisas. Tu agenda se llena sola.</h2>
+        <p data-hf-id="hf-ffdz" id="s4-p">Mensajes contestados, citas con depósito y recordatorios, sin tocar el teléfono.</p>
+      </section>
+      <audio data-hf-id="hf-bhmn" id="voz" src="assets/voz-clienta.mp3" data-start="0.8" data-duration="17.88" data-track-index="2" data-volume="1" data-end="18.68"></audio>
+    </div>
+    
+  <script type="text/hf-after-fonts">const tl = gsap.timeline({ paused: true });
+const pop = (sel, at) => tl.fromTo(sel, { opacity: 0, y: 30, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "back.out(1.6)" }, at);
+const head = (h, phone, t0) => {
+  tl.fromTo(h, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, t0 + 0.1);
+  tl.fromTo(phone, { opacity: 0, y: 80 }, { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, t0 + 0.3);
+};
+head("#s1-h", "#s1-phone", 0);
+pop("#s1-m1", 1.2);
+pop("#s1-m2", 2.6);
+pop("#s1-m3", 3.8);
+head("#s2-h", "#s2-phone", 6);
+tl.fromTo("#s2-pick", { backgroundColor: "#ffffff", color: "#1B1416", scale: 1 }, { backgroundColor: "#C8812E", scale: 1.08, duration: 0.35, ease: "power2.out" }, 7.6);
+tl.to("#s2-pick", { scale: 1, duration: 0.3, ease: "power2.inOut" }, 7.95);
+pop("#s2-dep", 8.6);
+head("#s3-h", "#s3-phone", 11);
+pop("#s3-card", 11.9);
+pop("#s3-m1", 13.2);
+pop("#s3-m2", 14.3);
+tl.fromTo("#s4-mark", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, 16.2);
+tl.fromTo("#s4-h", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, 16.7);
+tl.fromTo("#s4-p", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }, 17.3);
+window.__timelines["main"] = tl;
+tl.seek(0);</script></body>
+</html>

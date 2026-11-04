@@ -1,0 +1,242 @@
+{
+  "fuentes": {
+    "v1": "https://www.instagram.com/reel/Dem0m2cPIAg/",
+    "v2": "https://www.instagram.com/reel/Dc1fyuqADLQ/",
+    "v3": "https://www.instagram.com/reel/Dcjz84GiCG3/"
+  },
+  "videos": {
+    "v1": {
+      "duracion_s": 53.17,
+      "ancho": 960,
+      "alto": 720,
+      "fps": 23.98,
+      "audio": true,
+      "cortes_s": [
+        7.59,
+        9.09,
+        16.85,
+        30.45,
+        35.2,
+        42.96,
+        47.67,
+        50.97
+      ],
+      "ritmo": {
+        "cortes": 8,
+        "seg_por_plano": 5.91,
+        "plano_mas_corto": 1.5,
+        "plano_mas_largo": 13.6
+      },
+      "volumen": {
+        "media_db": -16.6,
+        "max_db": -0.9
+      },
+      "fotogramas": 53,
+      "hojas": 6,
+      "voz": {
+        "idioma": "en",
+        "prob_idioma": 1.0,
+        "frases": [
+          {
+            "ini": 0.0,
+            "fin": 4.3,
+            "texto": "I had 1 million followers on Instagram in just 6 months, and if I had to start it over at"
+          },
+          {
+            "ini": 4.3,
+            "fin": 7.6,
+            "texto": "zero today, I would only do these 3 things."
+          },
+          {
+            "ini": 7.6,
+            "fin": 12.4,
+            "texto": "First, I stopped forcing video formats that just didn't work for me, locked in one clear"
+          },
+          {
+            "ini": 12.4,
+            "fin": 17.0,
+            "texto": "niche and tested different formats until my AI videos finally blew up."
+          },
+          {
+            "ini": 17.0,
+            "fin": 22.1,
+            "texto": "Second, I stopped guessing what to post and built an idea base using my Outlier Rule."
+          },
+          {
+            "ini": 22.1,
+            "fin": 28.5,
+            "texto": "I only saved viral videos with over 500,000 views from movies, memes and other niches"
+          },
+          {
+            "ini": 28.5,
+            "fin": 30.5,
+            "texto": "and adapt them into my own style."
+          },
+          {
+            "ini": 30.5,
+            "fin": 36.2,
+            "texto": "And the third step is a secret Instagram feature that 90% of creators ignore, which literally"
+          },
+          {
+            "ini": 36.2,
+            "fin": 41.1,
+            "texto": "doubled and tripled my views overnight and took one of my reels from 10 million to 30"
+          },
+          {
+            "ini": 41.1,
+            "fin": 43.0,
+            "texto": "million views while I was sleeping."
+          },
+          {
+            "ini": 43.0,
+            "fin": 47.4,
+            "texto": "I posted a full breakdown of all 3 steps and revealed the secret algorithmic hack"
+          },
+          {
+            "ini": 47.4,
+            "fin": 51.2,
+            "texto": "on my YouTube channel, plus a free guide with my whole pipeline."
+          },
+          {
+            "ini": 51.2,
+            "fin": 52.9,
+            "texto": "Comment down below and I'll send you the link."
+          }
+        ]
+      }
+    },
+    "v2": {
+      "duracion_s": 46.23,
+      "ancho": 716,
+      "alto": 1274,
+      "fps": 30.0,
+      "audio": true,
+      "cortes_s": [
+        7.4,
+        15.13,
+        22.9,
+        30.63,
+        38.4
+      ],
+      "ritmo": {
+        "cortes": 5,
+        "seg_por_plano": 7.71,
+        "plano_mas_corto": 7.4,
+        "plano_mas_largo": 7.83
+      },
+      "volumen": {
+        "media_db": -15.0,
+        "max_db": -3.5
+      },
+      "fotogramas": 46,
+      "hojas": 6,
+      "voz": {
+        "idioma": "en",
+        "prob_idioma": 0.45,
+        "frases": [
+          {
+            "ini": 0.3,
+            "fin": 2.3,
+            "texto": "You"
+          }
+        ]
+      }
+    },
+    "v3": {
+      "duracion_s": 36.36,
+      "ancho": 720,
+      "alto": 1280,
+      "fps": 30.0,
+      "audio": true,
+      "cortes_s": [
+        2.27,
+        3.67,
+        5.83,
+        6.97,
+        8.43,
+        11.13,
+        13.03,
+        16.4,
+        19.73
+      ],
+      "ritmo": {
+        "cortes": 9,
+        "seg_por_plano": 3.64,
+        "plano_mas_corto": 1.14,
+        "plano_mas_largo": 16.63
+      },
+      "volumen": {
+        "media_db": -17.2,
+        "max_db": -0.7
+      },
+      "fotogramas": 36,
+      "hojas": 4,
+      "voz": {
+        "idioma": "es",
+        "prob_idioma": 1.0,
+        "frases": [
+          {
+            "ini": 0.0,
+            "fin": 3.7,
+            "texto": "Cuando hagas un video hablado, entra caminando a cámara, luego hace una toma sentándote"
+          },
+          {
+            "ini": 3.7,
+            "fin": 8.0,
+            "texto": "y en la siguiente frase haz un acercamiento lento, en la siguiente frase cortas la toma y cambias"
+          },
+          {
+            "ini": 8.0,
+            "fin": 9.0,
+            "texto": "de plama."
+          },
+          {
+            "ini": 9.0,
+            "fin": 11.2,
+            "texto": "Luego en la siguiente frase vas a hacer un alejamiento de cámara."
+          },
+          {
+            "ini": 11.2,
+            "fin": 15.0,
+            "texto": "Coloca en pantalla una frase que impacte y para cerrar haz un acercamiento mientras"
+          },
+          {
+            "ini": 15.0,
+            "fin": 16.5,
+            "texto": "haz en la llamada la acción."
+          },
+          {
+            "ini": 16.5,
+            "fin": 19.9,
+            "texto": "Y listo, acabas de grabar un video que puede aumentar la retención de la audiencia."
+          },
+          {
+            "ini": 19.9,
+            "fin": 22.8,
+            "texto": "Pero si quieres escalar esto, tengo tres formas en las que te puedo ayudar."
+          },
+          {
+            "ini": 22.8,
+            "fin": 26.4,
+            "texto": "Número 1, si necesitas aprender porque estás comenzando, Número 2 tienes que"
+          },
+          {
+            "ini": 26.4,
+            "fin": 30.3,
+            "texto": "integrar y editar pero necesitas un plan, estrategia y acompañamiento."
+          },
+          {
+            "ini": 30.3,
+            "fin": 34.6,
+            "texto": "Número 3, tu negocio está creciendo y ahora necesitas delegar todo."
+          },
+          {
+            "ini": 34.6,
+            "fin": 36.0,
+            "texto": "Comenta quiero y te envíe un mensaje."
+          }
+        ]
+      }
+    }
+  }
+}

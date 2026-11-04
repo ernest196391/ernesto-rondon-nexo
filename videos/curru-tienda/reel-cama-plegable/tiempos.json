@@ -1,0 +1,272 @@
+{
+ "DUR": 14.2667,
+ "FPS": 30,
+ "planos": [
+  {
+   "src": "B",
+   "de": 0,
+   "a": 1.5,
+   "vel": 1,
+   "z": [
+    1,
+    1.07
+   ],
+   "f": [
+    0.5,
+    0.25
+   ],
+   "que": "GANCHO congelado: Prosko en el aire sobre la cama cerrada (zoom lento hacia dentro)",
+   "i": 0,
+   "frames": 45,
+   "out": 0,
+   "fin": 1.5
+  },
+  {
+   "src": "e1",
+   "de": 0.35,
+   "a": 3,
+   "vel": 1,
+   "z": [
+    1,
+    1.06
+   ],
+   "f": [
+    0.3,
+    0.25
+   ],
+   "que": "plano medio: Cúrru al teléfono, tranquila; Prosko al fondo en el banquito",
+   "i": 1,
+   "frames": 80,
+   "out": 1.5,
+   "fin": 4.1667
+  },
+  {
+   "src": "e1",
+   "de": 3,
+   "a": 4.75,
+   "vel": 1,
+   "z": [
+    1.04,
+    1.12
+   ],
+   "f": [
+    0.5,
+    0.42
+   ],
+   "que": "primer plano: «¡Súper Prosko!»",
+   "i": 2,
+   "frames": 53,
+   "out": 4.1667,
+   "fin": 5.9333
+  },
+  {
+   "src": "e1",
+   "de": 5.3,
+   "a": 7.25,
+   "vel": 1,
+   "z": [
+    1,
+    1.06
+   ],
+   "f": [
+    0.5,
+    0.6
+   ],
+   "que": "detalle de las manos: sin colgar ni mirar, abre la cama («clac»)",
+   "i": 3,
+   "frames": 59,
+   "out": 5.9333,
+   "fin": 7.9
+  },
+  {
+   "src": "e1",
+   "de": 7.75,
+   "a": 8.65,
+   "vel": 1,
+   "z": [
+    1,
+    1.12
+   ],
+   "f": [
+    0.62,
+    0.35
+   ],
+   "que": "plano general: se agacha para saltar — corte justo antes de caer",
+   "i": 4,
+   "frames": 27,
+   "out": 7.9,
+   "fin": 8.8
+  },
+  {
+   "src": "e2",
+   "de": 0.15,
+   "a": 1.25,
+   "vel": 0.6,
+   "z": [
+    1.1,
+    1
+   ],
+   "f": [
+    0.5,
+    0.42
+   ],
+   "que": "desde arriba, cámara lenta: cae en la cama abierta, el cojín sale volando",
+   "i": 5,
+   "frames": 55,
+   "out": 8.8,
+   "fin": 10.6333
+  },
+  {
+   "src": "e2",
+   "de": 2.3,
+   "a": 3.667,
+   "vel": 1,
+   "z": [
+    1,
+    1.06
+   ],
+   "f": [
+    0.62,
+    0.62
+   ],
+   "que": "plano medio: boca arriba, pulgar arriba",
+   "i": 6,
+   "frames": 41,
+   "out": 10.6333,
+   "fin": 12
+  },
+  {
+   "src": "e2",
+   "de": 3.667,
+   "a": 5.92,
+   "vel": 1,
+   "z": [
+    1,
+    1.1
+   ],
+   "f": [
+    0.42,
+    0.38
+   ],
+   "que": "primer plano de Cúrru: «…Que no, mija, aquí no pasa nada» + guiño",
+   "i": 7,
+   "frames": 68,
+   "out": 12,
+   "fin": 14.2667
+  }
+ ],
+ "cortes": [
+  1.5,
+  4.1667,
+  5.9333,
+  7.9,
+  8.8,
+  10.6333,
+  12
+ ],
+ "punch": [
+  0.55,
+  2.45
+ ],
+ "capas": [
+  {
+   "id": "gancho",
+   "file": "gancho.png",
+   "x": 0,
+   "y": 713,
+   "h": 252,
+   "de": 0,
+   "a": 1.5,
+   "pista": 1,
+   "texto": "[gancho] ¿Tu niño también|hace esto?"
+  },
+  {
+   "id": "etiqueta",
+   "file": "etiqueta.png",
+   "x": 0,
+   "y": 1060,
+   "h": 80,
+   "de": 1.5,
+   "a": 3,
+   "pista": 2,
+   "texto": "[etiqueta] 10 SEGUNDOS ANTES"
+  },
+  {
+   "id": "frase",
+   "file": "frase.png",
+   "x": 0,
+   "y": 369,
+   "h": 122,
+   "de": 5.95,
+   "a": 7.55,
+   "pista": 2,
+   "texto": "[frase clave] Sin colgar. Sin mirar."
+  },
+  {
+   "id": "sub-01",
+   "file": "sub-01.png",
+   "x": 0,
+   "y": 1186,
+   "h": 128,
+   "de": 1.59,
+   "a": 2.45,
+   "pista": 3,
+   "texto": "Sí, mija,"
+  },
+  {
+   "id": "sub-02",
+   "file": "sub-02.png",
+   "x": 0,
+   "y": 1186,
+   "h": 128,
+   "de": 2.45,
+   "a": 4.15,
+   "pista": 3,
+   "texto": "aquí todo tranquilo…"
+  },
+  {
+   "id": "sub-03",
+   "file": "sub-03.png",
+   "x": 0,
+   "y": 1358,
+   "h": 144,
+   "de": 4.6067,
+   "a": 5.9167,
+   "pista": 3,
+   "texto": "¡Súper Prosko!"
+  },
+  {
+   "id": "sub-04",
+   "file": "sub-04.png",
+   "x": 0,
+   "y": 1246,
+   "h": 128,
+   "de": 12.433,
+   "a": 13.293,
+   "pista": 3,
+   "texto": "…Que no, mija,"
+  },
+  {
+   "id": "sub-05",
+   "file": "sub-05.png",
+   "x": 0,
+   "y": 1246,
+   "h": 128,
+   "de": 13.293,
+   "a": 14.253,
+   "pista": 3,
+   "texto": "aquí no pasa nada."
+  },
+  {
+   "id": "logo",
+   "file": "logo.png",
+   "x": 350,
+   "y": 1425,
+   "h": 105,
+   "de": 12.7667,
+   "a": 14.2667,
+   "pista": 4,
+   "texto": "[logo]"
+  }
+ ]
+}

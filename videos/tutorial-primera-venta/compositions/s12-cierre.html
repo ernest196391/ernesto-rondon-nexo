@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #s12-cierre-root { position: absolute; inset: 0; }
+
+        #s12-block { position: absolute; left: 80px; right: 80px; top: 470px; display: flex; flex-direction: column; gap: 30px; }
+        #s12-l1 { font-weight: 800; font-size: 120px; line-height: 1.02; letter-spacing: -0.03em; color: #0f3d3e; }
+        #s12-rule { display: block; width: 300px; height: 14px; border-radius: 7px; background: #a35a24; transform-origin: left center; }
+        #s12-l2, #s12-l3 { font-weight: 700; font-size: 72px; line-height: 1.1; color: #25231f; }
+        #s12-l3 .k2 { color: #a35a24; }
+        #s12-cta { position: absolute; left: 80px; right: 80px; top: 1330px; padding: 34px 40px; border-radius: 24px; background: #0f3d3e; color: #f6f1e6; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 24px 48px rgba(15, 61, 62, 0.25); }
+        #s12-cta-t { font-weight: 800; font-size: 52px; }
+        #s12-cta-s { font-weight: 600; font-size: 36px; color: #e4ece8; }
+        #s12-steps { position: absolute; left: 80px; right: 80px; top: 1010px; display: flex; gap: 22px; }
+        .s12-step { flex: 1; padding: 28px 18px; border-radius: 22px; background: #fffdf9; border: 3px solid rgba(15, 61, 62, 0.14); box-shadow: 0 14px 30px rgba(15, 61, 62, 0.1); display: flex; flex-direction: column; align-items: center; gap: 10px; }
+        .s12-ic { font-size: 64px; line-height: 1; }
+        .s12-tx { font-weight: 800; font-size: 34px; color: #0f3d3e; }
+      </style>
+      <div id="s12-cierre-root" data-composition-id="s12-cierre" data-width="1080" data-height="1920">
+
+        <div id="s12-block">
+          <div id="s12-l1">Así de fácil.</div>
+          <span id="s12-rule"></span>
+          <div id="s12-l2">Manda tu enlace hoy</div>
+          <div id="s12-l3">y haz tu <span class="k2">primera venta</span> 🎉</div>
+        </div>
+        <div id="s12-steps"><div class="s12-step" id="s12-st1"><span class="s12-ic">🔗</span><span class="s12-tx">Tu enlace</span></div><div class="s12-step" id="s12-st2"><span class="s12-ic">🛒</span><span class="s12-tx">Su compra</span></div><div class="s12-step" id="s12-st3"><span class="s12-ic">💰</span><span class="s12-tx">Tu comisión</span></div></div>
+        <div id="s12-cta"><div id="s12-cta-t">¿Dudas? Escríbeme 💬</div><div id="s12-cta-s">casaviva.company</div></div>
+      </div>
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          
+          tl.fromTo("#s12-l1", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.55, ease: "power4.out" }, 0.4);
+          tl.fromTo("#s12-rule", { scaleX: 0 }, { scaleX: 1, duration: 0.6, ease: "expo.out" }, 0.8);
+          tl.fromTo("#s12-l2", { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: 0.45, ease: "power3.out" }, 1.6);
+          tl.fromTo("#s12-l3", { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: 0.45, ease: "power3.out" }, 2.9);
+          tl.fromTo("#s12-st1", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.4, ease: "back.out(1.6)" }, 1.75);
+          tl.fromTo("#s12-st2", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.4, ease: "back.out(1.6)" }, 2.05);
+          tl.fromTo("#s12-st3", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.4, ease: "back.out(1.6)" }, 3.2);
+          tl.fromTo("#s12-cta", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.55, ease: "back.out(1.4)" }, 4.7);
+          window.__timelines["s12-cierre"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

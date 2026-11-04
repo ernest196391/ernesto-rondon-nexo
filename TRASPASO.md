@@ -1,49 +1,67 @@
-# TRASPASO — chat principal de Casa Viva (14-oct-2026, ~16:50)
+# TRASPASO · Casa Viva / NEXO
+
+## ⭐ ACTUALIZADO 29-oct (manda esto, lo de abajo es historia)
+
+**Regla de Ernesto (29-oct): en todas las sesiones, primero Lennys y su chat — sus soluciones y sus tareas pendientes — y después lo demás.**
+
+**Dónde está la verdad de lo último:** el final de `docs/00-FUENTE-DE-VERDAD/ESTADO.md` (L67, L68 y siguientes; el vigía deja ahí la lista de pendientes de Lennys de las últimas 48 h) y `DECISIONES.md` (D109–D120).
+
+**En vivo (lo último que se sabe):** Core 3.14.70–3.14.71.x (cliente fijo D120, Nº propio de pedido D115, recogida sin teléfono D116, página de preguntas con Lennys, Pa'llá con avisos propios ntfy en prueba). VivaBot con «no inventar», paquete D111 (`0668573`), #Vale para todas (el #Vale inteligente con texto libre y audio solo para Ernesto y Dany, `vale_chat_ia=prueba`), recogida sin teléfono (`9f27957`).
+
+**Sesiones abiertas (cada una tiene su contexto; mándales mensajes en vez de rehacer):**
+- `vigia-chats` (Sonnet, barata): revisa los chats SOLO cuando Ernesto lo pide; abrió reservas-pedido, validar-vale, cierre-caja, semaforo-errores, vigilante-conexion.
+- `web-maraton`: cambios de la web (Core) del maratón, panel de Lennys para productos bajo pedido + guía, cuadre-del-d-a-separado.
+- `bot-maraton`: cambios de VivaBot (mensajes más humanos, guía de trato al cliente, #supervisor solo para Lennys, resúmenes sin dinero salvo Lennys, dinero de mensajeros a 48 h, #118/#119).
+- `palla-app`: Pa'llá (app de mensajeros), avisos sin Google (ntfy en el VPS), mapa de recorridos fase 1 (hecho, sin subir por la conexión).
+
+**Avisos:**
+- El ordenador de Ernesto pierde a ratos la conexión SSH con el VPS y con Hostinger: hay cosas listas sin subir; las sesiones las suben cuando vuelve.
+- Varias sesiones tocan Core y el bot a la vez: antes de subir, `git fetch` + rebase y número de versión por encima del que esté en vivo.
+- Pendiente de Ernesto: la foto de la tabla nueva de envíos de Kevin (22-oct 15:16) para `KEVIN_TARIFAS.zonas`; probar la app Pa'llá en su teléfono; aprobar la guía para Lennys y la prueba de D120 con Dany.
+
+Mensaje para el chat nuevo: «Lee TRASPASO.md (la parte del 29-oct) y el final de ESTADO.md. Primero lo de Lennys.»
+
+---
+
+> **24-oct noche (historia):** el 24-oct se volvió a vincular el bot, se hizo el maratón de ideas con las gestoras, se vació la bandeja de decisiones y salieron Pa'llá (prueba), #Vale (para todas) y las mejoras del maratón. **La lista de lo pendiente, con todas las sesiones y por dónde empezar, está en `docs/nexo-business/pendientes-2026-10-25.md`.** Lo de abajo es el traspaso viejo del 22–23-oct (ya hecho en su mayoría).
+>
+> Mensaje para el chat nuevo: «Lee TRASPASO.md y `docs/nexo-business/pendientes-2026-10-25.md` y empieza por la sección "Por dónde empezar mañana"».
+
+## Traspaso anterior · cierre del chat del 22–23-oct-2026
 
 ## 1. Qué se hacía
-Llevar la operación de Casa Viva atento a los chats (VivaBot), guiar a gestoras/equipo «como si fuera Ernesto», arreglar lo que falla y construir lo que Ernesto aprueba. Ernesto decide; Claude recomienda la mejor práctica.
+Operación diaria de Casa Viva (vigilar chats, corregir errores del bot y anotarlos para ChatGPT), mejoras del diagnóstico del sistema, videos con la fórmula nueva, catálogos de proveedores (Sergio, SeFué) y el inicio de **Pa'llá**, la app de mensajería. El 23-oct ~12:35 **WhatsApp restringió 24 h el número de Ernesto** (sin chats nuevos) por ~80 invitaciones privadas iguales al grupo VIP. Ernesto pidió **dejar todo en pausa** hasta que vuelva.
 
-## 2. Hecho y comprobado hoy por la tarde (detalle en ESTADO.md, bloque «Mediodía del 14-oct»)
-- **Venta de proveedor (lámpara #3693, Kevin/Digital Store):** costó **28 USD** en su almacén (su app dice 32). Pedri la recogió en su 2.º local y la entregó en Bauta; **cerrada a nombre de Pedri 16:46** (estaba a nombre de Félix por una publicación repetida). Reglas **D66 y D69** (fondo ≈3.000 CUP variable por vale; todo sale del margen; Ernesto = gestor especial). Skill `venta-proveedor`. **Fase 1 del reparto EN VIVO**: Core 3.14.14 + panel (recuadro «Reparto de la venta de proveedor» en el pedido + «Ventas de proveedor del mes») + `nexo-panel-web` v18; #3693 da margen 13.430 CUP, Nadielys 4.108, fondo 4.000, Ernesto 5.322.
-- **Precios (D68):** Lennys eligió «× 1,5 con mínimo, redondeado al dólar». Panel publicado (sugerido costo × 1,5; avisos Pierde / Bajo el mínimo / ✓ Bien). Guía de 5 pasos e infografía enviadas.
-- **Estudio de fotos:** fallo de subida (500, `wp_tempnam`) **arreglado en Core 3.14.13**; Core 3.14.12 enseña el código de error. Dany, Dayra y **Lennys (lo hizo sola)** probaron; activado para 18, 33 y 14. Gemini necesita VPN en Cuba. Notas: `docs/nexo-business/estudio-fotos/prueba-dany-2026-10-14.md`.
-- **Tienda de la gestora:** Core 3.14.9–3.14.11 (sin dirección de la tienda ni contactos de Casa Viva con enlace de gestora; el bot pasa al cliente de una gestora con ella). D67.
-- **Biblioteca de fotos reales del equipo (D70):** VivaBot `c380724`; `cv fotos …`; 88 fotos guardadas para siempre en `/root/archivos/fotos-reales/`.
-- **Producto 2823** renombrado a «Perfilador eléctrico de cejas FUGETSU (con luz)» (idea de Niurka).
-- **#3698 (Niurka, perchero, Habana Vieja, pago mixto 12.000 transf + 15.650 efectivo):** pasada a **Frank (…1675)**; dijo «4:40»; aún sin marcar entregado a las 16:50.
-- **Reel «Súper Prosko» LISTO, SIN PUBLICAR:** `videos/curru-tienda/reel-cama-plegable/` (mp4, `-fb.mp4`, portada, pie, 5 historias). 70,5 créditos; quedan ≈900.
-- **Panel:** «Pagos de la web» legible en el móvil; Vercel al día (último `dpl` del agente del reparto).
+## 2. Hecho y comprobado
+- **Bot PARADO** (`pm2 stop vivabot`); sesión cerrada por WhatsApp (copia vieja `auth.bak-20261023-restriccion`, no sirve). Crons de envío con `#PAUSA-RESTRICCION`; invitaciones con `#PAUSA-23oct` (NO reactivar).
+- **Core en vivo 3.14.58.1** (`d083479`, main = core-caja-1020): Vender seguro + `?ref` en enlaces del cliente (3.14.53), tarjeta de carrera (3.14.54), filtro En tienda/Bajo pedido (3.14.55), `?ref=salir` (3.14.56/57), «Copiar» con plan B (3.14.58), sin «Ver la tienda de Casa Viva» en tiendas de gestoras (3.14.58.1).
+- **Bandeja de decisiones** en vivo: `casaviva.company/control/decisiones/` (D105), cron VPS `tareas/bandeja-decisiones.mjs`.
+- **VivaBot en main y VPS** (bot apagado): `ce02ea0` (clientes con gpt-5.6-luna, ve fotos en «Tú», no contesta contestadores), `5e2e8b2` (proveedores solo acuse, caché, alarmas en `cv estado`), `dbff98a` (guarda lo que Ernesto manda en «Tú»: `cv ernesto hoy`), `34d88de` (acepta solicitudes de grupos), `98970b8` (12 errores, recogida 10–4).
+- **Web:** SeFué 133 productos «Bajo pedido» con my_price (D102), productos de Nana 4896/4902/4908/4913, recogida 10:00–4:00, premios de septiembre publicados en el General, D97 cliente = primera gestora.
+- **Videos:** «El billete» (`redes/video-diario/2026-10-24-billete/`) y «La llamada» (`2026-10-25-llamada/`), skill `video-formula-casa-viva` (mejorable). Tutorial mensajeros `docs/nexo-business/mensajeros/tarjeta-carrera/video/` (73 s, en VPS `/root/archivos/tutoriales/`).
+- **Equipos:** Cynthia (Maryta) y Daylien (Niurka) ya estaban bien; la lista «Mi equipo» se recalculó (run 16).
+- **#4974:** entregado por Ernesto; Ernesto ya dio los 90 USD a la tienda → falta «Dinero recibido».
+- Docs commit `c211125` (ESTADO L59–L60, DECISIONES D96–D108).
 
 ## 3. Pendiente, en orden
-1. **#3698:** que Frank marque entregado (y cobró mixto). Si no contesta, llamarle.
-2. **Caja (Nana):** dinero por traer mañana antes de las 4 → Pedri 61.620 CUP (#3692) + 45 USD (#3693); Melany 15 USD (#3580); Fernando 40 USD (#3599). Sin marcar entregado: #3673 Alejandro, #3683 Ibelice, #3687 Melany. #2944 Daiquel (desde 12-oct, línea personal → Ernesto). #3675 Félix es para el jueves.
-3. **Reel:** Ernesto lo ve; publicar a las 20:00 (él o con su sí; pestaña de Business Suite delante antes de las 19:30). Luego el mensaje al General con los enlaces.
-4. **Ernesto tiene que pegar** `docs/nexo-business/sql/025_fotos_reales.sql` en Supabase (nexo-production, traductor apagado) y luego `cv fotos sincronizar`. Asignar producto a las fotos «sin producto» (`cv fotos sin`).
-5. **Fallos por arreglar:** (a) #3693 pasó solo a «Listo para mensajería» a las 15:00 («system») y salió repetida; (b) el bot pidió la hora a Elaine 4 veces y tomó un mensaje dictado de Ernesto como «pasar carrera»; (c) cuando una pregunta abierta pide «foto», el bot toma cualquier foto de la tienda como respuesta (zhu recibió la del soporte TV); (d) el estudio olvida el producto elegido al reabrir; (e) **quitar el registro temporal** `wp-content/mu-plugins/cvd-estudio-log.php` cuando acabe la prueba; (f) contactos mal: 5358478068 dice «FERNANDO» y es Ibelice; 5353474881 Fernando tiene rol gestora; (g) Frank tiene 2 cuentas (75 …9736 y 76 …1675).
-6. **Por construir (Ernesto decide):** fase 2 del reparto de proveedor (avisos a dependienta/proveedor, vale «recoger en el proveedor», +500 de la dependienta en /ventas/); pago mixto en el vale; lista de todo el catálogo con «cuánto gana la gestora»; lista negra de estafadores (idea de Niurka); vale como comprobante para controles de policía; poner fotos reales en la web con un toque; Lennys pidió poner su foto de la Alfombra Persa en la tienda principal (le ofrecimos hacerlo).
-7. **Esperando:** Lennys confirma 5 costos raros (Rasuradora 19,50 vende 14; Luminoliss 12=12; Paraguas 1,08; Set utensilios 1,68; Sombrilla auto 3,55). Nana: fotos de rosado/rojo/azul del Set de alfombras 3 piezas (#177) para Dany. Dayra repite la foto mañana. Dany pone su foto en su tienda. Del TRASPASO anterior siguen: decisiones de Ernesto (Excel, cortina roja, piedras, Hostinger, YouTube de Jay), vale de recogida con dirección (Dayra), 11 colores sin alta en la caja.
-
-0. **EN MARCHA desde las 18:00 (Ernesto fuera, PC encendido; pidió vigilar los chats cada 30 s y arreglar lo que haga falta):**
-   - Agente: reel «Súper Prosko» programado en Business Suite para las **19:00** + mensaje al General con los enlaces.
-   - Tarea programada `resumenes-casa-viva-19` (cada día ~19:15–19:22): resúmenes para Ernesto («Tú»), Lennys y el grupo Mensajerías. Primera vez hoy. Puede pararse a pedir permisos (el modo no se guardó).
-   - Agentes: (1) fallos del bot de hoy (carrera repetida 15:00, hora repetida, mensaje de Ernesto como orden, foto equivocada en preguntas, «no hay» sin comprobar, contactos mal); (2) ordenar fotos reales + estudio (recordar producto, elegir producto desde la galería, textos VPN/descargar); (3) balance diario de gastos por correo a las 21:00 + aviso de saldo bajo.
-   - Tarea nocturna del catálogo (títulos y descripciones) corre por primera vez esta noche a la 1:07.
-   - **Escurridor (18:02):** Klaus SÍ quiere un *escurridor de platos* (no el escritorio). No existe en web ni caja. Pregunta a la tienda en cola (`ptmx3vw94`, sale a las 10:00 a Nana y Zaymi, respuesta va a Klaus). Preguntado también a Lennys.
-8. **«Escurridor» = ESCRITORIO (17:58, CORREGIDO a las 18:02: era escurridor de verdad):** Klaus escribió «escurridor» y era el **Escritorio de oficina #2729** (230 USD, stock 1, «Última unidad» en la web, bien). Corregidos Lennys y Klaus. **Regla que pide Lennys (17:22):** antes de contestar «no hay / no tenemos», el bot verifica con Nana o Zaymi (y buscar por nombres parecidos: escurridor ↔ escritorio). Por programar.
-9. **OpenAI se quedó sin saldo 17:00–17:55** (bot sin IA; errores 429 `credit_balance_exhausted`). A las 17:55 vuelve a funcionar. Anthropic sigue sin saldo. Ernesto pidió (17:50) **un balance diario por correo de lo que se gasta en herramientas, qué consume más y cómo abaratar**.
-10. **Nadielys #3673 (17:23):** la clienta quiere pagar en CUP a la tasa de ayer 785 → 10.990 CUP (a 790 serían 11.060). Lo decide Ernesto (dinero).
+1. ~12:35 del 24-oct: vincular el bot (`pm2 start vivabot` → código en `pm2 logs` → Ernesto: Dispositivos vinculados → Vincular con número).
+2. Seguir **`docs/nexo-business/mejora-sistema-2026-10-23/PLAN-DESPLIEGUE-24OCT.md`**: ramas VivaBot (solo-hecho-si-es-verdad, parte-0900, bandeja-decisiones, grupos-24h, tarjeta-carrera `e2789a1` con `tarjeta_carrera=prueba` y Daiquel, ficha-contesta); Core 3.14.59 carrera-palabras → 3.14.60 ficha-contesta → 3.14.61 palla.
+3. Marcar «Dinero recibido» del #4974 (preguntar a Ernesto quién lo recibió).
+4. Anuncios con SÍ de Ernesto (en grupos, nunca por privado): video tutorial a Mensajerías, filtro y videos al General, SeFué al grupo 24 h.
+5. Publicar «El billete» y «La llamada» en Meta (Ernesto debe iniciar sesión de Meta en el navegador de la app).
+6. **Pa'llá:** diseño https://claude.ai/artifact/HGgfiy4NwTDgPr1Dbg5XoU; plan en `C:\Users\Ernesto\Casa-Viva-palla\...\assets\palla\README.md`, rama `feat/palla` `dc5e4f1`; **sin código aún**. Ficha `docs/productos/app-mensajeria-cuba.md`; investigación La Nave `docs/nexo-business/apps/nave-investigacion-2026-10-23.md`.
+7. Hoja de Nana (20 fichas): https://casaviva.company/fichas/hoja-32fac7940e/ → `docs/fichas/top20-2026-10-23/volcar-respuestas.mjs`.
+8. 10 fotos de Sergio con Higgsfield (~20 créditos, Ernesto dijo sí tras los videos); quedan 582 créditos.
+**Decide Ernesto:** número nuevo del bot (recomendado Cubacel en un Android con 2 ranuras); si recalcular «Mi equipo» al aprobar cada gestora; dirección de oficina de SeFué (Javier).
 
 ## 4. Datos fijos
-- **VPS:** `ssh -i ~/.ssh/vivabot_vps -o BatchMode=yes root@179.236.242.212`; `cv …` (`cv fotos` nuevo). Scripts que usan `core()` del bot: ponerlos dentro de `/root/vivabot/scripts/` (si no, no encuentran `dotenv`) y borrarlos después.
-- **Web:** `ssh -i ~/.ssh/casa-viva-github-actions -p 65002 u824654880@88.223.85.72`, `~/domains/casaviva.company/public_html`. Core en **3.14.14**.
-- **Panel:** casaviva.company/panel y negocio.nexocuba.com (Vercel `nexo-negocio`, redeploy con `withLatestCommit`). `main` del repo `ernesto-rondon-nexo` ya está al día.
-- **Teléfonos de mensajeros:** sacarlos de `_cvd_whatsapp` en Core, no de `crm_contacts`.
-- **Worktrees:** `C:\Users\Ernesto\cv-estudio-err` (Core), `C:\Users\Ernesto\vivabot-fotos`, `vivabot-recogida`, `cv-pegajosa` (no borrar con herramientas que sigan enlaces: `node_modules` enlazado).
+VPS `ssh -i ~/.ssh/vivabot_vps -o BatchMode=yes root@179.236.242.212` (`cv ayuda`, `cv errores abiertos`, `cv ernesto hoy`). Web `ssh -i ~/.ssh/casa-viva-github-actions -p 65002 -o BatchMode=yes u824654880@88.223.85.72` (wp-cli en `~/domains/casaviva.company/public_html`). Repos: VivaBot `C:\Users\Ernesto\vivabot` (CRLF; desplegar con worktree propio en el VPS), Core `C:\Users\Ernesto\Casa-Viva-caja`. Supabase nexo-production. Grupos: General 120363304301144410, Mensajerías 120363399264934901, VIP 120363411309225409, 48h→24h 120363425123846351. Gestoras: Maryta 47, Nadielys 29 (CV29MANADIEL), Rafael 28, Niurka 22; Ernesto gestor 137 (CV137ERNESTO).
 
-## 5. Reglas de Ernesto (de este chat)
-- Antes de cada tarea nueva, preguntas con opciones y una recomendada. Lo reversible lo decide Claude y lo apunta.
-- Precios: mandar números a Lennys antes de tocar; «bajo el mínimo» ≠ «pierde».
-- Explicar con mensaje corto + guía de imágenes; vigilar los chats y guiar «como si fuera Ernesto».
-- Comprobar antes de afirmar; números de teléfono siempre buscados, nunca adivinados.
+## 5. Reglas de Ernesto en este chat
+- El bot atiende directo a los clientes de las gestoras (comisión reservada, D98). Nunca repetir mensajes; solo contestar a quien escribe; nada de envíos masivos por privado.
+- Modelo efectivo antes que barato (es su decisión); clientes gpt-5.6-luna a prueba.
+- Anotar cada error y cambio (crm_errores + CODEX-VPS.md) para que ChatGPT lo sepa.
+- Videos sin enlace ni teléfono; fórmula de 7 pasos; colores de foto por proveedor (Sergio verde agua, SeFué menta…).
+- Preguntar antes de cada tarea; español sencillo y corto.
 
-Mensaje para empezar: «Lee C:\Users\Ernesto\ernesto-rondon-nexo\TRASPASO.md y sigue con lo pendiente, empezando por la entrega de Frank (#3698) y la caja de Nana.»
+Mensaje para el chat nuevo: «Lee TRASPASO.md y el PLAN-DESPLIEGUE-24OCT.md y sigue con lo pendiente: primero vincular el bot.»

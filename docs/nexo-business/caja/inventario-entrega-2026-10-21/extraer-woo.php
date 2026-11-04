@@ -33,6 +33,7 @@ foreach ($ids as $pid) {
             'sku' => (string) $r->get_sku(), 'parent_sku' => (string) $p->get_sku(),
             'cats' => $cats, 'status' => $p->get_status(), 'vstatus' => $r->get_status(),
             'stock' => $r->get_stock_quantity(), 'type' => $r->get_type(),
+            'vattrs' => $r->get_id() == $pid ? array() : array_map(function ($k, $v) use ($p) { return array(wc_attribute_label(str_replace('attribute_', '', $k), $p), $v); }, array_keys($r->get_attributes()), array_values($r->get_attributes())),
         );
     }
 }

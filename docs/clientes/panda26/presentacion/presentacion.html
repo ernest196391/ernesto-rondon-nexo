@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Panda26 · Lo que construimos para ustedes</title>
+<style>
+  @font-face { font-family: "Anton"; src: url("img/anton.woff2") format("woff2"); }
+  @font-face { font-family: "Inter"; src: url("img/inter.woff2") format("woff2"); font-weight: 100 900; }
+  @page { size: 1080px 1920px; margin: 0; }
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  html, body { margin: 0; background: #0b0908; }
+  body { font-family: "Inter", "Segoe UI", sans-serif; color: #f7efe4; }
+
+  .p {
+    position: relative; overflow: hidden; width: 1080px; height: 1920px; padding: 110px 90px 90px;
+    display: flex; flex-direction: column; page-break-after: always;
+    background:
+      radial-gradient(90% 45% at 50% 100%, rgba(232, 87, 30, .30), transparent 70%),
+      radial-gradient(80% 35% at 50% 0%, #24170e, transparent 70%),
+      #0b0908;
+  }
+  .p::after { content: ""; position: absolute; inset: 34px; border: 2px solid rgba(220, 187, 140, .22); border-radius: 36px; pointer-events: none; }
+  .num { position: absolute; right: 90px; bottom: 70px; font: 600 26px "Inter"; letter-spacing: .2em; color: rgba(247, 239, 228, .35); }
+  .marca { display: flex; align-items: center; gap: 18px; }
+  .marca img { width: 74px; height: 74px; border-radius: 16px; }
+  .marca span { font-family: "Anton"; font-size: 42px; letter-spacing: .14em; }
+  .marca b { color: #e8571e; font-weight: 400; }
+
+  .eti { font-size: 28px; letter-spacing: .32em; text-transform: uppercase; color: #dcbb8c; margin: 0 0 18px; }
+  h1, h2 { font-family: "Anton", Impact, sans-serif; font-weight: 400; text-transform: uppercase; margin: 0; line-height: 1.02; letter-spacing: .01em; }
+  h1 { font-size: 150px; }
+  h2 { font-size: 104px; }
+  em { font-style: normal; color: #ff8a4c; }
+  .lead { font-size: 40px; line-height: 1.38; color: #e2d8cc; margin: 30px 0 0; }
+  .lead b { color: #fff; }
+
+  .lista { list-style: none; padding: 0; margin: 46px 0 0; display: grid; gap: 30px; }
+  .lista li { display: flex; gap: 26px; align-items: flex-start; font-size: 38px; line-height: 1.3; }
+  .lista i { flex: 0 0 auto; font-style: normal; width: 66px; height: 66px; border-radius: 50%; display: grid; place-items: center; font-size: 32px; background: rgba(232, 87, 30, .16); border: 2px solid rgba(255, 138, 76, .6); }
+
+  .movil { align-self: center; width: 560px; border-radius: 56px; padding: 14px; background: #1b1511; border: 2px solid rgba(220, 187, 140, .3); box-shadow: 0 40px 90px rgba(0, 0, 0, .6), 0 0 80px rgba(232, 87, 30, .25); margin-top: auto; }
+  .movil img { width: 100%; border-radius: 44px; display: block; }
+  .movil.recorte { height: 900px; overflow: hidden; }
+  .movil.recorte img { height: 100%; object-fit: cover; object-position: top; }
+
+  .heroe { position: absolute; left: 50%; bottom: 40px; width: 860px; transform: translateX(-50%); -webkit-mask: radial-gradient(circle, #000 52%, transparent 70%); mask: radial-gradient(circle, #000 52%, transparent 70%); }
+
+  .tabla { margin-top: 44px; border-radius: 30px; overflow: hidden; border: 2px solid rgba(220, 187, 140, .25); }
+  .fila { display: flex; justify-content: space-between; gap: 30px; padding: 26px 34px; font-size: 34px; border-bottom: 1px solid rgba(220, 187, 140, .15); background: rgba(255, 244, 230, .03); }
+  .fila span:last-child { color: #dcbb8c; font-weight: 700; white-space: nowrap; }
+  .fila.total { background: rgba(255, 244, 230, .07); font-weight: 800; }
+  .fila.total span:last-child { text-decoration: line-through; text-decoration-thickness: 4px; text-decoration-color: #e8571e; color: #a79e94; }
+  .gratis { margin-top: 40px; text-align: center; padding: 40px; border-radius: 30px; background: linear-gradient(135deg, #ff6a2b, #e8571e 50%, #b8400f); box-shadow: 0 30px 70px rgba(232, 87, 30, .4); }
+  .gratis b { display: block; font-family: "Anton"; font-weight: 400; font-size: 120px; line-height: 1; color: #fff; }
+  .gratis span { font-size: 34px; color: #fff3e8; }
+
+  .taza { font-size: 230px; text-align: center; margin: 40px 0 0; filter: drop-shadow(0 0 40px rgba(232, 87, 30, .5)); }
+  .precio-cafe { text-align: center; margin-top: 10px; }
+  .precio-cafe h2 { font-size: 120px; }
+
+  .pasos { display: grid; gap: 34px; margin-top: 54px; }
+  .paso { display: flex; gap: 30px; align-items: center; padding: 34px; border-radius: 30px; background: rgba(255, 244, 230, .05); border: 2px solid rgba(220, 187, 140, .2); }
+  .paso b { flex: 0 0 auto; width: 96px; height: 96px; border-radius: 26px; display: grid; place-items: center; font-family: "Anton"; font-weight: 400; font-size: 58px; background: #e8571e; color: #fff; }
+  .paso div { font-size: 36px; line-height: 1.3; }
+  .paso div strong { display: block; font-size: 42px; }
+
+  .platos { display: flex; justify-content: center; gap: 30px; margin-top: auto; }
+  .platos img { width: 270px; height: 270px; border-radius: 50%; object-fit: cover; border: 4px solid rgba(255, 138, 76, .7); box-shadow: 0 0 50px rgba(232, 87, 30, .45); }
+  .tarjetas { display: grid; gap: 34px; justify-items: center; margin-top: auto; }
+  .tarjetas img { width: 820px; border-radius: 22px; box-shadow: 0 30px 70px rgba(0, 0, 0, .6); }
+  .tarjetas img:first-child { transform: rotate(-2.5deg); }
+  .tarjetas img:last-child { transform: rotate(2deg); }
+  .cafe { width: 300px; height: 300px; margin: 30px auto 0; color: #ff8a4c; filter: drop-shadow(0 0 40px rgba(232, 87, 30, .55)); }
+  .cafe svg { width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+  .dos { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: auto; }
+  .dos img { width: 100%; border-radius: 26px; display: block; box-shadow: 0 30px 60px rgba(0, 0, 0, .5); }
+  .pie-dos { margin-top: 18px; font-size: 28px; color: #a79e94; text-align: center; }
+  .qrs { display: flex; justify-content: center; gap: 70px; margin-top: auto; }
+  .qrs figure { margin: 0; text-align: center; }
+  .qrs img { width: 300px; height: 300px; padding: 18px; background: #fff; border-radius: 26px; box-shadow: 0 0 0 5px #e8571e, 0 0 50px rgba(232, 87, 30, .45); }
+  .qrs figure:last-child img { box-shadow: 0 0 0 5px #25d366, 0 0 50px rgba(37, 211, 102, .4); }
+  .qrs figcaption { margin-top: 22px; font-size: 30px; font-weight: 700; }
+  .firma { margin-top: 50px; text-align: center; font-size: 30px; color: #a79e94; letter-spacing: .06em; }
+  .firma b { color: #f7efe4; }
+</style>
+</head>
+<body>
+
+<!-- 1 · Portada -->
+<section class="p">
+  <div class="marca"><img src="img/logo.webp" alt=""><span>PANDA<b>26</b></span></div>
+  <p class="eti" style="margin-top:90px">Hecho para ustedes</p>
+  <h1>Su menú<br>ya juega en<br><em>otra liga</em></h1>
+  <p class="lead">Menú que gira en 360°, pedido directo a su WhatsApp, video para redes, carteles y tarjetas. <b>Ya está hecho y ya funciona.</b></p>
+  <img class="heroe" src="img/hotdog-res.jpg" alt="">
+  <span class="num">01</span>
+</section>
+
+<!-- 2 · El sueño -->
+<section class="p">
+  <p class="eti">La idea</p>
+  <h2>La gente<br>compra con<br><em>los ojos</em></h2>
+  <p class="lead">Hoy su cliente lee una lista de precios por WhatsApp. <b>A partir de ahora ve el combo girando antes de pedirlo</b>, y pide sin dudar.</p>
+  <ul class="lista">
+    <li><i>🛒</i>Más pedidos: quien lo ve, lo quiere.</li>
+    <li><i>➕</i>Pedidos más grandes: el frappé y las salsas están a un toque.</li>
+    <li><i>💬</i>Menos preguntas: el pedido les llega escrito, con total y dirección.</li>
+  </ul>
+  <div class="platos"><img src="img/pan-croquetas.jpg" alt=""><img src="img/sandwich-jq.jpg" alt=""><img src="img/frappe.jpg" alt=""></div>
+  <span class="num">02</span>
+</section>
+
+<!-- 3 · Menú 360 -->
+<section class="p">
+  <p class="eti">Lo que ya es suyo · 1</p>
+  <h2>El menú que<br><em>gira en 360°</em></h2>
+  <p class="lead">Sus 4 combos y el frappé flotan en pantalla y <b>el cliente los gira con el dedo</b>. Fotos de estudio hechas a partir de las suyas.</p>
+  <div class="movil"><img src="img/app-holograma.jpg" alt="Menú 360° de Panda26"></div>
+  <span class="num">03</span>
+</section>
+
+<!-- 4 · Carta + pedido -->
+<section class="p">
+  <p class="eti">Lo que ya es suyo · 2</p>
+  <h2>La carta y el<br><em>pedido directo</em></h2>
+  <p class="lead">Toda la carta con buscador. El cliente arma su pedido y <b>les llega a su WhatsApp escrito</b>: productos, total, a domicilio o para recoger.</p>
+  <div class="movil recorte"><img src="img/app-carta.jpg" alt="La carta de Panda26"></div>
+  <span class="num">04</span>
+</section>
+
+<!-- 5 · Video -->
+<section class="p">
+  <p class="eti">Lo que ya es suyo · 3</p>
+  <h2>Un video que<br><em>para el dedo</em></h2>
+  <p class="lead">10 segundos frente a su kiosco: el hot dog, el pan con croquetas y el frappé aparecen sobre la mesa. <b>Listo para Instagram, Facebook y estados.</b></p>
+  <div class="movil recorte" style="height:1000px"><img src="img/video.jpg" alt="Video gancho"></div>
+  <span class="num">05</span>
+</section>
+
+<!-- 6 · Cartel y tarjeta -->
+<section class="p">
+  <p class="eti">Lo que ya es suyo · 4</p>
+  <h2>Cartel de mesa<br>y <em>tarjeta de regalo</em></h2>
+  <p class="lead">El cartel se dobla y queda de pie en cada mesa. La tarjeta va <b>con cada pedido a domicilio</b>. Los dos llevan los 2 QR: el menú y su grupo <b>Panda 26 Delivery</b>.</p>
+  <div class="tarjetas"><img src="img/tarjeta-frente.jpg" alt="Cara del menú"><img src="img/tarjeta-dorso.jpg" alt="Cara del grupo"></div>
+  <p class="pie-dos">Tarjeta de 8,5 × 5,5 cm · una cara el menú, la otra el grupo</p>
+  <span class="num">06</span>
+</section>
+
+<!-- 7 · Mensajeros -->
+<section class="p">
+  <p class="eti">Lo que ya es suyo · 5</p>
+  <h2>¿Pedido a domicilio<br>y <em>nadie para llevarlo?</em></h2>
+  <p class="lead">Usen <b>los mensajeros de Casa Viva</b>. Le escriben a <b>Ernesto</b> por WhatsApp, él manda un mensajero que lo recoge en el kiosco y lo lleva.</p>
+  <ul class="lista">
+    <li><i>🛵</i>Mensajeros que ya reparten por La Habana todos los días.</li>
+    <li><i>💵</i>La mensajería va completa para el mensajero. Ustedes no pagan cuota.</li>
+    <li><i>📲</i>Un solo contacto: Ernesto, por este mismo chat.</li>
+  </ul>
+  <div class="cafe" style="width:520px;height:400px;margin-top:auto"><svg viewBox="0 0 120 90" aria-hidden="true"><circle cx="24" cy="66" r="12"/><circle cx="96" cy="66" r="12"/><path d="M24 66h30l14-24h18l10 24"/><path d="M68 42 62 24h-8"/><path d="M36 54h20"/><rect x="30" y="30" width="22" height="16" rx="3"/><path d="M4 40h14M8 50h12M2 60h10"/></svg></div>
+  <span class="num">07</span>
+</section>
+
+<!-- 8 · Pila de valor -->
+<section class="p">
+  <p class="eti">Lo que reciben</p>
+  <h2>Todo esto,<br><em>hecho y puesto</em></h2>
+  <div class="tabla">
+    <div class="fila"><span>Menú 360° con 5 productos</span><span>600 USD</span></div>
+    <div class="fila"><span>5 fotos de estudio de sus productos</span><span>150 USD</span></div>
+    <div class="fila"><span>Pedido directo a su WhatsApp</span><span>150 USD</span></div>
+    <div class="fila"><span>Video de 10 s para redes</span><span>200 USD</span></div>
+    <div class="fila"><span>Cartel de mesa + tarjeta de regalo</span><span>90 USD</span></div>
+    <div class="fila"><span>Mensajeros de Casa Viva</span><span>sin cuota</span></div>
+    <div class="fila total"><span>Valor de todo</span><span>1.190 USD</span></div>
+  </div>
+  <div class="gratis"><b>GRATIS</b><span>Ya está hecho. Ya funciona. Se queda puesto.</span></div>
+  <span class="num">08</span>
+</section>
+
+<!-- 9 · Mantenimiento -->
+<section class="p">
+  <p class="eti">¿Y si quieren que lo mantengamos?</p>
+  <h2>Nos cobramos<br><em>un expreso al día</em></h2>
+  <div class="cafe"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M20 42h50v14a25 25 0 0 1-50 0z"/><path d="M70 47h6a9 9 0 0 1 0 18h-8"/><path d="M14 88h66"/><path d="M36 30c-4-5 4-8 0-14M48 30c-4-5 4-8 0-14M60 30c-4-5 4-8 0-14"/></svg></div>
+  <p class="lead" style="text-align:center">Así de simbólico. Por ese café nosotros:</p>
+  <ul class="lista">
+    <li><i>💲</i>Cambiamos precios el mismo día que ustedes digan.</li>
+    <li><i>🌭</i>Añadimos productos nuevos, con su foto y su giro 360°.</li>
+    <li><i>🛠️</i>Revisamos que todo funcione siempre.</li>
+  </ul>
+  <p class="lead" style="text-align:center;margin-top:40px">Si un día deciden mantenerlo, <b>nos ponemos de acuerdo</b>. Sin apuro.</p>
+  <span class="num">09</span>
+</section>
+
+<!-- 10 · Próximos pasos -->
+<section class="p">
+  <p class="eti">Para empezar hoy</p>
+  <h2>3 pasos y<br><em>a vender</em></h2>
+  <div class="pasos">
+    <div class="paso"><b>1</b><div><strong>Pruébenlo ahora</strong>Escaneen el QR del menú con su móvil.</div></div>
+    <div class="paso"><b>2</b><div><strong>Pongan el cartel</strong>Uno en cada mesa del kiosco.</div></div>
+    <div class="paso"><b>3</b><div><strong>Regalen la tarjeta</strong>Una con cada pedido a domicilio.</div></div>
+  </div>
+  <div class="qrs">
+    <figure><img src="img/qr-menu.svg" alt=""><figcaption>El menú 360°</figcaption></figure>
+    <figure><img src="img/qr-grupo.svg" alt=""><figcaption>Su grupo de WhatsApp</figcaption></figure>
+  </div>
+  <p class="firma">Hecho con cariño por <b>Ernesto · NEXO</b></p>
+  <span class="num">10</span>
+</section>
+
+</body>
+</html>

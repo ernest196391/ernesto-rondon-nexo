@@ -1,0 +1,56 @@
+<!-- Tutorial «Estudio de fotos»: ?s=menu|e1|e2|e3|e4|e5 prepara cada pantalla (ver BRIEF). &dbg=1 pinta rectángulos (marco 750x1624). -->
+<style>html{scroll-behavior:auto!important}*{scroll-behavior:auto!important}.cvga-tabbar{display:none!important}.dbgbox{position:absolute;z-index:99999;border:2px solid red;pointer-events:none;font:700 11px/1 monospace;color:#fff;background:rgba(255,0,0,.12)}.dbgbox b{position:absolute;left:0;top:-13px;background:red;padding:1px 2px;white-space:nowrap}</style><script>
+window.addEventListener('load', function () {
+  var s = (location.search.match(/s=([\w-]+)/) || [])[1] || '';
+  var dbg = /dbg=1/.test(location.search);
+  var app = document.querySelector('[data-cvga]');
+  var root = document.querySelector('[data-cves]');
+  var off = Number((location.search.match(/oy=(-?\d+)/) || [])[1] || 0);
+  function to(el, top) { if (!el) return; var y = el.getBoundingClientRect().top + window.scrollY - top + off; window.scrollTo({ top: y, behavior: 'instant' }); }
+  function typeQ(v) { var q = root.querySelector('[data-cves-q]'); q.value = v; q.dispatchEvent(new Event('input', { bubbles: true })); }
+  function step(fn, ms) { return new Promise(function (r) { setTimeout(function () { fn(); r(); }, ms); }); }
+  var p = Promise.resolve();
+  try { localStorage.clear(); } catch (e) {}
+  if (s === 'menu' && app) {
+    app.classList.add('is-open');
+    p = step(function () {
+      app.querySelectorAll('.is-active').forEach(function (a) { a.classList.remove('is-active'); });
+      var link = app.querySelector('.cvga-nav [href="#estudio"], .cvga-nav [data-cvga-go="estudio"]');
+      var nav = app.querySelector('.cvga-nav'); if (link && nav) { nav.scrollTop = Math.max(0, link.offsetTop - 330); }
+    }, 300);
+  }
+  if (/^e/.test(s)) {
+    p = step(function () { typeQ('set para baño'); }, 300);
+    if (s === 'e1') p = p.then(function () { return step(function () { to(root.querySelector('.cves-make'), 70); }, 400); });
+    if (s >= 'e2') {
+      p = p.then(function () { return step(function () { var b = root.querySelector('[data-pid="2573"]'); if (b) b.click(); }, 400); })
+           .then(function () { return step(function () { root.querySelector('[data-cves-idea="ambiente"]').click(); }, 300); });
+    }
+    if (s === 'e2') p = p.then(function () { return step(function () { to(root.querySelector('.cves-make'), 70); }, 500); });
+    if (s === 'e3b') p = p.then(function () { return step(function () { to(root.querySelector('.cves-up-title'), 90); }, 600); });
+    if (s === 'e3') p = p.then(function () { return step(function () { root.querySelector('[data-cves-copy-msg]').textContent = 'Copiada ✓ Ahora pégala en Gemini.'; to(root.querySelector('[data-cves-free]'), 70); }, 600); });
+    if (s === 'e4' || s === 'e5') {
+      p = p.then(function () { return new Promise(function (r) {
+        var img = new Image(); img.onload = function () {
+          var c = document.createElement('canvas'); c.width = 600; c.height = 600; c.getContext('2d').drawImage(img, 0, 0, 600, 600);
+          c.toBlob(function (b) { var dt = new DataTransfer(); dt.items.add(new File([b], 'gemini.jpg', { type: 'image/jpeg' })); var up = root.querySelector('[data-cves-up]'); up.files = dt.files; up.dispatchEvent(new Event('change', { bubbles: true })); setTimeout(r, 900); }, 'image/jpeg', 0.9);
+        }; img.src = 'despues-dany.jpg';
+      }); });
+      if (s === 'e4') p = p.then(function () { return step(function () { to(root.querySelector('[data-cves-up-msg]'), 60); }, 300); });
+      if (s === 'e5') p = p.then(function () { return step(function () { var b = root.querySelector('[data-cves-up-result] [data-act="store"]'); if (b) b.click(); }, 300); })
+                         .then(function () { return step(function () { to(root.querySelector('[data-cves-up-result] .cves-img'), 60); }, 500); });
+    }
+  }
+  p.then(function () { return step(function () {
+    document.documentElement.setAttribute('data-ready', '1');
+    if (!dbg) return;
+    document.querySelectorAll('.cvga-nav a, [data-cves-q], .cves-hit, [data-cves-idea], [data-cves-copy], [data-cves-base], [data-cves-open], .cves-up, [data-act], .cves-pick, .cves-up-tips li, .cvga-chip, .cves-done').forEach(function (el) {
+      var r = el.getBoundingClientRect(); if (!r.width || r.bottom < 0 || r.top > 812) return;
+      var d = document.createElement('div'); d.className = 'dbgbox';
+      d.style.cssText = 'left:' + (r.left + window.scrollX) + 'px;top:' + (r.top + window.scrollY) + 'px;width:' + r.width + 'px;height:' + r.height + 'px';
+      d.innerHTML = '<b>' + (el.textContent || el.getAttribute('data-cves-idea') || '').trim().slice(0, 12) + ' ' + [r.left, r.top, r.right, r.bottom].map(function (n) { return Math.round(n * 2); }).join(',') + '</b>';
+      document.body.appendChild(d);
+    });
+  }, 300); });
+});
+</script>

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="600" height="600">
+  <title>Rey de Alisados — B, Sello</title>
+  <defs><style>@import url('https://fonts.googleapis.com/css2?family=Italiana&amp;family=Instrument+Sans:wght@500&amp;display=swap');</style></defs>
+  <rect width="200" height="200" fill="#1B1416"/>
+  <circle cx="100" cy="100" r="84" fill="none" stroke="#8A817C" stroke-width="1.2"/>
+  <g stroke="#C8812E" stroke-width="3" stroke-linecap="round">
+    <line x1="88" y1="50" x2="88" y2="60"/>
+    <line x1="94" y1="44" x2="94" y2="60"/>
+    <line x1="100" y1="38" x2="100" y2="60"/>
+    <line x1="106" y1="44" x2="106" y2="60"/>
+    <line x1="112" y1="50" x2="112" y2="60"/>
+  </g>
+  <text x="100" y="134" text-anchor="middle" font-family="Italiana, 'Times New Roman', serif" font-size="78" fill="#F3F1EF">R</text>
+  <text x="100" y="162" text-anchor="middle" font-family="'Instrument Sans', Arial, sans-serif" font-weight="500" font-size="10.5" letter-spacing="2.2" fill="#8A817C">rey de alisados</text>
+</svg>

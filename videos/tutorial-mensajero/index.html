@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Tutorial: elige tu mensajero</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "Figtree";
+        src: url("assets/fonts/figtree-400.woff2") format("woff2");
+        font-weight: 400;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "Figtree";
+        src: url("assets/fonts/figtree-600.woff2") format("woff2");
+        font-weight: 600;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "Figtree";
+        src: url("assets/fonts/figtree-700.woff2") format("woff2");
+        font-weight: 700;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "Figtree";
+        src: url("assets/fonts/figtree-800.woff2") format("woff2");
+        font-weight: 800;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "Segoe UI Emoji";
+        src: local("Segoe UI Emoji");
+      }
+      :root {
+        --green: #0f3d3a;
+        --sand: #f6f1e6;
+        --surface: #fffdf9;
+        --ink: #25231f;
+        --muted: #6f6a62;
+        --gold: #c39443;
+        --soft: #e4ece8;
+        --red: #a8443a;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: #f6f1e6;
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: #f6f1e6;
+        color: #25231f;
+        font-family: "Figtree", "Segoe UI Emoji", sans-serif;
+      }
+
+      /* ---------- shared scene vocabulary (used by the sub-compositions) ---------- */
+      .scene-wrap {
+        position: absolute;
+        inset: 0;
+      }
+      .cap {
+        position: absolute;
+        left: 60px;
+        right: 60px;
+        top: 140px;
+        height: 290px;
+        display: flex;
+        align-items: center;
+        font-weight: 800;
+        font-size: 80px;
+        line-height: 1.06;
+        letter-spacing: -0.02em;
+        color: #0f3d3a;
+        text-wrap: balance;
+        opacity: 0;
+      }
+      .cap .ci {
+        display: block;
+        width: 100%;
+      }
+      .cap .k {
+        white-space: nowrap;
+        padding: 0 8px;
+        background: linear-gradient(transparent 60%, rgba(195, 148, 67, 0.42) 60%);
+        border-radius: 6px;
+      }
+      .phone {
+        position: absolute;
+        left: 150px;
+        top: 452px;
+        width: 780px;
+        height: 1340px;
+        border-radius: 72px;
+        background: #25231f;
+        padding: 18px;
+        box-shadow:
+          0 40px 80px rgba(15, 61, 58, 0.22),
+          0 8px 20px rgba(37, 35, 31, 0.18);
+      }
+      .screen {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        border-radius: 56px;
+        background: #fffdf9;
+        overflow: hidden;
+      }
+      .statusbar {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        height: 58px;
+        padding: 0 44px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-weight: 700;
+        font-size: 26px;
+        color: #25231f;
+        z-index: 5;
+      }
+      .statusbar.on-dark {
+        color: #f6f1e6;
+      }
+      .sb-icons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+      .sb-bar {
+        display: block;
+        width: 8px;
+        border-radius: 2px;
+        background: currentColor;
+      }
+      .sb-batt {
+        display: block;
+        width: 44px;
+        height: 22px;
+        border-radius: 6px;
+        border: 3px solid currentColor;
+        position: relative;
+      }
+      .sb-batt::after {
+        content: "";
+        position: absolute;
+        left: 3px;
+        top: 3px;
+        bottom: 3px;
+        width: 24px;
+        border-radius: 2px;
+        background: currentColor;
+      }
+      .skel {
+        display: block;
+        height: 22px;
+        border-radius: 11px;
+        background: #e4ece8;
+      }
+      .tap {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 104px;
+        height: 104px;
+        z-index: 40;
+        opacity: 0;
+      }
+      .tap-dot {
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        background: rgba(195, 148, 67, 0.38);
+        border: 5px solid #c39443;
+      }
+      .tap-ring {
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        border: 4px solid #c39443;
+        opacity: 0;
+      }
+      /* WhatsApp-style chat pieces */
+      .chat-head {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        height: 168px;
+        padding: 58px 32px 0;
+        background: #0f3d3a;
+        color: #f6f1e6;
+        display: flex;
+        align-items: center;
+        gap: 22px;
+      }
+      .avatar {
+        flex: 0 0 auto;
+        width: 84px;
+        height: 84px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        font-size: 34px;
+        background: #e4ece8;
+        color: #0f3d3a;
+      }
+      .chat-title {
+        font-weight: 800;
+        font-size: 36px;
+        line-height: 1.1;
+      }
+      .chat-sub {
+        font-weight: 400;
+        font-size: 26px;
+        color: #e4ece8;
+      }
+      .chat-body {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 168px;
+        bottom: 0;
+        background: #e4ece8;
+        background-image: radial-gradient(rgba(15, 61, 58, 0.08) 2px, transparent 2.5px);
+        background-size: 36px 36px;
+        padding: 28px 26px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+      .bubble {
+        max-width: 88%;
+        padding: 20px 24px 14px;
+        border-radius: 22px;
+        background: #fffdf9;
+        color: #25231f;
+        font-size: 32px;
+        line-height: 1.3;
+        box-shadow: 0 3px 0 rgba(15, 61, 58, 0.08);
+      }
+      .bubble.in {
+        align-self: flex-start;
+        border-top-left-radius: 6px;
+      }
+      .bubble.out {
+        align-self: flex-end;
+        background: #d6e7dd;
+        border-top-right-radius: 6px;
+      }
+      .bubble .who {
+        display: block;
+        font-weight: 700;
+        font-size: 26px;
+        color: #0f3d3a;
+        margin-bottom: 4px;
+      }
+      .bubble .time {
+        display: block;
+        text-align: right;
+        font-size: 22px;
+        color: #55514a;
+        margin-top: 6px;
+      }
+      .day-chip {
+        align-self: center;
+        padding: 8px 22px;
+        border-radius: 14px;
+        background: #fffdf9;
+        color: #6f6a62;
+        font-size: 24px;
+        font-weight: 600;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="36"
+      data-width="1080"
+      data-height="1920"
+    >
+      <div
+        id="bg-layer"
+        data-composition-id="bg-layer"
+        data-composition-src="compositions/bg.html"
+        data-start="0"
+        data-duration="36"
+        data-track-index="0"
+        data-width="1080"
+        data-height="1920"
+      ></div>
+
+      <div
+        id="s1-title"
+        data-composition-id="s1-title"
+        data-composition-src="compositions/s1-title.html"
+        data-start="0"
+        data-duration="3.45"
+        data-track-index="1"
+        data-width="1080"
+        data-height="1920"
+      ></div>
+      <div
+        id="s2-app"
+        data-composition-id="s2-app"
+        data-composition-src="compositions/s2-app.html"
+        data-start="3.45"
+        data-duration="11"
+        data-track-index="1"
+        data-width="1080"
+        data-height="1920"
+      ></div>
+      <div
+        id="s3-nota"
+        data-composition-id="s3-nota"
+        data-composition-src="compositions/s3-nota.html"
+        data-start="14.45"
+        data-duration="4.7"
+        data-track-index="1"
+        data-width="1080"
+        data-height="1920"
+      ></div>
+      <div
+        id="s4-vale"
+        data-composition-id="s4-vale"
+        data-composition-src="compositions/s4-vale.html"
+        data-start="19.15"
+        data-duration="5.35"
+        data-track-index="1"
+        data-width="1080"
+        data-height="1920"
+      ></div>
+      <div
+        id="s5-aviso"
+        data-composition-id="s5-aviso"
+        data-composition-src="compositions/s5-aviso.html"
+        data-start="24.5"
+        data-duration="3.8"
+        data-track-index="1"
+        data-width="1080"
+        data-height="1920"
+      ></div>
+      <div
+        id="s6-cierre"
+        data-composition-id="s6-cierre"
+        data-composition-src="compositions/s6-cierre.html"
+        data-start="28.3"
+        data-duration="7.7"
+        data-track-index="1"
+        data-width="1080"
+        data-height="1920"
+      ></div>
+
+      <audio
+        id="voz"
+        src="assets/voz.mp3"
+        data-start="0"
+        data-duration="35.99"
+        data-track-index="2"
+        data-volume="1"
+      ></audio>
+    </div>
+    <script>
+      // root timeline: every scene and the background live in sub-compositions
+      const tl = gsap.timeline({ paused: true });
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

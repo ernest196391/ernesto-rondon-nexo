@@ -1,0 +1,198 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "bandeja-decisiones",
+      "runtimeExecutable": "node",
+      "runtimeArgs": [
+        "C:/Users/Ernesto/AppData/Local/Temp/claude/C--Users-Ernesto-ernesto-rondon-nexo/4009cff9-318f-4e64-9b84-9cbd1ef7f1f1/scratchpad/preview/server.mjs"
+      ],
+      "port": 8791
+    },
+    {
+      "name": "billete-seguro",
+      "runtimeExecutable": "npx.cmd",
+      "runtimeArgs": [
+        "--yes",
+        "http-server",
+        "apps/billete-seguro",
+        "-p",
+        "4201",
+        "-c-1",
+        "--silent"
+      ],
+      "port": 4201
+    },
+    {
+      "name": "menu-panda26",
+      "runtimeExecutable": "npx.cmd",
+      "runtimeArgs": [
+        "--yes",
+        "http-server",
+        "apps/menu-panda26",
+        "-p",
+        "4270",
+        "-c-1",
+        "--silent"
+      ],
+      "port": 4270
+    },
+    {
+      "name": "menu-360-dist",
+      "runtimeExecutable": "npx.cmd",
+      "runtimeArgs": [
+        "--yes",
+        "http-server",
+        "apps/menu-360/dist",
+        "-p",
+        "4271",
+        "-c-1",
+        "--silent"
+      ],
+      "port": 4271
+    },
+    {
+      "name": "dashboard",
+      "runtimeExecutable": "npx.cmd",
+      "runtimeArgs": [
+        "--yes",
+        "http-server",
+        "apps/business-dashboard",
+        "-p",
+        "4180",
+        "-c-1",
+        "--silent"
+      ],
+      "port": 4180
+    },
+    {
+      "name": "casaviva-sim",
+      "runtimeExecutable": "npx.cmd",
+      "runtimeArgs": [
+        "--yes",
+        "http-server",
+        "C:/Users/Ernesto/AppData/Local/Temp/claude/C--Users-Ernesto-ernesto-rondon-nexo/c3a64355-e1ba-4a35-9cf4-e922933b7520/scratchpad",
+        "-p",
+        "4190",
+        "-c-1",
+        "--cors",
+        "--silent"
+      ],
+      "port": 4190
+    },
+    {
+      "name": "digitaliza-local",
+      "runtimeExecutable": "node",
+      "runtimeArgs": [
+        "scripts/digitaliza-local-core.mjs"
+      ],
+      "port": 54399
+    },
+    {
+      "name": "gestoras-preview",
+      "runtimeExecutable": "npx.cmd",
+      "runtimeArgs": [
+        "--yes",
+        "http-server",
+        "C:/Users/Ernesto/AppData/Local/Temp/claude/C--Users-Ernesto-ernesto-rondon-nexo/908bbb9d-8413-4878-a509-a7c1ce237e17/scratchpad/cvga",
+        "-p",
+        "4195",
+        "-c-1",
+        "--silent"
+      ],
+      "port": 4195
+    },
+    {
+      "name": "reparto-mock",
+      "runtimeExecutable": "npx.cmd",
+      "runtimeArgs": [
+        "--yes",
+        "http-server",
+        "C:/Users/Ernesto/AppData/Local/Temp/claude/C--Users-Ernesto-ernesto-rondon-nexo/c0dcc046-dc29-4c38-a4f1-1bc4ffe68052/scratchpad/mock-reparto",
+        "-p",
+        "4197",
+        "-c-1",
+        "--silent"
+      ],
+      "port": 4197
+    },
+    {
+      "name": "estudio-prueba",
+      "runtimeExecutable": "npx.cmd",
+      "runtimeArgs": [
+        "--yes",
+        "http-server",
+        "C:/Users/Ernesto/AppData/Local/Temp/claude/C--Users-Ernesto-ernesto-rondon-nexo/c0dcc046-dc29-4c38-a4f1-1bc4ffe68052/scratchpad/harness",
+        "-p",
+        "4198",
+        "-c-1",
+        "--silent"
+      ],
+      "port": 4198
+    },
+    {
+      "name": "ficha-contesta",
+      "runtimeExecutable": "npx.cmd",
+      "runtimeArgs": [
+        "--yes",
+        "http-server",
+        "docs/nexo-business/gestoras/ficha-contesta",
+        "-p",
+        "4205",
+        "-c-1",
+        "--silent"
+      ],
+      "port": 4205
+    },
+    {
+      "name": "palla-preview",
+      "runtimeExecutable": "npx.cmd",
+      "runtimeArgs": [
+        "--yes",
+        "http-server",
+        "C:/Users/Ernesto/Casa-Viva-palla",
+        "-p",
+        "4261",
+        "-c-1",
+        "--silent"
+      ],
+      "port": 4261
+    },
+    {
+      "name": "saldo360-dev",
+      "runtimeExecutable": "node",
+      "runtimeArgs": [
+        "C:/Users/Ernesto/AppData/Local/Temp/claude/C--Users-Ernesto-ernesto-rondon-nexo/84cbe220-becd-4c4c-b6c4-854438c11e37/scratchpad/saldo360-dev.mjs"
+      ],
+      "port": 3360
+    },
+    {
+      "name": "triciclub-preview",
+      "runtimeExecutable": "npx.cmd",
+      "runtimeArgs": [
+        "--yes",
+        "http-server",
+        "C:/Users/Ernesto/AppData/Local/Temp/claude/C--Users-Ernesto-ernesto-rondon-nexo/aea38569-f78f-4e2e-89ef-ced089305eea/scratchpad/tc-preview",
+        "-p",
+        "4262",
+        "-c-1",
+        "--silent"
+      ],
+      "port": 4262
+    },
+    {
+      "name": "nexofirma-web",
+      "runtimeExecutable": "npm.cmd",
+      "runtimeArgs": [
+        "--prefix",
+        "C:/Users/Ernesto/nexofirma/apps/web",
+        "run",
+        "dev",
+        "--",
+        "--port",
+        "3210"
+      ],
+      "port": 3210
+    }
+  ]
+}

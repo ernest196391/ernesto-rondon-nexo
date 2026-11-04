@@ -1,0 +1,576 @@
+{
+ "DUR": 28.5,
+ "FPS": 30,
+ "planos": [
+  {
+   "src": "e1",
+   "de": 0,
+   "a": 2,
+   "vel": 1,
+   "z": [
+    1,
+    1.08
+   ],
+   "f": [
+    0.5,
+    0.42
+   ],
+   "que": "GANCHO: se incorpora en la cama a oscuras, abanicándose con el cartón",
+   "i": 0,
+   "frames": 60,
+   "out": 0,
+   "fin": 2
+  },
+  {
+   "src": "e1",
+   "de": 2,
+   "a": 3.75,
+   "vel": 1,
+   "z": [
+    1.12,
+    1.18
+   ],
+   "f": [
+    0.5,
+    0.36
+   ],
+   "que": "más cerca: «y la cama hirviendo»",
+   "i": 1,
+   "frames": 53,
+   "out": 2,
+   "fin": 3.7667
+  },
+  {
+   "src": "e1",
+   "de": 4.05,
+   "a": 5.75,
+   "vel": 1,
+   "z": [
+    1,
+    1.06
+   ],
+   "f": [
+    0.5,
+    0.45
+   ],
+   "que": "primer plano: tres dedos a cámara",
+   "i": 2,
+   "frames": 51,
+   "out": 3.7667,
+   "fin": 5.4667
+  },
+  {
+   "src": "e1",
+   "de": 5.75,
+   "a": 7.45,
+   "vel": 1,
+   "z": [
+    1.08,
+    1
+   ],
+   "f": [
+    0.5,
+    0.4
+   ],
+   "que": "primer plano: «el tercero casi nadie lo hace»",
+   "i": 3,
+   "frames": 51,
+   "out": 5.4667,
+   "fin": 7.1667
+  },
+  {
+   "src": "e1",
+   "de": 7.55,
+   "a": 8.55,
+   "vel": 1,
+   "z": [
+    1,
+    1.05
+   ],
+   "f": [
+    0.45,
+    0.55
+   ],
+   "que": "detalle: la mano en la sábana de algodón",
+   "i": 4,
+   "frames": 30,
+   "out": 7.1667,
+   "fin": 8.1667
+  },
+  {
+   "src": "e1",
+   "de": 8.55,
+   "a": 10.75,
+   "vel": 1,
+   "z": [
+    1.04,
+    1.12
+   ],
+   "f": [
+    0.5,
+    0.38
+   ],
+   "que": "cara: «el poliéster guarda el calor»",
+   "i": 5,
+   "frames": 66,
+   "out": 8.1667,
+   "fin": 10.3667
+  },
+  {
+   "src": "e1",
+   "de": 11,
+   "a": 13,
+   "vel": 1,
+   "z": [
+    1,
+    1.06
+   ],
+   "f": [
+    0.55,
+    0.5
+   ],
+   "que": "de lado: la botella congelada delante del ventilador",
+   "i": 6,
+   "frames": 60,
+   "out": 10.3667,
+   "fin": 12.3667
+  },
+  {
+   "src": "e1",
+   "de": 13,
+   "a": 14.95,
+   "vel": 1,
+   "z": [
+    1.1,
+    1
+   ],
+   "f": [
+    0.62,
+    0.45
+   ],
+   "que": "el ventilador gira, ella aliviada",
+   "i": 7,
+   "frames": 58,
+   "out": 12.3667,
+   "fin": 14.3
+  },
+  {
+   "src": "e2",
+   "de": 0,
+   "a": 1.5,
+   "vel": 1,
+   "z": [
+    1,
+    1.08
+   ],
+   "f": [
+    0.3,
+    0.45
+   ],
+   "que": "Prosko con la linterna: «¿Y esto?»",
+   "i": 8,
+   "frames": 45,
+   "out": 14.3,
+   "fin": 15.8
+  },
+  {
+   "src": "e2",
+   "de": 1.6,
+   "a": 3.6,
+   "vel": 1,
+   "z": [
+    1,
+    1.06
+   ],
+   "f": [
+    0.5,
+    0.5
+   ],
+   "que": "abren el plástico y desenrollan el topper",
+   "i": 9,
+   "frames": 60,
+   "out": 15.8,
+   "fin": 17.8
+  },
+  {
+   "src": "e2",
+   "de": 3.6,
+   "a": 5.3,
+   "vel": 1,
+   "z": [
+    1.06,
+    1.12
+   ],
+   "f": [
+    0.5,
+    0.55
+   ],
+   "que": "el topper azul sobre la cama",
+   "i": 10,
+   "frames": 51,
+   "out": 17.8,
+   "fin": 19.5
+  },
+  {
+   "src": "e2",
+   "de": 5.4,
+   "a": 8.7,
+   "vel": 1,
+   "z": [
+    1,
+    1.06
+   ],
+   "f": [
+    0.6,
+    0.5
+   ],
+   "que": "ella lo palmea: «se siente fresquito»",
+   "i": 11,
+   "frames": 99,
+   "out": 19.5,
+   "fin": 22.8
+  },
+  {
+   "src": "e2",
+   "de": 9.3,
+   "a": 12.1,
+   "vel": 1,
+   "z": [
+    1,
+    1.06
+   ],
+   "f": [
+    0.5,
+    0.42
+   ],
+   "que": "desde arriba, acostados: «Comenta CALOR…»",
+   "i": 12,
+   "frames": 84,
+   "out": 22.8,
+   "fin": 25.6
+  },
+  {
+   "src": "e2",
+   "de": 12.1,
+   "a": 15,
+   "vel": 1,
+   "z": [
+    1.06,
+    1.14
+   ],
+   "f": [
+    0.45,
+    0.35
+   ],
+   "que": "más cerca: «…para que a las dos ya no sudes» (bucle con el inicio)",
+   "i": 13,
+   "frames": 87,
+   "out": 25.6,
+   "fin": 28.5
+  }
+ ],
+ "cortes": [
+  2,
+  3.7667,
+  5.4667,
+  7.1667,
+  8.1667,
+  10.3667,
+  12.3667,
+  14.3,
+  15.8,
+  17.8,
+  19.5,
+  22.8,
+  25.6
+ ],
+ "punch": [],
+ "capas": [
+  {
+   "id": "gancho",
+   "file": "gancho.png",
+   "x": 0,
+   "y": 294,
+   "h": 252,
+   "de": 0,
+   "a": 2,
+   "pista": 1,
+   "texto": "[gancho] POV: 2 AM|SIN CORRIENTE"
+  },
+  {
+   "id": "cta",
+   "file": "cta.png",
+   "x": 0,
+   "y": 369,
+   "h": 122,
+   "de": 22.96,
+   "a": 28.5,
+   "pista": 2,
+   "texto": "[cta] Comenta CALOR"
+  },
+  {
+   "id": "frase",
+   "file": "frase.png",
+   "x": 0,
+   "y": 330,
+   "h": 200,
+   "de": 16.95,
+   "a": 19.3,
+   "pista": 2,
+   "texto": "[frase clave] El colchón guarda|el calor del día"
+  },
+  {
+   "id": "sub-01",
+   "file": "sub-01.png",
+   "x": 0,
+   "y": 1266,
+   "h": 128,
+   "de": 0,
+   "a": 1.4,
+   "pista": 3,
+   "texto": "Dos de la mañana,"
+  },
+  {
+   "id": "sub-02",
+   "file": "sub-02.png",
+   "x": 0,
+   "y": 1266,
+   "h": 128,
+   "de": 1.4,
+   "a": 2,
+   "pista": 3,
+   "texto": "sin corriente…"
+  },
+  {
+   "id": "sub-03",
+   "file": "sub-03.png",
+   "x": 0,
+   "y": 1258,
+   "h": 144,
+   "de": 2.01,
+   "a": 3.72,
+   "pista": 3,
+   "texto": "y la cama HIRVIENDO"
+  },
+  {
+   "id": "sub-04",
+   "file": "sub-04.png",
+   "x": 0,
+   "y": 1258,
+   "h": 144,
+   "de": 3.9167,
+   "a": 4.6167,
+   "pista": 3,
+   "texto": "Tres trucos"
+  },
+  {
+   "id": "sub-05",
+   "file": "sub-05.png",
+   "x": 0,
+   "y": 1266,
+   "h": 128,
+   "de": 4.6167,
+   "a": 5.4667,
+   "pista": 3,
+   "texto": "para dormir fresca"
+  },
+  {
+   "id": "sub-06",
+   "file": "sub-06.png",
+   "x": 0,
+   "y": 1266,
+   "h": 128,
+   "de": 5.5967,
+   "a": 6.2167,
+   "pista": 3,
+   "texto": "El tercero"
+  },
+  {
+   "id": "sub-07",
+   "file": "sub-07.png",
+   "x": 0,
+   "y": 1266,
+   "h": 128,
+   "de": 6.2167,
+   "a": 7.1167,
+   "pista": 3,
+   "texto": "casi nadie lo hace"
+  },
+  {
+   "id": "sub-08",
+   "file": "sub-08.png",
+   "x": 0,
+   "y": 1266,
+   "h": 128,
+   "de": 7.3167,
+   "a": 8.1667,
+   "pista": 3,
+   "texto": "1. Sábana de algodón"
+  },
+  {
+   "id": "sub-09",
+   "file": "sub-09.png",
+   "x": 0,
+   "y": 1266,
+   "h": 128,
+   "de": 8.1767,
+   "a": 8.8767,
+   "pista": 3,
+   "texto": "1. Sábana de algodón"
+  },
+  {
+   "id": "sub-10",
+   "file": "sub-10.png",
+   "x": 0,
+   "y": 1266,
+   "h": 128,
+   "de": 8.8767,
+   "a": 9.5167,
+   "pista": 3,
+   "texto": "El poliéster"
+  },
+  {
+   "id": "sub-11",
+   "file": "sub-11.png",
+   "x": 0,
+   "y": 1266,
+   "h": 128,
+   "de": 9.5167,
+   "a": 10.3167,
+   "pista": 3,
+   "texto": "guarda el calor"
+  },
+  {
+   "id": "sub-12",
+   "file": "sub-12.png",
+   "x": 0,
+   "y": 1266,
+   "h": 128,
+   "de": 10.5667,
+   "a": 12.2667,
+   "pista": 3,
+   "texto": "2. Botella congelada"
+  },
+  {
+   "id": "sub-13",
+   "file": "sub-13.png",
+   "x": 0,
+   "y": 1266,
+   "h": 128,
+   "de": 12.3767,
+   "a": 14.2667,
+   "pista": 3,
+   "texto": "delante del ventilador"
+  },
+  {
+   "id": "sub-14",
+   "file": "sub-14.png",
+   "x": 0,
+   "y": 1258,
+   "h": 144,
+   "de": 14.3,
+   "a": 15.24,
+   "pista": 3,
+   "texto": "¿Y esto?"
+  },
+  {
+   "id": "sub-15",
+   "file": "sub-15.png",
+   "x": 0,
+   "y": 1258,
+   "h": 144,
+   "de": 15.88,
+   "a": 16.9,
+   "pista": 3,
+   "texto": "3. El truco"
+  },
+  {
+   "id": "sub-16",
+   "file": "sub-16.png",
+   "x": 0,
+   "y": 1266,
+   "h": 128,
+   "de": 19.68,
+   "a": 21.1,
+   "pista": 3,
+   "texto": "Esto tiene gel"
+  },
+  {
+   "id": "sub-17",
+   "file": "sub-17.png",
+   "x": 0,
+   "y": 1266,
+   "h": 128,
+   "de": 21.1,
+   "a": 22.68,
+   "pista": 3,
+   "texto": "y se siente fresquito"
+  },
+  {
+   "id": "sub-18",
+   "file": "sub-18.png",
+   "x": 0,
+   "y": 1266,
+   "h": 128,
+   "de": 24.3,
+   "a": 25.1,
+   "pista": 3,
+   "texto": "y te digo gratis"
+  },
+  {
+   "id": "sub-19",
+   "file": "sub-19.png",
+   "x": 0,
+   "y": 1266,
+   "h": 128,
+   "de": 25.1,
+   "a": 25.6,
+   "pista": 3,
+   "texto": "cómo refrescar"
+  },
+  {
+   "id": "sub-20",
+   "file": "sub-20.png",
+   "x": 0,
+   "y": 1266,
+   "h": 128,
+   "de": 25.61,
+   "a": 26.46,
+   "pista": 3,
+   "texto": "tu cuarto"
+  },
+  {
+   "id": "sub-21",
+   "file": "sub-21.png",
+   "x": 0,
+   "y": 1266,
+   "h": 128,
+   "de": 26.98,
+   "a": 27.7,
+   "pista": 3,
+   "texto": "para que a las dos"
+  },
+  {
+   "id": "sub-22",
+   "file": "sub-22.png",
+   "x": 0,
+   "y": 1258,
+   "h": 144,
+   "de": 27.7,
+   "a": 28.45,
+   "pista": 3,
+   "texto": "ya no sudes"
+  },
+  {
+   "id": "logo",
+   "file": "logo.png",
+   "x": 350,
+   "y": 1425,
+   "h": 105,
+   "de": 27,
+   "a": 28.5,
+   "pista": 4,
+   "texto": "[logo]"
+  }
+ ]
+}

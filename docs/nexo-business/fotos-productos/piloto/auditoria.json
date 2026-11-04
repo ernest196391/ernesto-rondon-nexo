@@ -1,0 +1,130 @@
+{
+ "_leyenda": "nota 0-10 por foto. decision: principal | galeria | rechazada. fuente: proveedor (original/) o web (web/, ver web/fuentes.json). Auditado a ojo por Claude el 2026-10-12.",
+ "498c4cd9": {
+  "estado": "LISTO",
+  "fotos": [
+   {"archivo": "original/01.jpg", "nota": 7, "decision": "principal", "motivo": "Modelo correcto (Elite 100, 1800W/1024Wh), fondo blanco limpio. Lado corto 714 px (<800) pero el producto ocupa casi todo el ancho."},
+   {"archivo": "original/02.jpg", "nota": 4, "decision": "rechazada", "motivo": "Foto de ambiente con titulos en ingles encima (Uninterrupted Power, UPS < 10ms)."},
+   {"archivo": "original/03.jpg", "nota": 3, "decision": "rechazada", "motivo": "Montaje publicitario: app en un movil, iconos y texto en ingles; el producto sale pequeño."},
+   {"archivo": "original/04.jpg", "nota": 2, "decision": "rechazada", "motivo": "Infografia de la bateria (texto, sellos 5-Year / 4000+ cycles); no muestra el producto."},
+   {"archivo": "original/05.jpg", "nota": 3, "decision": "rechazada", "motivo": "Ambiente con titulo, iconos y sello 70 min en ingles; producto pequeño."}
+  ]
+ },
+ "37da52ba": {
+  "estado": "LISTO",
+  "aviso": "La ficha del proveedor mezcla fotos de OTRA batidora (Ninja Classic) con la Farberware. Avisar al proveedor.",
+  "fotos": [
+   {"archivo": "original/01.jpg", "nota": 9, "decision": "principal", "motivo": "Farberware correcta con picadora y vaso de viaje (lo que dice la descripcion); fondo blanco, 1000x1000."},
+   {"archivo": "original/02.jpg", "nota": 0, "decision": "rechazada", "motivo": "PRODUCTO EQUIVOCADO: es una Ninja Classic, con texto publicitario."},
+   {"archivo": "original/03.jpg", "nota": 8, "decision": "galeria", "motivo": "Piezas por separado (vaso, picadora, vaso de viaje, base); fondo blanco limpio."},
+   {"archivo": "original/04.jpg", "nota": 7, "decision": "galeria", "motivo": "Detalle de la base y botones; limpio."},
+   {"archivo": "original/05.jpg", "nota": 0, "decision": "rechazada", "motivo": "PRODUCTO EQUIVOCADO: Ninja Classic. Ademas 612 px."},
+   {"archivo": "original/06.jpg", "nota": 0, "decision": "rechazada", "motivo": "PRODUCTO EQUIVOCADO: Ninja Classic. Ademas 612 px."}
+  ]
+ },
+ "7cc8a1c0": {
+  "estado": "BLOQUEADO",
+  "aviso": "Producto generico sin marca ni modelo: en la web no hay forma de comprobar que una foto es la misma cafetera. Hace falta foto real (proveedor o tienda).",
+  "fotos": [
+   {"archivo": "original/01.jpg", "nota": 5, "decision": "rechazada", "motivo": "Es la cafetera correcta y fondo blanco, pero muy pequeña (389x479) y recortada al borde; ampliada se ve blanda. Sirve solo de provisional."},
+   {"archivo": "original/02.jpg", "nota": 3, "decision": "rechazada", "motivo": "Collage de medidas en pulgadas con logo de otra tienda (Milky House) y fondo degradado."}
+  ],
+  "web": "Busqueda 'Milky House stovetop espresso maker 6 cup': sin coincidencia exacta (solo otras marcas: Primula, Bialetti, Liying). No se usa foto de otra marca."
+ },
+ "25b0d739": {
+  "estado": "BLOQUEADO",
+  "aviso": "Generico. Hace falta foto real.",
+  "fotos": [
+   {"archivo": "original/01.jpg", "nota": 2, "decision": "rechazada", "motivo": "423x423, fondo oscuro, texto en ingles (Emergency Led Light, 3 Modes...), producto cortado por la izquierda."}
+  ],
+  "web": "Busqueda 'rechargeable emergency LED bulb 30W USB hook': hay muchos parecidos (Newegg, Walmart, HKTDC) pero ninguno se puede comprobar que sea el mismo; datos de bateria distintos entre ellos."
+ },
+ "c240ada1": {
+  "estado": "LISTO",
+  "fotos": [
+   {"archivo": "original/01.jpg", "nota": 7, "decision": "principal", "motivo": "Producto correcto (marca NEVERAS impresa en el aparato, textos en español), fondo blanco. 800x800 con el producto pequeño: se amplia ~1,6x y se enfoca un poco."},
+   {"archivo": "original/02.jpg", "nota": 3, "decision": "rechazada", "motivo": "Collage de 4 habitaciones con etiquetas en ingles; producto diminuto."},
+   {"archivo": "original/03.jpg", "nota": 4, "decision": "rechazada", "motivo": "Ambiente oscuro con titulo grande 'Surge Protector'."},
+   {"archivo": "original/04.jpg", "nota": 5, "decision": "rechazada", "motivo": "Infografia con iconos y flechas en ingles; la informacion va al texto de la ficha."}
+  ]
+ },
+ "0bd4c7ba": {
+  "estado": "LISTO (con web)",
+  "aviso": "Confirmar con el proveedor si es A17 5G (la descripcion dice Exynos 1330, que es el 5G). La foto frontal de la web muestra 'Galaxy A17 5G' en la pantalla.",
+  "fotos": [
+   {"archivo": "original/01.jpg", "nota": 4, "decision": "rechazada", "motivo": "Solo la caja, no el telefono."},
+   {"archivo": "original/02.jpg", "nota": 4, "decision": "rechazada", "motivo": "Trasera correcta en gris pero diminuta (325x505)."},
+   {"archivo": "original/03.png", "nota": 6, "decision": "rechazada", "motivo": "Render oficial delante+detras pero sobre fondo NEGRO; no cumple fondo blanco."},
+   {"archivo": "web/w01.jpg", "nota": 3, "decision": "rechazada", "motivo": "Dice 'Galaxy A17 4G' en pantalla y trae funda de libro que no se vende."},
+   {"archivo": "web/w02.jpg", "nota": 8, "decision": "galeria", "motivo": "Render oficial de frente, 1277x2662, fondo blanco. Pantalla dice 'Galaxy A17 5G' (confirmar variante)."},
+   {"archivo": "web/w03.jpg", "nota": 9, "decision": "principal", "motivo": "Render oficial de la trasera en gris, 1277x2662, fondo blanco. Mismo color que el proveedor."},
+   {"archivo": "web/w04.jpg", "nota": 0, "decision": "rechazada", "motivo": "Guia de tallas de fundas de la tienda; no es el producto."},
+   {"archivo": "web/w05.jpg", "nota": 0, "decision": "rechazada", "motivo": "Anuncio de Norton VPN; no es el producto."}
+  ]
+ },
+ "85ecbad6": {
+  "estado": "LISTO",
+  "fotos": [
+   {"archivo": "original/01.jpg", "nota": 8, "decision": "principal", "motivo": "Charge 6 negra correcta, fondo blanco, producto grande (lado corto 654 px pero el altavoz es alargado)."},
+   {"archivo": "original/02.jpg", "nota": 4, "decision": "rechazada", "motivo": "Infografia de medidas y peso sobre fondo naranja."},
+   {"archivo": "original/03.jpg", "nota": 7, "decision": "galeria", "motivo": "Vista de arriba con los botones; fondo blanco."},
+   {"archivo": "original/04.jpg", "nota": 5, "decision": "rechazada", "motivo": "Ambiente con texto (El sonido Pro de JBL); 556 px."},
+   {"archivo": "original/05.jpg", "nota": 3, "decision": "rechazada", "motivo": "Altavoz AZUL en la playa con texto 'Up to 28 hours': no es el color que se vende."}
+  ]
+ },
+ "6fc938b1": {
+  "estado": "BLOQUEADO",
+  "aviso": "Hace falta foto real o la foto oficial de Quikcell (modelo QCFUEL10).",
+  "fotos": [
+   {"archivo": "original/01.jpg", "nota": 4, "decision": "rechazada", "motivo": "Texto en ingles arriba (Fast Charging...), sale con un iPhone, 681 px."}
+  ],
+  "web": "Modelo encontrado: Quikcell PowerFuel 10K, QCFUEL10 (Newegg). La pagina de Newegg pide 'Are you a human?' y no se salta; la web de Quikcell no tiene ficha publica. Sin foto."
+ },
+ "750aa656": {
+  "estado": "LISTO",
+  "fotos": [
+   {"archivo": "original/01.jpg", "nota": 8, "decision": "principal", "motivo": "Render oficial Lenovo V15 G6, fondo blanco, 926 px. Logo AMD y linea legal abajo: se tapan con blanco."},
+   {"archivo": "original/02.jpg", "nota": 7, "decision": "galeria", "motivo": "Lateral izquierdo con puertos; mismo arreglo del logo AMD."},
+   {"archivo": "original/03.jpg", "nota": 7, "decision": "galeria", "motivo": "De frente con teclado numerico; mismo arreglo."},
+   {"archivo": "original/04.jpg", "nota": 6, "decision": "rechazada", "motivo": "Trasera casi igual a la 05; se queda la 05 (sobran fotos)."},
+   {"archivo": "original/05.jpg", "nota": 7, "decision": "galeria", "motivo": "Trasera con puertos; mismo arreglo."}
+  ]
+ },
+ "32b6702f": {
+  "estado": "LISTO (con web)",
+  "aviso": "A primera vista la 01 parecia buena (7), pero al normalizarla se vio que el teclado esta CORTADO por la derecha. Leccion: revisar tambien el resultado final, no solo el original.",
+  "fotos": [
+   {"archivo": "original/01.jpg", "nota": 6, "decision": "rechazada", "motivo": "Teclado + raton + receptor correctos y fondo blanco, pero el teclado sale cortado por el borde derecho (se ve al centrarlo). 563 px."},
+   {"archivo": "web/w03.png", "nota": 9, "decision": "principal", "motivo": "Foto oficial de logitech.com, vista en angulo de teclado + raton, PNG sin fondo 1600 px."},
+   {"archivo": "web/w01.png", "nota": 9, "decision": "galeria", "motivo": "Oficial, vista de arriba completa."},
+   {"archivo": "web/w02.png", "nota": 8, "decision": "galeria", "motivo": "Oficial, vista frontal baja."},
+   {"archivo": "web/w05.png", "nota": 7, "decision": "galeria", "motivo": "Oficial, raton de arriba."},
+   {"archivo": "web/w04.png", "nota": 5, "decision": "rechazada", "motivo": "Perfil del teclado: aporta poco."},
+   {"archivo": "web/w06.png", "nota": 6, "decision": "rechazada", "motivo": "Perfil del raton: sobran fotos (maximo 4)."},
+   {"archivo": "original/02.jpg", "nota": 5, "decision": "rechazada", "motivo": "Ambiente con banda de texto 'Wireless freedom'."},
+   {"archivo": "original/03.jpg", "nota": 4, "decision": "rechazada", "motivo": "Medidas del raton sobre fondo turquesa con texto."},
+   {"archivo": "original/04.jpg", "nota": 5, "decision": "rechazada", "motivo": "'What's in the box' sobre turquesa con banda de texto."}
+  ]
+ },
+ "cc696612": {
+  "estado": "LISTO",
+  "fotos": [
+   {"archivo": "original/01.jpg", "nota": 7, "decision": "galeria", "motivo": "Render oficial con base y mandos; fondo blanco; el producto ocupa ~60 % del ancho."},
+   {"archivo": "original/02.jpg", "nota": 9, "decision": "principal", "motivo": "Render oficial de frente, blanco, 1080x1080, limpio."},
+   {"archivo": "original/03.jpg", "nota": 8, "decision": "galeria", "motivo": "Modo mesa con los Joy-Con; fondo blanco."},
+   {"archivo": "original/04.jpg", "nota": 7, "decision": "galeria", "motivo": "Joy-Con blancos con correas; limpio."}
+  ]
+ },
+ "4b9725f0": {
+  "estado": "LISTO (con web)",
+  "aviso": "La descripcion dice 500GB, 1 mando y cables, pero NO menciona el juego ni la caja. No se usa la foto del pack con juego y caja hasta que el proveedor confirme que vienen.",
+  "fotos": [
+   {"archivo": "original/01.jpg", "nota": 5, "decision": "rechazada", "motivo": "Pack oficial con caja y juego Uncharted 4 + logo 'PS4 Limited Edition' y nota en ingles; puede prometer cosas que la descripcion no incluye; 581 px."},
+   {"archivo": "original/02.jpg", "nota": 6, "decision": "rechazada", "motivo": "Consola vertical + mando, fondo blanco, pero 705 px y pegada a los bordes."},
+   {"archivo": "original/03.jpg", "nota": 5, "decision": "rechazada", "motivo": "Consola cortada por la izquierda; 720 px."},
+   {"archivo": "web/w01.jpg", "nota": 8, "decision": "principal", "motivo": "Foto oficial de Sony (PlayStation.Blog) consola + mando, fondo blanco, 1024 px. Linea de copyright abajo: se tapa con blanco."},
+   {"archivo": "web/w02.jpg", "nota": 7, "decision": "galeria", "motivo": "Mando DualShock 4 de la edicion, oficial; se tapa la linea de copyright."},
+   {"archivo": "web/w03.jpg", "nota": 0, "decision": "rechazada", "motivo": "Auriculares de la edicion: NO vienen con la consola."}
+  ]
+ }
+}

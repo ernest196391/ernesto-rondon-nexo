@@ -1,0 +1,10 @@
+# Página para el dueño de Panda26: textos con caché corta; video, fotos y PDF con caché de 7 días.
+AddType video/mp4 .mp4
+<FilesMatch "\.html$">
+  Header set Cache-Control "max-age=300"
+</FilesMatch>
+<FilesMatch "\.(jpg|png|svg|mp4|pdf)$">
+  Header set Cache-Control "max-age=604800"
+</FilesMatch>
+Header set X-Content-Type-Options "nosniff"
+Header set Referrer-Policy "no-referrer"

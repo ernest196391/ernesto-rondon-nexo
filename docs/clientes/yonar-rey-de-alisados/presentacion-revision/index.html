@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Revisión de diapositivas</title>
+<link href="https://fonts.googleapis.com/css2?family=Italiana&family=Instrument+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  body { margin:0; background:#555; }
+  .frame { width:1920px; height:1080px; position:relative; overflow:hidden; margin:0 0 40px; }
+  .frame > section { position:absolute; inset:0; box-sizing:border-box; }
+  section * { margin:0; }
+  section aside { display:none; }
+  x-icon { display:inline-block; background:currentColor; border-radius:50%; }
+</style>
+</head>
+<body>
+<div id="out"></div>
+<script>
+const ORDER = ['cover','hoy','perdida','solucion','regalos','marca','demos','prueba','precio','pasos'];
+const MAP = {
+  '/_blob/480b6b37387a8f551ae22be7209df594':'intro.png',
+  '/_blob/86e15ea2d926990df434d558c6dd3344':'perfil.png',
+  '/_blob/9d4935f7a6ed0bb9d27d3af962bf0ba0':'clienta.png'
+};
+(async () => {
+  for (const id of ORDER) {
+    let html = await (await fetch('slides/' + id + '.html')).text();
+    for (const k in MAP) html = html.split(k).join(MAP[k]);
+    const f = document.createElement('div'); f.className = 'frame'; f.id = 'f-' + id; f.innerHTML = html;
+    document.getElementById('out').appendChild(f);
+  }
+})();
+</script>
+</body>
+</html>

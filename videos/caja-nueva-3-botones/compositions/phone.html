@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="es">
+  <head><meta charset="UTF-8" /></head>
+  <body>
+    <template>
+      <style>
+        #phone-root { position: absolute; inset: 0; }
+      </style>
+      <div id="phone-root" data-composition-id="phone" data-width="1080" data-height="1920">
+        <div id="ph-body">
+          <div id="ph-screen">
+            <div id="ph-head">
+              <img src="assets/logo/casa-viva-isotipo-crema.svg" alt="" />
+              <div id="ph-name">CASA VIVA</div>
+              <div id="ph-chip">
+                <svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="#1E7044" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                Al día
+              </div>
+            </div>
+          </div>
+        </div>
+            </div>
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          tl.fromTo("#ph-body", { y: 260, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, ease: "power3.out" }, 0);
+          tl.fromTo("#ph-head", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power1.out" }, 0.3);
+          tl.fromTo("#ph-body", { y: 0, opacity: 1 }, { y: 200, opacity: 0, duration: 0.5, ease: "power2.in", immediateRender: false }, 49.4);
+          window.__timelines["phone"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

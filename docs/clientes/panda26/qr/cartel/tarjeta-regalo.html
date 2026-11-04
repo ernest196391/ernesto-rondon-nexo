@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Panda26 · Tarjeta de regalo (2 caras)</title>
+<style>
+  @font-face { font-family: "Anton"; src: url("anton.woff2") format("woff2"); }
+  @font-face { font-family: "Inter"; src: url("inter.woff2") format("woff2"); font-weight: 100 900; }
+  @page { size: A4; margin: 0; }
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  html, body { margin: 0; background: #fff; }
+  body { font-family: "Inter", "Segoe UI", sans-serif; color: #f7efe4; }
+
+  /* Hoja 1 = frentes (menú), hoja 2 = dorsos (grupo). Imprimir a doble cara, «voltear por el borde largo».
+     10 tarjetas de 85 × 55 mm por hoja, centradas (márgenes iguales para que casen las dos caras). */
+  .hoja { width: 210mm; height: 297mm; position: relative; page-break-after: always; }
+  .rejilla { position: absolute; left: 20mm; top: 11mm; display: grid; grid-template-columns: repeat(2, 85mm); grid-template-rows: repeat(5, 55mm); }
+  .t {
+    position: relative; overflow: hidden; width: 85mm; height: 55mm; padding: 4.5mm;
+    display: flex; align-items: center; gap: 3.5mm;
+    background:
+      radial-gradient(80% 90% at 100% 50%, rgba(232, 87, 30, .32), transparent 70%),
+      radial-gradient(60% 80% at 0% 0%, #22160d, transparent 70%),
+      #0b0908;
+  }
+  .t::before { content: ""; position: absolute; inset: 1.8mm; border-radius: 2.4mm; border: .25mm solid rgba(220, 187, 140, .35); pointer-events: none; }
+  .t.verde { background: radial-gradient(80% 90% at 0% 50%, rgba(37, 211, 102, .22), transparent 70%), radial-gradient(60% 80% at 100% 0%, #22160d, transparent 70%), #0b0908; }
+
+  .texto { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1.2mm; }
+  .marca { display: flex; align-items: center; gap: 1.6mm; }
+  .marca img { width: 7.5mm; height: 7.5mm; border-radius: 1.6mm; }
+  .marca span { font-family: "Anton", Impact, sans-serif; font-size: 10.5pt; letter-spacing: .12em; }
+  .marca b { color: #e8571e; font-weight: 400; }
+  h2 { margin: 1.2mm 0 0; font-family: "Anton", Impact, sans-serif; font-weight: 400; text-transform: uppercase; font-size: 14pt; line-height: 1.02; }
+  h2 em { font-style: normal; color: #ff8a4c; }
+  .verde h2 em { color: #3ddc84; }
+  p { margin: 0; font-size: 6.4pt; line-height: 1.35; color: #d9cfc3; }
+  .chico { font-size: 5.6pt; color: #a79e94; letter-spacing: .03em; }
+
+  .qr { flex: 0 0 auto; width: 33mm; height: 33mm; padding: 2mm; border-radius: 2.4mm; background: #fff; box-shadow: 0 0 0 .6mm rgba(232, 87, 30, .9), 0 0 5mm rgba(232, 87, 30, .5); }
+  .verde .qr { box-shadow: 0 0 0 .6mm #25d366, 0 0 5mm rgba(37, 211, 102, .4); }
+  .qr img { width: 100%; height: 100%; display: block; }
+
+  /* marcas de corte en las esquinas, fuera de la rejilla */
+  .corte { position: absolute; background: #999; }
+</style>
+</head>
+<body>
+  <div class="hoja" id="frentes"><div class="rejilla"></div></div>
+  <div class="hoja" id="dorsos"><div class="rejilla"></div></div>
+
+  <template id="frente">
+    <div class="t">
+      <div class="texto">
+        <div class="marca"><img src="logo.webp" alt=""><span>PANDA<b>26</b></span></div>
+        <h2>Gira el menú<br><em>en 360°</em></h2>
+        <p>Mira cada combo antes de pedirlo y arma tu pedido desde el móvil.</p>
+        <p class="chico">Combos con papas + salsas gratis</p>
+      </div>
+      <div class="qr"><img src="qr-menu.svg" alt="QR del menú"></div>
+    </div>
+  </template>
+  <template id="dorso">
+    <div class="t verde">
+      <div class="qr"><img src="qr-grupo.svg" alt="QR del grupo de WhatsApp"></div>
+      <div class="texto">
+        <div class="marca"><img src="logo.webp" alt=""><span>PANDA<b>26</b></span></div>
+        <h2>Pide por<br><em>el grupo</em></h2>
+        <p>Únete a <b>Panda 26 Delivery</b>: ofertas del día y servicio a domicilio.</p>
+        <p class="chico">Todos los días · 10 a.m.–8 p.m.<br>WhatsApp <span style="white-space:nowrap">+53 6369 4210</span></p>
+      </div>
+    </div>
+  </template>
+
+  <script>
+    // 10 por hoja y marcas de corte (sale igual en las dos hojas)
+    ["frentes", "dorsos"].forEach(function (id) {
+      var hoja = document.getElementById(id), rej = hoja.querySelector(".rejilla");
+      var molde = document.getElementById(id === "frentes" ? "frente" : "dorso");
+      for (var i = 0; i < 10; i++) rej.appendChild(molde.content.cloneNode(true));
+      var xs = [20, 105, 190], ys = [11, 66, 121, 176, 231, 286];
+      xs.forEach(function (x) { [[3, 7], [289, 293]].forEach(function (r) { var c = document.createElement("i"); c.className = "corte"; c.style.cssText = "left:" + x + "mm;top:" + r[0] + "mm;width:.2mm;height:" + (r[1] - r[0]) + "mm"; hoja.appendChild(c); }); });
+      ys.forEach(function (y) { [[12, 17], [193, 198]].forEach(function (r) { var c = document.createElement("i"); c.className = "corte"; c.style.cssText = "top:" + y + "mm;left:" + r[0] + "mm;height:.2mm;width:" + (r[1] - r[0]) + "mm"; hoja.appendChild(c); }); });
+    });
+  </script>
+</body>
+</html>

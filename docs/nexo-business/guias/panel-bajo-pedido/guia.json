@@ -1,0 +1,43 @@
+{
+  "titulo": "Bajo pedido",
+  "formato": "1080x1350",
+  "para": "Lennys (dueña y administradora), en casaviva.company/panel (vista de móvil). D121, en vivo desde el 28-oct. Capturas: index.html + dash.css desplegados (rama nexo feat/panel-bajo-pedido 6ad49ee), servidos en local con la sesión y nexo-panel-web SIMULADOS con datos de EJEMPLO (sin contraseña ni datos reales): «Ventilador recargable 12 pulgadas», «Proveedor de ejemplo», 50 USD → sugerido 67, comisión 6,80, mínimo 58,26.",
+  "mensaje": "Hola, Lennys. Ya puedes subir tú misma los productos bajo pedido de los proveedores desde el panel.\nTe sirve para no tener que esperar por Ernesto.\nTe dejo los pasos 👇\nSi algo no sale, escríbeme.",
+  "pasos": [
+    {
+      "texto": "En **Productos**, toca **Proveedores · bajo pedido**.",
+      "resultado": "Sale la lista **Por publicar**: foto, proveedor y precio de cada producto.",
+      "captura": "capturas/1-productos.png",
+      "flecha": "abajo",
+      "zoom": 1.1,
+      "pie": "Paso 1 de 4: en Productos, toca Proveedores · bajo pedido."
+    },
+    {
+      "texto": "Toca el producto que quieres publicar.",
+      "resultado": "Se abre con el precio del proveedor, el sugerido, la comisión y el mínimo.",
+      "ojo": "¿No lo ves? Escribe su nombre en **Buscar**.",
+      "captura": "capturas/2-lista.png",
+      "flecha": "abajo",
+      "zoom": 1.1,
+      "pie": "Paso 2 de 4: toca el producto que quieres publicar."
+    },
+    {
+      "texto": "Escribe tu precio en **Precio de venta (USD)**.",
+      "resultado": "Debe decir **✓ Llega al mínimo**. Si dice «Por debajo del mínimo», súbelo.",
+      "ojo": "El **Departamento** ya viene puesto. Cámbialo solo si no es el correcto.",
+      "captura": "capturas/3-precio.png",
+      "flecha": "abajo",
+      "zoom": 1.1,
+      "pie": "Paso 3 de 4: escribe tu precio. No puede bajar del Precio mínimo."
+    },
+    {
+      "texto": "Toca **Publicar en la web**.",
+      "resultado": "Sale **✓ Ya está en la tienda**, como «Bajo pedido · llega en 24 h».",
+      "ojo": "Si el proveedor ya no lo tiene: **Publicados** → el producto → **Retirar (agotado)**.",
+      "captura": "capturas/4-publicar.png",
+      "flecha": "abajo",
+      "zoom": 1.1,
+      "pie": "Paso 4 de 4: toca Publicar en la web. Sale en la tienda como «Bajo pedido · llega en 24 h»."
+    }
+  ]
+}

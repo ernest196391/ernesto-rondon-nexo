@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="es">
+  <head><meta charset="UTF-8" /></head>
+  <body>
+    <template>
+      <style>
+        #s5-root { position: absolute; inset: 0; }
+        #s5-wrap { position: absolute; inset: 0; }
+        #s5-ok path { stroke-dasharray: 21; }
+        #s5-search { height: 96px; border-radius: 24px; border: 3px solid #DCD2C1; background: #FFFDF8; display: flex; align-items: center; gap: 16px; padding: 0 26px;
+          font-weight: 500; font-size: 34px; color: #6B5F56; }
+        #s5-search svg { width: 40px; height: 40px; display: block; }
+        #s5-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .s5-p { position: relative; background: #FFFDF8; border: 3px solid #DCD2C1; border-radius: 26px; padding: 20px 22px 22px; display: flex; flex-direction: column; gap: 8px; }
+        .s5-im { height: 150px; border-radius: 18px; display: flex; align-items: center; justify-content: center; margin-bottom: 6px; }
+        .s5-im svg { width: 96px; height: 96px; display: block; }
+        .s5-n { font-weight: 600; font-size: 33px; line-height: 1.12; color: #2B2420; }
+        .s5-pr { font-weight: 600; font-size: 36px; color: #A35A1F; }
+        #s5-sheet { position: absolute; left: 0; right: 0; bottom: 0; height: 640px; z-index: 5; background: #FFFDF8; border-top: 3px solid #DCD2C1;
+          border-radius: 40px 40px 0 0; box-shadow: 0 -20px 50px rgba(43, 36, 32, 0.16); padding: 30px 34px 50px; display: flex; flex-direction: column; gap: 22px; }
+        #s5-grab { align-self: center; width: 90px; height: 8px; border-radius: 4px; background: #DCD2C1; }
+        #s5-who { display: flex; align-items: center; gap: 14px; }
+        #s5-who .chip { height: 70px; font-size: 32px; padding: 0 28px; position: relative; }
+        #s5-sh-big .t1 { font-size: 44px; }
+        #s5-sh-big .amt { font-size: 52px; }
+      </style>
+      <div id="s5-root" data-composition-id="s5-rapida" data-width="1080" data-height="1920">
+        <div id="s5-wrap">
+          <div id="s5-when" class="when">12:40 · VENTA RÁPIDA</div>
+          <div id="s5-cap" class="cap"><span class="ci">Cliente sin gestora: <span class="k">venta rápida</span></span></div>
+          <div class="bd" data-layout-allow-overlap data-layout-allow-occlusion>
+            <div id="s5-pg" class="pg">
+              <div id="s5-h" class="h1">Venta rápida</div>
+              <div id="s5-search"><svg viewBox="0 0 24 24" fill="none" stroke="#6B5F56" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7" /><path d="M20 20l-4-4" /></svg>Buscar producto…</div>
+              <div id="s5-grid">
+                <div id="s5-p1" class="s5-p">
+                  <div class="s5-im" style="background:#DCE8EA"><svg viewBox="0 0 24 24" fill="none" stroke="#0D3B45" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 18 0z" /><path d="M12 12v7a2 2 0 0 0 4 0" /></svg></div>
+                  <div class="s5-n">Paraguas inverso</div><div class="s5-pr">15 USD</div>
+                  <i class="tap" id="s5-t1"><b class="td"></b><b class="tr"></b></i>
+                </div>
+                <div class="s5-p">
+                  <div class="s5-im" style="background:#FFEFD2"><svg viewBox="0 0 24 24" fill="none" stroke="#8A4B00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="14" rx="2" /><path d="M4 10h16M4 14h16" /></svg></div>
+                  <div class="s5-n">Toalla grande</div><div class="s5-pr">8 USD</div>
+                </div>
+                <div class="s5-p">
+                  <div class="s5-im" style="background:#E2F2E8"><svg viewBox="0 0 24 24" fill="none" stroke="#1E7044" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4h9l-1 16H8z" /><path d="M16 7h2a2 2 0 0 1 0 6h-2.4" /></svg></div>
+                  <div class="s5-n">Jarra de cristal</div><div class="s5-pr">6 USD</div>
+                </div>
+                <div class="s5-p">
+                  <div class="s5-im" style="background:#EFE8DA"><svg viewBox="0 0 24 24" fill="none" stroke="#574C44" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h8v5l-2 3v10h-4V11L8 8z" /><path d="M11 14h2" /></svg></div>
+                  <div class="s5-n">Linterna recargable</div><div class="s5-pr">12 USD</div>
+                </div>
+              </div>
+            </div>
+            <div id="s5-sheet">
+              <div id="s5-grab"></div>
+              <div id="s5-sh-big" class="row"><span class="t1">Paraguas inverso</span><span class="amt">15 USD</span></div>
+              <div class="sub">¿Quién atiende?</div>
+              <div id="s5-who">
+                <span id="s5-nana" class="chip off">Nana<i class="tap" id="s5-t2"><b class="td"></b><b class="tr"></b></i></span>
+                <span class="chip off">Zaymi</span>
+              </div>
+              <div class="spacer"></div>
+              <div id="s5-btn" class="btn amber">Cobrar 15 USD<i class="tap" id="s5-t3"><b class="td"></b><b class="tr"></b></i></div>
+            </div>
+            <div id="s5-ok" class="ok-ov">
+              <div class="ok-ci"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="#FFFDF8" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+              <div class="ok-t">Venta hecha</div>
+              <div class="ok-s">Paraguas inverso · 15 USD · Atiende: Nana</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          const tap = (id, t) => {
+            tl.fromTo(id + " .td", { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.25, ease: "power2.out", immediateRender: false }, t - 0.3);
+            tl.to(id + " .td", { opacity: 0, scale: 0.8, duration: 0.3, ease: "power1.in" }, t + 0.25);
+            tl.fromTo(id + " .tr", { opacity: 0.9, scale: 0.4 }, { opacity: 0, scale: 1.8, duration: 0.6, ease: "power2.out", immediateRender: false }, t);
+          };
+          const press = (sel, t) => {
+            tl.fromTo(sel, { scale: 1 }, { scale: 0.96, duration: 0.1, ease: "power1.out", immediateRender: false }, t);
+            tl.to(sel, { scale: 1, duration: 0.25, ease: "back.out(3)" }, t + 0.1);
+          };
+          const ok = (pre, t) => {
+            tl.fromTo(pre, { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, t);
+            tl.fromTo(pre + " .ok-ci", { scale: 0.4 }, { scale: 1, duration: 0.55, ease: "back.out(2)" }, t + 0.1);
+            tl.fromTo(pre + " path", { strokeDashoffset: 21 }, { strokeDashoffset: 0, duration: 0.4, ease: "power2.out" }, t + 0.35);
+            tl.fromTo(pre + " .ok-t", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, t + 0.4);
+            tl.fromTo(pre + " .ok-s", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, t + 0.6);
+          };
+          tl.fromTo("#s5-when", { opacity: 0, y: -16 }, { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }, 0.05);
+          tl.fromTo("#s5-cap .ci", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0.15);
+          tl.fromTo("#s5-sheet", { yPercent: 110 }, { yPercent: 110, duration: 0.01 }, 0);
+          tl.fromTo("#s5-h, #s5-search", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.45, ease: "power2.out", stagger: 0.12 }, 0.3);
+          tl.fromTo("#s5-grid .s5-p", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(1.7)", stagger: 0.1 }, 0.6);
+          // pick the umbrella
+          tl.fromTo("#s5-p1", { borderColor: "#DCD2C1" }, { borderColor: "#A35A1F", duration: 0.2, immediateRender: false }, 1.95);
+          tap("#s5-t1", 2.05);
+          press("#s5-p1", 2.05);
+          tl.to("#s5-sheet", { yPercent: 0, duration: 0.55, ease: "power3.out" }, 2.45);
+          // who serves
+          tap("#s5-t2", 3.7);
+          tl.fromTo("#s5-nana", { backgroundColor: "#EFE8DA", color: "#574C44" }, { backgroundColor: "#0D3B45", color: "#F6F1E6", duration: 0.2, immediateRender: false }, 3.7);
+          // charge
+          tap("#s5-t3", 4.9);
+          press("#s5-btn", 4.9);
+          ok("#s5-ok", 5.3);
+          tl.to("#s5-root .bd > :not(.ok-ov)", { opacity: 0, duration: 0.01 }, 5.3 + 0.35);
+          tl.to("#s5-wrap", { opacity: 0, duration: 0.35, ease: "power1.in" }, 8.1);
+          window.__timelines["s5-rapida"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

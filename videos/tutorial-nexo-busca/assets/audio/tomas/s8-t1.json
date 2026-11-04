@@ -1,0 +1,127 @@
+{
+ "task": "transcribe",
+ "language": "Spanish",
+ "duration": 7.616124928,
+ "text": " ¿Prefieres venderlo por Casa Viva? Manda la solicitud. Casa Viva lo confirma con el proveedor y te avisa por WhatsApp con tu comisión.",
+ "words": [
+  {
+   "word": "¿Prefieres",
+   "start": 0.14,
+   "end": 0.42
+  },
+  {
+   "word": "venderlo",
+   "start": 0.42,
+   "end": 0.86
+  },
+  {
+   "word": "por",
+   "start": 0.86,
+   "end": 1.04
+  },
+  {
+   "word": "Casa",
+   "start": 1.04,
+   "end": 1.2
+  },
+  {
+   "word": "Viva?",
+   "start": 1.2,
+   "end": 2.14
+  },
+  {
+   "word": "Manda",
+   "start": 2.14,
+   "end": 2.4
+  },
+  {
+   "word": "la",
+   "start": 2.4,
+   "end": 2.52
+  },
+  {
+   "word": "solicitud.",
+   "start": 2.52,
+   "end": 3.48
+  },
+  {
+   "word": "Casa",
+   "start": 3.48,
+   "end": 3.54
+  },
+  {
+   "word": "Viva",
+   "start": 3.54,
+   "end": 3.86
+  },
+  {
+   "word": "lo",
+   "start": 3.86,
+   "end": 4.02
+  },
+  {
+   "word": "confirma",
+   "start": 4.02,
+   "end": 4.42
+  },
+  {
+   "word": "con",
+   "start": 4.42,
+   "end": 4.56
+  },
+  {
+   "word": "el",
+   "start": 4.56,
+   "end": 4.7
+  },
+  {
+   "word": "proveedor",
+   "start": 4.7,
+   "end": 5.12
+  },
+  {
+   "word": "y",
+   "start": 5.12,
+   "end": 5.5
+  },
+  {
+   "word": "te",
+   "start": 5.5,
+   "end": 5.64
+  },
+  {
+   "word": "avisa",
+   "start": 5.64,
+   "end": 5.86
+  },
+  {
+   "word": "por",
+   "start": 5.86,
+   "end": 6.04
+  },
+  {
+   "word": "WhatsApp",
+   "start": 6.04,
+   "end": 6.42
+  },
+  {
+   "word": "con",
+   "start": 6.42,
+   "end": 6.8
+  },
+  {
+   "word": "tu",
+   "start": 6.8,
+   "end": 6.92
+  },
+  {
+   "word": "comisión.",
+   "start": 6.92,
+   "end": 7.8
+  }
+ ],
+ "segments": null,
+ "x_groq": {
+  "id": "req_01m532jq7he0wavk50bpk9p0p0"
+ }
+}

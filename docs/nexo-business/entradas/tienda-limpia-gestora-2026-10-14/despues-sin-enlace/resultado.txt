@@ -1,0 +1,11 @@
+inicio /: {"conill":1,"vedado":1,"horario":false,"cvNumero":5,"vende":1,"comoLlegar":0,"ogDesc":"Productos para el hogar con precio visible. Te lo llevamos en La Habana o lo recoges en Nuevo Vedado."}
+pie /tienda/: {"conill":1,"vedado":1,"horario":false,"cvNumero":5,"vende":1,"comoLlegar":0,"ogDesc":"Productos para el hogar con precio visible. Te lo llevamos en La Habana o lo recoges en Nuevo Vedado."}
+ficha-albornoz /producto/albornoz-talla-l-azul/: {"conill":1,"vedado":2,"horario":false,"cvNumero":7,"vende":1,"comoLlegar":0,"ogDesc":"Albornoz de baño talla L color azul, suave y ligero, de 90 % poliéster y 10 % poliamida."}
+contacto /contacto/: {"conill":2,"vedado":2,"horario":false,"cvNumero":8,"vende":1,"comoLlegar":0,"ogDesc":""}
+como-llegar /como-llegar/: {"conill":3,"vedado":2,"horario":true,"cvNumero":5,"vende":1,"comoLlegar":0,"ogDesc":"Productos para el hogar con precio visible. Te lo llevamos en La Habana o lo recoges en Nuevo Vedado."}
+atencion /atencion-al-cliente/: {"conill":2,"vedado":2,"horario":false,"cvNumero":6,"vende":1,"comoLlegar":0,"ogDesc":"Productos para el hogar con precio visible. Te lo llevamos en La Habana o lo recoges en Nuevo Vedado."}
+mensajeria /condiciones-de-mensajeria/: {"conill":1,"vedado":1,"horario":false,"cvNumero":6,"vende":1,"comoLlegar":0,"ogDesc":"Productos para el hogar con precio visible. Te lo llevamos en La Habana o lo recoges en Nuevo Vedado."}
+mi-cuenta /mi-cuenta/: {"conill":1,"vedado":1,"horario":false,"cvNumero":6,"vende":1,"comoLlegar":0,"ogDesc":"Productos para el hogar con precio visible. Te lo llevamos en La Habana o lo recoges en Nuevo Vedado."}
+pago recogida textos: ¿Cómo quieres recibir tu compra? Mensajería Recogida en tienda | Recogida en tienda
+pago-recogida /finalizar-compra/: {"conill":1,"vedado":1,"horario":false,"cvNumero":3,"vende":1,"comoLlegar":0,"ogDesc":"Productos para el hogar con precio visible. Te lo llevamos en La Habana o lo recoges en Nuevo Vedado."}
+Cúrru recogida: Puedes recoger tu pedido en Calle Conill A esquina 45 #864, Nuevo Vedado, La Habana, de 10:00 a 17:00 (almuerzo de 1:00 a 1:30). Al pagar elige «Recogida» y ven cuando en Mis pedidos aparezca como listo. | Mis pedidos https://casaviva.company/seguimiento/, Escribir por WhatsApp https://wa.me/5354056173

@@ -1,0 +1,43 @@
+{
+  "fecha": "Lunes 12 de octubre",
+  "tarjetas": [
+    {
+      "archivo": "resumen-equipo.png",
+      "para": "Para todo el equipo",
+      "secciones": [
+        { "titulo": "Destacados del día", "items": [
+          "Gestor del día: Rafael Codina, 2 pedidos y 75 USD",
+          "Le siguen Dany (2 pedidos) y Daymee (60 USD)",
+          "Mensajeros del día: Daiquel (2 entregas) y Ely (2 carreras)",
+          "Tienda: Nana pidió 3 mejoras y hoy ya funcionan",
+          "Dany dio 2 ideas: una ya funciona (apellidos opcionales)"
+        ]},
+        { "titulo": "Datos curiosos", "items": [
+          "11 pedidos: el primero llegó a la 1:23 de la madrugada",
+          "El primer pedido con mensajero elegido se entregó en poco más de 1 hora",
+          "El set de alfombras azul se vendió en menos de 10 minutos",
+          "Cúrru ya tiene su primer video en Facebook"
+        ]},
+        { "titulo": "Dudas más frecuentes", "items": [
+          "¿Dónde veo mis pedidos? En tu área, en «Ventas»",
+          "¿Cómo cobro mi comisión? Avisa a la tienda; en CUP va con la tasa del día de la venta",
+          "¿La recogida va al grupo? Por ahora sí; pronto saldrá sola",
+          "¿Hay foto real? La tienda la manda y sale en el General",
+          "¿Los precios cambian con el dólar? No: están en USD"
+        ]},
+        { "titulo": "Errores y arreglos", "items": [
+          "El asistente no entendía «ya lo entregué»: ya lo entiende",
+          "Por la tarde se quedó sin IA: ahora avisa al momento",
+          "Una foto de la tienda no llegó sola: ahora sale en el General",
+          "8 productos no mostraban todos sus colores: ya se ven",
+          "El asistente dijo cosas que no eran: tiene reglas nuevas"
+        ]},
+        { "titulo": "Mañana", "items": [
+          "Las recogidas saldrán solas en el grupo (primero lo prueba Dany)",
+          "Este resumen llegará solo cada tarde",
+          "Gracias por crecer juntos. ¡A por más!"
+        ]}
+      ]
+    }
+  ]
+}

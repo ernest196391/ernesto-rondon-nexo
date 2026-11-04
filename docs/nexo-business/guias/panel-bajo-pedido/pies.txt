@@ -1,0 +1,4 @@
+Paso 1 de 4: en Productos, toca Proveedores · bajo pedido.
+Paso 2 de 4: toca el producto que quieres publicar.
+Paso 3 de 4: escribe tu precio. No puede bajar del Precio mínimo.
+Paso 4 de 4: toca Publicar en la web. Sale en la tienda como «Bajo pedido · llega en 24 h».

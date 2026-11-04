@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Lectora absorta · Casa Viva</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      /* «Lectora absorta» 3-nov-2026 (estilo clonado del reel DdNp2_qp4qg): Cúrru cruza La Habana
+         leyendo el catálogo de Casa Viva sin mirar, Prosko detrás, y llega a la tienda.
+         4 escenas de Seedance 2.0 sin voz + música de Casa Viva + cierre de marca. Sin enlace ni teléfono (D96). */
+      @font-face { font-family: "Figtree"; src: url("assets/fuentes/figtree.ttf") format("truetype"); font-weight: 300 900; }
+      @font-face { font-family: "Cinzel"; src: url("assets/fuentes/cinzel.ttf") format("truetype"); font-weight: 400 900; }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: #000; font-family: "Figtree", sans-serif; }
+      .escena { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; object-fit: cover; }
+      #fin { position: absolute; inset: 0; background: #0d3b45; }
+      #fin-preg { position: absolute; left: 60px; width: 960px; top: 430px; text-align: center; font-weight: 800; font-size: 104px; line-height: 1.06; color: #f6f1e6; }
+      #fin-caja { position: absolute; left: 110px; width: 860px; top: 720px; padding: 26px 0; border-radius: 28px; background: #a35a1f; text-align: center; font-weight: 800; font-size: 80px; color: #f6f1e6; }
+      #fin-sub { position: absolute; left: 60px; width: 960px; top: 930px; text-align: center; font-weight: 500; font-size: 52px; line-height: 1.2; color: #f6f1e6; }
+      #fin-logo { position: absolute; left: 290px; top: 1180px; width: 500px; height: auto; }
+      #destello { position: absolute; inset: 0; background: #fff3dc; opacity: 0; pointer-events: none; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="30.4" data-width="1080" data-height="1920">
+      <video id="a-calle" class="clip escena" src="assets/clips/a-calle.mp4" muted playsinline data-start="0" data-duration="10" data-track-index="1"></video>
+      <video id="b-entrada" class="clip escena" src="assets/clips/b-entrada.mp4" muted playsinline data-start="10" data-duration="5" data-track-index="1"></video>
+      <video id="c-dentro" class="clip escena" src="assets/clips/c-dentro.mp4" muted playsinline data-start="15" data-duration="8" data-track-index="1"></video>
+      <video id="d-espejo" class="clip escena" src="assets/clips/d-espejo.mp4" muted playsinline data-start="23" data-duration="4.4" data-track-index="1"></video>
+
+      <div id="cierre" class="clip" data-start="27.4" data-duration="3" data-track-index="2" data-layout-allow-overlap style="position:absolute; inset:0;">
+        <div id="fin">
+          <div id="fin-preg">¿Cuál te llevas?</div>
+          <div id="fin-caja">Comenta CATÁLOGO</div>
+          <div id="fin-sub">y te lo pasamos por WhatsApp</div>
+          <img id="fin-logo" src="assets/logo-vertical-crema.svg" alt="Casa Viva" />
+        </div>
+      </div>
+      <div id="destello"></div>
+
+      <audio id="musica" src="assets/musica.mp3" data-start="0" data-media-start="0" data-duration="30.4" data-track-index="10" data-volume="0.7"></audio>
+      <audio id="fx-frenazo" src="assets/sfx/impact-bass-1.mp3" data-start="6.5" data-duration="1.6" data-track-index="11" data-volume="0.7"></audio>
+      <audio id="fx-w1" src="assets/sfx/whoosh-short.mp3" data-start="9.9" data-duration="0.57" data-track-index="12" data-volume="0.5"></audio>
+      <audio id="fx-w2" src="assets/sfx/whoosh-short.mp3" data-start="14.9" data-duration="0.57" data-track-index="12" data-volume="0.5"></audio>
+      <audio id="fx-click" src="assets/sfx/click.mp3" data-start="15.45" data-duration="0.36" data-track-index="13" data-volume="0.6"></audio>
+      <audio id="fx-w3" src="assets/sfx/whoosh-short.mp3" data-start="22.9" data-duration="0.57" data-track-index="12" data-volume="0.5"></audio>
+      <audio id="fx-lanza" src="assets/sfx/whoosh.mp3" data-start="26.0" data-duration="0.57" data-track-index="13" data-volume="0.5"></audio>
+      <audio id="fx-brillo" src="assets/sfx/sparkle.mp3" data-start="27.7" data-duration="1.8" data-track-index="14" data-volume="0.45"></audio>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      // Destello suave en cada corte de escena
+      for (const t of [10, 15, 23, 27.4]) {
+        tl.set("#destello", { opacity: 0.35 }, t);
+        tl.to("#destello", { opacity: 0, duration: 0.25, ease: "power1.out" }, t + 0.001);
+      }
+      tl.fromTo("#fin-preg", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power3.out" }, 27.45);
+      tl.fromTo("#fin-caja", { scale: 0.5, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(2.2)" }, 27.75);
+      tl.to("#fin-caja", { scale: 1.06, duration: 0.25, ease: "sine.inOut", yoyo: true, repeat: 3 }, 28.2);
+      tl.fromTo("#fin-sub", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 28.0);
+      tl.fromTo("#fin-logo", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power2.out" }, 28.2);
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

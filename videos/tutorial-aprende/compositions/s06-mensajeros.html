@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+
+        @font-face { font-family: "Cinzel"; src: url("assets/fonts/cinzel-600.woff2") format("woff2"); font-weight: 600; font-style: normal; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-400.woff2") format("woff2"); font-weight: 400; font-style: normal; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-500.woff2") format("woff2"); font-weight: 500; font-style: normal; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-600.woff2") format("woff2"); font-weight: 600; font-style: normal; }
+        #s06-mensajeros-root { position: absolute; inset: 0; }
+
+        #s06-q { position: absolute; left: 60px; right: 60px; top: 330px; text-align: center; font-weight: 600; font-size: 84px; line-height: 1.1; color: #0D3B45; }
+        #s06-sub { position: absolute; left: 80px; right: 80px; top: 470px; text-align: center; font-weight: 500; font-size: 48px; line-height: 1.25; color: #2B2420; }
+        #s06-bar { position: absolute; left: 90px; right: 90px; top: 760px; display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; padding: 18px; border-radius: 34px; background: #2B2420; box-shadow: 0 30px 60px rgba(43, 36, 32, 0.25); }
+        .s06-t { display: flex; align-items: center; justify-content: center; height: 104px; border-radius: 22px; font-weight: 500; font-size: 34px; color: #F6F1E6; opacity: 0.78; }
+        #s06-tab { background: #A35A1F; opacity: 1; font-weight: 600; }
+        #s06-note { position: absolute; left: 110px; right: 110px; top: 1010px; display: flex; align-items: center; justify-content: center; gap: 18px; padding: 24px 30px; border-radius: 26px; background: #fffdf9; border: 3px solid rgba(13, 59, 69, 0.18); font-weight: 500; font-size: 38px; color: #2B2420; text-align: center; }
+        #s06-note b { font-weight: 600; color: #0D3B45; }
+      </style>
+      <div id="s06-mensajeros-root" data-composition-id="s06-mensajeros" data-width="1080" data-height="1920">
+
+        <div id="s06-q">¿Eres mensajero?</div>
+        <div id="s06-sub">Tu pestaña está abajo:</div>
+        <div id="s06-bar"><span class="s06-t">Hoy</span><span class="s06-t" id="s06-tab">Aprende</span><span class="s06-t">Ruta</span><span class="s06-t">Dinero</span><span class="s06-t">Más</span></div>
+        <div id="s06-note">Tus dudas: <b>«Lo que escribes»</b></div>
+      </div>
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          
+          tl.fromTo("#s06-q", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.5, ease: "power4.out" }, 0.1);
+          tl.fromTo("#s06-sub", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.9);
+          tl.fromTo("#s06-bar", { opacity: 0, y: 120 }, { opacity: 1, y: 0, duration: 0.55, ease: "power3.out" }, 1.2);
+          tl.fromTo("#s06-tab", { scale: 1 }, { scale: 1.12, duration: 0.25, ease: "power2.out", yoyo: true, repeat: 1 }, 2.55);
+          tl.fromTo("#s06-note", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.4, ease: "back.out(1.4)" }, 2.9);
+          tl.fromTo("#s06-q, #s06-sub, #s06-bar, #s06-note", { opacity: 1 }, { opacity: 0, duration: 0.3, ease: "power2.in", immediateRender: false }, 3.48);
+          window.__timelines["s06-mensajeros"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

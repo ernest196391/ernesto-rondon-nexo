@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+
+        @font-face { font-family: "Cinzel"; src: url("assets/fonts/cinzel-600.woff2") format("woff2"); font-weight: 600; font-style: normal; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-400.woff2") format("woff2"); font-weight: 400; font-style: normal; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-500.woff2") format("woff2"); font-weight: 500; font-style: normal; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-600.woff2") format("woff2"); font-weight: 600; font-style: normal; }
+        #s04-pedidos-root { position: absolute; inset: 0; }
+
+        #s04-chat { position: absolute; left: 0; top: 0; width: 620px; height: 1388px; z-index: 6; }
+        #s04-chat .bubble { font-size: 25px; }
+        #s04-dim { z-index: 7; }
+        #s04-n1 { top: 180px; } #s04-n2 { top: 410px; } #s04-n3 { top: 640px; }
+      </style>
+      <div id="s04-pedidos-root" data-composition-id="s04-pedidos" data-width="1080" data-height="1920">
+<div class="eyebrow" id="s04-pedidos-eb"><span class="eb-n">3</span>¿Cómo va mi pedido?</div>
+<div class="cap" id="s04-pedidos-c0"><span class="ci">Escríbeme el <span class="k">número</span> o «mis pedidos»</span></div>
+<div class="cap" id="s04-pedidos-c1"><span class="ci">Te avisamos de <span class="k">cada paso</span></span></div>
+<div class="scr" id="s04-pedidos-scr"><div class="sb" id="s04-pedidos-sb"><span>10:24</span><span class="sb-icons"><span class="sb-bar" style="height:9px"></span><span class="sb-bar" style="height:13px"></span><span class="sb-bar" style="height:17px"></span><span class="sb-batt"></span></span></div>
+
+        <div class="chat" data-layout-allow-occlusion data-layout-allow-overlap id="s04-chat">
+          <div class="chat-head" data-layout-allow-occlusion data-layout-allow-overlap><div class="chat-sb">10:24</div><div class="avatar"><img src="assets/logo/casa-viva-isotipo-crema.svg" alt="" /></div><div><div class="chat-title">Casa Viva</div><div class="chat-sub">en línea</div></div></div>
+          <div class="chat-body"><div class="chat-col" id="s04-col">
+            <div class="day-chip" data-layout-allow-occlusion data-layout-allow-overlap>Hoy</div>
+            <div class="bubble out" data-layout-allow-occlusion data-layout-allow-overlap id="s04-m1">#2903<span class="time">10:24 <span class="ticks">✓✓</span></span></div>
+            <div class="bubble" data-layout-allow-occlusion data-layout-allow-overlap id="s04-m2">📦 Pedido <b>#2903</b> · Cliente (11/10)<br>🕐 Para recoger · la tienda lo está preparando<br>🏬 Recogida en tienda<br>💵 A pagar en la tienda: <span class="price">40.00 USD</span><br>🧺 2 × Cintas de luces bluetooth con RGB (5m)<span class="time">10:24</span></div>
+            <div class="bubble out" data-layout-allow-occlusion data-layout-allow-overlap id="s04-m3">mis pedidos<span class="time">10:24 <span class="ticks">✓✓</span></span></div>
+            <div class="bubble" data-layout-allow-occlusion data-layout-allow-overlap id="s04-m4">📋 <span class="blur">Nombre</span>, tus pedidos abiertos (2):<br><br>📦 <b>#2920</b> Cliente — Listo para recoger en la tienda — <span class="price">33.00 USD</span><br>🕐 <b>#2903</b> Cliente — Para recoger · la tienda lo está preparando — <span class="price">40.00 USD</span><br><br>Para ver uno entero, escríbeme su número, por ejemplo <b>#2920</b>.<span class="time">10:24</span></div>
+          </div></div>
+        </div>
+        <div class="dim" data-layout-allow-occlusion id="s04-dim"></div>
+        <div class="ntf" data-layout-allow-occlusion data-layout-allow-overlap id="s04-n1"><div class="ntf-ic"><span class="ntf-logo"></span></div><div class="ntf-b"><div class="ntf-h"><b>Casa Viva</b><span>ahora</span></div><div class="ntf-t">📦 Tu pedido <b>#<span class="blur">0000</span></b> ya está <b>listo</b> en la tienda. Estamos buscando mensajero; te aviso en cuanto lo coja.</div></div></div>
+        <div class="ntf" data-layout-allow-occlusion data-layout-allow-overlap id="s04-n2"><div class="ntf-ic"><span class="ntf-logo"></span></div><div class="ntf-b"><div class="ntf-h"><b>Casa Viva</b><span>ahora</span></div><div class="ntf-t">🛵 Tu pedido <b>#<span class="blur">0000</span></b> ya lo tiene <b><span class="blur">Nombre</span></b> (📞 <span class="blur">+53 0000 0000</span>). Te aviso la hora en cuanto me la diga.</div></div></div>
+        <div class="ntf" data-layout-allow-occlusion data-layout-allow-overlap id="s04-n3"><div class="ntf-ic"><span class="ntf-logo"></span></div><div class="ntf-b"><div class="ntf-h"><b>Casa Viva</b><span>ahora</span></div><div class="ntf-t">✅ Tu pedido <b>#<span class="blur">0000</span></b> (cliente: Cliente) <b>fue entregado</b> por <span class="blur">Nombre</span>. ¡Gracias, tu comisión queda pendiente del cierre de caja! 💛</div></div></div></div>
+      </div>
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          tl.fromTo("#s04-pedidos-scr", { opacity: 0 }, { opacity: 1, duration: 0.2, ease: "power1.out" }, 0);
+          tl.fromTo("#s04-pedidos-eb", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.4, ease: "power3.out" }, 0.05);
+          tl.fromTo("#s04-pedidos-eb", { opacity: 1 }, { opacity: 0, duration: 0.22, ease: "power1.in", immediateRender: false }, 11.03);
+          tl.fromTo("#s04-pedidos-c0", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 0.1);
+          tl.fromTo("#s04-pedidos-c0", { opacity: 1 }, { opacity: 0, duration: 0.22, ease: "power2.in", immediateRender: false }, 5.4);
+          tl.fromTo("#s04-pedidos-c0 .k", { backgroundSize: "0% 100%" }, { backgroundSize: "100% 100%", duration: 0.45, ease: "power2.out" }, 0.45);
+          tl.fromTo("#s04-pedidos-c1", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 5.6);
+          tl.fromTo("#s04-pedidos-c1", { opacity: 1 }, { opacity: 0, duration: 0.22, ease: "power2.in", immediateRender: false }, 11.05);
+          tl.fromTo("#s04-pedidos-c1 .k", { backgroundSize: "0% 100%" }, { backgroundSize: "100% 100%", duration: 0.45, ease: "power2.out" }, 5.95);
+          
+          tl.fromTo("#s04-pedidos-sb", { opacity: 1 }, { opacity: 0, duration: 0.05, ease: "none", immediateRender: true }, 0);
+          tl.fromTo("#s04-m1", { opacity: 0, scale: 0.7, y: 24 }, { opacity: 1, scale: 1, y: 0, duration: 0.4, ease: "back.out(1.6)", transformOrigin: "top right" }, 1.7);
+          tl.fromTo("#s04-m2", { opacity: 0, scale: 0.7, y: 24 }, { opacity: 1, scale: 1, y: 0, duration: 0.4, ease: "back.out(1.6)", transformOrigin: "top left" }, 2.3);
+          tl.fromTo("#s04-m3", { opacity: 0, scale: 0.7, y: 24 }, { opacity: 1, scale: 1, y: 0, duration: 0.4, ease: "back.out(1.6)", transformOrigin: "top right" }, 3);
+          tl.fromTo("#s04-m4", { opacity: 0, scale: 0.7, y: 24 }, { opacity: 1, scale: 1, y: 0, duration: 0.4, ease: "back.out(1.6)", transformOrigin: "top left" }, 3.6);
+          tl.fromTo("#s04-col", { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.35, ease: "power1.in", immediateRender: false }, 5.5);
+          tl.fromTo("#s04-dim", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power1.out" }, 5.55);
+          tl.fromTo("#s04-n1", { opacity: 0, y: -70 }, { opacity: 1, y: 0, duration: 0.45, ease: "back.out(1.5)" }, 7.6);
+          tl.fromTo("#s04-n2", { opacity: 0, y: -70 }, { opacity: 1, y: 0, duration: 0.45, ease: "back.out(1.5)" }, 9.1);
+          tl.fromTo("#s04-n3", { opacity: 0, y: -70 }, { opacity: 1, y: 0, duration: 0.45, ease: "back.out(1.5)" }, 10.35);
+          window.__timelines["s04-pedidos"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

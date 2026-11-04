@@ -1,0 +1,213 @@
+{
+  "ok": true,
+  "strict": false,
+  "browserSkipped": false,
+  "lint": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "filesScanned": 11
+  },
+  "runtime": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": []
+  },
+  "layout": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 4,
+    "findings": [
+      {
+        "code": "content_overlap",
+        "severity": "info",
+        "time": 7.743,
+        "selector": "#s02-donde-c0 > span:nth-of-type(1)",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 60,
+          "top": 271.44,
+          "right": 301.41,
+          "bottom": 348.44,
+          "width": 241.41,
+          "height": 77
+        },
+        "containerSelector": "#s02-donde-c1 > span:nth-of-type(1)",
+        "text": "Menú → Aprende",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s02-donde.html",
+        "bbox": {
+          "x": 60,
+          "y": 271.44,
+          "width": 241.41,
+          "height": 77
+        },
+        "firstSeen": 7.743,
+        "lastSeen": 7.743,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          7.743
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "info",
+        "time": 7.743,
+        "selector": "#s02-donde-c0 > span:nth-of-type(1) > span:nth-of-type(1)",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 309.41,
+          "top": 271.44,
+          "right": 553.31,
+          "bottom": 348.44,
+          "width": 243.9,
+          "height": 77
+        },
+        "containerSelector": "#s02-donde-c1 > span:nth-of-type(1) > span:nth-of-type(1)",
+        "text": "Aprende",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s02-donde.html",
+        "bbox": {
+          "x": 309.41,
+          "y": 271.44,
+          "width": 243.9,
+          "height": 77
+        },
+        "firstSeen": 7.743,
+        "lastSeen": 7.743,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          7.743
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "info",
+        "time": 25.103,
+        "selector": "#s04-visto-c1 > span:nth-of-type(1)",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 60,
+          "top": 271.44,
+          "right": 228.14,
+          "bottom": 348.44,
+          "width": 168.14,
+          "height": 77
+        },
+        "containerSelector": "#s04-visto-c2 > span:nth-of-type(1) > span:nth-of-type(1)",
+        "text": "Si no, Marcar como visto",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s04-visto.html",
+        "bbox": {
+          "x": 60,
+          "y": 271.44,
+          "width": 168.14,
+          "height": 77
+        },
+        "firstSeen": 25.103,
+        "lastSeen": 25.103,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          25.103
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "info",
+        "time": 25.103,
+        "selector": "#s04-visto-c1 > span:nth-of-type(1) > span:nth-of-type(1)",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 236.14,
+          "top": 271.44,
+          "right": 760.56,
+          "bottom": 348.44,
+          "width": 524.42,
+          "height": 77
+        },
+        "containerSelector": "#s04-visto-c2 > span:nth-of-type(1)",
+        "text": "Marcar como visto",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s04-visto.html",
+        "bbox": {
+          "x": 236.14,
+          "y": 271.44,
+          "width": 524.42,
+          "height": 77
+        },
+        "firstSeen": 25.103,
+        "lastSeen": 25.103,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          25.103
+        ]
+      }
+    ],
+    "duration": 45.71,
+    "samples": [
+      2.539,
+      7.618,
+      12.697,
+      17.776,
+      22.855,
+      27.934,
+      33.013,
+      38.092,
+      43.171
+    ],
+    "transitionSamples": [],
+    "transitionSamplesDropped": 0,
+    "tolerance": 2,
+    "totalIssueCount": 4,
+    "truncated": false
+  },
+  "motion": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": false,
+    "samples": 0
+  },
+  "contrast": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": true,
+    "samples": [
+      2.539,
+      12.697,
+      22.855,
+      33.013,
+      43.171
+    ],
+    "checked": 36,
+    "passed": 36
+  },
+  "hdr": {
+    "autoPromotion": null,
+    "inspection": "available"
+  },
+  "snapshots": {
+    "enabled": false,
+    "files": [],
+    "times": [],
+    "findingFiles": []
+  }
+}

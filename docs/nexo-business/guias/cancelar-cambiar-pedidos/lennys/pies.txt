@@ -1,0 +1,4 @@
+Paso 1 de 4: toca Pedidos, abajo.
+Paso 2 de 4: toca el pedido.
+Paso 3 de 4: toca Cambiar pedido (debajo de Cancelar pedido).
+Paso 4 de 4: toca Cancelar pedido, escribe el motivo y confirma.

@@ -1,0 +1,11 @@
+inicio /: {"conill":0,"vedado":0,"horario":false,"cvNumero":0,"vende":0,"comoLlegar":0,"ogDesc":"Productos para el hogar con precio visible. Te lo llevamos en La Habana."}
+pie /tienda/: {"conill":0,"vedado":0,"horario":false,"cvNumero":0,"vende":0,"comoLlegar":0,"ogDesc":"Productos para el hogar con precio visible. Te lo llevamos en La Habana."}
+ficha-albornoz /producto/albornoz-talla-l-azul/: {"conill":0,"vedado":0,"horario":false,"cvNumero":0,"vende":0,"comoLlegar":0,"ogDesc":"Albornoz de baño talla L color azul, suave y ligero, de 90 % poliéster y 10 % poliamida."}
+contacto /contacto/: {"conill":0,"vedado":0,"horario":false,"cvNumero":0,"vende":0,"comoLlegar":0,"ogDesc":""}
+como-llegar /como-llegar/: {"conill":0,"vedado":0,"horario":false,"cvNumero":0,"vende":0,"comoLlegar":0,"ogDesc":"Productos para el hogar con precio visible. Te lo llevamos en La Habana."}
+atencion /atencion-al-cliente/: {"conill":0,"vedado":0,"horario":false,"cvNumero":0,"vende":0,"comoLlegar":0,"ogDesc":"Productos para el hogar con precio visible. Te lo llevamos en La Habana."}
+mensajeria /condiciones-de-mensajeria/: {"conill":0,"vedado":0,"horario":false,"cvNumero":0,"vende":0,"comoLlegar":0,"ogDesc":"Productos para el hogar con precio visible. Te lo llevamos en La Habana."}
+mi-cuenta /mi-cuenta/: {"conill":0,"vedado":0,"horario":false,"cvNumero":0,"vende":0,"comoLlegar":0,"ogDesc":"Productos para el hogar con precio visible. Te lo llevamos en La Habana."}
+pago recogida textos: ¿Cómo quieres recibir tu compra? Mensajería Recogida | Recogida
+pago-recogida /finalizar-compra/: {"conill":0,"vedado":0,"horario":false,"cvNumero":0,"vende":0,"comoLlegar":0,"ogDesc":"Productos para el hogar con precio visible. Te lo llevamos en La Habana."}
+Cúrru recogida: Para recoger tu pedido, Thalia te indica dónde y cuándo hacerlo. Solo elige «Recogida» al pagar. Si quieres, escríbenos por WhatsApp para más detalles. | Escribir por WhatsApp https://wa.me/5358412987

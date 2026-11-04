@@ -1,0 +1,4 @@
+Hola, {nombre} 👋 Ya tienes «Mi estudio de fotos» en tu área de gestora, y es gratis: Casa Viva te prepara la instrucción y la foto del producto, y la app de Gemini te hace una foto bonita para vender.
+Mira los pasos en las fotos 👇 Solo necesitas la app de Gemini (o gemini.google.com) con tu Gmail.
+Cuando hagas tu primera foto, mándamela por aquí para verla.
+Si algo no sale, escríbeme.

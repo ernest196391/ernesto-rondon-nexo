@@ -1,0 +1,58 @@
+{
+  "titulo": "Mercancía y fotos",
+  "formato": "1080x1350",
+  "para": "Lennys (dueña y administradora), en casaviva.company/panel (vista de móvil). En vivo desde el 29-oct (rama nexo 676b50e «Llegó mercancía» sigue con productos que no conoce y fotos que se añaden). Capturas 1-3: código nuevo con datos de EJEMPLO (Cafetera italiana 6 tazas, Set cuchillos ceram. 5pz, Bolsa regalo KRAFT, fotos de colores). Captura 4: panel en vivo, producto «Aceite corporal» (sin datos personales). Sin contraseñas ni datos de clientes.",
+  "mensaje": "Hola, Lennys. Ya está lo que pediste en el panel:\nEn «Llegó mercancía», lo que no conoce sale en rojo y tú decides qué es.\nY las fotos nuevas se añaden a las que ya tiene el producto.\nTe dejo los pasos 👇 Si algo no sale, escríbeme.",
+  "pasos": [
+    {
+      "texto": "Toca tu producto si es uno de estos.",
+      "resultado": "Entra al stock de ese producto, como siempre.",
+      "ojo": "¿No sale? Escribe su nombre en **Buscar otro producto mío**.",
+      "captura": "capturas/1-llego-mercancia-no-lo-conozco.jpg",
+      "marca": {"x": 96, "y": 628, "w": 635, "h": 120},
+      "flecha": "izq",
+      "zoom": 1.1,
+      "pie": "Paso 1 de 5: en Llegó mercancía, lo que no conoce sale en rojo. Toca tu producto si es uno de estos."
+    },
+    {
+      "texto": "Si no lo tienes, toca **Es nuevo**.",
+      "resultado": "Se crea en **borrador** con nombre, cantidad, costo y precio sugerido.",
+      "ojo": "¿No lo quieres en el stock? Toca **Saltar**, al lado.",
+      "captura": "capturas/1-llego-mercancia-no-lo-conozco.jpg",
+      "marca": {"x": 97, "y": 1632, "w": 303, "h": 97},
+      "flecha": "izq",
+      "zoom": 1.1,
+      "pie": "Paso 2 de 5: si no lo tienes, toca «Es nuevo». Si no lo quieres en el stock, toca «Saltar»."
+    },
+    {
+      "texto": "Revisa el **Precio de venta USD** del nuevo.",
+      "resultado": "Vacío = el sugerido. No se vende hasta que le pongas foto y lo pongas a la venta.",
+      "ojo": "Un **Saltado** no toca el stock. Para todos: **Saltar los que faltan**.",
+      "captura": "capturas/2-llego-mercancia-nuevo-y-saltado.jpg",
+      "marca": {"x": 97, "y": 801, "w": 303, "h": 100},
+      "flecha": "izq",
+      "zoom": 1.1,
+      "pie": "Paso 3 de 5: el nuevo queda en borrador para completarlo después. Los saltados no tocan el stock."
+    },
+    {
+      "texto": "En el producto, toca **Añadir fotos**.",
+      "resultado": "Las nuevas se **añaden** a las que ya tiene. No se borra ninguna.",
+      "captura": "capturas/4-fotos-en-vivo-aceite-corporal.jpg",
+      "marca": {"x": 414, "y": 703, "w": 351, "h": 92},
+      "flecha": "der",
+      "zoom": 1.1,
+      "pie": "Paso 4 de 5: abre el producto y toca «Añadir fotos». Se suman a las que ya tiene."
+    },
+    {
+      "texto": "Toca la **★** de la foto que quieres de principal.",
+      "resultado": "Pasa a **Principal**: la que ven la tienda, las gestoras y el bot.",
+      "ojo": "**✕** quita una foto. Caben **9**; si no caben, el panel te avisa.",
+      "captura": "capturas/3-fotos-anadir-principal-quitar.jpg",
+      "marca": {"x": 37, "y": 566, "w": 58, "h": 58},
+      "forma": "circulo",
+      "flecha": "izq",
+      "zoom": 1.1,
+      "pie": "Paso 5 de 5: ★ = foto principal, ✕ = quitar. Caben hasta 9 fotos."
+    }
+  ]
+}

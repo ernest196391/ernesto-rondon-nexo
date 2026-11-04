@@ -1,0 +1,282 @@
+{
+  "planos": [
+    {
+      "de": 0,
+      "a": 100,
+      "z": [
+        1,
+        1.1
+      ],
+      "f": [
+        0.43,
+        0.47
+      ],
+      "o": [
+        0.5,
+        0.42
+      ],
+      "que": "general: Cúrru al teléfono, acercamiento lento",
+      "c": [
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.45454545454545453,
+          0.5427272727272727
+        ]
+      ]
+    },
+    {
+      "de": 100,
+      "a": 192,
+      "z": [
+        1.34,
+        1.42
+      ],
+      "f": [
+        0.42,
+        0.44
+      ],
+      "o": [
+        0.5,
+        0.4
+      ],
+      "que": "se va la luz: primer plano de Cúrru",
+      "c": [
+        [
+          0.42,
+          0.5146268656716417
+        ],
+        [
+          0.42,
+          0.5104225352112677
+        ]
+      ]
+    },
+    {
+      "de": 192,
+      "a": 248,
+      "z": [
+        1,
+        1.06
+      ],
+      "f": [
+        0.62,
+        0.5
+      ],
+      "o": [
+        0.5,
+        0.45
+      ],
+      "que": "general: aparece el niño por abajo",
+      "c": [
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5283018867924529,
+          0.5283018867924529
+        ]
+      ]
+    },
+    {
+      "de": 248,
+      "a": 321,
+      "z": [
+        1.2,
+        1.26
+      ],
+      "f": [
+        0.79,
+        0.47
+      ],
+      "o": [
+        0.72,
+        0.38
+      ],
+      "que": "se enciende el ventilador: niño y ventilador",
+      "c": [
+        [
+          0.5833333333333333,
+          0.57
+        ],
+        [
+          0.6031746031746033,
+          0.5652380952380952
+        ]
+      ]
+    },
+    {
+      "de": 321,
+      "a": 368,
+      "z": [
+        1.28,
+        1.34
+      ],
+      "f": [
+        0.31,
+        0.46
+      ],
+      "o": [
+        0.4,
+        0.38
+      ],
+      "que": "«¿Y eso de dónde…?»: Cúrru",
+      "c": [
+        [
+          0.390625,
+          0.55375
+        ],
+        [
+          0.3846268656716418,
+          0.5495522388059702
+        ]
+      ]
+    },
+    {
+      "de": 368,
+      "a": 396,
+      "z": [
+        1.26,
+        1.3
+      ],
+      "f": [
+        0.82,
+        0.48
+      ],
+      "o": [
+        0.72,
+        0.38
+      ],
+      "que": "«De tu tienda.»: el niño",
+      "c": [
+        [
+          0.6031746031746033,
+          0.5752380952380952
+        ],
+        [
+          0.6153846153846154,
+          0.5723076923076922
+        ]
+      ]
+    },
+    {
+      "de": 396,
+      "a": 452,
+      "z": [
+        1.1,
+        1
+      ],
+      "f": [
+        0.5,
+        0.46
+      ],
+      "o": [
+        0.5,
+        0.42
+      ],
+      "que": "la risa: se abre a plano general",
+      "c": [
+        [
+          0.5,
+          0.5327272727272727
+        ],
+        [
+          0.5,
+          0.5
+        ]
+      ]
+    }
+  ],
+  "capas": [
+    {
+      "file": "v2-piezas/gancho.png",
+      "y": 320,
+      "de": 0,
+      "a": 2.6,
+      "texto": "¿Cuántas horas sin corriente llevas hoy?"
+    },
+    {
+      "file": "v2-piezas/sub-01.png",
+      "y": 1156,
+      "de": 0.12,
+      "a": 0.78,
+      "texto": "Sí, mi amor",
+      "lineas": [
+        "Sí, mi amor"
+      ],
+      "alto": 128
+    },
+    {
+      "file": "v2-piezas/sub-02.png",
+      "y": 1110,
+      "de": 0.78,
+      "a": 3.19,
+      "texto": "el ventilador te lo llevo hoy mismo.",
+      "lineas": [
+        "el ventilador",
+        "te lo llevo hoy mismo."
+      ],
+      "alto": 220
+    },
+    {
+      "file": "v2-piezas/sub-03.png",
+      "y": 1156,
+      "de": 4.22,
+      "a": 4.84,
+      "texto": "Ay, no",
+      "lineas": [
+        "Ay, no"
+      ],
+      "alto": 128
+    },
+    {
+      "file": "v2-piezas/sub-04.png",
+      "y": 1156,
+      "de": 4.84,
+      "a": 6.38333,
+      "texto": "otra vez se fue la corriente.",
+      "lineas": [
+        "otra vez se fue la corriente."
+      ],
+      "alto": 128
+    },
+    {
+      "file": "v2-piezas/sub-05.png",
+      "y": 1110,
+      "de": 8.1,
+      "a": 10.68333,
+      "texto": "Tranquila, mami, que yo vine preparado.",
+      "lineas": [
+        "Tranquila, mami,",
+        "que yo vine preparado."
+      ],
+      "alto": 220
+    },
+    {
+      "file": "v2-piezas/sub-06.png",
+      "y": 1110,
+      "de": 10.72,
+      "a": 12.25,
+      "texto": "¿Y eso de dónde tú lo sacaste?",
+      "lineas": [
+        "¿Y eso de dónde",
+        "tú lo sacaste?"
+      ],
+      "alto": 220
+    },
+    {
+      "file": "v2-piezas/sub-07.png",
+      "y": 1156,
+      "de": 12.28,
+      "a": 13.18333,
+      "texto": "De tu tienda.",
+      "lineas": [
+        "De tu tienda."
+      ],
+      "alto": 128
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "name": "lectora-absorta-2026-11-03",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "npx --yes hyperframes@0.8.185 check",
+    "render": "npx --yes hyperframes@0.8.185 render"
+  }
+}

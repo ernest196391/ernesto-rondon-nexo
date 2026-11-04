@@ -1,0 +1,50 @@
+{
+  "titulo": "Fotos con Gemini",
+  "formato": "1080x1350",
+  "para": "gestoras",
+  "mensaje": "Hola, {nombre} 👋 Ya tienes «Mi estudio de fotos» en tu área de gestora, y es gratis: Casa Viva te prepara la instrucción y la foto del producto, y la app de Gemini te hace una foto bonita para vender.\nMira los pasos en las fotos 👇 Solo necesitas la app de Gemini (o gemini.google.com) con tu Gmail.\nCuando hagas tu primera foto, mándamela por aquí para verla.\nSi algo no sale, escríbeme.",
+  "pasos": [
+    {
+      "texto": "En **Mi estudio de fotos**, busca y toca tu producto.",
+      "resultado": "Debajo eliges la idea: fondo blanco, en una sala…",
+      "captura": "capturas/1-producto.png",
+      "flecha": "abajo",
+      "zoom": 1.05,
+      "pie": "Paso 1 de 5: en Mi estudio de fotos, toca tu producto."
+    },
+    {
+      "texto": "Toca **Copiar instrucción**.",
+      "resultado": "Sale **Copiada ✓**. La pegarás en Gemini.",
+      "captura": "capturas/2-copiar.png",
+      "flecha": "der",
+      "zoom": 1.1,
+      "pie": "Paso 2 de 5: toca Copiar instrucción."
+    },
+    {
+      "texto": "Toca **Guardar foto del producto**.",
+      "resultado": "La foto del producto queda en tu móvil.",
+      "captura": "capturas/3-guardar.png",
+      "flecha": "der",
+      "zoom": 1.1,
+      "pie": "Paso 3 de 5: toca Guardar foto del producto."
+    },
+    {
+      "texto": "Toca **Abrir Gemini**.",
+      "resultado": "En Gemini: toca **+**, adjunta la foto, pega y envía.",
+      "ojo": "Si el producto sale distinto, pídele: «otra vez, igual al real».",
+      "captura": "capturas/4-abrir.png",
+      "flecha": "der",
+      "zoom": 1.1,
+      "pie": "Paso 4 de 5: toca Abrir Gemini, adjunta la foto, pega y envía."
+    },
+    {
+      "texto": "Toca **Subir mi foto de Gemini**.",
+      "resultado": "Sale en tu galería: **Descargar**, **Compartir** o **Poner en mi tienda**.",
+      "captura": "capturas/5-subir.png",
+      "flecha": "abajo",
+      "zoom": 1.05,
+      "pie": "Paso 5 de 5: toca Subir mi foto de Gemini.",
+      "ojo": "Antes, guarda en tu móvil la foto que hizo Gemini."
+    }
+  ]
+}

@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+
+        @font-face { font-family: "Cinzel"; src: url("assets/fonts/cinzel-600.woff2") format("woff2"); font-weight: 600; font-style: normal; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-400.woff2") format("woff2"); font-weight: 400; font-style: normal; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-500.woff2") format("woff2"); font-weight: 500; font-style: normal; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-600.woff2") format("woff2"); font-weight: 600; font-style: normal; }
+        #s04-foto-texto-root { position: absolute; inset: 0; }
+
+        #s04-chat { position: absolute; left: 0; top: 0; width: 620px; height: 1388px; z-index: 10; }
+        #s04-chat .bubble { font-size: 26px; max-width: 94%; }
+        #s04-chat .avatar { background: #e4ece8; color: #0D3B45; border: 0; }
+        .photo { padding: 8px 8px 12px; }
+        .photo .bph { display: block; width: 100%; height: auto; border-radius: 14px; margin-bottom: 12px; }
+        #s04-dim { z-index: 11; }
+        #s04-card { top: 300px; z-index: 12; }
+      </style>
+      <div id="s04-foto-texto-root" data-composition-id="s04-foto-texto" data-width="1080" data-height="1920">
+<div class="eyebrow" id="s04-foto-texto-eb"><span class="eb-n">3</span>Foto y texto</div>
+<div class="cap" id="s04-foto-texto-c0"><span class="ci"><span class="k">Descargar foto</span> y Copiar texto</span></div>
+<div class="cap" id="s04-foto-texto-c1"><span class="ci">El texto ya lleva <span class="k">tu enlace</span></span></div>
+<div class="scr" id="s04-foto-texto-scr"><div class="sb" id="s04-foto-texto-sb"><span>10:24</span><span class="sb-icons"><span class="sb-bar" style="height:9px"></span><span class="sb-bar" style="height:13px"></span><span class="sb-bar" style="height:17px"></span><span class="sb-batt"></span></span></div>
+<img class="shot" id="s04-foto-texto-s0" src="assets/screens/f-search.jpg" alt="" />
+<img class="shot" id="s04-foto-texto-s1" src="assets/screens/f-dl.jpg" alt="" />
+<img class="shot" id="s04-foto-texto-s2" src="assets/screens/f-copied.jpg" alt="" />
+<div class="hl" id="s04-foto-texto-h0" style="left:32px;top:918px;width:260px;height:73px"></div>
+<div class="hl" id="s04-foto-texto-h1" style="left:32px;top:918px;width:260px;height:73px"></div>
+<div class="tap" id="s04-foto-texto-t0" style="left:119px;top:770px"><span class="tap-dot"></span><span class="tap-ring" id="s04-foto-texto-t0r"></span></div>
+<div class="tap" id="s04-foto-texto-t1" style="left:119px;top:842px"><span class="tap-dot"></span><span class="tap-ring" id="s04-foto-texto-t1r"></span></div>
+
+        <div class="chat" data-layout-allow-occlusion data-layout-allow-overlap id="s04-chat" style="opacity:0">
+          <div class="chat-head" data-layout-allow-occlusion data-layout-allow-overlap><div class="chat-sb">10:24</div><div class="avatar">CE</div><div><div class="chat-title">Cliente De Ejemplo</div><div class="chat-sub">en línea</div></div></div>
+          <div class="chat-body"><div class="chat-col" id="s04-col">
+            <div class="day-chip" data-layout-allow-occlusion data-layout-allow-overlap>Hoy</div>
+            <div class="bubble out photo" data-layout-allow-occlusion data-layout-allow-overlap id="s04-m1"><img class="bph" src="assets/screens/f-mochila-foto.jpg" alt="" /><b>MOCHILA ESTILO BOLSITA</b><br>Mochila ligera y práctica para el uso diario, viajes o llevar compras y artículos personales.<br>13 USD · 10.140 CUP<br>Pídelo aquí y te lo llevamos 🛵 <span class="lnk">casaviva.company/producto/mochila-estilo-bolsita/<span class="mk" id="s04-mk1"><i class="mk-bar"></i><span class="mk-t">?ref=<span class="blur">XXXXXXXX</span></span></span></span><span class="time">10:24 <span class="ticks">✓✓</span></span></div>
+          </div></div>
+        </div>
+        <div class="dim" data-layout-allow-occlusion id="s04-dim"></div>
+        <div class="card" data-layout-allow-occlusion data-layout-allow-overlap id="s04-card"><div class="card-ic">✓</div><div class="card-t">Lo que compren con tu enlace <b>es venta tuya</b>.</div></div></div>
+      </div>
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          tl.fromTo("#s04-foto-texto-scr", { opacity: 0 }, { opacity: 1, duration: 0.2, ease: "power1.out" }, 0);
+          tl.fromTo("#s04-foto-texto-eb", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.4, ease: "power3.out" }, 0.05);
+          tl.fromTo("#s04-foto-texto-eb", { opacity: 1 }, { opacity: 0, duration: 0.22, ease: "power1.in", immediateRender: false }, 9.85);
+          tl.fromTo("#s04-foto-texto-c0", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 0.1);
+          tl.fromTo("#s04-foto-texto-c0", { opacity: 1 }, { opacity: 0, duration: 0.22, ease: "power2.in", immediateRender: false }, 4.25);
+          tl.fromTo("#s04-foto-texto-c0 .k", { backgroundSize: "0% 100%" }, { backgroundSize: "100% 100%", duration: 0.45, ease: "power2.out" }, 0.45);
+          tl.fromTo("#s04-foto-texto-c1", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 4.45);
+          tl.fromTo("#s04-foto-texto-c1", { opacity: 1 }, { opacity: 0, duration: 0.22, ease: "power2.in", immediateRender: false }, 9.87);
+          tl.fromTo("#s04-foto-texto-c1 .k", { backgroundSize: "0% 100%" }, { backgroundSize: "100% 100%", duration: 0.45, ease: "power2.out" }, 4.8);
+          tl.fromTo("#s04-foto-texto-s1", { opacity: 0 }, { opacity: 1, duration: 0.15, ease: "power1.out" }, 0.95);
+          tl.fromTo("#s04-foto-texto-s2", { opacity: 0 }, { opacity: 1, duration: 0.15, ease: "power1.out" }, 3.4);
+          tl.fromTo("#s04-foto-texto-h0", { opacity: 0, scale: 1.08 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }, 1.15);
+          tl.fromTo("#s04-foto-texto-h0", { opacity: 1 }, { opacity: 0, duration: 0.25, ease: "power1.in", immediateRender: false }, 3.2);
+          tl.fromTo("#s04-foto-texto-h1", { opacity: 0, scale: 1.08 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }, 3.6);
+          tl.fromTo("#s04-foto-texto-h1", { opacity: 1 }, { opacity: 0, duration: 0.25, ease: "power1.in", immediateRender: false }, 4.25);
+          tl.fromTo("#s04-foto-texto-t0", { opacity: 0, scale: 1.5 }, { opacity: 1, scale: 1, duration: 0.25, ease: "power2.out" }, 0.55);
+          tl.fromTo("#s04-foto-texto-t0 .tap-dot", { scale: 1 }, { scale: 0.82, duration: 0.1, ease: "power2.in", yoyo: true, repeat: 1 }, 0.85);
+          tl.fromTo("#s04-foto-texto-t0r", { opacity: 0.9, scale: 1 }, { opacity: 0, scale: 2.1, duration: 0.5, ease: "power2.out" }, 0.85);
+          tl.fromTo("#s04-foto-texto-t0", { opacity: 1 }, { opacity: 0, duration: 0.2, ease: "power1.in", immediateRender: false }, 1.15);
+          tl.fromTo("#s04-foto-texto-t1", { opacity: 0, scale: 1.5 }, { opacity: 1, scale: 1, duration: 0.25, ease: "power2.out" }, 3);
+          tl.fromTo("#s04-foto-texto-t1 .tap-dot", { scale: 1 }, { scale: 0.82, duration: 0.1, ease: "power2.in", yoyo: true, repeat: 1 }, 3.3);
+          tl.fromTo("#s04-foto-texto-t1r", { opacity: 0.9, scale: 1 }, { opacity: 0, scale: 2.1, duration: 0.5, ease: "power2.out" }, 3.3);
+          tl.fromTo("#s04-foto-texto-t1", { opacity: 1 }, { opacity: 0, duration: 0.2, ease: "power1.in", immediateRender: false }, 3.6);
+          
+          tl.fromTo("#s04-chat", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, 4.35);
+          tl.fromTo("#s04-foto-texto-sb", { opacity: 1 }, { opacity: 0, duration: 0.05, ease: "none", immediateRender: false }, 4.5);
+          tl.fromTo("#s04-m1", { opacity: 0, scale: 0.7, y: 24 }, { opacity: 1, scale: 1, y: 0, duration: 0.4, ease: "back.out(1.6)", transformOrigin: "top right" }, 4.75);
+          tl.fromTo("#s04-mk1 .mk-bar", { scaleX: 0 }, { scaleX: 1, duration: 0.45, ease: "power2.out" }, 7.35);
+          tl.fromTo("#s04-dim", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, 8.25);
+          tl.fromTo("#s04-card", { opacity: 0, y: -60 }, { opacity: 1, y: 0, duration: 0.5, ease: "back.out(1.5)" }, 8.3);
+          window.__timelines["s04-foto-texto"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

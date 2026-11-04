@@ -1,0 +1,1040 @@
+{
+ "task": "transcribe",
+ "language": "Spanish",
+ "duration": 45.839998976,
+ "text": " Tú decides tu precio. Lo que subas es para ti. En tu área toca mis precios. Para subirlos todos a la vez, pon un porcentaje en aumento general y toca aplicar a mi tienda. Para un solo producto, abre ver y cambiar precios de un producto. Busca el producto, escribe tu precio y toca guardar. Tus clientes ven tu precio solo cuando entran por tu enlace En la tienda general todos ven el precio de Casa Viva Por ejemplo, este organizador sale a 30 dólares en la tienda y a 35 con tu enlace El pedido lo haces tú, entra desde ver la tienda o desde tu enlace y añádelo al carrito ahí Así sale a tu precio Y si quitas tu aumento, tu cliente también deja de verlo Tu enlace enseña siempre el precio que tienes guardado ¿Dudas? Escríbeme",
+ "words": [
+  {
+   "word": "Tú",
+   "start": 0.52,
+   "end": 0.66
+  },
+  {
+   "word": "decides",
+   "start": 0.66,
+   "end": 1.2
+  },
+  {
+   "word": "tu",
+   "start": 1.2,
+   "end": 1.38
+  },
+  {
+   "word": "precio.",
+   "start": 1.38,
+   "end": 2.06
+  },
+  {
+   "word": "Lo",
+   "start": 2.06,
+   "end": 2.1
+  },
+  {
+   "word": "que",
+   "start": 2.1,
+   "end": 2.24
+  },
+  {
+   "word": "subas",
+   "start": 2.24,
+   "end": 2.58
+  },
+  {
+   "word": "es",
+   "start": 2.58,
+   "end": 2.84
+  },
+  {
+   "word": "para",
+   "start": 2.84,
+   "end": 3.06
+  },
+  {
+   "word": "ti.",
+   "start": 3.06,
+   "end": 4.2
+  },
+  {
+   "word": "En",
+   "start": 4.2,
+   "end": 4.3
+  },
+  {
+   "word": "tu",
+   "start": 4.3,
+   "end": 4.44
+  },
+  {
+   "word": "área",
+   "start": 4.44,
+   "end": 4.78
+  },
+  {
+   "word": "toca",
+   "start": 4.78,
+   "end": 5.26
+  },
+  {
+   "word": "mis",
+   "start": 5.26,
+   "end": 5.76
+  },
+  {
+   "word": "precios.",
+   "start": 5.76,
+   "end": 6.76
+  },
+  {
+   "word": "Para",
+   "start": 6.76,
+   "end": 6.8
+  },
+  {
+   "word": "subirlos",
+   "start": 6.8,
+   "end": 7.18
+  },
+  {
+   "word": "todos",
+   "start": 7.18,
+   "end": 7.4
+  },
+  {
+   "word": "a",
+   "start": 7.4,
+   "end": 7.56
+  },
+  {
+   "word": "la",
+   "start": 7.56,
+   "end": 7.64
+  },
+  {
+   "word": "vez,",
+   "start": 7.64,
+   "end": 8.24
+  },
+  {
+   "word": "pon",
+   "start": 8.24,
+   "end": 8.28
+  },
+  {
+   "word": "un",
+   "start": 8.28,
+   "end": 8.38
+  },
+  {
+   "word": "porcentaje",
+   "start": 8.38,
+   "end": 9.02
+  },
+  {
+   "word": "en",
+   "start": 9.02,
+   "end": 9.38
+  },
+  {
+   "word": "aumento",
+   "start": 9.38,
+   "end": 9.86
+  },
+  {
+   "word": "general",
+   "start": 9.86,
+   "end": 10.28
+  },
+  {
+   "word": "y",
+   "start": 10.28,
+   "end": 10.66
+  },
+  {
+   "word": "toca",
+   "start": 10.66,
+   "end": 10.98
+  },
+  {
+   "word": "aplicar",
+   "start": 10.98,
+   "end": 11.62
+  },
+  {
+   "word": "a",
+   "start": 11.62,
+   "end": 11.68
+  },
+  {
+   "word": "mi",
+   "start": 11.68,
+   "end": 11.8
+  },
+  {
+   "word": "tienda.",
+   "start": 11.8,
+   "end": 12.78
+  },
+  {
+   "word": "Para",
+   "start": 12.78,
+   "end": 12.88
+  },
+  {
+   "word": "un",
+   "start": 12.88,
+   "end": 13.02
+  },
+  {
+   "word": "solo",
+   "start": 13.02,
+   "end": 13.2
+  },
+  {
+   "word": "producto,",
+   "start": 13.2,
+   "end": 14
+  },
+  {
+   "word": "abre",
+   "start": 14,
+   "end": 14.16
+  },
+  {
+   "word": "ver",
+   "start": 14.16,
+   "end": 14.78
+  },
+  {
+   "word": "y",
+   "start": 14.78,
+   "end": 15
+  },
+  {
+   "word": "cambiar",
+   "start": 15,
+   "end": 15.34
+  },
+  {
+   "word": "precios",
+   "start": 15.34,
+   "end": 15.76
+  },
+  {
+   "word": "de",
+   "start": 15.76,
+   "end": 16.04
+  },
+  {
+   "word": "un",
+   "start": 16.04,
+   "end": 16.14
+  },
+  {
+   "word": "producto.",
+   "start": 16.14,
+   "end": 17.18
+  },
+  {
+   "word": "Busca",
+   "start": 17.18,
+   "end": 17.24
+  },
+  {
+   "word": "el",
+   "start": 17.24,
+   "end": 17.36
+  },
+  {
+   "word": "producto,",
+   "start": 17.36,
+   "end": 18.08
+  },
+  {
+   "word": "escribe",
+   "start": 18.08,
+   "end": 18.18
+  },
+  {
+   "word": "tu",
+   "start": 18.18,
+   "end": 18.32
+  },
+  {
+   "word": "precio",
+   "start": 18.32,
+   "end": 18.6
+  },
+  {
+   "word": "y",
+   "start": 18.6,
+   "end": 19.06
+  },
+  {
+   "word": "toca",
+   "start": 19.06,
+   "end": 19.32
+  },
+  {
+   "word": "guardar.",
+   "start": 19.32,
+   "end": 20.18
+  },
+  {
+   "word": "Tus",
+   "start": 20.96,
+   "end": 21.08
+  },
+  {
+   "word": "clientes",
+   "start": 21.08,
+   "end": 21.54
+  },
+  {
+   "word": "ven",
+   "start": 21.54,
+   "end": 21.86
+  },
+  {
+   "word": "tu",
+   "start": 21.86,
+   "end": 22
+  },
+  {
+   "word": "precio",
+   "start": 22,
+   "end": 22.22
+  },
+  {
+   "word": "solo",
+   "start": 22.22,
+   "end": 22.44
+  },
+  {
+   "word": "cuando",
+   "start": 22.44,
+   "end": 22.7
+  },
+  {
+   "word": "entran",
+   "start": 22.7,
+   "end": 23
+  },
+  {
+   "word": "por",
+   "start": 23,
+   "end": 23.18
+  },
+  {
+   "word": "tu",
+   "start": 23.18,
+   "end": 23.34
+  },
+  {
+   "word": "enlace",
+   "start": 23.34,
+   "end": 23.62
+  },
+  {
+   "word": "En",
+   "start": 23.54,
+   "end": 24.14
+  },
+  {
+   "word": "la",
+   "start": 24.14,
+   "end": 24.28
+  },
+  {
+   "word": "tienda",
+   "start": 24.28,
+   "end": 24.48
+  },
+  {
+   "word": "general",
+   "start": 24.48,
+   "end": 24.84
+  },
+  {
+   "word": "todos",
+   "start": 24.84,
+   "end": 25.32
+  },
+  {
+   "word": "ven",
+   "start": 25.32,
+   "end": 25.5
+  },
+  {
+   "word": "el",
+   "start": 25.5,
+   "end": 25.68
+  },
+  {
+   "word": "precio",
+   "start": 25.68,
+   "end": 25.88
+  },
+  {
+   "word": "de",
+   "start": 25.88,
+   "end": 26.04
+  },
+  {
+   "word": "Casa",
+   "start": 26.04,
+   "end": 26.3
+  },
+  {
+   "word": "Viva",
+   "start": 26.3,
+   "end": 26.44
+  },
+  {
+   "word": "Por",
+   "start": 26.36,
+   "end": 26.9
+  },
+  {
+   "word": "ejemplo,",
+   "start": 26.9,
+   "end": 27.52
+  },
+  {
+   "word": "este",
+   "start": 27.52,
+   "end": 27.62
+  },
+  {
+   "word": "organizador",
+   "start": 27.62,
+   "end": 28.12
+  },
+  {
+   "word": "sale",
+   "start": 28.12,
+   "end": 28.56
+  },
+  {
+   "word": "a",
+   "start": 28.56,
+   "end": 28.66
+  },
+  {
+   "word": "30",
+   "start": 28.66,
+   "end": 28.96
+  },
+  {
+   "word": "dólares",
+   "start": 28.96,
+   "end": 29.18
+  },
+  {
+   "word": "en",
+   "start": 29.18,
+   "end": 29.4
+  },
+  {
+   "word": "la",
+   "start": 29.4,
+   "end": 29.52
+  },
+  {
+   "word": "tienda",
+   "start": 29.52,
+   "end": 29.74
+  },
+  {
+   "word": "y",
+   "start": 29.74,
+   "end": 30.16
+  },
+  {
+   "word": "a",
+   "start": 30.16,
+   "end": 30.2
+  },
+  {
+   "word": "35",
+   "start": 30.2,
+   "end": 30.66
+  },
+  {
+   "word": "con",
+   "start": 30.66,
+   "end": 31.04
+  },
+  {
+   "word": "tu",
+   "start": 31.04,
+   "end": 31.22
+  },
+  {
+   "word": "enlace",
+   "start": 31.22,
+   "end": 31.56
+  },
+  {
+   "word": "El",
+   "start": 32.4,
+   "end": 32.62
+  },
+  {
+   "word": "pedido",
+   "start": 32.62,
+   "end": 32.86
+  },
+  {
+   "word": "lo",
+   "start": 32.86,
+   "end": 32.98
+  },
+  {
+   "word": "haces",
+   "start": 32.98,
+   "end": 33.18
+  },
+  {
+   "word": "tú,",
+   "start": 33.18,
+   "end": 33.7
+  },
+  {
+   "word": "entra",
+   "start": 33.7,
+   "end": 33.88
+  },
+  {
+   "word": "desde",
+   "start": 33.88,
+   "end": 34.1
+  },
+  {
+   "word": "ver",
+   "start": 34.1,
+   "end": 34.7
+  },
+  {
+   "word": "la",
+   "start": 34.7,
+   "end": 34.82
+  },
+  {
+   "word": "tienda",
+   "start": 34.82,
+   "end": 35.06
+  },
+  {
+   "word": "o",
+   "start": 35.06,
+   "end": 35.34
+  },
+  {
+   "word": "desde",
+   "start": 35.34,
+   "end": 35.56
+  },
+  {
+   "word": "tu",
+   "start": 35.56,
+   "end": 35.72
+  },
+  {
+   "word": "enlace",
+   "start": 35.72,
+   "end": 35.96
+  },
+  {
+   "word": "y",
+   "start": 35.96,
+   "end": 36.44
+  },
+  {
+   "word": "añádelo",
+   "start": 36.44,
+   "end": 36.72
+  },
+  {
+   "word": "al",
+   "start": 36.72,
+   "end": 36.9
+  },
+  {
+   "word": "carrito",
+   "start": 36.9,
+   "end": 37.12
+  },
+  {
+   "word": "ahí",
+   "start": 37.12,
+   "end": 37.36
+  },
+  {
+   "word": "Así",
+   "start": 37.22,
+   "end": 37.84
+  },
+  {
+   "word": "sale",
+   "start": 37.84,
+   "end": 38.06
+  },
+  {
+   "word": "a",
+   "start": 38.06,
+   "end": 38.16
+  },
+  {
+   "word": "tu",
+   "start": 38.16,
+   "end": 38.22
+  },
+  {
+   "word": "precio",
+   "start": 38.22,
+   "end": 38.48
+  },
+  {
+   "word": "Y",
+   "start": 37.98,
+   "end": 39.32
+  },
+  {
+   "word": "si",
+   "start": 39.32,
+   "end": 39.4
+  },
+  {
+   "word": "quitas",
+   "start": 39.4,
+   "end": 39.66
+  },
+  {
+   "word": "tu",
+   "start": 39.66,
+   "end": 39.78
+  },
+  {
+   "word": "aumento,",
+   "start": 39.78,
+   "end": 40.16
+  },
+  {
+   "word": "tu",
+   "start": 40.16,
+   "end": 40.24
+  },
+  {
+   "word": "cliente",
+   "start": 40.24,
+   "end": 40.5
+  },
+  {
+   "word": "también",
+   "start": 40.5,
+   "end": 40.78
+  },
+  {
+   "word": "deja",
+   "start": 40.78,
+   "end": 40.96
+  },
+  {
+   "word": "de",
+   "start": 40.96,
+   "end": 41.12
+  },
+  {
+   "word": "verlo",
+   "start": 41.12,
+   "end": 41.32
+  },
+  {
+   "word": "Tu",
+   "start": 40.84,
+   "end": 41.64
+  },
+  {
+   "word": "enlace",
+   "start": 41.64,
+   "end": 42.02
+  },
+  {
+   "word": "enseña",
+   "start": 42.02,
+   "end": 42.58
+  },
+  {
+   "word": "siempre",
+   "start": 42.58,
+   "end": 42.84
+  },
+  {
+   "word": "el",
+   "start": 42.84,
+   "end": 43
+  },
+  {
+   "word": "precio",
+   "start": 43,
+   "end": 43.2
+  },
+  {
+   "word": "que",
+   "start": 43.2,
+   "end": 43.34
+  },
+  {
+   "word": "tienes",
+   "start": 43.34,
+   "end": 43.6
+  },
+  {
+   "word": "guardado",
+   "start": 43.6,
+   "end": 44.04
+  },
+  {
+   "word": "¿Dudas?",
+   "start": 44.68,
+   "end": 45.08
+  },
+  {
+   "word": "Escríbeme",
+   "start": 45.08,
+   "end": 45.62
+  }
+ ],
+ "segments": [
+  {
+   "id": 0,
+   "seek": 0,
+   "start": 0,
+   "end": 20.18,
+   "text": " Tú decides tu precio. Lo que subas es para ti. En tu área toca mis precios. Para subirlos todos a la vez, pon un porcentaje en aumento general y toca aplicar a mi tienda. Para un solo producto, abre ver y cambiar precios de un producto. Busca el producto, escribe tu precio y toca guardar.",
+   "tokens": [
+    50365,
+    46341,
+    14898,
+    2604,
+    46916,
+    13,
+    6130,
+    631,
+    1422,
+    296,
+    785,
+    1690,
+    8757,
+    13,
+    2193,
+    2604,
+    25701,
+    43514,
+    3346,
+    659,
+    23132,
+    13,
+    11107,
+    1422,
+    1648,
+    329,
+    6321,
+    257,
+    635,
+    5715,
+    11,
+    9224,
+    517,
+    1515,
+    2207,
+    11153,
+    465,
+    43600,
+    2674,
+    288,
+    43514,
+    18221,
+    289,
+    257,
+    2752,
+    256,
+    30498,
+    13,
+    11107,
+    517,
+    6944,
+    47583,
+    11,
+    41594,
+    1306,
+    288,
+    37738,
+    659,
+    23132,
+    368,
+    517,
+    47583,
+    13,
+    8006,
+    496,
+    806,
+    47583,
+    11,
+    785,
+    8056,
+    2604,
+    46916,
+    288,
+    43514,
+    6290,
+    289,
+    13,
+    51374
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.10963841,
+   "compression_ratio": 1.5449735,
+   "no_speech_prob": 0.0011167526
+  },
+  {
+   "id": 1,
+   "seek": 2018,
+   "start": 20.18,
+   "end": 23.66,
+   "text": " Tus clientes ven tu precio solo cuando entran por tu enlace",
+   "tokens": [
+    50365,
+    42026,
+    6423,
+    279,
+    6138,
+    2604,
+    46916,
+    6944,
+    7767,
+    948,
+    4257,
+    1515,
+    2604,
+    465,
+    19837,
+    50539
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.08452844,
+   "compression_ratio": 1.6327273,
+   "no_speech_prob": 0.0004310608
+  },
+  {
+   "id": 2,
+   "seek": 2018,
+   "start": 23.66,
+   "end": 26.44,
+   "text": " En la tienda general todos ven el precio de Casa Viva",
+   "tokens": [
+    50539,
+    2193,
+    635,
+    256,
+    30498,
+    2674,
+    6321,
+    6138,
+    806,
+    46916,
+    368,
+    44843,
+    691,
+    5931,
+    50678
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.08452844,
+   "compression_ratio": 1.6327273,
+   "no_speech_prob": 0.0004310608
+  },
+  {
+   "id": 3,
+   "seek": 2018,
+   "start": 26.44,
+   "end": 31.58,
+   "text": " Por ejemplo, este organizador sale a 30 dólares en la tienda y a 35 con tu enlace",
+   "tokens": [
+    50678,
+    5269,
+    13358,
+    11,
+    4065,
+    4645,
+    5409,
+    8680,
+    257,
+    2217,
+    32596,
+    465,
+    635,
+    256,
+    30498,
+    288,
+    257,
+    6976,
+    416,
+    2604,
+    465,
+    19837,
+    50935
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.08452844,
+   "compression_ratio": 1.6327273,
+   "no_speech_prob": 0.0004310608
+  },
+  {
+   "id": 4,
+   "seek": 2018,
+   "start": 31.58,
+   "end": 37.38,
+   "text": " El pedido lo haces tú, entra desde ver la tienda o desde tu enlace y añádelo al carrito ahí",
+   "tokens": [
+    50935,
+    2699,
+    5670,
+    2925,
+    450,
+    324,
+    887,
+    15056,
+    11,
+    22284,
+    10188,
+    1306,
+    635,
+    256,
+    30498,
+    277,
+    10188,
+    2604,
+    465,
+    19837,
+    288,
+    37837,
+    32512,
+    10590,
+    419,
+    1032,
+    17492,
+    12571,
+    51225
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.08452844,
+   "compression_ratio": 1.6327273,
+   "no_speech_prob": 0.0004310608
+  },
+  {
+   "id": 5,
+   "seek": 2018,
+   "start": 37.38,
+   "end": 38.48,
+   "text": " Así sale a tu precio",
+   "tokens": [
+    51225,
+    17419,
+    8680,
+    257,
+    2604,
+    46916,
+    51280
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.08452844,
+   "compression_ratio": 1.6327273,
+   "no_speech_prob": 0.0004310608
+  },
+  {
+   "id": 6,
+   "seek": 2018,
+   "start": 38.48,
+   "end": 41.34,
+   "text": " Y si quitas tu aumento, tu cliente también deja de verlo",
+   "tokens": [
+    51280,
+    398,
+    1511,
+    10366,
+    296,
+    2604,
+    43600,
+    11,
+    2604,
+    6423,
+    68,
+    6407,
+    38260,
+    368,
+    1306,
+    752,
+    51423
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.08452844,
+   "compression_ratio": 1.6327273,
+   "no_speech_prob": 0.0004310608
+  },
+  {
+   "id": 7,
+   "seek": 2018,
+   "start": 41.34,
+   "end": 44.04,
+   "text": " Tu enlace enseña siempre el precio que tienes guardado",
+   "tokens": [
+    51423,
+    7836,
+    465,
+    19837,
+    12567,
+    12150,
+    12758,
+    806,
+    46916,
+    631,
+    20716,
+    6290,
+    1573,
+    51558
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.08452844,
+   "compression_ratio": 1.6327273,
+   "no_speech_prob": 0.0004310608
+  },
+  {
+   "id": 8,
+   "seek": 2018,
+   "start": 44.04,
+   "end": 45.62,
+   "text": " ¿Dudas? Escríbeme",
+   "tokens": [
+    51558,
+    3841,
+    35,
+    532,
+    296,
+    30,
+    2313,
+    10757,
+    49662,
+    5729,
+    51637
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.08452844,
+   "compression_ratio": 1.6327273,
+   "no_speech_prob": 0.0004310608
+  }
+ ],
+ "x_groq": {
+  "id": "req_01m4x68y5gej59kr05a64zwaqe"
+ }
+}

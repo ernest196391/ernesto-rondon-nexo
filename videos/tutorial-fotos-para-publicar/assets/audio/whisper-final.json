@@ -1,0 +1,896 @@
+{
+ "task": "transcribe",
+ "language": "Spanish",
+ "duration": 45.04999936,
+ "text": " ¿Necesitas fotos para publicar? Ya no tienes que pedírmelas una a una. Entra a tu área, abre el menú y toca Fotos para publicar. Si no tienes la sesión abierta, escríbeme Mi acceso. Ahí está todo lo que hay en existencia con tu precio, el precio en pesos y cuántos quedan. Busca un producto o abre una categoría. Toca Descargar foto. Después toca Copiar texto y pégalo junto a la foto. El texto ya lleva tu enlace, así que la venta es tuya. ¿Quieres una categoría entera? Toca descargar todas y te bajas una foto de cada producto. Publica hoy y comparte tu enlace. ¿Dudas? Escríbeme.",
+ "words": [
+  {
+   "word": "¿Necesitas",
+   "start": 0,
+   "end": 1.06
+  },
+  {
+   "word": "fotos",
+   "start": 1.06,
+   "end": 1.36
+  },
+  {
+   "word": "para",
+   "start": 1.36,
+   "end": 1.62
+  },
+  {
+   "word": "publicar?",
+   "start": 1.62,
+   "end": 2.28
+  },
+  {
+   "word": "Ya",
+   "start": 2.28,
+   "end": 2.38
+  },
+  {
+   "word": "no",
+   "start": 2.38,
+   "end": 2.52
+  },
+  {
+   "word": "tienes",
+   "start": 2.52,
+   "end": 2.74
+  },
+  {
+   "word": "que",
+   "start": 2.74,
+   "end": 2.88
+  },
+  {
+   "word": "pedírmelas",
+   "start": 2.88,
+   "end": 3.48
+  },
+  {
+   "word": "una",
+   "start": 3.48,
+   "end": 3.94
+  },
+  {
+   "word": "a",
+   "start": 3.94,
+   "end": 4.24
+  },
+  {
+   "word": "una.",
+   "start": 4.24,
+   "end": 5.04
+  },
+  {
+   "word": "Entra",
+   "start": 5.4,
+   "end": 5.62
+  },
+  {
+   "word": "a",
+   "start": 5.62,
+   "end": 5.72
+  },
+  {
+   "word": "tu",
+   "start": 5.72,
+   "end": 5.88
+  },
+  {
+   "word": "área,",
+   "start": 5.88,
+   "end": 6.5
+  },
+  {
+   "word": "abre",
+   "start": 6.5,
+   "end": 6.56
+  },
+  {
+   "word": "el",
+   "start": 6.56,
+   "end": 6.72
+  },
+  {
+   "word": "menú",
+   "start": 6.72,
+   "end": 7.06
+  },
+  {
+   "word": "y",
+   "start": 7.06,
+   "end": 7.4
+  },
+  {
+   "word": "toca",
+   "start": 7.4,
+   "end": 7.72
+  },
+  {
+   "word": "Fotos",
+   "start": 7.72,
+   "end": 8.46
+  },
+  {
+   "word": "para",
+   "start": 8.46,
+   "end": 8.84
+  },
+  {
+   "word": "publicar.",
+   "start": 8.84,
+   "end": 9.42
+  },
+  {
+   "word": "Si",
+   "start": 9.88,
+   "end": 9.94
+  },
+  {
+   "word": "no",
+   "start": 9.94,
+   "end": 10.08
+  },
+  {
+   "word": "tienes",
+   "start": 10.08,
+   "end": 10.3
+  },
+  {
+   "word": "la",
+   "start": 10.3,
+   "end": 10.46
+  },
+  {
+   "word": "sesión",
+   "start": 10.46,
+   "end": 10.78
+  },
+  {
+   "word": "abierta,",
+   "start": 10.78,
+   "end": 11.68
+  },
+  {
+   "word": "escríbeme",
+   "start": 11.68,
+   "end": 12.06
+  },
+  {
+   "word": "Mi",
+   "start": 12.06,
+   "end": 12.52
+  },
+  {
+   "word": "acceso.",
+   "start": 12.52,
+   "end": 13.68
+  },
+  {
+   "word": "Ahí",
+   "start": 13.82,
+   "end": 13.98
+  },
+  {
+   "word": "está",
+   "start": 13.98,
+   "end": 14.32
+  },
+  {
+   "word": "todo",
+   "start": 14.32,
+   "end": 14.74
+  },
+  {
+   "word": "lo",
+   "start": 14.74,
+   "end": 14.94
+  },
+  {
+   "word": "que",
+   "start": 14.94,
+   "end": 15.08
+  },
+  {
+   "word": "hay",
+   "start": 15.08,
+   "end": 15.3
+  },
+  {
+   "word": "en",
+   "start": 15.3,
+   "end": 15.62
+  },
+  {
+   "word": "existencia",
+   "start": 15.62,
+   "end": 16.34
+  },
+  {
+   "word": "con",
+   "start": 16.34,
+   "end": 16.58
+  },
+  {
+   "word": "tu",
+   "start": 16.58,
+   "end": 16.76
+  },
+  {
+   "word": "precio,",
+   "start": 16.76,
+   "end": 17.34
+  },
+  {
+   "word": "el",
+   "start": 17.34,
+   "end": 17.42
+  },
+  {
+   "word": "precio",
+   "start": 17.42,
+   "end": 17.82
+  },
+  {
+   "word": "en",
+   "start": 17.82,
+   "end": 18.06
+  },
+  {
+   "word": "pesos",
+   "start": 18.06,
+   "end": 18.3
+  },
+  {
+   "word": "y",
+   "start": 18.3,
+   "end": 18.84
+  },
+  {
+   "word": "cuántos",
+   "start": 18.84,
+   "end": 19.4
+  },
+  {
+   "word": "quedan.",
+   "start": 19.4,
+   "end": 19.86
+  },
+  {
+   "word": "Busca",
+   "start": 19.98,
+   "end": 20.06
+  },
+  {
+   "word": "un",
+   "start": 20.06,
+   "end": 20.18
+  },
+  {
+   "word": "producto",
+   "start": 20.18,
+   "end": 20.74
+  },
+  {
+   "word": "o",
+   "start": 20.74,
+   "end": 20.96
+  },
+  {
+   "word": "abre",
+   "start": 20.96,
+   "end": 21.22
+  },
+  {
+   "word": "una",
+   "start": 21.22,
+   "end": 21.38
+  },
+  {
+   "word": "categoría.",
+   "start": 21.38,
+   "end": 22
+  },
+  {
+   "word": "Toca",
+   "start": 22.52,
+   "end": 22.88
+  },
+  {
+   "word": "Descargar",
+   "start": 22.88,
+   "end": 23.72
+  },
+  {
+   "word": "foto.",
+   "start": 23.72,
+   "end": 24.52
+  },
+  {
+   "word": "Después",
+   "start": 24.58,
+   "end": 24.84
+  },
+  {
+   "word": "toca",
+   "start": 24.84,
+   "end": 25.28
+  },
+  {
+   "word": "Copiar",
+   "start": 25.28,
+   "end": 25.94
+  },
+  {
+   "word": "texto",
+   "start": 25.94,
+   "end": 26.36
+  },
+  {
+   "word": "y",
+   "start": 26.36,
+   "end": 26.7
+  },
+  {
+   "word": "pégalo",
+   "start": 26.7,
+   "end": 27.06
+  },
+  {
+   "word": "junto",
+   "start": 27.06,
+   "end": 27.4
+  },
+  {
+   "word": "a",
+   "start": 27.4,
+   "end": 27.52
+  },
+  {
+   "word": "la",
+   "start": 27.52,
+   "end": 27.6
+  },
+  {
+   "word": "foto.",
+   "start": 27.6,
+   "end": 28.36
+  },
+  {
+   "word": "El",
+   "start": 28.42,
+   "end": 28.54
+  },
+  {
+   "word": "texto",
+   "start": 28.54,
+   "end": 28.94
+  },
+  {
+   "word": "ya",
+   "start": 28.94,
+   "end": 29.28
+  },
+  {
+   "word": "lleva",
+   "start": 29.28,
+   "end": 29.62
+  },
+  {
+   "word": "tu",
+   "start": 29.62,
+   "end": 29.8
+  },
+  {
+   "word": "enlace,",
+   "start": 29.8,
+   "end": 30.46
+  },
+  {
+   "word": "así",
+   "start": 30.46,
+   "end": 30.54
+  },
+  {
+   "word": "que",
+   "start": 30.54,
+   "end": 30.76
+  },
+  {
+   "word": "la",
+   "start": 30.76,
+   "end": 30.92
+  },
+  {
+   "word": "venta",
+   "start": 30.92,
+   "end": 31.38
+  },
+  {
+   "word": "es",
+   "start": 31.38,
+   "end": 31.76
+  },
+  {
+   "word": "tuya.",
+   "start": 31.76,
+   "end": 32.14
+  },
+  {
+   "word": "¿Quieres",
+   "start": 32.7,
+   "end": 32.9
+  },
+  {
+   "word": "una",
+   "start": 32.9,
+   "end": 33.1
+  },
+  {
+   "word": "categoría",
+   "start": 33.1,
+   "end": 33.7
+  },
+  {
+   "word": "entera?",
+   "start": 33.7,
+   "end": 34.48
+  },
+  {
+   "word": "Toca",
+   "start": 34.5,
+   "end": 34.84
+  },
+  {
+   "word": "descargar",
+   "start": 34.84,
+   "end": 35.54
+  },
+  {
+   "word": "todas",
+   "start": 35.54,
+   "end": 35.82
+  },
+  {
+   "word": "y",
+   "start": 35.82,
+   "end": 36.02
+  },
+  {
+   "word": "te",
+   "start": 36.02,
+   "end": 36.18
+  },
+  {
+   "word": "bajas",
+   "start": 36.18,
+   "end": 36.46
+  },
+  {
+   "word": "una",
+   "start": 36.46,
+   "end": 36.66
+  },
+  {
+   "word": "foto",
+   "start": 36.66,
+   "end": 36.94
+  },
+  {
+   "word": "de",
+   "start": 36.94,
+   "end": 37.1
+  },
+  {
+   "word": "cada",
+   "start": 37.1,
+   "end": 37.3
+  },
+  {
+   "word": "producto.",
+   "start": 37.3,
+   "end": 37.74
+  },
+  {
+   "word": "Publica",
+   "start": 38.86,
+   "end": 39.32
+  },
+  {
+   "word": "hoy",
+   "start": 39.32,
+   "end": 39.6
+  },
+  {
+   "word": "y",
+   "start": 39.6,
+   "end": 39.84
+  },
+  {
+   "word": "comparte",
+   "start": 39.84,
+   "end": 40.38
+  },
+  {
+   "word": "tu",
+   "start": 40.38,
+   "end": 40.56
+  },
+  {
+   "word": "enlace.",
+   "start": 40.56,
+   "end": 41.44
+  },
+  {
+   "word": "¿Dudas?",
+   "start": 41.28,
+   "end": 41.9
+  },
+  {
+   "word": "Escríbeme.",
+   "start": 41.9,
+   "end": 42.74
+  }
+ ],
+ "segments": [
+  {
+   "id": 0,
+   "seek": 0,
+   "start": 0,
+   "end": 4.56,
+   "text": " ¿Necesitas fotos para publicar? Ya no tienes que pedírmelas una a una.",
+   "tokens": [
+    50365,
+    3841,
+    15496,
+    887,
+    14182,
+    32301,
+    1690,
+    1908,
+    289,
+    30,
+    6080,
+    572,
+    20716,
+    631,
+    5670,
+    31338,
+    10909,
+    296,
+    2002,
+    257,
+    2002,
+    13,
+    50593
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.13476035,
+   "compression_ratio": 1.5018868,
+   "no_speech_prob": 0.0015039444
+  },
+  {
+   "id": 1,
+   "seek": 0,
+   "start": 5.1,
+   "end": 9.44,
+   "text": " Entra a tu área, abre el menú y toca Fotos para publicar.",
+   "tokens": [
+    50620,
+    3951,
+    424,
+    257,
+    2604,
+    25701,
+    11,
+    41594,
+    806,
+    1706,
+    2481,
+    288,
+    43514,
+    46771,
+    329,
+    1690,
+    1908,
+    289,
+    13,
+    50837
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.13476035,
+   "compression_ratio": 1.5018868,
+   "no_speech_prob": 0.0015039444
+  },
+  {
+   "id": 2,
+   "seek": 0,
+   "start": 9.84,
+   "end": 13.2,
+   "text": " Si no tienes la sesión abierta, escríbeme Mi acceso.",
+   "tokens": [
+    50857,
+    4909,
+    572,
+    20716,
+    635,
+    5385,
+    2560,
+    410,
+    811,
+    1328,
+    11,
+    4721,
+    40577,
+    65,
+    5729,
+    10204,
+    49284,
+    13,
+    51025
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.13476035,
+   "compression_ratio": 1.5018868,
+   "no_speech_prob": 0.0015039444
+  },
+  {
+   "id": 3,
+   "seek": 0,
+   "start": 13.799999,
+   "end": 19.8,
+   "text": " Ahí está todo lo que hay en existencia con tu precio, el precio en pesos y cuántos quedan.",
+   "tokens": [
+    51055,
+    49924,
+    3192,
+    5149,
+    450,
+    631,
+    4842,
+    465,
+    2514,
+    10974,
+    416,
+    2604,
+    46916,
+    11,
+    806,
+    46916,
+    465,
+    33204,
+    288,
+    44256,
+    329,
+    13617,
+    282,
+    13,
+    51355
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.13476035,
+   "compression_ratio": 1.5018868,
+   "no_speech_prob": 0.0015039444
+  },
+  {
+   "id": 4,
+   "seek": 0,
+   "start": 19.92,
+   "end": 21.98,
+   "text": " Busca un producto o abre una categoría.",
+   "tokens": [
+    51361,
+    8006,
+    496,
+    517,
+    47583,
+    277,
+    41594,
+    2002,
+    19250,
+    2686,
+    13,
+    51464
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.13476035,
+   "compression_ratio": 1.5018868,
+   "no_speech_prob": 0.0015039444
+  },
+  {
+   "id": 5,
+   "seek": 0,
+   "start": 22.519999,
+   "end": 24.1,
+   "text": " Toca Descargar foto.",
+   "tokens": [
+    51491,
+    1407,
+    496,
+    3885,
+    6166,
+    2976,
+    19176,
+    13,
+    51570
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.13476035,
+   "compression_ratio": 1.5018868,
+   "no_speech_prob": 0.0015039444
+  },
+  {
+   "id": 6,
+   "seek": 0,
+   "start": 24.539999,
+   "end": 27.88,
+   "text": " Después toca Copiar texto y pégalo junto a la foto.",
+   "tokens": [
+    51592,
+    40995,
+    43514,
+    11579,
+    9448,
+    35503,
+    288,
+    280,
+    9095,
+    10334,
+    24663,
+    257,
+    635,
+    19176,
+    13,
+    51759
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.13476035,
+   "compression_ratio": 1.5018868,
+   "no_speech_prob": 0.0015039444
+  },
+  {
+   "id": 7,
+   "seek": 2788,
+   "start": 27.88,
+   "end": 32.14,
+   "text": " El texto ya lleva tu enlace, así que la venta es tuya.",
+   "tokens": [
+    50365,
+    2699,
+    35503,
+    2478,
+    37681,
+    2604,
+    465,
+    19837,
+    11,
+    8582,
+    631,
+    635,
+    6931,
+    64,
+    785,
+    2604,
+    3016,
+    13,
+    50578
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.08648288,
+   "compression_ratio": 1.2929937,
+   "no_speech_prob": 0.00022375584
+  },
+  {
+   "id": 8,
+   "seek": 2788,
+   "start": 32.66,
+   "end": 34.16,
+   "text": " ¿Quieres una categoría entera?",
+   "tokens": [
+    50604,
+    3841,
+    8547,
+    811,
+    279,
+    2002,
+    19250,
+    2686,
+    948,
+    1663,
+    30,
+    50679
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.08648288,
+   "compression_ratio": 1.2929937,
+   "no_speech_prob": 0.00022375584
+  },
+  {
+   "id": 9,
+   "seek": 2788,
+   "start": 34.46,
+   "end": 37.78,
+   "text": " Toca descargar todas y te bajas una foto de cada producto.",
+   "tokens": [
+    50694,
+    1407,
+    496,
+    730,
+    6166,
+    2976,
+    10906,
+    288,
+    535,
+    23589,
+    296,
+    2002,
+    19176,
+    368,
+    8411,
+    47583,
+    13,
+    50860
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.08648288,
+   "compression_ratio": 1.2929937,
+   "no_speech_prob": 0.00022375584
+  },
+  {
+   "id": 10,
+   "seek": 2788,
+   "start": 38.82,
+   "end": 40.96,
+   "text": " Publica hoy y comparte tu enlace.",
+   "tokens": [
+    50912,
+    9489,
+    64,
+    13775,
+    288,
+    715,
+    11026,
+    2604,
+    465,
+    19837,
+    13,
+    51019
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.08648288,
+   "compression_ratio": 1.2929937,
+   "no_speech_prob": 0.00022375584
+  },
+  {
+   "id": 11,
+   "seek": 2788,
+   "start": 41.28,
+   "end": 42.26,
+   "text": " ¿Dudas? Escríbeme.",
+   "tokens": [
+    51035,
+    3841,
+    35,
+    532,
+    296,
+    30,
+    2313,
+    10757,
+    49662,
+    5729,
+    13,
+    51084
+   ],
+   "temperature": 0,
+   "avg_logprob": -0.08648288,
+   "compression_ratio": 1.2929937,
+   "no_speech_prob": 0.00022375584
+  }
+ ],
+ "x_groq": {
+  "id": "req_01m4q3t42debhrmmb8y9y9p7n8"
+ }
+}

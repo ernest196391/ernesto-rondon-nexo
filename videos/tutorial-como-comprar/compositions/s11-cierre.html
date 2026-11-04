@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #s11-cierre-root { position: absolute; inset: 0; }
+
+        #s11-block { position: absolute; left: 80px; right: 80px; top: 470px; display: flex; flex-direction: column; gap: 30px; }
+        #s11-l1 { font-weight: 800; font-size: 130px; line-height: 1.02; letter-spacing: -0.03em; color: #0f3d3e; }
+        #s11-rule { display: block; width: 300px; height: 14px; border-radius: 7px; background: #a35a24; transform-origin: left center; }
+        #s11-l2 { font-weight: 700; font-size: 76px; line-height: 1.1; color: #25231f; }
+        #s11-l2 .k2 { color: #a35a24; }
+        #s11-steps { position: absolute; left: 80px; right: 80px; top: 1010px; display: flex; gap: 22px; }
+        .s11-step { flex: 1; padding: 28px 18px; border-radius: 22px; background: #fffdf9; border: 3px solid rgba(15, 61, 62, 0.14); box-shadow: 0 14px 30px rgba(15, 61, 62, 0.1); display: flex; flex-direction: column; align-items: center; gap: 10px; }
+        .s11-ic { font-size: 64px; line-height: 1; }
+        .s11-tx { font-weight: 800; font-size: 32px; color: #0f3d3e; }
+        #s11-cta { position: absolute; left: 80px; right: 80px; top: 1330px; padding: 34px 40px; border-radius: 24px; background: #0f3d3e; color: #f6f1e6; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 24px 48px rgba(15, 61, 62, 0.25); }
+        #s11-cta-t { font-weight: 800; font-size: 52px; }
+        #s11-cta-s { font-weight: 700; font-size: 40px; color: #f3d9a4; }
+      </style>
+      <div id="s11-cierre-root" data-composition-id="s11-cierre" data-width="1080" data-height="1920">
+
+        <div id="s11-block">
+          <div id="s11-l1">¿Dudas?</div>
+          <span id="s11-rule"></span>
+          <div id="s11-l2">Escríbele a <span class="k2">tu gestora</span> 💬</div>
+        </div>
+        <div id="s11-steps"><div class="s11-step" id="s11-st1"><span class="s11-ic">🔗</span><span class="s11-tx">Su enlace</span></div><div class="s11-step" id="s11-st2"><span class="s11-ic">🛒</span><span class="s11-tx">Tu carrito</span></div><div class="s11-step" id="s11-st3"><span class="s11-ic">✅</span><span class="s11-tx">Tu pedido</span></div></div>
+        <div id="s11-cta"><div id="s11-cta-t">¡Te esperamos! 🏡</div><div id="s11-cta-s">casaviva.company</div></div>
+      </div>
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          
+          tl.fromTo("#s11-l1", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.55, ease: "power4.out" }, 0.3);
+          tl.fromTo("#s11-rule", { scaleX: 0 }, { scaleX: 1, duration: 0.6, ease: "expo.out" }, 0.7);
+          tl.fromTo("#s11-l2", { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: 0.45, ease: "power3.out" }, 1.0);
+          tl.fromTo("#s11-st1", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.4, ease: "back.out(1.6)" }, 1.6);
+          tl.fromTo("#s11-st2", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.4, ease: "back.out(1.6)" }, 1.85);
+          tl.fromTo("#s11-st3", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.4, ease: "back.out(1.6)" }, 2.1);
+          tl.fromTo("#s11-cta", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.55, ease: "back.out(1.4)" }, 2.85);
+          window.__timelines["s11-cierre"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

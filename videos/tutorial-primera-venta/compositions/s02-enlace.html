@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #s02-enlace-root { position: absolute; inset: 0; }
+
+        #s02-chat { position: absolute; left: 0; top: 0; width: 620px; height: 1388px; z-index: 6; }
+        #s02-b1, #s02-b2 { font-size: 30px; }
+        .lp { display: flex; flex-direction: column; gap: 4px; padding: 14px 18px; margin-bottom: 10px; border-radius: 12px; background: rgba(15, 61, 62, 0.08); border-left: 6px solid #0f3d3e; }
+        .lp-t { font-weight: 800; font-size: 28px; color: #25231f; }
+        .lp-u { font-size: 24px; color: #6f6a62; }
+        .lnk { display: block; color: #1d5fa8; text-decoration: underline; font-size: 28px; overflow-wrap: anywhere; }
+      </style>
+      <div id="s02-enlace-root" data-composition-id="s02-enlace" data-width="1080" data-height="1920">
+<div class="cap" id="s02-enlace-c0"><span class="ci">Manda <span class="k">tu enlace</span></span></div>
+<div class="cap" id="s02-enlace-c1"><span class="ci">Tu cliente ve <span class="k">tu tienda</span></span></div>
+<div class="scr" id="s02-enlace-scr"><div class="sb" id="s02-enlace-sb"><span>10:24</span><span class="sb-icons"><span class="sb-bar" style="height:9px"></span><span class="sb-bar" style="height:13px"></span><span class="sb-bar" style="height:17px"></span><span class="sb-batt"></span></span></div>
+<img class="shot" id="s02-enlace-s0" src="assets/screens/01-tienda.jpg" alt="" />
+<div class="hl" id="s02-enlace-h0" style="left:34px;top:342px;width:552px;height:243px"></div>
+
+        <div class="chat" id="s02-chat">
+          <div class="chat-head"><div class="avatar">C</div><div><div class="chat-title">Tu cliente</div><div class="chat-sub">en línea</div></div></div>
+          <div class="chat-body">
+            <div class="day-chip">Hoy</div>
+            <div class="bubble out" id="s02-b1">¡Hola! Mira mi tienda Casa Viva 👇<span class="time">10:23 ✓✓</span></div>
+            <div class="bubble out" id="s02-b2"><span class="lp"><span class="lp-t">Tienda – Casa Viva</span><span class="lp-u">casaviva.company</span></span><span class="lnk" id="s02-lnk">casaviva.company/tienda/?ref=CV43HARLEYAD</span><span class="time">10:24 ✓✓</span></div>
+          </div>
+        </div>
+        <div class="tap" id="s02-tl" style="left:236px;top:480px"><span class="tap-dot"></span><span class="tap-ring" id="s02-tlr"></span></div></div>
+      </div>
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          tl.fromTo("#s02-enlace-scr", { opacity: 0, y: 160 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0);
+          tl.fromTo("#s02-enlace-c0", { opacity: 0, y: 34 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 0.25);
+          tl.fromTo("#s02-enlace-c0", { opacity: 1 }, { opacity: 0, duration: 0.22, ease: "power2.in", immediateRender: false }, 3.3);
+          tl.fromTo("#s02-enlace-c0 .k", { backgroundSize: "0% 100%" }, { backgroundSize: "100% 100%", duration: 0.45, ease: "power2.out" }, 0.6);
+          tl.fromTo("#s02-enlace-c1", { opacity: 0, y: 34 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 3.7);
+          tl.fromTo("#s02-enlace-c1", { opacity: 1 }, { opacity: 0, duration: 0.22, ease: "power2.in", immediateRender: false }, 8.17);
+          tl.fromTo("#s02-enlace-c1 .k", { backgroundSize: "0% 100%" }, { backgroundSize: "100% 100%", duration: 0.45, ease: "power2.out" }, 4.05);
+          tl.fromTo("#s02-enlace-h0", { opacity: 0, scale: 1.08 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }, 4.9);
+          tl.fromTo("#s02-enlace-h0", { opacity: 1 }, { opacity: 0, duration: 0.25, ease: "power1.in", immediateRender: false }, 8.15);
+          
+          tl.fromTo("#s02-b1", { opacity: 0, scale: 0.6, y: 30 }, { opacity: 1, scale: 1, y: 0, duration: 0.45, ease: "back.out(1.6)", transformOrigin: "top right" }, 0.6);
+          tl.fromTo("#s02-b2", { opacity: 0, scale: 0.6, y: 30 }, { opacity: 1, scale: 1, y: 0, duration: 0.45, ease: "back.out(1.6)", transformOrigin: "top right" }, 1.3);
+          tl.fromTo("#s02-tl", { opacity: 0, scale: 1.5 }, { opacity: 1, scale: 1, duration: 0.25, ease: "power2.out" }, 2.5);
+          tl.fromTo("#s02-tl .tap-dot", { scale: 1 }, { scale: 0.82, duration: 0.1, ease: "power2.in", yoyo: true, repeat: 1 }, 2.8);
+          tl.fromTo("#s02-tlr", { opacity: 0.9, scale: 1 }, { opacity: 0, scale: 2.1, duration: 0.5, ease: "power2.out" }, 2.8);
+          tl.fromTo("#s02-tl", { opacity: 1 }, { opacity: 0, duration: 0.2, ease: "power1.in", immediateRender: false }, 3.2);
+          tl.fromTo("#s02-chat", { opacity: 1 }, { opacity: 0, duration: 0.3, ease: "power1.in", immediateRender: false }, 3.15);
+          tl.fromTo("#s02-enlace-h0", { boxShadow: "0 0 0 0 rgba(163,90,36,0.5)" }, { boxShadow: "0 0 0 22px rgba(163,90,36,0)", duration: 0.8, ease: "power2.out", immediateRender: false }, 6.2);
+          window.__timelines["s02-enlace"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

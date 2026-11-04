@@ -1,0 +1,18 @@
+<!-- Se pega antes de </body> del HTML limpio. Estados: ?s=herr|menu|top|search|dl|copied|cat -->
+<style>html{scroll-behavior:auto!important}</style><script>
+window.addEventListener('load', function () {
+  var s = (location.search.match(/s=([\w-]+)/) || [])[1] || '';
+  var app = document.querySelector('[data-cvga]');
+  var q = document.querySelector('[data-cvgf-q]');
+  function search(v) { q.value = v; q.dispatchEvent(new Event('input', { bubbles: true })); }
+  if (s === 'menu') { app.classList.add('is-open'); setTimeout(function(){ app.querySelectorAll('.is-active').forEach(function(a){a.classList.remove('is-active');}); }, 300); }
+  if (s === 'search' || s === 'copied' || s === 'dl') search('mochila');
+  if (s === 'cat') { var d = document.querySelector('details[data-cat="19"]'); d.open = true; }
+  setTimeout(function () {
+    if (s === 'copied' || s === 'dl') { var it = document.querySelector('.cvgf-results .cvgf-item'); it.querySelector('.cvgf-done').textContent = s === 'copied' ? 'Texto copiado. Pégalo junto a la foto.' : 'Descargando… mírala en tu galería o en Descargas.'; }
+    if (s === 'cat') { var d = document.querySelector('details[data-cat="19"]'); window.scrollTo({ top: Math.round(d.getBoundingClientRect().top + window.scrollY - 70), behavior: 'instant' }); }
+    if (s === 'search' || s === 'copied' || s === 'dl') { var fix = function () { var r = document.querySelector('.cvgf-bar'); window.scrollTo({ top: Math.round(r.getBoundingClientRect().top + window.scrollY - 60), behavior: 'instant' }); }; fix(); setTimeout(fix, 400); setTimeout(fix, 1200); }
+    document.querySelectorAll('img[loading=lazy]').forEach(function (i) { i.loading = 'eager'; });
+  }, 500);
+});
+</script>

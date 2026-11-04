@@ -1,0 +1,4 @@
+Paso 1 de 4: en Fotos para publicar, toca la foto del diseño. Arriba sale «Elegiste» con su nombre.
+Paso 2 de 4: toca Copiar texto. El texto lleva el color y el enlace abre la web con ese diseño ya elegido.
+Paso 3 de 4: en la web, elige el color. Sale el recuadro ELEGISTE con la foto de ese diseño.
+Paso 4 de 4: mira la foto de ELEGISTE antes de confirmar. Así el cliente recibe justo el diseño que quiere.

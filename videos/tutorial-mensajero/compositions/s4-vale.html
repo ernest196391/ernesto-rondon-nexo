@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #s4-root {
+          position: absolute;
+          inset: 0;
+        }
+        .s4-panel {
+          position: absolute;
+          left: 60px;
+          right: 60px;
+          border-radius: 28px;
+          overflow: hidden;
+          background: #e4ece8;
+          box-shadow:
+            0 30px 60px rgba(15, 61, 58, 0.18),
+            0 6px 16px rgba(37, 35, 31, 0.12);
+        }
+        #s4-group {
+          top: 450px;
+          height: 470px;
+        }
+        #s4-pedri {
+          top: 960px;
+          height: 760px;
+        }
+        .s4-head {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 0;
+          height: 128px;
+          padding: 0 30px;
+          background: #0f3d3a;
+          color: #f6f1e6;
+          display: flex;
+          align-items: center;
+          gap: 22px;
+        }
+        .s4-body {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 128px;
+          bottom: 0;
+          padding: 24px 26px;
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+          background-image: radial-gradient(rgba(15, 61, 58, 0.08) 2px, transparent 2.5px);
+          background-size: 36px 36px;
+        }
+        .s4-tag {
+          margin-left: auto;
+          padding: 8px 18px;
+          border-radius: 999px;
+          background: rgba(246, 241, 230, 0.16);
+          font-weight: 700;
+          font-size: 24px;
+          color: #f6f1e6;
+        }
+        #s4-ghost {
+          position: relative;
+          align-self: flex-start;
+          padding: 18px 26px;
+          border-radius: 22px;
+          border: 4px dashed rgba(168, 68, 58, 0.7);
+          background: rgba(255, 253, 249, 0.7);
+          font-weight: 700;
+          font-size: 32px;
+          color: #6f6a62;
+        }
+        #s4-strike {
+          position: absolute;
+          left: 18px;
+          right: 18px;
+          top: 50%;
+          height: 5px;
+          margin-top: -2px;
+          border-radius: 3px;
+          background: #a8443a;
+          transform-origin: left center;
+        }
+        #s4-stamp {
+          position: absolute;
+          right: 40px;
+          bottom: 40px;
+          padding: 14px 26px;
+          border-radius: 16px;
+          border: 5px solid #a8443a;
+          background: #fffdf9;
+          color: #a8443a;
+          font-weight: 800;
+          font-size: 40px;
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          opacity: 0;
+        }
+        #s4-stamp b {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          background: #a8443a;
+          color: #fffdf9;
+          font-size: 32px;
+        }
+        #s4-bubble {
+          max-width: 96%;
+          font-size: 40px;
+          line-height: 1.3;
+          padding: 22px 28px 16px;
+        }
+        .s4-vl {
+          display: block;
+          margin-bottom: 10px;
+        }
+        #s4-vl1 {
+          font-weight: 800;
+          color: #0f3d3a;
+          font-size: 44px;
+        }
+        #s4-vl4 {
+          font-weight: 800;
+          color: #0f3d3a;
+        }
+        #s4-arrow {
+          position: absolute;
+          left: 50%;
+          top: 912px;
+          width: 64px;
+          height: 64px;
+          margin-left: -32px;
+          border-radius: 50%;
+          background: #c39443;
+          color: #0f3d3a;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: 800;
+          font-size: 38px;
+          z-index: 3;
+          opacity: 0;
+        }
+        #s4-private {
+          align-self: center;
+          padding: 8px 22px;
+          border-radius: 14px;
+          background: #fffdf9;
+          color: #0f3d3a;
+          font-size: 26px;
+          font-weight: 700;
+        }
+      </style>
+      <div id="s4-root" data-composition-id="s4-vale" data-width="1080" data-height="1920">
+        <div id="s4-wrap" class="scene-wrap">
+          <div class="cap" id="s4-c0"><span class="ci">Ese pedido <span class="k">no sale</span> al grupo</span></div>
+          <div class="cap" id="s4-c1"><span class="ci">El vale le llega directo a Pedri</span></div>
+
+          <div class="s4-panel" id="s4-group">
+            <div class="s4-head">
+              <div class="avatar">👥</div>
+              <div>
+                <div class="chat-title">Mensajerías CASA Viva</div>
+                <div class="chat-sub">Grupo de WhatsApp</div>
+              </div>
+            </div>
+            <div class="s4-body">
+              <div class="bubble in"><span class="who">Casa Viva</span>🛵 Carrera #2893 · Playa</div>
+              <div id="s4-ghost">Pedido #2896<span id="s4-strike"></span></div>
+            </div>
+            <div id="s4-stamp"><b>✕</b>No sale aquí</div>
+          </div>
+
+          <div id="s4-arrow">↓</div>
+
+          <div class="s4-panel" id="s4-pedri">
+            <div class="s4-head">
+              <div class="avatar">P</div>
+              <div>
+                <div class="chat-title">Pedri</div>
+                <div class="chat-sub">Chat privado · WhatsApp</div>
+              </div>
+              <div class="s4-tag">Solo él</div>
+            </div>
+            <div class="s4-body">
+              <div id="s4-private">Hoy</div>
+              <div class="bubble in" id="s4-bubble">
+                <span class="s4-vl" id="s4-vl1">📋 VALE · Pedido #2896</span>
+                <span class="s4-vl" id="s4-vl2">Te lo asignó la gestora Dayami</span>
+                <span class="s4-vl" id="s4-vl3">📍 Alturas de La Lisa</span>
+                <span class="s4-vl" id="s4-vl4">💵 Cobrar: 60 USD + 2.300 CUP</span>
+                <span class="time">4:14</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          tl.fromTo("#s4-c0", { opacity: 0, y: 34 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 0.1);
+          tl.fromTo("#s4-c0", { opacity: 1, y: 0 }, { opacity: 0, y: -26, duration: 0.22, ease: "power2.in", immediateRender: false }, 2.05);
+          tl.fromTo("#s4-c1", { opacity: 0, y: 34 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 2.28);
+
+          // group panel
+          tl.fromTo("#s4-group", { opacity: 0, x: -80 }, { opacity: 1, x: 0, duration: 0.55, ease: "power3.out" }, 0);
+          tl.fromTo("#s4-ghost", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 0.45);
+          tl.fromTo("#s4-strike", { scaleX: 0 }, { scaleX: 1, duration: 0.35, ease: "power2.inOut" }, 1.05);
+          tl.fromTo("#s4-ghost", { opacity: 1 }, { opacity: 0.55, duration: 0.3, immediateRender: false }, 1.3);
+          tl.fromTo("#s4-stamp", { opacity: 0, scale: 1.8, rotation: -14 }, { opacity: 1, scale: 1, rotation: -6, duration: 0.42, ease: "back.out(2)" }, 1.15);
+
+          // private chat with Pedri
+          tl.fromTo("#s4-arrow", { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 2.1);
+          tl.fromTo("#s4-pedri", { opacity: 0, y: 140 }, { opacity: 1, y: 0, duration: 0.55, ease: "power3.out" }, 2.15);
+          tl.fromTo("#s4-group", { opacity: 1, scale: 1 }, { opacity: 0.7, scale: 0.97, duration: 0.4, ease: "power1.inOut", immediateRender: false }, 2.2);
+          tl.fromTo("#s4-bubble", { opacity: 0, scale: 0.6, y: 30 }, { opacity: 1, scale: 1, y: 0, duration: 0.45, ease: "back.out(1.6)", transformOrigin: "top left" }, 2.55);
+          ["#s4-vl1", "#s4-vl2", "#s4-vl3", "#s4-vl4"].forEach((sel, i) => {
+            tl.fromTo(sel, { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.3, ease: "power2.out" }, 2.8 + i * 0.12);
+          });
+          tl.fromTo("#s4-bubble", { boxShadow: "0 0 0 0 rgba(195,148,67,0)" }, { boxShadow: "0 0 0 10px rgba(195,148,67,0.45)", duration: 0.35, ease: "power2.out", immediateRender: false }, 3.6);
+          tl.fromTo("#s4-bubble", { boxShadow: "0 0 0 10px rgba(195,148,67,0.45)" }, { boxShadow: "0 0 0 0 rgba(195,148,67,0)", duration: 0.6, ease: "power2.in", immediateRender: false }, 4.0);
+
+          tl.fromTo("#s4-wrap", { opacity: 1 }, { opacity: 0, duration: 0.3, ease: "power2.in", immediateRender: false }, 5.05);
+          window.__timelines["s4-vale"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

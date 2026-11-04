@@ -1,0 +1,74 @@
+2026-10-30T01:00:05.387Z [radar-informe] 1325 mensajes de 24 h → 410 útiles (101819 letras), 915 descartados
+[ia] gpt-4.1 smart radar entrada=40382 (caché 0) salida=1721
+2026-10-30T01:00:17.126Z [radar-informe] correo intento 1/3: no enviado
+2026-10-30T01:01:17.883Z [radar-informe] correo intento 2/3: no enviado
+2026-10-30T01:02:18.219Z [radar-informe] correo intento 3/3: no enviado
+2026-10-30T01:02:18.341Z [radar-informe] ERROR informe hecho pero el correo no salió: no enviado
+===
+RADAR DE MERCADO · jueves, 29 de oct de 2026
+
+1. MONEDAS
+- USDT: 1.050–1.135 CUP por 1 USDT (más barato: 1.050 CUP, Dr.David Chávez en «COMERCIO FIAT/CRIPTO 🇺🇸», 14:17). Rango de compra/venta en grupos: 1.050–1.135 CUP.
+- USD efectivo: 855–865 CUP por 1 USD (elTOQUE, 16:25 y 17:05).
+- EUR: 950 CUP por 1 EUR (elTOQUE, 17:05).
+- MLC: 730–800 CUP por 1 MLC (elTOQUE, 17:05).
+- Zelle: 1.020–1.038 CUP por 1 USD vía Zelle (JOKER en «Transferencia de zelle», 17:36 y FLASH LC, 12:11).
+- MXN: 18.88–19.5 MXN por 1 USDT (Karlito - tecKCell en «COMERCIO FIAT/CRIPTO 🇺🇸», 07:20 y 20:55).
+- IBAN, Bizum, Paypal, Postepay, etc.: sin datos claros de tasas CUP hoy, solo % sobre USDT.
+
+2. SALDO MÓVIL
+- Más barato: 3,5 CUP por cada 1 CUP de saldo (Alfredo_PD🇨🇺 en «INTERCAMBIOS DE BTC 1️⃣🇨🇺», 17:30).
+- Otros precios: 4 CUP (Alfredo_PD🇨🇺, 12:16), 4,2 CUP (axel en «SANTA CLARA 100% SEGURO», 09:21), 4,6 CUP (Aramis AA en «Gold Business», 19:12).
+
+3. COMBUSTIBLE
+- Sin datos hoy de gasolina, diésel o gas en CUP o USD para venta directa.
+- Aceite automotriz: 16–20 USD por pomo de 4–5L (Guamay SRL, 09:28).
+- Aditivos: 2,4–3,25 USD por pomo (Guamay SRL, 09:28).
+
+4. ENERGÍA (lo más barato por artículo)
+- Panel solar bifacial 625W: 165 USD (Grupo Fadiar Gestores en «INFORMACIÓN PRODUCTOS EN VENTA GF», 09:18).
+- Batería LiFePO4 25.6V 100Ah (2560Wh): 620 USD (Sergio Hernandez en «Electrodomésticos SERGIO HERNANDEZ✅💸🤑», 09:39).
+- Inversor Sumry 4000W: 380 USD (Sergio Hernandez, 09:39; más de 5 unidades a 360 USD).
+- Kit solar completo (inversor 6.2kW, 1 batería 5.12kWh, 4 paneles 625W): 2550 USD (Sergio Hernandez, 09:40).
+- Ventilador recargable 16": 55 USD (EN DON MESTICO, 09:03; mayorista 49,10 USD).
+
+5. HOGAR
+- Nevera 3.5 pies: 240 USD (EN DON MESTICO, 09:03; mayorista 220 USD).
+- Split 2 toneladas: 598 USD (EN DON MESTICO, 09:03; mayorista 567 USD).
+- Lavadora semiautomática 7kg: 148.500 CUP o 165 USD (Grupo Fadiar Gestores, 09:16).
+- Juego de calderos 5 piezas: 31,90 USD mayorista (EN DON MESTICO, 09:03).
+- Olla arrocera 1.8L: 24,50 USD mayorista (EN DON MESTICO, 09:03).
+- Cocina de kerosene: 16 USD (Grupo Fadiar Gestores, 10:29; venta mínima 20).
+
+6. ALIMENTOS Y MAYORISTAS
+- Pollo muslo y contramuslo: 35,50 USD por caja de 40 lb (HALLEY en «Empresarios Cuba Plus🤝», 08:58; +10 cajas).
+- Mortadela de pollo especial 340g: 40 USD/caja de 24 latas (Grupo Fadiar Gestores, 09:17).
+- Jugo Frutigo 200g: 0,27 USD unidad, caja de 27 a 7,29 USD (MexiPlus Mayorista, 11:23).
+- Aceitunas negras 400g: 1 USD unidad, caja de 24 (Guamay SRL, 09:39).
+- Mayonesa 260g: 0,83 USD unidad, caja de 24 (Guamay SRL, 09:07).
+- Refresco Coca-Cola 330ml: 50 USD/caja de 35 (Grupo Fadiar Gestores, 09:19).
+
+7. LO QUE LA GENTE BUSCA
+- Mucha demanda de USDT a 1.100–1.135 CUP (varios compradores: DANITA, Erick, ALBER, Orestes.Cor, etc.).
+- Buscan Zelle a 1.030–1.045 CUP (JOKER, YORSH MAN, FLASH LC).
+- Demandan clásica y prepago a 1.09–1.14 por USDT (Ray, Leo, Mayito, ivanelier).
+- Buscan MLC a 760–800 CUP (Super Envíos, Elehonai).
+- Solicitan grandes montos de CUP a cambio de USDT (Jorge Moya, Haroslain, Orestes.Cor).
+- Buscan saldo móvil a 3,5–4,2 CUP (lazarovigaud, Keila).
+
+8. NOTICIAS QUE MUEVEN EL MERCADO
+- elTOQUE mantiene la tasa representativa del USD en 855–865 CUP y el USDT en torno a 1.050–1.080 CUP.
+- Sin cambios en combustible ni apagones reportados hoy.
+- Mensajería disponible en Guamay SRL para clientes activos.
+- Promoción de recarga internacional: 22,5 USDT por 3.600 CUP de saldo y datos ilimitados nocturnos (Mike en «SANTA CLARA 100% SEGURO», 14:51).
+
+9. 3 OPORTUNIDADES DE HOY
+- Saldo móvil: comprar a 3,5 CUP (Alfredo_PD🇨🇺 en «INTERCAMBIOS DE BTC 1️⃣🇨🇺», 17:30) y vender a 4,2 CUP (axel en «SANTA CLARA 100% SEGURO», 09:21). Margen: 0,7 CUP por cada CUP de saldo (~20%).
+- Panel solar bifacial 625W: comprar a 165 USD (Grupo Fadiar Gestores, 09:18) y vender a 170 USD (Sergio Hernandez, 09:40). Margen: 5 USD por panel (~3%).
+- Nevera 3.5 pies: comprar a 220 USD (EN DON MESTICO, mayorista, 09:03) y vender a 245 USD (Sergio Hernandez, 14:27). Margen: 25 USD por unidad (~11%).
+
+10. PREDICCIONES ABIERTAS
+- USDT entre 1.050 y 1.080 CUP (se revisa el 2026-11-03): hoy el rango real de mercado es 1.050–1.135 CUP, con operaciones rápidas en 1.050–1.100 CUP. La predicción se mantiene válida pero con presión al alza en los precios de compra.
+
+—
+Leídos: 410 mensajes útiles de 24 h (915 descartados: repetidos, internos o sin precio). Última lectura de canales: 20:40 · 8 canales, 0 nuevos. Coste IA: 0.095 USD.

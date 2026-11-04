@@ -1,0 +1,42 @@
+[
+ {
+  "archivo": "w01.jpg",
+  "url": "https://image.coolblue.de/max/1400xauto/products/1500582800",
+  "pagina": "https://www.coolblue.de/en/product/982988/samsung-galaxy-a17-128gb-gray-5g-bluebuilt-book-case-black.html",
+  "w": 1217,
+  "h": 755,
+  "formato": "jpeg"
+ },
+ {
+  "archivo": "w02.jpg",
+  "url": "https://image.coolblue.de/max/1400xauto/products/2203849",
+  "pagina": "https://www.coolblue.de/en/product/982988/samsung-galaxy-a17-128gb-gray-5g-bluebuilt-book-case-black.html",
+  "w": 1277,
+  "h": 2662,
+  "formato": "jpeg"
+ },
+ {
+  "archivo": "w03.jpg",
+  "url": "https://image.coolblue.de/max/1400xauto/products/2203851",
+  "pagina": "https://www.coolblue.de/en/product/982988/samsung-galaxy-a17-128gb-gray-5g-bluebuilt-book-case-black.html",
+  "w": 1277,
+  "h": 2662,
+  "formato": "jpeg"
+ },
+ {
+  "archivo": "w04.jpg",
+  "url": "https://image.coolblue.de/max/1400xauto/products/2203839",
+  "pagina": "https://www.coolblue.de/en/product/982988/samsung-galaxy-a17-128gb-gray-5g-bluebuilt-book-case-black.html",
+  "w": 1400,
+  "h": 937,
+  "formato": "jpeg"
+ },
+ {
+  "archivo": "w05.jpg",
+  "url": "https://image.coolblue.de/max/1400xauto/products/2237255",
+  "pagina": "https://www.coolblue.de/en/product/982988/samsung-galaxy-a17-128gb-gray-5g-bluebuilt-book-case-black.html",
+  "w": 679,
+  "h": 679,
+  "formato": "jpeg"
+ }
+]

@@ -1,0 +1,87 @@
+{
+ "task": "transcribe",
+ "language": "Spanish",
+ "duration": 3.99381248,
+ "text": " Ya está en tu galería. Descárgala, compártela con tu cliente o ponla en tu tienda.",
+ "words": [
+  {
+   "word": "Ya",
+   "start": 0.02,
+   "end": 0.14
+  },
+  {
+   "word": "está",
+   "start": 0.14,
+   "end": 0.32
+  },
+  {
+   "word": "en",
+   "start": 0.32,
+   "end": 0.42
+  },
+  {
+   "word": "tu",
+   "start": 0.42,
+   "end": 0.52
+  },
+  {
+   "word": "galería.",
+   "start": 0.52,
+   "end": 1.32
+  },
+  {
+   "word": "Descárgala,",
+   "start": 1.32,
+   "end": 1.82
+  },
+  {
+   "word": "compártela",
+   "start": 1.82,
+   "end": 2.1
+  },
+  {
+   "word": "con",
+   "start": 2.1,
+   "end": 2.28
+  },
+  {
+   "word": "tu",
+   "start": 2.28,
+   "end": 2.44
+  },
+  {
+   "word": "cliente",
+   "start": 2.44,
+   "end": 2.78
+  },
+  {
+   "word": "o",
+   "start": 2.78,
+   "end": 3.02
+  },
+  {
+   "word": "ponla",
+   "start": 3.02,
+   "end": 3.3
+  },
+  {
+   "word": "en",
+   "start": 3.3,
+   "end": 3.38
+  },
+  {
+   "word": "tu",
+   "start": 3.38,
+   "end": 3.5
+  },
+  {
+   "word": "tienda.",
+   "start": 3.5,
+   "end": 4.22
+  }
+ ],
+ "segments": null,
+ "x_groq": {
+  "id": "req_01m535zch4ehj8f6wpbv8sww2z"
+ }
+}

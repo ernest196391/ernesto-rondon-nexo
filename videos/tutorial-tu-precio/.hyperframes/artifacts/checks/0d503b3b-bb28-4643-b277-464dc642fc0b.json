@@ -1,0 +1,239 @@
+{
+  "ok": false,
+  "strict": false,
+  "browserSkipped": false,
+  "lint": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 1,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "duplicate_media_discovery_risk",
+        "severity": "warning",
+        "message": "Detected 2 matching img entries with the same source/start/duration.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\Ernesto\\ernesto-rondon-nexo\\videos\\tutorial-tu-precio\\compositions\\s04-quien-lo-ve.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Avoid duplicated media nodes that can be discovered twice during compilation."
+      }
+    ],
+    "filesScanned": 11
+  },
+  "runtime": {
+    "ok": false,
+    "errorCount": 1,
+    "warningCount": 1,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "clip_media_fit",
+        "severity": "warning",
+        "message": "Audio \"voz\" is 45.84s but its slot (data-duration) is 46.04s — the slot is shortened to the media length when rendered. Set data-duration to ~45.84s if that isn't intended.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "48.84",
+          "data-width": "1080",
+          "data-height": "1920"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1080,
+          "height": 1920
+        },
+        "time": 0
+      },
+      {
+        "code": "check_cleanup_failure",
+        "severity": "error",
+        "message": "Browser process did not exit after forced shutdown.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0
+      }
+    ]
+  },
+  "layout": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 3,
+    "findings": [
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 24.42,
+        "selector": "#s04-quien-lo-ve-a0 > span:nth-of-type(1)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 268,
+          "top": 479,
+          "right": 628.52,
+          "bottom": 507,
+          "width": 360.52,
+          "height": 28
+        },
+        "containerSelector": "#s04-quien-lo-ve-a1 > span:nth-of-type(1)",
+        "text": "casaviva.company/…/organizador…",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "compositions/s04-quien-lo-ve.html",
+        "bbox": {
+          "x": 268,
+          "y": 479,
+          "width": 360.52,
+          "height": 28
+        },
+        "firstSeen": 24.42,
+        "lastSeen": 29.847,
+        "occurrences": 2,
+        "heldMs": 0,
+        "times": [
+          24.42,
+          29.847
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 24.42,
+        "selector": "#s04-quien-lo-ve-a0 > span:nth-of-type(1) > b:nth-of-type(1)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 628.52,
+          "top": 479,
+          "right": 806.3,
+          "bottom": 507,
+          "width": 177.78,
+          "height": 28
+        },
+        "containerSelector": "#s04-quien-lo-ve-a1 > span:nth-of-type(1)",
+        "text": "?ref=TUCODIGO",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "compositions/s04-quien-lo-ve.html",
+        "bbox": {
+          "x": 628.52,
+          "y": 479,
+          "width": 177.78,
+          "height": 28
+        },
+        "firstSeen": 24.42,
+        "lastSeen": 29.847,
+        "occurrences": 2,
+        "heldMs": 0,
+        "times": [
+          24.42,
+          29.847
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 29.847,
+        "selector": "#s04-quien-lo-ve-a1 > span:nth-of-type(1)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 268,
+          "top": 479,
+          "right": 709.8,
+          "bottom": 507,
+          "width": 441.8,
+          "height": 28
+        },
+        "containerSelector": "#s04-quien-lo-ve-a2 > span:nth-of-type(1)",
+        "text": "casaviva.company/producto/organizador…",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "compositions/s04-quien-lo-ve.html",
+        "bbox": {
+          "x": 268,
+          "y": 479,
+          "width": 441.8,
+          "height": 28
+        },
+        "firstSeen": 29.847,
+        "lastSeen": 29.847,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          29.847
+        ]
+      }
+    ],
+    "duration": 48.84,
+    "samples": [
+      2.713,
+      8.14,
+      13.567,
+      18.993,
+      24.42,
+      29.847,
+      35.273,
+      40.7,
+      46.127
+    ],
+    "transitionSamples": [],
+    "transitionSamplesDropped": 0,
+    "tolerance": 2,
+    "totalIssueCount": 3,
+    "truncated": false
+  },
+  "motion": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": false,
+    "samples": 0
+  },
+  "contrast": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": true,
+    "samples": [
+      2.713,
+      13.567,
+      24.42,
+      35.273,
+      46.127
+    ],
+    "checked": 40,
+    "passed": 40
+  },
+  "hdr": {
+    "autoPromotion": null,
+    "inspection": "available"
+  },
+  "snapshots": {
+    "enabled": false,
+    "files": [],
+    "times": [],
+    "findingFiles": []
+  }
+}

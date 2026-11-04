@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Caja nueva</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-400.woff2") format("woff2"); font-weight: 400; font-style: normal; }
+      @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-500.woff2") format("woff2"); font-weight: 500; font-style: normal; }
+      @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-600.woff2") format("woff2"); font-weight: 600; font-style: normal; }
+      @font-face { font-family: "Cinzel"; src: url("assets/fonts/cinzel-600.woff2") format("woff2"); font-weight: 600; font-style: normal; }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #F6F1E6; }
+      #root {
+        position: relative; width: 100%; height: 100%; overflow: hidden;
+        background: #F6F1E6; color: #2B2420;
+        font-family: "Figtree", sans-serif;
+      }
+
+      /* ---------- background ---------- */
+      #bg { z-index: 0; }
+      #bg-glow-a { position: absolute; left: -380px; top: -300px; width: 1100px; height: 1100px; border-radius: 50%;
+        background: radial-gradient(circle, rgba(13, 59, 69, 0.16) 0%, rgba(13, 59, 69, 0) 65%); }
+      #bg-glow-b { position: absolute; right: -420px; bottom: -360px; width: 1200px; height: 1200px; border-radius: 50%;
+        background: radial-gradient(circle, rgba(163, 90, 31, 0.16) 0%, rgba(163, 90, 31, 0) 65%); }
+      #bg-ghost { position: absolute; right: -170px; top: 900px; width: 760px; height: 774px; opacity: 0.07; }
+      #bg-ghost img { width: 100%; height: 100%; display: block; }
+      .bg-rule { position: absolute; left: 60px; right: 60px; height: 3px; background: rgba(163, 90, 31, 0.35); transform-origin: left center; }
+      #bg-rule-a { top: 64px; }
+      #bg-rule-b { bottom: 30px; }
+
+      /* ---------- phone (persistent from scene 2 to 7) ---------- */
+      #phone { z-index: 2; }
+      #ph-body { position: absolute; left: 160px; top: 440px; width: 760px; height: 1440px; border-radius: 70px;
+        background: #2B2420; box-shadow: 0 40px 90px rgba(13, 59, 69, 0.25), 0 10px 24px rgba(43, 36, 32, 0.2); }
+      #ph-screen { position: absolute; left: 18px; top: 18px; width: 724px; height: 1404px; border-radius: 54px; overflow: hidden; background: #F6F1E6; }
+      #ph-head { position: absolute; left: 0; top: 0; right: 0; height: 150px; background: #0D3B45;
+        display: flex; align-items: flex-end; padding: 0 30px 24px; gap: 16px; }
+      #ph-head img { width: 66px; height: 67px; display: block; }
+      #ph-name { font-family: "Cinzel", serif; font-weight: 600; font-size: 38px; letter-spacing: 0.08em; color: #F6F1E6; line-height: 1; padding-bottom: 12px; }
+      #ph-chip { margin-left: auto; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; height: 50px; padding: 0 20px;
+        border-radius: 999px; background: #E2F2E8; color: #1E7044; font-weight: 600; font-size: 28px; }
+      #ph-chip svg { width: 26px; height: 26px; display: block; }
+
+      /* ---------- shared scene vocabulary ---------- */
+      .scene { z-index: 5; }
+      .when { position: absolute; left: 60px; right: 60px; top: 92px; text-align: center; font-weight: 600; font-size: 36px;
+        letter-spacing: 0.06em; color: #A35A1F; }
+      .cap { position: absolute; left: 50px; right: 50px; top: 146px; height: 270px; display: flex; align-items: center; justify-content: center;
+        text-align: center; font-weight: 600; font-size: 66px; line-height: 1.1; letter-spacing: -0.015em; color: #0D3B45; text-wrap: balance; }
+      .cap .ci { display: block; width: 100%; }
+      .k { padding: 0 6px; background-image: linear-gradient(transparent 62%, rgba(163, 90, 31, 0.34) 62%); }
+      .bd { position: absolute; left: 178px; top: 608px; width: 724px; height: 1254px; overflow: hidden; border-radius: 0 0 54px 54px; }
+      .pg { position: absolute; left: 0; top: 0; width: 724px; height: 1254px; padding: 34px 34px; display: flex; flex-direction: column; gap: 22px; background: #F6F1E6; }
+      .h1 { font-weight: 600; font-size: 54px; line-height: 1.1; color: #2B2420; }
+      .sub { font-weight: 500; font-size: 38px; line-height: 1.2; color: #574C44; }
+      .back { font-weight: 600; font-size: 32px; color: #0D3B45; }
+      .card { position: relative; background: #FFFDF8; border: 3px solid #DCD2C1; border-radius: 26px; padding: 24px 28px; }
+      .row { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; }
+      .t1 { font-weight: 600; font-size: 42px; color: #2B2420; }
+      .t2 { font-weight: 500; font-size: 36px; color: #574C44; }
+      .amt { font-weight: 600; font-size: 44px; color: #A35A1F; white-space: nowrap; }
+      .chip { display: inline-flex; align-items: center; height: 50px; padding: 0 20px; border-radius: 999px; font-weight: 600; font-size: 30px; }
+      .chip.ok { background: #E2F2E8; color: #1E7044; }
+      .chip.info { background: #DCE8EA; color: #0D3B45; }
+      .chip.warn { background: #FFEFD2; color: #8A4B00; }
+      .chip.sel { background: #0D3B45; color: #F6F1E6; }
+      .chip.off { background: #EFE8DA; color: #574C44; }
+      .btn { position: relative; display: flex; align-items: center; justify-content: center; height: 124px; border-radius: 28px;
+        background: #0D3B45; color: #F6F1E6; font-weight: 600; font-size: 44px; }
+      .btn.amber { background: #A35A1F; }
+      .btn.brown { background: #2B2420; }
+      .fld { position: relative; background: #FFFDF8; border: 4px solid #DCD2C1; border-radius: 26px; padding: 18px 28px; }
+      .fld .lb { font-weight: 600; font-size: 32px; color: #574C44; }
+      .fld .vl { height: 76px; display: flex; align-items: center; font-weight: 600; font-size: 60px; color: #2B2420; }
+      .fld .vl .ph { color: #6B5F56; font-weight: 500; font-size: 40px; }
+      .spacer { flex: 1; }
+
+      /* tap: amber dot + ring, centred on its (position:relative) parent */
+      .tap { position: absolute; left: 50%; top: 50%; width: 120px; height: 120px; margin-left: -60px; margin-top: -60px; pointer-events: none; z-index: 4; }
+      .tap .td, .tap .tr { position: absolute; inset: 0; border-radius: 50%; display: block; opacity: 0; }
+      .tap .td { background: rgba(163, 90, 31, 0.42); border: 5px solid #A35A1F; }
+      .tap .tr { border: 6px solid #A35A1F; }
+
+      /* success overlay */
+      .ok-ov { position: absolute; inset: 0; z-index: 6; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 30px;
+        background: #F6F1E6; opacity: 0; padding: 0 40px; text-align: center; }
+      .ok-ci { width: 230px; height: 230px; border-radius: 50%; background: #1E7044; display: flex; align-items: center; justify-content: center; }
+      .ok-ci svg { width: 150px; height: 150px; display: block; }
+      .ok-t { font-weight: 600; font-size: 76px; color: #1E7044; line-height: 1.05; }
+      .ok-s { font-weight: 600; font-size: 38px; color: #2B2420; line-height: 1.25; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="61" data-width="1080" data-height="1920">
+      <!-- background (whole film) -->
+      <div id="bg" data-composition-id="bg" data-composition-src="compositions/bg.html" data-start="0" data-duration="61" data-track-index="0" data-width="1080" data-height="1920"></div>
+
+      <!-- phone with the caja header (scenes 2-7) -->
+      <div id="phone" data-composition-id="phone" data-composition-src="compositions/phone.html" data-start="5.6" data-duration="49.9" data-track-index="1" data-width="1080" data-height="1920"></div>
+
+      <!-- scenes -->
+      <div id="s1-titulo" class="scene" data-composition-id="s1-titulo" data-composition-src="compositions/s1-titulo.html" data-start="0" data-duration="6" data-track-index="2" data-width="1080" data-height="1920"></div>
+      <div id="s2-abrir" class="scene" data-composition-id="s2-abrir" data-composition-src="compositions/s2-abrir.html" data-start="6" data-duration="8" data-track-index="2" data-width="1080" data-height="1920"></div>
+      <div id="s3-inicio" class="scene" data-composition-id="s3-inicio" data-composition-src="compositions/s3-inicio.html" data-start="14" data-duration="7" data-track-index="2" data-width="1080" data-height="1920"></div>
+      <div id="s4-pedido" class="scene" data-composition-id="s4-pedido" data-composition-src="compositions/s4-pedido.html" data-start="21" data-duration="9" data-track-index="2" data-width="1080" data-height="1920"></div>
+      <div id="s5-rapida" class="scene" data-composition-id="s5-rapida" data-composition-src="compositions/s5-rapida.html" data-start="30" data-duration="8.5" data-track-index="2" data-width="1080" data-height="1920"></div>
+      <div id="s6-salida" class="scene" data-composition-id="s6-salida" data-composition-src="compositions/s6-salida.html" data-start="38.5" data-duration="7.5" data-track-index="2" data-width="1080" data-height="1920"></div>
+      <div id="s7-cerrar" class="scene" data-composition-id="s7-cerrar" data-composition-src="compositions/s7-cerrar.html" data-start="46" data-duration="9" data-track-index="2" data-width="1080" data-height="1920"></div>
+      <div id="s8-cierre" class="scene" data-composition-id="s8-cierre" data-composition-src="compositions/s8-cierre.html" data-start="55" data-duration="6" data-track-index="2" data-width="1080" data-height="1920"></div>
+
+      <!-- soft music bed (generated locally, royalty-free) -->
+      <audio id="music-bed" src="assets/audio/musica.wav" data-start="0" data-duration="61" data-track-index="3" data-volume="0.42"></audio>
+    </div>
+    <script>
+      (function () {
+        const tl = gsap.timeline({ paused: true });
+        window.__timelines["main"] = tl;
+      })();
+    </script>
+  </body>
+</html>

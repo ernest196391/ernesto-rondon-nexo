@@ -1,0 +1,6 @@
+Tú decides tu precio. Lo que subas, es para ti.
+En tu área, toca: Mis precios. Para subirlos todos a la vez, pon un porcentaje en: Aumento general, y toca: Aplicar a mi tienda.
+Para un solo producto, abre: Ver y cambiar precios de un producto. Busca el producto, escribe tu precio, y toca: Guardar.
+Tus clientes ven tu precio solo cuando entran por tu enlace. En la tienda general, todos ven el precio de Casa Viva. Por ejemplo, este organizador sale a treinta dólares en la tienda, y a treinta y cinco con tu enlace.
+¿El pedido lo haces tú? Entra desde: Ver la tienda, o desde tu enlace, y añádelo al carrito ahí. Así sale a tu precio.
+Y si quitas tu aumento, tu cliente también deja de verlo: tu enlace enseña siempre el precio que tienes guardado. ¿Dudas? Escríbeme.

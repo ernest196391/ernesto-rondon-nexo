@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1080, height=1920">
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Italiana"; src: url("fonts/Italiana-Regular.ttf") format("truetype"); font-weight: 400; }
+      @font-face { font-family: "Instrument Sans"; src: url("fonts/InstrumentSans-Regular.ttf") format("truetype"); font-weight: 400; }
+      @font-face { font-family: "Instrument Sans"; src: url("fonts/InstrumentSans-Bold.ttf") format("truetype"); font-weight: 700; }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #1B1416; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: #1B1416; font-family: "Instrument Sans", sans-serif; color: #F3F1EF; }
+      .clip { position: absolute; inset: 0; }
+      .label { position: absolute; left: 90px; top: 170px; }
+      .label .k { font-size: 34px; font-weight: 700; }
+      .label h2 { font-family: "Italiana", serif; font-weight: 400; font-size: 88px; line-height: 1.05; margin-top: 12px; max-width: 900px; }
+      .phone { position: absolute; left: 120px; right: 120px; top: 560px; height: 1060px; background: #fff; border-radius: 64px; padding: 56px 48px; color: #1B1416; }
+      .prof { display: flex; gap: 32px; align-items: center; }
+      .av { width: 170px; height: 170px; border-radius: 50%; flex: none; display: flex; align-items: center; justify-content: center; }
+      .nums { display: flex; gap: 36px; text-align: center; }
+      .nums b { display: block; font-size: 40px; }
+      .nums small { font-size: 24px; color: #6b6265; }
+      .name { font-weight: 700; font-size: 34px; margin-top: 30px; }
+      .bio { font-size: 30px; line-height: 1.45; margin-top: 8px; color: #3b3336; }
+      .btns { display: flex; gap: 14px; margin-top: 28px; }
+      .btn { flex: 1; text-align: center; font-size: 28px; font-weight: 700; padding: 18px 0; border-radius: 16px; background: #efefef; }
+      .btn.go { background: #C8812E; color: #1B1416; }
+      .hls { display: flex; gap: 26px; margin-top: 40px; }
+      .hl { width: 130px; text-align: center; font-size: 24px; }
+      .hl .t { display: block; background: #fff; color: #1B1416; }
+      .hl i { display: flex; align-items: center; justify-content: center; width: 130px; height: 130px; border-radius: 50%; margin-bottom: 10px; font-style: normal; font-size: 40px; }
+      .before .hl i { background: #ddd5cf; outline: 3px solid #e7e2de; outline-offset: 4px; color: #3b3336; font-size: 30px; }
+      .after .hl i { background: #1B1416; outline: 3px solid #C8812E; outline-offset: 4px; }
+      .x { position: absolute; right: 40px; width: 64px; height: 64px; border-radius: 50%; background: #9C5B3C; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 34px; font-weight: 700; }
+      .note { position: absolute; left: 90px; right: 90px; top: 1680px; font-size: 34px; color: #cfc7c2; line-height: 1.4; }
+      #wipe { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; background: #C8812E; }
+    </style>
+  </head>
+  <body>
+    <div data-hf-id="hf-txxr" id="root" data-composition-id="main" data-start="0" data-duration="10" data-width="1080" data-height="1920">
+
+      <section data-hf-id="hf-qu94" id="before" class="clip before" data-start="0" data-duration="4.6" data-track-index="0">
+        <div data-hf-id="hf-x0aa" class="label"><div data-hf-id="hf-eu1v" class="k" style="color:#8A817C">Hoy</div><h2 data-hf-id="hf-24l6" id="b-h">588 000 seguidores sin un camino para reservar</h2></div>
+        <div data-hf-id="hf-4z2z" class="phone" id="b-phone">
+          <div data-hf-id="hf-1iil" class="prof"><div data-hf-id="hf-7vx8" class="av" style="background:#ddd5cf"></div><div data-hf-id="hf-mhlv" class="nums"><div data-hf-id="hf-yeow"><b data-hf-id="hf-0xog">88,1 mil</b><small data-hf-id="hf-ioko">seguidores</small></div><div data-hf-id="hf-y7yw"><b data-hf-id="hf-uy7j">505</b><small data-hf-id="hf-lie7">seguidos</small></div></div></div>
+          <div data-hf-id="hf-1tzc" class="name">Yonar | Estilista</div>
+          <div data-hf-id="hf-99c6" class="bio" id="b-bio">Cubano · Cáncer · fan de su cantante favorita · WhatsApp escrito como texto, no se puede tocar</div>
+          <div data-hf-id="hf-5u2b" class="btns"><div data-hf-id="hf-7d0f" class="btn">Seguir</div><div data-hf-id="hf-0dkx" class="btn">Mensaje</div></div>
+          <div data-hf-id="hf-3f8v" class="hls"><div data-hf-id="hf-92b8" class="hl"><i data-hf-id="hf-euqg">BR</i><span data-hf-id="hf-qxgq" class="t">Brasil</span></div><div data-hf-id="hf-6gwc" class="hl"><i data-hf-id="hf-rnkx">IT</i><span data-hf-id="hf-q8la" class="t">Roma</span></div><div data-hf-id="hf-59z9" class="hl"><i data-hf-id="hf-aizu">RD</i><span data-hf-id="hf-u026" class="t">Rep. Dom.</span></div><div data-hf-id="hf-5oaa" class="hl"><i data-hf-id="hf-8v6q">♪</i><span data-hf-id="hf-3q6d" class="t">Cantante</span></div></div>
+          <div data-hf-id="hf-8sh2" class="x" id="x1" style="top:300px">!</div>
+          <div data-hf-id="hf-0pa7" class="x" id="x2" style="top:560px">!</div>
+        </div>
+        <p data-hf-id="hf-5bct" class="note" id="b-note">Sin precios, sin botón de reserva y destacadas de viajes.</p>
+      </section>
+
+      <div data-hf-id="hf-re45" id="wipe" class="clip" data-start="4.2" data-duration="1" data-track-index="1"></div>
+
+      <section data-hf-id="hf-c0b1" id="after" class="clip after" data-start="4.6" data-duration="5.4" data-track-index="0">
+        <div data-hf-id="hf-wwom" class="label"><div data-hf-id="hf-6l74" class="k" style="color:#C8812E">Con NEXO</div><h2 data-hf-id="hf-2q2p" id="a-h">Cada visita termina en una cita</h2></div>
+        <div data-hf-id="hf-l0xo" class="phone" id="a-phone">
+          <div data-hf-id="hf-2ck1" class="prof">
+            <div data-hf-id="hf-oedt" class="av" style="background:#1B1416"><svg data-hf-id="hf-2gfb" viewBox="0 0 200 180" width="110"><g data-hf-id="hf-8kmw" stroke="#C8812E" stroke-width="8" stroke-linecap="round"><line data-hf-id="hf-q47q" x1="40" y1="46" x2="40" y2="150" /><line data-hf-id="hf-iwdf" x1="60" y1="74" x2="60" y2="150" /><line data-hf-id="hf-s4pj" x1="80" y1="52" x2="80" y2="150" /><line data-hf-id="hf-n4k8" x1="100" y1="26" x2="100" y2="150" /><line data-hf-id="hf-82mv" x1="120" y1="52" x2="120" y2="150" /><line data-hf-id="hf-tizn" x1="140" y1="74" x2="140" y2="150" /><line data-hf-id="hf-eygu" x1="160" y1="46" x2="160" y2="150" /></g></svg></div>
+            <div data-hf-id="hf-ockj" class="nums"><div data-hf-id="hf-x11t"><b data-hf-id="hf-kcc8">88,1 mil</b><small data-hf-id="hf-lluo">seguidores</small></div><div data-hf-id="hf-xfcu"><b data-hf-id="hf-coun">505</b><small data-hf-id="hf-adb3">seguidos</small></div></div>
+          </div>
+          <div data-hf-id="hf-i2h0" class="name">Rey de Alisados</div>
+          <div data-hf-id="hf-0qgc" class="bio" id="a-bio">Alisados sin formol en el Vedado, La Habana. Pelo liso como un espejo. Reserva tu cita aquí.</div>
+          <div data-hf-id="hf-968j" class="btns"><div data-hf-id="hf-7ynr" class="btn go" id="a-btn">Reservar cita</div><div data-hf-id="hf-vv46" class="btn">WhatsApp</div></div>
+          <div data-hf-id="hf-dfe6" class="hls" id="a-hls">
+            <div data-hf-id="hf-bpsj" class="hl"><i data-hf-id="hf-wt6k"><svg data-hf-id="hf-vxmg" viewBox="0 0 24 24" width="44" fill="none" stroke="#C8812E" stroke-width="1.8"><path data-hf-id="hf-zyvl" d="M12 4v16M8 8h6a3 3 0 0 1 0 6H9" /></svg></i><span data-hf-id="hf-a372" class="t">Precios</span></div>
+            <div data-hf-id="hf-c43k" class="hl"><i data-hf-id="hf-zeb8"><svg data-hf-id="hf-xf4g" viewBox="0 0 24 24" width="44" fill="none" stroke="#C8812E" stroke-width="1.8"><path data-hf-id="hf-tlit" d="M6 5c2 3 2 6 0 9M12 5v14M18 5v14" /></svg></i><span data-hf-id="hf-i8zt" class="t">Resultados</span></div>
+            <div data-hf-id="hf-6v7d" class="hl"><i data-hf-id="hf-y7e5"><svg data-hf-id="hf-w87d" viewBox="0 0 24 24" width="44" fill="none" stroke="#C8812E" stroke-width="1.8"><rect data-hf-id="hf-ac1n" x="4" y="5" width="16" height="15" rx="2" /><path data-hf-id="hf-su30" d="M4 10h16M9 3v4M15 3v4" /></svg></i><span data-hf-id="hf-fich" class="t">Reservar</span></div>
+            <div data-hf-id="hf-79ie" class="hl"><i data-hf-id="hf-ylp6"><svg data-hf-id="hf-wmie" viewBox="0 0 24 24" width="44" fill="none" stroke="#C8812E" stroke-width="1.8"><path data-hf-id="hf-v3rh" d="M12 4l2.4 5 5.6.6-4.2 3.7 1.2 5.5L12 16l-5 2.8 1.2-5.5L4 9.6 9.6 9z" /></svg></i><span data-hf-id="hf-7yxb" class="t">Opiniones</span></div>
+          </div>
+        </div>
+        <p data-hf-id="hf-vxpv" class="note" id="a-note">Marca propia, botón para reservar y destacadas que venden.</p>
+      </section>
+      <audio id="voz" src="assets/voz-perfil.mp3" data-start="0.6" data-duration="8.45" data-track-index="2" data-volume="1"></audio>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      // Antes (0–4.6 s)
+      tl.fromTo("#b-h", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, 0.1);
+      tl.fromTo("#b-phone", { opacity: 0, y: 80 }, { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, 0.3);
+      tl.fromTo(["#x1", "#x2"], { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(2.5)", stagger: 0.4 }, 1.6);
+      tl.fromTo("#b-note", { opacity: 0 }, { opacity: 1, duration: 0.6 }, 2.4);
+      // Cortina ámbar (4.2–5.2 s)
+      tl.fromTo("#wipe", { yPercent: 100 }, { yPercent: 0, duration: 0.4, ease: "power3.in" }, 4.2);
+      tl.to("#wipe", { yPercent: -100, duration: 0.5, ease: "power3.out" }, 4.65);
+      // Después (4.6–10 s)
+      tl.fromTo("#a-h", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, 5.0);
+      tl.fromTo("#a-phone", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, 5.1);
+      tl.fromTo("#a-btn", { scale: 0.9 }, { scale: 1, duration: 0.5, ease: "back.out(2)" }, 6.0);
+      tl.fromTo("#a-hls .hl", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.45, ease: "power2.out", stagger: 0.15 }, 6.4);
+      tl.fromTo("#a-note", { opacity: 0 }, { opacity: 1, duration: 0.6 }, 7.4);
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

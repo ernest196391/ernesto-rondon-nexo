@@ -1,0 +1,82 @@
+{
+ "task": "transcribe",
+ "language": "Spanish",
+ "duration": 4.040249856,
+ "text": " Busca tu producto y elige cómo la quieres, por ejemplo, en un baño bonito.",
+ "words": [
+  {
+   "word": "Busca",
+   "start": 0.04,
+   "end": 0.3
+  },
+  {
+   "word": "tu",
+   "start": 0.3,
+   "end": 0.42
+  },
+  {
+   "word": "producto",
+   "start": 0.42,
+   "end": 0.84
+  },
+  {
+   "word": "y",
+   "start": 0.84,
+   "end": 1.2
+  },
+  {
+   "word": "elige",
+   "start": 1.2,
+   "end": 1.42
+  },
+  {
+   "word": "cómo",
+   "start": 1.42,
+   "end": 1.64
+  },
+  {
+   "word": "la",
+   "start": 1.64,
+   "end": 1.78
+  },
+  {
+   "word": "quieres,",
+   "start": 1.78,
+   "end": 2.34
+  },
+  {
+   "word": "por",
+   "start": 2.34,
+   "end": 2.48
+  },
+  {
+   "word": "ejemplo,",
+   "start": 2.48,
+   "end": 2.94
+  },
+  {
+   "word": "en",
+   "start": 2.94,
+   "end": 3.06
+  },
+  {
+   "word": "un",
+   "start": 3.06,
+   "end": 3.18
+  },
+  {
+   "word": "baño",
+   "start": 3.18,
+   "end": 3.38
+  },
+  {
+   "word": "bonito.",
+   "start": 3.38,
+   "end": 4.2
+  }
+ ],
+ "segments": null,
+ "x_groq": {
+  "id": "req_01m535z848exsrhc5mq9zy8c7a"
+ }
+}

@@ -1,0 +1,157 @@
+{
+ "task": "transcribe",
+ "language": "Spanish",
+ "duration": 9.752374272,
+ "text": " Nos lo dijeron. Nana, la tienda está oscura, mi teléfono no tira buenas fotos. Dayami, fotos de todas las cortinas de baño para enviar a un cliente. Las escuchamos.",
+ "words": [
+  {
+   "word": "Nos",
+   "start": 0,
+   "end": 0.16
+  },
+  {
+   "word": "lo",
+   "start": 0.16,
+   "end": 0.26
+  },
+  {
+   "word": "dijeron.",
+   "start": 0.26,
+   "end": 1.2
+  },
+  {
+   "word": "Nana,",
+   "start": 1.44,
+   "end": 2.2
+  },
+  {
+   "word": "la",
+   "start": 2.2,
+   "end": 2.28
+  },
+  {
+   "word": "tienda",
+   "start": 2.28,
+   "end": 2.5
+  },
+  {
+   "word": "está",
+   "start": 2.5,
+   "end": 2.66
+  },
+  {
+   "word": "oscura,",
+   "start": 2.66,
+   "end": 3.12
+  },
+  {
+   "word": "mi",
+   "start": 3.12,
+   "end": 3.16
+  },
+  {
+   "word": "teléfono",
+   "start": 3.16,
+   "end": 3.52
+  },
+  {
+   "word": "no",
+   "start": 3.52,
+   "end": 3.68
+  },
+  {
+   "word": "tira",
+   "start": 3.68,
+   "end": 3.84
+  },
+  {
+   "word": "buenas",
+   "start": 3.84,
+   "end": 4.06
+  },
+  {
+   "word": "fotos.",
+   "start": 4.06,
+   "end": 4.42
+  },
+  {
+   "word": "Dayami,",
+   "start": 5.1,
+   "end": 5.9
+  },
+  {
+   "word": "fotos",
+   "start": 5.9,
+   "end": 6.04
+  },
+  {
+   "word": "de",
+   "start": 6.04,
+   "end": 6.2
+  },
+  {
+   "word": "todas",
+   "start": 6.2,
+   "end": 6.38
+  },
+  {
+   "word": "las",
+   "start": 6.38,
+   "end": 6.54
+  },
+  {
+   "word": "cortinas",
+   "start": 6.54,
+   "end": 6.84
+  },
+  {
+   "word": "de",
+   "start": 6.84,
+   "end": 7.02
+  },
+  {
+   "word": "baño",
+   "start": 7.02,
+   "end": 7.3
+  },
+  {
+   "word": "para",
+   "start": 7.3,
+   "end": 7.48
+  },
+  {
+   "word": "enviar",
+   "start": 7.48,
+   "end": 7.76
+  },
+  {
+   "word": "a",
+   "start": 7.76,
+   "end": 7.86
+  },
+  {
+   "word": "un",
+   "start": 7.86,
+   "end": 8.02
+  },
+  {
+   "word": "cliente.",
+   "start": 8.02,
+   "end": 8.46
+  },
+  {
+   "word": "Las",
+   "start": 8.72,
+   "end": 8.84
+  },
+  {
+   "word": "escuchamos.",
+   "start": 8.84,
+   "end": 9.92
+  }
+ ],
+ "segments": null,
+ "x_groq": {
+  "id": "req_01m535z4a4epwtszmkf2d4kfpr"
+ }
+}

@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tienda — Rey de Alisados</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Italiana&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root { --ebano:#1B1416; --ambar:#C8812E; --canela:#9C5B3C; --perla:#F3F1EF; --humo:#8A817C; --linea:#e3dedb; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--perla); color:var(--ebano); font-family:"Instrument Sans",system-ui,sans-serif; line-height:1.5; }
+  button { font:inherit; cursor:pointer; }
+  button:focus-visible, input:focus-visible, a:focus-visible { outline:2px solid var(--ambar); outline-offset:2px; }
+  .top { position:sticky; top:0; z-index:5; background:var(--ebano); color:var(--perla); display:flex; align-items:center; justify-content:space-between; padding:12px 16px; gap:12px; }
+  .brand { display:flex; align-items:center; gap:10px; color:inherit; text-decoration:none; }
+  .brand b { font-family:Italiana,serif; font-weight:400; font-size:24px; letter-spacing:.04em; }
+  .cart-btn { background:var(--ambar); color:var(--ebano); border:0; border-radius:999px; padding:8px 14px; font-weight:600; }
+  .demo-note { background:#efe6dc; color:#5a4a3f; font-size:14px; padding:10px 16px; text-align:center; margin:0; }
+
+  .hero { background:var(--ebano); color:var(--perla); padding:56px 16px 64px; overflow:hidden; }
+  .hero-inner { max-width:1040px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr)); gap:32px; align-items:center; }
+  .hero h1 { font-family:Italiana,serif; font-weight:400; font-size:clamp(42px,8vw,76px); line-height:1; margin:0 0 16px; }
+  .hero p { color:#cfc7c2; max-width:42ch; font-size:18px; margin:0 0 24px; }
+  .hero a.go { display:inline-block; background:var(--ambar); color:var(--ebano); text-decoration:none; font-weight:600; padding:13px 20px; border-radius:12px; }
+  .strands { width:100%; max-width:420px; justify-self:center; }
+
+  main { max-width:1040px; margin:0 auto; padding:0 16px 80px; }
+  section { padding-top:64px; }
+  h2 { font-family:Italiana,serif; font-weight:400; font-size:clamp(32px,6vw,46px); margin:0 0 8px; }
+  .intro { color:#5c5356; max-width:60ch; margin:0 0 24px; }
+
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(230px,100%),1fr)); gap:20px; }
+  .product { background:#fff; border-radius:16px; overflow:hidden; display:flex; flex-direction:column; }
+  .product .img { background:#ece6e1; aspect-ratio:1 / 1; display:grid; place-items:center; }
+  .product .body { padding:14px 16px 16px; display:grid; gap:4px; flex:1; }
+  .product h3 { margin:0; font-size:17px; }
+  .product p { margin:0; color:#6b6265; font-size:14px; }
+  .product .buy { display:flex; justify-content:space-between; align-items:center; margin-top:auto; padding-top:10px; }
+  .price { font-weight:600; font-size:18px; }
+  .add { background:var(--ebano); color:var(--perla); border:0; border-radius:10px; padding:9px 14px; }
+  .add.added { background:var(--ambar); color:var(--ebano); }
+
+  .feature { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr)); gap:0; background:#fff; border-radius:16px; overflow:hidden; }
+  .feature .pic { background:var(--canela); min-height:240px; display:grid; place-items:center; }
+  .feature .txt { padding:28px 24px; display:grid; gap:10px; align-content:center; }
+  .feature h3 { font-family:Italiana,serif; font-weight:400; font-size:34px; margin:0; line-height:1.05; }
+  .feature ul { margin:0; padding-left:18px; color:#4a4245; }
+
+  .gift { background:var(--ebano); color:var(--perla); border-radius:16px; padding:28px 24px; display:grid; gap:12px; }
+  .gift h3 { font-family:Italiana,serif; font-weight:400; font-size:34px; margin:0; }
+  .gift p { color:#cfc7c2; margin:0; max-width:56ch; }
+  .amounts { display:flex; gap:10px; flex-wrap:wrap; }
+  .amounts button { background:none; color:var(--perla); border:1px solid var(--humo); border-radius:999px; padding:9px 16px; }
+  .amounts button[aria-pressed="true"] { background:var(--ambar); border-color:var(--ambar); color:var(--ebano); font-weight:600; }
+
+  .drawer { position:fixed; inset:0 0 0 auto; width:min(420px,100%); background:var(--perla); box-shadow:-8px 0 30px rgba(27,20,22,.25); transform:translateX(105%); transition:transform .25s ease; z-index:10; display:flex; flex-direction:column; }
+  .drawer.open { transform:none; }
+  @media (prefers-reduced-motion: reduce) { .drawer { transition:none; } }
+  .drawer header { display:flex; justify-content:space-between; align-items:center; padding:16px; border-bottom:1px solid var(--linea); }
+  .drawer header b { font-family:Italiana,serif; font-weight:400; font-size:28px; }
+  .close { background:none; border:0; font-size:28px; line-height:1; }
+  .items { flex:1; overflow:auto; padding:8px 16px; }
+  .item { display:grid; grid-template-columns:1fr auto; gap:4px 12px; padding:12px 0; border-bottom:1px solid var(--linea); }
+  .item small { color:#6b6265; }
+  .qty { display:flex; align-items:center; gap:8px; }
+  .qty button { width:30px; height:30px; border-radius:8px; border:1px solid var(--linea); background:#fff; }
+  .checkout { padding:16px; border-top:1px solid var(--linea); display:grid; gap:10px; }
+  .checkout label { display:grid; gap:4px; font-size:14px; font-weight:500; }
+  .checkout input { font:inherit; padding:10px 12px; border:1px solid var(--linea); border-radius:10px; background:#fff; }
+  .pay { display:flex; gap:8px; flex-wrap:wrap; }
+  .pay button { border:1px solid var(--linea); background:#fff; border-radius:999px; padding:8px 14px; }
+  .pay button[aria-pressed="true"] { background:var(--ebano); color:var(--perla); border-color:var(--ebano); }
+  .total { display:flex; justify-content:space-between; font-size:18px; font-weight:600; }
+  .order { background:var(--ambar); color:var(--ebano); border:0; border-radius:12px; padding:14px; font-weight:600; font-size:17px; }
+  .order:disabled { opacity:.45; cursor:not-allowed; }
+  .msg { background:#e8f3ea; border-radius:12px; padding:12px 14px; font-size:14px; white-space:pre-line; }
+  .backdrop { position:fixed; inset:0; background:rgba(27,20,22,.4); z-index:9; display:none; }
+  .backdrop.on { display:block; }
+  footer { background:var(--ebano); color:var(--humo); text-align:center; padding:28px 16px; font-size:14px; }
+  footer a { color:var(--perla); }
+</style>
+</head>
+<body>
+
+<div class="top">
+  <a class="brand" href="#">
+    <svg viewBox="0 0 200 180" width="36" aria-hidden="true"><g stroke="#C8812E" stroke-width="7" stroke-linecap="round"><line x1="40" y1="46" x2="40" y2="150"/><line x1="60" y1="74" x2="60" y2="150"/><line x1="80" y1="52" x2="80" y2="150"/><line x1="100" y1="26" x2="100" y2="150"/><line x1="120" y1="52" x2="120" y2="150"/><line x1="140" y1="74" x2="140" y2="150"/><line x1="160" y1="46" x2="160" y2="150"/></g></svg>
+    <b>Rey de Alisados</b>
+  </a>
+  <button class="cart-btn" id="openCart" aria-haspopup="dialog">Carrito (<span id="count">0</span>)</button>
+</div>
+<p class="demo-note">Tienda de demostración: productos y precios de ejemplo. Ningún pedido se envía de verdad.</p>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div>
+      <h1>Que tu alisado dure como el primer día</h1>
+      <p>Los productos que usa Yonar en el salón, el curso para estilistas y reservas desde cualquier país. Pagas por Transfermóvil o Zelle.</p>
+      <a class="go" href="#productos">Ver productos</a>
+    </div>
+    <svg class="strands" viewBox="0 0 420 260" aria-hidden="true">
+      <g stroke="#C8812E" stroke-width="3" stroke-linecap="round" opacity=".9">
+        <line x1="30" y1="40" x2="30" y2="250"/><line x1="52" y1="70" x2="52" y2="250"/><line x1="74" y1="96" x2="74" y2="250"/><line x1="96" y1="84" x2="96" y2="250"/><line x1="118" y1="62" x2="118" y2="250"/><line x1="140" y1="40" x2="140" y2="250"/><line x1="162" y1="22" x2="162" y2="250"/><line x1="184" y1="40" x2="184" y2="250"/><line x1="206" y1="62" x2="206" y2="250"/><line x1="228" y1="84" x2="228" y2="250"/><line x1="250" y1="96" x2="250" y2="250"/><line x1="272" y1="70" x2="272" y2="250"/><line x1="294" y1="40" x2="294" y2="250"/>
+      </g>
+      <g stroke="#8A817C" stroke-width="2" stroke-linecap="round" opacity=".5">
+        <line x1="316" y1="120" x2="316" y2="250"/><line x1="338" y1="140" x2="338" y2="250"/><line x1="360" y1="160" x2="360" y2="250"/><line x1="382" y1="180" x2="382" y2="250"/><line x1="404" y1="200" x2="404" y2="250"/>
+      </g>
+    </svg>
+  </div>
+</header>
+
+<main>
+  <section id="productos">
+    <h2>Cuidado después del alisado</h2>
+    <p class="intro">Sin sal, sin sulfatos y pensados para el calor de Cuba. Te los llevas en el salón o te los mandamos.</p>
+    <div class="grid" id="products"></div>
+  </section>
+
+  <section>
+    <div class="feature">
+      <div class="pic">
+        <svg viewBox="0 0 240 200" width="70%" aria-hidden="true"><rect x="30" y="40" width="180" height="120" rx="10" fill="none" stroke="#F3F1EF" stroke-width="3"/><path d="M105 75 L145 100 L105 125 Z" fill="#F3F1EF"/><g stroke="#1B1416" stroke-width="3" stroke-linecap="round"><line x1="60" y1="175" x2="60" y2="190"/><line x1="80" y1="170" x2="80" y2="190"/><line x1="100" y1="165" x2="100" y2="190"/><line x1="120" y1="160" x2="120" y2="190"/><line x1="140" y1="165" x2="140" y2="190"/><line x1="160" y1="170" x2="160" y2="190"/><line x1="180" y1="175" x2="180" y2="190"/></g></svg>
+      </div>
+      <div class="txt">
+        <h3>Curso online: alisado sin formol paso a paso</h3>
+        <p>Para estilistas que quieren aprender la técnica de Yonar desde su casa, en Cuba o fuera.</p>
+        <ul>
+          <li>12 clases en video, a tu ritmo</li>
+          <li>Cómo diagnosticar cada tipo de pelo</li>
+          <li>Grupo de WhatsApp para preguntas</li>
+        </ul>
+        <div class="buy" style="display:flex;justify-content:space-between;align-items:center;margin-top:8px"><span class="price">79 USD</span><button class="add" data-id="curso">Añadir</button></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="gift">
+      <h3>Reserva o regala un alisado desde fuera</h3>
+      <p>¿Vienes a Cuba en diciembre o quieres regalarle un alisado a tu mamá? Pagas aquí por Zelle y la cita queda guardada con su nombre.</p>
+      <div class="amounts" id="amounts"></div>
+      <div><button class="add" id="addGift" style="background:var(--ambar);color:var(--ebano)">Añadir al carrito</button></div>
+    </div>
+  </section>
+</main>
+
+<footer>Rey de Alisados, Salón Capadocia, Vedado, La Habana. <a href="../calendario/">Reservar cita</a></footer>
+
+<div class="backdrop" id="backdrop"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="cartTitle">
+  <header><b id="cartTitle">Tu carrito</b><button class="close" id="closeCart" aria-label="Cerrar carrito">×</button></header>
+  <div class="items" id="items"></div>
+  <div class="checkout">
+    <label>Nombre <input id="cname" autocomplete="name"></label>
+    <label>WhatsApp <input id="cphone" inputmode="tel" autocomplete="tel" placeholder="+53 5… o +1 305…"></label>
+    <div class="pay" id="pay"></div>
+    <div class="total"><span>Total</span><span id="total">0 USD</span></div>
+    <button class="order" id="order" disabled>Hacer pedido por WhatsApp</button>
+    <div class="msg" id="msg" hidden></div>
+  </div>
+</aside>
+
+<script>
+const bottle = (cap, body, label) => `<svg viewBox="0 0 200 200" width="62%" aria-hidden="true"><rect x="82" y="22" width="36" height="26" rx="4" fill="${cap}"/><rect x="62" y="46" width="76" height="134" rx="18" fill="${body}"/><g stroke="#C8812E" stroke-width="3" stroke-linecap="round"><line x1="84" y1="96" x2="84" y2="130"/><line x1="94" y1="88" x2="94" y2="130"/><line x1="100" y1="80" x2="100" y2="130"/><line x1="106" y1="88" x2="106" y2="130"/><line x1="116" y1="96" x2="116" y2="130"/></g><text x="100" y="156" text-anchor="middle" font-family="Instrument Sans, sans-serif" font-size="11" fill="${label}">${'REY'}</text></svg>`;
+const jar = `<svg viewBox="0 0 200 200" width="62%" aria-hidden="true"><rect x="58" y="60" width="84" height="22" rx="6" fill="#1B1416"/><rect x="52" y="80" width="96" height="92" rx="16" fill="#F3F1EF"/><g stroke="#C8812E" stroke-width="3" stroke-linecap="round"><line x1="86" y1="110" x2="86" y2="146"/><line x1="96" y1="102" x2="96" y2="146"/><line x1="104" y1="102" x2="104" y2="146"/><line x1="114" y1="110" x2="114" y2="146"/></g></svg>`;
+const kit = `<svg viewBox="0 0 200 200" width="70%" aria-hidden="true"><rect x="30" y="70" width="140" height="100" rx="10" fill="#1B1416"/><rect x="60" y="40" width="30" height="44" rx="8" fill="#F3F1EF"/><rect x="100" y="34" width="30" height="50" rx="8" fill="#9C5B3C"/><g stroke="#C8812E" stroke-width="3" stroke-linecap="round"><line x1="80" y1="105" x2="80" y2="140"/><line x1="92" y1="98" x2="92" y2="140"/><line x1="100" y1="92" x2="100" y2="140"/><line x1="108" y1="98" x2="108" y2="140"/><line x1="120" y1="105" x2="120" y2="140"/></g></svg>`;
+
+const CATALOG = {
+  champu:   { name:'Champú sin sal', note:'250 ml. Limpia sin quitar el alisado.', price:12, img: bottle('#1B1416', '#F3F1EF', '#1B1416') },
+  mascarilla:{ name:'Mascarilla post alisado', note:'250 ml. Hidrata una vez por semana.', price:15, img: jar },
+  serum:    { name:'Sérum de brillo', note:'60 ml. Protege del calor y la humedad.', price:14, img: bottle('#C8812E', '#1B1416', '#F3F1EF') },
+  kit:      { name:'Kit Espejo (los 3)', note:'Champú, mascarilla y sérum. Ahorras 6 USD.', price:35, img: kit },
+  curso:    { name:'Curso online de alisado', note:'Acceso de por vida.', price:79 },
+};
+const GIFTS = [ { id:'reserva', label:'Reserva de cita · 10 USD', price:10 }, { id:'alisado-medio', label:'Alisado pelo medio · 50 USD', price:50 }, { id:'alisado-largo', label:'Alisado pelo largo · 65 USD', price:65 } ];
+let gift = GIFTS[0];
+let pay = 'Zelle';
+const KEY = 'rey-carrito-demo';
+let cart = {};
+try { cart = JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { cart = {}; }
+const saveCart = () => { try { localStorage.setItem(KEY, JSON.stringify(cart)); } catch (e) {} };
+const $ = id => document.getElementById(id);
+const info = id => CATALOG[id] || (id.startsWith('regalo-') && (() => { const g = GIFTS.find(x => 'regalo-' + x.id === id); return g && { name:'Desde fuera: ' + g.label.split(' · ')[0], price:g.price }; })());
+
+function renderProducts() {
+  $('products').innerHTML = ['champu','mascarilla','serum','kit'].map(id => {
+    const p = CATALOG[id];
+    return `<article class="product"><div class="img">${p.img}</div><div class="body"><h3>${p.name}</h3><p>${p.note}</p><div class="buy"><span class="price">${p.price} USD</span><button class="add" data-id="${id}">Añadir</button></div></div></article>`;
+  }).join('');
+}
+function renderAmounts() {
+  $('amounts').innerHTML = GIFTS.map(g => `<button data-g="${g.id}" aria-pressed="${g === gift}">${g.label}</button>`).join('');
+}
+function add(id, btn) {
+  cart[id] = (cart[id] || 0) + 1; saveCart(); renderCart();
+  if (btn) { btn.classList.add('added'); btn.textContent = 'Añadido'; setTimeout(() => { btn.classList.remove('added'); btn.textContent = btn.id === 'addGift' ? 'Añadir al carrito' : 'Añadir'; }, 1200); }
+}
+function renderCart() {
+  const ids = Object.keys(cart).filter(id => cart[id] > 0 && info(id));
+  $('count').textContent = ids.reduce((s, id) => s + cart[id], 0);
+  $('items').innerHTML = ids.length ? ids.map(id => {
+    const p = info(id);
+    return `<div class="item"><div><b>${p.name}</b><br><small>${p.price} USD c/u</small></div><div class="qty"><button data-dec="${id}" aria-label="Quitar uno">−</button><span>${cart[id]}</span><button data-inc="${id}" aria-label="Añadir uno">+</button></div></div>`;
+  }).join('') : '<p style="color:#6b6265">Tu carrito está vacío.</p>';
+  const total = ids.reduce((s, id) => s + info(id).price * cart[id], 0);
+  $('total').textContent = total + ' USD';
+  $('pay').innerHTML = ['Zelle','Transfermóvil','Efectivo en el salón'].map(p => `<button data-p="${p}" aria-pressed="${p === pay}">${p}</button>`).join('');
+  $('order').disabled = !(total > 0 && $('cname').value.trim() && $('cphone').value.trim());
+  return { ids, total };
+}
+function openCart(open) { $('drawer').classList.toggle('open', open); $('backdrop').classList.toggle('on', open); if (open) $('closeCart').focus(); }
+
+document.addEventListener('click', e => {
+  const t = e.target.closest('button'); if (!t) return;
+  if (t.matches('.add[data-id]')) add(t.dataset.id, t);
+  if (t.dataset.g) { gift = GIFTS.find(g => g.id === t.dataset.g); renderAmounts(); }
+  if (t.dataset.inc) { cart[t.dataset.inc]++; saveCart(); renderCart(); }
+  if (t.dataset.dec) { cart[t.dataset.dec]--; if (cart[t.dataset.dec] <= 0) delete cart[t.dataset.dec]; saveCart(); renderCart(); }
+  if (t.dataset.p) { pay = t.dataset.p; renderCart(); }
+});
+$('addGift').onclick = e => add('regalo-' + gift.id, e.currentTarget);
+$('openCart').onclick = () => openCart(true);
+$('closeCart').onclick = () => openCart(false);
+$('backdrop').onclick = () => openCart(false);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') openCart(false); });
+['cname','cphone'].forEach(id => $(id).addEventListener('input', renderCart));
+$('order').onclick = () => {
+  const { ids, total } = renderCart();
+  const lines = ids.map(id => `• ${cart[id]} × ${info(id).name}`).join('\n');
+  const how = pay === 'Zelle' ? 'Te mandamos el correo de Zelle para el pago.' : pay === 'Transfermóvil' ? 'Te mandamos la cuenta de Transfermóvil (al cambio del día).' : 'Pagas al recoger en el salón.';
+  $('msg').hidden = false;
+  $('msg').textContent = `Así llegaría el pedido al WhatsApp de Yonar (demo, no se envía):\n\nHola, soy ${$('cname').value.trim()} (${$('cphone').value.trim()}). Quiero:\n${lines}\nTotal: ${total} USD. Pago: ${pay}.\n\nRespuesta automática: ¡Gracias! ${how}`;
+  cart = {}; saveCart(); renderCart();
+};
+
+renderProducts(); renderAmounts(); renderCart();
+</script>
+</body>
+</html>

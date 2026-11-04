@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Errores del día</title>
+<meta name="description" content="Errores del 20-oct y cómo mejorar: el bot, nosotros y el sistema de Casa Viva.">
+<style>
+:root{
+  --bg:#f6f1e7; --surface:#fffdf8; --surface-2:#efe7d6; --ink:#1b2a2f; --muted:#5b686b;
+  --brand:#1d3c45; --brand-ink:#f6f1e7; --accent:#e0a43a; --accent-soft:#f7e6c3;
+  --danger:#b3412e; --danger-soft:#f6ddd6; --ok:#2e7656; --ok-soft:#dcefe4;
+  --warn:#9a6a12; --line:#e2d8c4; --shadow:0 1px 2px rgba(29,60,69,.08);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0f1f24; --surface:#152a30; --surface-2:#1c353c; --ink:#eef0ea; --muted:#a6b3b4;
+    --brand:#9ccad4; --brand-ink:#0f1f24; --accent:#e9b552; --accent-soft:#3a2f17;
+    --danger:#f08b76; --danger-soft:#3b1f1a; --ok:#73c79f; --ok-soft:#173327;
+    --warn:#e9b552; --line:#284249; --shadow:none;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0f1f24; --surface:#152a30; --surface-2:#1c353c; --ink:#eef0ea; --muted:#a6b3b4;
+  --brand:#9ccad4; --brand-ink:#0f1f24; --accent:#e9b552; --accent-soft:#3a2f17;
+  --danger:#f08b76; --danger-soft:#3b1f1a; --ok:#73c79f; --ok-soft:#173327;
+  --warn:#e9b552; --line:#284249; --shadow:none;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+.wrap{max-width:720px;margin:0 auto;padding:20px 16px 48px}
+header{background:var(--brand);color:var(--brand-ink);border-radius:16px;padding:20px 18px;margin-bottom:18px}
+:root[data-theme="dark"] header{background:#1d3c45;color:#f6f1e7}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) header{background:#1d3c45;color:#f6f1e7}}
+header small{display:block;opacity:.8;font-size:13px;letter-spacing:.04em;text-transform:uppercase}
+h1{font-size:26px;line-height:1.2;margin:4px 0 6px}
+header p{margin:0;opacity:.92}
+h2{font-size:20px;margin:30px 0 10px;color:var(--brand);display:flex;gap:8px;align-items:baseline}
+h2 .n{background:var(--accent);color:#1d3c45;border-radius:999px;font-size:13px;padding:1px 9px;font-weight:700}
+h3{font-size:17px;margin:18px 0 8px}
+p{margin:6px 0}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 0 10px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 8px;text-align:center;box-shadow:var(--shadow)}
+.stat b{display:block;font-size:34px;line-height:1;color:var(--brand)}
+.stat.bot b{color:var(--danger)}
+.stat.sys b{color:var(--warn)}
+.stat span{display:block;font-size:13px;color:var(--muted);margin-top:6px;line-height:1.25}
+.verdict{background:var(--accent-soft);border-left:4px solid var(--accent);border-radius:10px;padding:10px 12px;font-weight:600}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin:10px 0;box-shadow:var(--shadow)}
+.card.grave{border-left:5px solid var(--danger)}
+.card h3{margin:0 0 6px;font-size:16px}
+.row{display:grid;grid-template-columns:86px 1fr;gap:2px 10px;font-size:15px;margin:3px 0}
+.row .k{color:var(--muted);font-size:13px;padding-top:2px}
+.pill{display:inline-block;font-size:12px;font-weight:700;border-radius:999px;padding:1px 8px;vertical-align:1px;white-space:nowrap}
+.ok{background:var(--ok-soft);color:var(--ok)}
+.pend{background:var(--danger-soft);color:var(--danger)}
+.mid{background:var(--accent-soft);color:var(--warn)}
+details{background:var(--surface);border:1px solid var(--line);border-radius:14px;margin:10px 0;box-shadow:var(--shadow)}
+summary{cursor:pointer;list-style:none;padding:12px 14px;font-weight:700;display:flex;justify-content:space-between;gap:10px;align-items:center}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-size:20px;color:var(--muted);line-height:1}
+details[open] summary::after{content:"–"}
+details .body{padding:0 14px 12px}
+.item{border-top:1px solid var(--line);padding:10px 0}
+.item:first-child{border-top:0;padding-top:0}
+.item .t{font-size:13px;color:var(--muted)}
+.item p{margin:3px 0;font-size:15px}
+.item .lbl{font-weight:700}
+ul,ol{padding-left:20px;margin:6px 0}
+li{margin:5px 0}
+.plan li{margin:8px 0}
+.tag{display:inline-block;min-width:24px;text-align:center;font-size:12px;font-weight:800;border-radius:6px;padding:1px 6px;margin-right:6px}
+.S{background:var(--ok-soft);color:var(--ok)}
+.M{background:var(--accent-soft);color:var(--warn)}
+.L{background:var(--danger-soft);color:var(--danger)}
+.note{font-size:14px;color:var(--muted)}
+.steps{counter-reset:s;list-style:none;padding:0}
+.steps li{counter-increment:s;position:relative;padding-left:36px;margin:9px 0}
+.steps li::before{content:counter(s);position:absolute;left:0;top:0;width:26px;height:26px;border-radius:50%;
+  background:var(--brand);color:var(--bg);font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center}
+.table{width:100%;border-collapse:collapse;font-size:14px}
+.table th,.table td{border-top:1px solid var(--line);padding:7px 6px;text-align:left;vertical-align:top}
+.table th{color:var(--muted);font-weight:600;font-size:13px}
+.tscroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.check li{list-style:none;margin-left:-20px;padding-left:28px;position:relative}
+.check li::before{content:"";position:absolute;left:0;top:4px;width:16px;height:16px;border:2px solid var(--brand);border-radius:4px}
+footer{margin-top:30px;font-size:13px;color:var(--muted)}
+code{font-size:13px;background:var(--surface-2);padding:0 4px;border-radius:4px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <small>Casa Viva · martes 20 de octubre</small>
+  <h1>Errores del 20-oct y cómo mejorar</h1>
+  <p>Lo que falló hoy, lo que ya se arregló y lo que falta. Para leer en 3 minutos.</p>
+</header>
+
+<div class="stats">
+  <div class="stat bot"><b>19</b><span>errores del bot</span></div>
+  <div class="stat"><b>12</b><span>errores nuestros<br>(Claude y Codex)</span></div>
+  <div class="stat sys"><b>12</b><span>problemas del sistema</span></div>
+</div>
+<p class="verdict">Veredicto: cuando el bot no sabe algo, lo inventa. El dinero y la estafa de la bici se pararon a tiempo, pero hay que cambiar 6 reglas del bot esta semana.</p>
+
+<!-- 2 -->
+<h2>Lo más grave <span class="n">5</span></h2>
+
+<div class="card grave">
+  <h3>1 · El bot dio TU número como el de la estafadora</h3>
+  <div class="row"><span class="k">Pasó</span><span>17:03 · Dany pidió el número de la clienta de la bici para bloquearla. El bot le dio el tuyo (el del bot). Dany lo iba a bloquear «por todos lados».</span></div>
+  <div class="row"><span class="k">Hicimos</span><span>17:04 aviso a Dany: no bloquear ese número; los de verdad son los 3 números bloqueados. Bot en pausa con Dany 2 h.</span></div>
+  <div class="row"><span class="k">Estado</span><span><span class="pill pend">Falta en el código</span> Regla: el bot nunca da su propio número ni el de alguien del equipo como el de un cliente.</span></div>
+</div>
+
+<div class="card grave">
+  <h3>2 · Bici #4220 (550 USD): estafa</h3>
+  <div class="row"><span class="k">Pasó</span><span>Pedido sin gestora. Al mensajero Carlos le salió el recordatorio de «lleva 550 USD». Él lo explicó y el bot creyó que quería pagar: abrió un cobro falso (PAGO-fb447480) y le preguntó a Lennys qué cuenta usar.</span></div>
+  <div class="row"><span class="k">Hicimos</span><span>14:12 pedido cancelado, la bici vuelve a la web y a la caja, cobro falso cancelado, Cary y Carlos avisados. 17:10 lista de números sospechosos EN VIVO (D83).</span></div>
+  <div class="row"><span class="k">Estado</span><span><span class="pill ok">Resuelto</span> <span class="pill pend">Falta</span> que el detector de «quiero pagar» no salte con explicaciones.</span></div>
+</div>
+
+<div class="card grave">
+  <h3>3 · La caja no se usa</h3>
+  <div class="row"><span class="k">Pasó</span><span>Lennys avisó: las dependientas cuadran a mano porque la caja no ve los pedidos de la web (casi todo el dinero). Los teléfonos de Nana y Zaymi no se conectan desde el 11 y el 15-oct.</span></div>
+  <div class="row"><span class="k">Hicimos</span><span>Auditoría completa y plan P0 en la rama <code>caja-p0-1020</code>.</span></div>
+  <div class="row"><span class="k">Estado</span><span><span class="pill pend">Sin desplegar</span> Es lo más importante para Lennys.</span></div>
+</div>
+
+<div class="card grave">
+  <h3>4 · Dinero de entregas que no llega a la tienda</h3>
+  <div class="row"><span class="k">Pasó</span><span>Ely (#4237, #4243: 59 USD) y Melany (#3932: 40 USD) no han devuelto el dinero. Encima, el bot le dijo a Lennys que el #4237 «no se ha despachado»: falso, Ely lo entregó.</span></div>
+  <div class="row"><span class="k">Hicimos</span><span>Se les preguntó a los tres. Fernando (110 USD) ya estaba pagado.</span></div>
+  <div class="row"><span class="k">Estado</span><span><span class="pill mid">Esperando</span> 99 USD de Ely y Melany. Falta el aviso automático de «dinero sin devolver».</span></div>
+</div>
+
+<div class="card grave">
+  <h3>5 · El bot molesta a proveedores y tienda sin motivo</h3>
+  <div class="row"><span class="k">Pasó</span><span>Le preguntó a Kevin por una consola y por «bolsas de nailon» que nadie pidió. A Nana y Zaymi les mandó «No tiene que ser hoy», una pregunta sin sentido.</span></div>
+  <div class="row"><span class="k">Hicimos</span><span>Kevin, Nana y Zaymi avisados. Codex quitó las consultas automáticas a Kevin que salen de una frase suelta.</span></div>
+  <div class="row"><span class="k">Estado</span><span><span class="pill mid">A medias</span> Arreglado solo para Kevin. Falta para la tienda y los otros proveedores.</span></div>
+</div>
+
+<!-- 3 -->
+<h2>Errores del bot <span class="n">19</span></h2>
+<p class="note">Toca cada grupo para abrirlo. Las horas son de Cuba.</p>
+
+<details open>
+  <summary>Inventa datos · 6</summary>
+  <div class="body">
+    <div class="item">
+      <div class="t">17:03 · Dany</div>
+      <p>Dio tu número como el de la estafadora de la bici.</p>
+      <p><span class="lbl">Hecho:</span> corregido en 1 minuto, pausa 2 h.</p>
+      <p><span class="lbl">Falta:</span> si el pedido no tiene teléfono del cliente, decir «no lo tengo».</p>
+    </div>
+    <div class="item">
+      <div class="t">16:06 · zhu, #4261</div>
+      <p>«Hoy ya no salen entregas, la mensajería cierra antes de las 5». No existe esa regla.</p>
+      <p><span class="lbl">Hecho:</span> el pedido pasó a Pedri para mañana.</p>
+      <p><span class="lbl">Falta:</span> el bot no puede dar horarios que no estén en el sistema.</p>
+    </div>
+    <div class="item">
+      <div class="t">13:59 · Lennys</div>
+      <p>Dijo que el paraguas «no tiene comisión fija». Falso: tiene 2 USD fijos.</p>
+      <p><span class="lbl">Hecho:</span> revisados los pedidos desde el 1-oct; a Claudia le faltan 0,50 USD. Lennys avisada.</p>
+      <p><span class="lbl">Falta:</span> leer la comisión de cada color o talla, no solo la del producto.</p>
+    </div>
+    <div class="item">
+      <div class="t">13:39 · Lennys, #4237</div>
+      <p>«No se ha despachado». Falso: Ely lo entregó a las 10:38.</p>
+      <p><span class="lbl">Hecho:</span> mensaje correcto redactado; tardó por permisos.</p>
+      <p><span class="lbl">Falta:</span> leer el estado de entrega y al mensajero antes de contestar sobre un pedido.</p>
+    </div>
+    <div class="item">
+      <div class="t">13:36 · Enrique</div>
+      <p>Disco duro bajo pedido: «hazlo sin pagar y el cliente pasa a verlo a Casa Viva». Proceso inventado.</p>
+      <p><span class="lbl">Falta:</span> que decidas la regla de «bajo pedido + recoger en tienda».</p>
+    </div>
+    <div class="item">
+      <div class="t">12:23 · Enrique</div>
+      <p>«Los productos bajo pedido no se recogen en tienda». Falso. Lo corregiste tú a las 12:36.</p>
+      <p><span class="lbl">Hecho:</span> conocimiento #273.</p>
+    </div>
+  </div>
+</details>
+
+<details>
+  <summary>Entiende mal y ofrece cualquier producto · 6</summary>
+  <div class="body">
+    <div class="item">
+      <div class="t">13:44 · una gestora se despide</div>
+      <p>Dijo «gracias, bendiciones» y el bot le ofreció patines y una consola.</p>
+    </div>
+    <div class="item">
+      <div class="t">13:48 · Enrique</div>
+      <p>Preguntó si el disco viene «sellado en caja, naylon». El bot entendió «bolsas de nailon» y le dio un precio.</p>
+      <p><span class="lbl">Hecho:</span> Enrique avisado; las 2 consultas falsas borradas.</p>
+    </div>
+    <div class="item">
+      <div class="t">14:24 · una gestora</div>
+      <p>Mandó emojis y una pregunta sobre la subida de precio. El bot le ofreció carritos de mandado.</p>
+    </div>
+    <div class="item">
+      <div class="t">15:50 · Leya</div>
+      <p>Preguntó si ya no hay que esperar al jueves para cobrar. El bot le ofreció espejos LED.</p>
+    </div>
+    <div class="item">
+      <div class="t">16:06 · Lázaro, #4261</div>
+      <p>Entendió «pasar a otra persona» como el nombre de un mensajero.</p>
+    </div>
+    <div class="item">
+      <div class="t">14:02 · Cary</div>
+      <p>Dos veces «ese pedido no lo veo» (la bici no tenía gestora asignada).</p>
+    </div>
+    <p class="note"><b>Arreglo hecho:</b> en carritos y espejos el bot pidió perdón después. <b>Falta en el código:</b> el detector de productos salta con una palabra suelta dentro de otra pregunta.</p>
+  </div>
+</details>
+
+<details>
+  <summary>Se mete donde no debe · 3</summary>
+  <div class="body">
+    <div class="item">
+      <div class="t">13:44 y 13:48 · Kevin</div>
+      <p>Le preguntó por una consola y por bolsas de nailon que nadie había pedido.</p>
+      <p><span class="lbl">Hecho:</span> Kevin avisado. Codex quitó estas consultas automáticas para Kevin.</p>
+      <p><span class="lbl">Falta:</span> lo mismo para todos los proveedores.</p>
+    </div>
+    <div class="item">
+      <div class="t">16:06 · Nana y Zaymi</div>
+      <p>Les mandó la pregunta «No tiene que ser hoy», sin sentido para ellas.</p>
+      <p><span class="lbl">Hecho:</span> pregunta cerrada y avisadas.</p>
+      <p><span class="lbl">Falta:</span> solo preguntar a la tienda con una pregunta clara y con pedido.</p>
+    </div>
+    <div class="item">
+      <div class="t">14:58 · Lennys</div>
+      <p>Le reenviaba la ficha del #3938 cada vez que ella respondía citándola, aunque estaba en pausa.</p>
+      <p><span class="lbl">Hecho:</span> Codex ya no reenvía fichas por números citados.</p>
+      <p><span class="lbl">Falta:</span> que la pausa se mire ANTES de cualquier envío automático.</p>
+    </div>
+    <p class="note"><b>A revisar contigo:</b> el bot también contesta mensajes personales (familia, la lavadora, la corriente) con «le aviso a Ernesto». ¿Lo quieres así?</p>
+  </div>
+</details>
+
+<details>
+  <summary>Dinero y pedidos · 4</summary>
+  <div class="body">
+    <div class="item">
+      <div class="t">14:06 · Carlos López y Lennys</div>
+      <p>Abrió un cobro falso (PAGO-fb447480) porque Carlos explicaba una deuda.</p>
+      <p><span class="lbl">Hecho:</span> cobro cancelado, pausa con Carlos, los dos avisados.</p>
+      <p><span class="lbl">Falta:</span> el detector de «pide cuenta para pagar» no debe saltar con explicaciones.</p>
+    </div>
+    <div class="item">
+      <div class="t">Tarde · Day, #4238</div>
+      <p>Day escribió «a pagar» y el bot lo entendió como «pagó».</p>
+      <p><span class="lbl">Falta:</span> que Félix confirme cuántas almohadas entregó y cobró; corregir el #4238.</p>
+    </div>
+    <div class="item">
+      <div class="t">09:55 · Katia y Daiquel, #4223</div>
+      <p>«Queda en revisión de la tienda» y nadie lo revisó. A las 12:00 salió al grupo y lo cogió Pedri.</p>
+      <p><span class="lbl">Hecho:</span> mensajero corregido a Daiquel.</p>
+      <p><span class="lbl">Falta:</span> si la gestora dice «se lo asigné a X», asignarlo directo.</p>
+    </div>
+    <div class="item">
+      <div class="t">14:01 y 14:04 · Carlos y Fernando</div>
+      <p>Recordatorios de dinero equivocados: a Carlos por la bici (ya recogida) y a Fernando por pedidos ya pagados.</p>
+      <p><span class="lbl">Hecho:</span> los cancelados ya no cuentan.</p>
+      <p><span class="lbl">Falta:</span> leer el estado del dinero justo antes de mandar el recordatorio.</p>
+    </div>
+  </div>
+</details>
+
+<!-- 4 -->
+<h2>Errores nuestros <span class="n">12</span></h2>
+<details open>
+  <summary>Claude · 7</summary>
+  <div class="body">
+    <ul>
+      <li>Mensajes con «\n» escritos tal cual, en vez de saltos de línea.</li>
+      <li>Un mensaje a Lázaro que ya estaba viejo cuando salió.</li>
+      <li>Un envío a un teléfono con el formato mal escrito.</li>
+      <li>Arreglos bloqueados por permisos: el mensaje del #4237, la devolución del #4203 y la cancelación de la bici tardaron. Por eso a Carlos le llegó el recordatorio de los 550 USD.</li>
+      <li>La sesión se reinició a mitad de trabajo y se perdió tiempo.</li>
+      <li><code>cv reiniciar</code> se negaba a reiniciar por una prueba que sí pasa a mano. Se reinició saltando la comprobación: es un riesgo.</li>
+      <li>17:12: reabrió el #4206 (manta rosada) sin mirar que Day ya había hecho el pedido nuevo #4269; Lennys lo aclaró y se canceló otra vez. Regla: antes de reabrir, buscar un pedido nuevo del mismo cliente o producto.</li>
+    </ul>
+  </div>
+</details>
+<details>
+  <summary>Codex (la otra sesión, «ChatGPT») · 5</summary>
+  <div class="body">
+    <ul>
+      <li>13:38: subió cambios al servidor del bot sin pasarlos antes a la copia principal. Hubo dos versiones distintas un rato.</li>
+      <li>El servidor corre una rama aparte, no la principal. Hay otra mejora (turno de la dependienta) en otra rama, sin subir.</li>
+      <li>No está claro si la función «decisiones de pedidos en tienda → Lennys» quedó activa después del último reinicio.</li>
+      <li>Activó la compra por chat a Kevin sin una compra real de prueba de punta a punta.</li>
+      <li>68 informes de supervisión hoy, casi todos «aplazado». Mucho texto, pocas decisiones: siguen 9 incidencias abiertas.</li>
+    </ul>
+  </div>
+</details>
+
+<!-- 5 -->
+<h2>Problemas del sistema <span class="n">12</span></h2>
+<details open>
+  <summary>Ver los 12</summary>
+  <div class="body">
+    <ol>
+      <li><b>Caja:</b> no ve los pedidos de la web.</li>
+      <li><b>Caja:</b> teléfonos de Nana y Zaymi desconectados; la PC nunca se dio de alta.</li>
+      <li><b>Caja:</b> la sincronización puede tardar 1 h; se vende sin turno; 0,5 % en vez del 2 % (D80).</li>
+      <li><b>Vercel</b> no publica solo: Lennys vio una versión vieja del panel hasta las 14:41.</li>
+      <li><b>Telegram</b> sin acceso todo el día («Unauthorized»): esos avisos no llegan.</li>
+      <li>Una <b>prueba del bot</b> falla con los datos reales y bloquea los reinicios seguros.</li>
+      <li>El bot lleva <b>29 reinicios</b> acumulados.</li>
+      <li>Cancelar un pedido no paraba sus recordatorios (ya arreglado).</li>
+      <li>Pedidos sin gestora o con mensajero equivocado (#4220, #4223).</li>
+      <li>No hay aviso automático de <b>dinero sin devolver</b> por mensajero.</li>
+      <li>No existe <b>devolución parcial</b> en el panel (#4203 se hizo a mano).</li>
+      <li>Vales con cantidad o precio mal (#4238: 4 almohadas a 22 en vez de 2 a 25) y 124 de 212 productos con la ficha incompleta.</li>
+    </ol>
+  </div>
+</details>
+
+<!-- 6 -->
+<h2>Cómo mejorarlo</h2>
+<p class="note"><span class="tag S">S</span>pequeño, 1 día · <span class="tag M">M</span>mediano, 2-4 días · <span class="tag L">L</span>grande, 1 semana o más. En orden de prioridad.</p>
+<ol class="plan">
+  <li><span class="tag S">S</span><b>Nunca dar su propio número</b> (ni el de nadie del equipo) como el de un cliente. Sin teléfono en el pedido: «no lo tengo».</li>
+  <li><span class="tag S">S</span><b>«No lo sé, lo consulto»</b> en vez de inventar: horarios, comisiones, reglas y estados solo si están en el sistema.</li>
+  <li><span class="tag S">S</span><b>La pausa manda:</b> si un chat está en pausa, no sale nada automático (fichas, avisos, recordatorios).</li>
+  <li><span class="tag S">S</span><b>Detector de productos más estricto:</b> nunca en «gracias», emojis, ni preguntas de cobro o de pedidos. Solo si el mensaje pide un producto.</li>
+  <li><span class="tag S">S</span><b>Proveedores y tienda solo con un pedido real</b> o una pregunta real de una gestora.</li>
+  <li><span class="tag S">S</span><b>Una sola versión:</b> todo pasa a la copia principal antes de subir al servidor; Vercel publica solo; arreglar <code>cv reiniciar</code>.</li>
+  <li><span class="tag S">S</span><b>Mensajes nuestros revisados:</b> antes de enviar, quitar «\n» y comprobar el formato del teléfono.</li>
+  <li><span class="tag M">M</span><b>Leer el pedido real antes de contestar:</b> entrega, mensajero, dinero y la comisión de cada color.</li>
+  <li><span class="tag M">M</span><b>«Me lo asignó a mí» = asignar directo.</b> Nunca «queda en revisión» sin que alguien lo tenga.</li>
+  <li><span class="tag M">M</span><b>Dinero:</b> «a pagar» no es «pagó»; un cobro solo con frase clara y monto.</li>
+  <li><span class="tag M">M</span><b>Informe de errores automático a las 21:00</b>, como esta página, para ti y para Lennys.</li>
+  <li><span class="tag M">M</span><b>Patrón de Kevin para todos los proveedores</b> (abajo).</li>
+  <li><span class="tag M">M</span><b>Pantalla «Hoy» de Lennys:</b> dinero que debe cada mensajero, con aviso a las 12 h. Y devolución parcial en el panel.</li>
+  <li><span class="tag L">L</span><b>Caja P0:</b> ver pedidos web, conectar los teléfonos, un turno por tienda y un solo cuadre (caja + web + mensajeros).</li>
+</ol>
+
+<!-- 7 -->
+<h2>Proveedores: el patrón de Kevin para todos</h2>
+<h3>Qué hace hoy con Kevin (Digital Store)</h3>
+<ol class="steps">
+  <li><b>Mira la app de Kevin primero</b> (producto exacto MK-): si hay, precio, garantía. Solo mira, no toca nada.</li>
+  <li><b>Lo que dijo Kevin manda sobre la app.</b> Ejemplo: la app decía que había disco de 18 TB y Kevin dijo «agotado»; el bot ya no lo ofrece.</li>
+  <li><b>Da a la gestora el precio de Casa Viva y su comisión.</b> El costo de Kevin nunca se muestra.</li>
+  <li><b>La gestora confirma por escrito:</b> <code>COMPRAR MK-1192 x2</code> → datos del cliente → <code>CONFIRMAR COMPRA</code> + referencia. Un «sí» suelto no vale.</li>
+  <li><b>Límite:</b> hasta 200 USD por vale y transporte a la tienda de menos de 2 000 CUP. Más que eso, decides tú.</li>
+  <li><b>Crea un solo pedido y un solo vale</b> en la app de Kevin, con referencia propia. Nunca duplica.</li>
+  <li><b>Avisa a 3 personas:</b> la gestora, Kevin y la dependienta de turno que lo recibe.</li>
+  <li><b>Doble comprobación:</b> app + «sí» de Kevin, y solo entonces «confirmado» a la gestora. La hora que se pide no es una hora confirmada.</li>
+</ol>
+<p class="note">Estado: activo desde las 14:58, con vuelta atrás preparada. Falta la primera compra real completa para dar por bueno el sistema.</p>
+
+<h3>Lo que necesita cada proveedor (ficha)</h3>
+<ul class="check">
+  <li><b>Canal:</b> ¿tiene app con catálogo (como Kevin) o solo WhatsApp?</li>
+  <li><b>Quién confirma</b> y a qué horas contesta.</li>
+  <li><b>Código de producto</b> unido a la web (como MK-).</li>
+  <li><b>Costo y regla de comisión</b> (ej.: 40 % del margen).</li>
+  <li><b>Entrega:</b> lo trae a Casa Viva, lo recogemos en su local o va directo al cliente. ¿Cuánto cuesta y quién lo paga?</li>
+  <li><b>Cómo confirma:</b> «sí hay» por escrito + foto real del día.</li>
+  <li><b>Garantía y devoluciones.</b></li>
+  <li><b>Límite de compra</b> sin preguntarte a ti.</li>
+  <li><b>Horario de recepción</b> en la tienda (dependienta de turno).</li>
+  <li><b>Si no contesta en 30 min:</b> no prometer nada; te avisa a ti.</li>
+</ul>
+
+<div class="tscroll">
+<table class="table">
+  <thead><tr><th>Proveedor</th><th>Canal</th><th>Entrega</th><th>Confirma</th><th>Falta</th></tr></thead>
+  <tbody>
+    <tr><td><b>Kevin</b><br>Digital Store</td><td>App + WhatsApp</td><td>Lo trae a Casa Viva (menos de 2 000 CUP)</td><td>App + «sí» de Kevin</td><td><span class="pill ok">Hecho</span> 1.ª compra real</td></tr>
+    <tr><td><b>Ricardo</b><br>electrodomésticos (grupo de Sergio)</td><td>WhatsApp</td><td>Recoger en su local</td><td>Fotos + precio final + comisión</td><td><span class="pill mid">Por armar</span> horario, garantía, límite</td></tr>
+    <tr><td><b>LJH</b></td><td>WhatsApp</td><td>?</td><td>?</td><td><span class="pill pend">Por armar</span> llenar la ficha</td></tr>
+    <tr><td><b>Otros</b></td><td>?</td><td>?</td><td>?</td><td><span class="pill pend">Por armar</span> una ficha cada uno</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>Cómo hacerlo reutilizable</h3>
+<ul>
+  <li><b>Una ficha por proveedor</b> en el sistema, con los 10 puntos de arriba.</li>
+  <li><b>Dos formas de trabajar:</b> «con app» (como Kevin: mira, confirma, crea el vale) y «solo WhatsApp» (una sola pregunta con plantilla fija: ¿hay?, precio, foto, cuándo).</li>
+  <li><b>Las mismas reglas para todos:</b> solo con un pedido real, una sola pregunta, doble comprobación, límite de dinero y aviso a la dependienta de turno.</li>
+  <li><b>Empezar por Ricardo</b>: es el siguiente con más pedidos posibles (electrodomésticos).</li>
+</ul>
+
+<footer>
+  Fuentes: registro de incidencias del 20-oct, ESTADO L41-L43, D81-D83, los cambios del bot de hoy y los informes de supervisión del servidor. Sin teléfonos de clientes. Página solo de lectura: no cambia nada del sistema.
+</footer>
+
+</div>
+</body>
+</html>

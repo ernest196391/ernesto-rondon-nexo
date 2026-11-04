@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Panda26 · Esto ya es suyo</title>
+  <meta name="description" content="Menú 360°, pedido directo a WhatsApp, video, cartel de mesa y tarjetas: todo hecho para Panda26 por NEXO.">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#0a0807">
+  <meta property="og:title" content="Panda26 · Esto ya es suyo">
+  <meta property="og:description" content="Menú 360°, video, cartel de mesa y tarjetas. Hecho para ustedes por NEXO.">
+  <meta property="og:image" content="https://casaviva.company/panda26/propuesta/img/og.jpg">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="../img/logo.webp">
+  <style>
+    @font-face { font-family: "Anton"; src: url("../fonts/anton.woff2") format("woff2"); font-display: swap; }
+    @font-face { font-family: "Inter"; src: url("../fonts/inter.woff2") format("woff2"); font-weight: 100 900; font-display: swap; }
+    :root {
+      --fondo: #0a0807; --vidrio: rgba(255, 244, 230, .06); --borde: rgba(255, 214, 170, .16);
+      --naranja: #e8571e; --naranja-2: #ff8a4c; --kraft: #dcbb8c; --crema: #f7efe4; --gris: #a39b92; --verde: #25d366;
+      --curva: cubic-bezier(.22, 1, .36, 1);
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+    body {
+      margin: 0; background: radial-gradient(120% 50% at 50% 0%, #22160d 0%, transparent 60%), var(--fondo);
+      color: var(--crema); font-family: "Inter", system-ui, sans-serif; font-size: 16px; line-height: 1.5; overflow-x: hidden;
+    }
+    img, video { display: block; max-width: 100%; }
+    a { color: inherit; }
+    h1, h2, h3 { font-family: "Anton", Impact, sans-serif; font-weight: 400; text-transform: uppercase; margin: 0; line-height: 1.05; letter-spacing: .01em; }
+    em { font-style: normal; color: var(--naranja-2); }
+    main { max-width: 720px; margin: 0 auto; padding: 0 18px 60px; }
+    section { padding: 56px 0 8px; }
+    .eti { font-size: 12px; letter-spacing: .3em; text-transform: uppercase; color: var(--kraft); margin: 0 0 10px; }
+    h2 { font-size: clamp(38px, 11vw, 60px); }
+    .lead { font-size: 17px; color: #e2d8cc; margin: 14px 0 0; }
+    .lead b { color: #fff; }
+
+    /* aparece al bajar */
+    .rev { opacity: 0; transform: translateY(26px); transition: opacity .8s var(--curva), transform .8s var(--curva); }
+    .rev.ve { opacity: 1; transform: none; }
+
+    /* portada */
+    .portada { min-height: min(92svh, 880px); display: flex; flex-direction: column; justify-content: center; padding-top: 30px; position: relative; }
+    .marca { display: flex; align-items: center; gap: 12px; }
+    .marca img { width: 48px; height: 48px; border-radius: 12px; }
+    .marca span { font-family: "Anton"; font-size: 24px; letter-spacing: .14em; }
+    .marca b { color: var(--naranja); font-weight: 400; }
+    .portada h1 { font-size: clamp(64px, 19vw, 118px); margin-top: 26px; }
+    .portada .heroe {
+      width: min(100%, 520px); margin: 10px auto -10px;
+      -webkit-mask: radial-gradient(circle, #000 52%, transparent 70%); mask: radial-gradient(circle, #000 52%, transparent 70%);
+      animation: flota 5s ease-in-out infinite;
+    }
+    @keyframes flota { 50% { transform: translateY(-10px) rotate(-1deg); } }
+    .botones { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+    .portada .botones { margin-bottom: 46px; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 15px 20px; border-radius: 14px; border: 0; font: 800 16px "Inter", sans-serif; text-decoration: none; cursor: pointer;
+      background: linear-gradient(135deg, #ff6a2b, var(--naranja) 45%, #b8400f); color: #fff; box-shadow: 0 14px 30px rgba(232, 87, 30, .35);
+      transition: transform .2s var(--curva);
+    }
+    .btn:active { transform: scale(.97); }
+    .btn.claro { background: var(--vidrio); border: 1px solid var(--borde); box-shadow: none; color: var(--crema); }
+    .btn.wa { background: linear-gradient(135deg, #2ee073, #1fae55); color: #052a14; box-shadow: 0 14px 30px rgba(37, 211, 102, .25); }
+    .btn svg { width: 20px; height: 20px; fill: currentColor; }
+    .baja { position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%); font-size: 12px; letter-spacing: .25em; text-transform: uppercase; color: var(--gris); animation: baja 1.8s ease-in-out infinite; }
+    @keyframes baja { 50% { transform: translate(-50%, 6px); } }
+
+    /* móvil con la app de verdad dentro */
+    .movil {
+      position: relative; width: min(100%, 360px); aspect-ratio: 9 / 18.5; margin: 26px auto 0; padding: 10px;
+      border-radius: 44px; background: #1b1511; border: 1px solid rgba(220, 187, 140, .3);
+      box-shadow: 0 40px 80px rgba(0, 0, 0, .6), 0 0 70px rgba(232, 87, 30, .22);
+    }
+    .movil iframe, .movil .tapa { width: 100%; height: 100%; border: 0; border-radius: 34px; display: block; background: #0a0807; }
+    .movil .tapa { position: absolute; inset: 10px; width: auto; height: auto; overflow: hidden; cursor: pointer; }
+    .movil .tapa img { width: 100%; height: 100%; object-fit: cover; object-position: top; filter: brightness(.55); }
+    .movil .tapa span {
+      position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); white-space: nowrap;
+      padding: 14px 20px; border-radius: 99px; font-weight: 800; background: var(--naranja); color: #fff; box-shadow: 0 0 40px rgba(232, 87, 30, .6);
+      animation: late 1.8s ease-in-out infinite;
+    }
+    @keyframes late { 50% { transform: translate(-50%, -50%) scale(1.06); } }
+    .nota { text-align: center; color: var(--gris); font-size: 13px; margin: 12px 0 0; }
+
+    .video { position: relative; margin-top: 24px; border-radius: 26px; overflow: hidden; border: 1px solid var(--borde); box-shadow: 0 30px 70px rgba(0, 0, 0, .5); max-width: 420px; margin-left: auto; margin-right: auto; background: #000; }
+    .video video { width: 100%; aspect-ratio: 9 / 16; object-fit: cover; }
+
+    .lista { list-style: none; padding: 0; margin: 18px 0 0; display: grid; gap: 12px; }
+    .lista li { display: flex; gap: 14px; align-items: flex-start; font-size: 16px; }
+    .lista i { flex: 0 0 auto; font-style: normal; width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; font-size: 17px; background: rgba(232, 87, 30, .14); border: 1px solid rgba(255, 138, 76, .5); }
+
+    .captura { margin-top: 22px; border-radius: 26px; overflow: hidden; border: 1px solid var(--borde); max-height: 520px; }
+    .captura img { width: 100%; }
+
+    .tarjetas { display: grid; gap: 14px; margin-top: 24px; perspective: 900px; }
+    .tarjetas img { width: 100%; border-radius: 16px; box-shadow: 0 24px 50px rgba(0, 0, 0, .55); transition: transform .6s var(--curva); }
+    .tarjetas img:first-child { transform: rotate(-2deg); }
+    .tarjetas img:last-child { transform: rotate(1.5deg); }
+    .tarjetas:hover img { transform: none; }
+    .bajar { display: grid; gap: 10px; margin-top: 20px; }
+    .bajar a {
+      display: flex; align-items: center; gap: 14px; padding: 14px 16px; border-radius: 16px; text-decoration: none;
+      background: var(--vidrio); border: 1px solid var(--borde); transition: border-color .2s;
+    }
+    .bajar a:active { border-color: var(--naranja-2); }
+    .bajar a b { display: block; font-size: 15.5px; }
+    .bajar a small { color: var(--gris); font-size: 13px; }
+    .bajar a .ico { flex: 0 0 auto; width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center; background: rgba(232, 87, 30, .16); color: var(--naranja-2); }
+    .bajar a .ico svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .bajar a .peso { margin-left: auto; color: var(--kraft); font-size: 13px; font-weight: 700; white-space: nowrap; }
+
+    .cartel { margin-top: 22px; border-radius: 18px; overflow: hidden; border: 1px solid var(--borde); max-height: 460px; }
+    .cartel img { width: 100%; }
+
+    .tabla { margin-top: 22px; border-radius: 20px; overflow: hidden; border: 1px solid var(--borde); }
+    .fila { display: flex; justify-content: space-between; gap: 14px; padding: 14px 16px; border-bottom: 1px solid rgba(220, 187, 140, .12); background: rgba(255, 244, 230, .03); font-size: 15px; }
+    .fila span:last-child { color: var(--kraft); font-weight: 700; white-space: nowrap; }
+    .fila.total { background: rgba(255, 244, 230, .07); font-weight: 800; border-bottom: 0; }
+    .fila.total span:last-child { position: relative; color: var(--gris); }
+    .fila.total span:last-child::after { content: ""; position: absolute; left: -4px; right: -4px; top: 50%; height: 3px; background: var(--naranja); transform: scaleX(0); transform-origin: left; transition: transform .6s .4s var(--curva); }
+    .tachado .fila.total span:last-child::after { transform: scaleX(1); }
+    .gratis {
+      margin-top: 18px; text-align: center; padding: 26px 18px; border-radius: 22px;
+      background: linear-gradient(135deg, #ff6a2b, var(--naranja) 50%, #b8400f); box-shadow: 0 24px 50px rgba(232, 87, 30, .38);
+      transform: scale(.85) rotate(-3deg); opacity: 0; transition: transform .6s 1s var(--curva), opacity .4s 1s;
+    }
+    .tachado .gratis { transform: none; opacity: 1; }
+    .gratis b { display: block; font-family: "Anton"; font-weight: 400; font-size: 76px; line-height: 1; color: #fff; letter-spacing: .02em; }
+    .gratis span { color: #fff3e8; font-size: 15px; }
+
+    .cafe { width: 150px; height: 150px; margin: 24px auto 4px; color: var(--naranja-2); filter: drop-shadow(0 0 26px rgba(232, 87, 30, .55)); }
+    .cafe svg { width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 4.5; stroke-linecap: round; stroke-linejoin: round; }
+    .cafe .humo { animation: humo 2.4s ease-in-out infinite; }
+    @keyframes humo { 50% { transform: translateY(-4px); opacity: .5; } }
+    .centro { text-align: center; }
+
+    .pasos { display: grid; gap: 12px; margin-top: 22px; }
+    .paso { display: flex; gap: 16px; align-items: center; padding: 16px; border-radius: 18px; background: var(--vidrio); border: 1px solid var(--borde); }
+    .paso b { flex: 0 0 auto; width: 48px; height: 48px; border-radius: 14px; display: grid; place-items: center; font-family: "Anton"; font-weight: 400; font-size: 26px; background: var(--naranja); color: #fff; }
+    .paso strong { display: block; }
+    .paso span { color: var(--gris); font-size: 14.5px; }
+    .qrs { display: flex; justify-content: center; gap: 22px; margin-top: 26px; flex-wrap: wrap; }
+    .qrs figure { margin: 0; text-align: center; }
+    .qrs img { width: 150px; height: 150px; padding: 10px; background: #fff; border-radius: 16px; box-shadow: 0 0 0 3px var(--naranja), 0 0 30px rgba(232, 87, 30, .4); }
+    .qrs figure:last-child img { box-shadow: 0 0 0 3px var(--verde), 0 0 30px rgba(37, 211, 102, .35); }
+    .qrs figcaption { margin-top: 10px; font-size: 13px; font-weight: 700; }
+    footer { text-align: center; color: var(--gris); font-size: 12px; letter-spacing: .2em; text-transform: uppercase; padding: 40px 0 30px; }
+    footer b { color: var(--crema); }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } .rev { opacity: 1; transform: none; } .gratis { opacity: 1; transform: none; } }
+  </style>
+</head>
+<body>
+<main>
+
+  <section class="portada">
+    <div class="marca"><img src="../img/logo.webp" alt="Panda26"><span>PANDA<b>26</b></span></div>
+    <h1>Esto ya<br><em>es suyo</em></h1>
+    <p class="lead">Les construimos su menú digital: <b>los combos giran en 360°</b>, el pedido les llega escrito a su WhatsApp, y además un video, un cartel de mesa y una tarjeta para regalar. <b>Ya está hecho y ya funciona.</b></p>
+    <img class="heroe" src="../img/estudio/hotdog-res.webp" alt="" width="400" height="400">
+    <div class="botones">
+      <a class="btn" href="#menu">Probar el menú</a>
+      <a class="btn claro" href="#video">Ver el video</a>
+    </div>
+    <span class="baja">Desliza ↓</span>
+  </section>
+
+  <section id="menu" class="rev">
+    <p class="eti">Lo que ya es suyo · 1</p>
+    <h2>El menú que<br><em>gira en 360°</em></h2>
+    <p class="lead">Este es su menú de verdad, aquí dentro. <b>Gire el hot dog con el dedo</b>, toque las flechas y arme un pedido de prueba.</p>
+    <div class="movil">
+      <button class="tapa" id="tapa" aria-label="Abrir el menú aquí"><img src="img/app-holograma.jpg" alt=""><span>▶ Tocar para probar</span></button>
+    </div>
+    <p class="nota">¿Mejor en pantalla completa? <a href="../" target="_blank" rel="noopener">casaviva.company/panda26</a></p>
+  </section>
+
+  <section class="rev">
+    <p class="eti">Lo que ya es suyo · 2</p>
+    <h2>La carta y el<br><em>pedido directo</em></h2>
+    <ul class="lista">
+      <li><i>🔎</i>Toda la carta con buscador y fotos de estudio.</li>
+      <li><i>🛒</i>El cliente arma su pedido y ve el total en CUP.</li>
+      <li><i>💬</i>Les llega a su WhatsApp escrito: productos, total, a domicilio o para recoger.</li>
+      <li><i>⏰</i>Dice solo si están abiertos o cerrados, con la hora de Cuba.</li>
+    </ul>
+    <div class="captura"><img src="img/app-carta.jpg" alt="La carta de Panda26" loading="lazy"></div>
+  </section>
+
+  <section id="video" class="rev">
+    <p class="eti">Lo que ya es suyo · 3</p>
+    <h2>Un video que<br><em>para el dedo</em></h2>
+    <p class="lead">10 segundos frente a su kiosco. <b>Listo para Instagram, Facebook y sus estados.</b></p>
+    <div class="video">
+      <video controls playsinline preload="none" poster="img/video.jpg" src="archivos/video-panda26.mp4"></video>
+    </div>
+    <div class="bajar">
+      <a href="archivos/video-panda26.mp4" download>
+        <span class="ico"><svg viewBox="0 0 24 24"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14"/></svg></span>
+        <span><b>Bajar el video al móvil</b><small>Para subirlo a redes o a estados</small></span>
+        <span class="peso">2,2 MB</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="rev">
+    <p class="eti">Lo que ya es suyo · 4</p>
+    <h2>Tarjeta para<br><em>sus clientes</em></h2>
+    <p class="lead">Una tarjeta pequeña para regalar <b>con cada pedido</b>: por un lado el menú 360°, por el otro su grupo <b>Panda 26 Delivery</b>.</p>
+    <div class="tarjetas"><img src="img/tarjeta-menu.jpg" alt="Cara del menú" loading="lazy"><img src="img/tarjeta-grupo.jpg" alt="Cara del grupo" loading="lazy"></div>
+    <div class="bajar">
+      <a href="archivos/tarjeta-panda26-menu.png" download>
+        <span class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M7 10h5M7 14h3"/></svg></span>
+        <span><b>Tarjeta · cara del menú</b><small>Imagen para el móvil o para mandar</small></span>
+        <span class="peso">280 KB</span>
+      </a>
+      <a href="archivos/tarjeta-panda26-grupo.png" download>
+        <span class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M12 10h5M14 14h3"/></svg></span>
+        <span><b>Tarjeta · cara del grupo</b><small>Imagen para el móvil o para mandar</small></span>
+        <span class="peso">270 KB</span>
+      </a>
+      <a href="archivos/tarjeta-regalo-panda26.pdf" download>
+        <span class="ico"><svg viewBox="0 0 24 24"><path d="M6 9V3h12v6M6 18H4v-7h16v7h-2M7 14h10v7H7z"/></svg></span>
+        <span><b>Tarjetas para imprimir</b><small>10 por hoja · a doble cara</small></span>
+        <span class="peso">5,6 MB</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="rev">
+    <p class="eti">Lo que ya es suyo · 5</p>
+    <h2>Cartel para<br><em>cada mesa</em></h2>
+    <p class="lead">Se dobla y queda de pie. Un lado lleva al menú, el otro a su grupo de WhatsApp.</p>
+    <div class="cartel"><img src="img/cartel.jpg" alt="Cartel de mesa" loading="lazy"></div>
+    <div class="bajar">
+      <a href="archivos/cartel-mesa-panda26.pdf" download>
+        <span class="ico"><svg viewBox="0 0 24 24"><path d="M6 9V3h12v6M6 18H4v-7h16v7h-2M7 14h10v7H7z"/></svg></span>
+        <span><b>Cartel para imprimir</b><small>2 por hoja A4 · cortar y doblar</small></span>
+        <span class="peso">1,5 MB</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="rev">
+    <p class="eti">Lo que ya es suyo · 6</p>
+    <h2>¿Pedido a domicilio<br>y <em>nadie para llevarlo?</em></h2>
+    <p class="lead">Usen <b>los mensajeros de Casa Viva</b>. Le escriben a <b>Ernesto</b>, él manda un mensajero que lo recoge en el kiosco y lo lleva.</p>
+    <ul class="lista">
+      <li><i>🛵</i>Mensajeros que ya reparten por La Habana todos los días.</li>
+      <li><i>💵</i>La mensajería va completa para el mensajero. Ustedes no pagan cuota.</li>
+    </ul>
+    <div class="botones"><a class="btn wa" id="btn-mensajero" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M12 2.5a9.5 9.5 0 0 0-8.2 14.3L2.5 21.5l4.8-1.3A9.5 9.5 0 1 0 12 2.5z"/></svg>Pedir un mensajero</a></div>
+  </section>
+
+  <section class="rev" id="valor">
+    <p class="eti">Lo que reciben</p>
+    <h2>Todo esto,<br><em>hecho y puesto</em></h2>
+    <div class="tabla">
+      <div class="fila"><span>Menú 360° con 5 productos</span><span>600 USD</span></div>
+      <div class="fila"><span>5 fotos de estudio de sus productos</span><span>150 USD</span></div>
+      <div class="fila"><span>Pedido directo a su WhatsApp</span><span>150 USD</span></div>
+      <div class="fila"><span>Video de 10 s para redes</span><span>200 USD</span></div>
+      <div class="fila"><span>Cartel de mesa + tarjeta de regalo</span><span>90 USD</span></div>
+      <div class="fila"><span>Mensajeros de Casa Viva</span><span>sin cuota</span></div>
+      <div class="fila total"><span>Valor de todo</span><span id="cuenta">0 USD</span></div>
+    </div>
+    <div class="gratis"><b>GRATIS</b><span>Ya está hecho. Ya funciona. Se queda puesto.</span></div>
+  </section>
+
+  <section class="rev centro">
+    <p class="eti">¿Y si quieren que lo mantengamos?</p>
+    <h2>Nos cobramos<br><em>un expreso al día</em></h2>
+    <div class="cafe"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M20 42h50v14a25 25 0 0 1-50 0z"/><path d="M70 47h6a9 9 0 0 1 0 18h-8"/><path d="M14 88h66"/><path class="humo" d="M36 30c-4-5 4-8 0-14M48 30c-4-5 4-8 0-14M60 30c-4-5 4-8 0-14"/></svg></div>
+    <p class="lead">Así de simbólico. Por ese café:</p>
+    <ul class="lista" style="text-align:left">
+      <li><i>💲</i>Cambiamos precios el mismo día que ustedes digan.</li>
+      <li><i>🌭</i>Añadimos productos nuevos, con su foto y su giro 360°.</li>
+      <li><i>🛠️</i>Revisamos que todo funcione siempre.</li>
+    </ul>
+    <p class="lead">Si un día deciden mantenerlo, <b>nos ponemos de acuerdo</b>. Sin apuro.</p>
+    <div class="botones" style="justify-content:center"><a class="btn" id="btn-cafe" href="#" target="_blank" rel="noopener">☕ Quiero que lo mantengan</a></div>
+  </section>
+
+  <section class="rev">
+    <p class="eti">Para empezar hoy</p>
+    <h2>3 pasos y<br><em>a vender</em></h2>
+    <div class="pasos">
+      <div class="paso"><b>1</b><div><strong>Pruébenlo ahora</strong><span>Escaneen el QR del menú con otro móvil.</span></div></div>
+      <div class="paso"><b>2</b><div><strong>Pongan el cartel</strong><span>Uno en cada mesa del kiosco.</span></div></div>
+      <div class="paso"><b>3</b><div><strong>Regalen la tarjeta</strong><span>Una con cada pedido a domicilio.</span></div></div>
+    </div>
+    <div class="qrs">
+      <figure><img src="img/qr-menu.svg" alt="QR del menú"><figcaption>El menú 360°</figcaption></figure>
+      <figure><img src="img/qr-grupo.svg" alt="QR del grupo"><figcaption>Su grupo de WhatsApp</figcaption></figure>
+    </div>
+  </section>
+
+</main>
+<footer>Hecho con cariño por <b>Ernesto · NEXO</b></footer>
+
+<script>
+(function () {
+  "use strict";
+  var ERNESTO = "5354056173";
+  function wa(texto) { return "https://api.whatsapp.com/send?phone=" + ERNESTO + "&text=" + encodeURIComponent(texto); }
+  document.getElementById("btn-mensajero").href = wa("Hola Ernesto 👋 Soy de Panda26. Necesito un mensajero para un pedido a domicilio.");
+  document.getElementById("btn-cafe").href = wa("Hola Ernesto ☕ Soy de Panda26. Queremos que nos mantengan el menú por un expreso al día. ¿Cómo lo hacemos?");
+
+  // la app de verdad se carga solo al tocar (ahorra datos)
+  document.getElementById("tapa").addEventListener("click", function () {
+    var f = document.createElement("iframe");
+    f.src = "../"; f.title = "Menú Panda26"; f.setAttribute("allow", "vibrate");
+    this.replaceWith(f);
+  });
+
+  // aparecer al bajar + cuenta del valor
+  var hecho = false;
+  function contar() {
+    if (hecho) return; hecho = true;
+    var el = document.getElementById("cuenta"), fin = 1190, t0 = null;
+    function paso(t) {
+      if (!t0) t0 = t;
+      var p = Math.min(1, (t - t0) / 1100), v = Math.round(fin * (1 - Math.pow(1 - p, 3)));
+      el.textContent = v.toLocaleString("en-US").replace(",", ".") + " USD";
+      if (p < 1) requestAnimationFrame(paso); else document.getElementById("valor").classList.add("tachado");
+    }
+    requestAnimationFrame(paso);
+  }
+  if ("IntersectionObserver" in window) {
+    var obs = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        e.target.classList.add("ve");
+        if (e.target.id === "valor") contar();
+        obs.unobserve(e.target);
+      });
+    }, { threshold: 0.18 });
+    document.querySelectorAll(".rev").forEach(function (s) { obs.observe(s); });
+  } else {
+    document.querySelectorAll(".rev").forEach(function (s) { s.classList.add("ve"); }); contar();
+  }
+})();
+</script>
+</body>
+</html>

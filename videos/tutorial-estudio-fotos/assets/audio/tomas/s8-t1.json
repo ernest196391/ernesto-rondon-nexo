@@ -1,0 +1,32 @@
+{
+ "task": "transcribe",
+ "language": "Spanish",
+ "duration": 1.67181248,
+ "text": " Es gratis. Dudas, escríbeme.",
+ "words": [
+  {
+   "word": "Es",
+   "start": 0,
+   "end": 0.18
+  },
+  {
+   "word": "gratis.",
+   "start": 0.18,
+   "end": 1
+  },
+  {
+   "word": "Dudas,",
+   "start": 0.64,
+   "end": 1.08
+  },
+  {
+   "word": "escríbeme.",
+   "start": 1.08,
+   "end": 1.84
+  }
+ ],
+ "segments": null,
+ "x_groq": {
+  "id": "req_01m535zdk8eg7s8g1z9rbg9s28"
+ }
+}

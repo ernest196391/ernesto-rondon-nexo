@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #s1-root {
+          position: absolute;
+          inset: 0;
+        }
+        #s1-wrap {
+          position: absolute;
+          inset: 0;
+        }
+        #s1-block {
+          position: absolute;
+          left: 80px;
+          right: 80px;
+          top: 470px;
+          display: flex;
+          flex-direction: column;
+          gap: 36px;
+        }
+        #s1-eyebrow {
+          display: inline-flex;
+          align-self: flex-start;
+          align-items: center;
+          gap: 14px;
+          padding: 14px 28px;
+          border-radius: 999px;
+          background: #0f3d3a;
+          color: #f6f1e6;
+          font-weight: 700;
+          font-size: 34px;
+        }
+        #s1-head {
+          font-weight: 800;
+          font-size: 132px;
+          line-height: 1.02;
+          letter-spacing: -0.03em;
+          color: #0f3d3a;
+        }
+        .s1-line {
+          display: block;
+        }
+        #s1-rule {
+          display: block;
+          width: 300px;
+          height: 14px;
+          border-radius: 7px;
+          background: #c39443;
+          transform-origin: left center;
+        }
+        #s1-sub {
+          font-weight: 600;
+          font-size: 60px;
+          color: #6f6a62;
+        }
+        #s1-badge {
+          position: absolute;
+          right: 90px;
+          top: 1310px;
+          width: 340px;
+          height: 340px;
+          border-radius: 50%;
+          background: #e4ece8;
+          border: 6px solid #0f3d3a;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 170px;
+        }
+        #s1-card {
+          position: absolute;
+          left: 80px;
+          top: 1380px;
+          width: 470px;
+          padding: 30px 34px;
+          border-radius: 14px;
+          background: #fffdf9;
+          border: 3px solid rgba(15, 61, 58, 0.16);
+          box-shadow: 0 18px 40px rgba(15, 61, 58, 0.12);
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+        }
+        #s1-card-label {
+          font-weight: 600;
+          font-size: 28px;
+          color: #6f6a62;
+        }
+        #s1-card-value {
+          font-weight: 800;
+          font-size: 44px;
+          color: #0f3d3a;
+        }
+      </style>
+      <div id="s1-root" data-composition-id="s1-title" data-width="1080" data-height="1920">
+        <div id="s1-wrap" class="scene-wrap">
+          <div id="s1-block">
+            <div id="s1-eyebrow">Para gestoras de Casa Viva</div>
+            <h1 id="s1-head">
+              <span class="s1-line" id="s1-l1">Elige tú</span>
+              <span class="s1-line" id="s1-l2">quién lleva</span>
+              <span class="s1-line" id="s1-l3">tu pedido 🛵</span>
+            </h1>
+            <span id="s1-rule"></span>
+            <div id="s1-sub">Es muy fácil.</div>
+          </div>
+          <div id="s1-card">
+            <div id="s1-card-label">Mensajero que lo lleva</div>
+            <div id="s1-card-value">Pedri ✓</div>
+          </div>
+          <div id="s1-badge">🛵</div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          tl.fromTo("#s1-eyebrow", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 0.05);
+          tl.fromTo("#s1-l1", { opacity: 0, y: 70 }, { opacity: 1, y: 0, duration: 0.55, ease: "power4.out" }, 0.15);
+          tl.fromTo("#s1-l2", { opacity: 0, y: 70 }, { opacity: 1, y: 0, duration: 0.55, ease: "power4.out" }, 0.3);
+          tl.fromTo("#s1-l3", { opacity: 0, y: 70 }, { opacity: 1, y: 0, duration: 0.55, ease: "power4.out" }, 0.45);
+          tl.fromTo("#s1-rule", { scaleX: 0 }, { scaleX: 1, duration: 0.6, ease: "expo.out" }, 0.8);
+          tl.fromTo("#s1-badge", { opacity: 0, scale: 0.4, rotation: -20 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.7, ease: "back.out(1.8)" }, 0.6);
+          tl.fromTo("#s1-badge", { y: 0 }, { y: -18, duration: 1.1, ease: "sine.inOut", yoyo: true, repeat: 1, immediateRender: false }, 1.3);
+          tl.fromTo("#s1-card", { opacity: 0, x: -60 }, { opacity: 1, x: 0, duration: 0.55, ease: "power3.out" }, 1.0);
+          tl.fromTo("#s1-sub", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.45, ease: "power2.out" }, 1.95);
+          // exit
+          tl.fromTo("#s1-wrap", { opacity: 1 }, { opacity: 0, duration: 0.3, ease: "power2.in", immediateRender: false }, 3.15);
+          window.__timelines["s1-title"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>
