@@ -1,0 +1,153 @@
+/* Saldo 360 — móvil primero, sin fuentes externas (carga rápida con datos móviles). */
+.s360{--navy:#0d3b8e;--blue:#1e6bff;--ink:#17263f;--muted:#5f6f86;--line:#e1e6ef;--bg:#f6f8fb;--card:#fff;--soft:#eaf1ff;--green:#128c5e;--green-dark:#0e7650;--danger:#ac3434;
+  min-height:100vh;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;-webkit-text-size-adjust:100%}
+.s360 *{box-sizing:border-box}
+.s360 h1,.s360 h2,.s360 h3,.s360 button,.s360 input,.s360 select,.s360 textarea{font-family:inherit}
+.s360-shell{max-width:640px;margin:0 auto;padding:0 16px}
+.s360 a{color:inherit}
+.s360 :focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+
+/* Cabecera */
+.s360-top{height:64px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.s360-logo{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--navy);font-size:22px;font-weight:800;letter-spacing:-.04em}
+.s360-logo img{border-radius:10px}
+.s360-logo strong{color:var(--blue)}
+.s360-header-link{color:var(--navy);text-decoration:none;font-size:14px;font-weight:700;padding:12px 4px}
+
+/* Portada: una pregunta, dos respuestas */
+.s360-home{min-height:100dvh}
+.s360-home .s360-shell{min-height:100dvh;display:flex;flex-direction:column}
+.s360-entry{flex:1;display:flex;flex-direction:column;justify-content:center;padding:32px 0}
+.s360-home-logo{width:min(236px,62vw);height:auto;margin:0 auto 36px}
+.s360-entry h1{text-align:center;font-size:clamp(28px,7vw,40px);line-height:1.1;letter-spacing:-.03em;margin:0 0 22px;color:var(--navy)}
+.s360-entry-grid{display:grid;gap:12px}
+.s360-entry-card{display:grid;gap:4px;padding:24px 22px;border-radius:20px;text-decoration:none;border:2px solid transparent;min-height:104px;align-content:center;transition:transform .12s ease}
+.s360-entry-card:active{transform:scale(.98)}
+.s360-entry-card strong{font-size:26px;letter-spacing:-.03em;text-transform:uppercase}
+.s360-entry-card small{font-size:15px;opacity:.85}
+.s360-entry-card.buyer{background:var(--navy);color:#fff}
+.s360-entry-card.seller{background:var(--card);color:var(--navy);border-color:#cfdcf5}
+@media(min-width:560px){.s360-entry-grid{grid-template-columns:1fr 1fr}.s360-entry-card{min-height:170px}}
+
+/* Contenido */
+.s360-content{padding-bottom:28px}
+.s360-intro{margin:8px 0 18px}
+.s360 h1{font-size:clamp(26px,6vw,36px);line-height:1.1;letter-spacing:-.03em;margin:8px 0}
+.s360-intro p{margin:0;color:var(--muted);font-size:16px;line-height:1.45}
+.s360-card,.s360-offer,.s360-confirm,.s360-empty{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:0 2px 10px #0c23400a}
+.s360-card+.s360-card{margin-top:12px}
+.s360-card h2{font-size:18px;margin:0 0 8px}
+.s360-card p,.s360-offer p{color:var(--muted);font-size:14px;line-height:1.5;margin:0}
+.s360-label{display:block;font-size:15px;font-weight:750;margin:0 0 10px}
+.s360-muted{color:var(--muted);font-size:13px;font-weight:400}
+.s360-card .s360-muted{margin-top:10px}
+
+/* Campos */
+.s360-amount{display:flex;align-items:center;border:2px solid #cedcf8;border-radius:14px;padding:6px 14px;margin-bottom:12px;background:#fff}
+.s360-amount:focus-within{border-color:var(--blue)}
+.s360-amount input{width:100%;min-width:0;border:0;outline:0;font-size:30px;font-weight:800;color:var(--navy);background:transparent;padding:4px 0}
+.s360-amount span{font-size:15px;font-weight:800;color:var(--muted)}
+.s360-chips{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:20px}
+.s360-chips button{border:1px solid #d5e0f4;background:#f6f9ff;color:#2a4a7c;border-radius:10px;min-height:44px;font-size:15px;font-weight:750;cursor:pointer}
+.s360-chips button.active{background:#dbe7ff;border-color:var(--blue);color:var(--navy)}
+.s360 select,.s360-sell-form>input{width:100%;min-height:50px;border:1px solid #cad7eb;background:#fff;color:var(--ink);border-radius:12px;padding:12px 14px;font-size:16px}
+.s360-sell-form>input{margin-bottom:18px}
+.s360-sell-form textarea{width:100%;min-height:150px;border:1px solid #cad7eb;border-radius:12px;padding:12px;font-size:14px;margin-top:8px}
+.s360-preview{background:var(--soft);border-radius:12px;padding:10px 12px;margin:-2px 0 18px!important;color:#24406f!important}
+.s360-methods{border:0;padding:0;margin:0 0 18px;display:flex;flex-wrap:wrap;gap:8px}
+.s360-methods legend{padding:0}
+.s360-methods label{display:flex;align-items:center;gap:8px;min-height:46px;padding:0 14px;border:1px solid #d5e0f4;border-radius:12px;font-weight:700;color:#2a4a7c;cursor:pointer;background:#f6f9ff}
+.s360-methods label.active{border-color:var(--blue);background:#dbe7ff;color:var(--navy)}
+.s360-methods input{width:18px;height:18px;accent-color:var(--blue)}
+.s360-consent{display:flex;gap:10px;align-items:flex-start;font-size:14px;line-height:1.45;color:var(--ink);margin:4px 0 4px;cursor:pointer}
+.s360-consent input{width:22px;height:22px;flex:none;margin:0;accent-color:var(--blue)}
+
+/* Botones */
+.s360-primary{display:block;width:100%;min-height:54px;border:0;border-radius:14px;background:var(--blue);color:#fff;font-size:17px;font-weight:800;cursor:pointer;margin-top:20px;text-align:center;text-decoration:none;line-height:54px;padding:0 16px}
+.s360-primary:disabled,.s360-primary.disabled{background:#9db3dc;cursor:not-allowed;pointer-events:none}
+.s360-chat{display:block;min-height:48px;line-height:48px;background:var(--green);color:#fff!important;text-decoration:none;font-size:16px;font-weight:800;border-radius:12px;text-align:center;margin-top:14px}
+.s360-chat:active{background:var(--green-dark)}
+
+/* Resultados */
+.s360-heading{font-size:19px;font-weight:800;margin:24px 0 12px;display:flex;gap:10px;align-items:center}
+.s360-heading span{display:grid;place-items:center;font-size:12px;border-radius:20px;background:#e3ebf9;color:#36588f;min-width:26px;height:26px;padding:0 6px}
+.s360-offer{margin-bottom:12px}
+.s360-offer-head{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit}
+.s360-offer-head>span{display:grid;gap:3px;min-width:0}
+.s360-offer-head strong{font-size:17px}
+.s360-offer-head small{font-size:13px;color:var(--muted)}
+.s360-price{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0 8px;background:#f7f9fd;border-radius:14px;padding:12px 14px}
+.s360-price div{display:grid;gap:3px}
+.s360-price small{color:var(--muted);font-size:12px}
+.s360-price strong{font-size:20px;letter-spacing:-.02em}
+.s360-total{color:var(--navy)}
+.s360 .s360-meta{font-size:13px}
+.s360-avatar{width:48px;height:48px;flex:none;border-radius:14px;display:grid;place-items:center;background:#dae6ff;color:var(--navy);font-weight:800;font-size:20px;object-fit:cover}
+.s360-avatar.large{width:72px;height:72px;font-size:30px;border-radius:20px}
+.s360-seller-card{display:flex;align-items:center;gap:14px;padding:14px;margin:10px 0;border-radius:16px;background:var(--card);border:1px solid var(--line);text-decoration:none;min-height:72px}
+.s360-seller-card>span:nth-child(2){flex:1;display:grid;gap:4px}
+.s360-seller-card small{font-size:13px;color:var(--muted)}
+.s360-seller-hero{display:flex;gap:16px;align-items:center;margin:16px 0 18px}
+.s360-seller-hero h1{margin:0 0 4px}
+.s360-seller-hero p{margin:0;color:var(--muted)}
+.s360-empty{color:var(--muted);line-height:1.5}
+.s360-empty strong{color:var(--ink)}
+.s360-empty p{margin:4px 0 0;font-size:14px}
+.s360-footnote{font-size:12px;color:#6f7d91;line-height:1.55;margin:16px 0}
+.s360-error{color:var(--danger);font-size:13px}
+.s360-success{border-radius:12px;background:#ddf7ed;color:#116346;padding:12px;margin-top:12px!important}
+.s360-footer{display:flex;justify-content:space-between;gap:10px;border-top:1px solid var(--line);color:#7b8799;font-size:12px;padding:18px 0 28px}
+.s360-footer a{color:var(--navy);font-weight:700;text-decoration:none}
+
+/* Demo (/saldo360/demo): datos ficticios, siempre marcada */
+.s360-warning{padding:12px 15px;border-radius:13px;background:#fff4db;color:#684d10;font-size:13px;line-height:1.5}
+.s360-tabs{display:flex;gap:6px;background:#e9edf4;padding:5px;margin:16px 0 22px;border-radius:15px}
+.s360-tabs button{flex:1;border:0;border-radius:11px;padding:13px 6px;background:transparent;font-weight:700;color:#52627a;cursor:pointer;font-size:14px}
+.s360-tabs button.current{background:#fff;box-shadow:0 2px 8px #0c23401c;color:#173f87}
+.s360-count{background:#e1ebff;color:#214997;padding:2px 6px;border-radius:20px}
+.s360-eyebrow{color:#416ac1;font-size:11px;font-weight:800;letter-spacing:.13em}
+.s360-offer.picked{border-color:#4b78d2;box-shadow:0 0 0 2px #b6cdfd}
+.s360-offer h3{font-size:17px;margin:0 0 4px}
+.s360-live{font-size:12px;color:#127b59;font-weight:750;white-space:nowrap}
+.s360-offer-bottom,.s360-order-top{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.s360-offer-bottom{border-top:1px solid #edf0f5;padding-top:14px}
+.s360-offer-bottom span{font-size:12px;color:#64738a}
+.s360-offer-bottom button,.s360-confirm button,.s360-empty button{border:0;background:#245dd5;color:#fff;padding:12px 19px;border-radius:10px;font-size:14px;font-weight:800;cursor:pointer}
+.s360-confirm{background:var(--soft);border-color:#b9cdf9;margin-top:18px}
+.s360-confirm h2{font-size:19px;margin:0 0 7px}
+.s360-confirm button{display:block;width:100%;margin:18px 0 10px;padding:15px}
+.s360-confirm small{display:block;color:#687995}
+.s360-orders{display:grid;gap:12px}
+.s360-order-top span{color:#7a5c12;background:#fff2cb;font-size:12px;padding:6px 9px;border-radius:20px}
+.s360-orders .s360-card p{margin-top:12px}
+.s360-price .s360-arrow{display:none}
+.s360-demo-price{display:flex;justify-content:space-between;align-items:center}
+@media(max-width:400px){.s360-price strong{font-size:18px}.s360-entry-card strong{font-size:23px}.s360-offer-bottom{flex-direction:column;align-items:stretch}}
+
+/* Cuentas y tienda del vendedor */
+.s360-secondary{display:block;width:100%;min-height:50px;line-height:50px;border:1px solid #cfdcf5;border-radius:14px;background:var(--card);color:var(--navy);font-size:16px;font-weight:800;text-align:center;text-decoration:none;margin-top:12px;cursor:pointer;padding:0 16px}
+.s360-link-btn{display:block;margin:12px auto 0;border:0;background:none;color:var(--navy);font-size:15px;font-weight:700;text-decoration:underline;cursor:pointer;min-height:44px}
+.s360-links{display:grid;gap:4px;margin-top:10px;text-align:center}
+.s360-links button{border:0;background:none;color:var(--navy);font-size:15px;min-height:44px;cursor:pointer}
+.s360 .s360-form-msg{margin-top:12px}
+.s360-center{text-align:center;margin:8px 0 0!important}
+.s360-menu{display:grid;gap:10px;margin:8px 0 6px}
+.s360-menu a{display:grid;gap:3px;padding:16px;border-radius:16px;background:var(--card);border:1px solid var(--line);text-decoration:none;min-height:64px}
+.s360-menu small{color:var(--muted);font-size:13px}
+.s360-phone span{order:-1;margin-right:8px;font-size:20px;color:var(--navy)}
+.s360-phone input{font-size:24px}
+.s360-photo{position:relative;display:grid;justify-items:center;gap:6px;cursor:pointer}
+.s360-photo-btn{font-size:12px;font-weight:700;color:var(--navy);text-decoration:underline}
+.s360-status{margin-bottom:12px;border-left:5px solid #9aa7bb}
+.s360-status.pending{border-left-color:#d79b00}
+.s360-status.approved{border-left-color:var(--green)}
+.s360-status.suspended{border-left-color:var(--danger)}
+.s360-status strong{font-size:17px}
+.s360-status p{margin-top:4px!important}
+.s360-offers-admin{margin-top:8px}
+.s360-offers-admin>.s360-primary{margin:0 0 14px}
+.s360-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.s360-actions button,.s360-actions a{flex:1 1 auto;min-height:44px;padding:0 14px;border:1px solid #cfdcf5;border-radius:11px;background:#f6f9ff;color:var(--navy);font-size:14px;font-weight:750;cursor:pointer;text-decoration:none;display:grid;place-items:center}
+.s360-actions .danger{color:var(--danger);border-color:#f0c9c9;background:#fff7f7}
+.s360 button:disabled{opacity:.6;cursor:wait}
+.s360-verify{background:var(--soft);border-radius:12px;padding:12px;margin-top:12px!important;color:#24406f!important;font-size:15px!important;line-height:1.5}
