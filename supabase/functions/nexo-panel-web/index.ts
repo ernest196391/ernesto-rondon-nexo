@@ -6,6 +6,8 @@
 //   POST { action: "staff_pay", months? }            → ventas del mes por dependienta («A pagar este mes»)
 //   Productos (Core 3.13.52): product_variations, variation_add, product_variable_create, products_visibility
 //   Venta de proveedor (Core 3.14.14, D69): supplier_split, supplier_split_save, supplier_sales
+//   Contabilidad (Core 3.14.127, D135): contabilidad {desde, hasta} → pestaña «Cierre»
+//   Core 3.14.137: supplier_split_paid {id, part, paid} → «pagado» de dependienta, mensajero o proveedor
 //   Core 3.14.41: product_description_save, product_main_photo, product_duplicate, product_copies, product_copy,
 //                 product_copy_publish, product_copy_discard
 //   Lennys 28-oct: product_photos, product_photos_set — fotos de un producto de la web (se añaden, ✕ quita, ★ principal),
@@ -131,7 +133,13 @@ function cvPrice(o: WooOrder) {
   const raw = meta(o, "_cvd_owner_type") === "gestora" ? meta(o, "_cvd_commission_base_amount") : null;
   const b = raw === null || raw === "" ? NaN : Number(raw);
   const base = Number.isFinite(b) && b >= 0 ? Math.min(lines, Math.round(b * 100) / 100) : lines;
-  return { lines, base, markup: Math.round((lines - base) * 100) / 100 };
+  // 1-nov (Lennys, Ernesto): las líneas de «Encargo 24 h» (SKU MK-) no llevan el 0,5 % de la dependienta: ya cobra
+  // 500 CUP por artículo en el reparto del proveedor. staffBase = la parte de «base» que no es encargo (en proporción).
+  const enc = o.line_items.filter(l => /^MK-/i.test(l.sku ?? ""));
+  const encLines = Math.round(enc.reduce((t, l) => t + Number(l.total || 0), 0) * 100) / 100;
+  const encItems = enc.reduce((t, l) => t + (Number(l.quantity) || 0), 0);
+  const staffBase = lines > 0 ? Math.round(base * Math.max(0, lines - encLines) / lines * 100) / 100 : 0;
+  return { lines, base, markup: Math.round((lines - base) * 100) / 100, staffBase, encLines, encItems };
 }
 
 async function names(ids: number[]) {
@@ -273,12 +281,13 @@ Deno.serve(async req => {
         const { data: shiftDays } = await admin.rpc("nexo_business_shift_days", { p_business: BUSINESS, p_from: `${month}-01`, p_to: lastDay });
         const onDuty = new Map(((Array.isArray(shiftDays) ? shiftDays : []) as { day: string; staffId: string; name: string; wooUserId: number | null }[])
           .map(d => [d.day, d]));
-        let total = 0, orders = 0, raised = 0;
+        let total = 0, orders = 0, raised = 0, cvTotal = 0, encItems = 0, encUsd = 0, encOrders = 0;
         for (let page = 1; page <= 30; page++) {
           const { data, pages } = await woo("orders", { after, before, status: "completed", per_page: "100", page: String(page) });
           for (const o of data as WooOrder[]) {
-            const price = cvPrice(o), sales = price.base;
-            raised += price.lines;
+            const price = cvPrice(o), sales = price.staffBase; // sin las líneas de Encargo 24 h (1-nov)
+            raised += price.lines; cvTotal += price.base;
+            if (price.encItems) { encItems += price.encItems; encUsd += price.encLines; encOrders++; }
             const hist = meta(o, "_cvd_operation_history");
             const firstOp = Array.isArray(hist) && hist.length ? Number((hist[0] as { user_id?: number }).user_id ?? 0) : 0;
             const shift = onDuty.get(String(o.date_completed ?? o.date_created ?? "").slice(0, 10));
@@ -292,7 +301,10 @@ Deno.serve(async req => {
           if (page >= pages) break;
         }
         out.push({ month, orders, sales: Math.round(total * 100) / 100,
-          salesTotal: Math.round(raised * 100) / 100, markup: Math.round((raised - total) * 100) / 100,
+          salesTotal: Math.round(raised * 100) / 100, markup: Math.round((raised - cvTotal) * 100) / 100,
+          // «sales» = base del 0,5 % (sin encargos); «salesAll» = todo a precio de Casa Viva (lo vendido y el % de Nati).
+          salesAll: Math.round(cvTotal * 100) / 100,
+          encargo: { items: encItems, usd: Math.round(encUsd * 100) / 100, orders: encOrders },
           clerks: Object.entries(by).filter(([k]) => k !== "unknown").map(([id, v]) => ({ id: /^\d+$/.test(id) ? Number(id) : id, ...v })).sort((a, b) => b.sales - a.sales),
           unknown: by.unknown ?? { name: "", orders: 0, sales: 0 } });
       }
@@ -756,6 +768,13 @@ Deno.serve(async req => {
       return json(400, { error: "Acción desconocida." });
     }
 
+    // Artículos de vendedores (Core 3.14.87, 30-oct): Lennys los revisa después de publicar. {action:"vendedores_list", ver:"nuevos"|"todos"} y
+    // {action:"vendedores_review", id, accion:"ok"|"ocultar"|"mostrar"}. Es información de la tienda del vendedor: no mueve dinero.
+    if (body.action === "vendedores_list") return json(200, await core("GET", `panel/vendedores/articulos?ver=${body.ver === "todos" ? "todos" : "nuevos"}`));
+    if (body.action === "vendedores_review") {
+      const accion = ["ok", "ocultar", "mostrar"].includes(String(body.accion)) ? String(body.accion) : "ok";
+      return json(200, await core("POST", `panel/vendedores/articulos/${Number(body.id)}/revisar`, { accion, by }));
+    }
     // Venta de proveedor (Core 3.14.14, D69): reparto del margen apuntado en el pedido. Es información: no mueve dinero.
     if (body.action === "supplier_split") return json(200, await core("GET", `panel/supplier-split/${Number(body.id)}`));
     if (body.action === "supplier_split_save") {
@@ -765,6 +784,26 @@ Deno.serve(async req => {
         messengerCup: pick("messengerCup"), messengerName: pick("messengerName"), clerkCup: pick("clerkCup"), clerkName: pick("clerkName"),
         storeCup: pick("storeCup"), by,
       }));
+    }
+    // Contabilidad (Core 3.14.127, D135): pestaña «Cierre» del panel. {action:"contabilidad", desde:"AAAA-MM-DD", hasta:"AAAA-MM-DD"}
+    // Tienda y bajo pedido aparte, ventas por día, comisiones pagadas / por pagar y reparto de bajo pedido. Solo lectura.
+    if (body.action === "contabilidad") {
+      const day = (v: unknown) => typeof v === "string" && /^\d{4}-\d{2}-\d{2}$/.test(v) ? v : "";
+      const desde = day(body.desde), hasta = day(body.hasta) || desde;
+      if (!desde) return json(400, { error: "Fecha no válida." });
+      return json(200, await core("GET", `panel/contabilidad?desde=${desde}&hasta=${hasta}&detalle=1`));
+    }
+    // «Pagado» de una parte del reparto de proveedor (Core 3.14.137): {action:"supplier_split_paid", id, part:"clerk"|"messenger"|"supplier", paid:bool}.
+    if (body.action === "supplier_split_paid") {
+      const part = ["clerk", "messenger", "supplier"].includes(String(body.part)) ? String(body.part) : "";
+      if (!part || !(Number(body.id) > 0)) return json(400, { error: "Pedido o parte no válidos." });
+      return json(200, await core("POST", `panel/supplier-split/${Number(body.id)}/paid`, { part, paid: body.paid !== false, by }));
+    }
+    // Datos del mes de la contabilidad (Core 3.14.138): {action:"contabilidad_mes_save", mes:"AAAA-MM", valores:{campo: valor}}. Queda quién lo cambió.
+    if (body.action === "contabilidad_mes_save") {
+      const mes = typeof body.mes === "string" && /^\d{4}-\d{2}$/.test(body.mes) ? body.mes : "";
+      if (!mes) return json(400, { error: "Mes no válido." });
+      return json(200, await core("POST", "panel/contabilidad/mes", { mes, valores: body.valores ?? {}, by }));
     }
     if (body.action === "supplier_sales") {
       const month = typeof body.month === "string" && /^\d{4}-\d{2}$/.test(body.month) ? body.month : "";
