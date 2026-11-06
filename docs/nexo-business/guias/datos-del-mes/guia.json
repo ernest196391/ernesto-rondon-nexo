@@ -1,0 +1,42 @@
+{
+  "titulo": "Cierre del mes",
+  "formato": "1080x1350",
+  "para": "Lennys",
+  "mensaje": "Hola, Lennys 🙏 Desde hoy la contabilidad sale sola del panel.\nCada noche a las 21:30 te llega el resumen del día. El día 1 te llega el borrador del mes y el día 3 el cierre final.\nEntre el día 1 y el 3 apuntas en el panel lo que la web no sabe sola (impuestos, cambio, reparaciones, ELIO, inversores) y marcas lo que ya se pagó.\nMira los pasos en las fotos 👇\nSi algo no sale, escríbeme.",
+  "pasos": [
+    {
+      "texto": "Toca **Cierre del día y del mes**.",
+      "resultado": "Se abre el cierre, con lo que entró, salió y quedó.",
+      "captura": "capturas/1-resumen.jpg",
+      "marca": { "x": 70, "y": 815, "w": 660, "h": 100 },
+      "flecha": "arriba",
+      "pie": "Paso 1 de 4: en Resumen, toca Cierre del día y del mes."
+    },
+    {
+      "texto": "Toca **Mes**.",
+      "resultado": "Ves el mes entero. Con ‹ vas al mes anterior.",
+      "captura": "capturas/2-mes.jpg",
+      "marca": { "x": 172, "y": 335, "w": 133, "h": 94 },
+      "flecha": "der",
+      "pie": "Paso 2 de 4: toca Mes."
+    },
+    {
+      "texto": "Escribe los datos y toca **Guardar datos del mes**.",
+      "resultado": "El cierre se recalcula y queda apuntado quién cambió qué.",
+      "ojo": "Si un mes no hubo ese gasto, déjalo **vacío**.",
+      "captura": "capturas/3-datos.jpg",
+      "marca": { "x": 34, "y": 1502, "w": 732, "h": 102 },
+      "flecha": "arriba",
+      "pie": "Paso 3 de 4: abajo, en Datos del mes, escribe y toca Guardar datos del mes."
+    },
+    {
+      "texto": "Toca **Falta** cuando pagues algo.",
+      "resultado": "Cambia a **✓** y baja de «Falta pagar».",
+      "ojo": "Está en **Pedidos** → **Ventas de proveedor del mes**.",
+      "captura": "capturas/4-pagado.jpg",
+      "marca": { "x": 34, "y": 888, "w": 625, "h": 94 },
+      "flecha": "arriba",
+      "pie": "Paso 4 de 4: en Pedidos → Ventas de proveedor del mes, toca Falta cuando pagues."
+    }
+  ]
+}

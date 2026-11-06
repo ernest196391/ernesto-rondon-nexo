@@ -1,0 +1,28 @@
+chofer: [GroupMarkerNotSet(crbug.com/242999)!:A05028003C100000]Automatic fallback to software WebGL has been deprecated. Please use the --enable-unsafe-swiftshader flag to opt in to lower security guarantees for trusted content.
+cliente: [GroupMarkerNotSet(crbug.com/242999)!:A0F004023C100000]Automatic fallback to software WebGL has been deprecated. Please use the --enable-unsafe-swiftshader flag to opt in to lower security guarantees for trusted content.
+cliente: [.WebGL-0x1b1c00f1c700]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels
+cliente: [.WebGL-0x1b1c00f1c700]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels
+cliente: [.WebGL-0x1b1c00f1c700]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels
+cliente: [.WebGL-0x1b1c00f1c700]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)
+cliente falló: http://127.0.0.1:8896/wp-json/casa-viva/v1/pv/viajes net::ERR_INTERNET_DISCONNECTED
+cliente: Failed to load resource: net::ERR_INTERNET_DISCONNECTED
+cliente: Access to fetch at 'https://179-236-242-212.sslip.io/route/v1/driving/-82.378700,23.144700;-82.381050,23.140497?overview=full&geometries=geojson' from origin 'http://127.0.0.1:8896' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. If an opaque response serves your needs, set the request's mode to 'no-cors' to fetch the resource with CORS disabled.
+cliente: Failed to load resource: net::ERR_FAILED
+chofer: Map cannot fit within canvas with the given bounds, padding, and/or offset.
+chofer: Access to fetch at 'https://179-236-242-212.sslip.io/route/v1/driving/-82.378700,23.144700;-82.381050,23.140497?overview=full&geometries=geojson' from origin 'http://127.0.0.1:8896' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. If an opaque response serves your needs, set the request's mode to 'no-cors' to fetch the resource with CORS disabled.
+chofer: Failed to load resource: net::ERR_FAILED
+chofer: Access to fetch at 'https://179-236-242-212.sslip.io/route/v1/driving/-82.381050,23.140497;-82.384430,23.139880?overview=full&geometries=geojson' from origin 'http://127.0.0.1:8896' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. If an opaque response serves your needs, set the request's mode to 'no-cors' to fetch the resource with CORS disabled.
+chofer: Failed to load resource: net::ERR_FAILED
+cliente: Access to fetch at 'https://179-236-242-212.sslip.io/route/v1/driving/-82.381050,23.140497;-82.384430,23.139880?overview=full&geometries=geojson' from origin 'http://127.0.0.1:8896' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. If an opaque response serves your needs, set the request's mode to 'no-cors' to fetch the resource with CORS disabled.
+cliente: Failed to load resource: net::ERR_FAILED
+mensajero: [GroupMarkerNotSet(crbug.com/242999)!:A05028003C100000]Automatic fallback to software WebGL has been deprecated. Please use the --enable-unsafe-swiftshader flag to opt in to lower security guarantees for trusted content.
+cliente: Map cannot fit within canvas with the given bounds, padding, and/or offset.
+cliente: Access to fetch at 'https://179-236-242-212.sslip.io/route/v1/driving/-82.379000,23.144000;-82.381050,23.140497?overview=full&geometries=geojson' from origin 'http://127.0.0.1:8896' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. If an opaque response serves your needs, set the request's mode to 'no-cors' to fetch the resource with CORS disabled.
+cliente: Failed to load resource: net::ERR_FAILED
+mensajero: Map cannot fit within canvas with the given bounds, padding, and/or offset.
+mensajero: Access to fetch at 'https://179-236-242-212.sslip.io/route/v1/driving/-82.379000,23.144000;-82.381050,23.140497?overview=full&geometries=geojson' from origin 'http://127.0.0.1:8896' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. If an opaque response serves your needs, set the request's mode to 'no-cors' to fetch the resource with CORS disabled.
+mensajero: Failed to load resource: net::ERR_FAILED
+mensajero: Access to fetch at 'https://179-236-242-212.sslip.io/route/v1/driving/-82.381050,23.140497;-82.379920,23.143700?overview=full&geometries=geojson' from origin 'http://127.0.0.1:8896' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. If an opaque response serves your needs, set the request's mode to 'no-cors' to fetch the resource with CORS disabled.
+mensajero: Failed to load resource: net::ERR_FAILED
+cliente: Access to fetch at 'https://179-236-242-212.sslip.io/route/v1/driving/-82.381050,23.140497;-82.379920,23.143700?overview=full&geometries=geojson' from origin 'http://127.0.0.1:8896' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. If an opaque response serves your needs, set the request's mode to 'no-cors' to fetch the resource with CORS disabled.
+cliente: Failed to load resource: net::ERR_FAILED

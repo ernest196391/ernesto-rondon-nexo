@@ -1,0 +1,15 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1640
+PlayResY: 624
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Logo,Georgia,104,&H00453B0D,&H00453B0D,&H00000000,&H00000000,0,0,0,0,100,100,36,0,1,0,0,5,0,0,0,1
+Style: Lema,Segoe UI,40,&H00453B0D,&H00453B0D,&H00000000,&H00000000,0,0,0,0,100,100,1,0,1,0,0,5,0,0,0,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:01.00,Logo,,0,0,0,,{\pos(318,215)}CASA
+Dialogue: 0,0:00:00.00,0:00:01.00,Logo,,0,0,0,,{\pos(318,345)}VIVA
+Dialogue: 0,0:00:00.00,0:00:01.00,Lema,,0,0,0,,{\pos(300,470)}Todo para tu casa en La Habana

@@ -1,0 +1,185 @@
+<title>Precios de Pa'llá</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400..700&display=swap">
+<style>
+/* Layout: una columna de lectura para el móvil; tablas con desplazamiento propio. */
+:root{
+  --bg:#F5F5F3; --surface:#FFFFFF; --ink:#121212; --muted:#5A5A56; --line:#E3E3DE;
+  --brand:#FFC21A; --brand-soft:#FFF3CC; --ok:#1A7438; --ok-soft:#E4F4E8; --warn:#9A4304; --warn-soft:#FDEBDD;
+  --font:"Geist","Helvetica Neue",Helvetica,Roboto,Arial,sans-serif; --r:14px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#121212;--surface:#1C1C1B;--ink:#F2F2EE;--muted:#A9A9A3;--line:#33332F;--brand:#FFC21A;--brand-soft:#3A2F0C;--ok:#5BCB80;--ok-soft:#163222;--warn:#F2A766;--warn-soft:#3A2514;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#121212;--surface:#1C1C1B;--ink:#F2F2EE;--muted:#A9A9A3;--line:#33332F;--brand:#FFC21A;--brand-soft:#3A2F0C;--ok:#5BCB80;--ok-soft:#163222;--warn:#F2A766;--warn-soft:#3A2514;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:500 16px/1.5 var(--font)}
+.wrap{max-width:760px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 64px;display:grid;gap:22px}
+h1,h2,h3{margin:0;font-weight:600;text-wrap:balance}
+h1{font-size:clamp(1.7rem,6vw,2.3rem);line-height:1.08;letter-spacing:-.01em}
+h2{font-size:1.3rem}
+p{margin:0}
+.muted{color:var(--muted)} .small{font-size:.88rem}
+.eyebrow{font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.num{font-variant-numeric:tabular-nums}
+.box{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;display:grid;gap:10px}
+.box ul{margin:0;padding-left:1.1em;display:grid;gap:6px}
+.tablebox{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:var(--r)}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:.9rem}
+th,td{text-align:right;padding:9px 12px;border-top:1px solid var(--line);white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+thead th{border-top:0;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
+tr.us td{background:var(--brand-soft);font-weight:600}
+tr.grp td{background:var(--bg);font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.calc{display:grid;gap:12px}
+.calc input{width:100%;accent-color:var(--ink)}
+.row{display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.big{font-size:1.9rem;font-weight:600}
+.dec{display:grid;gap:8px}
+.opt{display:grid;grid-template-columns:22px 1fr;gap:10px;border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;cursor:pointer}
+.opt input{margin:3px 0 0;width:18px;height:18px;accent-color:var(--ink)}
+.opt.rec{border-color:var(--ok)}
+.opt:has(input:checked){background:var(--brand-soft);border-color:var(--ink)}
+.rl{margin-left:6px;font-size:.7rem;letter-spacing:.05em;text-transform:uppercase;color:var(--ok);font-weight:700}
+.saved{font-size:.85rem;color:var(--muted);min-height:1.2em}
+.saved.ok{color:var(--ok)}
+textarea{width:100%;min-height:50px;border:1.5px solid var(--line);border-radius:10px;padding:8px 10px;background:var(--bg);color:var(--ink);font:inherit;font-size:.92rem}
+a{color:var(--ink)}
+:focus-visible{outline:3px solid var(--brand);outline-offset:2px}
+</style>
+
+<div class="wrap">
+ <div style="display:grid;gap:10px">
+  <p class="eyebrow">Pa'llá · propuesta de precios · 4-nov-2026</p>
+  <h1>Precios de Pa'llá: más baratos que el mercado y justos para el chofer</h1>
+  <p class="muted">Antes de programar. Hecho con 47 viajes reales de La Habana (oct–nov), La Nave en tu Redmi, las tarifas de Casa Viva y VoyPaTi, y lo que cuesta la gasolina.</p>
+ </div>
+
+ <div class="box">
+  <h2>Lo que aprendimos</h2>
+  <ul>
+   <li><b>Los precios que puse antes eran muy bajos.</b> Los 100–250 CUP del triciclo son por persona en una ruta compartida, no un viaje solo para ti.</li>
+   <li><b>Carro (grupo «Agencia Rodando», 39 viajes):</b> lo normal son 4.500 CUP por 7 km. Casi nunca baja de 3.000, aunque sea corto.</li>
+   <li><b>Triciclo (8 viajes):</b> unos 3.550 CUP por 7 km; el más barato fue 2.500.</li>
+   <li><b>La Nave</b> en tu Redmi: unos 5 km de día costaron 2.652–3.177 CUP.</li>
+   <li><b>Envíos:</b> Casa Viva cobra 1.500–1.800 CUP en Plaza, Centro, Cerro y Playa. VoyPaTi cobra en moto 600 CUP los 3 primeros km y 170 cada km más.</li>
+   <li><b>Gasolina en la calle:</b> 3.200–4.000 CUP el litro (sep-2026). Un almendrón gasta casi 600 CUP por km solo en gasolina. Un triciclo eléctrico, menos de 100.</li>
+  </ul>
+ </div>
+
+ <div style="display:grid;gap:10px">
+  <h2>La propuesta</h2>
+  <p class="muted small"><b>Versión 2, más rentable para el chofer</b>, como pediste. El «mínimo» incluye los primeros km. Después se suma el precio por km. Es el <b>precio justo sugerido</b>: el cliente puede ofrecer más, o hasta un 20 % menos, pero nunca menos que el mínimo. De noche (10 pm a 6 am) +20 %. Espera: 5 minutos gratis y después 50 CUP por minuto.</p>
+  <div class="tablebox"><table class="num">
+   <thead><tr><th>Servicio</th><th>Mínimo</th><th>Incluye</th><th>Por km</th><th>2 km</th><th>5 km</th><th>7 km</th><th>10 km</th><th>15 km</th></tr></thead>
+   <tbody id="tabla"></tbody>
+  </table></div>
+  <p class="small muted">Tu propuesta era: taxi de gasolina con un mínimo de 2.500 y triciclo con un mínimo de 1.000. Para que le salga mejor al chofer, los subí a 3.000 y 1.500.</p>
+ </div>
+
+ <div style="display:grid;gap:10px">
+  <h2>Comparado con el mercado</h2>
+  <div class="tablebox"><table class="num">
+   <thead><tr><th>Viaje</th><th>2 km</th><th>5 km</th><th>7 km</th><th>10 km</th><th>15 km</th></tr></thead>
+   <tbody>
+    <tr class="grp"><td colspan="6">Carro</td></tr>
+    <tr><td>Agencia Rodando (mercado)</td><td>≈ 3.630</td><td>≈ 4.120</td><td>≈ 4.450</td><td>≈ 4.930</td><td>≈ 5.750</td></tr>
+    <tr><td>La Nave (tu Redmi, de día)</td><td>—</td><td>2.652–3.177</td><td>—</td><td>—</td><td>—</td></tr>
+    <tr class="us" id="cmp-taxi"></tr>
+    <tr class="grp"><td colspan="6">Triciclo</td></tr>
+    <tr><td>Agencia Rodando (mercado)</td><td>≈ 2.770</td><td>≈ 3.530</td><td>≈ 4.050</td><td>≈ 4.810</td><td>≈ 6.090</td></tr>
+    <tr><td>VoyPaTi (envíos en triciclo)</td><td>1.500</td><td>2.300</td><td>3.100</td><td>4.300</td><td>6.300</td></tr>
+    <tr class="us" id="cmp-tri"></tr>
+    <tr class="grp"><td colspan="6">Moto y envíos</td></tr>
+    <tr><td>VoyPaTi (moto)</td><td>600</td><td>940</td><td>1.280</td><td>1.790</td><td>2.640</td></tr>
+    <tr><td>Casa Viva (por municipio)</td><td colspan="5" style="text-align:left">1.500–1.800 en la zona central · 3.000–3.900 en las afueras</td></tr>
+    <tr class="us" id="cmp-moto"></tr>
+   </tbody>
+  </table></div>
+  <p class="small muted">«Mercado» = la recta que mejor sigue los 47 viajes (≈). Distancias calculadas con nuestro motor de rutas. Algunos puntos pueden estar corridos 0,5–1 km.</p>
+ </div>
+
+ <div class="box calc">
+  <h2>Prueba un viaje</h2>
+  <label for="km">Distancia: <b class="num" id="kmv">5</b> km</label>
+  <input type="range" id="km" min="1" max="25" step="0.5" value="5">
+  <div id="calcout" style="display:grid;gap:6px"></div>
+ </div>
+
+ <div style="display:grid;gap:10px">
+  <h2>¿Cuánto le queda al chofer? (viaje de 7 km)</h2>
+  <div class="tablebox"><table class="num">
+   <thead><tr><th>Servicio</th><th>Precio</th><th>Tras el 8 % de Pa'llá</th><th>Gasolina o carga ≈</th><th>Le queda ≈</th></tr></thead>
+   <tbody id="gana"></tbody>
+  </table></div>
+  <p class="small muted">La gasolina se cuenta comprada en la calle (3.200–4.000 CUP el litro). Con diésel o con gasolina del CUPET, el taxista gana bastante más. Durante el piloto y los 2 meses siguientes no hay 8 %: el chofer se queda todo. Y si el viaje le parece poco, puede pedir +10, +20 o +30 %.</p>
+ </div>
+
+ <div class="box">
+  <h2>Ya decidido por ti</h2>
+  <ul class="small">
+   <li>De noche (10 pm a 6 am): +20 %.</li>
+   <li>Espera: 5 minutos gratis y después 50 CUP por minuto.</li>
+   <li>El cliente nunca puede ofrecer menos que el mínimo.</li>
+   <li>Un chofer puede deber como mucho 2.000 CUP a Pa'llá. Carga: hasta 300 kg.</li>
+  </ul>
+ </div>
+
+ <div style="display:grid;gap:14px">
+  <h2>Lo que decides</h2>
+  <p class="small muted" id="dbState">Marca una opción en cada una. Si abres la página con tu cuenta, se guarda sola.</p>
+  <div id="decs" style="display:grid;gap:14px"></div>
+ </div>
+
+ <p class="small muted">Fuentes: 47 viajes del grupo «Agencia Rodando» (WhatsApp, 1-oct al 3-nov-2026) con distancias de nuestro OSRM · La Nave en el Redmi de Ernesto (3-nov) · tarifas de Casa Viva (Core, 4-nov) · VoyPaTi (WhatsApp, 2-nov) · gasolina: <a href="https://www.directoriocubano.info/precio-combustible-cuba-hoy/">Directorio Cubano / elTOQUE</a> (11-sep-2026) · consumo de un almendrón: AP (8-jun-2026) · carga del triciclo: IPS (3-sep-2026). Lo marcado con ≈ es estimado.</p>
+</div>
+
+<script>
+(function(){
+ // [nombre, detalle, mínimo, km incluidos, CUP por km, costo del chofer por km (≈ min, max)]
+ var S=[
+  ["Taxi Básico","carro moderno",3000,2,200,230,330],
+  ["Taxi Clásico","almendrón",3500,2,400,530,670],
+  ["Taxi XL","7 plazas",4500,2,400,300,400],
+  ["Triciclo Eléctrico","4 plazas",1500,2,300,75,100],
+  ["Eléctrico XL","6–8 plazas",2200,2,400,90,120],
+  ["Bici (pedal)","2 plazas, hasta 5 km",800,2,250,0,0],
+  ["Carga","hasta 300 kg",2000,3,300,90,120],
+  ["Moto","1 pasajero",800,3,230,80,130],
+  ["Mensajero (moto)","cabe en la mano o mochila",1000,3,250,80,130]
+ ];
+ function up10(x){return Math.ceil(x/10)*10}
+ function precio(s,d){return up10(s[2]+Math.max(0,d-s[3])*s[4])}
+ var G=document.getElementById("gana");
+ if(G){G.innerHTML=S.map(function(s){var p=precio(s,7),neto=Math.round(p*0.92/10)*10,c1=s[5]*7,c2=s[6]*7;
+   return "<tr><td><b>"+s[0]+"</b></td><td>"+f(p)+"</td><td>"+f(neto)+"</td><td>"+(c2?f(c1)+"–"+f(c2):"0")+"</td><td><b>"+(c2?f(neto-c2)+"–"+f(neto-c1):f(neto))+"</b></td></tr>"}).join("")}
+ function f(n){return n.toLocaleString("es-ES").replace(/ /g,".")}
+ var D=[2,5,7,10,15];
+ document.getElementById("tabla").innerHTML=S.map(function(s){return "<tr><td><b>"+s[0]+"</b><br><span class='muted small'>"+s[1]+"</span></td><td>"+f(s[2])+"</td><td>"+s[3]+" km</td><td>"+s[4]+"</td>"+D.map(function(d){return "<td>"+f(precio(s,d))+"</td>"}).join("")+"</tr>"}).join("");
+ function fila(id,label,s){document.getElementById(id).innerHTML="<td>"+label+"</td>"+D.map(function(d){return "<td>"+f(precio(s,d))+"</td>"}).join("")}
+ fila("cmp-taxi","Pa'llá · Taxi Básico",S[0]); fila("cmp-tri","Pa'llá · Triciclo Eléctrico",S[3]); fila("cmp-moto","Pa'llá · Mensajero (moto)",S[8]);
+ var km=document.getElementById("km");
+ function calc(){var d=parseFloat(km.value);document.getElementById("kmv").textContent=String(d).replace(".",",");
+  document.getElementById("calcout").innerHTML=[S[0],S[1],S[3],S[7],S[8]].map(function(s){return "<div class='row'><span>"+s[0]+"</span><b class='num'>"+f(precio(s,d))+" CUP</b></div>"}).join("")+"<p class='small muted'>Mercado en carro: ≈ "+f(up10(3300+163*d))+" CUP · en triciclo: ≈ "+f(up10(2250+256*d))+" CUP</p>";}
+ km.addEventListener("input",calc); calc();
+})();
+</script>
+<script>
+(function(){
+ var DECS=[
+  {id:"tabla2",t:"¿Aprobamos la tabla nueva (versión 2)?",o:[["si","Sí, así",1],["subir","Súbela más (escribe cuánto abajo)"],["ajustar","Sí, pero cambia lo que escribo abajo"]]},
+  {id:"pruebas",t:"¿Confirmamos los precios con los choferes del piloto antes de abrir?",o:[["si","Sí: les enseño la tabla a 3–5 choferes y ajusto con lo que digan",1],["no","No hace falta"]]}
+ ];
+ var box=document.getElementById("decs"),st=document.getElementById("dbState"),db=null;
+ box.innerHTML=DECS.map(function(d,i){return "<div class='box dec' data-id='"+d.id+"'><h3>"+(i+1)+". "+d.t+"</h3>"+d.o.map(function(o){return "<label class='opt"+(o[2]?" rec":"")+"'><input type='radio' id='"+d.id+"-"+o[0]+"' name='"+d.id+"' value='"+o[0]+"'><span>"+o[1]+(o[2]?"<span class='rl'>Recomendado</span>":"")+"</span></label>"}).join("")+"<textarea id='nota-"+d.id+"' placeholder='Nota (opcional)'></textarea><div class='saved' id='s-"+d.id+"'></div></div>"}).join("");
+ function show(id,t,ok){var e=document.getElementById("s-"+id);e.textContent=t;e.className="saved"+(ok?" ok":"")}
+ var tm={};
+ function save(id){var r=box.querySelector("input[name='"+id+"']:checked"),n=document.getElementById("nota-"+id).value.trim();if(!r&&!n)return;
+  if(!db){show(id,"Marcado aquí. Para guardarlo, ábrela con tu cuenta o mándame una captura.");return}
+  show(id,"Guardando…");db.doc("precios/"+id).set({opcion:r?r.value:"",nota:n,at:new Date().toISOString()}).then(function(){show(id,"Guardado",1)}).catch(function(){show(id,"No se pudo guardar. Mándame una captura.")});}
+ box.addEventListener("change",function(e){var d=e.target.closest(".dec");if(d&&e.target.type==="radio")save(d.dataset.id)});
+ box.addEventListener("input",function(e){var d=e.target.closest(".dec");if(d&&e.target.tagName==="TEXTAREA"){clearTimeout(tm[d.dataset.id]);tm[d.dataset.id]=setTimeout(function(){save(d.dataset.id)},900)}});
+ var tries=0;(function w(){var c=window.claude;if(!c||!c.use){if(++tries<25){setTimeout(w,200);return}return}
+  c.use("db").then(function(x){if(!x)return;db=x;db.collection("precios").onSnapshot(function(s){s.docs.forEach(function(d){var v=d.data(),r=document.getElementById(d.id+"-"+v.opcion);if(r)r.checked=true;var n=document.getElementById("nota-"+d.id);if(n&&document.activeElement!==n)n.value=v.nota||"";show(d.id,"Guardado",1)});st.textContent=s.size?("Llevas "+s.size+" de "+DECS.length+" marcadas. Se guardan solas."):"Marca una opción en cada una. Se guardan solas."},function(){})})})();
+})();
+</script>

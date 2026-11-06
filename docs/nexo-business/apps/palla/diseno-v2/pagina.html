@@ -1,0 +1,106 @@
+<title>Pa’llá · diseño v2</title>
+<link rel="icon" href="logo/a-icono-oscuro.svg">
+<link rel="stylesheet" href="tokens.css">
+<style>
+body{max-width:760px;margin:0 auto;padding:20px 20px 64px}
+h1{font:600 30px/1.1 var(--letra);letter-spacing:-.03em;margin:20px 0 8px}
+h2{font:var(--t-h1);letter-spacing:-.02em;margin:40px 0 12px}
+p{margin:0 0 12px}
+.ir{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media (max-width:520px){.ir{grid-template-columns:1fr}}
+.ir a{display:flex;gap:12px;align-items:center;padding:16px;border-radius:var(--r);background:var(--fondo-2);color:var(--tinta);text-decoration:none;min-height:68px}
+.ir a b{display:block;font:600 16px/22px var(--letra)}
+.ir a span{font:var(--t-peq);color:var(--tinta-2)}
+.ir a.prin{background:var(--amarillo);grid-column:1 / -1}
+.ir a.prin span{color:#0E0E0E}
+.nov{margin:0;padding:0;list-style:none}
+.nov li{display:flex;gap:10px;padding:10px 0;border-top:1px solid var(--linea)}
+.nov li:first-child{border-top:0}
+.nov li::before{content:"";flex:none;width:6px;height:6px;border-radius:50%;background:var(--tinta);margin-top:9px}
+.logos{display:grid;gap:12px}
+.logo{border-radius:var(--r);box-shadow:0 0 0 1px var(--linea);overflow:hidden}
+.logo .ver{display:flex;align-items:center;gap:12px;padding:16px;flex-wrap:wrap}
+.logo .ver img.i{width:76px;height:76px}
+.logo .ver img.h{height:40px}
+.logo .neg{background:#0E0E0E;padding:14px 16px;display:flex;gap:16px;align-items:center}
+.logo .neg img{height:36px}
+.logo .txt{padding:0 16px 16px}
+.logo .txt b{font:600 16px/22px var(--letra)}
+.rec{display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:999px;background:var(--fondo-2);color:var(--tinta);font:500 12px/1 var(--letra);margin-left:6px}
+ol.dec{padding:0;margin:0;list-style:none;counter-reset:d}
+ol.dec li{counter-increment:d;position:relative;padding:14px 0 14px 40px;border-top:1px solid var(--linea)}
+ol.dec li:first-child{border-top:0}
+ol.dec li::before{content:counter(d);position:absolute;left:0;top:14px;width:26px;height:26px;border-radius:50%;background:var(--fondo-2);display:grid;place-items:center;font:600 13px/1 var(--letra)}
+ol.dec b{display:block;font:600 16px/22px var(--letra);margin-bottom:2px}
+ol.dec .r{color:var(--tinta);font-weight:600}
+.estilos{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+@media (min-width:620px){.estilos{grid-template-columns:repeat(4,1fr)}}
+.estilos figure{margin:0}
+.estilos .hueco{aspect-ratio:1/1;border-radius:var(--r);background:#fff;box-shadow:inset 0 0 0 1px var(--linea);display:grid;place-items:center;overflow:hidden}
+.estilos .hueco img{width:100%;height:100%;object-fit:contain;display:block}
+.estilos figcaption{font:500 14px/20px var(--letra);margin-top:8px}
+.peq{font:var(--t-peq);color:var(--tinta-2)}
+</style>
+
+<img src="logo/a-horizontal-claro.svg" alt="Pa’llá" height="36">
+<h1>El diseño de Pa’llá, versión 2</h1>
+<p class="p-2">Taxi, Triciclo y Mensajero en una sola app, con precio justo que se sube o se baja. Solo diseño: la app de verdad aún no está programada.</p>
+
+<div class="ir">
+  <a class="prin" href="prototipo/index.html"><svg class="p-ico"><use href="iconos.svg#triciclo"/></svg><div><b>Prototipo para tocar</b><span>Avanza solo: pedir, ofertas, viaje y pagar. Ábrelo en el móvil.</span></div></a>
+  <a href="lienzo.html"><svg class="p-ico"><use href="iconos.svg#lista"/></svg><div><b>Lienzo</b><span>Las 31 pantallas y su porqué</span></div></a>
+  <a href="sistema.html"><svg class="p-ico"><use href="iconos.svg#ajustes"/></svg><div><b>Sistema de diseño</b><span>Letra, colores, piezas, barra de viaje</span></div></a>
+</div>
+
+<h2>Novedades v2</h2>
+<ul class="nov">
+  <li>Letra tipo Helvética (Geist, 29 KB) y solo dos grosores: más limpia y ligera.</li>
+  <li>Un solo amarillo por pantalla: el botón principal. Lo demás, en gris.</li>
+  <li>Barra de progreso del viaje como Yandex Go, con el vehículo avanzando a la vez que en el mapa.</li>
+  <li>Menos texto y menos botones: fuera «Ejemplo» y «Demo»; el prototipo avanza solo.</li>
+  <li>Ruta corta de verdad para triciclo, bici y moto (0,4 km a Coppelia, no 0,8 km).</li>
+</ul>
+
+<h2>Vehículos 3D: elegiste el estilo 1 (hiperrealista)</h2>
+<p class="p-2">Ya están los 9, de lado y desde arriba para el mapa, dentro del prototipo. Pesan 4 KB en el mapa y unos 17 KB de lado.</p>
+<div class="estilos" style="margin-bottom:12px">
+  <figure><div class="hueco"><img src="vehiculos/3d/taxi-clasico-lado.webp" loading="lazy" alt="Taxi Clásico"></div><figcaption>Taxi Clásico</figcaption></figure>
+  <figure><div class="hueco"><img src="vehiculos/3d/tric-electrico-lado.webp" loading="lazy" alt="Triciclo Eléctrico"></div><figcaption>Triciclo Eléctrico</figcaption></figure>
+  <figure><div class="hueco"><img src="vehiculos/3d/tric-xl-lado.webp" loading="lazy" alt="Eléctrico XL"></div><figcaption>Eléctrico XL</figcaption></figure>
+  <figure><div class="hueco"><img src="vehiculos/3d/mensajero-lado.webp" loading="lazy" alt="Mensajero"></div><figcaption>Mensajero</figcaption></figure>
+</div>
+<p class="p-2">Los 4 estilos que viste:</p>
+<div class="estilos">
+  <figure id="vehiculo-estilo-1"><div class="hueco"><img src="vehiculos/estilo-1.webp" loading="lazy" alt="Vehículo 3D, estilo 1" onerror="this.hidden=true"></div><figcaption>Estilo 1</figcaption></figure>
+  <figure id="vehiculo-estilo-2"><div class="hueco"><img src="vehiculos/estilo-2.webp" loading="lazy" alt="Vehículo 3D, estilo 2" onerror="this.hidden=true"></div><figcaption>Estilo 2</figcaption></figure>
+  <figure id="vehiculo-estilo-3"><div class="hueco"><img src="vehiculos/estilo-3.webp" loading="lazy" alt="Vehículo 3D, estilo 3" onerror="this.hidden=true"></div><figcaption>Estilo 3</figcaption></figure>
+  <figure id="vehiculo-estilo-4"><div class="hueco"><img src="vehiculos/estilo-4.webp" loading="lazy" alt="Vehículo 3D, estilo 4" onerror="this.hidden=true"></div><figcaption>Estilo 4</figcaption></figure>
+</div>
+
+<h2>Elige el logo</h2>
+<p class="p-2">Las 3 salen de tu «P» actual, amarilla sobre negro.</p>
+<div class="logos">
+  <div class="logo"><div class="ver"><img class="i" src="logo/a-icono-oscuro.svg" alt="Logo A oscuro"><img class="i" src="logo/a-icono-claro.svg" alt="Logo A claro"><img class="h" src="logo/a-horizontal-claro.svg" alt="Logo A horizontal"></div>
+    <div class="neg"><img src="logo/a-horizontal-oscuro.svg" alt="Logo A horizontal oscuro"></div>
+    <div class="txt"><b>A · En ruta</b><span class="rec">Recomendado</span><p class="p-2" style="margin:6px 0 0">La P dibuja un viaje de un punto a otro y se anima al abrir sin pesar nada.</p></div></div>
+  <div class="logo"><div class="ver"><img class="i" src="logo/b-icono-oscuro.svg" alt="Logo B oscuro"><img class="i" src="logo/b-icono-claro.svg" alt="Logo B claro"><img class="h" src="logo/b-horizontal-claro.svg" alt="Logo B horizontal"></div>
+    <div class="neg"><img src="logo/b-horizontal-oscuro.svg" alt="Logo B horizontal oscuro"></div>
+    <div class="txt"><b>B · Pin</b><p class="p-2" style="margin:6px 0 0">La P es un punto del mapa: se entiende sin leer.</p></div></div>
+  <div class="logo"><div class="ver"><img class="i" src="logo/c-icono-oscuro.svg" alt="Logo C oscuro"><img class="i" src="logo/c-icono-claro.svg" alt="Logo C claro"><img class="h" src="logo/c-horizontal-claro.svg" alt="Logo C horizontal"></div>
+    <div class="neg"><img src="logo/c-horizontal-oscuro.svg" alt="Logo C horizontal oscuro"></div>
+    <div class="txt"><b>C · Pa’lante</b><p class="p-2" style="margin:6px 0 0">El hueco de la P es una flecha: la que mejor se ve pequeña.</p></div></div>
+</div>
+
+<h2>Ya decidido</h2>
+<ol class="dec">
+  <li><b>Logo</b>A «En ruta».</li>
+  <li><b>Precios</b>Tabla v2 aprobada (4-nov): Taxi Básico 3.000 incluye 2 km + 200/km · Clásico 3.500 + 400 · XL 4.500 + 400 · Triciclo 1.500 incluye 2 km + 300 · Eléctrico XL 2.200 + 400 · Bici 800 + 250 · Carga 2.000 incluye 3 km + 300 · Moto 800 incluye 3 km + 230 · Mensajero 1.000 incluye 3 km + 250. De noche +20 %. Espera: 5 min gratis, luego 50 CUP/min. El cliente nunca baja del mínimo.</li>
+  <li><b>Chofer</b>Tope de deuda 2.000 CUP. Carga hasta 300 kg.</li>
+</ol>
+<h2>Falta decidir</h2>
+<ol class="dec">
+  <li><b>¿WhatsApp o SMS para el código?</b><span class="r">Recomiendo WhatsApp primero</span> (gratis, ya lo hace el bot) y SMS de reserva.</li>
+  <li><b>¿Les enseñamos los precios antes a 3–5 choferes del piloto?</b><span class="r">Recomiendo que sí</span>, para ajustar antes de abrir.</li>
+</ol>
+
+<p class="peq" style="margin-top:32px">El prototipo pesa ~214 KB sin el mapa (meta: menos de 300 KB). Si el mapa no carga, un plano propio sigue moviendo los vehículos. Hecho por Claude para Ernesto Rondón · 4-nov-2026.</p>

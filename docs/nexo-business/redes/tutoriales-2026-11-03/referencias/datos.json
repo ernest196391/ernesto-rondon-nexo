@@ -1,0 +1,294 @@
+{
+  "fuentes": {
+    "v1": "https://www.instagram.com/reel/DYcNJMTDlWo/",
+    "v2": "https://www.instagram.com/reel/DfIfX3GyJgn/"
+  },
+  "videos": {
+    "v1": {
+      "duracion_s": 50.58,
+      "ancho": 720,
+      "alto": 1280,
+      "fps": 30.0,
+      "audio": true,
+      "cortes_s": [
+        9.73,
+        20.73,
+        31.7,
+        34.47,
+        50.4
+      ],
+      "ritmo": {
+        "cortes": 5,
+        "seg_por_plano": 8.43,
+        "plano_mas_corto": 0.18,
+        "plano_mas_largo": 15.93
+      },
+      "volumen": {
+        "media_db": -17.1,
+        "max_db": -0.0
+      },
+      "fotogramas": 50,
+      "hojas": 6,
+      "voz": {
+        "idioma": "es",
+        "prob_idioma": 0.98,
+        "frases": [
+          {
+            "ini": 0.0,
+            "fin": 2.0,
+            "texto": "Uu, hermano, que caro, que hit, si la..."
+          },
+          {
+            "ini": 3.2,
+            "fin": 7.1,
+            "texto": "Pero tenés que usar el clon de Hitfield, que es sin suscripciones gratis."
+          },
+          {
+            "ini": 7.1,
+            "fin": 11.5,
+            "texto": "Mira, vos venís acá y vas a buscar en Github Open Generative AI, ok?"
+          },
+          {
+            "ini": 11.5,
+            "fin": 15.6,
+            "texto": "Es un repositorio que creó Anil Macha, tiene 10.000 estrellas"
+          },
+          {
+            "ini": 15.6,
+            "fin": 20.7,
+            "texto": "y lo único que tenés que hacer para empezar a usarlo, vas a venir acá y copias este link."
+          },
+          {
+            "ini": 20.7,
+            "fin": 26.5,
+            "texto": "Después vas a venir a Cloud Code y lo vas a decir, instalará y le pasas el link así."
+          },
+          {
+            "ini": 26.5,
+            "fin": 27.9,
+            "texto": "Mira, ahí literalmente ya lo instaló."
+          },
+          {
+            "ini": 27.9,
+            "fin": 31.8,
+            "texto": "Esto es una API key que conseguís acá en muapi.ai, son 12 segundos."
+          },
+          {
+            "ini": 31.8,
+            "fin": 36.4,
+            "texto": "Le das a generar API key, la copias, volves, la pegas y ya estás adentro."
+          },
+          {
+            "ini": 36.4,
+            "fin": 39.9,
+            "texto": "Y acá si te fijás, tenés absolutamente todo, imágenes, videos, lip sync,"
+          },
+          {
+            "ini": 39.9,
+            "fin": 43.7,
+            "texto": "todo lo que te podés imaginar y todos los modelos que quieras empezar a usar."
+          },
+          {
+            "ini": 43.7,
+            "fin": 45.1,
+            "texto": "¡Ah, qué locura!"
+          },
+          {
+            "ini": 45.1,
+            "fin": 47.7,
+            "texto": "Entonces lo único que pases por la API key que vos querés"
+          },
+          {
+            "ini": 47.7,
+            "fin": 49.6,
+            "texto": "y la suscripción de Hitfield te lo olvidas."
+          },
+          {
+            "ini": 49.6,
+            "fin": 50.4,
+            "texto": "Tremendo."
+          }
+        ]
+      }
+    },
+    "v2": {
+      "duracion_s": 87.56,
+      "ancho": 720,
+      "alto": 1280,
+      "fps": 30.0,
+      "audio": true,
+      "cortes_s": [
+        18.2,
+        30.77,
+        38.63,
+        46.53,
+        51.73,
+        71.3,
+        74.97
+      ],
+      "ritmo": {
+        "cortes": 7,
+        "seg_por_plano": 10.95,
+        "plano_mas_corto": 3.67,
+        "plano_mas_largo": 19.57
+      },
+      "volumen": {
+        "media_db": -16.8,
+        "max_db": -3.5
+      },
+      "fotogramas": 87,
+      "hojas": 10,
+      "voz": {
+        "idioma": "pt",
+        "prob_idioma": 1.0,
+        "frases": [
+          {
+            "ini": 0.0,
+            "fin": 4.3,
+            "texto": "Agora todo mundo está editando vídeos com o cloud, mas a maioria das pessoas esconde"
+          },
+          {
+            "ini": 4.3,
+            "fin": 5.9,
+            "texto": "a configuração por trás de um curso."
+          },
+          {
+            "ini": 5.9,
+            "fin": 8.1,
+            "texto": "Me dê 60 segundos que irei te ensinar tudo."
+          },
+          {
+            "ini": 8.1,
+            "fin": 12.2,
+            "texto": "Primeiro, baixe o aplicativo cloud para computador e abra o cloud code nele."
+          },
+          {
+            "ini": 12.2,
+            "fin": 14.7,
+            "texto": "Não é para acessar no navegador, é no aplicativo mesmo."
+          },
+          {
+            "ini": 14.7,
+            "fin": 18.3,
+            "texto": "Depois, crie no seu computador uma pasta chamada editor automático."
+          },
+          {
+            "ini": 18.3,
+            "fin": 22.9,
+            "texto": "Dentro dela, adicione 3 subpastas, arquivo bruto, referências, imagens."
+          },
+          {
+            "ini": 22.9,
+            "fin": 24.7,
+            "texto": "Inicie um novo chat no cloud code."
+          },
+          {
+            "ini": 24.7,
+            "fin": 27.8,
+            "texto": "Escolha local e selecione a pasta editor automático."
+          },
+          {
+            "ini": 27.8,
+            "fin": 30.9,
+            "texto": "Agora o cloud consegue visualizar e usar os seus arquivos."
+          },
+          {
+            "ini": 30.9,
+            "fin": 34.0,
+            "texto": "Em seguida, o cloud precisa de ferramentas para editar de verdade."
+          },
+          {
+            "ini": 34.0,
+            "fin": 35.2,
+            "texto": "Você precisa de cinco."
+          },
+          {
+            "ini": 35.2,
+            "fin": 38.8,
+            "texto": "Remotion e hyperframes constroem o vídeo e as animações motion."
+          },
+          {
+            "ini": 38.8,
+            "fin": 41.6,
+            "texto": "FFM peg, cuida dos cortes e da exportação."
+          },
+          {
+            "ini": 41.6,
+            "fin": 43.2,
+            "texto": "Whisper, cria as legendas."
+          },
+          {
+            "ini": 43.2,
+            "fin": 46.6,
+            "texto": "YT, DLP, baixe os vídeos de referência para você modelar."
+          },
+          {
+            "ini": 46.6,
+            "fin": 48.7,
+            "texto": "Você não precisa instalar nada manualmente."
+          },
+          {
+            "ini": 48.7,
+            "fin": 50.3,
+            "texto": "Basta colar um simples prompt."
+          },
+          {
+            "ini": 50.3,
+            "fin": 53.7,
+            "texto": "Agora o cloud consegue editar, mas ainda não conhece o seu estilo visual."
+          },
+          {
+            "ini": 53.7,
+            "fin": 57.4,
+            "texto": "Escolha de 3 a 5 vídeos com o estilo que você quer e cole os links."
+          },
+          {
+            "ini": 57.4,
+            "fin": 62.0,
+            "texto": "No último passo, grave normalmente e coloque o arquivo bruto na pasta Arquivo Bruto."
+          },
+          {
+            "ini": 62.0,
+            "fin": 63.6,
+            "texto": "Depois use este prompt."
+          },
+          {
+            "ini": 63.6,
+            "fin": 68.2,
+            "texto": "O cloud corta os silêncios, adiciona legendas e música e organiza tudo para você revisar."
+          },
+          {
+            "ini": 68.2,
+            "fin": 71.4,
+            "texto": "Se alguma coisa parecer estranha, basta explicar com palavras simples,"
+          },
+          {
+            "ini": 71.4,
+            "fin": 75.0,
+            "texto": "como deixe os 3 primeiros segundos mais impactante e ele vai corrigir."
+          },
+          {
+            "ini": 75.0,
+            "fin": 77.5,
+            "texto": "Basicamente esse é o fluxo de trabalho completo."
+          },
+          {
+            "ini": 77.5,
+            "fin": 80.6,
+            "texto": "Você só configura uma vez e cria quantos vídeos quiser."
+          },
+          {
+            "ini": 80.6,
+            "fin": 84.8,
+            "texto": "Quer receber o arquivo pronto com todas as skills que eu utilizo nos meus vídeos aqui no meu perfil?"
+          },
+          {
+            "ini": 84.8,
+            "fin": 87.4,
+            "texto": "Comenta arquivo que irei te mandar agora mesmo."
+          }
+        ]
+      }
+    }
+  }
+}

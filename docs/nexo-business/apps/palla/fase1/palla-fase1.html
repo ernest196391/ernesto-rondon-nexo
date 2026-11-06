@@ -1,0 +1,939 @@
+<title>Pa'llá · Fase 1</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&display=swap">
+<style>
+/* Layout: una columna de lectura (móvil primero) + bandas anchas para los móviles del diseño, que se desplazan de lado. */
+:root{
+  --bg:#F3F3F1; --surface:#FFFFFF; --ink:#121212; --muted:#555552; --line:#E0E0DB;
+  --brand:#FFC21A; --brand-soft:#FFF3CC; --on-brand:#121212;
+  --tri:#087A3D; --tri-soft:#E4F3EA; --env:#0B5F8A; --env-soft:#E2F0F8;
+  --ok:#1A7438; --ok-soft:#E4F4E8; --warn:#9A4304; --warn-soft:#FDEBDD; --bad:#B42318; --bad-soft:#FCE6E4;
+  --chip:#ECECE8;
+  /* el móvil del diseño siempre en claro: así se ve la app */
+  --p-bg:#FFFFFF; --p-ink:#121212; --p-muted:#5B5B57; --p-line:#E3E3DE; --p-sunk:#F3F3F1; --p-map:#EDEBE4; --p-street:#FFFFFF; --p-block:#E3E0D6;
+  --font:"Archivo","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --display:"Archivo","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --r:14px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#141413; --surface:#1D1D1B; --ink:#F1F1EC; --muted:#AEAEA7; --line:#34342F;
+  --brand:#FFC21A; --brand-soft:#3A2F0C; --on-brand:#121212;
+  --tri:#4CC383; --tri-soft:#12301F; --env:#62B6E3; --env-soft:#0F2A3B;
+  --ok:#5BCB80; --ok-soft:#163222; --warn:#F2A766; --warn-soft:#3A2514; --bad:#F2877D; --bad-soft:#3A1715;
+  --chip:#2A2A27; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141413; --surface:#1D1D1B; --ink:#F1F1EC; --muted:#AEAEA7; --line:#34342F;
+  --brand:#FFC21A; --brand-soft:#3A2F0C; --on-brand:#121212;
+  --tri:#4CC383; --tri-soft:#12301F; --env:#62B6E3; --env-soft:#0F2A3B;
+  --ok:#5BCB80; --ok-soft:#163222; --warn:#F2A766; --warn-soft:#3A2514; --bad:#F2877D; --bad-soft:#3A1715;
+  --chip:#2A2A27; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:400 16px/1.55 var(--font);-webkit-text-size-adjust:100%}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+a{color:var(--env)}
+:focus-visible{outline:3px solid var(--env);outline-offset:2px}
+.wrap{max-width:860px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0}
+h1{font-size:clamp(2rem,6.5vw,3.3rem);line-height:1.02;font-weight:850;font-stretch:112%;letter-spacing:-.01em}
+h2{font-size:clamp(1.5rem,4.2vw,2.1rem);line-height:1.1;font-weight:800;font-stretch:108%}
+h3{font-size:1.12rem;line-height:1.25;font-weight:750}
+p{margin:0}
+.eyebrow{font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.lead{font-size:1.1rem;color:var(--ink);max-width:62ch}
+.muted{color:var(--muted)}
+.small{font-size:.88rem}
+.num{font-variant-numeric:tabular-nums}
+
+/* cabecera */
+header.top{padding-block:28px 18px}
+.mark{display:flex;align-items:center;gap:12px;margin-bottom:22px}
+.mark svg{width:44px;height:44px;border-radius:10px;flex:none}
+.mark b{font-family:var(--display);font-weight:850;font-stretch:115%;font-size:1.35rem}
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.pill{font-size:.82rem;font-weight:650;padding:5px 11px;border-radius:999px;background:var(--chip);color:var(--ink)}
+.pill.y{background:var(--brand);color:var(--on-brand)}
+.pill.g{background:var(--ok-soft);color:var(--ok)}
+
+/* navegación pegajosa */
+nav.toc{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+nav.toc .wrap{display:flex;gap:6px;overflow-x:auto;padding-block:10px;scrollbar-width:none}
+nav.toc a{flex:none;text-decoration:none;color:var(--ink);font-weight:650;font-size:.9rem;padding:7px 12px;border-radius:999px;background:var(--surface);border:1px solid var(--line)}
+nav.toc a:hover{border-color:var(--ink)}
+
+section{padding-block:44px 8px;scroll-margin-top:64px}
+section > .wrap{display:grid;gap:18px}
+.sec-head{display:grid;gap:8px}
+
+/* resumen */
+.summary{display:grid;gap:0;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.summary li{list-style:none;display:grid;grid-template-columns:34px 1fr;gap:10px;padding:13px 16px;border-top:1px solid var(--line)}
+.summary li:first-child{border-top:0}
+.summary li span{font-weight:800;font-family:var(--display);color:var(--muted)}
+.summary ul{margin:0;padding:0}
+
+/* tablas */
+.tablebox{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r);background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:760px;font-size:.9rem}
+th,td{text-align:left;vertical-align:top;padding:10px 12px;border-top:1px solid var(--line)}
+thead th{border-top:0;font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:var(--bg)}
+td:first-child{font-weight:750;white-space:nowrap}
+tr.us td{background:var(--brand-soft)}
+.c{display:inline-block;font-weight:800;width:1.1em}
+.c.y{color:var(--ok)} .c.e{color:var(--warn)}
+
+/* tarjetas */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;display:grid;gap:10px;align-content:start;min-width:0}
+.card ul,.card ol{margin:0;padding-left:1.15em;display:grid;gap:6px}
+.card.y{border-color:var(--brand);box-shadow:inset 0 0 0 1px var(--brand)}
+.tag{display:inline-block;font-size:.72rem;font-weight:750;letter-spacing:.05em;text-transform:uppercase;padding:3px 8px;border-radius:6px}
+.tag.ok{background:var(--ok-soft);color:var(--ok)} .tag.warn{background:var(--warn-soft);color:var(--warn)} .tag.bad{background:var(--bad-soft);color:var(--bad)}
+.tag.tri{background:var(--tri-soft);color:var(--tri)} .tag.env{background:var(--env-soft);color:var(--env)} .tag.taxi{background:var(--brand-soft);color:var(--ink)}
+.src{font-size:.8rem;color:var(--muted)}
+.src a{color:var(--muted)}
+
+/* semáforo de leyes */
+.law{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.law .card h3{display:flex;align-items:center;gap:8px}
+.dot{width:12px;height:12px;border-radius:50%;flex:none}
+.dot.g{background:var(--ok)} .dot.a{background:#E0A000} .dot.r{background:var(--bad)}
+
+/* calculadora de precio */
+.calc{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;display:grid;gap:14px}
+.calc label{font-weight:700}
+.calc input[type=range]{width:100%;accent-color:var(--tri)}
+.bars{display:grid;gap:10px}
+.bar{display:grid;grid-template-columns:150px 1fr 92px;gap:10px;align-items:center;font-size:.9rem}
+.bar .track{height:14px;background:var(--bg);border-radius:7px;position:relative;overflow:hidden}
+.bar .fill{position:absolute;inset:0 auto 0 0;border-radius:7px}
+.bar .band{position:absolute;top:0;bottom:0;background:var(--ok-soft);border:2px solid var(--ok);border-radius:7px}
+.bar b{text-align:right}
+@media (max-width:520px){.bar{grid-template-columns:1fr 84px}.bar .track{grid-column:1 / -1;grid-row:2}}
+
+/* móviles del diseño */
+.flow-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.rail{overflow-x:auto;padding-block:6px 18px;scroll-snap-type:x mandatory}
+.rail-in{display:flex;gap:18px;width:max-content;padding-left:max(16px,calc((100vw - 860px)/2 + 16px));padding-right:16px}
+.shot{width:276px;flex:none;scroll-snap-align:start;display:grid;gap:10px;align-content:start}
+.shot .why{font-size:.88rem;color:var(--muted);display:grid;gap:4px}
+.shot .why b{color:var(--ink)}
+.shot .n{font-size:.75rem;font-weight:800;letter-spacing:.08em;color:var(--muted);text-transform:uppercase}
+.ph{width:276px;height:560px;border-radius:34px;background:#0E0E0E;padding:9px;box-shadow:0 1px 0 rgba(0,0,0,.04),0 10px 30px -14px rgba(0,0,0,.35)}
+.scr{position:relative;width:100%;height:100%;border-radius:26px;overflow:hidden;background:var(--p-bg);color:var(--p-ink);font-size:12.5px;line-height:1.35;display:flex;flex-direction:column}
+.sb{height:22px;display:flex;justify-content:space-between;align-items:center;padding:0 16px;font-size:10.5px;font-weight:700;color:var(--p-ink);flex:none}
+.map{position:relative;flex:1;background-color:var(--p-map);
+  background-image:
+   repeating-linear-gradient(28deg, transparent 0 30px, var(--p-street) 30px 34px),
+   repeating-linear-gradient(118deg, transparent 0 30px, var(--p-street) 30px 34px);
+  overflow:hidden}
+.map .park{position:absolute;background:#D7E8CF;border-radius:4px}
+.map svg{position:absolute;inset:0;width:100%;height:100%}
+.pin{position:absolute;width:16px;height:16px;border-radius:50%;border:3px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.3)}
+.sheet{background:var(--p-bg);border-radius:18px 18px 0 0;box-shadow:0 -6px 18px -10px rgba(0,0,0,.35);padding:12px 12px 14px;display:grid;gap:9px;flex:none}
+.grab{width:36px;height:4px;border-radius:2px;background:var(--p-line);margin:0 auto}
+.svc{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.svc div{border:1.5px solid var(--p-line);border-radius:12px;padding:7px 4px;text-align:center;font-weight:700;font-size:11.5px;display:grid;gap:2px;justify-items:center}
+.svc div.on{border-color:var(--p-ink);background:var(--p-sunk)}
+.svc i{width:28px;height:20px;display:block}
+.field{background:var(--p-sunk);border-radius:12px;padding:10px 11px;display:flex;gap:8px;align-items:center;font-weight:650}
+.field small{display:block;font-weight:500;color:var(--p-muted);font-size:10.5px}
+.chips{display:flex;gap:5px;flex-wrap:wrap}
+.chips span{background:var(--p-sunk);border-radius:999px;padding:4px 9px;font-size:11px;font-weight:600}
+.btn{display:block;width:100%;border:0;border-radius:12px;background:#121212;color:#fff;font:700 13px/1 var(--font);padding:13px 10px;text-align:center}
+.btn.y{background:#FFC21A;color:#121212}
+.btn.g{background:#087A3D;color:#fff}
+.btn.ghost{background:var(--p-sunk);color:var(--p-ink)}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.kind{display:grid;grid-template-columns:repeat(4,1fr);gap:5px}
+.kind div{border:1.5px solid var(--p-line);border-radius:10px;padding:5px 3px;text-align:center;font-size:10.5px;font-weight:650}
+.kind div b{display:block;font-size:11.5px}
+.kind div.on{border-color:#087A3D;background:#E4F3EA}
+.price{display:grid;grid-template-columns:44px 1fr 44px;align-items:center;gap:6px}
+.price button{height:44px;border-radius:12px;border:0;background:var(--p-sunk);font:800 20px/1 var(--font);color:var(--p-ink);cursor:pointer}
+.price button:active{transform:scale(.96)}
+.price .v{text-align:center}
+.price .v strong{font-size:24px;font-weight:850;font-stretch:110%;display:block;line-height:1.05}
+.price .v small{color:var(--p-muted);font-size:10.5px}
+.hint{font-size:10.5px;border-radius:8px;padding:6px 8px;background:#E4F4E8;color:#1A7438;font-weight:650}
+.hint.w{background:#FDEBDD;color:#9A4304}
+.toggle{display:flex;justify-content:space-between;align-items:center;font-size:11px;font-weight:600}
+.sw{width:30px;height:18px;border-radius:9px;background:#087A3D;position:relative;flex:none}
+.sw::after{content:"";position:absolute;right:2px;top:2px;width:14px;height:14px;border-radius:50%;background:#fff}
+.sw.off{background:#C9C9C3}.sw.off::after{right:auto;left:2px}
+.offer{border:1.5px solid var(--p-line);border-radius:12px;padding:8px;display:grid;grid-template-columns:34px 1fr auto;gap:8px;align-items:center;background:var(--p-bg)}
+.offer.best{border-color:#087A3D}
+.av{width:34px;height:34px;border-radius:50%;background:#D9D6CC;display:grid;place-items:center;font-weight:800;font-size:12px;color:#3A3A36}
+.offer .meta{font-size:10.5px;color:var(--p-muted)}
+.offer .p{text-align:right;font-weight:850;font-size:15px}
+.offer .p small{display:block;font-size:9.5px;font-weight:700}
+.offer .p small.up{color:#9A4304}.offer .p small.eq{color:#1A7438}
+.offer .acc{grid-column:1 / -1;display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.offer .acc span{border-radius:9px;padding:7px;text-align:center;font-weight:700;font-size:11px;background:var(--p-sunk)}
+.offer .acc span.go{background:#087A3D;color:#fff}
+.timer{height:4px;border-radius:2px;background:var(--p-sunk);overflow:hidden}
+.timer i{display:block;height:100%;width:62%;background:#FFC21A}
+.list{display:grid;gap:7px;padding:10px 12px;overflow:hidden;flex:1;background:var(--p-sunk)}
+.top-bar{padding:6px 14px 10px;display:grid;gap:3px;flex:none;border-bottom:1px solid var(--p-line)}
+.top-bar b{font-size:15px;font-weight:800}
+.drv-req{background:var(--p-bg);border-radius:12px;padding:9px;display:grid;gap:6px;border:1.5px solid var(--p-line)}
+.drv-req .route{display:grid;gap:2px;font-size:11px}
+.drv-req .route i{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:5px;vertical-align:middle}
+.drv-req .big{font-size:19px;font-weight:850;font-stretch:110%}
+.cnt{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:4px}
+.cnt span{border-radius:9px;padding:8px 2px;text-align:center;font-weight:750;font-size:10.5px;background:var(--p-sunk)}
+.cnt span.go{background:#087A3D;color:#fff}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
+.steps span{height:5px;border-radius:3px;background:var(--p-line)}
+.steps span.on{background:#087A3D}
+.code{display:flex;gap:4px;justify-content:center}
+.code b{width:30px;height:36px;border-radius:8px;background:var(--p-sunk);display:grid;place-items:center;font-size:18px;font-weight:850}
+.stars{font-size:22px;letter-spacing:4px;color:#FFC21A;text-align:center}
+.stars em{color:#D5D3CB;font-style:normal}
+.pay{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.pay div{border:1.5px solid var(--p-line);border-radius:10px;padding:8px;text-align:center;font-weight:700;font-size:11px}
+.pay div.on{border-color:#121212;background:var(--p-sunk)}
+.badge{display:inline-block;font-size:9.5px;font-weight:800;letter-spacing:.04em;border-radius:5px;padding:2px 6px;text-transform:uppercase}
+.badge.cv{background:#FFF3CC;color:#6B4E00}.badge.tri{background:#E4F3EA;color:#087A3D}.badge.env{background:#E2F0F8;color:#0B5F8A}
+.online{display:flex;align-items:center;gap:6px;font-weight:750}
+.online::before{content:"";width:9px;height:9px;border-radius:50%;background:#1A7438;box-shadow:0 0 0 4px #E4F4E8}
+.form-row{display:grid;gap:4px}
+.form-row label{font-size:10.5px;color:var(--p-muted);font-weight:650}
+.form-row div{background:var(--p-sunk);border-radius:10px;padding:8px 10px;font-weight:600}
+.seg{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}
+.seg span{text-align:center;border-radius:9px;padding:7px 2px;font-size:10.5px;font-weight:700;background:var(--p-sunk)}
+.seg span.on{background:#0B5F8A;color:#fff}
+
+/* plan */
+.phases{display:grid;gap:10px;counter-reset:f}
+.phase{display:grid;grid-template-columns:56px 1fr;gap:14px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px}
+.phase .f{font-family:var(--display);font-weight:850;font-stretch:115%;font-size:1.6rem;line-height:1}
+.phase .f small{display:block;font-size:.7rem;font-weight:700;letter-spacing:.06em;color:var(--muted);margin-top:4px;font-stretch:100%}
+.phase.now{border-color:var(--brand);box-shadow:inset 4px 0 0 var(--brand)}
+.phase ul{margin:6px 0 0;padding-left:1.1em;display:grid;gap:4px}
+
+/* decisiones */
+.dec{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;display:grid;gap:12px}
+.dec-h{display:grid;grid-template-columns:36px 1fr;gap:10px;align-items:start}
+.dec-h .k{width:36px;height:36px;border-radius:10px;background:var(--brand);color:var(--on-brand);display:grid;place-items:center;font-weight:850;font-family:var(--display)}
+.opts{display:grid;gap:8px}
+.opt{display:grid;grid-template-columns:22px 1fr;gap:10px;align-items:start;border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;cursor:pointer}
+.opt input{margin:3px 0 0;width:18px;height:18px;accent-color:var(--ink)}
+.opt.rec{border-color:var(--ok)}
+.opt .rl{display:inline-block;margin-left:6px;font-size:.7rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--ok)}
+.opt:has(input:checked){background:var(--brand-soft);border-color:var(--ink)}
+.saved{font-size:.85rem;color:var(--muted);min-height:1.2em}
+.saved.ok{color:var(--ok);font-weight:650}
+.dec textarea{width:100%;min-height:54px;border:1.5px solid var(--line);border-radius:10px;padding:8px 10px;background:var(--bg);color:var(--ink);font:inherit;font-size:.92rem;resize:vertical}
+.dec-bar{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+footer{padding-block:40px 60px;color:var(--muted);font-size:.85rem}
+footer ol{padding-left:1.2em;display:grid;gap:4px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+.fadein{animation:fi .35s ease-out}
+@keyframes fi{from{opacity:.25;transform:translateY(4px)}to{opacity:1;transform:none}}
+</style>
+
+<header class="top">
+ <div class="wrap">
+  <div class="mark">
+   <svg viewBox="0 0 512 512" aria-hidden="true"><rect width="512" height="512" rx="96" fill="#121212"/><path transform="translate(-17 0)" fill="#FFC21A" fill-rule="evenodd" d="M150 110H292a104 104 0 0 1 0 208H247V402H150ZM247 186V242H284a28 28 0 0 0 0-56Z"/></svg>
+   <b>Pa'llá</b>
+  </div>
+  <p class="eyebrow">Fase 1 · investigación y diseño · 4 de noviembre de 2026</p>
+  <h1 style="margin-top:10px">Una sola app para moverse en La Habana: taxi, triciclo y mensajero</h1>
+  <p class="lead" style="margin-top:14px">Lo que hacen La Nave, inDrive y los demás, lo que permite la ley cubana, cuánto se paga de verdad en la calle, cómo serían las pantallas de Pa'llá y lo que tienes que decidir tú, Ernesto. Todavía no se ha programado nada.</p>
+  <div class="pills">
+   <span class="pill y">Para que Ernesto decida</span>
+   <span class="pill">Sin código hasta tu SÍ (D138)</span>
+   <span class="pill g">Casa Viva sigue igual</span>
+  </div>
+ </div>
+</header>
+
+<nav class="toc" aria-label="Partes de la página">
+ <div class="wrap">
+  <a href="#resumen">Resumen</a><a href="#apps">Las apps</a><a href="#leyes">Leyes</a><a href="#precios">Precios</a><a href="#velocidad">Velocidad</a><a href="#diseno">Pantallas</a><a href="#plan">Plan</a><a href="#decisiones">Tus decisiones</a>
+ </div>
+</nav>
+
+<!-- RESUMEN -->
+<section id="resumen">
+ <div class="wrap">
+  <div class="sec-head"><p class="eyebrow">En 6 líneas</p><h2>Lo más importante</h2></div>
+  <div class="summary"><ul>
+   <li><span>1</span><p><b>La Nave no deja negociar.</b> Pone un precio «estimado» que puede cambiar y tú pulsas «Viajar ahora». Pesa 55 MB en tu Redmi. Esa es nuestra puerta.</p></li>
+   <li><span>2</span><p><b>inDrive sí deja negociar</b> y es la 2.ª app de transporte más descargada del mundo. La app sugiere un precio, el cliente ofrece, el chofer acepta o pide más, y el precio ya no cambia.</p></li>
+   <li><span>3</span><p><b>El regateo sin reglas sale mal</b> (Filipinas lo suspendió, en Nigeria los choferes hicieron boicot). Por eso: precio justo sugerido, un margen para subir o bajar y contraofertas de un toque.</p></li>
+   <li><span>4</span><p><b>Triciclo y mensajero se pueden abrir ya</b> (LOT temporal hasta el 31-dic-2026 y la entrega a domicilio está permitida). <b>Taxi, después</b> de preguntar a un abogado y a Transporte.</p></li>
+   <li><span>5</span><p><b>Nuestro precio de triciclo está muy alto:</b> 620 CUP por 2 km frente a 100–250 en la calle. Propuesta: 60 + 50 por km (2 km = 160 CUP).</p></li>
+   <li><span>6</span><p><b>Casi todo ya existe</b> en Triciclub y Pa'llá. Lo nuevo es la pantalla de ofertas y la del chofer con contraoferta. Piloto con 3–5 choferes de confianza antes de abrir.</p></li>
+  </ul></div>
+  <p class="small muted">Cómo leer: <span class="c y">✔</span> confirmado (lo vi en tu móvil o lo dice una fuente con fecha) · <span class="c e">≈</span> estimado o deducido. Si no encontré un dato, lo digo.</p>
+ </div>
+</section>
+
+<!-- APPS -->
+<section id="apps">
+ <div class="wrap">
+  <div class="sec-head"><p class="eyebrow">Investigación · 1</p><h2>Cómo lo hacen las otras apps</h2>
+   <p class="muted">La Nave se miró de verdad en tu Redmi por USB (3 y 4-nov), solo leyendo pantallas, sin pedir viajes. Lo demás sale de su ayuda oficial, la prensa y las tiendas de apps.</p></div>
+ </div>
+ <div class="wrap" style="margin-top:14px">
+  <div class="tablebox">
+   <table>
+    <thead><tr><th>App</th><th>Cómo se pide</th><th>Precio</th><th>Comisión al chofer</th><th>Pago</th><th>Peso</th></tr></thead>
+    <tbody>
+     <tr><td>La Nave</td><td><span class="c y">✔</span> Mapa → «¿A dónde vamos?» → confirmar origen → carrusel (Moto, Triciclo, Básico, Confort, Básico XL, Confort XL) → «Viajar ahora»</td><td><span class="c y">✔</span> Lo pone la app, «estimado, puede variar». ~5 km Vedado→Obispo: 2.651,65 y 3.176,55 CUP</td><td><span class="c e">≈</span> 10–20 % + fondo de 10.000 CUP (prensa 2024; la de 2026 no se encontró)</td><td><span class="c y">✔</span> Efectivo o Billetera</td><td><span class="c y">✔</span> 55 MB cliente y 91 MB chofer instaladas en tu Redmi</td></tr>
+     <tr><td>inDrive</td><td><span class="c y">✔</span> 5 pasos: ciudad → direcciones → ofrecer precio → buscar chofer → elegir por tiempo, nota y precio</td><td><span class="c y">✔</span> Sugiere un «precio mínimo recomendado»; el cliente ofrece ese o más; el chofer acepta o contraoferta; acordado, no cambia</td><td><span class="c y">✔</span> 9,99 % (Nigeria) · <span class="c e">≈</span> 10–11 % en otros países</td><td><span class="c y">✔</span> Efectivo directo al chofer; el chofer recarga un saldo que paga la comisión</td><td><span class="c e">≈</span> 161 MB Android</td></tr>
+     <tr><td>Uber</td><td><span class="c e">≈</span> Destino → categoría → pedir (precio fijo)</td><td><span class="c y">✔</span> Fijo. Prueba «Flex»: el cliente elige entre 9 precios y los choferes aceptan o no (India, Kenia, Líbano, partes de Latinoamérica)</td><td><span class="c e">≈</span> discutida; un grupo de choferes calcula 40 %. En India (autos) cambió a suscripción sin comisión</td><td><span class="c e">≈</span> Efectivo: se descuenta del saldo del chofer</td><td><span class="c y">✔</span> 480 MB iPhone · Uber Lite pesaba menos de 5 MB</td></tr>
+     <tr><td>Bolt</td><td><span class="c e">≈</span> Igual que Uber</td><td>Fijo</td><td><span class="c y">✔</span> 20 % (Nigeria), también en efectivo</td><td><span class="c y">✔</span> Si la deuda del chofer llega al límite, se pausan solo sus viajes en efectivo hasta que paga</td><td><span class="c y">✔</span> 211 MB iPhone</td></tr>
+     <tr><td>Yango</td><td>Igual que Uber</td><td>Fijo</td><td>No encontrado</td><td>—</td><td><span class="c y">✔</span> 537 MB iPhone</td></tr>
+     <tr id="fila-cuba"><td>Apps de Cuba</td><td colspan="5" class="muted">Mandao (mensajería), D'Taxi y «55» (estatales), Bajanda, Sube y Picker: ver abajo.</td></tr>
+     <tr class="us"><td>Pa'llá (propuesta)</td><td>Mapa → servicio → destino → precio justo (subir o bajar) → ofertas → elegir</td><td>Sugerido + oferta del cliente + contraoferta del chofer. Acordado, no cambia</td><td>0 % en el piloto; luego menos que La Nave (decides tú)</td><td>Efectivo o Transfermóvil al chofer</td><td>~0,25 MB la primera vez (web) + mapa</td></tr>
+    </tbody>
+   </table>
+  </div>
+  <p class="src" style="margin-top:8px">Fuentes con fecha en el pie de la página (números 1–27).</p>
+ </div>
+ <div class="wrap" style="margin-top:18px">
+  <div class="cards">
+   <div class="card">
+    <span class="tag taxi">La Nave por dentro</span>
+    <h3>Lo que se vio en tu Redmi</h3>
+    <ul>
+     <li><span class="c y">✔</span> Abre en el mapa con tu punto y la dirección a la cubana: «Calle N e/ 23 y 25».</li>
+     <li><span class="c y">✔</span> Sugerencias de lugares al escribir y «Fijar ubicación en el mapa» siempre visible.</li>
+     <li><span class="c y">✔</span> <b>Ya tiene «Triciclo»</b> en el carrusel (el estudio del 23-oct decía que no).</li>
+     <li><span class="c y">✔</span> Un solo botón: «Viajar ahora». No hay forma de ofrecer otro precio.</li>
+     <li><span class="c y">✔</span> Apklis: 286.332 descargas, nota 3,7, última versión ahí de feb-2024 <span class="src">[5]</span>.</li>
+     <li><span class="c y">✔</span> Bloquea las capturas: solo se leyeron textos y botones.</li>
+    </ul>
+    <p class="small muted"><b>Falta ver:</b> cómo le llega el pedido al chofer y el viaje en curso (hace falta un viaje real) y la tarifa exacta de «Triciclo».</p>
+   </div>
+   <div class="card y">
+    <span class="tag ok">inDrive · el modelo de D138</span>
+    <h3>Cómo funciona el precio mixto</h3>
+    <ol>
+     <li>La app sugiere un precio para ese viaje <span class="c y">✔</span>.</li>
+     <li>El cliente ofrece ese u otro <span class="c y">✔</span>. Piso para bajar: <b>no publicado</b>.</li>
+     <li>Los choferes cerca ven origen, destino y el precio, y aceptan o contraofertan, sin castigo por decir que no <span class="c y">✔</span>.</li>
+     <li>El cliente elige por precio, tiempo de llegada y nota <span class="c y">✔</span>.</li>
+     <li>El precio acordado no cambia en el viaje <span class="c y">✔</span>.</li>
+    </ol>
+    <p class="small"><b>Por qué gana:</b> 400 M de descargas, 48 países; un estudio en 7 países dice que casi 2 de cada 3 pasajeros y choferes de Latinoamérica viajan más gracias a negociar <span class="src">[7][8]</span>.</p>
+   </div>
+   <div class="card">
+    <span class="tag bad">Lo que salió mal</span>
+    <h3>Tres avisos para no repetir</h3>
+    <ul>
+     <li><b>Filipinas suspendió inDrive</b>: el regateo «pone en riesgo» a choferes y pasajeros <span class="src">[9]</span>.</li>
+     <li><b>Boicot en Lagos</b>: la puja hundía la tarifa y los pasajeros no estaban verificados <span class="src">[10]</span>.</li>
+     <li>Queja en Zimbabue <span class="c e">≈</span>: castigaban con cancelaciones al chofer que pedía más.</li>
+    </ul>
+    <p class="small"><b>Por eso en Pa'llá:</b> margen para el precio, contraofertas de un toque, cliente con teléfono verificado y nadie pierde nota por decir que no.</p>
+   </div>
+  </div>
+ </div>
+ <div class="wrap" style="margin-top:18px" id="cuba-apps">
+  <h3 style="margin-bottom:10px">Las apps de Cuba</h3>
+  <div class="cards">
+   <div class="card"><span class="tag taxi">Viva</span><h3>La Nave</h3><p class="small">Única app de taxi que «funciona» según guías de viaje de 2026 <span class="c y">✔</span>. Desde 2024 se maneja desde fuera de Cuba tras una auditoría <span class="c y">✔</span>. Ejemplo real: 5.000 CUP Vedado → Centro Habana a medianoche (feb-2026) <span class="c y">✔</span> <span class="src">[15][16]</span>.</p></div>
+   <div class="card"><span class="tag warn">Dudosa</span><h3>Bajanda</h3><p class="small"><span class="c e">≈</span> Una guía de mar-2026 la da como «aún operando», solo efectivo. Decía tener 17.000 usuarios y 300 choferes (sin fecha).</p></div>
+   <div class="card"><span class="tag warn">Sin datos recientes</span><h3>Sube</h3><p class="small"><span class="c e">≈</span> El chofer proponía el precio y el pasajero aceptaba o no (2019). Es lo más parecido a inDrive que hubo en Cuba. Su estado hoy: no encontrado.</p></div>
+   <div class="card"><span class="tag env">Mensajería</span><h3>Mandao</h3><p class="small"><span class="c e">≈</span> Entregas en bici, moto o carro en 7 ciudades desde 2020; efectivo o tarjeta; quejas por reembolsos. Su web carga vacía. Tarifas en CUP: no encontradas.</p></div>
+   <div class="card"><span class="tag">Estatales</span><h3>«55» y D'Taxi</h3><p class="small">«55» salió en ene-2026 (Taxi Cuba + Pyxel) <span class="c y">✔</span>; su web daba error hoy. Tarifas y si entran privados: no encontrado. D'Taxi: sin datos recientes.</p></div>
+   <div class="card"><span class="tag">No encontradas</span><h3>Picker y Doche</h3><p class="small">No aparece nada público y reciente. René Taxis trabaja por WhatsApp y Telegram, sin app <span class="c y">✔</span>.</p></div>
+  </div>
+  <p class="small muted" style="margin-top:10px"><b>Por qué cierran las apps cubanas:</b> auditorías, problemas con los bancos, solo efectivo, gasolina y apagones. Nadie junta taxi + triciclo + mensajero, y nadie deja negociar el precio hoy.</p>
+ </div>
+</section>
+
+<!-- LEYES -->
+<section id="leyes">
+ <div class="wrap">
+  <div class="sec-head"><p class="eyebrow">Investigación · 2</p><h2>Qué permite la ley en Cuba</h2>
+   <p class="muted">No soy abogado. Es un resumen de normas y prensa con fecha. Antes de abrir al público hay que confirmarlo con un abogado y con la Dirección Provincial de Transporte.</p></div>
+  <div class="law">
+   <div class="card"><h3><span class="dot g"></span>Triciclo, moto y bicitaxi eléctrico</h3>
+    <ul>
+     <li><span class="c y">✔</span> <b>Instrucción 1/2026</b> (18-feb): LOT excepcional para motos, triciclos y bicitaxis con motor, aunque no tengan chapa (vale el número de chasis). Licencia A o A-1. Si el vehículo es alquilado, basta el permiso del dueño <span class="src">[17][18]</span>.</li>
+     <li><span class="c y">✔</span> En La Habana la LOT vale para <b>toda la provincia</b> y dura un año.</li>
+     <li><span class="c y">✔</span> <b>Ojo:</b> los precios los fija el gobierno local «en coordinación con los titulares». Puede haber topes.</li>
+     <li><span class="c y">✔</span> Vale <b>hasta el 31-dic-2026</b>. Prórroga: no encontrada (ACN, 25-sep, solo dice que «da resultados»).</li>
+     <li><span class="c y">✔</span> Ya hay 1.912 choferes autorizados con vehículos eléctricos (julio).</li>
+    </ul>
+    <p class="small"><b>Se puede ya</b>, con choferes que tengan su LOT. Bicitaxi de pedal: reglas viejas (2018) de calles prohibidas; hay que confirmarlas.</p>
+   </div>
+   <div class="card"><h3><span class="dot g"></span>Mensajero</h3>
+    <ul>
+     <li><span class="c y">✔</span> <b>Decreto 160/2026</b> (vigente desde el 4-ago): lo que no está en su lista está permitido. La mensajería y la entrega a domicilio <b>no</b> están en la lista <span class="src">[19]</span>.</li>
+     <li><span class="c y">✔</span> Solo el Estado: el «servicio postal universal» (correo).</li>
+    </ul>
+    <p class="small"><b>Se puede ya.</b> Es lo que Casa Viva hace hoy con sus mensajeros.</p>
+   </div>
+   <div class="card"><h3><span class="dot a"></span>Taxi (carro)</h3>
+    <ul>
+     <li><span class="c y">✔</span> Transportar pasajeros no está prohibido a los privados (Decreto 160).</li>
+     <li><span class="c y">✔</span> Cada chofer necesita LOT (Res. 140/2024): cuenta fiscal, aceptar pago electrónico e informar <span class="src">[20]</span>.</li>
+     <li><span class="c e">≈</span> La Res. 140 nombra «servicios de gestión de transporte» como actividad con licencia. <b>No está claro si la app (la mipyme) necesita esa licencia.</b></li>
+     <li><span class="c y">✔</span> El Estado tiene su propia app («55», ene-2026).</li>
+    </ul>
+    <p class="small"><b>Esperar</b> a la consulta legal. Por eso queda para la fase 5.</p>
+   </div>
+  </div>
+  <div class="cards">
+   <div class="card"><span class="tag bad">No hacer</span><ul>
+    <li>Parecer una agencia que <b>contrata</b> choferes: las «actividades de empleo» están prohibidas (punto 48 del Decreto 160). Pa'llá conecta; cada chofer trabaja por su cuenta con su LOT.</li>
+    <li>Dar por hecho que la LOT temporal sigue en 2027.</li>
+    <li>Tener los datos solo en servidores fuera de Cuba sin preguntarlo: el Decreto-Ley 370 lo multa (3.000 CUP) <span class="c e">≈</span> <span class="src">[21]</span>. Hoy la web está en Hostinger y el VPS: hay que preguntar.</li>
+   </ul></div>
+   <div class="card"><span class="tag warn">Preguntar a un abogado o a Transporte de La Habana</span><ol>
+    <li>¿La mipyme que tiene la app necesita licencia de «gestión de transporte»?</li>
+    <li>¿Hay que inscribir la app en MINCOM o basta con Apklis?</li>
+    <li>¿Cómo se factura la comisión y sobre qué paga el 10 %?</li>
+    <li>¿Hay topes de precio para triciclos y motos privados en La Habana?</li>
+    <li>¿Se prorrogan las Instrucciones 1 y 3 en 2027?</li>
+    <li>¿Por qué calles no pueden ir bicitaxis y triciclos? ¿Y lo del servidor fuera de Cuba?</li>
+   </ol></div>
+   <div class="card"><span class="tag">Impuestos del chofer (2026)</span><ul>
+    <li><span class="c y">✔</span> TCP: 10 % sobre ventas y servicios cada mes, más un 5 % a cuenta de lo que pase de 3.260 CUP <span class="src">[22]</span>.</li>
+    <li>Cómo paga impuestos la comisión de una app: no encontrado.</li>
+   </ul></div>
+  </div>
+ </div>
+</section>
+
+<!-- PRECIOS -->
+<section id="precios">
+ <div class="wrap">
+  <div class="sec-head"><p class="eyebrow">Investigación · 3</p><h2>Cuánto se paga de verdad (CUP, 2026)</h2></div>
+  <div class="tablebox">
+   <table style="min-width:600px">
+    <thead><tr><th>Viaje</th><th>Precio</th><th>Fuente y fecha</th></tr></thead>
+    <tbody class="num">
+     <tr><td>Triciclo eléctrico, viaje corto</td><td><span class="c y">✔</span> 100–150 CUP</td><td>Cubadebate, 9-mar-2026 [23]</td></tr>
+     <tr><td>Triciclo eléctrico, según distancia</td><td><span class="c y">✔</span> 150–250 CUP (Clínico → Puente de Hierro 150; Boyeros → La Palma 250)</td><td>Cubadebate, 9-mar-2026 [23]</td></tr>
+     <tr><td>Triciclo estatal (ruta fija)</td><td><span class="c y">✔</span> 10 CUP</td><td>IPS, 3-sep-2026 [24]</td></tr>
+     <tr><td>Almendrón Boyeros → centro</td><td><span class="c y">✔</span> ~600 CUP por persona</td><td>CiberCuba, 16-feb-2026 [25]</td></tr>
+     <tr><td>La Nave ~5 km Vedado → Obispo (de día)</td><td><span class="c y">✔</span> 2.651,65 y 3.176,55 CUP</td><td>Tu Redmi, 3-nov-2026 [1]</td></tr>
+     <tr><td>La Nave Vedado → Centro Habana, medianoche</td><td><span class="c y">✔</span> 5.000 CUP</td><td>Diario de Cuba, 23-feb-2026 [16]</td></tr>
+     <tr><td>Bicitaxi de pedal, moto-taxi, mensajería</td><td>No encontrado (≈ 100–500 CUP sin comprobar)</td><td>—</td></tr>
+     <tr><td>Dólar en la calle</td><td><span class="c y">✔</span> 900 CUP (2-nov) · ≈ 915 (4-nov)</td><td>elTOQUE vía Infobae [26]</td></tr>
+     <tr style="background:var(--bad-soft)"><td>Triciclub hoy, 2 km</td><td><b>620 CUP</b> (300 CUP por km)</td><td>Nuestro Core 3.14.135</td></tr>
+    </tbody>
+   </table>
+  </div>
+  <p class="small muted">Ojo al comparar: muchos precios de la calle son <b>por persona en una ruta</b> (como un colectivo). En Pa'llá el triciclo va <b>solo para ti</b> y te recoge en tu puerta. Por eso puede costar algo más, pero no 4 veces más. Lo que gasta el chofer: cargar el triciclo hasta 6.000 CUP al día con los apagones y 10.000 al mes de arreglos <span class="c y">✔</span> [24].</p>
+  <div class="calc">
+   <label for="km">Prueba la distancia: <span class="num" id="kmV">2</span> km</label>
+   <input type="range" id="km" min="1" max="10" step="0.5" value="2">
+   <div class="bars">
+    <div class="bar"><span>Triciclub hoy</span><div class="track"><div class="fill" id="bHoy" style="background:var(--bad)"></div></div><b class="num" id="vHoy"></b></div>
+    <div class="bar"><span>Pa'llá propuesta</span><div class="track"><div class="fill" id="bNew" style="background:var(--tri)"></div></div><b class="num" id="vNew"></b></div>
+    <div class="bar"><span>En la calle</span><div class="track"><div class="band" id="bSt"></div></div><b class="num" id="vSt"></b></div>
+   </div>
+   <p class="small muted">Propuesta: <b>60 CUP de arranque + 50 por km</b>, redondeado a 10. Es solo el precio <i>sugerido</i>: el cliente puede ofrecer de −20 % a +50 % y el chofer pedir más. «Hoy» = 300 por km hasta 5 km y 150 después, sin el extra por la hora (con él, 2 km dieron 620). «En la calle» con las fuentes de arriba; más de 5 km, ≈ 200–500.</p>
+  </div>
+  <div class="cards">
+   <div class="card"><span class="tag tri">Triciclo</span><p class="small">Bici (pedal) ≈ 70 % del eléctrico. XL y Carga ≈ 150 %. Por decidir con los choferes del piloto.</p></div>
+   <div class="card"><span class="tag env">Mensajero</span><p class="small">Sugerido ≈ 100 + 60 por km (3,8 km = 330). Casa Viva sigue con su tabla por municipio.</p></div>
+   <div class="card"><span class="tag taxi">Taxi</span><p class="small">Se decide en la fase 5. Referencia: La Nave ~2.650 CUP por 5 km de día. Una idea a probar: ≈ 20 % por debajo.</p></div>
+  </div>
+ </div>
+</section>
+
+<!-- VELOCIDAD -->
+<section id="velocidad">
+ <div class="wrap">
+  <div class="sec-head"><p class="eyebrow">Investigación · 4</p><h2>Más rápida que La Nave: lo medido y lo que falta medir</h2></div>
+  <div class="cards">
+   <div class="card">
+    <span class="tag ok">Medido hoy</span>
+    <h3>Cuánto hay que bajar para empezar</h3>
+    <ul class="num">
+     <li><span class="c y">✔</span> La Nave cliente: <b>55 MB</b> instalada en tu Redmi (Apklis dice 56,5 MB) <span class="src">[5]</span>.</li>
+     <li><span class="c y">✔</span> La Nave chofer: <b>91 MB</b>.</li>
+     <li><span class="c y">✔</span> Triciclub hoy (web): <b>48 KB</b> de página propia + <b>190 KB</b> de la librería del mapa = ~0,24 MB. Faltan los cuadros del mapa (no medidos).</li>
+     <li><span class="c y">✔</span> App Pa'llá para Android: <b>0,8 MB</b>.</li>
+    </ul>
+    <p class="small muted">En La Habana los datos van por debajo de 1 Mbit/s <span class="c y">✔</span> [27]. A esa velocidad, bajar La Nave son unos 7 minutos <span class="c e">≈</span>; nuestra web, unos 2–3 segundos más el mapa <span class="c e">≈</span>. Es una cuenta, no una medida en tu móvil.</p>
+   </div>
+   <div class="card">
+    <span class="tag warn">Falta medir</span>
+    <h3>Cómo medirlo en tu Redmi (datos de ETECSA)</h3>
+    <ol>
+     <li>Wi-Fi apagado, solo datos. Primero <b>con</b> la VPN y luego <b>sin</b> ella (hoy tu móvil va con una VPN encendida).</li>
+     <li>Cerrar la app del todo. Abrirla y contar hasta que se puede escribir el destino.</li>
+     <li>Mismo viaje en las dos (Calle N y 23 → Obispo): contar toques y segundos hasta ver el precio.</li>
+     <li>3 veces cada una, a las 9:00, 13:00 y 20:00.</li>
+    </ol>
+    <p class="small">Yo lo hago por el cable USB con un cronómetro automático. Hoy no pude: <b>el móvil estaba bloqueado</b>. Solo necesito que lo dejes desbloqueado y conectado 10 minutos. No pido ningún viaje.</p>
+   </div>
+   <div class="card">
+    <span class="tag ok">Lo que haremos para ganar</span>
+    <h3>Reglas de velocidad de Pa'llá</h3>
+    <ul>
+     <li>Primera pantalla útil en menos de 3 s con datos (meta, por medir).</li>
+     <li>Pedir en 4 toques si es un destino reciente.</li>
+     <li>Mapa con nuestros propios cuadros en el VPS; si no carga, la app sigue funcionando con la lista de direcciones (idea de Uber Lite) <span class="src">[6]</span>.</li>
+     <li>Lo que ya pediste se guarda en el móvil: casa, trabajo y recientes funcionan sin señal.</li>
+    </ul>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- DISEÑO -->
+<section id="diseno">
+ <div class="wrap">
+  <div class="sec-head"><p class="eyebrow">Diseño</p><h2>Las pantallas de Pa'llá</h2>
+   <p class="muted">10 pantallas de móvil con datos de ejemplo. Desliza de lado. En la pantalla 3 los botones − y + funcionan: cambia el precio y mira cómo cambian las ofertas en la 4.</p></div>
+  <div class="flow-head"><h3>Cliente</h3><span class="tag tri">pide un triciclo</span></div>
+ </div>
+ <div class="rail" tabindex="0" aria-label="Pantallas del cliente"><div class="rail-in">
+
+  <!-- C1 -->
+  <div class="shot">
+   <div class="n">1 · Inicio</div>
+   <div class="ph"><div class="scr">
+    <div class="sb"><span>9:41</span><span>4G ▮▮▮</span></div>
+    <div class="map">
+     <div class="park" style="left:150px;top:70px;width:60px;height:44px"></div>
+     <svg viewBox="0 0 258 330" aria-hidden="true"><circle cx="118" cy="190" r="32" fill="#0B5F8A" opacity=".12"/></svg>
+     <div class="pin" style="left:110px;top:182px;background:#0B5F8A"></div>
+     <div class="pin" style="left:60px;top:120px;background:#087A3D;width:12px;height:12px;border-width:2px"></div>
+     <div class="pin" style="left:180px;top:230px;background:#087A3D;width:12px;height:12px;border-width:2px"></div>
+     <div class="pin" style="left:200px;top:140px;background:#FFC21A;width:12px;height:12px;border-width:2px"></div>
+    </div>
+    <div class="sheet">
+     <div class="grab"></div>
+     <div class="svc">
+      <div><i><svg viewBox="0 0 28 20"><path d="M4 13h20v3H4zM7 8l3-4h8l3 4z" fill="#121212"/><circle cx="8" cy="16" r="2" fill="#121212"/><circle cx="20" cy="16" r="2" fill="#121212"/></svg></i>Taxi</div>
+      <div class="on"><i><svg viewBox="0 0 28 20"><path d="M3 7h12v6H3zM15 10h6l3 3H15z" fill="#087A3D"/><circle cx="6" cy="16" r="2.4" fill="#121212"/><circle cx="21" cy="16" r="2.4" fill="#121212"/><circle cx="13" cy="16" r="2.4" fill="#121212"/></svg></i>Triciclo</div>
+      <div><i><svg viewBox="0 0 28 20"><rect x="8" y="3" width="12" height="10" rx="2" fill="#0B5F8A"/><path d="M8 7h12" stroke="#fff" stroke-width="1.5"/><circle cx="14" cy="16" r="2.4" fill="#121212"/></svg></i>Mensajero</div>
+     </div>
+     <div class="field">🔍<span>¿A dónde vamos?<small>Desde: Calle N e/ 23 y 25, Vedado</small></span></div>
+     <div class="chips"><span>🏠 Casa</span><span>💼 Trabajo</span><span>Coppelia</span><span>Obispo</span></div>
+    </div>
+   </div></div>
+   <div class="why"><b>Por qué</b><span>Como La Nave: abre en el mapa, el origen sale solo por GPS y en formato cubano. Lo nuevo: los 3 servicios arriba, siempre a un toque.</span></div>
+  </div>
+
+  <!-- C2 -->
+  <div class="shot">
+   <div class="n">2 · Origen y destino</div>
+   <div class="ph"><div class="scr">
+    <div class="sb"><span>9:41</span><span>4G ▮▮▮</span></div>
+    <div style="padding:6px 12px 10px;display:grid;gap:8px;flex:none">
+     <div class="field" style="background:#fff;border:1.5px solid var(--p-line)"><span style="color:#0B5F8A">●</span><span>Calle N e/ 23 y 25<small>Recoger aquí · por GPS</small></span></div>
+     <div class="field" style="border:1.5px solid #121212;background:#fff"><span style="color:#087A3D">●</span><span>copp|<small>Llevar a</small></span></div>
+    </div>
+    <div style="display:grid;flex:1;align-content:start;border-top:1px solid var(--p-line)">
+     <div style="padding:10px 14px;border-bottom:1px solid var(--p-line)"><b>Coppelia</b><br><span style="color:var(--p-muted)">23 y L, Vedado · 0,9 km</span></div>
+     <div style="padding:10px 14px;border-bottom:1px solid var(--p-line)"><b>Copa Room (Hotel Riviera)</b><br><span style="color:var(--p-muted)">Paseo y Malecón · 2,6 km</span></div>
+     <div style="padding:10px 14px;border-bottom:1px solid var(--p-line)"><b>Calle Coppinger</b><br><span style="color:var(--p-muted)">Cerro</span></div>
+     <div style="padding:10px 14px;color:#0B5F8A;font-weight:700">📍 Fijar en el mapa</div>
+     <div style="padding:10px 14px;color:var(--p-muted)">Recientes: Obispo e/ Habana y Compostela</div>
+    </div>
+   </div></div>
+   <div class="why"><b>Por qué</b><span>Ya existe en Triciclub (15.110 lugares de La Habana). «Fijar en el mapa» siempre visible: nunca te bloquea si no entiende la dirección.</span></div>
+  </div>
+
+  <!-- C3 -->
+  <div class="shot">
+   <div class="n">3 · Precio justo (prueba los botones)</div>
+   <div class="ph"><div class="scr">
+    <div class="sb"><span>9:41</span><span>4G ▮▮▮</span></div>
+    <div class="map" style="flex:1">
+     <svg viewBox="0 0 258 220" aria-hidden="true" preserveAspectRatio="none"><path d="M70 160 L95 128 L130 118 L150 86 L190 66" stroke="#121212" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+     <div class="pin" style="left:62px;top:152px;background:#0B5F8A"></div>
+     <div class="pin" style="left:182px;top:58px;background:#087A3D"></div>
+    </div>
+    <div class="sheet">
+     <div class="row"><b>Coppelia · 2,1 km · 9 min</b><span class="badge tri">Triciclo</span></div>
+     <div class="kind">
+      <div><b>Bici</b>2 pers.</div><div class="on"><b>Eléctrico</b>4 pers.</div><div><b>XL</b>8 pers.</div><div><b>Carga</b>500 kg</div>
+     </div>
+     <div class="price">
+      <button type="button" id="pMenos" aria-label="Bajar 10 CUP">−</button>
+      <div class="v"><strong class="num" id="pVal">170 CUP</strong><small id="pSub">Precio justo sugerido</small></div>
+      <button type="button" id="pMas" aria-label="Subir 10 CUP">+</button>
+     </div>
+     <div class="hint" id="pHint">Precio justo: así sale más rápido.</div>
+     <div class="toggle"><span>Coger la 1.ª oferta a este precio</span><span class="sw off" id="pSw" role="switch" aria-checked="false" tabindex="0"></span></div>
+     <div class="pay"><div class="on">💵 Efectivo</div><div>📱 Transfermóvil</div></div>
+     <button class="btn y" type="button">Buscar triciclo</button>
+    </div>
+   </div></div>
+   <div class="why"><b>Por qué</b><span>La app sugiere el precio justo (como inDrive). Puedes bajar hasta −20 % o subir hasta +50 %, de 10 en 10, sin teclear. El margen evita la puja hacia abajo que hundió a los choferes de Lagos.</span></div>
+  </div>
+
+  <!-- C4 -->
+  <div class="shot">
+   <div class="n">4 · Ofertas de choferes</div>
+   <div class="ph"><div class="scr">
+    <div class="sb"><span>9:41</span><span>4G ▮▮▮</span></div>
+    <div class="top-bar"><b>Buscando triciclo…</b><span style="color:var(--p-muted)" id="oSub">Tu oferta: 170 CUP · 4 choferes cerca</span><div class="timer"><i></i></div></div>
+    <div class="list" id="offers"></div>
+    <div style="padding:10px 12px;flex:none;display:grid;gap:6px;border-top:1px solid var(--p-line)">
+     <button class="btn ghost" type="button">Subir 10 % para más ofertas</button>
+    </div>
+   </div></div>
+   <div class="why"><b>Por qué</b><span>Eliges por precio, tiempo y estrellas (D138). Verde = acepta tu precio; naranja = te pide más. Cada oferta dura 60 s. Si nadie contesta, la app te propone subir un poco.</span></div>
+  </div>
+
+  <!-- C5 -->
+  <div class="shot">
+   <div class="n">5 · El chofer viene</div>
+   <div class="ph"><div class="scr">
+    <div class="sb"><span>9:41</span><span>4G ▮▮▮</span></div>
+    <div class="map">
+     <svg viewBox="0 0 258 300" aria-hidden="true"><path d="M190 60 L160 100 L130 130 L100 170" stroke="#087A3D" stroke-width="4" stroke-dasharray="2 7" stroke-linecap="round" fill="none"/></svg>
+     <div class="pin" style="left:92px;top:162px;background:#0B5F8A"></div>
+     <div class="pin" style="left:182px;top:52px;background:#087A3D;border-radius:5px"></div>
+    </div>
+    <div class="sheet">
+     <div class="row"><b style="font-size:15px">Llega en 3 min</b><span class="badge tri">Precio fijo · 170 CUP</span></div>
+     <div class="row" style="justify-content:flex-start;gap:10px"><div class="av">YR</div><div><b>Yoandri R.</b> ★ 4,9 · 212 viajes<br><span style="color:var(--p-muted)">Eléctrico azul · 4 asientos · LOT ✔</span></div></div>
+     <div style="text-align:center;font-size:10.5px;color:var(--p-muted)">Dile este código al subir</div>
+     <div class="code"><b>4</b><b>8</b><b>1</b><b>7</b></div>
+     <div class="pay"><div>📞 Llamar</div><div>💬 WhatsApp</div></div>
+     <button class="btn ghost" type="button">Compartir el viaje con mi familia</button>
+    </div>
+   </div></div>
+   <div class="why"><b>Por qué</b><span>Ya existe en Triciclub: código, llamar, WhatsApp y compartir. Se repite que el precio es fijo: es nuestra ventaja frente al «estimado» de La Nave.</span></div>
+  </div>
+
+  <!-- C6 -->
+  <div class="shot">
+   <div class="n">6 · Pagar y dar estrellas</div>
+   <div class="ph"><div class="scr">
+    <div class="sb"><span>9:52</span><span>4G ▮▮▮</span></div>
+    <div style="padding:18px 16px;display:grid;gap:12px;align-content:start;flex:1">
+     <span class="badge tri" style="justify-self:start">Llegaste a Coppelia</span>
+     <div><span style="color:var(--p-muted)">A pagar a Yoandri</span><div style="font-size:30px;font-weight:850;font-stretch:112%">170 CUP</div><span style="color:var(--p-muted)">Lo acordado. No cambia.</span></div>
+     <div class="pay"><div class="on">💵 Efectivo</div><div>📱 Transfermóvil<br><small style="font-weight:500;color:var(--p-muted)">5•• ••• 482</small></div></div>
+     <div style="text-align:center;font-weight:700">¿Qué tal el viaje?</div>
+     <div class="stars">★★★★<em>★</em></div>
+     <div class="chips" style="justify-content:center"><span>Puntual</span><span>Amable</span><span>Buen triciclo</span><span>+20 propina</span></div>
+     <button class="btn" type="button">Listo</button>
+    </div>
+   </div></div>
+   <div class="why"><b>Por qué</b><span>Se paga directo al chofer, como en La Nave e inDrive. Transfermóvil muestra su número (la ley pide aceptar pago electrónico a quien tiene LOT). Las estrellas son de los dos lados.</span></div>
+  </div>
+ </div></div>
+
+ <div class="wrap" style="margin-top:6px"><div class="flow-head"><h3>Chofer</h3><span class="tag tri">en su app Pa'llá</span></div></div>
+ <div class="rail" tabindex="0" aria-label="Pantallas del chofer"><div class="rail-in">
+  <!-- D1 -->
+  <div class="shot">
+   <div class="n">7 · Conectarse</div>
+   <div class="ph"><div class="scr">
+    <div class="sb"><span>9:30</span><span>4G ▮▮▮</span></div>
+    <div class="top-bar"><div class="row"><span class="online">En línea</span><span style="font-weight:800" class="num">Hoy: 1.240 CUP · 7 viajes</span></div></div>
+    <div class="map">
+     <svg viewBox="0 0 258 300" aria-hidden="true"><circle cx="90" cy="110" r="46" fill="#FFC21A" opacity=".22"/><circle cx="180" cy="210" r="34" fill="#FFC21A" opacity=".22"/></svg>
+     <div class="pin" style="left:122px;top:150px;background:#087A3D;border-radius:5px"></div>
+     <div style="position:absolute;left:52px;top:96px;font-size:10px;font-weight:800;background:#fff;border-radius:6px;padding:2px 5px">Mucha demanda</div>
+    </div>
+    <div class="sheet">
+     <b>Qué acepto hoy</b>
+     <div class="toggle"><span>🛺 Pasaje (4 asientos)</span><span class="sw"></span></div>
+     <div class="toggle"><span>📦 Envíos de clientes</span><span class="sw"></span></div>
+     <div class="toggle"><span>Casa Viva (si eres su mensajero)</span><span class="sw off"></span></div>
+     <button class="btn ghost" type="button">Desconectarme</button>
+    </div>
+   </div></div>
+   <div class="why"><b>Por qué</b><span>Es la pantalla de Triciclub de hoy (3.14.122) con interruptores por servicio. Los avisos llegan aunque la app esté en el fondo (ya funciona en Android 1.4). Zonas con demanda: idea de La Nave.</span></div>
+  </div>
+  <!-- D2 -->
+  <div class="shot">
+   <div class="n">8 · Pedidos con oferta</div>
+   <div class="ph"><div class="scr">
+    <div class="sb"><span>9:41</span><span>4G ▮▮▮</span></div>
+    <div class="top-bar"><b>Pedidos cerca</b><span style="color:var(--p-muted)">Tocas una vez: acepto o pido más</span></div>
+    <div class="list">
+     <div class="drv-req">
+      <div class="row"><span class="big num">170 CUP</span><span style="font-size:10.5px;color:var(--p-muted)">★ 4,8 cliente</span></div>
+      <div class="route"><span><i style="background:#0B5F8A"></i>Calle N e/ 23 y 25 · a 600 m</span><span><i style="background:#087A3D"></i>Coppelia, 23 y L · viaje 2,1 km</span></div>
+      <div class="cnt"><span class="go">Acepto 170</span><span>190</span><span>210</span><span>230</span></div>
+     </div>
+     <div class="drv-req">
+      <div class="row"><span class="big num">330 CUP</span><span class="badge env">Envío</span></div>
+      <div class="route"><span><i style="background:#0B5F8A"></i>Línea y Paseo · a 1,1 km</span><span><i style="background:#087A3D"></i>Nuevo Vedado · 3,8 km · caja chica</span></div>
+      <div class="cnt"><span class="go">Acepto 330</span><span>370</span><span>400</span><span>430</span></div>
+     </div>
+     <div class="drv-req" style="opacity:.6">
+      <div class="row"><span class="big num">140 CUP</span><span style="font-size:10.5px;color:var(--p-muted)">ya lo cogió otro</span></div>
+     </div>
+    </div>
+   </div></div>
+   <div class="why"><b>Por qué</b><span>Como inDrive, pero sin teclear: aceptar o 3 botones (+10 %, +20 %, +30 %). Antes de aceptar ve el barrio y los km, no el teléfono del cliente (ya es así en Triciclub). Decir que no no baja su nota.</span></div>
+  </div>
+  <!-- D3 -->
+  <div class="shot">
+   <div class="n">9 · Viaje en curso</div>
+   <div class="ph"><div class="scr">
+    <div class="sb"><span>9:44</span><span>4G ▮▮▮</span></div>
+    <div class="map">
+     <svg viewBox="0 0 258 300" aria-hidden="true"><path d="M60 230 L100 190 L130 170 L170 120 L200 80" stroke="#121212" stroke-width="5" fill="none" stroke-linecap="round"/></svg>
+     <div class="pin" style="left:52px;top:222px;background:#087A3D;border-radius:5px"></div>
+     <div class="pin" style="left:192px;top:72px;background:#087A3D"></div>
+    </div>
+    <div class="sheet">
+     <div class="steps"><span class="on"></span><span class="on"></span><span></span><span></span></div>
+     <div class="row"><b style="font-size:14px">Llevando a Laura</b><span class="badge tri">170 CUP · efectivo</span></div>
+     <span style="color:var(--p-muted)">Coppelia, 23 y L · 1,4 km</span>
+     <div class="pay"><div>🧭 Navegar</div><div>📞 Llamar</div></div>
+     <button class="btn g" type="button">Terminé el viaje</button>
+    </div>
+   </div></div>
+   <div class="why"><b>Por qué</b><span>Ya existe: Llegué → Recogí → Terminé → Cobrado, con ruta por calles (OSRM). Un botón grande por paso.</span></div>
+  </div>
+  <!-- M1 -->
+  <div class="shot">
+   <div class="n">10 · Mensajero: mandar algo</div>
+   <div class="ph"><div class="scr">
+    <div class="sb"><span>9:41</span><span>4G ▮▮▮</span></div>
+    <div class="top-bar"><b>Mandar algo</b><span style="color:var(--p-muted)">Un mensajero lo recoge y lo entrega</span></div>
+    <div style="padding:10px 12px;display:grid;gap:8px;align-content:start;flex:1">
+     <div class="form-row"><label>¿Qué mandas?</label><div>Llaves y un sobre</div></div>
+     <div class="form-row"><label>Tamaño</label><div class="seg" style="background:none;padding:0"><span class="on">Cabe en la mano</span><span>Mochila</span><span>Grande</span></div></div>
+     <div class="form-row"><label>Lo recibe</label><div>Marta · 5•• ••• 210</div></div>
+     <div class="form-row"><label>¿Cobrar algo al entregar?</label><div>No</div></div>
+     <div class="price" style="margin-top:2px"><button type="button" tabindex="-1" aria-hidden="true">−</button><div class="v"><strong class="num">330 CUP</strong><small>Sugerido · 3,8 km</small></div><button type="button" tabindex="-1" aria-hidden="true">+</button></div>
+     <button class="btn" type="button" style="background:#0B5F8A">Buscar mensajero</button>
+     <span style="font-size:10.5px;color:var(--p-muted)">El mensajero hace foto al entregar. Los pedidos de Casa Viva siguen como hoy.</span>
+    </div>
+   </div></div>
+   <div class="why"><b>Por qué</b><span>Mismo precio mixto que el viaje (como inDrive Courier). El mensajero lo ve en la pantalla 8 con la etiqueta «Envío». Las carreras de Casa Viva no cambian: precio por municipio, como hoy.</span></div>
+  </div>
+ </div></div>
+</section>
+
+<!-- PLAN -->
+<section id="plan">
+ <div class="wrap">
+  <div class="sec-head"><p class="eyebrow">Plan</p><h2>Por fases, sin romper lo que ya funciona</h2></div>
+  <div class="tablebox">
+   <table style="min-width:620px">
+    <thead><tr><th>Pieza</th><th>Qué hacemos</th><th>Dónde está hoy</th></tr></thead>
+    <tbody>
+     <tr><td>Motor de viajes</td><td><b>Reutilizar.</b> Viajes, estados, código, precio firmado, cancelaciones</td><td>Triciclub en el Core 3.14.135</td></tr>
+     <tr><td>Alta y verificación de choferes</td><td><b>Reutilizar.</b> Carné + selfie + vehículo, aprobación automática; añadir taxi (licencia y LOT obligatorias)</td><td>Triciclub + verificador del VPS</td></tr>
+     <tr><td>Direcciones y rutas</td><td><b>Reutilizar.</b> 15.110 lugares, «dónde estoy», rutas por calles</td><td>Triciclub geo + OSRM del VPS</td></tr>
+     <tr><td>Avisos al chofer</td><td><b>Reutilizar.</b> Web push + ntfy + app Android que suena en el fondo</td><td>Pa'llá Android 1.4</td></tr>
+     <tr><td>Bot de WhatsApp</td><td><b>Reutilizar.</b> Códigos de entrada, alta y acompañamiento de choferes</td><td>VivaBot</td></tr>
+     <tr><td>Precio</td><td><b>Rehacer.</b> De «cada chofer pone su precio y eliges de una lista» (D130) a precio justo + oferta + contraoferta. El precio del chofer pasa a ser su contraoferta</td><td>class-cvd-triciclub-precio</td></tr>
+     <tr><td>Ofertas en vivo</td><td><b>Nuevo.</b> Pantallas 4 y 8. Ojo: el hosting de la web no tiene conexión en vivo; las ofertas deberían ir por el VPS (como los avisos de ntfy)</td><td>—</td></tr>
+     <tr><td>Marca y servicios</td><td><b>Nuevo.</b> Cliente con la marca Pa'llá y los 3 servicios; Triciclub queda como nombre del servicio de triciclos</td><td>Hoy cliente verde de Triciclub</td></tr>
+     <tr><td>Comisión</td><td><b>Nuevo</b>, solo después del piloto: saldo del chofer que paga cada semana por Transfermóvil</td><td>—</td></tr>
+    </tbody>
+   </table>
+  </div>
+  <div class="phases">
+   <div class="phase now"><div class="f">1<small>HOY</small></div><div><h3>Investigar y diseñar</h3><p class="muted">Esta página. Termina cuando marques tus decisiones abajo y digas SÍ a las pantallas.</p></div></div>
+   <div class="phase"><div class="f">2<small>≈ 1 SEM.</small></div><div><h3>Precio mixto en triciclos</h3><ul><li>Bajar el precio por defecto (ya, en cuanto digas SÍ).</li><li>Pantallas 3, 4 y 8; marca Pa'llá en el cliente; solo «Triciclo» encendido.</li><li>Medir velocidad en tu Redmi antes y después.</li></ul></div></div>
+   <div class="phase"><div class="f">3<small>≈ 2 SEM.</small></div><div><h3>Piloto cerrado</h3><ul><li>3–5 choferes de confianza (tú los eliges) y 20–40 clientes invitados (familia, gestoras que quieran).</li><li>En modo prueba: los códigos solo llegan a teléfonos de la lista.</li><li>Medimos: segundos hasta la 1.ª oferta, % de pedidos con oferta, precio final frente al sugerido, cancelaciones.</li></ul></div></div>
+   <div class="phase"><div class="f">4<small>DESPUÉS</small></div><div><h3>Mensajero para clientes</h3><ul><li>Pantalla 10 con los mensajeros que ya usan Pa'llá.</li><li>Los pedidos de Casa Viva no cambian.</li></ul></div></div>
+   <div class="phase"><div class="f">5<small>CON ABOGADO</small></div><div><h3>Taxi</h3><ul><li>Solo después de la consulta legal.</li><li>3–5 taxis con LOT y licencia, en piloto.</li></ul></div></div>
+   <div class="phase"><div class="f">6<small>CUANDO SE CUMPLA</small></div><div><h3>Abrir en La Habana</h3><ul><li>1.ª oferta en menos de 60 s (la mitad de los pedidos, de 8:00 a 20:00).</li><li>8 de cada 10 pedidos con al menos una oferta.</li><li>15 choferes activos por semana y ningún problema de seguridad.</li><li>Marca «Pa'llá» pedida en la OCPI.</li></ul></div></div>
+  </div>
+ </div>
+</section>
+
+<!-- DECISIONES -->
+<section id="decisiones">
+ <div class="wrap">
+  <div class="sec-head"><p class="eyebrow">Tu turno, Ernesto</p><h2>Lo que tienes que decidir</h2>
+   <p class="muted">Cada una trae mi recomendación en verde. Marca una opción; si abres la página con tu cuenta, se guarda sola y la próxima sesión la lee.</p></div>
+  <div class="dec-bar"><span id="dbState" class="small muted">Conectando para guardar…</span></div>
+  <div id="decs" style="display:grid;gap:12px"></div>
+ </div>
+</section>
+
+<footer>
+ <div class="wrap" style="display:grid;gap:12px">
+  <h3 style="color:var(--ink)">Fuentes</h3>
+  <ol id="fuentes">
+   <li>La Nave en el Redmi de Ernesto por USB, 3 y 4-nov-2026 (textos de pantalla y tamaño instalado). Estudio: <code>docs/nexo-business/apps/triciclub/recon-lanave/RECON.md</code></li>
+   <li>inDrive, cómo se calcula el precio: <a href="https://indrive.com/help/passengers/how-fares-are-calculated">indrive.com/help</a> (s/f) · cómo pedir: <a href="https://indrive.com/help/passengers/how-to-request-an-indrive-ride">indrive.com/help</a> (s/f)</li>
+   <li>inDrive comisión 9,99 %: <a href="https://techeconomy.ng/indrive-responds-to-drivers-boycott">techeconomy.ng</a> (4-abr-2025)</li>
+   <li>Uber Flex: <a href="https://www.businesstoday.in">businesstoday.in</a> (6-ene-2024) · Bolt comisión y deuda en efectivo: <a href="https://bolt.eu/en-ng/driver/guide/commissions">bolt.eu</a>, <a href="https://bolt.eu/en-sa/driver/guide/cash-debt">bolt.eu</a></li>
+   <li>La Nave en Apklis: 56,5 MB, v2.0.3, 286.332 descargas, nota 3,7 (api.apklis.cu, consultado 4-nov-2026)</li>
+   <li>Uber Lite: <a href="https://www.uber.com/blog/engineering-uber-lite">uber.com/blog</a> (23-ene-2019)</li>
+   <li>inDrive 2025: <a href="https://blog.indrive.com/article/2025-a-year-of-growth-for-indrive">blog.indrive.com</a> (≈ mar-2026) · 2.ª app más descargada (2-feb-2026)</li>
+   <li>Oxford Economics, la economía de negociar el precio: <a href="https://www.oxfordeconomics.com/resource/the-economics-of-fare-negotiation">oxfordeconomics.com</a> (15-ene-2026)</li>
+   <li>Filipinas suspende inDrive: <a href="https://www.philstar.com">philstar.com</a> (26-ene-2024)</li>
+   <li>Boicot en Lagos: <a href="https://techeconomy.ng/indrive-responds-to-drivers-boycott">techeconomy.ng</a> (4-abr-2025)</li>
+   <li>Pesos en App Store (consultado 4-nov-2026): Uber 480,2 MB, Bolt 210,9, Yango 537,3, inDrive 531, La Nave 76,6</li>
+   <li>Yango en Latinoamérica: <a href="https://forbes.co">forbes.co</a> (12-jun-2026) · Caracas: descubre.vc (1-ago-2025)</li>
+   <li>Estudio anterior de La Nave y la ley (23-oct): <code>docs/nexo-business/apps/nave-investigacion-2026-10-23.md</code></li>
+   <li>Tipos de triciclo y precios de la calle (4-nov): <code>docs/nexo-business/apps/triciclub/sms-y-tipos-de-triciclo-2026-11-04.md</code></li>
+   <li>La Nave en 2026: <a href="https://lanave.app">lanave.app</a> (revisada 4-nov) · guía bento.travel (ago-2026) · <a href="https://translatingcuba.com/?p=103212">Translating Cuba</a> (17-sep-2024)</li>
+   <li>Precios de almendrón y La Nave de noche: <a href="https://diariodecuba.com/cuba/1771502487_65459.html">diariodecuba.com</a> (23-feb-2026)</li>
+   <li>Instrucción 1/2026: <a href="https://www.cubanet.org/regimen-autoriza-licencias-temporales-para-motos-y-triciclos-electricos-sin-matricula/">cubanet.org</a> (22-feb-2026)</li>
+   <li>Bicitaxis con motor, licencia A/A-1, Instrucción 3: <a href="https://www.acn.cu/cuba/recuerda-mitrans-flexibilizacion-de-licencias-para-vehiculos-electricos">acn.cu</a> (25-sep-2026)</li>
+   <li>Decreto 160/2026, Gaceta GOC-2026-O62: <a href="https://www.cibercuba.com/s/gacetaoficial/pdf/goc-2026-o62.pdf">PDF</a> (28-jul-2026)</li>
+   <li>Resolución 140/2024 (LOT): <a href="https://oncubanews.com/cuba/economia/bancarizacion-control-y-objeto-social-lineas-rojas-en-la-nueva-licencia-de-operacion-de-transporte">oncubanews.com</a> (ago-2024)</li>
+   <li>Decreto-Ley 370, servidores fuera de Cuba: <a href="https://diariodecuba.com/cuba/1562366236_47361.html">diariodecuba.com</a> (jul-2019)</li>
+   <li>Impuestos TCP: <a href="https://www.mfp.gob.cu/noticia/850">mfp.gob.cu</a> (7-nov-2023) · impuestos 2026: periodicocubano.com (30-dic-2025)</li>
+   <li>Triciclos eléctricos, precios e historias: <a href="http://www.cubadebate.cu/especiales/2026/03/09/sin-gasolina-historias-de-la-movilidad-electrica-en-la-habana-fotos-y-video/">cubadebate.cu</a> (9-mar-2026)</li>
+   <li>Triciclos en la capital, costos del chofer, triciclo estatal: <a href="https://www.ipscuba.net/economia/triciclos-electricos-dibujan-las-rutas-en-la-capital-cubana/">ipscuba.net</a> (3-sep-2026)</li>
+   <li>Pasajes Habana: <a href="https://en.cibercuba.com/noticias/2026-02-16-u1-e199370-s27061-nid320975-sube-precio-pasajes-habana-hacia-provincias-cuanto">cibercuba.com</a> (16-feb-2026)</li>
+   <li>Dólar 900 CUP: <a href="https://www.infobae.com/cuba/2026/11/02/el-dolar-alcanza-los-900-pesos-cubanos-en-el-mercado-informal-y-mantiene-su-tendencia-ascendente/">infobae.com</a> (2-nov-2026)</li>
+   <li>Planes de datos ETECSA: <a href="https://help.fonoma.com/es/articles/2569813-todos-los-precios-de-los-planes-de-datos-moviles-en-cuba">fonoma.com</a> (14-ene-2026) · velocidad &lt; 1 Mbps en La Habana: <a href="https://en.cibercuba.com/noticias/2026-04-09-u1-e135253-s27061-nid325457-cuba-registra-caida-general-internet-velocidades">cibercuba.com</a> (9-abr-2026)</li>
+  </ol>
+  <p>Hecho por Claude para Ernesto Rondón. Copia en el repositorio: <code>docs/nexo-business/apps/palla/fase1/</code>.</p>
+ </div>
+</footer>
+
+<script>
+(function(){
+ // ---------- Pantallas 3 y 4: precio justo y ofertas (datos de ejemplo) ----------
+ var SUG=170, MIN=Math.round(SUG*0.8/10)*10, MAX=Math.round(SUG*1.5/10)*10, price=SUG, auto=false;
+ var drivers=[
+  {ini:"YR",name:"Yoandri R.",st:"4,9",trips:212,min:3,ask:170,veh:"Eléctrico azul"},
+  {ini:"DM",name:"Dayron M.",st:"4,7",trips:88,min:5,ask:160,veh:"Eléctrico"},
+  {ini:"LC",name:"Liset C.",st:"5,0",trips:41,min:2,ask:190,veh:"Eléctrico con techo"},
+  {ini:"AP",name:"Alexis P.",st:"4,6",trips:305,min:7,ask:150,veh:"Eléctrico"}
+ ];
+ var $=function(id){return document.getElementById(id)};
+ function render(){
+  $("pVal").textContent=price+" CUP";
+  var d=price-SUG, pct=Math.round(d/SUG*100);
+  $("pSub").textContent = d===0 ? "Precio justo sugerido" : (d>0? "+"+pct+" % sobre el justo" : pct+" % bajo el justo");
+  var h=$("pHint");
+  if(price<=MIN){h.className="hint w";h.textContent="Es lo más bajo que se puede ofrecer (−20 %).";}
+  else if(d<0){h.className="hint w";h.textContent="Más barato: menos choferes dirán que sí.";}
+  else if(price>=MAX){h.className="hint";h.textContent="Es lo más alto (+50 %).";}
+  else if(d>0){h.className="hint";h.textContent="Pagas más: te llegan ofertas antes.";}
+  else {h.className="hint";h.textContent="Precio justo: así sale más rápido.";}
+  $("pMenos").disabled=price<=MIN; $("pMas").disabled=price>=MAX;
+  $("oSub").textContent="Tu oferta: "+price+" CUP · "+drivers.length+" choferes cerca";
+  var out=drivers.map(function(x){
+    var accept = price>=x.ask, p = accept? price : Math.ceil(Math.max(x.ask,price*1.1)/10)*10;
+    return {x:x,accept:accept,p:p};
+  }).sort(function(a,b){return (a.p-b.p)||(a.x.min-b.x.min)});
+  var html=out.slice(0,3).map(function(o,i){
+    var x=o.x;
+    return '<div class="offer'+(i===0?' best':'')+' fadein"><div class="av">'+x.ini+'</div><div><b>'+x.name+'</b> ★ '+x.st+'<div class="meta">'+x.veh+' · '+x.trips+' viajes · llega en '+x.min+' min</div></div>'+
+     '<div class="p num">'+o.p+'<small class="'+(o.accept?'eq':'up')+'">'+(o.accept?'tu precio':'pide más')+'</small></div>'+
+     '<div class="acc"><span>No, gracias</span><span class="go">Aceptar '+o.p+'</span></div></div>';
+  }).join("");
+  if(auto){ var first=out.filter(function(o){return o.accept})[0];
+    html = first ? '<div class="offer best fadein"><div class="av">'+first.x.ini+'</div><div><b>'+first.x.name+' aceptó</b><div class="meta">Coger la 1.ª oferta está encendido: va para allá.</div></div><div class="p num">'+price+'<small class="eq">tu precio</small></div></div>' : '<div class="hint w">Nadie acepta '+price+' CUP todavía. Sube un poco o apaga «coger la 1.ª oferta».</div>'; }
+  $("offers").innerHTML=html;
+ }
+ $("pMenos").addEventListener("click",function(){price=Math.max(MIN,price-10);render()});
+ $("pMas").addEventListener("click",function(){price=Math.min(MAX,price+10);render()});
+ function tog(){auto=!auto;var s=$("pSw");s.classList.toggle("off",!auto);s.setAttribute("aria-checked",String(auto));render()}
+ $("pSw").addEventListener("click",tog);
+ $("pSw").addEventListener("keydown",function(e){if(e.key===" "||e.key==="Enter"){e.preventDefault();tog()}});
+ render();
+
+ // ---------- Calculadora de precio por distancia ----------
+ var km=$("km");
+ function up10(x){return Math.ceil(x/10)*10}
+ function calc(){
+  var k=parseFloat(km.value), hoy=up10(k<=5? k*300 : 1500+(k-5)*150), nu=up10(Math.max(100,60+50*k));
+  var lo,hi; if(k<=2){lo=100;hi=150}else if(k<=5){lo=150;hi=250}else{lo=200;hi=500}
+  var top=Math.max(2250,hoy);
+  $("kmV").textContent=String(k).replace(".",",");
+  $("bHoy").style.width=(hoy/top*100)+"%"; $("vHoy").textContent=hoy.toLocaleString("es")+" CUP";
+  $("bNew").style.width=(nu/top*100)+"%"; $("vNew").textContent=nu.toLocaleString("es")+" CUP";
+  var b=$("bSt"); b.style.left=(lo/top*100)+"%"; b.style.width=((hi-lo)/top*100)+"%"; $("vSt").textContent=lo+"–"+hi;
+ }
+ km.addEventListener("input",calc); calc();
+})();
+</script>
+<script>
+// ---------- Decisiones de Ernesto (se guardan en la base de datos de esta página) ----------
+(function(){
+ var DECS=[
+  {id:"servicios",t:"¿Qué servicios abrimos primero?",d:"Triciclo y mensajero ya tienen camino legal; taxi tiene dudas.",o:[
+   {v:"tri-msj",l:"Triciclo y mensajero ahora; taxi después de consultar a un abogado",r:1},
+   {v:"tri",l:"Solo triciclo; lo demás después"},
+   {v:"todo",l:"Los tres a la vez"}]},
+  {id:"precio-modo",t:"¿Cómo se pone el precio?",d:"Lo que pediste en D138, con reglas para que no se hunda.",o:[
+   {v:"mixto-margen",l:"Precio justo sugerido; el cliente sube o baja entre −20 % y +50 %; el chofer acepta o pide +10/+20/+30 %",r:1},
+   {v:"mixto-libre",l:"Como inDrive, sin margen: cada uno pone lo que quiera"},
+   {v:"lista",l:"Como hoy (D130): cada chofer su precio y el cliente elige de la lista"}]},
+  {id:"primera",t:"¿El cliente puede coger la 1.ª oferta automáticamente?",d:"Más rápido que elegir, como pedir en La Nave.",o:[
+   {v:"opcion-apagada",l:"Sí, como interruptor, apagado al empezar (el cliente elige)",r:1},
+   {v:"opcion-encendida",l:"Sí, encendido al empezar (más rápido)"},
+   {v:"no",l:"No, siempre elige el cliente"}]},
+  {id:"precio-tri",t:"Precio sugerido del triciclo eléctrico",d:"Hoy: 300 CUP/km (2 km = 620). En la calle: 100–250 un viaje corto.",o:[
+   {v:"60+50",l:"60 de arranque + 50 por km (2 km = 160, 5 km = 310)",r:1},
+   {v:"80+60",l:"80 + 60 por km (2 km = 200, 5 km = 380)"},
+   {v:"igual",l:"Dejarlo como está"}]},
+  {id:"comision",t:"¿Cuánto cobra Pa'llá al chofer?",d:"La Nave 10–20 % + fondo de 10.000 CUP; inDrive ~10 %.",o:[
+   {v:"0-luego-8",l:"0 % en el piloto y 2 meses; luego 8 %, sin fondo por adelantado",r:1},
+   {v:"0-luego-10",l:"0 % y luego 10 %"},
+   {v:"cuota",l:"Cuota fija por semana en vez de %"}]},
+  {id:"cobro",t:"¿Cómo nos paga el chofer la comisión?",d:"El cliente le paga a él en efectivo o Transfermóvil.",o:[
+   {v:"semanal-pausa",l:"Cada semana por Transfermóvil; si debe más de un tope, se pausan sus viajes en efectivo (como Bolt)",r:1},
+   {v:"recarga",l:"Recarga un saldo antes de trabajar (como inDrive)"}]},
+  {id:"app-cliente",t:"¿Dónde está la app del cliente?",d:"Web: 0,25 MB y funciona en iPhone. Android: hay que instalar.",o:[
+   {v:"web-luego-android",l:"Web instalable primero (lo que ya existe); app Android cuando haya clientes",r:1},
+   {v:"android-ya",l:"App Android desde el principio"}]},
+  {id:"piloto",t:"¿Quiénes son los 3–5 choferes del piloto?",d:"Escribe nombres abajo. Necesitan triciclo, móvil Android y confianza.",o:[
+   {v:"yo-digo",l:"Te doy los nombres (escríbelos abajo)",r:1},
+   {v:"bot-busca",l:"Que el bot pregunte entre los choferes ya aprobados"}]},
+  {id:"legal",t:"¿Quién nos responde las 6 preguntas legales?",d:"Hacen falta antes de abrir al público y antes del taxi.",o:[
+   {v:"abogado-y-transporte",l:"Un abogado de mipymes y, con sus preguntas, una visita a la Dirección Provincial de Transporte",r:1},
+   {v:"solo-transporte",l:"Ir directo a Transporte"},
+   {v:"despues",l:"Después del piloto"}]},
+  {id:"marca",t:"¿Pedimos la marca «Pa'llá» en la OCPI antes de abrir?",d:"≈ 7.200 CUP la solicitud (tarifa de 2021, puede haber cambiado).",o:[
+   {v:"si",l:"Sí, antes de abrir al público",r:1},
+   {v:"despues",l:"Después, si funciona"}]}
+ ];
+ var box=document.getElementById("decs"), st=document.getElementById("dbState"), db=null, saved={};
+ function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+ box.innerHTML=DECS.map(function(d,i){
+  return '<div class="dec" data-id="'+d.id+'"><div class="dec-h"><div class="k">'+(i+1)+'</div><div><h3>'+esc(d.t)+'</h3><p class="small muted">'+esc(d.d)+'</p></div></div>'+
+   '<div class="opts" role="radiogroup" aria-label="'+esc(d.t)+'">'+d.o.map(function(o){
+     return '<label class="opt'+(o.r?' rec':'')+'"><input type="radio" id="'+d.id+'-'+o.v+'" name="'+d.id+'" value="'+o.v+'"><span>'+esc(o.l)+(o.r?'<span class="rl">Recomendado</span>':'')+'</span></label>';
+   }).join("")+'</div>'+
+   '<textarea id="nota-'+d.id+'" placeholder="Nota (opcional)"></textarea><div class="saved" id="s-'+d.id+'"></div></div>';
+ }).join("");
+ function show(id,txt,ok){var e=document.getElementById("s-"+id);if(e){e.textContent=txt;e.className="saved"+(ok?" ok":"")}}
+ function apply(id,data){
+  if(!data)return; var r=document.getElementById(id+"-"+data.opcion); if(r) r.checked=true;
+  var n=document.getElementById("nota-"+id); if(n && document.activeElement!==n) n.value=data.nota||"";
+  show(id,"Guardado"+(data.at?" · "+new Date(data.at).toLocaleString("es"):""),true);
+ }
+ var timers={};
+ function save(id){
+  var r=box.querySelector('input[name="'+id+'"]:checked'); var n=document.getElementById("nota-"+id).value.trim();
+  if(!r && !n) return;
+  var body={opcion:r?r.value:"",nota:n,at:new Date().toISOString()};
+  if(!db){ show(id,"Marcado en esta pantalla. Para que quede guardado, ábrela con tu cuenta de Claude o mándame una captura.",false); return; }
+  show(id,"Guardando…",false);
+  db.doc("decisiones/"+id).set(body).then(function(){show(id,"Guardado",true)}).catch(function(e){
+    show(id,e&&e.code==="invalid_argument"?"Solo Ernesto puede guardar aquí. Tu marca se ve solo en tu pantalla.":"No se pudo guardar. Prueba otra vez en un momento.",false)});
+ }
+ box.addEventListener("change",function(e){var d=e.target.closest(".dec"); if(d && e.target.type==="radio") save(d.dataset.id)});
+ box.addEventListener("input",function(e){var d=e.target.closest(".dec"); if(d && e.target.tagName==="TEXTAREA"){clearTimeout(timers[d.dataset.id]);timers[d.dataset.id]=setTimeout(function(){save(d.dataset.id)},900)}});
+ var tries=0;
+ (function wait(){
+  var c=window.claude;
+  if(!c||!c.use){ if(++tries<25){setTimeout(wait,200);return;} st.textContent="Esta vista no puede guardar. Marca y mándame una captura.";return; }
+  start(c);
+ })();
+ function start(c){
+ c.use("db").then(function(x){
+  if(!x){st.textContent="Esta vista no puede guardar. Marca y mándame una captura.";return;}
+  db=x; st.textContent="Cargando lo que ya marcaste…";
+  var t=setTimeout(function(){st.textContent="Todavía no llega lo guardado; puedes marcar igual."},10000);
+  db.collection("decisiones").onSnapshot(function(s){
+    if(!s.metadata.fromCache){clearTimeout(t);}
+    s.docs.forEach(function(d){saved[d.id]=d.data();apply(d.id,d.data())});
+    var n=s.size; st.textContent=n? ("Llevas "+n+" de "+DECS.length+" decisiones marcadas. Se guardan solas.") : "Marca una opción en cada una. Se guardan solas.";
+    st.className="small"+(n?"":" muted");
+  },function(){clearTimeout(t);st.textContent="No se pudo leer lo guardado. Marca y mándame una captura."});
+ });
+ }
+})();
+</script>

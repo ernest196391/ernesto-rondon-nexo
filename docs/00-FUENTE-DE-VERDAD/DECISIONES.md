@@ -631,6 +631,7 @@ Ernesto quiso que la app pareciera de 10.000 USD. Eligió las 4 recomendaciones:
 - **Comisiones de gestoras:** cuentan todas las del mes (pagadas y por pagar); aparte se enseña lo pagado y lo pendiente.
 - **Gastos fijos:** la lista de la hoja F COSTO del Excel de Maryta; electricidad y renta 300 USD y teléfono 50 USD en dólares, el resto en CUP a la tasa media del mes.
 - **IA y herramientas:** lo pagado en el mes según los recibos (tabla del 2-nov: 282,38 USD del 4-oct al 1-nov; ≈270 USD/mes desde ahora). El saldo de PayPal para IA (125 USD) es saldo, no gasto.
+- **4-nov (Ernesto):** IA y herramientas salen de la **ganancia de la tienda** (no del 1,5 %). **ELIO:** la mitad de su ganancia es de Casa Viva. **Ernesto cobra el 1,5 % + lo que gana como gestor especial de bajo pedido**; Lennys se queda con ese dinero y lo resta de lo que Ernesto le debe. Octubre: Casa Viva 2.748,46 USD (base Arbelio, antes del 40 % a inversores e impuestos); Ernesto 315,71 USD a su favor antes de descontar lo que cogió. Detalle: `docs/nexo-business/contabilidad/octubre-2026/conciliacion-arbelio-4nov.md`.
 - **Entrega:** página interactiva (cada número con su fuente y CSV) + PDF corto estilo Hormozi (entró / salió / quedó). Esta sesión lleva la contabilidad diaria y mensual.
 - **4-nov (Claude, técnico y reversible):** el día contable es el día de Cuba en que el pedido se **completa** (entregado y cobrado). Cada venta guarda su costo al venderse (Core 3.14.125); los pedidos de antes llevan el costo del 4-nov marcado «relleno». Los % (0,5 y 1,5) se cambian con las opciones `cvd_conta_dependientas_pct` y `cvd_conta_ernesto_pct` de la web.
 
@@ -642,3 +643,64 @@ Se investigó: no hay IA gratis buena y privada a la vez. Gemini gratis (`gemini
 
 ### D136 · /menu-360: plantilla + datos + script; publicar en casaviva.company/<negocio>/ por ahora (4-nov-2026, Ernesto)
 Lo hecho para Panda26 se convierte en una fábrica reutilizable: **un `negocio.json` por negocio + un script que genera todo** (menú 360°, página para el dueño, cartel, tarjeta, vista previa), en vez de rehacer código cada vez. Los menús se publican en **casaviva.company/<negocio>/** (ya probado en Cuba) hasta tener 3 negocios pagando; entonces se pasa a un dominio de NEXO. La skill se llama **/menu-360** y es el kit de restaurantes del paso 4 de `nexo-fabrica`.
+
+### D137 · Triciclub: choferes con verificación automática (carné + selfie con carné)
+- **Qué:** cualquiera puede ser chofer (no hace falta ser mensajero de Casa Viva). Se apunta por WhatsApp (el bot le manda el enlace), rellena su triciclo (6 tipos: Bici, Eléctrico, Eléctrico XL, Motor, Moto, Carga) y manda carné, selfie sosteniendo el carné y foto del triciclo. Un verificador automático del VPS lo aprueba, le pide corregir o lo deja «Para ti» en el panel `/triciclub/admin`. Sin avisos por WhatsApp ni correo: Ernesto lo ve todo en el panel.
+- **Por qué:** Ernesto quiere crecer sin tener que aprobar a mano («aprobar automáticamente») y sin fraudes («la selfie puede ser de cualquiera»); como Uber/Bolt/QvaPay: aprobar rápido con comprobaciones automáticas y revisar solo los casos dudosos.
+- **Costo:** caras gratis (OpenCV en el VPS); IA ~1–2 centavos USD por chofer; nada si no hay altas.
+
+### D136 · Bajo pedido: tienda 2.500 CUP, dependienta con nombre y pago de octubre (4-nov-2026, Ernesto)
+- **La tienda se queda 2.500 CUP** de la ganancia de cada pedido de bajo pedido (antes 3.000; opción `cvd_supplier_split_store`). Los repartos ya cerrados no cambian.
+- **La dependienta cobra 500 CUP por artículo** y su nombre queda siempre en el reparto: la que marca «Listo» en la tienda (si no, la que recibe el dinero). Core 3.14.136.
+- **Octubre:** se reparten 6.000 CUP de bajo pedido, 3.000 para Nana y 3.000 para Zaymi. Les paga Lennys y les dice que es de bajo pedido (el bot no escribe a Zaymi).
+- Un pedido devuelto (p. ej. #4988, olla de presión) no suma al gestor especial. Gestor especial de Ernesto en octubre: 76,44 USD (incluye el split vendido fuera de la web, 19 USD).
+
+### D138 · Una sola app de transporte: Pa'llá (taxi + triciclo + mensajero), precio mixto como inDrive, primero investigar y diseñar
+- **Qué (Ernesto, 4-nov):** juntar Triciclub y Pa'llá en UNA app con el nombre **Pa'llá**: servicios Taxi, Triciclo (Triciclub queda como el servicio de triciclos) y Mensajero. Precio **mixto como inDrive**: la app sugiere un precio justo, el cliente puede ofrecer más o menos, los choferes aceptan o contraofrecen y el cliente elige por precio, tiempo y estrellas. Meta: mejor experiencia y más rápida que La Nave.
+- **Cómo:** primero investigación y diseño (La Nave, inDrive, Uber, Bolt, Yango; leyes de taxi en Cuba; precios reales; medir velocidad) y Ernesto aprueba las pantallas; nada de código hasta su SÍ. Casa Viva y sus mensajeros siguen igual durante el cambio.
+
+### D137 · Cómo funciona la contabilidad desde el 4-nov-2026 (Ernesto)
+- **Una sola fuente:** la web (cada venta guarda su costo) + la caja + los «Datos del mes» del panel. Maryta ya no lleva el Excel; Arbelio no recibe el cierre (se lo pasa Lennys si quiere).
+- **Cada noche 21:30:** resumen del día y del mes a **Ernesto y a Lennys** (`contabilidad-dia.mjs`).
+- **Día 1 a las 9:00:** **borrador** del cierre del mes (PDF) a los dos. Días 1–2: Lennys (o Ernesto) corrige en el panel → Resumen → «Cierre del día y del mes» → Mes → **«Datos del mes»** (impuestos, fluctuación del cambio, reparaciones, otros gastos, parte de ELIO, % de inversores y, si cambian, gastos fijos e IA). Cada cambio queda con quién, cuándo, antes y después.
+- **Día 3 a las 9:00:** **cierre final** (PDF) a los dos, con la lista de cambios.
+- **Control de Lennys:** «Datos del mes», botones «pagado» de dependienta, mensajero y proveedor (Pedidos → «Ventas de proveedor del mes» → «Falta pagar»), % en Ajustes → Costos, descarga en Excel (CSV) en la hoja Cierre.
+- **Claude:** vigila que salga cada envío, revisa productos sin costo y repartos sin guardar, y corrige lo que Ernesto o Lennys digan.
+- Parar: `crm_settings contabilidad_dia=no` / `contabilidad_mes=no`.
+
+### D138 · Reseñas de clientes: solo reales, con permiso y «Nombre I.» (4-nov-2026, Ernesto)
+Las reseñas que use Casa Viva (tarjetas para redes, web) son siempre comentarios reales de clientes; nunca se inventan ni se reescriben. Se guardan como reseñas del producto en WooCommerce solo con permiso explícito del cliente para publicar su comentario y su nombre, que se muestra como nombre e inicial del apellido («María G.»). Las estrellas solo si el cliente puntuó. Vías: Zayri pega la reseña desde el WhatsApp en el panel (origen `whatsapp`), las que los clientes dejan en la web y, en preparación, el bot tras la entrega (origen `bot`: una vez por pedido, a una hora que no moleste, modelo inteligente que no invente, solo clientes directos y nunca los de una gestora, y nada se envía sin el SÍ de Ernesto).
+
+### D139 · Pa'llá: diseño v2, logo A «En ruta» y vehículos 3D hiperrealistas (4-nov-2026, Ernesto)
+- **Qué:** decisiones de la Fase 1 (servicios a la vez, precio justo con −20/+50 %, contraoferta +10/20/30 %, triciclo 60 + 50 CUP/km, comisión 0 % y luego 8 %, cobro semanal, web primero; consulta legal y marca OCPI después del piloto). Estilo claro y minimalista, letra Geist con respaldo Helvetica/Roboto, un solo amarillo por pantalla, barra de progreso del viaje animada (idea de Yandex Go). **Logo A «En ruta»** (la P de siempre con un trazo de recorrido). Vehículos: **estilo 1 hiperrealista** (Higgsfield), de lado y desde arriba.
+- **Por qué:** Ernesto quiere la app n.º 1 de Cuba, premium, minimalista y que cargue rápido con datos de ETECSA (< 1 Mbit/s en La Habana).
+- **Dónde:** https://claude.ai/artifact/71zrYhD9qbojBi2zd4HJkj · copia `docs/nexo-business/apps/palla/diseno-v2/`. Falta el SÍ de Ernesto a las pantallas antes de programar.
+
+### D140 · El bot pide la reseña: cómo y cuándo (4-nov-2026, Ernesto aprobó el texto)
+- **Qué:** VivaBot escribe UNA vez al cliente directo de Casa Viva, al día siguiente de «entregado/recogido» (hasta 4 días después), de 10:00 a 19:00 de Cuba, como mucho 1 vez por cliente cada 30 días y 10 al día. Mismo mensaje: estrellas 1–5 (opcional), comentario corto y permiso para publicarlo como «Nombre I.». Texto aprobado por Ernesto el 4-nov (`src/resenas-rules.js` → `textoPedido`).
+- **Leer la respuesta:** gpt-5.5 propone y el código comprueba: el comentario tiene que estar escrito tal cual por el cliente, las estrellas solo si puso un número o ⭐, el permiso tiene que ser un sí claro. Si dio comentario sin permiso, se le pregunta el permiso UNA vez. Queja o 1–2 estrellas: no se publica y se avisa a Ernesto. Lo que no es respuesta a la reseña lo contesta el bot de siempre.
+- **Nunca:** pedidos de gestora ni clientes de una gestora (D97), equipo, pruebas, «ignorar», en pausa o con BAJA. Core marca el pedido ANTES de enviar: nunca dos mensajes.
+- **Interruptor:** `crm_settings resenas_auto` = no | si | solo:<teléfonos>. `resenas_tienda` = si para incluir lo vendido con la cuenta de Nana/Zaymi/Lennys (apagado; en 30 días no habría añadido ningún cliente real).
+- **Por qué:** la web tenía 0 reseñas y los anuncios necesitan prueba social real. Realidad medida: casi todo se vende por gestoras (365 de 367 pedidos en 30 días), así que el bot pedirá pocas reseñas; el grueso tendrá que venir de las gestoras (Zayri en el panel).
+
+### D140 · Pa'llá: tabla de precios v2, rentable para el chofer (4-nov-2026, Ernesto)
+- **Qué:** precio justo sugerido = mínimo (con km incluidos) + CUP por km. Taxi Básico 3.000 (2 km) + 200 · Clásico 3.500 (2 km) + 400 · XL 4.500 (2 km) + 400 · Triciclo Eléctrico 1.500 (2 km) + 300 · Eléctrico XL 2.200 (2 km) + 400 · Bici 800 (2 km) + 250 · Carga 2.000 (3 km) + 300 · Moto 800 (3 km) + 230 · Mensajero moto 1.000 (3 km) + 250. Noche (22–6) +20 %. Espera: 5 min gratis, luego 50 CUP/min. El cliente puede ofrecer hasta −20 % pero **nunca debajo del mínimo**; el chofer contraoferta +10/20/30 %. Tope de deuda del chofer 2.000 CUP; Carga hasta 300 kg.
+- **Por qué:** la v1 (60 + 50/km) usaba precios de ruta compartida. El mercado real (47 viajes del grupo «Agencia Rodando», oct–nov) es ≈ 4.500 CUP por 7 km en carro y ≈ 3.550 en triciclo; La Nave ≈ 2.650–3.180 por 5 km; Casa Viva 1.500–1.800 en la zona central; VoyPaTi moto 600 + 170/km. Ernesto: «que sea rentable para el chofer». La v2 queda ≈ 10–25 % por debajo del mercado y deja ganancia al chofer después del 8 % (el almendrón con gasolina de la calle es el más justo).
+- **Ojo:** con estos precios un chofer activo debe 2.000 CUP de comisión en 2–3 días; revisar el tope cuando empiece el 8 %. Página: https://claude.ai/artifact/Upw2dnHGes2r7Z47F5Py5W
+
+### D141 · Pa'llá transporte: dónde vive y cómo (5-nov-2026, plan técnico de Claude con los SÍ ya dados en D138–D140)
+- **Rutas:** cliente en `casaviva.company/palla/ir/`, chofer en `/palla/chofer/`, panel `/palla/admin`. `/palla/` sigue siendo la app de los mensajeros de Casa Viva (y de la app Android 1.4) sin cambios; cuando los mensajeros pasen a la app de chofer, `/palla/` podrá ser la del cliente.
+- **Motor:** dentro del Core (D129) con las tablas de Triciclub ampliadas (v4), interruptor propio `cvd_pv`. Ofertas en vivo por el ntfy del VPS (la web no tiene conexión abierta) con consulta corta de respaldo. El precio lo calcula siempre el servidor y va firmado.
+- **Por qué:** no tocar a los mensajeros que ya trabajan con Pa'llá, reusar lo hecho (direcciones, OSRM, alta con verificación, avisos, bot) y no cargar la web de Hostinger.
+
+### D142 · Agencia NEXO: primero agencia IA + webs; avatar IA como cara; una sola Vitrina NEXO; la Vitrina no cobra anuncios hasta tener base legal (5-nov-2026, Ernesto + investigación)
+- **Ernesto eligió:** el primer negocio que debe dar dinero es la agencia (fotos de producto, reels y webs/menú 360 para mipymes, bajo «Implementación NEXO»); la cara de la marca es un **avatar IA**; hay **un solo canal**, la vitrina NEXO (nombre provisional), que muestra sus negocios y los casos de clientes. No tiene figura legal en Cuba todavía.
+- **Por la investigación:** Google/YouTube Ads y AdSense no funcionan para Cuba; Meta prohíbe actividad comercial desde países bajo embargo; los privados en Cuba no pueden tener medios propios (Ley 162/2023, Decreto 102/2024). Por eso: NEXO trabaja como **creativo** (el negocio publica en sus redes), la Vitrina publica **gratis** y **no vende anuncios** hasta que un abogado cubano confirme la figura y el registro en el ICS. La LLC **nunca** compra ni cobra anuncios para negocios de Cuba (sigue D14).
+- **Canal de YouTube sin cara como negocio: descartado en Cuba** (no paga). Plan completo: `docs/ofertas/agencia-nexo-plan-2026-11-05.md`.
+
+### D143 · NEXO es una red cubana propia (catálogos → entregas → red social → anuncios en CUP); corrige el enfoque de D142 (5-nov-2026, Ernesto)
+- **Visión:** una app **NEXO** (nombre sin más; no «NEXO Market», sigue el GLOSARIO) con los catálogos de los negocios, chat y bots, entregas de Pa'llá y, al final, anuncios pagados en CUP / EnZona / Transfermóvil. Mismas funciones que Facebook, Instagram, WhatsApp Business y Meta Ads, con diseño y marca propios (no se copia la apariencia de Meta).
+- **Orden:** 1) Pa'llá + cartas digitales gratis a 20 negocios de la zona donde ya trabajan los mensajeros; 2) % pequeño de las ventas que NEXO genere + cobro a mensajeros/choferes cuando les dé mucho valor + ventas extra (redes con IA, videos, bot, caja); 3) funciones de red social; 4) anuncios; 5) quitar trabas. Cada fase tiene meta para pasar (ver el plan).
+- **Trato del día 1:** «gratis para siempre; solo ganamos un % pequeño de lo que NEXO te venda». El % lo decide Ernesto.
+- **Legal:** cobrar (fase 2) necesita figura legal en Cuba; vender anuncios (fase 4) necesita confirmar con abogado/ICS que no cuenta como «medio» privado; USDT queda fuera hasta confirmar la licencia del Banco Central. La LLC sigue sin cobrar a Cuba (D14). D142 sigue valiendo para avatar IA y vitrina única, pero la agencia pasa a ser la puerta de entrada, no el negocio principal.
+- Plan: `docs/ofertas/agencia-nexo-plan-2026-11-05.md` (v2).

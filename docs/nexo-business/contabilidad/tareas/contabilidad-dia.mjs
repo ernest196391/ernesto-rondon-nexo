@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Cierre contable diario de Casa Viva (Ernesto 4-nov-2026, D135). Cron en el VPS a las 21:30 (Cuba):
 //   30 21 * * * cd /root/vivabot && /usr/bin/node /root/supervisor/tareas/contabilidad-dia.mjs >> /root/supervisor/logs/contabilidad-dia.log 2>&1
-// Pide a la web (Core 3.14.125, /bot/contabilidad) los pedidos completados hoy y en el mes hasta hoy, con la tienda y
+// 4-nov: va a Ernesto y a Lennys. Pide a la web (Core 3.14.125, /bot/contabilidad) los pedidos completados hoy y en el mes hasta hoy, con la tienda y
 // bajo pedido por separado, resta la parte del día de gastos fijos e IA (/root/supervisor/contabilidad.json) y le manda
 // a Ernesto por privado 5–6 líneas. Copia en el repo: docs/nexo-business/contabilidad/tareas/contabilidad-dia.mjs
 // Prueba sin enviar: node contabilidad-dia.mjs --prueba   ·   Otro día: --dia 2026-11-03
@@ -66,6 +66,8 @@ lineas.push(`«Queda» = tras mercancía, comisiones, 0,5 % y 1,5 %, y ${usd1(ga
 const body = lineas.join('\n');
 log(PRUEBA ? '[PRUEBA]' : '', '\n' + body);
 if (PRUEBA) process.exit(0);
-const { error } = await db.from('crm_outbox').insert({ business_id: BIZ, to_phone: OWNER, body, status: 'pendiente', kind: 'texto', created_by: 'contabilidad-dia' });
+// 4-nov (Ernesto): el mismo resumen a Ernesto y a Lennys.
+const LENNYS = '5356885368';
+const { error } = await db.from('crm_outbox').insert([OWNER, LENNYS].map((to_phone) => ({ business_id: BIZ, to_phone, body, status: 'pendiente', kind: 'texto', created_by: 'contabilidad-dia' })));
 if (error) { console.error('outbox', error.message); process.exit(1); }
 log(dia, 'enviado al buzón');

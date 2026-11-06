@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+// OBSOLETO (4-nov): usa docs/nexo-business/tarifas/generar-pdf-tarifas.mjs (lee la tabla de la web y se rehace solo en el VPS).
 // PDF «Precios de mensajería» de Casa Viva, hecho con las tarifas VIVAS de la web (no con un PDF viejo).
 //
 // Cómo rehacerlo cuando cambien las tarifas (en Windows, desde la carpeta del repo ernesto-rondon-nexo):

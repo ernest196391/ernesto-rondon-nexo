@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Precios de mensajería · Casa Viva</title>
+<!-- Plantilla del PDF de precios de mensajería. La rellena generar-pdf-tarifas.mjs ({{...}}) con las tarifas de la web.
+     NO escribas precios aquí: la web manda (casaviva.company/tarifas-mensajeria). -->
+<style>
+{{FUENTES}}
+:root {
+  --crema: #F6F1E6;
+  --marron: #2B2420;
+  --petroleo: #0D3B45;
+  --ambar: #A35A1F;   /* solo cifras */
+  --linea: rgba(43, 36, 32, .14);
+  --suave: rgba(13, 59, 69, .07);
+}
+/* Página estrecha (9:16) para que en el móvil se lea sin hacer zoom. */
+@page { size: 120mm 213mm; margin: 0; }
+* { box-sizing: border-box; }
+html, body { background: var(--crema); margin: 0; }
+html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+body { font-family: 'Figtree', system-ui, sans-serif; color: var(--marron); font-size: 11.5pt; line-height: 1.35; }
+.hoja { padding: 8mm 7mm 8mm; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+
+.cabecera { display: flex; align-items: center; justify-content: space-between; gap: 4mm; padding-bottom: 3mm; border-bottom: 2px solid var(--petroleo); }
+.cabecera img { height: 10mm; width: auto; display: block; }
+.cabecera .fecha { font-size: 9pt; color: var(--petroleo); text-align: right; line-height: 1.3; }
+h1 { font-family: 'Cinzel', serif; font-weight: 700; color: var(--petroleo); font-size: 21pt; letter-spacing: .02em; margin: 4mm 0 1mm; line-height: 1.1; }
+.sub { margin: 0 0 3mm; font-size: 10.5pt; color: var(--petroleo); }
+
+.nota { background: var(--suave); border-left: 4px solid var(--petroleo); border-radius: 2mm; padding: 2.5mm 3.5mm; margin: 0 0 4mm; font-size: 10.5pt; }
+.nota p { margin: 0 0 1.5mm; }
+.nota p:last-child { margin-bottom: 0; }
+.nota b { color: var(--petroleo); }
+.nota a, .final a { color: var(--petroleo); font-weight: 700; text-decoration: none; }
+
+.indice-titulo { font-weight: 800; color: var(--petroleo); font-size: 10.5pt; text-transform: uppercase; letter-spacing: .06em; margin: 0 0 1.5mm; }
+.indice { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2mm 3mm; margin: 0 0 3mm; }
+.indice a { display: flex; justify-content: space-between; gap: 2mm; padding: 1.6mm 2.2mm; border: 1px solid var(--linea); border-radius: 1.5mm; background: #FFFDF8; color: var(--marron); text-decoration: none; font-size: 9.5pt; font-weight: 600; }
+.indice a small { color: var(--ambar); font-weight: 700; white-space: nowrap; }
+
+.municipio { margin: 0 0 4mm; }
+.municipio h2 { display: flex; justify-content: space-between; align-items: baseline; gap: 3mm; font-size: 12.5pt; font-weight: 800; color: var(--crema); background: var(--petroleo); margin: 0 0 1mm; padding: 2mm 3mm; border-radius: 1.5mm; break-after: avoid; }
+.municipio h2 small { font-size: 9.5pt; font-weight: 600; opacity: .9; white-space: nowrap; }
+table { width: 100%; border-collapse: collapse; }
+tr { break-inside: avoid; }
+td { padding: 1.6mm 1mm; border-bottom: 1px solid var(--linea); vertical-align: baseline; }
+td.zona { padding-right: 2mm; }
+td.precio { text-align: right; white-space: nowrap; }
+tr.otro td { font-size: 10pt; color: var(--marron); opacity: .85; font-style: italic; }
+.cifra { color: var(--ambar); font-weight: 700; font-variant-numeric: tabular-nums; }
+.cup { font-size: 8.5pt; font-weight: 600; color: var(--ambar); margin-left: .6mm; }
+.final { margin: 4mm 0 0; padding-top: 2mm; border-top: 1px solid var(--linea); font-size: 9.5pt; color: var(--petroleo); text-align: center; }
+</style>
+</head>
+<body>
+<div class="hoja">
+
+<header class="cabecera">
+  <img src="{{LOGO}}" alt="Casa Viva">
+  <div class="fecha">Precios de la web del<br><b>{{FECHA}}</b></div>
+</header>
+
+<h1>Precios de mensajería</h1>
+<p class="sub">{{TOTAL}} repartos en {{MUNICIPIOS}} municipios · en CUP</p>
+
+<section class="nota">
+  <p><b>Fuente: casaviva.company/tarifas-mensajeria</b>. Si algún precio no coincide, manda la web. Este PDF reemplaza a todos los anteriores (también al del 23-09-2026).</p>
+  <p><b>La mensajería es del mensajero</b>: se le paga a él, en CUP, al recibir.</p>
+  <p>Precio exacto de un reparto: <a href="https://casaviva.company/cotizar-mensajeria/">casaviva.company/cotizar-mensajeria</a>. «Otro reparto» = se confirma con la tienda.</p>
+</section>
+
+<div class="indice-titulo">Toca tu municipio</div>
+<nav class="indice">
+{{INDICE}}
+</nav>
+
+<main>
+{{CONTENIDO}}
+</main>
+<p class="final">Fuente: <a href="https://casaviva.company/tarifas-mensajeria/">casaviva.company/tarifas-mensajeria</a> · Precios de la web del {{FECHA}}</p>
+</div>
+</body>
+</html>

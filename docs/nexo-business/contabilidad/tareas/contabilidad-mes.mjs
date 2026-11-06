@@ -20,6 +20,9 @@ const OWNER = (process.env.OWNER_PHONE || '5354056173').replace(/\D/g, '');
 const BASE = String(process.env.WOO_URL || '').replace(/\/$/, '');
 const KEY = process.env.CURRU_KEY;
 const PRUEBA = process.argv.includes('--prueba');
+// 4-nov (Ernesto): día 1 = borrador (se corrige 2 días en el panel); día 3 = final con la lista de cambios. A Ernesto y a Lennys.
+const FINAL = process.argv.includes('--final');
+const LENNYS = '5356885368';
 const arg = (k) => { const i = process.argv.indexOf(k); return i > 0 ? process.argv[i + 1] : null; };
 const log = (...a) => console.log(new Date().toISOString(), ...a);
 const MESES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
@@ -52,6 +55,10 @@ const T = W.tienda, B = W.bajo_pedido, pct = W.porcentajes;
 // Gastos del mes: el .json del mes manda; si no, los de la web (Core 3.14.127); si no, contabilidad.json.
 const fijos = Number(extra.fijos_usd ?? W.gastos_mes?.fijos ?? conf.fijos_usd_mes ?? 0);
 const ia = Number(extra.ia_usd ?? W.gastos_mes?.ia ?? conf.ia_usd_mes ?? 0);
+// 4-nov (Core 3.14.138): «Datos del mes» que apunta Lennys en el panel (impuestos, cambio, reparaciones, ELIO, inversores).
+const DM = W.datos_mes?.valores ?? {};
+const dv = (k) => (DM[k] == null || DM[k] === '' ? 0 : Number(DM[k]));
+const HIST = (W.datos_mes?.historial ?? []).filter((h) => h.campo);
 
 // ---------- cuentas ----------
 const n = (x) => Number(x) || 0;
@@ -74,7 +81,9 @@ const base = T.base_porcentajes + otrasVentas;
 const costo = T.costo + otrasCosto;
 const com = T.comision + otrasCom;
 const dep = base * n(pct.dependientas) / 100, ern = base * n(pct.ernesto) / 100;
-const queda = ventas - costo - com - dep - ern - fijos - ia + bp.tienda;
+const queda = ventas - costo - com - dep - ern - fijos - ia + bp.tienda - dv('impuestos_usd') - dv('fluctuacion_usd') - dv('reparaciones_usd') - dv('otros_gastos_usd') + dv('elio_usd');
+const invPct = dv('inversores_pct');
+const inv = queda > 0 ? queda * invPct / 100 : 0;
 const cuenta = [
   ['Ventas de la tienda', ventas, otras.length ? 'Web (sin bajo pedido) y ' + otras.map((o) => o.fuente).join(', ') : 'Pedidos de la web completados (sin bajo pedido)'],
   ['Mercancía', -costo, 'Costo guardado en cada venta'],
@@ -84,7 +93,9 @@ const cuenta = [
   ['Gastos fijos', -fijos, 'Renta, luz, teléfono, salarios y demás'],
   ['IA y herramientas', -ia, 'Bot, Claude, Higgsfield, servidor y dominio'],
   ['Lo que deja bajo pedido a la tienda', bp.tienda, 'Parte «tienda» del reparto de cada pedido MK-'],
+  ...[['Impuestos', -dv('impuestos_usd')], ['Fluctuación del cambio', -dv('fluctuacion_usd')], ['Reparaciones', -dv('reparaciones_usd')], ['Otros gastos', -dv('otros_gastos_usd')], ['Parte de ELIO para Casa Viva', dv('elio_usd')]].filter((r) => r[1]).map((r) => [...r, 'Datos del mes (panel)']),
   ['Ganancia de Casa Viva', queda, 'Lo que queda'],
+  ...(inv ? [[`Para inversores (${String(invPct).replace('.', ',')} %)`, -inv, 'Datos del mes (panel)'], ['Queda para Casa Viva', queda - inv, 'Después de inversores']] : []),
 ];
 const cbp = [
   ['Ingresos', bp.ingresos, 'Lo que pagaron los clientes'], ['Pagado a proveedores', -bp.proveedor, 'Precio real del proveedor'],
@@ -112,6 +123,7 @@ const notas = [
   ...(rep.some((p) => !p.saved) ? [`${rep.filter((p) => !p.saved).length} pedidos de bajo pedido tienen el reparto «sugerido»: nadie lo guardó a mano.`] : []),
   ...(otras.length ? [] : ['Las ventas y los gastos de la caja de la tienda todavía no entran en esta cuenta.']),
   ...(Array.isArray(extra.notas) ? extra.notas : []),
+  ...(DM.nota ? [String(DM.nota)] : []),
 ];
 
 const CSS = `@page{size:A4;margin:16mm 14mm}:root{--ink:#1d2321;--mut:#5d6b66;--line:#d9e1dd;--ok:#1f7a4d;--bad:#b3362c;--pan:#f4f7f5;--acc:#2f6f5e;--acc2:#c9a227}
@@ -127,32 +139,38 @@ th{color:var(--mut);font-weight:600;font-size:8pt}.r{text-align:right;white-spac
 .col i{display:block;width:100%;background:var(--acc)}.col i.bp{background:var(--acc2)}.dl{font-size:6.5pt;color:var(--mut);margin-top:2pt}.leg{font-size:8pt;color:var(--mut)}.sw{display:inline-block;width:8pt;height:8pt;margin:0 3pt 0 8pt;vertical-align:-1pt}
 .foot{color:var(--mut);font-size:8pt}ul,ol{line-height:1.6;margin-top:0}`;
 
-const html = `<!doctype html><html lang="es"><head><meta charset="utf-8"><title>Cierre de ${nombreMes} · Casa Viva</title><style>${CSS}</style></head><body>
-<section><p class="eye">Casa Viva · cierre de ${nombreMes} de ${Y}</p><h1>Cierre de ${nombreMes}</h1>
+const html = `<!doctype html><html lang="es"><head><meta charset="utf-8"><title>${FINAL ? 'Cierre final' : 'Borrador del cierre'} de ${nombreMes} · Casa Viva</title><style>${CSS}</style></head><body>
+<section><p class="eye">Casa Viva · cierre de ${nombreMes} de ${Y}</p><h1>${FINAL ? 'Cierre final' : 'Borrador del cierre'} de ${nombreMes}</h1>
 <p>En ${nombreMes} la tienda vendió <b>${fm0(ventas)} USD</b> y le quedaron <b>${fm0(queda)} USD</b> limpios (${ventas ? fm(queda / ventas * 100, 1) : '0'} % de lo vendido). Bajo pedido va aparte: vendió <b>${fm0(bp.ingresos)} USD</b> y dejó <b>${fm0(bp.margen)} USD</b> de margen.</p>
 <div class="three"><div class="big"><div class="k">Entró · ventas de la tienda</div><div class="v">${fm0(ventas)}</div><div class="n">USD · ${T.pedidos} pedidos de la web · sin bajo pedido</div></div>
 <div class="big out"><div class="k">Salió · mercancía, comisiones y gastos</div><div class="v">${fm0(ventas - queda)}</div><div class="n">USD</div></div>
 <div class="big keep"><div class="k">Quedó · ganancia de Casa Viva</div><div class="v">${fm0(queda)}</div><div class="n">USD</div></div></div>
 <h2>Ventas por día</h2>${diasHtml}<p class="leg"><i class="sw" style="background:var(--acc)"></i>Tienda<i class="sw" style="background:var(--acc2)"></i>Bajo pedido · cuenta el día en que el pedido se entregó y se cobró</p>
 <h2>De cada 100 USD que vendió la tienda</h2>${bars}</section>
-<section><p class="eye">La cuenta</p><h2>La cuenta de la tienda</h2>${table(['Partida', 'USD', 'De dónde sale'], cuenta, [1], ['Ganancia de Casa Viva'])}
+<section><p class="eye">La cuenta</p><h2>La cuenta de la tienda</h2>${table(['Partida', 'USD', 'De dónde sale'], cuenta, [1], ['Ganancia de Casa Viva', 'Queda para Casa Viva'])}
 <h2>Bajo pedido, aparte</h2>${table(['Partida', 'USD', 'De dónde sale'], cbp, [1], ['Margen', 'Ernesto (gestor especial)'])}
 ${rep.length ? table(['Pedido', 'Producto', 'Gestora', 'Venta', 'Proveedor', 'Gestora USD', 'Reparto'], rep.map((p) => [p.number, p.products, p.gestora, n(p.webUsd), n(p.costUsd), n(p.gestoraUsd), p.saved ? 'guardado' : 'sugerido']), [3, 4, 5]) : ''}</section>
 <section><p class="eye">Personas y pagos</p><h2>Lo que le toca a cada uno</h2>${table(['Quién', 'USD', 'Por qué'], [['Gestoras', com + bp.gestoras, 'Tienda + bajo pedido'], ['Dependientas', dep + bp.dependientas, `${String(pct.dependientas).replace('.', ',')} % de la tienda + su parte de bajo pedido`], ['Ernesto', ern + bp.ernesto, `${String(pct.ernesto).replace('.', ',')} % de la tienda + lo que queda de bajo pedido`], ['Mensajeros (bajo pedido)', bp.mensajeros, 'Por traer productos de proveedores']], [1])}
 <h2>Comisiones pagadas y por pagar</h2>${table(['Concepto', 'USD', 'Estado'], [['Comisiones de la tienda', n(C.tienda.pagado), 'Pagado'], ['Comisiones de la tienda', n(C.tienda.por_pagar), 'Por pagar'], ['Comisiones de bajo pedido', n(C.bajo_pedido.pagado), 'Pagado'], ['Comisiones de bajo pedido', n(C.bajo_pedido.por_pagar), 'Por pagar']], [1])}
 <h2>Para revisar</h2><ul>${notas.map((x) => `<li>${e(x)}</li>`).join('') || '<li>Nada pendiente.</li>'}</ul>
+${HIST.length ? `<h2>Cambios en los datos del mes</h2>${table(['Cuándo', 'Quién', 'Dato', 'Antes', 'Después'], HIST.map((h) => [String(h.at).slice(0, 16).replace('T', ' '), h.by, W.datos_mes.campos?.[h.campo] ?? h.campo, String(h.antes ?? '—'), String(h.despues ?? '—')]), [])}` : ''}
 <p class="foot">Hecho solo el ${hoy} con los pedidos de la web casaviva.company y los gastos del mes apuntados en el servidor del bot. Cada número se puede comprobar en el panel → Pedidos.</p></section></body></html>`;
 
 const dir = '/root/archivos/cierres';
 fs.mkdirSync(dir, { recursive: true });
-const pdf = `${dir}/cierre-${mes}-casa-viva.pdf`;
+const pdf = `${dir}/cierre-${mes}-casa-viva-${FINAL ? 'final' : 'borrador'}.pdf`;
 fs.writeFileSync(`${dir}/cierre-${mes}-casa-viva.html`, html);
 const browser = await puppeteer.launch({ args: ['--no-sandbox'] });
 try { const page = await browser.newPage(); await page.setContent(html, { waitUntil: 'load' }); await page.pdf({ path: pdf, format: 'A4', printBackground: true, preferCSSPageSize: true }); }
 finally { await browser.close(); }
-const caption = [`📒 *Cierre de ${nombreMes}* (Casa Viva)`, `• Tienda: vendió ${fm0(ventas)} USD → quedaron ${fm0(queda)} USD`, `• Bajo pedido: ${fm0(bp.ingresos)} USD → margen ${fm0(bp.margen)} USD`, 'Revísalo y reenvíaselo a Lennys.'].join('\n');
+const caption = [
+  `📒 *${FINAL ? 'Cierre final' : 'Borrador del cierre'} de ${nombreMes}* (Casa Viva)`,
+  `• Tienda: vendió ${fm0(ventas)} USD → ganancia ${fm0(queda)} USD${inv ? ` · para Casa Viva ${fm0(queda - inv)} tras inversores` : ''}`,
+  `• Bajo pedido: ${fm0(bp.ingresos)} USD → margen ${fm0(bp.margen)} USD`,
+  FINAL ? `Cambios en los datos del mes: ${HIST.length}. Este es el definitivo.` : 'Revísenlo en el panel → Resumen → Cierre → Mes. Si falta algo (impuestos, cambio, reparaciones, ELIO, inversores), apúntenlo en «Datos del mes» antes del día 3.',
+].join('\n');
 log(PRUEBA ? '[PRUEBA]' : '', pdf, '\n' + caption);
 if (PRUEBA) process.exit(0);
-const { error } = await db.from('crm_outbox').insert({ business_id: BIZ, to_phone: OWNER, body: caption, kind: 'archivo', file_path: pdf, status: 'pendiente', created_by: 'contabilidad-mes' });
+const { error } = await db.from('crm_outbox').insert([OWNER, LENNYS].map((to_phone) => ({ business_id: BIZ, to_phone, body: caption, kind: 'archivo', file_path: pdf, status: 'pendiente', created_by: 'contabilidad-mes' })));
 if (error) { console.error('outbox', error.message); process.exit(1); }
 log(mes, 'PDF enviado al buzón');

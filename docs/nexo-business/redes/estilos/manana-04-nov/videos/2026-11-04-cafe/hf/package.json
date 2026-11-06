@@ -1,0 +1,9 @@
+{
+  "name": "cafe-2026-11-04",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "npx --yes hyperframes@0.8.185 check",
+    "render": "npx --yes hyperframes@0.8.185 render"
+  }
+}

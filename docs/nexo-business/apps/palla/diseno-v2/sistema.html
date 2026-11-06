@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="es" data-tema="claro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pa’llá · sistema de diseño</title>
+<link rel="preload" href="fonts/Geist-var-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="tokens.css">
+<style>
+body{max-width:1080px;margin:0 auto;padding:24px 20px 80px}
+a{color:inherit}
+h1{font:var(--t-titulo);font-size:32px;line-height:38px;letter-spacing:-.03em;margin:8px 0}
+h2{font:var(--t-h1);letter-spacing:-.02em;margin:48px 0 6px;padding-top:16px;border-top:1px solid var(--linea)}
+h2 + p{color:var(--tinta-2);margin:0 0 16px;max-width:680px}
+.dos{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:720px){.dos{grid-template-columns:1fr}}
+.panel{background:var(--fondo);color:var(--tinta);border-radius:var(--r);padding:20px;box-shadow:0 0 0 1px var(--linea);display:flex;flex-direction:column;gap:12px;min-width:0}
+.panel > small{font:var(--t-mini);color:var(--tinta-2)}
+.muestras{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:10px}
+.m{border-radius:var(--r);overflow:hidden;box-shadow:0 0 0 1px var(--linea);font:var(--t-peq)}
+.m i{display:block;height:52px}
+.m span{display:block;padding:8px 10px;color:var(--tinta)}
+.m code{display:block;padding:0 10px 8px;font:11px/1.3 ui-monospace,monospace;color:var(--tinta-2)}
+.fila{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.esc{display:flex;flex-direction:column;gap:14px}
+.esc div{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap}
+.esc code,.nota code{font:12px ui-monospace,monospace;color:var(--tinta-2)}
+.icos{display:grid;grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:8px}
+.icos div{display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 4px;border-radius:var(--r);background:var(--fondo-2);font:11px/1.2 var(--letra);color:var(--tinta-2);text-align:center}
+.vehs{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+.vehs div{background:var(--fondo-2);border-radius:var(--r);padding:10px;display:flex;align-items:center;gap:8px;font:500 13px/1.2 var(--letra)}
+.vehs img.l{width:120px}.vehs img.a{width:16px}
+.esp{display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap}
+.esp div{background:var(--tinta);border-radius:3px}
+.demo-hoja{position:relative;height:250px;border-radius:var(--r);overflow:hidden;background:#F3F2EE}
+.p-oscuro .demo-hoja{background:#141518}
+.nota{font:var(--t-peq);color:var(--tinta-2)}
+table{border-collapse:collapse;width:100%;font:var(--t-peq)}
+td,th{text-align:left;padding:8px;border-bottom:1px solid var(--linea);vertical-align:top}
+th{font-weight:600}
+.peso{display:flex;gap:24px;flex-wrap:wrap;align-items:baseline}
+.peso span{font:500 28px/1.1 var(--letra);letter-spacing:-.02em}
+.peso b{font:600 28px/1.1 var(--letra);letter-spacing:-.02em}
+.esq-demo{display:grid;grid-template-columns:32px 1fr auto;gap:12px;align-items:center}
+.cara-demo{display:flex;gap:12px;align-items:center}
+</style>
+</head>
+<body>
+<p><a class="p-chip" href="./">← Portada</a></p>
+<h1>Sistema de diseño v2</h1>
+<p class="p-2" style="max-width:680px">Más minimalista: blanco, negro, gris y <b>un solo amarillo por pantalla</b> (el botón principal). Letra tipo Helvética. Oscuro de noche. Todo está en <a href="tokens.css"><code>tokens.css</code></a> e <a href="iconos.svg"><code>iconos.svg</code></a>: se copia tal cual al código. Clases con prefijo <code>p-</code>.</p>
+
+<h2>Reglas v2</h2>
+<div class="panel"><ul style="margin:0;padding-left:20px;line-height:1.7">
+<li><b>Un amarillo por pantalla:</b> el botón principal. Sellos, chips y etiquetas en gris neutro.</li>
+<li><b>Menos cajas:</b> listas con separadores finos; radio único de 14 px; sombras solo en la hoja inferior y los botones flotantes.</li>
+<li><b>Texto:</b> como mucho 1 línea de ayuda por pantalla, y solo si sin ella no se entiende.</li>
+<li><b>Sin «Ejemplo» ni botones «Demo»</b> en el móvil: el prototipo avanza solo.</li>
+<li><b>Carga:</b> sin librerías nuevas. Si el mapa no carga, un plano propio en SVG (0 KB de red) sigue moviendo los vehículos.</li>
+</ul></div>
+
+<h2>Letra</h2><p>Geist (variable, neo-grotesca tipo Helvética), un archivo de 29 KB solo latín. Respaldo: Helvetica Neue, Helvetica, Roboto, Arial. Sin ancho expandido. Solo 2 pesos.</p>
+<div class="panel">
+<div class="peso"><span>Aa 500 · texto</span><b>Aa 600 · títulos y precios</b></div>
+<div class="esc">
+<div><span class="p-precio">1.740<small>CUP</small></span><code>--t-precio · 600 40/44 · «CUP» 15 px gris</code></div>
+<div><span class="p-titulo">Muévete por La Habana</span><code>--t-titulo · 600 24/30</code></div>
+<div><span class="p-h1">Llega en 2 min</span><code>--t-h1 · 600 22/28</code></div>
+<div><span class="p-h2">¿Te recogemos aquí?</span><code>--t-h2 · 600 18/24</code></div>
+<div><span class="p-cuerpo-g">Calle N e/ 23 y 25, Vedado</span><code>--t-cuerpo-g · 500 17/24</code></div>
+<div><span>Precio fijo. Lo acordado no cambia.</span><code>--t-cuerpo · 500 15/22</code></div>
+<div><span class="p-peq">Eléctrico · 2 min</span><code>--t-peq · 500 13/18</code></div>
+<div><span class="p-mini">Tu oferta · Eléctrico</span><code>--t-mini · 500 12/16 (sin mayúsculas)</code></div>
+</div></div>
+
+<h2>Colores</h2><p>El amarillo solo en el botón principal. Todo lo demás, blanco, negro y grises. Contraste AA o mejor.</p>
+<div class="dos" id="colores"></div>
+
+<h2>Colores por servicio</h2><p>Solo en el icono pequeño del servicio (inicio, mis viajes). Nunca en fondos ni sellos.</p>
+<div class="dos" id="servicios"></div>
+
+<h2>Espacios, radio y sombras</h2><p>De 4 en 4. Botones de 48 px como mínimo (56 px el principal). Radio único: 14 px. Sombra solo en la hoja inferior y en lo que flota sobre el mapa.</p>
+<div class="panel">
+<div class="esp"><div style="width:4px;height:4px"></div><div style="width:8px;height:8px"></div><div style="width:12px;height:12px"></div><div style="width:16px;height:16px"></div><div style="width:20px;height:20px"></div><div style="width:24px;height:24px"></div><div style="width:32px;height:32px"></div><div style="width:40px;height:40px"></div><div style="width:56px;height:56px"></div><span class="nota"><code>--e1 … --e14</code> = 4, 8, 12, 16, 20, 24, 32, 40, 56 px</span></div>
+<div class="fila"><span class="nota"><code>--r</code> = 14 px · <code>--s-flota</code> botones sobre el mapa · <code>--s3</code> hoja inferior</span><button class="p-btn p-btn--redondo" aria-label="Volver"><svg class="p-ico"><use href="iconos.svg#atras"/></svg></button></div>
+</div>
+
+<h2>Barra de progreso del viaje</h2><p>Como Yandex Go: barra fina a lo ancho con el vehículo encima, % recorrido y hora de llegada. La mueve el mismo valor que el vehículo del mapa; al 100 % la pantalla pasa sola. Con «reducir movimiento» avanza a saltos de 10 %, sin deslizar. En «El chofer viene», «En viaje» y «Envío · seguimiento».</p>
+<div class="dos" id="progreso"></div>
+
+<h2>Piezas</h2><p>Las mismas piezas en claro y en oscuro. Tócalas: funcionan.</p>
+<div class="dos" id="piezas"></div>
+
+<h2>Iconos</h2><p>Propios, línea de 1,75 px, puntas redondas, rejilla de 24. Nada de emojis. Uso: <code>&lt;svg class="p-ico"&gt;&lt;use href="iconos.svg#casa"/&gt;&lt;/svg&gt;</code></p>
+<div class="panel"><div class="icos" id="icos"></div></div>
+
+<h2>Vehículos</h2><p>Provisionales en SVG. De lado para elegir y en la barra de progreso; desde arriba para el mapa, girando con la calle. Se cambian por los 3D (WebP ≤ 15 KB) cuando Ernesto elija estilo.</p>
+<div class="panel"><div class="vehs" id="vehs"></div></div>
+
+<h2>Mapa propio</h2><p>Nuestro mapa de Cuba del VPS: calles finas, agua y parques suaves. Ruta negra de día y casi blanca de noche (el amarillo queda para el botón). Si el mapa no carga, un plano en SVG con calles, ruta, pines y vehículos que se mueven.</p>
+<div class="dos">
+<div class="panel"><small>Claro</small><div class="muestras"><div class="m"><i style="background:#F3F2EE"></i><span>Tierra</span><code>#F3F2EE</code></div><div class="m"><i style="background:#FFFFFF;box-shadow:inset 0 0 0 1px #E3E1DA"></i><span>Calle</span><code>#FFF</code></div><div class="m"><i style="background:#CFE0E8"></i><span>Agua</span><code>#CFE0E8</code></div><div class="m"><i style="background:#0E0E0E"></i><span>Ruta</span><code>#0E0E0E</code></div></div></div>
+<div class="panel p-oscuro"><small>Oscuro</small><div class="muestras"><div class="m"><i style="background:#141518"></i><span>Tierra</span><code>#141518</code></div><div class="m"><i style="background:#24262B"></i><span>Calle</span><code>#24262B</code></div><div class="m"><i style="background:#0C1A22"></i><span>Agua</span><code>#0C1A22</code></div><div class="m"><i style="background:#F3F3EF"></i><span>Ruta</span><code>#F3F3EF</code></div></div></div>
+</div>
+
+<h2>Movimiento</h2><p>Corto y suave: 120, 180 y 240 ms con la curva <code>cubic-bezier(.2,.8,.2,1)</code>. Con «reducir movimiento», todo quieto.</p>
+<div class="panel"><table>
+<tr><th>Qué</th><th>Cómo</th><th>Duración</th></tr>
+<tr><td>Pulsar un botón</td><td>Se encoge un 2 %</td><td>120 ms</td></tr>
+<tr><td>Cambiar de pantalla</td><td>Fundido</td><td>180 ms</td></tr>
+<tr><td>Hoja inferior, oferta nueva</td><td>Sube 8–24 px y aparece</td><td>240 ms</td></tr>
+<tr><td>Barra de progreso</td><td>Vehículo y barra avanzan con el del mapa</td><td>lo que dure el tramo</td></tr>
+<tr><td>Oferta</td><td>Línea fina que se vacía; se puede deslizar para quitarla</td><td>60 s</td></tr>
+<tr><td>Esqueleto de carga</td><td>Bloques grises que laten suave</td><td>1,4 s en bucle</td></tr>
+<tr><td>Buscando</td><td>3 anillos finos grises</td><td>2,4 s en bucle</td></tr>
+</table></div>
+
+<script>
+(function(){
+  function sw(n,v){return '<div class="m"><i style="background:var('+v+')"></i><span>'+n+'</span><code>'+v+'</code></div>';}
+  function dos(id,f){var h='';['','p-oscuro'].forEach(function(c){h+='<div class="panel '+c+'"><small>'+(c?'Oscuro (de noche)':'Claro')+'</small>'+f()+'</div>';});document.getElementById(id).innerHTML=h;}
+  function ico(n,c){return '<svg class="p-ico '+(c||'')+'"><use href="iconos.svg#'+n+'"/></svg>';}
+  dos('colores',function(){return '<div class="muestras">'+sw('Amarillo','--amarillo')+sw('Fondo','--fondo')+sw('Fondo 2','--fondo-2')+sw('Fondo 3','--fondo-3')+sw('Tinta','--tinta')+sw('Tinta 2','--tinta-2')+sw('Tinta 3','--tinta-3')+sw('Línea','--linea')+'</div>';});
+  dos('servicios',function(){return '<div class="fila" style="gap:20px"><span style="color:var(--taxi)">'+ico('coche')+'</span><span style="color:var(--tric)">'+ico('triciclo')+'</span><span style="color:var(--mens)">'+ico('paquete')+'</span><span class="p-sello">Pasaje</span><span class="p-sello">Envío</span></div>';});
+  dos('progreso',function(){return '<div class="p-progreso" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Recorrido"><div class="p-progreso__pista"><i class="p-progreso__lleno"></i><span class="p-progreso__veh"><img src="vehiculos/3d/tric-electrico-lado.webp" alt=""></span></div><div class="p-progreso__txt"><span><b data-pct>0 %</b> recorrido</span><span>Llega 18:42</span></div></div><p class="nota" style="margin:0"><code>.p-progreso</code> · pista 4 px · vehículo 36×21 · un solo valor k (0 → 1)</p>';});
+  dos('piezas',function(){return '<div class="fila"><button class="p-btn p-btn--marca">Pedir triciclo · 1.500 CUP</button></div>'
+   +'<div class="fila"><button class="p-btn p-btn--suave p-btn--chico">'+ico('mas','p-ico--16')+'10 %</button><button class="p-btn p-btn--tinta p-btn--chico">Acepto</button><button class="p-btn p-btn--texto">Cancelar</button><button class="p-btn p-btn--icono" aria-label="Llamar">'+ico('telefono','p-ico--20')+'</button></div>'
+   +'<div class="p-pest"><button aria-pressed="true">Triciclo</button><button>Taxi</button><button>Moto</button></div>'
+   +'<div class="fila"><button class="p-chip" aria-pressed="true">Puntual</button><button class="p-chip">Amable</button><span class="p-sello">Pasaje</span></div>'
+   +'<label class="p-campo">'+ico('buscar')+'<input placeholder="¿A dónde vamos?"></label>'
+   +'<div class="fila" style="justify-content:space-between"><span>Coger la 1.ª oferta</span><button class="p-interruptor" role="switch" aria-checked="false" onclick="this.setAttribute(\'aria-checked\',this.getAttribute(\'aria-checked\')!==\'true\')"></button></div>'
+   +'<div><a class="p-fila" href="#"><span class="p-fila__ico">'+ico('reloj')+'</span><span class="p-fila__txt"><b>Coppelia</b><span>23 y L, Vedado</span></span><span class="p-fila__fin">0,4 km</span></a><a class="p-fila" href="#"><span class="p-fila__ico">'+ico('reloj')+'</span><span class="p-fila__txt"><b>Obispo</b><span>La Habana Vieja</span></span><span class="p-fila__fin">4,1 km</span></a></div>'
+   +'<div><article class="p-oferta"><span class="p-cara p-oferta__cara">YR</span><div class="p-oferta__q">Yoandri R. <span>★ 4,9</span></div><div class="p-oferta__precio">80<small>tu precio</small></div><div class="p-oferta__s">Eléctrico · 2 min</div><button class="p-btn p-btn--marca">Aceptar 80</button><i class="p-oferta__tiempo" style="transform:scaleX(.6)"></i></article>'
+   +'<article class="p-oferta"><span class="p-cara p-oferta__cara">DC</span><div class="p-oferta__q">Dayana C. <span>★ 4,8</span></div><div class="p-oferta__precio">100<small>+20 %</small></div><div class="p-oferta__s">Eléctrico · 1 min</div><button class="p-btn p-btn--suave">Aceptar 100</button><i class="p-oferta__tiempo" style="transform:scaleX(.3)"></i></article></div>'
+   +'<div class="esq-demo" aria-label="Esqueleto de carga"><span class="p-esq" style="width:32px;height:32px;border-radius:50%"></span><span><span class="p-esq" style="width:60%;height:12px"></span><span class="p-esq" style="width:35%;height:10px;margin-top:8px"></span></span><span class="p-esq" style="width:48px;height:22px"></span></div>'
+   +'<p class="p-aviso">'+ico('info')+'Nada prohibido. Si mandas dinero, dilo.</p>'
+   +'<div class="demo-hoja"><section class="p-hoja" style="animation:none"><div class="p-hoja__asa"></div><p class="p-mini" style="margin:0">Hoja inferior · única con sombra</p><p class="p-h2" style="margin:2px 0 12px">Llega en 2 min</p><button class="p-btn p-btn--marca p-btn--ancho">Confirmar recogida</button></section></div>';});
+  document.getElementById('icos').innerHTML='buscar,casa,trabajo,reloj,pin,mapa,gps,atras,sigue,flecha,cerrar,mas,menos,check,telefono,whatsapp,compartir,escudo,estrella,estrella-llena,efectivo,transfer,usuario,ajustes,lista,sin-senal,alerta,info,paquete,camara,carne,selfie,coche,triciclo,moto,rayo,navegar,ganancias,calendario,encender,editar,llave,luna,sol,menu,campana,moneda,copiar,nota,punto,cuadro,ruta,personas,guardado,salir,caja'.split(',').map(function(i){return '<div>'+ico(i)+i+'</div>';}).join('');
+  var V=[['taxi-basico','Taxi Básico'],['taxi-clasico','Taxi Clásico'],['taxi-xl','Taxi XL'],['tric-bici','Triciclo Bici'],['tric-electrico','Triciclo Eléctrico'],['tric-xl','Eléctrico XL'],['tric-carga','Carga'],['moto','Moto'],['mensajero','Mensajero']];
+  document.getElementById('vehs').innerHTML=V.map(function(v){return '<div><img class="l" src="vehiculos/3d/'+v[0]+'-lado.webp" alt=""><img class="a" src="vehiculos/3d/'+v[0]+'-arriba.webp" alt=""><span>'+v[1]+'</span></div>';}).join('');
+  // Barra de progreso de muestra: da vueltas; con «reducir movimiento», a saltos de 10 %.
+  var quieto=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches, t0=performance.now();
+  var bars=[].slice.call(document.querySelectorAll('#progreso .p-progreso'));
+  function paso(t){var k=((t-t0)/9000)%1; if(quieto){k=Math.floor(k*10)/10;}
+    bars.forEach(function(b){b.querySelector('.p-progreso__lleno').style.transform='scaleX('+k+')';b.querySelector('.p-progreso__veh').style.left='calc('+(k*100)+'% - '+(k*36)+'px)';b.querySelector('[data-pct]').textContent=Math.round(k*100)+' %';b.setAttribute('aria-valuenow',Math.round(k*100));});
+    requestAnimationFrame(paso);}
+  requestAnimationFrame(paso);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+{
+  "fuentes": {
+    "v1": "https://www.instagram.com/reel/DcfJp5EgVQw/",
+    "v2": "https://www.instagram.com/reel/De_iWd6IxX2/"
+  },
+  "videos": {
+    "v1": {
+      "duracion_s": 10.11,
+      "ancho": 720,
+      "alto": 1280,
+      "fps": 24.0,
+      "audio": true,
+      "cortes_s": [],
+      "ritmo": {
+        "cortes": 0,
+        "seg_por_plano": 10.11
+      },
+      "volumen": {
+        "media_db": -15.5,
+        "max_db": -0.0
+      },
+      "fotogramas": 10,
+      "hojas": 2,
+      "voz": {
+        "idioma": "en",
+        "prob_idioma": 0.36,
+        "frases": []
+      }
+    },
+    "v2": {
+      "duracion_s": 17.83,
+      "ancho": 720,
+      "alto": 1280,
+      "fps": 30.0,
+      "audio": true,
+      "cortes_s": [],
+      "ritmo": {
+        "cortes": 0,
+        "seg_por_plano": 17.83
+      },
+      "volumen": {
+        "media_db": -17.0,
+        "max_db": -0.2
+      },
+      "fotogramas": 18,
+      "hojas": 2,
+      "voz": {
+        "idioma": "gl",
+        "prob_idioma": 0.61,
+        "frases": [
+          {
+            "ini": 0.7,
+            "fin": 3.7,
+            "texto": "Te mire de pronto e te empece a querer"
+          },
+          {
+            "ini": 3.7,
+            "fin": 9.0,
+            "texto": "Imaginarme que podia perder"
+          },
+          {
+            "ini": 9.0,
+            "fin": 13.5,
+            "texto": "Non me dimis pasos"
+          },
+          {
+            "ini": 13.5,
+            "fin": 16.5,
+            "texto": "E que hai en tus orazos"
+          },
+          {
+            "ini": 16.5,
+            "fin": 17.5,
+            "texto": "Tu cara de niña"
+          }
+        ]
+      }
+    }
+  }
+}

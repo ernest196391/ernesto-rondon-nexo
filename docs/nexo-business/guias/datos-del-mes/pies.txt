@@ -1,0 +1,4 @@
+Paso 1 de 4: en Resumen, toca Cierre del día y del mes.
+Paso 2 de 4: toca Mes.
+Paso 3 de 4: abajo, en Datos del mes, escribe y toca Guardar datos del mes.
+Paso 4 de 4: en Pedidos → Ventas de proveedor del mes, toca Falta cuando pagues.

@@ -1,0 +1,28 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 0
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Sub,Segoe UI Semibold,74,&H00FFFFFF,&H00FFFFFF,&H00000000,&H64000000,-1,0,0,0,100,100,0,0,1,6,2,2,80,80,330,1
+Style: Hook,Segoe UI Semibold,70,&H00FFFFFF,&H00FFFFFF,&H001F5AA3,&H00000000,-1,0,0,0,100,100,0,0,3,18,0,8,70,70,190,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 1,0:00:00.00,0:00:02.60,Hook,,0,0,0,,¿Cuántas horas sin corriente llevas hoy?
+Dialogue: 0,0:00:00.12,0:00:00.32,Sub,,0,0,0,,Sí,
+Dialogue: 0,0:00:00.32,0:00:00.78,Sub,,0,0,0,,mi amor,
+Dialogue: 0,0:00:00.78,0:00:01.68,Sub,,0,0,0,,el ventilador te lo
+Dialogue: 0,0:00:01.68,0:00:03.19,Sub,,0,0,0,,llevo hoy mismo.
+Dialogue: 0,0:00:04.22,0:00:04.44,Sub,,0,0,0,,Ay,
+Dialogue: 0,0:00:04.44,0:00:04.84,Sub,,0,0,0,,no,
+Dialogue: 0,0:00:04.84,0:00:05.40,Sub,,0,0,0,,otra vez se fue
+Dialogue: 0,0:00:05.40,0:00:06.45,Sub,,0,0,0,,la corriente.
+Dialogue: 0,0:00:08.10,0:00:08.66,Sub,,0,0,0,,Tranquila,
+Dialogue: 0,0:00:08.66,0:00:08.80,Sub,,0,0,0,,mami,
+Dialogue: 0,0:00:08.80,0:00:10.72,Sub,,0,0,0,,que yo vine preparado.
+Dialogue: 0,0:00:10.72,0:00:11.36,Sub,,0,0,0,,¿Y eso de dónde
+Dialogue: 0,0:00:11.36,0:00:12.28,Sub,,0,0,0,,tú lo sacaste?
+Dialogue: 0,0:00:12.28,0:00:13.29,Sub,,0,0,0,,De tu tienda.

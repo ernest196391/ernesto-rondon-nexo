@@ -1,67 +1,56 @@
-# TRASPASO · Casa Viva / NEXO
+# TRASPASO · Contabilidad de Casa Viva (4-nov-2026)
 
-## ⭐ ACTUALIZADO 29-oct (manda esto, lo de abajo es historia)
-
-**Regla de Ernesto (29-oct): en todas las sesiones, primero Lennys y su chat — sus soluciones y sus tareas pendientes — y después lo demás.**
-
-**Dónde está la verdad de lo último:** el final de `docs/00-FUENTE-DE-VERDAD/ESTADO.md` (L67, L68 y siguientes; el vigía deja ahí la lista de pendientes de Lennys de las últimas 48 h) y `DECISIONES.md` (D109–D120).
-
-**En vivo (lo último que se sabe):** Core 3.14.70–3.14.71.x (cliente fijo D120, Nº propio de pedido D115, recogida sin teléfono D116, página de preguntas con Lennys, Pa'llá con avisos propios ntfy en prueba). VivaBot con «no inventar», paquete D111 (`0668573`), #Vale para todas (el #Vale inteligente con texto libre y audio solo para Ernesto y Dany, `vale_chat_ia=prueba`), recogida sin teléfono (`9f27957`).
-
-**Sesiones abiertas (cada una tiene su contexto; mándales mensajes en vez de rehacer):**
-- `vigia-chats` (Sonnet, barata): revisa los chats SOLO cuando Ernesto lo pide; abrió reservas-pedido, validar-vale, cierre-caja, semaforo-errores, vigilante-conexion.
-- `web-maraton`: cambios de la web (Core) del maratón, panel de Lennys para productos bajo pedido + guía, cuadre-del-d-a-separado.
-- `bot-maraton`: cambios de VivaBot (mensajes más humanos, guía de trato al cliente, #supervisor solo para Lennys, resúmenes sin dinero salvo Lennys, dinero de mensajeros a 48 h, #118/#119).
-- `palla-app`: Pa'llá (app de mensajeros), avisos sin Google (ntfy en el VPS), mapa de recorridos fase 1 (hecho, sin subir por la conexión).
-
-**Avisos:**
-- El ordenador de Ernesto pierde a ratos la conexión SSH con el VPS y con Hostinger: hay cosas listas sin subir; las sesiones las suben cuando vuelve.
-- Varias sesiones tocan Core y el bot a la vez: antes de subir, `git fetch` + rebase y número de versión por encima del que esté en vivo.
-- Pendiente de Ernesto: la foto de la tabla nueva de envíos de Kevin (22-oct 15:16) para `KEVIN_TARIFAS.zonas`; probar la app Pa'llá en su teléfono; aprobar la guía para Lennys y la prueba de D120 con Dany.
-
-Mensaje para el chat nuevo: «Lee TRASPASO.md (la parte del 29-oct) y el final de ESTADO.md. Primero lo de Lennys.»
-
----
-
-> **24-oct noche (historia):** el 24-oct se volvió a vincular el bot, se hizo el maratón de ideas con las gestoras, se vació la bandeja de decisiones y salieron Pa'llá (prueba), #Vale (para todas) y las mejoras del maratón. **La lista de lo pendiente, con todas las sesiones y por dónde empezar, está en `docs/nexo-business/pendientes-2026-10-25.md`.** Lo de abajo es el traspaso viejo del 22–23-oct (ya hecho en su mayoría).
->
-> Mensaje para el chat nuevo: «Lee TRASPASO.md y `docs/nexo-business/pendientes-2026-10-25.md` y empieza por la sección "Por dónde empezar mañana"».
-
-## Traspaso anterior · cierre del chat del 22–23-oct-2026
-
-## 1. Qué se hacía
-Operación diaria de Casa Viva (vigilar chats, corregir errores del bot y anotarlos para ChatGPT), mejoras del diagnóstico del sistema, videos con la fórmula nueva, catálogos de proveedores (Sergio, SeFué) y el inicio de **Pa'llá**, la app de mensajería. El 23-oct ~12:35 **WhatsApp restringió 24 h el número de Ernesto** (sin chats nuevos) por ~80 invitaciones privadas iguales al grupo VIP. Ernesto pidió **dejar todo en pausa** hasta que vuelva.
+## 1. Qué se hacía y para qué
+Sacar la contabilidad de octubre (BizneCubano 1–11 oct + web desde el 11), cuadrarla con Arbelio (el económico) y el Excel de Maryta, y dejar la contabilidad diaria y mensual automática, fácil de auditar y bajo el control de Lennys. Maryta ya no lleva el Excel: noviembre lo llevan Ernesto y Claude.
 
 ## 2. Hecho y comprobado
-- **Bot PARADO** (`pm2 stop vivabot`); sesión cerrada por WhatsApp (copia vieja `auth.bak-20261023-restriccion`, no sirve). Crons de envío con `#PAUSA-RESTRICCION`; invitaciones con `#PAUSA-23oct` (NO reactivar).
-- **Core en vivo 3.14.58.1** (`d083479`, main = core-caja-1020): Vender seguro + `?ref` en enlaces del cliente (3.14.53), tarjeta de carrera (3.14.54), filtro En tienda/Bajo pedido (3.14.55), `?ref=salir` (3.14.56/57), «Copiar» con plan B (3.14.58), sin «Ver la tienda de Casa Viva» en tiendas de gestoras (3.14.58.1).
-- **Bandeja de decisiones** en vivo: `casaviva.company/control/decisiones/` (D105), cron VPS `tareas/bandeja-decisiones.mjs`.
-- **VivaBot en main y VPS** (bot apagado): `ce02ea0` (clientes con gpt-5.6-luna, ve fotos en «Tú», no contesta contestadores), `5e2e8b2` (proveedores solo acuse, caché, alarmas en `cv estado`), `dbff98a` (guarda lo que Ernesto manda en «Tú»: `cv ernesto hoy`), `34d88de` (acepta solicitudes de grupos), `98970b8` (12 errores, recogida 10–4).
-- **Web:** SeFué 133 productos «Bajo pedido» con my_price (D102), productos de Nana 4896/4902/4908/4913, recogida 10:00–4:00, premios de septiembre publicados en el General, D97 cliente = primera gestora.
-- **Videos:** «El billete» (`redes/video-diario/2026-10-24-billete/`) y «La llamada» (`2026-10-25-llamada/`), skill `video-formula-casa-viva` (mejorable). Tutorial mensajeros `docs/nexo-business/mensajeros/tarjeta-carrera/video/` (73 s, en VPS `/root/archivos/tutoriales/`).
-- **Equipos:** Cynthia (Maryta) y Daylien (Niurka) ya estaban bien; la lista «Mi equipo» se recalculó (run 16).
-- **#4974:** entregado por Ernesto; Ernesto ya dio los 90 USD a la tienda → falta «Dinero recibido».
-- Docs commit `c211125` (ESTADO L59–L60, DECISIONES D96–D108).
+- **Cierre FINAL de octubre enviado a Lennys desde cero (#4316, 4-nov 14:23).** PDF: `docs/nexo-business/contabilidad/octubre-2026/cierre-octubre-2026-final.pdf` (lo genera `hacer_final.py`).
+  - Tienda: ganancia 2.704,64 USD (base Arbelio + mitad de ELIO − IA − impuestos 43,83). 40 % a inversores: 1.081,86. Queda para Casa Viva: 1.622,78.
+  - Bajo pedido: margen 207,95 USD (incluye el split vendido fuera de la web).
+  - Ernesto: le tocan 331,46 USD (1,5 % 274,02 + gestor especial 57,44 de la web). Debe 177 (olla 45, 20.000 CUP, 8.000 CUP, 100 USD). Saldo a su favor: 154,46 USD.
+- **Conciliación con Arbelio:** `octubre-2026/conciliacion-arbelio-4nov.md` (y el Excel final de Maryta en la misma carpeta).
+- **Core en main** (`ernest196391/Casa-Viva`), todo desplegado en casaviva.company. Copias de seguridad `~/bak-20261104-*`.
+  - 3.14.125–127: costo guardado en cada venta; `/bot/contabilidad` y `/panel/contabilidad`.
+  - 3.14.136: bajo pedido con tienda 2.500 CUP, la dependienta que marca «Listo» queda en el reparto, los pedidos devueltos no cuentan.
+  - 3.14.137: botones «pagado» (dependienta, mensajero, proveedor).
+  - 3.14.138: «Datos del mes» con historial (octubre ya cargado con los datos de Arbelio).
+- **Panel** `casaviva.company/panel/`:
+  - Resumen → «Cierre del día y del mes»: día o mes, «Datos del mes» y descarga CSV.
+  - Pedidos → «Ventas de proveedor del mes»: botones «Falta / ✓» y el total «Falta pagar».
+  - La función `nexo-panel-web` está desplegada con las acciones `contabilidad`, `contabilidad_mes_save` y `supplier_split_paid`.
+  - Rama `panel-cierre-contabilidad` (ernesto-rondon-nexo, `318217d`).
+- **Servidor del bot (VPS)**, carpeta `/root/supervisor/tareas/`:
+  - `contabilidad-dia.mjs`: cada día a las 21:30, a Ernesto y a Lennys.
+  - `contabilidad-mes.mjs`: el día 1 a las 9:00 el borrador; el día 3 a las 9:00 el final (`--final`).
+  - Los PDF se hacen con puppeteer, en `/root/supervisor/pdf`.
+- Mensajeros de octubre marcados como pagados. El 1,5 % ya sale como «Ernesto» en Ajustes (antes «Nati»).
+- **Cuenta de gestor especial** (ernesto.gestor, user 137): «Mis ventas de proveedor». Enlace de entrada de un solo uso, válido 7 días desde el 4-nov.
+- **Guía «Cierre del mes» para Lennys:** `docs/nexo-business/guias/datos-del-mes/`. Orden al supervisor programada a las 17:05 del 4-nov (`systemd` `orden-guia-cierre-lennys`).
 
-## 3. Pendiente, en orden
-1. ~12:35 del 24-oct: vincular el bot (`pm2 start vivabot` → código en `pm2 logs` → Ernesto: Dispositivos vinculados → Vincular con número).
-2. Seguir **`docs/nexo-business/mejora-sistema-2026-10-23/PLAN-DESPLIEGUE-24OCT.md`**: ramas VivaBot (solo-hecho-si-es-verdad, parte-0900, bandeja-decisiones, grupos-24h, tarjeta-carrera `e2789a1` con `tarjeta_carrera=prueba` y Daiquel, ficha-contesta); Core 3.14.59 carrera-palabras → 3.14.60 ficha-contesta → 3.14.61 palla.
-3. Marcar «Dinero recibido» del #4974 (preguntar a Ernesto quién lo recibió).
-4. Anuncios con SÍ de Ernesto (en grupos, nunca por privado): video tutorial a Mensajerías, filtro y videos al General, SeFué al grupo 24 h.
-5. Publicar «El billete» y «La llamada» en Meta (Ernesto debe iniciar sesión de Meta en el navegador de la app).
-6. **Pa'llá:** diseño https://claude.ai/artifact/HGgfiy4NwTDgPr1Dbg5XoU; plan en `C:\Users\Ernesto\Casa-Viva-palla\...\assets\palla\README.md`, rama `feat/palla` `dc5e4f1`; **sin código aún**. Ficha `docs/productos/app-mensajeria-cuba.md`; investigación La Nave `docs/nexo-business/apps/nave-investigacion-2026-10-23.md`.
-7. Hoja de Nana (20 fichas): https://casaviva.company/fichas/hoja-32fac7940e/ → `docs/fichas/top20-2026-10-23/volcar-respuestas.mjs`.
-8. 10 fotos de Sergio con Higgsfield (~20 créditos, Ernesto dijo sí tras los videos); quedan 582 créditos.
-**Decide Ernesto:** número nuevo del bot (recomendado Cubacel en un Android con 2 ranuras); si recalcular «Mi equipo» al aprobar cada gestora; dirección de oficina de SeFué (Javier).
+## 3. Pendiente (en orden)
+_Hecho el 4-nov 23:50: guía y resumen 21:30 comprobados; costo de las luces Feluz = 7 USD; rama del panel en main (PR #146) y Vercel al día._
+1. **8:00 del 5-nov:** que el supervisor mande a Lennys la respuesta de las luces (`crm_supervisor` #1031, `plan.propuesta`): están bajo el mínimo; recomendar 12 USD y esperar su SÍ antes de cambiar el precio.
+2. Lennys paga 3.000 CUP a Nana y 3.000 CUP a Zaymi (bajo pedido de octubre) y 18 USD a Lena (#5452), y lo marca en el panel (hoy solo están marcados los mensajeros). Falta confirmar qué se pagó a proveedores (517,80 USD).
+3. Pedidos y unidades por gestora en BizneCubano (1–11 oct): necesita el Chrome de Ernesto conectado. La mejor gestora es Nadielys.
+4. Mercancía nueva de Maryta con costos (puertas correderas blancas y beige ×6 a 40; sartén 28 cm ×6 a 17, 24 cm a 15, 20 cm a 13): ponerles el costo cuando el supervisor cree los productos (#1034).
+5. Cada mes, poner el gasto real de IA (hoy son 270 USD estimados).
+6. **Decide Ernesto:** de los 100 USD que cogió, ¿cuánto falta devolver (100 o 7)? ¿Las dos «Zaymi» de «A pagar» son la misma persona?
 
 ## 4. Datos fijos
-VPS `ssh -i ~/.ssh/vivabot_vps -o BatchMode=yes root@179.236.242.212` (`cv ayuda`, `cv errores abiertos`, `cv ernesto hoy`). Web `ssh -i ~/.ssh/casa-viva-github-actions -p 65002 -o BatchMode=yes u824654880@88.223.85.72` (wp-cli en `~/domains/casaviva.company/public_html`). Repos: VivaBot `C:\Users\Ernesto\vivabot` (CRLF; desplegar con worktree propio en el VPS), Core `C:\Users\Ernesto\Casa-Viva-caja`. Supabase nexo-production. Grupos: General 120363304301144410, Mensajerías 120363399264934901, VIP 120363411309225409, 48h→24h 120363425123846351. Gestoras: Maryta 47, Nadielys 29 (CV29MANADIEL), Rafael 28, Niurka 22; Ernesto gestor 137 (CV137ERNESTO).
+- `ssh vps` (bot y supervisor, `cv …`) · `ssh web` (Hostinger, wp-cli en `~/domains/casaviva.company/public_html`).
+- Supabase nexo-production `viwwlriwlwodrfukbgbj`. Desplegar la función: `npx supabase@3.0.0 functions deploy nexo-panel-web --project-ref viwwlriwlwodrfukbgbj --no-verify-jwt --use-api --yes` (partir siempre de la versión en vivo).
+- Copia de trabajo de Core: `C:\Users\Ernesto\Casa-Viva-contabilidad`.
+- Opciones de la web: `cvd_conta_*`, `cvd_conta_mes_AAAA-MM`, `cvd_supplier_split_store` (2500).
+- Lennys 5356885368 · Ernesto 5354056173 · tasa usada en octubre: 875.
+- Parar los envíos: `crm_settings contabilidad_dia=no` / `contabilidad_mes=no`.
 
-## 5. Reglas de Ernesto en este chat
-- El bot atiende directo a los clientes de las gestoras (comisión reservada, D98). Nunca repetir mensajes; solo contestar a quien escribe; nada de envíos masivos por privado.
-- Modelo efectivo antes que barato (es su decisión); clientes gpt-5.6-luna a prueba.
-- Anotar cada error y cambio (crm_errores + CODEX-VPS.md) para que ChatGPT lo sepa.
-- Videos sin enlace ni teléfono; fórmula de 7 pasos; colores de foto por proveedor (Sergio verde agua, SeFué menta…).
-- Preguntar antes de cada tarea; español sencillo y corto.
+## 5. Reglas de Ernesto (D135–D137)
+- Bajo pedido va aparte.
+- 0,5 % para dependientas y 1,5 % para Ernesto, solo sobre la tienda y sin la subida de las gestoras.
+- IA y herramientas salen de la ganancia de la tienda. La mitad de ELIO es de Casa Viva.
+- Ernesto cobra el 1,5 % + lo que gana como gestor especial; Lennys se lo queda y lo resta de lo que él debe.
+- Tienda: 2.500 CUP por pedido de bajo pedido. Dependienta: 500 CUP por artículo, con su nombre.
+- Lennys tiene el control: «Datos del mes» y botones «pagado». Arbelio no recibe el cierre.
+- Preguntar antes de cada tarea nueva. Mensajes cortos. Al hacer cambios, no pisar lo que otras sesiones subieron.
 
-Mensaje para el chat nuevo: «Lee TRASPASO.md y el PLAN-DESPLIEGUE-24OCT.md y sigue con lo pendiente: primero vincular el bot.»
+Mensaje para el chat nuevo: «Lee TRASPASO.md y sigue con la contabilidad de Casa Viva: empieza por comprobar que Lennys recibió la respuesta de las luces Feluz.»

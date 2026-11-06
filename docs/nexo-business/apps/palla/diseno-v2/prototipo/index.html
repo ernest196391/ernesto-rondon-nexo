@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Pa'llá</title>
+<meta name="theme-color" content="#FFFFFF">
+<script>(function(){var q=new URLSearchParams(location.search),t=q.get('tema');try{t=t||localStorage.getItem('palla-tema')}catch(e){}t=t||'auto';if(t==='auto'){var h=new Date().getHours();t=(h>=19||h<7)?'oscuro':'claro'}var d=document.documentElement;d.dataset.tema=t;if(q.has('lienzo'))d.classList.add('lienzo');document.querySelector('meta[name=theme-color]').content=t==='oscuro'?'#0F0F10':'#FFFFFF'})()</script>
+<link rel="preload" href="../fonts/Geist-var-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="app.css">
+<link rel="icon" href="../logo/a-icono-oscuro.svg">
+</head>
+<body>
+<div id="marco">
+  <div id="mapa" aria-hidden="true"></div>
+  <main id="pant"></main>
+</div>
+<nav id="menu" aria-label="Pantallas"></nav>
+<script src="pantallas.js"></script>
+<script src="datos.js"></script>
+<script src="mapa.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
