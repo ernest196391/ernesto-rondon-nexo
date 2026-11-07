@@ -1591,7 +1591,7 @@ async function editGroup(key) {
         + '<div class="row-actions"><label class="btn btn-secondary" style="flex:1 1 150px" data-photo-btn><span data-ph>📷 Cambiar foto</span><input type="file" accept="image/*" data-dphoto aria-label="Cambiar la foto de ' + esc(label) + '" ' + HIDE_INPUT + "></label>"
         + '<button type="button" class="btn btn-secondary btn-danger-text" style="flex:1 1 150px" data-quit>Ocultar este color</button>'
         + (isOwner() ? '<button type="button" class="btn btn-ghost btn-danger-text" style="flex:1 1 150px" data-del>Eliminar este diseño</button>' : "") + "</div></div>";
-    }).join("") : '<p class="muted">Este producto no tiene diseños a la venta. Añade uno abajo' + (gone.length ? " o muestra uno oculto" : "") + ".</p>";
+    }).join("") : '<p class="muted">Este producto no tiene diseños a la venta. Añade uno abajo' + (gone.length ? " o, en «Diseños ocultos», pulsa «Mostrar» en el que quieras vender otra vez" : "") + ".</p>";
     list.querySelectorAll("[data-pid]").forEach(el => {
       const id = el.dataset.pid;
       const qty = el.querySelector("[data-qty]");
@@ -1641,6 +1641,9 @@ async function editGroup(key) {
     // Retirados: los de la caja y los que la web tiene desactivados y la caja no conoce.
     const webOnlyGone = (web?.variations ?? []).filter(v => v.status !== "publish" && !rows.some(r => Number(r.wooId) === Number(v.id)));
     $s("[data-retired]").hidden = !gone.length && !webOnlyGone.length;
+    // 7-nov (Lennys #1213): si no queda ningún diseño a la venta, la lista de ocultos viene abierta con su «Mostrar»;
+    // antes había que tocar «Diseños ocultos» al final y parecía que no se podía mostrar ninguno.
+    if (!live.length && (gone.length || webOnlyGone.length)) $s("[data-retired]").open = true;
     $s("[data-retired] summary").textContent = "Diseños ocultos (" + (gone.length + webOnlyGone.length) + ")";
     $s("[data-retired-list]").innerHTML = gone.map(r => '<div class="row-item"><span class="grow"><span class="title">' + esc(designLabel(r)) + '</span><span class="meta">Oculto · quedan ' + r.stock + "</span></span>"
       + '<button type="button" class="btn btn-secondary" data-sell="' + esc(r.productId) + '">Mostrar</button>'
