@@ -328,3 +328,9 @@ Casa Viva follows BizneCubano (`catalog_sources.kind = 'biznecubano'`). To follo
 
 ### 2026-11-08 · Caja1258, rectificación posterior al cierre (Codex)
 Rama `codex/caja-rectificacion-1258`, actualización candidata1.1.5. Autorización existente de Ernesto: solo salida errónea2CUP, conservar2USD/historial. Se añade anotación inmutable separada del cajón, copia antes de migración y aplicación, identificación exacta de equipo/cierre/movimientos, idempotencia y admisión cloud por autorización privada. No toca pedidos, movimientos originales ni el efectivo siguiente. Pruebas de núcleo y PostgreSQL aislado pasaron; instalación y aplicación en PC tienda AÚN PENDIENTES. Ver `docs/nexo-business/CASH_RECTIFICATION_1258.md`. Siguiente: terminar instalador y control cloud, entregar a tienda y verificar evento sincronizado antes de cerrar1258.
+
+
+### 2026-11-08 · Fecha original del cobro, candidata caja1.1.6
+La cola reenvia createdAt original como cashReceivedAt junto al mismochargeId. Funcionnexo-device-web-orders valida UTC/fechareal/no futura y transmite fecha; clientes antiguos no recibenfecha inventada. Core calculaAmerica/Havana y guardaeldiaoriginal incluso reintentotrasmedianoche yentregamenos24h. No cambiosRust/SQLite/migraciones/importes/comisiones. Conserva1258 de1.1.5 y reconoce receiptOnly sinmensaje falso de cierre.
+9testsTS flujoPOS->EdgeaisladoPASS;22PHPfechas/medianoche/DST/reintentosPASS;11PHP recibosconciliadosPASS;buildwebPASS. Reglasnormalesdecierre/comisionno cambiadas; no se ejecutaroncobrosrealespara pruebas. Auditoria14dias102pedidosconcobro: solo6324/6325siguenabiertos,ambosprotegidosreceiptOnly;6completadossinmarker pertenecencasosprevios,no repararconesteparche.
+Servidor/instalador se verificanporseparado; instalaciontiendapendiente9nov. No afirmarflujoPCrealfinal hastaobservado. No enviar recordatorio aZaymi.

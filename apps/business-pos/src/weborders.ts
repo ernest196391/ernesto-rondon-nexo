@@ -1,3 +1,4 @@
+import { chargeRequest } from "./web-order-charge-request";
 // «Pedidos web» (20-oct): las dependientas cobran en el mostrador los pedidos de las
 // gestoras: recogida «Listo para recoger» y a domicilio con el efectivo que trae el mensajero.
 //
@@ -88,20 +89,10 @@ export async function sendQueued(): Promise<void> {
     const queued = await invoke<Charge[]>("web_order_queued");
     for (const c of queued) {
       try {
-        const out = await deviceCall<{ ok: boolean; message?: string; signedBy?: string }>("nexo-device-web-orders", {
-          action: "charge",
-          orderId: c.orderId,
-          chargeId: c.chargeId,
-          staffId: c.staffId,
-          collectionMethod: c.method,
-          collectedUsd: c.usdMinor / 100,
-          collectedCup: c.cupMinor / 100,
-          collectionReference: c.reference ?? "",
-          collectionAccount: c.collectionAccount ?? "",
-          collectionNote: c.note ?? "",
-        });
+        const out = await deviceCall<{ ok: boolean; message?: string; receiptOnly?: boolean }>("nexo-device-web-orders", chargeRequest(c));
+        if (out.ok !== true) throw new Error("La web no confirmó este ingreso. Sigue guardado para reintentar.");
         await invoke("web_order_mark_done", { chargeId: c.chargeId, message: out.message ?? null, now: new Date().toISOString() });
-        say(`✓ Pedido #${c.orderNumber} cerrado en la web`);
+        say(`✓ Pedido #${c.orderNumber}: ${out.receiptOnly ? "dinero recibido; comisiones sin cambios" : "confirmado en la web"}`);
       } catch (e) {
         const err = e as Error & { status?: number; code?: string };
         if (err.status === 409 && (err.code === "already_charged" || err.code === "not_chargeable")) {

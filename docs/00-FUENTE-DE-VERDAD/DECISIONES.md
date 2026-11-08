@@ -379,3 +379,6 @@ Ampliación D30 (2026-10-07): el flujo de **Devolución** ya existe en `/ventas/
 
 
 **2026-11-08 · Aplicación acotada de autorización1258 de Ernesto.** La salida errónea2CUP se rectificará con una anotación posterior vinculada al movimiento y cierre originales, sin editar/borrar historia ni tocar2USD, pedidos o caja siguiente. No se autoriza una regla general para corregir dinero libremente: el adaptador y el control cloud se limitan a esta autorización exacta. Preparada actualización1.1.5; todavía no instalada ni aplicada. Detalle: `docs/nexo-business/CASH_RECTIFICATION_1258.md`.
+
+
+Fecha de caja (8nov2026): conservar createdAt del ingreso en los reintentos y convertir aAmerica/Havana enCore. Nunca sustituirpor Date.now() o cashReceivedToday=yes. Si fecha falta enclienteantiguo, mantenerproteccion; fecha invalida/futura se rechaza sincodigos que provoquenreversion. No cambianreglasdecomision.

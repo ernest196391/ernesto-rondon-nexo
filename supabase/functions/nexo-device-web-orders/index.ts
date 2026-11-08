@@ -1,3 +1,4 @@
+import { receiptTimestamp } from "./charge-date.ts";
 // «Pedidos web» en la caja (20-oct): las dependientas cobran en el mostrador los pedidos de
 // las gestoras (recogida «Listo para recoger» y a domicilio con el efectivo del mensajero).
 // Solo lectura y cobro. La caja se identifica con su clave (x-nexo-device-token).
@@ -97,9 +98,12 @@ Deno.serve(async req => {
       const method = String(body.collectionMethod ?? "");
       if (!Number.isInteger(orderId) || orderId <= 0 || !chargeId || !METHODS.has(method)) return json(400, { error: "invalid", message: "Faltan datos del cobro." });
       if (!who.person) return json(400, { error: "no_staff", message: "Elige quién atiende antes de cobrar." });
+      let cashReceivedAt: string | undefined;
+      try { cashReceivedAt = receiptTimestamp(body.cashReceivedAt); }
+      catch (e) { return json(422, { error: "receipt_date", message: (e as Error).message }); }
       const person = who.person as { name: string; phone: string | null; wooUserId: number | null };
       const r = await core("POST", `panel/caja/web-orders/${orderId}/charge`, {
-        chargeId, collectionMethod: method,
+        chargeId, collectionMethod: method, cashReceivedAt,
         collectedUsd: money(body.collectedUsd), collectedCup: money(body.collectedCup),
         collectionReference: String(body.collectionReference ?? "").slice(0, 60),
         collectionAccount: String(body.collectionAccount ?? "").slice(0, 40),

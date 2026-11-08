@@ -1584,3 +1584,9 @@ Rama `codex/caja-rectificacion-1258`, actualización candidata1.1.5. Autorizaci�
 
 ### Entrega candidata1.1.5 · 8nov16:13Cuba
 Código00127e1, PR147: https://github.com/ernest196391/ernesto-rondon-nexo/pull/147 . InstaladorWindowsNSIS construido, versión1.1.5 y128testsRustPASS; buildTypeScript/VitePASS. Publicado https://casaviva.company/descargas/CasaVivaCore-1.1.5-Windows.exe; HTTPS200 desde PC Ernesto,4275663bytes,SHA256cfc9eab462eda359a0a4388558c0660f246ea10a0f2ca43462c23cb18e729225. Nube: guardia de admisión y autorización1258 instaladas con copia, originales intactos,0rectificacionesaplicadas. MonitorVPS reconoce cash_shift.rectified/proyección privada y verificaoriginales. PCtienda todavía1.1.4; instalación/pulsación/pruebafinal dependen de alguienfrenteal equipo,sin accesoremoto. NO cerrarcaso1258. No se cambiaron enlaces habitualesdescarga1.1.4.
+
+
+### 2026-11-08 · Fecha original del cobro, candidata caja1.1.6
+La cola reenvia createdAt original como cashReceivedAt junto al mismochargeId. Funcionnexo-device-web-orders valida UTC/fechareal/no futura y transmite fecha; clientes antiguos no recibenfecha inventada. Core calculaAmerica/Havana y guardaeldiaoriginal incluso reintentotrasmedianoche yentregamenos24h. No cambiosRust/SQLite/migraciones/importes/comisiones. Conserva1258 de1.1.5 y reconoce receiptOnly sinmensaje falso de cierre.
+9testsTS flujoPOS->EdgeaisladoPASS;22PHPfechas/medianoche/DST/reintentosPASS;11PHP recibosconciliadosPASS;buildwebPASS. Reglasnormalesdecierre/comisionno cambiadas; no se ejecutaroncobrosrealespara pruebas. Auditoria14dias102pedidosconcobro: solo6324/6325siguenabiertos,ambosprotegidosreceiptOnly;6completadossinmarker pertenecencasosprevios,no repararconesteparche.
+Servidor/instalador se verificanporseparado; instalaciontiendapendiente9nov. No afirmarflujoPCrealfinal hastaobservado. No enviar recordatorio aZaymi.
