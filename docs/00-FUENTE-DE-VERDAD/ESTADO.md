@@ -1576,3 +1576,7 @@ exo-caja-p0`), Core `core-caja-1020` = **3.14.42** (worktree `C:UsersErnestoCasa
   - sección «Preguntas de Lennys sobre el PROGRAMA»;
   - tareas aprobadas 601 (proveedores para Day y Nadielys) y 602 (cola de fotos por color).
 - **Decisión D80** (2 % de mostrador). Mensajeros: aprobado construir el cierre automático al cobrar (docs/nexo-business/lennys/pedidos-lennys-2026-10-18.md).
+
+
+### 2026-11-08 · Caja1258, rectificación posterior al cierre (Codex)
+Rama `codex/caja-rectificacion-1258`, actualización candidata1.1.5. Autorización existente de Ernesto: solo salida errónea2CUP, conservar2USD/historial. Se añade anotación inmutable separada del cajón, copia antes de migración y aplicación, identificación exacta de equipo/cierre/movimientos, idempotencia y admisión cloud por autorización privada. No toca pedidos, movimientos originales ni el efectivo siguiente. Pruebas de núcleo y PostgreSQL aislado pasaron; instalación y aplicación en PC tienda AÚN PENDIENTES. Ver `docs/nexo-business/CASH_RECTIFICATION_1258.md`. Siguiente: terminar instalador y control cloud, entregar a tienda y verificar evento sincronizado antes de cerrar1258.

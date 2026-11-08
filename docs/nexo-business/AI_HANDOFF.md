@@ -324,3 +324,7 @@ Casa Viva's catalog truth is BizneCubano → casavivadecuba.com. NEXO imports it
 
 ## Catalog source switch — 2026-10-03 (Claude Code lane)
 Casa Viva follows BizneCubano (`catalog_sources.kind = 'biznecubano'`). To follow the website instead, the owner switches it in the dashboard (or `nexo_business_set_catalog_source`). Hourly: Casa-Viva snapshot at :05, NEXO import at :50 (pg_cron). Never write to BizneCubano or WooCommerce.
+
+
+### 2026-11-08 · Caja1258, rectificación posterior al cierre (Codex)
+Rama `codex/caja-rectificacion-1258`, actualización candidata1.1.5. Autorización existente de Ernesto: solo salida errónea2CUP, conservar2USD/historial. Se añade anotación inmutable separada del cajón, copia antes de migración y aplicación, identificación exacta de equipo/cierre/movimientos, idempotencia y admisión cloud por autorización privada. No toca pedidos, movimientos originales ni el efectivo siguiente. Pruebas de núcleo y PostgreSQL aislado pasaron; instalación y aplicación en PC tienda AÚN PENDIENTES. Ver `docs/nexo-business/CASH_RECTIFICATION_1258.md`. Siguiente: terminar instalador y control cloud, entregar a tienda y verificar evento sincronizado antes de cerrar1258.

@@ -1,3 +1,4 @@
+mod rectification1258;
 use nexo_business_db::cash_shift::{
     self, CloseShiftInput, OpenShiftInput, RecordMovementInput, ShiftScope, ShiftSummary,
 };
@@ -605,6 +606,7 @@ pub fn run() {
     let builder = builder.plugin(tauri_plugin_barcode_scanner::init());
 
     builder
+        .plugin(tauri::plugin::Builder::<_, ()>::new("backup-before-upgrade").setup(|app, _| rectification1258::backup_before_upgrade(app)).build())
         .plugin(
             tauri_plugin_sql::Builder::default()
                 .add_migrations("sqlite:nexo-business.db", migrations)
@@ -613,6 +615,8 @@ pub fn run() {
         .invoke_handler(tauri::generate_handler![
             complete_sale,
             audit_local_integrity,
+            rectification1258::preview_1258,
+            rectification1258::apply_1258,
             cash_shift_current,
             cash_shift_open,
             cash_shift_record_movement,

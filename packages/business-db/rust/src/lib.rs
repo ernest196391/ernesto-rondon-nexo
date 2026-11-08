@@ -4,6 +4,7 @@
 //! tests here run exactly the schema that ships to Windows/Android devices.
 
 pub mod cash_shift;
+pub mod cash_rectification;
 pub mod catalog;
 pub mod consignment;
 pub mod device;
@@ -116,6 +117,7 @@ pub const MIGRATIONS: &[LocalMigration] = &[
         description: "store_shift_and_web_charges",
         sql: include_str!("../../migrations/0018_store_shift_and_web_charges.sql"),
     },
+    LocalMigration { version: 19, description: "cash_rectifications", sql: include_str!("../../migrations/0019_cash_rectifications.sql") },
 ];
 
 /// Applies every migration in order. Used by tests and tooling; on devices the
