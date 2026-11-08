@@ -1,3 +1,4 @@
+import { renderRectification1258 } from "./rectification1258";
 // Operations panel for the reusable financial core: cash shift, fiado,
 // messenger cash, returns and locations. Every write goes through the Rust
 // commands (atomic, idempotent, outbox in the same transaction); this module
@@ -520,6 +521,7 @@ async function closeSheet(shift: ShiftSummary) {
 
 async function renderShift() {
   const box = root.querySelector<HTMLElement>("#fin-shift")!;
+  void renderRectification1258(box);
   const shift = await invoke<ShiftSummary | null>("cash_shift_current");
   if (!shift) return openShiftForm(box);
 

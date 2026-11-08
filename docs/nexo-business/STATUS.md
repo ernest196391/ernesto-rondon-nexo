@@ -452,3 +452,11 @@ Parallel-work rule: the desktop/Tauri implementation may advance from another ch
 - **Symptom (Lennys, Casa Viva):** the POS kept showing sold-out products and missed new ones. `catalog_sources.last_import_result` = `duplicate key value violates unique constraint "catalog_products_sku_idx"` since ~2026-10-08 (every hourly run failed, so devices got no catalog changes).
 - **Cause:** a product new on BizneCubano is imported as `bc-<sku>`; when the website publishes it, it arrives as `cv-<id>` with the same SKU, and the import tried to create a second row.
 - **Fix:** `nexo-catalog-import` (v8, deployed) keeps the existing `product_id` for a known SKU (`keepProductIds`) and drops duplicate SKUs in one batch; variants follow a renamed parent. No migration.
+
+
+### 2026-11-08 · Caja1258, rectificación posterior al cierre (Codex)
+Rama `codex/caja-rectificacion-1258`, actualización candidata1.1.5. Autorización existente de Ernesto: solo salida errónea2CUP, conservar2USD/historial. Se añade anotación inmutable separada del cajón, copia antes de migración y aplicación, identificación exacta de equipo/cierre/movimientos, idempotencia y admisión cloud por autorización privada. No toca pedidos, movimientos originales ni el efectivo siguiente. Pruebas de núcleo y PostgreSQL aislado pasaron; instalación y aplicación en PC tienda AÚN PENDIENTES. Ver `docs/nexo-business/CASH_RECTIFICATION_1258.md`. Siguiente: terminar instalador y control cloud, entregar a tienda y verificar evento sincronizado antes de cerrar1258.
+
+
+### Entrega candidata1.1.5 · 8nov16:13Cuba
+Código00127e1, PR147: https://github.com/ernest196391/ernesto-rondon-nexo/pull/147 . InstaladorWindowsNSIS construido, versión1.1.5 y128testsRustPASS; buildTypeScript/VitePASS. Publicado https://casaviva.company/descargas/CasaVivaCore-1.1.5-Windows.exe; HTTPS200 desde PC Ernesto,4275663bytes,SHA256cfc9eab462eda359a0a4388558c0660f246ea10a0f2ca43462c23cb18e729225. Nube: guardia de admisión y autorización1258 instaladas con copia, originales intactos,0rectificacionesaplicadas. MonitorVPS reconoce cash_shift.rectified/proyección privada y verificaoriginales. PCtienda todavía1.1.4; instalación/pulsación/pruebafinal dependen de alguienfrenteal equipo,sin accesoremoto. NO cerrarcaso1258. No se cambiaron enlaces habitualesdescarga1.1.4.
