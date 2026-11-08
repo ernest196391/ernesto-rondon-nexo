@@ -31,3 +31,7 @@ Intervención imprescindible: alguien en la PC de tienda cierra la caja, instala
 ## Recuperación
 
 Antes de aplicar una rectificación, se puede retirar el candidato y restaurar la copia anterior a 1.1.5 con la aplicación cerrada, solo si no hubo nuevas operaciones posteriores a la copia. No copiar una base antigua encima de trabajo nuevo. Después de aplicar/sincronizar, no borrar ni restaurar para ocultar el evento: conservar las pruebas y resolver cualquier incidencia mediante otra actuación autorizada.
+
+
+### Entrega candidata1.1.5 · 8nov16:13Cuba
+Código00127e1, PR147: https://github.com/ernest196391/ernesto-rondon-nexo/pull/147 . InstaladorWindowsNSIS construido, versión1.1.5 y128testsRustPASS; buildTypeScript/VitePASS. Publicado https://casaviva.company/descargas/CasaVivaCore-1.1.5-Windows.exe; HTTPS200 desde PC Ernesto,4275663bytes,SHA256cfc9eab462eda359a0a4388558c0660f246ea10a0f2ca43462c23cb18e729225. Nube: guardia de admisión y autorización1258 instaladas con copia, originales intactos,0rectificacionesaplicadas. MonitorVPS reconoce cash_shift.rectified/proyección privada y verificaoriginales. PCtienda todavía1.1.4; instalación/pulsación/pruebafinal dependen de alguienfrenteal equipo,sin accesoremoto. NO cerrarcaso1258. No se cambiaron enlaces habitualesdescarga1.1.4.
