@@ -460,7 +460,9 @@ Deno.serve(async req => {
     if (body.action === "products_visibility") {
       const items = (Array.isArray(body.wooIds) ? body.wooIds : []).map(Number).filter(n => n > 0).slice(0, 300);
       if (!items.length) return json(200, { items: [] });
-      return json(200, await core("POST", "panel/products/visibility", { items, sell: body.sell === true, by }));
+      // 10-nov: al ocultar, el motivo («agotado» = Se acabó, «manual» = A propósito) queda también en la web (Core 3.14.162).
+      const reason = body.reason === "agotado" || body.reason === "manual" ? body.reason : undefined;
+      return json(200, await core("POST", "panel/products/visibility", { items, sell: body.sell === true, by, ...(reason ? { reason } : {}) }));
     }
 
     // Lennys 29-oct: «Eliminar producto» / «Eliminar este diseño». 1) Core dice qué ids cuentan (el producto y sus

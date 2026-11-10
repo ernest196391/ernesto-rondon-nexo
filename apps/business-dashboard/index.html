@@ -891,7 +891,7 @@ async function editProduct(p) {
   const webImg = inv?.web?.image ?? null;
   const sheet = openSheet(`
     <div class="sheet-head"><h2>${p ? (group ? "Editar diseño" : "Editar producto") : "Nuevo producto"}</h2><button type="button" class="btn btn-ghost" data-close>Cerrar</button></div>
-    ${retired ? `<div class="note-box note-calm"><p><strong>Oculto:</strong> no se ve ni se vende en la web, en las tiendas de las gestoras ni en la caja. No se borró nada.</p><button type="button" class="btn btn-primary btn-block" data-sell>Mostrar</button></div>` : ""}
+    ${retired ? `<div class="note-box note-calm"><p><strong>Oculto${inv?.retiredReason ? " · " + (inv.retiredReason === "agotado" ? "Se acabó" : "A propósito") : ""}:</strong> no se ve ni se vende en la web, en las tiendas de las gestoras ni en la caja. No se borró nada.</p>${inv?.retiredReason ? `<p class="t-sm">${esc(retiredLine(inv))}</p><button type="button" class="btn btn-ghost btn-block" data-reason-swap>${inv.retiredReason === "agotado" ? "Cambiar a «A propósito» (que no vuelva solo)" : "Cambiar a «Se acabó» (que vuelva solo al llegar mercancía)"}</button>` : ""}<button type="button" class="btn btn-primary btn-block" data-sell>Mostrar</button></div>` : ""}
     ${group ? `<div class="note-box"><p>Es un diseño de <strong>${esc(groupName(group))}</strong>.</p><button type="button" class="btn btn-secondary btn-block" data-group-open>Ver todos sus diseños y colores</button></div>` : ""}
     ${!p ? `<div class="note-box"><p>¿Viene en varios colores o diseños (por ejemplo, cortinas)?</p><button type="button" class="btn btn-secondary btn-block" data-new-designs>Crear producto con diseños</button></div>` : ""}
     <form class="form">
@@ -936,6 +936,16 @@ async function editProduct(p) {
   }
   const after = () => { sheet.close(); };
   sheet.el.querySelector("[data-sell]")?.addEventListener("click", () => retireFlow([p.product_id], false, after));
+  // 10-nov: cambiar el motivo de un oculto sin mostrarlo (vuelve a «Ocultar» con el otro motivo).
+  sheet.el.querySelector("[data-reason-swap]")?.addEventListener("click", async e => {
+    const b = e.currentTarget; b.disabled = true;
+    const reason = inv.retiredReason === "agotado" ? "manual" : "agotado";
+    const { data, error } = await retireRpc([p.product_id], true, reason);
+    if (error || data?.error) { b.disabled = false; return toast("No se cambió: " + (error?.message ?? data.error), "bad"); }
+    if (inv.wooId || inv.parentWooId) panelWeb({ action: "products_visibility", wooIds: [Number(inv.wooId)].filter(n => n > 0), sell: false, reason }).catch(() => {});
+    toast(reason === "agotado" ? "Listo: «Se acabó». Vuelve solo a la venta cuando llegue mercancía." : "Listo: «A propósito». Sigue oculto hasta que pulses «Mostrar».", "ok");
+    sheet.close(); await loadInventory();
+  });
   sheet.el.querySelector("[data-retire]")?.addEventListener("click", () => retireFlow([p.product_id], true, after));
   // Lennys 29-oct: un producto sin diseños es su propio producto en la web; un diseño es su variación (onWeb).
   sheet.el.querySelector("[data-delete]")?.addEventListener("click", () => deleteFlow({
@@ -1103,6 +1113,11 @@ async function loadInventory() {
   const webBy = new Map(web.products.map(w => [w.wooId, w]));
   invRows = withoutTrashed(data.products, web.trashed).map(p => ({ ...p, web: p.wooId ? webBy.get(p.wooId) ?? null : null }));
   if (canCost() && !costSheet) await loadCostSheet();
+  // 10-nov («se muestra solo al reponer»): aviso una vez de los que volvieron solos hace poco (llegó mercancía).
+  const backToasted = (loadInventory.backToasted ??= new Set());
+  const fresh = invRows.filter(r => r.backAlone?.at && Date.now() - Date.parse(r.backAlone.at) < 10 * 60_000 && !backToasted.has(r.productId + r.backAlone.at));
+  fresh.forEach(r => backToasted.add(r.productId + r.backAlone.at));
+  if (fresh.length) toast(backAloneToast(fresh), "ok");
   const diffs = invRows.filter(isDiff).length;
   // "No coincide con la web" solo aparece si hay diferencias (el puente las iguala cada 2 minutos).
   const diffChip = $('#inv-filter [data-f="diff"]');
@@ -1248,9 +1263,30 @@ function oneMatches(r) {
   if (invFilter === "ficha") return fichaOf(r).length > 0;
   return true;
 }
+// <reponer-logic> 10-nov (Ernesto, opción 2): al ocultar se guarda POR QUÉ. «Se acabó» vuelve solo a la venta cuando
+// llega mercancía (caja y web); «A propósito» queda oculto hasta pulsar «Mostrar». Por defecto: «Se acabó» si no
+// quedan unidades y «A propósito» si queda alguna.
+function retireReasonDefault(rows) { return rows.length && rows.every(r => Number(r.stock) <= 0) ? "agotado" : "manual"; }
+function retiredTag(r) { return r.retiredReason === "agotado" ? "Se acabó" : r.retiredReason === "manual" ? "A propósito" : "Oculto"; }
+function retiredLine(r) { return r.retiredReason === "agotado" ? "Se mostrará solo cuando llegue mercancía." : r.retiredReason === "manual" ? "Oculto a propósito: pulsa «Mostrar» para venderlo." : ""; }
+function backAloneLine(r) { return r?.backAlone && r.backAlone.qty != null ? "✓ Se mostró solo: llegaron " + r.backAlone.qty : ""; }
+function backAloneToast(rows) { return rows.length === 1 ? "«" + rows[0].name + "» se mostró solo: llegó mercancía." : rows.length + " productos se mostraron solos: llegó mercancía."; }
+function hiddenMix(rows) {
+  const a = rows.filter(r => r.retiredReason === "agotado").length, m = rows.filter(r => r.retiredReason === "manual").length;
+  return a && m ? a + (a === 1 ? " vuelve solo" : " vuelven solos") + " · " + m + " a propósito" : a ? (a === 1 ? "vuelve solo" : "vuelven solos") + " al llegar mercancía" : m ? "a propósito" : "";
+}
+// </reponer-logic>
+// Ocultar/mostrar en la caja con motivo. Sin la migración del 10-nov la función no tiene p_reason: se oculta igual, sin motivo.
+async function retireRpc(ids, retire, reason) {
+  const base = { p_business: bizId(), p_products: ids, p_retire: retire };
+  if (!reason) return supabase.rpc("nexo_business_products_retire", base);
+  const r = await supabase.rpc("nexo_business_products_retire", { ...base, p_reason: reason });
+  if (r.error && /p_reason|PGRST202|schema cache/i.test((r.error.message ?? "") + " " + (r.error.code ?? ""))) return supabase.rpc("nexo_business_products_retire", base);
+  return r;
+}
 const FILTER_HELP = {
-  out: "Aquí salen los productos y diseños sin unidades. Si no vas a volver a tenerlos, toca «Marcar agotados para ocultar». No se borra nada.",
-  hidden: "Ocultos: no se ven ni se venden en la web, en las tiendas de las gestoras ni en la caja. No se borró nada. Ábrelos (o márcalos) y pulsa «Mostrar».",
+  out: "Aquí salen los productos y diseños sin unidades. Si los ocultas como «Se acabó», vuelven solos a la venta cuando metas mercancía. Si no los vas a volver a tener, elige «A propósito». No se borra nada.",
+  hidden: "Ocultos: no se ven ni se venden en la web, en las tiendas de las gestoras ni en la caja. No se borró nada. Los de «Se acabó» vuelven solos al llegar mercancía; los demás, ábrelos (o márcalos) y pulsa «Mostrar».",
   ficha: "A estos productos les faltan medidas o características en la web. Ábrelos y escríbelas en «Descripción» (medidas en cm y material; si es eléctrico, potencia y batería). Mientras, el bot se las pide a la tienda.",
   diff: "La web tiene otra cantidad. Cuenta lo que hay, ponlo en «Quedan» (aunque sea el mismo número) y toca Guardar: en unos 2 minutos la web queda igual que la caja.",
 };
@@ -1292,7 +1328,7 @@ function renderInventory() {
 function oneRow(r) {
   const name = r.name;
   const state = (r.offerUsd != null && r.active ? '<span class="badge badge-info">Oferta ' + usd2(r.offerUsd) + "</span>" : "")
-    + (!r.active ? '<span class="badge badge-calm">Oculto</span>' : r.stock <= 0 ? '<span class="badge badge-out">Agotado</span>' : isLow(r) ? '<span class="badge badge-low">Pocas</span>' : "")
+    + (!r.active ? '<span class="badge badge-calm">' + esc(retiredTag(r)) + "</span>" : r.stock <= 0 ? '<span class="badge badge-out">Agotado</span>' : isLow(r) ? '<span class="badge badge-low">Pocas</span>' : "")
     + (noComm(r) ? '<span class="badge badge-low" title="Ábrelo y escribe la comisión de la gestora">Sin comisión</span>' : "")
     + (r.active && fichaOf(r).length ? '<span class="badge badge-low" title="Falta: ' + esc(fichaOf(r).join(", ")) + '">Falta información</span>' : "");
   // Comisión de la gestora a la vista (Lennys, 15-oct): «gestora 2 USD (20 %)». Solo dueña/economista.
@@ -1304,6 +1340,8 @@ function oneRow(r) {
     + '<span class="grow"><span class="title">' + esc(name) + "</span>"
     + (webLeft(r) ? '<span class="meta" style="color:var(--nx-danger)">Todavía se ve en la web</span>'
       : isDiff(r) ? '<span class="meta" style="color:var(--nx-danger)">En la web: ' + r.web.stock + " · pon en «Quedan» lo que hay y toca Guardar: la web se iguala en unos 2 minutos</span>" : !r.wooId ? '<span class="meta">No está en la web</span>' : "")
+    + (!r.active && retiredLine(r) ? '<span class="meta">' + esc(retiredLine(r)) + "</span>" : "")
+    + (r.active && backAloneLine(r) ? '<span class="meta" style="color:var(--nx-ok)">' + esc(backAloneLine(r)) + "</span>" : "")
     + (commTxt ? '<span class="meta">Comisión' + esc(commTxt.replace(" · gestora", " de la gestora:")) + "</span>" : "")
     + "</span>" + state + "</button>";
   if (!r.active) return '<div class="inv-row" data-inv="' + esc(r.productId) + '">' + head + '<div class="row-actions">'
@@ -1322,7 +1360,7 @@ function groupRow(g) {
   const state = (back ? '<span class="badge badge-calm">Oculto</span>' : !total ? '<span class="badge badge-out">Agotado</span>' : g.shown.some(isLow) ? '<span class="badge badge-low">Pocas</span>' : "")
     + (!back && g.live.some(noComm) ? '<span class="badge badge-low" title="Ábrelo y escribe la comisión de la gestora">Sin comisión</span>' : "")
     + (!back && g.live.some(r => fichaOf(r).length) ? '<span class="badge badge-low" title="Falta: ' + esc(fichaOf(g.live.find(r => fichaOf(r).length)).join(", ")) + '">Falta información</span>' : "");
-  const meta = back ? g.shown.length + (g.shown.length === 1 ? " diseño oculto" : " diseños ocultos")
+  const meta = back ? g.shown.length + (g.shown.length === 1 ? " diseño oculto" : " diseños ocultos") + (hiddenMix(g.shown) ? " · " + hiddenMix(g.shown) : "")
     : invFilter === "out" ? g.shown.length + " de " + g.live.length + (g.live.length === 1 ? " diseño agotado" : " diseños agotados")
     : g.live.length + (g.live.length === 1 ? " diseño" : " diseños") + " · quedan " + total + " en total";
   const chips = '<div class="design-chips">' + g.shown.slice(0, 12).map(r => '<span class="design-chip' + (r.stock <= 0 || !r.active ? " out" : "") + '">'
@@ -1430,6 +1468,11 @@ function retireFlow(ids, retire, done) {
       ? "<p>Dejará" + (rows.length > 1 ? "n" : "") + " de verse y de venderse en la web, en el buscador, en las tiendas de las gestoras y en la caja.</p><p><strong>No se borra nada.</strong> " + (rows.length > 1 ? "Los encuentras en «" + where + "» y los puedes mostrar otra vez" : "Lo encuentras en «" + where + "» y lo puedes mostrar otra vez") + " cuando quieras.</p>"
       : "<p>Volverá" + (rows.length > 1 ? "n" : "") + " a verse y a venderse en la web, en las tiendas de las gestoras y en la caja, con las unidades que tenga" + (rows.length > 1 ? "n" : "") + ".</p>")
     + (withStock.length ? '<p class="note-box note-warn">Ojo: ' + withStock.slice(0, 3).map(r => "«" + esc(r.name) + "» todavía tiene " + r.stock).join(", ") + (withStock.length > 3 ? "…" : "") + ".</p>" : "")
+    // 10-nov (opción 2 de Ernesto): «¿Por qué lo ocultas?». Marcado: «Se acabó» si no quedan unidades; si no, «A propósito».
+    + (retire ? '<p class="t-sm" style="margin:12px 0 6px"><strong>¿Por qué lo ocultas?</strong></p><div class="pay-grid" data-why>'
+      + [["agotado", "Se acabó", "Vuelve solo a la venta cuando llegue mercancía"], ["manual", "A propósito", "Queda oculto hasta que pulses «Mostrar»"]]
+        .map(([v, l, d]) => '<label class="pay-opt"><input type="radio" name="why" value="' + v + '"' + (v === retireReasonDefault(rows) ? " checked" : "") + "><span>" + l + '<br><small style="font-weight:400">' + d + "</small></span></label>").join("")
+      + "</div>" : "")
     + '<p class="msg" data-msg role="status"></p>'
     + '<button type="button" class="btn ' + (retire ? "btn-danger" : "btn-primary") + ' btn-xl btn-block" data-yes>' + (retire ? "Sí, ocultar" : "Sí, mostrar") + "</button>"
     + '<button type="button" class="btn btn-ghost btn-block" data-close>No, volver atrás</button>', retire ? "Ocultar" : "Mostrar");
@@ -1438,14 +1481,15 @@ function retireFlow(ids, retire, done) {
   yes.onclick = async () => {
     yes.disabled = true; msg.textContent = "Guardando…"; msg.dataset.tone = "";
     const web = webIdsFor(ids, retire); // antes de cambiar nada (mira qué queda a la venta)
-    const { data, error } = await supabase.rpc("nexo_business_products_retire", { p_business: bizId(), p_products: ids, p_retire: retire });
+    const reason = retire ? (sheet.el.querySelector('[data-why] input:checked')?.value ?? retireReasonDefault(rows)) : null;
+    const { data, error } = await retireRpc(ids, retire, reason);
     if (error || data?.error) { yes.disabled = false; msg.textContent = "No se guardó: " + (error?.message ?? (data.error === "forbidden" ? "solo la dueña puede hacerlo" : data.error)); msg.dataset.tone = "bad"; return; }
     let webFail = false;
-    if (web.length) { try { await panelWeb({ action: "products_visibility", wooIds: web, sell: !retire }); } catch { webFail = true; } }
+    if (web.length) { try { await panelWeb({ action: "products_visibility", wooIds: web, sell: !retire, ...(reason ? { reason } : {}) }); } catch { webFail = true; } }
     sheet.close();
     const n = data.items.length;
     toast(retire
-      ? "Listo: " + n + (n === 1 ? " oculto" : " ocultos") + ". Ya no se vende" + (n === 1 ? "" : "n") + " en la caja." + (webFail ? " Ojo: la web no respondió; en «Ocultos» toca «Quitar de la web»." : " En la web y en las tiendas de las gestoras tampoco se ve" + (n === 1 ? "" : "n") + ".")
+      ? "Listo: " + n + (n === 1 ? " oculto" : " ocultos") + (reason === "agotado" ? " («Se acabó»: vuelve" + (n === 1 ? "" : "n") + " solo" + (n === 1 ? "" : "s") + " al llegar mercancía)" : reason === "manual" ? " a propósito" : "") + ". Ya no se vende" + (n === 1 ? "" : "n") + " en la caja." + (webFail ? " Ojo: la web no respondió; en «Ocultos» toca «Quitar de la web»." : " En la web y en las tiendas de las gestoras tampoco se ve" + (n === 1 ? "" : "n") + ".")
       : "Listo: " + n + (n === 1 ? " se ve" : " se ven") + " otra vez y vuelve" + (n === 1 ? "" : "n") + " a la venta." + (webFail ? " Ojo: la web no respondió; vuelve a intentarlo." : ""), webFail ? "bad" : "ok");
     catalog = null; shop = null;
     await loadInventory();
@@ -1501,7 +1545,7 @@ function deleteFlow({ name, kind, wooId, marketId, cajaIds = [], done }) {
     }
     let cajaFail = false;
     if (cajaIds.length) {
-      const { data, error } = await supabase.rpc("nexo_business_products_retire", { p_business: bizId(), p_products: cajaIds, p_retire: true });
+      const { data, error } = await retireRpc(cajaIds, true, "manual"); // eliminar = no lo quiere vender: no vuelve solo
       if (error || data?.error) cajaFail = true;
     }
     const r = deleteResult(out, name, kind, { cajaFail });
@@ -1655,7 +1699,7 @@ async function editGroup(key, opts = {}) {
     if (wantHidden) retiredBox.open = true;
     if (wantHidden && opts.showHidden && !scrolledToHidden) { scrolledToHidden = true; setTimeout(() => retiredBox.scrollIntoView({ behavior: "smooth", block: "start" }), 80); }
     $s("[data-retired] summary").textContent = "Diseños ocultos (" + (gone.length + webOnlyGone.length) + ")";
-    $s("[data-retired-list]").innerHTML = gone.map(r => '<div class="row-item"><span class="grow"><span class="title">' + esc(designLabel(r)) + '</span><span class="meta">Oculto · quedan ' + r.stock + "</span></span>"
+    $s("[data-retired-list]").innerHTML = gone.map(r => '<div class="row-item"><span class="grow"><span class="title">' + esc(designLabel(r)) + '</span><span class="meta">' + esc(retiredTag(r)) + " · quedan " + r.stock + (retiredLine(r) ? " · " + esc(retiredLine(r)) : "") + "</span></span>"
       + '<button type="button" class="btn btn-secondary" data-sell="' + esc(r.productId) + '">Mostrar</button>'
       + (isOwner() ? '<button type="button" class="btn btn-ghost btn-danger-text" data-gone-del="' + esc(r.productId) + '" aria-label="Eliminar ' + esc(designLabel(r)) + '">Eliminar</button>' : "") + "</div>").join("")
       + webOnlyGone.map(v => '<div class="row-item"><span class="grow"><span class="title">' + esc(v.label) + '</span><span class="meta">Oculto en la web</span></span>'
