@@ -39,7 +39,7 @@ Deno.serve(async req => {
   const { data: state } = await admin.rpc("nexo_business_stock_checkpoint", { p_business: BUSINESS });
   if (!state?.from) return json(200, { off: true }); // puente apagado hasta el cambio
 
-  const report = { toWeb: 0, toWebSet: 0, toWebHeld: 0, toWebSkipped: 0, fromWeb: 0, messengers: 0, customers: 0, gestoras: null as unknown, errors: [] as string[] };
+  const report = { toWeb: 0, toWebSet: 0, toWebHeld: 0, toWebSkipped: 0, fromWeb: 0, reshown: 0, keptHidden: 0, messengers: 0, customers: 0, gestoras: null as unknown, errors: [] as string[] };
 
   // B va ANTES que A (15-oct): así los pedidos web ya están en la caja cuando A fija la web tras un conteo
   // del panel, y la cifra fijada ya los descuenta. Si B falla, A no fija ninguna cifra en esta vuelta.
@@ -139,6 +139,34 @@ Deno.serve(async req => {
     if (sent.length) await admin.rpc("nexo_business_stock_mark_sent", { p_business: BUSINESS, p_items: sent });
     report.toWeb = sent.length;
   } catch (e) { report.errors.push("A: " + (e as Error).message); }
+
+  // E. «Se muestra solo al reponer» (Ernesto 10-nov, migración 20261110210000): lo que la caja volvió a mostrar
+  //    porque llegó mercancía a un producto oculto por «Se acabó» → también en la web (después de A: ya con sus
+  //    unidades). Mismo camino que «Mostrar» del panel, con auto. Si la web dice no_reponer (liquidación), en la caja
+  //    vuelve a quedar oculto «A propósito». Sin la migración todavía, no hace nada.
+  try {
+    const { data: queue, error } = await admin.rpc("nexo_business_reshow_pending", { p_business: BUSINESS, p_limit: 50 });
+    if (error && !/reshow_pending|PGRST202|schema cache|does not exist/i.test(`${error.message} ${error.code ?? ""}`)) throw new Error(error.message);
+    type Reshow = { id: number; productId: string; wooId: number | null; parentWooId: number | null; qty: number };
+    const done: number[] = [];
+    const keep: string[] = [];
+    for (const it of (error ? [] : (queue ?? [])) as Reshow[]) {
+      if (!it.wooId) { done.push(it.id); continue; }
+      try {
+        const items = [Number(it.wooId), ...(it.parentWooId ? [Number(it.parentWooId)] : [])];
+        const r = await core("POST", "panel/products/visibility", { items, sell: true, auto: true, qty: Number(it.qty) || 0, by: "Llegó mercancía (automático)" });
+        const mine = (r.items ?? []).find((x: { wooId: number }) => Number(x.wooId) === Number(it.wooId));
+        if (mine?.skipped === "no_reponer") keep.push(it.productId);
+        done.push(it.id);
+      } catch (e) { report.errors.push("E " + it.productId + ": " + (e as Error).message); } // se repite en la próxima vuelta
+    }
+    if (done.length) {
+      const d = await admin.rpc("nexo_business_reshow_done", { p_business: BUSINESS, p_ids: done, p_keep_hidden: keep });
+      if (d.error) throw new Error(d.error.message);
+      report.reshown = done.length - keep.length;
+      report.keptHidden = keep.length;
+    }
+  } catch (e) { report.errors.push("E: " + (e as Error).message); }
 
   // C. Mensajeros de la web → caja (people.kind='messenger'; aprobado = activo).
   try {
