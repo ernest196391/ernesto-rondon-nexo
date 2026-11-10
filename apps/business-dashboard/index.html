@@ -1338,7 +1338,8 @@ function groupRow(g) {
     + '<button type="button" class="btn btn-secondary btn-block" data-open-group>' + (back ? "Ver ocultos y mostrarlos" : "Ver y cambiar diseños y colores") + "</button></div>";
 }
 function wireInventory() {
-  document.querySelectorAll("#inventory [data-group]").forEach(row => row.querySelectorAll("[data-open-group]").forEach(b => (b.onclick = () => editGroup(row.dataset.group))));
+  // 10-nov (Lennys #1303): desde el filtro «Ocultos» se abre directo en la lista «Diseños ocultos» con sus «Mostrar».
+  document.querySelectorAll("#inventory [data-group]").forEach(row => row.querySelectorAll("[data-open-group]").forEach(b => (b.onclick = () => editGroup(row.dataset.group, { showHidden: invFilter === "hidden" }))));
   document.querySelectorAll("#inventory [data-inv]").forEach(row => {
     const r = invRows.find(x => x.productId === row.dataset.inv);
     row.querySelector("[data-open]").onclick = async () => {
@@ -1516,7 +1517,7 @@ function deleteFlow({ name, kind, wooId, marketId, cajaIds = [], done }) {
 }
 
 // ---------- Ficha de un producto con diseños: «Diseños y colores» ----------
-async function editGroup(key) {
+async function editGroup(key, opts = {}) {
   if (canCost() && !costSheet) await loadCostSheet(); // comisión de cada diseño
   const rowsNow = () => invRows.filter(r => r.variantOf === key);
   const rowById = id => invRows.find(r => r.productId === id);
@@ -1524,6 +1525,7 @@ async function editGroup(key) {
   const name = groupName(key);
   const dirty = new Map(); // productId → { qty?, price? }
   let web = null; // diseños leídos de la web
+  let scrolledToHidden = false; // 10-nov (#1303): bajar a «Diseños ocultos» solo la primera vez
   const sheet = openSheet('<div class="sheet-head"><h2>' + esc(name) + '</h2><button type="button" class="btn btn-ghost" data-x>Cerrar</button></div>'
     // Lennys 20-oct (Core 3.14.41): la foto principal y la descripción son del producto (las mismas para todos los colores).
     + (parentWooId ? '<section class="note-box" data-main><h3 class="t-lg">Fotos del producto</h3>'
@@ -1570,7 +1572,11 @@ async function editGroup(key) {
     const rows = rowsNow();
     const live = rows.filter(r => r.active), gone = rows.filter(r => !r.active);
     const webBy = new Map((web?.variations ?? []).map(v => [Number(v.id), v]));
-    list.innerHTML = live.length ? live.map(r => {
+    // 10-nov (Lennys #1303): abierto desde «Ocultos» con diseños a la venta, se avisa arriba dónde están los ocultos.
+    const hiddenHint = opts.showHidden && live.length && gone.length
+      ? '<p class="note-box note-calm t-sm">Estos son los diseños <strong>a la venta</strong>. Los ' + gone.length + (gone.length === 1 ? " oculto está" : " ocultos están") + ' más abajo, en «Diseños ocultos»: pulsa <strong>Mostrar</strong> en el que quieras vender otra vez.</p>'
+      : "";
+    list.innerHTML = live.length ? hiddenHint + live.map(r => {
       const d = dirty.get(r.productId) ?? {};
       const label = designLabel(r);
       const img = webBy.get(Number(r.wooId))?.image || imgOf(r);
@@ -1640,10 +1646,14 @@ async function editGroup(key) {
     });
     // Retirados: los de la caja y los que la web tiene desactivados y la caja no conoce.
     const webOnlyGone = (web?.variations ?? []).filter(v => v.status !== "publish" && !rows.some(r => Number(r.wooId) === Number(v.id)));
-    $s("[data-retired]").hidden = !gone.length && !webOnlyGone.length;
-    // 7-nov (Lennys #1213): si no queda ningún diseño a la venta, la lista de ocultos viene abierta con su «Mostrar»;
-    // antes había que tocar «Diseños ocultos» al final y parecía que no se podía mostrar ninguno.
-    if (!live.length && (gone.length || webOnlyGone.length)) $s("[data-retired]").open = true;
+    const retiredBox = $s("[data-retired]");
+    retiredBox.hidden = !gone.length && !webOnlyGone.length;
+    // 7-nov (Lennys #1213) y 10-nov (#1303): si no queda ningún diseño a la venta, o se abrió desde el filtro «Ocultos»,
+    // la lista de ocultos viene abierta con su «Mostrar» y la pantalla baja hasta ella; antes salía plegada al final,
+    // debajo de los diseños a la venta, y parecía que no se podía mostrar ninguno.
+    const wantHidden = (!live.length || opts.showHidden) && (gone.length || webOnlyGone.length);
+    if (wantHidden) retiredBox.open = true;
+    if (wantHidden && opts.showHidden && !scrolledToHidden) { scrolledToHidden = true; setTimeout(() => retiredBox.scrollIntoView({ behavior: "smooth", block: "start" }), 80); }
     $s("[data-retired] summary").textContent = "Diseños ocultos (" + (gone.length + webOnlyGone.length) + ")";
     $s("[data-retired-list]").innerHTML = gone.map(r => '<div class="row-item"><span class="grow"><span class="title">' + esc(designLabel(r)) + '</span><span class="meta">Oculto · quedan ' + r.stock + "</span></span>"
       + '<button type="button" class="btn btn-secondary" data-sell="' + esc(r.productId) + '">Mostrar</button>'
@@ -1800,6 +1810,29 @@ async function editGroup(key) {
     render();
   };
 
+  // 10-nov (Lennys #1303): vuelve a vender un diseño oculto (caja + web) y deja la cantidad y el precio que escribió.
+  // Mismo camino que «Mostrar» en «Diseños ocultos»; lo usa «Añadir» cuando el diseño ya existía oculto. Devuelve los avisos.
+  async function showAgain(productId, qty, price) {
+    const webIds = webIdsFor([productId], false); // antes de cambiar nada
+    const { data, error } = await supabase.rpc("nexo_business_products_retire", { p_business: bizId(), p_products: [productId], p_retire: false });
+    if (error || data?.error) throw new Error(error?.message ?? (data.error === "forbidden" ? "solo la dueña puede hacerlo" : data.error));
+    const problems = [];
+    if (webIds.length) { try { await panelWeb({ action: "products_visibility", wooIds: webIds, sell: true }); } catch { problems.push("la web no respondió: pulsa «Mostrar» en el diseño"); } }
+    const r = rowById(productId);
+    if (price > 0 && r && Math.abs(price - Number(r.priceUsd)) >= 0.005) {
+      try { const pr = await applyPrices([{ productId, price }]); if (pr.skipped.length || pr.webFail) problems.push("el precio no se guardó: cámbialo en la lista"); }
+      catch { problems.push("el precio no se guardó: cámbialo en la lista"); }
+    }
+    if (Number.isInteger(qty) && qty >= 0 && r && qty !== r.stock) {
+      const { data: st, error: e2 } = await supabase.rpc("nexo_business_set_stock", { p_business: bizId(), p_product: productId, p_quantity: qty, p_reason: "Diseño mostrado otra vez desde «Añadir» (panel)" });
+      if (e2 || st?.error) problems.push("la cantidad no se guardó: escríbela en la lista y pulsa Guardar");
+    }
+    catalog = null; shop = null;
+    await loadInventory();
+    await loadWeb();
+    return problems;
+  }
+
   addBtn.onclick = () => {
     const def = rowsNow().find(r => r.active)?.priceUsd ?? rowsNow()[0]?.priceUsd ?? "";
     addBtn.hidden = true; addForm.hidden = false;
@@ -1829,18 +1862,45 @@ async function editGroup(key) {
       const qtyT = form.qty.value.trim(), qty = Number(qtyT);
       if (!label) return fail("Escribe el nombre del diseño o color");
       const twin = rowsNow().find(r => sameLabel(designLabel(r), label));
-      if (twin) return fail(twin.active ? "Ya hay un diseño «" + designLabel(twin) + "». Cambia su cantidad en la lista de arriba." : "«" + designLabel(twin) + "» ya existe pero está oculto: ábrelo en «Diseños ocultos» y pulsa «Mostrar».");
+      if (twin?.active) return fail("Ya hay un diseño «" + designLabel(twin) + "». Cambia su cantidad en la lista de arriba.");
       if (!(price > 0)) return fail("Escribe un precio mayor que 0");
       if (qtyT === "" || !Number.isInteger(qty) || qty < 0) return fail("Escribe cuántas hay (0 o más)");
       const comm = readCommission(form, price);
       if (Number.isNaN(comm)) return fail("La comisión debe ser un número en USD (0 o más) o un % del precio, por ejemplo 10%");
       form.querySelector("[type=submit]").disabled = true;
+      const doneAdd = () => { addForm.hidden = true; addForm.innerHTML = ""; addBtn.hidden = false; };
+      // 10-nov (Lennys #1303): si el diseño ya existía pero estaba oculto, no se rechaza: se muestra otra vez aquí mismo,
+      // con la cantidad y el precio que escribió. Antes decía «ya existe oculto» y no dejaba guardar.
+      if (twin) {
+        amsg.textContent = "«" + designLabel(twin) + "» ya existía oculto: lo muestro otra vez…"; amsg.dataset.tone = "";
+        try {
+          const problems = await showAgain(twin.productId, qty, price);
+          toast(problems.length ? "«" + designLabel(twin) + "» se ve otra vez, pero ojo: " + problems.join("; ") + "." : "Listo: «" + designLabel(twin) + "» se ve otra vez y vuelve a la venta con " + qty + ".", problems.length ? "bad" : "ok");
+          doneAdd();
+        } catch (err) { fail("No se pudo mostrar: " + err.message); }
+        return;
+      }
       try {
         let imageUrl = "";
         if (file) { amsg.textContent = "Subiendo foto…"; amsg.dataset.tone = ""; try { imageUrl = await uploadPhoto(file); } catch { throw new Error("esa foto no se pudo usar. Prueba con otra o añádelo sin foto"); } }
         amsg.textContent = "Creando el diseño en la web y en la caja…"; amsg.dataset.tone = "";
         const out = await panelWeb({ action: "variation_add", wooId: parentWooId, group: key, label, price, imageUrl });
-        if (out.retired) { await loadWeb(); return fail("«" + label + "» ya existe en la web pero está oculto: ábrelo en «Diseños ocultos» y pulsa «Mostrar»."); }
+        if (out.retired) {
+          // 10-nov (#1303): existía oculto en la web y la caja no lo conocía: se muestra en la web, se enlaza con la caja y se le pone la cantidad.
+          amsg.textContent = "«" + label + "» ya existía oculto en la web: lo muestro otra vez…";
+          await panelWeb({ action: "products_visibility", wooIds: [Number(out.variation.id), ...(web?.parent?.retired ? [Number(parentWooId)] : [])], sell: true });
+          catalog = null; shop = null;
+          await loadWeb(); // enlaza el diseño con la caja
+          const linked = rowsNow().find(r => Number(r.wooId) === Number(out.variation.id));
+          let note2 = "";
+          if (linked && qty > 0) {
+            const { data: st, error: e2 } = await supabase.rpc("nexo_business_set_stock", { p_business: bizId(), p_product: linked.productId, p_quantity: qty, p_reason: "Diseño mostrado otra vez desde «Añadir» (panel)" });
+            if (e2 || st?.error) note2 = " Ojo: la cantidad no se guardó; escríbela en la lista y pulsa Guardar."; else { await loadInventory(); render(); }
+          } else if (qty > 0) note2 = " Escribe cuántas hay en la lista y pulsa Guardar.";
+          toast("Listo: «" + label + "» se ve otra vez y vuelve a la venta." + note2, note2.startsWith(" Ojo") ? "bad" : "ok");
+          doneAdd();
+          return;
+        }
         if (!out.productId) throw new Error("no quedó enlazado con la caja; vuelve a pulsar «Añadir»");
         let note = "";
         if (out.existing) note = " Ya estaba en la web: lo dejé en la lista con sus unidades.";
