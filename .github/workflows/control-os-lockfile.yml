@@ -1,0 +1,36 @@
+name: Control OS lockfile refresh
+
+on:
+  push:
+    branches:
+      - control-os/nexo-baseline-61
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: control-os/nexo-baseline-61
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Regenerate lockfile only
+        run: npm install --package-lock-only --ignore-scripts --no-audit --no-fund
+      - name: Commit lockfile if changed
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- package-lock.json; then
+            echo "package-lock.json already current"
+            exit 0
+          fi
+          git config user.name "Casa Viva Control OS"
+          git config user.email "control-os@local.invalid"
+          git add package-lock.json
+          git commit -m "C5.1: regenerate NEXO package lock"
+          git push origin HEAD:control-os/nexo-baseline-61
