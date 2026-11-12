@@ -7,7 +7,7 @@ Read this first in a new session; open STATUS.md / AI_HANDOFF.md only for the pa
 - **POS (Tauri, Windows + Android):** `apps/business-pos`. Local SQLite migrations `packages/business-db/migrations` 0001–0017 (line endings pinned in `.gitattributes`; never edit an applied migration). Rust repos in `packages/business-db/rust/src` (`cargo test` there). Operations UI in `src/finance.ts`, sync/catalog pull in `src/sync.ts`; `main.ts` only mounts them.
 - **Cloud:** Supabase `nexo-production` (`viwwlriwlwodrfukbgbj`), schema `nexo_business`. Migrations in `supabase/migrations` (apply with the Supabase MCP `apply_migration`). Edge Functions in `supabase/functions` (deploy: `npx.cmd supabase functions deploy <name> --project-ref viwwlriwlwodrfukbgbj --no-verify-jwt --use-api`; CLI is logged in on this laptop).
 - **Owner dashboard:** https://nexo-negocio.vercel.app (`apps/business-dashboard/index.html`), Vercel project `nexo-negocio` deploys from Git (`create_deployment` with `gitSource` ref `main`).
-- **Catalog:** follows BizneCubano (`catalog_sources.kind='biznecubano'`), website `https://casaviva.company` supplies variants; hourly import at :50 (pg_cron). Never write to BizneCubano or WooCommerce.
+- **Casa Viva catalog (current):** BizneCubano is retired from operations since 2026-10-11. NEXO/Casa Viva is the authority for price and stock (`price_authority='nexo'`, `auto_import=false`); `nexo-stock-bridge` keeps stock aligned with `casaviva.company`. Legacy BizneCubano snapshot/sync exists only for manual rollback and must never run on a schedule.
 - **Secrets (never print or commit):** `%APPDATA%\com.nexo.business\device-tokens-NO-COMPARTIR.txt`, `import-key-NO-COMPARTIR.txt`.
 
 ## Build/test shortcuts
