@@ -35,6 +35,7 @@
     "apps",
     "packages",
     "supabase/functions",
-    "kits"
+    "kits",
+    "scripts/casaviva-revision/mod"
   ]
 }

@@ -3,6 +3,11 @@ import { STUDIO_SESSION_COOKIE, verifyStudioSession } from "./lib/studio/session
 
 export async function proxy(request: NextRequest) {
   const path = request.nextUrl.pathname;
+  // Only route the dedicated Saldo 360 host. NEXO and Casa Viva remain unchanged.
+  const host = request.headers.get("host")?.toLowerCase().split(":")[0] || "";
+  if (path === "/" && (host === "saldo360.casaviva.company" || host.startsWith("saldo360-piloto-"))) {
+    return NextResponse.redirect(new URL("/saldo360", request.url));
+  }
   const publicStudio = path === "/studio/login" || path === "/api/studio/auth/login";
   if (publicStudio) return NextResponse.next();
 
@@ -20,5 +25,5 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/studio/:path*", "/api/studio/:path*"],
+  matcher: ["/", "/studio/:path*", "/api/studio/:path*"],
 };
