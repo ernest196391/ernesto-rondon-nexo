@@ -3313,13 +3313,20 @@ function renderWebPayouts(list) {
   $("#team-dot").hidden = !list.length && !webGestoras.some(x => x.status === "pending");
   box.innerHTML = '<div class="kv"><h2 class="t-lg">Pagos de la web por atender</h2><span class="badge badge-low">' + list.length + "</span></div>"
     // En el móvil el nombre va arriba a lo ancho; importe y botones debajo (antes el nombre salía letra a letra, Lennys 14-oct).
-    + list.map(r => '<div class="row-item" style="flex-wrap:wrap"><span class="grow" style="flex-basis:100%"><span class="title">' + esc(r.gestora) + '</span><span class="meta">' + esc(PAYOUT_STATUS_ES[r.status]) + " · " + esc(when(r.requestedAt)) + (r.method ? " · " + esc(r.method) : "") + '</span></span><span class="price-tag">' + usd2(r.amount) + " " + esc(r.currency) + "</span>"
-      + '<span style="display:flex;gap:6px;margin-left:auto">' + (r.status === "requested" ? '<button type="button" class="btn btn-secondary" data-po="' + r.id + '" data-do="approve">Aprobar</button>' : '<button type="button" class="btn btn-primary" data-po="' + r.id + '" data-do="pay">Pagado</button>')
+    + list.map(r => '<div class="row-item" style="flex-wrap:wrap"><span class="grow" style="flex-basis:100%"><span class="title">' + esc(r.gestora) + '</span><span class="meta">' + esc(PAYOUT_STATUS_ES[r.status]) + " · " + esc(when(r.requestedAt)) + (r.method ? " · " + esc(r.method) : "") + (r.payText ? '</span><span class="meta">' + esc(r.payText) : "") + '</span></span><span class="price-tag">' + usd2(r.amount) + " " + esc(r.currency) + "</span>"
+      // 12-nov (Lennys): «Ver detalle» abre la hoja «Pagar a…» (pedidos, tasa de cada venta, copiar tarjeta/teléfono).
+      + '<span style="display:flex;gap:6px;margin-left:auto;flex-wrap:wrap">' + (r.payUrl ? '<a class="btn btn-ghost" target="_blank" rel="noopener" href="' + esc(r.payUrl) + '">Ver detalle</a>' : "") + (r.status === "requested" ? '<button type="button" class="btn btn-secondary" data-po="' + r.id + '" data-do="approve">Aprobar</button>' : '<button type="button" class="btn btn-primary" data-po="' + r.id + '" data-do="pay">Pagado</button>')
       + '<button type="button" class="btn btn-ghost" data-po="' + r.id + '" data-do="reject">Rechazar</button></span></div>').join("");
   box.querySelectorAll("[data-po]").forEach(b => (b.onclick = async () => {
     if (b.dataset.do === "reject" && !confirm("¿Rechazar este pago?")) return;
-    const reference = b.dataset.do === "pay" ? window.prompt("Referencia del pago (opcional). Toca Aceptar para marcarlo pagado:", "") : "";
-    if (reference === null) return;
+    // 12-nov (Lennys): en efectivo (USD, CUP o los dos) no hace falta referencia: solo se confirma.
+    const r = list.find(x => String(x.id) === b.dataset.po) ?? {};
+    const cash = r.method === "cash" || ["cash_usd", "cash_cup", "mixed"].includes(r.payMethod);
+    let reference = "";
+    if (b.dataset.do === "pay") {
+      if (cash) { if (!confirm("¿Marcar pagado en efectivo a " + (r.gestora ?? "la gestora") + "? Le avisamos que pase a recoger.")) return; }
+      else { reference = window.prompt("Referencia de la transferencia (opcional). Toca Aceptar para marcarlo pagado:", ""); if (reference === null) return; }
+    }
     b.disabled = true;
     try { await panelWeb({ action: "payout_action", id: Number(b.dataset.po), do: b.dataset.do, reference }); toast("Hecho", "ok"); await loadWebGestoras(); }
     catch (e) { b.disabled = false; toast(e.message, "bad"); }
