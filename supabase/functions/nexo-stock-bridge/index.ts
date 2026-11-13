@@ -140,6 +140,41 @@ Deno.serve(async req => {
     report.toWeb = sent.length;
   } catch (e) { report.errors.push("A: " + (e as Error).message); }
 
+  // M. Metadatos NEXO → Woo (13-nov): misma ejecución programada, sin crear otro cron.
+  // NEXO manda solo identidad/catalogación no financiera. NO precio, stock, visibilidad, comisiones ni pedidos.
+  try {
+    type CatalogRow = {
+      product_id: string; name: string; sku: string | null; active: boolean;
+      variant_label: string | null; external_refs: Record<string, { wooId?: number; parentWooId?: number }> | null;
+    };
+    const { data: catalog, error } = await admin.schema("nexo_business").from("catalog_products")
+      .select("product_id,name,sku,active,variant_label,external_refs")
+      .eq("business_id", BUSINESS)
+      .limit(2000);
+    if (error) throw new Error(error.message);
+    const items = ((catalog ?? []) as CatalogRow[]).flatMap(p => {
+      const web = p.external_refs?.["casaviva.company"];
+      const wooId = Number(web?.wooId ?? 0);
+      if (!(wooId > 0)) return [];
+      return [{
+        wooId,
+        name: String(p.name ?? "").trim(),
+        sku: String(p.sku ?? "").trim(),
+        active: p.active !== false,
+        parentWooId: Number(web?.parentWooId ?? 0) || null,
+      }];
+    });
+    for (let i = 0; i < items.length; i += 300) {
+      const out = await core("POST", "panel/catalog/reconcile", { items: items.slice(i, i + 300) });
+      const rows = (out.items ?? []) as { changed?: string[]; skuConflict?: number }[];
+      report.catalogReconciled += rows.length;
+      report.catalogChanged += rows.reduce((n, r) => n + (Array.isArray(r.changed) ? r.changed.length : 0), 0);
+      report.catalogSkuConflicts += rows.filter(r => Number(r.skuConflict ?? 0) > 0).length;
+      const parents = (out.parents ?? {}) as Record<string, string[]>;
+      report.catalogParentOptions += Object.values(parents).reduce((n, values) => n + (Array.isArray(values) ? values.length : 0), 0);
+    }
+  } catch (e) { report.errors.push("M: " + (e as Error).message); }
+
   // E. «Se muestra solo al reponer» (Ernesto 10-nov, migración 20261110210000): lo que la caja volvió a mostrar
   //    porque llegó mercancía a un producto oculto por «Se acabó» → también en la web (después de A: ya con sus
   //    unidades). Mismo camino que «Mostrar» del panel, con auto. Si la web dice no_reponer (liquidación), en la caja
