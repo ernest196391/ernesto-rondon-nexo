@@ -10,7 +10,7 @@ describe("reconciliación de catálogo NEXO → Woo", () => {
   it("usa una sola reconciliación canónica dentro del puente programado", () => {
     expect(start).toBeGreaterThanOrEqual(0);
     expect(block).toContain('core("POST", "panel/catalog/reconcile"');
-    expect(block).toContain('admin.schema("nexo_business").from("catalog_products")');
+    expect(block).toContain('admin.rpc("nexo_business_catalog_reconcile_items"');
     expect((source.match(/panel\/catalog\/reconcile/g) ?? [])).toHaveLength(1);
   });
 
@@ -19,6 +19,7 @@ describe("reconciliación de catálogo NEXO → Woo", () => {
     expect(block).toContain("name:");
     expect(block).toContain("sku:");
     expect(block).toContain("parentWooId:");
+    expect(block).not.toContain('.schema("nexo_business")');
     expect(block).not.toMatch(/\bprice\s*:/);
     expect(source.match(/panel\/catalog\/reconcile[\s\S]{0,2500}\bprice\s*:/g) ?? []).toHaveLength(0);
     expect(block).not.toMatch(/\bstock\s*:/);
