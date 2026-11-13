@@ -1,0 +1,1 @@
+# Control OS NEXO smoke\n\nPrueba determinista de C5.1. No cambia comportamiento de NEXO.\n
