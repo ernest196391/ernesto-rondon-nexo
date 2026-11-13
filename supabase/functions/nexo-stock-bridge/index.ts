@@ -146,24 +146,20 @@ Deno.serve(async req => {
   // NEXO manda solo identidad/catalogación no financiera. NO precio, stock, visibilidad, comisiones ni pedidos.
   try {
     type CatalogRow = {
-      product_id: string; name: string; sku: string | null; active: boolean;
-      variant_label: string | null; external_refs: Record<string, { wooId?: number; parentWooId?: number }> | null;
+      productId: string; name: string; sku?: string | null; active: boolean;
+      variantLabel?: string | null; wooId: number; parentWooId?: number | null;
     };
-    const { data: catalog, error } = await admin.schema("nexo_business").from("catalog_products")
-      .select("product_id,name,sku,active,variant_label,external_refs")
-      .eq("business_id", BUSINESS)
-      .limit(2000);
+    const { data: catalog, error } = await admin.rpc("nexo_business_catalog_reconcile_items", { p_business: BUSINESS });
     if (error) throw new Error(error.message);
     const items = ((catalog ?? []) as CatalogRow[]).flatMap(p => {
-      const web = p.external_refs?.["casaviva.company"];
-      const wooId = Number(web?.wooId ?? 0);
+      const wooId = Number(p.wooId ?? 0);
       if (!(wooId > 0)) return [];
       return [{
         wooId,
         name: String(p.name ?? "").trim(),
         sku: String(p.sku ?? "").trim(),
         active: p.active !== false,
-        parentWooId: Number(web?.parentWooId ?? 0) || null,
+        parentWooId: Number(p.parentWooId ?? 0) || null,
       }];
     });
     for (let i = 0; i < items.length; i += 300) {
