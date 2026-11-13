@@ -12,6 +12,7 @@ export async function GET() {
     {
       ok: true,
       service: "nexo-web",
+      gitCommit: process.env.RENDER_GIT_COMMIT || process.env.VERCEL_GIT_COMMIT_SHA || null,
       analyzerConfigured: geminiConfigured || openaiConfigured,
       analyzerProviders: {
         gemini: geminiConfigured,
