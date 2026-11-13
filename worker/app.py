@@ -126,7 +126,7 @@ def _write_ass(path: Path, words: list[dict], cuts: list[dict]):
 
 @app.get("/health")
 def health():
-    return jsonify({"ok": True, "service": "nexo-content-worker", "kit": "05", "pipeline": "approved-edit-plan", "protected": True})
+    return jsonify({"ok": True, "service": "nexo-content-worker", "gitCommit": os.environ.get("RENDER_GIT_COMMIT"), "kit": "05", "pipeline": "approved-edit-plan", "protected": True})
 
 
 @app.post("/analyze")
