@@ -39,7 +39,7 @@ Deno.serve(async req => {
   const { data: state } = await admin.rpc("nexo_business_stock_checkpoint", { p_business: BUSINESS });
   if (!state?.from) return json(200, { off: true }); // puente apagado hasta el cambio
 
-  const report = { toWeb: 0, toWebSet: 0, toWebHeld: 0, toWebSkipped: 0, fromWeb: 0, reshown: 0, keptHidden: 0, messengers: 0, customers: 0, gestoras: null as unknown, errors: [] as string[] };
+  const report = { toWeb: 0, toWebSet: 0, toWebHeld: 0, toWebSkipped: 0, fromWeb: 0, reshown: 0, keptHidden: 0, messengers: 0, customers: 0, gestoras: null as unknown, catalogReconciled: 0, catalogParents: 0, errors: [] as string[] };
 
   // B va ANTES que A (15-oct): así los pedidos web ya están en la caja cuando A fija la web tras un conteo
   // del panel, y la cifra fijada ya los descuenta. Si B falla, A no fija ninguna cifra en esta vuelta.
@@ -202,6 +202,33 @@ Deno.serve(async req => {
     const last = (rows: { received_at?: string; changed_at?: string }[] | null, k: "received_at" | "changed_at") => rows?.length ? rows[rows.length - 1][k] : null;
     await admin.rpc("nexo_business_set_customer_checkpoints", { p_business: BUSINESS, p_sales: last(sales, "received_at"), p_bot: last(bot, "changed_at") });
   } catch (e) { report.errors.push("D: " + (e as Error).message); }
+
+
+  // F. Reconciliación de catálogo NEXO → Woo (13-nov): evita drift silencioso tras una escritura parcial.
+  // No toca stock, pedidos, fotos ni descripción. NEXO/Panel ya es autoridad de nombre, SKU y precio normal.
+  try {
+    const { data: catalogRows, error: catErr } = await admin.schema("nexo_business").from("catalog_products")
+      .select("product_id,name,sku,prices,active,external_refs")
+      .eq("business_id", BUSINESS)
+      .not("external_refs", "is", null)
+      .limit(2000);
+    if (catErr) throw new Error(catErr.message);
+    const items = (catalogRows ?? []).map((p: any) => {
+      const ref = p.external_refs?.["casaviva.company"] ?? {};
+      const wooId = Number(ref.wooId ?? 0);
+      const price = Number(p.prices?.USD ?? 0) / 100;
+      return wooId > 0 && price > 0 ? {
+        wooId, parentWooId: Number(ref.parentWooId ?? 0) || null,
+        name: String(p.name ?? ""), sku: String(p.sku ?? ""), price,
+        active: p.active !== false,
+      } : null;
+    }).filter(Boolean);
+    for (let i = 0; i < items.length; i += 400) {
+      const out = await core("POST", "panel/catalog/reconcile", { items: items.slice(i, i + 400) });
+      report.catalogReconciled += (out.items ?? []).filter((x: { ok?: boolean }) => x.ok).length;
+      report.catalogParents += Object.keys(out.parents ?? {}).length;
+    }
+  } catch (e) { report.errors.push("F: " + (e as Error).message); }
 
   return json(report.errors.length ? 207 : 200, report);
 });
