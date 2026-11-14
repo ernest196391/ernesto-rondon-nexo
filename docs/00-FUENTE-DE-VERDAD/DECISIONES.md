@@ -704,3 +704,78 @@ Las reseñas que use Casa Viva (tarjetas para redes, web) son siempre comentario
 - **Trato del día 1:** «gratis para siempre; solo ganamos un % pequeño de lo que NEXO te venda». El % lo decide Ernesto.
 - **Legal:** cobrar (fase 2) necesita figura legal en Cuba; vender anuncios (fase 4) necesita confirmar con abogado/ICS que no cuenta como «medio» privado; USDT queda fuera hasta confirmar la licencia del Banco Central. La LLC sigue sin cobrar a Cuba (D14). D142 sigue valiendo para avatar IA y vitrina única, pero la agencia pasa a ser la puerta de entrada, no el negocio principal.
 - Plan: `docs/ofertas/agencia-nexo-plan-2026-11-05.md` (v2).
+
+### D142 · Pa'llá: diseño v3 aprobado — primero eliges qué quieres (6-nov-2026, Ernesto: «Sí, prográmalo»)
+- **Qué:** inicio con 4 botones 3D **Viajar · Paquete · Comida · Carga**; Viajar = fila de vehículos 3D con el precio de todos (como La Nave), 3 pasos; recogida opcional; «1.ª oferta» en la pantalla de ofertas. Diseño: https://claude.ai/artifact/KSJSBuEae2Lb5q7sPHKAXc (`docs/nexo-business/apps/palla/diseno-v3/`).
+- **Decidido con la recomendación del diseñador:** precio que se cambia **tocándolo** (pista B: − / + ahí mismo); ayudante de carga **500 CUP** fijos dentro del precio; la comida la puede **adelantar** el mensajero hasta **5.000 CUP** y solo si marcó «Puedo adelantar»; el peso de la carga **no** cambia el precio (solo avisa; máximo 300 kg); en Viajar sale marcado el **último vehículo usado** (la primera vez, Triciclo eléctrico).
+- **Comida** funciona como un envío (sin menú de restaurantes). La moto 3D con caja térmica está hecha (Higgsfield).
+
+### D144 · Imágenes con OpenAI: `#imagen` en los chats que Ernesto activa, un solo motor y un solo tope (6-nov-2026, Ernesto)
+- **Qué:** la suscripción de ChatGPT no se puede usar desde programas; se usa la **API de OpenAI** (clave del bot, pago por imagen). Un solo motor (`vivabot/src/imagen-ia.js`) para `cv imagen`, `#imagen` en WhatsApp y, cuando se conecte, el panel de Zayri.
+- **Decidido (con la recomendación):** el **bot hace la imagen directo** (no pasa por el supervisor); calidad por defecto **media barata** (gpt-image-1-mini, ~0,01 USD); activos desde el primer día **Ernesto, Lennys y Zayri**; tope común **1 USD/día y 10 USD/mes** (`/root/supervisor/imagen.json`), aviso a Ernesto por ntfy/correo, nunca WhatsApp.
+- **Quién decide los chats:** solo Ernesto (`#imagen activar|quitar …`, `#imagen lista`, o `#imagen` dentro del chat). Un chat privado («ignorar», Zayri) solo atiende `#imagen` si él lo activa.
+- **Higgsfield:** solo con el SÍ de Ernesto (sigue la excepción de foto comercial de Modo Lennys del 3-nov).
+- **Panel de Zayri:** conexión directa web → VPS (`POST …sslip.io/imagen/panel`, clave cifrada en Core), con el SÍ de Ernesto («Abre la dirección»); luego dejó elegir a las sesiones y se descartó la cola. Subtope del panel 0,5 USD/día; 2 USD el 6-nov solo para las fotos del prototipo.
+
+### D145 · Catálogo en masa: se publica solo y las dudas van a Zayri, interactivas, en su app (6-nov-2026, Ernesto)
+- **Qué:** la tarea nocturna mejora títulos, descripciones y fotos en masa y **publica sola** (con copia para deshacer). Lo dudoso se le pregunta a Zayri en **su app** con tarjetas de **Sí / No**, **Corregir** (texto, dato o foto) o **Explicar** (texto o voz).
+- **Cada respuesta se guarda y se aplica sola:** dato → `crm_knowledge`; regla de estilo → reglas del catálogo; si hace falta trabajo, tarea **directa al supervisor del VPS**, que deja el resultado en la tarjeta. Todo anotado (quién, cuándo, antes → después) y la noche siguiente se aprende del error.
+- **Avisos:** uno por WhatsApp al día, solo si hay dudas, con el enlace a su app.
+- **Escalera de modelos:** gratis (recorte + fondo por código; Gemini Flash-Lite para textos) → barato (Nano Banana 2.1 en lote, cuando Ernesto active la facturación de Google) → caro (gpt-image-1.5 + fidelidad) → Higgsfield solo con su SÍ. Presupuesto 20 USD/mes. Lo que más se pregunta en los grupos se vuelve tarea de la noche. Plan: `docs/nexo-business/imagenes/plan-mejora-catalogo-en-masa-2026-11-06.md`.
+
+### D146 · Skill de fotos de Ernesto como norma; HERO blanco para todos; ChatGPT del VPS solo corrector (9-nov-2026, Ernesto)
+- **Skill «casa-viva-ecommerce-premium» v1.2** (la hizo Ernesto; v1.2 = sus decisiones en `references/PRODUCCION_CASA_VIVA.md`): investigar primero la duda del comprador, 3 piezas (HERO, LIFESTYLE con persona, BENEFICIO con dato verificado), sin precios ni logo Casa Viva, QA con estados. Instalada en Claude del PC (`~/.claude/skills/`), supervisor del VPS (`/root/.claude/skills/`) y Codex del VPS (`/root/.codex-supervisor/skills/`); copia en `docs/nexo-business/imagenes/skill-casa-viva-ecommerce-premium/`.
+- **Una sola lista de preferencias:** `/root/archivos/imagenes/skill/PREFERENCIAS_EDITABLES.md` (las copias del VPS enlazan a ella).
+- **HERO con fondo blanco puro para todo el catálogo**; las 3 piezas solo para top ventas, nuevos y anuncios. El crema #f6f2e9 queda para anuncios y ambientes.
+- **ChatGPT/Codex del VPS** (cuenta de Ernesto, Codex CLI 0.163, `image_generation` activo): solo **corrector ocasional** cuando sobre cupo; comparte cupo con el ejecutor Codex del supervisor (sin cupo hasta el 15-nov-2026 17:57).
+
+### D147 · Casa Viva Product Intelligence: piloto con aprobación previa, investigación con la suscripción (9-nov-2026, Ernesto)
+- **Piloto de 10** (3714, 2491, 463, 2593, 2463, 2517, 4275, 4856, 3492, 4793): primero propuesta con antes/después y fuentes; **se publica solo lo que Ernesto apruebe**. Después del piloto, los lotes publican solo datos **confirmados** y Lennys revisa después (sigue D125).
+- **Investigación (fotos + búsquedas en internet)** con el **Claude del VPS por la suscripción** (0 USD por uso; gasta cupo). Si el cupo falla, avisar a Ernesto antes de pasar a la API de pago.
+- Cada dato: confirmado (fabricante del modelo exacto, tienda/Lennys/Zayri, etiqueta en foto real) / probable / no verificado, con enlace y fecha. Solo lo confirmado sale en el texto público. Una coincidencia visual nunca prueba el modelo.
+- **Search Console:** la activa Ernesto con una guía paso a paso.
+- Informe y propuesta: `docs/nexo-business/product-intelligence-2026-11-09/INFORME.md`.
+
+### D148 · Randy (donas a domicilio): socio, valor primero; diseño antes de programar (9/10-nov-2026, Ernesto)
+- **Trato:** Randy será **socio con un % de las ventas**, pero el % **no se fija todavía**: primero aportamos valor (lo mejor que podamos) y luego «veremos cómo salimos».
+- **Higgsfield:** sí, ~60 créditos para fotos de estudio y giros 360° de 4–5 donas, cuando lleguen sus fotos reales.
+- **Reparto y venta:** mensajeros de Casa Viva / Pa'llá reparten y las gestoras venden con comisión.
+- **Orden de trabajo (regla de Ernesto):** estudiar el método (Hormozi) e investigar lo que ya funcionó → **diseño** enseñado a Ernesto → solo entonces programar.
+- Propuesta y guía de estudio: `docs/clientes/randy-donas/`.
+
+### D149 · En la ficha de la web solo va lo que ayuda a comprar (10-nov-2026, Ernesto)
+- Todo texto público de un producto (título, Google, descripciones, preguntas frecuentes, alt) tiene que ayudar al cliente o a la gestora a decidir la compra. **Prohibido:** dudas, notas internas y de dónde sale un dato («según el fabricante», «(del proveedor)», «el empaque dice…», «vistos en fotos», «consulta el modelo», consejos que nacen de una duda).
+- Si no estamos seguros de un dato, **no se pone** (ni con matices): se manda como pregunta a quien administra (Ernesto, Lennys, Zaymi o Zayri) y se añade cuando lo confirmen.
+- Una ficha que quedaría más pobre que la de hoy por falta de datos confirmados **se retiene** hasta tener las respuestas.
+- En código: `catalogo-fichas.mjs` rechaza esas frases (`nota interna en la web`) y, con investigación, ya no toma datos del nombre viejo, del texto viejo, del anuncio del proveedor ni del conocimiento suelto del bot.
+- **10-nov (Ernesto), añadido a D148:** la venta de DonoD sale el **viernes 21-nov**; lista de espera y preventa desde el jueves 13 con fotos reales. Cómo se hace el contenido (sin caras / personaje IA) **queda por decidir con calma**. El diseño se pasa ya a DonoD (logo recibido el 10-nov, `docs/clientes/randy-donas/marca/`).
+- **10-nov (Ernesto), contenido de DonoD (D148):** plan = **mezcla de las propuestas 5 + 1 + 3 + 4** (`docs/clientes/randy-donas/LANZAMIENTO-5-PROPUESTAS.md`): cuenta atrás de 10 días; «Doni», la dona del logo como mascota IA con tono **pijo y sarcástico**; manos reales; GmailDona + mensajeros de Pa'llá. **Créditos: UN solo video IA de lanzamiento, pensado casi perfecto antes de hacerlo** (mejores prácticas primero); el resto con HyperFrames y probar herramientas gratis (p. ej. Google Flow). **Publica Ernesto** con acceso a @donod_donuts. Ernesto tiene ideas virales propias: pedírselas antes de escribir el guion.
+
+### D150 · Todo video pasa por /video: storyboard aprobado antes de gastar (10-nov-2026, Ernesto)
+- Sale de un reel que mandó Ernesto («regenerar la misma toma es una forma cara de hacer storyboard: planifica, revisa los fotogramas y después genera»).
+- **Todos los videos** (Casa Viva, Abuela Nena, clientes, NEXO) empiezan en la skill `/video` (`~/.claude/skills/video/`): preguntas mínimas → 3 ganchos → lista de tomas con el camino más barato de cada una → **página web con ✓/✗** en 3 puertas (boceto gratis → fotogramas clave → video). Después produce la skill que toca.
+- **Gasto sin preguntar: 0 créditos.** Cada crédito, con el SÍ de Ernesto y el costo comprobado (`get_cost`) delante. Solo se animan las tomas con ✓, una vez cada una; si sale mal se cambia UNA cosa y se vuelve a pedir el SÍ (nunca la misma petición dos veces).
+- Excepción: tareas automáticas con fórmula ya aprobada (p. ej. `nena-hoy`) se saltan las puertas 1 y 2, pero tampoco regeneran a ciegas.
+
+### D151 · VivaBot: un solo origen de verdad (GitHub `main`); nada se edita directo en el VPS (10-nov-2026, Ernesto)
+- **Por qué:** el 10-nov el VPS tenía 119 commits que no estaban en GitHub, 14 archivos sin commit y 3 módulos + 7 pruebas que producción usaba y nunca se habían guardado; `main` tenía 14 commits que el VPS no tenía. No se podía desplegar sin pisar trabajo. Ernesto ordenó reconciliarlo con respaldo primero.
+- **Regla desde hoy:** el código del bot se edita en el clon local `C:\Users\Ernesto\vivabot`, se prueba (`npm run check`), se empuja a GitHub (PR con la comprobación en verde) y el VPS solo hace `git fetch && git merge --ff-only origin/main` y `cv reiniciar`. Ninguna sesión (Claude, Codex, supervisor) edita archivos de `/root/vivabot` a mano. Si un arreglo urgente hubo que hacerlo en el VPS, se commitea y se sube a una rama ese mismo día.
+- **Respaldos:** `/root/backups/ordenar-bot-20261110/` (bundle de git completo, parche de lo no guardado, fuente sin claves), `D:\Respaldos-bot-20261110\` y la rama `vps-2026-11-10` en GitHub.
+- **Hecho:** PR vivabot#31 fusionado (`main` = `da96660`, igual que producción); `npm run check` con 1652 pruebas y 0 fallas.
+
+### D152 · Catálogo «nivel Amazon» que se hace solo (10-nov-2026, Ernesto)
+(1) **Publicación: todo automático** («Todo automático»): los agentes publican sin aprobación previa y se corrige después. Salvaguardas que se mantienen siempre: copia «antes» de cada cambio y restaurar en un clic; precio, existencias, SKU, URL y comisión nunca se tocan (comprobación antes/después, y si cambian se revierte solo); nada inventado (D149: en la web solo lo que ayuda a comprar); la foto nueva debe parecerse a la real según el revisor automático y si no, «pedir foto» sin gastar. (2) **Disparador:** foto real nueva o producto nuevo → empieza al momento; además, barrido cada noche del resto del catálogo por prioridad. (3) **Centro de control:** sección «Catálogo» en el Tablero (estado por producto, nota, qué hizo cada agente, antes → después, restaurar, gasto del día). (4) **Gasto de IA:** 30 USD/mes hasta terminar el catálogo (~1.165 productos, primero los más vendidos); después 10 USD/mes de mantenimiento. Mapa: `docs/nexo-business/mapa-catalogo-amazon-2026-11-10.md`.
+
+### D153 · Orquestador del catálogo: las 4 recomendaciones (10-nov-2026, Ernesto: «Sí, las 4»)
+Diseño: `docs/nexo-business/product-intelligence-2026-11-09/orquestador-catalogo-DISENO.md` (página https://claude.ai/artifact/YGgnhpN8dP3Ls4ZtQygyY4).
+1. **40 productos por noche** (catálogo en ~30 noches sin agotar la suscripción del supervisor).
+2. **Lennys solo ve «5 para revisar hoy»** en el Tablero: propios más vendidos que cambiaron ayer, con ✓/✗.
+3. **Filtros de color, material y tamaño:** los atributos se guardan desde ya; se muestran en la tienda cuando al menos el 70 % de una categoría los tenga.
+4. **Bajo pedido genéricos** (sin marca ni modelo): al final de la cola, solo textos seguros y sin gastar en fotos (vale la del proveedor).
+Con esto Ernesto confirma también el gasto de D152 (30 USD/mes hasta acabar): la sesión «Imágenes del supervisor» sube el tope de imágenes de 10 a 30 USD/mes.
+
+### D154 · Alerta de atascos: el supervisor se despierta solo cuando el bot contesta pero no resuelve (10-nov-2026, Ernesto: «construye la alerta de atascos»)
+Detector sin IA (`supervisor/atascos-rules.mjs` en vivabot) dentro de `check.mjs`; trigger `atasco` con modelo Sonnet y guion §14: leer chat y pedido, resolver dentro de permisos, avisar UNA vez a cada involucrado, `cv error`, fila DESARROLLO si es código, urgente a Ernesto solo a la 3.ª vez del día. Enfriamiento 20 min por persona, tope 10/hora. Diseño: `docs/nexo-business/alerta-atascos-supervisor-2026-11-10.md`.
+
+### D155 · El panel tampoco pasa por la caché de LiteSpeed (14-nov-2026, Ernesto: «Sí, exclúyelo»)
+Las rutas `/wp-json/casa-viva/v1/panel/` (clave `X-Nexo-Panel-Key`: gestoras, clientes, cuentas de cobro, ventas, contabilidad, caja) quedan en `cache-exc` de LiteSpeed junto a `/bot/`. Motivo: LiteSpeed no entiende las claves en cabecera y guardaba esas respuestas 7 días en la caché pública; solo las protegía el `_=<hora>` que añaden las funciones de Supabase. Regla: toda ruta privada con clave propia en cabecera va bajo `/bot/` o `/panel/`, o llama a `do_action( 'litespeed_control_set_nocache' )`. Nunca añadir `_` a `cache-drop_qs`. Informe: `docs/nexo-business/seguridad-cache-rutas-2026-11.md`.
