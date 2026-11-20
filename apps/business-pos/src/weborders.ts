@@ -80,7 +80,14 @@ let loadError = "";
 let sending = false;
 let query = "";
 // El modo de recuperación solo permite consultar; los cobros existentes siguen en SQLite.
-let recoveryReadOnly = false;
+const RECOVERY_KEY = "nexo.weborders.recoveryReadOnly";
+let recoveryReadOnly = (() => {
+  try { return localStorage.getItem(RECOVERY_KEY) === "true"; } catch { return true; }
+})();
+function setRecoveryReadOnly(value: boolean) {
+  recoveryReadOnly = value;
+  try { localStorage.setItem(RECOVERY_KEY, String(value)); } catch { /* preserve in-memory gate */ }
+}
 const readOnlyWarning = "Solo consulta durante la recuperación. Cobra y registra el vuelto en Ventas con autorización.";
 function allowOrderMutation() {
   if (!recoveryReadOnly) return true;
@@ -140,7 +147,7 @@ async function load() {
   try {
     const r = await deviceCall<{ orders: WebOrder[]; generatedAt: string; recoveryReadOnly?: boolean }>("nexo-device-web-orders", { action: "list" });
     if (!Array.isArray(r.orders) || !r.generatedAt) throw new Error("Respuesta de pedidos inválida.");
-    recoveryReadOnly = r.recoveryReadOnly === true;
+    setRecoveryReadOnly(r.recoveryReadOnly === true);
     orders = recoveryReadOnly ? r.orders.map(o => ({ ...o, chargeable: false })) : r.orders;
     loadedAt = r.generatedAt;
   } catch (e) {
