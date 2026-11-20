@@ -1,5 +1,7 @@
 # NEXO Business — STATUS
 
+> **2026-11-20 — P0 Caja:** Core #264 CI verde. Candidato cliente respeta `recoveryReadOnly`, lo persiste, bloquea cobro/vueltos locales y reintentos de cobros existentes sin borrar cola. Sigue usando ruta normal, no habilitar recuperación hasta adaptador autenticado y build físico. Contrato estático local verificado; Android/Windows y producción pendientes. Rama `fix/caja-recovery-readonly-20261120`. Gasto adicional cero.
+
 > **2026-11-12 · Casa Viva:** BizneCubano is no longer an operational source. Since D38 (2026-10-11), NEXO/Casa Viva owns price and stock; `auto_import=false`, `price_authority='nexo'`, and the stock bridge is active. Any older section below that says BizneCubano is current is historical only. Legacy snapshot/sync workflows are manual rollback tools only; the old Supabase cron `nexo-business-catalog-import` was unscheduled on 2026-11-12.\n\n> **2026-10-05:** la fuente de verdad general es `docs/00-FUENTE-DE-VERDAD/`. Cambios que afectan a este módulo: el producto se llama **NEXO Business** (D08); el tercer piloto nativo es **Mercado 23 y 28**, no Estilo y Hogar (D05). Ver `docs/00-FUENTE-DE-VERDAD/DECISIONES.md`.
 
 **Last update:** 2026-10-02
