@@ -79,14 +79,30 @@ let loadedAt: string | null = null;
 let loadError = "";
 let sending = false;
 let query = "";
+// El modo de recuperación solo permite consultar; los cobros existentes siguen en SQLite.
+const RECOVERY_KEY = "nexo.weborders.recoveryReadOnly";
+let recoveryReadOnly = (() => {
+  try { return localStorage.getItem(RECOVERY_KEY) === "true"; } catch { return true; }
+})();
+function setRecoveryReadOnly(value: boolean) {
+  recoveryReadOnly = value;
+  try { localStorage.setItem(RECOVERY_KEY, String(value)); } catch { /* preserve in-memory gate */ }
+}
+const readOnlyWarning = "Solo consulta durante la recuperación. Cobra y registra el vuelto en Ventas con autorización.";
+function allowOrderMutation() {
+  if (!recoveryReadOnly) return true;
+  say(readOnlyWarning, "error");
+  return false;
+}
 
 /** Sends every queued charge to the web. Runs after each sync and right after a charge. */
 export async function sendQueued(): Promise<void> {
-  if (sending || !navigator.onLine || !deviceToken()) return;
+  if (recoveryReadOnly || sending || !navigator.onLine || !deviceToken()) return;
   sending = true;
   try {
     const queued = await invoke<Charge[]>("web_order_queued");
     for (const c of queued) {
+      if (recoveryReadOnly) break;
       try {
         const out = await deviceCall<{ ok: boolean; message?: string; signedBy?: string }>("nexo-device-web-orders", {
           action: "charge",
@@ -129,8 +145,10 @@ async function load() {
   loadError = "";
   if (root) root.querySelector<HTMLElement>("[data-list]")!.innerHTML = `<p class="t-sm muted">Cargando pedidos de la web…</p>`;
   try {
-    const r = await deviceCall<{ orders: WebOrder[]; generatedAt: string }>("nexo-device-web-orders", { action: "list" });
-    orders = Array.isArray(r.orders) ? r.orders : [];
+    const r = await deviceCall<{ orders: WebOrder[]; generatedAt: string; recoveryReadOnly?: boolean }>("nexo-device-web-orders", { action: "list" });
+    if (!Array.isArray(r.orders) || !r.generatedAt) throw new Error("Respuesta de pedidos inválida.");
+    setRecoveryReadOnly(r.recoveryReadOnly === true);
+    orders = recoveryReadOnly ? r.orders.map(o => ({ ...o, chargeable: false })) : r.orders;
     loadedAt = r.generatedAt;
   } catch (e) {
     const err = e as Error & { status?: number };
@@ -189,9 +207,9 @@ function orderCard(o: WebOrder, local: Charge | undefined, street: Street) {
     ${declared}
     ${o.kind !== "pickup" ? `<div class="t-xs">Vuelto que lleva: <b>${escapeHtml(changeText(o.change) || "sin vuelto")}</b>${inStreet.length ? ` · en la calle (del fondo): <b>${inStreet.map(([c, m]) => minor(m, c)).join(" + ")}</b>` : ""}</div>` : ""}
     <div style="display: flex; justify-content: flex-end; gap: 8px; flex-wrap: wrap">
-      ${o.kind !== "pickup" && !local ? `<button type="button" class="btn btn-secondary" data-vuelto="${o.id}">Vuelto</button>` : ""}
-      ${inStreet.length && !local ? `<button type="button" class="btn btn-secondary" data-vuelto-back="${o.id}">Devolvió el vuelto</button>` : ""}
-      ${o.chargeable === false ? `<span class="badge">Aún no se cobra</span>` : state}
+      ${!recoveryReadOnly && o.kind !== "pickup" && !local ? `<button type="button" class="btn btn-secondary" data-vuelto="${o.id}">Vuelto</button>` : ""}
+      ${!recoveryReadOnly && inStreet.length && !local ? `<button type="button" class="btn btn-secondary" data-vuelto-back="${o.id}">Devolvió el vuelto</button>` : ""}
+      ${recoveryReadOnly ? `<span class="badge">Solo consulta</span>` : o.chargeable === false ? `<span class="badge">Aún no se cobra</span>` : state}
     </div>
   </div>`;
 }
@@ -224,7 +242,7 @@ async function render() {
        ${recent.map(c => `<div class="kv t-sm"><span>#${escapeHtml(c.orderNumber)} · ${escapeHtml(new Date(c.createdAt).toLocaleString([], { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" }))}${c.staffName ? ` · ${escapeHtml(c.staffName)}` : ""}</span>
          <span>${[c.usdMinor && minor(c.usdMinor, "USD"), c.cupMinor && minor(c.cupMinor, "CUP")].filter(Boolean).join(" + ")} · ${c.status === "done" ? "✓ en la web" : c.status === "refused" ? "ya estaba cobrado" : "por enviar"}</span></div>`).join("")}`
     : `<p class="t-sm muted">Aún no cobraste pedidos web en este teléfono.</p>`;
-  root.querySelector<HTMLElement>("[data-when]")!.textContent = loadedAt ? `Lista de las ${new Date(loadedAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}` : "";
+  root.querySelector<HTMLElement>("[data-when]")!.textContent = recoveryReadOnly ? readOnlyWarning : loadedAt ? `Lista de las ${new Date(loadedAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}` : "";
 }
 
 /** Asks who serves when «Atiende» is empty (the money is signed with her name). */
@@ -249,7 +267,7 @@ function askStaff(): Promise<string | null> {
 let charging = false;
 async function charge(orderId: number) {
   const order = orders.find(o => o.id === orderId);
-  if (!order || charging || order.chargeable === false) return;
+  if (!order || charging || order.chargeable === false || !allowOrderMutation()) return;
   charging = true;
   try {
     const shift = await invoke<{ shiftId: string } | null>("cash_shift_current");
@@ -280,7 +298,7 @@ async function charge(orderId: number) {
         },
       },
     });
-    if (!payments) return;
+    if (!payments || !allowOrderMutation()) return;
     await invoke("web_order_charge", {
       input: {
         chargeId: crypto.randomUUID(),
@@ -313,6 +331,7 @@ async function charge(orderId: number) {
 // Lo de antes (Caja → Salida / Entrada a mano) sigue valiendo.
 
 async function vueltoSheet(orderId: number) {
+  if (!allowOrderMutation()) return;
   const order = orders.find(o => o.id === orderId);
   if (!order) return;
   const shift = await invoke<{ shiftId: string } | null>("cash_shift_current");
@@ -340,6 +359,7 @@ async function vueltoSheet(orderId: number) {
   };
   /** Avisa a la web (Ventas y el vale del mensajero). Sin internet no se puede: se dice claro. */
   const saveInOrder = async (amount: number, currency: string) => {
+    if (!allowOrderMutation()) return readOnlyWarning;
     if (!navigator.onLine) return "Sin internet: el vuelto NO se cambió en la web; avísale al mensajero y cámbialo luego en Ventas.";
     try {
       const out = await deviceCall<{ message?: string }>("nexo-device-web-orders", {
@@ -364,6 +384,7 @@ async function vueltoSheet(orderId: number) {
       const { amount, currency } = read();
       if (!amount) return void (msg.textContent = "Escribe cuánto vuelto se lleva.");
       if (!shift) return void (msg.textContent = "Primero abre el turno (o únete) en Caja: el vuelto sale del cajón.");
+      if (!allowOrderMutation()) return void (msg.textContent = readOnlyWarning);
       try {
         await invoke("web_order_vuelto", {
           out: true,
@@ -387,6 +408,7 @@ async function vueltoSheet(orderId: number) {
 
 /** El mensajero devolvió el vuelto sin cobrar el pedido (no se entregó, el cliente pagó exacto…). */
 async function vueltoBack(orderId: number, street: Street) {
+  if (!allowOrderMutation()) return;
   const order = orders.find(o => o.id === orderId);
   const shift = await invoke<{ shiftId: string } | null>("cash_shift_current");
   if (!order || !shift) return say("Primero abre el turno (o únete) en Caja.", "error");
@@ -394,6 +416,7 @@ async function vueltoBack(orderId: number, street: Street) {
   if (!confirm(`¿El mensajero devolvió ${parts.map(([c, m]) => minor(m, c)).join(" + ")} del pedido #${order.number}? Vuelve al fondo.`)) return;
   try {
     for (const [currency, amountMinor] of parts) {
+      if (!allowOrderMutation()) return;
       await invoke("web_order_vuelto", {
         out: false,
         input: { movementId: crypto.randomUUID(), outboxId: crypto.randomUUID(), shiftId: shift.shiftId, orderId: order.id, orderNumber: order.number,
@@ -428,6 +451,5 @@ export function mountWebOrders(container: HTMLElement) {
 
 /** Called when the tab is shown. */
 export function refreshWebOrders() {
-  void load();
-  void sendQueued();
+  void load().then(() => sendQueued());
 }

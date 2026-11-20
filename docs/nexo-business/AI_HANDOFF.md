@@ -1,5 +1,7 @@
 # NEXO Business — AI Handoff / Resume Here
 
+> **2026-11-20 P0 — Caja read-only recovery:** branch `fix/caja-recovery-readonly-20261120`, client `weborders.ts` + `test-recovery-readonly.mjs`, static checks PASS (not physical device). Core PR #264 green. Next: wire only list to approved HTTPS adapter with fresh device authorization; do not change global endpoint or expose scoped Core key. Build, install and verify on authorized device. Keep all pending local cash/stock operations intact; no deployment yet.
+
 **Updated:** 2026-10-02  
 **Repository:** `ernest196391/ernesto-rondon-nexo`  
 **Default branch:** `main`  
