@@ -20,7 +20,7 @@ test("402 and masked CORS failure lock first and only list approved endpoint",as
   }
 });
 test("401, 403, disabled, invalid token never send fallback",async()=>{
-  for(const [status,enabled,credential,expectLock] of [[401,true,token,false],[403,true,token,false],[402,false,token,true],[402,true,"x",true]]){
+  for(const [status,enabled,credential,expectLock] of [[401,true,token,true],[403,true,token,true],[402,false,token,true],[402,true,"x",true]]){
     let locked=false;
     await assert.rejects(listCajaOrders(fail(status),credential,enabled,()=>{locked=true;},()=>assert.fail()));
     assert.equal(locked,expectLock);

@@ -139,7 +139,14 @@ export async function sendQueued(): Promise<void> {
 }
 onEverySync(sendQueued);
 
-async function load() {
+let pendingLoad: Promise<void> | undefined;
+
+function load() {
+  // Queue retries and manual reloads must observe the same recovery state.
+  return pendingLoad ??= loadOrders().finally(() => { pendingLoad = undefined; });
+}
+
+async function loadOrders() {
   if (!navigator.onLine || !deviceToken()) {
     loadError = !deviceToken() ? "Este equipo no está conectado: Más → Sincronización → escribe el código de alta." : "Sin internet: la lista de pedidos necesita internet. Los cobros ya hechos se envían solos al volver la red.";
     return render();

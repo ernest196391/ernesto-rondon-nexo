@@ -6,7 +6,12 @@ export async function listCajaOrders<T>(primary: () => Promise<Orders<T>>, token
   try { return await primary(); }
   catch (error) {
     const status = (error as { status?: number } | null)?.status;
-    // Browsers can mask a failed 402 preflight as TypeError. Never bypass explicit auth denial.
+    // An explicit auth denial locks mutations and never sends the token to fallback.
+    if (status === 401 || status === 403) {
+      lock();
+      throw error;
+    }
+    // Browsers can mask a failed 402 preflight as TypeError.
     if (status !== 402 && !(status === undefined && error instanceof TypeError)) throw error;
     lock();
     if (!enabled || token.length < 32 || token.length > 512) throw error;
