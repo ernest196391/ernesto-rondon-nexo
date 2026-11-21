@@ -1,5 +1,5 @@
 // Disabled by default. Only the approved NEXO origin may receive this device credential.
-export const CAJA_RECOVERY_URL = "https://nexotienda.casavivadecuba.com/api/business/caja-recovery";
+export const CAJA_RECOVERY_URL = "https://ernesto-rondon-nexo.onrender.com/api/business/caja-recovery";
 type Orders<T> = { orders: T[]; generatedAt: string; recoveryReadOnly?: boolean };
 
 export async function listCajaOrders<T>(primary: () => Promise<Orders<T>>, token: string, enabled: boolean, lock: () => void, request: typeof fetch = fetch): Promise<Orders<T>> {

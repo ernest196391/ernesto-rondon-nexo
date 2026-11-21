@@ -1,6 +1,6 @@
 # NEXO Business — STATUS
 
-> **21-nov P0 Caja:** candidato de transporte exclusivo list: endpoint NEXO HTTPS opt-in, RPC vigente de dispositivo en Postgres con credencial dedicada, clave Core solo servidor, cliente bloquea cobros al detectar 402/red y exige respuesta read-only. Sin configuración ni despliegue. Gate: CI, role dedicado limitado al RPC, prueba negativa y revocación en producción, Core read-only autenticado, APK con opt-in y dispositivo físico; no usar snapshot ni rotar clave global.
+> **21-nov P0 Caja:** candidato de transporte exclusivo list: endpoint NEXO HTTPS opt-in, RPC vigente de dispositivo en Postgres con credencial dedicada, clave Core solo servidor, cliente bloquea cobros al detectar 402/red y exige respuesta read-only. Origen HTTPS fijado al servicio canónico `ernesto-rondon-nexo.onrender.com` del repositorio; el dominio anterior no tiene destino DNS verificado. Sin configuración ni despliegue de recuperación. Gate: CI, rol dedicado limitado al RPC, prueba negativa y revocación en producción, Core read-only autenticado, APK con opt-in y dispositivo físico; no usar snapshot ni rotar clave global.
 
 > **20-nov, continuación P0:** CI anterior #151 aprobada incluyendo tipos POS y Rust. Adaptador server-only `scripts/caja-recovery-adapter.mjs` acepta solo list, exige identidad actual/tenant/capability y respuesta Core marcada solo consulta; 2 tests reales PASS. No listener ni secreto configurado. CI ampliada; sigue pendiente fuente de identidad vigente y despliegue controlado.
 

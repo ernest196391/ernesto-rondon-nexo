@@ -10,7 +10,8 @@ test("402 and masked CORS failure lock first and only list approved endpoint",as
   for(const primary of [fail(402),async()=>{throw new TypeError("network");}]){
     let locked=false;
     const got=await listCajaOrders(primary,token,true,()=>{locked=true;},async(url,opts)=>{
-      assert.equal(locked,true); assert.equal(url,CAJA_RECOVERY_URL); assert.equal(opts.redirect,"error");
+      assert.equal(locked,true); assert.equal(url,CAJA_RECOVERY_URL);
+      assert.equal(url,"https://ernesto-rondon-nexo.onrender.com/api/business/caja-recovery"); assert.equal(opts.redirect,"error");
       assert.equal(opts.credentials,"omit"); assert.equal(opts.headers["x-nexo-device-token"],token);
       assert.deepEqual(JSON.parse(opts.body),{action:"list"});
       return Response.json({...data,recoveryReadOnly:true});
