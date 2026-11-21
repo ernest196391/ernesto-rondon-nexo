@@ -1,5 +1,7 @@
 # NEXO Business — AI Handoff / Resume Here
 
+> **21-nov P0 Caja:** candidato de transporte exclusivo list: endpoint NEXO HTTPS opt-in, RPC vigente de dispositivo en Postgres con credencial dedicada, clave Core solo servidor, cliente bloquea cobros al detectar 402/red y exige respuesta read-only. Sin configuración ni despliegue. Gate: CI, role dedicado limitado al RPC, prueba negativa y revocación en producción, Core read-only autenticado, APK con opt-in y dispositivo físico; no usar snapshot ni rotar clave global.
+
 > **2026-11-20 P0 — Caja read-only recovery:** branch `fix/caja-recovery-readonly-20261120`, client `weborders.ts` + `test-recovery-readonly.mjs`, static checks PASS (not physical device). Core PR #264 green. Next: wire only list to approved HTTPS adapter with fresh device authorization; do not change global endpoint or expose scoped Core key. Build, install and verify on authorized device. Keep all pending local cash/stock operations intact; no deployment yet.
 
 **Updated:** 2026-10-02  

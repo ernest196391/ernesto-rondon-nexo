@@ -80,6 +80,6 @@ jobs:
       - name: Install POS dependencies
         run: npm ci --no-audit --no-fund
       - name: Verificar bloqueo de cobros durante recuperación
-        run: node --test test-recovery-readonly.mjs
+        run: node --test test-recovery-readonly.mjs test-caja-recovery-transport.mjs ../../scripts/caja-recovery-adapter.test.mjs
       - name: Verificar tipos POS
         run: npx tsc --noEmit -p tsconfig.json
