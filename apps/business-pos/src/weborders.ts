@@ -6,6 +6,8 @@
 // («Dinero recibido») firmado por la dependienta de «Atiende». Sin internet el cobro queda
 // guardado y se envía solo. Si el pedido ya estaba cobrado en Ventas, la caja lo saca del
 // cajón y avisa (nunca se cuenta dos veces). Los productos de proveedor (MK-) salen aquí.
+/// <reference types="vite/client" />
+import { listCajaOrders } from "./caja-recovery-transport";
 import { invoke } from "@tauri-apps/api/core";
 import { attribution, personName, setStaff, staffSelectHtml, staffList } from "./attribution";
 import { openCheckout, type PaymentInput } from "./checkout";
@@ -137,7 +139,14 @@ export async function sendQueued(): Promise<void> {
 }
 onEverySync(sendQueued);
 
-async function load() {
+let pendingLoad: Promise<void> | undefined;
+
+function load() {
+  // Queue retries and manual reloads must observe the same recovery state.
+  return pendingLoad ??= loadOrders().finally(() => { pendingLoad = undefined; });
+}
+
+async function loadOrders() {
   if (!navigator.onLine || !deviceToken()) {
     loadError = !deviceToken() ? "Este equipo no está conectado: Más → Sincronización → escribe el código de alta." : "Sin internet: la lista de pedidos necesita internet. Los cobros ya hechos se envían solos al volver la red.";
     return render();
@@ -145,7 +154,10 @@ async function load() {
   loadError = "";
   if (root) root.querySelector<HTMLElement>("[data-list]")!.innerHTML = `<p class="t-sm muted">Cargando pedidos de la web…</p>`;
   try {
-    const r = await deviceCall<{ orders: WebOrder[]; generatedAt: string; recoveryReadOnly?: boolean }>("nexo-device-web-orders", { action: "list" });
+    const r = await listCajaOrders<WebOrder>(
+      () => deviceCall("nexo-device-web-orders", { action: "list" }),
+      deviceToken(), import.meta.env.VITE_NEXO_CAJA_RECOVERY_ENABLED === "1", () => setRecoveryReadOnly(true),
+    );
     if (!Array.isArray(r.orders) || !r.generatedAt) throw new Error("Respuesta de pedidos inválida.");
     setRecoveryReadOnly(r.recoveryReadOnly === true);
     orders = recoveryReadOnly ? r.orders.map(o => ({ ...o, chargeable: false })) : r.orders;

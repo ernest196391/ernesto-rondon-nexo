@@ -16,5 +16,6 @@ test("recovery lock persists and disables all Caja mutation entry points", () =>
     '!recoveryReadOnly && o.kind !== "pickup"',
     '!recoveryReadOnly && inStreet.length',
     'void load().then(() => sendQueued());',
+    'return pendingLoad ??= loadOrders().finally(() => { pendingLoad = undefined; });',
   ]) assert.ok(src.includes(marker), marker);
 });
